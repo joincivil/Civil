@@ -1,0 +1,25 @@
+{
+  "name": "contracts",
+  "version": "1.0.0",
+  "description": "Smart Contracts needed to make the ecosystem work",
+  "scripts": {
+    "truffle": "truffle",
+    "tsc": "tsc",
+    "tslint": "tslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joincivil/contracts.git"
+  },
+  "keywords": [],
+  "author": "The Civil Media Company",
+  "bugs": {
+    "url": "https://github.com/joincivil/contracts/issues"
+  },
+  "homepage": "https://github.com/joincivil/contracts#readme",
+  "dependencies": {
+    "truffle": "^4.0.3",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2"
+  }
+}
