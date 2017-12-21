@@ -34,6 +34,8 @@
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
     "dirty-chai": "^2.0.1",
+    "mocha-junit-reporter": "^1.15.0",
+    "mocha-multi-reporters": "^1.1.7",
     "rimraf": "^2.6.2",
     "solhint": "^1.1.9",
     "truffle": "^4.0.3",
