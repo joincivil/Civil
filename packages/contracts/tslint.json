@@ -4,6 +4,10 @@
         "tslint:recommended"
     ],
     "jsRules": {},
-    "rules": {},
+    "rules": {
+        "no-console": false,
+        "no-empty": false,
+        "indent": [true, "spaces", 2]
+    },
     "rulesDirectory": []
 }

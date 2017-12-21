@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
+    "build": "npm run compile && npm run transpile",
+    "transpile": "npm run lint:typescript; tsc",
+    "compile": "npm run lint:solidity; truffle compile",
     "lint": "npm run lint:typescript && npm run lint:solidity",
-    "lint:typescript": "npm run tslint -- --project ./",
-    "lint:solidity": "npm run solhint contracts/**/*.sol",
-
+    "test": "npm run build && truffle test",
+    "lint:typescript": "tslint --project ./",
+    "lint:solidity": "solhint contracts/**/*.sol",
     "truffle": "truffle",
     "tsc": "tsc",
     "tslint": "tslint",
@@ -23,9 +26,20 @@
   },
   "homepage": "https://github.com/joincivil/contracts#readme",
   "dependencies": {
+    "@types/chai": "^4.0.10",
+    "@types/chai-as-promised": "^7.1.0",
+    "@types/underscore": "^1.8.6",
+    "bignumber.js": "^5.0.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^2.0.2",
+    "dirty-chai": "^2.0.1",
+    "rimraf": "^2.6.2",
     "solhint": "^1.1.9",
     "truffle": "^4.0.3",
     "tslint": "^5.8.0",
-    "typescript": "^2.6.2"
+    "typescript": "^2.6.2",
+    "web3-typescript-typings": "^0.7.2",
+    "zeppelin-solidity": "^1.4.0"
   }
 }
