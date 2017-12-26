@@ -1,0 +1,31 @@
+{
+  "name": "civil.ts",
+  "version": "1.0.0",
+  "description": "The core library allowing for interfacing with the whole Civil ecosystem",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joincivil/civil.ts.git"
+  },
+  "author": "The Civil Media Company",
+  "bugs": {
+    "url": "https://github.com/joincivil/civil.ts/issues"
+  },
+  "homepage": "https://github.com/joincivil/civil.ts#readme",
+  "devDependencies": {
+    "@types/debug": "0.0.30",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2",
+    "web3-typescript-typings": "git://github.com/ritave/web3-typescript-typings#feature/stop-watching"
+  },
+  "dependencies": {
+    "debug": "^3.1.0",
+    "rxjs": "^5.5.6",
+    "web3": "^1.0.0-beta.27"
+  }
+}
