@@ -1,7 +1,7 @@
-import { ContentHeader, NewsroomContent } from "../../types";
+import { ContentHeader, NewsroomContent, Uri } from "../../types";
 
 export interface ContentProvider {
   scheme(): string;
-  get(what: string|ContentHeader): Promise<NewsroomContent>;
-  put(what: NewsroomContent): Promise<string>;
+  get(what: Uri|ContentHeader): Promise<string>;
+  put(content: string): Promise<Uri>;
 }

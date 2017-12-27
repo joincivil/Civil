@@ -5,6 +5,7 @@
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
+    "build": "tsc && copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc"
   },
@@ -18,14 +19,17 @@
   },
   "homepage": "https://github.com/joincivil/civil.ts#readme",
   "devDependencies": {
+    "@types/bignumber.js": "^4.0.3",
     "@types/debug": "0.0.30",
+    "@types/underscore": "^1.8.6",
+    "copyfiles": "^1.2.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
-    "web3-typescript-typings": "git://github.com/ritave/web3-typescript-typings#feature/stop-watching"
+    "web3-typescript-typings": "^0.7.2"
   },
   "dependencies": {
     "debug": "^3.1.0",
     "rxjs": "^5.5.6",
-    "web3": "^1.0.0-beta.27"
+    "web3": "^0.20.3"
   }
 }

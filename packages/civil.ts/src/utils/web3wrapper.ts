@@ -13,9 +13,8 @@ export class Web3Wrapper {
             let errored = false;
             filter.watch((err, event) => {
               if (err) {
-                subscriber.error(err);
                 errored = true;
-                return filter.stopWatching();
+                return filter.stopWatching(() => subscriber.error(err));
               }
               subscriber.next(event);
             });

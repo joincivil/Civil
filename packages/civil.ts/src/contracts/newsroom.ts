@@ -3,13 +3,19 @@ import "rxjs/add/operator/map";
 import * as Web3 from "web3";
 
 import { artifacts } from "../artifacts";
+import { ContentProvider } from "../content/providers/contentprovider";
+import { InMemoryProvider } from "../content/providers/inmemoryprovider";
 import { ContentHeader, EthAddress, NewsroomContent } from "../types";
+import { idFromEvent } from "../utils/contractutils";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseContract } from "./basecontract";
 
 export class Newsroom extends BaseContract<any> {
+  private contentProvider: ContentProvider;
+
   constructor(web3Wrapper: Web3Wrapper, address: EthAddress) {
     super(web3Wrapper, artifacts.Newsroom, address);
+    this.contentProvider = new InMemoryProvider(web3Wrapper);
   }
 
   /* tslint:disable member-ordering */
@@ -31,8 +37,10 @@ export class Newsroom extends BaseContract<any> {
       .concatMap(this.idToContentHeader);
   }
 
-  public async propose(content: NewsroomContent): Promise<number> {
-    return null;
+  public async propose(content: string): Promise<number> {
+    const uri = await this.contentProvider.put(content);
+    const tx = await this.instance.proposeContent(uri);
+    return idFromEvent(tx).toNumber();
   }
 
   private async isProposed(id: number|string) {

@@ -10,8 +10,8 @@ newsroom
 (async () => {
   console.log("Proposing a new article...");
   try {
-    const tx = await newsroom.propose("http://mycontent.data");
-    console.log("Article proposed: ", tx);
+    const id = await newsroom.propose("This is example content that I want to post");
+    console.log("Article proposed: ", id);
   } catch (e) {
     console.error("Failed to propose article:", e);
   }
