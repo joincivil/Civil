@@ -3,7 +3,7 @@ import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 
 import { DecodedLogEntryEvent } from "web3";
-import { EventFunction, MapObject, TypedEventFilter, TxData, TxDataBase } from "../types";
+import { EventFunction, MapObject, TxData, TxDataBase, TypedEventFilter } from "../types";
 
 export function findEvent(tx: any, eventName: string) {
   return tx.logs.find((log: any) => log.event === eventName);

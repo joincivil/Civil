@@ -7,6 +7,7 @@
   "scripts": {
     "postinstall": "npm run generate-contracts",
     "build": "npm run generate-contracts && tsc && copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
+    "lint": "tslint --project ./",
     "generate-contracts": "abi-gen --abiGlob 'src/artifacts/**/*.json' --templates 'src/contracts/templates/' --output 'src/contracts/generated/'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc"
