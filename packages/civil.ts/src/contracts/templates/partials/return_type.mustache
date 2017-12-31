@@ -1,0 +1,3 @@
+{{#singleReturnValue}}
+{{#returnType outputs.0.type}}{{/returnType}}{{/singleReturnValue}}{{^singleReturnValue}}
+[{{#each outputs}}{{#returnType type}}{{/returnType}}{{#unless @last}}, {{/unless}}{{/each}}]{{/singleReturnValue}}

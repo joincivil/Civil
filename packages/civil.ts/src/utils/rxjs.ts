@@ -44,6 +44,9 @@ export function flatFilter<T>(
     .filter((x) => x !== EMPTY) as Observable<T>;
 }
 
+Observable.prototype.concatFilter = concatFilter;
+Observable.prototype.flatFilter = flatFilter;
+
 declare module "rxjs/Observable" {
   /* tslint:disable no-shadowed-variable */
   interface Observable<T> {

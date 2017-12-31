@@ -1,5 +1,9 @@
 import { BigNumber } from "bignumber.js";
+import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
+
+import { DecodedLogEntryEvent } from "web3";
+import { EventFunction, MapObject, TypedEventFilter, TxData, TxDataBase } from "../types";
 
 export function findEvent(tx: any, eventName: string) {
   return tx.logs.find((log: any) => log.event === eventName);
@@ -30,4 +34,40 @@ export function timestampFromTx(web3: Web3, tx: Web3.Transaction | Web3.Transact
       resolve(block.timestamp);
     });
   });
+}
+
+export function isContract<T extends Web3.ContractInstance>(what: any): what is T {
+  return (what as T).abi !== undefined;
+}
+
+export function streamifyEvent<A>(original: EventFunction<TypedEventFilter<A>>)
+: (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<Web3.DecodedLogEntryEvent<A>> {
+  return (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => {
+    return new Observable((subscriber) => {
+      const filter = original(paramFilters, filterObject);
+      let errored = false;
+      filter.watch((err, event) => {
+        if (err) {
+          errored = true;
+          return filter.stopWatching(() => subscriber.error(err));
+        }
+        subscriber.next(event as DecodedLogEntryEvent<A>);
+      });
+
+      return () => {
+        if (!errored) {
+          filter.stopWatching(() => subscriber.complete());
+        }
+      };
+    });
+  };
+}
+
+export function isTxData(data: any): data is TxDataBase {
+  return data.gas !== undefined ||
+    data.gasPrice !== undefined ||
+    data.nonce !== undefined ||
+    data.from !== undefined ||
+    data.value !== undefined ||
+    data.to !== undefined;
 }

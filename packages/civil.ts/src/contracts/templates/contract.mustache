@@ -1,0 +1,66 @@
+/*
+ * This file is auto-generated using abi-gen. Any changes will be reverted
+ */
+
+import { BigNumber } from "bignumber.js";
+import { Observable } from "rxjs";
+import "rxjs/add/operator/distinctUntilChanged";
+import * as Web3 from "web3";
+
+import { artifacts } from "../../artifacts";
+import { EthAddress, TxData, TxDataPayable, TxHash, TypedEventFilter } from "../../types";
+import { isTxData, streamifyEvent } from "../../utils/contractutils";
+import { bindNestedAll, promisify } from "../../utils/language";
+import { Base } from "./base";
+
+export class {{contractName}}Contract extends Base {
+  /* tslint:disable member-ordering */
+  public static atUntrusted(web3: Web3, address: EthAddress): {{contractName}}Contract {
+    const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
+    return new {{contractName}}Contract(clazz.at(address));
+  }
+  // TODO(ritave): typed constructor params
+  public static deployTrusted(web3: Web3, ...params: any[]): Promise<{{contractName}}Contract> {
+    return new Promise((resolve, reject) => {
+      const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
+      const txData = { data: artifacts.{{contractName}}.bytecode };
+      if (params.length > 0 && isTxData(params[params.length - 1])) {
+        Object.assign(txData, params.pop());
+      }
+      clazz.new(...params, txData, (err: any, instance: Web3.ContractInstance) => {
+        if (err) {
+          return reject(err);
+        }
+        if (instance.address) {
+          resolve(new {{contractName}}Contract(instance));
+        }
+      });
+    });
+  }
+
+  public get address(): string {
+    return this.instance.address;
+  }
+
+{{#each methods}}
+  {{#this.constant}}
+  {{> call contractName=../contractName}}
+  {{/this.constant}}
+  {{^this.constant}}
+  {{> tx contractName=../contractName}}
+  {{/this.constant}}
+
+{{/each}}
+
+{{#each events}}
+  {{> event contractName=../contractName}}
+
+{{/each}}
+  constructor(instance: Web3.ContractInstance) {
+    super(instance);
+    // Call methods access this instance while being in a sub-object, we're rebinding what
+    // "this" means for everything in this class, this also requires "noImplicitThis" to be false
+    bindNestedAll(this, ["constructor", "instance", "defaults"]);
+  }
+  /* tslint:enable member-ordering */
+}

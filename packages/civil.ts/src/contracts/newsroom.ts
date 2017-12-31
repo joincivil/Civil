@@ -1,5 +1,7 @@
+import * as bn from "bignumber.js";
+import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
-import "rxjs/add/operator/map";
+import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 
 import { artifacts } from "../artifacts";
@@ -7,56 +9,64 @@ import { ContentProvider } from "../content/providers/contentprovider";
 import { InMemoryProvider } from "../content/providers/inmemoryprovider";
 import { ContentHeader, EthAddress, NewsroomContent } from "../types";
 import { idFromEvent } from "../utils/contractutils";
+import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
-import { BaseContract } from "./basecontract";
+import { NewsroomContract } from "./generated/newsroom";
 
-export class Newsroom extends BaseContract<any> {
+export class Newsroom {
+  private instance: NewsroomContract;
   private contentProvider: ContentProvider;
 
-  constructor(web3Wrapper: Web3Wrapper, address: EthAddress) {
-    super(web3Wrapper, artifacts.Newsroom, address);
+  constructor(web3Wrapper: Web3Wrapper, instance: NewsroomContract) {
     this.contentProvider = new InMemoryProvider(web3Wrapper);
+    this.instance = instance;
   }
 
-  /* tslint:disable member-ordering */
-  public owner = this.cachedPropOrBlockchain<EthAddress>("owner");
-  /* tslint:enable member-ordering */
+  public address() { return this.instance.address; }
+
+  public owner() { return this.instance.owner.callAsync(); }
 
   public proposedContent(fromBlock: number = 0): Observable<ContentHeader> {
     return this.instance
       .ContentProposedStream({}, { fromBlock })
-      .map((e: Web3.DecodedLogEntryEvent<any>) => e.args.id as number)
-      .concatFilter(this.instance.isProposed)
+      .distinctUntilChanged((a, b) => {
+        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
+      }) // https://github.com/ethereum/web3.js/issues/573
+      .map((e) => e.args.id)
+      .concatFilter(this.instance.isProposed.callAsync)
       .concatMap(this.idToContentHeader);
   }
 
   public approvedContent(fromBlock: number = 0): Observable<ContentHeader> {
     return this.instance
       .ContentApprovedStream({}, { fromBlock })
-      .map((e: Web3.DecodedLogEntryEvent<any>) => e.args.id as number)
+      .distinctUntilChanged((a, b) => {
+        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
+      }) // https://github.com/ethereum/web3.js/issues/573
+      .map((e) => e.args.id)
       .concatMap(this.idToContentHeader);
   }
 
   public async propose(content: string): Promise<number> {
     const uri = await this.contentProvider.put(content);
-    const tx = await this.instance.proposeContent(uri);
+    const tx = await this.instance.proposeContent.sendTransactionAsync(uri);
     return idFromEvent(tx).toNumber();
   }
 
-  private async isProposed(id: number|string) {
-    return await this.instance.isProposed(id);
+  private async isProposed(id: number|string|BigNumber.BigNumber) {
+    return await this.instance.isProposed.callAsync(new bn(id));
   }
 
-  private async idToContentHeader(id: number): Promise<ContentHeader> {
+  private async idToContentHeader(id: BigNumber): Promise<ContentHeader> {
     const data = await Promise.all([
-      this.instance.author(id),
-      this.instance.timestamp(id),
-      this.instance.uri(id),
+      this.instance.author.callAsync(id),
+      this.instance.timestamp.callAsync(id),
+      this.instance.uri.callAsync(id),
     ]);
     return {
-      id,
+      id: id.toNumber(),
       author: data[0],
-      timestamp: data[1],
+      timestamp: new Date(data[1].toNumber()),
       uri: data[2],
     };
   }

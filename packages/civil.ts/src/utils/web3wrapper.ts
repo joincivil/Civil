@@ -3,34 +3,13 @@ import * as Web3 from "web3";
 
 import { Artifact, MapObject } from "../types";
 
+// TODO(ritave): Estimate defaults from the node
+const defaults = {
+  gas: 412388,
+  gasPrice: 100000000000,
+};
+
 export class Web3Wrapper {
-  public static streamifyEvents<T extends Web3.ContractInstance>(instance: T): T {
-    for (const abiInput of instance.abi) {
-      if (abiInput.type === "event") {
-        instance[abiInput.name + "Stream"] = (paramFilters: MapObject, filterObject?: Web3.FilterObject) => {
-          return new Observable((subscriber) => {
-            const filter: Web3.FilterResult = instance[abiInput.name](paramFilters, filterObject);
-            let errored = false;
-            filter.watch((err, event) => {
-              if (err) {
-                errored = true;
-                return filter.stopWatching(() => subscriber.error(err));
-              }
-              subscriber.next(event);
-            });
-
-            return () => {
-              if (!errored) {
-                filter.stopWatching(() => subscriber.complete());
-              }
-            };
-          });
-        };
-      }
-    }
-    return instance;
-  }
-
   public web3: Web3;
 
   constructor(provider: Web3.Provider) {
@@ -39,9 +18,8 @@ export class Web3Wrapper {
 
   public setProvider(provider: Web3.Provider) {
     this.web3 = new Web3(provider);
-  }
-
-  public getContract<T extends Web3.Contract<any>>(artifact: Artifact): T {
-    return this.web3.eth.contract(artifact.abi) as T;
+    if (!this.web3.eth.defaultAccount && this.web3.eth.accounts.length > 0) {
+      this.web3.eth.defaultAccount = this.web3.eth.accounts[0];
+    }
   }
 }

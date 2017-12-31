@@ -1,0 +1,12 @@
+public {{this.name}} = {
+  callAsync(
+    {{> typed_inputs inputs=inputs}}
+  ): Promise<{{> return_type outputs=outputs }}> {
+    const self = this as {{contractName}}Contract;
+    const promisified = promisify<{{> return_type outputs=outputs }}>(
+      self.instance.{{this.name}}.call,
+      self.instance,
+    );
+    return promisified({{> params inputs=inputs}});
+  },
+};

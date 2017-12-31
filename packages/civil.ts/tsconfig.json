@@ -2,10 +2,13 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "commonjs",
-    "allowJs": true,
     "outDir": "./build/",
     "strict": true,
-    "noImplicitAny": true,
+    "noImplicitThis": false,
+    "declaration": true,
+    "declarationDir": "./build/",
+    "pretty": true,
+    "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true // https://github.com/ReactiveX/rxjs/issues/3031
   },
   "include": [

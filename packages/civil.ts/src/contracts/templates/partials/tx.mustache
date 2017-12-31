@@ -1,0 +1,33 @@
+public {{this.name}} = {
+  async sendTransactionAsync(
+    {{> typed_inputs inputs=inputs}}
+    {{#this.payable}}
+    txData?: TxDataPayable,
+    {{/this.payable}}
+    {{^this.payable}}
+    txData?: TxData,
+    {{/this.payable}}
+  ): Promise<TxHash> {
+    const self = this as {{contractName}}Contract;
+    const txOptions = Object.assign({}, self.defaults, txData);
+    if (!txOptions.gas) {
+      txOptions.gas = await self.{{name}}.estimateGasAsync({{> params inputs=inputs}}, txOptions);
+    }
+    const promisified = promisify<TxHash>(
+      self.instance.{{this.name}},
+      self.instance,
+    );
+    return await promisified({{> params inputs=inputs}}, txOptions);
+  },
+  estimateGasAsync(
+    {{> typed_inputs inputs=inputs}}
+    txData: Partial<TxDataPayable> = {},
+  ): Promise<number> {
+    const self = this as {{contractName}}Contract;
+    const promisified = promisify<number>(
+      self.instance.{{this.name}}.estimateGas,
+      self.instance,
+    );
+    return promisified({{> params inputs=inputs}}, txData);
+  },
+};

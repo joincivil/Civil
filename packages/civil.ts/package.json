@@ -5,7 +5,9 @@
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "build": "tsc && copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
+    "postinstall": "npm run generate-contracts",
+    "build": "npm run generate-contracts && tsc && copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
+    "generate-contracts": "abi-gen --abiGlob 'src/artifacts/**/*.json' --templates 'src/contracts/templates/' --output 'src/contracts/generated/'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc"
   },
@@ -19,13 +21,14 @@
   },
   "homepage": "https://github.com/joincivil/civil.ts#readme",
   "devDependencies": {
+    "@0xproject/abi-gen": "0.0.4",
     "@types/bignumber.js": "^4.0.3",
     "@types/debug": "0.0.30",
     "@types/underscore": "^1.8.6",
     "copyfiles": "^1.2.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
-    "web3-typescript-typings": "^0.7.2"
+    "web3-typescript-typings": "github:ritave/web3-typescript-typings#ritave/feature/contract-new"
   },
   "dependencies": {
     "debug": "^3.1.0",
