@@ -40,6 +40,7 @@ export function isContract<T extends Web3.ContractInstance>(what: any): what is 
   return (what as T).abi !== undefined;
 }
 
+// TODO(ritave): Think how to solve race condition in filters, concat get/watch perhaps?
 export function streamifyEvent<A>(original: EventFunction<TypedEventFilter<A>>)
 : (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<Web3.DecodedLogEntryEvent<A>> {
   return (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => {

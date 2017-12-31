@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/joincivil/civil.ts#readme",
   "devDependencies": {
-    "@0xproject/abi-gen": "0.0.4",
+    "@0xproject/abi-gen": "file:ext/abi-gen",
     "@types/bignumber.js": "^4.0.3",
     "@types/debug": "0.0.30",
     "@types/underscore": "^1.8.6",
