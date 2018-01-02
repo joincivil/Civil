@@ -36,9 +36,9 @@ jobs:
                 name: Run tests
                 command: npm test
             - store_test_results:
-                path: transpiled/junit/
+                path: build/junit/
             - store_artifacts:
-                path: transpiled/junit/
+                path: build/junit/
 workflows:
     version: 2
     everything:

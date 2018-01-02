@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
-    "build": "npm run compile && npm run transpile",
-    "transpile": "npm run lint:typescript; tsc",
-    "compile": "npm run lint:solidity; truffle compile",
+    "build": "npm run compile && npm run strip-artifacts",
+    "compile": "npm run build:solidity && npm run build:typescript",
+    "build:typescript": "npm run lint:typescript; tsc",
+    "build:solidity": "npm run lint:solidity; truffle compile",
     "lint": "npm run lint:typescript && npm run lint:solidity",
-    "test": "npm run build && truffle test",
+    "test": "npm run compile && truffle test",
     "lint:typescript": "tslint --project ./",
     "lint:solidity": "solhint contracts/**/*.sol",
+    "strip-artifacts": "node build/scripts/strip-artifacts.js \"build/contracts/**/*.json\" build/artifacts",
     "truffle": "truffle",
     "tsc": "tsc",
     "tslint": "tslint",
@@ -42,6 +44,11 @@
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
     "web3-typescript-typings": "^0.7.2",
-    "zeppelin-solidity": "^1.4.0"
+    "zeppelin-solidity": "^1.4.0",
+    "@types/glob": "^5.0.34",
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^8.5.2",
+    "glob": "^7.1.2",
+    "mkdirp": "^0.5.1"
   }
 }
