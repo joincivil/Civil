@@ -10,6 +10,7 @@ export function findEvent(tx: any, eventName: string) {
 }
 
 export function idFromEvent(tx: any): BigNumber {
+  console.log(tx);
   for (const log of tx.logs) {
     if (log.args.id) {
       return log.args.id;

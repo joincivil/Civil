@@ -8,6 +8,7 @@ import { ContentProvider } from "../content/providers/contentprovider";
 import { InMemoryProvider } from "../content/providers/inmemoryprovider";
 import { ContentHeader, EthAddress, NewsroomContent } from "../types";
 import { idFromEvent } from "../utils/contractutils";
+import { bindAll } from "../utils/language";
 import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { NewsroomContract } from "./generated/newsroom";
@@ -19,9 +20,12 @@ export class Newsroom {
   constructor(web3Wrapper: Web3Wrapper, instance: NewsroomContract) {
     this.contentProvider = new InMemoryProvider(web3Wrapper);
     this.instance = instance;
+    bindAll(this, ["constructor"]);
   }
 
-  public address() { return this.instance.address; }
+  public get address() {
+    return this.instance.address;
+  }
 
   public owner() { return this.instance.owner.callAsync(); }
 
@@ -46,10 +50,22 @@ export class Newsroom {
       .concatMap(this.idToContentHeader);
   }
 
-  public async propose(content: string): Promise<number> {
+  // TODO(ritave): Decode transaction receipt and return id of the proposed article
+  public async propose(content: string): Promise<string> {
     const uri = await this.contentProvider.put(content);
-    const tx = await this.instance.proposeContent.sendTransactionAsync(uri);
-    return idFromEvent(tx).toNumber();
+    const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
+    return txHash;
+  }
+
+  public async resolveContent(header: ContentHeader): Promise<NewsroomContent> {
+    const content = await this.contentProvider.get(header.uri);
+    return {
+      id: header.id,
+      author: header.author,
+      content,
+      timestamp: header.timestamp,
+      uri: header.uri,
+    };
   }
 
   private async isProposed(id: number|string|BigNumber) {

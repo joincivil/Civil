@@ -11,7 +11,9 @@ import { Civil } from "../../src";
   console.log("Subscribing to new articles");
   newsroom
     .proposedContent()
-    .subscribe((article) => console.log("Proposed article, uri:" + article.uri));
+    .do((header) => console.log("Proposed article, uri: " + header.uri))
+    .flatMap(newsroom.resolveContent)
+    .subscribe((article) => console.log("Content for article id: " + article.id, article.content));
 
   console.log("Proposing a new article...");
   try {

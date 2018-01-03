@@ -29,3 +29,12 @@ export function bindNestedAll(what: any, excludes: string[] = ["constructor"], t
     }
   }
 }
+
+export function bindAll(what: any, excludes: string[] = ["constructor"], thisArg?: any) {
+  const self = thisArg || what;
+  // TODO(ritave): Functions not returned
+  Object
+    .getOwnPropertyNames(Object.getPrototypeOf(what))
+    .filter((key) => !excludes.includes(key) && typeof what[key] === "function")
+    .forEach((key) => what[key] = what[key].bind(self));
+}
