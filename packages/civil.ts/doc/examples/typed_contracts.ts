@@ -1,5 +1,5 @@
 
-import * as bn from "bignumber.js";
+import BigNumber from "bignumber.js";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 
@@ -11,13 +11,12 @@ import { Web3Wrapper } from "../../src/utils/web3wrapper";
 const web3 = new Web3Wrapper(new Web3.providers.HttpProvider("http://localhost:8545"));
 
 const data: TxData = {
-  gasPrice: new bn(20000000000),
-  gas: new bn(8002793),
+  gasPrice: web3.web3.eth.gasPrice,
 };
 
 (async () => {
   console.log("Deploying contract");
-  const newsroom = await NewsroomContract.deployTrusted(web3.web3, data);
+  const newsroom = await NewsroomContract.deployTrusted.sendTransactionAsync(web3.web3, data);
   console.log("Contract at: ", newsroom.address);
   console.log("Owner: ", await newsroom.owner.callAsync());
 

@@ -5,8 +5,10 @@ public {{this.name}} = {
     const self = this as {{contractName}}Contract;
     const promisified = promisify<{{> return_type outputs=outputs }}>(
       self.instance.{{this.name}}.call,
-      self.instance,
+      self.instance.{{this.name}},
     );
-    return promisified({{> params inputs=inputs}});
+    return promisified(
+      {{> params inputs=inputs}}
+      );
   },
 };

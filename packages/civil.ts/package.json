@@ -28,7 +28,7 @@
     "copyfiles": "^1.2.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2",
-    "web3-typescript-typings": "github:ritave/web3-typescript-typings#ritave/feature/contract-new"
+    "web3-typescript-typings": "^0.9.0"
   },
   "dependencies": {
     "bignumber.js": "^5.0.0",

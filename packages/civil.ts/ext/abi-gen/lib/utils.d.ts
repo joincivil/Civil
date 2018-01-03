@@ -1,3 +1,4 @@
+import * as Web3 from 'web3';
 import { ParamKind } from './types';
 export declare const utils: {
     solTypeToTsType(paramKind: ParamKind, solType: string): string;
@@ -7,4 +8,5 @@ export declare const utils: {
         name: string;
         content: string;
     };
+    getEmptyConstructor(): Web3.ConstructorAbi;
 };

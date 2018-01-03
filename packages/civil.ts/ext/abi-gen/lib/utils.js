@@ -59,5 +59,13 @@ exports.utils = {
             throw new Error("Failed to read " + filename + ": " + err);
         }
     },
+    getEmptyConstructor: function () {
+        return {
+            type: 'constructor',
+            stateMutability: 'nonpayable',
+            payable: false,
+            inputs: [],
+        };
+    }
 };
 //# sourceMappingURL=utils.js.map

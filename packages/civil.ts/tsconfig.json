@@ -15,6 +15,6 @@
     "./doc/**/*.ts",
     "./src/**/*.ts",
     "./test/**/*.ts",
-    "./node_modules/web3-typescript-typings/index.d.ts"
+    "./node_modules/web3-typescript-typings/web3/index.d.ts"
   ]
 }

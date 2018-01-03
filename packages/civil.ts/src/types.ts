@@ -45,6 +45,7 @@ export interface TxDataBase {
   gas?: number|string|BigNumber;
   gasPrice?: number|string|BigNumber;
   nonce?: number;
+  data?: string;
 }
 
 export interface TxData extends TxDataBase {

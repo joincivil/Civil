@@ -19,24 +19,8 @@ export class {{contractName}}Contract extends BaseContract {
     const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
     return new {{contractName}}Contract(clazz.at(address));
   }
-  // TODO(ritave): typed constructor params
-  public static deployTrusted(web3: Web3, ...params: any[]): Promise<{{contractName}}Contract> {
-    return new Promise((resolve, reject) => {
-      const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
-      const txData = { data: artifacts.{{contractName}}.bytecode };
-      if (params.length > 0 && isTxData(params[params.length - 1])) {
-        Object.assign(txData, params.pop());
-      }
-      clazz.new(...params, txData, (err: any, instance: Web3.ContractInstance) => {
-        if (err) {
-          return reject(err);
-        }
-        if (instance.address) {
-          resolve(new {{contractName}}Contract(instance));
-        }
-      });
-    });
-  }
+
+  {{> constructor}}
 
   public get address(): string {
     return this.instance.address;

@@ -19,6 +19,7 @@ var yargs = require("yargs");
 var toSnakeCase = require("to-snake-case");
 var types_1 = require("./types");
 var utils_1 = require("./utils");
+var ABI_TYPE_CONSTRUCTOR = 'constructor';
 var ABI_TYPE_METHOD = 'function';
 var ABI_TYPE_EVENT = 'event';
 var MAIN_TEMPLATE_NAME = 'contract.mustache';
@@ -78,6 +79,10 @@ for (var _a = 0, abiFileNames_1 = abiFileNames; _a < abiFileNames_1.length; _a++
         utils_1.utils.log("Please make sure your ABI file is either an array with ABI entries or an object with the abi key");
         process.exit(1);
     }
+    var constructor = ABI.find(function (abi) { return abi.type == ABI_TYPE_CONSTRUCTOR; });
+    if (!constructor) {
+        constructor = utils_1.utils.getEmptyConstructor(); // The constructor exists, but it's implicit in JSON's ABI definition
+    }
     var methodAbis = ABI.filter(function (abi) { return abi.type === ABI_TYPE_METHOD; });
     var methodsData = _.map(methodAbis, function (methodAbi) {
         _.map(methodAbi.inputs, function (input) {
@@ -93,6 +98,7 @@ for (var _a = 0, abiFileNames_1 = abiFileNames; _a < abiFileNames_1.length; _a++
     var eventAbis = ABI.filter(function (abi) { return abi.type === ABI_TYPE_EVENT; });
     var contextData = {
         contractName: namedContent.name,
+        constructor: constructor,
         methods: methodsData,
         events: eventAbis,
     };

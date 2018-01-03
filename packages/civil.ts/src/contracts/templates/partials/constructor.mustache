@@ -1,0 +1,41 @@
+public static deployTrusted = {
+  async sendTransactionAsync(
+      web3: Web3,
+      {{> typed_inputs inputs=constructor.inputs }}
+      txData?: TxData): Promise<{{contractName}}Contract> {
+    const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
+    const options: TxData = { data: artifacts.{{contractName}}.bytecode };
+    Object.assign(options, txData);
+    if (!options.gas) {
+      options.gas = await {{contractName}}Contract.deployTrusted
+        .estimateGasAsync(
+          web3,
+          {{> params inputs=constructor.inputs }}
+          options);
+    }
+    return new Promise<{{contractName}}Contract>((resolve, reject) => {
+      clazz.new(
+        {{> params inputs=contract.inputs}}
+        options,
+        (err: any, instance: Web3.ContractInstance) => {
+          if (err) {
+            return reject(err);
+          }
+          if (instance.address) {
+            return resolve(new {{contractName}}Contract(instance));
+          }
+        });
+    });
+  },
+  async estimateGasAsync(
+      web3: Web3,
+      {{> typed_inputs inputs=constructor.inputs }}
+      txData?: TxData): Promise<number> {
+    const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
+    const contractData = ((clazz.new) as any).getData(
+      {{> params inputs=constructor.inputs}}
+      txData);
+    const promisifed = promisify<number>(web3.eth.estimateGas, web3.eth);
+    return await promisifed({data: contractData});
+  },
+};

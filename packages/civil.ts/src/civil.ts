@@ -34,7 +34,7 @@ export class Civil {
   }
 
   public async newsroomDeployTrusted(): Promise<Newsroom> {
-    const instance = await NewsroomContract.deployTrusted(this.web3Wrapper.web3);
+    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(this.web3Wrapper.web3);
     return new Newsroom(this.web3Wrapper, instance);
   }
 

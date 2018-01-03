@@ -11,13 +11,17 @@ public {{this.name}} = {
     const self = this as {{contractName}}Contract;
     const txOptions = Object.assign({}, self.defaults, txData);
     if (!txOptions.gas) {
-      txOptions.gas = await self.{{name}}.estimateGasAsync({{> params inputs=inputs}}, txOptions);
+      txOptions.gas = await self.{{name}}.estimateGasAsync(
+        {{> params inputs=inputs}}
+        txOptions);
     }
     const promisified = promisify<TxHash>(
+      self.instance.{{this.name}}.sendTransaction,
       self.instance.{{this.name}},
-      self.instance,
     );
-    return await promisified({{> params inputs=inputs}}, txOptions);
+    return await promisified(
+      {{> params inputs=inputs}}
+      txOptions);
   },
   estimateGasAsync(
     {{> typed_inputs inputs=inputs}}
@@ -26,8 +30,10 @@ public {{this.name}} = {
     const self = this as {{contractName}}Contract;
     const promisified = promisify<number>(
       self.instance.{{this.name}}.estimateGas,
-      self.instance,
+      self.instance.{{this.name}},
     );
-    return promisified({{> params inputs=inputs}}, txData);
+    return promisified(
+      {{> params inputs=inputs}}
+      txData);
   },
 };
