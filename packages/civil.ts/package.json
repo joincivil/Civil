@@ -23,7 +23,6 @@
   "homepage": "https://github.com/joincivil/civil.ts#readme",
   "devDependencies": {
     "@0xproject/abi-gen": "file:ext/abi-gen",
-    "@types/bignumber.js": "^4.0.3",
     "@types/debug": "0.0.30",
     "@types/underscore": "^1.8.6",
     "copyfiles": "^1.2.0",
@@ -32,6 +31,7 @@
     "web3-typescript-typings": "github:ritave/web3-typescript-typings#ritave/feature/contract-new"
   },
   "dependencies": {
+    "bignumber.js": "^5.0.0",
     "debug": "^3.1.0",
     "rxjs": "^5.5.6",
     "web3": "^0.20.3"

@@ -1,4 +1,4 @@
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 

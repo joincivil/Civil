@@ -1,4 +1,4 @@
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
 
 export interface Artifact {
@@ -54,6 +54,8 @@ export interface TxData extends TxDataBase {
 export interface TxDataPayable extends TxData {
   value: number|string|BigNumber;
 }
+
+export type TxDataAll = Partial<TxDataPayable>;
 
 export interface TransactionObject extends TxDataBase {
   from: EthAddress;

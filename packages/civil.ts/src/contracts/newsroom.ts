@@ -1,5 +1,4 @@
-import * as bn from "bignumber.js";
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
@@ -53,8 +52,8 @@ export class Newsroom {
     return idFromEvent(tx).toNumber();
   }
 
-  private async isProposed(id: number|string|BigNumber.BigNumber) {
-    return await this.instance.isProposed.callAsync(new bn(id));
+  private async isProposed(id: number|string|BigNumber) {
+    return await this.instance.isProposed.callAsync(new BigNumber(id));
   }
 
   private async idToContentHeader(id: BigNumber): Promise<ContentHeader> {
