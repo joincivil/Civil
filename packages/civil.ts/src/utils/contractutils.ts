@@ -1,4 +1,5 @@
 import BigNumber from "bignumber.js";
+import { isUndefined } from "lodash";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 
@@ -7,16 +8,6 @@ import { EventFunction, MapObject, TxData, TxDataBase, TypedEventFilter } from "
 
 export function findEvent(tx: any, eventName: string) {
   return tx.logs.find((log: any) => log.event === eventName);
-}
-
-export function idFromEvent(tx: any): BigNumber {
-  console.log(tx);
-  for (const log of tx.logs) {
-    if (log.args.id) {
-      return log.args.id;
-    }
-  }
-  throw new Error("ID not found in the transaction");
 }
 
 export function is0x0Address(address: string) {
@@ -39,6 +30,10 @@ export function timestampFromTx(web3: Web3, tx: Web3.Transaction | Web3.Transact
 
 export function isContract<T extends Web3.ContractInstance>(what: any): what is T {
   return (what as T).abi !== undefined;
+}
+
+export function isDecodedLog<T>(what: Web3.LogEntry | Web3.DecodedLogEntry<T>): what is Web3.DecodedLogEntry<T> {
+  return (typeof (what as any).event === "string") && !isUndefined((what as any).args);
 }
 
 // TODO(ritave): Think how to solve race condition in filters, concat get/watch perhaps?

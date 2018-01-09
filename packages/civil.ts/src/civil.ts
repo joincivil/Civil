@@ -4,7 +4,8 @@ import * as Web3 from "web3";
 import { artifacts } from "./artifacts";
 import { NewsroomContract } from "./contracts/generated/newsroom";
 import { Newsroom } from "./contracts/newsroom";
-import { EthAddress } from "./types";
+import { Artifact, EthAddress } from "./types";
+import { AbiDecoder } from "./utils/abidecoder";
 import { Web3Wrapper } from "./utils/web3wrapper";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
@@ -17,6 +18,7 @@ var web3: Web3 | undefined;
 
 export class Civil {
   private web3Wrapper: Web3Wrapper;
+  private abiDecoder: AbiDecoder;
 
   constructor(web3Provider?: Web3.Provider) {
     let provider = web3Provider;
@@ -31,15 +33,16 @@ export class Civil {
       }
     }
     this.web3Wrapper = new Web3Wrapper(provider);
+    this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map((a) => a.abi));
   }
 
   public async newsroomDeployTrusted(): Promise<Newsroom> {
     const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(this.web3Wrapper.web3);
-    return new Newsroom(this.web3Wrapper, instance);
+    return new Newsroom(this.web3Wrapper, instance, this.abiDecoder);
   }
 
   public newsroomAtUntrusted(address: EthAddress): Newsroom {
     const instance = NewsroomContract.atUntrusted(this.web3Wrapper.web3, address);
-    return new Newsroom(this.web3Wrapper, instance);
+    return new Newsroom(this.web3Wrapper, instance, this.abiDecoder);
   }
 }

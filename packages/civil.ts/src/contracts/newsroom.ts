@@ -7,19 +7,24 @@ import { artifacts } from "../artifacts";
 import { ContentProvider } from "../content/providers/contentprovider";
 import { InMemoryProvider } from "../content/providers/inmemoryprovider";
 import { ContentHeader, EthAddress, NewsroomContent } from "../types";
-import { idFromEvent } from "../utils/contractutils";
-import { bindAll } from "../utils/language";
+import { AbiDecoder } from "../utils/abidecoder";
+import { isDecodedLog } from "../utils/contractutils";
+import { bindAll, promisify } from "../utils/language";
 import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
-import { NewsroomContract } from "./generated/newsroom";
+import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";
 
 export class Newsroom {
+  private web3Wrapper: Web3Wrapper;
+  private abiDecoder: AbiDecoder;
   private instance: NewsroomContract;
   private contentProvider: ContentProvider;
 
-  constructor(web3Wrapper: Web3Wrapper, instance: NewsroomContract) {
+  constructor(web3Wrapper: Web3Wrapper, instance: NewsroomContract, abiDecoder: AbiDecoder) {
+    this.web3Wrapper = web3Wrapper;
     this.contentProvider = new InMemoryProvider(web3Wrapper);
     this.instance = instance;
+    this.abiDecoder = abiDecoder;
     bindAll(this, ["constructor"]);
   }
 
@@ -50,11 +55,17 @@ export class Newsroom {
       .concatMap(this.idToContentHeader);
   }
 
-  // TODO(ritave): Decode transaction receipt and return id of the proposed article
-  public async propose(content: string): Promise<string> {
+  public async propose(content: string): Promise<number> {
     const uri = await this.contentProvider.put(content);
     const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
-    return txHash;
+    const receipt = await promisify<Web3.TransactionReceipt>(this.web3Wrapper.web3.eth.getTransactionReceipt)(txHash);
+    const decoded = receipt.logs.map((x) => this.abiDecoder.tryToDecodeLogOrNoop<any>(x));
+    for (const log of decoded) {
+      if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
+        return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
+      }
+    }
+    throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");
   }
 
   public async resolveContent(header: ContentHeader): Promise<NewsroomContent> {
