@@ -181,7 +181,7 @@ contract("Newsroom", (accounts: string[]) => {
 
     it("creates an event", async () => {
       const tx = await newsroom.proposeContent(SOME_URI);
-      const event = findEvent(tx, events.PROPOSED);
+      const event = findEvent(tx, events.NEWSROOM_PROPOSED);
       expect(event).to.not.be.undefined();
       expect(event.args.author).to.be.equal(defaultAccount);
     });
@@ -207,7 +207,7 @@ contract("Newsroom", (accounts: string[]) => {
 
     it("fires an event", async () => {
       const tx = await newsroom.approveContent(id);
-      const event = findEvent(tx, events.APPROVED);
+      const event = findEvent(tx, events.NEWSROOM_APPROVED);
 
       expect(event).to.not.be.undefined();
     });
@@ -249,7 +249,7 @@ contract("Newsroom", (accounts: string[]) => {
 
     it("fires an event", async () => {
       const tx = await newsroom.denyContent(id);
-      const event = findEvent(tx, events.DENIED);
+      const event = findEvent(tx, events.NEWSROOM_DENIED);
 
       expect(event).to.not.be.undefined();
     });
