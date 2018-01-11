@@ -7,7 +7,7 @@ contract ACL {
   event RoleRemoved(address indexed granter, address indexed grantee, string role);
 
   mapping(address => bool) superusers;
-  mapping(string => RoleList) roles;
+  mapping(string => RoleData) roles;
 
   modifier requireSuperuser() {
     require(isSuperuser(msg.sender));
@@ -49,7 +49,7 @@ contract ACL {
     RoleRemoved(msg.sender, grantee, role);
   }
 
-  struct RoleList {
+  struct RoleData {
     mapping(address => bool) actors;
   }
 }

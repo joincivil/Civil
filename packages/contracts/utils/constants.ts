@@ -9,3 +9,5 @@ export const events = {
   NEWSROOM_PROPOSED: "ContentProposed",
 };
 export const ACL_TEST_ROLE = "testrole";
+export const NEWSROOM_ROLE_REPORTER = "reporter";
+export const NEWSROOM_ROLE_EDITOR = "editor";

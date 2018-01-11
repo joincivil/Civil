@@ -1,16 +1,23 @@
 pragma solidity 0.4.18;
-import "zeppelin-solidity/contracts/ownership/Ownable.sol";
+import "./ACL.sol";
 
 
-contract Newsroom is Ownable {
+contract Newsroom is ACL {
   event ContentProposed(address indexed author, uint indexed id);
   event ContentApproved(uint id);
   event ContentDenied(uint id);
+
+  string constant ROLE_REPORTER = "reporter";
+  string constant ROLE_EDITOR = "editor";
 
   uint private latestId;
   mapping(uint => Content) private content;
   mapping(uint => bool) private waiting;
   mapping(uint => bool) private approved;
+
+  function Newsroom() public {
+    _addSuperuser(msg.sender);
+  }
 
   function author(uint contentId) public view returns (address) {
     return content[contentId].author;
@@ -32,7 +39,23 @@ contract Newsroom is Ownable {
     return approved[contentId];
   }
 
-  function proposeContent(string contentUri) public returns (uint) {
+  function addDirector(address who) public requireSuperuser() {
+    _addSuperuser(who);
+  }
+
+  function removeDirector(address who) public requireSuperuser() {
+    _removeSuperuser(who);
+  }
+
+  function addRole(address who, string role) public requireRole(ROLE_EDITOR) {
+    _addRole(who, role);
+  }
+
+  function removeRole(address who, string role) public requireRole(ROLE_EDITOR) {
+    _removeRole(who, role);
+  }
+
+  function proposeContent(string contentUri) public requireRole(ROLE_REPORTER) returns (uint) {
     require(bytes(contentUri).length > 0);
 
     uint id = latestId;
@@ -48,7 +71,7 @@ contract Newsroom is Ownable {
     return id;
   }
 
-  function approveContent(uint id) public onlyOwner {
+  function approveContent(uint id) public requireRole(ROLE_EDITOR) {
     require(waiting[id] == true);
     require(content[id].author != 0x0);
     delete waiting[id];
@@ -56,7 +79,7 @@ contract Newsroom is Ownable {
     ContentApproved(id);
   }
 
-  function denyContent(uint id) public onlyOwner {
+  function denyContent(uint id) public requireRole(ROLE_EDITOR) {
     require(waiting[id] == true);
     delete waiting[id];
     delete content[id];
