@@ -41,6 +41,23 @@ contract("RegistryWithAppellate", (accounts: string[]) => {
     });
   });
 
+  describe("is in progress", () => {
+    it("returns false for non-existent listing", async () => {
+      expect(await registry.isAppealInProgress(NO_LISTING_ADDRESS)).to.be.false();
+    });
+    it("returns true for existent listing", async () => {
+      expect(await registry.isAppealInProgress(EXISTING_LISTING_ADDRESS)).to.be.true();
+    });
+    it("returns false for denied listing", async () => {
+      await expect(registry.denyAppeal(EXISTING_LISTING_ADDRESS));
+      expect(await registry.isAppealInProgress(EXISTING_LISTING_ADDRESS)).to.be.false();
+    });
+    it("returns false for approved listing", async () => {
+      await expect(registry.grantAppeal(EXISTING_LISTING_ADDRESS));
+      expect(await registry.isAppealInProgress(EXISTING_LISTING_ADDRESS)).to.be.false();
+    });
+  });
+
   describe("appeal", () => {
     it("cannot be granted by non-owner of registry", async () => {
       await expect(registry.grantAppeal(EXISTING_LISTING_ADDRESS, { from : accounts[1] }))

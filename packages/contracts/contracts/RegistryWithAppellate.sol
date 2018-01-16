@@ -3,8 +3,10 @@ import "zeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
 contract RegistryWithAppellate is Ownable {
-// TODO: Extend ACL & Registry (Mike Goldin)
-// https://github.com/skmgoldin/tcr/blob/master/contracts/Registry.sol
+/* 
+TODO: Extend ACL & Registry (Mike Goldin)
+https://github.com/skmgoldin/tcr/blob/master/contracts/Registry.sol
+*/
 
   event AppealRequested(address indexed listing);
   event AppealGranted(address indexed listing);
@@ -22,6 +24,10 @@ contract RegistryWithAppellate is Ownable {
   /// @dev returns true if listing is whitelisted
   function isWhitelisted(address listing) public view returns (bool whitelisted) {
     return listings[listing].whitelisted;
+  }
+
+  function isAppealInProgress(address listing) public view returns (bool appealing) {
+    return listings[listing].owner != 0x0 && !listings[listing].whitelisted;
   }
 
   function listingOwner(address listing) public view returns (address) {
