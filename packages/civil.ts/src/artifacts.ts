@@ -4,5 +4,5 @@ import { Artifact } from "./types";
 
 export const artifacts = {
   Newsroom: NewsroomArtifact as any as Artifact,
-  RegistryWithAppellate: RegistryWithAppellateArtifact as any as Artifact
+  RegistryWithAppellate: RegistryWithAppellateArtifact as any as Artifact,
 };

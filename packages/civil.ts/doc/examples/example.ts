@@ -1,4 +1,5 @@
 import { Civil } from "../../src";
+import { Roles } from "../../src/contracts/newsroom";
 
 (async () => {
 
@@ -9,11 +10,17 @@ import { Civil } from "../../src";
   console.log("Newsroom at: ", newsroom.address);
 
   console.log("Subscribing to new articles");
-  newsroom
+  const subscription = newsroom
     .proposedContent()
-    .do((header) => console.log("Proposed article, uri: " + header.uri))
+    .do((header) => console.log("\tProposed article, uri: " + header.uri))
     .flatMap(newsroom.resolveContent)
-    .subscribe((article) => console.log("Content for article id: " + article.id, article.content));
+    .subscribe((article) => {
+      console.log("\tContent for article id: " + article.id, article.content);
+      console.log("\tUnsubscribing");
+      subscription.unsubscribe();
+    });
+
+  console.log("Am I a director:", await newsroom.isDirector());
 
   console.log("Proposing a new article...");
   try {
