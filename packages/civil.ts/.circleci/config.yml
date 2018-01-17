@@ -1,0 +1,28 @@
+version: 2
+jobs:
+    lint:
+        docker:
+            - image: circleci/node:9.3
+        steps:
+            - checkout
+            - restore_cache:
+                key: node-modules-{{ checksum  "package.json" }}
+            - run:
+                name: Install modules
+                command: npm install
+            - save_cache:
+                key: node-modules-{{ checksum "package.json" }}
+                paths:
+                    - node_modules
+            - run:
+                name: Generate smart contracts
+                command: npm run generate-contracts
+            - run:
+                name: Lint
+                command: npm run lint
+
+workflows:
+    version: 2
+    everything:
+        jobs:
+            - lint
