@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import * as Web3 from "web3";
+import { promisify } from "../utils/language";
 
 import { Artifact, MapObject } from "../types";
 
@@ -21,5 +22,9 @@ export class Web3Wrapper {
     if (!this.web3.eth.defaultAccount && this.web3.eth.accounts.length > 0) {
       this.web3.eth.defaultAccount = this.web3.eth.accounts[0];
     }
+  }
+
+  public getReceipt(txHash:string): Promise<Web3.TransactionReceipt> {
+    return promisify<Web3.TransactionReceipt>(this.web3.eth.getTransactionReceipt)(txHash);
   }
 }

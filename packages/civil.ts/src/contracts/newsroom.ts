@@ -13,23 +13,19 @@ import { bindAll, promisify } from "../utils/language";
 import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";
+import { BaseWrapper } from "./basewrapper";
 
-export class Newsroom {
+export class Newsroom extends BaseWrapper<NewsroomContract> {
   private web3Wrapper: Web3Wrapper;
   private abiDecoder: AbiDecoder;
-  private instance: NewsroomContract;
   private contentProvider: ContentProvider;
 
   constructor(web3Wrapper: Web3Wrapper, instance: NewsroomContract, abiDecoder: AbiDecoder) {
+    super(instance);
     this.web3Wrapper = web3Wrapper;
     this.contentProvider = new InMemoryProvider(web3Wrapper);
-    this.instance = instance;
     this.abiDecoder = abiDecoder;
     bindAll(this, ["constructor"]);
-  }
-
-  public get address() {
-    return this.instance.address;
   }
 
   public owner() { return this.instance.owner.callAsync(); }
@@ -58,7 +54,8 @@ export class Newsroom {
   public async propose(content: string): Promise<number> {
     const uri = await this.contentProvider.put(content);
     const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
-    const receipt = await promisify<Web3.TransactionReceipt>(this.web3Wrapper.web3.eth.getTransactionReceipt)(txHash);
+
+    const receipt = await this.web3Wrapper.getReceipt(txHash);
     const decoded = receipt.logs.map((x) => this.abiDecoder.tryToDecodeLogOrNoop<any>(x));
     for (const log of decoded) {
       if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {

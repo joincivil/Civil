@@ -11,7 +11,7 @@ import { artifacts } from "../../artifacts";
 import { EthAddress, TxData, TxDataPayable, TxHash, TypedEventFilter } from "../../types";
 import { isTxData, streamifyEvent } from "../../utils/contractutils";
 import { bindNestedAll, promisify } from "../../utils/language";
-import { BaseContract } from "./basecontract";
+import { BaseContract } from "../base_contract";
 
 export class {{contractName}}Contract extends BaseContract {
   /* tslint:disable member-ordering */
@@ -21,10 +21,6 @@ export class {{contractName}}Contract extends BaseContract {
   }
 
   {{> constructor}}
-
-  public get address(): string {
-    return this.instance.address;
-  }
 
 {{#each methods}}
   {{#this.constant}}

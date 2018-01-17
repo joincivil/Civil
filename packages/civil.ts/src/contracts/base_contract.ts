@@ -1,5 +1,5 @@
 import * as Web3 from "web3";
-import { TxDataPayable } from "../../types";
+import { TxDataPayable } from "../types";
 
 export class BaseContract {
   protected defaults: Partial<TxDataPayable>;
@@ -7,5 +7,9 @@ export class BaseContract {
 
   constructor(instance: Web3.ContractInstance) {
     this.instance = instance;
+  }
+
+  public get address(): string {
+    return this.instance.address;
   }
 }
