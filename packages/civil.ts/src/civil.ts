@@ -4,7 +4,7 @@ import * as Web3 from "web3";
 import { artifacts } from "./artifacts";
 import { NewsroomContract } from "./contracts/generated/newsroom";
 import { Newsroom } from "./contracts/newsroom";
-import { Artifact, EthAddress } from "./types";
+import { Artifact, EthAddress, TxData } from "./types";
 import { AbiDecoder } from "./utils/abidecoder";
 import { Web3Wrapper } from "./utils/web3wrapper";
 
@@ -62,7 +62,8 @@ export class Civil {
    * This call may require user input - such as approving a transaction in Metamask
    */
   public async newsroomDeployTrusted(): Promise<Newsroom> {
-    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(this.web3Wrapper.web3);
+    const txData: TxData = { from: this.userAccount };
+    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(this.web3Wrapper.web3, txData);
     return new Newsroom(this.web3Wrapper, instance, this.abiDecoder);
   }
 
