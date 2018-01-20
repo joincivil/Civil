@@ -1,6 +1,6 @@
 {
   "name": "civil.ts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The core library allowing for interfacing with the whole Civil ecosystem",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
