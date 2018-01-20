@@ -9,14 +9,15 @@ import * as Web3 from "web3";
 
 import { artifacts } from "../../artifacts";
 import { EthAddress, TxData, TxDataPayable, TxHash, TypedEventFilter } from "../../types";
-import { isTxData, streamifyEvent } from "../../utils/contractutils";
+import { awaitTXReceipt, isTxData, streamifyEvent } from "../../utils/contractutils";
 import { bindNestedAll, promisify } from "../../utils/language";
+import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseContract } from "../basecontract";
 
 export class {{contractName}}Contract extends BaseContract {
   /* tslint:disable member-ordering */
-  public static atUntrusted(web3: Web3, address: EthAddress): {{contractName}}Contract {
-    const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
+  public static atUntrusted(web3Wrapper: Web3Wrapper, address: EthAddress): {{contractName}}Contract {
+    const clazz = web3Wrapper.web3.eth.contract(artifacts.{{contractName}}.abi);
     return new {{contractName}}Contract(clazz.at(address));
   }
 

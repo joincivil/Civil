@@ -3,8 +3,9 @@ import { isUndefined } from "lodash";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 
-import { DecodedLogEntryEvent } from "web3";
-import { EventFunction, MapObject, TxData, TxDataBase, TypedEventFilter } from "../types";
+import { DecodedLogEntryEvent, providers } from "web3";
+import { EventFunction, MapObject, TxData, TxDataBase, TxHash, TypedEventFilter } from "../types";
+import { Web3Wrapper } from "./web3wrapper";
 
 export function findEvent(tx: any, eventName: string) {
   return tx.logs.find((log: any) => log.event === eventName);
@@ -58,6 +59,26 @@ export function streamifyEvent<A>(original: EventFunction<TypedEventFilter<A>>)
       };
     });
   };
+}
+
+export function awaitTXReceipt(
+    web3Wrapper: Web3Wrapper,
+    txHash: TxHash,
+    milliseconds: number = 1000): Promise<Web3.TransactionReceipt> {
+  return new Promise((resolve, reject) => {
+    const poll = async () => {
+      try {
+        const receipt = await web3Wrapper.getReceipt(txHash);
+        if (receipt) {
+          return resolve(receipt);
+        }
+        setTimeout(poll, milliseconds);
+      } catch (e) {
+        return reject(e);
+      }
+    };
+    poll();
+  });
 }
 
 export function isTxData(data: any): data is TxDataBase {

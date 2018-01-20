@@ -63,7 +63,7 @@ export class Civil {
    */
   public async newsroomDeployTrusted(): Promise<Newsroom> {
     const txData: TxData = { from: this.userAccount };
-    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(this.web3Wrapper.web3, txData);
+    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(this.web3Wrapper, txData);
     return new Newsroom(this.web3Wrapper, instance, this.abiDecoder);
   }
 
@@ -75,7 +75,7 @@ export class Civil {
    * @param address The address on current Ethereum network where the smart-contract is located
    */
   public newsroomAtUntrusted(address: EthAddress): Newsroom {
-    const instance = NewsroomContract.atUntrusted(this.web3Wrapper.web3, address);
+    const instance = NewsroomContract.atUntrusted(this.web3Wrapper, address);
     return new Newsroom(this.web3Wrapper, instance, this.abiDecoder);
   }
 

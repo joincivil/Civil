@@ -1,8 +1,9 @@
 public static deployTrusted = {
   async sendTransactionAsync(
-      web3: Web3,
+      web3Wrapper: Web3Wrapper,
       {{> typed_inputs inputs=ctor.inputs }}
       txData?: TxData): Promise<{{contractName}}Contract> {
+    const web3 = web3Wrapper.web3;
     const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
     const options: TxData = { data: artifacts.{{contractName}}.bytecode };
     Object.assign(options, txData);
@@ -13,7 +14,11 @@ public static deployTrusted = {
           {{> params inputs=ctor.inputs }}
           options);
     }
-    return new Promise<{{contractName}}Contract>((resolve, reject) => {
+    const txhash = await new Promise<string>((resolve, reject) => {
+      /* There's a bug in Metamask, this callback should be called twice, first when the transaction
+       * gets into mempool, and second when it's mined. But it's called only once, so we have to resolve
+       * the contract on our own
+       */
       clazz.new(
         {{> params inputs=contract.inputs}}
         options,
@@ -21,11 +26,11 @@ public static deployTrusted = {
           if (err) {
             return reject(err);
           }
-          if (instance.address) {
-            return resolve(new {{contractName}}Contract(instance));
-          }
+          return resolve(instance.transactionHash);
         });
     });
+    const receipt = await awaitTXReceipt(web3Wrapper, txhash);
+    return new {{contractName}}Contract(clazz.at(receipt.contractAddress!!));
   },
   async estimateGasAsync(
       web3: Web3,

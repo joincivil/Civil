@@ -17,7 +17,7 @@ const data: TxData = {
 
 (async () => {
   console.log("Deploying contract");
-  const newsroom = await NewsroomContract.deployTrusted.sendTransactionAsync(web3.web3, data);
+  const newsroom = await NewsroomContract.deployTrusted.sendTransactionAsync(web3, data);
   console.log("Contract at: ", newsroom.address);
   console.log("Am I superadmin: ", await newsroom.isSuperuser.callAsync(account));
 

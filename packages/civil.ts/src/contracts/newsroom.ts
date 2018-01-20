@@ -8,7 +8,7 @@ import { ContentProvider } from "../content/providers/contentprovider";
 import { InMemoryProvider } from "../content/providers/inmemoryprovider";
 import { ContentHeader, EthAddress, NewsroomContent } from "../types";
 import { AbiDecoder } from "../utils/abidecoder";
-import { isDecodedLog } from "../utils/contractutils";
+import { awaitTXReceipt, isDecodedLog } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { bindAll, promisify } from "../utils/language";
 import "../utils/rxjs";
@@ -103,13 +103,15 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
   public async addRole(actor: EthAddress, role: Roles) {
+    let txhash;
     if (role === Roles.Director) {
       await this.requireDirector();
-      return await this.instance.addDirector.sendTransactionAsync(actor);
+      txhash = await this.instance.addDirector.sendTransactionAsync(actor);
     } else {
       await this.requireEditor();
-      return await this.instance.addRole.sendTransactionAsync(actor, role);
+      txhash = await this.instance.addRole.sendTransactionAsync(actor, role);
     }
+    return await awaitTXReceipt(this.web3Wrapper, txhash);
   }
 
   /**
@@ -121,13 +123,15 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
   public async removeRole(actor: EthAddress, role: Roles) {
+    let txhash;
     if (role === Roles.Director) {
       await this.requireDirector();
-      return await this.instance.removeDirector.sendTransactionAsync(actor);
+      txhash = await this.instance.removeDirector.sendTransactionAsync(actor);
     } else {
       await this.requireEditor();
-      return await this.instance.removeRole.sendTransactionAsync(actor, role);
+      txhash = await this.instance.removeRole.sendTransactionAsync(actor, role);
     }
+    return await awaitTXReceipt(this.web3Wrapper, txhash);
   }
 
   /**
@@ -172,8 +176,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async propose(content: string): Promise<number> {
     const uri = await this.contentProvider.put(content);
     const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
+    const receipt = await awaitTXReceipt(this.web3Wrapper, txHash);
 
-    const receipt = await this.web3Wrapper.getReceipt(txHash);
     const decoded = receipt.logs.map((x) => this.abiDecoder.tryToDecodeLogOrNoop<any>(x));
     for (const log of decoded) {
       if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {

@@ -26,7 +26,7 @@ export class Web3Wrapper {
     return undefined;
   }
 
-  public getReceipt(txHash: string): Promise<Web3.TransactionReceipt> {
+  public getReceipt(txHash: string): Promise<Web3.TransactionReceipt|null> {
     return promisify<Web3.TransactionReceipt>(this.web3.eth.getTransactionReceipt)(txHash);
   }
 }
