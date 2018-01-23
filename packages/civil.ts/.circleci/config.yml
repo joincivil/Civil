@@ -20,9 +20,37 @@ jobs:
             - run:
                 name: Lint
                 command: npm run lint
+    test:
+        docker:
+            - image: circleci/node:9.3
+        steps:
+            - checkout
+            - restore_cache:
+                key: node-modules-{{ checksum  "package.json" }}
+            - run:
+                name: Install modules
+                command: npm install
+            - save_cache:
+                key: node-modules-{{ checksum "package.json" }}
+                paths:
+                    - node_modules
+            - run:
+                name: Generate smart contracts
+                command: npm run generate-contracts
+            - run:
+                name: Build
+                command: npm run build
+            - run:
+                name: Run tests
+                command: npm test
+            - store_test_results:
+                path: build/junit/
+            - store_artifacts:
+                path: build/junit/
 
 workflows:
     version: 2
     everything:
         jobs:
             - lint
+            - test

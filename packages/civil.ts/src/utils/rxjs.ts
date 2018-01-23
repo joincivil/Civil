@@ -6,12 +6,10 @@ const EMPTY = Symbol();
  * An asynchronous version of the filter operator.
  * This version waits until the filter finishes and concatenates
  * the input stream in order it was received to output
- * @param this
- * @param filter
  */
 export function concatFilter<T>(
   this: Observable<T>,
-  filter: (value: T, index: number) => PromiseLike<boolean>,
+  filter: (value: T, index: number) => PromiseLike<boolean>|boolean,
 ): Observable<T> {
   return this
     .concatMap(async (v, i) => {
@@ -27,12 +25,10 @@ export function concatFilter<T>(
  * An asynchronous version of the filter operator.
  * This version waits until the filter finishes and outputs
  * the input values in first-filter-returns-first-served basis
- * @param this
- * @param filter
  */
 export function flatFilter<T>(
   this: Observable<T>,
-  filter: (value: T, index: number) => PromiseLike<boolean>,
+  filter: (value: T, index: number) => PromiseLike<boolean>|boolean,
 ): Observable<T> {
   return this
     .flatMap(async (v, i) => {
