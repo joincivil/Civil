@@ -1,0 +1,28 @@
+{
+  "name": "@joincivil/dev-utils",
+  "version": "1.0.0",
+  "description": "Utilities shared between Civil packages",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "lint": "tslint --project ./",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joincivil/dev-utils.git"
+  },
+  "author": "The Civil Media Company",
+  "bugs": {
+    "url": "https://github.com/joincivil/dev-utils/issues"
+  },
+  "homepage": "https://github.com/joincivil/dev-utils#readme",
+  "dependencies": {
+    "@types/chai": "^4.1.1",
+    "@types/chai-as-promised": "^7.1.0",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^2.0.2",
+    "dirty-chai": "^2.0.1"
+  }
+}

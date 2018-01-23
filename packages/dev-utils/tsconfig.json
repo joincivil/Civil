@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "outDir": "./build/",
+    "strict": true,
+    "noImplicitThis": false,
+    "declaration": true,
+    "declarationDir": "./build/",
+    "pretty": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./test/**/*.ts",
+  ]
+}
