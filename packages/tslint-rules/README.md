@@ -7,6 +7,8 @@ The rules are strict by default to see what works.
 If any of the rules is too strict for the everyday work, we cna then turn it off
 
 ## Installation
+**You need tslint version 5.9 or higher for yaml support**
+
 ```
 npm install --save-dev @joincivil/tslint-rules
 ```
