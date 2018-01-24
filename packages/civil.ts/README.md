@@ -6,7 +6,12 @@ The core library allowing for interfacing with the whole Civil ecosystem
 ### Code generation
 Civil.ts uses auto-generated code from Smart-Contract .json artifacts.
 Run ```npm run generate-contracts``` to create them in the `src/contracts/generated/` directory, afterwards develop as normal.
+
 The templates for code generation can be found `src/contracts/templates/`.
 
-To add a new smart contract to the mix, add a new .json definition to `src/artifacts/` and add it to the list in `src/artifacts.ts`.
-Afterwards regenerate contracts with ```npm run generate-contracts``` and use your new shiny generated code.
+### Adding new smart-contract
+- [ ] Add new .json definition to `src/artifacts`
+- [ ] Add the json to `src/artifacts.ts`
+- [ ] Run `npm run generate-contracts`
+- [ ] Add events into `src/types.ts` -> `CivilEventArgs` type
+- [ ] Enjoy automated generated code

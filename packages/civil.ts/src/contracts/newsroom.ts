@@ -6,9 +6,8 @@ import * as Web3 from "web3";
 import { artifacts } from "../artifacts";
 import { ContentProvider } from "../content/providers/contentprovider";
 import { InMemoryProvider } from "../content/providers/inmemoryprovider";
-import { ContentHeader, EthAddress, NewsroomContent } from "../types";
-import { AbiDecoder } from "../utils/abidecoder";
-import { awaitTXReceipt, isDecodedLog } from "../utils/contractutils";
+import { CivilTransactionReceipt, ContentHeader, EthAddress, NewsroomContent, TxData } from "../types";
+import { isDecodedLog } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { bindAll, promisify } from "../utils/language";
 import "../utils/rxjs";
@@ -29,11 +28,20 @@ import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generat
  * Right now the only supported systems are HTTP and [[InMemoryProvider]] for debugging purpouses
  */
 export class Newsroom extends BaseWrapper<NewsroomContract> {
+  public static async deployTrusted(web3Wrapper: Web3Wrapper): Promise<Newsroom> {
+    const txData: TxData = { from: web3Wrapper.account };
+    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData);
+    return new Newsroom(web3Wrapper, instance);
+  }
+  public static atUntrusted(web3Wrapper: Web3Wrapper, address: EthAddress): Newsroom {
+    const instance = NewsroomContract.atUntrusted(web3Wrapper, address);
+    return new Newsroom(web3Wrapper, instance);
+  }
+
   private contentProvider: ContentProvider;
 
-  /// Internal
-  constructor(web3Wrapper: Web3Wrapper, instance: NewsroomContract, abiDecoder: AbiDecoder) {
-    super(web3Wrapper, instance, abiDecoder);
+  private constructor(web3Wrapper: Web3Wrapper, instance: NewsroomContract) {
+    super(web3Wrapper, instance);
     this.contentProvider = new InMemoryProvider(web3Wrapper);
     bindAll(this, ["constructor"]);
   }
@@ -102,7 +110,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async addRole(actor: EthAddress, role: Roles) {
+  public async addRole(actor: EthAddress, role: Roles): Promise<CivilTransactionReceipt> {
     let txhash;
     if (role === Roles.Director) {
       await this.requireDirector();
@@ -111,7 +119,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       await this.requireEditor();
       txhash = await this.instance.addRole.sendTransactionAsync(actor, role);
     }
-    return await awaitTXReceipt(this.web3Wrapper, txhash);
+    return await this.web3Wrapper.awaitReceipt(txhash);
   }
 
   /**
@@ -122,7 +130,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async removeRole(actor: EthAddress, role: Roles) {
+  public async removeRole(actor: EthAddress, role: Roles): Promise<CivilTransactionReceipt> {
     let txhash;
     if (role === Roles.Director) {
       await this.requireDirector();
@@ -131,7 +139,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       await this.requireEditor();
       txhash = await this.instance.removeRole.sendTransactionAsync(actor, role);
     }
-    return await awaitTXReceipt(this.web3Wrapper, txhash);
+    return await this.web3Wrapper.awaitReceipt(txhash);
   }
 
   /**
@@ -176,10 +184,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async propose(content: string): Promise<number> {
     const uri = await this.contentProvider.put(content);
     const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
-    const receipt = await awaitTXReceipt(this.web3Wrapper, txHash);
+    const receipt = await this.web3Wrapper.awaitReceipt(txHash);
 
-    const decoded = receipt.logs.map((x) => this.abiDecoder.tryToDecodeLogOrNoop<any>(x));
-    for (const log of decoded) {
+    for (const log of receipt.logs) {
       if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
         return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
       }

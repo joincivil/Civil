@@ -4,9 +4,8 @@ import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 
 import { artifacts } from "../artifacts";
-import { EthAddress } from "../types";
-import { AbiDecoder } from "../utils/abidecoder";
-import { awaitTXReceipt, isDecodedLog } from "../utils/contractutils";
+import { CivilTransactionReceipt, EthAddress } from "../types";
+import { isDecodedLog } from "../utils/contractutils";
 import { CivilErrors } from "../utils/errors";
 import { bindAll, promisify } from "../utils/language";
 import "../utils/rxjs";
@@ -15,8 +14,13 @@ import { BaseWrapper } from "./basewrapper";
 import { RegistryWithAppellateContract } from "./generated/registry_with_appellate";
 
 export class Registry extends BaseWrapper<RegistryWithAppellateContract> {
-  constructor(web3Wrapper: Web3Wrapper, instance: RegistryWithAppellateContract, abiDecoder: AbiDecoder) {
-    super(web3Wrapper, instance, abiDecoder);
+  public static atUntrusted(web3wrapper: Web3Wrapper, address: EthAddress) {
+    const instance = RegistryWithAppellateContract.atUntrusted(web3wrapper, address);
+    return new Registry(web3wrapper, instance);
+  }
+
+  private constructor(web3Wrapper: Web3Wrapper, instance: RegistryWithAppellateContract) {
+    super(web3Wrapper, instance);
     bindAll(this, ["constructor"]);
   }
 
@@ -42,23 +46,23 @@ export class Registry extends BaseWrapper<RegistryWithAppellateContract> {
       .concatFilter(this.instance.isWhitelisted.callAsync);
   }
 
-  public async submitAppeal(listingAddress: EthAddress): Promise<Web3.TransactionReceipt> {
+  public async submitAppeal(listingAddress: EthAddress): Promise<CivilTransactionReceipt> {
     const txhash = await this.instance.submitAppeal.sendTransactionAsync(listingAddress);
-    return await awaitTXReceipt(this.web3Wrapper, txhash);
+    return await this.web3Wrapper.awaitReceipt(txhash);
   }
 
-  public async grantAppeal(listingAddress: EthAddress): Promise<Web3.TransactionReceipt> {
+  public async grantAppeal(listingAddress: EthAddress): Promise<CivilTransactionReceipt> {
     await this.requireOwner();
 
     const txhash = await this.instance.grantAppeal.sendTransactionAsync(listingAddress);
-    return await awaitTXReceipt(this.web3Wrapper, txhash);
+    return await this.web3Wrapper.awaitReceipt(txhash);
   }
 
-  public async denyAppeal(listingAddress: EthAddress): Promise<Web3.TransactionReceipt> {
+  public async denyAppeal(listingAddress: EthAddress): Promise<CivilTransactionReceipt> {
     await this.requireOwner();
 
     const txhash = await this.instance.denyAppeal.sendTransactionAsync(listingAddress);
-    return await awaitTXReceipt(this.web3Wrapper, txhash);
+    return await this.web3Wrapper.awaitReceipt(txhash);
   }
 
   public isAppealInProgress(listingAddress: EthAddress) {

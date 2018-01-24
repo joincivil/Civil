@@ -1,6 +1,8 @@
 import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
+
 import { NewsroomEventArgs } from "./contracts/generated/newsroom";
+import { RegistryWithAppellateEventArgs } from "./contracts/generated/registry_with_appellate";
 
 export interface Artifact {
   contractName: string;
@@ -86,5 +88,20 @@ export enum AbiType {
   Fallback = "fallback",
 }
 
-// When new contracts come in, add more
-export type ContractEventArgs = NewsroomEventArgs;
+export type CivilEventArgs = NewsroomEventArgs | RegistryWithAppellateEventArgs;
+
+export interface DecodedTransactionReceipt<T> {
+  blockHash: string;
+  blockNumber: number;
+  transactionHash: string;
+  transactionIndex: number;
+  from: string;
+  to: string;
+  status: null|string|0|1;
+  cumulativeGasUsed: number;
+  gasUsed: number;
+  contractAddress: string|null;
+  logs: Array<Web3.DecodedLogEntry<T> | Web3.LogEntry>;
+}
+
+export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilEventArgs>;

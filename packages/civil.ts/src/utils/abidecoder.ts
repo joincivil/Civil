@@ -13,7 +13,7 @@ import { isUndefined, padStart, startsWith } from "lodash";
 import * as Web3 from "web3";
 import * as SolidityCoder from "web3/lib/solidity/coder";
 
-import { AbiType, ContractEventArgs, SolidityTypes } from "../types";
+import { AbiType, CivilEventArgs, SolidityTypes } from "../types";
 
 export class AbiDecoder {
   private static _padZeros(address: string) {
@@ -33,7 +33,7 @@ export class AbiDecoder {
     abiArrays.forEach(this.addABI.bind(this));
   }
 
-  public tryToDecodeLogOrNoop<ArgsType extends ContractEventArgs>(
+  public tryToDecodeLogOrNoop<ArgsType extends CivilEventArgs>(
     log: Web3.LogEntry,
   ): Web3.DecodedLogEntry<ArgsType> | Web3.LogEntry {
     const methodId = log.topics[0];

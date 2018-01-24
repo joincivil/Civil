@@ -29,7 +29,7 @@ public static deployTrusted = {
           return resolve(instance.transactionHash);
         });
     });
-    const receipt = await awaitTXReceipt(web3Wrapper, txhash);
+    const receipt = await web3Wrapper.awaitReceipt(txhash);
     return new {{contractName}}Contract(clazz.at(receipt.contractAddress!!));
   },
   async estimateGasAsync(

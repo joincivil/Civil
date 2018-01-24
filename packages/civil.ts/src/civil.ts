@@ -1,11 +1,8 @@
 import * as Debug from "debug";
 import * as Web3 from "web3";
 
-import { artifacts } from "./artifacts";
-import { NewsroomContract } from "./contracts/generated/newsroom";
 import { Newsroom } from "./contracts/newsroom";
-import { Artifact, EthAddress, TxData } from "./types";
-import { AbiDecoder } from "./utils/abidecoder";
+import { EthAddress } from "./types";
 import { Web3Wrapper } from "./utils/web3wrapper";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
@@ -24,7 +21,6 @@ var web3: Web3 | undefined;
  */
 export class Civil {
   private web3Wrapper: Web3Wrapper;
-  private abiDecoder: AbiDecoder;
 
   /**
    * An optional object, conforming to Web3 provider interface can be provided.
@@ -46,7 +42,6 @@ export class Civil {
       }
     }
     this.web3Wrapper = new Web3Wrapper(provider);
-    this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map((a) => a.abi));
   }
 
   /**
@@ -62,9 +57,7 @@ export class Civil {
    * This call may require user input - such as approving a transaction in Metamask
    */
   public async newsroomDeployTrusted(): Promise<Newsroom> {
-    const txData: TxData = { from: this.userAccount };
-    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(this.web3Wrapper, txData);
-    return new Newsroom(this.web3Wrapper, instance, this.abiDecoder);
+    return Newsroom.deployTrusted(this.web3Wrapper);
   }
 
   /**
@@ -75,8 +68,7 @@ export class Civil {
    * @param address The address on current Ethereum network where the smart-contract is located
    */
   public newsroomAtUntrusted(address: EthAddress): Newsroom {
-    const instance = NewsroomContract.atUntrusted(this.web3Wrapper, address);
-    return new Newsroom(this.web3Wrapper, instance, this.abiDecoder);
+    return Newsroom.atUntrusted(this.web3Wrapper, address);
   }
 
   /**

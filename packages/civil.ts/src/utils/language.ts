@@ -38,3 +38,7 @@ export function bindAll(what: any, excludes: string[] = ["constructor"], thisArg
     .filter((key) => !excludes.includes(key) && typeof what[key] === "function")
     .forEach((key) => what[key] = what[key].bind(self));
 }
+
+export async function delay<T>(milliseconds: number, value?: T) {
+  return new Promise((resolve) => setTimeout(() => resolve(value), milliseconds));
+}

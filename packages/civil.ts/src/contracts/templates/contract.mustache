@@ -9,7 +9,7 @@ import * as Web3 from "web3";
 
 import { artifacts } from "../../artifacts";
 import { EthAddress, TxData, TxDataPayable, TxHash, TypedEventFilter } from "../../types";
-import { awaitTXReceipt, isTxData, streamifyEvent } from "../../utils/contractutils";
+import { isTxData, streamifyEvent } from "../../utils/contractutils";
 import { bindNestedAll, promisify } from "../../utils/language";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseContract } from "../basecontract";
@@ -36,7 +36,7 @@ export class {{contractName}}Contract extends BaseContract {
   {{> event contractName=../contractName}}
 
 {{/each}}
-  constructor(instance: Web3.ContractInstance) {
+  private constructor(instance: Web3.ContractInstance) {
     super(instance);
     // Call methods access this instance while being in a sub-object, we're rebinding what
     // "this" means for everything in this class, this also requires "noImplicitThis" to be false
