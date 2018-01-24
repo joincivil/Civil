@@ -32,7 +32,6 @@ rules:
           parameter: onespace
           property-declaration: onespace
           variable-declaration: onespace
-    await-promise: true
     curly: true
     label-position: true
     no-arg: true
