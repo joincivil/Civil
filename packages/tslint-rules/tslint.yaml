@@ -108,6 +108,8 @@ rules:
             - ignore-static
     only-arrow-functions:
         severity: warn
+        options:
+            - allow-declarations
     unified-signatures:
         severity: warn
     ban-comma-operator:
