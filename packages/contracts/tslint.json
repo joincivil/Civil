@@ -3,6 +3,6 @@
         "@joincivil/tslint-rules"
     ],
     "rules": {
-        "variable-name": false
+        "variable-name": [true, "ban-keywords"]
     }
 }
