@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/dev-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utilities shared between Civil packages",
   "bin": {
     "civil-generate-from-files": "build/generate-from-files/bin.js"
