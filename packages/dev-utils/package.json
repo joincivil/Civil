@@ -2,10 +2,13 @@
   "name": "@joincivil/dev-utils",
   "version": "1.0.0",
   "description": "Utilities shared between Civil packages",
-  "main": "index.js",
+  "bin": {
+    "civil-generate-from-files": "build/generate-from-files/bin.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
+    "generate-from-files": "node build/generate-from-files/bin.js",
     "lint": "tslint --project ./",
     "tsc": "tsc"
   },
@@ -21,8 +24,25 @@
   "dependencies": {
     "@types/chai": "^4.1.1",
     "@types/chai-as-promised": "^7.1.0",
+    "argparse": "^1.0.9",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
-    "dirty-chai": "^2.0.1"
+    "debug": "^3.1.0",
+    "dirty-chai": "^2.0.1",
+    "glob": "^7.1.2",
+    "handlebars": "^4.0.11",
+    "mkdirp": "^0.5.1",
+    "to-snake-case": "^1.0.0"
+  },
+  "devDependencies": {
+    "@joincivil/tslint-rules": "^2.4.0",
+    "@types/argparse": "^1.0.33",
+    "@types/debug": "0.0.30",
+    "@types/glob": "^5.0.35",
+    "@types/handlebars": "^4.0.36",
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^9.3.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.6.2"
   }
 }
