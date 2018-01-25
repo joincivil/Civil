@@ -1,13 +1,8 @@
 {
-    "defaultSeverity": "error",
     "extends": [
-        "tslint:recommended"
+        "@joincivil/tslint-rules"
     ],
-    "jsRules": {},
     "rules": {
-        "no-console": false,
-        "no-empty": false,
-        "indent": [true, "spaces", 2]
-    },
-    "rulesDirectory": []
+        "variable-name": false
+    }
 }

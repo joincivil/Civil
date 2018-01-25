@@ -15,8 +15,11 @@ import * as path from "path";
  */
 
 const JSON_WHITESPACE = 4;
+const EXPECTED_ARGUMENT_COUNT = 4;
+const ARGV_INPUT_GLOV = 2;
+const ARGV_OUT_DIR = 3;
 
-function strip(filePath: string, outPath: string) {
+function strip(filePath: string, outPath: string): void {
   const data = JSON.parse(fs.readFileSync(filePath) as any);
   /* tslint:disable object-literal-sort-keys */
   const filtered = {
@@ -31,13 +34,13 @@ function strip(filePath: string, outPath: string) {
   console.log("Written: " + outPath);
 }
 
-if (process.argv.length !== 4) {
+if (process.argv.length !== EXPECTED_ARGUMENT_COUNT) {
   console.error("Usage: " + process.argv[0] + " json_files_glob out_dir");
   process.exit();
 }
 
-const FILES_GLOB = process.argv[2];
-const OUT_DIR = process.argv[3];
+const FILES_GLOB = process.argv[ARGV_INPUT_GLOV];
+const OUT_DIR = process.argv[ARGV_OUT_DIR];
 
 // Ensure out directory exists
 mkdirp.sync(OUT_DIR);

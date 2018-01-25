@@ -1,7 +1,7 @@
 import * as chai from "chai";
-import { events, REVERTED } from "../utils/constants";
+import { REVERTED } from "../utils/constants";
 import ChaiConfig from "./utils/chaiconfig";
-import { findEvent, idFromEvent, is0x0Address, timestampFromTx } from "./utils/contractutils";
+import { is0x0Address } from "./utils/contractutils";
 
 const RegistryWithAppellate = artifacts.require("RegistryWithAppellate");
 
@@ -10,18 +10,14 @@ const expect = chai.expect;
 
 // TODO: Revisit and add many more tests after RegistryWtihAppellate extends real TCR
 contract("RegistryWithAppellate", (accounts: string[]) => {
-  const defaultAccount = accounts[0];
-
   const EXISTING_LISTING_ADDRESS = accounts[2];
   const NO_LISTING_ADDRESS = accounts[3];
 
   let registry: any;
-  let id: any;
 
   beforeEach(async () => {
     registry = await RegistryWithAppellate.new();
-    const tx = await registry.submitAppeal(EXISTING_LISTING_ADDRESS, { from: accounts[1] });
-    id = idFromEvent(tx);
+    await registry.submitAppeal(EXISTING_LISTING_ADDRESS, { from: accounts[1] });
   });
 
   describe("owner", () => {

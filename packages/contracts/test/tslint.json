@@ -1,0 +1,8 @@
+{
+    "extends": [
+        "@joincivil/tslint-rules/tslint-test.yaml"
+    ],
+    "rules": {
+        "variable-name": [true, "ban-keywords"]
+    }
+}
