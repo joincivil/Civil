@@ -47,7 +47,7 @@ export class Civil {
   /**
    * @returns Currently default user account used, undefined if none unlocked/found
    */
-  public get userAccount() {
+  public get userAccount(): string | undefined {
     return this.web3Wrapper.account;
   }
 
@@ -77,7 +77,7 @@ export class Civil {
    * This may invalidate any Ethereum calls in transit or event listening
    * @param web3Provider The new provider that shall replace the old one
    */
-  public setProvider(web3Provider: Web3.Provider) {
+  public setProvider(web3Provider: Web3.Provider): void {
     this.web3Wrapper.setProvider(web3Provider);
   }
 }

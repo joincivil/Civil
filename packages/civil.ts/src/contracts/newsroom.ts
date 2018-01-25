@@ -3,13 +3,11 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 
-import { artifacts } from "../artifacts";
 import { ContentProvider } from "../content/providers/contentprovider";
 import { InMemoryProvider } from "../content/providers/inmemoryprovider";
 import { CivilTransactionReceipt, ContentHeader, EthAddress, NewsroomContent, TxData } from "../types";
 import { isDecodedLog } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
-import { bindAll, promisify } from "../utils/language";
 import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -43,14 +41,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   private constructor(web3Wrapper: Web3Wrapper, instance: NewsroomContract) {
     super(web3Wrapper, instance);
     this.contentProvider = new InMemoryProvider(web3Wrapper);
-    bindAll(this, ["constructor"]);
-  }
-
-  /**
-   * @returns Addess of the deployed Newsroom
-   */
-  public get address() {
-    return this.instance.address;
   }
 
   /**
@@ -59,12 +49,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param address Address for the check, leave empty for the current user check
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
-  public isDirector(address?: EthAddress): Promise<boolean> {
-    if (!address) {
-      requireAccount(this.web3Wrapper);
-      address = this.web3Wrapper.account!!;
+  public async isDirector(address?: EthAddress): Promise<boolean> {
+    let who = address;
+    if (!who) {
+      who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.isSuperuser.callAsync(address);
+    return this.instance.isSuperuser.callAsync(who);
   }
 
   /**
@@ -74,15 +64,15 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
   public async isEditor(address?: EthAddress): Promise<boolean> {
-    if (await this.isDirector(address)) {
+    let who = address;
+    if (await this.isDirector(who)) {
       return true;
     }
 
-    if (!address) {
-      requireAccount(this.web3Wrapper);
-      address = this.web3Wrapper.account!!;
+    if (!who) {
+      who = requireAccount(this.web3Wrapper);
     }
-    return await this.instance.hasRole.callAsync(address, Roles.Editor);
+    return this.instance.hasRole.callAsync(who, Roles.Editor);
   }
 
   /**
@@ -92,15 +82,15 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
   public async isReporter(address?: EthAddress): Promise<boolean> {
-    if (await this.isDirector(address)) {
+    let who = address;
+    if (await this.isDirector(who)) {
       return true;
     }
 
-    if (!address) {
-      requireAccount(this.web3Wrapper);
-      address = this.web3Wrapper.account!!;
+    if (!who) {
+      who = requireAccount(this.web3Wrapper);
     }
-    return await this.instance.hasRole.callAsync(address, Roles.Reporter);
+    return this.instance.hasRole.callAsync(who, Roles.Reporter);
   }
 
   /**
@@ -119,7 +109,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       await this.requireEditor();
       txhash = await this.instance.addRole.sendTransactionAsync(actor, role);
     }
-    return await this.web3Wrapper.awaitReceipt(txhash);
+    return this.web3Wrapper.awaitReceipt(txhash);
   }
 
   /**
@@ -139,7 +129,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       await this.requireEditor();
       txhash = await this.instance.removeRole.sendTransactionAsync(actor, role);
     }
-    return await this.web3Wrapper.awaitReceipt(txhash);
+    return this.web3Wrapper.awaitReceipt(txhash);
   }
 
   /**
@@ -155,8 +145,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
       }) // https://github.com/ethereum/web3.js/issues/573
       .map((e) => e.args.id)
-      .concatFilter(this.instance.isProposed.callAsync)
-      .concatMap(this.idToContentHeader);
+      .concatFilter(async (id) => this.instance.isProposed.callAsync(id))
+      .concatMap(async (id) => this.idToContentHeader(id));
   }
 
   /**
@@ -172,7 +162,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
       }) // https://github.com/ethereum/web3.js/issues/573
       .map((e) => e.args.id)
-      .concatMap(this.idToContentHeader);
+      .concatMap(async (id) => this.idToContentHeader(id));
   }
 
   /**
@@ -210,31 +200,27 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     };
   }
 
-  private async isProposed(id: number|string|BigNumber) {
-    return await this.instance.isProposed.callAsync(new BigNumber(id));
-  }
-
   private async idToContentHeader(id: BigNumber): Promise<ContentHeader> {
-    const data = await Promise.all([
+    const [author, timestamp, uri] = await Promise.all([
       this.instance.author.callAsync(id),
       this.instance.timestamp.callAsync(id),
       this.instance.uri.callAsync(id),
     ]);
     return {
       id: id.toNumber(),
-      author: data[0],
-      timestamp: new Date(data[1].toNumber()),
-      uri: data[2],
+      author,
+      timestamp: new Date(timestamp.toNumber()),
+      uri,
     };
   }
 
-  private async requireEditor() {
+  private async requireEditor(): Promise<void> {
     if (!(await this.isEditor())) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }
 
-  private async requireDirector() {
+  private async requireDirector(): Promise<void> {
     if (!(await this.isDirector())) {
       throw new Error(CivilErrors.NoPrivileges);
     }

@@ -56,10 +56,13 @@ describe("utils/language", () => {
 
       const tested = promisify<string>(wrapped);
 
-      tested().then((value) => {
-        expect(value).to.be.equal(data);
-        done();
-      });
+      tested()
+        .then((value) => {
+          expect(value).to.be.equal(data);
+          done();
+        })
+        .catch(done);
+
       caughtCallback(null, data);
     });
   });

@@ -1,5 +1,4 @@
 import { Civil } from "../../src";
-import { Roles } from "../../src/contracts/newsroom";
 
 (async () => {
 
@@ -13,7 +12,7 @@ import { Roles } from "../../src/contracts/newsroom";
   const subscription = newsroom
     .proposedContent()
     .do((header) => console.log("\tProposed article, uri: " + header.uri))
-    .flatMap(newsroom.resolveContent)
+    .flatMap(async (header) => newsroom.resolveContent(header))
     .subscribe((article) => {
       console.log("\tContent for article id: " + article.id, article.content);
       console.log("\tUnsubscribing");
@@ -29,4 +28,5 @@ import { Roles } from "../../src/contracts/newsroom";
   } catch (e) {
     console.error("Failed to propose article:", e);
   }
-})();
+})()
+.catch((err) => console.error(err));

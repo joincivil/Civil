@@ -1,3 +1,4 @@
+/* tslint:disable all */ // Let's come back here when we're working on this
 import { Block, BlockAndLogStreamer } from "ethereumjs-blockstream";
 import { FilterOptions } from "ethereumjs-blockstream/output/source/models/filters";
 import { Log } from "ethereumjs-blockstream/output/source/models/log";
@@ -41,3 +42,4 @@ export class NodeStream {
   }
   */
 }
+/* tslint:enable all */

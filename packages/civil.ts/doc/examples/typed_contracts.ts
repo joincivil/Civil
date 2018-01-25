@@ -1,15 +1,14 @@
-
-import BigNumber from "bignumber.js";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 
-import { artifacts } from "../../src/artifacts";
 import { NewsroomContract } from "../../src/contracts/generated/newsroom";
 import { TxData } from "../../src/types";
 import { Web3Wrapper } from "../../src/utils/web3wrapper";
 
 const web3 = new Web3Wrapper(new Web3.providers.HttpProvider("http://localhost:8545"));
-const account = web3.account!!;
+/* tslint:disable no-non-null-assertion */
+const account = web3.account!;
+/* tslint:enable no-non-null-assertion */
 
 const data: TxData = {
   gasPrice: web3.web3.eth.gasPrice,
@@ -39,5 +38,6 @@ const data: TxData = {
       });
 
   console.log("Proposing content");
-  const tx = await newsroom.proposeContent.sendTransactionAsync("http://someurihere.com", data);
-})();
+  await newsroom.proposeContent.sendTransactionAsync("http://someurihere.com", data);
+})()
+.catch((err) => console.error(err));

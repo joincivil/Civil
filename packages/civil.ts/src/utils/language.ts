@@ -1,3 +1,4 @@
+/* tslint:disable promise-function-async */
 export function promisify<T>(
   original: (...params: any[]) => void,
   thisArg?: any,
@@ -15,8 +16,9 @@ export function promisify<T>(
   };
   return promisifed;
 }
+/* tslint:emable promise-function-async */
 
-export function bindNestedAll(what: any, excludes: string[] = ["constructor"], thisArg?: any, ...params: any[]) {
+export function bindNestedAll(what: any, excludes: string[] = ["constructor"], thisArg?: any, ...params: any[]): void {
   const self = thisArg || what;
   for (const key of Object.getOwnPropertyNames(what)) {
     const val = what[key];
@@ -30,7 +32,7 @@ export function bindNestedAll(what: any, excludes: string[] = ["constructor"], t
   }
 }
 
-export function bindAll(what: any, excludes: string[] = ["constructor"], thisArg?: any) {
+export function bindAll(what: any, excludes: string[] = ["constructor"], thisArg?: any): void {
   const self = thisArg || what;
   // TODO(ritave): Functions not returned
   Object
@@ -39,6 +41,10 @@ export function bindAll(what: any, excludes: string[] = ["constructor"], thisArg
     .forEach((key) => what[key] = what[key].bind(self));
 }
 
-export async function delay<T>(milliseconds: number, value?: T) {
-  return new Promise((resolve) => setTimeout(() => resolve(value), milliseconds));
+export async function delay<T>(milliseconds: number, value?: T): Promise<T> {
+  return new Promise<T>((resolve) => setTimeout(() => resolve(value), milliseconds));
+}
+
+export function isPromiseLike<T = any>(what: any): what is PromiseLike<T> {
+  return what.then !== undefined && typeof what.then === "function";
 }

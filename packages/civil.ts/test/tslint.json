@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@joincivil/tslint-rules/tslint-test.yaml"
+  ]
+}

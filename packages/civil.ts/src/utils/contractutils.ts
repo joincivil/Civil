@@ -1,32 +1,15 @@
-import BigNumber from "bignumber.js";
 import { isUndefined } from "lodash";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 
-import { DecodedLogEntryEvent, providers } from "web3";
-import { EventFunction, MapObject, TxData, TxDataBase, TxHash, TypedEventFilter } from "../types";
-import { Web3Wrapper } from "./web3wrapper";
+import { EventFunction, TxDataBase, TypedEventFilter } from "../types";
 
-export function findEvent(tx: any, eventName: string) {
+export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T> {
   return tx.logs.find((log: any) => log.event === eventName);
 }
 
-export function is0x0Address(address: string) {
+export function is0x0Address(address: string): boolean {
   return address === "0x0" || address === "0x0000000000000000000000000000000000000000";
-}
-
-export function timestampFromTx(web3: Web3, tx: Web3.Transaction | Web3.TransactionReceipt) {
-  return new Promise((resolve, reject) => {
-    if (tx.blockNumber == null) {
-      return reject(new Error("Transaction not yet mined"));
-    }
-    web3.eth.getBlock(tx.blockNumber, (err, block) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(block.timestamp);
-    });
-  });
 }
 
 export function isContract<T extends Web3.ContractInstance>(what: any): what is T {
@@ -49,7 +32,7 @@ export function streamifyEvent<A>(original: EventFunction<TypedEventFilter<A>>)
           errored = true;
           return filter.stopWatching(() => subscriber.error(err));
         }
-        subscriber.next(event as DecodedLogEntryEvent<A>);
+        subscriber.next(event as Web3.DecodedLogEntryEvent<A>);
       });
 
       return () => {

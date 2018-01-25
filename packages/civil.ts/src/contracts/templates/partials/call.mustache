@@ -1,5 +1,5 @@
 public {{this.name}} = {
-  callAsync(
+  async callAsync(
     {{> typed_inputs inputs=inputs}}
   ): Promise<{{> return_type outputs=outputs }}> {
     const self = this as {{contractName}}Contract;

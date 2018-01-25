@@ -15,14 +15,18 @@ import * as SolidityCoder from "web3/lib/solidity/coder";
 
 import { AbiType, CivilEventArgs, SolidityTypes } from "../types";
 
+const HEX_START = "0x";
+const ADDRESS_LENGTH_CHAR = 40;
+const ADDRESS_LENGTH_BYTES = 16;
+
 export class AbiDecoder {
-  private static _padZeros(address: string) {
+  private static _padZeros(address: string): string {
     let formatted = address;
-    if (startsWith(formatted, "0x")) {
-      formatted = formatted.slice(2);
+    if (startsWith(formatted, HEX_START)) {
+      formatted = formatted.slice(HEX_START.length);
     }
 
-    formatted = padStart(formatted, 40, "0");
+    formatted = padStart(formatted, ADDRESS_LENGTH_CHAR, "0");
     return `0x${formatted}`;
   }
 
@@ -54,7 +58,7 @@ export class AbiDecoder {
       // Indexed parameters are stored in topics. Non-indexed ones in decodedData
       let value = param.indexed ? log.topics[topicsIndex++] : decodedData[dataIndex++];
       if (param.type === SolidityTypes.Address) {
-        value = AbiDecoder._padZeros(new BigNumber(value).toString(16));
+        value = AbiDecoder._padZeros(new BigNumber(value).toString(ADDRESS_LENGTH_BYTES));
       } else if (
         param.type === SolidityTypes.Uint256 ||
         param.type === SolidityTypes.Uint8 ||
@@ -74,7 +78,8 @@ export class AbiDecoder {
   private addABI(abiArray: Web3.AbiDefinition[]): void {
     abiArray.forEach((abi: Web3.AbiDefinition) => {
       if (abi.type === AbiType.Event) {
-        const signature = `${abi.name}(${abi.inputs.map((input) => input.type).join(",")})`;
+        const abiTypes = abi.inputs.map((input) => input.type);
+        const signature = `${abi.name}(${abiTypes.join(",")})`;
         const signatureHash = new Web3().sha3(signature);
         this.methodIds[signatureHash] = abi;
       }

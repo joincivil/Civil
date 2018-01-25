@@ -30,7 +30,9 @@ public static deployTrusted = {
         });
     });
     const receipt = await web3Wrapper.awaitReceipt(txhash);
-    return new {{contractName}}Contract(clazz.at(receipt.contractAddress!!));
+    /* tslint:disable no-non-null-assertion */ // Will always return an addres
+    return new {{contractName}}Contract(clazz.at(receipt.contractAddress!));
+    /* tslint:enable no-non-null-assertion */
   },
   async estimateGasAsync(
       web3: Web3,
@@ -40,7 +42,9 @@ public static deployTrusted = {
     const contractData = ((clazz.new) as any).getData(
       {{> params inputs=ctor.inputs}}
       txData);
+    /* tslint:disable no-unbound-method */
     const promisifed = promisify<number>(web3.eth.estimateGas, web3.eth);
-    return await promisifed({data: contractData});
+    /* tslint:enable no-unbound-method */
+    return promisifed({data: contractData});
   },
 };
