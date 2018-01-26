@@ -5,9 +5,11 @@
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "build": "npm run generate-contracts && tsc && copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
+    "build": "npm run generate && tsc && copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
     "lint": "tslint --project ./",
-    "generate-contracts": "abi-gen --abiGlob 'src/artifacts/**/*.json' --templates 'src/contracts/templates/' --output 'src/contracts/generated/'",
+    "generate": "npm run generate:contracts && npm run generate:artifacts",
+    "generate:contracts": "abi-gen --abiGlob 'src/artifacts/**/*.json' --templates 'src/templates/contract/' --output 'src/contracts/generated/'",
+    "generate:artifacts": "civil-generate-from-files 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
     "test": "mocha build/test/ --reporter mocha-multi-reporters --reporter-options configFile=mocha.json",
     "tsc": "tsc"
   },
@@ -22,6 +24,7 @@
   "homepage": "https://github.com/joincivil/civil.ts#readme",
   "devDependencies": {
     "@0xproject/abi-gen": "^0.1.1",
+    "@joincivil/dev-utils": "^1.0.1",
     "@joincivil/tslint-rules": "^2.4.0",
     "@types/chai": "^4.1.1",
     "@types/chai-as-promised": "^7.1.0",

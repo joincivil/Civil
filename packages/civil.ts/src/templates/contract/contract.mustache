@@ -9,12 +9,12 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 
-import { artifacts } from "../../artifacts";
 import { EthAddress, TxData, TxDataPayable, TxHash } from "../../types";
 import { streamifyEvent } from "../../utils/contractutils";
 import { bindNestedAll, promisify } from "../../utils/language";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseContract } from "../basecontract";
+import { artifacts } from "./artifacts";
 
 export class {{contractName}}Contract extends BaseContract {
   /* tslint:disable member-ordering */

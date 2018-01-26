@@ -1,20 +1,7 @@
 import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
 
-import { NewsroomEventArgs } from "./contracts/generated/newsroom";
-import { RegistryWithAppellateEventArgs } from "./contracts/generated/registry_with_appellate";
-
-export interface Artifact {
-  contractName: string;
-  abi: Web3.ContractAbi;
-  bytecode: string;
-  deployedBytecode: string;
-  networks: {
-    [id: number]: {
-      address: string;
-    };
-  };
-}
+import { CivilEventArgs } from "./contracts/generated/artifacts";
 
 export interface ContentHeader {
   id?: number;
@@ -88,7 +75,7 @@ export enum AbiType {
   Fallback = "fallback",
 }
 
-export type CivilEventArgs = NewsroomEventArgs | RegistryWithAppellateEventArgs;
+export { CivilEventArgs, Artifact } from "./contracts/generated/artifacts";
 
 export interface DecodedTransactionReceipt<T> {
   blockHash: string;

@@ -1,7 +1,7 @@
 import * as Debug from "debug";
 import * as Web3 from "web3";
 
-import { artifacts } from "../artifacts";
+import { artifacts } from "../contracts/generated/artifacts";
 import { Artifact, CivilTransactionReceipt, EthAddress, TxHash } from "../types";
 import { delay, promisify } from "../utils/language";
 import { AbiDecoder } from "./abidecoder";
