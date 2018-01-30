@@ -1,5 +1,5 @@
 {
-  "name": "civil.ts",
+  "name": "@joincivil/core",
   "version": "1.0.2",
   "description": "The core library allowing for interfacing with the whole Civil ecosystem",
   "main": "build/src/index.js",
@@ -11,7 +11,8 @@
     "generate:contracts": "abi-gen --abiGlob 'src/artifacts/**/*.json' --templates 'src/templates/contract/' --output 'src/contracts/generated/'",
     "generate:artifacts": "civil-generate-from-files 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
     "test": "mocha build/test/ --reporter mocha-multi-reporters --reporter-options configFile=mocha.json",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "prepublishOnly": "npm run build && npm run test"
   },
   "repository": {
     "type": "git",
