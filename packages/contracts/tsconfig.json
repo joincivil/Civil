@@ -56,6 +56,7 @@
     "./test/**/*.ts",
     "./utils/**/*.ts",
     "./migrations/**/*.ts",
+    "./migrations/**/*.js",
     "./scripts/**.ts",
     "./node_modules/web3-typescript-typings/index.d.ts"
   ]

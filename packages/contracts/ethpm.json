@@ -1,0 +1,30 @@
+{
+  "package_name": "civil_contracts",
+  "version": "1.0.0",
+  "description": "Set of contracts for Civil, including Newsroom and TCR",
+  "authors": [
+    "Nick Reynolds",
+    "Olaf Tomalka", 
+    "Mike Goldin",
+    "Isaac Kang",
+    "Terry Li",
+    "Irene Lin",
+    "Cem Ozer",
+    "Aspyn Palatnick",
+    "Yorke Rhodes",
+    "Mira Zeitlin"
+  ],
+  "keywords": [
+    "newsroom",
+    "civil",
+    "consensys",
+    "plcr",
+    "tokens",
+    "tcr"
+  ],
+  "dependencies": {
+    "tokens": "1.0.0",
+    "dll": "1.0.3",
+    "attrstore": "1.0.0"
+  }
+}
