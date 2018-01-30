@@ -1,0 +1,31 @@
+{
+  "name": "expressjs-starter",
+  "version": "1.0.0",
+  "description": "A starter repo for ExpresJS + Typescript + Sass + Pug",
+  "scripts": {
+    "serve": "npm run gulp serve",
+    "gulp": "gulp",
+    "tsc": "tsc"
+  },
+  "author": "Olaf Tomalka",
+  "license": "Apache-2.0",
+  "private": true,
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-changed": "^3.1.1",
+    "gulp-cli": "^1.4.0",
+    "gulp-connect": "^5.2.0",
+    "gulp-pug": "^3.3.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-typescript": "^3.2.3",
+    "gulp-webpack-typescript-pipeline": "^9.0.1",
+    "pug": "^2.0.0-rc.4",
+    "typescript": "^2.5.3"
+  },
+  "dependencies": {
+    "@joincivil/core": "^1.0.3"
+  }
+}

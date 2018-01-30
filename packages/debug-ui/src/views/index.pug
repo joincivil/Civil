@@ -1,0 +1,13 @@
+doctype html
+html(lang="en")
+  head
+    title Express Starter
+    link(rel="stylesheet" type="text/css" href="/assets/css/main.css")
+    script(src="/assets/js/bundle.js")
+    if development
+      include _includes/debug.pug
+  body
+    div
+      h1 This is a starter project by #{creator} for static pug websites
+      h2 As well as Typescript and Sass
+      img(src="/assets/img/olaf_square.png")
