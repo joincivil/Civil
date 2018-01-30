@@ -8,11 +8,6 @@ import { Web3Wrapper } from "./utils/web3wrapper";
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
 
-// Possible injected web3 instance, used for the injected provider
-/* tslint:disable */
-var web3: Web3 | undefined;
-/* tslint:enable */
-
 /**
  * Single entry-point to the civil.ts library
  * It abstracts most of the web3 and Ethereum communication.
@@ -33,14 +28,18 @@ export class Civil {
     let provider = web3Provider;
     if (!provider) {
       // Try to use the window's injected provider
-      if (typeof web3 !== "undefined") {
-        provider = web3.currentProvider;
+      if (typeof window !== "undefined" && (window as any).web3 !== "undefined") {
+        const injectedWeb3: Web3 = (window as any).web3;
+        provider = injectedWeb3.currentProvider;
+        debug("Using injected web3 provider");
       } else {
         // TODO(ritave): Research using infura
         provider = new Web3.providers.HttpProvider("http://localhost:8545");
         debug("No web3 provider provided or found injected, defaulting to HttpProvider");
       }
     }
+    // TODO(ritave): Constructor can throw when the provider can't connect to Http
+    //               It shouldn't, and should just set null account
     this.web3Wrapper = new Web3Wrapper(provider);
   }
 
