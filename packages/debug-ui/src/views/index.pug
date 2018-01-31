@@ -7,7 +7,10 @@ html(lang="en")
     if development
       include _includes/debug.pug
   body
-    div
-      h1 This is a starter project by #{creator} for static pug websites
-      h2 As well as Typescript and Sass
-      img(src="/assets/img/olaf_square.png")
+    #param-input.hidden
+      | Enter what article you want to read
+      br
+      input(type="text", placeholder="Newsroom address")#newsroom-address
+      input(type="text", placeholder="Article id")#article-id
+      button#param-submit Submit
+    #content Loading content...
