@@ -146,7 +146,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       }) // https://github.com/ethereum/web3.js/issues/573
       .map((e) => e.args.id)
       .concatFilter(async (id) => this.instance.isProposed.callAsync(id))
-      .concatMap(async (id) => this.idToContentHeader(id));
+      .concatMap(async (id) => this.loadArticleHeader(id));
   }
 
   /**
@@ -162,7 +162,37 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
       }) // https://github.com/ethereum/web3.js/issues/573
       .map((e) => e.args.id)
-      .concatMap(async (id) => this.idToContentHeader(id));
+      .concatMap(async (id) => this.loadArticleHeader(id));
+  }
+
+  /**
+   * Loads everything concerning one article needed to read it fully.
+   * Accesess both Ethereum network as well as the active ContentProvider
+   * @param articleId Id of the article that you want to read
+   */
+  public async loadArticle(articleId: number|BigNumber): Promise<NewsroomContent> {
+    const header = await this.loadArticleHeader(articleId);
+    return this.resolveContent(header);
+  }
+
+  /**
+   * Accesses the Ethereum network and loads basic metatadata about the article
+   * @param articleId Id of the article whose metadata you need
+   */
+  public async loadArticleHeader(articleId: number|BigNumber): Promise<ContentHeader> {
+    const id = new BigNumber(articleId);
+
+    const [author, timestamp, uri] = await Promise.all([
+      this.instance.author.callAsync(id),
+      this.instance.timestamp.callAsync(id),
+      this.instance.uri.callAsync(id),
+    ]);
+    return {
+      id: id.toNumber(),
+      author,
+      timestamp: new Date(timestamp.toNumber()),
+      uri,
+    };
   }
 
   /**
@@ -190,6 +220,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param header Metadata you get from Ethereum
    */
   public async resolveContent(header: ContentHeader): Promise<NewsroomContent> {
+    // TODO(ritave): Choose ContentProvider based on schema
     const content = await this.contentProvider.get(header.uri);
     return {
       id: header.id,
@@ -197,20 +228,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       content,
       timestamp: header.timestamp,
       uri: header.uri,
-    };
-  }
-
-  private async idToContentHeader(id: BigNumber): Promise<ContentHeader> {
-    const [author, timestamp, uri] = await Promise.all([
-      this.instance.author.callAsync(id),
-      this.instance.timestamp.callAsync(id),
-      this.instance.uri.callAsync(id),
-    ]);
-    return {
-      id: id.toNumber(),
-      author,
-      timestamp: new Date(timestamp.toNumber()),
-      uri,
     };
   }
 

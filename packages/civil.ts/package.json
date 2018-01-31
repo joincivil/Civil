@@ -12,7 +12,7 @@
     "generate:artifacts": "civil-generate-from-files 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
     "test": "mocha build/test/ --reporter mocha-multi-reporters --reporter-options configFile=mocha.json",
     "tsc": "tsc",
-    "prepublishOnly": "npm run build && npm run test"
+    "prepublishOnly": "npm run build && npm run lint && npm run test"
   },
   "repository": {
     "type": "git",
