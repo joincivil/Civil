@@ -202,6 +202,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @returns An id assigned on Ethereum to the proposed content
    */
   public async propose(content: string): Promise<number> {
+    await this.requireReporter();
+
     const uri = await this.contentProvider.put(content);
     const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
     const receipt = await this.web3Wrapper.awaitReceipt(txHash);
@@ -212,6 +214,28 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       }
     }
     throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");
+  }
+
+  /**
+   * Allows the Editor to approve content that is waiting to be approved / denied
+   * @param contentId The id of the proposed content to be denied
+   */
+  public async approveContent(contentId: number|BigNumber): Promise<CivilTransactionReceipt> {
+    await this.requireEditor();
+
+    const txHash = await this.instance.approveContent.sendTransactionAsync(new BigNumber(contentId));
+    return this.web3Wrapper.awaitReceipt(txHash);
+  }
+
+  /**
+   * Allows the Editor to deny content that is waiting to be approverd / denied
+   * @param contentId The id of the proposed content to be denied
+   */
+  public async denyContent(contentId: number|BigNumber): Promise<CivilTransactionReceipt> {
+    await this.requireEditor();
+
+    const txHash = await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId));
+    return this.web3Wrapper.awaitReceipt(txHash);
   }
 
   /**
@@ -239,6 +263,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
   private async requireDirector(): Promise<void> {
     if (!(await this.isDirector())) {
+      throw new Error(CivilErrors.NoPrivileges);
+    }
+  }
+
+  private async requireReporter(): Promise<void> {
+    if (!(await this.isReporter())) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }
