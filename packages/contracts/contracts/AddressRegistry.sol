@@ -139,7 +139,7 @@ contract AddressRegistry {
     @dev                Allows the owner of a listing to remove the listingHash from the whitelist
                         Returns all tokens to the owner of the listing
     */
-    function exit(address _listingAddress) external {
+    function exitListing(address _listingAddress) external {
         Listing storage listing = listings[_listingAddress];
 
         require(listing.owner == msg.sender);
@@ -299,7 +299,7 @@ contract AddressRegistry {
     @dev                Returns true if the provided listingAddress is whitelisted
     @param _listingAddress The listingAddress whose status is to be examined
     */
-    function isWhitelisted(address _listingAddress) view public returns (bool whitelisted) {
+    function isWhitelisted(address _listingAddress) view public returns (bool) {
         return listings[_listingAddress].whitelisted;
     }
 
@@ -307,7 +307,7 @@ contract AddressRegistry {
     @dev                Returns true if apply was called for this listingAddress
     @param _listingAddress The listingAddress whose status is to be examined
     */
-    function appWasMade(address _listingAddress) view public returns (bool exists) {
+    function appWasMade(address _listingAddress) view public returns (bool) {
         return listings[_listingAddress].applicationExpiry > 0;
     }
 
@@ -426,7 +426,7 @@ contract AddressRegistry {
 
         // Transfers any remaining balance back to the owner
         if (listing.unstakedDeposit > 0)
-            require(token.transfer(_listingAddress, listing.unstakedDeposit));
+            require(token.transfer(listing.owner, listing.unstakedDeposit));
 
         delete listings[_listingAddress];
     }

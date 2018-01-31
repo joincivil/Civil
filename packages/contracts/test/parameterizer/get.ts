@@ -7,7 +7,7 @@ ChaiConfig();
 const expect = chai.expect;
 
 contract("Parameterizer", () => {
-  describe("get", () => {
+  describe("Function: get", () => {
     let parameterizer: any;
 
     before(async () => {

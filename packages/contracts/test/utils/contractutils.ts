@@ -48,19 +48,19 @@ export async function timestampFromTx(web3: Web3, tx: Web3.Transaction | Web3.Tr
   return (await getBlock(tx.blockNumber)).timestamp;
 }
 
-export async function advanceEvmTime(time: number, account: string): Promise<void> {
-  await web3.currentProvider.send({ from: account,
-                                    id: new Date().getSeconds(),
-                                    jsonrpc: "2.0",
-                                    method: "evm_increaseTime",
-                                    params: [time],
-                                  });
-  await web3.currentProvider.send({ from: account,
-                                    id: new Date().getSeconds(),
-                                    jsonrpc: "2.0",
-                                    method: "evm_mine",
-                                    params: [],
-                                  });
+export async function advanceEvmTime(time: number): Promise<void> {
+  await web3.currentProvider.send({
+    id: new Date().getSeconds(),
+    jsonrpc: "2.0",
+    method: "evm_increaseTime",
+    params: [time],
+  });
+  await web3.currentProvider.send({
+    id: new Date().getSeconds(),
+    jsonrpc: "2.0",
+    method: "evm_mine",
+    params: [],
+  });
 }
 
 export async function proposeReparamAndGetPropID( propName: string,
@@ -74,11 +74,50 @@ export async function proposeReparamAndGetPropID( propName: string,
   return receipt.logs[0].args.propID;
 }
 
+export async function challengeAndGetPollID(
+  listing: string,
+  account: string,
+  registry: any,
+): Promise<string> {
+  const receipt = await registry.challenge(listing, "", { from: account });
+  return receipt.logs[0].args.pollID;
+}
+
+export async function challengeReparamAndGetPollID(
+  propID: string,
+  account: string,
+  parameterizer: any,
+): Promise<string> {
+  const receipt = await parameterizer.challengeReparameterization(propID, { from: account });
+  return receipt.logs[0].args.pollID;
+}
+
+export async function addToWhitelist(
+  listingAddress: string,
+  deposit: BigNumber,
+  account: string,
+  registry: any,
+): Promise<void> {
+  await registry.apply(listingAddress, deposit, "", { from: account });
+  await advanceEvmTime(paramConfig.applyStageLength + 1);
+  await registry.updateStatus(listingAddress, { from: account });
+}
+
+export function toBaseTenBigNumber(p: number): BigNumber {
+  return new BigNumber(p.toString(10), 10);
+}
+
 export function getVoteSaltHash(vote: string, salt: string): string {
   return `0x${abi.soliditySHA3(["uint", "uint"], [vote, salt]).toString("hex")}`;
 }
-export function isEVMException(err: any): boolean {
-  return err.toString().includes("revert");
+
+export async function getUnstakedDeposit(
+  listingAddress: string,
+  registry: any,
+): Promise<BigNumber> {
+  const listing = await registry.listings(listingAddress);
+  const unstakedDeposit = await listing[3];
+  return unstakedDeposit;
 }
 
 export async function commitVote( voting: any,

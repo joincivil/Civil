@@ -1,11 +1,6 @@
 import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
-import {  advanceEvmTime,
-          commitVote,
-          // createTestParameterizerInstance,
-          paramConfig,
-          proposeReparamAndGetPropID,
-        } from "../utils/contractutils";
+import * as utils from "../utils/contractutils";
 
 const Parameterizer = artifacts.require("Parameterizer");
 const PLCRVoting = artifacts.require("PLCRVoting");
@@ -14,7 +9,7 @@ ChaiConfig();
 const expect = chai.expect;
 
 contract("Parameterizer", (accounts) => {
-  describe("voterReward", () => {
+  describe("Function: voterReward", () => {
     const [proposer, challenger, voterAlice] = accounts;
     let parameterizer: any;
     let voting: any;
@@ -26,16 +21,16 @@ contract("Parameterizer", (accounts) => {
     });
 
     it("should return the correct number of tokens to voter on the winning side.", async () => {
-      const propID = await proposeReparamAndGetPropID("voteQuorum", "51", parameterizer, proposer);
+      const propID = await utils.proposeReparamAndGetPropID("voteQuorum", "51", parameterizer, proposer);
       const receipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
       const challengeID = receipt.logs[0].args.pollID;
       // Alice commits a vote: FOR, 10 tokens, 420 salt
-      await commitVote(voting, challengeID, "1", "10", "420", voterAlice);
-      await advanceEvmTime(paramConfig.pCommitStageLength + 1, accounts[0]);
+      await utils.commitVote(voting, challengeID, "1", "10", "420", voterAlice);
+      await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);
 
       // Alice reveals her vote: FOR, 420 salt
       await voting.revealVote(challengeID, "1", "420", { from: voterAlice });
-      await advanceEvmTime(paramConfig.pRevealStageLength + 1, accounts[0]);
+      await utils.advanceEvmTime(utils.paramConfig.pRevealStageLength + 1);
 
       await parameterizer.processProposal(propID);
 

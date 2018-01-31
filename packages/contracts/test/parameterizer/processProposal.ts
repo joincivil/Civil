@@ -1,12 +1,7 @@
 import BN from "bignumber.js";
 import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
-import {  advanceEvmTime,
-          commitVote,
-          // createTestParameterizerInstance,
-          multiplyByPercentage,
-          paramConfig,
-        } from "../utils/contractutils";
+import * as utils from "../utils/contractutils";
 
 const Parameterizer = artifacts.require("Parameterizer");
 const PLCRVoting = artifacts.require("PLCRVoting");
@@ -16,7 +11,7 @@ ChaiConfig();
 const expect = chai.expect;
 
 contract("Parameterizer", (accounts) => {
-  describe("processProposal", () => {
+  describe("Function: processProposal", () => {
     const [proposer, challenger, voter] = accounts;
     let parameterizer: any;
     let voting: any;
@@ -33,7 +28,7 @@ contract("Parameterizer", (accounts) => {
     it("should set new parameters if a proposal went unchallenged", async () => {
       const receipt = await parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer });
 
-      await advanceEvmTime(paramConfig.pApplyStageLength + 1, accounts[0]);
+      await utils.advanceEvmTime(utils.paramConfig.pApplyStageLength + 1);
 
       const { propID } = receipt.logs[0].args;
       await parameterizer.processProposal(propID);
@@ -51,7 +46,7 @@ contract("Parameterizer", (accounts) => {
       const { propID } = receipt.logs[0].args;
       const paramProp = await parameterizer.proposals(propID);
       const processBy = paramProp[5];
-      await advanceEvmTime(processBy.toNumber() + 1, accounts[0]);
+      await utils.advanceEvmTime(processBy.toNumber() + 1);
 
       await parameterizer.processProposal(propID);
 
@@ -75,14 +70,14 @@ contract("Parameterizer", (accounts) => {
         await parameterizer.challengeReparameterization(propID, { from: challenger });
 
       const { pollID } = challengeReceipt.logs[0].args;
-      await commitVote(voting, pollID, "0", "10", "420", voter);
-      await advanceEvmTime(paramConfig.pCommitStageLength + 1, accounts[0]);
+      await utils.commitVote(voting, pollID, "0", "10", "420", voter);
+      await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);
 
       await voting.revealVote(pollID, "0", "420", { from: voter });
 
       const paramProp = await parameterizer.proposals(propID);
       const processBy = paramProp[5];
-      await advanceEvmTime(processBy.toNumber() + 1, accounts[0]);
+      await utils.advanceEvmTime(processBy.toNumber() + 1);
 
       await parameterizer.processProposal(propID);
 
@@ -93,7 +88,7 @@ contract("Parameterizer", (accounts) => {
       );
 
       const proposerFinalBalance = await token.balanceOf(proposer);
-      const proposerExpected = proposerStartingBalance.sub(new BN(paramConfig.pMinDeposit, 10));
+      const proposerExpected = proposerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit, 10));
       expect(proposerFinalBalance).to.be.bignumber.equal(
         proposerExpected,
         "The challenge loser\'s token balance is not as expected",
@@ -101,7 +96,7 @@ contract("Parameterizer", (accounts) => {
 
       const challengerFinalBalance = await token.balanceOf.call(challenger);
       const winnings =
-        multiplyByPercentage(paramConfig.pMinDeposit, paramConfig.pDispensationPct);
+        utils.multiplyByPercentage(utils.paramConfig.pMinDeposit, utils.paramConfig.pDispensationPct);
       const challengerExpected = challengerStartingBalance.add(winnings);
       expect(challengerFinalBalance).to.be.bignumber.equal(
         challengerExpected,

@@ -1,0 +1,57 @@
+import * as chai from "chai";
+import { REVERTED } from "../../utils/constants";
+import ChaiConfig from "../utils/chaiconfig";
+import * as utils from "../utils/contractutils";
+
+const AddressRegistry = artifacts.require("AddressRegistry");
+
+ChaiConfig();
+const expect = chai.expect;
+
+contract("AddressRegistry", (accounts) => {
+  describe("Function: apply", () => {
+    const [applicant] = accounts;
+    const listing1 = "0x0000000000000000000000000000000000000001";
+    let registry: any;
+
+    before(async () => {
+      registry = await AddressRegistry.deployed();
+    });
+
+    it("should allow a new listing to apply", async () => {
+      await registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant });
+
+      // get the struct in the mapping
+      // TODO: getting structs is undefined behavior, convert this to multiple gets
+      const [applicationExpiry, whitelisted, owner, unstakedDeposit] = await registry.listings(listing1);
+      // check that Application is initialized correctly
+      expect(applicationExpiry).to.be.bignumber.gt(0, "challenge time < now");
+      expect(whitelisted).to.be.false("whitelisted != false");
+      expect(owner).to.be.equal(applicant, "owner of application != address that applied");
+      expect(unstakedDeposit).to.be.bignumber.equal(utils.paramConfig.minDeposit, "incorrect unstakedDeposit");
+    });
+
+    it("should not allow a listing to apply which has a pending application", async () => {
+      // TODO: do not rely on side effects from previous test
+      await expect(registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant }))
+        .to.eventually.be.rejectedWith(REVERTED);
+    });
+
+    it(
+      "should add a listing to the whitelist which went unchallenged in its application period",
+      async () => {
+        // TODO: do not rely on side effects from previous test
+        await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
+        await registry.updateStatus(listing1);
+        const result = await registry.isWhitelisted.call(listing1);
+        expect(result).to.be.true("listing didn't get whitelisted");
+      },
+    );
+
+    it("should not allow a listing to apply which is already listed", async () => {
+      // TODO: do not rely on side effects from previous test
+      await expect(registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant }))
+        .to.eventually.be.rejectedWith(REVERTED);
+    });
+  });
+});

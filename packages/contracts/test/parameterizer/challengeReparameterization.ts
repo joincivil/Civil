@@ -1,12 +1,7 @@
 import BN from "bignumber.js";
 import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
-import {  advanceEvmTime,
-          commitVote,
-          // createTestParameterizerInstance,
-          multiplyByPercentage,
-          paramConfig,
-        } from "../utils/contractutils";
+import * as utils from "../utils/contractutils";
 
 const Parameterizer = artifacts.require("Parameterizer");
 const PLCRVoting = artifacts.require("PLCRVoting");
@@ -16,7 +11,7 @@ ChaiConfig();
 const expect = chai.expect;
 
 contract("Parameterizer", (accounts) => {
-  describe("challengeReparameterization", () => {
+  describe("Function: challengeReparameterization", () => {
     const [proposer, challenger, voter] = accounts;
     let parameterizer: any;
     let voting: any;
@@ -40,7 +35,7 @@ contract("Parameterizer", (accounts) => {
 
       await parameterizer.challengeReparameterization(propID, { from: challenger });
 
-      await advanceEvmTime(paramConfig.pCommitStageLength + paramConfig.pRevealStageLength + 1, accounts[0]);
+      await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + utils.paramConfig.pRevealStageLength + 1);
 
       await parameterizer.processProposal(propID);
 
@@ -48,12 +43,12 @@ contract("Parameterizer", (accounts) => {
       expect(voteQuorum).to.be.bignumber.equal("50");
 
       const proposerFinalBalance = await token.balanceOf(proposer);
-      const proposerExpected = proposerStartingBalance.sub(new BN(paramConfig.pMinDeposit, 10));
+      const proposerExpected = proposerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit, 10));
       expect(proposerFinalBalance).to.be.bignumber.equal(proposerExpected);
 
       // Edge case, challenger gets both deposits back because there were no voters
       const challengerFinalBalance = await token.balanceOf(challenger);
-      const challengerExpected = challengerStartingBalance.add(new BN(paramConfig.pMinDeposit, 10));
+      const challengerExpected = challengerStartingBalance.add(new BN(utils.paramConfig.pMinDeposit, 10));
       expect(challengerFinalBalance).to.be.bignumber.equal(challengerExpected);
     });
 
@@ -68,11 +63,11 @@ contract("Parameterizer", (accounts) => {
         await parameterizer.challengeReparameterization(propID, { from: challenger });
       const challengeID = challengeReceipt.logs[0].args.pollID;
 
-      await commitVote(voting, challengeID, "1", "10", "420", voter);
-      await advanceEvmTime(paramConfig.pCommitStageLength + 1, accounts[0]);
+      await utils.commitVote(voting, challengeID, "1", "10", "420", voter);
+      await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);
 
       await voting.revealVote(challengeID, "1", "420", { from: voter });
-      await advanceEvmTime(paramConfig.pRevealStageLength + 1, accounts[0]);
+      await utils.advanceEvmTime(utils.paramConfig.pRevealStageLength + 1);
 
       await parameterizer.processProposal(propID);
 
@@ -80,12 +75,12 @@ contract("Parameterizer", (accounts) => {
       expect(voteQuorum).to.be.bignumber.equal("51");
 
       const proposerFinalBalance = await token.balanceOf(proposer);
-      const winnings = multiplyByPercentage(paramConfig.pMinDeposit, paramConfig.pDispensationPct);
+      const winnings = utils.multiplyByPercentage(utils.paramConfig.pMinDeposit, utils.paramConfig.pDispensationPct);
       const proposerExpected = proposerStartingBalance.add(winnings);
       expect(proposerFinalBalance).to.be.bignumber.equal(proposerExpected);
 
       const challengerFinalBalance = await token.balanceOf(challenger);
-      const challengerExpected = challengerStartingBalance.sub(new BN(paramConfig.pMinDeposit, 10));
+      const challengerExpected = challengerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit, 10));
       expect(challengerFinalBalance).to.be.bignumber.equal(challengerExpected);
     });
   });

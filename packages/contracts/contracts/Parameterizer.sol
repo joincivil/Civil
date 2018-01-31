@@ -245,7 +245,7 @@ contract Parameterizer {
   function canBeSet(bytes32 _propID) view public returns (bool) {
     ParamProposal memory prop = proposals[_propID];
 
-    return (now > prop.appExpiry && now < prop.processBy && prop.challengeID == 0);
+    return (now > prop.appExpiry && now < prop.processBy && prop.challengeID == NO_CHALLENGE);
   }
 
   /**
