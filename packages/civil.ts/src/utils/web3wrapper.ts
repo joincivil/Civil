@@ -46,6 +46,12 @@ export class Web3Wrapper {
     return undefined;
   }
 
+  /**
+   * Awaits to confirm that the transaction was succesfull
+   * @param txHash Transaction hash which will be checked
+   * @param blockConfirmations Blockchain can get reorganized and the transaction can go to mempool,
+   *                           wait for some for confirmations
+   */
   public async awaitReceipt(txHash: TxHash, blockConfirmations?: number /* = 12 */): Promise<CivilTransactionReceipt> {
     while (true) {
       const receipt = await this.getReceipt(txHash);
@@ -68,6 +74,14 @@ export class Web3Wrapper {
     }
   }
 
+  /**
+   * Low-level call,
+   * Tries to get the receipt from blockchain and automatically decodes it's logs
+   * into proper Events from our smart-contracts
+   * *Warning:* The transaction receipt can be returned even if the transaction has failed, check the `status` field
+   * @param txHash Transaction hash for which the receipt is returned
+   * @returns Null if the transaction is not yet inside the blockchain (still in mempool), decoded transaction otherwise
+   */
   public async getReceipt(txHash: TxHash): Promise<CivilTransactionReceipt|null> {
     // web3-typescript-typings have wrong type, the call can return null if still in mempool
     // Fix: https://github.com/0xProject/0x.js/pull/338
