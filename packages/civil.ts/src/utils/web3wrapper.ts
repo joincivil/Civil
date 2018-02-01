@@ -5,6 +5,7 @@ import { artifacts } from "../contracts/generated/artifacts";
 import { Artifact, CivilTransactionReceipt, EthAddress, TxHash } from "../types";
 import { delay, promisify } from "../utils/language";
 import { AbiDecoder } from "./abidecoder";
+import { CivilErrors } from "./errors";
 import { NodeStream } from "./nodestream";
 
 const POLL_MILLISECONDS = 1000;
@@ -52,6 +53,9 @@ export class Web3Wrapper {
         await delay(POLL_MILLISECONDS);
         continue;
       }
+
+      this.checkForEvmException(receipt);
+
       if (blockConfirmations) {
         try {
           await this.nodeStream.awaitConfirmations(receipt.blockHash, blockConfirmations);
@@ -82,5 +86,19 @@ export class Web3Wrapper {
   private receiptToCivilReceipt(receipt: Web3.TransactionReceipt): CivilTransactionReceipt {
     receipt.logs = receipt.logs.map((log) => this.abiDecoder.tryToDecodeLogOrNoop(log));
     return receipt as CivilTransactionReceipt;
+  }
+
+  private checkForEvmException(receipt: CivilTransactionReceipt): void {
+    if (receipt.status === 0 || receipt.status === "0x0" || receipt.status === "0x00") {
+      throw new Error(CivilErrors.EvmException);
+    }
+
+    // tslint:disable-next-line
+    // https://ethereum.stackexchange.com/questions/28077/how-do-i-detect-a-failed-transaction-after-the-byzantium-fork-as-the-revert-opco/28078#28078
+    // Pre-Bizantium, let's just throw, Civil didn't exist before Bizantium
+    if (receipt.status === null) {
+      debug("Warning: Pre-Bizantium block, not supported");
+      throw new Error(CivilErrors.EvmException);
+    }
   }
 }
