@@ -7,6 +7,7 @@ import { delay, promisify } from "../utils/language";
 import { AbiDecoder } from "./abidecoder";
 import { CivilErrors } from "./errors";
 import { NodeStream } from "./nodestream";
+import { BigNumber } from "bignumber.js";
 
 const POLL_MILLISECONDS = 1000;
 
@@ -103,15 +104,15 @@ export class Web3Wrapper {
   }
 
   private checkForEvmException(receipt: CivilTransactionReceipt): void {
-    if (receipt.status === 0 || receipt.status === "0x0" || receipt.status === "0x00") {
-      throw new Error(CivilErrors.EvmException);
-    }
-
     // tslint:disable-next-line
     // https://ethereum.stackexchange.com/questions/28077/how-do-i-detect-a-failed-transaction-after-the-byzantium-fork-as-the-revert-opco/28078#28078
     // Pre-Bizantium, let's just throw, Civil didn't exist before Bizantium
     if (receipt.status === null) {
       debug("Warning: Pre-Bizantium block, not supported");
+      throw new Error(CivilErrors.EvmException);
+    }
+
+    if (new BigNumber(receipt.status).isZero()) {
       throw new Error(CivilErrors.EvmException);
     }
   }
