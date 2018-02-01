@@ -9,12 +9,9 @@ import { BigNumber } from "web3-typescript-typings/node_modules/bignumber.js";
 
 const Token = artifacts.require("tokens/eip20/EIP20");
 
-/* TODO: fix createTestParameterizerInstance, which requires these artifacts
-const DLL = artifacts.require("dll/DLL");
-const AttributeStore = artifacts.require("attrstore/AttributeStore");
 const PLCRVoting = artifacts.require("PLCRVoting");
 const Parameterizer = artifacts.require("Parameterizer");
-*/
+const AddressRegistry = artifacts.require("AddressRegistry");
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -150,11 +147,11 @@ export function multiplyByPercentage(x: number, y: number, z: number = 100): Big
   return multiplyFromWei(x, weiQuotient);
 }
 
-export async function giveTokensTo( totalSupply: BigNumber,
-                                    addresses: string[],
-                                    accounts: string[],
-                                    token: any,
-                                  ): Promise<boolean> {
+async function giveTokensTo(totalSupply: BigNumber,
+                            addresses: string[],
+                            accounts: string[],
+                            token: any,
+                            ): Promise<boolean> {
   const user = addresses[0];
   const allocation = totalSupply.div(new BigNumber(accounts.length, 10));
   await token.transfer(user, allocation);
@@ -163,18 +160,40 @@ export async function giveTokensTo( totalSupply: BigNumber,
   return giveTokensTo(totalSupply, addresses.slice(1), accounts, token);
 }
 
-export async function createAndDistributeToken( totalSupply: BigNumber,
-                                                decimals: string,
-                                                addresses: string[],
-                                              ): Promise<any> {
+async function createAndDistributeToken(totalSupply: BigNumber,
+                                        decimals: string,
+                                        addresses: string[],
+                                        ): Promise<any> {
   const token = await Token.new(totalSupply, "TestCoin", decimals, "TEST");
   await giveTokensTo(totalSupply, addresses, addresses, token);
   return token;
 }
 
-/* TODO: fix this, so we can deploy new parameterizers for each unit test
-export async function createTestParameterizerInstance(accounts: string[]): Promise<any> {
+async function createTestAddressRegistryInstance(parameterizer: any, accounts: string[]): Promise<any> {
+  async function approveRegistryFor(addresses: string[]): Promise<boolean> {
+    const user = addresses[0];
+    const balanceOfUser = await token.balanceOf(user);
+    await token.approve(registry.address, balanceOfUser, { from: user });
+    if (addresses.length === 1) { return true; }
+    return approveRegistryFor(addresses.slice(1));
+  }
 
+  const tokenAddress = await parameterizer.token();
+  const plcrAddress = await parameterizer.voting();
+  const parameterizerAddress = await parameterizer.address;
+  const token = await Token.at(tokenAddress);
+
+  const registry = await AddressRegistry.new(tokenAddress, plcrAddress, parameterizerAddress);
+
+  await approveRegistryFor(accounts);
+  return registry;
+}
+
+async function createTestTokenInstance(accounts: string[]): Promise<any> {
+  return createAndDistributeToken(new BigNumber("1000000000000000000000000"), "18", accounts);
+}
+
+async function createTestPLCRInstance(token: any, accounts: string[]): Promise<any> {
   async function approvePLCRFor(addresses: string[]): Promise<boolean> {
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
@@ -184,6 +203,13 @@ export async function createTestParameterizerInstance(accounts: string[]): Promi
     return approvePLCRFor(addresses.slice(1));
   }
 
+  const plcr = await PLCRVoting.new(token.address);
+  await approvePLCRFor(accounts);
+
+  return plcr;
+}
+
+async function createTestParameterizerInstance(accounts: string[], token: any, plcr: any): Promise<any> {
   async function approveParameterizerFor(addresses: string[]): Promise<boolean> {
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
@@ -191,22 +217,7 @@ export async function createTestParameterizerInstance(accounts: string[]): Promi
     if (addresses.length === 1) { return true; }
     return approveParameterizerFor(addresses.slice(1));
   }
-
-  const token = await createAndDistributeToken(new BigNumber("1000000000000000000000000"), "18", accounts);
-  const dll = await DLL.new();
-  const attrstore = await AttributeStore.new();
-
-  PLCRVoting.link("dll", dll);
-  PLCRVoting.link("attrstore", attrstore);
-  const plcr = await PLCRVoting.new(token.address);
-
-  await approvePLCRFor(accounts);
-
-  const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
   const parameterizerConfig = config.paramDefaults;
-
-  Parameterizer.link(dll);
-  Parameterizer.link(attrstore);
 
   const parameterizer = await Parameterizer.new(
     token.address,
@@ -225,6 +236,19 @@ export async function createTestParameterizerInstance(accounts: string[]): Promi
     parameterizerConfig.pVoteQuorum,
   );
 
+  await approveParameterizerFor(accounts);
   return parameterizer;
 }
-*/
+
+export async function createAllTestParameterizerInstance(accounts: string[]): Promise<any> {
+  const token = await createTestTokenInstance(accounts);
+  const plcr = await createTestPLCRInstance(token, accounts);
+  return createTestParameterizerInstance(accounts, token, plcr);
+}
+
+export async function createAllTestAddressRegistryInstance(accounts: string[]): Promise<any> {
+  const token = await createTestTokenInstance(accounts);
+  const plcr = await createTestPLCRInstance(token, accounts);
+  const parameterizer = await createTestParameterizerInstance(accounts, token, plcr);
+  return createTestAddressRegistryInstance(parameterizer, accounts);
+}

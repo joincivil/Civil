@@ -2,7 +2,6 @@ import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
-const AddressRegistry = artifacts.require("AddressRegistry");
 const Parameterizer = artifacts.require("Parameterizer");
 const Token = artifacts.require("EIP20");
 const PLCRVoting = artifacts.require("PLCRVoting");
@@ -23,11 +22,14 @@ contract("Registry", (accounts) => {
     let token: any;
     let voting: any;
 
-    before(async () => {
-      registry = await AddressRegistry.deployed();
-      parameterizer = await Parameterizer.deployed();
-      token = await Token.deployed();
-      voting = await PLCRVoting.deployed();
+    beforeEach(async () => {
+      registry = await utils.createAllTestAddressRegistryInstance(accounts);
+      const parameterizerAddress = await registry.parameterizer();
+      parameterizer = await Parameterizer.at(parameterizerAddress);
+      const tokenAddress = await registry.token();
+      token = await Token.at(tokenAddress);
+      const votingAddress = await registry.voting();
+      voting = await PLCRVoting.at(votingAddress);
     });
 
     it("should successfully challenge an application", async () => {

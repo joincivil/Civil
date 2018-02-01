@@ -2,8 +2,6 @@ import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
-const AddressRegistry = artifacts.require("AddressRegistry");
-
 ChaiConfig();
 const expect = chai.expect;
 
@@ -16,8 +14,8 @@ contract("Registry", (accounts) => {
     const listing3 = "0x0000000000000000000000000000000000000003";
     let registry: any;
 
-    before(async () => {
-      registry = await AddressRegistry.deployed();
+    beforeEach(async () => {
+      registry = await utils.createAllTestAddressRegistryInstance(accounts);
     });
 
     it("should return true if applicationExpiry was previously initialized", async () => {

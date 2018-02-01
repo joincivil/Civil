@@ -3,7 +3,6 @@ import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
-const AddressRegistry = artifacts.require("AddressRegistry");
 const PLCRVoting = artifacts.require("PLCRVoting");
 
 ChaiConfig();
@@ -17,10 +16,10 @@ contract("PLCRVoting", (accounts) => {
     let registry: any;
     let voting: any;
 
-    before(async () => {
-      // await createTestParameterizerInstance(accounts);
-      registry = await AddressRegistry.deployed();
-      voting = await PLCRVoting.deployed();
+    beforeEach(async () => {
+      registry = await utils.createAllTestAddressRegistryInstance(accounts);
+      const votingAddress = await registry.voting();
+      voting = await PLCRVoting.at(votingAddress);
     });
 
     it("should correctly update DLL state", async () => {

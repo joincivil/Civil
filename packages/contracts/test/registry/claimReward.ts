@@ -3,7 +3,6 @@ import { REVERTED } from "../../utils/constants";
 import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
-const AddressRegistry = artifacts.require("AddressRegistry");
 const Token = artifacts.require("EIP20");
 const PLCRVoting = artifacts.require("PLCRVoting");
 
@@ -23,10 +22,12 @@ contract("Registry", (accounts) => {
     let token: any;
     let voting: any;
 
-    before(async () => {
-      registry = await AddressRegistry.deployed();
-      token = await Token.deployed();
-      voting = await PLCRVoting.deployed();
+    beforeEach(async () => {
+      registry = await utils.createAllTestAddressRegistryInstance(accounts);
+      const tokenAddress = await registry.token();
+      token = await Token.at(tokenAddress);
+      const votingAddress = await registry.voting();
+      voting = await PLCRVoting.at(votingAddress);
     });
 
     it("should transfer the correct number of tokens once a challenge has been resolved", async () => {

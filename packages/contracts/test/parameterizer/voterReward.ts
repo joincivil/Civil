@@ -2,7 +2,6 @@ import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
-const Parameterizer = artifacts.require("Parameterizer");
 const PLCRVoting = artifacts.require("PLCRVoting");
 
 ChaiConfig();
@@ -14,10 +13,10 @@ contract("Parameterizer", (accounts) => {
     let parameterizer: any;
     let voting: any;
 
-    before(async () => {
-      // await createTestParameterizerInstance(accounts);
-      parameterizer = await Parameterizer.deployed();
-      voting = await PLCRVoting.deployed();
+    beforeEach(async () => {
+      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
+      const votingAddress = await parameterizer.voting();
+      voting = await PLCRVoting.at(votingAddress);
     });
 
     it("should return the correct number of tokens to voter on the winning side.", async () => {

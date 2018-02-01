@@ -2,8 +2,6 @@ import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
-const Parameterizer = artifacts.require("Parameterizer");
-
 ChaiConfig();
 const expect = chai.expect;
 
@@ -12,9 +10,8 @@ contract("Parameterizer", (accounts) => {
     const [proposer] = accounts;
     let parameterizer: any;
 
-    before(async () => {
-      // await createTestParameterizerInstance(accounts);
-      parameterizer = await Parameterizer.deployed();
+    beforeEach(async () => {
+      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
     });
 
     it("should true if a proposal exists for the provided propID", async () => {

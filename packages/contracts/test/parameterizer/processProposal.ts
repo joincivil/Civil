@@ -3,7 +3,6 @@ import * as chai from "chai";
 import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
-const Parameterizer = artifacts.require("Parameterizer");
 const PLCRVoting = artifacts.require("PLCRVoting");
 const Token = artifacts.require("EIP20.sol");
 
@@ -17,10 +16,10 @@ contract("Parameterizer", (accounts) => {
     let voting: any;
     let token: any;
 
-    before(async () => {
-      // await createTestParameterizerInstance(accounts);
-      parameterizer = await Parameterizer.deployed();
-      voting = await PLCRVoting.deployed();
+    beforeEach(async () => {
+      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
+      const votingAddress = await parameterizer.voting();
+      voting = await PLCRVoting.at(votingAddress);
       const tokenAddress = await parameterizer.token();
       token = await Token.at(tokenAddress);
     });
@@ -52,7 +51,7 @@ contract("Parameterizer", (accounts) => {
 
       const voteQuorum = await parameterizer.get("voteQuorum");
       expect(voteQuorum).to.be.bignumber.equal(
-        "51",
+        utils.paramConfig.voteQuorum, // unchanged
         "A proposal whose processBy date passed was able to update the parameterizer",
       );
     });
@@ -83,7 +82,7 @@ contract("Parameterizer", (accounts) => {
 
       const voteQuorum = await parameterizer.get("voteQuorum");
       expect(voteQuorum).to.be.bignumber.equal(
-        "51",
+        utils.paramConfig.voteQuorum,
         "A proposal whose processBy date passed was able to update the parameterizer",
       );
 
