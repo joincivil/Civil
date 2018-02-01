@@ -10,19 +10,24 @@ const changed = require('gulp-changed');
 const pug = require('gulp-pug');
 const connect = require('gulp-connect');
 const tsPipeline = require('gulp-webpack-typescript-pipeline');
+const typescript = require('gulp-typescript');
 
 const config = {
     buildDir: 'build/',
+    deployDir: 'build/deploy/',
     srcDir: 'src/',
     templatesDir: 'views/',
     sassDir: 'sass/',
     assetsDir: 'assets/',
+    scriptsDir: 'scripts/',
 
     development: process.env.NODE_ENV !== 'production'
 };
 
+const scriptsTsProject = typescript.createProject(config.scriptsDir + 'tsconfig.json');
+
 gulp.task('sass', () => {
-    const DEST = config.buildDir + config.assetsDir + 'css/';
+    const DEST = config.deployDir + config.assetsDir + 'css/';
     return gulp
         .src(config.srcDir + config.sassDir + '**/*.sass')
         .pipe(changed(DEST))
@@ -38,7 +43,7 @@ gulp.task('sass:watch', () => {
 });
 
 gulp.task('pug', () => {
-    const DEST = config.buildDir;
+    const DEST = config.deployDir;
     return gulp
         .src([config.srcDir + config.templatesDir + '**/*.pug', '!**/_*/**'])
         .pipe(pug({
@@ -54,24 +59,42 @@ gulp.task('pug:watch', () => {
     return gulp.watch(config.srcDir + config.templatesDir + '**/*.pug', ['pug'])
 });
 
+// TODO(ritave): This package is badly designed, write a similiar pipeline
 tsPipeline.registerBuildGulpTasks(
     gulp,
     {
         entryPoints: {
             bundle: __dirname + '/' + config.srcDir + 'code/entry.ts',
         },
-        outputDir: __dirname + '/' + config.buildDir + config.assetsDir + 'js/'
+        outputDir: __dirname + '/' + config.deployDir + config.assetsDir + 'js/',
+        tsLintFile: __dirname + '/tslint.json',
     }
 );
 
+gulp.task('typescript:scripts', () => {
+    const DEST = config.buildDir + config.scriptsDir;
+    return scriptsTsProject
+        .src()
+        .pipe(scriptsTsProject())
+        .pipe(gulp.dest(DEST));
+});
+
 gulp.task('assets', () => {
-    const DEST = config.buildDir + config.assetsDir;
+    const DEST = config.deployDir + config.assetsDir;
     return gulp
         .src(config.srcDir + config.assetsDir + '**/*')
         .pipe(changed(DEST))
         .pipe(gulp.dest(DEST))
         .pipe(connect.reload());
 })
+gulp.task('assets:scripts', () => {
+    const DEST = config.buildDir + config.scriptsDir + config.assetsDir;
+    return gulp
+        .src(config.scriptsDir + config.assetsDir + '**/*')
+        .pipe(changed(DEST))
+        .pipe(gulp.dest(DEST));
+});
+
 gulp.task('assets:watch', () => {
     return gulp.watch(config.srcDir + config.assetsDir + '**/*', ['assets'])
 })
@@ -83,16 +106,17 @@ gulp.task('watch', [
     'assets:watch'
 ]);
 
+gulp.task('build:site', ['sass', 'pug', 'tsPipeline:build:dev', 'assets']);
+gulp.task('build:scripts', ['assets:scripts', 'typescript:scripts']);
+
 gulp.task('build', [
-    'sass',
-    'pug',
-    'tsPipeline:build:dev',
-    'assets'
+    'build:site',
+    'build:scripts',
 ])
 
 gulp.task('server', ['build'], () => {
     return connect.server({
-        root: config.buildDir,
+        root: config.deployDir,
         livereload: true
     });
 })
@@ -100,5 +124,5 @@ gulp.task('server', ['build'], () => {
 gulp.task('serve', ['watch', 'server'])
 
 gulp.task('clean', () => {
-    return del(config.buildDir)
+    return del(config.deployDir)
 })
