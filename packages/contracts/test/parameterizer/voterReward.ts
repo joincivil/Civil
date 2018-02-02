@@ -20,7 +20,12 @@ contract("Parameterizer", (accounts) => {
     });
 
     it("should return the correct number of tokens to voter on the winning side.", async () => {
-      const propID = await utils.proposeReparamAndGetPropID("voteQuorum", "51", parameterizer, proposer);
+      const propID = await utils.proposeReparamAndGetPropID(
+        "voteQuorum",
+        utils.toBaseTenBigNumber(51),
+        parameterizer,
+        proposer,
+      );
       const receipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
       const challengeID = receipt.logs[0].args.pollID;
       // Alice commits a vote: FOR, 10 tokens, 420 salt
@@ -34,10 +39,9 @@ contract("Parameterizer", (accounts) => {
       await parameterizer.processProposal(propID);
 
       // Grab the challenge struct after the proposal has been processed
-      const challenge = await parameterizer.challenges(challengeID);
       const voterTokens = await voting.getNumPassingTokens(voterAlice, challengeID, "420"); // 10
-      const rewardPool = challenge[0]; // 250,000
-      const totalTokens = challenge[4]; // 10
+      const rewardPool = await parameterizer.getChallengeRewardPool(challengeID); // 250,000
+      const totalTokens = await parameterizer.getChallengeWinningTokens(challengeID); // 10
 
       const expectedVoterReward = (voterTokens.mul(rewardPool)).div(totalTokens); // 250,000
       const voterReward = await parameterizer.voterReward(voterAlice, challengeID, "420");

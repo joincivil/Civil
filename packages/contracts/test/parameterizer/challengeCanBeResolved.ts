@@ -15,7 +15,12 @@ contract("Parameterizer", (accounts) => {
     });
 
     it("should be true if a challenge is ready to be resolved", async () => {
-      const propID = await utils.proposeReparamAndGetPropID("voteQuorum", "51", parameterizer, proposer);
+      const propID = await utils.proposeReparamAndGetPropID(
+        "voteQuorum",
+        utils.toBaseTenBigNumber(51),
+        parameterizer,
+        proposer,
+    );
 
       await parameterizer.challengeReparameterization(propID, { from: challenger});
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength);
@@ -26,7 +31,11 @@ contract("Parameterizer", (accounts) => {
     });
 
     it("should be false if a challenge is not ready to be resolved", async () => {
-      const propID = await utils.proposeReparamAndGetPropID("voteQuorum", "59", parameterizer, proposer);
+      const propID = await utils.proposeReparamAndGetPropID(
+        "voteQuorum",
+        utils.toBaseTenBigNumber(59),
+        parameterizer,
+        proposer);
 
       await parameterizer.challengeReparameterization(propID, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength);

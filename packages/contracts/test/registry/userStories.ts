@@ -30,7 +30,7 @@ contract("Registry", (accounts) => {
       await registry.updateStatus(listing27);
 
       // should not have been added to whitelist
-      const result = await registry.isWhitelisted(listing27);
+      const result = await registry.getListingIsWhitelisted(listing27);
       expect(result).to.be.false("listing should not be whitelisted");
     });
 
@@ -76,7 +76,7 @@ contract("Registry", (accounts) => {
 
       // Add to whitelist
       await registry.updateStatus(listing28);
-      const result = await registry.isWhitelisted(listing28);
+      const result = await registry.getListingIsWhitelisted(listing28);
       expect(result).to.be.true("Listing should be whitelisted");
     });
   });

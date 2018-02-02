@@ -11,20 +11,20 @@ contract AddressRegistry {
     // EVENTS
     // ------
 
-    event Application(address listingAddress, uint deposit, string data);
-    event ChallengeInitiated(address listingAddress, uint deposit, uint pollID, string data);
-    event Deposit(address listingAddress, uint added, uint newTotal);
-    event Withdrawal(address listingAddress, uint withdrew, uint newTotal);
-    event NewListingWhitelisted(address listingAddress);
-    event ApplicationRemoved(address listingAddress);
-    event ListingRemoved(address listingAddress);
-    event ChallengeFailed(uint challengeID);
-    event ChallengeSucceeded(uint challengeID);
-    event RewardClaimed(address voter, uint challengeID, uint reward);
+    event Application(address indexed listingAddress, uint deposit, string data);
+    event ChallengeInitiated(address indexed listingAddress, uint deposit, uint indexed pollID, string data);
+    event Deposit(address indexed listingAddress, uint added, uint newTotal);
+    event Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal);
+    event NewListingWhitelisted(address indexed listingAddress);
+    event ApplicationRemoved(address indexed listingAddress);
+    event ListingRemoved(address indexed listingAddress);
+    event ChallengeFailed(uint indexed challengeID);
+    event ChallengeSucceeded(uint indexed challengeID);
+    event RewardClaimed(address indexed voter, uint indexed challengeID, uint reward);
 
     struct Listing {
         uint applicationExpiry; // Expiration date of apply stage
-        bool whitelisted;       // Indicates registry status
+        bool isWhitelisted;     // Indicates registry status
         address owner;          // Owner of listing
         uint unstakedDeposit;   // Number of tokens in the listing not locked in a challenge
         uint challengeID;       // Corresponds to a PollID in PLCRVoting
@@ -40,10 +40,10 @@ contract AddressRegistry {
     }
 
     // Maps challengeIDs to associated challenge data
-    mapping(uint => Challenge) public challenges;
+    mapping(uint => Challenge) internal challenges;
 
     // Maps addresses to associated listing data
-    mapping(address => Listing) public listings;
+    mapping(address => Listing) internal listings;
 
     // Global Variables
     EIP20 public token;
@@ -83,7 +83,7 @@ contract AddressRegistry {
     @param _data        Extra data relevant to the application. Think IPFS hashes.
     */
     function apply(address _listingAddress, uint _amount, string _data) external {
-        require(!isWhitelisted(_listingAddress));
+        require(!getListingIsWhitelisted(_listingAddress));
         require(!appWasMade(_listingAddress));
         require(_amount >= parameterizer.get("minDeposit"));
         require(block.timestamp + parameterizer.get("applyStageLen") > block.timestamp); // avoid overflow  
@@ -143,7 +143,7 @@ contract AddressRegistry {
         Listing storage listing = listings[_listingAddress];
 
         require(listing.owner == msg.sender);
-        require(isWhitelisted(_listingAddress));
+        require(getListingIsWhitelisted(_listingAddress));
 
         // Cannot exit during ongoing challenge
         require(listing.challengeID == NO_CHALLENGE || challenges[listing.challengeID].resolved);
@@ -170,7 +170,7 @@ contract AddressRegistry {
         uint deposit = parameterizer.get("minDeposit");
 
         // Listing must be in apply stage or already on the whitelist
-        require(appWasMade(_listingAddress) || listing.whitelisted);
+        require(appWasMade(_listingAddress) || listing.isWhitelisted);
         // Prevent multiple challenges
         require(listing.challengeID == NO_CHALLENGE || challenges[listing.challengeID].resolved);
 
@@ -259,6 +259,51 @@ contract AddressRegistry {
     // GETTERS:
     // --------
 
+    // --------
+    // Basic Listing Getters
+    // --------
+    function getListingApplicationExpiry(address _listingAddress) public view returns (uint) {
+      return listings[_listingAddress].applicationExpiry;
+    }
+
+    function getListingOwner(address _listingAddress) public view returns (address) {
+      return listings[_listingAddress].owner;
+    }
+
+    function getListingIsWhitelisted(address _listingAddress) public view returns (bool) {
+      return listings[_listingAddress].isWhitelisted;
+    }
+
+    function getListingUnstakedDeposit(address _listingAddress) public view returns (uint) {
+      return listings[_listingAddress].unstakedDeposit;
+    }
+
+    function getListingChallengeID(address _listingAddress) public view returns (uint) {
+      return listings[_listingAddress].challengeID;
+    }
+
+    // --------
+    // Basic Challenge Getters
+    // --------
+    function getChallengeRewardPool(uint _challengeID) public view returns (uint) {
+      return challenges[_challengeID].rewardPool;
+    }
+
+    function getChallengeChallenger(uint _challengeID) public view returns (address) {
+      return challenges[_challengeID].challenger;
+    }
+
+    function getChallengeResolved(uint _challengeID) public view returns (bool) {
+      return challenges[_challengeID].resolved;
+    }
+
+    function getChallengeStake(uint _challengeID) public view returns (uint) {
+      return challenges[_challengeID].stake;
+    }
+
+    function getChallengeTotalTokens(uint _challengeID) public view returns (uint) {
+      return challenges[_challengeID].totalTokens;
+    }
     /**
     @dev                Calculates the provided voter's token reward for the given poll.
     @param _voter       The address of the voter whose reward balance is to be returned
@@ -275,7 +320,7 @@ contract AddressRegistry {
     }
 
     /**
-    @dev                Determines whether the given listingAddress be whitelisted.
+    @dev                Determines whether the given listingAddress be isWhitelist.
     @param _listingAddress The _listingAddress whose status is to be examined
     */
     function canBeWhitelisted(address _listingAddress) view public returns (bool) {
@@ -288,19 +333,11 @@ contract AddressRegistry {
         if (
             appWasMade(_listingAddress) &&
             listings[_listingAddress].applicationExpiry < now &&
-            !isWhitelisted(_listingAddress) &&
+            !getListingIsWhitelisted(_listingAddress) &&
             (challengeID == NO_CHALLENGE || challenges[challengeID].resolved == true)
         ) { return true; }
 
         return false;
-    }
-
-    /**
-    @dev                Returns true if the provided listingAddress is whitelisted
-    @param _listingAddress The listingAddress whose status is to be examined
-    */
-    function isWhitelisted(address _listingAddress) view public returns (bool) {
-        return listings[_listingAddress].whitelisted;
     }
 
     /**
@@ -375,7 +412,7 @@ contract AddressRegistry {
         uint reward = determineReward(challengeID);
 
         // Records whether the listingAddress is a listing or an application
-        bool wasWhitelisted = isWhitelisted(_listingAddress);
+        bool wasWhitelisted = getListingIsWhitelisted(_listingAddress);
 
         
         if (voting.isPassed(challengeID)) { // Case: challenge failed
@@ -411,10 +448,10 @@ contract AddressRegistry {
     @dev                Called by updateStatus() if the applicationExpiry date passed without a
                         challenge being made. Called by resolveChallenge() if an
                         application/listing beat a challenge.
-    @param _listingAddress The listingAddress of an application/listing to be whitelisted
+    @param _listingAddress The listingAddress of an application/listing to be isWhitelist
     */
     function whitelistApplication(address _listingAddress) private {
-        listings[_listingAddress].whitelisted = true;
+        listings[_listingAddress].isWhitelisted = true;
     }
 
     /**

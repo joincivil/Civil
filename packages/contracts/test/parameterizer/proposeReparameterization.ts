@@ -27,9 +27,9 @@ contract("Parameterizer", (accounts) => {
       const receipt = await parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer });
 
       const propID = utils.getReceiptValue(receipt, "propID");
-      const paramProposal = await parameterizer.proposals(propID);
+      const propValue = await parameterizer.getPropValue(propID);
 
-      expect(paramProposal[6]).to.be.bignumber.equal(
+      expect(propValue).to.be.bignumber.equal(
         "51",
         "The reparameterization proposal was not created, or not created correctly.",
       );

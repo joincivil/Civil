@@ -41,7 +41,32 @@ contract PLCRVoting {
     uint constant public INITIAL_POLL_NONCE = 0;
     uint public pollNonce;
 
-    mapping(uint => Poll) public pollMap; // maps pollID to Poll struct
+    mapping(uint => Poll) internal pollMap; // maps pollID to Poll struct
+
+    // --------
+    // Basic Poll Getters
+    // --------
+
+    function getPollCommitEndDate(uint _pollID) public view returns (uint) {
+      return pollMap[_pollID].commitEndDate;
+    }
+
+    function getPollRevealEndDate(uint _pollID) public view returns (uint) {
+      return pollMap[_pollID].revealEndDate;
+    }
+
+    function getPollVoteQuorum(uint _pollID) public view returns (uint) {
+      return pollMap[_pollID].voteQuorum;
+    }
+
+    function getPollVotesFor(uint _pollID) public view returns (uint) {
+      return pollMap[_pollID].votesFor;
+    }
+
+    function getPollVotesAgainst(uint _pollID) public view returns (uint) {
+      return pollMap[_pollID].votesAgainst;
+    }
+    
     mapping(address => uint) public voteTokenBalance; // maps user's address to voteToken balance
 
     mapping(address => DLL.Data) dllMap;

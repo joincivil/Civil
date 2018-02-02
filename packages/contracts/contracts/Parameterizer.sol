@@ -9,8 +9,8 @@ contract Parameterizer {
   // EVENTS
   // ------
 
-  event _ReparameterizationProposal(address proposer, string name, uint value, bytes32 propID);
-  event _NewChallenge(address challenger, bytes32 propID, uint pollID);
+  event ReparameterizationProposal(address indexed proposer, bytes32 indexed paramNameHash, string name, uint value, bytes32 propID);
+  event NewChallenge(address indexed challenger, bytes32 indexed propID, uint pollID);
 
 
   // ------
@@ -43,10 +43,10 @@ contract Parameterizer {
   mapping(bytes32 => uint) public params;
 
   // maps challengeIDs to associated challenge data
-  mapping(uint => Challenge) public challenges;
- 
+  mapping(uint => Challenge) internal challenges;
+
   // maps pollIDs to intended data change if poll passes
-  mapping(bytes32 => ParamProposal) public proposals; 
+  mapping(bytes32 => ParamProposal) internal proposals; 
 
   // Global Variables
   EIP20 public token;
@@ -138,7 +138,7 @@ contract Parameterizer {
       value: _value
     });
 
-    _ReparameterizationProposal(msg.sender, _name, _value, propID);
+    ReparameterizationProposal(msg.sender, keccak256(_name), _name, _value, propID);
     return propID;
   }
 
@@ -171,7 +171,7 @@ contract Parameterizer {
 
     proposals[_propID].challengeID = pollID;       // update listing to store most recent challenge
 
-    _NewChallenge(msg.sender, _propID, pollID);
+    NewChallenge(msg.sender, _propID, pollID);
     return pollID;
   }
 
@@ -223,6 +223,65 @@ contract Parameterizer {
   // GETTERS
   // --------
 
+  // --------
+  // Proposal Mapping
+  // --------
+
+  function getPropAppExpiry(bytes32 _propID) public view returns (uint) {
+    return proposals[_propID].appExpiry;
+  }
+
+  function getPropChallengeID(bytes32 _propID) public view returns (uint) {
+    return proposals[_propID].challengeID;
+  }
+
+  function getPropDeposit(bytes32 _propID) public view returns (uint) {
+    return proposals[_propID].deposit;
+  }
+
+  function getPropName(bytes32 _propID) public view returns (string) {
+    return proposals[_propID].name;
+  }
+
+  function getPropOwner(bytes32 _propID) public view returns (address) {
+    return proposals[_propID].owner;
+  }
+
+  function getPropProcessBy(bytes32 _propID) public view returns (uint) {
+    return proposals[_propID].processBy;
+  }
+
+  function getPropValue(bytes32 _propID) public view returns (uint) {
+    return proposals[_propID].value;
+  }
+
+  // --------
+  // Challenge Mapping
+  // --------
+
+  function getChallengeRewardPool(uint _challengeID) public view returns (uint) {
+    return challenges[_challengeID].rewardPool;
+  }
+ 
+  function getChallengeChallenger(uint _challengeID) public view returns (address) {
+    return challenges[_challengeID].challenger;
+  }
+
+  function getChallengeResolved(uint _challengeID) public view returns (bool) {
+    return challenges[_challengeID].resolved;
+  }
+
+  function getChallengeStake(uint _challengeID) public view returns (uint) {
+    return challenges[_challengeID].stake;
+  }
+  
+  function getChallengeWinningTokens(uint _challengeID) public view returns (uint) {
+    return challenges[_challengeID].winningTokens;
+  }
+
+  // --------
+  // Computed Values
+  // --------
   /**
   @dev                Calculates the provided voter's token reward for the given poll.
   @param _voter       The address of the voter whose reward balance is to be returned

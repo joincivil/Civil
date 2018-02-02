@@ -60,14 +60,17 @@ export async function advanceEvmTime(time: number): Promise<void> {
   });
 }
 
-export async function proposeReparamAndGetPropID( propName: string,
-                                                  propValue: string,
-                                                  parameterizer: any,
-                                                  account: string,
-                                                ): Promise<any> {
-  const receipt = await parameterizer.proposeReparameterization(propName,
-                                                                propValue,
-                                                                { from: account });
+export async function proposeReparamAndGetPropID(
+  propName: string,
+  propValue: BigNumber,
+  parameterizer: any,
+  account: string,
+): Promise<any> {
+  const receipt = await parameterizer.proposeReparameterization(
+    propName,
+    propValue,
+    { from: account },
+  );
   return receipt.logs[0].args.propID;
 }
 
@@ -106,15 +109,6 @@ export function toBaseTenBigNumber(p: number): BigNumber {
 
 export function getVoteSaltHash(vote: string, salt: string): string {
   return `0x${abi.soliditySHA3(["uint", "uint"], [vote, salt]).toString("hex")}`;
-}
-
-export async function getUnstakedDeposit(
-  listingAddress: string,
-  registry: any,
-): Promise<BigNumber> {
-  const listing = await registry.listings(listingAddress);
-  const unstakedDeposit = await listing[3];
-  return unstakedDeposit;
 }
 
 export async function commitVote( voting: any,

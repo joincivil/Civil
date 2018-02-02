@@ -40,7 +40,7 @@ contract("Registry", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing3);
 
-      const isWhitelisted = await registry.isWhitelisted.call(listing3);
+      const isWhitelisted = await registry.getListingIsWhitelisted.call(listing3);
       expect(isWhitelisted).to.be.false("An application which should have failed succeeded");
 
       const challengerFinalBalance = await token.balanceOf.call(challenger);
@@ -61,7 +61,7 @@ contract("Registry", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing4);
 
-      const isWhitelisted = await registry.isWhitelisted.call(listing4);
+      const isWhitelisted = await registry.getListingIsWhitelisted.call(listing4);
       expect(isWhitelisted).to.be.false("An application which should have failed succeeded");
 
       const challengerFinalBalance = await token.balanceOf.call(challenger);
@@ -84,12 +84,12 @@ contract("Registry", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing5);
 
-      const isWhitelisted = await registry.isWhitelisted(listing5);
+      const isWhitelisted = await registry.getListingIsWhitelisted(listing5);
       expect(isWhitelisted).to.be.true(
         "An application which should have succeeded failed",
       );
 
-      const unstakedDeposit = await utils.getUnstakedDeposit(listing5, registry);
+      const unstakedDeposit = await registry.getListingUnstakedDeposit(listing5);
       const expectedUnstakedDeposit =
         minDeposit.add(minDeposit.mul(utils.paramConfig.dispensationPct).div(100));
 
@@ -110,10 +110,10 @@ contract("Registry", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing6);
 
-      const isWhitelisted = await registry.isWhitelisted(listing6);
+      const isWhitelisted = await registry.getListingIsWhitelisted(listing6);
       expect(isWhitelisted).to.be.true("An application which should have succeeded failed");
 
-      const unstakedDeposit = await utils.getUnstakedDeposit(listing6, registry);
+      const unstakedDeposit = await registry.getListingUnstakedDeposit(listing6);
       const expectedUnstakedDeposit = minDeposit.add(
         minDeposit.mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(utils.toBaseTenBigNumber(100))));
       expect(unstakedDeposit).to.be.bignumber.equal(expectedUnstakedDeposit,
@@ -146,7 +146,7 @@ contract("Registry", (accounts) => {
 
       expect(applicantStartingBal).to.be.bignumber.equal(applicantFinalBal, "Tokens were not returned to applicant");
 
-      const isWhitelisted = await registry.isWhitelisted(listing7);
+      const isWhitelisted = await registry.getListingIsWhitelisted(listing7);
       expect(isWhitelisted).to.be.false("Listing was not removed");
     });
   });

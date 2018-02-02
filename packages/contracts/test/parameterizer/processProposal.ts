@@ -43,8 +43,7 @@ contract("Parameterizer", (accounts) => {
       const receipt = await parameterizer.proposeReparameterization("voteQuorum", "69", { from: proposer });
 
       const { propID } = receipt.logs[0].args;
-      const paramProp = await parameterizer.proposals(propID);
-      const processBy = paramProp[5];
+      const processBy = await parameterizer.getPropProcessBy(propID);
       await utils.advanceEvmTime(processBy.toNumber() + 1);
 
       await parameterizer.processProposal(propID);
@@ -74,8 +73,7 @@ contract("Parameterizer", (accounts) => {
 
       await voting.revealVote(pollID, "0", "420", { from: voter });
 
-      const paramProp = await parameterizer.proposals(propID);
-      const processBy = paramProp[5];
+      const processBy = await parameterizer.getPropProcessBy(propID);
       await utils.advanceEvmTime(processBy.toNumber() + 1);
 
       await parameterizer.processProposal(propID);
