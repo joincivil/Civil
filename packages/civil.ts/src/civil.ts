@@ -1,12 +1,19 @@
 import * as Debug from "debug";
 import * as Web3 from "web3";
 
+import { ContentProvider } from "./content/providers/contentprovider";
+import { InMemoryProvider } from "./content/providers/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress } from "./types";
 import { Web3Wrapper } from "./utils/web3wrapper";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
+
+export interface CivilOptions {
+  web3Provider?: Web3.Provider;
+  contentProvider?: ContentProvider;
+}
 
 /**
  * Single entry-point to the civil.ts library
@@ -16,6 +23,7 @@ const debug = Debug("civil:main");
  */
 export class Civil {
   private web3Wrapper: Web3Wrapper;
+  private contentProvider: ContentProvider;
 
   /**
    * An optional object, conforming to Web3 provider interface can be provided.
@@ -24,23 +32,28 @@ export class Civil {
    * to default http on localhost.
    * @param web3Provider Explicitly provide an Ethereum Node connection provider
    */
-  constructor(web3Provider?: Web3.Provider) {
-    let provider = web3Provider;
-    if (!provider) {
+  constructor(options?: CivilOptions) {
+    const opts: CivilOptions = { ...options };
+
+    let web3Provider = opts.web3Provider;
+    if (!web3Provider) {
       // Try to use the window's injected provider
       if (typeof window !== "undefined" && (window as any).web3 !== "undefined") {
         const injectedWeb3: Web3 = (window as any).web3;
-        provider = injectedWeb3.currentProvider;
+        web3Provider = injectedWeb3.currentProvider;
         debug("Using injected web3 provider");
       } else {
-        // TODO(ritave): Research using infura
-        provider = new Web3.providers.HttpProvider("http://localhost:8545");
+        // TODO(ritave): Research using Infura
+        web3Provider = new Web3.providers.HttpProvider("http://localhost:8545");
         debug("No web3 provider provided or found injected, defaulting to HttpProvider");
       }
     }
-    // TODO(ritave): Constructor can throw when the provider can't connect to Http
+    // TODO(ritave): Constructor can throw when the eg. HttpProvider can't connect to Http
     //               It shouldn't, and should just set null account
-    this.web3Wrapper = new Web3Wrapper(provider);
+    this.web3Wrapper = new Web3Wrapper(web3Provider);
+
+    // TODO(ritave): Choose a better default provider
+    this.contentProvider = opts.contentProvider || new InMemoryProvider(this.web3Wrapper);
   }
 
   /**
@@ -56,7 +69,7 @@ export class Civil {
    * This call may require user input - such as approving a transaction in Metamask
    */
   public async newsroomDeployTrusted(): Promise<Newsroom> {
-    return Newsroom.deployTrusted(this.web3Wrapper);
+    return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider);
   }
 
   /**
@@ -67,7 +80,7 @@ export class Civil {
    * @param address The address on current Ethereum network where the smart-contract is located
    */
   public newsroomAtUntrusted(address: EthAddress): Newsroom {
-    return Newsroom.atUntrusted(this.web3Wrapper, address);
+    return Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, address);
   }
 
   /**
