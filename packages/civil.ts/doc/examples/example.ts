@@ -23,7 +23,7 @@ import { Civil } from "../../src";
 
   console.log("Proposing a new article...");
   try {
-    const id = await newsroom.propose("This is example content that I want to post");
+    const id = await newsroom.proposeContent("This is example content that I want to post");
     console.log("Article proposed: ", id);
   } catch (e) {
     console.error("Failed to propose article:", e);

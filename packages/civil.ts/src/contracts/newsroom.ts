@@ -4,7 +4,6 @@ import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 
 import { ContentProvider } from "../content/providers/contentprovider";
-import { InMemoryProvider } from "../content/providers/inmemoryprovider";
 import { CivilTransactionReceipt, ContentHeader, EthAddress, NewsroomContent, TxData } from "../types";
 import { isDecodedLog } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
@@ -201,10 +200,20 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param content The the data that you want to store, in the future, probably a JSON
    * @returns An id assigned on Ethereum to the proposed content
    */
-  public async propose(content: string): Promise<number> {
+  public async proposeContent(content: string): Promise<number> {
+    const uri = await this.contentProvider.put(content);
+    return this.proposeUri(uri);
+  }
+
+  /**
+   * Proposes the given uri into Ethereum's Newsroom,
+   * This is low-level call and assumes you stored your content on your own
+   * @param uri The link that you want to propose
+   * @returns An id assigned on Ethereum to the uri
+   */
+  public async proposeUri(uri: string): Promise<number> {
     await this.requireReporter();
 
-    const uri = await this.contentProvider.put(content);
     const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
     const receipt = await this.web3Wrapper.awaitReceipt(txHash);
 
