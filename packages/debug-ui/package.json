@@ -30,7 +30,7 @@
     "web3-typescript-typings": "^0.9.8"
   },
   "dependencies": {
-    "@joincivil/core": "^1.2.0",
+    "@joincivil/core": "^1.2.1",
     "marked": "^0.3.12"
   }
 }

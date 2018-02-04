@@ -16,7 +16,7 @@ import * as fs from "fs";
     console.log(`\tContent id: ${articleId}`);
 
     console.log("Approving content");
-    await newsroom.approveContent(articleId);
+    console.debug(await newsroom.approveContent(articleId));
     console.log("Done");
 })()
 .catch((...params: any[]) => console.error(...params));

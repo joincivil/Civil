@@ -22,8 +22,8 @@ export async function getParameters(): Promise<ArticleParams> {
             content.classList.remove("hidden");
             resolve({
                 newsroomAddress,
-                articleId
+                articleId,
             });
-        }
+        };
     });
 }
