@@ -56,6 +56,7 @@ export interface TransactionObject extends TxDataBase {
 }
 
 export type EthAddress = string;
+export type Bytes32 = string;
 export type TxHash = string;
 export type Uri = string;
 

@@ -1,5 +1,13 @@
 {
   "extends": [
     "@joincivil/tslint-rules"
-  ]
+  ],
+  "linterOptions": {
+    "exclude": [
+      "src/contracts/generated/parameterizer.ts",
+      "src/contracts/generated/p_l_c_r_voting.ts",
+      "src/contracts/generated/e_i_p20_interface.ts",
+      "src/contracts/generated/address_registry.ts"
+    ]
+  }
 }

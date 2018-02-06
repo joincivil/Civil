@@ -62,5 +62,8 @@ build/
 # auto-generated files
 src/contracts/generated/
 
+# DS store
+*.DS_STORE
+
 # ide / intellij config
 .idea
