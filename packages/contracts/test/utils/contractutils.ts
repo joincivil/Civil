@@ -12,6 +12,8 @@ const Token = artifacts.require("tokens/eip20/EIP20");
 const PLCRVoting = artifacts.require("PLCRVoting");
 const Parameterizer = artifacts.require("Parameterizer");
 const AddressRegistry = artifacts.require("AddressRegistry");
+const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry");
+const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -163,7 +165,11 @@ async function createAndDistributeToken(totalSupply: BigNumber,
   return token;
 }
 
-async function createTestAddressRegistryInstance(parameterizer: any, accounts: string[]): Promise<any> {
+async function createTestRegistryInstance(
+  registryContract: any,
+  parameterizer: any,
+  accounts: string[],
+): Promise<any> {
   async function approveRegistryFor(addresses: string[]): Promise<boolean> {
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
@@ -177,7 +183,7 @@ async function createTestAddressRegistryInstance(parameterizer: any, accounts: s
   const parameterizerAddress = await parameterizer.address;
   const token = await Token.at(tokenAddress);
 
-  const registry = await AddressRegistry.new(tokenAddress, plcrAddress, parameterizerAddress);
+  const registry = await registryContract.new(tokenAddress, plcrAddress, parameterizerAddress);
 
   await approveRegistryFor(accounts);
   return registry;
@@ -241,8 +247,16 @@ export async function createAllTestParameterizerInstance(accounts: string[]): Pr
 }
 
 export async function createAllTestAddressRegistryInstance(accounts: string[]): Promise<any> {
-  const token = await createTestTokenInstance(accounts);
-  const plcr = await createTestPLCRInstance(token, accounts);
-  const parameterizer = await createTestParameterizerInstance(accounts, token, plcr);
-  return createTestAddressRegistryInstance(parameterizer, accounts);
+  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  return createTestRegistryInstance(AddressRegistry, parameterizer, accounts);
+}
+
+export async function createAllTestRestrictedAddressRegistryInstance(accounts: string[]): Promise<any> {
+  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  return createTestRegistryInstance(RestrictedAddressRegistry, parameterizer, accounts);
+}
+
+export async function createAllTestContractAddressRegistryInstance(accounts: string[]): Promise<any> {
+  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  return createTestRegistryInstance(ContractAddressRegistry, parameterizer, accounts);
 }

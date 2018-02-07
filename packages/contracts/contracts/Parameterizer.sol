@@ -163,7 +163,7 @@ contract Parameterizer {
 
     challenges[pollID] = Challenge({
       challenger: msg.sender,
-      rewardPool: ((100 - get("pDispensationPct")) * deposit) / 100, 
+      rewardPool: ((100 - get("pDispensationPct")) * deposit) / 100,
       stake: deposit,
       resolved: false,
       winningTokens: 0

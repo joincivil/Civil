@@ -82,7 +82,7 @@ contract AddressRegistry {
     @param _amount      The number of ERC20 tokens a user is willing to potentially stake
     @param _data        Extra data relevant to the application. Think IPFS hashes.
     */
-    function apply(address _listingAddress, uint _amount, string _data) external {
+    function apply(address _listingAddress, uint _amount, string _data) public {
         require(!getListingIsWhitelisted(_listingAddress));
         require(!appWasMade(_listingAddress));
         require(_amount >= parameterizer.get("minDeposit"));
