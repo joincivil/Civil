@@ -14,6 +14,7 @@ const Parameterizer = artifacts.require("Parameterizer");
 const AddressRegistry = artifacts.require("AddressRegistry");
 const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
+const RestrictedAddressRegistryWithAppeals = artifacts.require("RestrictedAddressRegistryWithAppeals");
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -189,6 +190,36 @@ async function createTestRegistryInstance(
   return registry;
 }
 
+async function createTestAppealsRegistryInstance(
+  parameterizer: any,
+  accounts: string[],
+  appellateEntity: string,
+): Promise<any> {
+  async function approveRegistryFor(addresses: string[]): Promise<boolean> {
+    const user = addresses[0];
+    const balanceOfUser = await token.balanceOf(user);
+    await token.approve(registry.address, balanceOfUser, { from: user });
+    if (addresses.length === 1) { return true; }
+    return approveRegistryFor(addresses.slice(1));
+  }
+
+  const tokenAddress = await parameterizer.token();
+  const plcrAddress = await parameterizer.voting();
+  const parameterizerAddress = await parameterizer.address;
+  const token = await Token.at(tokenAddress);
+  const feeRecipient = accounts[2];
+  const registry = await RestrictedAddressRegistryWithAppeals.new(
+    tokenAddress,
+    plcrAddress,
+    parameterizerAddress,
+    appellateEntity,
+    feeRecipient,
+  );
+
+  await approveRegistryFor(accounts);
+  return registry;
+}
+
 async function createTestTokenInstance(accounts: string[]): Promise<any> {
   return createAndDistributeToken(new BigNumber("1000000000000000000000000"), "18", accounts);
 }
@@ -259,4 +290,12 @@ export async function createAllTestRestrictedAddressRegistryInstance(accounts: s
 export async function createAllTestContractAddressRegistryInstance(accounts: string[]): Promise<any> {
   const parameterizer = await createAllTestParameterizerInstance(accounts);
   return createTestRegistryInstance(ContractAddressRegistry, parameterizer, accounts);
+}
+
+export async function createAllTestRestrictedAddressRegistryWithAppealsInstance(
+  accounts: string[],
+  appellateEntity: string,
+): Promise<any> {
+  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  return createTestAppealsRegistryInstance(parameterizer, accounts, appellateEntity);
 }

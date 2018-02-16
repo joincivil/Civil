@@ -275,6 +275,20 @@ contract PLCRVoting {
     }
 
     /**
+    @dev Gets the total winning votes for reward distribution purposes
+    @param _pollID Integer identifier associated with target poll
+    @return Total number of votes committed to the losing option for specified poll
+    */
+    function getTotalNumberOfTokensForLosingOption(uint _pollID) constant public returns (uint numTokens) {
+        require(pollEnded(_pollID));
+
+        if (!isPassed(_pollID))
+            return pollMap[_pollID].votesFor;
+        else
+            return pollMap[_pollID].votesAgainst;
+    }
+
+    /**
     @notice Determines if poll is over
     @dev Checks isExpired for specified poll's revealEndDate
     @return Boolean indication of whether polling period is over

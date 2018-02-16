@@ -404,7 +404,7 @@ contract AddressRegistry {
                         either whitelists or de-whitelists the listingAddress.
     @param _listingAddress A listingAddress with a challenge that is to be resolved
     */
-    function resolveChallenge(address _listingAddress) private {
+    function resolveChallenge(address _listingAddress) internal {
         uint challengeID = listings[_listingAddress].challengeID;
 
         // Calculates the winner's reward,
@@ -450,7 +450,7 @@ contract AddressRegistry {
                         application/listing beat a challenge.
     @param _listingAddress The listingAddress of an application/listing to be isWhitelist
     */
-    function whitelistApplication(address _listingAddress) private {
+    function whitelistApplication(address _listingAddress) internal {
         listings[_listingAddress].isWhitelisted = true;
     }
 
