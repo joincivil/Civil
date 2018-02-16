@@ -112,8 +112,8 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
     } else {
       super.resolveChallenge(listingAddress);
       deniedAppealFees += appeal.appealFeePaid;
-      delete appeals[listingAddress];
     }
+    delete appeals[listingAddress];
   }
 
   /**
@@ -141,7 +141,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
     // Stores the total tokens used for voting by the losing side for reward purposes
     challenges[challengeID].totalTokens = voting.getTotalNumberOfTokensForLosingOption(challengeID);
 
-    delete appeals[listingAddress];
     if (!wasWhitelisted) { 
       NewListingWhitelisted(listingAddress); 
     }  
