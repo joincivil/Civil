@@ -14,15 +14,12 @@ module.exports = (deployer, network, accounts) => {
     const token = await Token.deployed();
     const user = addresses[0];
     let allocation;
-    if (network === "test") {
+    if (network === "test" || network === "development" || network === "develop") {
       allocation = totalSupply.div(new BN(accounts.length, 10));
     } else {
       allocation = totalSupply.div(new BN(config.testnets[network].tokenHolders.length, 10));
     }
 
-    /*console.log("Allocating " +
-    `${allocation.toString(10).slice(0, allocation.toString(10).length - 18)}` +
-    " TEST tokens to: ", user);*/
     await token.transfer(user, allocation);
 
     if (addresses.length === 1) { return true; }
@@ -32,12 +29,11 @@ module.exports = (deployer, network, accounts) => {
   if (network !== "mainnet") {
     deployer.deploy(Token, totalSupply, "TestCoin", decimals, "TEST")
       .then(() => {
-        if (network === "test") {
+        if (network === "test" || network === "development" || network === "develop") {
           return giveTokensTo(accounts);
         }
         return giveTokensTo(config.testnets[network].tokenHolders);
       });
     return;
   }
-  //console.log("skipping optional deploy of test-only contracts.");
 };

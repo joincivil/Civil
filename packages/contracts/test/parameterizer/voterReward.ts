@@ -39,7 +39,7 @@ contract("Parameterizer", (accounts) => {
       await parameterizer.processProposal(propID);
 
       // Grab the challenge struct after the proposal has been processed
-      const voterTokens = await voting.getNumPassingTokens(voterAlice, challengeID, "420"); // 10
+      const voterTokens = await voting.getNumPassingTokens(voterAlice, challengeID, "420", false); // 10. false for "not overturned"
       const rewardPool = await parameterizer.getChallengeRewardPool(challengeID); // 250,000
       const totalTokens = await parameterizer.getChallengeWinningTokens(challengeID); // 10
 

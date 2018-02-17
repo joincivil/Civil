@@ -53,6 +53,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   }
 
   mapping(address => Appeal) internal appeals;
+  mapping(uint => bool) internal challengesOverturned;
 
   /**
   @dev Contructor           Sets the addresses for token, voting, parameterizer, appellate, and fee recipient
@@ -140,12 +141,42 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
 
     // Stores the total tokens used for voting by the losing side for reward purposes
     challenges[challengeID].totalTokens = voting.getTotalNumberOfTokensForLosingOption(challengeID);
-
+    challengesOverturned[challengeID] = true;
     if (!wasWhitelisted) { 
       NewListingWhitelisted(listingAddress); 
     }  
   }
 
+  // --------------------
+  // TOKEN OWNER INTERFACE:
+  // --------------------
+
+  /**
+  @dev                Called by a voter to claim their reward for each completed vote. Someone
+                      must call updateStatus() before this can be called.
+  @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
+  @param _salt        The salt of a voter's commit hash in the given poll
+  */
+  function claimReward(uint _challengeID, uint _salt) public {
+      // Ensures the voter has not already claimed tokens and challenge results have been processed
+      require(challenges[_challengeID].tokenClaims[msg.sender] == false);
+      require(challenges[_challengeID].resolved == true);
+
+      uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt, challengesOverturned[_challengeID]);
+      uint reward = voterReward(msg.sender, _challengeID, _salt);
+
+      // Subtracts the voter's information to preserve the participation ratios
+      // of other voters compared to the remaining pool of rewards
+      challenges[_challengeID].totalTokens -= voterTokens;
+      challenges[_challengeID].rewardPool -= reward;
+
+      require(token.transfer(msg.sender, reward));
+
+      // Ensures a voter cannot claim tokens again
+      challenges[_challengeID].tokenClaims[msg.sender] = true;
+
+      RewardClaimed(msg.sender, _challengeID, reward);
+  }
 
   // --------------------
   // LISTING OWNER INTERFACE:
@@ -243,6 +274,21 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
     uint feesToSend = deniedAppealFees;
     deniedAppealFees = 0;
     require(token.transfer(msg.sender, feesToSend));
+  }
+
+  /**
+  @dev                Calculates the provided voter's token reward for the given poll.
+  @param _voter       The address of the voter whose reward balance is to be returned
+  @param _challengeID The pollID of the challenge a reward balance is being queried for
+  @param _salt        The salt of the voter's commit hash in the given poll
+  @return             The uint indicating the voter's reward
+  */
+  function voterReward(address _voter, uint _challengeID, uint _salt)
+  public view returns (uint) {
+      uint totalTokens = challenges[_challengeID].totalTokens;
+      uint rewardPool = challenges[_challengeID].rewardPool;
+      uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, challengesOverturned[_challengeID]);
+      return (voterTokens * rewardPool) / totalTokens;
   }
 
 
