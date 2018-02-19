@@ -57,11 +57,14 @@ typings/
 # dotenv environment variables file
 .env
 
-# truffle build files
+
 build/
 
-# DS_STORE
+# DS store
 *.DS_STORE
+
+# ide / intellij config
+.idea
 
 # EthPM packages
 installed_contracts/
