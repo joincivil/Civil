@@ -1,5 +1,6 @@
 {
   "name": "contracts",
+  "private": true,
   "version": "1.0.0",
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
