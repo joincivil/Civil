@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Minimal UI to show civil.ts functionallity",
   "scripts": {
+    "build": "npm run gulp build",
     "serve": "npm run gulp serve",
     "gulp": "gulp",
     "tsc": "tsc"
@@ -26,8 +27,9 @@
     "gulp-typescript": "^3.2.3",
     "gulp-webpack-typescript-pipeline": "^9.0.1",
     "pug": "^2.0.0-rc.4",
-    "typescript": "^2.5.3",
-    "web3-typescript-typings": "^0.9.8"
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2",
+    "web3-typescript-typings": "^0.9.11"
   },
   "dependencies": {
     "@joincivil/core": "^1.2.1",

@@ -1,21 +1,13 @@
 {
+  "extends": "../../tsconfig",
   "compilerOptions": {
-    "target": "ES5",
-    "module": "commonjs",
-    "lib": [ "ES2017", "dom" ],
-    "outDir": "./build/",
-    "strict": true,
-    "noImplicitThis": false,
-    "declaration": true,
-    "declarationDir": "./build/",
-    "pretty": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true // https://github.com/ReactiveX/rxjs/issues/3031
+    "outDir": "build/",
+    "declarationDir": "build/"
   },
   "include": [
     "./doc/**/*.ts",
     "./src/**/*.ts",
     "./test/**/*.ts",
-    "./node_modules/web3-typescript-typings/web3/index.d.ts"
+    "../../node_modules/web3-typescript-typings/index.d.ts"
   ]
 }

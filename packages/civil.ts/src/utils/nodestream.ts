@@ -16,7 +16,7 @@ type CivilLog = Log;
  * etc.
  */
 export class NodeStream {
-  private stream: BlockAndLogStreamer<CivilBlock, CivilLog>;
+  //private stream: BlockAndLogStreamer<CivilBlock, CivilLog>;
 
   constructor() {
     // this.stream = BlockAndLogStreamer.createCallbackStyle(this.getBlockByHash.bind(this), this.getLogs.bind(this));

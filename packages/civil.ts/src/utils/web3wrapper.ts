@@ -14,7 +14,8 @@ const POLL_MILLISECONDS = 1000;
 const debug = Debug("civil:web3wrapper");
 
 export class Web3Wrapper {
-  public web3: Web3;
+  // Initialized for sure by the helper method setProvider used in constructor
+  public web3!: Web3;
 
   private abiDecoder: AbiDecoder;
   private nodeStream: NodeStream;

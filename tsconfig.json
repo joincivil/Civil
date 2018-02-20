@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+    "lib": [ "es2017", "dom" ],
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": false,
+    "declaration": true,
+    "sourceMap": false,
+    "pretty": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true // https://github.com/ReactiveX/rxjs/issues/3031
+  }
+}

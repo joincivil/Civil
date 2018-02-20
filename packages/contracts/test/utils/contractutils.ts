@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import abi = require("ethereumjs-abi");
 import * as fs from "fs";
 import { promisify } from "util";
@@ -5,7 +6,6 @@ import { promisify } from "util";
 /* tslint:disable no-implicit-dependencies */
 import * as Web3 from "web3";
 /* tslint:enable no-implicit-dependencies */
-import { BigNumber } from "web3-typescript-typings/node_modules/bignumber.js";
 
 const Token = artifacts.require("tokens/eip20/EIP20");
 
