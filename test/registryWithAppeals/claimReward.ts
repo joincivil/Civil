@@ -12,7 +12,7 @@ const expect = chai.expect;
 
 contract("Registry", (accounts) => {
   describe("Function: claimReward", () => {
-    const [JAB, applicant, challenger, voterAlice] = accounts;
+    const [JAB, applicant, challenger, voterAlice, voterBob] = accounts;
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
     let registry: any;
     let token: any;
@@ -216,6 +216,32 @@ contract("Registry", (accounts) => {
     // TODO
     // "challenger" should not be able to claim reward for overturned challenge
     // "applicant" should be able to claim reward for overturned challenge
-    // "minority voter" should be able to claim tokens for overturned challenge
+
+    it("should transfer tokens to minority voters if challenge is overturned on appeal", async () => {
+      await utils.addToWhitelist(address, minDeposit, applicant, registry);
+
+      // Challenge
+      const pollID = await utils.challengeAndGetPollID(address, challenger, registry);
+
+      await utils.commitVote(voting, pollID, "0", "50", "42", voterAlice);
+      await utils.commitVote(voting, pollID, "1", "30", "32", voterBob);
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
+
+      await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
+      await voting.revealVote(pollID, "1", "32  ", { from: voterBob });
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+
+      await registry.updateStatus(address, { from: applicant });
+
+      await registry.requestAppeal(address, { from: applicant });
+      await registry.grantAppeal(address, { from: JAB });
+      await utils.advanceEvmTime(1209620);
+
+      await registry.resolvePostAppealPhase(address);
+
+      // Claim reward
+      await expect(registry.claimReward(pollID, "32", { from: voterBob })).to.be.fulfilled(
+        "should have allowed minority voter to claim reward");
+    });
   });
 });
