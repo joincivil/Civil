@@ -9,7 +9,7 @@
     "build:typescript": "npm run lint:typescript; tsc",
     "build:solidity": "npm run lint:solidity; truffle compile",
     "lint": "npm run lint:typescript && npm run lint:solidity",
-    "test": "npm run compile && truffle test",
+    "test": "npm run compile && truffle test --network test",
     "lint:typescript": "tslint --project ./",
     "lint:solidity": "solhint contracts/**/*.sol",
     "postinstall": "truffle install",
