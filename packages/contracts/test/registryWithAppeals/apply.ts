@@ -10,7 +10,7 @@ const Newsroom = artifacts.require("Newsroom");
 const AddressRegistry = artifacts.require("AddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 
-contract("Registry With Appeals", (accounts) => {
+contract("TEST - DONT COMMIT", (accounts) => {
   describe("Function: apply", () => {
     const [JAB, applicant, troll, challenger] = accounts;
     const listing1 = "0x0000000000000000000000000000000000000001";
