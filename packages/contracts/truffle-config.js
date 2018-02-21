@@ -11,5 +11,12 @@ module.exports = {
         mochaFile: './build/junit/junit.xml'
       }
     }
+  },
+  networks: {
+    develop: {
+      host: "localhost",
+      port: 9545,
+      network_id: "*" // Match any network id
+    }
   }
 };

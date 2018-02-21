@@ -206,11 +206,11 @@ contract PLCRVoting {
     @param _salt Arbitrarily chosen integer used to generate secretHash
     @return correctVotes Number of tokens voted for winning option
     */
-    function getNumPassingTokens(address _voter, uint _pollID, uint _salt) public constant returns (uint correctVotes) {
+    function getNumPassingTokens(address _voter, uint _pollID, uint _salt, bool _overturned) public constant returns (uint correctVotes) {
         require(pollEnded(_pollID));
         require(hasBeenRevealed(_voter, _pollID));
 
-        uint winningChoice = isPassed(_pollID) ? 1 : 0;
+        uint winningChoice = (_overturned || isPassed(_pollID)) ? 1 : 0;
         bytes32 winnerHash = keccak256(winningChoice, _salt);
         bytes32 commitHash = getCommitHash(_voter, _pollID);
 

@@ -93,5 +93,52 @@ contract("Registry With Appeals", (accounts) => {
         "Should not allow appeal if challenge is won by applicant");
     });
 
+    it("should allow a listing to request appeal after going through process before and being denied", async () => {
+      const testNewsroom = await Newsroom.new({ from: applicant });
+      const address = testNewsroom.address;
+      // 1st time
+      await registry.apply(address, minDeposit, "", { from: applicant });
+      await registry.challenge(address, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.updateStatus(address);
+      await registry.requestAppeal(address, { from: applicant });
+      await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
+      await registry.resolvePostAppealPhase(address);
+
+      // 2nd time around
+      await registry.apply(address, minDeposit, "", { from: applicant});
+      await registry.challenge(address, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.updateStatus(address);
+      await expect(registry.requestAppeal(address, { from: applicant })).to.eventually.be.fulfilled(
+        "should have allowed appeal 2nd time around");
+
+    });
+
+    it("should allow a listing to request appeal the 2nd time around but not requesting one the 1st time", async () => {
+      const testNewsroom = await Newsroom.new({ from: applicant });
+      const address = testNewsroom.address;
+      // 1st time
+      await registry.apply(address, minDeposit, "", { from: applicant });
+      await registry.challenge(address, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.updateStatus(address);
+      await utils.advanceEvmTime(259250); // hack. should be getting value from registry contract
+      await registry.resolvePostAppealPhase(address);
+
+      // 2nd time around
+      await registry.apply(address, minDeposit, "", { from: applicant});
+      await registry.challenge(address, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.updateStatus(address);
+      await expect(registry.requestAppeal(address, { from: applicant })).to.eventually.be.fulfilled(
+        "should have allowed appeal 2nd time around");
+
+    });
+
   });
 });

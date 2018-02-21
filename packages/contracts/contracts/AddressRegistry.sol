@@ -239,7 +239,7 @@ contract AddressRegistry {
         require(challenges[_challengeID].tokenClaims[msg.sender] == false);
         require(challenges[_challengeID].resolved == true);
 
-        uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt);
+        uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt, false);
         uint reward = voterReward(msg.sender, _challengeID, _salt);
 
         // Subtracts the voter's information to preserve the participation ratios
@@ -315,7 +315,7 @@ contract AddressRegistry {
     public view returns (uint) {
         uint totalTokens = challenges[_challengeID].totalTokens;
         uint rewardPool = challenges[_challengeID].rewardPool;
-        uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt);
+        uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, false);
         return (voterTokens * rewardPool) / totalTokens;
     }
 
