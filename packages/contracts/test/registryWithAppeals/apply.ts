@@ -76,12 +76,14 @@ contract("Registry With Appeals", (accounts) => {
     it("should not allow a non-contract owner to apply", async () => {
       const testNewsroom = await Newsroom.new({ from: troll });
       const address = testNewsroom.address;
+
       await expect(registry.apply(address, utils.paramConfig.minDeposit, "", {from: applicant }))
         .to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should prevent non-contract address from being listed when registry cast to AddressRegistry", async () => {
       const parentRegistry = await AddressRegistry.at(registry.address);
+
       await expect(parentRegistry.apply(listing1, minDeposit, "", {from: applicant }))
         .to.eventually.be.rejectedWith(REVERTED);
     });
@@ -90,6 +92,7 @@ contract("Registry With Appeals", (accounts) => {
       const testNewsroom = await Newsroom.new({ from: troll });
       const address = testNewsroom.address;
       const parentRegistry = await ContractAddressRegistry.at(registry.address);
+
       await expect(parentRegistry.apply(address, minDeposit, "", {from: applicant }))
         .to.eventually.be.rejectedWith(REVERTED);
     });
@@ -100,11 +103,11 @@ contract("Registry With Appeals", (accounts) => {
       const address = testNewsroom.address;
       await registry.apply(address, minDeposit, "", { from: applicant });
       await registry.challenge(address, "", { from: challenger });
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(address);
       await registry.requestAppeal(address, { from: applicant });
       await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
+
       await expect(registry.apply(address, minDeposit, "", { from: applicant})).to.eventually.be.rejectedWith(REVERTED,
         "should not have allowed new application after being denied appeal and not updating status");
     });
@@ -121,6 +124,7 @@ contract("Registry With Appeals", (accounts) => {
       await registry.requestAppeal(address, { from: applicant });
       await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
       await registry.resolvePostAppealPhase(address);
+
       await expect(registry.apply(address, minDeposit, "", { from: applicant})).to.eventually.be.fulfilled(
         "should have allowed new application after being denied appeal");
     });

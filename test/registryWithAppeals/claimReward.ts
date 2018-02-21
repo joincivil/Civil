@@ -51,7 +51,8 @@ contract("Registry", (accounts) => {
       await registry.updateStatus(address, { from: applicant });
 
       // Pass Request Appeal Phase without requesting
-      await utils.advanceEvmTime(259250);
+      const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
+      await utils.advanceEvmTime(waitTime);
       await registry.resolvePostAppealPhase(address);
 
       // Alice claims reward
@@ -130,7 +131,8 @@ contract("Registry", (accounts) => {
       // Update status
       await registry.updateStatus(address, { from: applicant });
 
-      await utils.advanceEvmTime(259250);
+      const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
+      await utils.advanceEvmTime(waitTime);
       await registry.resolvePostAppealPhase(address);
 
       // Claim reward
@@ -204,7 +206,8 @@ contract("Registry", (accounts) => {
 
       await registry.requestAppeal(address, { from: applicant });
       await registry.grantAppeal(address, { from: JAB });
-      await utils.advanceEvmTime(1209620);
+      const waitTime = Number(await registry.judgeAppealPhaseLength()) + 1;
+      await utils.advanceEvmTime(waitTime);
 
       await registry.resolvePostAppealPhase(address);
 
@@ -213,11 +216,12 @@ contract("Registry", (accounts) => {
         "should have reverted since voter commit hash does not match winning hash for salt");
     });
 
-    // TODO
+    // TODO(nickreynolds)
     // "challenger" should not be able to claim reward for overturned challenge
     // "applicant" should be able to claim reward for overturned challenge
 
     it("should transfer tokens to minority voters if challenge is overturned on appeal", async () => {
+      const bobStartingBalance = await token.balanceOf(voterBob);
       await utils.addToWhitelist(address, minDeposit, applicant, registry);
 
       // Challenge
@@ -235,13 +239,25 @@ contract("Registry", (accounts) => {
 
       await registry.requestAppeal(address, { from: applicant });
       await registry.grantAppeal(address, { from: JAB });
-      await utils.advanceEvmTime(1209620);
+      const waitTime = Number(await registry.judgeAppealPhaseLength());
+      await utils.advanceEvmTime(waitTime + 1);
 
       await registry.resolvePostAppealPhase(address);
 
       // Claim reward
       await expect(registry.claimReward(pollID, "32", { from: voterBob })).to.be.fulfilled(
         "should have allowed minority voter to claim reward");
+
+      await voting.withdrawVotingRights("30", { from: voterBob }); // get all tokens back
+      const bobEndingBalance = await token.balanceOf(voterBob);
+
+      // starting balance + (minDeposit * dispensationPct)
+      const expectedBobEndingBalance = utils.toBaseTenBigNumber(bobStartingBalance).add(
+        utils.toBaseTenBigNumber(utils.paramConfig.minDeposit).mul(
+          utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(100)));
+
+      expect(bobEndingBalance).to.be.bignumber.equal(expectedBobEndingBalance,
+        "Bob's ending balance did not equal expected value");
     });
   });
 });
