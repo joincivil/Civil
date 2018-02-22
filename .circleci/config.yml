@@ -47,10 +47,9 @@ jobs:
             - run:
                 name: Running tests
                 command: yarn lerna:run test
-
 workflows:
     version: 2
-    main:
+    everything:
         jobs:
             - build
             - test:
