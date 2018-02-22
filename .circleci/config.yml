@@ -1,0 +1,61 @@
+version: 2
+jobs:
+    build:
+        docker:
+            - image: circleci/node:9.3
+        working_directory: ~/repo
+        steps:
+            - checkout
+            - restore_cache:
+                key: node-modules-{{ checksum "package.json" }}
+            - run:
+                name: Install modules
+                command: yarn --frozen-lockfile
+            - save_cache:
+                key: node-modules-{{ checksum "package.json" }}
+                paths:
+                    - node_modules
+            - run:
+                name: Bootstrapping
+                command: yarn lerna bootstrap
+            - run:
+                name: Building
+                command: yarn lerna:run build
+            - save_cache:
+                key: repo-{{ .Environment.CIRCLE_SHA1 }}
+                paths:
+                    - ~/repo
+    lint:
+        docker:
+            - image: circleci/node:9.3
+        working_directory: ~/repo
+        steps:
+            - restore_cache:
+                keys:
+                  - repo-{{ .Environment.CIRCLE_SHA1 }}
+            - run:
+                name: Linting
+                command: yarn lerna:run lint
+    test:
+        docker:
+            - image: circleci/node:9.3
+        working_directory: ~/repo
+        steps:
+            - restore_cache:
+                keys:
+                  - repo-{{ .Environment.CIRCLE_SHA1 }}
+            - run:
+                name: Running tests
+                command: yarn lerna:run test
+
+workflows:
+    version: 2
+    main:
+        jobs:
+            - build
+            - test:
+                requires:
+                    - build
+            - lint:
+                requires:
+                    - build

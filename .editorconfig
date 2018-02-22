@@ -6,7 +6,7 @@ indent_style = space
 indent_size = 2
 end_of_line = lf
 
-[*.{mustache,handlebards}]
+[*.{mustache,handlebars}]
 insert_final_newline = false
 
 [*.yml]
