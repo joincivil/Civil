@@ -11,7 +11,7 @@
     "lint": "npm run lint:typescript && npm run lint:solidity",
     "test": "npm run compile && truffle test --network test",
     "lint:typescript": "tslint --project ./",
-    "lint:solidity": "solhint contracts/**/*.sol",
+    "lint:solidity": "solhint contracts/*.sol contracts/*/*.sol",
     "postinstall": "truffle install",
     "strip-artifacts": "node build/scripts/strip-artifacts.js \"build/contracts/**/*.json\" build/artifacts",
     "truffle": "truffle",
