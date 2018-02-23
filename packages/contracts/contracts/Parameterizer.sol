@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity 0.4.19;
 
 import "./PLCRVoting.sol";
 import "tokens/eip20/EIP20.sol";
