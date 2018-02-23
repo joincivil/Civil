@@ -1,4 +1,5 @@
-pragma solidity ^0.4.18;
+pragma solidity 0.4.19;
+
 
 contract ACL {
   event SuperuserAdded(address indexed granter, address indexed grantee);
@@ -6,8 +7,8 @@ contract ACL {
   event RoleAdded(address indexed granter, address indexed grantee, string role);
   event RoleRemoved(address indexed granter, address indexed grantee, string role);
 
-  mapping(address => bool) superusers;
-  mapping(string => RoleData) roles;
+  mapping(address => bool) private superusers;
+  mapping(string => RoleData) private roles;
 
   modifier requireSuperuser() {
     require(isSuperuser(msg.sender));
@@ -19,11 +20,11 @@ contract ACL {
     _;
   }
 
-  function isSuperuser(address user) view public returns (bool) {
+  function isSuperuser(address user) public view returns (bool) {
     return superusers[user];
   }
 
-  function hasRole(address user, string role) view public returns (bool) {
+  function hasRole(address user, string role) public view returns (bool) {
     return roles[role].actors[user];
   }
 
