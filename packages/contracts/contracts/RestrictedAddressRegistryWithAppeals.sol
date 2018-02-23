@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity 0.4.19;
 
 import "./RestrictedAddressRegistry.sol";
 
@@ -12,7 +12,10 @@ import "./RestrictedAddressRegistry.sol";
         "Listing" refers to the data associated with an address at any stage of the lifecycle (e.g.
         "Listing in Application", "Listing in Challenge", "Listing on Whitelist", "Denied Listing", etc).
 */
+
+
 contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
+
 
   event AppealRequested(address indexed requester, address indexed listing);
   event AppealGranted(address indexed listing);
@@ -44,7 +47,9 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @notice this struct handles the state of an appeal. It is first initialized 
           when updateStatus is called after a successful challenge.
   */
+
   struct Appeal {
+
     uint requestAppealPhaseExpiry;
     bool appealRequested;
     uint appealFeePaid;
@@ -70,23 +75,114 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
       address appellateAddr,
       address feeRecipientAddr
   ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr) {
-      appellate = appellateAddr;
-      feeRecipient = feeRecipientAddr;
+    appellate = appellateAddr;
+    feeRecipient = feeRecipientAddr;
+  }
+
+  // --------------------
+  // LISTING OWNER INTERFACE:
+  // --------------------
+
+  /**
+  @notice Requests an appeal for a listing that has been successfully challenged (and had state updated)
+          Must be initialized and within correct application period 
+          (0 < appeal.requestAppealPhaseExpiry < now) 
+          and not already requested
+  @param listingAddress address of listing that has been successfully challenged. Caller must be owner of listing.
+  */
+
+  function requestAppeal(address listingAddress) external {
+    var listing = listings[listingAddress];
+    var appeal = appeals[listingAddress];
+    require(listing.owner == msg.sender);
+    require(appeal.requestAppealPhaseExpiry > now); // "Request Appeal Phase" active
+    require(!appeal.appealRequested);
+    require(token.transferFrom(msg.sender, this, appealFee));
+
+    appeal.appealRequested = true;
+    appeal.appealFeePaid = appealFee;
+    appeal.appealPhaseExpiry = now + judgeAppealPhaseLength;
+    AppealRequested(msg.sender, listingAddress);
+  }
+
+  // --------
+  // APPELLATE INTERFACE:
+  // --------
+
+  /**
+  @notice Grants a requested appeal, if the appeal has not expired (or already been granted)
+  @param listingAddress The address of the listing associated with the appeal
+  */
+
+  function grantAppeal(address listingAddress) external onlyAppellate {
+    var appeal = appeals[listingAddress];
+    require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
+    require(!appeal.appealGranted); // don't grant twice
+
+    appeal.appealGranted = true;    
+    AppealGranted(listingAddress);
   }
 
   /**
-  @notice Overrides `resolveChallenge` from `AddressRegistry` to begin "Request Appeal Phase" if
-          challenge was successful. 
+  @notice Set new value for appeal fee
+          Can only be called by Appellate, since only they can decide what fee they require
+  @param fee The new value for the appeal fee
   */
-  function resolveChallenge(address listingAddress) internal {
-    uint challengeID = listings[listingAddress].challengeID;
-    if (voting.isPassed(challengeID)) { // Case: challenge failed
-      super.resolveChallenge(listingAddress);
-    } else { // Case: challenge succeeded, enter appeals phase
-      Appeal storage appeal = appeals[listingAddress];
-      require(appeal.requestAppealPhaseExpiry == 0); // only begin request phase if appeal uninitialized
-      appeal.requestAppealPhaseExpiry = now + requestAppealPhaseLength;      
-    }
+
+  function setAppealFee(uint fee) external onlyAppellate {
+    require(fee > 0); // safety check
+    appealFee = fee;
+    AppealFeeSet(fee);
+  }
+
+  /**
+  @notice Set new value for the length of "Request Appeal Phase"
+          Can only be called by Appellate, allowing this to be controlled 
+          by community adds complexity and seems unnecessary
+  @param length The new value for the "Request Appeal Phase" length
+  */
+
+  function setMakeAppealLength(uint length) external onlyAppellate {
+    require(length > 0); // safety check
+    requestAppealPhaseLength = length;
+    MakeAppealLengthSet(length);
+  }
+
+  /**
+  @notice Set new value for the length of "Judge Appeal Phase"
+          Can only be called by Appellate, since only they can decide how long they need to process appeals
+  @param length The new value for the "Judge Appeal Phase" length
+  */
+
+  function setAppealLength(uint length) external onlyAppellate {
+    require(length > 0); // safety check
+    judgeAppealPhaseLength = length;
+    AppealLengthSet(length);
+  }
+
+  /**
+  @notice Set new value for the Fee Recipient
+          Can only be called by Appellate
+  @param recipient The new value for the Fee Recipient
+  */
+
+  function setFeeRecipient(address recipient) external onlyAppellate {
+    feeRecipient = recipient;
+    FeeRecipientSet(recipient);
+  }
+
+  // --------
+  // FEE RECIPIENT INTERFACE
+  // --------
+
+  /**
+  @notice Transfers deniedAppealFees to fee recipient. Can only be called by recipient.
+  */
+
+  function withdrawDeniedAppealsFees() external onlyFeeRecipient {
+    uint feesToSend = deniedAppealFees;
+    deniedAppealFees = 0;
+    require(token.transfer(msg.sender, feesToSend));
   }
 
   // --------
@@ -98,9 +194,12 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @notice Update state of listing after "Judge Appeal Phase" has ended. Reverts if cannot be processed yet.
   @param listingAddress Address of listing associated with appeal
   */
+
   function resolvePostAppealPhase(address listingAddress) external {
     var appeal = appeals[listingAddress];
-    require(appeal.requestAppealPhaseExpiry != 0 && now > appeal.requestAppealPhaseExpiry); // must be initialized and after "Request Appeal Phase"
+
+    // must be initialized and after "Request Appeal Phase"
+    require(appeal.requestAppealPhaseExpiry != 0 && now > appeal.requestAppealPhaseExpiry); 
     if (appeal.appealRequested) {
       require(appeal.appealPhaseExpiry < now);
     }
@@ -117,11 +216,100 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
     delete appeals[listingAddress];
   }
 
+  // --------------------
+  // TOKEN OWNER INTERFACE:
+  // --------------------
+
+  /**
+  @dev                Called by a voter to claim their reward for each completed vote. Someone
+                      must call updateStatus() before this can be called.
+  @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
+  @param _salt        The salt of a voter's commit hash in the given poll
+  */
+
+  function claimReward(uint _challengeID, uint _salt) public {
+    // Ensures the voter has not already claimed tokens and challenge results have been processed
+    require(challenges[_challengeID].tokenClaims[msg.sender] == false);
+    require(challenges[_challengeID].resolved == true);
+
+    uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt, challengesOverturned[_challengeID]);
+    uint reward = voterReward(msg.sender, _challengeID, _salt);
+
+    // Subtracts the voter's information to preserve the participation ratios
+    // of other voters compared to the remaining pool of rewards
+    challenges[_challengeID].totalTokens -= voterTokens;
+    challenges[_challengeID].rewardPool -= reward;
+
+    require(token.transfer(msg.sender, reward));
+
+    // Ensures a voter cannot claim tokens again
+    challenges[_challengeID].tokenClaims[msg.sender] = true;
+
+    RewardClaimed(msg.sender, _challengeID, reward);
+  }
+
+  /**
+  @dev                Calculates the provided voter's token reward for the given poll.
+  @param _voter       The address of the voter whose reward balance is to be returned
+  @param _challengeID The pollID of the challenge a reward balance is being queried for
+  @param _salt        The salt of the voter's commit hash in the given poll
+  @return             The uint indicating the voter's reward
+  */
+
+  function voterReward(address _voter, uint _challengeID, uint _salt)
+  public view returns (uint) {
+    uint totalTokens = challenges[_challengeID].totalTokens;
+    uint rewardPool = challenges[_challengeID].rewardPool;
+    uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, challengesOverturned[_challengeID]);
+    return (voterTokens * rewardPool) / totalTokens;
+  }
+
+  // --------
+  // BASIC APPEAL GETTERS
+  // --------
+
+  function getRequestAppealPhaseExpiry(address listingAddress) public view returns (uint) {
+    return appeals[listingAddress].requestAppealPhaseExpiry;
+  }
+
+  function getAppealRequested(address listingAddress) public view returns (bool) {
+    return appeals[listingAddress].appealRequested;
+  }
+
+  function getAppealFeePaid(address listingAddress) public view returns (uint) {
+    return appeals[listingAddress].appealFeePaid;
+  }
+
+  function getAppealPhaseExpiry(address listingAddress) public view returns (uint) {
+    return appeals[listingAddress].appealPhaseExpiry;
+  }
+
+  function getAppealGranted(address listingAddress) public view returns (bool) {
+    return appeals[listingAddress].appealGranted;
+  }
+
+  /**
+  @notice Overrides `resolveChallenge` from `AddressRegistry` to begin "Request Appeal Phase" if
+          challenge was successful. 
+  */
+
+  function resolveChallenge(address listingAddress) internal {
+    uint challengeID = listings[listingAddress].challengeID;
+    if (voting.isPassed(challengeID)) { // Case: challenge failed
+      super.resolveChallenge(listingAddress);
+    } else { // Case: challenge succeeded, enter appeals phase
+      Appeal storage appeal = appeals[listingAddress];
+      require(appeal.requestAppealPhaseExpiry == 0); // only begin request phase if appeal uninitialized
+      appeal.requestAppealPhaseExpiry = now + requestAppealPhaseLength;      
+    }
+  }
+
   /**
   @notice Updates the state of a listing to "whitelisted", and pay out 
           reward (including appeal fee) to applicant
   @param listingAddress Address of listing with a challenge that is to be resolved
   */
+
   function resolveOverturnedChallenge(address listingAddress) private {
     Appeal storage appeal = appeals[listingAddress];
     uint challengeID = listings[listingAddress].challengeID;
@@ -145,174 +333,5 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
     if (!wasWhitelisted) { 
       NewListingWhitelisted(listingAddress); 
     }  
-  }
-
-  // --------------------
-  // TOKEN OWNER INTERFACE:
-  // --------------------
-
-  /**
-  @dev                Called by a voter to claim their reward for each completed vote. Someone
-                      must call updateStatus() before this can be called.
-  @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
-  @param _salt        The salt of a voter's commit hash in the given poll
-  */
-  function claimReward(uint _challengeID, uint _salt) public {
-      // Ensures the voter has not already claimed tokens and challenge results have been processed
-      require(challenges[_challengeID].tokenClaims[msg.sender] == false);
-      require(challenges[_challengeID].resolved == true);
-
-      uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt, challengesOverturned[_challengeID]);
-      uint reward = voterReward(msg.sender, _challengeID, _salt);
-
-      // Subtracts the voter's information to preserve the participation ratios
-      // of other voters compared to the remaining pool of rewards
-      challenges[_challengeID].totalTokens -= voterTokens;
-      challenges[_challengeID].rewardPool -= reward;
-
-      require(token.transfer(msg.sender, reward));
-
-      // Ensures a voter cannot claim tokens again
-      challenges[_challengeID].tokenClaims[msg.sender] = true;
-
-      RewardClaimed(msg.sender, _challengeID, reward);
-  }
-
-  // --------------------
-  // LISTING OWNER INTERFACE:
-  // --------------------
-
-  /**
-  @notice Requests an appeal for a listing that has been successfully challenged (and had state updated)
-          Must be initialized and within correct application period 
-          (0 < appeal.requestAppealPhaseExpiry < now) 
-          and not already requested
-  @param listingAddress address of listing that has been successfully challenged. Caller must be owner of listing.
-  */
-  function requestAppeal(address listingAddress) external {
-    var listing = listings[listingAddress];
-    var appeal = appeals[listingAddress];
-    require(listing.owner == msg.sender);
-    require(appeal.requestAppealPhaseExpiry > now); // "Request Appeal Phase" active
-    require(!appeal.appealRequested);
-    require(token.transferFrom(msg.sender, this, appealFee));
-
-    appeal.appealRequested = true;
-    appeal.appealFeePaid = appealFee;
-    appeal.appealPhaseExpiry = now + judgeAppealPhaseLength;
-    AppealRequested(msg.sender, listingAddress);
-  }
-
-  // --------
-  // APPELLATE INTERFACE:
-  // --------
-
-  /**
-  @notice Grants a requested appeal, if the appeal has not expired (or already been granted)
-  @param listingAddress The address of the listing associated with the appeal
-  */
-  function grantAppeal(address listingAddress) onlyAppellate external {
-    var appeal = appeals[listingAddress];
-    require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
-    require(!appeal.appealGranted); // don't grant twice
-
-    appeal.appealGranted = true;    
-    AppealGranted(listingAddress);
-  }
-
-  /**
-  @notice Set new value for appeal fee
-          Can only be called by Appellate, since only they can decide what fee they require
-  @param fee The new value for the appeal fee
-  */
-  function setAppealFee(uint fee) onlyAppellate external {
-    require(fee > 0); // safety check
-    appealFee = fee;
-    AppealFeeSet(fee);
-  }
-
-  /**
-  @notice Set new value for the length of "Request Appeal Phase"
-          Can only be called by Appellate, allowing this to be controlled by community adds complexity and seems unnecessary
-  @param length The new value for the "Request Appeal Phase" length
-  */
-  function setMakeAppealLength(uint length) onlyAppellate external {
-    require(length > 0); // safety check
-    requestAppealPhaseLength = length;
-    MakeAppealLengthSet(length);
-  }
-
-  /**
-  @notice Set new value for the length of "Judge Appeal Phase"
-          Can only be called by Appellate, since only they can decide how long they need to process appeals
-  @param length The new value for the "Judge Appeal Phase" length
-  */
-  function setAppealLength(uint length) onlyAppellate external {
-    require(length > 0); // safety check
-    judgeAppealPhaseLength = length;
-    AppealLengthSet(length);
-  }
-
-  /**
-  @notice Set new value for the Fee Recipient
-          Can only be called by Appellate
-  @param recipient The new value for the Fee Recipient
-  */
-  function setFeeRecipient(address recipient) onlyAppellate external {
-    feeRecipient = recipient;
-    FeeRecipientSet(recipient);
-  }
-
-  // --------
-  // FEE RECIPIENT INTERFACE
-  // --------
-
-  /**
-  @notice Transfers deniedAppealFees to fee recipient. Can only be called by recipient.
-  */
-  function withdrawDeniedAppealsFees() onlyFeeRecipient external {
-    uint feesToSend = deniedAppealFees;
-    deniedAppealFees = 0;
-    require(token.transfer(msg.sender, feesToSend));
-  }
-
-  /**
-  @dev                Calculates the provided voter's token reward for the given poll.
-  @param _voter       The address of the voter whose reward balance is to be returned
-  @param _challengeID The pollID of the challenge a reward balance is being queried for
-  @param _salt        The salt of the voter's commit hash in the given poll
-  @return             The uint indicating the voter's reward
-  */
-  function voterReward(address _voter, uint _challengeID, uint _salt)
-  public view returns (uint) {
-      uint totalTokens = challenges[_challengeID].totalTokens;
-      uint rewardPool = challenges[_challengeID].rewardPool;
-      uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, challengesOverturned[_challengeID]);
-      return (voterTokens * rewardPool) / totalTokens;
-  }
-
-
-  // --------
-  // BASIC APPEAL GETTERS
-  // --------
-
-  function getRequestAppealPhaseExpiry(address listingAddress) public view returns (uint) {
-      return appeals[listingAddress].requestAppealPhaseExpiry;
-  }
-
-  function getAppealRequested(address listingAddress) public view returns (bool) {
-      return appeals[listingAddress].appealRequested;
-  }
-
-  function getAppealFeePaid(address listingAddress) public view returns (uint) {
-      return appeals[listingAddress].appealFeePaid;
-  }
-
-  function getAppealPhaseExpiry(address listingAddress) public view returns (uint) {
-      return appeals[listingAddress].appealPhaseExpiry;
-  }
-
-  function getAppealGranted(address listingAddress) public view returns (bool) {
-      return appeals[listingAddress].appealGranted;
   }
 }
