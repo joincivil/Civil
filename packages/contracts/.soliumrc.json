@@ -20,7 +20,7 @@
     "whitespace": "error",
     "deprecated-suicide": "error",
     "pragma-on-top": "error",
-    "function-order": "error",
+    "function-order": "off",
     "quotes": ["error", "double"],
     "indentation": ["error", 2],
 
