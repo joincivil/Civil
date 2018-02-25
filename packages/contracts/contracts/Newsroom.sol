@@ -64,8 +64,8 @@ contract Newsroom is ACL {
     content[id] = Content(
       contentUri,
       msg.sender,
-      now
-    );
+      now);
+
     waiting[id] = true;
     ContentProposed(msg.sender, id);
     return id;

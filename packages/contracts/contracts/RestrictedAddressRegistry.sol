@@ -21,10 +21,11 @@ contract RestrictedAddressRegistry is ContractAddressRegistry {
   @param _paramsAddr      Address of a Parameterizer contract 
   */
   function RestrictedAddressRegistry(
-      address _tokenAddr,
-      address _plcrAddr,
-      address _paramsAddr
-  ) public ContractAddressRegistry(_tokenAddr, _plcrAddr, _paramsAddr) {
+    address _tokenAddr,
+    address _plcrAddr,
+    address _paramsAddr)
+    public ContractAddressRegistry(_tokenAddr, _plcrAddr, _paramsAddr)
+  {
       
   }
 

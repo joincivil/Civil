@@ -91,22 +91,23 @@ contract Parameterizer {
     uint _pDispensationPct,
     uint _voteQuorum,
     uint _pVoteQuorum
-    ) public {
-      token = EIP20(_tokenAddr);
-      voting = PLCRVoting(_plcrAddr);
+    ) public
+  {
+    token = EIP20(_tokenAddr);
+    voting = PLCRVoting(_plcrAddr);
 
-      set("minDeposit", _minDeposit);
-      set("pMinDeposit", _pMinDeposit);
-      set("applyStageLen", _applyStageLen);
-      set("pApplyStageLen", _pApplyStageLen);
-      set("commitStageLen", _commitStageLen);
-      set("pCommitStageLen", _pCommitStageLen);
-      set("revealStageLen", _revealStageLen);
-      set("pRevealStageLen", _pRevealStageLen);
-      set("dispensationPct", _dispensationPct);
-      set("pDispensationPct", _pDispensationPct);
-      set("voteQuorum", _voteQuorum);
-      set("pVoteQuorum", _pVoteQuorum);
+    set("minDeposit", _minDeposit);
+    set("pMinDeposit", _pMinDeposit);
+    set("applyStageLen", _applyStageLen);
+    set("pApplyStageLen", _pApplyStageLen);
+    set("commitStageLen", _commitStageLen);
+    set("pCommitStageLen", _pCommitStageLen);
+    set("revealStageLen", _revealStageLen);
+    set("pRevealStageLen", _pRevealStageLen);
+    set("dispensationPct", _dispensationPct);
+    set("pDispensationPct", _pDispensationPct);
+    set("voteQuorum", _voteQuorum);
+    set("pVoteQuorum", _pVoteQuorum);
   }
 
   // -----------------------
@@ -133,6 +134,7 @@ contract Parameterizer {
       deposit: deposit,
       name: _name,
       owner: msg.sender,
+      // solium-disable-next-line operator-whitespace
       processBy: now + get("pApplyStageLen") + get("pCommitStageLen") +
         get("pRevealStageLen") + PROCESSBY,
       value: _value
@@ -289,8 +291,12 @@ contract Parameterizer {
   @param _salt        The salt of the voter's commit hash in the given poll
   @return             The uint indicating the voter's reward
   */
-  function voterReward(address _voter, uint _challengeID, uint _salt)
-  public view returns (uint) {
+  function voterReward(
+    address _voter,
+    uint _challengeID,
+    uint _salt)
+    public view returns (uint)
+  {
     uint winningTokens = challenges[_challengeID].winningTokens;
     uint rewardPool = challenges[_challengeID].rewardPool;
     uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, false);
@@ -323,8 +329,9 @@ contract Parameterizer {
     ParamProposal memory prop = proposals[_propID];
     Challenge memory challenge = challenges[prop.challengeID];
 
+    // solium-disable-next-line operator-whitespace
     return (prop.challengeID > NO_CHALLENGE && challenge.resolved == false &&
-            voting.pollEnded(prop.challengeID));
+      voting.pollEnded(prop.challengeID));
   }
 
   /**
@@ -332,7 +339,7 @@ contract Parameterizer {
   @param _challengeID The challengeID to determine a reward for
   */
   function challengeWinnerReward(uint _challengeID) public view returns (uint) {
-    if(voting.getTotalNumberOfTokensForWinningOption(_challengeID) == 0) {
+    if (voting.getTotalNumberOfTokensForWinningOption(_challengeID) == 0) {
       // Edge case, nobody voted, give all tokens to the winner.
       return 2 * challenges[_challengeID].stake;
     }
@@ -364,17 +371,15 @@ contract Parameterizer {
     uint reward = challengeWinnerReward(prop.challengeID);
 
     if (voting.isPassed(prop.challengeID)) { // The challenge failed
-      if(prop.processBy > now) {
+      if (prop.processBy > now) {
         set(prop.name, prop.value);
       }
       require(token.transfer(prop.owner, reward));
-    } 
-    else { // The challenge succeeded
+    } else { // The challenge succeeded
       require(token.transfer(challenges[prop.challengeID].challenger, reward));
     }
 
-    challenge.winningTokens =
-      voting.getTotalNumberOfTokensForWinningOption(prop.challengeID);
+    challenge.winningTokens = voting.getTotalNumberOfTokensForWinningOption(prop.challengeID);
     challenge.resolved = true;
   }
 

@@ -69,12 +69,13 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param feeRecipientAddr   Address of entity that collects fees from denied appeals
   */
   function RestrictedAddressRegistryWithAppeals(
-      address tokenAddr,
-      address plcrAddr,
-      address paramsAddr,
-      address appellateAddr,
-      address feeRecipientAddr
-  ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr) {
+    address tokenAddr,
+    address plcrAddr,
+    address paramsAddr,
+    address appellateAddr,
+    address feeRecipientAddr)
+    public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
+  {
     appellate = appellateAddr;
     feeRecipient = feeRecipientAddr;
   }
@@ -92,8 +93,8 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   */
 
   function requestAppeal(address listingAddress) external {
-    var listing = listings[listingAddress];
-    var appeal = appeals[listingAddress];
+    Listing listing = listings[listingAddress];
+    Appeal appeal = appeals[listingAddress];
     require(listing.owner == msg.sender);
     require(appeal.requestAppealPhaseExpiry > now); // "Request Appeal Phase" active
     require(!appeal.appealRequested);
@@ -115,7 +116,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   */
 
   function grantAppeal(address listingAddress) external onlyAppellate {
-    var appeal = appeals[listingAddress];
+    Appeal appeal = appeals[listingAddress];
     require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
     require(!appeal.appealGranted); // don't grant twice
 
@@ -196,7 +197,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   */
 
   function resolvePostAppealPhase(address listingAddress) external {
-    var appeal = appeals[listingAddress];
+    Appeal appeal = appeals[listingAddress];
 
     // must be initialized and after "Request Appeal Phase"
     require(appeal.requestAppealPhaseExpiry != 0 && now > appeal.requestAppealPhaseExpiry); 
@@ -256,8 +257,12 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @return             The uint indicating the voter's reward
   */
 
-  function voterReward(address _voter, uint _challengeID, uint _salt)
-  public view returns (uint) {
+  function voterReward(
+    address _voter,
+    uint _challengeID,
+    uint _salt)
+    public view returns (uint)
+  {
     uint totalTokens = challenges[_challengeID].totalTokens;
     uint rewardPool = challenges[_challengeID].rewardPool;
     uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, challengesOverturned[_challengeID]);

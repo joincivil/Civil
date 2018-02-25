@@ -19,10 +19,11 @@ contract ContractAddressRegistry is AddressRegistry {
   @param _paramsAddr      Address of a Parameterizer contract 
   */
   function ContractAddressRegistry(
-      address _tokenAddr,
-      address _plcrAddr,
-      address _paramsAddr
-  ) public AddressRegistry(_tokenAddr, _plcrAddr, _paramsAddr) {
+    address _tokenAddr,
+    address _plcrAddr,
+    address _paramsAddr)
+    public AddressRegistry(_tokenAddr, _plcrAddr, _paramsAddr)
+  {
       
   }
 
