@@ -10,14 +10,11 @@ jobs:
                 key: node-modules-{{ checksum "package.json" }}
             - run:
                 name: Install modules
-                command: yarn --frozen-lockfile
+                command: yarn --frozen-lockfile install
             - save_cache:
                 key: node-modules-{{ checksum "package.json" }}
                 paths:
                     - node_modules
-            - run:
-                name: Bootstrapping
-                command: yarn lerna bootstrap
             - run:
                 name: Building
                 command: yarn lerna:run build

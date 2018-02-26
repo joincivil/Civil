@@ -5,7 +5,8 @@
   ],
   "scripts": {
     "lerna": "lerna",
-    "lerna:run": "lerna run"
+    "lerna:run": "lerna run",
+    "prepare": "lerna run prepare"
   },
   "devDependencies": {
     "lerna": "^2.9.0"
