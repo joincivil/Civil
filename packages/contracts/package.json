@@ -14,7 +14,7 @@
     "lint:solidity": "solium --dir contracts/",
     "test": "truffle test --network test",
     "clean": "rimraf build/",
-    "postinstall": "truffle install",
+    "prepare": "truffle install",
     "truffle": "truffle",
     "tsc": "tsc",
     "tslint": "tslint",
