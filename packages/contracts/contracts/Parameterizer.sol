@@ -135,8 +135,7 @@ contract Parameterizer {
       name: _name,
       owner: msg.sender,
       // solium-disable-next-line operator-whitespace
-      processBy: now + get("pApplyStageLen") + get("pCommitStageLen") +
-        get("pRevealStageLen") + PROCESSBY,
+      processBy: now + get("pApplyStageLen") + get("pCommitStageLen") + get("pRevealStageLen") + PROCESSBY,
       value: _value
     });
 
