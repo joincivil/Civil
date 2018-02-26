@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity 0.4.19;
 import "./ACL.sol";
 
 
@@ -7,8 +7,8 @@ contract Newsroom is ACL {
   event ContentApproved(uint id);
   event ContentDenied(uint id);
 
-  string constant ROLE_REPORTER = "reporter";
-  string constant ROLE_EDITOR = "editor";
+  string private constant ROLE_REPORTER = "reporter";
+  string private constant ROLE_EDITOR = "editor";
 
   uint private latestId;
   mapping(uint => Content) private content;
@@ -66,6 +66,7 @@ contract Newsroom is ACL {
       msg.sender,
       now
     );
+
     waiting[id] = true;
     ContentProposed(msg.sender, id);
     return id;
