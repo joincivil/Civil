@@ -4,16 +4,17 @@
   "version": "1.0.0",
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
-    "build": "npm run compile && npm run strip-artifacts",
-    "compile": "npm run build:solidity && npm run build:typescript",
-    "build:typescript": "npm run lint:typescript; tsc",
-    "build:solidity": "npm run lint:solidity; truffle compile",
-    "lint": "npm run lint:typescript && npm run lint:solidity",
-    "test": "npm run compile && truffle test --network test",
+    "build": "run-s compile build:stripArtifacts",
+    "build:stripArtifacts": "node build/scripts/strip-artifacts.js \"build/contracts/**/*.json\" build/artifacts",
+    "compile": "run-p --aggregate-output compile:*",
+    "compile:typescript": "tsc",
+    "compile:solidity": "truffle compile",
+    "lint": "run-p --aggregate-output lint:*",
     "lint:typescript": "tslint --project ./",
     "lint:solidity": "solium --dir contracts/",
+    "test": "truffle test --network test",
+    "clean": "rimraf build/",
     "postinstall": "truffle install",
-    "strip-artifacts": "node build/scripts/strip-artifacts.js \"build/contracts/**/*.json\" build/artifacts",
     "truffle": "truffle",
     "tsc": "tsc",
     "tslint": "tslint",
@@ -29,7 +30,7 @@
     "url": "https://github.com/joincivil/contracts/issues"
   },
   "homepage": "https://github.com/joincivil/contracts#readme",
-  "dependencies": {
+  "devDependencies": {
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
     "@types/glob": "^5.0.34",
@@ -48,12 +49,11 @@
     "mocha-multi-reporters": "^1.1.7",
     "rimraf": "^2.6.2",
     "truffle": "^4.0.3",
-    "zeppelin-solidity": "^1.4.0"
-  },
-  "devDependencies": {
+    "zeppelin-solidity": "^1.4.0",
     "@joincivil/tslint-rules": "^2.4.0",
     "solium": "^1.1.5",
     "solium-plugin-security": "^0.1.1",
+    "npm-run-all": "^4.1.2",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
     "web3-typescript-typings": "^0.9.11"
