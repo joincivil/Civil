@@ -42,6 +42,10 @@ jobs:
                 keys:
                   - repo-{{ .Environment.CIRCLE_SHA1 }}
             - run:
+                name: Starting Ganache
+                command: yarn ganache
+                background: true
+            - run:
                 name: Running tests
                 command: yarn lerna:run test
 workflows:
