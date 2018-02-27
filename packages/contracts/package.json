@@ -45,8 +45,6 @@
     "ethereumjs-abi": "^0.6.5",
     "glob": "^7.1.2",
     "mkdirp": "^0.5.1",
-    "mocha-junit-reporter": "^1.15.0",
-    "mocha-multi-reporters": "^1.1.7",
     "rimraf": "^2.6.2",
     "truffle": "^4.0.3",
     "zeppelin-solidity": "^1.4.0",
