@@ -7,7 +7,7 @@
     "lerna": "lerna",
     "lerna:run": "lerna run",
     "prepare": "lerna run prepare",
-    "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\""
+    "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse"
   },
   "config": {
     "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"
