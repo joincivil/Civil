@@ -1,6 +1,6 @@
 /* global artifacts */
 
-import { config, inTesting } from "./utils";
+import { approveEverything, config, inTesting } from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
 
 const AddressRegistry = artifacts.require("AddressRegistry.sol");
@@ -11,15 +11,6 @@ const AttributeStore = artifacts.require("attrstore/AttributeStore.sol");
 const PLCRVoting = artifacts.require("PLCRVoting.sol");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
-  async function approveRegistryFor(addresses: string[]): Promise<boolean> {
-    const token = await Token.deployed();
-    const user = addresses[0];
-    const balanceOfUser = await token.balanceOf(user);
-    await token.approve(AddressRegistry.address, balanceOfUser, { from: user });
-    if (addresses.length === 1) { return true; }
-    return approveRegistryFor(addresses.slice(1));
-  }
-
   deployer.then(async () => {
     await deployer.link(DLL, AddressRegistry);
     await deployer.link(AttributeStore, AddressRegistry);
@@ -37,7 +28,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       Parameterizer.address,
     );
     if (inTesting(network)) {
-      await approveRegistryFor(accounts);
+      await approveEverything(accounts, Token.at(tokenAddress), AddressRegistry.address);
     }
   });
 };

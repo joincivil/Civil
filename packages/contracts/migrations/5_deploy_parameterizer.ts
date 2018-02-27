@@ -1,6 +1,6 @@
 /* global artifacts */
 
-import { config, inTesting } from "./utils";
+import { approveEverything, config, inTesting } from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
 
 const Token = artifacts.require("EIP20.sol");
@@ -10,15 +10,6 @@ const AttributeStore = artifacts.require("attrstore/AttributeStore.sol");
 const PLCRVoting = artifacts.require("PLCRVoting.sol");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
-  async function approveParameterizerFor(addresses: string[]): Promise<boolean> {
-    const token = await Token.deployed();
-    const user = addresses[0];
-    const balanceOfUser = await token.balanceOf(user);
-    await token.approve(Parameterizer.address, balanceOfUser, { from: user });
-    if (addresses.length === 1) { return true; }
-    return approveParameterizerFor(addresses.slice(1));
-  }
-
   deployer.then(async () => {
     await deployer.link(DLL, Parameterizer);
     await deployer.link(AttributeStore, Parameterizer);
@@ -48,7 +39,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.pVoteQuorum,
     );
     if (inTesting(network)) {
-      await approveParameterizerFor(accounts);
+      await approveEverything(accounts, Token.at(tokenAddress), Parameterizer.address);
     }
   });
 };
