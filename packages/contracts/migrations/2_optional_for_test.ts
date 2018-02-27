@@ -7,8 +7,10 @@ import { MAIN_NETWORK } from "./utils/consts";
 
 const Token = artifacts.require("tokens/eip20/EIP20.sol");
 
+const BASE_10 = 10;
+
 module.exports = (deployer: any, network: string, accounts: string[]) => {
-  const totalSupply = new BN("1000000000000000000000000", 10);
+  const totalSupply = new BN("1000000000000000000000000", BASE_10);
   const decimals = "18";
 
   async function giveTokensTo(addresses: string[]): Promise<boolean> {
@@ -16,9 +18,9 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     const user = addresses[0];
     let allocation;
     if (network in config.testnets) {
-      allocation = totalSupply.div(new BN(config.testnets[network].tokenHolders.length, 10));
+      allocation = totalSupply.div(new BN(config.testnets[network].tokenHolders.length, BASE_10));
     } else {
-      allocation = totalSupply.div(new BN(accounts.length, 10));
+      allocation = totalSupply.div(new BN(accounts.length, BASE_10));
     }
 
     await token.transfer(user, allocation);
