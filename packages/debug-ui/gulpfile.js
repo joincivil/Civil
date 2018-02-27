@@ -122,7 +122,3 @@ gulp.task('server', ['build'], () => {
 })
 
 gulp.task('serve', ['watch', 'server'])
-
-gulp.task('clean', () => {
-    return del(config.deployDir)
-})

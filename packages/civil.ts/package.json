@@ -5,14 +5,16 @@
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "build": "npm run generate && tsc && copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
+    "build": "run-s generate tsc build:copyArtifacts",
+    "build:copyArtifacts": "copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
     "lint": "tslint --project ./",
-    "generate": "npm run generate:contracts && npm run generate:artifacts",
+    "generate": "run-p generate:*",
     "generate:contracts": "abi-gen --abis 'src/artifacts/**/*.json' --template 'src/templates/contract/contract.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/'",
     "generate:artifacts": "civil-generate-from-files 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
     "test": "mocha build/test/ --reporter mocha-multi-reporters --reporter-options configFile=mocha.json",
     "tsc": "tsc",
-    "prepublishOnly": "npm run build && npm run lint && npm run test"
+    "prepublishOnly": "run-s build lint test",
+    "clean": "rimraf build/"
   },
   "repository": {
     "type": "git",
@@ -41,6 +43,8 @@
     "mocha": "^5.0.0",
     "mocha-junit-reporter": "^1.16.0",
     "mocha-multi-reporters": "^1.1.7",
+    "npm-run-all": "^4.1.2",
+    "rimraf": "^2.6.2",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
     "web3-typescript-typings": "^0.9.11"
