@@ -12,10 +12,7 @@ import "./RestrictedAddressRegistry.sol";
         "Listing" refers to the data associated with an address at any stage of the lifecycle (e.g.
         "Listing in Application", "Listing in Challenge", "Listing on Whitelist", "Denied Listing", etc).
 */
-
-
 contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
-
 
   event AppealRequested(address indexed requester, address indexed listing);
   event AppealGranted(address indexed listing);
@@ -47,9 +44,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @notice this struct handles the state of an appeal. It is first initialized 
           when updateStatus is called after a successful challenge.
   */
-
   struct Appeal {
-
     uint requestAppealPhaseExpiry;
     bool appealRequested;
     uint appealFeePaid;
@@ -91,7 +86,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
           and not already requested
   @param listingAddress address of listing that has been successfully challenged. Caller must be owner of listing.
   */
-
   function requestAppeal(address listingAddress) external {
     Listing listing = listings[listingAddress];
     Appeal appeal = appeals[listingAddress];
@@ -114,7 +108,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @notice Grants a requested appeal, if the appeal has not expired (or already been granted)
   @param listingAddress The address of the listing associated with the appeal
   */
-
   function grantAppeal(address listingAddress) external onlyAppellate {
     Appeal appeal = appeals[listingAddress];
     require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
@@ -129,7 +122,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
           Can only be called by Appellate, since only they can decide what fee they require
   @param fee The new value for the appeal fee
   */
-
   function setAppealFee(uint fee) external onlyAppellate {
     require(fee > 0); // safety check
     appealFee = fee;
@@ -142,7 +134,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
           by community adds complexity and seems unnecessary
   @param length The new value for the "Request Appeal Phase" length
   */
-
   function setMakeAppealLength(uint length) external onlyAppellate {
     require(length > 0); // safety check
     requestAppealPhaseLength = length;
@@ -154,7 +145,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
           Can only be called by Appellate, since only they can decide how long they need to process appeals
   @param length The new value for the "Judge Appeal Phase" length
   */
-
   function setAppealLength(uint length) external onlyAppellate {
     require(length > 0); // safety check
     judgeAppealPhaseLength = length;
@@ -166,7 +156,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
           Can only be called by Appellate
   @param recipient The new value for the Fee Recipient
   */
-
   function setFeeRecipient(address recipient) external onlyAppellate {
     feeRecipient = recipient;
     FeeRecipientSet(recipient);
@@ -179,7 +168,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   /**
   @notice Transfers deniedAppealFees to fee recipient. Can only be called by recipient.
   */
-
   function withdrawDeniedAppealsFees() external onlyFeeRecipient {
     uint feesToSend = deniedAppealFees;
     deniedAppealFees = 0;
@@ -195,7 +183,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @notice Update state of listing after "Judge Appeal Phase" has ended. Reverts if cannot be processed yet.
   @param listingAddress Address of listing associated with appeal
   */
-
   function resolvePostAppealPhase(address listingAddress) external {
     Appeal appeal = appeals[listingAddress];
 
@@ -227,7 +214,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param _salt        The salt of a voter's commit hash in the given poll
   */
-
   function claimReward(uint _challengeID, uint _salt) public {
     // Ensures the voter has not already claimed tokens and challenge results have been processed
     require(challenges[_challengeID].tokenClaims[msg.sender] == false);
@@ -256,7 +242,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param _salt        The salt of the voter's commit hash in the given poll
   @return             The uint indicating the voter's reward
   */
-
   function voterReward(
     address _voter,
     uint _challengeID,
@@ -297,7 +282,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @notice Overrides `resolveChallenge` from `AddressRegistry` to begin "Request Appeal Phase" if
           challenge was successful. 
   */
-
   function resolveChallenge(address listingAddress) internal {
     uint challengeID = listings[listingAddress].challengeID;
     if (voting.isPassed(challengeID)) { // Case: challenge failed
@@ -314,7 +298,6 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
           reward (including appeal fee) to applicant
   @param listingAddress Address of listing with a challenge that is to be resolved
   */
-
   function resolveOverturnedChallenge(address listingAddress) private {
     Appeal storage appeal = appeals[listingAddress];
     uint challengeID = listings[listingAddress].challengeID;
