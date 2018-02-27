@@ -1,14 +1,15 @@
 /* global artifacts */
 
+import { config, inTesting } from "./utils";
+import { MAIN_NETWORK } from "./utils/consts";
+
 const Token = artifacts.require("EIP20.sol");
 const DLL = artifacts.require("dll/DLL.sol");
 const AttributeStore = artifacts.require("attrstore/AttributeStore.sol");
 const PLCRVoting = artifacts.require("PLCRVoting.sol");
 
-const fs = require("fs");
-
-module.exports = (deployer, network, accounts) => {
-  async function approvePLCRFor(addresses) {
+module.exports = (deployer: any, network: string, accounts: string[]) => {
+  async function approvePLCRFor(addresses: string[]): Promise<boolean> {
     const token = await Token.deployed();
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
@@ -17,25 +18,23 @@ module.exports = (deployer, network, accounts) => {
     return approvePLCRFor(addresses.slice(1));
   }
 
-  deployer.link(DLL, PLCRVoting);
-  deployer.link(AttributeStore, PLCRVoting);
+  deployer.then(async () => {
+    await deployer.link(DLL, PLCRVoting);
+    await deployer.link(AttributeStore, PLCRVoting);
 
-  return deployer.then(async () => {
-    const config = JSON.parse(fs.readFileSync("./conf/config.json"));
     let tokenAddress = config.TokenAddress;
 
-    if (network !== "mainnet") {
+    if (network !== MAIN_NETWORK) {
       tokenAddress = Token.address;
     }
 
-    return deployer.deploy(
+    await deployer.deploy(
       PLCRVoting,
       tokenAddress,
     );
-  })
-    .then(async () => {
-      if (network === "test") {
-        await approvePLCRFor(accounts);
-      }
-    }).catch((err) => { throw err; });
+
+    if (inTesting(network)) {
+      await approvePLCRFor(accounts);
+    }
+  });
 };

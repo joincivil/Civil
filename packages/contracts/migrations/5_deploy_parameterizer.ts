@@ -1,15 +1,16 @@
 /* global artifacts */
 
+import { config, inTesting } from "./utils";
+import { MAIN_NETWORK } from "./utils/consts";
+
 const Token = artifacts.require("EIP20.sol");
 const Parameterizer = artifacts.require("Parameterizer.sol");
 const DLL = artifacts.require("dll/DLL.sol");
 const AttributeStore = artifacts.require("attrstore/AttributeStore.sol");
 const PLCRVoting = artifacts.require("PLCRVoting.sol");
 
-const fs = require("fs");
-
-module.exports = (deployer, network, accounts) => {
-  async function approveParameterizerFor(addresses) {
+module.exports = (deployer: any, network: string, accounts: string[]) => {
+  async function approveParameterizerFor(addresses: string[]): Promise<boolean> {
     const token = await Token.deployed();
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
@@ -18,19 +19,18 @@ module.exports = (deployer, network, accounts) => {
     return approveParameterizerFor(addresses.slice(1));
   }
 
-  deployer.link(DLL, Parameterizer);
-  deployer.link(AttributeStore, Parameterizer);
+  deployer.then(async () => {
+    await deployer.link(DLL, Parameterizer);
+    await deployer.link(AttributeStore, Parameterizer);
 
-  return deployer.then(async () => {
-    const config = JSON.parse(fs.readFileSync("./conf/config.json"));
     const parameterizerConfig = config.paramDefaults;
     let tokenAddress = config.TokenAddress;
 
-    if (network !== "mainnet") {
+    if (network !== MAIN_NETWORK) {
       tokenAddress = Token.address;
     }
 
-    return deployer.deploy(
+    await deployer.deploy(
       Parameterizer,
       tokenAddress,
       PLCRVoting.address,
@@ -47,10 +47,8 @@ module.exports = (deployer, network, accounts) => {
       parameterizerConfig.voteQuorum,
       parameterizerConfig.pVoteQuorum,
     );
-  })
-    .then(async () => {
-      if (network === "test") {
-        await approveParameterizerFor(accounts);
-      }
-    }).catch((err) => { throw err; });
+    if (inTesting(network)) {
+      await approveParameterizerFor(accounts);
+    }
+  });
 };

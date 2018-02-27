@@ -6,8 +6,13 @@ module.exports = {
   networks: {
     develop: {
       host: "localhost",
-      port: 9545,
+      port: 8545,
       network_id: "*" // Match any network id
+    },
+    ganache: {
+      host: "localhost",
+      port: 8545,
+      network_id: "50"
     }
   }
 };
