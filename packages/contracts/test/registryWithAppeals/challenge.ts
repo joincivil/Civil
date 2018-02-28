@@ -3,9 +3,6 @@ import { REVERTED } from "../../utils/constants";
 import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
-const Parameterizer = artifacts.require("Parameterizer");
-const Token = artifacts.require("EIP20");
-const PLCRVoting = artifacts.require("PLCRVoting");
 const Newsroom = artifacts.require("Newsroom");
 
 ChaiConfig();
@@ -13,21 +10,12 @@ const expect = chai.expect;
 
 contract("Registry With Appeals", (accounts) => {
   describe("Function: challenge", () => {
-    const [JAB, applicant, challenger, voter, proposer] = accounts;
+    const [JAB, applicant, challenger] = accounts;
     let registry: any;
-    let parameterizer: any;
-    let token: any;
-    let voting: any;
     const minDeposit = utils.paramConfig.minDeposit;
 
     beforeEach(async () => {
       registry = await utils.createAllTestRestrictedAddressRegistryWithAppealsInstance(accounts, JAB);
-      const parameterizerAddress = await registry.parameterizer();
-      parameterizer = await Parameterizer.at(parameterizerAddress);
-      const tokenAddress = await registry.token();
-      token = await Token.at(tokenAddress);
-      const votingAddress = await registry.voting();
-      voting = await PLCRVoting.at(votingAddress);
     });
 
     it("should successfully challenge an application", async () => {
