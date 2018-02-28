@@ -42,25 +42,13 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
-"@joincivil/dev-utils@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@joincivil/dev-utils/-/dev-utils-1.0.1.tgz#82017e558bd14afc4d00b98be1af2b39da530533"
-  dependencies:
-    "@types/chai" "^4.1.1"
-    "@types/chai-as-promised" "^7.1.0"
-    argparse "^1.0.9"
-    chai-as-promised "^7.1.1"
-    chai-bignumber "^2.0.2"
-    debug "^3.1.0"
-    dirty-chai "^2.0.1"
-    glob "^7.1.2"
-    handlebars "^4.0.11"
-    mkdirp "^0.5.1"
-    to-snake-case "^1.0.0"
-
 "@joincivil/tslint-rules@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@joincivil/tslint-rules/-/tslint-rules-2.4.0.tgz#b3ea5d6464cd03fea949e2c3923cee813b1c7897"
+
+"@types/argparse@^1.0.33":
+  version "1.0.33"
+  resolved "https://registry.yarnpkg.com/@types/argparse/-/argparse-1.0.33.tgz#2728669427cdd74a99e53c9f457ca2866a37c52d"
 
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
   version "7.0.0"
@@ -90,13 +78,17 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@types/events/-/events-1.1.0.tgz#93b1be91f63c184450385272c47b6496fd028e02"
 
-"@types/glob@^5.0.34":
+"@types/glob@^5.0.34", "@types/glob@^5.0.35":
   version "5.0.35"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-5.0.35.tgz#1ae151c802cece940443b5ac246925c85189f32a"
   dependencies:
     "@types/events" "*"
     "@types/minimatch" "*"
     "@types/node" "*"
+
+"@types/handlebars@^4.0.36":
+  version "4.0.36"
+  resolved "https://registry.yarnpkg.com/@types/handlebars/-/handlebars-4.0.36.tgz#ff57c77fa1ab6713bb446534ddc4d979707a3a79"
 
 "@types/lodash@^4.14.92":
   version "4.14.104"
@@ -120,7 +112,7 @@
   version "2.2.48"
   resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.48.tgz#3523b126a0b049482e1c3c11877460f76622ffab"
 
-"@types/node@*", "@types/node@^9.4.0":
+"@types/node@*", "@types/node@^9.3.0", "@types/node@^9.4.0":
   version "9.4.6"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.6.tgz#d8176d864ee48753d053783e4e463aec86b8d82e"
 

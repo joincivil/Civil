@@ -10,7 +10,7 @@
     "lint": "tslint --project ./",
     "generate": "run-p generate:*",
     "generate:contracts": "abi-gen --abis 'src/artifacts/**/*.json' --template 'src/templates/contract/contract.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/'",
-    "generate:artifacts": "civil-generate-from-files 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
+    "generate:artifacts": "node ../dev-utils/build/generate-from-files/bin.js 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
     "test": "mocha build/test/ --reporter mocha-multi-reporters --reporter-options configFile=mocha.json",
     "tsc": "tsc",
     "prepublishOnly": "run-s build lint test",
