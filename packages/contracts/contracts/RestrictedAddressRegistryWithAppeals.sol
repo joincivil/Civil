@@ -202,7 +202,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress Address of listing associated with appeal
   */
   function resolvePostAppealPhase(address listingAddress) external {
-    Appeal appeal = appeals[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
 
     // must be initialized and after "Request Appeal Phase"
     require(appeal.requestAppealPhaseExpiry != 0 && now > appeal.requestAppealPhaseExpiry); 

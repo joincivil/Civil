@@ -12,6 +12,11 @@ contract ACL is Ownable {
     _;
   }
 
+  modifier requireOwner() {
+    require(isOwner(msg.sender));
+    _;
+  }
+
   function ACL() Ownable() public {
   }
 
