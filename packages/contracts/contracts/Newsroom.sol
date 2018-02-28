@@ -1,7 +1,6 @@
 pragma solidity 0.4.19;
 import "./ACL.sol";
 
-
 contract Newsroom is ACL {
   event ContentProposed(address indexed author, uint indexed id);
   event ContentApproved(uint id);
@@ -10,13 +9,13 @@ contract Newsroom is ACL {
   string private constant ROLE_REPORTER = "reporter";
   string private constant ROLE_EDITOR = "editor";
 
+
   uint private latestId;
   mapping(uint => Content) private content;
   mapping(uint => bool) private waiting;
   mapping(uint => bool) private approved;
 
-  function Newsroom() public {
-    _addSuperuser(msg.sender);
+  function Newsroom() ACL() public {
   }
 
   function author(uint contentId) public view returns (address) {
@@ -37,14 +36,6 @@ contract Newsroom is ACL {
 
   function isApproved(uint contentId) public view returns (bool) {
     return approved[contentId];
-  }
-
-  function addDirector(address who) public requireSuperuser() {
-    _addSuperuser(who);
-  }
-
-  function removeDirector(address who) public requireSuperuser() {
-    _removeSuperuser(who);
   }
 
   function addRole(address who, string role) public requireRole(ROLE_EDITOR) {

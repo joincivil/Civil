@@ -16,6 +16,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
 
   event AppealRequested(address indexed requester, address indexed listing);
   event AppealGranted(address indexed listing);
+  event ListingWhitelistedByJEC(address indexed listing);
   event AppealFeeSet(uint fee);
   event MakeAppealLengthSet(uint length);
   event AppealLengthSet(uint length);
@@ -36,9 +37,9 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   uint public appealFee;
   uint public requestAppealPhaseLength = 259200; // 3 days expressed in seconds
   uint public judgeAppealPhaseLength = 1209600; // 14 days expressed in seconds
+  uint public whitelistGracePeriodLength = 7257600; // 84 days expressed in seconds
 
   uint public deniedAppealFees;
-
 
   /*
   @notice this struct handles the state of an appeal. It is first initialized 
@@ -87,8 +88,8 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress address of listing that has been successfully challenged. Caller must be owner of listing.
   */
   function requestAppeal(address listingAddress) external {
-    Listing listing = listings[listingAddress];
-    Appeal appeal = appeals[listingAddress];
+    Listing storage listing = listings[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
     require(listing.owner == msg.sender);
     require(appeal.requestAppealPhaseExpiry > now); // "Request Appeal Phase" active
     require(!appeal.appealRequested);
@@ -109,12 +110,29 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress The address of the listing associated with the appeal
   */
   function grantAppeal(address listingAddress) external onlyAppellate {
-    Appeal appeal = appeals[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
     require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
     require(!appeal.appealGranted); // don't grant twice
 
     appeal.appealGranted = true;    
     AppealGranted(listingAddress);
+  }
+
+  function whitelistAddress(address listingAddress, uint depositAmount) external onlyAppellate {
+    require(!getListingIsWhitelisted(listingAddress));
+    require(!appWasMade(listingAddress));
+    require(depositAmount >= parameterizer.get("minDeposit"));
+    Ownable ownedContract = Ownable(listingAddress);
+    require(ownedContract.owner() != address(0)); // must have an owner
+    require(token.transferFrom(msg.sender, this, depositAmount));
+
+    Listing storage listing = listings[listingAddress];
+    listing.applicationExpiry = now;
+    listing.owner = ownedContract.owner();
+    listing.isWhitelisted = true;
+    listing.unstakedDeposit = depositAmount;
+
+    ListingWhitelistedByJEC(listingAddress);
   }
 
   /**
