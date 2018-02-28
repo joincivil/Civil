@@ -42,6 +42,22 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     this.contentProvider = contentProvider;
   }
 
+  // TODO(nickreynolds): Add function to check if user is member of multisig that owns newsroom
+
+  /**
+   * Checks if the user is the owner of the newsroom
+   * @param address Address for the ownership check, leave empty for current user
+   * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
+   */
+  public async isOwner(address?: EthAddress): Promise<boolean> {
+    let who = address;
+
+    if (!who) {
+      who = requireAccount(this.web3Wrapper);
+    }
+    return this.instance.isOwner.callAsync(who);
+  }
+
   /**
    * Checks if the user can assign roles and approve/deny content
    * Also returns true if user has director super powers
