@@ -54,7 +54,10 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   }
 
   mapping(address => Appeal) internal appeals;
-  mapping(uint => bool) internal challengesOverturned;
+  mapping(uint => bool) public challengesOverturned;
+
+  /// if listing whitelisted by JEC, should have a grace period during which they cannot be challenged 
+  mapping(address => uint) public listingGracePeriodEndTimes;
 
   /**
   @dev Contructor           Sets the addresses for token, voting, parameterizer, appellate, and fee recipient
@@ -132,6 +135,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
     listing.isWhitelisted = true;
     listing.unstakedDeposit = depositAmount;
 
+    listingGracePeriodEndTimes[listingAddress] = now + whitelistGracePeriodLength;
     ListingWhitelistedByJEC(listingAddress);
   }
 
@@ -225,7 +229,19 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   // --------------------
   // TOKEN OWNER INTERFACE:
   // --------------------
-
+  /**
+  @dev                Starts a poll for a listingAddress which is either in the apply stage or
+                      already in the whitelist. Tokens are taken from the challenger and the
+                      applicant's deposits are locked.
+                      D elists listing and returns NO_CHALLENGE if listing's unstakedDeposit 
+                      is less than current minDeposit
+  @param _listingAddress The listingAddress being challenged, whether listed or in application
+  @param _data        Extra data relevant to the challenge. Think IPFS hashes.
+  */
+  function challenge(address _listingAddress, string _data) public returns (uint challengeID) {
+    require(now > listingGracePeriodEndTimes[_listingAddress]);
+    return super.challenge(_listingAddress, _data);
+  }
   /**
   @dev                Called by a voter to claim their reward for each completed vote. Someone
                       must call updateStatus() before this can be called.
