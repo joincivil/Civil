@@ -1,16 +1,12 @@
 {
+  "extends": "../../tsconfig",
   "compilerOptions": {
-    "target": "ES2017",
-    "module": "commonjs",
-    "outDir": "./build/",
-    "strict": true,
-    "noImplicitThis": false,
-    "declaration": true,
-    "declarationDir": "./build/",
-    "pretty": true,
-    "forceConsistentCasingInFileNames": true
+    "outDir": "build/",
+    "declarationDir": "build/"
   },
   "include": [
     "./src/**/*.ts",
+    "./test/**/*.ts",
+    "../../node_modules/web3-typescript-typings/index.d.ts"
   ]
 }
