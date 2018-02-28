@@ -6,9 +6,14 @@
   "scripts": {
     "lerna": "lerna",
     "lerna:run": "lerna run",
-    "prepare": "lerna run prepare"
+    "prepare": "lerna run prepare",
+    "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse"
+  },
+  "config": {
+    "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"
   },
   "devDependencies": {
+    "ganache-cli": "^6.1.0-beta.4",
     "lerna": "^2.9.0"
   }
 }
