@@ -8,7 +8,7 @@ export interface ContractConfiguration {
 
 const DEFAULT_CONFIG: ContractConfiguration = {
   estimationMultiplier: 1.5,
-  txDefaults: {}
+  txDefaults: {},
 };
 
 export class BaseContract {
@@ -19,7 +19,7 @@ export class BaseContract {
     this.instance = instance;
     this.configuration = {
       ...DEFAULT_CONFIG,
-      ...config
+      ...config,
     };
   }
 

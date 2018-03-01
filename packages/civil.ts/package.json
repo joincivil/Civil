@@ -20,7 +20,7 @@
     "url": "https://github.com/joincivil/Civil/issues"
   },
   "homepage": "https://github.com/joincivil/Civil",
-  "license": "LGPL-2.1-only",
+  "license": "LGPL-2.1",
   "devDependencies": {
     "@0xproject/abi-gen": "^0.1.1",
     "@joincivil/dev-utils": "^1.0.1",
