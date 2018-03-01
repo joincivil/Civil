@@ -1,5 +1,5 @@
 pragma solidity 0.4.19;
-import "zeppelin-solidity/contracts/ownership/Ownable.sol";
+import "../../../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
 
 contract ACL is Ownable {
   event RoleAdded(address indexed granter, address indexed grantee, string role);
