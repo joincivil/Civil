@@ -12,7 +12,7 @@ import * as fs from "fs";
     console.log(`\tNewsroom at: ${newsroom.address}`);
 
     console.log("Proposing content");
-    const articleId = await newsroom.propose(article);
+    const articleId = await newsroom.proposeContent(article);
     console.log(`\tContent id: ${articleId}`);
 
     console.log("Approving content");

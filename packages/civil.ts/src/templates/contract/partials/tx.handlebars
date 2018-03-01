@@ -9,7 +9,7 @@ public {{this.name}} = {
     {{/this.payable}}
   ): Promise<TxHash> {
     const self = this as {{contractName}}Contract;
-    const txOptions = { ...self.defaults, ...txData };
+    const txOptions = { ...self.configuration.txDefaults, ...txData };
     if (!txOptions.gas) {
       txOptions.gas = await self.{{name}}.estimateGasAsync(
         {{> params inputs=inputs}}
@@ -32,8 +32,8 @@ public {{this.name}} = {
       self.instance.{{this.name}}.estimateGas,
       self.instance.{{this.name}},
     );
-    return promisified(
+    return Math.floor(await promisified(
       {{> params inputs=inputs}}
-      txData);
+      txData) * self.configuration.estimationMultiplier);
   },
 };

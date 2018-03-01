@@ -1,13 +1,26 @@
 import * as Web3 from "web3";
 import { TxDataPayable } from "../types";
 
+export interface ContractConfiguration {
+  estimationMultiplier: number;
+  txDefaults: Partial<TxDataPayable>;
+}
+
+const DEFAULT_CONFIG: ContractConfiguration = {
+  estimationMultiplier: 1.5,
+  txDefaults: {}
+};
+
 export class BaseContract {
-  protected defaults: Partial<TxDataPayable>;
+  protected configuration: ContractConfiguration;
   protected instance: Web3.ContractInstance;
 
-  constructor(instance: Web3.ContractInstance, defaults: Partial<TxDataPayable> = {}) {
+  constructor(instance: Web3.ContractInstance, config: Partial<ContractConfiguration> = {}) {
     this.instance = instance;
-    this.defaults = defaults;
+    this.configuration = {
+      ...DEFAULT_CONFIG,
+      ...config
+    };
   }
 
   public get address(): string {
