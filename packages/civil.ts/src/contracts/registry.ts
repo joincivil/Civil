@@ -1,6 +1,6 @@
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
-import "@joincivil/utils/rxjs";
+import "@joincivil/utils";
 
 import { CivilTransactionReceipt, EthAddress } from "../types";
 import { CivilErrors } from "../utils/errors";

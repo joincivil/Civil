@@ -1,7 +1,7 @@
 import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
-import "@joincivil/utils/rxjs";
+import "@joincivil/utils";
 
 import { Bytes32, CivilTransactionReceipt, EthAddress } from "../types";
 import { requireAccount } from "../utils/errors";

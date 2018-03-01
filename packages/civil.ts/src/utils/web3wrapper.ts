@@ -39,12 +39,14 @@ export class Web3Wrapper {
   }
 
   public get account(): EthAddress | undefined {
+    /*
     if (this.web3.eth.defaultAccount !== undefined) {
       return this.web3.eth.defaultAccount;
     }
     if (this.web3.eth.accounts.length > 0) {
       return this.web3.eth.accounts[0];
-    }
+    }*/
+    this.web3.eth.getAccounts((console.error));
     return undefined;
   }
 
