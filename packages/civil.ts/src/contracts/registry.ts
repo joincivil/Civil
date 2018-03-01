@@ -1,9 +1,9 @@
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
+import "@joincivil/utils/rxjs";
 
 import { CivilTransactionReceipt, EthAddress } from "../types";
 import { CivilErrors } from "../utils/errors";
-import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { RegistryWithAppellateContract } from "./generated/registry_with_appellate";

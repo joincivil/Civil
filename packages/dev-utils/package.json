@@ -3,6 +3,8 @@
   "version": "1.0.1",
   "description": "Utilities shared between Civil packages",
   "private": true,
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
   "bin": {
     "civil-generate-from-files": "build/generate-from-files/bin.js"
   },

@@ -1,9 +1,10 @@
 import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
+import "@joincivil/utils/rxjs";
+
 import { Bytes32, CivilTransactionReceipt, EthAddress } from "../types";
 import { requireAccount } from "../utils/errors";
-import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { ParameterizerContract } from "./generated/parameterizer";
