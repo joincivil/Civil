@@ -173,7 +173,6 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     return this.instance.getTotalNumberOfTokensForWinningOption.callAsync(pollID);
   }
 
-
   // TODO(nickreynolds): Refactor getNumPassingTokens to not require user to input whether challenge was overturned
   /**
    * Returns number of tokens this user committed & revealed for given poll

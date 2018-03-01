@@ -13,15 +13,15 @@ contract RestrictedAddressRegistry is ContractAddressRegistry {
 
   /**
   @dev Contructor         Sets the addresses for token, voting, and parameterizer
-  @param _tokenAddr       Address of the TCR's intrinsic ERC20 token
-  @param _plcrAddr        Address of a PLCR voting contract for the provided token
-  @param _paramsAddr      Address of a Parameterizer contract 
+  @param tokenAddr       Address of the TCR's intrinsic ERC20 token
+  @param plcrAddr        Address of a PLCR voting contract for the provided token
+  @param paramsAddr      Address of a Parameterizer contract 
   */
   function RestrictedAddressRegistry(
-    address _tokenAddr,
-    address _plcrAddr,
-    address _paramsAddr)
-    public ContractAddressRegistry(_tokenAddr, _plcrAddr, _paramsAddr)
+    address tokenAddr,
+    address plcrAddr,
+    address paramsAddr)
+    public ContractAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
   {
       
   }
@@ -31,11 +31,12 @@ contract RestrictedAddressRegistry is ContractAddressRegistry {
   // --------------------
 
   /**
-  @dev                Allows a user to start an application. Takes tokens from user and sets
-                      apply stage end time.
-  @param _amount      The number of ERC20 tokens a user is willing to potentially stake
+  @dev                  Allows a user to start an application. Takes tokens from user and sets
+                        apply stage end time.
+  @param listingAddress Address of contract to apply
+  @param amount         The number of ERC20 tokens a user is willing to potentially stake
   */
-  function apply(address _listingAddress, uint _amount, string _data) onlyContractOwner(_listingAddress) public {
-    super.apply(_listingAddress, _amount, _data);
+  function apply(address listingAddress, uint amount, string data) onlyContractOwner(listingAddress) public {
+    super.apply(listingAddress, amount, data);
   }
 }

@@ -5,18 +5,18 @@ import "./RestrictedAddressRegistry.sol";
 /**
 @title  TCR with appeallate functionality and restrictions on application 
 @author Nick Reynolds - nick@joincivil.com
-@notice The RestrictedAddressRegistryWithAppeals is a TCR with restrictions (contracts must have IACL
+@notice The RestrictedAddressTCRWithAppeals is a TCR with restrictions (contracts must have IACL
         implementation, and only the ACL superuser of a contract can apply on behalf of that contract)
         and an appeallate entity that can overturn successful challenges (challenges that would prevent 
         the listing from being whitelisted)
         "Listing" refers to the data associated with an address at any stage of the lifecycle (e.g.
         "Listing in Application", "Listing in Challenge", "Listing on Whitelist", "Denied Listing", etc).
 */
-contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
+contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
 
   event AppealRequested(address indexed requester, address indexed listing);
   event AppealGranted(address indexed listing);
-  event ListingWhitelistedByJEC(address indexed listing);
+  event JECWhitelistedListing(address indexed listing);
   event AppealFeeSet(uint fee);
   event MakeAppealLengthSet(uint length);
   event AppealLengthSet(uint length);
@@ -67,7 +67,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param appellateAddr      Address of appellate entity, which could be a regular user, although multisig is recommended
   @param feeRecipientAddr   Address of entity that collects fees from denied appeals
   */
-  function RestrictedAddressRegistryWithAppeals(
+  function OwnedAddressTCRWithAppeals(
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
@@ -136,7 +136,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
     listing.unstakedDeposit = depositAmount;
 
     listingGracePeriodEndTimes[listingAddress] = now + whitelistGracePeriodLength;
-    ListingWhitelistedByJEC(listingAddress);
+    JECWhitelistedListing(listingAddress);
   }
 
   /**
@@ -235,56 +235,56 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
                       applicant's deposits are locked.
                       D elists listing and returns NO_CHALLENGE if listing's unstakedDeposit 
                       is less than current minDeposit
-  @param _listingAddress The listingAddress being challenged, whether listed or in application
-  @param _data        Extra data relevant to the challenge. Think IPFS hashes.
+  @param listingAddress The listingAddress being challenged, whether listed or in application
+  @param data        Extra data relevant to the challenge. Think IPFS hashes.
   */
-  function challenge(address _listingAddress, string _data) public returns (uint challengeID) {
-    require(now > listingGracePeriodEndTimes[_listingAddress]);
-    return super.challenge(_listingAddress, _data);
+  function challenge(address listingAddress, string data) public returns (uint challengeID) {
+    require(now > listingGracePeriodEndTimes[listingAddress]);
+    return super.challenge(listingAddress, data);
   }
   /**
   @dev                Called by a voter to claim their reward for each completed vote. Someone
                       must call updateStatus() before this can be called.
-  @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
-  @param _salt        The salt of a voter's commit hash in the given poll
+  @param challengeID The PLCR pollID of the challenge a reward is being claimed for
+  @param salt        The salt of a voter's commit hash in the given poll
   */
-  function claimReward(uint _challengeID, uint _salt) public {
+  function claimReward(uint challengeID, uint salt) public {
     // Ensures the voter has not already claimed tokens and challenge results have been processed
-    require(challenges[_challengeID].tokenClaims[msg.sender] == false);
-    require(challenges[_challengeID].resolved == true);
+    require(challenges[challengeID].tokenClaims[msg.sender] == false);
+    require(challenges[challengeID].resolved == true);
 
-    uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt, challengesOverturned[_challengeID]);
-    uint reward = voterReward(msg.sender, _challengeID, _salt);
+    uint voterTokens = voting.getNumPassingTokens(msg.sender, challengeID, salt, challengesOverturned[challengeID]);
+    uint reward = voterReward(msg.sender, challengeID, salt);
 
     // Subtracts the voter's information to preserve the participation ratios
     // of other voters compared to the remaining pool of rewards
-    challenges[_challengeID].totalTokens -= voterTokens;
-    challenges[_challengeID].rewardPool -= reward;
+    challenges[challengeID].totalTokens -= voterTokens;
+    challenges[challengeID].rewardPool -= reward;
 
     require(token.transfer(msg.sender, reward));
 
     // Ensures a voter cannot claim tokens again
-    challenges[_challengeID].tokenClaims[msg.sender] = true;
+    challenges[challengeID].tokenClaims[msg.sender] = true;
 
-    RewardClaimed(msg.sender, _challengeID, reward);
+    RewardClaimed(msg.sender, challengeID, reward);
   }
 
   /**
   @dev                Calculates the provided voter's token reward for the given poll.
-  @param _voter       The address of the voter whose reward balance is to be returned
-  @param _challengeID The pollID of the challenge a reward balance is being queried for
-  @param _salt        The salt of the voter's commit hash in the given poll
+  @param voter       The address of the voter whose reward balance is to be returned
+  @param challengeID The pollID of the challenge a reward balance is being queried for
+  @param salt        The salt of the voter's commit hash in the given poll
   @return             The uint indicating the voter's reward
   */
   function voterReward(
-    address _voter,
-    uint _challengeID,
-    uint _salt)
+    address voter,
+    uint challengeID,
+    uint salt)
     public view returns (uint)
   {
-    uint totalTokens = challenges[_challengeID].totalTokens;
-    uint rewardPool = challenges[_challengeID].rewardPool;
-    uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, challengesOverturned[_challengeID]);
+    uint totalTokens = challenges[challengeID].totalTokens;
+    uint rewardPool = challenges[challengeID].rewardPool;
+    uint voterTokens = voting.getNumPassingTokens(voter, challengeID, salt, challengesOverturned[challengeID]);
     return (voterTokens * rewardPool) / totalTokens;
   }
 
