@@ -4,9 +4,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "lerna run build",
-    "lint": "lerna run lint",
-    "clean": "lerna run clean",
+    "build": "lerna run build --sort",
+    "lint": "lerna run lint --parallel",
+    "clean": "lerna run clean --parallel",
     "test": "lerna run test --stream",
     "lerna": "lerna",
     "lerna:run": "lerna run",
