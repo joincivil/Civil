@@ -2,12 +2,12 @@ import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
+import "@joincivil/utils";
 
-import { ContentProvider } from "../content/providers/contentprovider";
+import { ContentProvider } from "../content/contentprovider";
 import { CivilTransactionReceipt, ContentHeader, EthAddress, NewsroomContent, TxData } from "../types";
 import { isDecodedLog } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
-import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";

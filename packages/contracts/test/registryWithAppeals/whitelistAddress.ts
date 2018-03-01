@@ -1,9 +1,9 @@
 import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
-import ChaiConfig from "../utils/chaiconfig";
+import { configureChai } from "@joincivil/dev-utils";
 import * as utils from "../utils/contractutils";
 
-ChaiConfig();
+configureChai(chai);
 const expect = chai.expect;
 
 const Newsroom = artifacts.require("Newsroom");

@@ -1,11 +1,12 @@
 import * as chai from "chai";
+import { configureChai } from "@joincivil/dev-utils";
+
 import { REVERTED } from "../../utils/constants";
-import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
 const Token = artifacts.require("EIP20");
 
-ChaiConfig();
+configureChai(chai);
 const expect = chai.expect;
 
 contract("Registry", (accounts) => {

@@ -1,4 +1,4 @@
-import { ContentHeader, Uri } from "../../types";
+import { ContentHeader, Uri } from "../types";
 
 export interface ContentProvider {
   scheme(): string;

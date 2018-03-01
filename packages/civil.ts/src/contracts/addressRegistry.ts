@@ -1,10 +1,11 @@
 import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
-import { ContentProvider } from "../content/providers/contentprovider";
+import "@joincivil/utils";
+
+import { ContentProvider } from "../content/contentprovider";
 import { CivilTransactionReceipt, EthAddress } from "../types";
 import { requireAccount } from "../utils/errors";
-import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { AddressRegistryContract } from "./generated/address_registry";

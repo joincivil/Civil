@@ -1,0 +1,54 @@
+{
+  "name": "@joincivil/dev-utils",
+  "version": "1.0.1",
+  "description": "Utilities shared between Civil packages",
+  "private": true,
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "bin": {
+    "civil-generate-from-files": "build/generate-from-files/bin.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "generate-from-files": "node build/generate-from-files/bin.js",
+    "lint": "tslint --project ./",
+    "tsc": "tsc",
+    "clean": "rimraf build/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joincivil/dev-utils.git"
+  },
+  "author": "The Civil Media Company",
+  "bugs": {
+    "url": "https://github.com/joincivil/dev-utils/issues"
+  },
+  "homepage": "https://github.com/joincivil/dev-utils#readme",
+  "dependencies": {
+    "argparse": "^1.0.9",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^2.0.2",
+    "debug": "^3.1.0",
+    "dirty-chai": "^2.0.1",
+    "glob": "^7.1.2",
+    "handlebars": "^4.0.11",
+    "mkdirp": "^0.5.1",
+    "to-snake-case": "^1.0.0",
+    "web3": "^0.20.3"
+  },
+  "devDependencies": {
+    "@joincivil/tslint-rules": "^2.4.0",
+    "@types/argparse": "^1.0.33",
+    "@types/chai": "^4.1.1",
+    "@types/chai-as-promised": "^7.1.0",
+    "@types/debug": "0.0.30",
+    "@types/glob": "^5.0.35",
+    "@types/handlebars": "^4.0.36",
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^9.3.0",
+    "rimraf": "^2.6.2",
+    "tslint": "^5.9.1",
+    "typescript": "^2.6.2",
+    "web3-typescript-typings": "^0.9.11"
+  }
+}

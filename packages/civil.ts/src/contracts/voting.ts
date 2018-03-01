@@ -1,9 +1,10 @@
 import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
+import "@joincivil/utils";
+
 import "rxjs/add/operator/distinctUntilChanged";
 import { Bytes32, CivilTransactionReceipt, EthAddress } from "../types";
 import { requireAccount } from "../utils/errors";
-import "../utils/rxjs";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { PLCRVotingContract } from "./generated/p_l_c_r_voting";
