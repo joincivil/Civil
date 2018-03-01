@@ -34,7 +34,7 @@
     "handlebars": "^4.0.11",
     "mkdirp": "^0.5.1",
     "to-snake-case": "^1.0.0",
-    "web3": "^1.0.0-beta.30"
+    "web3": "^0.20.3"
   },
   "devDependencies": {
     "@joincivil/tslint-rules": "^2.4.0",
