@@ -16,6 +16,7 @@
   "config": {
     "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"
   },
+  "license": "(Apache-2.0 OR LGPL-2.1-only)",
   "devDependencies": {
     "ganache-cli": "^6.1.0-beta.4",
     "lerna": "^2.9.0",

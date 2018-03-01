@@ -15,15 +15,7 @@
     "tsc": "tsc",
     "clean": "rimraf build/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/joincivil/dev-utils.git"
-  },
-  "author": "The Civil Media Company",
-  "bugs": {
-    "url": "https://github.com/joincivil/dev-utils/issues"
-  },
-  "homepage": "https://github.com/joincivil/dev-utils#readme",
+  "license": "Apache-2.0",
   "dependencies": {
     "argparse": "^1.0.9",
     "chai-as-promised": "^7.1.1",
