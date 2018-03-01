@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/joincivil/contracts#readme",
   "devDependencies": {
+    "@joincivil/tslint-rules": "^2.4.0",
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
     "@types/glob": "^5.0.34",
@@ -45,15 +46,17 @@
     "ethereumjs-abi": "^0.6.5",
     "glob": "^7.1.2",
     "mkdirp": "^0.5.1",
+    "npm-run-all": "^4.1.2",
     "rimraf": "^2.6.2",
-    "truffle": "^4.0.3",
-    "zeppelin-solidity": "^1.4.0",
-    "@joincivil/tslint-rules": "^2.4.0",
     "solium": "^1.1.5",
     "solium-plugin-security": "^0.1.1",
-    "npm-run-all": "^4.1.2",
+    "truffle": "^4.0.3",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
-    "web3-typescript-typings": "^0.9.11"
+    "web3-typescript-typings": "^0.9.11",
+    "zeppelin-solidity": "^1.4.0"
+  },
+  "dependencies": {
+    "web3": "^1.0.0-beta.30"
   }
 }

@@ -4,12 +4,15 @@ extends:
     - tslint:recommended
 jsRules: {}
 rules:
+    # Some recommended rules are annoying and as a team decided
+    # to not use them due to not providing good enough value
+    ordered-imports: false
+
     adjacent-overload-signatures: true
     member-ordering:
         - true
         - order: statics-first
     no-empty-interface: true
-    no-magic-numbers: true
     no-parameter-reassignment: true
     no-reference: true
     no-var-requires: true
@@ -75,7 +78,6 @@ rules:
     class-name: true
     encoding: true
     import-spacing: true
-    newline-per-chained-call: true
     no-irregular-whitespace: true
     no-unnecessary-callback-wrapper: true
     number-literal-format: true

@@ -1,6 +1,0 @@
----
-extends:
-    - ./tslint.yaml
-rules:
-    newline-per-chained-call: false # Chai
-    no-magic-numbers: false # Fixture data

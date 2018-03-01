@@ -9,6 +9,6 @@ end_of_line = lf
 [*.{mustache,handlebars}]
 insert_final_newline = false
 
-[*.yml]
+[*.{yaml,yml}]
 indent_size = 4
 indent_style = space

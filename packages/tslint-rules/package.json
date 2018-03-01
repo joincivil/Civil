@@ -3,9 +3,6 @@
   "version": "2.4.0",
   "description": "Shared Typescript linter rules for all Civil packages",
   "main": "tslint.yaml",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/joincivil/tslint-rules.git"
