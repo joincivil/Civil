@@ -15,15 +15,12 @@
     "prepublishOnly": "run-s build lint test",
     "clean": "rimraf build/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/joincivil/civil.ts.git"
-  },
   "author": "The Civil Media Company",
   "bugs": {
-    "url": "https://github.com/joincivil/civil.ts/issues"
+    "url": "https://github.com/joincivil/Civil/issues"
   },
-  "homepage": "https://github.com/joincivil/civil.ts#readme",
+  "homepage": "https://github.com/joincivil/Civil",
+  "license": "LGPL-2.1-only",
   "devDependencies": {
     "@0xproject/abi-gen": "^0.1.1",
     "@joincivil/dev-utils": "^1.0.1",

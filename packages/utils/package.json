@@ -11,7 +11,7 @@
     "clean": "rimraf build/"
   },
   "author": "The Civil Media Company",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@joincivil/dev-utils": "^1.0.1",
     "@types/chai": "^4.1.2",
@@ -22,5 +22,9 @@
   },
   "dependencies": {
     "rxjs": "^5.5.6"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/joincivil/Civil/issues"
+  },
+  "homepage": "https://github.com/joincivil/Civil"
 }
