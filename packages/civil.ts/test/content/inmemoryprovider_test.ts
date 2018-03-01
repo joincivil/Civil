@@ -1,4 +1,3 @@
-import * as Web3 from "web3";
 import * as chai from "chai";
 import { configureChai, dummyWeb3Provider } from "@joincivil/dev-utils";
 
@@ -9,33 +8,33 @@ configureChai(chai);
 
 const expect = chai.expect;
 
-describe("content/InMemoryProvider", function() {
+describe("content/InMemoryProvider", () => {
   const TEST_DATA = "test data, please ignore";
 
   let web3wrapper: Web3Wrapper;
   let instance: InMemoryProvider;
 
-  before(function() {
+  before(() => {
     web3wrapper = new Web3Wrapper(dummyWeb3Provider());
   });
 
-  beforeEach(function() {
+  beforeEach(() => {
     instance = new InMemoryProvider(web3wrapper);
   });
 
-  it("has a scheme", function() {
+  it("has a scheme", () => {
     expect(instance.scheme()).to.not.be.empty();
   });
 
-  it("succeeds on put", async function() {
+  it("succeeds on put", async () => {
     await expect(instance.put(TEST_DATA)).to.eventually.be.fulfilled();
   });
 
-  it("fails on non-existent get", async function() {
+  it("fails on non-existent get", async () => {
     await expect(instance.get("doesn't exist")).to.eventually.be.rejected();
   });
 
-  it("succeeds on real get", async function() {
+  it("succeeds on real get", async () => {
     const uri = await instance.put(TEST_DATA);
 
     expect(uri).to.not.be.empty();
