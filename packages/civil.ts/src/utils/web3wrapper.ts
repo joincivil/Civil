@@ -1,10 +1,10 @@
 import { BigNumber } from "bignumber.js";
 import * as Debug from "debug";
 import * as Web3 from "web3";
+import { delay, promisify } from "@joincivil/utils";
 
 import { artifacts } from "../contracts/generated/artifacts";
 import { Artifact, CivilTransactionReceipt, EthAddress, TxHash } from "../types";
-import { delay, promisify } from "../utils/language";
 import { AbiDecoder } from "./abidecoder";
 import { CivilErrors } from "./errors";
 import { NodeStream } from "./nodestream";

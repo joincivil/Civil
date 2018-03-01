@@ -1,11 +1,12 @@
 import * as chai from "chai";
+import { configureChai } from "@joincivil/dev-utils";
+
 import { events, NEWSROOM_ROLE_EDITOR, NEWSROOM_ROLE_REPORTER, REVERTED } from "../utils/constants";
-import ChaiConfig from "./utils/chaiconfig";
 import { findEvent, idFromEvent, is0x0Address, timestampFromTx } from "./utils/contractutils";
 
 const Newsroom = artifacts.require("Newsroom");
 
-ChaiConfig();
+configureChai(chai);
 const expect = chai.expect;
 
 const SOME_URI = "http://thiistest.uri";

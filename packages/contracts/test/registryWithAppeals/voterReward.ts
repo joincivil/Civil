@@ -1,12 +1,13 @@
 import * as chai from "chai";
+import { configureChai } from "@joincivil/dev-utils";
+
 import { REVERTED } from "../../utils/constants";
-import ChaiConfig from "../utils/chaiconfig";
 import * as utils from "../utils/contractutils";
 
 const PLCRVoting = artifacts.require("PLCRVoting");
 const Newsroom = artifacts.require("Newsroom");
 
-ChaiConfig();
+configureChai(chai);
 const expect = chai.expect;
 
 contract("Registry", (accounts) => {
