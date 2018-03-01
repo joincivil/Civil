@@ -42,18 +42,20 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     this.contentProvider = contentProvider;
   }
 
+  // TODO(nickreynolds): Add function to check if user is member of multisig that owns newsroom
+
   /**
-   * Checks if the `address` has superpowers allowing to do anything with the Newsroom.
-   * publishing, appoving, denying, etc.
-   * @param address Address for the check, leave empty for the current user check
+   * Checks if the user is the owner of the newsroom
+   * @param address Address for the ownership check, leave empty for current user
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
-  public async isDirector(address?: EthAddress): Promise<boolean> {
+  public async isOwner(address?: EthAddress): Promise<boolean> {
     let who = address;
+
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.isSuperuser.callAsync(who);
+    return this.instance.isOwner.callAsync(who);
   }
 
   /**
@@ -64,9 +66,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async isEditor(address?: EthAddress): Promise<boolean> {
     let who = address;
-    if (await this.isDirector(who)) {
-      return true;
-    }
 
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -82,9 +81,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async isReporter(address?: EthAddress): Promise<boolean> {
     let who = address;
-    if (await this.isDirector(who)) {
-      return true;
-    }
 
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -101,13 +97,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async addRole(actor: EthAddress, role: Roles): Promise<CivilTransactionReceipt> {
     let txhash;
-    if (role === Roles.Director) {
-      await this.requireDirector();
-      txhash = await this.instance.addDirector.sendTransactionAsync(actor);
-    } else {
-      await this.requireEditor();
-      txhash = await this.instance.addRole.sendTransactionAsync(actor, role);
-    }
+    await this.requireEditor();
+    txhash = await this.instance.addRole.sendTransactionAsync(actor, role);
     return this.web3Wrapper.awaitReceipt(txhash);
   }
 
@@ -121,13 +112,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async removeRole(actor: EthAddress, role: Roles): Promise<CivilTransactionReceipt> {
     let txhash;
-    if (role === Roles.Director) {
-      await this.requireDirector();
-      txhash = await this.instance.removeDirector.sendTransactionAsync(actor);
-    } else {
-      await this.requireEditor();
-      txhash = await this.instance.removeRole.sendTransactionAsync(actor, role);
-    }
+    await this.requireEditor();
+    txhash = await this.instance.removeRole.sendTransactionAsync(actor, role);
     return this.web3Wrapper.awaitReceipt(txhash);
   }
 
@@ -270,12 +256,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     }
   }
 
-  private async requireDirector(): Promise<void> {
-    if (!(await this.isDirector())) {
-      throw new Error(CivilErrors.NoPrivileges);
-    }
-  }
-
   private async requireReporter(): Promise<void> {
     if (!(await this.isReporter())) {
       throw new Error(CivilErrors.NoPrivileges);
@@ -286,12 +266,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 // TODO(ritave): generate roles from smart-contract
 /**
  * Roles that are supported by the Newsroom
- * - Director has full access to everything
  * - Editor can approve or deny contant, as well as assigning roles to actors
  * - Reported who can propose content for the Editors to approve
  */
 export enum Roles {
-  Director = "director",
   Editor = "editor",
   Reporter = "reporter",
 }

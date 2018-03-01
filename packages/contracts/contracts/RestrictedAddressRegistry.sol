@@ -1,16 +1,13 @@
 pragma solidity 0.4.19;
 
 import "./ContractAddressRegistry.sol";
-
-interface IACL {
-  function isSuperuser(address user) public view returns (bool);
-}
+import "../../../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
 
 contract RestrictedAddressRegistry is ContractAddressRegistry {
 
-  modifier onlySuperuser(address _contractAddress) {
-    IACL aclContract = IACL(_contractAddress);
-    require(aclContract.isSuperuser(msg.sender));
+  modifier onlyContractOwner(address _contractAddress) {
+    Ownable ownedContract = Ownable(_contractAddress);
+    require(ownedContract.owner() == msg.sender);
     _;
   }
 
@@ -38,7 +35,7 @@ contract RestrictedAddressRegistry is ContractAddressRegistry {
                       apply stage end time.
   @param _amount      The number of ERC20 tokens a user is willing to potentially stake
   */
-  function apply(address _listingAddress, uint _amount, string _data) onlySuperuser(_listingAddress) public {
+  function apply(address _listingAddress, uint _amount, string _data) onlyContractOwner(_listingAddress) public {
     super.apply(_listingAddress, _amount, _data);
   }
 }

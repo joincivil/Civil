@@ -165,7 +165,7 @@ contract AddressRegistry {
   @param _listingAddress The listingAddress being challenged, whether listed or in application
   @param _data        Extra data relevant to the challenge. Think IPFS hashes.
   */
-  function challenge(address _listingAddress, string _data) external returns (uint challengeID) {
+  function challenge(address _listingAddress, string _data) public returns (uint challengeID) {
     Listing storage listing = listings[_listingAddress];
     uint deposit = parameterizer.get("minDeposit");
 

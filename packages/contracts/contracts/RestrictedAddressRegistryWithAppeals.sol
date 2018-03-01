@@ -16,6 +16,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
 
   event AppealRequested(address indexed requester, address indexed listing);
   event AppealGranted(address indexed listing);
+  event ListingWhitelistedByJEC(address indexed listing);
   event AppealFeeSet(uint fee);
   event MakeAppealLengthSet(uint length);
   event AppealLengthSet(uint length);
@@ -36,9 +37,9 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   uint public appealFee;
   uint public requestAppealPhaseLength = 259200; // 3 days expressed in seconds
   uint public judgeAppealPhaseLength = 1209600; // 14 days expressed in seconds
+  uint public whitelistGracePeriodLength = 7257600; // 84 days expressed in seconds
 
   uint public deniedAppealFees;
-
 
   /*
   @notice this struct handles the state of an appeal. It is first initialized 
@@ -53,7 +54,10 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   }
 
   mapping(address => Appeal) internal appeals;
-  mapping(uint => bool) internal challengesOverturned;
+  mapping(uint => bool) public challengesOverturned;
+
+  /// if listing whitelisted by JEC, should have a grace period during which they cannot be challenged 
+  mapping(address => uint) public listingGracePeriodEndTimes;
 
   /**
   @dev Contructor           Sets the addresses for token, voting, parameterizer, appellate, and fee recipient
@@ -87,8 +91,8 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress address of listing that has been successfully challenged. Caller must be owner of listing.
   */
   function requestAppeal(address listingAddress) external {
-    Listing listing = listings[listingAddress];
-    Appeal appeal = appeals[listingAddress];
+    Listing storage listing = listings[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
     require(listing.owner == msg.sender);
     require(appeal.requestAppealPhaseExpiry > now); // "Request Appeal Phase" active
     require(!appeal.appealRequested);
@@ -109,12 +113,30 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress The address of the listing associated with the appeal
   */
   function grantAppeal(address listingAddress) external onlyAppellate {
-    Appeal appeal = appeals[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
     require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
     require(!appeal.appealGranted); // don't grant twice
 
     appeal.appealGranted = true;    
     AppealGranted(listingAddress);
+  }
+
+  function whitelistAddress(address listingAddress, uint depositAmount) external onlyAppellate {
+    require(!getListingIsWhitelisted(listingAddress));
+    require(!appWasMade(listingAddress));
+    require(depositAmount >= parameterizer.get("minDeposit"));
+    Ownable ownedContract = Ownable(listingAddress);
+    require(ownedContract.owner() != address(0)); // must have an owner
+    require(token.transferFrom(msg.sender, this, depositAmount));
+
+    Listing storage listing = listings[listingAddress];
+    listing.applicationExpiry = now;
+    listing.owner = ownedContract.owner();
+    listing.isWhitelisted = true;
+    listing.unstakedDeposit = depositAmount;
+
+    listingGracePeriodEndTimes[listingAddress] = now + whitelistGracePeriodLength;
+    ListingWhitelistedByJEC(listingAddress);
   }
 
   /**
@@ -184,7 +206,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress Address of listing associated with appeal
   */
   function resolvePostAppealPhase(address listingAddress) external {
-    Appeal appeal = appeals[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
 
     // must be initialized and after "Request Appeal Phase"
     require(appeal.requestAppealPhaseExpiry != 0 && now > appeal.requestAppealPhaseExpiry); 
@@ -207,7 +229,19 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   // --------------------
   // TOKEN OWNER INTERFACE:
   // --------------------
-
+  /**
+  @dev                Starts a poll for a listingAddress which is either in the apply stage or
+                      already in the whitelist. Tokens are taken from the challenger and the
+                      applicant's deposits are locked.
+                      D elists listing and returns NO_CHALLENGE if listing's unstakedDeposit 
+                      is less than current minDeposit
+  @param _listingAddress The listingAddress being challenged, whether listed or in application
+  @param _data        Extra data relevant to the challenge. Think IPFS hashes.
+  */
+  function challenge(address _listingAddress, string _data) public returns (uint challengeID) {
+    require(now > listingGracePeriodEndTimes[_listingAddress]);
+    return super.challenge(_listingAddress, _data);
+  }
   /**
   @dev                Called by a voter to claim their reward for each completed vote. Someone
                       must call updateStatus() before this can be called.
