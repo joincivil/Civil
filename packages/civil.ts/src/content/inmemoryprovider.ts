@@ -1,5 +1,5 @@
-import { ContentHeader, MapObject, Uri} from "../../types";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { ContentHeader, MapObject, Uri} from "../types";
+import { Web3Wrapper } from "../utils/web3wrapper";
 import { ContentProvider } from "./contentprovider";
 
 export class InMemoryProvider implements ContentProvider {

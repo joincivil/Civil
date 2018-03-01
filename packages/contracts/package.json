@@ -1,5 +1,5 @@
 {
-  "name": "contracts",
+  "name": "@joincivil/contracts",
   "private": true,
   "version": "1.0.0",
   "description": "Smart Contracts needed to make the ecosystem work",
@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/joincivil/contracts#readme",
   "devDependencies": {
+    "@joincivil/dev-utils": "^1.0.1",
     "@joincivil/tslint-rules": "^2.4.0",
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
@@ -53,7 +54,9 @@
     "truffle": "^4.0.3",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
-    "web3-typescript-typings": "^0.9.11",
     "zeppelin-solidity": "1.7.0"
+    "web3": "^0.20.3",
+    "web3-typescript-typings": "^0.9.11",
+    "@joincivil/utils": "^1.0.0"
   }
 }

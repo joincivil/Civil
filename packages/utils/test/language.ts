@@ -1,9 +1,9 @@
 import * as chai from "chai";
+import { configureChai } from "@joincivil/dev-utils";
 
-import { promisify } from "../src/utils/language";
-import ChaiConfig from "./utils/chaiconfig";
+import { promisify } from "../src/language";
 
-ChaiConfig();
+configureChai(chai);
 
 const expect = chai.expect;
 

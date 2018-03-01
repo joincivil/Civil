@@ -1,0 +1,15 @@
+{
+  "name": "@joincivil/tslint-rules",
+  "version": "2.4.0",
+  "description": "Shared Typescript linter rules for all Civil packages",
+  "main": "tslint.yaml",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joincivil/tslint-rules.git"
+  },
+  "author": "The Civil Media Company",
+  "bugs": {
+    "url": "https://github.com/joincivil/tslint-rules/issues"
+  },
+  "homepage": "https://github.com/joincivil/tslint-rules#readme"
+}

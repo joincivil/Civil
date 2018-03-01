@@ -17,7 +17,7 @@ jobs:
                     - node_modules
             - run:
                 name: Building
-                command: yarn lerna:run build
+                command: yarn build
             - save_cache:
                 key: repo-{{ .Environment.CIRCLE_SHA1 }}
                 paths:
@@ -32,7 +32,7 @@ jobs:
                   - repo-{{ .Environment.CIRCLE_SHA1 }}
             - run:
                 name: Linting
-                command: yarn lerna:run lint
+                command: yarn lint
     test:
         docker:
             - image: circleci/node:9.3
@@ -47,7 +47,7 @@ jobs:
                 background: true
             - run:
                 name: Running tests
-                command: yarn lerna:run test
+                command: yarn test
 workflows:
     version: 2
     everything:

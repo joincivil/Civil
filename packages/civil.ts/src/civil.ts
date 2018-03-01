@@ -1,8 +1,8 @@
 import * as Debug from "debug";
 import * as Web3 from "web3";
 
-import { ContentProvider } from "./content/providers/contentprovider";
-import { InMemoryProvider } from "./content/providers/inmemoryprovider";
+import { ContentProvider } from "./content/contentprovider";
+import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress } from "./types";
 import { Web3Wrapper } from "./utils/web3wrapper";
