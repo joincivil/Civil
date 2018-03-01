@@ -14,7 +14,7 @@ const Parameterizer = artifacts.require("Parameterizer");
 const AddressRegistry = artifacts.require("AddressRegistry");
 const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
-const RestrictedAddressRegistryWithAppeals = artifacts.require("RestrictedAddressRegistryWithAppeals");
+const OwnedAddressTCRWithAppeals = artifacts.require("OwnedAddressTCRWithAppeals");
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -208,7 +208,7 @@ async function createTestAppealsRegistryInstance(
   const parameterizerAddress = await parameterizer.address;
   const token = await Token.at(tokenAddress);
   const feeRecipient = accounts[2];
-  const registry = await RestrictedAddressRegistryWithAppeals.new(
+  const registry = await OwnedAddressTCRWithAppeals.new(
     tokenAddress,
     plcrAddress,
     parameterizerAddress,

@@ -5,17 +5,18 @@ import "./RestrictedAddressRegistry.sol";
 /**
 @title  TCR with appeallate functionality and restrictions on application 
 @author Nick Reynolds - nick@joincivil.com
-@notice The RestrictedAddressRegistryWithAppeals is a TCR with restrictions (contracts must have IACL
+@notice The RestrictedAddressTCRWithAppeals is a TCR with restrictions (contracts must have IACL
         implementation, and only the ACL superuser of a contract can apply on behalf of that contract)
         and an appeallate entity that can overturn successful challenges (challenges that would prevent 
         the listing from being whitelisted)
         "Listing" refers to the data associated with an address at any stage of the lifecycle (e.g.
         "Listing in Application", "Listing in Challenge", "Listing on Whitelist", "Denied Listing", etc).
 */
-contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
+contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
 
   event AppealRequested(address indexed requester, address indexed listing);
   event AppealGranted(address indexed listing);
+  event JECWhitelistedListing(address indexed listing);
   event AppealFeeSet(uint fee);
   event MakeAppealLengthSet(uint length);
   event AppealLengthSet(uint length);
@@ -36,9 +37,9 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   uint public appealFee;
   uint public requestAppealPhaseLength = 259200; // 3 days expressed in seconds
   uint public judgeAppealPhaseLength = 1209600; // 14 days expressed in seconds
+  uint public whitelistGracePeriodLength = 7257600; // 84 days expressed in seconds
 
   uint public deniedAppealFees;
-
 
   /*
   @notice this struct handles the state of an appeal. It is first initialized 
@@ -53,7 +54,10 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   }
 
   mapping(address => Appeal) internal appeals;
-  mapping(uint => bool) internal challengesOverturned;
+  mapping(uint => bool) public challengesOverturned;
+
+  /// if listing whitelisted by JEC, should have a grace period during which they cannot be challenged 
+  mapping(address => uint) public listingGracePeriodEndTimes;
 
   /**
   @dev Contructor           Sets the addresses for token, voting, parameterizer, appellate, and fee recipient
@@ -63,7 +67,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param appellateAddr      Address of appellate entity, which could be a regular user, although multisig is recommended
   @param feeRecipientAddr   Address of entity that collects fees from denied appeals
   */
-  function RestrictedAddressRegistryWithAppeals(
+  function OwnedAddressTCRWithAppeals(
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
@@ -87,8 +91,8 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress address of listing that has been successfully challenged. Caller must be owner of listing.
   */
   function requestAppeal(address listingAddress) external {
-    Listing listing = listings[listingAddress];
-    Appeal appeal = appeals[listingAddress];
+    Listing storage listing = listings[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
     require(listing.owner == msg.sender);
     require(appeal.requestAppealPhaseExpiry > now); // "Request Appeal Phase" active
     require(!appeal.appealRequested);
@@ -109,12 +113,30 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress The address of the listing associated with the appeal
   */
   function grantAppeal(address listingAddress) external onlyAppellate {
-    Appeal appeal = appeals[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
     require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
     require(!appeal.appealGranted); // don't grant twice
 
     appeal.appealGranted = true;    
     AppealGranted(listingAddress);
+  }
+
+  function whitelistAddress(address listingAddress, uint depositAmount) external onlyAppellate {
+    require(!getListingIsWhitelisted(listingAddress));
+    require(!appWasMade(listingAddress));
+    require(depositAmount >= parameterizer.get("minDeposit"));
+    Ownable ownedContract = Ownable(listingAddress);
+    require(ownedContract.owner() != address(0)); // must have an owner
+    require(token.transferFrom(msg.sender, this, depositAmount));
+
+    Listing storage listing = listings[listingAddress];
+    listing.applicationExpiry = now;
+    listing.owner = ownedContract.owner();
+    listing.isWhitelisted = true;
+    listing.unstakedDeposit = depositAmount;
+
+    listingGracePeriodEndTimes[listingAddress] = now + whitelistGracePeriodLength;
+    JECWhitelistedListing(listingAddress);
   }
 
   /**
@@ -184,7 +206,7 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   @param listingAddress Address of listing associated with appeal
   */
   function resolvePostAppealPhase(address listingAddress) external {
-    Appeal appeal = appeals[listingAddress];
+    Appeal storage appeal = appeals[listingAddress];
 
     // must be initialized and after "Request Appeal Phase"
     require(appeal.requestAppealPhaseExpiry != 0 && now > appeal.requestAppealPhaseExpiry); 
@@ -207,50 +229,62 @@ contract RestrictedAddressRegistryWithAppeals is RestrictedAddressRegistry {
   // --------------------
   // TOKEN OWNER INTERFACE:
   // --------------------
-
+  /**
+  @dev                Starts a poll for a listingAddress which is either in the apply stage or
+                      already in the whitelist. Tokens are taken from the challenger and the
+                      applicant's deposits are locked.
+                      D elists listing and returns NO_CHALLENGE if listing's unstakedDeposit 
+                      is less than current minDeposit
+  @param listingAddress The listingAddress being challenged, whether listed or in application
+  @param data        Extra data relevant to the challenge. Think IPFS hashes.
+  */
+  function challenge(address listingAddress, string data) public returns (uint challengeID) {
+    require(now > listingGracePeriodEndTimes[listingAddress]);
+    return super.challenge(listingAddress, data);
+  }
   /**
   @dev                Called by a voter to claim their reward for each completed vote. Someone
                       must call updateStatus() before this can be called.
-  @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
-  @param _salt        The salt of a voter's commit hash in the given poll
+  @param challengeID The PLCR pollID of the challenge a reward is being claimed for
+  @param salt        The salt of a voter's commit hash in the given poll
   */
-  function claimReward(uint _challengeID, uint _salt) public {
+  function claimReward(uint challengeID, uint salt) public {
     // Ensures the voter has not already claimed tokens and challenge results have been processed
-    require(challenges[_challengeID].tokenClaims[msg.sender] == false);
-    require(challenges[_challengeID].resolved == true);
+    require(challenges[challengeID].tokenClaims[msg.sender] == false);
+    require(challenges[challengeID].resolved == true);
 
-    uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt, challengesOverturned[_challengeID]);
-    uint reward = voterReward(msg.sender, _challengeID, _salt);
+    uint voterTokens = voting.getNumPassingTokens(msg.sender, challengeID, salt, challengesOverturned[challengeID]);
+    uint reward = voterReward(msg.sender, challengeID, salt);
 
     // Subtracts the voter's information to preserve the participation ratios
     // of other voters compared to the remaining pool of rewards
-    challenges[_challengeID].totalTokens -= voterTokens;
-    challenges[_challengeID].rewardPool -= reward;
+    challenges[challengeID].totalTokens -= voterTokens;
+    challenges[challengeID].rewardPool -= reward;
 
     require(token.transfer(msg.sender, reward));
 
     // Ensures a voter cannot claim tokens again
-    challenges[_challengeID].tokenClaims[msg.sender] = true;
+    challenges[challengeID].tokenClaims[msg.sender] = true;
 
-    RewardClaimed(msg.sender, _challengeID, reward);
+    RewardClaimed(msg.sender, challengeID, reward);
   }
 
   /**
   @dev                Calculates the provided voter's token reward for the given poll.
-  @param _voter       The address of the voter whose reward balance is to be returned
-  @param _challengeID The pollID of the challenge a reward balance is being queried for
-  @param _salt        The salt of the voter's commit hash in the given poll
+  @param voter       The address of the voter whose reward balance is to be returned
+  @param challengeID The pollID of the challenge a reward balance is being queried for
+  @param salt        The salt of the voter's commit hash in the given poll
   @return             The uint indicating the voter's reward
   */
   function voterReward(
-    address _voter,
-    uint _challengeID,
-    uint _salt)
+    address voter,
+    uint challengeID,
+    uint salt)
     public view returns (uint)
   {
-    uint totalTokens = challenges[_challengeID].totalTokens;
-    uint rewardPool = challenges[_challengeID].rewardPool;
-    uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, challengesOverturned[_challengeID]);
+    uint totalTokens = challenges[challengeID].totalTokens;
+    uint rewardPool = challenges[challengeID].rewardPool;
+    uint voterTokens = voting.getNumPassingTokens(voter, challengeID, salt, challengesOverturned[challengeID]);
     return (voterTokens * rewardPool) / totalTokens;
   }
 

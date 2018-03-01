@@ -68,3 +68,6 @@ build/
 
 # EthPM packages
 installed_contracts/
+
+# package
+*package-lock.json

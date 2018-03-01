@@ -173,6 +173,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     return this.instance.getTotalNumberOfTokensForWinningOption.callAsync(pollID);
   }
 
+  // TODO(nickreynolds): Refactor getNumPassingTokens to not require user to input whether challenge was overturned
   /**
    * Returns number of tokens this user committed & revealed for given poll
    * @param voterAddress address of voter to check
@@ -183,12 +184,13 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     pollID: BigNumber,
     salt: BigNumber,
     voter?: EthAddress,
+    wasChallengeOverturned: boolean = false,
   ): Promise<BigNumber> {
     let who = voter;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.getNumPassingTokens.callAsync(who, pollID, salt);
+    return this.instance.getNumPassingTokens.callAsync(who, pollID, salt, wasChallengeOverturned);
   }
 
   /**

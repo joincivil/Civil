@@ -18,7 +18,7 @@ const data: TxData = {
   console.log("Deploying contract");
   const newsroom = await NewsroomContract.deployTrusted.sendTransactionAsync(web3, data);
   console.log("Contract at: ", newsroom.address);
-  console.log("Am I superadmin: ", await newsroom.isSuperuser.callAsync(account));
+  console.log("Am I owner: ", await newsroom.isOwner.callAsync(account));
 
   const subscription = newsroom
       .ContentProposedStream()

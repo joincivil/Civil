@@ -51,7 +51,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public reparameterizationProposals(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
-      ._ReparameterizationProposalStream({}, { fromBlock })
+      .ReparameterizationProposalStream({}, { fromBlock })
       .distinctUntilChanged((a, b) => {
         return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
       })
@@ -67,7 +67,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public reparameterizationChallenges(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
-      ._NewChallengeStream({}, { fromBlock })
+      .NewChallengeStream({}, { fromBlock })
       .distinctUntilChanged((a, b) => {
         return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
       })

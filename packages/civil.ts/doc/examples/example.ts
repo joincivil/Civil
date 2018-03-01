@@ -19,7 +19,7 @@ import { Civil } from "../../src";
       subscription.unsubscribe();
     });
 
-  console.log("Am I a director:", await newsroom.isDirector());
+  console.log("Am I the owner:", await newsroom.isOwner());
 
   console.log("Proposing a new article...");
   try {
