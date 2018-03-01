@@ -9,7 +9,7 @@
     "gulp": "gulp",
     "tsc": "tsc"
   },
-  "author": "Olaf Tomalka",
+  "author": "The Civil Media Company",
   "license": "Apache-2.0",
   "private": true,
   "devDependencies": {

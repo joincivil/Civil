@@ -20,16 +20,8 @@
     "tslint": "tslint",
     "solium": "solium"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/joincivil/contracts.git"
-  },
-  "keywords": [],
   "author": "The Civil Media Company",
-  "bugs": {
-    "url": "https://github.com/joincivil/contracts/issues"
-  },
-  "homepage": "https://github.com/joincivil/contracts#readme",
+  "license": "LGPL-2.1-only",
   "devDependencies": {
     "@joincivil/dev-utils": "^1.0.1",
     "@joincivil/tslint-rules": "^2.4.0",
