@@ -21,7 +21,7 @@
     "solium": "solium"
   },
   "author": "The Civil Media Company",
-  "license": "LGPL-2.1-only",
+  "license": "LGPL-2.1",
   "devDependencies": {
     "@joincivil/dev-utils": "^1.0.1",
     "@joincivil/tslint-rules": "^2.4.0",
