@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots CivilEditor main 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "autocorrect": "on",
+      "contenteditable": "true",
+      "data-gramm": "false",
+      "data-key": "1",
+      "data-slate-editor": "true",
+      "role": "textbox",
+      "spellcheck": "true",
+      "style": "outline:none;white-space:pre-wrap;word-wrap:break-word;-webkit-user-modify:read-write-plaintext-only",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {
+          "class": "sc-bdVaJa dPTZHd",
+          "data-key": "2",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "data-key": "3",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "data-offset-key": "3:0",
+                },
+                "children": Array [
+                  Object {
+                    "data": "A line of text in a paragraph.",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "span",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "data-offset-key": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "data-offset-key": undefined,
+                },
+              },
+            ],
+            "name": "span",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "data-key": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "data-key": undefined,
+            },
+          },
+        ],
+        "name": "p",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+          "data-key": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+          "data-key": undefined,
+        },
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "autocorrect": undefined,
+      "contenteditable": undefined,
+      "data-gramm": undefined,
+      "data-key": undefined,
+      "data-slate-editor": undefined,
+      "role": undefined,
+      "spellcheck": undefined,
+      "style": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "autocorrect": undefined,
+      "contenteditable": undefined,
+      "data-gramm": undefined,
+      "data-key": undefined,
+      "data-slate-editor": undefined,
+      "role": undefined,
+      "spellcheck": undefined,
+      "style": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 1,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;
