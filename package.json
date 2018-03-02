@@ -5,6 +5,7 @@
   ],
   "scripts": {
     "build": "lerna run build --sort",
+    "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint --parallel",
     "clean": "lerna run clean --parallel",
     "test": "lerna run test --stream",

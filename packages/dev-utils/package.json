@@ -10,6 +10,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "build:watch": "tsc -w",
     "generate-from-files": "node build/generate-from-files/bin.js",
     "lint": "tslint --project ./",
     "tsc": "tsc",
