@@ -2,7 +2,6 @@
 import * as React from "react";
 import { Value } from "slate";
 import { Editor } from "slate-react";
-const { Component } = React;
 
 export type OnChangeFunc = (value: any) => void;
 export type RenderNodeFunc = (props: any) => any;
@@ -17,7 +16,7 @@ export interface EditorState {
   value?: any;
 }
 
-export class CivilEditor extends Component<EditorProps, EditorState> {
+export class CivilEditor extends React.Component<EditorProps, EditorState> {
     constructor(props: EditorProps) {
         super(props);
         this.state = {

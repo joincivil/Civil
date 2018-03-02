@@ -23,7 +23,8 @@
   },
   "scripts": {
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "tsc"
   },
   "devDependencies": {
     "@storybook/addon-storyshots": "^3.3.14",
