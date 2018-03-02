@@ -7,6 +7,7 @@
   "scripts": {
     "build": "run-s generate tsc build:copyArtifacts",
     "build:copyArtifacts": "copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
+    "build:watch": "tsc -w",
     "lint": "tslint --project ./",
     "generate": "run-p generate:*",
     "generate:contracts": "abi-gen --abis 'src/artifacts/**/*.json' --template 'src/templates/contract/contract.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/'",
