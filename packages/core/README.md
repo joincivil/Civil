@@ -39,12 +39,12 @@ and [**good first issue**](https://github.com/joincivil/Civil/issues?q=is%3Aissu
 ### Code generation
 
 Civil.ts uses auto-generated code from Smart-Contract .json artifacts.
-Run `yarn generate` to create them in the `src/contracts/generated/` directory, afterwards develop as normal.
+Run `yarn build` or explicitly `yarn generate` to create them in the [`src/contracts/generated/`](./src/contracts/generated/) directory, afterwards develop as normal.
 
-The templates for code generation can be found `src/templates/`.
+#### Adding new smart-contracts
 
-#### Adding a new smart-contract
-
-- [ ] Add new .json definition to `src/artifacts`
-- [ ] Run `npm run generate`
+- [ ] Add new .json definition to [`src/artifacts`](./src/artifacts/)
+- [ ] Run `yarn generate`
 - [ ] Enjoy automated generated code
+
+The templates for code generation can be found [`src/templates/`](./src/templates).
