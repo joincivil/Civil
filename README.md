@@ -25,6 +25,7 @@ We hope that those tools will be useful for creation of interesting applications
 | [`@joincivil/contracts`](/packages/contracts) | [![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](/packages/contracts/LICENSE)   | Smart-contracts needed for the Civil's protocol                                                                     |
 | [`@joincivil/dev-utils`](/packages/dev-utils) | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/dev-utils/LICENSE) | Utilities needed for the proper working of the mono-repo packages, builds and tests                                 |
 | [`@joincivil/debug-ui`](/packages/debug-ui)   | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/debug-ui/LICENSE)  | WIP: Minimal website to monitor, observe and debug the protocol and all the utilities and packages of the ecosystem |
+| [`@joincivil/editor`](/packages/editor)       | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/editor/LICENSE)    | WIP: Editor for Civil-formatted articles and content                                                                |
 
 ## Contributing
 
