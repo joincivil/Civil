@@ -1,8 +1,10 @@
 import * as React from "react";
 import {types} from "./types";
 
+// tslint:disable-next-line:variable-name
 export const Renderer = (props: any) => {
     const { attributes, children, node } = props;
-    const Component = types[node.type];
-    return <Component {...attributes}>{children}</Component>;
+    // tslint:disable-next-line:variable-name
+    const Node = types[node.type];
+    return <Node {...attributes}>{children}</Node>;
 };

@@ -24,11 +24,15 @@
   "scripts": {
     "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
-    "prepublish": "tsc"
+    "prepublish": "yarn build",
+    "build": "tsc",
+    "lint": "tslint --project ./"
   },
   "devDependencies": {
     "@storybook/addon-storyshots": "^3.3.14",
     "@storybook/react": "^3.3.14",
+    "@types/enzyme": "^3.1.9",
+    "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/jest": "^22.1.4",
     "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.39",
@@ -48,6 +52,7 @@
     "strip-ansi": "^4.0.0",
     "ts-jest": "^22.4.0",
     "ts-loader": "^3",
+    "tslint-react": "^3.5.1",
     "typescript": "^2.7.2",
     "webpack": "^3",
     "webpack-hot-middleware": "^2.21.1"
@@ -59,8 +64,6 @@
     "react-dom": "^16.2.0"
   },
   "dependencies": {
-    "@types/enzyme": "^3.1.9",
-    "@types/enzyme-adapter-react-16": "^1.0.2",
     "slate": "^0.33.0",
     "slate-react": "^0.12.0",
     "styled-components": "^3.1.6"

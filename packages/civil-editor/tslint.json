@@ -1,5 +1,6 @@
 {
   "extends": [
-    "@joincivil/tslint-rules"
+    "@joincivil/tslint-rules",
+    "tslint-react"
   ]
 }

@@ -1,6 +1,4 @@
-// Import the `Value` model.
 import * as React from "react";
-import { Value } from "slate";
 import { Editor } from "slate-react";
 
 export type OnChangeFunc = (value: any) => void;
@@ -32,10 +30,12 @@ export class CivilEditor extends React.Component<EditorProps, EditorState> {
     }
 
     public render(): any {
-        return <Editor
-          value={ this.state.value }
-          onChange={ this.onChange }
-          renderNode={ this.props.renderNode }
-        />;
+        return (
+          <Editor
+            value={this.state.value}
+            onChange={this.onChange}
+            renderNode={this.props.renderNode}
+          />
+        );
     }
 }

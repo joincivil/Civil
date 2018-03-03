@@ -4,7 +4,6 @@ import { Value } from "slate";
 import { CivilEditor } from "./Editor";
 import { Renderer } from "./Renderer";
 
-
 const initialValue = Value.fromJSON({
     document: {
       nodes: [
@@ -28,10 +27,12 @@ const initialValue = Value.fromJSON({
 
 storiesOf("CivilEditor", module)
     .add("main", () => {
-        const onChange = (value: any): any => {};
-        return <CivilEditor
-          value={initialValue}
-          onChange={onChange}
-          renderNode={Renderer}
-        />
+        const onChange = (value: any): any => { return; };
+        return (
+          <CivilEditor
+            value={initialValue}
+            onChange={onChange}
+            renderNode={Renderer}
+          />
+        );
     });
