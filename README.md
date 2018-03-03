@@ -18,6 +18,14 @@ We hope that those tools will be useful for creation of interesting applications
 | [`@joincivil/tslint-rules`](/packages/tslint-rules) | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/tslint-rules.svg)](https://www.npmjs.com/package/@joincivil/tslint-rules)[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/tslint-rules/LICENSE) | Linting rules for Civil's Typescript packages               |
 | [`@joincivil/utils`](/packages/utils)               | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/utils.svg)](https://www.npmjs.com/package/@joincivil/utils)[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/utils/LICENSE)                      | Utilities shared between Civil projects used during runtime |
 
+### Private packages
+
+| Package                                       | License                                                                                                 | Description                                                                                                         |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| [`@joincivil/contracts`](/packages/contracts) | [![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](/packages/contracts/LICENSE)   | Smart-contracts needed for the Civil's protocol                                                                     |
+| [`@joincivil/dev-utils`](/packages/dev-utils) | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/dev-utils/LICENSE) | Utilities needed for the proper working of the mono-repo packages, builds and tests                                 |
+| [`@joincivil/debug-ui`](/packages/debug-ui)   | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/debug-ui/LICENSE)  | WIP: Minimal website to monitor, observe and debug the protocol and all the utilities and packages of the ecosystem |
+
 ## Contributing
 
 Civil's ecosystem is free and open-source, we're all part of it and you're encouraged to be a part of it with us.
