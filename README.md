@@ -14,7 +14,7 @@ We hope that those tools will be useful for creation of interesting applications
 
 | Package                                             | Badges                                                                                                                                                                                                                                       | Description                                                 |
 | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| [`@joincivil/core`][core-url]                       | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/core.svg)](https://www.npmjs.com/package/@joincivil/core)[![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](/packages/civil.ts/LICENSE)                       | JS library for interacting with Civil ecosystem             |
+| [`@joincivil/core`][core-url]                       | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/core.svg)](https://www.npmjs.com/package/@joincivil/core)[![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](/packages/core/LICENSE)                           | JS library for interacting with Civil ecosystem             |
 | [`@joincivil/tslint-rules`](/packages/tslint-rules) | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/tslint-rules.svg)](https://www.npmjs.com/package/@joincivil/tslint-rules)[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/tslint-rules/LICENSE) | Linting rules for Civil's Typescript packages               |
 | [`@joincivil/utils`](/packages/utils)               | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/utils.svg)](https://www.npmjs.com/package/@joincivil/utils)[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/utils/LICENSE)                      | Utilities shared between Civil projects used during runtime |
 
@@ -101,4 +101,4 @@ yarn clean && yarn lerna clean --yes && rm -r node_modules && yarn install
 
 🐙 was here.
 
-[core-url]: /packages/civil.ts
+[core-url]: /packages/core
