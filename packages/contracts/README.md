@@ -38,7 +38,7 @@ During the build process artifacts are striped out of additional, debugging info
 ## Contributing
 
 Civil's ecosystem is free and open-source, we're all part of it and you're encouraged to be a part of it with us.
-Best place to start hacking would be to use the [`@joincivil/core`][/packages/core] and build some application on top of the protocol.
+Best place to start hacking would be to use the [`@joincivil/core`](/packages/core) and build some application on top of the protocol.
 
 If you're itching to dwelve deeper inside, [**help wanted**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 and [**good first issue**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) labels are good places to get started and learn the architecture.
