@@ -1,9 +1,9 @@
 {
-  "name": "civil-editor",
+  "name": "@joincivil/editor",
   "version": "1.0.0",
-  "description": "editor for civil formatted articles",
-  "main": "dist/index.js",
-  "license": "MIT",
+  "description": "Editor for civil formatted articles",
+  "main": "build/index.js",
+  "license": "Apache-2.0",
   "jest": {
     "transform": {
       ".(ts|tsx)": "ts-jest"
@@ -26,7 +26,8 @@
     "test": "jest",
     "prepublish": "yarn build",
     "build": "tsc",
-    "lint": "tslint --project ./"
+    "lint": "tslint --project ./",
+    "clean": "rimraf build/"
   },
   "devDependencies": {
     "@storybook/addon-storyshots": "^3.3.14",
@@ -49,6 +50,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
+    "rimraf": "^2.6.2",
     "strip-ansi": "^4.0.0",
     "ts-jest": "^22.4.0",
     "ts-loader": "^3",

@@ -10660,6 +10660,12 @@ tslint-loader@^3.5.3:
     rimraf "^2.4.4"
     semver "^5.3.0"
 
+tslint-react@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/tslint-react/-/tslint-react-3.5.1.tgz#a5ca48034bf583fb63b42763bb89fa23062d5390"
+  dependencies:
+    tsutils "^2.13.1"
+
 tslint@^5.9.1:
   version "5.9.1"
   resolved "https://registry.yarnpkg.com/tslint/-/tslint-5.9.1.tgz#1255f87a3ff57eb0b0e1f0e610a8b4748046c9ae"
@@ -10680,6 +10686,12 @@ tslint@^5.9.1:
 tsutils@^2.12.1:
   version "2.21.1"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.21.1.tgz#5b23c263233300ed7442b4217855cbc7547c296a"
+  dependencies:
+    tslib "^1.8.1"
+
+tsutils@^2.13.1:
+  version "2.22.1"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.22.1.tgz#30450bd701be623b9e11a129df0c32322678461b"
   dependencies:
     tslib "^1.8.1"
 
