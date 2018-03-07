@@ -2,7 +2,6 @@ import * as chaiAsPromised from "chai-as-promised";
 import * as chaiBignumber from "chai-bignumber";
 import * as dirtyChai from "dirty-chai";
 import * as Web3 from "web3";
-import { rpc } from "@joincivil/utils";
 
 export function configureChai(chai: any): void {
   chai.config.includeStack = true;
@@ -14,6 +13,28 @@ export function configureChai(chai: any): void {
 // TODO(ritave): Create a mock provider
 export function dummyWeb3Provider(): Web3.Provider {
   return new Web3.providers.HttpProvider("http://localhost:8545");
+}
+
+export async function rpc(provider: Web3.Provider, method: string, ...params: any[]): Promise<Web3.JSONRPCResponsePayload> {
+  return new Promise<Web3.JSONRPCResponsePayload>((resolve, reject) => {
+    provider.sendAsync(
+      {
+        id: new Date().getSeconds(),
+        jsonrpc: "2.0",
+        method,
+        params,
+      },
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        if ((result as any).error) {
+          return reject((result as any).error);
+        }
+        return resolve(result);
+      }
+    )
+  });
 }
 
 export async function advanceEvmTime(time: number): Promise<void> {
