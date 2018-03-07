@@ -11,7 +11,7 @@
     "lint": "tslint --project ./",
     "generate": "run-p generate:*",
     "generate:contracts": "abi-gen --abis 'src/artifacts/**/*.json' --template 'src/templates/contract/contract.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/'",
-    "generate:artifacts": "civil-generate-from-files 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
+    "generate:artifacts": "node ../dev-utils/build/scripts/generate-from-files/bin.js 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
     "tsc": "tsc",
     "prepublishOnly": "run-s build lint",
     "clean": "rimraf build/ src/contracts/generated/*"

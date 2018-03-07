@@ -5,7 +5,7 @@
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
     "build": "run-s compile build:stripArtifacts",
-    "build:stripArtifacts": "civil-strip-artifacts \"build/contracts/**/*.json\" build/artifacts",
+    "build:stripArtifacts": "node ../dev-utils/build/scripts/strip-artifacts.js \"build/contracts/**/*.json\" build/artifacts",
     "compile": "run-p --aggregate-output compile:*",
     "compile:typescript": "tsc",
     "compile:solidity": "truffle compile",
