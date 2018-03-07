@@ -26,6 +26,7 @@
     "@joincivil/dev-utils": "^1.1.0",
     "@joincivil/tslint-rules": "^2.4.1",
     "@joincivil/utils": "^1.1.0",
+    "@joincivil/multisig": "^1.0.0",
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
     "@types/glob": "^5.0.34",
