@@ -26,6 +26,7 @@
     "@joincivil/utils": "^1.1.0",
     "@types/chai": "^4.1.2",
     "@types/chai-as-promised": "^7.1.0",
+    "bignumber.js": "^6.0.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "dirty-chai": "^2.0.1",
