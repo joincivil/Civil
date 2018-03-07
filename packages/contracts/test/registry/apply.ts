@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 
-import { REVERTED } from "../../utils/constants";
+import { REVERTED } from "../utils/constants";
 import * as utils from "../utils/contractutils";
 
 configureChai(chai);
