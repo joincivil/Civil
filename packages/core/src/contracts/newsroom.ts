@@ -25,10 +25,21 @@ import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generat
  * Right now the only supported systems are HTTP and [[InMemoryProvider]] for debugging purpouses
  */
 export class Newsroom extends BaseWrapper<NewsroomContract> {
-  public static async deployTrusted(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider): Promise<Newsroom> {
+  public static async deployTrusted(
+    web3Wrapper: Web3Wrapper,
+    contentProvider: ContentProvider,
+  ): Promise<{txHash: string, awaitReceipt: Promise<Newsroom>}> {
     const txData: TxData = { from: web3Wrapper.account };
-    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData);
-    return new Newsroom(web3Wrapper, contentProvider, instance);
+    const txHash = await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData);
+    const awaitReceipt = (async () => {
+      const receipt = await web3Wrapper.awaitReceipt(txHash);
+      return new Newsroom(
+        web3Wrapper,
+        contentProvider,
+        NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!)
+      );
+    })();
+    return {txHash, awaitReceipt};
   }
   public static atUntrusted(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, address: EthAddress): Newsroom {
     const instance = NewsroomContract.atUntrusted(web3Wrapper, address);
