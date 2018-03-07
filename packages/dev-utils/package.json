@@ -3,15 +3,17 @@
   "version": "1.1.0",
   "description": "Utilities shared between Civil packages",
   "private": true,
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
   "bin": {
-    "civil-generate-from-files": "build/generate-from-files/bin.js"
+    "civil-generate-from-files": "build/scripts/generate-from-files/bin.js",
+    "civil-strip-artifacts": "build/scripts/strip-artifacts.js"
   },
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w",
-    "generate-from-files": "node build/generate-from-files/bin.js",
+    "generate-from-files": "node build/scripts/generate-from-files/bin.js",
+    "strip-artifacts": "node build/scripts/strip-artifacts.js",
     "lint": "tslint --project ./",
     "tsc": "tsc",
     "clean": "rimraf build/"
