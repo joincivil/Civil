@@ -5,6 +5,7 @@ import { ContentProvider } from "./content/contentprovider";
 import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "./types";
+import { OwnedAddressTCRWithAppeals } from "./contracts/ownedAddressTCRWithAppeals";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
 
@@ -100,6 +101,17 @@ export class Civil {
    */
   public newsroomAtUntrusted(address: EthAddress): Newsroom {
     return Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, address);
+  }
+
+  /**
+   * Returns a OwnedAddressTCRWithAppeals object, which is an abstraction layer to
+   * the smart-contract located a Ethereum on `address` in the current network.
+   * No sanity checks are done concerning that smart-contracts, and so the contract
+   * might a bad actor or not implementing OwnedAddressTCRWithAppeals ABIs at all.
+   * @param address The address on current Ethereum network where the smart-contract is located
+   */
+  public ownedAddressTCRWithAppealsAtUntrusted(address: EthAddress): OwnedAddressTCRWithAppeals {
+    return OwnedAddressTCRWithAppeals.atUntrusted(this.web3Wrapper, this.contentProvider, address);
   }
 
   /**
