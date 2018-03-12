@@ -8,8 +8,7 @@
     "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint --parallel",
     "clean": "lerna run clean --parallel",
-    "test": "lerna run test --stream",
-    "lerna": "lerna",
+    "test": "lerna run test --stream --sort",
     "lerna:run": "lerna run",
     "prepare": "lerna run prepare --no-sort",
     "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse"

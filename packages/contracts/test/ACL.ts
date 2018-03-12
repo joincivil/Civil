@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 
-import { ACL_TEST_ROLE, events, REVERTED } from "../utils/constants";
+import { ACL_TEST_ROLE, events, REVERTED } from "./utils/constants";
 import { findEvent } from "./utils/contractutils";
 
 const ACL = artifacts.require("test/DummyACL");

@@ -2,7 +2,7 @@ public static deployTrusted = {
   async sendTransactionAsync(
       web3Wrapper: Web3Wrapper,
       {{> typed_inputs inputs=ctor.inputs }}
-      txData?: TxData): Promise<{{contractName}}Contract> {
+      txData?: TxData): Promise<string> {
     const web3 = web3Wrapper.web3;
     const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
     const options: TxData = { data: artifacts.{{contractName}}.bytecode };
@@ -29,10 +29,7 @@ public static deployTrusted = {
           return resolve(instance.transactionHash);
         });
     });
-    const receipt = await web3Wrapper.awaitReceipt(txhash);
-    /* tslint:disable no-non-null-assertion */ // Will always return an addres
-    return new {{contractName}}Contract(clazz.at(receipt.contractAddress!));
-    /* tslint:enable no-non-null-assertion */
+    return txhash;
   },
   async estimateGasAsync(
       web3: Web3,

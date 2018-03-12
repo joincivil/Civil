@@ -7,6 +7,12 @@ import { promisify } from "util";
 import * as Web3 from "web3";
 /* tslint:enable no-implicit-dependencies */
 
+import { advanceEvmTime } from "@joincivil/dev-utils";
+
+// advanceEvmTime was moved to dev-utils
+// We would need to update ALL the tests, this is a workaround
+export { advanceEvmTime } from "@joincivil/dev-utils";
+
 const Token = artifacts.require("tokens/eip20/EIP20");
 
 const PLCRVoting = artifacts.require("PLCRVoting");
@@ -46,21 +52,6 @@ export async function timestampFromTx(web3: Web3, tx: Web3.Transaction | Web3.Tr
   }
   const getBlock = promisify<number, Web3.BlockWithoutTransactionData>(web3.eth.getBlock.bind(web3.eth));
   return (await getBlock(tx.blockNumber)).timestamp;
-}
-
-export async function advanceEvmTime(time: number): Promise<void> {
-  await web3.currentProvider.send({
-    id: new Date().getSeconds(),
-    jsonrpc: "2.0",
-    method: "evm_increaseTime",
-    params: [time],
-  });
-  await web3.currentProvider.send({
-    id: new Date().getSeconds(),
-    jsonrpc: "2.0",
-    method: "evm_mine",
-    params: [],
-  });
 }
 
 export async function proposeReparamAndGetPropID(

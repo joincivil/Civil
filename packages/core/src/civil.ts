@@ -4,7 +4,7 @@ import * as Web3 from "web3";
 import { ContentProvider } from "./content/contentprovider";
 import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
-import { EthAddress } from "./types";
+import { EthAddress, TxHash } from "./types";
 import { Web3Wrapper } from "./utils/web3wrapper";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
@@ -68,7 +68,7 @@ export class Civil {
    * The smart contract is trusted since it comes from a trusted source (us).
    * This call may require user input - such as approving a transaction in Metamask
    */
-  public async newsroomDeployTrusted(): Promise<Newsroom> {
+  public async newsroomDeployTrusted(): Promise<{txHash: TxHash, awaitReceipt: Promise<Newsroom>}> {
     return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider);
   }
 
