@@ -17,12 +17,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     const token = await Token.deployed();
     const user = addresses[0];
     let allocation;
-    if (network in config.testnets) {
-      allocation = totalSupply.div(new BN(config.testnets[network].tokenHolders.length, BASE_10));
-    } else {
-      allocation = totalSupply.div(new BN(accounts.length, BASE_10));
-    }
-
+    const addresses2 = [...addresses];
+    allocation = totalSupply.div(new BN(addresses2.length, BASE_10));
     await token.transfer(user, allocation);
 
     if (addresses.length === 1) { return true; }
@@ -31,9 +27,9 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
 
   deployer.then(async () => {
     if (network !== MAIN_NETWORK) {
-      await deployer.deploy(Token, totalSupply, "TestCoin", decimals, "TEST");
+      await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
       if (network in config.testnets) {
-        return giveTokensTo(config.testnets[network].tokenHolders);
+        return giveTokensTo([...accounts, ...config.testnets[network].tokenHolders]);
       }
       return giveTokensTo(accounts);
     }
