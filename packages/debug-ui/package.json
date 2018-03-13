@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "@joincivil/core": "^2.0.0",
+    "bignumber.js": "5.0.0",
+    "fs": "^0.0.1-security",
     "marked": "^0.3.12"
   }
 }

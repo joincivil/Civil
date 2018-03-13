@@ -3,14 +3,14 @@ html(lang="en")
   head
     title Express Starter
     link(rel="stylesheet" type="text/css" href="/assets/css/main.css")
-    script(src="/assets/js/bundle.js")
+    script(src="/assets/js/index.js")
     if development
       include _includes/debug.pug
   body
-    #param-input.hidden
-      | Enter what article you want to read
-      br
-      input(type="text", placeholder="Newsroom address")#newsroom-address
-      input(type="text", placeholder="Article id")#article-id
-      button#param-submit Submit
-    #content Loading content...
+    #tcrInfo TCR INFO:
+    | "Deploy Newsroom"
+    button#param-deployNewsroom Deploy
+    #whitelist Whitelisted Newsrooms...
+    #applications Applications...
+    #challengedInCommit Listings Challenged in Commit Phase...
+    #challengedInReveal Listings Challenged in Reveal Phase...

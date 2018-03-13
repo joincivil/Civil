@@ -139,4 +139,8 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     }
     return this.instance.voterReward.callAsync(who, challengeID, salt);
   }
+
+  public async get(parameter: string): Promise<BigNumber> {
+    return this.instance.get.callAsync(parameter);
+  }
 }
