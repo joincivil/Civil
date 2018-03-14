@@ -8,7 +8,8 @@ import { setIndexListeners } from "./listeners";
 window.addEventListener("load", async () => {
   setIndexListeners();
   const civil = new Civil();
-  const tcr = await civil.ownedAddressTCRWithAppealsAtUntrusted("0x5cf4114912d0b1eacF666E1c6b9fc91eb143956b");
+  const tcrAddress = civil.getDeployedTCRAddressForCurrentNetwork();
+  const tcr = await civil.ownedAddressTCRWithAppealsAtUntrusted(tcrAddress);
   tcr.currentAppliedListings().subscribe((listing: string) => {
     document.getElementById("applications")!.innerHTML += "<br>- " + listing;
   });
