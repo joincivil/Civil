@@ -58,4 +58,10 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
     return this.instance.allowance.callAsync(who, spender);
   }
 
+  public async getBalance(
+    address: EthAddress,
+  ): Promise<BigNumber> {
+    return this.instance.balanceOf.callAsync(address);
+  }
+
 }
