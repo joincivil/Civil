@@ -10,6 +10,8 @@ window.addEventListener("load", async () => {
   const address = url.searchParams.get("newsroomAddress");
   const articleId = url.searchParams.get("articleId");
 
+  // TODO: fix article loading
+
   // const article = await newsroom.loadArticle(params.articleId);
   // console.log(article);
 

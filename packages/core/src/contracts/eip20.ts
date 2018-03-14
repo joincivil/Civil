@@ -58,6 +58,10 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
     return this.instance.allowance.callAsync(who, spender);
   }
 
+  /**
+   * Check the token balance of an address
+   * @param address address to check balance of
+   */
   public async getBalance(
     address: EthAddress,
   ): Promise<BigNumber> {
