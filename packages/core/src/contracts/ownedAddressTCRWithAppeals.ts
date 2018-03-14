@@ -81,6 +81,22 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   }
 
   /**
+   * An unending stream of all addresses currently able to be whitelisted
+   * @param fromBlock Starting block in history for events concerning ready to whitelist addresses.
+   *                  Set to "latest" for only new events
+   * @returns addresses ready to be whitelisted
+   */
+  public readyToBeWhitelistedListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+    return this.instance
+    .ApplicationStream({}, { fromBlock })
+    .distinctUntilChanged((a, b) => {
+      return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
+    })
+    .map((e) => e.args.listingAddress)
+    .concatFilter(async (listingAddress) => this.instance.canBeWhitelisted.callAsync(listingAddress));
+  }
+
+  /**
    * An unending stream of all addresses currently challenged in commit vote phase
    * @param fromBlock Starting block in history for events concerning challenged addresses in commit vote phase.
    *                  Set to "latest" for only new events
