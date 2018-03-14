@@ -140,7 +140,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     return this.instance.voterReward.callAsync(who, challengeID, salt);
   }
 
-  public async get(parameter: string): Promise<BigNumber> {
+  /**
+   * Gets the current value of the specified parameter
+   * @param parameter key of parameter to check
+   */
+  public async getParameterValue(parameter: string): Promise<BigNumber> {
     return this.instance.get.callAsync(parameter);
   }
 }

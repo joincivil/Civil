@@ -182,7 +182,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       isInCommitPhase = false;
     }
 
-    // if time is correct
+    // if commit period not active
     const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
     const commitPeriodActive = await voting.isCommitPeriodActive(challenge);
     if (!commitPeriodActive) {
@@ -205,7 +205,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       isInRevealPhase = false;
     }
 
-    // if time is correct
+    // if reveal period not active
     const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
     const revealPeriodActive = await voting.isRevealPeriodActive(challenge);
     if (!revealPeriodActive) {
