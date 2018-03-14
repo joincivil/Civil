@@ -77,10 +77,10 @@ export function createTwoStep<T>(
 
 export function createTwoStepEmpty(
   web3Wrapper: Web3Wrapper,
-  txHash: TxHash
+  txHash: TxHash,
 ): TwoStepEthTransaction {
   return {
     txHash,
-    awaitReceipt: web3Wrapper.awaitReceipt.bind(web3Wrapper, txHash)
+    awaitReceipt: web3Wrapper.awaitReceipt.bind(web3Wrapper, txHash),
   };
 }

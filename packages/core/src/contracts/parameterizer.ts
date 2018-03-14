@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
 
-import { Bytes32, CivilTransactionReceipt, EthAddress, TwoStepEthTransaction } from "../types";
+import { Bytes32, EthAddress, TwoStepEthTransaction } from "../types";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -118,7 +118,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepEmpty(
       this.web3Wrapper,
-      await this.instance.processProposal.sendTransactionAsync(propID)
+      await this.instance.processProposal.sendTransactionAsync(propID),
     );
   }
 

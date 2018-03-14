@@ -4,7 +4,7 @@ import { Civil } from "../../src";
   const civil = new Civil();
 
   console.log("Deploying newsroom...");
-  const newsroom = await (await civil.newsroomDeployTrusted()).awaitReceipt;
+  const newsroom = await (await civil.newsroomDeployTrusted()).awaitReceipt();
   console.log("Newsroom at: ", newsroom.address);
 
   console.log("Subscribing to new articles");

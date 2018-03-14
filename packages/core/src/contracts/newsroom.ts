@@ -233,7 +233,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
           }
         }
         throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");
-      }
+      },
     );
   }
 
@@ -259,7 +259,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
     return createTwoStepEmpty(
       this.web3Wrapper,
-      await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId))
+      await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId)),
     );
   }
 
