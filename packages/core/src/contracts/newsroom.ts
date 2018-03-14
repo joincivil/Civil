@@ -6,7 +6,6 @@ import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
 import {
-  CivilTransactionReceipt,
   ContentHeader,
   EthAddress,
   NewsroomContent,
@@ -120,7 +119,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
     return createTwoStepEmpty(
       this.web3Wrapper,
-      await this.instance.addRole.sendTransactionAsync(actor, role)
+      await this.instance.addRole.sendTransactionAsync(actor, role),
     );
   }
 

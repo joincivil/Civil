@@ -3,11 +3,12 @@ import { Observable } from "rxjs";
 import "@joincivil/utils";
 
 import "rxjs/add/operator/distinctUntilChanged";
-import { Bytes32, CivilTransactionReceipt, EthAddress } from "../types";
+import { Bytes32, CivilTransactionReceipt, EthAddress, TwoStepEthTransaction } from "../types";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { PLCRVotingContract } from "./generated/p_l_c_r_voting";
+import { createTwoStepEmpty } from "../utils/contractutils";
 
 /**
  * Voting allows user to interface with polls, either from the
@@ -53,9 +54,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async requestVotingRights(
     numTokens: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.requestVotingRights.sendTransactionAsync(numTokens);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.requestVotingRights.sendTransactionAsync(numTokens)
+    );
   }
 
   /**
@@ -64,9 +67,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async withdrawVotingRights(
     numTokens: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens)
+    );
   }
 
   /**
@@ -75,9 +80,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async rescueTokens(
     pollID: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.rescueTokens.sendTransactionAsync(pollID);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.rescueTokens.sendTransactionAsync(pollID)
+    );
   }
 
   /**
@@ -93,9 +100,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     secretHash: Bytes32,
     numTokens: BigNumber,
     prevPollID: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.commitVote.sendTransactionAsync(pollID, secretHash, numTokens, prevPollID);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.commitVote.sendTransactionAsync(pollID, secretHash, numTokens, prevPollID)
+    );
   }
 
   /**
@@ -108,9 +117,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     pollID: BigNumber,
     voteOption: BigNumber,
     salt: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.revealVote.sendTransactionAsync(pollID, voteOption, salt);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.revealVote.sendTransactionAsync(pollID, voteOption, salt)
+    );
   }
 
   /**
