@@ -283,6 +283,15 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     const token = EIP20.atUntrusted(this.web3Wrapper, await this.instance.token.callAsync());
     const approvedTokens = await token.getApprovedTokensForSpender(this.instance.address);
 
+    const balance = await token.getBalance(this.web3Wrapper.account!);
+    console.log("balance: " + balance);
+
+    if (balance < deposit) {
+      console.error("NOT ENOUGH TOKENS TO DO ANYTHING.");
+    } else {
+      console.log("passed balance check.");
+    }
+
     console.log("approvedTokens: " + approvedTokens);
     if (approvedTokens < deposit) {
       console.log("approving spender");
@@ -314,13 +323,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     } else {
       console.log("passed minDepost check.");
     }
-
-    // Sets owner
-    // Listing storage listing = listings[listingAddress];
-    // listing.owner = msg.sender;
-
-    // Transfers tokens from user to Registry contract
-    // require(token.transferFrom(msg.sender, this, amount));
 
     const newsroom = await Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, listingAddress);
     const isOwner = await newsroom.isOwner(this.web3Wrapper.account);
