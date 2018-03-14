@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
 import { ContentProvider } from "../content/contentprovider";
-import { CivilTransactionReceipt, EthAddress, TxHash } from "../types";
+import { CivilTransactionReceipt, EthAddress, TxHash, TxData } from "../types";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -332,7 +332,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     console.log("checks are done.");
     console.log("apply.");
     const uri = await this.contentProvider.put(applicationContent);
-    console.log("uri: " + uri);
     return this.applyWithURI(listingAddress, deposit, uri);
   }
 
@@ -347,9 +346,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     deposit: BigNumber,
     applicationContentURI: string,
   ): Promise<{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
-    console.log("listingAddress: " + listingAddress);
-    console.log("deposit: " + deposit);
-    console.log("applicationContentURI: " + applicationContentURI);
     const txhash = await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI);
     return {txHash: txhash, awaitReceipt: this.web3Wrapper.awaitReceipt(txhash)};
   }

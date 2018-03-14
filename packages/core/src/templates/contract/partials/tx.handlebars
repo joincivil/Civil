@@ -10,10 +10,22 @@ public {{this.name}} = {
   ): Promise<TxHash> {
     const self = this as {{contractName}}Contract;
     const txOptions = { ...self.configuration.txDefaults, ...txData };
+    debug(`{{this.name}}(
+{{>typed_inputs inputs=inputs}})`);
+    debug("{{this.name}}: txOptions:", txOptions);
+    debug(
+      "{{this.name}}: Sending with:",
+{{> params inputs=inputs}}
+      );
     if (!txOptions.gas) {
+      try {
       txOptions.gas = await self.{{name}}.estimateGasAsync(
         {{> params inputs=inputs}}
         txOptions);
+      } catch (e) {
+        debug("{{this.name}}: Gas estimation failed, only sensible error is EVM error", e);
+        throw new Error(CivilErrors.EvmException);
+      }
     }
     const promisified = promisify<TxHash>(
       self.instance.{{this.name}}.sendTransaction,
@@ -32,8 +44,10 @@ public {{this.name}} = {
       self.instance.{{this.name}}.estimateGas,
       self.instance.{{this.name}},
     );
-    return Math.floor(await promisified(
+    const estimate = Math.floor(await promisified(
       {{> params inputs=inputs}}
       txData) * self.configuration.estimationMultiplier);
+    debug("{{this.name}}: Gas estimation:", estimate);
+    return estimate;
   },
 };
