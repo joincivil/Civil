@@ -37,3 +37,7 @@ Best place to start hacking would be to use the [`@joincivil/core`](/packages/co
 
 If you're itching to dwelve deeper inside, [**help wanted**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 and [**good first issue**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) labels are good places to get started and learn the architecture.
+
+## Fork
+
+Diverged from Gnosis at [ac93a926aac155fb50590130edaa0b26b3487ba4](https://github.com/gnosis/MultiSigWallet/commit/ac93a926aac155fb50590130edaa0b26b3487ba4) commit.

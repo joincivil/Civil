@@ -8,11 +8,10 @@ const MultiSigWallet = artifacts.require("MultiSigWallet");
 configureChai(chai);
 const expect = chai.expect;
 
-const ONE_DAY = 24*3600;
-const EXCLUDE_PENDING = false
-const INCLUDE_PENDING = true
-const EXCLUDE_EXECUTED = false
-const INCLUDE_EXECUTED = true
+const EXCLUDE_PENDING = false;
+const INCLUDE_PENDING = true;
+const EXCLUDE_EXECUTED = false;
+const INCLUDE_EXECUTED = true;
 
 const sendTransactionAsync = promisify(web3.eth.sendTransaction, web3.eth);
 const balanceAsync = promisify<BigNumber>(web3.eth.getBalance, web3.eth);
@@ -42,7 +41,7 @@ contract("MultiSigWallet", (accounts) => {
       const txIdAddOwner = getParamFromTxEvent<BigNumber>(
         await instance.submitTransaction(instance.address, 0, addOwnerData, {from: accounts[0]}),
         "transactionId",
-        "Submission"
+        "Submission",
       );
 
       // One pending transaction
@@ -55,7 +54,7 @@ contract("MultiSigWallet", (accounts) => {
       const txIdChangeRequirement = getParamFromTxEvent(
         await instance.submitTransaction(instance.address, 0, updateRequirementsData, {from: accounts[0]}),
         "transactionId",
-        "Submission"
+        "Submission",
       );
 
       // Two pending transactios
