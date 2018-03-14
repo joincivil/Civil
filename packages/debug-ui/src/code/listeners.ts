@@ -15,11 +15,12 @@ export function setNewsroomListeners(): void {
   const urlString = window.location.href;
   const url = new URL(urlString);
   const address = url.searchParams.get("address");
+  const civil = new Civil({ debug: true });
 
   const applyButton = document.getElementById("param-applyToTCR")!;
   applyButton.onclick = async (event) => {
     if (address) {
-      const applyToTCR = await apply(address);
+      const applyToTCR = await apply(address, civil);
     } else {
       console.error("newsroom address not found in params");
     }
@@ -28,10 +29,10 @@ export function setNewsroomListeners(): void {
   const proposeAndApproveButton = document.getElementById("param-proposeAndApprove")!;
   proposeAndApproveButton.onclick = async (event) => {
     // TODO(nickreynolds): fix fs
+    // TODO(ritave): extract into scripts
     // const article = fs.readFileSync("assets/article.md").toString();
     const article = "This is article.";
     if (address) {
-      const civil = new Civil();
       console.log("Deploying newsroom");
       const deployedNewsroom = await civil.newsroomAtUntrusted(address);
       console.log("Proposing content");

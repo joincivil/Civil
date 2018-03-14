@@ -15,6 +15,7 @@ const debug = Debug("civil:main");
 export interface CivilOptions {
   web3Provider?: Web3.Provider;
   contentProvider?: ContentProvider;
+  debug?: true;
 }
 
 /**
@@ -36,6 +37,11 @@ export class Civil {
    */
   constructor(options?: CivilOptions) {
     const opts: CivilOptions = { ...options };
+
+    if (opts.debug === true) {
+      Debug.enable("civil:*");
+      debug("Enabled debug for \"civil:*\" namespace");
+    }
 
     let web3Provider = opts.web3Provider;
     if (!web3Provider) {
