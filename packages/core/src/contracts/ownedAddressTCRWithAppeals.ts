@@ -280,59 +280,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     deposit: BigNumber,
     applicationContent: string,
   ): Promise<{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
-    const token = EIP20.atUntrusted(this.web3Wrapper, await this.instance.token.callAsync());
-    const approvedTokens = await token.getApprovedTokensForSpender(this.instance.address);
-
-    const balance = await token.getBalance(this.web3Wrapper.account!);
-    console.log("balance: " + balance);
-
-    if (balance < deposit) {
-      console.error("NOT ENOUGH TOKENS TO DO ANYTHING.");
-    } else {
-      console.log("passed balance check.");
-    }
-
-    console.log("approvedTokens: " + approvedTokens);
-    if (approvedTokens < deposit) {
-      console.log("approving spender");
-      await token.approveSpender(this.instance.address, (deposit.sub(approvedTokens)));
-    } else {
-      console.log("no approval needed");
-    }
-
-    const isWhitelisted = await this.instance.getListingIsWhitelisted.callAsync(listingAddress);
-    if (isWhitelisted) {
-      console.error("ALREADY WHITELISTED");
-    } else {
-      console.log("passed whitelist check.");
-    }
-
-    const appWasMade = await this.instance.appWasMade.callAsync(listingAddress);
-    if (appWasMade) {
-      console.error("APP ALREADY MADE");
-    } else {
-      console.log("passed appWasMade check");
-    }
-
-    const parameterizerAddress = await this.instance.parameterizer.callAsync();
-    const parameterizer = await Parameterizer.atUntrusted(this.web3Wrapper, parameterizerAddress);
-
-    const minDeposit = await parameterizer.get("minDeposit");
-    if (deposit < minDeposit) {
-      console.error("DEPOSIT LESS THAN MIN DEPOSIT");
-    } else {
-      console.log("passed minDepost check.");
-    }
-
-    const newsroom = await Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, listingAddress);
-    const isOwner = await newsroom.isOwner(this.web3Wrapper.account);
-    if (!isOwner) {
-      console.error("ACCOUNT IS NOT OWNER OF NEWSROOM");
-    } else {
-      console.log("passed isOwner check.");
-    }
-    console.log("checks are done.");
-    console.log("apply.");
     const uri = await this.contentProvider.put(applicationContent);
     return this.applyWithURI(listingAddress, deposit, uri);
   }
