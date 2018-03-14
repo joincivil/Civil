@@ -11,10 +11,16 @@ window.addEventListener("load", async () => {
   const tcrAddress = civil.getDeployedTCRAddressForCurrentNetwork();
   const tcr = await civil.ownedAddressTCRWithAppealsAtUntrusted(tcrAddress);
   tcr.currentAppliedListings().subscribe((listing: string) => {
-    document.getElementById("applications")!.innerHTML += "<br>- " + listing;
+    document.getElementById("applications")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
+      listing + "'>" + listing + "</a>";
   });
   tcr.whitelistedListings().subscribe((listing: string) => {
-    document.getElementById("whitelist")!.innerHTML += "<br>- " + listing;
+    document.getElementById("whitelist")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
+    listing + "'>" + listing + "</a>";
+  });
+  tcr.readyToBeWhitelistedListings().subscribe((listing: string) => {
+    document.getElementById("readyToWhitelist")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
+    listing + "'>" + listing + "</a>";
   });
   document.getElementById("tcrInfo")!.innerHTML += "<br>Token: " + await tcr.getTokenAddress();
 });

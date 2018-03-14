@@ -53,7 +53,7 @@ export function setNewsroomListeners(): void {
       console.log(`\tContent id: ${articleId}`);
 
       console.log("Approving content");
-      console.debug(await deployedNewsroom.approveContent(articleId));
+      // console.debug(await deployedNewsroom.approveContent(articleId).awaitReceipt());
       console.log("Done");
 
       window.location.assign("/article.html?newsroomAddress=" + address + "&articleId=" + articleId);
