@@ -8,6 +8,7 @@ import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } fr
 import { OwnedAddressTCRWithAppeals } from "./contracts/ownedAddressTCRWithAppeals";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
+import { artifacts } from "./contracts/generated/artifacts";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -121,6 +122,14 @@ export class Civil {
   }
 
   /**
+   * Returns the deployed TCR address for the current network
+   */
+  public getDeployedTCRAddressForCurrentNetwork(): EthAddress {
+    const networkId = Number.parseInt(this.web3Wrapper.web3.version.network);
+    return artifacts.OwnedAddressTCRWithAppeals.networks[networkId].address;
+  }
+
+  /**
    * Changes the provider that is used by the Civil library.
    * All existing smart-contract object will switch to the new library behind the scenes.
    * This may invalidate any Ethereum calls in transit or event listening
@@ -141,20 +150,5 @@ export class Civil {
    */
   public async awaitReceipt(transactionHash: TxHash, blockConfirmations?: number): Promise<CivilTransactionReceipt> {
     return this.web3Wrapper.awaitReceipt(transactionHash, blockConfirmations);
-  }
-
-  public async getNetwork(): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
-      this.web3Wrapper.web3.version.getNetwork((err, netId) => {
-        switch (netId) {
-          case "1":
-            resolve("mainnet");
-          case "4":
-            resolve("rinkeby");
-          default:
-            reject("unknown");
-        }
-      });
-    });
   }
 }

@@ -1,6 +1,6 @@
 import { deployNewsroom } from "../../scripts/deploy-newsroom";
-import { apply } from "../../scripts/apply";
-//import * as fs from "fs";
+import { apply, updateStatus } from "../../scripts/tcrActions";
+// import * as fs from "fs";
 import { Civil } from "@joincivil/core";
 
 export function setIndexListeners(): void {
@@ -20,7 +20,20 @@ export function setNewsroomListeners(): void {
   const applyButton = document.getElementById("param-applyToTCR")!;
   applyButton.onclick = async (event) => {
     if (address) {
-      const applyToTCR = await apply(address, civil);
+      // TODO(nickreynolds): turn off button, display "deploying..."
+      await apply(address, civil);
+      // TODO(nickreynolds): show success
+    } else {
+      console.error("newsroom address not found in params");
+    }
+  };
+
+  const updateStatusButton = document.getElementById("param-updateListingStatus")!;
+  updateStatusButton.onclick = async (event) => {
+    if (address) {
+      // TODO(nickreynolds): turn off button, display "updating..."
+      await updateStatus(address, civil);
+      // TODO(nickreynolds): show success
     } else {
       console.error("newsroom address not found in params");
     }

@@ -360,9 +360,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Updates status of a listing
    * @param address Address of new listing
    */
-  public async updateListing(listingAddress: EthAddress): Promise<CivilTransactionReceipt> {
+  public async updateListing(
+    listingAddress: EthAddress,
+  ): Promise<{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
     const txhash = await this.instance.updateStatus.sendTransactionAsync(listingAddress);
-    return this.web3Wrapper.awaitReceipt(txhash);
+    return {txHash: txhash, awaitReceipt: this.web3Wrapper.awaitReceipt(txhash)};
   }
 
   /**
