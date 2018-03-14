@@ -84,6 +84,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
   public async isEditor(address?: EthAddress): Promise<boolean> {
+    if (await this.isOwner(address)) {
+      return true;
+    }
     let who = address;
 
     if (!who) {
@@ -99,6 +102,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
   public async isReporter(address?: EthAddress): Promise<boolean> {
+    if (await this.isOwner(address)) {
+      return true;
+    }
     let who = address;
 
     if (!who) {

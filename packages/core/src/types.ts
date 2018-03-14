@@ -3,10 +3,10 @@ import * as Web3 from "web3";
 
 import { CivilEventArgs } from "./contracts/generated/artifacts";
 
-export type ArticleId = number;
+export type ContentId = number;
 
 export interface ContentHeader {
-  id?: ArticleId;
+  id?: ContentId;
   author: EthAddress;
   timestamp: Date;
   uri: string;
