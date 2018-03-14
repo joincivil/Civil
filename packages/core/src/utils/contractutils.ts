@@ -2,7 +2,15 @@ import { isUndefined } from "lodash";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 
-import { EventFunction, TxDataBase, TypedEventFilter } from "../types";
+import {
+  EventFunction,
+  TxDataBase,
+  TypedEventFilter,
+  TxHash,
+  CivilTransactionReceipt,
+  TwoStepEthTransaction,
+} from "../types";
+import { Web3Wrapper } from "./web3wrapper";
 
 export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T> {
   return tx.logs.find((log: any) => log.event === eventName);
@@ -51,4 +59,18 @@ export function isTxData(data: any): data is TxDataBase {
     data.from !== undefined ||
     data.value !== undefined ||
     data.to !== undefined;
+}
+
+export function createTwoStep<T>(
+  web3Wrapper: Web3Wrapper,
+  txHash: TxHash,
+  transform: (receipt: CivilTransactionReceipt) => Promise<T>|T,
+): TwoStepEthTransaction<T> {
+  return {
+    txHash,
+    awaitReceipt: async (blockConfirmations?: number) =>
+      web3Wrapper
+        .awaitReceipt(txHash, blockConfirmations)
+        .then(transform),
+  };
 }

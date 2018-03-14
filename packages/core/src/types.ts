@@ -93,3 +93,8 @@ export interface DecodedTransactionReceipt<T> {
 }
 
 export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilEventArgs>;
+
+export interface TwoStepEthTransaction<T> {
+  txHash: TxHash;
+  awaitReceipt(blockConfirmations?: number): Promise<T>;
+}

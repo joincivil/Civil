@@ -5,8 +5,15 @@ import * as Web3 from "web3";
 import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
-import { CivilTransactionReceipt, ContentHeader, EthAddress, NewsroomContent, TxData } from "../types";
-import { isDecodedLog } from "../utils/contractutils";
+import {
+  CivilTransactionReceipt,
+  ContentHeader,
+  EthAddress,
+  NewsroomContent,
+  TxData,
+  TwoStepEthTransaction,
+} from "../types";
+import { isDecodedLog, createTwoStep } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -28,18 +35,19 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public static async deployTrusted(
     web3Wrapper: Web3Wrapper,
     contentProvider: ContentProvider,
-  ): Promise<{txHash: string, awaitReceipt: Promise<Newsroom>}> {
+  ): Promise<TwoStepEthTransaction<Newsroom>> {
     const txData: TxData = { from: web3Wrapper.account };
-    const txHash = await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData);
-    const awaitReceipt = (async () => {
-      const receipt = await web3Wrapper.awaitReceipt(txHash);
-      return new Newsroom(
+    return createTwoStep(
+      web3Wrapper,
+      await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData),
+      // tslint:disable no-non-null-assertion
+      (receipt) => new Newsroom(
         web3Wrapper,
         contentProvider,
-        NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!)
-      );
-    })();
-    return {txHash, awaitReceipt};
+        NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!),
+      ),
+      // tslint:enable no-non-null-assertion
+    );
   }
   public static atUntrusted(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, address: EthAddress): Newsroom {
     const instance = NewsroomContract.atUntrusted(web3Wrapper, address);

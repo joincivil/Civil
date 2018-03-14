@@ -4,7 +4,7 @@ import * as Web3 from "web3";
 import { ContentProvider } from "./content/contentprovider";
 import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
-import { EthAddress, TxHash, CivilTransactionReceipt } from "./types";
+import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "./types";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
 
@@ -69,7 +69,7 @@ export class Civil {
    * The smart contract is trusted since it comes from a trusted source (us).
    * This call may require user input - such as approving a transaction in Metamask
    */
-  public async newsroomDeployTrusted(): Promise<{txHash: TxHash, awaitReceipt: Promise<Newsroom>}> {
+  public async newsroomDeployTrusted(): Promise<TwoStepEthTransaction<Newsroom>> {
     return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider);
   }
 
