@@ -12,8 +12,9 @@ import {
   NewsroomContent,
   TxData,
   TwoStepEthTransaction,
+  ContentId,
 } from "../types";
-import { isDecodedLog, createTwoStep } from "../utils/contractutils";
+import { isDecodedLog, createTwoStep, createTwoStepEmpty } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -114,11 +115,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async addRole(actor: EthAddress, role: Roles): Promise<CivilTransactionReceipt> {
-    let txhash;
+  public async addRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
-    txhash = await this.instance.addRole.sendTransactionAsync(actor, role);
-    return this.web3Wrapper.awaitReceipt(txhash);
+
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.addRole.sendTransactionAsync(actor, role)
+    );
   }
 
   /**
@@ -129,11 +132,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async removeRole(actor: EthAddress, role: Roles): Promise<CivilTransactionReceipt> {
-    let txhash;
+  public async removeRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
-    txhash = await this.instance.removeRole.sendTransactionAsync(actor, role);
-    return this.web3Wrapper.awaitReceipt(txhash);
+
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.removeRole.sendTransactionAsync(actor, role),
+    );
   }
 
   /**
@@ -205,7 +210,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param content The the data that you want to store, in the future, probably a JSON
    * @returns An id assigned on Ethereum to the proposed content
    */
-  public async proposeContent(content: string): Promise<number> {
+  public async proposeContent(content: string): Promise<TwoStepEthTransaction<ContentId>> {
     const uri = await this.contentProvider.put(content);
     return this.proposeUri(uri);
   }
@@ -216,40 +221,47 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param uri The link that you want to propose
    * @returns An id assigned on Ethereum to the uri
    */
-  public async proposeUri(uri: string): Promise<number> {
+  public async proposeUri(uri: string): Promise<TwoStepEthTransaction<ContentId>> {
     await this.requireReporter();
 
-    const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
-    const receipt = await this.web3Wrapper.awaitReceipt(txHash);
-
-    for (const log of receipt.logs) {
-      if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
-        return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
+    return createTwoStep(
+      this.web3Wrapper,
+      await this.instance.proposeContent.sendTransactionAsync(uri),
+      (receipt) => {
+        for (const log of receipt.logs) {
+          if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
+            return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
+          }
+        }
+        throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");
       }
-    }
-    throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");
+    );
   }
 
   /**
    * Allows the Editor to approve content that is waiting to be approved / denied
    * @param contentId The id of the proposed content to be denied
    */
-  public async approveContent(contentId: number|BigNumber): Promise<CivilTransactionReceipt> {
+  public async approveContent(contentId: ContentId|BigNumber): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    const txHash = await this.instance.approveContent.sendTransactionAsync(new BigNumber(contentId));
-    return this.web3Wrapper.awaitReceipt(txHash);
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.approveContent.sendTransactionAsync(new BigNumber(contentId)),
+    );
   }
 
   /**
    * Allows the Editor to deny content that is waiting to be approverd / denied
    * @param contentId The id of the proposed content to be denied
    */
-  public async denyContent(contentId: number|BigNumber): Promise<CivilTransactionReceipt> {
+  public async denyContent(contentId: number|BigNumber): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    const txHash = await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId));
-    return this.web3Wrapper.awaitReceipt(txHash);
+    return createTwoStepEmpty(
+      this.web3Wrapper,
+      await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId))
+    );
   }
 
   /**

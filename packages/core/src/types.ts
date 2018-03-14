@@ -3,8 +3,10 @@ import * as Web3 from "web3";
 
 import { CivilEventArgs } from "./contracts/generated/artifacts";
 
+export type ArticleId = number;
+
 export interface ContentHeader {
-  id?: number;
+  id?: ArticleId;
   author: EthAddress;
   timestamp: Date;
   uri: string;
@@ -94,7 +96,7 @@ export interface DecodedTransactionReceipt<T> {
 
 export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilEventArgs>;
 
-export interface TwoStepEthTransaction<T> {
+export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
   txHash: TxHash;
   awaitReceipt(blockConfirmations?: number): Promise<T>;
 }

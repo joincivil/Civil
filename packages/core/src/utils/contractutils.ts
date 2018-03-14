@@ -74,3 +74,13 @@ export function createTwoStep<T>(
         .then(transform),
   };
 }
+
+export function createTwoStepEmpty(
+  web3Wrapper: Web3Wrapper,
+  txHash: TxHash
+): TwoStepEthTransaction {
+  return {
+    txHash,
+    awaitReceipt: web3Wrapper.awaitReceipt.bind(web3Wrapper, txHash)
+  };
+}
