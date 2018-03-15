@@ -16,8 +16,13 @@ const data: TxData = {
 
 (async () => {
   console.log("Deploying contract");
-  const newsroom = await NewsroomContract.deployTrusted.sendTransactionAsync(web3, data);
+  const deployTxHash = await NewsroomContract.deployTrusted.sendTransactionAsync(web3, data);
+  const receipt = await web3.awaitReceipt(deployTxHash);
+  // tslint:disable no-non-null-assertion */
+  const newsroom = NewsroomContract.atUntrusted(web3, receipt.contractAddress!);
+  // tslint:enable no-non-null-assertion */
   console.log("Contract at: ", newsroom.address);
+  console.log(account);
   console.log("Am I owner: ", await newsroom.isOwner.callAsync(account));
 
   const subscription = newsroom

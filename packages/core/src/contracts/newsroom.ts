@@ -5,8 +5,15 @@ import * as Web3 from "web3";
 import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
-import { CivilTransactionReceipt, ContentHeader, EthAddress, NewsroomContent, TxData } from "../types";
-import { isDecodedLog } from "../utils/contractutils";
+import {
+  ContentHeader,
+  EthAddress,
+  NewsroomContent,
+  TxData,
+  TwoStepEthTransaction,
+  ContentId,
+} from "../types";
+import { isDecodedLog, createTwoStepTransaction, createTwoStepSimple } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -25,10 +32,22 @@ import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generat
  * Right now the only supported systems are HTTP and [[InMemoryProvider]] for debugging purpouses
  */
 export class Newsroom extends BaseWrapper<NewsroomContract> {
-  public static async deployTrusted(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider): Promise<Newsroom> {
+  public static async deployTrusted(
+    web3Wrapper: Web3Wrapper,
+    contentProvider: ContentProvider,
+  ): Promise<TwoStepEthTransaction<Newsroom>> {
     const txData: TxData = { from: web3Wrapper.account };
-    const instance = await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData);
-    return new Newsroom(web3Wrapper, contentProvider, instance);
+    return createTwoStepTransaction(
+      web3Wrapper,
+      await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData),
+      // tslint:disable no-non-null-assertion
+      (receipt) => new Newsroom(
+        web3Wrapper,
+        contentProvider,
+        NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!),
+      ),
+      // tslint:enable no-non-null-assertion
+    );
   }
   public static atUntrusted(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, address: EthAddress): Newsroom {
     const instance = NewsroomContract.atUntrusted(web3Wrapper, address);
@@ -65,6 +84,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
   public async isEditor(address?: EthAddress): Promise<boolean> {
+    if (await this.isOwner(address)) {
+      return true;
+    }
     let who = address;
 
     if (!who) {
@@ -80,6 +102,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
   public async isReporter(address?: EthAddress): Promise<boolean> {
+    if (await this.isOwner(address)) {
+      return true;
+    }
     let who = address;
 
     if (!who) {
@@ -95,11 +120,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async addRole(actor: EthAddress, role: Roles): Promise<CivilTransactionReceipt> {
-    let txhash;
+  public async addRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
-    txhash = await this.instance.addRole.sendTransactionAsync(actor, role);
-    return this.web3Wrapper.awaitReceipt(txhash);
+
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.addRole.sendTransactionAsync(actor, role),
+    );
   }
 
   /**
@@ -110,11 +137,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async removeRole(actor: EthAddress, role: Roles): Promise<CivilTransactionReceipt> {
-    let txhash;
+  public async removeRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
-    txhash = await this.instance.removeRole.sendTransactionAsync(actor, role);
-    return this.web3Wrapper.awaitReceipt(txhash);
+
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.removeRole.sendTransactionAsync(actor, role),
+    );
   }
 
   /**
@@ -186,7 +215,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param content The the data that you want to store, in the future, probably a JSON
    * @returns An id assigned on Ethereum to the proposed content
    */
-  public async proposeContent(content: string): Promise<number> {
+  public async proposeContent(content: string): Promise<TwoStepEthTransaction<ContentId>> {
     const uri = await this.contentProvider.put(content);
     return this.proposeUri(uri);
   }
@@ -197,40 +226,47 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param uri The link that you want to propose
    * @returns An id assigned on Ethereum to the uri
    */
-  public async proposeUri(uri: string): Promise<number> {
+  public async proposeUri(uri: string): Promise<TwoStepEthTransaction<ContentId>> {
     await this.requireReporter();
 
-    const txHash = await this.instance.proposeContent.sendTransactionAsync(uri);
-    const receipt = await this.web3Wrapper.awaitReceipt(txHash);
-
-    for (const log of receipt.logs) {
-      if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
-        return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
-      }
-    }
-    throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");
+    return createTwoStepTransaction(
+      this.web3Wrapper,
+      await this.instance.proposeContent.sendTransactionAsync(uri),
+      (receipt) => {
+        for (const log of receipt.logs) {
+          if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
+            return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
+          }
+        }
+        throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");
+      },
+    );
   }
 
   /**
    * Allows the Editor to approve content that is waiting to be approved / denied
    * @param contentId The id of the proposed content to be denied
    */
-  public async approveContent(contentId: number|BigNumber): Promise<CivilTransactionReceipt> {
+  public async approveContent(contentId: ContentId|BigNumber): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    const txHash = await this.instance.approveContent.sendTransactionAsync(new BigNumber(contentId));
-    return this.web3Wrapper.awaitReceipt(txHash);
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.approveContent.sendTransactionAsync(new BigNumber(contentId)),
+    );
   }
 
   /**
    * Allows the Editor to deny content that is waiting to be approverd / denied
    * @param contentId The id of the proposed content to be denied
    */
-  public async denyContent(contentId: number|BigNumber): Promise<CivilTransactionReceipt> {
+  public async denyContent(contentId: number|BigNumber): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    const txHash = await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId));
-    return this.web3Wrapper.awaitReceipt(txHash);
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId)),
+    );
   }
 
   /**

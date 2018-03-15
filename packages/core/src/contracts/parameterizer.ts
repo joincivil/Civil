@@ -3,11 +3,12 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
 
-import { Bytes32, CivilTransactionReceipt, EthAddress } from "../types";
+import { Bytes32, EthAddress, TwoStepEthTransaction } from "../types";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { ParameterizerContract } from "./generated/parameterizer";
+import { createTwoStepSimple } from "../utils/contractutils";
 
 export enum Parameters {
   minDeposit = "minDepost",
@@ -87,9 +88,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   public async proposeReparameterization(
     paramName: Parameters,
     newValue: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue),
+    );
   }
 
   /**
@@ -98,9 +101,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public async challengeReparameterization(
     propID: Bytes32,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.challengeReparameterization.sendTransactionAsync(propID);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.challengeReparameterization.sendTransactionAsync(propID),
+    );
   }
 
   /**
@@ -110,9 +115,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public async processProposal(
     propID: Bytes32,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.processProposal.sendTransactionAsync(propID);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.processProposal.sendTransactionAsync(propID),
+    );
   }
 
   /**

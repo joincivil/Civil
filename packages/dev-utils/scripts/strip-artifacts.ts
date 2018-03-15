@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as fs from "fs";
 import * as glob from "glob";
 import * as mkdirp from "mkdirp";

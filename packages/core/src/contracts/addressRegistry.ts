@@ -4,11 +4,12 @@ import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
-import { CivilTransactionReceipt, EthAddress } from "../types";
+import { EthAddress, TwoStepEthTransaction } from "../types";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { AddressRegistryContract } from "./generated/address_registry";
+import { createTwoStepSimple } from "../utils/contractutils";
 
 /**
  * The AddressRegistry tracks the status of addresses that have been applied.
@@ -152,7 +153,7 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
     listingAddress: EthAddress,
     deposit: BigNumber,
     applicationContent: string,
-  ): Promise<CivilTransactionReceipt> {
+  ): Promise<TwoStepEthTransaction> {
     const uri = await this.contentProvider.put(applicationContent);
     return this.applyWithURI(listingAddress, deposit, uri);
   }
@@ -163,13 +164,16 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
    * @param deposit How many tokens to deposit to start application
    * @param applicationContentURI (URI that points to data object)
    */
+  // TODO(ritave): Return application id
   public async applyWithURI(
     listingAddress: EthAddress,
     deposit: BigNumber,
     applicationContentURI: string,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI),
+    );
   }
 
   /**
@@ -180,9 +184,11 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
   public async deposit(
     listingAddress: EthAddress,
     depositAmount: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount),
+    );
   }
 
   /**
@@ -193,24 +199,28 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
   public async withdraw(
     listingAddress: EthAddress,
     withdrawalAmount: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount),
+    );
   }
 
   /**
    * Exits a listing, returning deposited tokens
    * @param address Address of listing to exit
    */
-  public async exitListing(listingAddress: EthAddress): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.exitListing.sendTransactionAsync(listingAddress);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  public async exitListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.exitListing.sendTransactionAsync(listingAddress),
+    );
   }
 
   public async challenge(
     listingAddress: EthAddress,
     data: string = "",
-  ): Promise<CivilTransactionReceipt> {
+  ): Promise<TwoStepEthTransaction> {
     const uri = await this.contentProvider.put(data);
     return this.challengeWithURI(listingAddress, uri);
   }
@@ -224,18 +234,22 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
   public async challengeWithURI(
     listingAddress: EthAddress,
     data: string = "",
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.challenge.sendTransactionAsync(listingAddress, data);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.challenge.sendTransactionAsync(listingAddress, data),
+    );
   }
 
   /**
    * Updates status of a listing
    * @param address Address of new listing
    */
-  public async updateListing(listingAddress: EthAddress): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.updateStatus.sendTransactionAsync(listingAddress);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  public async updateListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.updateStatus.sendTransactionAsync(listingAddress),
+    );
   }
 
   /**
@@ -246,8 +260,10 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
   public async claimReward(
     challengeID: BigNumber,
     salt: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.claimReward.sendTransactionAsync(challengeID, salt);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.claimReward.sendTransactionAsync(challengeID, salt),
+    );
   }
 }

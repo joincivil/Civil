@@ -60,7 +60,7 @@ contract AddressRegistry {
   @dev Contructor         Sets the addresses for token, voting, and parameterizer
   @param tokenAddr       Address of the TCR's intrinsic ERC20 token
   @param plcrAddr        Address of a PLCR voting contract for the provided token
-  @param paramsAddr      Address of a Parameterizer contract 
+  @param paramsAddr      Address of a Parameterizer contract
   */
   function AddressRegistry(
     address tokenAddr,
@@ -86,7 +86,7 @@ contract AddressRegistry {
     require(!getListingIsWhitelisted(listingAddress));
     require(!appWasMade(listingAddress));
     require(amount >= parameterizer.get("minDeposit"));
-    require(block.timestamp + parameterizer.get("applyStageLen") > block.timestamp); // avoid overflow  
+    require(block.timestamp + parameterizer.get("applyStageLen") > block.timestamp); // avoid overflow
 
     // Sets owner
     Listing storage listing = listings[listingAddress];
@@ -160,7 +160,7 @@ contract AddressRegistry {
   @dev                Starts a poll for a listingAddress which is either in the apply stage or
                       already in the whitelist. Tokens are taken from the challenger and the
                       applicant's deposits are locked.
-                      D elists listing and returns NO_CHALLENGE if listing's unstakedDeposit 
+                      D elists listing and returns NO_CHALLENGE if listing's unstakedDeposit
                       is less than current minDeposit
   @param listingAddress The listingAddress being challenged, whether listed or in application
   @param data        Extra data relevant to the challenge. Think IPFS hashes.
@@ -421,15 +421,15 @@ contract AddressRegistry {
     // Records whether the listingAddress is a listing or an application
     bool wasWhitelisted = getListingIsWhitelisted(listingAddress);
 
-    
+
     if (voting.isPassed(challengeID)) { // Case: challenge failed
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listings[listingAddress].unstakedDeposit += reward;
 
       ChallengeFailed(challengeID);
-      if (!wasWhitelisted) { 
-        NewListingWhitelisted(listingAddress); 
+      if (!wasWhitelisted) {
+        NewListingWhitelisted(listingAddress);
       }
     } else { // Case: challenge succeeded
       resetListing(listingAddress);
@@ -437,10 +437,10 @@ contract AddressRegistry {
       require(token.transfer(challenges[challengeID].challenger, reward));
 
       ChallengeSucceeded(challengeID);
-      if (wasWhitelisted) { 
-        ListingRemoved(listingAddress); 
-      } else { 
-        ApplicationRemoved(listingAddress); 
+      if (wasWhitelisted) {
+        ListingRemoved(listingAddress);
+      } else {
+        ApplicationRemoved(listingAddress);
       }
     }
 

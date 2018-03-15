@@ -1,11 +1,10 @@
 import { Civil } from "../../src";
 
 (async () => {
-
   const civil = new Civil();
 
   console.log("Deploying newsroom...");
-  const newsroom = await civil.newsroomDeployTrusted();
+  const newsroom = await (await civil.newsroomDeployTrusted()).awaitReceipt();
   console.log("Newsroom at: ", newsroom.address);
 
   console.log("Subscribing to new articles");
@@ -23,7 +22,7 @@ import { Civil } from "../../src";
 
   console.log("Proposing a new article...");
   try {
-    const id = await newsroom.proposeContent("This is example content that I want to post");
+    const id = await (await newsroom.proposeContent("This is example content that I want to post")).awaitReceipt();
     console.log("Article proposed: ", id);
   } catch (e) {
     console.error("Failed to propose article:", e);

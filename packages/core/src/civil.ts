@@ -4,8 +4,9 @@ import * as Web3 from "web3";
 import { ContentProvider } from "./content/contentprovider";
 import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
-import { EthAddress } from "./types";
+import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "./types";
 import { Web3Wrapper } from "./utils/web3wrapper";
+import { CivilErrors } from "./utils/errors";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -68,8 +69,26 @@ export class Civil {
    * The smart contract is trusted since it comes from a trusted source (us).
    * This call may require user input - such as approving a transaction in Metamask
    */
-  public async newsroomDeployTrusted(): Promise<Newsroom> {
+  public async newsroomDeployTrusted(): Promise<TwoStepEthTransaction<Newsroom>> {
     return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider);
+  }
+
+  /**
+   * Returns a Newsroom object, that was beforehand put into blockchain's mempool,
+   * or already mined into a block.
+   * If the Newsroom was already mined, returns it immediately, otherwise
+   * waits until it's put onto blockchain.
+   * @see {@link Civil.awaitReceipt}
+   * @param transactionHash The transaction hash which creates the Newsroom
+   * @param blockConfirmations How many blocks should be mined before the Newsroom is considered immutabely created
+   * @throws {CivilErrors.MalformedParams} If the transaction is not a Newsroom creation transaction
+   */
+  public async newsroomFromTxHashUntrusted(transactionHash: TxHash, blockConfirmations?: number): Promise<Newsroom> {
+    const receipt = await this.awaitReceipt(transactionHash, blockConfirmations);
+    if (!receipt.contractAddress) {
+      throw new Error(CivilErrors.MalformedParams);
+    }
+    return this.newsroomAtUntrusted(receipt.contractAddress);
   }
 
   /**
@@ -91,5 +110,18 @@ export class Civil {
    */
   public setProvider(web3Provider: Web3.Provider): void {
     this.web3Wrapper.setProvider(web3Provider);
+  }
+
+  /**
+   * Waits for the transaction located through the hash gets into the blockchain
+   * and returns it's receipt after it gets in.
+   * Optionally, since Blockchain can reorganize sometimes and transactions are revoked,
+   * you can wait for some blocks, which exponentionally decreases reorg chances, until
+   * the transaction is considered confirmed.
+   * @param transactionHash The hash of transaction you wanna confirm got into blockchain
+   * @param blockConfirmations How man blocks after the block with transaction should wait before confirming
+   */
+  public async awaitReceipt(transactionHash: TxHash, blockConfirmations?: number): Promise<CivilTransactionReceipt> {
+    return this.web3Wrapper.awaitReceipt(transactionHash, blockConfirmations);
   }
 }
