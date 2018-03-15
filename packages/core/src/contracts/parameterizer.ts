@@ -8,7 +8,7 @@ import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { ParameterizerContract } from "./generated/parameterizer";
-import { createTwoStepEmpty } from "../utils/contractutils";
+import { createTwoStepSimple } from "../utils/contractutils";
 
 export enum Parameters {
   minDeposit = "minDepost",
@@ -89,7 +89,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     paramName: Parameters,
     newValue: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue),
     );
@@ -102,7 +102,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   public async challengeReparameterization(
     propID: Bytes32,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.challengeReparameterization.sendTransactionAsync(propID),
     );
@@ -116,7 +116,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   public async processProposal(
     propID: Bytes32,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.processProposal.sendTransactionAsync(propID),
     );

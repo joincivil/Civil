@@ -13,7 +13,7 @@ import {
   TwoStepEthTransaction,
   ContentId,
 } from "../types";
-import { isDecodedLog, createTwoStep, createTwoStepEmpty } from "../utils/contractutils";
+import { isDecodedLog, createTwoStepTransaction, createTwoStepSimple } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -37,7 +37,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentProvider: ContentProvider,
   ): Promise<TwoStepEthTransaction<Newsroom>> {
     const txData: TxData = { from: web3Wrapper.account };
-    return createTwoStep(
+    return createTwoStepTransaction(
       web3Wrapper,
       await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData),
       // tslint:disable no-non-null-assertion
@@ -123,7 +123,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async addRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.addRole.sendTransactionAsync(actor, role),
     );
@@ -140,7 +140,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async removeRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.removeRole.sendTransactionAsync(actor, role),
     );
@@ -229,7 +229,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async proposeUri(uri: string): Promise<TwoStepEthTransaction<ContentId>> {
     await this.requireReporter();
 
-    return createTwoStep(
+    return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.proposeContent.sendTransactionAsync(uri),
       (receipt) => {
@@ -250,7 +250,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async approveContent(contentId: ContentId|BigNumber): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.approveContent.sendTransactionAsync(new BigNumber(contentId)),
     );
@@ -263,7 +263,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async denyContent(contentId: number|BigNumber): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId)),
     );

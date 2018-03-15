@@ -8,7 +8,7 @@ import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { PLCRVotingContract } from "./generated/p_l_c_r_voting";
-import { createTwoStepEmpty } from "../utils/contractutils";
+import { createTwoStepSimple } from "../utils/contractutils";
 
 /**
  * Voting allows user to interface with polls, either from the
@@ -55,7 +55,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async requestVotingRights(
     numTokens: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.requestVotingRights.sendTransactionAsync(numTokens),
     );
@@ -68,7 +68,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async withdrawVotingRights(
     numTokens: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens),
     );
@@ -81,7 +81,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async rescueTokens(
     pollID: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.rescueTokens.sendTransactionAsync(pollID),
     );
@@ -101,7 +101,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     numTokens: BigNumber,
     prevPollID: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.commitVote.sendTransactionAsync(pollID, secretHash, numTokens, prevPollID),
     );
@@ -118,7 +118,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     voteOption: BigNumber,
     salt: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.revealVote.sendTransactionAsync(pollID, voteOption, salt),
     );

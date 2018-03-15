@@ -31,7 +31,7 @@ contract("MultiSigWallet", (accounts) => {
     it("works after requirement change", async () => {
       const DEPOSIT = 1000;
 
-      // Send omney to the wallet contract
+      // Send money to the wallet contract
       await sendTransactionAsync({to: instance.address, value: DEPOSIT, from: accounts[0]});
       const balance = await balanceAsync(instance.address);
       expect(balance).to.be.bignumber.equal(DEPOSIT);

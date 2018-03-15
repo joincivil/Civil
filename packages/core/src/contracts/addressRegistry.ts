@@ -9,7 +9,7 @@ import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { AddressRegistryContract } from "./generated/address_registry";
-import { createTwoStepEmpty } from "../utils/contractutils";
+import { createTwoStepSimple } from "../utils/contractutils";
 
 /**
  * The AddressRegistry tracks the status of addresses that have been applied.
@@ -170,7 +170,7 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
     deposit: BigNumber,
     applicationContentURI: string,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI),
     );
@@ -185,7 +185,7 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
     listingAddress: EthAddress,
     depositAmount: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount),
     );
@@ -200,7 +200,7 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
     listingAddress: EthAddress,
     withdrawalAmount: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount),
     );
@@ -211,7 +211,7 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
    * @param address Address of listing to exit
    */
   public async exitListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.exitListing.sendTransactionAsync(listingAddress),
     );
@@ -235,7 +235,7 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
     listingAddress: EthAddress,
     data: string = "",
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.challenge.sendTransactionAsync(listingAddress, data),
     );
@@ -246,7 +246,7 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
    * @param address Address of new listing
    */
   public async updateListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.updateStatus.sendTransactionAsync(listingAddress),
     );
@@ -261,7 +261,7 @@ export class AddressRegistry extends BaseWrapper<AddressRegistryContract> {
     challengeID: BigNumber,
     salt: BigNumber,
   ): Promise<TwoStepEthTransaction> {
-    return createTwoStepEmpty(
+    return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.claimReward.sendTransactionAsync(challengeID, salt),
     );
