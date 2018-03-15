@@ -9,6 +9,7 @@ import { OwnedAddressTCRWithAppeals } from "./contracts/ownedAddressTCRWithAppea
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
 import { artifacts } from "./contracts/generated/artifacts";
+import { EIP20 } from "./contracts/eip20";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -127,6 +128,14 @@ export class Civil {
   public getDeployedTCRAddressForCurrentNetwork(): EthAddress {
     const networkId = Number.parseInt(this.web3Wrapper.web3.version.network);
     return artifacts.OwnedAddressTCRWithAppeals.networks[networkId].address;
+  }
+
+  /**
+   * Returns EIP20 instance at given address
+   * @param address address of EIP20
+   */
+  public eip20AtUntrusted(address: EthAddress): EIP20 {
+    return EIP20.atUntrusted(this.web3Wrapper, address);
   }
 
   /**

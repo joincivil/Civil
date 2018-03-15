@@ -231,6 +231,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return isInRevealPhase;
   }
 
+  /**
+   * Get address for token used with this TCR
+   */
   public async getTokenAddress(): Promise<EthAddress> {
     return this.instance.token.callAsync();
   }
