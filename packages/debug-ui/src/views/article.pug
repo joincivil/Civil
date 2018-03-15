@@ -1,10 +1,4 @@
-doctype html
-html(lang="en")
-  head
-    title Express Starter
-    link(rel="stylesheet" type="text/css" href="/assets/css/main.css")
-    script(src="/assets/js/article.js")
-    if development
-      include _includes/debug.pug
-  body
+extends base
 
+block scripts
+  script(src="/assets/js/article.js")

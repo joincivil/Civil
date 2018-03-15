@@ -7,10 +7,10 @@ import { setIndexListeners } from "./listeners";
 // Metamask is injected after full load
 window.addEventListener("load", async () => {
   setIndexListeners();
-  const civil = new Civil();
+  const civil = new Civil({ debug: true });
   const tcrAddress = civil.getDeployedTCRAddressForCurrentNetwork();
   const tcr = await civil.ownedAddressTCRWithAppealsAtUntrusted(tcrAddress);
-  tcr.currentAppliedListings().subscribe((listing: string) => {
+  tcr.listingsInApplicationStage().subscribe((listing: string) => {
     document.getElementById("applications")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
       listing + "'>" + listing + "</a>";
   });

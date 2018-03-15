@@ -1,5 +1,4 @@
-import { Civil } from "@joincivil/core";
-import { EthAddress } from "../../core/build/src/types";
+import { Civil, EthAddress } from "@joincivil/core";
 
 export async function deployNewsroom(): Promise<EthAddress> {
     const civil = new Civil();

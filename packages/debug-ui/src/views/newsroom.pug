@@ -1,17 +1,16 @@
-doctype html
-html(lang="en")
-  head
-    title Express Starter
-    link(rel="stylesheet" type="text/css" href="/assets/css/main.css")
-    script(src="/assets/js/newsroom.js")
-    if development
-      include _includes/debug.pug
-  body
-    | Apply to TCR
-    button#param-applyToTCR Apply To TCR
-    br
-    | Update Listing
-    button#param-updateListingStatus Update Listing
-    br
-    | Propose and Approve Article
-    button#param-proposeAndApprove Propose and Approve
+extends base
+
+block scripts
+  script(src="/assets/js/newsroom.js")
+
+block content
+  content#state State: 
+  br
+  | Apply to TCR
+  button#param-applyToTCR Apply To TCR
+  br
+  | Update Listing
+  button#param-updateListingStatus Update Listing
+  br
+  | Propose and Approve Article
+  button#param-proposeAndApprove Propose and Approve

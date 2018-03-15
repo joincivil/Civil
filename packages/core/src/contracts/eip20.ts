@@ -63,9 +63,13 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    * @param address address to check balance of
    */
   public async getBalance(
-    address: EthAddress,
+    tokenOwner?: EthAddress,
   ): Promise<BigNumber> {
-    return this.instance.balanceOf.callAsync(address);
+    let who = tokenOwner;
+    if (!who) {
+      who = requireAccount(this.web3Wrapper);
+    }
+    return this.instance.balanceOf.callAsync(who);
   }
 
 }

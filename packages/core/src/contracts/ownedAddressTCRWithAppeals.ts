@@ -2,6 +2,7 @@ import { BigNumber } from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
+
 import { ContentProvider } from "../content/contentprovider";
 import { CivilTransactionReceipt, EthAddress, TxHash, TxData } from "../types";
 import { requireAccount } from "../utils/errors";
@@ -14,6 +15,22 @@ import { Parameterizer } from "./parameterizer";
 import { Newsroom } from "./newsroom";
 
 /**
+ * This enum represents the various states a listing can be in
+ */
+export enum ListingState {
+  NOT_FOUND = "NOT FOUND ON REGISTRY",
+  APPLYING = "APPLYING",
+  READY_TO_WHITELIST = "READY TO WHITELIST",
+  CHALLENGED_IN_COMMIT_VOTE_PHASE = "CHALLENGED IN COMMIT VOTE PHASE",
+  CHALLENGED_IN_REVEAL_VOTE_PHASE = "CHALLENGED IN REVEAL VOTE PHASE",
+  READY_TO_RESOLVE_CHALLENGE = "READY TO RESOLVE CHALLENGE",
+  WAIT_FOR_APPEAL_REQUEST = "WAITING FOR APPEAL REQUEST",
+  IN_APPEAL_PHASE = "IN APPEAL PHASE",
+  READY_TO_RESOLVE_APPEAL = "READY TO RESOLVE APPEAL",
+  WHITELISTED_WITHOUT_CHALLENGE = "WHITELISTED WITHOUT CHALLENGE IN PROGRESS",
+}
+
+/**
  * The OwnedAddressTCRWithAppeals tracks the status of addresses that have been applied and allows
  * users to make transactions that modify the state of the TCR.
  *
@@ -24,6 +41,7 @@ import { Newsroom } from "./newsroom";
  * as collect winnings related to challenges, or withdraw/deposit tokens from listings.
  */
 export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithAppealsContract> {
+
   public static atUntrusted(
     web3wrapper: Web3Wrapper,
     contentProvider: ContentProvider,
@@ -52,7 +70,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * An unending stream of all addresses currently whitelisted
    * @param fromBlock Starting block in history for events concerning whitelisted addresses.
    *                  Set to "latest" for only new events
-   * @returns currently Whitelisted addresses
+   * @returns currently whitelisted addresses
    */
   public whitelistedListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
@@ -68,16 +86,16 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * An unending stream of all addresses currently applied
    * @param fromBlock Starting block in history for events concerning applied addresses.
    *                  Set to "latest" for only new events
-   * @returns currently applied addresses
+   * @returns listings currently in application stage
    */
-  public currentAppliedListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public listingsInApplicationStage(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .ApplicationStream({}, { fromBlock })
       .distinctUntilChanged((a, b) => {
         return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
       })
       .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInUnchallengedApplicationPhase(listingAddress));
+      .concatFilter(async (listingAddress) => this.isInApplicationPhase(listingAddress));
   }
 
   /**
@@ -93,7 +111,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
     })
     .map((e) => e.args.listingAddress)
-    .concatFilter(async (listingAddress) => this.instance.canBeWhitelisted.callAsync(listingAddress));
+    .concatFilter(async (listingAddress) => this.isReadyToWhitelist(listingAddress));
   }
 
   /**
@@ -102,7 +120,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in commit vote phase
    */
-  public currentChallengedCommitVotePhaseListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public currentChallengedCommitVotePhaseListings(fromBlock: number|"latest" = 0): Observable <EthAddress> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
       .distinctUntilChanged((a, b) => {
@@ -132,6 +150,27 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Contract Getters
    */
 
+  /**
+   * Get's the current state of the listing
+   */
+  public async getListingState(listingAddress: EthAddress): Promise<ListingState> {
+    if (!await this.doesListingExist(listingAddress)) {
+      return ListingState.NOT_FOUND;
+    } else if (await this.isInApplicationPhase(listingAddress)) {
+      return ListingState.APPLYING;
+    } else if (await this.isReadyToWhitelist(listingAddress)) {
+      return ListingState.READY_TO_WHITELIST;
+    } else if (await this.isInChallengedCommitVotePhase(listingAddress)) {
+      return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
+    } else if (await this.isInChallengedRevealVotePhase(listingAddress)) {
+      return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
+    } else if (await this.isWhitelisted(listingAddress)) {
+      return ListingState.WHITELISTED_WITHOUT_CHALLENGE;
+    } else {
+      return ListingState.NOT_FOUND;
+    }
+  }
+
    /**
     * Gets reward for voter
     * @param challengeID ID of challenge to check
@@ -146,28 +185,47 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance.voterReward.callAsync(who, challengeID, salt);
   }
 
-   /**
-    * Checks if listing can be whitelisted (application was made and passed
-    * without challenge or resolved challenge, is not already whitelisted)
-    * @param listingAddress address of listing to check
-    */
-    public async canBeWhitelisted(listingAddress: EthAddress): Promise<boolean> {
-      return this.instance.canBeWhitelisted.callAsync(listingAddress);
-    }
+  /**
+   * Checks if the listing exists on the contract. If this is false, either the listing
+   * has never applied, or it has applied and been rejected (whether during application
+   * or while on whitelist)
+   * @param listingAddress address of listing to check
+   */
+  public async doesListingExist(listingAddress: EthAddress): Promise<boolean> {
+    const appExpiry = await this.instance.getListingApplicationExpiry.callAsync(listingAddress);
+    return (appExpiry > new BigNumber(0));
+  }
+
+  /**
+   * Checks if listing can be whitelisted (application was made and passed
+   * without challenge or resolved challenge, is not already whitelisted)
+   * @param listingAddress address of listing to check
+   */
+  public async canBeWhitelisted(listingAddress: EthAddress): Promise<boolean> {
+    return this.instance.canBeWhitelisted.callAsync(listingAddress);
+  }
 
   /**
    * Checks if a listing address is whitelisted
-   * @param address Address of potential listing to check
+   * @param address Address of listing to check
    */
   public async isWhitelisted(listingAddress: EthAddress): Promise<boolean> {
     return this.instance.getListingIsWhitelisted.callAsync(listingAddress);
   }
 
   /**
+   * Checks if a listing address is ready to be whitelisted
+   * @param listingAddress Address of listing to check
+   */
+  public async isReadyToWhitelist(listingAddress: EthAddress): Promise<boolean> {
+    return this.instance.canBeWhitelisted.callAsync(listingAddress);
+  }
+
+  /**
    * Checks if a listing address is in unchallenged application phase
    * @param listingAddress Address of potential listing to check
    */
-  public async isInUnchallengedApplicationPhase(listingAddress: EthAddress): Promise<boolean> {
+  public async isInApplicationPhase(listingAddress: EthAddress): Promise<boolean> {
     let isInApplicationPhase = true;
 
     // if expiry time has passed
@@ -276,7 +334,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param challengeID ID of challenge to check
    * @param address Address of voter to check
    */
-  public async tokenClaims(challengeID: BigNumber, voter?: EthAddress): Promise<boolean> {
+  public async tokenClaims(challengeID: BigNumber, voter?: EthAddress): Promise <boolean> {
     let who = voter;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -298,7 +356,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     listingAddress: EthAddress,
     deposit: BigNumber,
     applicationContent: string,
-  ): Promise<{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
+  ): Promise <{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt> } > {
     const uri = await this.contentProvider.put(applicationContent);
     return this.applyWithURI(listingAddress, deposit, uri);
   }
@@ -313,7 +371,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     listingAddress: EthAddress,
     deposit: BigNumber,
     applicationContentURI: string,
-  ): Promise<{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
+  ): Promise <{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
     const txhash = await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI);
     return {txHash: txhash, awaitReceipt: this.web3Wrapper.awaitReceipt(txhash)};
   }
@@ -326,7 +384,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async deposit(
     listingAddress: EthAddress,
     depositAmount: BigNumber,
-  ): Promise<{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}>  {
+  ): Promise <{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}>  {
     const txhash = await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount);
     return {txHash: txhash, awaitReceipt: this.web3Wrapper.awaitReceipt(txhash)};
   }
@@ -339,7 +397,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async withdraw(
     listingAddress: EthAddress,
     withdrawalAmount: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
+  ): Promise <CivilTransactionReceipt> {
     const txhash = await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount);
     return this.web3Wrapper.awaitReceipt(txhash);
   }
@@ -348,15 +406,20 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Exits a listing, returning deposited tokens
    * @param address Address of listing to exit
    */
-  public async exitListing(listingAddress: EthAddress): Promise<CivilTransactionReceipt> {
+  public async exitListing(listingAddress: EthAddress): Promise <CivilTransactionReceipt> {
     const txhash = await this.instance.exitListing.sendTransactionAsync(listingAddress);
     return this.web3Wrapper.awaitReceipt(txhash);
   }
 
+  /**
+   * Challenges an application or whitelisted listing
+   * @param listingAddress Address of listing to challenge
+   * @param data Data associated with challenge
+   */
   public async challenge(
     listingAddress: EthAddress,
     data: string = "",
-  ): Promise<CivilTransactionReceipt> {
+  ): Promise < CivilTransactionReceipt > {
     const uri = await this.contentProvider.put(data);
     return this.challengeWithURI(listingAddress, uri);
   }
@@ -370,7 +433,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async challengeWithURI(
     listingAddress: EthAddress,
     data: string = "",
-  ): Promise<CivilTransactionReceipt> {
+  ): Promise <CivilTransactionReceipt> {
     const txhash = await this.instance.challenge.sendTransactionAsync(listingAddress, data);
     return this.web3Wrapper.awaitReceipt(txhash);
   }
@@ -381,7 +444,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async updateListing(
     listingAddress: EthAddress,
-  ): Promise<{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
+  ): Promise <{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
     const txhash = await this.instance.updateStatus.sendTransactionAsync(listingAddress);
     return {txHash: txhash, awaitReceipt: this.web3Wrapper.awaitReceipt(txhash)};
   }
@@ -394,7 +457,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async claimReward(
     challengeID: BigNumber,
     salt: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
+  ): Promise <CivilTransactionReceipt> {
     const txhash = await this.instance.claimReward.sendTransactionAsync(challengeID, salt);
     return this.web3Wrapper.awaitReceipt(txhash);
   }
