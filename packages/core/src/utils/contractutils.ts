@@ -61,7 +61,7 @@ export function isTxData(data: any): data is TxDataBase {
     data.to !== undefined;
 }
 
-export function createTwoStep<T>(
+export function createTwoStepTransaction<T>(
   web3Wrapper: Web3Wrapper,
   txHash: TxHash,
   transform: (receipt: CivilTransactionReceipt) => Promise<T>|T,
@@ -75,7 +75,7 @@ export function createTwoStep<T>(
   };
 }
 
-export function createTwoStepEmpty(
+export function createTwoStepSimple(
   web3Wrapper: Web3Wrapper,
   txHash: TxHash,
 ): TwoStepEthTransaction {
