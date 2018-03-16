@@ -4,7 +4,18 @@ import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
-import { CivilTransactionReceipt, EthAddress, TxHash, TxData } from "../types";
+import {
+  CivilTransactionReceipt,
+  EthAddress,
+  TxHash,
+  TxData,
+  TwoStepEthTransaction,
+} from "../types";
+import {
+  isDecodedLog,
+  createTwoStepTransaction,
+  createTwoStepSimple,
+} from "../utils/contractutils";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -152,6 +163,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
 
   /**
    * Get's the current state of the listing
+   * @param listingAddress Address of listing to check state of
    */
   public async getListingState(listingAddress: EthAddress): Promise<ListingState> {
     if (!await this.doesListingExist(listingAddress)) {
@@ -356,8 +368,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     listingAddress: EthAddress,
     deposit: BigNumber,
     applicationContent: string,
-  ): Promise <{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt> } > {
+  ): Promise<TwoStepEthTransaction> {
     const uri = await this.contentProvider.put(applicationContent);
+
     return this.applyWithURI(listingAddress, deposit, uri);
   }
 
@@ -371,9 +384,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     listingAddress: EthAddress,
     deposit: BigNumber,
     applicationContentURI: string,
-  ): Promise <{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
-    const txhash = await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI);
-    return {txHash: txhash, awaitReceipt: this.web3Wrapper.awaitReceipt(txhash)};
+  ): Promise <TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI),
+    );
   }
 
   /**
@@ -384,9 +399,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async deposit(
     listingAddress: EthAddress,
     depositAmount: BigNumber,
-  ): Promise <{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}>  {
-    const txhash = await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount);
-    return {txHash: txhash, awaitReceipt: this.web3Wrapper.awaitReceipt(txhash)};
+  ): Promise <TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount),
+    );
   }
 
   /**
@@ -397,18 +414,22 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async withdraw(
     listingAddress: EthAddress,
     withdrawalAmount: BigNumber,
-  ): Promise <CivilTransactionReceipt> {
-    const txhash = await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise <TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount),
+    );
   }
 
   /**
    * Exits a listing, returning deposited tokens
    * @param address Address of listing to exit
    */
-  public async exitListing(listingAddress: EthAddress): Promise <CivilTransactionReceipt> {
-    const txhash = await this.instance.exitListing.sendTransactionAsync(listingAddress);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  public async exitListing(listingAddress: EthAddress): Promise <TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.exitListing.sendTransactionAsync(listingAddress),
+    );
   }
 
   /**
@@ -419,7 +440,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async challenge(
     listingAddress: EthAddress,
     data: string = "",
-  ): Promise < CivilTransactionReceipt > {
+  ): Promise <TwoStepEthTransaction> {
     const uri = await this.contentProvider.put(data);
     return this.challengeWithURI(listingAddress, uri);
   }
@@ -433,9 +454,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async challengeWithURI(
     listingAddress: EthAddress,
     data: string = "",
-  ): Promise <CivilTransactionReceipt> {
-    const txhash = await this.instance.challenge.sendTransactionAsync(listingAddress, data);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise <TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.challenge.sendTransactionAsync(listingAddress, data),
+    );
   }
 
   /**
@@ -444,9 +467,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async updateListing(
     listingAddress: EthAddress,
-  ): Promise <{txHash: TxHash, awaitReceipt: Promise<CivilTransactionReceipt>}> {
-    const txhash = await this.instance.updateStatus.sendTransactionAsync(listingAddress);
-    return {txHash: txhash, awaitReceipt: this.web3Wrapper.awaitReceipt(txhash)};
+  ): Promise <TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.updateStatus.sendTransactionAsync(listingAddress),
+    );
   }
 
   /**
@@ -457,8 +482,10 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async claimReward(
     challengeID: BigNumber,
     salt: BigNumber,
-  ): Promise <CivilTransactionReceipt> {
-    const txhash = await this.instance.claimReward.sendTransactionAsync(challengeID, salt);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise <TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.claimReward.sendTransactionAsync(challengeID, salt),
+    );
   }
 }

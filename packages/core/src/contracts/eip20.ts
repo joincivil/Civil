@@ -3,7 +3,18 @@ import { Observable } from "rxjs";
 import "@joincivil/utils";
 
 import "rxjs/add/operator/distinctUntilChanged";
-import { Bytes32, CivilTransactionReceipt, EthAddress } from "../types";
+import {
+  CivilTransactionReceipt,
+  EthAddress,
+  TxHash,
+  TxData,
+  TwoStepEthTransaction,
+} from "../types";
+import {
+  isDecodedLog,
+  createTwoStepTransaction,
+  createTwoStepSimple,
+} from "../utils/contractutils";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -34,9 +45,11 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
   public async approveSpender(
     spender: EthAddress,
     numTokens: BigNumber,
-  ): Promise<CivilTransactionReceipt> {
-    const txhash = await this.instance.approve.sendTransactionAsync(spender, numTokens);
-    return this.web3Wrapper.awaitReceipt(txhash);
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.approve.sendTransactionAsync(spender, numTokens),
+    );
   }
 
   /**
