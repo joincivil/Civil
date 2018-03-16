@@ -1,1 +1,0 @@
-declare module '@types/@storybook/addon-storyshots';
