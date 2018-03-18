@@ -1,5 +1,5 @@
 pragma solidity 0.4.19;
-import "../ACL.sol";
+import "../newsroom/ACL.sol";
 
 
 contract DummyACL is ACL {
