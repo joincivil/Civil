@@ -1,4 +1,4 @@
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import * as Web3 from "web3";
 import { delay, promisify } from "@joincivil/utils";

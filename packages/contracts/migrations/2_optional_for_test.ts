@@ -13,29 +13,25 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
   const totalSupply = new BN("1000000000000000000000000", BASE_10);
   const decimals = "18";
 
-  async function giveTokensTo(addresses: string[]): Promise<boolean> {
+  async function giveTokensTo(addresses: string[], originalCount: number): Promise<boolean> {
     const token = await Token.deployed();
     const user = addresses[0];
     let allocation;
-    if (network in config.testnets) {
-      allocation = totalSupply.div(new BN(config.testnets[network].tokenHolders.length, BASE_10));
-    } else {
-      allocation = totalSupply.div(new BN(accounts.length, BASE_10));
-    }
-
+    allocation = totalSupply.div(new BN(originalCount, BASE_10));
     await token.transfer(user, allocation);
 
     if (addresses.length === 1) { return true; }
-    return giveTokensTo(addresses.slice(1));
+    return giveTokensTo(addresses.slice(1), originalCount);
   }
 
   deployer.then(async () => {
     if (network !== MAIN_NETWORK) {
-      await deployer.deploy(Token, totalSupply, "TestCoin", decimals, "TEST");
+      await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
       if (network in config.testnets) {
-        return giveTokensTo(config.testnets[network].tokenHolders);
+        const updatedAccounts = [...accounts, ...config.testnets[network].tokenHolders];
+        return giveTokensTo(updatedAccounts, updatedAccounts.length);
       }
-      return giveTokensTo(accounts);
+      return giveTokensTo(accounts, accounts.length);
     }
   });
 };

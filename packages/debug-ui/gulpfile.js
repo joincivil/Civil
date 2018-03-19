@@ -64,7 +64,9 @@ tsPipeline.registerBuildGulpTasks(
     gulp,
     {
         entryPoints: {
-            bundle: __dirname + '/' + config.srcDir + 'code/entry.ts',
+            index: __dirname + '/' + config.srcDir + 'code/indexEntry.ts',
+            newsroom: __dirname + '/' + config.srcDir + 'code/newsroomEntry.ts',
+            article: __dirname + '/' + config.srcDir + 'code/articleEntry.ts',
         },
         outputDir: __dirname + '/' + config.deployDir + config.assetsDir + 'js/',
         tsLintFile: __dirname + '/tslint.json',

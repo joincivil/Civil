@@ -1,22 +1,12 @@
-import { Civil } from "@joincivil/core";
-import * as fs from "fs";
+import { Civil, EthAddress } from "@joincivil/core";
 
-(async () => {
-    const article = fs
-        .readFileSync("assets/article.md")
-        .toString();
-
+export async function deployNewsroom(): Promise<EthAddress> {
     const civil = new Civil();
     console.log("Deploying newsroom");
-    const newsroom = await civil.newsroomDeployTrusted();
-    console.log(`\tNewsroom at: ${newsroom.address}`);
+    const newsroomDeploy = await civil.newsroomDeployTrusted();
+    const newsroom = await newsroomDeploy.awaitReceipt();
+    const address = newsroom.address;
+    console.log(`\tNewsroom at: ${address}`);
 
-    console.log("Proposing content");
-    const articleId = await newsroom.proposeContent(article);
-    console.log(`\tContent id: ${articleId}`);
-
-    console.log("Approving content");
-    console.debug(await newsroom.approveContent(articleId));
-    console.log("Done");
-})()
-.catch((...params: any[]) => console.error(...params));
+    return address;
+}

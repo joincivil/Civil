@@ -100,3 +100,20 @@ export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
   txHash: TxHash;
   awaitReceipt(blockConfirmations?: number): Promise<T>;
 }
+
+/**
+ * This enum represents the various states a listing can be in.
+ * A listing can be both whitelisted and in the challenge process.
+ */
+export enum ListingState {
+  NOT_FOUND,
+  APPLYING,
+  READY_TO_WHITELIST,
+  CHALLENGED_IN_COMMIT_VOTE_PHASE,
+  CHALLENGED_IN_REVEAL_VOTE_PHASE,
+  READY_TO_RESOLVE_CHALLENGE,
+  WAIT_FOR_APPEAL_REQUEST,
+  IN_APPEAL_PHASE,
+  READY_TO_RESOLVE_APPEAL,
+  WHITELISTED_WITHOUT_CHALLENGE,
+}
