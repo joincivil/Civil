@@ -62,9 +62,11 @@ contract("ACL", (accounts: string[]) => {
       const event = findEvent(tx, events.ACL_ROLE_ADDED);
 
       expect(event).to.not.be.null();
-      expect(event.args.granter).to.be.equal(defaultAccount);
-      expect(event.args.grantee).to.be.equal(accounts[1]);
-      expect(event.args.role).to.be.equal(ACL_TEST_ROLE);
+      // tslint:disable no-non-null-assertion
+      expect(event!.args.granter).to.be.equal(defaultAccount);
+      expect(event!.args.grantee).to.be.equal(accounts[1]);
+      expect(event!.args.role).to.be.equal(ACL_TEST_ROLE);
+      // tslint:enable no-non-null-assertion
     });
 
     it("doesn't crash when double adding", async () => {
@@ -135,9 +137,11 @@ contract("ACL", (accounts: string[]) => {
       const event = findEvent(tx, events.ACL_ROLE_REMOVED);
 
       expect(event).to.not.be.null();
-      expect(event.args.granter).to.be.equal(defaultAccount);
-      expect(event.args.grantee).to.be.equal(accounts[1]);
-      expect(event.args.role).to.be.equal(SOME_ROLE);
+      // tslint:disable no-non-null-assertion
+      expect(event!.args.granter).to.be.equal(defaultAccount);
+      expect(event!.args.grantee).to.be.equal(accounts[1]);
+      expect(event!.args.role).to.be.equal(SOME_ROLE);
+      // tslint:enable no-non-null-assertion
     });
   });
 });

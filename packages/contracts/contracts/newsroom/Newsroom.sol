@@ -5,17 +5,20 @@ contract Newsroom is ACL {
   event ContentProposed(address indexed author, uint indexed id);
   event ContentApproved(uint id);
   event ContentDenied(uint id);
+  event NameChanged(string newName);
 
   string private constant ROLE_REPORTER = "reporter";
   string private constant ROLE_EDITOR = "editor";
-
 
   uint private latestId;
   mapping(uint => Content) private content;
   mapping(uint => bool) private waiting;
   mapping(uint => bool) private approved;
 
-  function Newsroom() ACL() public {
+  string public name;
+
+  function Newsroom(string _name) ACL() public {
+    setName(_name);
   }
 
   function author(uint contentId) public view returns (address) {
@@ -36,6 +39,13 @@ contract Newsroom is ACL {
 
   function isApproved(uint contentId) public view returns (bool) {
     return approved[contentId];
+  }
+
+  function setName(string _name) public onlyOwner() {
+    require(bytes(_name).length > 0);
+    name = _name;
+
+    NameChanged(name);
   }
 
   function addRole(address who, string role) public requireRole(ROLE_EDITOR) {

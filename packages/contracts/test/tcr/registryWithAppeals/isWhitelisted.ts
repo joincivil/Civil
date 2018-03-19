@@ -8,21 +8,26 @@ const expect = chai.expect;
 
 const Newsroom = artifacts.require("Newsroom");
 
+const NEWSROOM_NAME = "unused newsroom name";
+
 contract("Registry With Appeals", (accounts) => {
   describe("Function: isWhitelisted", () => {
     const [JAB, applicant] = accounts;
     let registry: any;
+    let testNewsroom: any;
+    let newsroomAddress: string;
     const minDeposit = utils.paramConfig.minDeposit;
 
     beforeEach(async () => {
       registry = await utils.createAllTestRestrictedAddressRegistryWithAppealsInstance(accounts, JAB);
+
+      testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
+      newsroomAddress = testNewsroom.address;
     });
 
     it("should succeed if no application has already been made", async () => {
-      const testNewsroom = await Newsroom.new({ from: applicant });
-      const address = testNewsroom.address;
-      await registry.whitelistAddress(address, minDeposit, { from: JAB });
-      const result = await registry.getListingIsWhitelisted(address);
+      await registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB });
+      const result = await registry.getListingIsWhitelisted(newsroomAddress);
       expect(result).to.be.true("Listing should have been whitelisted");
     });
   });
