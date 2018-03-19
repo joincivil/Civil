@@ -32,7 +32,7 @@ async function codeMatches(instance: any, clazz: any): Promise<void> {
 }
 
 contract("NewsroomFactory", (accounts) => {
-  const [owner, secondOwner, thirdOwner, ...restAccounts] = accounts;
+  const [owner, secondOwner, thirdOwner] = accounts;
 
   let multisigFactoryInstance: any;
   let instance: any;
