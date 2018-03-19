@@ -1,4 +1,4 @@
-import BN from "bignumber.js";
+import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
@@ -6,6 +6,7 @@ import "@joincivil/utils";
 import { ContentProvider } from "../content/contentprovider";
 import {
   EthAddress,
+  ListingState,
   TwoStepEthTransaction,
 } from "../types";
 import {
@@ -16,23 +17,6 @@ import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { OwnedAddressTCRWithAppealsContract } from "./generated/owned_address_t_c_r_with_appeals";
 import { Voting } from "./voting";
-
-/**
- * This enum represents the various states a listing can be in.
- * A listing can be both whitelisted and in the challenge process.
- */
-export enum ListingState {
-  NOT_FOUND = "NOT FOUND ON REGISTRY",
-  APPLYING = "APPLYING",
-  READY_TO_WHITELIST = "READY TO WHITELIST",
-  CHALLENGED_IN_COMMIT_VOTE_PHASE = "CHALLENGED IN COMMIT VOTE PHASE",
-  CHALLENGED_IN_REVEAL_VOTE_PHASE = "CHALLENGED IN REVEAL VOTE PHASE",
-  READY_TO_RESOLVE_CHALLENGE = "READY TO RESOLVE CHALLENGE",
-  WAIT_FOR_APPEAL_REQUEST = "WAITING FOR APPEAL REQUEST",
-  IN_APPEAL_PHASE = "IN APPEAL PHASE",
-  READY_TO_RESOLVE_APPEAL = "READY TO RESOLVE APPEAL",
-  WHITELISTED_WITHOUT_CHALLENGE = "WHITELISTED WITHOUT CHALLENGE IN PROGRESS",
-}
 
 /**
  * The OwnedAddressTCRWithAppeals tracks the status of addresses that have been applied and allows
@@ -124,7 +108,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in commit vote phase
    */
-  public currentChallengedCommitVotePhaseListings(fromBlock: number|"latest" = 0): Observable <EthAddress> {
+  public currentChallengedCommitVotePhaseListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
       .distinctUntilChanged((a, b) => {
@@ -182,7 +166,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     * @param salt Salt of vote associated with voter for specified challenge
     * @param voter Voter of which to check reward
     */
-  public async voterReward(challengeID: BN, salt: BN, voter?: EthAddress): Promise<BN> {
+  public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -198,7 +182,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async doesListingExist(listingAddress: EthAddress): Promise<boolean> {
     const appExpiry = await this.instance.getListingApplicationExpiry.callAsync(listingAddress);
-    return (appExpiry > new BN(0));
+    return (appExpiry > new BigNumber(0));
   }
 
   /**
@@ -330,7 +314,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Determines number of tokens to award winning party in challenge
    * @param address ID of challenge to determine reward for
    */
-  public async determineReward(challengeID: BN): Promise<BN> {
+  public async determineReward(challengeID: BigNumber): Promise<BigNumber> {
     return this.instance.determineReward.callAsync(challengeID);
   }
 
@@ -339,7 +323,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param challengeID ID of challenge to check
    * @param address Address of voter to check
    */
-  public async tokenClaims(challengeID: BN, voter?: EthAddress): Promise <boolean> {
+  public async tokenClaims(challengeID: BigNumber, voter?: EthAddress): Promise<boolean> {
     let who = voter;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -359,7 +343,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async apply(
     listingAddress: EthAddress,
-    deposit: BN,
+    deposit: BigNumber,
     applicationContent: string,
   ): Promise<TwoStepEthTransaction> {
     const uri = await this.contentProvider.put(applicationContent);
@@ -375,9 +359,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async applyWithURI(
     listingAddress: EthAddress,
-    deposit: BN,
+    deposit: BigNumber,
     applicationContentURI: string,
-  ): Promise <TwoStepEthTransaction> {
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI),
@@ -391,8 +375,8 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async deposit(
     listingAddress: EthAddress,
-    depositAmount: BN,
-  ): Promise <TwoStepEthTransaction> {
+    depositAmount: BigNumber,
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount),
@@ -406,8 +390,8 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async withdraw(
     listingAddress: EthAddress,
-    withdrawalAmount: BN,
-  ): Promise <TwoStepEthTransaction> {
+    withdrawalAmount: BigNumber,
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount),
@@ -418,7 +402,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Exits a listing, returning deposited tokens
    * @param address Address of listing to exit
    */
-  public async exitListing(listingAddress: EthAddress): Promise <TwoStepEthTransaction> {
+  public async exitListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.exitListing.sendTransactionAsync(listingAddress),
@@ -433,7 +417,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async challenge(
     listingAddress: EthAddress,
     data: string = "",
-  ): Promise <TwoStepEthTransaction> {
+  ): Promise<TwoStepEthTransaction> {
     const uri = await this.contentProvider.put(data);
     return this.challengeWithURI(listingAddress, uri);
   }
@@ -447,7 +431,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async challengeWithURI(
     listingAddress: EthAddress,
     data: string = "",
-  ): Promise <TwoStepEthTransaction> {
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.challenge.sendTransactionAsync(listingAddress, data),
@@ -460,7 +444,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async updateListing(
     listingAddress: EthAddress,
-  ): Promise <TwoStepEthTransaction> {
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.updateStatus.sendTransactionAsync(listingAddress),
@@ -473,9 +457,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param salt Salt for user's vote on specified challenge
    */
   public async claimReward(
-    challengeID: BN,
-    salt: BN,
-  ): Promise <TwoStepEthTransaction> {
+    challengeID: BigNumber,
+    salt: BigNumber,
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.claimReward.sendTransactionAsync(challengeID, salt),

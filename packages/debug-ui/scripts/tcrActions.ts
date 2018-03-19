@@ -1,5 +1,5 @@
 import { Civil } from "@joincivil/core";
-import BN from "bignumber.js";
+import BigNumber from "bignumber.js";
 import { EthAddress } from "../../core/build/src/types";
 
 export async function apply(address: EthAddress, optionalCivil?: Civil): Promise<void> {
@@ -13,10 +13,10 @@ export async function apply(address: EthAddress, optionalCivil?: Civil): Promise
 
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
   if (approvedTokensForSpender.toNumber() < 1000) {
-    await eip.approveSpender(tcr.address, new BN(1000 - approvedTokensForSpender.toNumber()));
+    await eip.approveSpender(tcr.address, new BigNumber(1000 - approvedTokensForSpender.toNumber()));
   }
 
-  const { awaitReceipt } = await tcr.apply(address, new BN(1000), "test");
+  const { awaitReceipt } = await tcr.apply(address, new BigNumber(1000), "test");
   const applyReceipt = await awaitReceipt;
   console.log("Applied to TCR");
 }

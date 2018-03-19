@@ -1,4 +1,4 @@
-import BN from "bignumber.js";
+import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import * as Web3 from "web3";
 import { delay, promisify } from "@joincivil/utils";
@@ -113,7 +113,7 @@ export class Web3Wrapper {
       throw new Error(CivilErrors.EvmException);
     }
 
-    if (new BN(receipt.status).isZero()) {
+    if (new BigNumber(receipt.status).isZero()) {
       throw new Error(CivilErrors.EvmException);
     }
   }

@@ -1,5 +1,5 @@
 import { setNewsroomListeners } from "./listeners";
-import { Civil } from "@joincivil/core";
+import { Civil, ListingState } from "@joincivil/core";
 
 // Metamask is injected after full load
 window.addEventListener("load", async () => {
@@ -14,5 +14,5 @@ window.addEventListener("load", async () => {
   const state = await tcr.getListingState(address);
 
   const displayState = document.getElementById("state")!;
-  displayState.innerHTML = "State: " + state.toString();
+  displayState.innerHTML = "State: " + ListingState[state].toString();
 });

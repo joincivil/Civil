@@ -1,4 +1,4 @@
-import BN from "bignumber.js";
+import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
@@ -87,7 +87,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public async proposeReparameterization(
     paramName: Parameters,
-    newValue: BN,
+    newValue: BigNumber,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
@@ -132,7 +132,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     * @param salt Salt of vote associated with voter for specified challenge
     * @param voter Voter of which to check reward
     */
-  public async voterReward(challengeID: BN, salt: BN, voter?: EthAddress): Promise<BN> {
+  public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -144,7 +144,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * Gets the current value of the specified parameter
    * @param parameter key of parameter to check
    */
-  public async getParameterValue(parameter: string): Promise<BN> {
+  public async getParameterValue(parameter: string): Promise<BigNumber> {
     return this.instance.get.callAsync(parameter);
   }
 }

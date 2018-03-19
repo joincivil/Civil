@@ -1,4 +1,4 @@
-import BN from "bignumber.js";
+import BigNumber from "bignumber.js";
 import "@joincivil/utils";
 
 import "rxjs/add/operator/distinctUntilChanged";
@@ -38,7 +38,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    */
   public async approveSpender(
     spender: EthAddress,
-    numTokens: BN,
+    numTokens: BigNumber,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
@@ -57,7 +57,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
   public async getApprovedTokensForSpender(
     spender: EthAddress,
     tokenOwner?: EthAddress,
-  ): Promise<BN> {
+  ): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -71,7 +71,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    */
   public async getBalance(
     tokenOwner?: EthAddress,
-  ): Promise<BN> {
+  ): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
