@@ -1,18 +1,12 @@
 import BN from "bignumber.js";
-import { Observable } from "rxjs";
 import "@joincivil/utils";
 
 import "rxjs/add/operator/distinctUntilChanged";
 import {
-  CivilTransactionReceipt,
   EthAddress,
-  TxHash,
-  TxData,
   TwoStepEthTransaction,
 } from "../types";
 import {
-  isDecodedLog,
-  createTwoStepTransaction,
   createTwoStepSimple,
 } from "../utils/contractutils";
 import { requireAccount } from "../utils/errors";

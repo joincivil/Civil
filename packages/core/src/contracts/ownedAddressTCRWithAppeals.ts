@@ -5,15 +5,10 @@ import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
 import {
-  CivilTransactionReceipt,
   EthAddress,
-  TxHash,
-  TxData,
   TwoStepEthTransaction,
 } from "../types";
 import {
-  isDecodedLog,
-  createTwoStepTransaction,
   createTwoStepSimple,
 } from "../utils/contractutils";
 import { requireAccount } from "../utils/errors";
@@ -21,9 +16,6 @@ import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { OwnedAddressTCRWithAppealsContract } from "./generated/owned_address_t_c_r_with_appeals";
 import { Voting } from "./voting";
-import { EIP20 } from "./eip20";
-import { Parameterizer } from "./parameterizer";
-import { Newsroom } from "./newsroom";
 
 /**
  * This enum represents the various states a listing can be in
