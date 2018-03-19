@@ -8,8 +8,7 @@ import { setIndexListeners } from "./listeners";
 window.addEventListener("load", async () => {
   setIndexListeners();
   const civil = new Civil({ debug: true });
-  const tcrAddress = civil.getDeployedTCRAddressForCurrentNetwork();
-  const tcr = await civil.ownedAddressTCRWithAppealsAtUntrusted(tcrAddress);
+  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
   tcr.listingsInApplicationStage().subscribe((listing: string) => {
     document.getElementById("applications")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
       listing + "'>" + listing + "</a>";

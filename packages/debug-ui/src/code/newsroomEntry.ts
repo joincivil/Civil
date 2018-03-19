@@ -6,8 +6,7 @@ window.addEventListener("load", async () => {
   setNewsroomListeners();
 
   const civil = new Civil({ debug: true });
-  const tcrAddress = civil.getDeployedTCRAddressForCurrentNetwork();
-  const tcr = await civil.ownedAddressTCRWithAppealsAtUntrusted(tcrAddress);
+  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
 
   const urlString = window.location.href;
   const url = new URL(urlString);
