@@ -112,22 +112,22 @@ export class Civil {
   }
 
   /**
-   * Returns a OwnedAddressTCRWithAppeals object, which is an abstraction layer to
-   * the smart-contract located a Ethereum on `address` in the current network.
-   * No sanity checks are done concerning that smart-contracts, and so the contract
-   * might a bad actor or not implementing OwnedAddressTCRWithAppeals ABIs at all.
-   * @param address The address on current Ethereum network where the smart-contract is located
-   */
-  public ownedAddressTCRWithAppealsAtUntrusted(address: EthAddress): OwnedAddressTCRWithAppeals {
-    return OwnedAddressTCRWithAppeals.atUntrusted(this.web3Wrapper, this.contentProvider, address);
-  }
-
-  /**
    * Returns the deployed TCR address for the current network
    */
   public getDeployedTCRAddressForCurrentNetwork(): EthAddress {
     const networkId = Number.parseInt(this.web3Wrapper.web3.version.network);
     return artifacts.OwnedAddressTCRWithAppeals.networks[networkId].address;
+  }
+
+  /**
+   * Returns a OwnedAddressTCRWithAppeals object, which is an abstraction layer to
+   * the smart-contract located on Ethereum in the current network. Instance returned
+   * is associated with the contract deployed via truffle migrations (address is
+   * locate in the artifacts file).
+   */
+  public getDeployedOwnedAddressTCRWithAppeals(): OwnedAddressTCRWithAppeals {
+    const tcrAddress = this.getDeployedTCRAddressForCurrentNetwork();
+    return OwnedAddressTCRWithAppeals.atUntrusted(this.web3Wrapper, this.contentProvider, tcrAddress);
   }
 
   /**

@@ -18,7 +18,8 @@ import { OwnedAddressTCRWithAppealsContract } from "./generated/owned_address_t_
 import { Voting } from "./voting";
 
 /**
- * This enum represents the various states a listing can be in
+ * This enum represents the various states a listing can be in.
+ * A listing can be both whitelisted and in the challenge process.
  */
 export enum ListingState {
   NOT_FOUND = "NOT FOUND ON REGISTRY",
