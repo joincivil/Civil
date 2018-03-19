@@ -1,6 +1,6 @@
 # @joincivil/contracts
 
-Smart-contracts that build the kernel of the protocol and ecosystem of Civil in general. To be deployed on Ethereum's network
+Smart-contracts that build the kernel of the protocol and ecosystem of Civil in general. To be deployed on Ethereum's network.
 
 ## Usage
 
@@ -42,3 +42,19 @@ Best place to start hacking would be to use the [`@joincivil/core`](/packages/co
 
 If you're itching to dwelve deeper inside, [**help wanted**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 and [**good first issue**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) labels are good places to get started and learn the architecture.
+
+## Licenses
+
+Inside this package there are multiple smart-contracts from multiple open-sources with somewhat different licensing terms.
+While we're working to get everything under LGPLv2.1 this is not currently possible.
+[`contracts`](./contracts) and [`test`](./test) folders are split into subfolders with specific names, code under those subfolders is licensed under licenses as follow:
+
+| Subfolder       | License                                                                                               | Original source                                                   |
+| --------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `tcr/`          | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](./licenses/LICENSE-tcr)    | [skmgoldin/tcr](https://github.com/skmgoldin/tcr)                 |
+| `multisig`      | [![license](https://img.shields.io/badge/license-GPL%20v3-green.svg)](./licenses/LICENSE-multisig)    | [gnosis/MultiSigWallet](https://github.com/gnosis/MultiSigWallet) |
+| `anything else` | [![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](/packages/contracts/LICENSE) | [civil/Civil](https://github.com/joincivil/Civil)                 |
+
+### Multisig
+
+Diverged from Gnosis at [ac93a926aac155fb50590130edaa0b26b3487ba4](https://github.com/gnosis/MultiSigWallet/commit/ac93a926aac155fb50590130edaa0b26b3487ba4) commit.
