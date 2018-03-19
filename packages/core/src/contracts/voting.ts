@@ -1,4 +1,4 @@
-import { BigNumber } from "bignumber.js";
+import BN from "bignumber.js";
 import { Observable } from "rxjs";
 import "@joincivil/utils";
 
@@ -34,7 +34,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @returns currently active polls (by id)
    */
-  public activePolls(fromBlock: number|"latest" = 0): Observable<BigNumber> {
+  public activePolls(fromBlock: number|"latest" = 0): Observable<BN> {
     return this.instance
       .PollCreatedStream({}, { fromBlock })
       .distinctUntilChanged((a, b) => {
@@ -53,7 +53,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param numTokens number of tokens to transfer into voting contract
    */
   public async requestVotingRights(
-    numTokens: BigNumber,
+    numTokens: BN,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
@@ -66,7 +66,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param numTokens number of tokens to withdraw from voting contract
    */
   public async withdrawVotingRights(
-    numTokens: BigNumber,
+    numTokens: BN,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
@@ -79,7 +79,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to unlock unrevealed vote of
    */
   public async rescueTokens(
-    pollID: BigNumber,
+    pollID: BN,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
@@ -96,10 +96,10 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * number of tokens to (less than or equal to numTokens)
    */
   public async commitVote(
-    pollID: BigNumber,
+    pollID: BN,
     secretHash: Bytes32,
-    numTokens: BigNumber,
-    prevPollID: BigNumber,
+    numTokens: BN,
+    prevPollID: BN,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
@@ -114,9 +114,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param salt Secret number used to generate commitHash for poll
    */
   public async revealVote(
-    pollID: BigNumber,
-    voteOption: BigNumber,
-    salt: BigNumber,
+    pollID: BN,
+    voteOption: BN,
+    salt: BN,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
@@ -134,7 +134,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async hasVoteBeenRevealed(
-    pollID: BigNumber,
+    pollID: BN,
     voter?: EthAddress,
   ): Promise<boolean> {
     let who = voter;
@@ -149,7 +149,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async isRevealPeriodActive(
-    pollID: BigNumber,
+    pollID: BN,
   ): Promise<boolean> {
     return this.instance.revealPeriodActive.callAsync(pollID);
   }
@@ -159,7 +159,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async isCommitPeriodActive(
-    pollID: BigNumber,
+    pollID: BN,
   ): Promise<boolean> {
     return this.instance.commitPeriodActive.callAsync(pollID);
   }
@@ -169,7 +169,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async hasPollEnded(
-    pollID: BigNumber,
+    pollID: BN,
   ): Promise<boolean> {
     return this.instance.pollEnded.callAsync(pollID);
   }
@@ -179,8 +179,8 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async getTotalTokensForWinners(
-    pollID: BigNumber,
-  ): Promise<BigNumber> {
+    pollID: BN,
+  ): Promise<BN> {
     return this.instance.getTotalNumberOfTokensForWinningOption.callAsync(pollID);
   }
 
@@ -192,11 +192,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param salt Salt used by voter for this poll
    */
   public async getNumPassingTokens(
-    pollID: BigNumber,
-    salt: BigNumber,
+    pollID: BN,
+    salt: BN,
     voter?: EthAddress,
     wasChallengeOverturned: boolean = false,
-  ): Promise<BigNumber> {
+  ): Promise<BN> {
     let who = voter;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -209,7 +209,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async isPollPassed(
-    pollID: BigNumber,
+    pollID: BN,
   ): Promise<boolean> {
     return this.instance.isPassed.callAsync(pollID);
   }
