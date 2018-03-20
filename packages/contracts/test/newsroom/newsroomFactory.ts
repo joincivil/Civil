@@ -115,4 +115,8 @@ contract("NewsroomFactory", (accounts) => {
   it("doesn't allow empty names", async () => {
     await expect(instance.create("", [owner], 1)).to.eventually.be.rejectedWith(REVERTED);
   });
+
+  it("checks required amount", async () => {
+    await expect(instance.create(NEWSROOM_NAME, [owner], 2)).to.eventually.be.rejectedWith(REVERTED);
+  });
 });
