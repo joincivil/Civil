@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+  head
+    title Express Starter
+    link(rel="stylesheet" type="text/css" href="/assets/css/main.css")
+    block scripts
+      script(src="/assets/js/bundle.js")
+    if development
+      include _includes/debug.pug
+  body  
+    block content

@@ -1,4 +1,4 @@
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
@@ -138,5 +138,13 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
       who = requireAccount(this.web3Wrapper);
     }
     return this.instance.voterReward.callAsync(who, challengeID, salt);
+  }
+
+  /**
+   * Gets the current value of the specified parameter
+   * @param parameter key of parameter to check
+   */
+  public async getParameterValue(parameter: string): Promise<BigNumber> {
+    return this.instance.get.callAsync(parameter);
   }
 }

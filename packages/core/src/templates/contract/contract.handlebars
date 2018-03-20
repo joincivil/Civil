@@ -9,12 +9,16 @@ import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 import { bindNestedAll, promisify } from "@joincivil/utils";
+import * as Debug from "debug";
 
 import { EthAddress, TxData, TxDataPayable, TxHash } from "../../types";
 import { streamifyEvent } from "../../utils/contractutils";
+import { CivilErrors } from "../../utils/errors";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseContract } from "../basecontract";
 import { artifacts } from "./artifacts";
+
+const debug = Debug("civil:contracts:{{contractName}}Contract");
 
 export class {{contractName}}Contract extends BaseContract {
   /* tslint:disable member-ordering */

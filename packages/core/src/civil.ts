@@ -5,8 +5,11 @@ import { ContentProvider } from "./content/contentprovider";
 import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "./types";
+import { OwnedAddressTCRWithAppeals } from "./contracts/ownedAddressTCRWithAppeals";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
+import { artifacts } from "./contracts/generated/artifacts";
+import { EIP20 } from "./contracts/eip20";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -14,6 +17,7 @@ const debug = Debug("civil:main");
 export interface CivilOptions {
   web3Provider?: Web3.Provider;
   contentProvider?: ContentProvider;
+  debug?: true;
 }
 
 /**
@@ -35,6 +39,11 @@ export class Civil {
    */
   constructor(options?: CivilOptions) {
     const opts: CivilOptions = { ...options };
+
+    if (opts.debug === true) {
+      Debug.enable("civil:*");
+      debug("Enabled debug for \"civil:*\" namespace");
+    }
 
     let web3Provider = opts.web3Provider;
     if (!web3Provider) {
@@ -100,6 +109,33 @@ export class Civil {
    */
   public newsroomAtUntrusted(address: EthAddress): Newsroom {
     return Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, address);
+  }
+
+  /**
+   * Returns the deployed TCR address for the current network
+   */
+  public getDeployedTCRAddressForCurrentNetwork(): EthAddress {
+    const networkId = Number.parseInt(this.web3Wrapper.web3.version.network);
+    return artifacts.OwnedAddressTCRWithAppeals.networks[networkId].address;
+  }
+
+  /**
+   * Returns a OwnedAddressTCRWithAppeals object, which is an abstraction layer to
+   * the smart-contract located on Ethereum in the current network. Instance returned
+   * is associated with the contract deployed via truffle migrations (address is
+   * locate in the artifacts file).
+   */
+  public getDeployedOwnedAddressTCRWithAppeals(): OwnedAddressTCRWithAppeals {
+    const tcrAddress = this.getDeployedTCRAddressForCurrentNetwork();
+    return OwnedAddressTCRWithAppeals.atUntrusted(this.web3Wrapper, this.contentProvider, tcrAddress);
+  }
+
+  /**
+   * Returns EIP20 instance at given address
+   * @param address address of EIP20
+   */
+  public eip20AtUntrusted(address: EthAddress): EIP20 {
+    return EIP20.atUntrusted(this.web3Wrapper, address);
   }
 
   /**
