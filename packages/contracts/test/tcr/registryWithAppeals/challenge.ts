@@ -9,6 +9,8 @@ const Newsroom = artifacts.require("Newsroom");
 configureChai(chai);
 const expect = chai.expect;
 
+const NEWSROOM_NAME = "unused newsroom name";
+
 contract("Registry With Appeals", (accounts) => {
   describe("Function: challenge", () => {
     const [JAB, applicant, challenger] = accounts;
@@ -19,34 +21,36 @@ contract("Registry With Appeals", (accounts) => {
       registry = await utils.createAllTestRestrictedAddressRegistryWithAppealsInstance(accounts, JAB);
     });
 
-    it("should successfully challenge an application", async () => {
-      const testNewsroom = await Newsroom.new({ from: applicant });
-      const address = testNewsroom.address;
+    describe("with real newsroom", () => {
+      let testNewsroom: any;
+      let newsroomAddress: any;
 
-      await registry.apply(address, minDeposit, "", { from: applicant });
-      await expect(registry.challenge(address, "", { from: challenger })).to.eventually.be.fulfilled(
-        "Should have succeeded on regular application");
+      beforeEach(async () => {
+        testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
+        newsroomAddress = testNewsroom.address;
+      });
+
+      it("should successfully challenge an application", async () => {
+        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await expect(registry.challenge(newsroomAddress, "", { from: challenger })).to.eventually.be.fulfilled(
+          "Should have succeeded on regular application");
+      });
+
+      it("should fail on recently JEC-whitelisted application", async () => {
+        await registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB });
+
+        const challengeTx = registry.challenge(newsroomAddress, "", { from: challenger });
+        await expect(challengeTx).to.eventually.be.rejectedWith(REVERTED,
+          "Should have failed on JEC-whitelisted listing");
+      });
+
+      it("should succeed on JEC-whitelisted application past its grace period end", async () => {
+        await registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB });
+        const waitTime = Number(await registry.whitelistGracePeriodLength()) + 1;
+        await utils.advanceEvmTime(waitTime);
+        await expect(registry.challenge(newsroomAddress, "", { from: challenger })).to.eventually.be.fulfilled(
+          "Should have succeeded on JEC-whitelisted listing past its grace period");
+      });
     });
-
-    it("should fail on recently JEC-whitelisted application", async () => {
-      const testNewsroom = await Newsroom.new({ from: applicant });
-      const address = testNewsroom.address;
-
-      await registry.whitelistAddress(address, minDeposit, { from: JAB });
-      await expect(registry.challenge(address, "", { from: challenger })).to.eventually.be.rejectedWith(REVERTED,
-        "Should have failed on JEC-whitelisted listing");
-    });
-
-    it("should succeed on JEC-whitelisted application past its grace period end", async () => {
-      const testNewsroom = await Newsroom.new({ from: applicant });
-      const address = testNewsroom.address;
-
-      await registry.whitelistAddress(address, minDeposit, { from: JAB });
-      const waitTime = Number(await registry.whitelistGracePeriodLength()) + 1;
-      await utils.advanceEvmTime(waitTime);
-      await expect(registry.challenge(address, "", { from: challenger })).to.eventually.be.fulfilled(
-        "Should have succeeded on JEC-whitelisted listing past its grace period");
-    });
-
   });
 });
