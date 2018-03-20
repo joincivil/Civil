@@ -15,10 +15,13 @@ export const Link = styled.a`
   }
 `;
 
+export const LINK = "link";
+
 export const link = (options: any): Plugin => {
   return {
+    name: LINK,
     renderMark(props: any): JSX.Element | void {
-      if (props.mark.type === "link") {
+      if (props.mark.type === LINK) {
         return <Link href={props.mark.data.get("href")} target="_blank" {...props}/>;
       }
     },

@@ -1,24 +1,29 @@
 import * as React from "react";
-import { paragraph } from "./paragraph";
-import { header } from "./header";
-import { list } from "./list";
-import { blockquote } from "./blockquote";
-import { dropCap } from "./dropCap";
-import { bold } from "./bold";
-import { italic } from "./italic";
-import { strikeThrough } from "./strikeThrough";
-import { link } from "./link";
-import { pullQuote } from "./pullQuote";
-import { image } from "./image";
-import { imageBreakout } from "./imageBreakout";
-import EditList from "slate-edit-list";
+import { paragraph, PARAGRAPH } from "./paragraph";
+import { header, HEADER } from "./header";
+import { list, LIST, LIST_ITEM, UL_LIST, OL_LIST } from "./list";
+import { blockquote, BLOCKQUOTE } from "./blockquote";
+import { dropCap, DROP_CAP } from "./dropCap";
+import { bold, BOLD } from "./bold";
+import { italic, ITALIC } from "./italic";
+import { strikeThrough, STRIKE_THROUGH } from "./strikeThrough";
+import { link, LINK } from "./link";
+import { pullQuote, PULL_QUOTE } from "./pullQuote";
+import { image, IMAGE } from "./image";
+import { imageBreakout, IMAGE_BREAKOUT } from "./imageBreakout";
+import { toolbar, TOOL_BAR } from "./toolbar";
 
 export type OnChangeFunc = (change: any) => any | void;
 export type RenderEditorFunc = (props: object, editor: JSX.Element) => object | void;
 export type SlateEventFunc = (event: Event, change: any, editor: JSX.Element) => any | void;
 export type SlateRenderFunc = (props: any) => JSX.Element | JSX.ElementClass | void;
 
+export interface PluginUtils {
+  [key: string]: any;
+}
+
 export interface Plugin {
+  name: string;
   schema?: object;
   renderEditor?: RenderEditorFunc;
   onChange?: OnChangeFunc;
@@ -34,12 +39,33 @@ export interface Plugin {
   onSelect?: SlateEventFunc;
   renderNode?: SlateRenderFunc;
   renderMark?: SlateRenderFunc;
+  renderPlaceholder?: SlateRenderFunc;
+  changes?: PluginUtils;
+  utils?: PluginUtils;
 }
+
+export const constants = {
+  PARAGRAPH,
+  HEADER,
+  LIST,
+  LIST_ITEM,
+  UL_LIST,
+  OL_LIST,
+  BLOCKQUOTE,
+  DROP_CAP,
+  BOLD,
+  ITALIC,
+  STRIKE_THROUGH,
+  LINK,
+  PULL_QUOTE,
+  IMAGE,
+  IMAGE_BREAKOUT,
+  TOOL_BAR,
+};
 
 export const plugins = [
     paragraph({}),
     header({}),
-    EditList(),
     list({}),
     blockquote({}),
     dropCap({}),
@@ -50,4 +76,5 @@ export const plugins = [
     pullQuote({}),
     image({}),
     imageBreakout({}),
+    toolbar({}),
 ] as Plugin[];

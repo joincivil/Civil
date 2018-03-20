@@ -8,12 +8,12 @@ import { OnChangeFunc, Plugin } from "./plugins";
 export interface EditorProps {
     value: any;
     onChange: OnChangeFunc;
+    readOnly: boolean;
     plugins: Plugin[];
 }
 
 export interface EditorState {
   value?: any;
-  currentBlock: string;
 }
 
 const CenterDiv = styled.div`
@@ -32,7 +32,7 @@ const StyledEditor = styled(Editor)`
 const PullQuoteDiv = styled.div`
   box-sizing: border-box;
   width: 220px;
-  padding-right: 30px;
+  position: relative;
 `;
 
 export class CivilEditor extends React.Component<EditorProps, EditorState> {
@@ -40,7 +40,6 @@ export class CivilEditor extends React.Component<EditorProps, EditorState> {
         super(props);
         this.state = {
             value: props.value,
-            currentBlock: "paragraph",
         };
     }
 
@@ -59,6 +58,7 @@ export class CivilEditor extends React.Component<EditorProps, EditorState> {
               value={ this.state.value }
               onChange={ this.onChange }
               plugins={ this.props.plugins }
+              readOnly={ this.props.readOnly }
             />
           </CenterDiv>
        );

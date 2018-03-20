@@ -27,6 +27,7 @@ storiesOf("Civil Display View", module)
             value={initialValue}
             onChange={onChange}
             plugins={plugins}
+            readOnly
           />);
     }).add("header", () => {
       const initialValue = Value.fromJSON(headerJson);
@@ -34,6 +35,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("unordered list", () => {
       const initialValue = Value.fromJSON(ulJson);
@@ -41,6 +43,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("ordered list", () => {
       const initialValue = Value.fromJSON(olJson);
@@ -48,6 +51,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("blockquote", () => {
       const initialValue = Value.fromJSON(blockquoteJson);
@@ -55,6 +59,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("drop cap", () => {
       const initialValue = Value.fromJSON(dropCapJson);
@@ -62,6 +67,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("bold", () => {
       const initialValue = Value.fromJSON(boldJson);
@@ -69,6 +75,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("italic", () => {
       const initialValue = Value.fromJSON(italicJson);
@@ -76,6 +83,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("strike through", () => {
       const initialValue = Value.fromJSON(strikeThroughJson);
@@ -83,6 +91,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("link", () => {
       const initialValue = Value.fromJSON(linkJson);
@@ -90,6 +99,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("pull quote", () => {
       const initialValue = Value.fromJSON(pullQuoteJson);
@@ -97,6 +107,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("image", () => {
       const initialValue = Value.fromJSON(imageJson);
@@ -104,6 +115,7 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
     }).add("image breakout", () => {
       const initialValue = Value.fromJSON(imageBreakoutJson);
@@ -111,5 +123,17 @@ storiesOf("Civil Display View", module)
           value={initialValue}
           onChange={onChange}
           plugins={plugins}
+          readOnly
         />);
+    });
+
+storiesOf("Civil Editable View", module)
+    .add("text nodes", () => {
+      const initialValue = Value.fromJSON(paragraphJson);
+      return (<CivilEditor
+          value={initialValue}
+          onChange={onChange}
+          plugins={plugins}
+          readOnly={false}
+      />);
     });

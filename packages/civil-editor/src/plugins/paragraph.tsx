@@ -16,10 +16,13 @@ export const P = styled<ParagraphProps, "p">("p")`
   color: #5a5653;
 `;
 
+export const PARAGRAPH = "paragraph";
+
 export const paragraph = (options: any): Plugin => {
   return {
+    name: PARAGRAPH,
     renderNode(props: any): JSX.Element | void {
-      if (props.node.type === "paragraph") {
+      if (props.node.type === PARAGRAPH) {
         const parentType = props.parent.type;
         return <P blockquote={parentType === "blockquote"} {...props}/>;
       }
