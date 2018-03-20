@@ -6,11 +6,26 @@ block scripts
 block content
   content#state State: 
   br
+
+  #challenge.hidden
+    div 
+      | Challenge
+
+  div(style = "border : thick solid #0000FF")#appeal.hidden
+    h3 Appeal
+    #appealInfo info...
+
   | Apply to TCR
   button#param-applyToTCR Apply To TCR
   br
+
+  | Challenge TCR Listing
+  button#param-challengeTCRListing Challenge TCR Listing
+  br
+
   | Update Listing
   button#param-updateListingStatus Update Listing
   br
+
   | Propose and Approve Article
   button#param-proposeAndApprove Propose and Approve

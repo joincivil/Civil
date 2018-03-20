@@ -153,6 +153,8 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
     } else if (await this.isInChallengedRevealVotePhase(listingAddress)) {
       return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
+    } else if (await this.isInRequestAppealPhase(listingAddress)) {
+      return ListingState.WAIT_FOR_APPEAL_REQUEST;
     } else if (await this.isWhitelisted(listingAddress)) {
       return ListingState.WHITELISTED_WITHOUT_CHALLENGE;
     } else {
@@ -276,6 +278,26 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     }
 
     return isInRevealPhase;
+  }
+
+  /**
+   * Checks if a listing is currently in the Request Appeal phase
+   * @param listingAddress Address of listing to check
+   */
+  public async isInRequestAppealPhase(listingAddress: EthAddress): Promise<boolean> {
+    const appealExpiryUnixTimestamp = await this.getRequestAppealExpiryTimestamp(listingAddress);
+    const appealExpiryDate = new Date(appealExpiryUnixTimestamp.toNumber() * 1000);
+    console.log("appealExpiryDate: " + appealExpiryDate);
+    console.log("now: " + new Date());
+    return (appealExpiryDate > new Date());
+  }
+
+  /**
+   * Gets the expiry time of the request appeal phase. May be 0 if not currently in that phase.
+   * @param listingAddress Address of listing to check
+   */
+  public async getRequestAppealExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    return this.instance.getRequestAppealPhaseExpiry.callAsync(listingAddress);
   }
 
   /**

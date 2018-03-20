@@ -1,5 +1,5 @@
 import { deployNewsroom } from "../../scripts/deploy-newsroom";
-import { apply, updateStatus } from "../../scripts/tcrActions";
+import { apply, challenge, updateStatus } from "../../scripts/tcrActions";
 // import * as fs from "fs";
 import { Civil } from "@joincivil/core";
 
@@ -22,6 +22,17 @@ export function setNewsroomListeners(): void {
     if (address) {
       // TODO(nickreynolds): turn off button, display "deploying..."
       await apply(address, civil);
+      // TODO(nickreynolds): show success
+    } else {
+      console.error("newsroom address not found in params");
+    }
+  };
+
+  const challengeButton = document.getElementById("param-challengeTCRListing")!;
+  challengeButton.onclick = async (event) => {
+    if (address) {
+      // TODO(nickreynolds): turn off button, display "deploying..."
+      await challenge(address, civil);
       // TODO(nickreynolds): show success
     } else {
       console.error("newsroom address not found in params");
