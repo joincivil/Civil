@@ -131,6 +131,15 @@ export class Civil {
   }
 
   /**
+   * Returns the EIP20 instance associated with the deployed OwnedAddressTCRWithAppeals
+   */
+  public async getEIP20ForDeployedTCR(): Promise<EIP20> {
+    const tcr = this.getDeployedOwnedAddressTCRWithAppeals();
+    const tokenAddress = await tcr.getTokenAddress();
+    return EIP20.atUntrusted(this.web3Wrapper, tokenAddress);
+  }
+
+  /**
    * Returns EIP20 instance at given address
    * @param address address of EIP20
    */
