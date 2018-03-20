@@ -214,4 +214,24 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     return this.instance.isPassed.callAsync(pollID);
   }
 
+  /**
+   * Gets expiry timestamp of commit period.
+   * @param pollID ID of poll to check
+   */
+  public async getCommitPeriodExpiry(
+    pollID: BigNumber,
+  ): Promise<BigNumber> {
+    return this.instance.getPollCommitEndDate.callAsync(pollID);
+  }
+
+  /**
+   * Gets expiry timestamp of reveal period.
+   * @param pollID ID of poll to check
+   */
+  public async getRevealPeriodExpiry(
+    pollID: BigNumber,
+  ): Promise<BigNumber> {
+    return this.instance.getPollRevealEndDate.callAsync(pollID);
+  }
+
 }

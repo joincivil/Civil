@@ -234,6 +234,10 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return isInApplicationPhase;
   }
 
+  public async getApplicationExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    return this.instance.getListingApplicationExpiry.callAsync(listingAddress);
+  }
+
   /**
    * Checks if a listing address is in challenged commit vote phase
    * @param listingAddress Address of potential listing to check
@@ -287,19 +291,68 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async isInRequestAppealPhase(listingAddress: EthAddress): Promise<boolean> {
     const appealExpiryUnixTimestamp = await this.getRequestAppealExpiryTimestamp(listingAddress);
     const appealExpiryDate = new Date(appealExpiryUnixTimestamp.toNumber() * 1000);
-    console.log("appealExpiryDate: " + appealExpiryDate);
-    console.log("now: " + new Date());
     return (appealExpiryDate > new Date());
   }
 
   /**
-   * Gets the expiry time of the request appeal phase. May be 0 if not currently in that phase.
+   * Gets the expiry time of the request appeal phase.
    * @param listingAddress Address of listing to check
    */
   public async getRequestAppealExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
     return this.instance.getRequestAppealPhaseExpiry.callAsync(listingAddress);
   }
 
+  /**
+   * Checks if a listing is currently in the Appeal phase
+   * @param listingAddress Address of listing to check
+   */
+  public async isInAppealPhase(listingAddress: EthAddress): Promise<boolean> {
+    const appealExpiryUnixTimestamp = await this.getAppealExpiryTimestamp(listingAddress);
+    const appealExpiryDate = new Date(appealExpiryUnixTimestamp.toNumber() * 1000);
+    return (appealExpiryDate > new Date());
+  }
+
+  /**
+   * Gets the expiry time of the appeal phase.
+   * @param listingAddress Address of listing to check
+   */
+  public async getAppealExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    return this.instance.getAppealPhaseExpiry.callAsync(listingAddress);
+  }
+
+  /**
+   * Gets the expiry time of the commit vote phase.
+   * @param listingAddress Address of listing to check
+   */
+  public async getCommitVoteExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    // if there is no challenge
+    const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
+    if (challenge.toNumber() !== 0) {
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const revealPeriodActive = await voting.getCommitPeriodExpiry(challenge);
+
+      return revealPeriodActive;
+    } else {
+      return new BigNumber(0);
+    }
+  }
+
+  /**
+   * Gets the expiry time of the commit vote phase.
+   * @param listingAddress Address of listing to check
+   */
+  public async getRevealVoteExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    // if there is no challenge
+    const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
+    if (challenge.toNumber() !== 0) {
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const revealPeriodActive = await voting.getRevealPeriodExpiry(challenge);
+
+      return revealPeriodActive;
+    } else {
+      return new BigNumber(0);
+    }
+  }
   /**
    * Get address for token used with this TCR
    */

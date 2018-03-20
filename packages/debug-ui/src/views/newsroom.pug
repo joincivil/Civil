@@ -7,9 +7,13 @@ block content
   content#state State: 
   br
 
-  #challenge.hidden
-    div 
-      | Challenge
+  div(style = "border : thick solid #0000FF")#application.hidden
+    h3 Applying
+    #applicationInfo info...
+
+  div(style = "border : thick solid #0000FF")#challenge.hidden
+    h3 Challenge
+    #challengeInfo info...
 
   div(style = "border : thick solid #0000FF")#appeal.hidden
     h3 Appeal
