@@ -17,8 +17,8 @@ contract Newsroom is ACL {
 
   string public name;
 
-  function Newsroom(string _name) ACL() public {
-    setName(_name);
+  function Newsroom(string newsroomName) ACL() public {
+    setName(newsroomName);
   }
 
   function author(uint contentId) public view returns (address) {
@@ -41,9 +41,9 @@ contract Newsroom is ACL {
     return approved[contentId];
   }
 
-  function setName(string _name) public onlyOwner() {
-    require(bytes(_name).length > 0);
-    name = _name;
+  function setName(string newName) public onlyOwner() {
+    require(bytes(newName).length > 0);
+    name = newName;
 
     NameChanged(name);
   }

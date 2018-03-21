@@ -16,7 +16,7 @@ import { isDecodedLog, createTwoStepTransaction, createTwoStepSimple } from "../
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
-import { ContentProposedArgs, NewsroomContract, NewsroomEvents, NameChangedArgs } from "./generated/newsroom";
+import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
