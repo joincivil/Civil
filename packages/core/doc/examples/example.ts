@@ -4,18 +4,25 @@ import { Civil } from "../../src";
   const civil = new Civil();
 
   console.log("Deploying newsroom...");
-  const newsroom = await (await civil.newsroomDeployTrusted()).awaitReceipt();
+  const newsroom = await (await civil.newsroomDeployTrusted("My new newsroom")).awaitReceipt();
   console.log("Newsroom at: ", newsroom.address);
 
   console.log("Subscribing to new articles");
-  const subscription = newsroom
+  const articleSubscription = newsroom
     .proposedContent()
     .do((header) => console.log("\tProposed article, uri: " + header.uri))
     .flatMap(async (header) => newsroom.resolveContent(header))
     .subscribe((article) => {
       console.log("\tContent for article id: " + article.id, article.content);
       console.log("\tUnsubscribing");
-      subscription.unsubscribe();
+      articleSubscription.unsubscribe();
+    });
+
+  console.log("Subscribing to latest name changes");
+  const nameSubscription = newsroom
+    .nameChanges("latest")
+    .subscribe((name) => {
+      console.log("\tThe name of the Newsroom changed to", name);
     });
 
   console.log("Am I the owner:", await newsroom.isOwner());
@@ -27,5 +34,14 @@ import { Civil } from "../../src";
   } catch (e) {
     console.error("Failed to propose article:", e);
   }
+
+  console.log("Changing names");
+  await Promise.all(
+    ["Second name", "Third name", "Last name"].map(async (name) => {
+      console.log("Changing name to:", name);
+      await (await newsroom.setName(name)).awaitReceipt();
+    }),
+  );
+  nameSubscription.unsubscribe();
 })()
 .catch((err) => console.error(err));

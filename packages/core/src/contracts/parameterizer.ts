@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
 
 import { Bytes32, EthAddress, TwoStepEthTransaction } from "../types";
@@ -53,9 +52,6 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   public reparameterizationProposals(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .ReparameterizationProposalStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      })
       .map((e) => e.args.propID)
       .concatFilter(async (propID) => this.instance.propExists.callAsync(propID));
   }
@@ -69,9 +65,6 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   public reparameterizationChallenges(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .NewChallengeStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      })
       .map((e) => e.args.propID)
       .concatFilter(async (propID) => this.instance.propExists.callAsync(propID));
   }

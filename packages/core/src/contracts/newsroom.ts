@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 import "@joincivil/utils";
 
@@ -35,11 +34,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public static async deployTrusted(
     web3Wrapper: Web3Wrapper,
     contentProvider: ContentProvider,
+    newsroomName: string,
   ): Promise<TwoStepEthTransaction<Newsroom>> {
     const txData: TxData = { from: web3Wrapper.account };
     return createTwoStepTransaction(
       web3Wrapper,
-      await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, txData),
+      await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, newsroomName, txData),
       // tslint:disable no-non-null-assertion
       (receipt) => new Newsroom(
         web3Wrapper,
@@ -147,6 +147,23 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   /**
+   * Changes the name of the Newsroom.
+   * The name can be any string, but when applying to a TCR, it must be unique in that TCR
+   * @param newName The new name of this Newsroom
+   * @throws {CivilErrors.NoPrivileges} Requires owner permission
+   * @throws {CivilErrors.NoUnlockedAccount} Needs the unlocked to check privileges
+   */
+  // TODO(ritave): How to support multisig in core?
+  public async setName(newName: string): Promise<TwoStepEthTransaction> {
+    await this.requireOwner();
+
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.setName.sendTransactionAsync(newName),
+    );
+  }
+
+  /**
    * An unending stream of all the contenty *actively* proposed (waiting for approval/deny)
    * @param fromBlock Starting block in history for events concerning content being proposed.
    *                  Set to "latest" for only new events
@@ -155,9 +172,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public proposedContent(fromBlock: number|"latest" = 0): Observable<ContentHeader> {
     return this.instance
       .ContentProposedStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      }) // https://github.com/ethereum/web3.js/issues/573
       .map((e) => e.args.id)
       .concatFilter(async (id) => this.instance.isProposed.callAsync(id))
       .concatMap(async (id) => this.loadArticleHeader(id));
@@ -172,11 +186,20 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public approvedContent(fromBlock: number|"latest" = 0): Observable<ContentHeader> {
     return this.instance
       .ContentApprovedStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      }) // https://github.com/ethereum/web3.js/issues/573
       .map((e) => e.args.id)
       .concatMap(async (id) => this.loadArticleHeader(id));
+  }
+
+  /**
+   * An unending stream of all names this Newsroom had ever had.
+   * @param fromBlock Starting block in history for events.
+   *                  Set to "latest" to only listen for new events
+   * @returns Name history of this Newsroom
+   */
+  public nameChanges(fromBlock: number|"latest" = 0): Observable<string> {
+    return this.instance
+      .NameChangedStream({}, { fromBlock })
+      .map((e) => e.args.newName);
   }
 
   /**
@@ -294,6 +317,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
   private async requireReporter(): Promise<void> {
     if (!(await this.isReporter())) {
+      throw new Error(CivilErrors.NoPrivileges);
+    }
+  }
+
+  private async requireOwner(): Promise<void> {
+    if (!(await this.isOwner())) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }

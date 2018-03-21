@@ -32,7 +32,7 @@ export function isDecodedLog<T>(what: Web3.LogEntry | Web3.DecodedLogEntry<T>): 
 export function streamifyEvent<A>(original: EventFunction<TypedEventFilter<A>>)
 : (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<Web3.DecodedLogEntryEvent<A>> {
   return (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => {
-    return new Observable((subscriber) => {
+    return new Observable<Web3.DecodedLogEntryEvent<A>>((subscriber) => {
       const filter = original(paramFilters, filterObject);
       let errored = false;
       filter.watch((err, event) => {
@@ -48,7 +48,9 @@ export function streamifyEvent<A>(original: EventFunction<TypedEventFilter<A>>)
           filter.stopWatching(() => subscriber.complete());
         }
       };
-    });
+    }).distinctUntilChanged((a, b) => {
+      return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
+    }); // https://github.com/ethereum/web3.js/issues/573;
   };
 }
 
