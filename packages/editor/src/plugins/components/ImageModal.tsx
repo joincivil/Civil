@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, {StyledComponentClass} from "styled-components";
 import { Modal, ModalInner, FormGroup, Label, Input, Button } from "./Modal";
 
 export interface ImageModalState {

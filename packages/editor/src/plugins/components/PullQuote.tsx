@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
-import styled from "styled-components";
+import styled, {StyledComponentClass} from "styled-components";
 import { constants } from "../index";
 
 export interface PullQuoteState {
