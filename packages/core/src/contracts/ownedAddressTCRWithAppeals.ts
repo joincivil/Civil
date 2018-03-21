@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-import "rxjs/add/operator/distinctUntilChanged";
 import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
@@ -63,9 +62,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public whitelistedListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .NewListingWhitelistedStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      })
       .map((e) => e.args.listingAddress)
       .concatFilter(async (listingAddress) => this.instance.getListingIsWhitelisted.callAsync(listingAddress));
   }
@@ -79,9 +75,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public listingsInApplicationStage(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .ApplicationStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      })
       .map((e) => e.args.listingAddress)
       .concatFilter(async (listingAddress) => this.isInApplicationPhase(listingAddress));
   }
@@ -95,9 +88,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public readyToBeWhitelistedListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
     .ApplicationStream({}, { fromBlock })
-    .distinctUntilChanged((a, b) => {
-      return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-    })
     .map((e) => e.args.listingAddress)
     .concatFilter(async (listingAddress) => this.isReadyToWhitelist(listingAddress));
   }
@@ -111,9 +101,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public currentChallengedCommitVotePhaseListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      })
       .map((e) => (e.args))
       .concatFilter(async (e) => this.isInChallengedCommitVotePhase(e.listingAddress, e.pollID))
       .map((e) => e.listingAddress);
@@ -128,9 +115,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public currentChallengedRevealVotePhaseListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      })
       .map((e) => (e.args))
       .concatFilter(async (e) => this.isInChallengedRevealVotePhase(e.listingAddress, e.pollID))
       .map((e) => e.listingAddress);

@@ -1,7 +1,6 @@
 import BigNumber from "bignumber.js";
 import "@joincivil/utils";
 
-import "rxjs/add/operator/distinctUntilChanged";
 import {
   EthAddress,
   TwoStepEthTransaction,

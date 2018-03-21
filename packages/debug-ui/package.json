@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/debug-ui",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Minimal UI to show civil.ts functionallity",
   "scripts": {
     "build": "npm run gulp build",
@@ -13,7 +13,7 @@
   "license": "Apache-2.0",
   "private": true,
   "devDependencies": {
-    "@joincivil/tslint-rules": "^2.4.1",
+    "@joincivil/tslint-rules": "^2.5.0",
     "@types/marked": "^0.3.0",
     "@types/node": "^9.4.0",
     "del": "^3.0.0",
@@ -34,8 +34,8 @@
     "web3-typescript-typings": "^0.9.11"
   },
   "dependencies": {
-    "@joincivil/core": "^2.0.0",
-    "@joincivil/dev-utils": "^1.0.1",
+    "@joincivil/core": "^3.0.0",
+    "@joincivil/dev-utils": "^1.1.0",
     "bignumber.js": "5.0.0",
     "marked": "^0.3.12"
   }

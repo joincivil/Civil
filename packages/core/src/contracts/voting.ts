@@ -2,7 +2,6 @@ import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "@joincivil/utils";
 
-import "rxjs/add/operator/distinctUntilChanged";
 import { Bytes32, EthAddress, TwoStepEthTransaction } from "../types";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
@@ -37,9 +36,6 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public activePolls(fromBlock: number|"latest" = 0): Observable<BigNumber> {
     return this.instance
       .PollCreatedStream({}, { fromBlock })
-      .distinctUntilChanged((a, b) => {
-        return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
-      })
       .map((e) => e.args.pollID)
       .concatFilter(async (pollID) => this.instance.pollExists.callAsync(pollID));
   }
