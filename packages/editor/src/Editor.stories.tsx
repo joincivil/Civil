@@ -16,7 +16,6 @@ import { linkJson } from "./storyFixtures/link";
 import { pullQuoteJson } from "./storyFixtures/pullquote";
 import { imageJson } from "./storyFixtures/image";
 import { imageBreakoutJson } from "./storyFixtures/imagebreakout";
-import styled from "styled-components";
 
 const onChange = (value: any): any => { return; };
 

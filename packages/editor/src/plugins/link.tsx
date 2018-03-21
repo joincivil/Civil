@@ -1,8 +1,8 @@
 import * as React from "react";
+// @ts-ignore
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
 import { Link } from "./components/Link";
-
 
 export const LINK = "link";
 

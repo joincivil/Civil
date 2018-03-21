@@ -1,6 +1,5 @@
 // Import the `Value` model.
 import * as React from "react";
-import { Value } from "slate";
 import { Editor } from "slate-react";
 import styled from "styled-components";
 import { OnChangeFunc, Plugin } from "./plugins";

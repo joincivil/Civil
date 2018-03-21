@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "tslint --project ./",
+    "lint": "tslint --exclude \"**/storyFixtures/**\" --project ./",
     "clean": "rimraf build/",
     "prepublish": "yarn build",
     "storybook": "start-storybook -p 9001 -c .storybook",

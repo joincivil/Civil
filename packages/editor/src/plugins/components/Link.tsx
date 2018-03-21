@@ -1,4 +1,5 @@
 import * as React from "react";
+// @ts-ignore
 import styled, { StyledComponentClass } from "styled-components";
 import { InsertLink } from "material-ui-icons";
 import { Modal, ModalInner, Input, FormGroup, Label, Button } from "./Modal";

@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
+// @ts-ignore
 import styled, {StyledComponentClass} from "styled-components";
 
 const ModalWrapper = styled.div`

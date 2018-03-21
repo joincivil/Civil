@@ -1,4 +1,3 @@
-import * as React from "react";
 import { paragraph, PARAGRAPH } from "./paragraph";
 import { header, HEADER } from "./header";
 import { list, LIST, LIST_ITEM, UL_LIST, OL_LIST } from "./list";

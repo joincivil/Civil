@@ -1,8 +1,7 @@
 import * as React from "react";
+// @ts-ignore
 import styled, { StyledComponentClass } from "styled-components";
-import { InsertLink } from "material-ui-icons";
 import { constants } from "../index";
-import { Block, Data } from "slate";
 
 const ImageInline = styled.img`
   width: 100%;
@@ -20,16 +19,18 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const ImageToggleWrapper = styled.div`
-  width: 50px;
-  position: absolute;
-  margin-left: -25px;
-  top: 10px;
-  left: 50%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-`;
+// TODO add image toggles
+
+// const ImageToggleWrapper = styled.div`
+//   width: 50px;
+//   position: absolute;
+//   margin-left: -25px;
+//   top: 10px;
+//   left: 50%;
+//   display: flex;
+//   justify-content: start;
+//   align-items: center;
+// `;
 
 export interface ImageProps {
   node: any;

@@ -1,4 +1,5 @@
 import * as React from "react";
+// @ts-ignore
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
 import { CHILD_TYPE_INVALID } from "slate-schema-violations";
@@ -30,6 +31,6 @@ export const blockquote = (options: any): Plugin => {
           },
         },
       },
-    }
+    },
   };
 };

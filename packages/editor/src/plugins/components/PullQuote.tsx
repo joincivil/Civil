@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
+// @ts-ignore
 import styled, {StyledComponentClass} from "styled-components";
-import { constants } from "../index";
 
 export interface PullQuoteState {
   destination?: HTMLElement | null | void;
@@ -34,8 +34,6 @@ export class PullQuote extends React.Component<any, PullQuoteState> {
     this.state = {
       top: this.props.mark.data.get("top"),
     };
-    this.onMouseMove = this.onMouseMove.bind(this);
-    this.onMouseUp = this.onMouseUp.bind(this);
   }
   public componentDidMount(): void {
     this.setState({
@@ -49,12 +47,12 @@ export class PullQuote extends React.Component<any, PullQuoteState> {
     document.addEventListener("mousemove", this.onMouseMove);
     document.addEventListener("mouseup", this.onMouseUp);
   }
-  public onMouseMove(event: MouseEvent): void {
+  public onMouseMove = (event: MouseEvent): void => {
     this.setState({
       top: this.state.top + event.movementY,
     });
   }
-  public onMouseUp(event: Event): void {
+  public onMouseUp = (event: Event): void => {
     this.props.editor.change((change: any): void => {
       change.setMarkByKey(
         this.props.node.key,
