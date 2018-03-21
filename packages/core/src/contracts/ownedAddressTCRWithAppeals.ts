@@ -153,10 +153,16 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
     } else if (await this.isInChallengedRevealVotePhase(listingAddress)) {
       return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
+    } else if (await this.challengeCanBeResolved(listingAddress)) {
+      return ListingState.READY_TO_RESOLVE_CHALLENGE;
     } else if (await this.isInRequestAppealPhase(listingAddress)) {
       return ListingState.WAIT_FOR_APPEAL_REQUEST;
+    } else if (await this.isInAppealPhase(listingAddress)) {
+      return ListingState.IN_APPEAL_PHASE;
     } else if (await this.isWhitelisted(listingAddress)) {
       return ListingState.WHITELISTED_WITHOUT_CHALLENGE;
+    } else if (await this.isReadyToResolveAppeal(listingAddress)) {
+      return ListingState.READY_TO_RESOLVE_APPEAL;
     } else {
       return ListingState.NOT_FOUND;
     }
@@ -210,6 +216,32 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async isReadyToWhitelist(listingAddress: EthAddress): Promise<boolean> {
     return this.instance.canBeWhitelisted.callAsync(listingAddress);
+  }
+
+  public async isReadyToResolveAppeal(listingAddress: EthAddress): Promise<boolean> {
+    const requestAppealPhaseExpiryTimestamp = await this.instance.getRequestAppealPhaseExpiry.callAsync(listingAddress);
+    const requestAppealPhaseExpiry = new Date(requestAppealPhaseExpiryTimestamp.toNumber() * 1000);
+
+    const appealPhaseExpiryTimestamp = await this.instance.getAppealPhaseExpiry.callAsync(listingAddress);
+    const appealPhaseExpiry = new Date(appealPhaseExpiryTimestamp.toNumber() * 1000);
+
+    const now = new Date();
+
+    if (requestAppealPhaseExpiryTimestamp.toNumber() > 0) { // request appeal phase initialized
+      if (appealPhaseExpiryTimestamp.toNumber() > 0) { // appeal phase initialized
+        if (appealPhaseExpiry < now) {
+          return true; // appeal phase over
+        } else {
+          return false; // appeal phase still in progress
+        }
+      } else if (requestAppealPhaseExpiry < now) {
+        return true; // request appeal phase initialized and over, appeal phase never initialized
+      } else {
+        return false; // request appeal phase still in progress
+      }
+    } else {
+      return false; // request appeal phase never initialized
+    }
   }
 
   /**
@@ -291,7 +323,8 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async isInRequestAppealPhase(listingAddress: EthAddress): Promise<boolean> {
     const appealExpiryUnixTimestamp = await this.getRequestAppealExpiryTimestamp(listingAddress);
     const appealExpiryDate = new Date(appealExpiryUnixTimestamp.toNumber() * 1000);
-    return (appealExpiryDate > new Date());
+    const hasRequestedAppeal = await this.instance.getAppealRequested.callAsync(listingAddress);
+    return (!hasRequestedAppeal && appealExpiryDate > new Date());
   }
 
   /**
@@ -391,10 +424,28 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
 
   /**
    * Checks if an address has challenge that can be resolved
+   * Challenge can be resolved if reveal period is over but request appeal phase is uninitialized
    * @param address Address of potential listing to check
    */
   public async challengeCanBeResolved(listingAddress: EthAddress): Promise<boolean> {
-    return this.instance.challengeExists.callAsync(listingAddress);
+    const challengeID = await this.getListingChallengeID(listingAddress);
+    // if challenge exists, but not in commit or reveal phase, and request appeal phase not started
+    if (challengeID.toNumber() !== 0) {
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const revealPeriodExpiryTimestamp = await voting.getRevealPeriodExpiry(challengeID);
+      const revealPeriodExpiry = new Date(revealPeriodExpiryTimestamp.toNumber() * 1000);
+      if (revealPeriodExpiry < new Date()) {
+        const isPassed = await voting.isPollPassed(challengeID);
+        if (!isPassed) {
+          const requestAppealPhaseExpiry = await this.getRequestAppealExpiryTimestamp(listingAddress);
+          console.log("requestAppealPhaseExpiry: " + requestAppealPhaseExpiry);
+          if (requestAppealPhaseExpiry.toNumber() === 0) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 
   /**
