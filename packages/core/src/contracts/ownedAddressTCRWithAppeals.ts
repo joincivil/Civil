@@ -149,20 +149,24 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       return ListingState.APPLYING;
     } else if (await this.isReadyToWhitelist(listingAddress)) {
       return ListingState.READY_TO_WHITELIST;
-    } else if (await this.isInChallengedCommitVotePhase(listingAddress)) {
-      return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
-    } else if (await this.isInChallengedRevealVotePhase(listingAddress)) {
-      return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
-    } else if (await this.challengeCanBeResolved(listingAddress)) {
-      return ListingState.READY_TO_RESOLVE_CHALLENGE;
-    } else if (await this.isInRequestAppealPhase(listingAddress)) {
-      return ListingState.WAIT_FOR_APPEAL_REQUEST;
-    } else if (await this.isInAppealPhase(listingAddress)) {
-      return ListingState.IN_APPEAL_PHASE;
+    } else if (await this.hasUnresolvedChallenge(listingAddress)) {
+      if (await this.isInChallengedCommitVotePhase(listingAddress)) {
+        return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
+      } else if (await this.isInChallengedRevealVotePhase(listingAddress)) {
+        return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
+      } else if (await this.challengeCanBeResolved(listingAddress)) {
+        return ListingState.READY_TO_RESOLVE_CHALLENGE;
+      } else if (await this.isInRequestAppealPhase(listingAddress)) {
+        return ListingState.WAIT_FOR_APPEAL_REQUEST;
+      } else if (await this.isInAppealPhase(listingAddress)) {
+        return ListingState.IN_APPEAL_PHASE;
+      } else if (await this.isReadyToResolveAppeal(listingAddress)) {
+        return ListingState.READY_TO_RESOLVE_APPEAL;
+      } else {
+        return ListingState.NOT_FOUND;
+      }
     } else if (await this.isWhitelisted(listingAddress)) {
       return ListingState.WHITELISTED_WITHOUT_CHALLENGE;
-    } else if (await this.isReadyToResolveAppeal(listingAddress)) {
-      return ListingState.READY_TO_RESOLVE_APPEAL;
     } else {
       return ListingState.NOT_FOUND;
     }
@@ -420,6 +424,16 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
 
   public async getListingChallengeID(listingAddress: EthAddress): Promise<BigNumber> {
     return this.instance.getListingChallengeID.callAsync(listingAddress);
+  }
+
+  public async hasUnresolvedChallenge(listingAddress: EthAddress): Promise<boolean> {
+    const challengeID = await this.getListingChallengeID(listingAddress);
+    if (challengeID.toNumber() !== 0) {
+      const isChallengeResolved = await this.instance.getChallengeResolved.callAsync(challengeID);
+      return !isChallengeResolved;
+    } else {
+      return false;
+    }
   }
 
   /**

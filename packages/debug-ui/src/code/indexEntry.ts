@@ -21,5 +21,13 @@ window.addEventListener("load", async () => {
     document.getElementById("readyToWhitelist")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
+  tcr.currentChallengedCommitVotePhaseListings().subscribe((listing: string) => {
+    document.getElementById("challengedInCommit")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
+    listing + "'>" + listing + "</a>";
+  });
+  tcr.currentChallengedRevealVotePhaseListings().subscribe((listing: string) => {
+    document.getElementById("challengedInReveal")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
+    listing + "'>" + listing + "</a>";
+  });
   document.getElementById("tcrInfo")!.innerHTML += "<br>Token: " + await tcr.getTokenAddress();
 });
