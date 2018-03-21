@@ -4,10 +4,6 @@ extends:
     - tslint:recommended
 jsRules: {}
 rules:
-    # Some recommended rules are annoying and as a team decided
-    # to not use them due to not providing good enough value
-    ordered-imports: false
-
     adjacent-overload-signatures: true
     member-ordering:
         - true
@@ -99,8 +95,6 @@ rules:
     # might not produce expected output, warn the developer
     # so that they can disable the warn if they know what they're doing
     # or done their research
-    no-non-null-assertion:
-        severity: warn
     deprecation:
         severity: warn
     no-unbound-method:
@@ -130,7 +124,10 @@ rules:
     prefer-object-spread:
         severity: warn
 
-    # Disabling recommended rules
+    # Some recommended rules are annoying and as a team decided
+    # to not use them due to not providing good enough value
+    ordered-imports: false
+    no-non-null-assertion: false
     interface-name: false
     object-literal-sort-keys: false
     no-console: false
