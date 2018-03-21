@@ -189,6 +189,10 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
           className={this.isActiveMark(constants.DROP_CAP) ? "active" : ""}
           onClick={(e: any) => this.onMarkClick(e, constants.DROP_CAP)}
         >dc</Button>
+        <Button
+          className={this.isActiveMark(constants.RUN_IN) ? "active" : ""}
+          onClick={(e: any) => this.onMarkClick(e, constants.RUN_IN)}
+        >ri</Button>
         <FormatBold
           className={this.isActiveMark(constants.BOLD) ? "active" : ""}
           onClick={(e: any) => this.onMarkClick(e, constants.BOLD)}

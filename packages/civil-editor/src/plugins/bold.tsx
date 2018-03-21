@@ -3,10 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
 
 export const Bold = styled.span`
-  font-family: 'Libre Franklin', sans-serif;
-  font-weight: 700;
-  font-size: 19px;
-  color: #000000;
+  font-weight: 800;
 `;
 
 export const BOLD = "bold";

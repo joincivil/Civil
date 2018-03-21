@@ -11,6 +11,7 @@ import { link, LINK } from "./link";
 import { pullQuote, PULL_QUOTE } from "./pullQuote";
 import { image, IMAGE, IMAGE_BREAKOUT } from "./image";
 import { toolbar, TOOL_BAR } from "./toolbar";
+import { runIn, RUN_IN } from "./runin";
 
 export type OnChangeFunc = (change: any) => any | void;
 export type RenderEditorFunc = (props: object, editor: JSX.Element) => object | void;
@@ -60,6 +61,7 @@ export const constants = {
   IMAGE,
   IMAGE_BREAKOUT,
   TOOL_BAR,
+  RUN_IN,
 };
 
 export const plugins = [
@@ -75,4 +77,5 @@ export const plugins = [
     pullQuote({}),
     image({}),
     toolbar({}),
+    runIn({}),
 ] as Plugin[];
