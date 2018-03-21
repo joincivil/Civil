@@ -142,24 +142,36 @@ function setNewsroomListeners(): void {
 
   const commitVoteButton = document.getElementById("param-commitVote")!;
   commitVoteButton.onclick = async (event) => {
-    const pollIDString = document.getElementById("param-commitVotePollId")!.value;
+
+    const pollIDString2 = document.getElementById("param-commitVotePollId")!.textContent;
+    const pollIDString3 = document.getElementById("param-commitVotePollId")!.innerText;
+    const pollIDString4 = document.getElementById("param-commitVotePollId")!.nodeValue;
+    const htmlElement = document.getElementById("param-commitVotePollId")!;
+    const pollIDString5 = (htmlElement as HTMLInputElement).value;
+
+    console.log("pollIDString2: " + pollIDString2);
+    console.log("pollIDString3: " + pollIDString3);
+    console.log("pollIDString4: " + pollIDString4);
+    console.log("pollIDString5: " + pollIDString5);
+
+    const pollIDString = (document.getElementById("param-commitVotePollId")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
-    const optionString = document.getElementById("param-commitVoteOption")!.value!;
+    const optionString = (document.getElementById("param-commitVoteOption")! as HTMLInputElement).value!;
     const option = new BigNumber(optionString);
-    const saltString = document.getElementById("param-commitVoteSalt")!.value!;
+    const saltString = (document.getElementById("param-commitVoteSalt")! as HTMLInputElement).value!;
     const salt = new BigNumber(saltString);
-    const numTokensString = document.getElementById("param-commitNumTokens")!.value!;
+    const numTokensString = (document.getElementById("param-commitNumTokens")! as HTMLInputElement).value!;
     const numTokens = new BigNumber(numTokensString);
     await commitVote(pollID, option, salt, numTokens);
   };
 
   const revealVoteButton = document.getElementById("param-revealVote")!;
   revealVoteButton.onclick = async (event) => {
-    const pollIDString = document.getElementById("param-revealVotePollId")!.value;
+    const pollIDString = (document.getElementById("param-revealVotePollId")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
-    const optionString = document.getElementById("param-revealVoteOption")!.value!;
+    const optionString = (document.getElementById("param-revealVoteOption")! as HTMLInputElement).value!;
     const option = new BigNumber(optionString);
-    const saltString = document.getElementById("param-revealVoteSalt")!.value!;
+    const saltString = (document.getElementById("param-revealVoteSalt")! as HTMLInputElement).value!;
     const salt = new BigNumber(saltString);
     await revealVote(pollID, option, salt);
   };

@@ -28,7 +28,7 @@ window.addEventListener("load", async () => {
 function setHeaderListeners(): void {
   const getRightsButton = document.getElementById("param-requestVotingRights")!;
   getRightsButton.onclick = async () => {
-    const numRightsRequested = document.getElementById("param-numRightsToRequest")!.value;
+    const numRightsRequested = (document.getElementById("param-numRightsToRequest")! as HTMLInputElement).value;
     const numRights = new BigNumber(numRightsRequested);
     console.log("request voting rights: " + numRights);
     await requestVotingRights(numRights);
@@ -36,7 +36,7 @@ function setHeaderListeners(): void {
 
   const withdrawRightsButton = document.getElementById("param-withdrawVotingRights")!;
   withdrawRightsButton.onclick = async () => {
-    const numRightsToWithdraw = document.getElementById("param-numRightsToWithdraw")!.value;
+    const numRightsToWithdraw = (document.getElementById("param-numRightsToWithdraw")! as HTMLInputElement).value;
     const numRights = new BigNumber(numRightsToWithdraw);
     console.log("withdraw voting rights: " + numRights);
     await withdrawVotingRights(numRights);
