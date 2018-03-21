@@ -12,12 +12,12 @@ contract NewsroomFactory is Factory {
     multisigFactory = IMultiSigWalletFactory(_multisigFactory);
   }
 
-  function create(address[] _owners, uint _required)
+  function create(string name, address[] _owners, uint _required)
     public
     returns (Newsroom newsroom)
   {
     address wallet = multisigFactory.create(_owners, _required);
-    newsroom = new Newsroom();
+    newsroom = new Newsroom(name);
     newsroom.transferOwnership(wallet);
     register(newsroom);
   }

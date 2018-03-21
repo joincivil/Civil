@@ -9,6 +9,7 @@ const Newsroom = artifacts.require("Newsroom");
 configureChai(chai);
 const expect = chai.expect;
 
+const FIRST_NEWSROOM_NAME = "TEST NAME, PLEASE IGNORE";
 const SOME_URI = "http://thiistest.uri";
 
 contract("Newsroom", (accounts: string[]) => {
@@ -16,7 +17,7 @@ contract("Newsroom", (accounts: string[]) => {
   let newsroom: any;
 
   beforeEach(async () => {
-    newsroom = await Newsroom.new();
+    newsroom = await Newsroom.new(FIRST_NEWSROOM_NAME);
   });
 
   describe("author", () => {
@@ -185,7 +186,9 @@ contract("Newsroom", (accounts: string[]) => {
       const tx = await newsroom.proposeContent(SOME_URI);
       const event = findEvent(tx, events.NEWSROOM_PROPOSED);
       expect(event).to.not.be.undefined();
-      expect(event.args.author).to.be.equal(defaultAccount);
+      // tslint:disable no-non-null-assertion
+      expect(event!.args.author).to.be.equal(defaultAccount);
+      // tslint:enable no-non-null-assertion
     });
 
     it("fails without reporter role", async () => {
@@ -229,7 +232,9 @@ contract("Newsroom", (accounts: string[]) => {
       const event = findEvent(tx, events.NEWSROOM_APPROVED);
 
       expect(event).to.not.be.undefined();
-      expect(event.args.id).to.be.bignumber.equal(id);
+      // tslint:disable no-non-null-assertion
+      expect(event!.args.id).to.be.bignumber.equal(id);
+      // tslint:enable no-non-null-assertion
     });
 
     it("can't reapprove", async () => {
@@ -292,7 +297,9 @@ contract("Newsroom", (accounts: string[]) => {
       const event = findEvent(tx, events.NEWSROOM_DENIED);
 
       expect(event).to.not.be.undefined();
-      expect(event.args.id).to.be.bignumber.equal(id);
+      // tslint:disable no-non-null-assertion
+      expect(event!.args.id).to.be.bignumber.equal(id);
+      // tslint:enable no-non-null-assertion
     });
 
     it("can't re-deny", async () => {
@@ -397,6 +404,39 @@ contract("Newsroom", (accounts: string[]) => {
 
       await expect(removeRole).to.eventually.be.rejectedWith(REVERTED);
       expect(await newsroom.hasRole(accounts[1], NEWSROOM_ROLE_EDITOR)).to.be.true();
+    });
+  });
+
+  describe("setName", () => {
+    it("sets the name in constructor", async () => {
+      const name = await newsroom.name();
+      expect(name).to.be.equal(FIRST_NEWSROOM_NAME);
+    });
+
+    it("can't set empty name", async () => {
+      await expect(newsroom.setName("")).to.eventually.be.rejectedWith(REVERTED);
+    });
+
+    it("changes name", async () => {
+      const NEW_NAME = "new name here";
+
+      expect(await newsroom.name()).to.be.equal(FIRST_NEWSROOM_NAME);
+
+      await newsroom.setName(NEW_NAME);
+
+      expect(await newsroom.name()).to.be.equal(NEW_NAME);
+    });
+
+    it("can't be used by non-owner", async () => {
+      await expect(newsroom.setName("something", {from: accounts[1]})).to.eventually.be.rejectedWith(REVERTED);
+    });
+
+    it("fires an event", async () => {
+      const receipt = await newsroom.setName("something");
+
+      const event = findEvent(receipt, "NameChanged");
+
+      expect(event).to.not.be.null();
     });
   });
 });

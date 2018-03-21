@@ -8,6 +8,8 @@ const Token = artifacts.require("EIP20");
 const PLCRVoting = artifacts.require("PLCRVoting");
 const Newsroom = artifacts.require("Newsroom");
 
+const NEWSROOM_NAME = "unused newsroom name";
+
 configureChai(chai);
 const expect = chai.expect;
 
@@ -19,7 +21,7 @@ contract("Registry", (accounts) => {
     let token: any;
     let voting: any;
     let testNewsroom: any;
-    let address: string;
+    let newsroomAddress: string;
 
     beforeEach(async () => {
       registry = await utils.createAllTestRestrictedAddressRegistryWithAppealsInstance(accounts, JAB);
@@ -28,17 +30,17 @@ contract("Registry", (accounts) => {
       const votingAddress = await registry.voting();
       voting = await PLCRVoting.at(votingAddress);
 
-      testNewsroom = await Newsroom.new({ from: applicant });
-      address = testNewsroom.address;
+      testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
+      newsroomAddress = testNewsroom.address;
     });
 
     it("should transfer the correct number of tokens once a challenge has been resolved", async () => {
       // Apply
-      await registry.apply(address, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       const aliceStartingBalance = await token.balanceOf(voterAlice);
 
       // Challenge
-      const pollID = await utils.challengeAndGetPollID(address, challenger, registry);
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
       // Alice is so committed
       await utils.commitVote(voting, pollID, "0", "500", "420", voterAlice);
@@ -49,12 +51,12 @@ contract("Registry", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
       // Update status
-      await registry.updateStatus(address, { from: applicant });
+      await registry.updateStatus(newsroomAddress, { from: applicant });
 
       // Pass Request Appeal Phase without requesting
       const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
       await utils.advanceEvmTime(waitTime);
-      await registry.resolvePostAppealPhase(address);
+      await registry.resolvePostAppealPhase(newsroomAddress);
 
       // Alice claims reward
       const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
@@ -72,7 +74,7 @@ contract("Registry", (accounts) => {
     });
 
     it("should revert if challenge does not exist", async () => {
-      await utils.addToWhitelist(address, minDeposit, applicant, registry);
+      await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       const nonPollID = "666";
       await expect(registry.claimReward(nonPollID, "420", { from: voterAlice }))
@@ -82,9 +84,9 @@ contract("Registry", (accounts) => {
     it("should revert if provided salt is incorrect", async () => {
       const applicantStartingBalance = await token.balanceOf(applicant);
       const aliceStartBal = await token.balanceOf(voterAlice);
-      await utils.addToWhitelist(address, minDeposit, applicant, registry);
+      await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
-      const pollID = await utils.challengeAndGetPollID(address, challenger, registry);
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
       // Alice is so committed
       await utils.commitVote(voting, pollID, "0", "500", "420", voterAlice);
@@ -106,7 +108,7 @@ contract("Registry", (accounts) => {
       );
 
       // Update status
-      await registry.updateStatus(address, { from: applicant });
+      await registry.updateStatus(newsroomAddress, { from: applicant });
 
       await expect(registry.claimReward(pollID, "421", { from: voterAlice }))
         .to.eventually.be.rejectedWith(REVERTED);
@@ -116,10 +118,10 @@ contract("Registry", (accounts) => {
       const applicantStartingBalance = await token.balanceOf(applicant);
       const aliceStartingBalance = await token.balanceOf(voterAlice);
 
-      await utils.addToWhitelist(address, minDeposit, applicant, registry);
+      await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       // Challenge
-      const pollID = await utils.challengeAndGetPollID(address, challenger, registry);
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
       // Alice is so committed
       await utils.commitVote(voting, pollID, "0", "500", "420", voterAlice);
@@ -130,11 +132,11 @@ contract("Registry", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
       // Update status
-      await registry.updateStatus(address, { from: applicant });
+      await registry.updateStatus(newsroomAddress, { from: applicant });
 
       const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
       await utils.advanceEvmTime(waitTime);
-      await registry.resolvePostAppealPhase(address);
+      await registry.resolvePostAppealPhase(newsroomAddress);
 
       // Claim reward
       await registry.claimReward(pollID, "420", { from: voterAlice });
@@ -161,10 +163,10 @@ contract("Registry", (accounts) => {
       const applicantStartingBalance = await token.balanceOf(applicant);
       const aliceStartingBalance = await token.balanceOf(voterAlice);
 
-      await utils.addToWhitelist(address, minDeposit, applicant, registry);
+      await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       // Challenge
-      const pollID = await utils.challengeAndGetPollID(address, challenger, registry);
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
       // Alice is so committed
       await utils.commitVote(voting, pollID, "0", "500", "420", voterAlice);
@@ -192,10 +194,10 @@ contract("Registry", (accounts) => {
     });
 
     it("should not transfer tokens to majority voters if challenge is overturned on appeal", async () => {
-      await utils.addToWhitelist(address, minDeposit, applicant, registry);
+      await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       // Challenge
-      const pollID = await utils.challengeAndGetPollID(address, challenger, registry);
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, pollID, "0", "50", "42", voterAlice);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
@@ -203,14 +205,14 @@ contract("Registry", (accounts) => {
       await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.updateStatus(address, { from: applicant });
+      await registry.updateStatus(newsroomAddress, { from: applicant });
 
-      await registry.requestAppeal(address, { from: applicant });
-      await registry.grantAppeal(address, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
       const waitTime = Number(await registry.judgeAppealPhaseLength()) + 1;
       await utils.advanceEvmTime(waitTime);
 
-      await registry.resolvePostAppealPhase(address);
+      await registry.resolvePostAppealPhase(newsroomAddress);
 
       // Claim reward
       await expect(registry.claimReward(pollID, "42", { from: voterAlice })).to.be.rejectedWith(REVERTED,
@@ -223,10 +225,10 @@ contract("Registry", (accounts) => {
 
     it("should transfer tokens to minority voters if challenge is overturned on appeal", async () => {
       const bobStartingBalance = await token.balanceOf(voterBob);
-      await utils.addToWhitelist(address, minDeposit, applicant, registry);
+      await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       // Challenge
-      const pollID = await utils.challengeAndGetPollID(address, challenger, registry);
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, pollID, "0", "50", "42", voterAlice);
       await utils.commitVote(voting, pollID, "1", "30", "32", voterBob);
@@ -236,14 +238,14 @@ contract("Registry", (accounts) => {
       await voting.revealVote(pollID, "1", "32  ", { from: voterBob });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.updateStatus(address, { from: applicant });
+      await registry.updateStatus(newsroomAddress, { from: applicant });
 
-      await registry.requestAppeal(address, { from: applicant });
-      await registry.grantAppeal(address, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
       const waitTime = Number(await registry.judgeAppealPhaseLength());
       await utils.advanceEvmTime(waitTime + 1);
 
-      await registry.resolvePostAppealPhase(address);
+      await registry.resolvePostAppealPhase(newsroomAddress);
 
       // Claim reward
       await expect(registry.claimReward(pollID, "32", { from: voterBob })).to.be.fulfilled(

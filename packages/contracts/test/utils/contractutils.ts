@@ -25,7 +25,7 @@ const OwnedAddressTCRWithAppeals = artifacts.require("OwnedAddressTCRWithAppeals
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
 
-export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T> {
+export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T>|undefined {
   return tx.logs.find((log: any) => log.event === eventName);
 }
 
