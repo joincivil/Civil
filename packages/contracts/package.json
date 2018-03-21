@@ -1,7 +1,7 @@
 {
   "name": "@joincivil/contracts",
   "private": true,
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
     "build": "run-s compile build:stripArtifacts",
@@ -23,9 +23,9 @@
   "author": "The Civil Media Company",
   "license": "LGPL-2.1",
   "devDependencies": {
-    "@joincivil/dev-utils": "^1.1.0",
-    "@joincivil/tslint-rules": "^2.4.1",
-    "@joincivil/utils": "^1.1.0",
+    "@joincivil/dev-utils": "^1.2.0",
+    "@joincivil/tslint-rules": "^2.5.0",
+    "@joincivil/utils": "^1.1.1",
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
     "@types/glob": "^5.0.34",
