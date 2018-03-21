@@ -128,7 +128,7 @@ storiesOf("Civil Display View", module)
     });
 
 storiesOf("Civil Editable View", module)
-    .add("text nodes", () => {
+    .add("full editor", () => {
       const initialValue = Value.fromJSON(paragraphJson);
       return (<CivilEditor
           value={initialValue}

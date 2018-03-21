@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
 import styled from "styled-components";
-import { Mark } from "slate";
 import { constants } from "../index";
 
 export interface PullQuoteState {
@@ -12,6 +11,10 @@ export interface PullQuoteState {
 export interface StyledQuoteProps {
   [key: string]: any;
 }
+
+const EditViewQuote = styled<StyledQuoteProps, "span">("span")`
+  background-color: ${(props: StyledQuoteProps): string => props.readOnly ? "transparent" : "#E9E9EA"}
+`;
 
 const StyledQuote = styled<StyledQuoteProps, "p">("p")`
   font-family: "Libre Franklin", sans-serif;
@@ -80,7 +83,7 @@ export class PullQuote extends React.Component<any, PullQuoteState> {
     }
     return (<>
       {portalRendered}
-      <span {...this.props}/>
+      <EditViewQuote readOnly={this.props.editor.props.readOnly} {...this.props}/>
     </>);
   }
 }

@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
+import { LAST_CHILD_TYPE_INVALID } from "slate-schema-violations";
+import { Block } from "slate";
 
 export interface ParagraphProps {
   [key: string]: any;
@@ -26,6 +28,19 @@ export const paragraph = (options: any): Plugin => {
         const parentType = props.parent.type;
         return <P blockquote={parentType === "blockquote"} {...props}/>;
       }
+    },
+    schema: {
+      document: {
+        last: { types: [PARAGRAPH] },
+        normalize: (change: any, reason: string, { node, child }: { node: any, child: any}): void => {
+          switch (reason) {
+            case LAST_CHILD_TYPE_INVALID: {
+              const p = Block.create(PARAGRAPH);
+              return change.insertNodeByKey(node.key, node.nodes.size, p);
+            }
+          }
+        },
+      },
     },
   };
 };

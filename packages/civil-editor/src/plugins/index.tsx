@@ -9,8 +9,7 @@ import { italic, ITALIC } from "./italic";
 import { strikeThrough, STRIKE_THROUGH } from "./strikeThrough";
 import { link, LINK } from "./link";
 import { pullQuote, PULL_QUOTE } from "./pullQuote";
-import { image, IMAGE } from "./image";
-import { imageBreakout, IMAGE_BREAKOUT } from "./imageBreakout";
+import { image, IMAGE, IMAGE_BREAKOUT } from "./image";
 import { toolbar, TOOL_BAR } from "./toolbar";
 
 export type OnChangeFunc = (change: any) => any | void;
@@ -75,6 +74,5 @@ export const plugins = [
     link({}),
     pullQuote({}),
     image({}),
-    imageBreakout({}),
     toolbar({}),
 ] as Plugin[];

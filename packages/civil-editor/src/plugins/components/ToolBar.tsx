@@ -11,6 +11,7 @@ import {
   FormatStrikethrough,
   InsertPhoto,
 } from "material-ui-icons";
+import { ImageModal, ImageModalState } from "./ImageModal";
 
 import { constants, Plugin } from "../index";
 
@@ -27,43 +28,52 @@ export interface MarkObject {
   data: any;
 }
 
+export interface ToolBarState {
+  openImageModal: boolean;
+}
+
 const ToolBarWrapper = styled.div`
   position: fixed;
   display: flex;
   flex-direction: column;
   right: 10vw;
   top: 20px;
+  z-index: 10;
   svg, button {
     cursor: pointer;
     padding: 10px;
   }
   & path {
-    stroke: #97F3DE;
-    fill: #97F3DE;
-  }
-  & .active path {
     stroke: #2B56FF;
     fill: #2B56FF;
+  }
+  & .active path {
+    stroke: #30E8BD;
+    fill: #30E8BD;
   }
 `;
 
 const Button = styled.button`
+  background: transparent;
   font-family: "Libre Franklin", sans-serif;
   font-weight: 700;
-  color: #97F3DE;
+  color: #2B56FF;
   border: none;
   font-size: 18px;
   text-align: center;
   &.active{
-    color: #2B56FF;
+    color: #30E8BD;
   }
 `;
 
-export class ToolBar extends React.Component<ToolBarProps, {}> {
+export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
   public listPlugin: Plugin | void;
 
   constructor(props: ToolBarProps) {
     super(props);
+    this.state = {
+      openImageModal: false,
+    };
     this.listPlugin = props.plugins.find((item) => item.name === constants.LIST);
   }
 
@@ -131,8 +141,24 @@ export class ToolBar extends React.Component<ToolBarProps, {}> {
     this.props.onChange(change);
   }
 
+  public onImageApplyChange(change: ImageModalState): void {
+    const transform = this.props.value.change().insertBlock({
+      type: constants.IMAGE,
+      data: {
+        src: change.imageUrl,
+        style: change.imageFullWidth ? constants.IMAGE_BREAKOUT : constants.IMAGE,
+      },
+    });
+    this.props.onChange(transform);
+    this.setState({openImageModal: false});
+  }
+
   public renderButton(): JSX.Element | void {
     if (!this.props.readOnly) {
+      let imageModal = null;
+      if (this.state.openImageModal) {
+        imageModal = <ImageModal applyChange={this.onImageApplyChange.bind(this)}/>;
+      }
       const activeBlock = this.props.value.anchorBlock.type;
       return (<ToolBarWrapper>
         <Title
@@ -175,8 +201,14 @@ export class ToolBar extends React.Component<ToolBarProps, {}> {
           className={this.isActiveMark(constants.STRIKE_THROUGH) ? "active" : ""}
           onClick={(e: any) => this.onMarkClick(e, constants.STRIKE_THROUGH)}
         />
-        <InsertLink/>
-        <InsertPhoto/>
+        <InsertLink
+          className={this.isActiveMark(constants.LINK) ? "active" : ""}
+          onClick={(e: any) => this.onMarkClick(e, constants.LINK)}
+        />
+        <InsertPhoto
+          onClick={(e: any) => this.setState({openImageModal: true})}
+        />
+        {imageModal}
       </ToolBarWrapper>);
     }
   }
