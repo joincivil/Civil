@@ -16,12 +16,12 @@ export async function apply(address: EthAddress, optionalCivil?: Civil): Promise
   if (approvedTokensForSpender.toNumber() < 1000) {
     const tokensToApprove = 1000;
     console.log("approve this many tokens: " + tokensToApprove);
-    const twoStep = await eip.approveSpender(tcr.address, new BigNumber(tokensToApprove));
-    twoStep.awaitReceipt();
+    const approveTransaction = await eip.approveSpender(tcr.address, new BigNumber(tokensToApprove));
+    await approveTransaction.awaitReceipt();
   }
   // TODO: await receipt properly
-  const { awaitReceipt } = await tcr.apply(address, new BigNumber(1000), "test");
-  const applyReceipt = await awaitReceipt;
+  const applyTransaction = await tcr.apply(address, new BigNumber(1000), "test");
+  await applyTransaction.awaitReceipt();
   console.log("Applied to TCR");
 }
 
@@ -35,12 +35,13 @@ export async function challenge(address: EthAddress, optionalCivil?: Civil): Pro
 
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
   if (approvedTokensForSpender.toNumber() < 1000) {
-    await eip.approveSpender(tcr.address, new BigNumber(1000));
+    const approveTransaction = await eip.approveSpender(tcr.address, new BigNumber(1000));
+    await approveTransaction.awaitReceipt();
   }
 
   // TODO: await receipt properly
-  const { awaitReceipt } = await tcr.challenge(address, "test");
-  const applyReceipt = await awaitReceipt;
+  const challengeTransaction = await tcr.challenge(address, "test");
+  await challengeTransaction.awaitReceipt();
   console.log("Challenged TCR Listing");
 }
 
@@ -58,8 +59,8 @@ export async function commitVote(
   const voting = await civil.getVotingForDeployedTCR();
   const prevPollID = await voting.getPrevPollID(numTokens);
 
-  const awaitCommit = await voting.commitVote(pollID, secretHash, numTokens, prevPollID);
-  const await2 = await awaitCommit.awaitReceipt;
+  const commitTransaction = await voting.commitVote(pollID, secretHash, numTokens, prevPollID);
+  await commitTransaction.awaitReceipt();
   console.log("Vote Committed.");
 }
 
@@ -71,12 +72,12 @@ export async function revealVote(
 ): Promise<void> {
   const civil = optionalCivil || new Civil();
 
-  console.log("Commiting Vote.");
+  console.log("Revealing Vote.");
   const voting = await civil.getVotingForDeployedTCR();
 
-  const awaitCommit = await voting.revealVote(pollID, voteOption, salt);
-  const await2 = await awaitCommit.awaitReceipt;
-  console.log("Vote Committed.");
+  const revealTransaction = await voting.revealVote(pollID, voteOption, salt);
+  await revealTransaction.awaitReceipt();
+  console.log("Vote Revealed.");
 }
 
 export async function requestVotingRights(
@@ -91,12 +92,14 @@ export async function requestVotingRights(
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
   if (approvedTokensForSpender < numTokens) {
     console.log("approving voting contract as token spender");
-    await eip.approveSpender(voting.address, numTokens);
+    const approveSpender = await eip.approveSpender(voting.address, numTokens);
+    await approveSpender.awaitReceipt();
     console.log("voting contract approved");
   }
 
   console.log("Requesting Voting Rights");
-  await voting.requestVotingRights(numTokens);
+  const requestRights = await voting.requestVotingRights(numTokens);
+  await requestRights.awaitReceipt();
   console.log("Voting Rights Requested");
 }
 
@@ -120,8 +123,8 @@ export async function updateStatus(address: EthAddress, optionalCivil?: Civil): 
   const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
 
   // TODO: await receipt properly
-  const { awaitReceipt } = await tcr.updateListing(address);
-  const applyReceipt = await awaitReceipt;
+  const udpateTransaction = await tcr.updateListing(address);
+  await udpateTransaction.awaitReceipt();
   console.log("Listing Status Updated");
 }
 
@@ -132,7 +135,7 @@ export async function resolvePostAppeal(address: EthAddress, optionalCivil?: Civ
   const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
 
   // TODO: await receipt properly
-  const { awaitReceipt } = await tcr.resolvePostAppealPhase(address);
-  const applyReceipt = await awaitReceipt;
+  const resolveTransaction = await tcr.resolvePostAppealPhase(address);
+  await resolveTransaction.awaitReceipt();
   console.log("Post Appeal Phase Resolved");
 }
