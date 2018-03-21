@@ -114,8 +114,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       .distinctUntilChanged((a, b) => {
         return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
       })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInChallengedCommitVotePhase(listingAddress));
+      .map((e) => (e.args))
+      .concatFilter(async (e) => this.isInChallengedCommitVotePhase(e.listingAddress, e.pollID))
+      .map((e) => e.listingAddress);
   }
 
   /**
@@ -130,8 +131,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       .distinctUntilChanged((a, b) => {
         return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
       })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInChallengedRevealVotePhase(listingAddress));
+      .map((e) => (e.args))
+      .concatFilter(async (e) => this.isInChallengedRevealVotePhase(e.listingAddress, e.pollID))
+      .map((e) => e.listingAddress);
   }
 
   /**
@@ -278,13 +280,22 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Checks if a listing address is in challenged commit vote phase
    * @param listingAddress Address of potential listing to check
    */
-  public async isInChallengedCommitVotePhase(listingAddress: EthAddress): Promise<boolean> {
+  public async isInChallengedCommitVotePhase(
+    listingAddress: EthAddress,
+    pollID?: BigNumber,
+  ): Promise<boolean> {
     let isInCommitPhase = true;
 
     // if there is no challenge
     const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
     if (challenge.toNumber() === 0) {
       isInCommitPhase = false;
+    }
+
+    if (pollID) {
+      if (!challenge.equals(pollID)) {
+        isInCommitPhase = false;
+      }
     }
 
     // if commit period not active
@@ -301,13 +312,22 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Checks if a listing address is in challenged commit vote phase
    * @param listingAddress Address of potential listing to check
    */
-  public async isInChallengedRevealVotePhase(listingAddress: EthAddress): Promise<boolean> {
+  public async isInChallengedRevealVotePhase(
+    listingAddress: EthAddress,
+    pollID?: BigNumber,
+  ): Promise<boolean> {
     let isInRevealPhase = true;
 
     // if there is no challenge
     const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
     if (challenge.toNumber() === 0) {
       isInRevealPhase = false;
+    }
+
+    if (pollID) {
+      if (!challenge.equals(pollID)) {
+        isInRevealPhase = false;
+      }
     }
 
     // if reveal period not active
