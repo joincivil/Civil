@@ -78,8 +78,8 @@ export class Civil {
    * The smart contract is trusted since it comes from a trusted source (us).
    * This call may require user input - such as approving a transaction in Metamask
    */
-  public async newsroomDeployTrusted(): Promise<TwoStepEthTransaction<Newsroom>> {
-    return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider);
+  public async newsroomDeployTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
+    return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider, newsroomName);
   }
 
   /**

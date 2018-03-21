@@ -16,7 +16,7 @@ const data: TxData = {
 
 (async () => {
   console.log("Deploying contract");
-  const deployTxHash = await NewsroomContract.deployTrusted.sendTransactionAsync(web3, data);
+  const deployTxHash = await NewsroomContract.deployTrusted.sendTransactionAsync(web3, "My Test Newsroom", data);
   const receipt = await web3.awaitReceipt(deployTxHash);
   // tslint:disable no-non-null-assertion */
   const newsroom = NewsroomContract.atUntrusted(web3, receipt.contractAddress!);
