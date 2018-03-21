@@ -14,6 +14,23 @@ block content
   div(style = "border : thick solid #0000FF")#challenge.hidden
     h3 Challenge
     #challengeInfo info...
+    br
+    div#commitVote.hidden
+      | Commit Vote in Challenge
+      br
+      input#param-commitVotePollId(type="text")
+      input#param-commitVoteOption(type="text")
+      input#param-commitVoteSalt(type="text")
+      input#param-commitNumTokens(type="text")
+      button#param-commitVote Commit Vote
+    div#revealVote.hidden
+      | Reveal Vote in Challenge
+      br
+      input#param-revealVotePollId(type="text")
+      input#param-revealVoteOption(type="text")
+      input#param-revealVoteSalt(type="text")
+      button#param-revealVote Reveal Vote
+
 
   div(style = "border : thick solid #0000FF")#appeal.hidden
     h3 Appeal
@@ -31,5 +48,12 @@ block content
   button#param-updateListingStatus Update Listing
   br
 
+  | Resolve Listing Post-Appeal
+  button#param-resolvePostAppeal Resolve Post Appeal
+  br
+
   | Propose and Approve Article
   button#param-proposeAndApprove Propose and Approve
+  br
+
+

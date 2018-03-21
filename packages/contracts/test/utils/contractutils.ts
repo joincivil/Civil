@@ -7,7 +7,7 @@ import { promisify } from "util";
 import * as Web3 from "web3";
 /* tslint:enable no-implicit-dependencies */
 
-import { advanceEvmTime } from "@joincivil/dev-utils";
+import { advanceEvmTime, getVoteSaltHash } from "@joincivil/dev-utils";
 
 // advanceEvmTime was moved to dev-utils
 // We would need to update ALL the tests, this is a workaround
@@ -99,10 +99,6 @@ export async function addToWhitelist(
 
 export function toBaseTenBigNumber(p: number): BigNumber {
   return new BigNumber(p.toString(10), 10);
-}
-
-export function getVoteSaltHash(vote: string, salt: string): string {
-  return `0x${abi.soliditySHA3(["uint", "uint"], [vote, salt]).toString("hex")}`;
 }
 
 export async function commitVote( voting: any,

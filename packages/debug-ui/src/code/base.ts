@@ -1,8 +1,9 @@
 import { Civil } from "@joincivil/core";
 import * as marked from "marked";
-import BN from "bignumber.js";
+import BN, { BigNumber } from "bignumber.js";
 
 import { setIndexListeners } from "./listeners";
+import { requestVotingRights, withdrawVotingRights } from "../../scripts/tcrActions";
 
 // Metamask is injected after full load
 window.addEventListener("load", async () => {
@@ -14,6 +15,30 @@ window.addEventListener("load", async () => {
   }
 
   const token = await civil.getEIP20ForDeployedTCR();
-  const balance = await token.getBalance(civil.userAccount);
+  const balance = await token.getBalance();
   document.getElementById("cvlBalance")!.innerHTML = "CVL Balance: " + balance;
+
+  const voting = await civil.getVotingForDeployedTCR();
+  const votingTokens = await voting.getNumVotingRights();
+  document.getElementById("votingRights")!.innerHTML = "Voting Rights: " + votingTokens;
+
+  setHeaderListeners();
 });
+
+function setHeaderListeners(): void {
+  const getRightsButton = document.getElementById("param-requestVotingRights")!;
+  getRightsButton.onclick = async () => {
+    const numRightsRequested = document.getElementById("param-numRightsToRequest")!.value;
+    const numRights = new BigNumber(numRightsRequested);
+    console.log("request voting rights: " + numRights);
+    await requestVotingRights(numRights);
+  };
+
+  const withdrawRightsButton = document.getElementById("param-withdrawVotingRights")!;
+  withdrawRightsButton.onclick = async () => {
+    const numRightsToWithdraw = document.getElementById("param-numRightsToWithdraw")!.value;
+    const numRights = new BigNumber(numRightsToWithdraw);
+    console.log("withdraw voting rights: " + numRights);
+    await withdrawVotingRights(numRights);
+  };
+}

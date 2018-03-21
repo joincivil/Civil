@@ -353,11 +353,19 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       return new BigNumber(0);
     }
   }
+
   /**
    * Get address for token used with this TCR
    */
   public async getTokenAddress(): Promise<EthAddress> {
     return this.instance.token.callAsync();
+  }
+
+  /**
+   * Get address for voting contract used with this TCR
+   */
+  public async getVotingAddress(): Promise<EthAddress> {
+    return this.instance.voting.callAsync();
   }
 
   /**
@@ -375,6 +383,10 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async challengeExists(listingAddress: EthAddress): Promise<boolean> {
     return this.instance.challengeExists.callAsync(listingAddress);
+  }
+
+  public async getListingChallengeID(listingAddress: EthAddress): Promise<BigNumber> {
+    return this.instance.getListingChallengeID.callAsync(listingAddress);
   }
 
   /**
@@ -523,6 +535,19 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.updateStatus.sendTransactionAsync(listingAddress),
+    );
+  }
+
+  /**
+   * Updates status of a listing after appeal phase(s) are over
+   * @param address Address of listing to resolve appeal for
+   */
+  public async resolvePostAppealPhase(
+    listingAddress: EthAddress,
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.resolvePostAppealPhase.sendTransactionAsync(listingAddress),
     );
   }
 
