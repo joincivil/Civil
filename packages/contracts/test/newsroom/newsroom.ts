@@ -186,9 +186,9 @@ contract("Newsroom", (accounts: string[]) => {
       const tx = await newsroom.proposeContent(SOME_URI);
       const event = findEvent(tx, events.NEWSROOM_PROPOSED);
       expect(event).to.not.be.undefined();
-      // tslint:enable no-non-null-assertion
-      expect(event!.args.author).to.be.equal(defaultAccount);
       // tslint:disable no-non-null-assertion
+      expect(event!.args.author).to.be.equal(defaultAccount);
+      // tslint:enable no-non-null-assertion
     });
 
     it("fails without reporter role", async () => {
