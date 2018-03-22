@@ -3,10 +3,11 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
 import { CHILD_TYPE_INVALID } from "slate-schema-violations";
+import { colorConstants } from "../colorConstants";
 
 export const Blockquote = styled.blockquote`
   max-width: 450px;
-  border-left: 1px solid #30E8BD;
+  border-left: 1px solid ${colorConstants.ACCENT_GREEN};
   padding-left: 20px;
 `;
 

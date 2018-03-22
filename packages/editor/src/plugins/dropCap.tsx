@@ -2,6 +2,7 @@ import * as React from "react";
 // @ts-ignore
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
+import {colorConstants} from "../colorConstants";
 
 export const DropCap = styled.span`
   float: left;
@@ -9,7 +10,7 @@ export const DropCap = styled.span`
   margin-right: 10px;
   line-height: 100%;
   padding-top: 5px;
-  color: #000000;
+  color: ${colorConstants.BLACK};
   text-transform: uppercase;
 `;
 

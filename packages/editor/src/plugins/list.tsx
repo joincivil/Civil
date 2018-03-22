@@ -3,12 +3,13 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
 import EditList from "slate-edit-list";
+import { colorConstants } from "../colorConstants";
 
 const editList = EditList();
 
 export const Ul = styled.ul`
   list-style: square;
-  color: #5a5653;
+  color: ${colorConstants.PRIMARY_DARK_GREY};
 `;
 
 export const Li = styled.li`
@@ -16,7 +17,7 @@ export const Li = styled.li`
 `;
 
 export const Ol = styled.ol`
-  color: #5a5653;
+  color: ${colorConstants.PRIMARY_DARK_GREY};
   font-family: 'Spectral', serif;
   font-size: 21px;
 `;

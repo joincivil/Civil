@@ -3,6 +3,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { InsertLink } from "material-ui-icons";
 import { Modal, ModalInner, Input, FormGroup, Label, Button } from "./Modal";
+import { colorConstants } from "../../colorConstants";
 
 export interface LinkProps {
   editor: any;
@@ -20,13 +21,13 @@ export interface LinkState {
 export const LinkElement = styled.a`
   text-decoration: none;
   color: #5a5653;
-  border-bottom: 2px solid #30E8BD;
+  border-bottom: 2px solid ${colorConstants.ACCENT_GREEN};
   cursor: pointer;
   &:hover{
-    border-bottom: 2px solid #97F3DE;
+    border-bottom: 2px solid ${colorConstants.ACCENT_FADED_GREEN};
   }
   &:visited{
-    border-bottom: 2px solid #4066FF;
+    border-bottom: 2px solid ${colorConstants.ACCENT_BLUE};
   }
 `;
 

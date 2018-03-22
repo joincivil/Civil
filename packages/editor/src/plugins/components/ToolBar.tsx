@@ -13,6 +13,7 @@ import {
   InsertPhoto,
 } from "material-ui-icons";
 import { ImageModal, ImageModalState } from "./ImageModal";
+import { colorConstants } from "../../colorConstants";
 
 import { constants, Plugin } from "../index";
 
@@ -45,12 +46,12 @@ const ToolBarWrapper = styled.div`
     padding: 10px;
   }
   & path {
-    stroke: #2B56FF;
-    fill: #2B56FF;
+    stroke: ${colorConstants.PRIMARY_BLUE};
+    fill: ${colorConstants.PRIMARY_BLUE};
   }
   & .active path {
-    stroke: #30E8BD;
-    fill: #30E8BD;
+    stroke: ${colorConstants.ACCENT_GREEN};
+    fill: ${colorConstants.ACCENT_GREEN};
   }
 `;
 
@@ -58,12 +59,12 @@ const Button = styled.button`
   background: transparent;
   font-family: "Libre Franklin", sans-serif;
   font-weight: 700;
-  color: #2B56FF;
+  color: ${colorConstants.PRIMARY_BLUE};
   border: none;
   font-size: 18px;
   text-align: center;
   &.active{
-    color: #30E8BD;
+    color: ${colorConstants.ACCENT_GREEN};
   }
 `;
 

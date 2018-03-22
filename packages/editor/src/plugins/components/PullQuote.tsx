@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 // @ts-ignore
 import styled, {StyledComponentClass} from "styled-components";
+import {colorConstants} from "../../colorConstants";
 
 export interface PullQuoteState {
   destination?: HTMLElement | null | void;
@@ -19,7 +20,7 @@ const EditViewQuote = styled<StyledQuoteProps, "span">("span")`
 const StyledQuote = styled<StyledQuoteProps, "p">("p")`
   font-family: "Libre Franklin", sans-serif;
   font-weight: 700;
-  border-bottom: 5px solid #000000;
+  border-bottom: 5px solid ${colorConstants.BLACK};
   font-size: 26px;
   padding-bottom: 10px;
   margin-right: 30px;

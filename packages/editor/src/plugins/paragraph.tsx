@@ -4,6 +4,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
 import { LAST_CHILD_TYPE_INVALID } from "slate-schema-violations";
 import { Block } from "slate";
+import { colorConstants } from "../colorConstants";
 
 export interface ParagraphProps {
   [key: string]: any;
@@ -16,7 +17,7 @@ export const P = styled<ParagraphProps, "p">("p")`
   line-height: ${(props) => props.blockquote ? "20px" : "34px"};
   margin-top: 0;
   margin-bottom: 13px;
-  color: #5a5653;
+  color: ${colorConstants.PRIMARY_DARK_GREY};
 `;
 
 export const PARAGRAPH = "paragraph";

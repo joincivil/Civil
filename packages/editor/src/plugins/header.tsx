@@ -2,6 +2,7 @@ import * as React from "react";
 // @ts-ignore
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
+import {colorConstants} from "../colorConstants";
 
 export const Header = styled.h2`
   font-family: 'Spectral', serif;
@@ -10,7 +11,7 @@ export const Header = styled.h2`
   line-height: 51px;
   margin-top: 25px;
   margin-bottom: 5px;
-  color: #000000;
+  color: ${colorConstants.BLACK};
 `;
 
 export const PlaceholderHeader = styled.span`

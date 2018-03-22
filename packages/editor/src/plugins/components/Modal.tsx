@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 // @ts-ignore
 import styled, {StyledComponentClass} from "styled-components";
+import { colorConstants } from "../../colorConstants";
 
 const ModalWrapper = styled.div`
   display: flex;
@@ -16,8 +17,8 @@ const ModalWrapper = styled.div`
 
 export const ModalInner = styled.div`
   min-width: 250px;
-  background-color: #fff;
-  border: 1px solid #E9E9EA;
+  background-color: ${colorConstants.WHITE};
+  border: 1px solid ${colorConstants.ACCENT_FADED_GREY};
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -40,15 +41,15 @@ export const Label = styled.label`
 export const Button = styled.button`
   border: none;
   font-size: 16px;
-  background-color: #2B56FF;
+  background-color: ${colorConstants.PRIMARY_BLUE};
   padding: 10px 20px;
   margin-top: 15px;
   margin-bottom: 15px;
-  color: #fff;
+  color: ${colorConstants.WHITE};
   border-radius: 1px;
   cursor: pointer;
   &:hover{
-    background-color: #4066FF;
+    background-color: ${colorConstants.ACCENT_BLUE};
   }
 `;
 
