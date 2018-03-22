@@ -2,7 +2,6 @@ import * as chaiAsPromised from "chai-as-promised";
 import * as chaiBignumber from "chai-bignumber";
 import * as dirtyChai from "dirty-chai";
 import * as Web3 from "web3";
-import abi = require("ethereumjs-abi");
 
 export function configureChai(chai: any): void {
   chai.config.includeStack = true;
@@ -57,8 +56,4 @@ export function getParamFromTxEvent<T>(tx: Web3.TransactionReceipt, param: strin
     throw new Error("No param found with name: " + param + " in event: " + event);
   }
   return paramAny as T;
-}
-
-export function getVoteSaltHash(vote: string, salt: string): string {
-  return `0x${abi.soliditySHA3(["uint", "uint"], [vote, salt]).toString("hex")}`;
 }

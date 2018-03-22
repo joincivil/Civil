@@ -1,7 +1,6 @@
 declare module "dirty-chai";
 declare module "chai-bignumber";
 declare module "bn.js";
-declare module "ethereumjs-abi";
 
 declare namespace Chai {
   interface Assertion {

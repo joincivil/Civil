@@ -1,5 +1,5 @@
 import { Civil } from "@joincivil/core";
-import { getVoteSaltHash } from "@joincivil/dev-utils";
+import { getVoteSaltHash } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import { Bytes32, EthAddress } from "../../core/build/src/types";
 

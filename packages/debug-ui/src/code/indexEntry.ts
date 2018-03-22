@@ -1,8 +1,7 @@
 import { Civil } from "@joincivil/core";
 import * as marked from "marked";
 import BN from "bignumber.js";
-
-import { setIndexListeners } from "./listeners";
+import { deployNewsroom } from "../../scripts/deploy-newsroom";
 
 // Metamask is injected after full load
 window.addEventListener("load", async () => {
@@ -31,3 +30,11 @@ window.addEventListener("load", async () => {
   });
   document.getElementById("tcrInfo")!.innerHTML += "<br>Token: " + await tcr.getTokenAddress();
 });
+
+function setIndexListeners(): void {
+  const deployButton = document.getElementById("param-deployNewsroom")!;
+  deployButton.onclick = async (event) => {
+    const newsroomAddress = await deployNewsroom("Test name");
+    window.location.assign("/newsroom.html?address=" + newsroomAddress);
+  };
+}

@@ -2,7 +2,6 @@ import { Civil } from "@joincivil/core";
 import * as marked from "marked";
 import BN, { BigNumber } from "bignumber.js";
 
-import { setIndexListeners } from "./listeners";
 import { requestVotingRights, withdrawVotingRights } from "../../scripts/tcrActions";
 
 // Metamask is injected after full load
