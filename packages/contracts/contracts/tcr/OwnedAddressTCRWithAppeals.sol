@@ -198,14 +198,15 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
 
 /**
   @dev                Updates a listing's status from 'application' to 'listing' or resolves
-                      a challenge if one exists.
+                      a challenge or appeal if one exists.
   @param listingAddress The listingAddress whose status is being updated
   */
   function updateStatus(address listingAddress) public {
+    Appeal storage appeal = appeals[listingAddress];
     if (canBeWhitelisted(listingAddress)) {
       whitelistApplication(listingAddress);
       NewListingWhitelisted(listingAddress);
-    } else if (challengeCanBeResolved(listingAddress)) {
+    } else if (challengeCanBeResolved(listingAddress) && (voting.isPassed(listingAddress) || appeal.requestAppealPhaseExpiry == 0)) {
       resolveChallenge(listingAddress);
     } else {
       resolvePostAppealPhase(listingAddress);

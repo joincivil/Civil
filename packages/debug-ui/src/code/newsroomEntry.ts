@@ -1,5 +1,5 @@
 import { Civil, ListingState } from "@joincivil/core";
-import { apply, challenge, updateStatus, commitVote, resolvePostAppeal, revealVote } from "../../scripts/tcrActions";
+import { apply, challenge, updateStatus, commitVote, revealVote } from "../../scripts/tcrActions";
 import { BigNumber } from "bignumber.js";
 
 // Metamask is injected after full load
