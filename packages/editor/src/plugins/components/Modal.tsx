@@ -38,18 +38,30 @@ export const Label = styled.label`
   margin-right: 10px;
 `;
 
+export const ButtonZone = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const Button = styled.button`
   border: none;
+  min-width: 100px;
   font-size: 16px;
   background-color: ${colorConstants.PRIMARY_BLUE};
   padding: 10px 20px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin: 15px 10px;
   color: ${colorConstants.WHITE};
   border-radius: 1px;
   cursor: pointer;
   &:hover{
     background-color: ${colorConstants.ACCENT_BLUE};
+  }
+`;
+
+export const SecondaryButton = Button.extend`
+  background-color: ${colorConstants.ACCENT_GREY};
+  &:hover{
+    background-color: ${colorConstants.ACCENT_FADED_GREY};
   }
 `;
 

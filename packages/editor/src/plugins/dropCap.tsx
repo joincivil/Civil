@@ -6,7 +6,9 @@ import {colorConstants} from "../colorConstants";
 
 export const DropCap = styled.span`
   float: left;
-  font-size: 250%;
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: 800;
+  font-size: 63px;
   margin-right: 10px;
   line-height: 100%;
   padding-top: 5px;

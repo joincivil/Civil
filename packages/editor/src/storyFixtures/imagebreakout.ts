@@ -17,8 +17,9 @@ export const imageBreakoutJson = {
       },
       {
         object: "block",
-        type: "image_breakout",
+        type: "image",
         data: {
+          style: "image_breakout",
           src: "https://www.joelsartore.com/assets/stock/ANI094/ANI094-00011-700x466.jpg",
         },
       },

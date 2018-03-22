@@ -10,6 +10,7 @@ import { olJson } from "./storyFixtures/ol";
 import { blockquoteJson } from "./storyFixtures/blockquote";
 import { dropCapJson } from "./storyFixtures/dropCap";
 import { boldJson } from "./storyFixtures/bold";
+import { runinJson } from "./storyFixtures/runin";
 import { italicJson } from "./storyFixtures/italic";
 import { strikeThroughJson } from "./storyFixtures/strikeThrough";
 import { linkJson } from "./storyFixtures/link";
@@ -70,6 +71,14 @@ storiesOf("Civil Display View", module)
         />);
     }).add("bold", () => {
       const initialValue = Value.fromJSON(boldJson);
+      return (<CivilEditor
+          value={initialValue}
+          onChange={onChange}
+          plugins={plugins}
+          readOnly
+        />);
+    }).add("run in", () => {
+      const initialValue = Value.fromJSON(runinJson);
       return (<CivilEditor
           value={initialValue}
           onChange={onChange}

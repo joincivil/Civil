@@ -13,10 +13,12 @@ export interface ParagraphProps {
 export const P = styled<ParagraphProps, "p">("p")`
   font-family: 'Spectral', serif;
   font-weight: 400;
-  font-size: ${(props) => props.blockquote ? "15px" : "21px"};
-  line-height: ${(props) => props.blockquote ? "20px" : "34px"};
+  font-size: ${(props) => props.blockquote ? "16px" : "21px"};
+  line-height: ${(props) => props.blockquote ? "20px" : "33px"};
   margin-top: 0;
   margin-bottom: 13px;
+  font-variant-numeric: oldstyle-nums;
+  font-feature-settings: onum;
   color: ${colorConstants.PRIMARY_DARK_GREY};
 `;
 

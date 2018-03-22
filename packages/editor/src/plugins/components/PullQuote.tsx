@@ -19,9 +19,10 @@ const EditViewQuote = styled<StyledQuoteProps, "span">("span")`
 
 const StyledQuote = styled<StyledQuoteProps, "p">("p")`
   font-family: "Libre Franklin", sans-serif;
-  font-weight: 700;
+  font-weight: 800;
   border-bottom: 5px solid ${colorConstants.BLACK};
-  font-size: 26px;
+  font-size: 28px;
+  line-height: 30px;
   padding-bottom: 10px;
   margin-right: 30px;
   cursor: ${(props) => props.readOnly ? "text" : "move"};

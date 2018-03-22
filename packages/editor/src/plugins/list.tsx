@@ -13,7 +13,7 @@ export const Ul = styled.ul`
 `;
 
 export const Li = styled.li`
-  margin: 11px 0;
+  margin: 12px 0;
 `;
 
 export const Ol = styled.ol`

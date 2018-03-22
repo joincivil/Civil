@@ -19,6 +19,7 @@ export const imageJson = {
         object: "block",
         type: "image",
         data: {
+          style: "image",
           src: "https://www.joelsartore.com/assets/stock/ANI094/ANI094-00011-700x466.jpg",
         },
       },

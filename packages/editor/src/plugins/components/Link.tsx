@@ -2,7 +2,7 @@ import * as React from "react";
 // @ts-ignore
 import styled, { StyledComponentClass } from "styled-components";
 import { InsertLink } from "material-ui-icons";
-import { Modal, ModalInner, Input, FormGroup, Label, Button } from "./Modal";
+import { Modal, ModalInner, Input, FormGroup, Label, Button, SecondaryButton, ButtonZone } from "./Modal";
 import { colorConstants } from "../../colorConstants";
 
 export interface LinkProps {
@@ -88,6 +88,16 @@ export class Link extends React.Component<LinkProps, LinkState> {
       );
     });
   }
+  public removeLink(e: any): void {
+    this.props.editor.change((change: any): void => {
+      change.removeMarkByKey(
+        this.props.node.key,
+        this.props.offset,
+        this.props.text.length,
+        this.props.mark,
+      );
+    });
+  }
   public render(): JSX.Element {
     let linkEditButton = null;
     let linkEditModal = null;
@@ -108,7 +118,10 @@ export class Link extends React.Component<LinkProps, LinkState> {
                 onChange={(e: any): void => this.updateAddress(e)}
                />
             </FormGroup>
-            <Button onClick={(e: any): void => this.setAddress(e)}>Apply</Button>
+            <ButtonZone>
+              <Button onClick={(e: any): void => this.setAddress(e)}>Apply</Button>
+              <SecondaryButton onClick={(e: any): void => this.removeLink(e)}>Remove</SecondaryButton>
+            </ButtonZone>
           </ModalInner>
         </Modal>);
       }

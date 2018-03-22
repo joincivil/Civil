@@ -7,7 +7,7 @@ import { colorConstants } from "../colorConstants";
 
 export const Blockquote = styled.blockquote`
   max-width: 450px;
-  border-left: 1px solid ${colorConstants.ACCENT_GREEN};
+  border-left: 2px solid ${colorConstants.ACCENT_GREEN};
   padding-left: 20px;
 `;
 

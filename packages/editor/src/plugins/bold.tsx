@@ -4,7 +4,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
 
 export const Bold = styled.span`
-  font-weight: 800;
+  font-weight: 700;
 `;
 
 export const BOLD = "bold";

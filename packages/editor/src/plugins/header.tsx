@@ -8,7 +8,7 @@ export const Header = styled.h2`
   font-family: 'Spectral', serif;
   font-weight: 800;
   font-size: 27px;
-  line-height: 51px;
+  line-height: 33px;
   margin-top: 25px;
   margin-bottom: 5px;
   color: ${colorConstants.BLACK};
