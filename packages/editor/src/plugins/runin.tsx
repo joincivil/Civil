@@ -6,8 +6,10 @@ import {colorConstants} from "../colorConstants";
 
 export const RunIn = styled.span`
   font-family: 'Libre Franklin', sans-serif;
-  font-weight: 700;
-  font-size: 19px;
+  font-weight: 800;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   color: ${colorConstants.BLACK};
 `;
 
