@@ -125,14 +125,3 @@ export async function updateStatus(address: EthAddress, optionalCivil?: Civil): 
   await udpateTransaction.awaitReceipt();
   console.log("Listing Status Updated");
 }
-
-export async function resolvePostAppeal(address: EthAddress, optionalCivil?: Civil): Promise<void> {
-  const civil = optionalCivil || new Civil();
-
-  console.log("Resolve Post Appeal Phase");
-  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
-
-  const resolveTransaction = await tcr.resolvePostAppealPhase(address);
-  await resolveTransaction.awaitReceipt();
-  console.log("Post Appeal Phase Resolved");
-}

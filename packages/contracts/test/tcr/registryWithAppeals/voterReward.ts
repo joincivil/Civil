@@ -49,7 +49,7 @@ contract("Registry", (accounts) => {
       const waitTime = Number(await registry.judgeAppealPhaseLength());
       await utils.advanceEvmTime(waitTime + 1);
 
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       await expect(registry.voterReward(voterAlice, pollID, "42")).to.be.rejectedWith(REVERTED,
         "should have reverted since voter commit hash does not match winning hash for salt");
@@ -77,7 +77,7 @@ contract("Registry", (accounts) => {
       const waitTime = Number(await registry.judgeAppealPhaseLength());
       await utils.advanceEvmTime(waitTime + 1);
 
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       // Claim reward
       const bobReward = await registry.voterReward(voterBob, pollID, "32");

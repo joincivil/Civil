@@ -105,17 +105,6 @@ function setNewsroomListeners(): void {
     }
   };
 
-  const resolvePostAppealButton = document.getElementById("param-resolvePostAppeal")!;
-  resolvePostAppealButton.onclick = async (event) => {
-    if (address) {
-      // TODO(nickreynolds): turn off button, display "updating..."
-      await resolvePostAppeal(address, civil);
-      // TODO(nickreynolds): show success
-    } else {
-      console.error("newsroom address not found in params");
-    }
-  };
-
   const proposeAndApproveButton = document.getElementById("param-proposeAndApprove")!;
   proposeAndApproveButton.onclick = async (event) => {
     // TODO(nickreynolds): fix fs

@@ -99,7 +99,7 @@ contract("Registry With Appeals", (accounts) => {
       await registry.updateStatus(newsroomAddress);
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       // 2nd time around
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant});
@@ -119,7 +119,7 @@ contract("Registry With Appeals", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(newsroomAddress);
       await utils.advanceEvmTime(259250); // hack. should be getting value from registry contract
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       // 2nd time around
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant});

@@ -633,19 +633,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   }
 
   /**
-   * Updates status of a listing after appeal phase(s) are over
-   * @param address Address of listing to resolve appeal for
-   */
-  public async resolvePostAppealPhase(
-    listingAddress: EthAddress,
-  ): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.web3Wrapper,
-      await this.instance.resolvePostAppealPhase.sendTransactionAsync(listingAddress),
-    );
-  }
-
-  /**
    * Claims reward associated with challenge
    * @param challengeID ID of challenge to claim reward of
    * @param salt Salt for user's vote on specified challenge
