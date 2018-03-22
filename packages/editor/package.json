@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/editor",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Editor for civil formatted articles",
   "main": "build/index.js",
   "license": "Apache-2.0",
@@ -22,18 +22,18 @@
     ]
   },
   "scripts": {
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "test": "jest",
-    "prepublish": "yarn build",
     "build": "tsc",
-    "lint": "tslint --project ./",
-    "clean": "rimraf build/"
+    "lint": "tslint --exclude \"**/storyFixtures/**\" --project ./",
+    "clean": "rimraf build/",
+    "prepublish": "yarn build",
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "storybook:build": "build-storybook -c .storybook -o out",
+    "test": "jest"
   },
   "devDependencies": {
     "@storybook/addon-storyshots": "^3.3.14",
     "@storybook/react": "^3.3.14",
     "@types/enzyme": "^3.1.9",
-    "@types/enzyme-adapter-react-16": "^1.0.2",
     "@types/jest": "^22.1.4",
     "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.39",
@@ -54,7 +54,6 @@
     "strip-ansi": "^4.0.0",
     "ts-jest": "^22.4.0",
     "ts-loader": "^3",
-    "tslint-react": "^3.5.1",
     "typescript": "^2.7.2",
     "webpack": "^3",
     "webpack-hot-middleware": "^2.21.1"
@@ -66,8 +65,14 @@
     "react-dom": "^16.2.0"
   },
   "dependencies": {
+    "material-ui": "^1.0.0-beta.38",
+    "material-ui-icons": "^1.0.0-beta.36",
+    "react-material-icons": "^1.0.3",
     "slate": "^0.33.0",
+    "slate-drop-or-paste-images": "^0.8.0",
+    "slate-edit-list": "^0.11.2",
     "slate-react": "^0.12.0",
+    "slate-schema-violations": "^0.1.4",
     "styled-components": "^3.1.6"
   }
 }
