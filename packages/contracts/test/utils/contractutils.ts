@@ -1,5 +1,4 @@
 import BigNumber from "bignumber.js";
-import abi = require("ethereumjs-abi");
 import * as fs from "fs";
 import { promisify } from "util";
 // We're just using types from web3
@@ -7,7 +6,8 @@ import { promisify } from "util";
 import * as Web3 from "web3";
 /* tslint:enable no-implicit-dependencies */
 
-import { advanceEvmTime, getVoteSaltHash } from "@joincivil/dev-utils";
+import { advanceEvmTime } from "@joincivil/dev-utils";
+import { getVoteSaltHash } from "@joincivil/utils";
 
 // advanceEvmTime was moved to dev-utils
 // We would need to update ALL the tests, this is a workaround
