@@ -19,7 +19,7 @@ export async function apply(address: EthAddress, optionalCivil?: Civil): Promise
     const approveTransaction = await eip.approveSpender(tcr.address, new BigNumber(tokensToApprove));
     await approveTransaction.awaitReceipt();
   }
-  // TODO: await receipt properly
+
   const applyTransaction = await tcr.apply(address, new BigNumber(1000), "test");
   await applyTransaction.awaitReceipt();
   console.log("Applied to TCR");
@@ -39,7 +39,6 @@ export async function challenge(address: EthAddress, optionalCivil?: Civil): Pro
     await approveTransaction.awaitReceipt();
   }
 
-  // TODO: await receipt properly
   const challengeTransaction = await tcr.challenge(address, "test");
   await challengeTransaction.awaitReceipt();
   console.log("Challenged TCR Listing");
@@ -122,7 +121,6 @@ export async function updateStatus(address: EthAddress, optionalCivil?: Civil): 
   console.log("Update Listing Status");
   const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
 
-  // TODO: await receipt properly
   const udpateTransaction = await tcr.updateListing(address);
   await udpateTransaction.awaitReceipt();
   console.log("Listing Status Updated");
@@ -134,7 +132,6 @@ export async function resolvePostAppeal(address: EthAddress, optionalCivil?: Civ
   console.log("Resolve Post Appeal Phase");
   const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
 
-  // TODO: await receipt properly
   const resolveTransaction = await tcr.resolvePostAppealPhase(address);
   await resolveTransaction.awaitReceipt();
   console.log("Post Appeal Phase Resolved");

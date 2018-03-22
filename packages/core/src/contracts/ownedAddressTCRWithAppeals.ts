@@ -208,6 +208,12 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance.canBeWhitelisted.callAsync(listingAddress);
   }
 
+  /**
+   * Checks if a listing is ready to resolve its appeal. Returns true only if the "request appeal
+   * phase" is over and listing owner never requested appeal, or if the "appeal phase" is over and
+   * appeal has not yet been resolved
+   * @param listingAddress Address of listing to check
+   */
   public async isReadyToResolveAppeal(listingAddress: EthAddress): Promise<boolean> {
     const requestAppealPhaseExpiryTimestamp = await this.instance.getRequestAppealPhaseExpiry.callAsync(listingAddress);
     const requestAppealPhaseExpiry = new Date(requestAppealPhaseExpiryTimestamp.toNumber() * 1000);
@@ -248,14 +254,20 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       isInApplicationPhase = false;
     }
 
-    // if there is a challenge
-    const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
-    if (challenge.toNumber() > 0) {
-      isInApplicationPhase = false;
+    if (isInApplicationPhase) {
+      // if there is a challenge
+      const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
+      if (challenge.toNumber() > 0) {
+        isInApplicationPhase = false;
+      }
     }
     return isInApplicationPhase;
   }
 
+  /**
+   * Gets the application expiry timestamp for the given listing address
+   * @param listingAddress Address of listing to check
+   */
   public async getApplicationExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
     return this.instance.getListingApplicationExpiry.callAsync(listingAddress);
   }
@@ -263,6 +275,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   /**
    * Checks if a listing address is in challenged commit vote phase
    * @param listingAddress Address of potential listing to check
+   * @param pollID Optional pollID causes function to return true only if active challenge is equal to pollID
    */
   public async isInChallengedCommitVotePhase(
     listingAddress: EthAddress,
@@ -282,11 +295,12 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       }
     }
 
-    // if commit period not active
-    const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
-    const commitPeriodActive = await voting.isCommitPeriodActive(challenge);
-    if (!commitPeriodActive) {
-      isInCommitPhase = false;
+    if (isInCommitPhase) {
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const commitPeriodActive = await voting.isCommitPeriodActive(challenge);
+      if (!commitPeriodActive) {
+        isInCommitPhase = false;
+      }
     }
 
     return isInCommitPhase;
@@ -294,7 +308,8 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
 
   /**
    * Checks if a listing address is in challenged commit vote phase
-   * @param listingAddress Address of potential listing to check
+   * @param listingAddress Address of potential listing to
+   * @param pollID Optional pollID causes function to return true only if active challenge is equal to pollID
    */
   public async isInChallengedRevealVotePhase(
     listingAddress: EthAddress,
@@ -314,11 +329,13 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       }
     }
 
-    // if reveal period not active
-    const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
-    const revealPeriodActive = await voting.isRevealPeriodActive(challenge);
-    if (!revealPeriodActive) {
-      isInRevealPhase = false;
+    if (isInRevealPhase) {
+      // if reveal period not active
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const revealPeriodActive = await voting.isRevealPeriodActive(challenge);
+      if (!revealPeriodActive) {
+        isInRevealPhase = false;
+      }
     }
 
     return isInRevealPhase;
@@ -412,7 +429,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   /**
    * Checks if an address has application associated with it
    * App can either be in progress or approved
-   * @param address Address of potential listing to check
+   * @param address Address of listing to check
    */
   public async appWasMade(listingAddress: EthAddress): Promise<boolean> {
     return this.instance.appWasMade.callAsync(listingAddress);
@@ -420,16 +437,24 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
 
   /**
    * Checks if an address has application/listing has an unresolved challenge
-   * @param address Address of potential listing to check
+   * @param address Address of listing to check
    */
   public async challengeExists(listingAddress: EthAddress): Promise<boolean> {
     return this.instance.challengeExists.callAsync(listingAddress);
   }
 
+  /**
+   * Gets the current challenge ID of the listing. Returns 0 if no current challenge.
+   * @param listingAddress Address of listing to check
+   */
   public async getListingChallengeID(listingAddress: EthAddress): Promise<BigNumber> {
     return this.instance.getListingChallengeID.callAsync(listingAddress);
   }
 
+  /**
+   * Gets whether or not the listing has an unresoved challenge
+   * @param listingAddress Address of listing to check
+   */
   public async hasUnresolvedChallenge(listingAddress: EthAddress): Promise<boolean> {
     const challengeID = await this.getListingChallengeID(listingAddress);
     if (challengeID.toNumber() !== 0) {
@@ -443,7 +468,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   /**
    * Checks if an address has challenge that can be resolved
    * Challenge can be resolved if reveal period is over but request appeal phase is uninitialized
-   * @param address Address of potential listing to check
+   * @param address Address of listing to check
    */
   public async challengeCanBeResolved(listingAddress: EthAddress): Promise<boolean> {
     const challengeID = await this.getListingChallengeID(listingAddress);

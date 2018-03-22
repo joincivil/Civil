@@ -142,18 +142,6 @@ function setNewsroomListeners(): void {
 
   const commitVoteButton = document.getElementById("param-commitVote")!;
   commitVoteButton.onclick = async (event) => {
-
-    const pollIDString2 = document.getElementById("param-commitVotePollId")!.textContent;
-    const pollIDString3 = document.getElementById("param-commitVotePollId")!.innerText;
-    const pollIDString4 = document.getElementById("param-commitVotePollId")!.nodeValue;
-    const htmlElement = document.getElementById("param-commitVotePollId")!;
-    const pollIDString5 = (htmlElement as HTMLInputElement).value;
-
-    console.log("pollIDString2: " + pollIDString2);
-    console.log("pollIDString3: " + pollIDString3);
-    console.log("pollIDString4: " + pollIDString4);
-    console.log("pollIDString5: " + pollIDString5);
-
     const pollIDString = (document.getElementById("param-commitVotePollId")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
     const optionString = (document.getElementById("param-commitVoteOption")! as HTMLInputElement).value!;
