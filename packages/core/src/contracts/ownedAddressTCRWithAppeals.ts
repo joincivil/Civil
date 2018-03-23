@@ -517,6 +517,8 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
           if (requestAppealPhaseExpiry.toNumber() === 0) {
             return true;
           }
+        } else {
+          return true;
         }
       }
     }

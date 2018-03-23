@@ -50,5 +50,9 @@
     "web3": "^0.20.3",
     "web3-typescript-typings": "^0.9.11",
     "zeppelin-solidity": "1.7.0"
+  },
+  "dependencies": {
+    "@joincivil/dev-utils": "^1.0.1",
+    "@joincivil/utils": "^1.1.1"
   }
 }
