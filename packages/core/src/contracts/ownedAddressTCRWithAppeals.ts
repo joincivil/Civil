@@ -101,8 +101,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public currentChallengedCommitVotePhaseListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInChallengedCommitVotePhase(listingAddress));
+      .map((e) => (e.args))
+      .concatFilter(async (e) => this.isInChallengedCommitVotePhase(e.listingAddress, e.pollID))
+      .map((e) => e.listingAddress);
   }
 
   /**
@@ -114,8 +115,41 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public currentChallengedRevealVotePhaseListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInChallengedRevealVotePhase(listingAddress));
+      .map((e) => (e.args))
+      .concatFilter(async (e) => this.isInChallengedRevealVotePhase(e.listingAddress, e.pollID))
+      .map((e) => e.listingAddress);
+  }
+
+  /**
+   * An unending stream of all challenges that failed for given listing
+   * @param listingAddress Address of failed challenges to get
+   * @param fromBlock Starting block in history for events concerning challenges that failed.
+   *                  Set to "latest" for only new events
+   * @returns all failed challenges for listing since 'fromBlock'
+   */
+  public failedChallengesForListing(
+    listingAddress: EthAddress,
+    fromBlock: number|"latest" = 0,
+  ): Observable<BigNumber> {
+    return this.instance
+    .ChallengeFailedStream({ listingAddress }, { fromBlock })
+    .map((e) => e.args.challengeID);
+  }
+
+  /**
+   * An unending stream of all challenges that succeeded for given listing
+   * @param listingAddress Address of succeeded challenges to get
+   * @param fromBlock Starting block in history for events concerning challnges that succeeded.
+   *                  Set to "latest" for only new events
+   * @returns all succeeded challenges for listing since 'fromBlock'
+   */
+  public successfulChallengesForListing(
+    listingAddress: EthAddress,
+    fromBlock: number|"latest" = 0,
+  ): Observable<BigNumber> {
+    return this.instance
+    .ChallengeSucceededStream({ listingAddress }, { fromBlock })
+    .map((e) => e.args.challengeID);
   }
 
   /**
@@ -133,10 +167,22 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       return ListingState.APPLYING;
     } else if (await this.isReadyToWhitelist(listingAddress)) {
       return ListingState.READY_TO_WHITELIST;
-    } else if (await this.isInChallengedCommitVotePhase(listingAddress)) {
-      return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
-    } else if (await this.isInChallengedRevealVotePhase(listingAddress)) {
-      return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
+    } else if (await this.hasUnresolvedChallenge(listingAddress)) {
+      if (await this.isInChallengedCommitVotePhase(listingAddress)) {
+        return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
+      } else if (await this.isInChallengedRevealVotePhase(listingAddress)) {
+        return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
+      } else if (await this.challengeCanBeResolved(listingAddress)) {
+        return ListingState.READY_TO_RESOLVE_CHALLENGE;
+      } else if (await this.isInRequestAppealPhase(listingAddress)) {
+        return ListingState.WAIT_FOR_APPEAL_REQUEST;
+      } else if (await this.isInAppealPhase(listingAddress)) {
+        return ListingState.IN_APPEAL_PHASE;
+      } else if (await this.isReadyToResolveAppeal(listingAddress)) {
+        return ListingState.READY_TO_RESOLVE_APPEAL;
+      } else {
+        return ListingState.NOT_FOUND;
+      }
     } else if (await this.isWhitelisted(listingAddress)) {
       return ListingState.WHITELISTED_WITHOUT_CHALLENGE;
     } else {
@@ -195,6 +241,38 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   }
 
   /**
+   * Checks if a listing is ready to resolve its appeal. Returns true only if the "request appeal
+   * phase" is over and listing owner never requested appeal, or if the "appeal phase" is over and
+   * appeal has not yet been resolved
+   * @param listingAddress Address of listing to check
+   */
+  public async isReadyToResolveAppeal(listingAddress: EthAddress): Promise<boolean> {
+    const requestAppealPhaseExpiryTimestamp = await this.instance.getRequestAppealPhaseExpiry.callAsync(listingAddress);
+    const requestAppealPhaseExpiry = new Date(requestAppealPhaseExpiryTimestamp.toNumber() * 1000);
+
+    const appealPhaseExpiryTimestamp = await this.instance.getAppealPhaseExpiry.callAsync(listingAddress);
+    const appealPhaseExpiry = new Date(appealPhaseExpiryTimestamp.toNumber() * 1000);
+
+    const now = new Date();
+
+    if (requestAppealPhaseExpiryTimestamp.toNumber() > 0) { // request appeal phase initialized
+      if (appealPhaseExpiryTimestamp.toNumber() > 0) { // appeal phase initialized
+        if (appealPhaseExpiry < now) {
+          return true; // appeal phase over
+        } else {
+          return false; // appeal phase still in progress
+        }
+      } else if (requestAppealPhaseExpiry < now) {
+        return true; // request appeal phase initialized and over, appeal phase never initialized
+      } else {
+        return false; // request appeal phase still in progress
+      }
+    } else {
+      return false; // request appeal phase never initialized
+    }
+  }
+
+  /**
    * Checks if a listing address is in unchallenged application phase
    * @param listingAddress Address of potential listing to check
    */
@@ -208,19 +286,33 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       isInApplicationPhase = false;
     }
 
-    // if there is a challenge
-    const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
-    if (challenge.toNumber() > 0) {
-      isInApplicationPhase = false;
+    if (isInApplicationPhase) {
+      // if there is a challenge
+      const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
+      if (challenge.toNumber() > 0) {
+        isInApplicationPhase = false;
+      }
     }
     return isInApplicationPhase;
   }
 
   /**
+   * Gets the application expiry timestamp for the given listing address
+   * @param listingAddress Address of listing to check
+   */
+  public async getApplicationExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    return this.instance.getListingApplicationExpiry.callAsync(listingAddress);
+  }
+
+  /**
    * Checks if a listing address is in challenged commit vote phase
    * @param listingAddress Address of potential listing to check
+   * @param pollID Optional pollID causes function to return true only if active challenge is equal to pollID
    */
-  public async isInChallengedCommitVotePhase(listingAddress: EthAddress): Promise<boolean> {
+  public async isInChallengedCommitVotePhase(
+    listingAddress: EthAddress,
+    pollID?: BigNumber,
+  ): Promise<boolean> {
     let isInCommitPhase = true;
 
     // if there is no challenge
@@ -229,11 +321,18 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       isInCommitPhase = false;
     }
 
-    // if commit period not active
-    const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
-    const commitPeriodActive = await voting.isCommitPeriodActive(challenge);
-    if (!commitPeriodActive) {
-      isInCommitPhase = false;
+    if (pollID) {
+      if (!challenge.equals(pollID)) {
+        isInCommitPhase = false;
+      }
+    }
+
+    if (isInCommitPhase) {
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const commitPeriodActive = await voting.isCommitPeriodActive(challenge);
+      if (!commitPeriodActive) {
+        isInCommitPhase = false;
+      }
     }
 
     return isInCommitPhase;
@@ -241,9 +340,13 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
 
   /**
    * Checks if a listing address is in challenged commit vote phase
-   * @param listingAddress Address of potential listing to check
+   * @param listingAddress Address of potential listing to
+   * @param pollID Optional pollID causes function to return true only if active challenge is equal to pollID
    */
-  public async isInChallengedRevealVotePhase(listingAddress: EthAddress): Promise<boolean> {
+  public async isInChallengedRevealVotePhase(
+    listingAddress: EthAddress,
+    pollID?: BigNumber,
+  ): Promise<boolean> {
     let isInRevealPhase = true;
 
     // if there is no challenge
@@ -252,14 +355,93 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
       isInRevealPhase = false;
     }
 
-    // if reveal period not active
-    const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
-    const revealPeriodActive = await voting.isRevealPeriodActive(challenge);
-    if (!revealPeriodActive) {
-      isInRevealPhase = false;
+    if (pollID) {
+      if (!challenge.equals(pollID)) {
+        isInRevealPhase = false;
+      }
+    }
+
+    if (isInRevealPhase) {
+      // if reveal period not active
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const revealPeriodActive = await voting.isRevealPeriodActive(challenge);
+      if (!revealPeriodActive) {
+        isInRevealPhase = false;
+      }
     }
 
     return isInRevealPhase;
+  }
+
+  /**
+   * Checks if a listing is currently in the Request Appeal phase
+   * @param listingAddress Address of listing to check
+   */
+  public async isInRequestAppealPhase(listingAddress: EthAddress): Promise<boolean> {
+    const appealExpiryUnixTimestamp = await this.getRequestAppealExpiryTimestamp(listingAddress);
+    const appealExpiryDate = new Date(appealExpiryUnixTimestamp.toNumber() * 1000);
+    const hasRequestedAppeal = await this.instance.getAppealRequested.callAsync(listingAddress);
+    return (!hasRequestedAppeal && appealExpiryDate > new Date());
+  }
+
+  /**
+   * Gets the expiry time of the request appeal phase.
+   * @param listingAddress Address of listing to check
+   */
+  public async getRequestAppealExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    return this.instance.getRequestAppealPhaseExpiry.callAsync(listingAddress);
+  }
+
+  /**
+   * Checks if a listing is currently in the Appeal phase
+   * @param listingAddress Address of listing to check
+   */
+  public async isInAppealPhase(listingAddress: EthAddress): Promise<boolean> {
+    const appealExpiryUnixTimestamp = await this.getAppealExpiryTimestamp(listingAddress);
+    const appealExpiryDate = new Date(appealExpiryUnixTimestamp.toNumber() * 1000);
+    return (appealExpiryDate > new Date());
+  }
+
+  /**
+   * Gets the expiry time of the appeal phase.
+   * @param listingAddress Address of listing to check
+   */
+  public async getAppealExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    return this.instance.getAppealPhaseExpiry.callAsync(listingAddress);
+  }
+
+  /**
+   * Gets the expiry time of the commit vote phase.
+   * @param listingAddress Address of listing to check
+   */
+  public async getCommitVoteExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    // if there is no challenge
+    const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
+    if (challenge.toNumber() !== 0) {
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const revealPeriodActive = await voting.getCommitPeriodExpiry(challenge);
+
+      return revealPeriodActive;
+    } else {
+      return new BigNumber(0);
+    }
+  }
+
+  /**
+   * Gets the expiry time of the commit vote phase.
+   * @param listingAddress Address of listing to check
+   */
+  public async getRevealVoteExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
+    // if there is no challenge
+    const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
+    if (challenge.toNumber() !== 0) {
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const revealPeriodActive = await voting.getRevealPeriodExpiry(challenge);
+
+      return revealPeriodActive;
+    } else {
+      return new BigNumber(0);
+    }
   }
 
   /**
@@ -270,9 +452,16 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   }
 
   /**
+   * Get address for voting contract used with this TCR
+   */
+  public async getVotingAddress(): Promise<EthAddress> {
+    return this.instance.voting.callAsync();
+  }
+
+  /**
    * Checks if an address has application associated with it
    * App can either be in progress or approved
-   * @param address Address of potential listing to check
+   * @param address Address of listing to check
    */
   public async appWasMade(listingAddress: EthAddress): Promise<boolean> {
     return this.instance.appWasMade.callAsync(listingAddress);
@@ -280,18 +469,60 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
 
   /**
    * Checks if an address has application/listing has an unresolved challenge
-   * @param address Address of potential listing to check
+   * @param address Address of listing to check
    */
   public async challengeExists(listingAddress: EthAddress): Promise<boolean> {
     return this.instance.challengeExists.callAsync(listingAddress);
   }
 
   /**
+   * Gets the current challenge ID of the listing. Returns 0 if no current challenge.
+   * @param listingAddress Address of listing to check
+   */
+  public async getListingChallengeID(listingAddress: EthAddress): Promise<BigNumber> {
+    return this.instance.getListingChallengeID.callAsync(listingAddress);
+  }
+
+  /**
+   * Gets whether or not the listing has an unresoved challenge
+   * @param listingAddress Address of listing to check
+   */
+  public async hasUnresolvedChallenge(listingAddress: EthAddress): Promise<boolean> {
+    const challengeID = await this.getListingChallengeID(listingAddress);
+    if (challengeID.toNumber() !== 0) {
+      const isChallengeResolved = await this.instance.getChallengeResolved.callAsync(challengeID);
+      return !isChallengeResolved;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * Checks if an address has challenge that can be resolved
-   * @param address Address of potential listing to check
+   * Challenge can be resolved if reveal period is over but request appeal phase is uninitialized
+   * @param address Address of listing to check
    */
   public async challengeCanBeResolved(listingAddress: EthAddress): Promise<boolean> {
-    return this.instance.challengeExists.callAsync(listingAddress);
+    const challengeID = await this.getListingChallengeID(listingAddress);
+    // if challenge exists, but not in commit or reveal phase, and request appeal phase not started
+    if (challengeID.toNumber() !== 0) {
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const revealPeriodExpiryTimestamp = await voting.getRevealPeriodExpiry(challengeID);
+      const revealPeriodExpiry = new Date(revealPeriodExpiryTimestamp.toNumber() * 1000);
+      if (revealPeriodExpiry < new Date()) {
+        const isPassed = await voting.isPollPassed(challengeID);
+        if (!isPassed) {
+          const requestAppealPhaseExpiry = await this.getRequestAppealExpiryTimestamp(listingAddress);
+          console.log("requestAppealPhaseExpiry: " + requestAppealPhaseExpiry);
+          if (requestAppealPhaseExpiry.toNumber() === 0) {
+            return true;
+          }
+        } else {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /**

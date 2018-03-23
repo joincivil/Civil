@@ -10,6 +10,7 @@ import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
 import { artifacts } from "./contracts/generated/artifacts";
 import { EIP20 } from "./contracts/eip20";
+import { Voting } from "./contracts/voting";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -131,11 +132,21 @@ export class Civil {
   }
 
   /**
-   * Returns EIP20 instance at given address
-   * @param address address of EIP20
+   * Returns the EIP20 instance associated with the deployed OwnedAddressTCRWithAppeals
    */
-  public eip20AtUntrusted(address: EthAddress): EIP20 {
-    return EIP20.atUntrusted(this.web3Wrapper, address);
+  public async getEIP20ForDeployedTCR(): Promise<EIP20> {
+    const tcr = this.getDeployedOwnedAddressTCRWithAppeals();
+    const tokenAddress = await tcr.getTokenAddress();
+    return EIP20.atUntrusted(this.web3Wrapper, tokenAddress);
+  }
+
+  /**
+   * Returns the Voting instance associated with the deployed OwnedAddressTCRWithAppeals
+   */
+  public async getVotingForDeployedTCR(): Promise<Voting> {
+    const tcr = this.getDeployedOwnedAddressTCRWithAppeals();
+    const votingAddress = await tcr.getVotingAddress();
+    return Voting.atUntrusted(this.web3Wrapper, votingAddress);
   }
 
   /**

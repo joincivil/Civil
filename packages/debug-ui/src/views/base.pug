@@ -3,9 +3,19 @@ html(lang="en")
   head
     title Express Starter
     link(rel="stylesheet" type="text/css" href="/assets/css/main.css")
+    script(src="/assets/js/base.js")
     block scripts
-      script(src="/assets/js/bundle.js")
     if development
       include _includes/debug.pug
   body  
+    block header
+      #account Account:
+      #cvlBalance CVL Balance:
+      #votingRights Voting Rights:
+      input#param-numRightsToRequest
+      button#param-requestVotingRights Request Voting Rights
+      br
+      input#param-numRightsToWithdraw
+      button#param-withdrawVotingRights Withdraw Voting Rights
+      hr
     block content

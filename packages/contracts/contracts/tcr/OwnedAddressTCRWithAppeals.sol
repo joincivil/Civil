@@ -37,7 +37,6 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   uint public appealFee;
   uint public requestAppealPhaseLength = 259200; // 3 days expressed in seconds
   uint public judgeAppealPhaseLength = 1209600; // 14 days expressed in seconds
-  uint public whitelistGracePeriodLength = 7257600; // 84 days expressed in seconds
 
   uint public deniedAppealFees;
 
@@ -55,9 +54,6 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
 
   mapping(address => Appeal) internal appeals;
   mapping(uint => bool) public challengesOverturned;
-
-  /// if listing whitelisted by JEC, should have a grace period during which they cannot be challenged 
-  mapping(address => uint) public listingGracePeriodEndTimes;
 
   /**
   @dev Contructor           Sets the addresses for token, voting, parameterizer, appellate, and fee recipient
@@ -135,7 +131,6 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
     listing.isWhitelisted = true;
     listing.unstakedDeposit = depositAmount;
 
-    listingGracePeriodEndTimes[listingAddress] = now + whitelistGracePeriodLength;
     JECWhitelistedListing(listingAddress);
   }
 
@@ -201,11 +196,30 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   // ANYONE CAN CALL THESE FUNCTIONS FOR A LISTING
   // --------
 
+/**
+  @dev                Updates a listing's status from 'application' to 'listing' or resolves
+                      a challenge or appeal if one exists.
+  @param listingAddress The listingAddress whose status is being updated
+  */
+  function updateStatus(address listingAddress) public {
+    Appeal storage appeal = appeals[listingAddress];
+    Listing storage listing = listings[listingAddress];
+    if (canBeWhitelisted(listingAddress)) {
+      whitelistApplication(listingAddress);
+      NewListingWhitelisted(listingAddress);
+    } else if (challengeCanBeResolved(listingAddress) && 
+      (voting.isPassed(listing.challengeID) || appeal.requestAppealPhaseExpiry == 0)) {
+      resolveChallenge(listingAddress);
+    } else {
+      resolvePostAppealPhase(listingAddress);
+    }
+  }
+
   /** 
   @notice Update state of listing after "Judge Appeal Phase" has ended. Reverts if cannot be processed yet.
   @param listingAddress Address of listing associated with appeal
   */
-  function resolvePostAppealPhase(address listingAddress) external {
+  function resolvePostAppealPhase(address listingAddress) internal {
     Appeal storage appeal = appeals[listingAddress];
 
     // must be initialized and after "Request Appeal Phase"
@@ -229,19 +243,7 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   // --------------------
   // TOKEN OWNER INTERFACE:
   // --------------------
-  /**
-  @dev                Starts a poll for a listingAddress which is either in the apply stage or
-                      already in the whitelist. Tokens are taken from the challenger and the
-                      applicant's deposits are locked.
-                      D elists listing and returns NO_CHALLENGE if listing's unstakedDeposit 
-                      is less than current minDeposit
-  @param listingAddress The listingAddress being challenged, whether listed or in application
-  @param data        Extra data relevant to the challenge. Think IPFS hashes.
-  */
-  function challenge(address listingAddress, string data) public returns (uint challengeID) {
-    require(now > listingGracePeriodEndTimes[listingAddress]);
-    return super.challenge(listingAddress, data);
-  }
+
   /**
   @dev                Called by a voter to claim their reward for each completed vote. Someone
                       must call updateStatus() before this can be called.

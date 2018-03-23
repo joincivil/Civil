@@ -124,6 +124,20 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Contract Getters
    */
 
+   /**
+    * Gets number of tokens held as voting rights by the Voting contract
+    * Voting contract may hold more tokens than can be withdrawn if some tokens
+    * are currently locked in a vote
+    * @param tokenOwner Address of token owner to check voting rights of
+    */
+  public async getNumVotingRights(tokenOwner?: EthAddress): Promise<BigNumber> {
+    let who = tokenOwner;
+    if (!who) {
+      who = requireAccount(this.web3Wrapper);
+    }
+    return this.instance.voteTokenBalance.callAsync(who);
+  }
+
   /**
    * Has a vote been revealed for given voter in specified poll?
    * @param voterAddress voter to check vote status of
@@ -208,6 +222,43 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     pollID: BigNumber,
   ): Promise<boolean> {
     return this.instance.isPassed.callAsync(pollID);
+  }
+
+  /**
+   * Gets expiry timestamp of commit period.
+   * @param pollID ID of poll to check
+   */
+  public async getCommitPeriodExpiry(
+    pollID: BigNumber,
+  ): Promise<BigNumber> {
+    return this.instance.getPollCommitEndDate.callAsync(pollID);
+  }
+
+  /**
+   * Gets expiry timestamp of reveal period.
+   * @param pollID ID of poll to check
+   */
+  public async getRevealPeriodExpiry(
+    pollID: BigNumber,
+  ): Promise<BigNumber> {
+    return this.instance.getPollRevealEndDate.callAsync(pollID);
+  }
+
+  /**
+   * Gets the pollID of the poll with most tokens less than tokens specified.
+   * This is used to insert the new pollID in the correct position of list.
+   * @param tokens number of tokens being committed this vote
+   * @param account account to check pollID for
+   */
+  public async getPrevPollID(
+    tokens: BigNumber,
+    account?: EthAddress,
+  ): Promise<BigNumber> {
+    let who = account;
+    if (!who) {
+      who = requireAccount(this.web3Wrapper);
+    }
+    return this.instance.getInsertPointForNumTokens.callAsync(who, tokens);
   }
 
 }

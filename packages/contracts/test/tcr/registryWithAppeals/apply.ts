@@ -95,7 +95,7 @@ contract("Registry With Appeals", (accounts) => {
         await registry.updateStatus(newsroomAddress);
         await registry.requestAppeal(newsroomAddress, { from: applicant });
         await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
-        await registry.resolvePostAppealPhase(newsroomAddress);
+        await registry.updateStatus(newsroomAddress);
 
         await expect(registry.apply(newsroomAddress, minDeposit, "", { from: applicant})).to.eventually.be.fulfilled(
           "should have allowed new application after being denied appeal");

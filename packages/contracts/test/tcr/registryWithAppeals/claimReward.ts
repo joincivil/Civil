@@ -56,7 +56,7 @@ contract("Registry", (accounts) => {
       // Pass Request Appeal Phase without requesting
       const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
       await utils.advanceEvmTime(waitTime);
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       // Alice claims reward
       const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
@@ -136,7 +136,7 @@ contract("Registry", (accounts) => {
 
       const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
       await utils.advanceEvmTime(waitTime);
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       // Claim reward
       await registry.claimReward(pollID, "420", { from: voterAlice });
@@ -212,7 +212,7 @@ contract("Registry", (accounts) => {
       const waitTime = Number(await registry.judgeAppealPhaseLength()) + 1;
       await utils.advanceEvmTime(waitTime);
 
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       // Claim reward
       await expect(registry.claimReward(pollID, "42", { from: voterAlice })).to.be.rejectedWith(REVERTED,
@@ -245,7 +245,7 @@ contract("Registry", (accounts) => {
       const waitTime = Number(await registry.judgeAppealPhaseLength());
       await utils.advanceEvmTime(waitTime + 1);
 
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       // Claim reward
       await expect(registry.claimReward(pollID, "32", { from: voterBob })).to.be.fulfilled(

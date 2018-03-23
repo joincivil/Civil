@@ -19,8 +19,8 @@ contract AddressRegistry {
   event NewListingWhitelisted(address indexed listingAddress);
   event ApplicationRemoved(address indexed listingAddress);
   event ListingRemoved(address indexed listingAddress);
-  event ChallengeFailed(uint indexed challengeID);
-  event ChallengeSucceeded(uint indexed challengeID);
+  event ChallengeFailed(address indexed listingAddress, uint indexed challengeID);
+  event ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID);
   event RewardClaimed(address indexed voter, uint indexed challengeID, uint reward);
 
   struct Listing {
@@ -428,7 +428,7 @@ contract AddressRegistry {
       // Unlock stake so that it can be retrieved by the applicant
       listings[listingAddress].unstakedDeposit += reward;
 
-      ChallengeFailed(challengeID);
+      ChallengeFailed(listingAddress, challengeID);
       if (!wasWhitelisted) {
         NewListingWhitelisted(listingAddress);
       }
@@ -437,7 +437,7 @@ contract AddressRegistry {
       // Transfer the reward to the challenger
       require(token.transfer(challenges[challengeID].challenger, reward));
 
-      ChallengeSucceeded(challengeID);
+      ChallengeSucceeded(listingAddress, challengeID);
       if (wasWhitelisted) {
         ListingRemoved(listingAddress);
       } else {
