@@ -1,5 +1,5 @@
 import { Civil, ListingState } from "@joincivil/core";
-import { apply, challenge, updateStatus, commitVote, revealVote } from "../../scripts/tcrActions";
+import { apply, challenge, claimReward, updateStatus, commitVote, revealVote } from "../../scripts/tcrActions";
 import { BigNumber } from "bignumber.js";
 
 // Metamask is injected after full load
@@ -64,6 +64,15 @@ window.addEventListener("load", async () => {
         "Appeal phase expires at: " + inAppealExpiryDate;
       break;
   }
+
+  tcr.failedChallengesForListing(address).subscribe((id) => {
+    document.getElementById("resolvedChallenges")!.classList.remove("hidden");
+    document.getElementById("resolvedChallengesInfo")!.innerHTML += id + ", ";
+  });
+  tcr.successfulChallengesForListing(address).subscribe((id) => {
+    document.getElementById("resolvedChallenges")!.classList.remove("hidden");
+    document.getElementById("resolvedChallengesInfo")!.innerHTML += id + ", ";
+  });
 });
 
 function setNewsroomListeners(): void {
@@ -151,5 +160,14 @@ function setNewsroomListeners(): void {
     const saltString = (document.getElementById("param-revealVoteSalt")! as HTMLInputElement).value!;
     const salt = new BigNumber(saltString);
     await revealVote(pollID, option, salt);
+  };
+
+  const claimRewardButton = document.getElementById("param-claimReward")!;
+  claimRewardButton.onclick = async (event) => {
+    const pollIDString = (document.getElementById("param-claimRewardChallengeID")! as HTMLInputElement).value;
+    const pollID = new BigNumber(pollIDString);
+    const saltString = (document.getElementById("param-claimRewardSalt")! as HTMLInputElement).value;
+    const salt = new BigNumber(saltString);
+    await claimReward(pollID, salt);
   };
 }

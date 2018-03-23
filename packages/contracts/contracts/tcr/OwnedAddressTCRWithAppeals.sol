@@ -203,10 +203,12 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   */
   function updateStatus(address listingAddress) public {
     Appeal storage appeal = appeals[listingAddress];
+    Listing storage listing = listings[listingAddress];
     if (canBeWhitelisted(listingAddress)) {
       whitelistApplication(listingAddress);
       NewListingWhitelisted(listingAddress);
-    } else if (challengeCanBeResolved(listingAddress) && (voting.isPassed(listingAddress) || appeal.requestAppealPhaseExpiry == 0)) {
+    } else if (challengeCanBeResolved(listingAddress) && 
+      (voting.isPassed(listing.challengeID) || appeal.requestAppealPhaseExpiry == 0)) {
       resolveChallenge(listingAddress);
     } else {
       resolvePostAppealPhase(listingAddress);

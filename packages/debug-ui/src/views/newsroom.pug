@@ -18,16 +18,23 @@ block content
     div#commitVote.hidden
       | Commit Vote in Challenge
       br
+      | challengeID
       input#param-commitVotePollId(type="text")
+      | option
       input#param-commitVoteOption(type="text")
+      | salt
       input#param-commitVoteSalt(type="text")
+      | numTokens
       input#param-commitNumTokens(type="text")
       button#param-commitVote Commit Vote
     div#revealVote.hidden
       | Reveal Vote in Challenge
       br
+      | challengeID
       input#param-revealVotePollId(type="text")
+      | option
       input#param-revealVoteOption(type="text")
+      | salt
       input#param-revealVoteSalt(type="text")
       button#param-revealVote Reveal Vote
 
@@ -35,6 +42,16 @@ block content
   div(style = "border : thick solid #0000FF")#appeal.hidden
     h3 Appeal
     #appealInfo info...
+
+  div(style = "border : thin solid #0000FF")#resolvedChallenges.hidden
+    h3 Resolved Challenges. 
+    #resolvedChallengesInfo Challenges: 
+    br
+    | pollID:  
+    input#param-claimRewardChallengeID(type="text")
+    | salt: 
+    input#param-claimRewardSalt(type="text")
+    button#param-claimReward(type="text") Claim Reward
 
   | Apply to TCR
   button#param-applyToTCR Apply To TCR

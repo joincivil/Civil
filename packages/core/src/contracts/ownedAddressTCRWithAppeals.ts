@@ -121,6 +121,38 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   }
 
   /**
+   * An unending stream of all challenges that failed for given listing
+   * @param listingAddress Address of failed challenges to get
+   * @param fromBlock Starting block in history for events concerning challenges that failed.
+   *                  Set to "latest" for only new events
+   * @returns all failed challenges for listing since 'fromBlock'
+   */
+  public failedChallengesForListing(
+    listingAddress: EthAddress,
+    fromBlock: number|"latest" = 0,
+  ): Observable<BigNumber> {
+    return this.instance
+    .ChallengeFailedStream({ listingAddress }, { fromBlock })
+    .map((e) => e.args.challengeID);
+  }
+
+  /**
+   * An unending stream of all challenges that succeeded for given listing
+   * @param listingAddress Address of succeeded challenges to get
+   * @param fromBlock Starting block in history for events concerning challnges that succeeded.
+   *                  Set to "latest" for only new events
+   * @returns all succeeded challenges for listing since 'fromBlock'
+   */
+  public successfulChallengesForListing(
+    listingAddress: EthAddress,
+    fromBlock: number|"latest" = 0,
+  ): Observable<BigNumber> {
+    return this.instance
+    .ChallengeSucceededStream({ listingAddress }, { fromBlock })
+    .map((e) => e.args.challengeID);
+  }
+
+  /**
    * Contract Getters
    */
 

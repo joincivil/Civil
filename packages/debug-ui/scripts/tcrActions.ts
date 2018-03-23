@@ -121,7 +121,18 @@ export async function updateStatus(address: EthAddress, optionalCivil?: Civil): 
   console.log("Update Listing Status");
   const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
 
-  const udpateTransaction = await tcr.updateListing(address);
-  await udpateTransaction.awaitReceipt();
+  const updateTransaction = await tcr.updateListing(address);
+  await updateTransaction.awaitReceipt();
   console.log("Listing Status Updated");
+}
+
+export async function claimReward(pollID: BigNumber, salt: BigNumber, optionalCivil?: Civil): Promise<void> {
+  const civil = optionalCivil || new Civil();
+
+  console.log("Claim Reward");
+  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
+
+  const claimRewardTransaction = await tcr.claimReward(pollID, salt);
+  await claimRewardTransaction.awaitReceipt();
+  console.log("Reward Claimed.");
 }
