@@ -7,6 +7,7 @@ export enum CivilErrors {
   NoUnlockedAccount = "NO_UNLOCKED_ETHEREUM_ACCOUNT",
   NoPrivileges = "NOT_ENOUGH_PRIVILEGES_FOR_ACTION",
   EvmException = "EVM_EXCEPTION_OCCURED",
+  NoChallenge = "NO_CHALLENGE_FOUND_FOR_LISTING",
 }
 
 export function requireAccount(web3Wrapper: Web3Wrapper): EthAddress {
