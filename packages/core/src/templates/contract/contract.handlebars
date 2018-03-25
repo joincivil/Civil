@@ -22,11 +22,6 @@ const debug = Debug("civil:contracts:{{contractName}}Contract");
 
 export class {{contractName}}Contract extends BaseContract {
   /* tslint:disable member-ordering */
-  public static atUntrusted(web3Wrapper: Web3Wrapper, address: EthAddress): {{contractName}}Contract {
-    const clazz = web3Wrapper.web3.eth.contract(artifacts.{{contractName}}.abi);
-    return new {{contractName}}Contract(clazz.at(address));
-  }
-
   {{> constructor}}
 
 {{#each methods}}

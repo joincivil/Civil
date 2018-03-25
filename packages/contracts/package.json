@@ -12,6 +12,7 @@
     "lint": "run-p --aggregate-output lint:*",
     "lint:typescript": "tslint --project ./",
     "lint:solidity": "solium --dir contracts/",
+    "migrate": "truffle migrate",
     "test": "truffle test --network ganache",
     "clean": "rimraf build/",
     "prepare": "truffle install",

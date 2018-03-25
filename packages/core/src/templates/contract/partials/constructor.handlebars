@@ -1,3 +1,21 @@
+public static singletonTrusted(web3Wrapper: Web3Wrapper): {{contractName}}Contract|null {
+  if (!artifacts.{{contractName}}.networks) {
+    debug("Trying to get singleton from contract without any singleton data");
+    return null;
+  }
+  const networkId = web3Wrapper.networkId;
+  const networkData = artifacts.{{contractName}}.networks[networkId];
+  if (!networkData) {
+    return null;
+  }
+  return {{contractName}}Contract.atUntrusted(web3Wrapper, networkData.address);
+}
+public static atUntrusted(web3Wrapper: Web3Wrapper, address: EthAddress): {{contractName}}Contract {
+  const clazz = web3Wrapper.web3.eth.contract(artifacts.{{contractName}}.abi);
+  return new {{contractName}}Contract(clazz.at(address));
+}
+// TODO(ritave): This code won't work with smart-contracts with library links
+//               see [ch429] in Clubhouse
 public static deployTrusted = {
   async sendTransactionAsync(
       web3Wrapper: Web3Wrapper,

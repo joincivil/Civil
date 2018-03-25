@@ -8,7 +8,6 @@ import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } fr
 import { OwnedAddressTCRWithAppeals } from "./contracts/ownedAddressTCRWithAppeals";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
-import { artifacts } from "./contracts/generated/artifacts";
 import { EIP20 } from "./contracts/eip20";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
@@ -112,26 +111,17 @@ export class Civil {
   }
 
   /**
-   * Returns the deployed TCR address for the current network
+   * Only one TCR is needed for in each network, a singleton living at a specific
+   * Ethereum address, used by everyone.
+   * @returns A singleton instance of TCR living on the current network
+   * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton
    */
-  public getDeployedTCRAddressForCurrentNetwork(): EthAddress {
-    const networkId = Number.parseInt(this.web3Wrapper.web3.version.network);
-    return artifacts.OwnedAddressTCRWithAppeals.networks[networkId].address;
+  public TcrSingletonTrusted(): OwnedAddressTCRWithAppeals {
+    return OwnedAddressTCRWithAppeals.singleton(this.web3Wrapper, this.contentProvider);
   }
 
   /**
-   * Returns a OwnedAddressTCRWithAppeals object, which is an abstraction layer to
-   * the smart-contract located on Ethereum in the current network. Instance returned
-   * is associated with the contract deployed via truffle migrations (address is
-   * locate in the artifacts file).
-   */
-  public getDeployedOwnedAddressTCRWithAppeals(): OwnedAddressTCRWithAppeals {
-    const tcrAddress = this.getDeployedTCRAddressForCurrentNetwork();
-    return OwnedAddressTCRWithAppeals.atUntrusted(this.web3Wrapper, this.contentProvider, tcrAddress);
-  }
-
-  /**
-   * Returns EIP20 instance at given address
+   * Returns EIP20 standard based token instance at given address
    * @param address address of EIP20
    */
   public eip20AtUntrusted(address: EthAddress): EIP20 {
@@ -139,7 +129,7 @@ export class Civil {
   }
 
   /**
-   * Changes the provider that is used by the Civil library.
+   * Changes the web3 provider that is used by the Civil library.
    * All existing smart-contract object will switch to the new library behind the scenes.
    * This may invalidate any Ethereum calls in transit or event listening
    * @param web3Provider The new provider that shall replace the old one

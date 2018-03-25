@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "@joincivil/utils";
+import * as Debug from "debug";
 
 import { ContentProvider } from "../content/contentprovider";
 import {
@@ -11,11 +12,13 @@ import {
 import {
   createTwoStepSimple,
 } from "../utils/contractutils";
-import { requireAccount } from "../utils/errors";
+import { requireAccount, CivilErrors } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { OwnedAddressTCRWithAppealsContract } from "./generated/owned_address_t_c_r_with_appeals";
 import { Voting } from "./voting";
+
+const debug = Debug("civil:tcr");
 
 /**
  * The OwnedAddressTCRWithAppeals tracks the status of addresses that have been applied and allows
@@ -29,13 +32,16 @@ import { Voting } from "./voting";
  */
 export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithAppealsContract> {
 
-  public static atUntrusted(
-    web3wrapper: Web3Wrapper,
+  public static singleton(
+    web3Wrapper: Web3Wrapper,
     contentProvider: ContentProvider,
-    address: EthAddress,
   ): OwnedAddressTCRWithAppeals {
-    const instance = OwnedAddressTCRWithAppealsContract.atUntrusted(web3wrapper, address);
-    return new OwnedAddressTCRWithAppeals(web3wrapper, contentProvider, instance);
+    const instance = OwnedAddressTCRWithAppealsContract.singletonTrusted(web3Wrapper);
+    if (!instance) {
+      debug("Smart-contract wrapper for TCR returned null, unsupported network");
+      throw new Error(CivilErrors.UnsupportedNetwork);
+    }
+    return new OwnedAddressTCRWithAppeals(web3Wrapper, contentProvider, instance);
   }
 
   private contentProvider: ContentProvider;
