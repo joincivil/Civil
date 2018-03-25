@@ -44,11 +44,11 @@
     "rimraf": "^2.6.2",
     "solium": "^1.1.5",
     "solium-plugin-security": "^0.1.1",
-    "truffle": "github:joincivil/truffle#our-resolver",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
     "web3": "^0.20.3",
     "web3-typescript-typings": "^0.9.11",
-    "zeppelin-solidity": "1.7.0"
+    "zeppelin-solidity": "1.7.0",
+    "truffle": "^4.1.3"
   }
 }
