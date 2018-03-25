@@ -1,18 +1,38 @@
+// Import the `Value` model.
 import * as React from "react";
 import { Editor } from "slate-react";
-
-export type OnChangeFunc = (value: any) => void;
-export type RenderNodeFunc = (props: any) => any;
+import styled from "styled-components";
+import { OnChangeFunc, Plugin } from "./plugins";
 
 export interface EditorProps {
     value: any;
     onChange: OnChangeFunc;
-    renderNode: RenderNodeFunc;
+    readOnly: boolean;
+    plugins: Plugin[];
 }
 
 export interface EditorState {
   value?: any;
 }
+
+const CenterDiv = styled.div`
+  margin: auto;
+  max-width: 805px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+`;
+
+const StyledEditor = styled(Editor)`
+  max-width: 585px;
+  position: relative;
+`;
+
+const PullQuoteDiv = styled.div`
+  box-sizing: border-box;
+  width: 220px;
+  position: relative;
+`;
 
 export class CivilEditor extends React.Component<EditorProps, EditorState> {
     constructor(props: EditorProps) {
@@ -31,11 +51,15 @@ export class CivilEditor extends React.Component<EditorProps, EditorState> {
 
     public render(): any {
         return (
-          <Editor
-            value={this.state.value}
-            onChange={this.onChange}
-            renderNode={this.props.renderNode}
-          />
-        );
+          <CenterDiv>
+            <PullQuoteDiv id="civil-pull-quotes"/>
+            <StyledEditor
+              value={ this.state.value }
+              onChange={ this.onChange }
+              plugins={ this.props.plugins }
+              readOnly={ this.props.readOnly }
+            />
+          </CenterDiv>
+       );
     }
 }
