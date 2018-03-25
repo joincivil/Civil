@@ -116,7 +116,7 @@ export class Civil {
    * @returns A singleton instance of TCR living on the current network
    * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton
    */
-  public TcrSingletonTrusted(): OwnedAddressTCRWithAppeals {
+  public tcrSingletonTrusted(): OwnedAddressTCRWithAppeals {
     return OwnedAddressTCRWithAppeals.singleton(this.web3Wrapper, this.contentProvider);
   }
 

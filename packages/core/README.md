@@ -36,6 +36,22 @@ Best place to start hacking would be to use this package and build some applicat
 If you're itching to dwelve deeper inside, [**help wanted**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 and [**good first issue**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) labels are good places to get started and learn the architecture.
 
+### Developing on ganache
+
+This package has artifacts with singleton addresses of smart-contracts deployed on multiple Ethereum networks, one of which is our Ganache instance, that is set-up to be completely predictable.
+This means that whenever we run migrations on @joincivil/contracts in Ganache, the addresses are gonna be the same as the ones included in this packages.
+
+You need to run migrations before being able to work with this package's singletons locally
+
+```bash
+cd ../../
+# Run ganache in another terminal
+yarn ganache
+cd packages/contracts
+yarn build
+yarn migrate --network ganache
+```
+
 ### Code generation
 
 Civil.ts uses auto-generated code from Smart-Contract .json artifacts.
