@@ -28,6 +28,18 @@ window.addEventListener("load", async () => {
     document.getElementById("challengedInReveal")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
+  tcr.listingsAwaitingUpdate().subscribe((listing: string) => {
+    document.getElementById("canBeUpdated")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
+    listing + "'>" + listing + "</a>";
+  });
+  tcr.listingsAwaitingAppealRequest().subscribe((listing: string) => {
+    document.getElementById("awaitingAppealRequest")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
+    listing + "'>" + listing + "</a>";
+  });
+  tcr.listingsAwaitingAppeal().subscribe((listing: string) => {
+    document.getElementById("awaitingAppeal")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
+    listing + "'>" + listing + "</a>";
+  });
   document.getElementById("tcrInfo")!.innerHTML += "<br>Token: " + await tcr.getTokenAddress();
 });
 

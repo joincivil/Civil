@@ -69,6 +69,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .NewListingWhitelistedStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
+      .distinct()
       .concatFilter(async (listingAddress) => this.instance.getListingIsWhitelisted.callAsync(listingAddress));
   }
 
@@ -82,6 +83,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ApplicationStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
+      .distinct()
       .concatFilter(async (listingAddress) => this.isInApplicationPhase(listingAddress));
   }
 
@@ -95,6 +97,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
     .ApplicationStream({}, { fromBlock })
     .map((e) => e.args.listingAddress)
+    .distinct()
     .concatFilter(async (listingAddress) => this.isReadyToWhitelist(listingAddress));
   }
 
@@ -108,6 +111,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
+      .distinct()
       .concatFilter(async (listingAddress) => this.isInChallengedCommitVotePhase(listingAddress));
   }
 
@@ -121,7 +125,50 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
+      .distinct()
       .concatFilter(async (listingAddress) => this.isInChallengedRevealVotePhase(listingAddress));
+  }
+
+  /**
+   * An unending stream of all addresses currently challenged in request appeal phase
+   * @param fromBlock Starting block in history for events concerning challenged addresses in request appeal phase.
+   *                  Set to "latest" for only new events
+   * @returns currently challenged addresses in request appeal phase
+   */
+  public listingsAwaitingAppealRequest(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+    return this.instance
+      .ChallengeFailedStream({}, { fromBlock })
+      .map((e) => e.args.listingAddress)
+      .distinct()
+      .concatFilter(async (listingAddress) => this.isInRequestAppealPhase(listingAddress));
+  }
+
+  /**
+   * An unending stream of all addresses currently challenged in appeal phase
+   * @param fromBlock Starting block in history for events concerning challenged addresses in appeal phase.
+   *                  Set to "latest" for only new events
+   * @returns currently challenged addresses in appeal phase
+   */
+  public listingsAwaitingAppeal(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+    return this.instance
+      .ChallengeFailedStream({}, { fromBlock })
+      .map((e) => e.args.listingAddress)
+      .distinct()
+      .concatFilter(async (listingAddress) => this.isInAppealPhase(listingAddress));
+  }
+
+  /**
+   * An unending stream of all addresses for listings that can be updated
+   * @param fromBlock Starting block in history for events concerning addresses in a state that can be updated
+   *                  Set to "latest" for only new events
+   * @returns addresses for listings that can be updated
+   */
+  public listingsAwaitingUpdate(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+    return this.instance
+      .ApplicationStream({}, { fromBlock })
+      .map((e) => e.args.listingAddress)
+      .distinct()
+      .concatFilter(async (listingAddress) => this.challengeCanBeResolved(listingAddress));
   }
 
   /**
