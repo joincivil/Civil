@@ -56,6 +56,27 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   }
 
   /**
+   * Returns Voting instance associated with this TCR
+   */
+  public async getVoting(): Promise<Voting> {
+    return Voting.atUntrusted(this.web3Wrapper, await this.getVotingAddress());
+  }
+
+  /**
+   * Get address for token used with this TCR
+   */
+  public async getTokenAddress(): Promise<EthAddress> {
+    return this.instance.token.callAsync();
+  }
+
+  /**
+   * Get address for voting contract used with this TCR
+   */
+  public async getVotingAddress(): Promise<EthAddress> {
+    return this.instance.voting.callAsync();
+  }
+
+  /**
    * Event Streams
    */
 
@@ -69,7 +90,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .NewListingWhitelistedStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
-      .distinct()
       .concatFilter(async (listingAddress) => this.instance.getListingIsWhitelisted.callAsync(listingAddress));
   }
 
@@ -83,7 +103,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ApplicationStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
-      .distinct()
       .concatFilter(async (listingAddress) => this.isInApplicationPhase(listingAddress));
   }
 
@@ -97,7 +116,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
     .ApplicationStream({}, { fromBlock })
     .map((e) => e.args.listingAddress)
-    .distinct()
     .concatFilter(async (listingAddress) => this.isReadyToWhitelist(listingAddress));
   }
 
@@ -111,7 +129,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
-      .distinct()
       .concatFilter(async (listingAddress) => this.isInChallengedCommitVotePhase(listingAddress));
   }
 
@@ -125,7 +142,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
-      .distinct()
       .concatFilter(async (listingAddress) => this.isInChallengedRevealVotePhase(listingAddress));
   }
 
@@ -139,7 +155,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ChallengeFailedStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
-      .distinct()
       .concatFilter(async (listingAddress) => this.isInRequestAppealPhase(listingAddress));
   }
 
@@ -153,7 +168,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ChallengeFailedStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
-      .distinct()
       .concatFilter(async (listingAddress) => this.isInAppealPhase(listingAddress));
   }
 
@@ -167,7 +181,6 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     return this.instance
       .ApplicationStream({}, { fromBlock })
       .map((e) => e.args.listingAddress)
-      .distinct()
       .concatFilter(async (listingAddress) => this.challengeCanBeResolved(listingAddress));
   }
 
@@ -331,16 +344,15 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     let isInApplicationPhase = true;
 
     // if expiry time has passed
-    const appExpiry = await this.instance.getListingApplicationExpiry.callAsync(listingAddress);
-    const now = (new Date()).getTime() / 1000;
-    if (appExpiry.toNumber() < now) {
+    const appExpiry = await this.getAppealExpiryDate(listingAddress);
+    if (appExpiry < new Date()) {
       isInApplicationPhase = false;
     }
 
     if (isInApplicationPhase) {
       // if there is a challenge
       const challenge = await this.instance.getListingChallengeID.callAsync(listingAddress);
-      if (challenge.toNumber() > 0) {
+      if (!challenge.isZero()) {
         isInApplicationPhase = false;
       }
     }
@@ -351,8 +363,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Gets the application expiry timestamp for the given listing address
    * @param listingAddress Address of listing to check
    */
-  public async getApplicationExpiryTimestamp(listingAddress: EthAddress): Promise<BigNumber> {
-    return this.instance.getListingApplicationExpiry.callAsync(listingAddress);
+  public async getApplicationExpiryDate(listingAddress: EthAddress): Promise<Date> {
+    const applicationExpiryTimestamp = await this.instance.getListingApplicationExpiry.callAsync(listingAddress);
+    return new Date(applicationExpiryTimestamp.toNumber() * 1000);
   }
 
   /**
@@ -379,7 +392,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     }
 
     if (isInCommitPhase) {
-      const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+      const voting = Voting.atUntrusted(this.web3Wrapper, await this.getVotingAddress());
       const commitPeriodActive = await voting.isCommitPeriodActive(challenge);
       if (!commitPeriodActive) {
         isInCommitPhase = false;
@@ -472,7 +485,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     if (challenge.isZero()) {
       throw CivilErrors.NoChallenge;
     }
-    const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+    const voting = await this.getVoting();
     const revealPeriodActive = await voting.getCommitPeriodExpiry(challenge);
 
     return new Date(revealPeriodActive.toNumber() * 1000);
@@ -489,24 +502,10 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     if (challenge.isZero()) {
       throw CivilErrors.NoChallenge;
     }
-    const voting = Voting.atUntrusted(this.web3Wrapper, await this.instance.voting.callAsync());
+    const voting = await this.getVoting();
     const revealPeriodActive = await voting.getRevealPeriodExpiry(challenge);
 
     return new Date(revealPeriodActive.toNumber() * 1000);
-  }
-
-  /**
-   * Get address for token used with this TCR
-   */
-  public async getTokenAddress(): Promise<EthAddress> {
-    return this.instance.token.callAsync();
-  }
-
-  /**
-   * Get address for voting contract used with this TCR
-   */
-  public async getVotingAddress(): Promise<EthAddress> {
-    return this.instance.voting.callAsync();
   }
 
   /**

@@ -12,31 +12,31 @@ window.addEventListener("load", async () => {
     document.getElementById("applications")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
       listing + "'>" + listing + "</a>";
   });
-  tcr.whitelistedListings().subscribe((listing: string) => {
+  tcr.whitelistedListings().distinct().subscribe((listing: string) => {
     document.getElementById("whitelist")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
-  tcr.readyToBeWhitelistedListings().subscribe((listing: string) => {
+  tcr.readyToBeWhitelistedListings().distinct().subscribe((listing: string) => {
     document.getElementById("readyToWhitelist")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
-  tcr.currentChallengedCommitVotePhaseListings().subscribe((listing: string) => {
+  tcr.currentChallengedCommitVotePhaseListings().distinct().subscribe((listing: string) => {
     document.getElementById("challengedInCommit")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
-  tcr.currentChallengedRevealVotePhaseListings().subscribe((listing: string) => {
+  tcr.currentChallengedRevealVotePhaseListings().distinct().subscribe((listing: string) => {
     document.getElementById("challengedInReveal")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
-  tcr.listingsAwaitingUpdate().subscribe((listing: string) => {
+  tcr.listingsAwaitingUpdate().distinct().subscribe((listing: string) => {
     document.getElementById("canBeUpdated")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
-  tcr.listingsAwaitingAppealRequest().subscribe((listing: string) => {
+  tcr.listingsAwaitingAppealRequest().distinct().subscribe((listing: string) => {
     document.getElementById("awaitingAppealRequest")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
-  tcr.listingsAwaitingAppeal().subscribe((listing: string) => {
+  tcr.listingsAwaitingAppeal().distinct().subscribe((listing: string) => {
     document.getElementById("awaitingAppeal")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
     listing + "'>" + listing + "</a>";
   });
