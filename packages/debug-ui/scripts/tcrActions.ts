@@ -9,7 +9,7 @@ export async function apply(
   const civil = optionalCivil || new Civil();
 
   console.log("Apply to TCR");
-  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
+  const tcr = await civil.tcrSingletonTrusted();
 
   const eip = await civil.getEIP20ForDeployedTCR();
 
@@ -30,7 +30,7 @@ export async function challenge(address: EthAddress, optionalCivil?: Civil): Pro
   const civil = optionalCivil || new Civil();
 
   console.log("Challenging TCR Listing");
-  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
+  const tcr = await civil.tcrSingletonTrusted();
 
   const eip = await civil.getEIP20ForDeployedTCR();
 
@@ -121,7 +121,7 @@ export async function updateStatus(address: EthAddress, optionalCivil?: Civil): 
   const civil = optionalCivil || new Civil();
 
   console.log("Update Listing Status");
-  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
+  const tcr = await civil.tcrSingletonTrusted();
 
   const updateTransaction = await tcr.updateListing(address);
   await updateTransaction.awaitReceipt();
@@ -132,7 +132,7 @@ export async function claimReward(pollID: BigNumber, salt: BigNumber, optionalCi
   const civil = optionalCivil || new Civil();
 
   console.log("Claim Reward");
-  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
+  const tcr = await civil.tcrSingletonTrusted();
 
   const claimRewardTransaction = await tcr.claimReward(pollID, salt);
   await claimRewardTransaction.awaitReceipt();

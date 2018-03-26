@@ -7,7 +7,7 @@ import { deployNewsroom } from "../../scripts/deploy-newsroom";
 window.addEventListener("load", async () => {
   setIndexListeners();
   const civil = new Civil({ debug: true });
-  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
+  const tcr = await civil.tcrSingletonTrusted();
   tcr.listingsInApplicationStage().subscribe((listing: string) => {
     document.getElementById("applications")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
       listing + "'>" + listing + "</a>";

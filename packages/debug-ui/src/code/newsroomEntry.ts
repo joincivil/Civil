@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
   setNewsroomListeners();
 
   const civil = new Civil({ debug: true });
-  const tcr = await civil.getDeployedOwnedAddressTCRWithAppeals();
+  const tcr = await civil.tcrSingletonTrusted();
 
   const urlString = window.location.href;
   const url = new URL(urlString);
@@ -22,8 +22,7 @@ window.addEventListener("load", async () => {
   switch (state) {
     case ListingState.APPLYING:
       document.getElementById("application")!.classList.remove("hidden");
-      const applicationExpiryTimestamp = await tcr.getApplicationExpiryTimestamp(address);
-      const applicationExpiryDate = new Date(applicationExpiryTimestamp.toNumber() * 1000);
+      const applicationExpiryDate = await tcr.getApplicationExpiryDate(address);
       document.getElementById("applicationInfo")!.innerHTML = "Application Phase active.<br>" +
         "If not challenged, listing can be whitelisted at: " + applicationExpiryDate;
       break;
