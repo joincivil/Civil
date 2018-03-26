@@ -1,7 +1,6 @@
 pragma solidity 0.4.19;
 
 import "./AddressRegistry.sol";
-import "../newsroom/ACL.sol";
 
 contract ContractAddressRegistry is AddressRegistry {
 

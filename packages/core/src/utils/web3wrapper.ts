@@ -48,6 +48,10 @@ export class Web3Wrapper {
     return undefined;
   }
 
+  public get networkId(): string {
+    return this.web3.version.network;
+  }
+
   /**
    * Awaits to confirm that the transaction was succesfull
    * @param txHash Transaction hash which will be checked

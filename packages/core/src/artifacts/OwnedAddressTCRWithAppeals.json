@@ -1183,6 +1183,12 @@
             "events": {},
             "links": {},
             "address": "0x5cf4114912d0b1eacf666e1c6b9fc91eb143956b"
+        },
+        "50": {
+            "events": {},
+            "links": {},
+            "address": "0x4b192fbe4f37697e07f274eea3db69ebefd2f754",
+            "transactionHash": "0x0ba67a81f889050aae00b4d14c52d1c660ca57aeb65a2350071efa2b04414ae0"
         }
     }
 }

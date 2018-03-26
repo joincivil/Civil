@@ -24,7 +24,7 @@ export interface Artifact {
   bytecode: string;
   deployedBytecode: string;
   networks: {
-    [id: number]: {
+    [id: string]: {
       address: string;
     };
   };
