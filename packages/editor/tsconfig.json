@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "outDir": "dist/",
-    "declarationDir": "dist/",
+    "outDir": "build/",
+    "declarationDir": "build/",
     "jsx": "react",
     "allowSyntheticDefaultImports": false
   },

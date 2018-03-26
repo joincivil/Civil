@@ -1,6 +1,8 @@
 {
   "extends": [
-    "@joincivil/tslint-rules",
-    "tslint-react"
-  ]
+    "@joincivil/tslint-rules"
+  ],
+  "rules": {
+    "variable-name": [true, "ban-keywords", "allow-leading-underscore"]
+  }
 }
