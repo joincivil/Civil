@@ -774,6 +774,15 @@
             },
             "address": "0xe0bf2ebb83e009b33d1d7bc52598bd359be71cff",
             "transactionHash": "0x6657351cca99a7a537e479cbeba224764db5f442dc1d42b8522e58da5f8e43c5"
+        },
+        "50": {
+            "events": {},
+            "links": {
+                "DLL": "0xb0ac28cbf8a8f3f82808d5b47945fde2c0975c98",
+                "AttributeStore": "0x50b78b960fac052c0244a23a80867f747cfc198f"
+            },
+            "address": "0x1159488db9af9d354f53bec3052d55d4dd4456b2",
+            "transactionHash": "0x4afee3ffc4fac6dcf448ccbb8119132ef39a2a7bf820405ce08d054e0a38af97"
         }
     }
 }

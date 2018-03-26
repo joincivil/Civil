@@ -612,6 +612,12 @@
             "links": {},
             "address": "0x991e26e6349cb0d52e7646217309adfa285fdf1b",
             "transactionHash": "0xc04c82f6a529f87f214e2541afa202bcee75849053f0bcfed34efdf15a310c42"
+        },
+        "50": {
+            "events": {},
+            "links": {},
+            "address": "0x58fc52b0eca5a380b888d7f4fa8e44bc327e1e7d",
+            "transactionHash": "0x7db85b8738e3347b29082ff52d778afb40dad2565b5a79b5e79ed6af5d92e8e2"
         }
     }
 }
