@@ -42,7 +42,7 @@ contract("Registry With Appeals", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(newsroomAddress);
       await utils.advanceEvmTime(259250); // hack. can't read directly from contract for some reason, was causing crash
-      await registry.resolvePostAppealPhase(newsroomAddress);
+      await registry.updateStatus(newsroomAddress);
 
       await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.fulfilled(
         "Should not have allowed JEC to whitelist application with failed challenge that has been processed");
