@@ -344,7 +344,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     let isInApplicationPhase = true;
 
     // if expiry time has passed
-    const appExpiry = await this.getAppealExpiryDate(listingAddress);
+    const appExpiry = await this.getApplicationExpiryDate(listingAddress);
     if (appExpiry < new Date()) {
       isInApplicationPhase = false;
     }
