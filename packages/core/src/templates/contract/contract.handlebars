@@ -3,9 +3,9 @@
  */
 
 import BigNumber from "bignumber.js";
-/* tslint:disable no-unused-variable */ // Needed for the promisifed events
+// Needed for the promisifed events, some contracts don't have events
+// tslint:disable-next-line:no-unused-variable
 import { Observable } from "rxjs";
-/* tslint:enable no-unused-variable */
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 import { bindNestedAll, promisify } from "@joincivil/utils";
@@ -21,7 +21,7 @@ import { artifacts } from "./artifacts";
 const debug = Debug("civil:contracts:{{contractName}}Contract");
 
 export class {{contractName}}Contract extends BaseContract {
-  /* tslint:disable member-ordering */
+  // tslint:disable:member-ordering
   {{> constructor}}
 
 {{#each methods}}
@@ -33,12 +33,12 @@ export class {{contractName}}Contract extends BaseContract {
   {{/this.constant}}
 
 {{/each}}
-  /* tslint:disable variable-name */
+  // tslint:disable:variable-name
 {{#each events}}
   {{> event contractName=../contractName}}
 
 {{/each}}
-  /* tslint:enable variable-name */
+  // tslint:enable:variable-name
 
   private constructor(instance: Web3.ContractInstance) {
     super(instance);
@@ -46,7 +46,7 @@ export class {{contractName}}Contract extends BaseContract {
     // "this" means for everything in this class, this also requires "noImplicitThis" to be false
     bindNestedAll(this, ["constructor", "instance", "defaults"]);
   }
-  /* tslint:enable member-ordering */
+  // tslint:enable:member-ordering
 }
 
 {{> event_types }}

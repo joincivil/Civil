@@ -33,9 +33,7 @@ export class Web3Wrapper {
     this.web3 = new Web3(provider);
     // There's an error in web3 typings
     // defaultAccount can be set to undefined
-    /* tslint:disable no-non-null-assertion */
     this.web3.eth.defaultAccount = this.account!;
-    /* tslint:enable no-non-null-assertion */
   }
 
   public get account(): EthAddress | undefined {
@@ -91,10 +89,10 @@ export class Web3Wrapper {
   public async getReceipt(txHash: TxHash): Promise<CivilTransactionReceipt|null> {
     // web3-typescript-typings have wrong type, the call can return null if still in mempool
     // Fix: https://github.com/0xProject/0x.js/pull/338
-    /* tslint:disable no-unbound-method */
+    // tslint:disable:no-unbound-method
     const getTransactionReceipt =
       promisify<Web3.TransactionReceipt|null>(this.web3.eth.getTransactionReceipt, this.web3.eth);
-    /* tslint:enable no-unbound-method */
+    // tslint:enable:no-unbound-method
 
     const receipt = await getTransactionReceipt(txHash);
     if (receipt) {
@@ -109,7 +107,6 @@ export class Web3Wrapper {
   }
 
   private checkForEvmException(receipt: CivilTransactionReceipt): void {
-    // tslint:disable-next-line
     // https://ethereum.stackexchange.com/questions/28077/how-do-i-detect-a-failed-transaction-after-the-byzantium-fork-as-the-revert-opco/28078#28078
     // Pre-Bizantium, let's just throw, Civil didn't exist before Bizantium
     if (receipt.status === null) {

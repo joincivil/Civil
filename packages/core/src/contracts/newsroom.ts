@@ -40,13 +40,11 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepTransaction(
       web3Wrapper,
       await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, newsroomName, txData),
-      // tslint:disable no-non-null-assertion
       (receipt) => new Newsroom(
         web3Wrapper,
         contentProvider,
         NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!),
       ),
-      // tslint:enable no-non-null-assertion
     );
   }
   public static atUntrusted(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, address: EthAddress): Newsroom {

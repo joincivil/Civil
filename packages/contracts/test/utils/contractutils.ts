@@ -2,9 +2,8 @@ import BigNumber from "bignumber.js";
 import * as fs from "fs";
 import { promisify } from "util";
 // We're just using types from web3
-/* tslint:disable no-implicit-dependencies */
+// tslint:disable-next-line:no-implicit-dependencies
 import * as Web3 from "web3";
-/* tslint:enable no-implicit-dependencies */
 
 import { advanceEvmTime } from "@joincivil/dev-utils";
 import { getVoteSaltHash } from "@joincivil/utils";

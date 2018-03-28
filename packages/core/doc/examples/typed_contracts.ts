@@ -6,9 +6,8 @@ import { TxData } from "../../src/types";
 import { Web3Wrapper } from "../../src/utils/web3wrapper";
 
 const web3 = new Web3Wrapper(new Web3.providers.HttpProvider("http://localhost:8545"));
-/* tslint:disable no-non-null-assertion */
+// tslint:disable-next-line:no-non-null-assertion
 const account = web3.account!;
-/* tslint:enable no-non-null-assertion */
 
 const data: TxData = {
   gasPrice: web3.web3.eth.gasPrice,
@@ -18,9 +17,7 @@ const data: TxData = {
   console.log("Deploying contract");
   const deployTxHash = await NewsroomContract.deployTrusted.sendTransactionAsync(web3, "My Test Newsroom", data);
   const receipt = await web3.awaitReceipt(deployTxHash);
-  // tslint:disable no-non-null-assertion */
   const newsroom = NewsroomContract.atUntrusted(web3, receipt.contractAddress!);
-  // tslint:enable no-non-null-assertion */
   console.log("Contract at: ", newsroom.address);
   console.log(account);
   console.log("Am I owner: ", await newsroom.isOwner.callAsync(account));

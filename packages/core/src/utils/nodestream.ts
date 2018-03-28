@@ -1,4 +1,5 @@
-/* tslint:disable all */ // Let's come back here when we're working on this
+// Let's come back here when we're working on this
+// tslint:disable:all
 import { Block, BlockAndLogStreamer } from "ethereumjs-blockstream";
 import { FilterOptions } from "ethereumjs-blockstream/output/source/models/filters";
 import { Log } from "ethereumjs-blockstream/output/source/models/log";
