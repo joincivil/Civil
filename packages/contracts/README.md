@@ -52,8 +52,8 @@ While we're working to get everything under LGPLv2.1 this is not currently possi
 | Subfolder       | License                                                                                               | Original source                                                   |
 | --------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
 | `tcr/`          | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](./licenses/LICENSE-tcr)    | [skmgoldin/tcr](https://github.com/skmgoldin/tcr)                 |
-| `multisig`      | [![license](https://img.shields.io/badge/license-GPL%20v3-green.svg)](./licenses/LICENSE-multisig)    | [gnosis/MultiSigWallet](https://github.com/gnosis/MultiSigWallet) |
-| `anything else` | [![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](/packages/contracts/LICENSE) | [civil/Civil](https://github.com/joincivil/Civil)                 |
+| `multisig/`     | [![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](./licenses/LICENSE-general)  | [gnosis/MultiSigWallet](https://github.com/gnosis/MultiSigWallet) |
+| `anything else` | [![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](./licenses/LICENSE-general)  | [civil/Civil](https://github.com/joincivil/Civil)                 |
 
 ### Multisig
 
