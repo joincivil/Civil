@@ -45,22 +45,11 @@ export class Civil {
       debug("Enabled debug for \"civil:*\" namespace");
     }
 
-    let web3Provider = opts.web3Provider;
-    if (!web3Provider) {
-      // Try to use the window's injected provider
-      if (typeof window !== "undefined" && (window as any).web3 !== "undefined") {
-        const injectedWeb3: Web3 = (window as any).web3;
-        web3Provider = injectedWeb3.currentProvider;
-        debug("Using injected web3 provider");
-      } else {
-        // TODO(ritave): Research using Infura
-        web3Provider = new Web3.providers.HttpProvider("http://localhost:8545");
-        debug("No web3 provider provided or found injected, defaulting to HttpProvider");
-      }
+    if (opts.web3Provider) {
+      this.web3Wrapper = new Web3Wrapper(opts.web3Provider);
+    } else {
+      this.web3Wrapper = Web3Wrapper.detectProvider();
     }
-    // TODO(ritave): Constructor can throw when the eg. HttpProvider can't connect to Http
-    //               It shouldn't, and should just set null account
-    this.web3Wrapper = new Web3Wrapper(web3Provider);
 
     // TODO(ritave): Choose a better default provider
     this.contentProvider = opts.contentProvider || new InMemoryProvider(this.web3Wrapper);
@@ -71,6 +60,23 @@ export class Civil {
    */
   public get userAccount(): string | undefined {
     return this.web3Wrapper.account;
+  }
+
+  /**
+   * Returns the current provider that is used by all things Civil in the Core
+   */
+  public get currentProvider(): Web3.Provider {
+    return this.web3Wrapper.currentProvider;
+  }
+
+  /**
+   * Changes the web3 provider that is used by the Civil library.
+   * All existing smart-contract object will switch to the new library behind the scenes.
+   * This may invalidate any Ethereum calls in transit or event listening
+   * @param web3Provider The new provider that shall replace the old one
+   */
+  public set currentProvider(web3Provider: Web3.Provider) {
+    this.web3Wrapper.currentProvider = web3Provider;
   }
 
   /**
@@ -137,16 +143,6 @@ export class Civil {
     const tcr = this.tcrSingletonTrusted();
     const votingAddress = await tcr.getVotingAddress();
     return Voting.atUntrusted(this.web3Wrapper, votingAddress);
-  }
-
-  /**
-   * Changes the web3 provider that is used by the Civil library.
-   * All existing smart-contract object will switch to the new library behind the scenes.
-   * This may invalidate any Ethereum calls in transit or event listening
-   * @param web3Provider The new provider that shall replace the old one
-   */
-  public setProvider(web3Provider: Web3.Provider): void {
-    this.web3Wrapper.setProvider(web3Provider);
   }
 
   /**
