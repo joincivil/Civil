@@ -107,6 +107,7 @@ export class Web3Wrapper {
   }
 
   private checkForEvmException(receipt: CivilTransactionReceipt): void {
+    // tslint:disable-next-line
     // https://ethereum.stackexchange.com/questions/28077/how-do-i-detect-a-failed-transaction-after-the-byzantium-fork-as-the-revert-opco/28078#28078
     // Pre-Bizantium, let's just throw, Civil didn't exist before Bizantium
     if (receipt.status === null) {
