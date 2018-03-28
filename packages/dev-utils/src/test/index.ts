@@ -15,6 +15,7 @@ export function dummyWeb3Provider(): Web3.Provider {
   return new Web3.providers.HttpProvider("http://localhost:8545");
 }
 
+// TODO(ritave): Duplicated code, use web3wrapper's rpc
 export async function rpc(
   provider: Web3.Provider,
   method: string,
