@@ -4,7 +4,7 @@ import * as Web3 from "web3";
 import { delay, promisify } from "@joincivil/utils";
 
 import { artifacts } from "../contracts/generated/artifacts";
-import { Artifact, CivilTransactionReceipt, EthAddress, TxHash } from "../types";
+import { Artifact, CivilTransactionReceipt, EthAddress, TxHash, TxDataAll } from "../types";
 import { AbiDecoder } from "./abidecoder";
 import { CivilErrors } from "./errors";
 import { NodeStream } from "./nodestream";
@@ -91,6 +91,12 @@ export class Web3Wrapper {
           return resolve(result);
         });
     });
+  }
+
+  public async sendTransaction(txData: TxDataAll): Promise<TxHash> {
+    // tslint:disable-next-line:no-unbound-method
+    const sendTransactionAsync = promisify<TxHash>(this.web3.eth.sendTransaction, this.web3.eth);
+    return sendTransactionAsync(txData);
   }
 
   /**
