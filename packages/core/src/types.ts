@@ -48,7 +48,9 @@ export interface TxDataPayable extends TxData {
   value: number|string|BigNumber;
 }
 
-export type TxDataAll = Partial<TxDataPayable>;
+export interface TxDataAll extends Partial<TxDataPayable> {
+  to?: EthAddress;
+}
 
 export interface TransactionObject extends TxDataBase {
   from: EthAddress;

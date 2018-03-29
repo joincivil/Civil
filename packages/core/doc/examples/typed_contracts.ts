@@ -2,7 +2,7 @@ import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 
 import { NewsroomContract } from "../../src/contracts/generated/newsroom";
-import { TxData } from "../../src/types";
+import { TxData, TxDataAll } from "../../src/types";
 import { Web3Wrapper } from "../../src/utils/web3wrapper";
 
 const web3 = new Web3Wrapper(new Web3.providers.HttpProvider("http://localhost:8545"));
@@ -40,6 +40,9 @@ const data: TxData = {
       });
 
   console.log("Proposing content");
-  await newsroom.proposeContent.sendTransactionAsync("http://someurihere.com", data);
+  const proposeOptions = await newsroom.proposeContent.getRaw("http://someuirhere.com", data);
+  console.log("Propose options:", proposeOptions);
+  const proposeTxHash = await web3.sendTransaction(proposeOptions);
+  await web3.awaitReceipt(proposeTxHash);
 })()
 .catch((err) => console.error(err));

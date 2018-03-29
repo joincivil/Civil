@@ -18,14 +18,9 @@ public {{this.name}} = {
 {{> params inputs=inputs}}
       );
     if (!txOptions.gas) {
-      try {
       txOptions.gas = await self.{{name}}.estimateGasAsync(
         {{> params inputs=inputs}}
         txOptions);
-      } catch (e) {
-        debug("{{this.name}}: Gas estimation failed, only sensible error is EVM error", e);
-        throw new Error(CivilErrors.EvmException);
-      }
     }
     const promisified = promisify<TxHash>(
       self.instance.{{this.name}}.sendTransaction,
@@ -37,17 +32,50 @@ public {{this.name}} = {
   },
   async estimateGasAsync(
     {{> typed_inputs inputs=inputs}}
-    txData: Partial<TxDataPayable> = {},
+    {{#this.payable}}
+    txData?: TxDataPayable,
+    {{/this.payable}}
+    {{^this.payable}}
+    txData?: TxData,
+    {{/this.payable}}
   ): Promise<number> {
     const self = this as {{contractName}}Contract;
     const promisified = promisify<number>(
       self.instance.{{this.name}}.estimateGas,
       self.instance.{{this.name}},
     );
-    const estimate = Math.floor(await promisified(
+    try {
+      const estimate = Math.floor(await promisified(
+        {{> params inputs=inputs}}
+        txData) * self.configuration.estimationMultiplier);
+      debug("{{this.name}}: Gas estimation:", estimate);
+      return estimate;
+    } catch (e) {
+      debug("{{this.name}}: Gas estimation failed, only sensible error is EVM error", e);
+      throw new Error(CivilErrors.EvmException);
+    }
+  },
+  async getRaw(
+    {{> typed_inputs inputs=inputs}}
+    {{#this.payable}}
+    txData?: TxDataPayable,
+    {{/this.payable}}
+    {{^this.payable}}
+    txData?: TxData,
+    {{/this.payable}}
+  ): Promise<TxDataAll> {
+    const self = this as {{contractName}}Contract;
+    const options: TxDataAll = {...txData, to: self.address};
+    if (!options.gas) {
+      options.gas = await self.{{name}}.estimateGasAsync(
+        {{> params inputs=inputs}}
+        options,
+      );
+    }
+    options.data = self.instance.{{this.name}}.getData(
       {{> params inputs=inputs}}
-      txData) * self.configuration.estimationMultiplier);
-    debug("{{this.name}}: Gas estimation:", estimate);
-    return estimate;
+      txData,
+    );
+    return options;
   },
 };
