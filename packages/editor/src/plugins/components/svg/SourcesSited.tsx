@@ -4,7 +4,7 @@ export interface SvgProps {
   color: string;
 }
 
-export class SourcesSited extends React.Component<SvgProps, {}> {
+export class SourcesSited extends React.Component<SvgProps> {
   public render(): JSX.Element {
     return (<svg
       width="16px"

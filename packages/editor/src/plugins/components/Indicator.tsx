@@ -1,8 +1,7 @@
 import * as React from "react";
+// @ts-ignore
 import styled, {StyledComponentClass} from "styled-components";
 import { colorConstants } from "../../colorConstants";
-
-
 
 export interface IndicatorState {
   open: boolean;

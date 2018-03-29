@@ -2,7 +2,6 @@ import * as React from "react";
 // @ts-ignore
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
-import {colorConstants} from "../colorConstants";
 import { Title } from "./components/Title";
 
 export const TITLE = "Title";

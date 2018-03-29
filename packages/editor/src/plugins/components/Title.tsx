@@ -1,4 +1,5 @@
 import * as React from "react";
+// @ts-ignore
 import styled, {StyledComponentClass} from "styled-components";
 import { colorConstants } from "../../colorConstants";
 
@@ -70,7 +71,7 @@ const Wrapper = styled.div`
   margin-bottom: 35px;
 `;
 
-export class Title extends React.Component<TitleProps, {}> {
+export class Title extends React.Component<TitleProps> {
   public typingHandlerTitle(e: any): void {
     const change = this.props.value.change().setNodeByKey(
       this.props.value.document.key,
