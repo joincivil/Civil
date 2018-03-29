@@ -3,7 +3,6 @@ import * as Web3 from "web3";
 import * as process from "process";
 import BigNumber from "bignumber.js";
 
-import { TxData } from "../../../src/types";
 import { Web3Wrapper } from "../../../src/utils/web3wrapper";
 import { MultiSigWalletContract } from "../../../src/contracts/generated/multi_sig_wallet";
 import { Multisig } from "../../../src/contracts/multisig";

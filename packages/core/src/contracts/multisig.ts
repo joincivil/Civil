@@ -155,7 +155,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.submitTransaction.sendTransactionAsync(address, weiToSend, payload),
-      (receipt) => {
+      async (receipt) => {
         const event = receipt.logs.filter(isDecodedLog).find((log) => log.event === MultiSigWalletEvents.Submission);
         if (!event) {
           throw new Error("No Submisison event found when adding transaction to Multisig");
@@ -189,21 +189,21 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
      // Notice that we're using transactionCount smart-contract variable, not getTransactonCount func
     return Observable
       .fromPromise(this.instance.transactionCount.callAsync())
-      .concatMap((noTransactions) =>
+      .concatMap(async (noTransactions) =>
         this.instance.getTransactionIds.callAsync(
           new BigNumber(0),
           noTransactions,
           filters.pending || false,
           filters.executed || false))
       .concatMap((ids) => Observable.from(ids))
-      .concatMap((id) => this.transaction(id.toNumber()));
+      .concatMap(async (id) => this.transaction(id.toNumber()));
   }
 
   /**
    * Returns a singular transaction
    * @param id Id the of the wanted transaction
    */
-  public transaction(id: number): Promise<MultisigTransaction> {
+  public async transaction(id: number): Promise<MultisigTransaction> {
     return transactionFromId(this.web3Wrapper, this.instance, id);
   }
 
@@ -260,7 +260,7 @@ export class MultisigTransaction {
   /**
    * How many owners (and who) have confirmed this transaction
    */
-  public confirmations(): Promise<EthAddress[]> {
+  public async confirmations(): Promise<EthAddress[]> {
     return this.instance.getConfirmations.callAsync(new BigNumber(this.id));
   }
 
@@ -275,7 +275,7 @@ export class MultisigTransaction {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.executeTransaction.sendTransactionAsync(new BigNumber(this.id)),
-      (receipt) => transactionFromId(this.web3Wrapper, this.instance, this.id),
+      async (receipt) => transactionFromId(this.web3Wrapper, this.instance, this.id),
     );
   }
 
