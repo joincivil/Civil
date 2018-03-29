@@ -1,3 +1,5 @@
+import * as process from "process";
+
 import { Civil } from "../../src";
 
 (async () => {
@@ -44,4 +46,7 @@ import { Civil } from "../../src";
   );
   nameSubscription.unsubscribe();
 })()
-.catch((err) => console.error(err));
+.catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
