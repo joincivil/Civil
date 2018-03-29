@@ -10,10 +10,26 @@ import { CivilErrors } from "./errors";
 import { NodeStream } from "./nodestream";
 
 const POLL_MILLISECONDS = 1000;
+const DEFAULT_HTTP_NODE = "http://localhost:8545";
 
 const debug = Debug("civil:web3wrapper");
 
 export class Web3Wrapper {
+  public static detectProvider(): Web3Wrapper {
+    let provider: Web3.Provider;
+    // Try to use the window's injected provider
+    if (typeof window !== "undefined" && (window as any).web3 !== "undefined") {
+      const injectedWeb3: Web3 = (window as any).web3;
+      provider = injectedWeb3.currentProvider;
+      debug("Using injected web3 provider");
+    } else {
+      // TODO(ritave): Research using Infura
+      provider = new Web3.providers.HttpProvider(DEFAULT_HTTP_NODE);
+      debug("No web3 provider provided or found injected, defaulting to HttpProvider");
+    }
+    return new Web3Wrapper(provider);
+  }
+
   // Initialized for sure by the helper method setProvider used in constructor
   public web3!: Web3;
 
@@ -21,7 +37,9 @@ export class Web3Wrapper {
   private nodeStream: NodeStream;
 
   constructor(provider: Web3.Provider) {
-    this.setProvider(provider);
+    // TODO(ritave): Constructor can throw when the eg. HttpProvider can't connect to Http
+    //               It shouldn't, and should just set null account
+    this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(
       Object
         .values<Artifact>(artifacts)
@@ -29,7 +47,11 @@ export class Web3Wrapper {
     this.nodeStream = new NodeStream();
   }
 
-  public setProvider(provider: Web3.Provider): void {
+  public get currentProvider(): Web3.Provider {
+    return this.web3.currentProvider;
+  }
+
+  public set currentProvider(provider: Web3.Provider) {
     this.web3 = new Web3(provider);
     // There's an error in web3 typings
     // defaultAccount can be set to undefined
@@ -48,6 +70,27 @@ export class Web3Wrapper {
 
   public get networkId(): string {
     return this.web3.version.network;
+  }
+
+  public async rpc(method: string, ...params: any[]): Promise<Web3.JSONRPCResponsePayload> {
+    return new Promise<Web3.JSONRPCResponsePayload>((resolve, reject) => {
+      this.currentProvider.sendAsync(
+        {
+          id: new Date().getSeconds(),
+          jsonrpc: "2.0",
+          method,
+          params,
+        },
+        (err, result) => {
+          if (err) {
+            return reject(err);
+          }
+          if ((result as any).error) {
+            return reject((result as any).error);
+          }
+          return resolve(result);
+        });
+    });
   }
 
   /**
