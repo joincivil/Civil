@@ -44,10 +44,10 @@ Observable.prototype.concatFilter = concatFilter;
 Observable.prototype.flatFilter = flatFilter;
 
 declare module "rxjs/Observable" {
-  /* tslint:disable no-shadowed-variable */
+  // tslint:disable:no-shadowed-variable
   interface Observable<T> {
     concatFilter: typeof concatFilter;
     flatFilter: typeof flatFilter;
   }
-  /* tslint:enable no-shadowed-variable */
+  // tslint:enable:no-shadowed-variable
 }

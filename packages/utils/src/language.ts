@@ -1,4 +1,4 @@
-/* tslint:disable promise-function-async */
+// tslint:disable promise-function-async
 export function promisify<T>(
   original: (...params: any[]) => void,
   thisArg?: any,
@@ -16,7 +16,7 @@ export function promisify<T>(
   };
   return promisifed;
 }
-/* tslint:emable promise-function-async */
+// tslint:enable:promise-function-async
 
 export function bindNestedAll(what: any, excludes: string[] = ["constructor"], thisArg?: any, ...params: any[]): void {
   const self = thisArg || what;

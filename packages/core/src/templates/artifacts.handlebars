@@ -3,7 +3,7 @@
  */
 import * as Web3 from "web3";
 
-/* tslint:disable ordered-imports */
+// tslint:disable:ordered-imports
 {{#each files}}
 import * as {{capitalize this.name}}Artifact from "../../artifacts/{{capitalize this.name}}.json";
 {{/each}}
@@ -11,7 +11,7 @@ import * as {{capitalize this.name}}Artifact from "../../artifacts/{{capitalize 
 {{#each files}}
 import { {{capitalize this.name}}EventArgs } from "./{{snakecase this.name}}";
 {{/each}}
-/* tslint:enable ordered-imports */
+// tslint:enable:ordered-imports
 
 export type CivilEventArgs =
   {{#each files}}

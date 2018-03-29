@@ -22,7 +22,7 @@ const ARGV_OUT_DIR = 3;
 
 function strip(filePath: string, outPath: string): void {
   const data = JSON.parse(fs.readFileSync(filePath) as any);
-  /* tslint:disable object-literal-sort-keys */
+  // tslint:disable:object-literal-sort-keys
   const filtered = {
     contractName: data.contractName,
     bytecode: data.bytecode,
@@ -30,7 +30,7 @@ function strip(filePath: string, outPath: string): void {
     abi: data.abi,
     networks: data.networks,
   };
-  /* tslint:enable object-literal-sort-keys */
+  // tslint:enable:object-literal-sort-keys
   fs.writeFileSync(outPath, JSON.stringify(filtered, null, JSON_WHITESPACE));
   console.log("Written: " + outPath);
 }
