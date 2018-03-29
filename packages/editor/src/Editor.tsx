@@ -17,20 +17,11 @@ export interface EditorState {
 
 const CenterDiv = styled.div`
   margin: auto;
-  max-width: 805px;
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
+  width: 805px;
 `;
 
 const StyledEditor = styled(Editor)`
-  max-width: 585px;
-  position: relative;
-`;
-
-const PullQuoteDiv = styled.div`
-  box-sizing: border-box;
-  width: 220px;
+  width: 585px;
   position: relative;
 `;
 
@@ -52,7 +43,6 @@ export class CivilEditor extends React.Component<EditorProps, EditorState> {
     public render(): any {
         return (
           <CenterDiv>
-            <PullQuoteDiv id="civil-pull-quotes"/>
             <StyledEditor
               value={ this.state.value }
               onChange={ this.onChange }

@@ -26,7 +26,7 @@ const StyledQuote = styled<StyledQuoteProps, "p">("p")`
   padding-bottom: 10px;
   margin-right: 30px;
   cursor: ${(props) => props.readOnly ? "text" : "move"};
-  position: absolute;
+  position: relative;
   top: ${(props) => props.top || 0}px
 `;
 
