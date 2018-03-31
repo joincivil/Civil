@@ -35,7 +35,7 @@ class Header extends React.Component<{}, HeaderState> {
   public render(): JSX.Element {
     return (
       <StyledDiv>
-        Balance: {this.state.balance}
+        Your Balance: {this.state.balance}
       </StyledDiv>
     );
   }
