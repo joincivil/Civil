@@ -48,6 +48,66 @@ jobs:
             - run:
                 name: Running tests
                 command: yarn test
+    
+    setup-gcp:
+        docker:
+            - image: civilmedia/gcloud-node:latest
+        working_directory: ~/repo
+        steps:
+            - run:
+                name: Dump Google Cloud Credentials to file
+                command: |
+                    echo ${GOOGLE_AUTH} | base64 -d > ${HOME}/gcp-key.json
+                    gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+                    gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+                    gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+                    gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+                    gcloud docker --authorize-only
+            - persist_to_workspace:
+                root: /root
+                paths:
+                    - gcp-key.json
+                    - .config/gcloud
+                    - .docker
+                    - .dockercfg
+                    - .kubernetes_ns
+                    - .kube
+
+    push-containers:
+        docker:
+            - image: civilmedia/gcloud-node:latest
+        working_directory: ~/repo
+        steps:
+            - attach_workspace:
+                at: /root
+            - checkout
+            - setup_remote_docker
+            - run:
+                name: Build Container
+                command: |
+                    TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
+                    docker build -f Dockerfile-dapp \
+                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG \
+                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1
+            - deploy:
+                name: Push Containers to Registry
+                command: |
+                    gcloud config list
+                    echo "pushing $GOOGLE_PROJECT_ID"
+                    docker push gcr.io/$GOOGLE_PROJECT_ID/dapp
+
+    deploy-staging:
+        docker:
+            - image: civilmedia/gcloud-node:latest
+        working_directory: ~/repo
+        steps:
+            - attach_workspace:
+                at: /root
+            - deploy:
+                name: Update Kubernetes Deployment on STAGING
+                command: |
+                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:development-$CIRCLE_SHA1 --namespace staging
+
 workflows:
     version: 2
     everything:
@@ -59,6 +119,34 @@ workflows:
             - lint:
                 requires:
                     - build
+            - setup-gcp:
+                context: gcp-common
+                requires:
+                    - build
+                filters:
+                    branches:
+                        only:
+                            - development
+                            - master
+                            - /container-.*/
+            - push-containers:
+                context: gcp-common
+                requires:
+                    - setup-gcp
+                filters:
+                    branches:
+                        only:
+                            - development
+                            - master
+                            - /container-.*/
+            - deploy-staging:
+                requires:
+                    - push-container
+                filters:
+                    branches:
+                        only:
+                            - master
+                            - /container-.*/
 
 experimental:
     notify:

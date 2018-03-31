@@ -11,7 +11,8 @@
     "test": "lerna run test --stream --sort",
     "lerna:run": "lerna run",
     "prepare": "lerna run prepare --no-sort",
-    "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse"
+    "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
+    "serve:dapp": "cd ./packages/dapp && serve -s build"
   },
   "config": {
     "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"
