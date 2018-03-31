@@ -86,7 +86,7 @@ jobs:
                 name: Build Container
                 command: |
                     TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
-                    docker build -f Dockerfile-dapp \
+                    docker build -f Dockerfile-dapp . \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1
             - deploy:
@@ -106,7 +106,7 @@ jobs:
             - deploy:
                 name: Update Kubernetes Deployment on STAGING
                 command: |
-                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:development-$CIRCLE_SHA1 --namespace staging
+                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:master-$CIRCLE_SHA1 --namespace staging
 
 workflows:
     version: 2
@@ -126,9 +126,7 @@ workflows:
                 filters:
                     branches:
                         only:
-                            - development
                             - master
-                            - /container-.*/
             - push-containers:
                 context: gcp-common
                 requires:
@@ -136,17 +134,14 @@ workflows:
                 filters:
                     branches:
                         only:
-                            - development
                             - master
-                            - /container-.*/
             - deploy-staging:
                 requires:
-                    - push-container
+                    - push-containers
                 filters:
                     branches:
                         only:
                             - master
-                            - /container-.*/
 
 experimental:
     notify:
