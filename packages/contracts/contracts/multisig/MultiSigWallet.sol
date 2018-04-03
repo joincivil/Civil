@@ -78,15 +78,15 @@ contract MultiSigWallet {
     _;
   }
 
-  modifier notNull(address checkedAddress) {
-    require(checkedAddress != 0);
+  modifier notNull(address verifiedAddress) {
+    require(verifiedAddress != 0);
     _;
   }
 
-  modifier validRequirement(uint ownerCount, uint checkedRequired) {
+  modifier validRequirement(uint ownerCount, uint proposedConfirmations) {
     require(ownerCount <= MAX_OWNER_COUNT);
-    require(checkedRequired <= ownerCount);
-    require(checkedRequired != 0);
+    require(proposedConfirmations <= ownerCount);
+    require(proposedConfirmations != 0);
     require(ownerCount != 0);
     _;
   }
