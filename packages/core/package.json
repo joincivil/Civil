@@ -12,7 +12,8 @@
     "test": "run-s examples",
     "examples": "run-p --aggregate-output examples:*",
     "examples:basic": "node build/doc/examples/example.js",
-    "examples:typed": "node build/doc/examples/typed_contracts.js",
+    "examples:typed": "node build/doc/examples/low-level/typed_contracts.js",
+    "examples:multisig": "node build/doc/examples/low-level/multisig.js",
     "generate": "run-p generate:*",
     "generate:contracts": "abi-gen --abis 'src/artifacts/**/*.json' --template 'src/templates/contract/contract.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/'",
     "generate:artifacts": "node ../dev-utils/build/scripts/generate-from-files/bin.js 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
@@ -27,7 +28,7 @@
   "homepage": "https://github.com/joincivil/Civil",
   "license": "LGPL-2.1",
   "devDependencies": {
-    "@0xproject/abi-gen": "^0.1.1",
+    "@0xproject/abi-gen": "^0.2.7",
     "@joincivil/dev-utils": "^1.2.0",
     "@joincivil/tslint-rules": "^2.5.0",
     "@types/debug": "0.0.30",
@@ -38,7 +39,7 @@
     "rimraf": "^2.6.2",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
-    "web3-typescript-typings": "^0.9.11"
+    "web3-typescript-typings": "^0.10.2"
   },
   "dependencies": {
     "@joincivil/utils": "^1.1.1",

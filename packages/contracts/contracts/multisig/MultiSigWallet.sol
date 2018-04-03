@@ -78,15 +78,15 @@ contract MultiSigWallet {
     _;
   }
 
-  modifier notNull(address _address) {
-    require(_address != 0);
+  modifier notNull(address verifiedAddress) {
+    require(verifiedAddress != 0);
     _;
   }
 
-  modifier validRequirement(uint ownerCount, uint _required) {
+  modifier validRequirement(uint ownerCount, uint proposedConfirmations) {
     require(ownerCount <= MAX_OWNER_COUNT);
-    require(_required <= ownerCount);
-    require(_required != 0);
+    require(proposedConfirmations <= ownerCount);
+    require(proposedConfirmations != 0);
     require(ownerCount != 0);
     _;
   }
@@ -105,18 +105,18 @@ contract MultiSigWallet {
     * Public functions
     */
   /// @dev Contract constructor sets initial owners and required number of confirmations.
-  /// @param _owners List of initial owners.
-  /// @param _required Number of required confirmations.
-  function MultiSigWallet(address[] _owners, uint _required)
+  /// @param initialOwners List of initial owners.
+  /// @param initialRequired Number of required confirmations.
+  function MultiSigWallet(address[] initialOwners, uint initialRequired)
     public
-    validRequirement(_owners.length, _required)
+    validRequirement(initialOwners.length, initialRequired)
   {
-    for (uint i = 0; i < _owners.length; i++) {
-      require(!isOwner[_owners[i]] && _owners[i] != 0);
-      isOwner[_owners[i]] = true;
+    for (uint i = 0; i < initialOwners.length; i++) {
+      require(!isOwner[initialOwners[i]] && initialOwners[i] != 0);
+      isOwner[initialOwners[i]] = true;
     }
-    owners = _owners;
-    required = _required;
+    owners = initialOwners;
+    required = initialRequired;
   }
 
   /// @dev Allows to add a new owner. Transaction has to be sent by wallet.
@@ -176,14 +176,14 @@ contract MultiSigWallet {
   }
 
   /// @dev Allows to change the number of required confirmations. Transaction has to be sent by wallet.
-  /// @param _required Number of required confirmations.
-  function changeRequirement(uint _required)
+  /// @param newRequired Number of required confirmations.
+  function changeRequirement(uint newRequired)
     public
     onlyWallet
-    validRequirement(owners.length, _required)
+    validRequirement(owners.length, newRequired)
   {
-    required = _required;
-    RequirementChange(_required);
+    required = newRequired;
+    RequirementChange(newRequired);
   }
 
   /// @dev Allows an owner to submit and confirm a transaction.

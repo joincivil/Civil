@@ -186,9 +186,7 @@ contract("Newsroom", (accounts: string[]) => {
       const tx = await newsroom.proposeContent(SOME_URI);
       const event = findEvent(tx, events.NEWSROOM_PROPOSED);
       expect(event).to.not.be.undefined();
-      // tslint:disable no-non-null-assertion
       expect(event!.args.author).to.be.equal(defaultAccount);
-      // tslint:enable no-non-null-assertion
     });
 
     it("fails without reporter role", async () => {
@@ -232,9 +230,7 @@ contract("Newsroom", (accounts: string[]) => {
       const event = findEvent(tx, events.NEWSROOM_APPROVED);
 
       expect(event).to.not.be.undefined();
-      // tslint:disable no-non-null-assertion
       expect(event!.args.id).to.be.bignumber.equal(id);
-      // tslint:enable no-non-null-assertion
     });
 
     it("can't reapprove", async () => {
@@ -297,9 +293,7 @@ contract("Newsroom", (accounts: string[]) => {
       const event = findEvent(tx, events.NEWSROOM_DENIED);
 
       expect(event).to.not.be.undefined();
-      // tslint:disable no-non-null-assertion
       expect(event!.args.id).to.be.bignumber.equal(id);
-      // tslint:enable no-non-null-assertion
     });
 
     it("can't re-deny", async () => {

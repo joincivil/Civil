@@ -17,7 +17,7 @@ public {{this.name}} = {
       "{{this.name}}: Sending with:",
 {{> params inputs=inputs}}
       );
-    if (!txOptions.gas) {
+    if (!isDefined(txOptions.gas)) {
       txOptions.gas = await self.{{name}}.estimateGasAsync(
         {{> params inputs=inputs}}
         txOptions);
@@ -66,7 +66,7 @@ public {{this.name}} = {
   ): Promise<TxDataAll> {
     const self = this as {{contractName}}Contract;
     const options: TxDataAll = {...txData, to: self.address};
-    if (!options.gas) {
+    if (!isDefined(options.gas)) {
       options.gas = await self.{{name}}.estimateGasAsync(
         {{> params inputs=inputs}}
         options,

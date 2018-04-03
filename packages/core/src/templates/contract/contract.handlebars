@@ -8,7 +8,7 @@ import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
-import { bindNestedAll, promisify } from "@joincivil/utils";
+import { bindNestedAll, promisify, isDefined } from "@joincivil/utils";
 import * as Debug from "debug";
 
 import { EthAddress, TxData, TxDataAll, TxHash } from "../../types";
@@ -24,6 +24,7 @@ export class {{contractName}}Contract extends BaseContract {
   // tslint:disable:member-ordering
   {{> constructor}}
 
+  // tslint:disable:variable-name
 {{#each methods}}
   {{#this.constant}}
   {{> call contractName=../contractName}}
@@ -33,7 +34,6 @@ export class {{contractName}}Contract extends BaseContract {
   {{/this.constant}}
 
 {{/each}}
-  // tslint:disable:variable-name
 {{#each events}}
   {{> event contractName=../contractName}}
 
