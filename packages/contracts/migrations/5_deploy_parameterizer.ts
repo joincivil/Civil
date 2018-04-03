@@ -38,6 +38,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.pDispensationPct,
       parameterizerConfig.voteQuorum,
       parameterizerConfig.pVoteQuorum,
+      parameterizerConfig.pProcessBy,
     );
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), Parameterizer.address);

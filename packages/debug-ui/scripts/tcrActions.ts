@@ -4,24 +4,28 @@ import BigNumber from "bignumber.js";
 
 export async function apply(
   address: EthAddress,
-  deposit: BigNumber = new BigNumber(1000),
+  deposit?: BigNumber,
   optionalCivil?: Civil): Promise<void> {
+  let applicationDeposit = deposit;
   const civil = optionalCivil || new Civil();
 
   console.log("Apply to TCR");
   const tcr = await civil.tcrSingletonTrusted();
-
+  const parameterizer = await tcr.getParameterizer();
   const eip = await civil.getEIP20ForDeployedTCR();
+  if (!applicationDeposit) {
+    applicationDeposit = await parameterizer.getParameterValue("minDeposit");
+  }
 
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
   console.log("approvedTokensForSpender: " + approvedTokensForSpender);
-  if (approvedTokensForSpender.lessThan(deposit)) {
-    console.log("approve this many tokens: " + deposit);
-    const approveTransaction = await eip.approveSpender(tcr.address, deposit);
+  if (approvedTokensForSpender.lessThan(applicationDeposit)) {
+    console.log("approve this many tokens: " + applicationDeposit);
+    const approveTransaction = await eip.approveSpender(tcr.address, applicationDeposit);
     await approveTransaction.awaitReceipt();
   }
 
-  const applyTransaction = await tcr.apply(address, deposit, "test");
+  const applyTransaction = await tcr.apply(address, applicationDeposit, "test");
   await applyTransaction.awaitReceipt();
   console.log("Applied to TCR");
 }
@@ -31,90 +35,18 @@ export async function challenge(address: EthAddress, optionalCivil?: Civil): Pro
 
   console.log("Challenging TCR Listing");
   const tcr = await civil.tcrSingletonTrusted();
-
+  const parameterizer = await tcr.getParameterizer();
   const eip = await civil.getEIP20ForDeployedTCR();
-
-  // TODO(nickreynolds): Get correct minDeposit value from parameterizer
+  const deposit = await parameterizer.getParameterValue("minDeposit");
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
-  if (approvedTokensForSpender.lessThan(1000)) {
-    const approveTransaction = await eip.approveSpender(tcr.address, new BigNumber(1000));
+  if (approvedTokensForSpender.lessThan(deposit)) {
+    const approveTransaction = await eip.approveSpender(tcr.address, deposit);
     await approveTransaction.awaitReceipt();
   }
 
   const challengeTransaction = await tcr.challenge(address, "test");
   await challengeTransaction.awaitReceipt();
   console.log("Challenged TCR Listing");
-}
-
-export async function commitVote(
-  pollID: BigNumber,
-  voteOption: BigNumber,
-  salt: BigNumber,
-  numTokens: BigNumber,
-  optionalCivil?: Civil,
-): Promise<void> {
-  const civil = optionalCivil || new Civil();
-
-  const secretHash = getVoteSaltHash(voteOption.toString(), salt.toString());
-  console.log("Commiting Vote. secretHash: " + secretHash);
-  const voting = await civil.getVotingForDeployedTCR();
-  const prevPollID = await voting.getPrevPollID(numTokens);
-
-  const commitTransaction = await voting.commitVote(pollID, secretHash, numTokens, prevPollID);
-  await commitTransaction.awaitReceipt();
-  console.log("Vote Committed.");
-}
-
-export async function revealVote(
-  pollID: BigNumber,
-  voteOption: BigNumber,
-  salt: BigNumber,
-  optionalCivil?: Civil,
-): Promise<void> {
-  const civil = optionalCivil || new Civil();
-
-  console.log("Revealing Vote.");
-  const voting = await civil.getVotingForDeployedTCR();
-
-  const revealTransaction = await voting.revealVote(pollID, voteOption, salt);
-  await revealTransaction.awaitReceipt();
-  console.log("Vote Revealed.");
-}
-
-export async function requestVotingRights(
-  numTokens: BigNumber,
-  optionalCivil?: Civil,
-): Promise<void> {
-  const civil = optionalCivil || new Civil();
-
-  const voting = await civil.getVotingForDeployedTCR();
-  const eip = await civil.getEIP20ForDeployedTCR();
-
-  const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
-  if (approvedTokensForSpender < numTokens) {
-    console.log("approving voting contract as token spender");
-    const approveSpender = await eip.approveSpender(voting.address, numTokens);
-    await approveSpender.awaitReceipt();
-    console.log("voting contract approved");
-  }
-
-  console.log("Requesting Voting Rights");
-  const requestRights = await voting.requestVotingRights(numTokens);
-  await requestRights.awaitReceipt();
-  console.log("Voting Rights Requested");
-}
-
-export async function withdrawVotingRights(
-  numTokens: BigNumber,
-  optionalCivil?: Civil,
-): Promise<void> {
-  const civil = optionalCivil || new Civil();
-
-  const voting = await civil.getVotingForDeployedTCR();
-
-  console.log("Withdrawing Voting Rights");
-  await voting.withdrawVotingRights(numTokens);
-  console.log("Voting Rights Withdrawn");
 }
 
 export async function updateStatus(address: EthAddress, optionalCivil?: Civil): Promise<void> {

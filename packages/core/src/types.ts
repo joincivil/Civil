@@ -119,3 +119,27 @@ export enum ListingState {
   READY_TO_RESOLVE_APPEAL,
   WHITELISTED_WITHOUT_CHALLENGE,
 }
+
+export type PollID = BigNumber;
+
+/**
+ * This enum represents the various states a Parameterizer Proposal can be in.
+ */
+export enum ParamProposalState {
+  NOT_FOUND,
+  APPLYING,
+  READY_TO_PROCESS,
+  CHALLENGED_IN_COMMIT_VOTE_PHASE,
+  CHALLENGED_IN_REVEAL_VOTE_PHASE,
+  READY_TO_RESOLVE_CHALLENGE,
+}
+
+/**
+ * Interface describing the data associated with Parameterizer Proposals
+ */
+export interface ParamProp {
+  propID: Bytes32;
+  paramName: string;
+  proposedValue: BigNumber;
+  pollID?: BigNumber;
+}

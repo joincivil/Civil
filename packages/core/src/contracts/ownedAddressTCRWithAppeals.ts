@@ -17,6 +17,7 @@ import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { OwnedAddressTCRWithAppealsContract } from "./generated/owned_address_t_c_r_with_appeals";
 import { Voting } from "./voting";
+import { Parameterizer } from "./parameterizer";
 
 const debug = Debug("civil:tcr");
 
@@ -59,9 +60,15 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Returns Voting instance associated with this TCR
    */
   public async getVoting(): Promise<Voting> {
-    return Voting.atUntrusted(this.web3Wrapper, await this.getVotingAddress());
+    return Voting.singleton(this.web3Wrapper);
   }
 
+  /**
+   * Returns Parameterizer instance associated with this TCR
+   */
+  public async getParameterizer(): Promise<Parameterizer> {
+    return Parameterizer.singleton(this.web3Wrapper);
+  }
   /**
    * Get address for token used with this TCR
    */
@@ -74,6 +81,13 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async getVotingAddress(): Promise<EthAddress> {
     return this.instance.voting.callAsync();
+  }
+
+  /**
+   * Get address for parameterizer contract used with this TCR
+   */
+  public async getParameterizerAddress(): Promise<EthAddress> {
+    return this.instance.parameterizer.callAsync();
   }
 
   /**

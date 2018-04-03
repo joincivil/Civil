@@ -11,7 +11,8 @@
     "dispensationPct": 50,
     "pDispensationPct": 50,
     "voteQuorum": 50,
-    "pVoteQuorum": 50
+    "pVoteQuorum": 50,
+    "pProcessBy": 180
   },
   "TokenAddress": "0x337cDDa6D41A327c5ad456166CCB781a9722AFf9",
   "testnets": {

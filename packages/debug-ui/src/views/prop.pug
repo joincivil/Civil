@@ -1,0 +1,64 @@
+extends header
+
+block scripts
+  script(src="/assets/js/prop.js")
+
+block content
+  content#state State: 
+  br
+
+  div(style = "border : thick solid #0000FF")#application.hidden
+    h3 Applying
+    #applicationInfo info...
+
+  div(style = "border : thick solid #0000FF")#process.hidden
+    h3 Ready To Process. Press "Update Prop" to Process.
+
+  div(style = "border : thick solid #0000FF")#processChallenge.hidden
+    h3 Ready To Resolve Challenge. Press "Update Prop" to Resolve.
+
+  div(style = "border : thick solid #0000FF")#challenge.hidden
+    h3 Challenge
+    #challengeInfo info...
+    br
+    div#commitVote.hidden
+      | Commit Vote in Challenge
+      br
+      | challengeID
+      input#param-commitVotePollId(type="text")
+      | option
+      input#param-commitVoteOption(type="text")
+      | salt
+      input#param-commitVoteSalt(type="text")
+      | numTokens
+      input#param-commitNumTokens(type="text")
+      button#param-commitVote Commit Vote
+    div#revealVote.hidden
+      | Reveal Vote in Challenge
+      br
+      | challengeID
+      input#param-revealVotePollId(type="text")
+      | option
+      input#param-revealVoteOption(type="text")
+      | salt
+      input#param-revealVoteSalt(type="text")
+      button#param-revealVote Reveal Vote
+
+  div(style = "border : thin solid #0000FF")#resolvedChallenges.hidden
+    h3 Resolved Challenges. 
+    #resolvedChallengesInfo Challenges: 
+    br
+    | pollID:  
+    input#param-claimRewardChallengeID(type="text")
+    | salt: 
+    input#param-claimRewardSalt(type="text")
+    button#param-claimReward(type="text") Claim Reward
+
+  | Challenge Proposed Reparameterization
+  button#param-challengeProp Challenge Proposed Reparameterization
+  br
+
+  | Update Prop
+  button#param-updatePropStatus Update Proposed Reparameterization
+  br
+
