@@ -1,5 +1,5 @@
 import * as React from "react";
-// @ts-ignore
+// tslint:disable-next-line
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
 import InsertImages from "slate-drop-or-paste-images";

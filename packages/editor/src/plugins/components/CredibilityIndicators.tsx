@@ -1,5 +1,5 @@
 import * as React from "react";
-// @ts-ignore
+// tslint:disable-next-line
 import styled, {StyledComponentClass} from "styled-components";
 import { colorConstants } from "../../colorConstants";
 import { Indicator } from "./Indicator";
@@ -99,13 +99,13 @@ const credibilityIndicatorCopy: CredibilityIndicatorCopy = {
 };
 
 export const SectionWrapper = styled.div`
-  width: 160px;
+  width: 185px;
 `;
 
 export const SectionHeadline = styled.h4`
   font-family: "Libre Franklin", sans-serif;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 16px;
   color: ${colorConstants.BLACK}
   margin: 5px 0;
 `;
@@ -116,7 +116,7 @@ export const SectionP = styled.p`
   margin: 0;
   margin-bottom: 12px;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 18px;
 `;
 

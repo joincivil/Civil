@@ -1,5 +1,5 @@
 import * as React from "react";
-// @ts-ignore
+// tslint:disable-next-line
 import styled, {StyledComponentClass} from "styled-components";
 import { colorConstants } from "../../colorConstants";
 
@@ -19,8 +19,8 @@ export interface IndicatorProps {
 
 export const IndicatorHeader = styled.h5`
   font-family: "Libre Franklin", sans-serif;
-  font-weight: 700;
-  font-size: 11px;
+  font-weight: 600;
+  font-size: 14px;
   margin: 0;
   color: ${colorConstants.BLACK};
   vertical-align: middle;
@@ -29,10 +29,13 @@ export const IndicatorHeader = styled.h5`
   align-items: center;
   width: 100%;
   position: relative;
+  padding: 0 7px;
+  height: 36px;
+  box-sizing: border-box;
 `;
 
 export const IconWrapper = styled.span`
-  margin: 0 7px;
+  margin: 0 7px 0 0;
   height: 16px;
 `;
 
@@ -41,14 +44,14 @@ export interface IndicatorDescriptionProps {
 }
 
 export const IndicatorDescription = styled<IndicatorDescriptionProps, "p">("p")`
-  margin: ${(props: IndicatorDescriptionProps): string => props.open ? "8px 0" : "0"};
+  margin: 0;
   height: ${(props: IndicatorDescriptionProps): string => props.open ? "auto" : "0"};
   overflow: hidden;
   font-family: "Libre Franklin", sans-serif;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 14px;
   color: ${colorConstants.PRIMARY_DARK_GREY};
-  line-height: 16px;
+  line-height: 20px;
   padding-left: 31px;
   box-sizing; border-box;
 `;
@@ -61,11 +64,16 @@ export const IndicatorListItem = styled.li`
   border-bottom: 1px solid ${colorConstants.ACCENT_FADED_GREY};
 `;
 
+export interface CollapseIndicatorProps {
+  open: boolean;
+}
+
 export const CollapseIndicator = styled.span`
   position: absolute;
-  right: 0;
+  right: 7px;
+  top: 9.5px;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 15px;
 `;
 
 export class Indicator extends React.Component<IndicatorProps, IndicatorState> {
@@ -99,7 +107,7 @@ export class Indicator extends React.Component<IndicatorProps, IndicatorState> {
       <IndicatorHeader>
         {firstPart}
         <span>{this.props.title}</span>
-        <CollapseIndicator>{this.state.open ? "-" : "+" }</CollapseIndicator>
+        <CollapseIndicator>{this.state.open ? "−" : "+" }</CollapseIndicator>
       </IndicatorHeader>
       <IndicatorDescription open={this.state.open}>{this.props.description}</IndicatorDescription>
     </IndicatorListItem>;

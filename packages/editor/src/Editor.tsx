@@ -1,4 +1,3 @@
-// Import the `Value` model.
 import * as React from "react";
 import { Editor } from "slate-react";
 import styled from "styled-components";
