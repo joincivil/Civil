@@ -251,6 +251,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
     parameterizerConfig.pDispensationPct,
     parameterizerConfig.voteQuorum,
     parameterizerConfig.pVoteQuorum,
+    parameterizerConfig.pProcessBy,
   );
 
   await approveParameterizerFor(accounts);

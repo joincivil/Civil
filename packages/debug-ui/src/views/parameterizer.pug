@@ -1,0 +1,22 @@
+extends header
+
+block scripts 
+  script(src="/assets/js/parameterizer.js")
+
+block content
+  #parameterizerInfo Parameterizer INFO:
+  h2 Parameters:
+  #parameterValues Values:
+  br
+  | Parameter Key: 
+  input(type="text")#param-paramKey
+  | Proposed Value: 
+  input(type="text")#param-paramValue
+  button#param-proposeReparameterization Propose Reparameterization
+  br
+  h3 Proposed Reparameterizations:
+  #propApplications Proposed Reparameterizations (unchallenged)...
+  #challengedCommitProps Challenged Proposed Reparameterizations in Commit Phase...
+  #challengedRevealProps Challenged Proposed Reparameterizations in Reveal Phase...
+  #propsToBeUpdated Proposed Reparameterizations that can be Updated...
+  #completedChallenges Challenges that have been Resolved...

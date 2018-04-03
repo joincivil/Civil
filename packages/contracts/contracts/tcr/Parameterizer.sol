@@ -11,8 +11,7 @@ contract Parameterizer {
   // ------
 
   event ReparameterizationProposal(address indexed proposer, bytes32 indexed paramNameHash, string name, uint value, bytes32 propID);
-  event NewChallenge(address indexed challenger, bytes32 indexed propID, uint pollID);
-
+  event NewChallenge(address indexed challenger, bytes32 indexed propID, uint pollID, string name, uint value);
 
   // ------
   // DATA STRUCTURES
@@ -52,7 +51,6 @@ contract Parameterizer {
   // Global Variables
   EIP20 public token;
   PLCRVoting public voting;
-  uint constant public PROCESSBY = 604800; // 7 days
 
   uint constant NO_CHALLENGE = 0;
 
@@ -91,7 +89,8 @@ contract Parameterizer {
     uint _dispensationPct,
     uint _pDispensationPct,
     uint _voteQuorum,
-    uint _pVoteQuorum
+    uint _pVoteQuorum,
+    uint _pProcessBy
     ) public
   {
     token = EIP20(_tokenAddr);
@@ -109,6 +108,7 @@ contract Parameterizer {
     set("pDispensationPct", _pDispensationPct);
     set("voteQuorum", _voteQuorum);
     set("pVoteQuorum", _pVoteQuorum);
+    set("pProcessBy", _pProcessBy);
   }
 
   // -----------------------
@@ -136,7 +136,7 @@ contract Parameterizer {
       name: _name,
       owner: msg.sender,
       // solium-disable-next-line operator-whitespace
-      processBy: now + get("pApplyStageLen") + get("pCommitStageLen") + get("pRevealStageLen") + PROCESSBY,
+      processBy: now + get("pApplyStageLen") + get("pCommitStageLen") + get("pRevealStageLen") + get("pProcessBy"),
       value: _value
     });
 
@@ -173,7 +173,7 @@ contract Parameterizer {
 
     proposals[_propID].challengeID = pollID;       // update listing to store most recent challenge
 
-    NewChallenge(msg.sender, _propID, pollID);
+    NewChallenge(msg.sender, _propID, pollID, proposals[_propID].name, proposals[_propID].value);
     return pollID;
   }
 

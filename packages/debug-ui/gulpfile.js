@@ -68,6 +68,8 @@ tsPipeline.registerBuildGulpTasks(
             newsroom: __dirname + '/' + config.srcDir + 'code/newsroomEntry.ts',
             article: __dirname + '/' + config.srcDir + 'code/articleEntry.ts',
             header: __dirname + '/' + config.srcDir + 'code/header.ts',
+            parameterizer: __dirname + '/' + config.srcDir + 'code/parameterizer.ts',
+            prop: __dirname + '/' + config.srcDir + 'code/prop.ts',
         },
         outputDir: __dirname + '/' + config.deployDir + config.assetsDir + 'js/',
         tsLintFile: __dirname + '/tslint.json',

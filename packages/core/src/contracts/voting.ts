@@ -1,19 +1,34 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
+import * as Debug from "debug";
 import "@joincivil/utils";
 
 import { Bytes32, EthAddress, TwoStepEthTransaction } from "../types";
-import { requireAccount } from "../utils/errors";
+import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { PLCRVotingContract } from "./generated/p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contractutils";
+
+const debug = Debug("civil:tcr");
 
 /**
  * Voting allows user to interface with polls, either from the
  * Parameterizer or the Registry
  */
 export class Voting extends BaseWrapper<PLCRVotingContract> {
+
+  public static singleton(
+    web3Wrapper: Web3Wrapper,
+  ): Voting {
+    const instance = PLCRVotingContract.singletonTrusted(web3Wrapper);
+    if (!instance) {
+      debug("Smart-contract wrapper for Voting returned null, unsupported network");
+      throw new Error(CivilErrors.UnsupportedNetwork);
+    }
+    return new Voting(web3Wrapper, instance);
+  }
+
   public static atUntrusted(web3wrapper: Web3Wrapper, address: EthAddress): Voting {
     const instance = PLCRVotingContract.atUntrusted(web3wrapper, address);
     return new Voting(web3wrapper, instance);

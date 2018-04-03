@@ -2,11 +2,10 @@ import { Civil } from "@joincivil/core";
 import * as marked from "marked";
 import BN from "bignumber.js";
 import { deployNewsroom } from "../../scripts/deploy-newsroom";
+import { initializeDebugUI } from "../../scripts/civilActions";
 
-// Metamask is injected after full load
-window.addEventListener("load", async () => {
+initializeDebugUI(async (civil) => {
   setIndexListeners();
-  const civil = new Civil({ debug: true });
   const tcr = await civil.tcrSingletonTrusted();
   tcr.listingsInApplicationStage().subscribe((listing: string) => {
     document.getElementById("applications")!.innerHTML += "<br>- <a href='/newsroom.html?address=" +
@@ -41,6 +40,8 @@ window.addEventListener("load", async () => {
     listing + "'>" + listing + "</a>";
   });
   document.getElementById("tcrInfo")!.innerHTML += "<br>Token: " + await tcr.getTokenAddress();
+
+  document.getElementById("parameterizer")!.innerHTML += " " + await tcr.getParameterizerAddress();
 });
 
 function setIndexListeners(): void {

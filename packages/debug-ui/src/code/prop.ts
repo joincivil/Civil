@@ -1,135 +1,92 @@
-import { Civil, ListingState } from "@joincivil/core";
-import { apply, challenge, claimReward, updateStatus } from "../../scripts/tcrActions";
+import { Civil, ListingState, ParamProposalState } from "@joincivil/core";
+import { challengeProp, claimReward, updateProp } from "../../scripts/parameterizerActions";
 import { commitVote, revealVote } from "../../scripts/votingActions";
-import { initializeDebugUI } from "../../scripts/civilActions";
 import { BigNumber } from "bignumber.js";
 
-initializeDebugUI(async (civil) => {
-  setNewsroomListeners();
+// Metamask is injected after full load
+window.addEventListener("load", async () => {
+  setPropListeners();
 
+  const civil = new Civil({ debug: true });
   const tcr = await civil.tcrSingletonTrusted();
+  const parameterizer = await tcr.getParameterizer();
 
   const urlString = window.location.href;
   const url = new URL(urlString);
-  const address = url.searchParams.get("address")!;
-  const state = await tcr.getListingState(address);
+  const id = url.searchParams.get("id")!;
+  const state = await parameterizer.getPropState(id);
 
   const displayState = document.getElementById("state")!;
-  displayState.innerHTML = "State: " + ListingState[state].toString();
+  displayState.innerHTML = "State: " + ParamProposalState[state].toString();
 
-  const challengeId = await tcr.getListingChallengeID(address);
+  const challengeId = await parameterizer.getChallengeID(id);
 
   switch (state) {
-    case ListingState.APPLYING:
+    case ParamProposalState.APPLYING:
       document.getElementById("application")!.classList.remove("hidden");
-      const applicationExpiryDate = await tcr.getApplicationExpiryDate(address);
+      const applicationExpiryDate = await parameterizer.getPropApplicationExpiry(id);
       document.getElementById("applicationInfo")!.innerHTML = "Application Phase active.<br>" +
         "If not challenged, listing can be whitelisted at: " + applicationExpiryDate;
       break;
 
-    case ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
+    case ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
       document.getElementById("challenge")!.classList.remove("hidden");
       document.getElementById("commitVote")!.classList.remove("hidden");
-      const commitVoteExpiryDate = await tcr.getCommitVoteExpiryDate(address);
+      const commitVoteExpiryDate = await parameterizer.getPropChallengeCommitExpiry(id);
       document.getElementById("challengeInfo")!.innerHTML = "Challenge active in Commit Vote phase.<br>" +
         "Commit Vote phase expires at: " + commitVoteExpiryDate + "<br>" +
         "Current Challenge ID: " + challengeId;
       break;
 
-    case ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
+    case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
       document.getElementById("challenge")!.classList.remove("hidden");
       document.getElementById("revealVote")!.classList.remove("hidden");
-      const revealVoteExpiryDate = await tcr.getRevealVoteExpiryDate(address);
+      const revealVoteExpiryDate = await parameterizer.getPropChallengeRevealExpiry(id);
       document.getElementById("challengeInfo")!.innerHTML = "Challenge active in Reveal Vote phase.<br>" +
         "Reveal Vote phase expires at: " + revealVoteExpiryDate + "<br>" +
         "Current Challenge ID: " + challengeId;
       break;
 
-    case ListingState.WAIT_FOR_APPEAL_REQUEST:
-      document.getElementById("appeal")!.classList.remove("hidden");
-      const waitForAppealExpiryDate = await tcr.getRequestAppealExpiryDate(address);
-      document.getElementById("appealInfo")!.innerHTML = "Current waiting for listing owner to request appeal.<br>" +
-        "Request phase expires at: " + waitForAppealExpiryDate;
+    case ParamProposalState.READY_TO_PROCESS:
+      document.getElementById("process")!.classList.remove("hidden");
       break;
 
-    case ListingState.IN_APPEAL_PHASE:
-      document.getElementById("appeal")!.classList.remove("hidden");
-      const inAppealExpiryDate = await tcr.getAppealExpiryDate(address);
-      document.getElementById("appealInfo")!.innerHTML = "Current waiting for JAB to judge appeal.<br>" +
-        "Appeal phase expires at: " + inAppealExpiryDate;
+    case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
+      document.getElementById("processChallenge")!.classList.remove("hidden");
       break;
   }
 
-  tcr.failedChallengesForListing(address).subscribe((id) => {
+  parameterizer.pollIDsForResolvedChallenges(id).subscribe((pollID) => {
     document.getElementById("resolvedChallenges")!.classList.remove("hidden");
-    document.getElementById("resolvedChallengesInfo")!.innerHTML += id + ", ";
-  });
-  tcr.successfulChallengesForListing(address).subscribe((id) => {
-    document.getElementById("resolvedChallenges")!.classList.remove("hidden");
-    document.getElementById("resolvedChallengesInfo")!.innerHTML += id + ", ";
+    document.getElementById("resolvedChallengesInfo")!.innerHTML += pollID + ", ";
   });
 });
 
-function setNewsroomListeners(): void {
+function setPropListeners(): void {
   const urlString = window.location.href;
   const url = new URL(urlString);
-  const address = url.searchParams.get("address");
+  const id = url.searchParams.get("id");
   const civil = new Civil({ debug: true });
 
-  const applyButton = document.getElementById("param-applyToTCR")!;
-  applyButton.onclick = async (event) => {
-    if (address) {
-      // TODO(nickreynolds): turn off button, display "deploying..."
-      await apply(address, new BigNumber(1000), civil);
-      // TODO(nickreynolds): show success
-    } else {
-      console.error("newsroom address not found in params");
-    }
-  };
-
-  const challengeButton = document.getElementById("param-challengeTCRListing")!;
+  const challengeButton = document.getElementById("param-challengeProp")!;
   challengeButton.onclick = async (event) => {
-    if (address) {
+    if (id) {
       // TODO(nickreynolds): turn off button, display "deploying..."
-      await challenge(address, civil);
+      await challengeProp(id, civil);
       // TODO(nickreynolds): show success
     } else {
-      console.error("newsroom address not found in params");
+      console.error("prop id not found in params");
     }
   };
 
-  const updateStatusButton = document.getElementById("param-updateListingStatus")!;
+  const updateStatusButton = document.getElementById("param-updatePropStatus")!;
   updateStatusButton.onclick = async (event) => {
-    if (address) {
+    if (id) {
       // TODO(nickreynolds): turn off button, display "updating..."
-      await updateStatus(address, civil);
+      await updateProp(id, civil);
       // TODO(nickreynolds): show success
     } else {
-      console.error("newsroom address not found in params");
-    }
-  };
-
-  const proposeAndApproveButton = document.getElementById("param-proposeAndApprove")!;
-  proposeAndApproveButton.onclick = async (event) => {
-    // TODO(nickreynolds): fix fs
-    // TODO(ritave): extract into scripts
-    // const article = fs.readFileSync("assets/article.md").toString();
-    const article = "This is article.";
-    if (address) {
-      console.log("Deploying newsroom");
-      const deployedNewsroom = await civil.newsroomAtUntrusted(address);
-      console.log("Proposing content");
-      const articleId = await deployedNewsroom.proposeContent(article);
-      console.log(`\tContent id: ${articleId}`);
-
-      console.log("Approving content");
-      // console.debug(await deployedNewsroom.approveContent(articleId).awaitReceipt());
-      console.log("Done");
-
-      window.location.assign("/article.html?newsroomAddress=" + address + "&articleId=" + articleId);
-
-    } else {
-      console.error("newsroom address not found in params");
+      console.error("prop id not found in params");
     }
   };
 
