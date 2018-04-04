@@ -1,5 +1,5 @@
 import * as React from "react";
-// @ts-ignore
+// tslint:disable-next-line
 import styled, {StyledComponentClass} from "styled-components";
 import { Modal, ModalInner, FormGroup, Label, Input, Button } from "./Modal";
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
-// @ts-ignore
+// tslint:disable-next-line
 import styled, {StyledComponentClass} from "styled-components";
 import { colorConstants } from "../../colorConstants";
 

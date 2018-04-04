@@ -1,5 +1,5 @@
 import * as React from "react";
-// @ts-ignore
+// tslint:disable-next-line
 import styled, {StyledComponentClass} from "styled-components";
 import {
   FormatListBulleted,
@@ -35,12 +35,15 @@ export interface ToolBarState {
 }
 
 const ToolBarWrapper = styled.div`
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  right: 10vw;
+  position: absolute;
+  right: -20px;
   top: 20px;
+  > div {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
   z-index: 10;
+  }
   svg, button {
     cursor: pointer;
     padding: 10px;
@@ -163,68 +166,70 @@ export class ToolBar extends React.Component<ToolBarProps, ToolBarState> {
       }
       const activeBlock = this.props.value.anchorBlock.type;
       return (<ToolBarWrapper>
-        <Title
-          className={activeBlock === constants.HEADER ? "active" : ""}
-          onClick={(e: any) => this.onBlockClick(e, constants.HEADER)}
-        />
-        <Button
-          className={activeBlock === constants.PARAGRAPH ? "active" : ""}
-          onClick={(e: any) => this.onBlockClick(e, constants.PARAGRAPH)}
-        >p</Button>
-        <FormatQuote
-          className={this.isWrappedInBlock(constants.BLOCKQUOTE) ? "active" : ""}
-          onClick={(e: any) => this.onBlockWrap(e, constants.BLOCKQUOTE)}
-        />
-        <FormatListBulleted
-          className={this.isListOfType(constants.UL_LIST) ? "active" : ""}
-          onClick={(e: any) => this.createList(e, constants.UL_LIST)}
-        />
-        <FormatListNumbered
-          className={this.isListOfType(constants.OL_LIST) ? "active" : ""}
-          onClick={(e: any) => this.createList(e, constants.OL_LIST)}
-        />
-        <Button
-          className={this.isActiveMark(constants.PULL_QUOTE) ? "active" : ""}
-          onClick={(e: any) => this.onMarkClick(e, { type: constants.PULL_QUOTE, data: {top: 0}})}
-        >pq</Button>
-        <Button
-          className={this.isActiveMark(constants.DROP_CAP) ? "active" : ""}
-          onClick={(e: any) => this.onMarkClick(e, constants.DROP_CAP)}
-        >dc</Button>
-        <Button
-          className={this.isActiveMark(constants.RUN_IN) ? "active" : ""}
-          onClick={(e: any) => this.onMarkClick(e, constants.RUN_IN)}
-        >ri</Button>
-        <FormatBold
-          className={this.isActiveMark(constants.BOLD) ? "active" : ""}
-          onClick={(e: any) => this.onMarkClick(e, constants.BOLD)}
-        />
-        <FormatItalic
-          className={this.isActiveMark(constants.ITALIC) ? "active" : ""}
-          onClick={(e: any) => this.onMarkClick(e, constants.ITALIC)}
-        />
-        <FormatStrikethrough
-          className={this.isActiveMark(constants.STRIKE_THROUGH) ? "active" : ""}
-          onClick={(e: any) => this.onMarkClick(e, constants.STRIKE_THROUGH)}
-        />
-        <InsertLink
-          className={this.isActiveMark(constants.LINK) ? "active" : ""}
-          onClick={(e: any) => this.onMarkClick(e, constants.LINK)}
-        />
-        <InsertPhoto
-          onClick={(e: any) => this.setState({openImageModal: true})}
-        />
-        {imageModal}
+        <div>
+          <Title
+            className={activeBlock === constants.HEADER ? "active" : ""}
+            onClick={(e: any) => this.onBlockClick(e, constants.HEADER)}
+          />
+          <Button
+            className={activeBlock === constants.PARAGRAPH ? "active" : ""}
+            onClick={(e: any) => this.onBlockClick(e, constants.PARAGRAPH)}
+          >p</Button>
+          <FormatQuote
+            className={this.isWrappedInBlock(constants.BLOCKQUOTE) ? "active" : ""}
+            onClick={(e: any) => this.onBlockWrap(e, constants.BLOCKQUOTE)}
+          />
+          <FormatListBulleted
+            className={this.isListOfType(constants.UL_LIST) ? "active" : ""}
+            onClick={(e: any) => this.createList(e, constants.UL_LIST)}
+          />
+          <FormatListNumbered
+            className={this.isListOfType(constants.OL_LIST) ? "active" : ""}
+            onClick={(e: any) => this.createList(e, constants.OL_LIST)}
+          />
+          <Button
+            className={this.isActiveMark(constants.PULL_QUOTE) ? "active" : ""}
+            onClick={(e: any) => this.onMarkClick(e, { type: constants.PULL_QUOTE, data: {top: 0}})}
+          >pq</Button>
+          <Button
+            className={this.isActiveMark(constants.DROP_CAP) ? "active" : ""}
+            onClick={(e: any) => this.onMarkClick(e, constants.DROP_CAP)}
+          >dc</Button>
+          <Button
+            className={this.isActiveMark(constants.RUN_IN) ? "active" : ""}
+            onClick={(e: any) => this.onMarkClick(e, constants.RUN_IN)}
+          >ri</Button>
+          <FormatBold
+            className={this.isActiveMark(constants.BOLD) ? "active" : ""}
+            onClick={(e: any) => this.onMarkClick(e, constants.BOLD)}
+          />
+          <FormatItalic
+            className={this.isActiveMark(constants.ITALIC) ? "active" : ""}
+            onClick={(e: any) => this.onMarkClick(e, constants.ITALIC)}
+          />
+          <FormatStrikethrough
+            className={this.isActiveMark(constants.STRIKE_THROUGH) ? "active" : ""}
+            onClick={(e: any) => this.onMarkClick(e, constants.STRIKE_THROUGH)}
+          />
+          <InsertLink
+            className={this.isActiveMark(constants.LINK) ? "active" : ""}
+            onClick={(e: any) => this.onMarkClick(e, constants.LINK)}
+          />
+          <InsertPhoto
+            onClick={(e: any) => this.setState({openImageModal: true})}
+          />
+          {imageModal}
+        </div>
       </ToolBarWrapper>);
     }
   }
 
   public render(): JSX.Element {
     return (
-      <div>
+      <>
         {this.renderButton()}
         {this.props.children}
-      </div>
+      </>
     );
   }
 }
