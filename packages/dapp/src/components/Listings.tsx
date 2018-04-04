@@ -8,12 +8,12 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
   width: 100%
   color: black;
-  border-bottom: 2px solid black;
 `;
 
 export interface ListingsState {
   applications: List<string>;
   applicationSubscription: Subscription;
+  error: undefined|string;
 }
 
 class Listings extends React.Component<{}, ListingsState> {
@@ -23,6 +23,7 @@ class Listings extends React.Component<{}, ListingsState> {
     this.state = {
       applications: List<string>(),
       applicationSubscription: new Subscription(),
+      error: undefined,
     };
   }
 
@@ -39,19 +40,28 @@ class Listings extends React.Component<{}, ListingsState> {
     return (
       <StyledDiv>
         whaddup listings: {this.state.applications.toString()}
+        <br/>
+        {this.state.error}
       </StyledDiv>
     );
   }
 
-  private initListings = () => {
-
+  private initListings = async () => {
     const civil = new Civil();
-    const tcr = civil.tcrSingletonTrusted();
-    const instance = this;
-    const subscription = tcr.listingsInApplicationStage().subscribe((listing) => {
-      instance.setState({applications: this.state.applications.push(listing)});
-    });
-    this.setState({applicationSubscription : subscription});
+    let tcr;
+    try {
+      tcr = civil.tcrSingletonTrusted();
+    } catch (ex) {
+      console.log("failed to get tcr.");
+      this.setState({error: "No Supported Network Found. Please set MetaMask network to Rinkeby and Unlock Account."});
+    }
+
+    if (tcr) {
+      const subscription = tcr.listingsInApplicationStage().subscribe((listing) => {
+        this.setState({applications: this.state.applications.push(listing)});
+      });
+      this.setState({applicationSubscription : subscription});
+    }
   }
 }
 
