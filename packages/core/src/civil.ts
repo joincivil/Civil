@@ -113,7 +113,7 @@ export class Civil {
    * might a bad actor or not implementing Newsroom ABIs at all.
    * @param address The address on current Ethereum network where the smart-contract is located
    */
-  public newsroomAtUntrusted(address: EthAddress): Newsroom {
+  public async newsroomAtUntrusted(address: EthAddress): Promise<Newsroom> {
     return Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, address);
   }
 

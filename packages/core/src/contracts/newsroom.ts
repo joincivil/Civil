@@ -8,8 +8,10 @@ import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";
-import { TwoStepEthTransaction, TxData, EthAddress, ContentHeader, NewsroomContent, ContentId } from "../types";
+import { TwoStepEthTransaction, TxData, EthAddress, ContentId, ContentHeader, NewsroomContent } from "../types";
 import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog } from "./utils/contracts";
+import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
+import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -33,20 +35,43 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepTransaction(
       web3Wrapper,
       await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, newsroomName, txData),
-      receipt =>
-        new Newsroom(web3Wrapper, contentProvider, NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!)),
+      async receipt => {
+        const contract = NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!);
+        const multisigProxy = await NewsroomMultisigProxy.create(web3Wrapper, contract);
+        return new Newsroom(web3Wrapper, contentProvider, contract, multisigProxy);
+      },
     );
   }
-  public static atUntrusted(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, address: EthAddress): Newsroom {
+  public static async atUntrusted(
+    web3Wrapper: Web3Wrapper,
+    contentProvider: ContentProvider,
+    address: EthAddress,
+  ): Promise<Newsroom> {
     const instance = NewsroomContract.atUntrusted(web3Wrapper, address);
-    return new Newsroom(web3Wrapper, contentProvider, instance);
+    const multisigProxy = await NewsroomMultisigProxy.create(web3Wrapper, instance);
+    return new Newsroom(web3Wrapper, contentProvider, instance, multisigProxy);
   }
 
+  private multisigProxy: NewsroomMultisigProxy<NewsroomContract>;
   private contentProvider: ContentProvider;
 
-  private constructor(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, instance: NewsroomContract) {
+  private constructor(
+    web3Wrapper: Web3Wrapper,
+    contentProvider: ContentProvider,
+    instance: NewsroomContract,
+    multisigProxy: NewsroomMultisigProxy<NewsroomContract>,
+  ) {
     super(web3Wrapper, instance);
     this.contentProvider = contentProvider;
+    this.multisigProxy = multisigProxy;
+  }
+
+  /**
+   * Returns a list of Board of Directors with superuser powers over this
+   * newsroom.
+   */
+  public async owners(): Promise<EthAddress[]> {
+    return this.multisigProxy.owners();
   }
 
   /**
@@ -60,7 +85,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.isOwner.callAsync(who);
+    return this.multisigProxy.isOwner(who);
   }
 
   /**
@@ -106,9 +131,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async addRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
-    await this.requireEditor();
+  public async addRole(actor: EthAddress, role: Roles): Promise<MultisigProxyTransaction> {
+    if (await this.isOwner()) {
+      return this.multisigProxy.addRole.sendTransactionAsync(actor, role);
+    }
 
+    await this.requireEditor();
     return createTwoStepSimple(this.web3Wrapper, await this.instance.addRole.sendTransactionAsync(actor, role));
   }
 
@@ -120,9 +148,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async removeRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
-    await this.requireEditor();
+  public async removeRole(actor: EthAddress, role: Roles): Promise<MultisigProxyTransaction> {
+    if (await this.isOwner()) {
+      return this.multisigProxy.removeRole.sendTransactionAsync(actor, role);
+    }
 
+    await this.requireEditor();
     return createTwoStepSimple(this.web3Wrapper, await this.instance.removeRole.sendTransactionAsync(actor, role));
   }
 
@@ -133,10 +164,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoPrivileges} Requires owner permission
    * @throws {CivilErrors.NoUnlockedAccount} Needs the unlocked to check privileges
    */
-  public async setName(newName: string): Promise<TwoStepEthTransaction> {
+  public async setName(newName: string): Promise<MultisigProxyTransaction> {
     await this.requireOwner();
 
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.setName.sendTransactionAsync(newName));
+    return this.multisigProxy.setName.sendTransactionAsync(newName);
   }
 
   /**
@@ -284,14 +315,19 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   private async requireEditor(): Promise<void> {
-    if (!await this.isEditor()) {
-      throw new Error(CivilErrors.NoPrivileges);
-    }
+    await this.requireRole(Roles.Editor);
   }
 
   private async requireReporter(): Promise<void> {
-    if (!await this.isReporter()) {
-      throw new Error(CivilErrors.NoPrivileges);
+    await this.requireRole(Roles.Reporter);
+  }
+
+  private async requireRole(role: Roles): Promise<void> {
+    const account = requireAccount(this.web3Wrapper);
+    if ((await this.instance.owner.callAsync()) !== account) {
+      if (!await this.instance.hasRole.callAsync(account, role)) {
+        throw new Error(CivilErrors.NoPrivileges);
+      }
     }
   }
 

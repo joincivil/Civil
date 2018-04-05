@@ -9,24 +9,28 @@ public {{this.name}} = {
     {{/this.payable}}
   ): Promise<MultisigProxyTransaction> {
     if (!isDefined(this.multisig)) {
-      return this.instance.{{this.name}}.sendTransactionAsync(
-        {{> params inputs=inputs}}
-        txData,
+      return this.emptyProxyTransaction(
+        await this.instance.{{this.name}}.sendTransactionAsync(
+          {{> params inputs=inputs}}
+          txData,
+        ),
       );
     }
     const raw = await this.instance.{{this.name}}.getRaw(
       {{> params inputs=inputs}}
       {...txData, gas: 0},
     );
-    return this.multisig.submitTransaction(
-      this.instance.address,
-      {{#this.payable}}
-      txData.value,
-      {{/this.payable}}
-      {{^this.payable}}
-      new BigNumber(0),
-      {{/this.payable}}
-      raw.data,
+    return this.createProxyTransaction(
+      await this.multisig.submitTransaction(
+        this.instance.address,
+        {{#this.payable}}
+        txData.value,
+        {{/this.payable}}
+        {{^this.payable}}
+        new BigNumber(0),
+        {{/this.payable}}
+        raw.data,
+      ),
     );
   },
 };
