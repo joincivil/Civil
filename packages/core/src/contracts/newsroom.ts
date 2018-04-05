@@ -4,12 +4,12 @@ import * as Web3 from "web3";
 import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
-import { ContentHeader, EthAddress, NewsroomContent, TxData, TwoStepEthTransaction, ContentId } from "../types";
-import { isDecodedLog, createTwoStepTransaction, createTwoStepSimple } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";
+import { TwoStepEthTransaction, TxData, EthAddress, ContentHeader, NewsroomContent, ContentId } from "../types";
+import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog } from "./utils/contracts";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -48,8 +48,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     super(web3Wrapper, instance);
     this.contentProvider = contentProvider;
   }
-
-  // TODO(nickreynolds): Add function to check if user is member of multisig that owns newsroom
 
   /**
    * Checks if the user is the owner of the newsroom
@@ -135,7 +133,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.NoPrivileges} Requires owner permission
    * @throws {CivilErrors.NoUnlockedAccount} Needs the unlocked to check privileges
    */
-  // TODO(ritave): How to support multisig in core?
   public async setName(newName: string): Promise<TwoStepEthTransaction> {
     await this.requireOwner();
 

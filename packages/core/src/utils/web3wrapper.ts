@@ -8,6 +8,8 @@ import { Artifact, CivilTransactionReceipt, EthAddress, TxHash, TxDataAll } from
 import { AbiDecoder } from "./abidecoder";
 import { CivilErrors } from "./errors";
 import { NodeStream } from "./nodestream";
+import { BaseContract } from "../contracts/basecontract";
+import { BaseWrapper } from "../contracts/basewrapper";
 
 const POLL_MILLISECONDS = 1000;
 const DEFAULT_HTTP_NODE = "http://localhost:8545";
@@ -67,6 +69,17 @@ export class Web3Wrapper {
 
   public get networkId(): string {
     return this.web3.version.network;
+  }
+
+  public async getCode(contract: EthAddress | BaseContract | BaseWrapper<any>): Promise<string> {
+    let address: EthAddress;
+    if (typeof contract === "string") {
+      address = contract;
+    } else {
+      address = contract.address;
+    }
+    const getCodeAsync = promisify<string>(this.web3.eth.getCode);
+    return getCodeAsync(address);
   }
 
   public async rpc(method: string, ...params: any[]): Promise<Web3.JSONRPCResponsePayload> {

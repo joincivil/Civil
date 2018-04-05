@@ -42,7 +42,7 @@ public {{this.name}} = {
     const self = this as {{contractName}}Contract;
     const promisified = promisify<number>(
       self.instance.{{this.name}}.estimateGas,
-      self.instance.{{this.name}},
+      self.instance.{{this.name}}
     );
     try {
       const estimate = Math.floor(await promisified(

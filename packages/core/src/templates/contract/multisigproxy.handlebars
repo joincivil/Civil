@@ -1,0 +1,29 @@
+/*
+ * This file is auto-generated using abi-gen. Any changes will be reverted
+ */
+
+import { isDefined } from "@joincivil/utils";
+import BigNumber from "bignumber.js";
+
+import { BaseMultisigProxy, MultisigProxyTransaction } from "../../multisig/basemultisigproxy";
+import { OwnableContract } from "../../interfaces/ownable";
+import { Web3Wrapper } from "../../../utils/web3wrapper";
+import { TxData } from "../../../types";
+
+export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
+  public static async create(web3Wrapper: Web3Wrapper, instance: OwnableContract): Promise<{{contractName}}MultisigProxy> {
+    const proxy = new {{contractName}}MultisigProxy(web3Wrapper, instance);
+    await proxy.resolveMultisig();
+    return proxy;
+  }
+
+{{#each methods}}
+  {{^this.constant}}
+  {{> proxy_tx contractName=../contractName}}
+  {{/this.constant}}
+{{/each}}
+
+  private constructor(web3Wrapper: Web3Wrapper, instance: OwnableContract) {
+    super(web3Wrapper, instance);
+  }
+}
