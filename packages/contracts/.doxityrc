@@ -1,4 +1,4 @@
 {
-  "target": "doxity",
+  "target": "doxity/pages/docs",
   "src": "contracts/**/*"
 }
