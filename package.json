@@ -6,6 +6,7 @@
     "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint --parallel",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
+    "prettier:ci": "prettier --config .prettierrc.yaml --list-different '**/*.{ts,tsx,json,md}'",
     "clean": "lerna run clean --parallel",
     "test": "lerna run test --stream --sort",
     "lerna:run": "lerna run",

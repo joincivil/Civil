@@ -34,7 +34,7 @@ jobs:
                 at: ./
             - run:
                 name: Ensuring prettified
-                command: yarn prettier
+                command: yarn prettier:ci
             - run:
                 name: Linting
                 command: yarn lint
