@@ -56,8 +56,8 @@ jobs:
             - run:
                 name: Dump Google Cloud Credentials to file
                 command: |
-                    echo ${GOOGLE_AUTH} | base64 -d > ${HOME}/gcp-key.json
-                    gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+                    echo ${GOOGLE_AUTH} | base64 -d > ./gcp-key.json
+                    gcloud auth activate-service-account --key-file ./gcp-key.json
                     gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
                     gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
                     gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
