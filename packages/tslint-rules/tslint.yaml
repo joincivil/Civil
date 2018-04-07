@@ -61,9 +61,6 @@ rules:
     eofline: true
     no-duplicate-imports: true
     prefer-const: true
-    max-line-length:
-        - true
-        - 120
     indent:
         - true
         - spaces
@@ -85,7 +82,6 @@ rules:
         - check-open-brace
         - check-whitespace
     prefer-method-signature: true
-    semicolon: true
     variable-name:
         - true
         - ban-keywords
@@ -126,6 +122,11 @@ rules:
 
     # Some recommended rules are annoying and as a team decided
     # to not use them due to not providing good enough value
+    # Or are checked by prettier
+    semicolon: false
+    max-line-length: false
+    trailing-comma: false
+    arrow-parens: false
     ordered-imports: false
     no-non-null-assertion: false
     interface-name: false
