@@ -4,14 +4,8 @@ import * as Debug from "debug";
 
 import "@joincivil/utils";
 import { ContentProvider } from "../content/contentprovider";
-import {
-  EthAddress,
-  ListingState,
-  TwoStepEthTransaction,
-} from "../types";
-import {
-  createTwoStepSimple,
-} from "../utils/contractutils";
+import { EthAddress, ListingState, TwoStepEthTransaction } from "../types";
+import { createTwoStepSimple } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -32,11 +26,7 @@ const debug = Debug("civil:tcr");
  * as collect winnings related to challenges, or withdraw/deposit tokens from listings.
  */
 export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithAppealsContract> {
-
-  public static singleton(
-    web3Wrapper: Web3Wrapper,
-    contentProvider: ContentProvider,
-  ): OwnedAddressTCRWithAppeals {
+  public static singleton(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider): OwnedAddressTCRWithAppeals {
     const instance = OwnedAddressTCRWithAppealsContract.singletonTrusted(web3Wrapper);
     if (!instance) {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
@@ -100,11 +90,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns currently whitelisted addresses
    */
-  public whitelistedListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public whitelistedListings(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .NewListingWhitelistedStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.instance.getListingIsWhitelisted.callAsync(listingAddress));
+      .map(e => e.args.listingAddress)
+      .concatFilter(async listingAddress => this.instance.getListingIsWhitelisted.callAsync(listingAddress));
   }
 
   /**
@@ -113,11 +103,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns listings currently in application stage
    */
-  public listingsInApplicationStage(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public listingsInApplicationStage(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .ApplicationStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInApplicationPhase(listingAddress));
+      .map(e => e.args.listingAddress)
+      .concatFilter(async listingAddress => this.isInApplicationPhase(listingAddress));
   }
 
   /**
@@ -126,11 +116,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns addresses ready to be whitelisted
    */
-  public readyToBeWhitelistedListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public readyToBeWhitelistedListings(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
-    .ApplicationStream({}, { fromBlock })
-    .map((e) => e.args.listingAddress)
-    .concatFilter(async (listingAddress) => this.isReadyToWhitelist(listingAddress));
+      .ApplicationStream({}, { fromBlock })
+      .map(e => e.args.listingAddress)
+      .concatFilter(async listingAddress => this.isReadyToWhitelist(listingAddress));
   }
 
   /**
@@ -139,11 +129,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in commit vote phase
    */
-  public currentChallengedCommitVotePhaseListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public currentChallengedCommitVotePhaseListings(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInChallengedCommitVotePhase(listingAddress));
+      .map(e => e.args.listingAddress)
+      .concatFilter(async listingAddress => this.isInChallengedCommitVotePhase(listingAddress));
   }
 
   /**
@@ -152,11 +142,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in reveal vote phase
    */
-  public currentChallengedRevealVotePhaseListings(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public currentChallengedRevealVotePhaseListings(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInChallengedRevealVotePhase(listingAddress));
+      .map(e => e.args.listingAddress)
+      .concatFilter(async listingAddress => this.isInChallengedRevealVotePhase(listingAddress));
   }
 
   /**
@@ -165,11 +155,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in request appeal phase
    */
-  public listingsAwaitingAppealRequest(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public listingsAwaitingAppealRequest(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeFailedStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInRequestAppealPhase(listingAddress));
+      .map(e => e.args.listingAddress)
+      .concatFilter(async listingAddress => this.isInRequestAppealPhase(listingAddress));
   }
 
   /**
@@ -178,11 +168,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsAwaitingAppeal(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public listingsAwaitingAppeal(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .ChallengeFailedStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.isInAppealPhase(listingAddress));
+      .map(e => e.args.listingAddress)
+      .concatFilter(async listingAddress => this.isInAppealPhase(listingAddress));
   }
 
   /**
@@ -191,11 +181,11 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    *                  Set to "latest" for only new events
    * @returns addresses for listings that can be updated
    */
-  public listingsAwaitingUpdate(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public listingsAwaitingUpdate(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .ApplicationStream({}, { fromBlock })
-      .map((e) => e.args.listingAddress)
-      .concatFilter(async (listingAddress) => this.challengeCanBeResolved(listingAddress));
+      .map(e => e.args.listingAddress)
+      .concatFilter(async listingAddress => this.challengeCanBeResolved(listingAddress));
   }
 
   /**
@@ -207,11 +197,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public failedChallengesForListing(
     listingAddress: EthAddress,
-    fromBlock: number|"latest" = 0,
+    fromBlock: number | "latest" = 0,
   ): Observable<BigNumber> {
-    return this.instance
-    .ChallengeFailedStream({ listingAddress }, { fromBlock })
-    .map((e) => e.args.challengeID);
+    return this.instance.ChallengeFailedStream({ listingAddress }, { fromBlock }).map(e => e.args.challengeID);
   }
 
   /**
@@ -223,11 +211,9 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public successfulChallengesForListing(
     listingAddress: EthAddress,
-    fromBlock: number|"latest" = 0,
+    fromBlock: number | "latest" = 0,
   ): Observable<BigNumber> {
-    return this.instance
-    .ChallengeSucceededStream({ listingAddress }, { fromBlock })
-    .map((e) => e.args.challengeID);
+    return this.instance.ChallengeSucceededStream({ listingAddress }, { fromBlock }).map(e => e.args.challengeID);
   }
 
   /**
@@ -268,12 +254,12 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
     }
   }
 
-   /**
-    * Gets reward for voter
-    * @param challengeID ID of challenge to check
-    * @param salt Salt of vote associated with voter for specified challenge
-    * @param voter Voter of which to check reward
-    */
+  /**
+   * Gets reward for voter
+   * @param challengeID ID of challenge to check
+   * @param salt Salt of vote associated with voter for specified challenge
+   * @param voter Voter of which to check reward
+   */
   public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
@@ -290,7 +276,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async doesListingExist(listingAddress: EthAddress): Promise<boolean> {
     const appExpiry = await this.instance.getListingApplicationExpiry.callAsync(listingAddress);
-    return (appExpiry > new BigNumber(0));
+    return appExpiry > new BigNumber(0);
   }
 
   /**
@@ -333,8 +319,10 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
 
     const now = new Date();
 
-    if (requestAppealPhaseExpiryTimestamp.toNumber() > 0) { // request appeal phase initialized
-      if (appealPhaseExpiryTimestamp.toNumber() > 0) { // appeal phase initialized
+    if (requestAppealPhaseExpiryTimestamp.toNumber() > 0) {
+      // request appeal phase initialized
+      if (appealPhaseExpiryTimestamp.toNumber() > 0) {
+        // appeal phase initialized
         if (appealPhaseExpiry < now) {
           return true; // appeal phase over
         } else {
@@ -387,10 +375,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param listingAddress Address of potential listing to check
    * @param pollID Optional pollID causes function to return true only if active challenge is equal to pollID
    */
-  public async isInChallengedCommitVotePhase(
-    listingAddress: EthAddress,
-    pollID?: BigNumber,
-  ): Promise<boolean> {
+  public async isInChallengedCommitVotePhase(listingAddress: EthAddress, pollID?: BigNumber): Promise<boolean> {
     let isInCommitPhase = true;
 
     // if there is no challenge
@@ -421,10 +406,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param listingAddress Address of potential listing to
    * @param pollID Optional pollID causes function to return true only if active challenge is equal to pollID
    */
-  public async isInChallengedRevealVotePhase(
-    listingAddress: EthAddress,
-    pollID?: BigNumber,
-  ): Promise<boolean> {
+  public async isInChallengedRevealVotePhase(listingAddress: EthAddress, pollID?: BigNumber): Promise<boolean> {
     let isInRevealPhase = true;
 
     // if there is no challenge
@@ -458,7 +440,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
   public async isInRequestAppealPhase(listingAddress: EthAddress): Promise<boolean> {
     const appealExpiryDate = await this.getRequestAppealExpiryDate(listingAddress);
     const hasRequestedAppeal = await this.instance.getAppealRequested.callAsync(listingAddress);
-    return (!hasRequestedAppeal && appealExpiryDate > new Date());
+    return !hasRequestedAppeal && appealExpiryDate > new Date();
   }
 
   /**
@@ -476,7 +458,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    */
   public async isInAppealPhase(listingAddress: EthAddress): Promise<boolean> {
     const appealExpiryDate = await this.getAppealExpiryDate(listingAddress);
-    return (appealExpiryDate > new Date());
+    return appealExpiryDate > new Date();
   }
 
   /**
@@ -650,10 +632,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param address Address of listing to deposit to
    * @param depositAmount How many tokens to deposit
    */
-  public async deposit(
-    listingAddress: EthAddress,
-    depositAmount: BigNumber,
-  ): Promise<TwoStepEthTransaction> {
+  public async deposit(listingAddress: EthAddress, depositAmount: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount),
@@ -665,10 +644,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param address Address of listing to withdraw from
    * @param withdrawalAmount How many tokens to withdraw
    */
-  public async withdraw(
-    listingAddress: EthAddress,
-    withdrawalAmount: BigNumber,
-  ): Promise<TwoStepEthTransaction> {
+  public async withdraw(listingAddress: EthAddress, withdrawalAmount: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount),
@@ -680,10 +656,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param address Address of listing to exit
    */
   public async exitListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.web3Wrapper,
-      await this.instance.exitListing.sendTransactionAsync(listingAddress),
-    );
+    return createTwoStepSimple(this.web3Wrapper, await this.instance.exitListing.sendTransactionAsync(listingAddress));
   }
 
   /**
@@ -691,10 +664,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param listingAddress Address of listing to challenge
    * @param data Data associated with challenge
    */
-  public async challenge(
-    listingAddress: EthAddress,
-    data: string = "",
-  ): Promise<TwoStepEthTransaction> {
+  public async challenge(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
     const uri = await this.contentProvider.put(data);
     return this.challengeWithURI(listingAddress, uri);
   }
@@ -705,10 +675,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param address Address of listing to challenge
    * @param data Data associated with challenge (URI that points to data object)
    */
-  public async challengeWithURI(
-    listingAddress: EthAddress,
-    data: string = "",
-  ): Promise<TwoStepEthTransaction> {
+  public async challengeWithURI(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.challenge.sendTransactionAsync(listingAddress, data),
@@ -719,13 +686,8 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * Updates status of a listing
    * @param address Address of new listing
    */
-  public async updateListing(
-    listingAddress: EthAddress,
-  ): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.web3Wrapper,
-      await this.instance.updateStatus.sendTransactionAsync(listingAddress),
-    );
+  public async updateListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.web3Wrapper, await this.instance.updateStatus.sendTransactionAsync(listingAddress));
   }
 
   /**
@@ -733,10 +695,7 @@ export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithA
    * @param challengeID ID of challenge to claim reward of
    * @param salt Salt for user's vote on specified challenge
    */
-  public async claimReward(
-    challengeID: BigNumber,
-    salt: BigNumber,
-  ): Promise<TwoStepEthTransaction> {
+  public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.claimReward.sendTransactionAsync(challengeID, salt),

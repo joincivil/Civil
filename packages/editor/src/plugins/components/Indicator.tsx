@@ -1,6 +1,6 @@
 import * as React from "react";
 // tslint:disable-next-line
-import styled, {StyledComponentClass} from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import { colorConstants } from "../../colorConstants";
 
 export interface IndicatorState {
@@ -45,7 +45,7 @@ export interface IndicatorDescriptionProps {
 
 export const IndicatorDescription = styled<IndicatorDescriptionProps, "p">("p")`
   margin: 0;
-  height: ${(props: IndicatorDescriptionProps): string => props.open ? "auto" : "0"};
+  height: ${(props: IndicatorDescriptionProps): string => (props.open ? "auto" : "0")};
   overflow: hidden;
   font-family: "Libre Franklin", sans-serif;
   font-weight: 400;
@@ -95,21 +95,21 @@ export class Indicator extends React.Component<IndicatorProps, IndicatorState> {
   public render(): JSX.Element {
     let firstPart = <IconWrapper>{this.props.icon}</IconWrapper>;
     if (!this.props.readOnly) {
-      firstPart = <IconWrapper>
-        <input
-          onClick={(e: any) => this.toggleIndicator(e)}
-          type="checkbox"
-          checked={this.props.checked}
-        />
-      </IconWrapper>;
+      firstPart = (
+        <IconWrapper>
+          <input onClick={(e: any) => this.toggleIndicator(e)} type="checkbox" checked={this.props.checked} />
+        </IconWrapper>
+      );
     }
-    return <IndicatorListItem onClick={() => this.toggle()}>
-      <IndicatorHeader>
-        {firstPart}
-        <span>{this.props.title}</span>
-        <CollapseIndicator>{this.state.open ? "−" : "+" }</CollapseIndicator>
-      </IndicatorHeader>
-      <IndicatorDescription open={this.state.open}>{this.props.description}</IndicatorDescription>
-    </IndicatorListItem>;
+    return (
+      <IndicatorListItem onClick={() => this.toggle()}>
+        <IndicatorHeader>
+          {firstPart}
+          <span>{this.props.title}</span>
+          <CollapseIndicator>{this.state.open ? "−" : "+"}</CollapseIndicator>
+        </IndicatorHeader>
+        <IndicatorDescription open={this.state.open}>{this.props.description}</IndicatorDescription>
+      </IndicatorListItem>
+    );
   }
 }

@@ -11,7 +11,7 @@ export const pullQuote = (options: any): Plugin => {
     name: PULL_QUOTE,
     renderMark(props: any): JSX.Element | void {
       if (props.mark.type === PULL_QUOTE) {
-        return <PullQuote {...props}/>;
+        return <PullQuote {...props} />;
       }
     },
     schema: {

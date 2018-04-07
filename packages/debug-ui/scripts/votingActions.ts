@@ -37,10 +37,7 @@ export async function revealVote(
   console.log("Vote Revealed.");
 }
 
-export async function requestVotingRights(
-  numTokens: BigNumber,
-  optionalCivil?: Civil,
-): Promise<void> {
+export async function requestVotingRights(numTokens: BigNumber, optionalCivil?: Civil): Promise<void> {
   const civil = optionalCivil || new Civil();
 
   const voting = await civil.getVotingForDeployedTCR();
@@ -60,10 +57,7 @@ export async function requestVotingRights(
   console.log("Voting Rights Requested");
 }
 
-export async function withdrawVotingRights(
-  numTokens: BigNumber,
-  optionalCivil?: Civil,
-): Promise<void> {
+export async function withdrawVotingRights(numTokens: BigNumber, optionalCivil?: Civil): Promise<void> {
   const civil = optionalCivil || new Civil();
 
   const voting = await civil.getVotingForDeployedTCR();

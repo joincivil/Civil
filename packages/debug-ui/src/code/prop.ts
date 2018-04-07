@@ -25,26 +25,34 @@ window.addEventListener("load", async () => {
     case ParamProposalState.APPLYING:
       document.getElementById("application")!.classList.remove("hidden");
       const applicationExpiryDate = await parameterizer.getPropApplicationExpiry(id);
-      document.getElementById("applicationInfo")!.innerHTML = "Application Phase active.<br>" +
-        "If not challenged, listing can be whitelisted at: " + applicationExpiryDate;
+      document.getElementById("applicationInfo")!.innerHTML =
+        "Application Phase active.<br>" + "If not challenged, listing can be whitelisted at: " + applicationExpiryDate;
       break;
 
     case ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
       document.getElementById("challenge")!.classList.remove("hidden");
       document.getElementById("commitVote")!.classList.remove("hidden");
       const commitVoteExpiryDate = await parameterizer.getPropChallengeCommitExpiry(id);
-      document.getElementById("challengeInfo")!.innerHTML = "Challenge active in Commit Vote phase.<br>" +
-        "Commit Vote phase expires at: " + commitVoteExpiryDate + "<br>" +
-        "Current Challenge ID: " + challengeId;
+      document.getElementById("challengeInfo")!.innerHTML =
+        "Challenge active in Commit Vote phase.<br>" +
+        "Commit Vote phase expires at: " +
+        commitVoteExpiryDate +
+        "<br>" +
+        "Current Challenge ID: " +
+        challengeId;
       break;
 
     case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
       document.getElementById("challenge")!.classList.remove("hidden");
       document.getElementById("revealVote")!.classList.remove("hidden");
       const revealVoteExpiryDate = await parameterizer.getPropChallengeRevealExpiry(id);
-      document.getElementById("challengeInfo")!.innerHTML = "Challenge active in Reveal Vote phase.<br>" +
-        "Reveal Vote phase expires at: " + revealVoteExpiryDate + "<br>" +
-        "Current Challenge ID: " + challengeId;
+      document.getElementById("challengeInfo")!.innerHTML =
+        "Challenge active in Reveal Vote phase.<br>" +
+        "Reveal Vote phase expires at: " +
+        revealVoteExpiryDate +
+        "<br>" +
+        "Current Challenge ID: " +
+        challengeId;
       break;
 
     case ParamProposalState.READY_TO_PROCESS:
@@ -56,7 +64,7 @@ window.addEventListener("load", async () => {
       break;
   }
 
-  parameterizer.pollIDsForResolvedChallenges(id).subscribe((pollID) => {
+  parameterizer.pollIDsForResolvedChallenges(id).subscribe(pollID => {
     document.getElementById("resolvedChallenges")!.classList.remove("hidden");
     document.getElementById("resolvedChallengesInfo")!.innerHTML += pollID + ", ";
   });
@@ -69,7 +77,7 @@ function setPropListeners(): void {
   const civil = new Civil({ debug: true });
 
   const challengeButton = document.getElementById("param-challengeProp")!;
-  challengeButton.onclick = async (event) => {
+  challengeButton.onclick = async event => {
     if (id) {
       // TODO(nickreynolds): turn off button, display "deploying..."
       await challengeProp(id, civil);
@@ -80,7 +88,7 @@ function setPropListeners(): void {
   };
 
   const updateStatusButton = document.getElementById("param-updatePropStatus")!;
-  updateStatusButton.onclick = async (event) => {
+  updateStatusButton.onclick = async event => {
     if (id) {
       // TODO(nickreynolds): turn off button, display "updating..."
       await updateProp(id, civil);
@@ -91,7 +99,7 @@ function setPropListeners(): void {
   };
 
   const commitVoteButton = document.getElementById("param-commitVote")!;
-  commitVoteButton.onclick = async (event) => {
+  commitVoteButton.onclick = async event => {
     const pollIDString = (document.getElementById("param-commitVotePollId")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
     const optionString = (document.getElementById("param-commitVoteOption")! as HTMLInputElement).value!;
@@ -104,7 +112,7 @@ function setPropListeners(): void {
   };
 
   const revealVoteButton = document.getElementById("param-revealVote")!;
-  revealVoteButton.onclick = async (event) => {
+  revealVoteButton.onclick = async event => {
     const pollIDString = (document.getElementById("param-revealVotePollId")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
     const optionString = (document.getElementById("param-revealVoteOption")! as HTMLInputElement).value!;
@@ -115,7 +123,7 @@ function setPropListeners(): void {
   };
 
   const claimRewardButton = document.getElementById("param-claimReward")!;
-  claimRewardButton.onclick = async (event) => {
+  claimRewardButton.onclick = async event => {
     const pollIDString = (document.getElementById("param-claimRewardChallengeID")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
     const saltString = (document.getElementById("param-claimRewardSalt")! as HTMLInputElement).value;

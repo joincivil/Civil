@@ -7,7 +7,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("AddressRegistry", (accounts) => {
+contract("AddressRegistry", accounts => {
   describe("Function: apply", () => {
     const [applicant] = accounts;
     const listing1 = "0x0000000000000000000000000000000000000001";
@@ -18,7 +18,7 @@ contract("AddressRegistry", (accounts) => {
     });
 
     it("should allow a new listing to apply", async () => {
-      await registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant });
+      await registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant });
       // get the struct in the mapping
       // TODO: getting structs is undefined behavior, convert this to multiple gets
       const applicationExpiry = await registry.getListingApplicationExpiry(listing1);
@@ -33,26 +33,25 @@ contract("AddressRegistry", (accounts) => {
     });
 
     it("should not allow a listing to apply which has a pending application", async () => {
-      await registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant });
-      await expect(registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant }))
-        .to.eventually.be.rejectedWith(REVERTED);
+      await registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant });
+      await expect(
+        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
+      ).to.eventually.be.rejectedWith(REVERTED);
     });
 
-    it(
-      "should add a listing to the whitelist which went unchallenged in its application period",
-      async () => {
-        await registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant });
-        await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
-        await registry.updateStatus(listing1);
-        const result = await registry.getListingIsWhitelisted(listing1);
-        expect(result).to.be.true("listing didn't get whitelisted");
-      },
-    );
+    it("should add a listing to the whitelist which went unchallenged in its application period", async () => {
+      await registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant });
+      await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
+      await registry.updateStatus(listing1);
+      const result = await registry.getListingIsWhitelisted(listing1);
+      expect(result).to.be.true("listing didn't get whitelisted");
+    });
 
     it("should not allow a listing to apply which is already listed", async () => {
       await utils.addToWhitelist(listing1, utils.paramConfig.minDeposit, applicant, registry);
-      await expect(registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant }))
-        .to.eventually.be.rejectedWith(REVERTED);
+      await expect(
+        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
+      ).to.eventually.be.rejectedWith(REVERTED);
     });
   });
 });

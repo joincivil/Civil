@@ -10,9 +10,11 @@ import { ContextData, helpers } from "./utils";
 const debug = Debug("generate-from-files");
 
 export async function generateFromFiles(
-    inputGlob: string,
-    templateFile: string,
-    outFile: string, logger: (...params: any[]) => void = debug): Promise<void> {
+  inputGlob: string,
+  templateFile: string,
+  outFile: string,
+  logger: (...params: any[]) => void = debug,
+): Promise<void> {
   const options: glob.IOptions = {
     silent: true, // we throw the error
     strict: true,
@@ -35,9 +37,7 @@ export async function generateFromFiles(
   Handlebars.registerHelper(helpers);
 
   logger("Rendering: " + templateFile);
-  const templateString = fs
-    .readFileSync(templateFile)
-    .toString();
+  const templateString = fs.readFileSync(templateFile).toString();
   const templateRenderer = Handlebars.compile<ContextData>(templateString);
   fs.writeFileSync(outFile, templateRenderer(context));
   logger("Wrote: " + outFile);

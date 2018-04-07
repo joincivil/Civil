@@ -9,11 +9,7 @@ export interface NewsroomProps {
 
 class Newsroom extends React.Component<NewsroomProps, NewsroomState> {
   public render(): JSX.Element {
-    return (
-      <div>
-        Newsroom: {this.props.match.params.newsroomAddress}
-      </div>
-    );
+    return <div>Newsroom: {this.props.match.params.newsroomAddress}</div>;
   }
 }
 

@@ -13,9 +13,11 @@ const account = web3.account!;
 
 (async () => {
   console.log("Deploying multisig");
-  const deployTxHash = await MultiSigWalletContract
-    .deployTrusted
-    .sendTransactionAsync(web3, [account], new BigNumber(1));
+  const deployTxHash = await MultiSigWalletContract.deployTrusted.sendTransactionAsync(
+    web3,
+    [account],
+    new BigNumber(1),
+  );
   const deployReceipt = await web3.awaitReceipt(deployTxHash);
   const multisig = Multisig.atUntrusted(web3, deployReceipt.contractAddress!);
 
@@ -46,8 +48,7 @@ const account = web3.account!;
   if (transaction.information.executed) {
     throw new Error("Ouch, transaction was executed after all");
   }
-})()
-.catch((err) => {
+})().catch(err => {
   console.error(err);
   process.exit(1);
 });

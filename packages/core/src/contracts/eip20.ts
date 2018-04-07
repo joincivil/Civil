@@ -1,13 +1,8 @@
 import BigNumber from "bignumber.js";
 import "@joincivil/utils";
 
-import {
-  EthAddress,
-  TwoStepEthTransaction,
-} from "../types";
-import {
-  createTwoStepSimple,
-} from "../utils/contractutils";
+import { EthAddress, TwoStepEthTransaction } from "../types";
+import { createTwoStepSimple } from "../utils/contractutils";
 import { requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
@@ -35,14 +30,8 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    * @param spender address to approve as spender of tokens
    * @param numTokens number of tokens to approve for spender to spend on user's behalf
    */
-  public async approveSpender(
-    spender: EthAddress,
-    numTokens: BigNumber,
-  ): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.web3Wrapper,
-      await this.instance.approve.sendTransactionAsync(spender, numTokens),
-    );
+  public async approveSpender(spender: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.web3Wrapper, await this.instance.approve.sendTransactionAsync(spender, numTokens));
   }
 
   /**
@@ -53,10 +42,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    * Get number of approved tokens for spender
    * @param spender spender to check approved tokens for
    */
-  public async getApprovedTokensForSpender(
-    spender: EthAddress,
-    tokenOwner?: EthAddress,
-  ): Promise<BigNumber> {
+  public async getApprovedTokensForSpender(spender: EthAddress, tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -68,14 +54,11 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    * Check the token balance of an address
    * @param address address to check balance of
    */
-  public async getBalance(
-    tokenOwner?: EthAddress,
-  ): Promise<BigNumber> {
+  public async getBalance(tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
     return this.instance.balanceOf.callAsync(who);
   }
-
 }

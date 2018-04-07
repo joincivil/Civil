@@ -9,7 +9,7 @@ const Token = artifacts.require("EIP20.sol");
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Parameterizer", (accounts) => {
+contract("Parameterizer", accounts => {
   describe("Function: proposeReparameterization", () => {
     const [proposer, secondProposer] = accounts;
     const pMinDeposit = utils.toBaseTenBigNumber(utils.paramConfig.pMinDeposit);
@@ -45,22 +45,25 @@ contract("Parameterizer", (accounts) => {
 
     it("should not allow a NOOP reparameterization", async () => {
       await parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer });
-      await expect(parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer }))
-      .to.eventually.be.rejectedWith(REVERTED, "Performed NOOP reparameterization");
+      await expect(
+        parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer }),
+      ).to.eventually.be.rejectedWith(REVERTED, "Performed NOOP reparameterization");
     });
 
     it("should not allow a reparameterization for a proposal that already exists", async () => {
       const applicantStartingBalance = await token.balanceOf.call(secondProposer);
 
       await parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer });
-      await expect(parameterizer.proposeReparameterization("voteQuorum", "51", { from: secondProposer }))
-      .to.eventually.be.rejectedWith(REVERTED, "should not have been able to make duplicate proposal");
+      await expect(
+        parameterizer.proposeReparameterization("voteQuorum", "51", { from: secondProposer }),
+      ).to.eventually.be.rejectedWith(REVERTED, "should not have been able to make duplicate proposal");
 
       const applicantEndingBalance = await token.balanceOf.call(secondProposer);
 
       expect(applicantEndingBalance).to.be.bignumber.equal(
         applicantStartingBalance,
-        "starting balance and ending balance should have been equal");
+        "starting balance and ending balance should have been equal",
+      );
     });
   });
 });

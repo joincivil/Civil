@@ -18,13 +18,13 @@ export const blockquote = (options: any): Plugin => {
     name: BLOCKQUOTE,
     renderNode(props: any): JSX.Element | void {
       if (props.node.type === "blockquote") {
-        return <Blockquote cite={props.node.data.get("cite")} {...props}/>;
+        return <Blockquote cite={props.node.data.get("cite")} {...props} />;
       }
     },
     schema: {
       blocks: {
         [BLOCKQUOTE]: {
-          nodes: [{types: ["paragraph"]}],
+          nodes: [{ types: ["paragraph"] }],
           normalize: (change: any, violation: string, context: any): void => {
             if (violation === CHILD_TYPE_INVALID) {
               change.unwrapBlockByKey(context.child.key, "blockquote");

@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { OnChangeFunc, Plugin } from "./plugins";
 
 export interface EditorProps {
-    value: any;
-    onChange: OnChangeFunc;
-    readOnly: boolean;
-    plugins: Plugin[];
+  value: any;
+  onChange: OnChangeFunc;
+  readOnly: boolean;
+  plugins: Plugin[];
 }
 
 export interface EditorState {
@@ -25,30 +25,30 @@ const StyledEditor = styled(Editor)`
 `;
 
 export class CivilEditor extends React.Component<EditorProps, EditorState> {
-    constructor(props: EditorProps) {
-        super(props);
-        this.state = {
-            value: props.value,
-        };
-    }
+  constructor(props: EditorProps) {
+    super(props);
+    this.state = {
+      value: props.value,
+    };
+  }
 
-    public onChange = ({ value }: { value: any; }): void => {
-      this.setState({
-        value,
-      });
-      this.props.onChange(value);
-    }
+  public onChange = ({ value }: { value: any }): void => {
+    this.setState({
+      value,
+    });
+    this.props.onChange(value);
+  };
 
-    public render(): any {
-        return (
-          <CenterDiv>
-            <StyledEditor
-              value={ this.state.value }
-              onChange={ this.onChange }
-              plugins={ this.props.plugins }
-              readOnly={ this.props.readOnly }
-            />
-          </CenterDiv>
-       );
-    }
+  public render(): any {
+    return (
+      <CenterDiv>
+        <StyledEditor
+          value={this.state.value}
+          onChange={this.onChange}
+          plugins={this.props.plugins}
+          readOnly={this.props.readOnly}
+        />
+      </CenterDiv>
+    );
+  }
 }

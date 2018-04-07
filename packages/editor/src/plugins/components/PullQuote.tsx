@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
 // tslint:disable-next-line
-import styled, {StyledComponentClass} from "styled-components";
-import {colorConstants} from "../../colorConstants";
+import styled, { StyledComponentClass } from "styled-components";
+import { colorConstants } from "../../colorConstants";
 
 export interface PullQuoteState {
   destination?: HTMLElement | null | void;
@@ -14,7 +14,7 @@ export interface StyledQuoteProps {
 }
 
 const EditViewQuote = styled<StyledQuoteProps, "span">("span")`
-  background-color: ${(props: StyledQuoteProps): string => props.readOnly ? "transparent" : "#E9E9EA"}
+  background-color: ${(props: StyledQuoteProps): string => (props.readOnly ? "transparent" : "#E9E9EA")};
 `;
 
 const StyledQuote = styled<StyledQuoteProps, "p">("p")`
@@ -25,9 +25,9 @@ const StyledQuote = styled<StyledQuoteProps, "p">("p")`
   line-height: 30px;
   padding-bottom: 10px;
   margin-right: 30px;
-  cursor: ${(props) => props.readOnly ? "text" : "move"};
+  cursor: ${props => (props.readOnly ? "text" : "move")};
   position: relative;
-  top: ${(props) => props.top || 0}px
+  top: ${props => props.top || 0}px;
 `;
 
 export class PullQuote extends React.Component<any, PullQuoteState> {
@@ -53,37 +53,34 @@ export class PullQuote extends React.Component<any, PullQuoteState> {
     this.setState({
       top: this.state.top + event.movementY,
     });
-  }
+  };
   public onMouseUp = (event: Event): void => {
     this.props.editor.change((change: any): void => {
-      change.setMarkByKey(
-        this.props.node.key,
-        this.props.offset,
-        this.props.text.length,
-        this.props.mark,
-        {
-          data: {top: this.state.top},
-        },
-      );
+      change.setMarkByKey(this.props.node.key, this.props.offset, this.props.text.length, this.props.mark, {
+        data: { top: this.state.top },
+      });
     });
     document.removeEventListener("mousemove", this.onMouseMove);
     document.removeEventListener("mouseup", this.onMouseUp);
-  }
+  };
   public render(): JSX.Element {
     let portalRendered;
     if (this.state.destination) {
       portalRendered = ReactDom.createPortal(
         <StyledQuote
-          readOnly={this.props.editor.props.readOnly }
+          readOnly={this.props.editor.props.readOnly}
           onMouseDown={(e: any): void => this.movePullQuoteStart(e)}
           top={this.state.top}
-          {...this.props}/>,
+          {...this.props}
+        />,
         this.state.destination,
       );
     }
-    return (<>
-      {portalRendered}
-      <EditViewQuote readOnly={this.props.editor.props.readOnly} {...this.props}/>
-    </>);
+    return (
+      <>
+        {portalRendered}
+        <EditViewQuote readOnly={this.props.editor.props.readOnly} {...this.props} />
+      </>
+    );
   }
 }

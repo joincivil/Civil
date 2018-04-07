@@ -11,7 +11,7 @@ yarn add @joincivil/core
 ## Usage
 
 ```typescript
-import { Civil } from "@joincivil/core"
+import { Civil } from "@joincivil/core";
 
 const MY_NEWSROOM_ADDRESS = "0xABC...";
 
@@ -59,8 +59,8 @@ Run `yarn build` or explicitly `yarn generate` to create them in the `src/contra
 
 #### Adding new smart-contracts
 
-- [ ] Add new .json definition to [`src/artifacts`](./src/artifacts/)
-- [ ] Run `yarn generate`
-- [ ] Enjoy automated generated code
+* [ ] Add new .json definition to [`src/artifacts`](./src/artifacts/)
+* [ ] Run `yarn generate`
+* [ ] Enjoy automated generated code
 
 The templates for code generation can be found [`src/templates/`](./src/templates).

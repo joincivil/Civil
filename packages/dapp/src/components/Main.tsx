@@ -7,8 +7,8 @@ class Main extends React.Component {
   public render(): JSX.Element {
     return (
       <Switch>
-        <Route exact={true} path="/" component={Listings}/>
-        <Route path="/newsroom/:newsroomAddress" component={Newsroom}/>
+        <Route exact={true} path="/" component={Listings} />
+        <Route path="/newsroom/:newsroomAddress" component={Newsroom} />
       </Switch>
     );
   }
