@@ -1,6 +1,6 @@
 import * as React from "react";
 // tslint:disable-next-line
-import styled, {StyledComponentClass} from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import { colorConstants } from "../../colorConstants";
 import { Indicator } from "./Indicator";
 import { SubjectSpecialist } from "./svg/SubjectSpecialist";
@@ -43,7 +43,7 @@ const credibilityIndicatorCopy: CredibilityIndicatorCopy = {
      imperdiet nisi sodales, ultrices ex. Donec pulvinar arcu
      ac enim mattis, vel feugiat enim sagittis. Nulla et nunc
      a tortor lacinia facilisis.`,
-     icon: <OriginalReporting color={colorConstants.BLACK}/>,
+    icon: <OriginalReporting color={colorConstants.BLACK} />,
   },
   [CredibilityIndicator.ON_THE_GROUND]: {
     title: "On The Ground",
@@ -60,7 +60,7 @@ const credibilityIndicatorCopy: CredibilityIndicatorCopy = {
      imperdiet nisi sodales, ultrices ex. Donec pulvinar arcu
      ac enim mattis, vel feugiat enim sagittis. Nulla et nunc
      a tortor lacinia facilisis.`,
-     icon: <OnTheGround color={colorConstants.BLACK}/>,
+    icon: <OnTheGround color={colorConstants.BLACK} />,
   },
   [CredibilityIndicator.SOURCES_CITED]: {
     title: "Sources Cited",
@@ -77,7 +77,7 @@ const credibilityIndicatorCopy: CredibilityIndicatorCopy = {
      imperdiet nisi sodales, ultrices ex. Donec pulvinar arcu
      ac enim mattis, vel feugiat enim sagittis. Nulla et nunc
      a tortor lacinia facilisis.`,
-     icon: <SourcesSited color={colorConstants.BLACK}/>,
+    icon: <SourcesSited color={colorConstants.BLACK} />,
   },
   [CredibilityIndicator.SUBJECT_SPECIALIST]: {
     title: "Subject Specialist",
@@ -94,7 +94,7 @@ const credibilityIndicatorCopy: CredibilityIndicatorCopy = {
      imperdiet nisi sodales, ultrices ex. Donec pulvinar arcu
      ac enim mattis, vel feugiat enim sagittis. Nulla et nunc
      a tortor lacinia facilisis.`,
-     icon: <SubjectSpecialist color={colorConstants.BLACK}/>,
+    icon: <SubjectSpecialist color={colorConstants.BLACK} />,
   },
 };
 
@@ -157,13 +157,11 @@ export class CredibilityIndicators extends React.Component<CredibilityIndicators
       indicators = this.state.indicators.concat([str]);
     }
 
-    const change = this.props.value.change().setNodeByKey(
-      this.props.value.document.key,
-      {
-        data: this.props.value.document.data.merge({
-          credibilityIndicators: indicators,
-        }),
-      });
+    const change = this.props.value.change().setNodeByKey(this.props.value.document.key, {
+      data: this.props.value.document.data.merge({
+        credibilityIndicators: indicators,
+      }),
+    });
     this.props.onChange(change);
     this.setState({
       indicators,
@@ -174,36 +172,42 @@ export class CredibilityIndicators extends React.Component<CredibilityIndicators
       if (!this.state.indicators || !this.state.indicators.length) {
         return null;
       } else {
-        return (<SectionWrapper>
-          <Underline>
-            <SectionHeadline>Credibility Indicators</SectionHeadline>
-            <SectionP>These are selected by the writer and confirmed by the editor.</SectionP>
-          </Underline>
-          <List>
-            {this.state.indicators.map((item: string): JSX.Element => {
-              return <Indicator key={item} {...credibilityIndicatorCopy[item]} readOnly={this.props.readOnly} />;
-            })}
-          </List>
-        </SectionWrapper>);
+        return (
+          <SectionWrapper>
+            <Underline>
+              <SectionHeadline>Credibility Indicators</SectionHeadline>
+              <SectionP>These are selected by the writer and confirmed by the editor.</SectionP>
+            </Underline>
+            <List>
+              {this.state.indicators.map((item: string): JSX.Element => {
+                return <Indicator key={item} {...credibilityIndicatorCopy[item]} readOnly={this.props.readOnly} />;
+              })}
+            </List>
+          </SectionWrapper>
+        );
       }
     } else {
-      return (<SectionWrapper>
-        <Underline>
-          <SectionHeadline>Credibility Indicators</SectionHeadline>
-          <SectionP>Choose the credibility indicators associated with this content.</SectionP>
-        </Underline>
-        <List>
-          {Object.keys(CredibilityIndicator).map((item: string) => {
-            return <Indicator
-              key={item}
-              readOnly={this.props.readOnly}
-              checked={this.state.indicators.includes(item)}
-              addOrRemove={this.addOrRemoveIndicators.bind(this, item)}
-              {...credibilityIndicatorCopy[item]}
-            />;
-          })}
-        </List>
-      </SectionWrapper>);
+      return (
+        <SectionWrapper>
+          <Underline>
+            <SectionHeadline>Credibility Indicators</SectionHeadline>
+            <SectionP>Choose the credibility indicators associated with this content.</SectionP>
+          </Underline>
+          <List>
+            {Object.keys(CredibilityIndicator).map((item: string) => {
+              return (
+                <Indicator
+                  key={item}
+                  readOnly={this.props.readOnly}
+                  checked={this.state.indicators.includes(item)}
+                  addOrRemove={this.addOrRemoveIndicators.bind(this, item)}
+                  {...credibilityIndicatorCopy[item]}
+                />
+              );
+            })}
+          </List>
+        </SectionWrapper>
+      );
     }
   }
 }

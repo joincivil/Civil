@@ -35,9 +35,11 @@ export const ulJson = {
                 nodes: [
                   {
                     object: "text",
-                    leaves: [{
-                      text: "second item in the list",
-                    }],
+                    leaves: [
+                      {
+                        text: "second item in the list",
+                      },
+                    ],
                   },
                 ],
               },
@@ -55,9 +57,11 @@ export const ulJson = {
                         nodes: [
                           {
                             object: "text",
-                            leaves: [{
-                              text: "second item in the list has this lovelly nested list. pretty cool, right?",
-                            }],
+                            leaves: [
+                              {
+                                text: "second item in the list has this lovelly nested list. pretty cool, right?",
+                              },
+                            ],
                           },
                         ],
                       },
@@ -79,7 +83,8 @@ export const ulJson = {
                     object: "text",
                     leaves: [
                       {
-                        text: "it is still poorer than the average in Arkansas, which is among the poorest states in the nation",
+                        text:
+                          "it is still poorer than the average in Arkansas, which is among the poorest states in the nation",
                       },
                     ],
                   },

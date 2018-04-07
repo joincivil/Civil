@@ -13,7 +13,7 @@ const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 
 const NEWSROOM_NAME = "unused newsroom name;";
 
-contract("Registry With Appeals", (accounts) => {
+contract("Registry With Appeals", accounts => {
   describe("Function: apply", () => {
     const [JAB, applicant, troll, challenger] = accounts;
     const listing1 = "0x0000000000000000000000000000000000000001";
@@ -34,7 +34,7 @@ contract("Registry With Appeals", (accounts) => {
       });
 
       it("should allow contract owner to apply on behalf of contract", async () => {
-        await registry.apply(testNewsroom.address, utils.paramConfig.minDeposit, "", {from: applicant });
+        await registry.apply(testNewsroom.address, utils.paramConfig.minDeposit, "", { from: applicant });
 
         // get the struct in the mapping
         const applicationExpiry = await registry.getListingApplicationExpiry(newsroomAddress);
@@ -50,56 +50,63 @@ contract("Registry With Appeals", (accounts) => {
       });
 
       it("should not allow a listing to apply which has a pending application", async () => {
-        await registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", {from: applicant });
-        await expect(registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", {from: applicant }))
-          .to.eventually.be.rejectedWith(REVERTED);
+        await registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant });
+        await expect(
+          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant }),
+        ).to.eventually.be.rejectedWith(REVERTED);
       });
 
-      it(
-        "should add a listing to the whitelist which went unchallenged in its application period",
-        async () => {
-          await registry.apply(newsroomAddress, minDeposit, "", {from: applicant });
-          await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
-          await registry.updateStatus(newsroomAddress);
-          const result = await registry.getListingIsWhitelisted(newsroomAddress);
-          expect(result).to.be.true("listing didn't get whitelisted");
-        },
-      );
+      it("should add a listing to the whitelist which went unchallenged in its application period", async () => {
+        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
+        await registry.updateStatus(newsroomAddress);
+        const result = await registry.getListingIsWhitelisted(newsroomAddress);
+        expect(result).to.be.true("listing didn't get whitelisted");
+      });
 
       it("should not allow a listing to apply which is already listed", async () => {
         await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
-        await expect(registry.apply(newsroomAddress, minDeposit, "", {from: applicant }))
-          .to.eventually.be.rejectedWith(REVERTED);
+        await expect(
+          registry.apply(newsroomAddress, minDeposit, "", { from: applicant }),
+        ).to.eventually.be.rejectedWith(REVERTED);
       });
 
-      it("should not allow a listing to re-apply after losing challenge, " +
-      "not being granted appeal, not updating status", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
-        await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
-        await registry.updateStatus(newsroomAddress);
-        await registry.requestAppeal(newsroomAddress, { from: applicant });
-        await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
+      it(
+        "should not allow a listing to re-apply after losing challenge, " +
+          "not being granted appeal, not updating status",
+        async () => {
+          await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+          await registry.challenge(newsroomAddress, "", { from: challenger });
+          await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
+          await registry.updateStatus(newsroomAddress);
+          await registry.requestAppeal(newsroomAddress, { from: applicant });
+          await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
 
-        const applyTx = registry.apply(newsroomAddress, minDeposit, "", { from: applicant});
-        await expect(applyTx).to.eventually.be.rejectedWith(REVERTED,
-          "should not have allowed new application after being denied appeal and not updating status");
-    });
+          const applyTx = registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+          await expect(applyTx).to.eventually.be.rejectedWith(
+            REVERTED,
+            "should not have allowed new application after being denied appeal and not updating status",
+          );
+        },
+      );
 
-      it("should allow a listing to re-apply after losing challenge, " +
-        "not being granted appeal, updating status", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
-        await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
-        await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.updateStatus(newsroomAddress);
-        await registry.requestAppeal(newsroomAddress, { from: applicant });
-        await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
-        await registry.updateStatus(newsroomAddress);
+      it(
+        "should allow a listing to re-apply after losing challenge, " + "not being granted appeal, updating status",
+        async () => {
+          await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+          await registry.challenge(newsroomAddress, "", { from: challenger });
+          await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+          await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+          await registry.updateStatus(newsroomAddress);
+          await registry.requestAppeal(newsroomAddress, { from: applicant });
+          await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
+          await registry.updateStatus(newsroomAddress);
 
-        await expect(registry.apply(newsroomAddress, minDeposit, "", { from: applicant})).to.eventually.be.fulfilled(
-          "should have allowed new application after being denied appeal");
-      });
+          await expect(registry.apply(newsroomAddress, minDeposit, "", { from: applicant })).to.eventually.be.fulfilled(
+            "should have allowed new application after being denied appeal",
+          );
+        },
+      );
     });
 
     describe("with troll newsroom", () => {
@@ -112,29 +119,31 @@ contract("Registry With Appeals", (accounts) => {
       });
 
       it("should not allow a non-contract owner to apply", async () => {
-        await expect(registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", {from: applicant }))
-          .to.eventually.be.rejectedWith(REVERTED);
+        await expect(
+          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant }),
+        ).to.eventually.be.rejectedWith(REVERTED);
       });
 
-      it(
-        "should prevent un-owned address from being listed when registry cast to ContractAddressRegistry",
-        async () => {
+      it("should prevent un-owned address from being listed when registry cast to ContractAddressRegistry", async () => {
         const parentRegistry = await ContractAddressRegistry.at(registry.address);
-        await expect(parentRegistry.apply(newsroomAddress, minDeposit, "", {from: applicant }))
-          .to.eventually.be.rejectedWith(REVERTED);
+        await expect(
+          parentRegistry.apply(newsroomAddress, minDeposit, "", { from: applicant }),
+        ).to.eventually.be.rejectedWith(REVERTED);
       });
     });
 
     it("should prevent non-contract address from being listed", async () => {
-      await expect(registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant }))
-        .to.eventually.be.rejectedWith(REVERTED);
+      await expect(
+        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
+      ).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should prevent non-contract address from being listed when registry cast to AddressRegistry", async () => {
       const parentRegistry = await AddressRegistry.at(registry.address);
 
-      await expect(parentRegistry.apply(listing1, minDeposit, "", {from: applicant }))
-        .to.eventually.be.rejectedWith(REVERTED);
+      await expect(parentRegistry.apply(listing1, minDeposit, "", { from: applicant })).to.eventually.be.rejectedWith(
+        REVERTED,
+      );
     });
   });
 });

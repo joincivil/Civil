@@ -9,7 +9,7 @@ const Token = artifacts.require("EIP20");
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", (accounts) => {
+contract("Registry", accounts => {
   describe("Function: exit", () => {
     const [applicant, challenger, voter] = accounts;
     const listing17 = "0x0000000000000000000000000000000000000017";
@@ -37,8 +37,9 @@ contract("Registry", (accounts) => {
       expect(isWhitelistedAfterExit).to.be.false("the listing was not removed on exit");
 
       const finalApplicantTokenHoldings = await token.balanceOf(applicant);
-      expect(initialApplicantTokenHoldings).to.be.bignumber.equal(finalApplicantTokenHoldings,
-        "the applicant\'s tokens were not returned to them after exiting the registry",
+      expect(initialApplicantTokenHoldings).to.be.bignumber.equal(
+        finalApplicantTokenHoldings,
+        "the applicant's tokens were not returned to them after exiting the registry",
       );
     });
 
@@ -51,17 +52,17 @@ contract("Registry", (accounts) => {
       expect(isWhitelisted).to.be.true("the listing was not added to the registry");
 
       await registry.challenge(listing18, "", { from: challenger });
-      await expect(registry.exitListing(listing18, { from: applicant }))
-      .to.eventually.be.rejectedWith(REVERTED, "exit succeeded when it should have failed");
+      await expect(registry.exitListing(listing18, { from: applicant })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "exit succeeded when it should have failed",
+      );
 
       const isWhitelistedAfterExit = await registry.getListingIsWhitelisted(listing18);
-      expect(isWhitelistedAfterExit).to.be.true(
-        "the listing was able to exit while a challenge was active",
-      );
+      expect(isWhitelistedAfterExit).to.be.true("the listing was able to exit while a challenge was active");
 
       const finalApplicantTokenHoldings = await token.balanceOf(applicant);
       expect(initialApplicantTokenHoldings.gt(finalApplicantTokenHoldings)).to.be.true(
-        "the applicant\'s tokens were returned in spite of failing to exit",
+        "the applicant's tokens were returned in spite of failing to exit",
       );
 
       // Clean up state, remove consensys.net (it fails its challenge due to draw)
@@ -69,15 +70,15 @@ contract("Registry", (accounts) => {
       await registry.updateStatus(listing18);
     });
 
-    it("should not allow a listing to be exited by someone who doesn\'t own it", async () => {
+    it("should not allow a listing to be exited by someone who doesn't own it", async () => {
       await utils.addToWhitelist(listing18, utils.paramConfig.minDeposit, applicant, registry);
 
-      await expect(registry.exitListing(listing18, { from: voter }))
-      .to.eventually.be.rejectedWith(REVERTED, "exit succeeded when it should have failed");
-      const isWhitelistedAfterExit = await registry.getListingIsWhitelisted(listing18);
-      expect(isWhitelistedAfterExit).to.be.true(
-        "the listing was exited by someone other than its owner",
+      await expect(registry.exitListing(listing18, { from: voter })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "exit succeeded when it should have failed",
       );
+      const isWhitelistedAfterExit = await registry.getListingIsWhitelisted(listing18);
+      expect(isWhitelistedAfterExit).to.be.true("the listing was exited by someone other than its owner");
     });
   });
 });

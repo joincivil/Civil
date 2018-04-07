@@ -2,10 +2,7 @@ import { Bytes32, Civil, EthAddress } from "@joincivil/core";
 import { getVoteSaltHash } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 
-export async function apply(
-  address: EthAddress,
-  deposit?: BigNumber,
-  optionalCivil?: Civil): Promise<void> {
+export async function apply(address: EthAddress, deposit?: BigNumber, optionalCivil?: Civil): Promise<void> {
   let applicationDeposit = deposit;
   const civil = optionalCivil || new Civil();
 

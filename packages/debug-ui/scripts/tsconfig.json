@@ -1,11 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "declaration": false,                   /* Generates corresponding '.d.ts' file. */
-    "sourceMap": false,                     /* Generates corresponding '.map' file. */
-    "outDir": "../build/scripts/",                        /* Redirect output structure to the directory. */
-    "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
-    "baseUrl": "./",
+    "declaration": false /* Generates corresponding '.d.ts' file. */,
+    "sourceMap": false /* Generates corresponding '.map' file. */,
+    "outDir": "../build/scripts/" /* Redirect output structure to the directory. */,
+    "rootDir":
+      "./" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "baseUrl": "./"
 
     /* Module Resolution Options */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
@@ -27,8 +28,5 @@
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
-  "include": [
-    "./**/*.ts",
-    "../node_modules/web3-typescript-typings/index.d.ts"
-  ]
+  "include": ["./**/*.ts", "../node_modules/web3-typescript-typings/index.d.ts"]
 }

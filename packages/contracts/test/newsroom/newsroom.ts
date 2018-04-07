@@ -35,8 +35,7 @@ contract("Newsroom", (accounts: string[]) => {
     });
 
     it("returns proper author", async () => {
-      await expect(
-        newsroom.author(id, { from: defaultAccount })).to.eventually.be.equal(accounts[1]);
+      await expect(newsroom.author(id, { from: defaultAccount })).to.eventually.be.equal(accounts[1]);
     });
 
     it("works for approved content", async () => {
@@ -219,9 +218,7 @@ contract("Newsroom", (accounts: string[]) => {
     });
 
     it("doesn't work without editor role", async () => {
-      await expect(
-        newsroom.approveContent(id, { from: accounts[1] }))
-        .to.be.rejectedWith(REVERTED);
+      await expect(newsroom.approveContent(id, { from: accounts[1] })).to.be.rejectedWith(REVERTED);
       expect(await newsroom.isApproved(id)).to.be.false();
     });
 
@@ -283,9 +280,7 @@ contract("Newsroom", (accounts: string[]) => {
     });
 
     it("doesn't work without role", async () => {
-      await expect(
-        newsroom.denyContent(id, { from: accounts[1] }))
-        .to.be.rejectedWith(REVERTED);
+      await expect(newsroom.denyContent(id, { from: accounts[1] })).to.be.rejectedWith(REVERTED);
     });
 
     it("fires an event", async () => {
@@ -422,7 +417,7 @@ contract("Newsroom", (accounts: string[]) => {
     });
 
     it("can't be used by non-owner", async () => {
-      await expect(newsroom.setName("something", {from: accounts[1]})).to.eventually.be.rejectedWith(REVERTED);
+      await expect(newsroom.setName("something", { from: accounts[1] })).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("fires an event", async () => {

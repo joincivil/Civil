@@ -29,13 +29,11 @@ export type EventFunction<T> = (
   callback?: FilterCallback,
 ) => Web3.FilterResult;
 
-export type TypedEventFilter<T> = {
-  [P in keyof T]?: T[P]|Array<T[P]>;
-};
+export type TypedEventFilter<T> = { [P in keyof T]?: T[P] | Array<T[P]> };
 
 export interface TxDataBase {
-  gas?: number|string|BigNumber;
-  gasPrice?: number|string|BigNumber;
+  gas?: number | string | BigNumber;
+  gasPrice?: number | string | BigNumber;
   nonce?: number;
   data?: string;
 }
@@ -45,7 +43,7 @@ export interface TxData extends TxDataBase {
 }
 
 export interface TxDataPayable extends TxData {
-  value: number|string|BigNumber;
+  value: number | string | BigNumber;
 }
 
 export interface TxDataAll extends Partial<TxDataPayable> {
@@ -54,7 +52,7 @@ export interface TxDataAll extends Partial<TxDataPayable> {
 
 export interface TransactionObject extends TxDataBase {
   from: EthAddress;
-  value?: number|string|BigNumber;
+  value?: number | string | BigNumber;
   to?: EthAddress;
   data?: string;
 }
@@ -89,10 +87,10 @@ export interface DecodedTransactionReceipt<T> {
   transactionIndex: number;
   from: string;
   to: string;
-  status: null|string|0|1;
+  status: null | string | 0 | 1;
   cumulativeGasUsed: number;
   gasUsed: number;
-  contractAddress: string|null;
+  contractAddress: string | null;
   logs: Array<Web3.DecodedLogEntry<T> | Web3.LogEntry>;
 }
 

@@ -12,20 +12,18 @@ import { Civil } from "../../src";
   console.log("Subscribing to new articles");
   const articleSubscription = newsroom
     .proposedContent()
-    .do((header) => console.log("\tProposed article, uri: " + header.uri))
-    .flatMap(async (header) => newsroom.resolveContent(header))
-    .subscribe((article) => {
+    .do(header => console.log("\tProposed article, uri: " + header.uri))
+    .flatMap(async header => newsroom.resolveContent(header))
+    .subscribe(article => {
       console.log("\tContent for article id: " + article.id, article.content);
       console.log("\tUnsubscribing");
       articleSubscription.unsubscribe();
     });
 
   console.log("Subscribing to latest name changes");
-  const nameSubscription = newsroom
-    .nameChanges("latest")
-    .subscribe((name) => {
-      console.log("\tThe name of the Newsroom changed to", name);
-    });
+  const nameSubscription = newsroom.nameChanges("latest").subscribe(name => {
+    console.log("\tThe name of the Newsroom changed to", name);
+  });
 
   console.log("Am I the owner:", await newsroom.isOwner());
 
@@ -39,14 +37,13 @@ import { Civil } from "../../src";
 
   console.log("Changing names");
   await Promise.all(
-    ["Second name", "Third name", "Last name"].map(async (name) => {
+    ["Second name", "Third name", "Last name"].map(async name => {
       console.log("Changing name to:", name);
       await (await newsroom.setName(name)).awaitReceipt();
     }),
   );
   nameSubscription.unsubscribe();
-})()
-.catch((err) => {
+})().catch(err => {
   console.error(err);
   process.exit(1);
 });

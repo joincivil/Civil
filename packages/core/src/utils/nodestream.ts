@@ -30,7 +30,7 @@ export class NodeStream {
   public async awaitConfirmations(blockHash: string, noOfConfirmations: number) {
     throw new Error("Not implemented yet");
   }
-/*
+  /*
   private async getLatestBlock(): Promise<CivilBlock> {
   }
 

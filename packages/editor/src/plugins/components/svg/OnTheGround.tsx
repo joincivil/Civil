@@ -6,19 +6,16 @@ export interface SvgProps {
 
 export class OnTheGround extends React.Component<SvgProps> {
   public render(): JSX.Element {
-    return (<svg
-      width="16px"
-      height="16px"
-      viewBox="0 0 11 16"
-      version="1.1"
-    >
-      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+    return (
+      <svg width="16px" height="16px" viewBox="0 0 11 16" version="1.1">
+        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
           <g transform="translate(-369.000000, -859.000000)" fill={this.props.color}>
-              <g transform="translate(115.000000, 202.000000)">
-                  <g transform="translate(245.000000, 511.000000)">
-                      <g transform="translate(9.000000, 145.000000)">
-                          <g transform="translate(0.000000, 1.000000)">
-                              <path d={`M7.55026376,14.0851145 C7.2306701,14.6872851 6.68768047,
+            <g transform="translate(115.000000, 202.000000)">
+              <g transform="translate(245.000000, 511.000000)">
+                <g transform="translate(9.000000, 145.000000)">
+                  <g transform="translate(0.000000, 1.000000)">
+                    <path
+                      d={`M7.55026376,14.0851145 C7.2306701,14.6872851 6.68768047,
                               15.0218242 6.14437124,15.0218242 C5.76053925,15.0218242 5.40898622,
                               14.8211007 5.24918939,14.5200155 C5.02579342,14.1185684 5.12135192,
                               13.5163979 5.50518391,12.8807734 C5.53682369,12.8138656 5.63270179,
@@ -87,14 +84,15 @@ export class OnTheGround extends React.Component<SvgProps> {
                               5.54580003 0.560362704,5.67191968 0.53112016,
                               5.82956925 C0.501877616,6.05027863 0.560362704,
                               6.27098802 0.706575425,6.4601675 C0.852788146,
-                              6.64934697 1.0867285,6.74393671 1.29142631,6.77546662`}></path>
-                          </g>
-                      </g>
+                              6.64934697 1.0867285,6.74393671 1.29142631,6.77546662`}
+                    />
                   </g>
+                </g>
               </g>
+            </g>
           </g>
-      </g>
-  </svg>);
-
+        </g>
+      </svg>
+    );
   }
 }

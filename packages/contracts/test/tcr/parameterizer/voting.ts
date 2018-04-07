@@ -9,7 +9,7 @@ const PLCRVoting = artifacts.require("PLCRVoting");
 configureChai(chai);
 const expect = chai.expect;
 
-contract("PLCRVoting", (accounts) => {
+contract("PLCRVoting", accounts => {
   describe("Function: commitVote", () => {
     const [applicant, challenger, voter, applicant2] = accounts;
     const listingAddress1 = "0x1a5cdcFBA600e0c669795e0B65c344D5A37a4d5A";
@@ -41,10 +41,7 @@ contract("PLCRVoting", (accounts) => {
       const insertPoint = await voting.getInsertPointForNumTokens(voter, 6);
       const expectedInsertPoint = 0;
 
-      expect(insertPoint).to.be.bignumber.equal(
-        expectedInsertPoint,
-        "The insert point was not correct",
-      );
+      expect(insertPoint).to.be.bignumber.equal(expectedInsertPoint, "The insert point was not correct");
     });
   });
 });

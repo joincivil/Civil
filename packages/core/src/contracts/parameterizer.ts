@@ -34,10 +34,7 @@ export enum Parameters {
  * Users can propose new values for parameters, as well as challenge and then vote on those proposals
  */
 export class Parameterizer extends BaseWrapper<ParameterizerContract> {
-
-  public static singleton(
-    web3Wrapper: Web3Wrapper,
-  ): Parameterizer {
+  public static singleton(web3Wrapper: Web3Wrapper): Parameterizer {
     const instance = ParameterizerContract.singletonTrusted(web3Wrapper);
     if (!instance) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
@@ -70,7 +67,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   }
 
   public async getPropState(propID: string): Promise<ParamProposalState> {
-    if (!(await this.instance.propExists.callAsync(propID))) {
+    if (!await this.instance.propExists.callAsync(propID)) {
       return ParamProposalState.NOT_FOUND;
     } else if (await this.isPropInUnchallengedApplicationPhase(propID)) {
       return ParamProposalState.APPLYING;
@@ -96,11 +93,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals propIDs
    */
-  public propIDsInApplicationPhase(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public propIDsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .ReparameterizationProposalStream({}, { fromBlock })
-      .map((e) => e.args.propID)
-      .concatFilter(async (propID) => this.isPropInUnchallengedApplicationPhase(propID));
+      .map(e => e.args.propID)
+      .concatFilter(async propID => this.isPropInUnchallengedApplicationPhase(propID));
   }
 
   /**
@@ -108,17 +105,17 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals ParamProps
    */
-  public paramPropsInApplicationPhase(fromBlock: number|"latest" = 0): Observable<ParamProp> {
+  public paramPropsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<ParamProp> {
     return this.instance
       .ReparameterizationProposalStream({}, { fromBlock })
-      .map((e) => {
+      .map(e => {
         return {
           propID: e.args.propID,
           paramName: e.args.name,
           proposedValue: e.args.value,
         };
       })
-      .concatFilter(async (args) => this.isPropInUnchallengedApplicationPhase(args.propID));
+      .concatFilter(async args => this.isPropInUnchallengedApplicationPhase(args.propID));
   }
 
   /**
@@ -127,11 +124,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals in Challenge Commit Phase propIDs
    */
-  public propIDsInChallengeCommitPhase(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public propIDsInChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .NewChallengeStream({}, { fromBlock })
-      .map((e) => e.args.propID)
-      .concatFilter(async (propID) => this.isPropInChallengeCommitPhase(propID));
+      .map(e => e.args.propID)
+      .concatFilter(async propID => this.isPropInChallengeCommitPhase(propID));
   }
 
   /**
@@ -140,11 +137,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns ParamProps for proposals currently in Challenge Commit Phase
    */
-  public paramPropsInChallengeCommitPhase(fromBlock: number|"latest" = 0): Observable<ParamProp> {
+  public paramPropsInChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<ParamProp> {
     return this.instance
       .NewChallengeStream({}, { fromBlock })
-      .concatFilter(async (e) => this.isPropInChallengeCommitPhase(e.args.propID))
-      .map((e) => {
+      .concatFilter(async e => this.isPropInChallengeCommitPhase(e.args.propID))
+      .map(e => {
         return {
           propID: e.args.propID,
           paramName: e.args.name,
@@ -159,11 +156,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns currently active proposals in Challenge Reveal Phase propIDs
    */
-  public propIDsInChallengeRevealPhase(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public propIDsInChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .NewChallengeStream({}, { fromBlock })
-      .map((e) => e.args.propID)
-      .concatFilter(async (propID) => this.isPropInChallengeRevealPhase(propID));
+      .map(e => e.args.propID)
+      .concatFilter(async propID => this.isPropInChallengeRevealPhase(propID));
   }
 
   /**
@@ -172,11 +169,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns ParamProps for proposals currently in Challenge Reveal Phase
    */
-  public paramPropsInChallengeRevealPhase(fromBlock: number|"latest" = 0): Observable<ParamProp> {
+  public paramPropsInChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<ParamProp> {
     return this.instance
       .NewChallengeStream({}, { fromBlock })
-      .concatFilter(async (e) => this.isPropInChallengeRevealPhase(e.args.propID))
-      .map((e) => {
+      .concatFilter(async e => this.isPropInChallengeRevealPhase(e.args.propID))
+      .map(e => {
         return {
           propID: e.args.propID,
           paramName: e.args.name,
@@ -192,16 +189,16 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that can be updated
    */
-  public propIDsToProcess(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public propIDsToProcess(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     const applicationsToProcess = this.instance
       .ReparameterizationProposalStream({}, { fromBlock })
-      .map((e) => e.args.propID)
-      .concatFilter(async (propID) => this.isPropInUnchallengedApplicationUpdatePhase(propID));
+      .map(e => e.args.propID)
+      .concatFilter(async propID => this.isPropInUnchallengedApplicationUpdatePhase(propID));
 
     const challengesToResolve = this.instance
       .NewChallengeStream({}, { fromBlock })
-      .map((e) => e.args.propID)
-      .concatFilter(async (propID) => this.isPropInChallengeResolvePhase(propID));
+      .map(e => e.args.propID)
+      .concatFilter(async propID => this.isPropInChallengeResolvePhase(propID));
 
     return Observable.merge(applicationsToProcess, challengesToResolve).distinct();
   }
@@ -213,13 +210,13 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns ParamProps for proposals that can be updated
    */
-  public paramPropsToProcess(fromBlock: number|"latest" = 0): Observable<ParamProp> {
+  public paramPropsToProcess(fromBlock: number | "latest" = 0): Observable<ParamProp> {
     const challengesToResolve = this.instance
       .NewChallengeStream({}, { fromBlock })
-      .concatFilter(async (e) => {
+      .concatFilter(async e => {
         return this.isPropInChallengeResolvePhase(e.args.propID);
       })
-      .map((e) => {
+      .map(e => {
         return {
           propID: e.args.propID,
           paramName: e.args.name,
@@ -230,10 +227,10 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
 
     const applicationsToProcess = this.instance
       .ReparameterizationProposalStream({}, { fromBlock })
-      .concatFilter(async (e) => {
+      .concatFilter(async e => {
         return this.isPropInUnchallengedApplicationUpdatePhase(e.args.propID);
       })
-      .map((e) => {
+      .map(e => {
         return {
           propID: e.args.propID,
           paramName: e.args.name,
@@ -251,11 +248,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns pollIDs for proposals that have been challenged and resolved
    */
-  public pollIDsForResolvedChallenges(propID: string, fromBlock: number|"latest" = 0): Observable<PollID> {
+  public pollIDsForResolvedChallenges(propID: string, fromBlock: number | "latest" = 0): Observable<PollID> {
     return this.instance
       .NewChallengeStream({ propID }, { fromBlock })
-      .concatFilter(async (e) => this.isChallengeResolved(e.args.pollID))
-      .map((e) => e.args.pollID);
+      .concatFilter(async e => this.isChallengeResolved(e.args.pollID))
+      .map(e => e.args.pollID);
   }
 
   /**
@@ -264,11 +261,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that have been challenged and resolved
    */
-  public propIDsForResolvedChallenges(fromBlock: number|"latest" = 0): Observable<EthAddress> {
+  public propIDsForResolvedChallenges(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
       .NewChallengeStream({}, { fromBlock })
-      .concatFilter(async (e) => this.isChallengeResolved(e.args.pollID))
-      .map((e) => e.args.propID);
+      .concatFilter(async e => this.isChallengeResolved(e.args.pollID))
+      .map(e => e.args.propID);
   }
 
   /**
@@ -277,18 +274,18 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns ParamProps for proposals that have been challenged and resolved
    */
-  public paramPropsForResolvedChallenged(fromBlock: number|"latest" = 0): Observable<ParamProp> {
+  public paramPropsForResolvedChallenged(fromBlock: number | "latest" = 0): Observable<ParamProp> {
     return this.instance
-    .NewChallengeStream({}, { fromBlock })
-    .concatFilter(async (e) => this.isChallengeResolved(e.args.pollID))
-    .map((e) => {
-      return {
-        propID: e.args.propID,
-        paramName: e.args.name,
-        proposedValue: e.args.value,
-        pollID: e.args.pollID,
-      };
-    });
+      .NewChallengeStream({}, { fromBlock })
+      .concatFilter(async e => this.isChallengeResolved(e.args.pollID))
+      .map(e => {
+        return {
+          propID: e.args.propID,
+          paramName: e.args.name,
+          proposedValue: e.args.value,
+          pollID: e.args.pollID,
+        };
+      });
   }
 
   /**
@@ -301,7 +298,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param newValue value you want parameter to be changed to
    */
   public async proposeReparameterization(
-    paramName: Parameters|string,
+    paramName: Parameters | string,
     newValue: BigNumber,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
@@ -314,9 +311,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * Challenge a "reparameterization"
    * @param propID the ID of the proposed reparameterization you wish to challenge
    */
-  public async challengeReparameterization(
-    propID: Bytes32,
-  ): Promise<TwoStepEthTransaction> {
+  public async challengeReparameterization(propID: Bytes32): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.challengeReparameterization.sendTransactionAsync(propID),
@@ -328,13 +323,8 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * challenge or wins challenge. Deletes it if it loses. Distributes tokens correctly.
    * @param propID the ID of the proposed reparameterization to process
    */
-  public async processProposal(
-    propID: Bytes32,
-  ): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.web3Wrapper,
-      await this.instance.processProposal.sendTransactionAsync(propID),
-    );
+  public async processProposal(propID: Bytes32): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.web3Wrapper, await this.instance.processProposal.sendTransactionAsync(propID));
   }
 
   /**
@@ -342,10 +332,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param challengeID ID of challenge to claim reward of
    * @param salt Salt for user's vote on specified challenge
    */
-  public async claimReward(
-    challengeID: BigNumber,
-    salt: BigNumber,
-  ): Promise<TwoStepEthTransaction> {
+  public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.claimReward.sendTransactionAsync(challengeID, salt),
@@ -356,12 +343,12 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * Contract Getters
    */
 
-   /**
-    * Gets reward for voter
-    * @param challengeID ID of challenge to check
-    * @param salt Salt of vote associated with voter for specified challenge
-    * @param voter Voter of which to check reward
-    */
+  /**
+   * Gets reward for voter
+   * @param challengeID ID of challenge to check
+   * @param salt Salt of vote associated with voter for specified challenge
+   * @param voter Voter of which to check reward
+   */
   public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
@@ -391,11 +378,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInUnchallengedApplicationPhase(propID: string): Promise<boolean> {
-    if (! await this.instance.propExists.callAsync(propID)) {
+    if (!await this.instance.propExists.callAsync(propID)) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);
-    if (! pollID.isZero()) {
+    if (!pollID.isZero()) {
       return false;
     }
 
@@ -415,11 +402,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInUnchallengedApplicationUpdatePhase(propID: string): Promise<boolean> {
-    if (! await this.instance.propExists.callAsync(propID)) {
+    if (!await this.instance.propExists.callAsync(propID)) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);
-    if (! pollID.isZero()) {
+    if (!pollID.isZero()) {
       return false;
     }
     const applicationExpiry = await this.instance.getPropAppExpiry.callAsync(propID);
@@ -437,7 +424,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInChallengeCommitPhase(propID: string): Promise<boolean> {
-    if (! await this.instance.propExists.callAsync(propID)) {
+    if (!await this.instance.propExists.callAsync(propID)) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);
@@ -454,7 +441,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInChallengeRevealPhase(propID: string): Promise<boolean> {
-    if (! await this.instance.propExists.callAsync(propID)) {
+    if (!await this.instance.propExists.callAsync(propID)) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);
@@ -471,7 +458,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInChallengeResolvePhase(propID: string): Promise<boolean> {
-    if (! await this.instance.propExists.callAsync(propID)) {
+    if (!await this.instance.propExists.callAsync(propID)) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);

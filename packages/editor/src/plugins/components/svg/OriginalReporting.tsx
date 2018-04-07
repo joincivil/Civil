@@ -6,19 +6,16 @@ export interface SvgProps {
 
 export class OriginalReporting extends React.Component<SvgProps> {
   public render(): JSX.Element {
-    return (<svg
-      width="16px"
-      height="16px"
-      viewBox="0 0 15 10"
-      version="1.1"
-    >
+    return (
+      <svg width="16px" height="16px" viewBox="0 0 15 10" version="1.1">
         <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-            <g transform="translate(-367.000000, -822.000000)" fill={this.props.color}>
-                <g transform="translate(115.000000, 202.000000)">
-                    <g transform="translate(245.000000, 511.000000)">
-                        <g transform="translate(7.000000, 106.000000)">
-                            <g transform="translate(0.000000, 3.000000)">
-                                <path d={`M7.10269598,1.35964516 C9.79298587,1.35964516 12.1601404,
+          <g transform="translate(-367.000000, -822.000000)" fill={this.props.color}>
+            <g transform="translate(115.000000, 202.000000)">
+              <g transform="translate(245.000000, 511.000000)">
+                <g transform="translate(7.000000, 106.000000)">
+                  <g transform="translate(0.000000, 3.000000)">
+                    <path
+                      d={`M7.10269598,1.35964516 C9.79298587,1.35964516 12.1601404,
                                 4.07577419 12.9101151,5.03383871 C12.1601404,5.99351613 9.79298587,
                                 8.70964516 7.10269598,8.70964516 C4.41240608,8.70964516 2.04525156,
                                 5.99351613 1.29527689,5.03545161 C2.04525156,4.0773871 4.41240608,
@@ -36,13 +33,15 @@ export class OriginalReporting extends React.Component<SvgProps> {
                                 3.17329273 7.13903743,3.17231974 M7.13903743,8.125 C8.78193605,8.125 10.1136364,
                                 6.72584066 10.1136364,4.99991892 C10.1136364,3.27399717 8.78193605,1.875 7.13903743,
                                 1.875 C5.49613881,1.875 4.1644385,3.27399717 4.1644385,4.99991892 C4.16613651,
-                                6.72502984 5.49691063,8.12305402 7.13903743,8.125`}></path>
-                            </g>
-                        </g>
-                    </g>
+                                6.72502984 5.49691063,8.12305402 7.13903743,8.125`}
+                    />
+                  </g>
                 </g>
+              </g>
             </g>
+          </g>
         </g>
-    </svg>);
+      </svg>
+    );
   }
 }

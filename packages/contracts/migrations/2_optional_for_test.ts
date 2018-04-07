@@ -20,7 +20,9 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     allocation = totalSupply.div(new BN(originalCount, BASE_10));
     await token.transfer(user, allocation);
 
-    if (addresses.length === 1) { return true; }
+    if (addresses.length === 1) {
+      return true;
+    }
     return giveTokensTo(addresses.slice(1), originalCount);
   }
 
