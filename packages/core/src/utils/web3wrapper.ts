@@ -78,7 +78,8 @@ export class Web3Wrapper {
     } else {
       address = contract.address;
     }
-    const getCodeAsync = promisify<string>(this.web3.eth.getCode);
+    // tslint:disable-next-line:no-unbound-method
+    const getCodeAsync = promisify<string>(this.web3.eth.getCode, this.web3.eth);
     return getCodeAsync(address);
   }
 

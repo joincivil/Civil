@@ -7,7 +7,7 @@ import { TxHash, EthAddress, TwoStepEthTransaction } from "../../types";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { artifacts } from "../generated/artifacts";
 import { createTwoStepSimple, isDecodedLog } from "../utils/contracts";
-import { MultiSigWalletEvents, MultiSigWalletEventArgs, SubmissionArgs } from "../generated/multi_sig_wallet";
+import { MultiSigWalletEvents, SubmissionArgs } from "../generated/multi_sig_wallet";
 
 export class BaseMultisigProxy<T extends OwnableContract> {
   protected web3Wrapper: Web3Wrapper;
