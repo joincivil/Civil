@@ -10,7 +10,7 @@ const PLCRVoting = artifacts.require("PLCRVoting");
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", accounts => {
+contract("Registry", (accounts) => {
   describe("Function: challenge", () => {
     const [applicant, challenger, voter, proposer] = accounts;
     const listing3 = "0x0000000000000000000000000000000000000003";
@@ -46,11 +46,9 @@ contract("Registry", accounts => {
 
       const challengerFinalBalance = await token.balanceOf.call(challenger);
       // Note edge case: no voters, so challenger gets entire stake
-      const expectedFinalBalance = challengerStartingBalance.add(
-        utils.toBaseTenBigNumber(utils.paramConfig.minDeposit),
-      );
-      expect(challengerFinalBalance).to.be.bignumber.equal(
-        expectedFinalBalance,
+      const expectedFinalBalance =
+        challengerStartingBalance.add(utils.toBaseTenBigNumber(utils.paramConfig.minDeposit));
+      expect(challengerFinalBalance).to.be.bignumber.equal(expectedFinalBalance,
         "Reward not properly disbursed to challenger",
       );
     });
@@ -69,11 +67,9 @@ contract("Registry", accounts => {
 
       const challengerFinalBalance = await token.balanceOf.call(challenger);
       // Note edge case: no voters, so challenger gets entire stake
-      const expectedFinalBalance = challengerStartingBalance.add(
-        utils.toBaseTenBigNumber(utils.paramConfig.minDeposit),
-      );
-      expect(challengerFinalBalance).to.be.bignumber.equal(
-        expectedFinalBalance,
+      const expectedFinalBalance =
+        challengerStartingBalance.add(utils.toBaseTenBigNumber(utils.paramConfig.minDeposit));
+      expect(challengerFinalBalance).to.be.bignumber.equal(expectedFinalBalance,
         "Reward not properly disbursed to challenger",
       );
     });
@@ -90,13 +86,15 @@ contract("Registry", accounts => {
       await registry.updateStatus(listing5);
 
       const isWhitelisted = await registry.getListingIsWhitelisted(listing5);
-      expect(isWhitelisted).to.be.true("An application which should have succeeded failed");
+      expect(isWhitelisted).to.be.true(
+        "An application which should have succeeded failed",
+      );
 
       const unstakedDeposit = await registry.getListingUnstakedDeposit(listing5);
-      const expectedUnstakedDeposit = minDeposit.add(minDeposit.mul(utils.paramConfig.dispensationPct).div(100));
+      const expectedUnstakedDeposit =
+        minDeposit.add(minDeposit.mul(utils.paramConfig.dispensationPct).div(100));
 
-      expect(unstakedDeposit).to.be.bignumber.equal(
-        expectedUnstakedDeposit,
+      expect(unstakedDeposit).to.be.bignumber.equal(expectedUnstakedDeposit,
         "The challenge winner was not properly disbursed their tokens",
       );
     });
@@ -118,10 +116,8 @@ contract("Registry", accounts => {
 
       const unstakedDeposit = await registry.getListingUnstakedDeposit(listing6);
       const expectedUnstakedDeposit = minDeposit.add(
-        minDeposit.mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(utils.toBaseTenBigNumber(100))),
-      );
-      expect(unstakedDeposit).to.be.bignumber.equal(
-        expectedUnstakedDeposit,
+        minDeposit.mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(utils.toBaseTenBigNumber(100))));
+      expect(unstakedDeposit).to.be.bignumber.equal(expectedUnstakedDeposit,
         "The challenge winner was not properly disbursed their tokens",
       );
     });
@@ -142,7 +138,7 @@ contract("Registry", accounts => {
       await parameterizer.processProposal(propID);
 
       const challengerStartingBal = await token.balanceOf(challenger);
-      registry.challenge(listing7, "", { from: challenger });
+      registry.challenge(listing7, "", { from: challenger});
       const challengerFinalBal = await token.balanceOf(challenger);
 
       expect(challengerStartingBal).to.be.bignumber.equal(challengerFinalBal, "Tokens were not returned to challenger");

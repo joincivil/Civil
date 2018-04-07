@@ -21,19 +21,29 @@ const parser = new ArgumentParser({
   description: USAGE,
   prog: "generate-from-files",
 });
-parser.addArgument(["inputGlob"], {
-  help: "Files that will be put as context for the template",
-});
-parser.addArgument(["templateFile"], {
-  help: "Mustache template file that will be rendered",
-});
-parser.addArgument(["outFile"], {
-  help: "File that the rendered tempalate will be saved",
-});
+parser.addArgument(
+  [ "inputGlob" ],
+  {
+    help: "Files that will be put as context for the template",
+  },
+);
+parser.addArgument(
+  [ "templateFile" ],
+  {
+    help: "Mustache template file that will be rendered",
+  },
+);
+parser.addArgument(
+  [ "outFile" ],
+  {
+    help: "File that the rendered tempalate will be saved",
+  },
+);
 const args = parser.parseArgs();
 
 const { inputGlob, templateFile, outFile } = args;
-generateFromFiles(inputGlob, templateFile, outFile, console.log.bind(console)).catch(error => {
-  console.error("Failed to parse", error);
-  process.exit(1);
-});
+generateFromFiles(inputGlob, templateFile, outFile, console.log.bind(console))
+  .catch((error) => {
+    console.error("Failed to parse", error);
+    process.exit(1);
+  });

@@ -42,7 +42,7 @@ export class Civil {
 
     if (opts.debug === true) {
       Debug.enable("civil:*");
-      debug('Enabled debug for "civil:*" namespace');
+      debug("Enabled debug for \"civil:*\" namespace");
     }
 
     if (opts.web3Provider) {

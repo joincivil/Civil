@@ -16,9 +16,9 @@ const CONTRACT_EVENT = "ContractInstantiation";
 const NEWSROOM_NAME = "Newsroom name";
 
 function createdContract(factory: any, txReceipt: Web3.TransactionReceipt): string {
-  const myLog = txReceipt.logs.find((log: any) => log.event === CONTRACT_EVENT && log.address === factory.address) as
-    | Web3.DecodedLogEntry<any>
-    | undefined;
+  const myLog = txReceipt.logs.find(
+    (log: any) => log.event === CONTRACT_EVENT && log.address === factory.address,
+  ) as Web3.DecodedLogEntry<any>|undefined;
 
   if (!myLog) {
     throw new Error("ContractInstantation log not found");
@@ -33,7 +33,7 @@ async function codeMatches(instance: any, clazz: any): Promise<void> {
   expect(code).to.be.equal(clazz.deployedBytecode);
 }
 
-contract("NewsroomFactory", accounts => {
+contract("NewsroomFactory", (accounts) => {
   const [owner, secondOwner, thirdOwner] = accounts;
 
   let multisigFactoryInstance: any;
@@ -43,7 +43,7 @@ contract("NewsroomFactory", accounts => {
     owners: string[],
     required: number = 1,
     name: string = NEWSROOM_NAME,
-  ): Promise<{ newsroom: any; multisig: any }> {
+  ): Promise<{newsroom: any, multisig: any}> {
     const receipt = await instance.create(name, owners, required);
     return {
       newsroom: Newsroom.at(createdContract(instance, receipt)),

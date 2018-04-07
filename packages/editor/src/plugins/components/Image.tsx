@@ -10,7 +10,7 @@ const ImageInline = styled.img`
 
 const ImageBreakout = styled.img`
   width: 90vw;
-  left: calc(-220px + calc(calc(805px - 90vw) / 2));
+  left: calc(-220px + calc(calc(805px - 90vw)/2));
   margin: 30px 0;
   position: relative;
 `;
@@ -82,19 +82,9 @@ export class Image extends React.Component<ImageProps, ImageState> {
       // </ImageToggleWrapper>);
     }
     if (this.props.node.data.get("style") === constants.IMAGE) {
-      return (
-        <ImageWrapper>
-          <ImageInline src={this.state.src} />
-          {toggle}
-        </ImageWrapper>
-      );
+      return <ImageWrapper><ImageInline src={this.state.src}/>{toggle}</ImageWrapper>;
     } else {
-      return (
-        <ImageWrapper>
-          <ImageBreakout src={this.state.src} />
-          {toggle}
-        </ImageWrapper>
-      );
+      return <ImageWrapper><ImageBreakout src={this.state.src}/>{toggle}</ImageWrapper>;
     }
   }
 }

@@ -6,7 +6,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", accounts => {
+contract("Registry", (accounts) => {
   describe("Function: appWasMade", () => {
     const [applicant] = accounts;
 

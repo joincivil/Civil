@@ -52,7 +52,7 @@ glob(FILES_GLOB, (err, files) => {
     return process.exit(1);
   }
 
-  files.forEach(filePath => {
+  files.forEach((filePath) => {
     const filename = path.basename(filePath);
     const outPath = path.posix.format({
       base: filename,

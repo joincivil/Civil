@@ -1,6 +1,6 @@
 /* global artifacts */
 
-import { approveEverything, config, inTesting } from "./utils";
+import { approveEverything, config, inTesting} from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
 
 const Token = artifacts.require("EIP20.sol");
@@ -20,7 +20,10 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       tokenAddress = Token.address;
     }
 
-    await deployer.deploy(PLCRVoting, tokenAddress);
+    await deployer.deploy(
+      PLCRVoting,
+      tokenAddress,
+    );
 
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), PLCRVoting.address);

@@ -1,5 +1,4 @@
 # Static Pug + Typescript + Sass starter
-
 This starter allows easy creation of static webpages while allowing nicieties of npm
 packagaes, Typescript, Sass and Pug
 

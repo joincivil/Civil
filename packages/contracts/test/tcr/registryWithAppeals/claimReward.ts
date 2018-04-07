@@ -13,7 +13,7 @@ const NEWSROOM_NAME = "unused newsroom name";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", accounts => {
+contract("Registry", (accounts) => {
   describe("Function: claimReward", () => {
     const [JAB, applicant, challenger, voterAlice, voterBob] = accounts;
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
@@ -68,8 +68,7 @@ contract("Registry", accounts => {
       const aliceExpected = aliceStartingBalance.add(aliceVoterReward);
       const aliceFinalBalance = await token.balanceOf(voterAlice);
 
-      expect(aliceFinalBalance).to.be.bignumber.equal(
-        aliceExpected,
+      expect(aliceFinalBalance).to.be.bignumber.equal(aliceExpected,
         "alice should have the same balance as she started",
       );
     });
@@ -78,9 +77,8 @@ contract("Registry", accounts => {
       await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       const nonPollID = "666";
-      await expect(registry.claimReward(nonPollID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
-        REVERTED,
-      );
+      await expect(registry.claimReward(nonPollID, "420", { from: voterAlice }))
+      .to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should revert if provided salt is incorrect", async () => {
@@ -102,19 +100,18 @@ contract("Registry", accounts => {
       const aliceFinalBalance = await token.balanceOf(voterAlice);
       const expectedBalance = applicantStartingBalance.sub(minDeposit);
 
-      expect(applicantFinalBalance).to.be.bignumber.equal(
-        expectedBalance,
+      expect(applicantFinalBalance).to.be.bignumber.equal(expectedBalance,
         "applicants final balance should be what they started with minus the minDeposit",
       );
-      expect(aliceFinalBalance).to.be.bignumber.equal(
-        aliceStartBal.sub(utils.toBaseTenBigNumber(500)),
+      expect(aliceFinalBalance).to.be.bignumber.equal(aliceStartBal.sub(utils.toBaseTenBigNumber(500)),
         "alices final balance should be exactly the same as her starting balance",
       );
 
       // Update status
       await registry.updateStatus(newsroomAddress, { from: applicant });
 
-      await expect(registry.claimReward(pollID, "421", { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
+      await expect(registry.claimReward(pollID, "421", { from: voterAlice }))
+        .to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should not transfer tokens if msg.sender has already claimed tokens for a challenge", async () => {
@@ -144,21 +141,22 @@ contract("Registry", accounts => {
       // Claim reward
       await registry.claimReward(pollID, "420", { from: voterAlice });
 
-      await expect(registry.claimReward(pollID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "should not have been able to call claimReward twice",
-      );
+      await expect(registry.claimReward(pollID, "420", { from: voterAlice }))
+      .to.eventually.be.rejectedWith(REVERTED, "should not have been able to call claimReward twice");
 
       const applicantEndingBalance = await token.balanceOf(applicant);
       const appExpected = applicantStartingBalance.sub(minDeposit);
 
       const aliceEndingBalance = await token.balanceOf(voterAlice);
-      const aliceExpected = aliceStartingBalance
-        .add(minDeposit.div(utils.toBaseTenBigNumber(2)))
-        .sub(utils.toBaseTenBigNumber(500));
+      const aliceExpected = aliceStartingBalance.add(minDeposit.div(utils.toBaseTenBigNumber(2)))
+      .sub(utils.toBaseTenBigNumber(500));
 
-      expect(applicantEndingBalance).to.be.bignumber.equal(appExpected, "applicants ending balance is incorrect");
-      expect(aliceEndingBalance).to.be.bignumber.equal(aliceExpected, "alices ending balance is incorrect");
+      expect(applicantEndingBalance).to.be.bignumber.equal(appExpected,
+        "applicants ending balance is incorrect",
+      );
+      expect(aliceEndingBalance).to.be.bignumber.equal(aliceExpected,
+        "alices ending balance is incorrect",
+      );
     });
 
     it("should not transfer tokens for an unresolved challenge", async () => {
@@ -178,10 +176,8 @@ contract("Registry", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await expect(registry.claimReward(pollID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "should not have been able to claimReward for unresolved challenge",
-      );
+      await expect(registry.claimReward(pollID, "420", { from: voterAlice }))
+      .to.eventually.be.rejectedWith(REVERTED, "should not have been able to claimReward for unresolved challenge");
 
       const applicantEndingBalance = await token.balanceOf.call(applicant);
       const appExpected = applicantStartingBalance.sub(minDeposit);
@@ -189,8 +185,12 @@ contract("Registry", accounts => {
       const aliceEndingBalance = await token.balanceOf.call(voterAlice);
       const aliceExpected = aliceStartingBalance.sub(utils.toBaseTenBigNumber(500));
 
-      expect(applicantEndingBalance).to.be.bignumber.equal(appExpected, "applicants ending balance is incorrect");
-      expect(aliceEndingBalance).to.be.bignumber.equal(aliceExpected, "alices ending balance is incorrect");
+      expect(applicantEndingBalance).to.be.bignumber.equal(appExpected,
+        "applicants ending balance is incorrect",
+      );
+      expect(aliceEndingBalance).to.be.bignumber.equal(aliceExpected,
+        "alices ending balance is incorrect",
+      );
     });
 
     it("should not transfer tokens to majority voters if challenge is overturned on appeal", async () => {
@@ -215,10 +215,8 @@ contract("Registry", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       // Claim reward
-      await expect(registry.claimReward(pollID, "42", { from: voterAlice })).to.be.rejectedWith(
-        REVERTED,
-        "should have reverted since voter commit hash does not match winning hash for salt",
-      );
+      await expect(registry.claimReward(pollID, "42", { from: voterAlice })).to.be.rejectedWith(REVERTED,
+        "should have reverted since voter commit hash does not match winning hash for salt");
     });
 
     // TODO(nickreynolds)
@@ -251,25 +249,18 @@ contract("Registry", accounts => {
 
       // Claim reward
       await expect(registry.claimReward(pollID, "32", { from: voterBob })).to.be.fulfilled(
-        "should have allowed minority voter to claim reward",
-      );
+        "should have allowed minority voter to claim reward");
 
       await voting.withdrawVotingRights("30", { from: voterBob }); // get all tokens back
       const bobEndingBalance = await token.balanceOf(voterBob);
 
       // starting balance + (minDeposit * dispensationPct)
-      const expectedBobEndingBalance = utils
-        .toBaseTenBigNumber(bobStartingBalance)
-        .add(
-          utils
-            .toBaseTenBigNumber(utils.paramConfig.minDeposit)
-            .mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(100)),
-        );
+      const expectedBobEndingBalance = utils.toBaseTenBigNumber(bobStartingBalance).add(
+        utils.toBaseTenBigNumber(utils.paramConfig.minDeposit).mul(
+          utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(100)));
 
-      expect(bobEndingBalance).to.be.bignumber.equal(
-        expectedBobEndingBalance,
-        "Bob's ending balance did not equal expected value",
-      );
+      expect(bobEndingBalance).to.be.bignumber.equal(expectedBobEndingBalance,
+        "Bob's ending balance did not equal expected value");
     });
   });
 });

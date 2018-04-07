@@ -5,7 +5,7 @@ declare module "*.json" {
   export default json;
 }
 
-declare module "web3/lib/solidity/coder" {
+declare module 'web3/lib/solidity/coder' {
   const decodeParams: (types: string[], data: string) => any[];
 }
 

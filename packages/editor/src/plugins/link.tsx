@@ -11,7 +11,7 @@ export const link = (options: any): Plugin => {
     name: LINK,
     renderMark(props: any): JSX.Element | void {
       if (props.mark.type === LINK) {
-        return <Link {...props} />;
+        return <Link {...props}/>;
       }
     },
   };

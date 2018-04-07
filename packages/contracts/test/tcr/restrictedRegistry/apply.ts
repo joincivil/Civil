@@ -13,7 +13,7 @@ const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 
 const NEWSROOM_NAME = "unused newsroom name";
 
-contract("RestrictedAddressRegistry", accounts => {
+contract("RestrictedAddressRegistry", (accounts) => {
   describe("Function: apply", () => {
     const [applicant, troll] = accounts;
     const listing1 = "0x0000000000000000000000000000000000000001";
@@ -33,7 +33,7 @@ contract("RestrictedAddressRegistry", accounts => {
       });
 
       it("should allow contract owner to apply on behalf of contract", async () => {
-        await registry.apply(testNewsroom.address, utils.paramConfig.minDeposit, "", { from: applicant });
+        await registry.apply(testNewsroom.address, utils.paramConfig.minDeposit, "", {from: applicant });
 
         // get the struct in the mapping
         const applicationExpiry = await registry.getListingApplicationExpiry(address);
@@ -49,25 +49,26 @@ contract("RestrictedAddressRegistry", accounts => {
       });
 
       it("should not allow a listing to apply which has a pending application", async () => {
-        await registry.apply(address, utils.paramConfig.minDeposit, "", { from: applicant });
-        await expect(
-          registry.apply(address, utils.paramConfig.minDeposit, "", { from: applicant }),
-        ).to.eventually.be.rejectedWith(REVERTED);
+        await registry.apply(address, utils.paramConfig.minDeposit, "", {from: applicant });
+        await expect(registry.apply(address, utils.paramConfig.minDeposit, "", {from: applicant }))
+          .to.eventually.be.rejectedWith(REVERTED);
       });
 
-      it("should add a listing to the whitelist which went unchallenged in its application period", async () => {
-        await registry.apply(address, utils.paramConfig.minDeposit, "", { from: applicant });
-        await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
-        await registry.updateStatus(address);
-        const result = await registry.getListingIsWhitelisted(address);
-        expect(result).to.be.true("listing didn't get whitelisted");
-      });
+      it(
+        "should add a listing to the whitelist which went unchallenged in its application period",
+        async () => {
+          await registry.apply(address, utils.paramConfig.minDeposit, "", {from: applicant });
+          await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
+          await registry.updateStatus(address);
+          const result = await registry.getListingIsWhitelisted(address);
+          expect(result).to.be.true("listing didn't get whitelisted");
+        },
+      );
 
       it("should not allow a listing to apply which is already listed", async () => {
         await utils.addToWhitelist(address, utils.paramConfig.minDeposit, applicant, registry);
-        await expect(
-          registry.apply(address, utils.paramConfig.minDeposit, "", { from: applicant }),
-        ).to.eventually.be.rejectedWith(REVERTED);
+        await expect(registry.apply(address, utils.paramConfig.minDeposit, "", {from: applicant }))
+          .to.eventually.be.rejectedWith(REVERTED);
       });
     });
 
@@ -81,30 +82,29 @@ contract("RestrictedAddressRegistry", accounts => {
       });
 
       it("should not allow a non-contract owner to apply", async () => {
-        await expect(
-          registry.apply(address, utils.paramConfig.minDeposit, "", { from: applicant }),
-        ).to.eventually.be.rejectedWith(REVERTED);
+        await expect(registry.apply(address, utils.paramConfig.minDeposit, "", {from: applicant }))
+          .to.eventually.be.rejectedWith(REVERTED);
       });
 
-      it("should prevent un-owned address from being listed when registry cast to ContractAddressRegistry", async () => {
+      it(
+        "should prevent un-owned address from being listed when registry cast to ContractAddressRegistry",
+        async () => {
         const parentRegistry = await ContractAddressRegistry.at(registry.address);
-        await expect(
-          parentRegistry.apply(address, utils.paramConfig.minDeposit, "", { from: applicant }),
-        ).to.eventually.be.rejectedWith(REVERTED);
+        await expect(parentRegistry.apply(address, utils.paramConfig.minDeposit, "", {from: applicant }))
+          .to.eventually.be.rejectedWith(REVERTED);
       });
     });
 
     it("should prevent non-contract address from being listed", async () => {
-      await expect(
-        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
-      ).to.eventually.be.rejectedWith(REVERTED);
+      await expect(registry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant }))
+        .to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should prevent non-contract address from being listed when registry cast to AddressRegistry", async () => {
       const parentRegistry = await AddressRegistry.at(registry.address);
-      await expect(
-        parentRegistry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
-      ).to.eventually.be.rejectedWith(REVERTED);
+      await expect(parentRegistry.apply(listing1, utils.paramConfig.minDeposit, "", {from: applicant }))
+        .to.eventually.be.rejectedWith(REVERTED);
     });
+
   });
 });

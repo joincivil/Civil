@@ -1,3 +1,5 @@
 {
-  "extends": ["@joincivil/tslint-rules"]
+  "extends": [
+    "@joincivil/tslint-rules"
+  ]
 }

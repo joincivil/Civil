@@ -19,9 +19,12 @@ describe("utils/language", () => {
     });
 
     it("passes parameters", async () => {
-      const params = ["test parameter, please ignore", 42];
-      const wrapped = (s: string, n: number, callback: (err: any, r: [string, number]) => void) =>
-        callback(null, [s, n]);
+      const params = [
+        "test parameter, please ignore",
+        42,
+      ];
+      const wrapped =
+        (s: string, n: number, callback: (err: any, r: [string, number]) => void) => callback(null, [s, n]);
 
       const tested = promisify<[string, number]>(wrapped);
 
@@ -30,9 +33,7 @@ describe("utils/language", () => {
 
     it("catches throws", async () => {
       const myError = new Error("Why hello there");
-      const wrapped = () => {
-        throw myError;
-      };
+      const wrapped = () => { throw myError; };
 
       const tested = promisify(wrapped);
 
@@ -48,19 +49,15 @@ describe("utils/language", () => {
       await expect(tested()).to.eventually.be.rejectedWith(myError);
     });
 
-    it("is asynchronous", done => {
+    it("is asynchronous", (done) => {
       const data = "test data, please ignore";
-      let caughtCallback: (err: any, data: string) => void = () => {
-        done(new Error("Function not caught"));
-      };
-      const wrapped = (callback: (s: string) => void) => {
-        caughtCallback = callback;
-      };
+      let caughtCallback: (err: any, data: string) => void = () => { done(new Error("Function not caught")); };
+      const wrapped = (callback: (s: string) => void) => { caughtCallback = callback; };
 
       const tested = promisify<string>(wrapped);
 
       tested()
-        .then(value => {
+        .then((value) => {
           expect(value).to.be.equal(data);
           done();
         })

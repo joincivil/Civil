@@ -40,7 +40,10 @@ export class Web3Wrapper {
     // TODO(ritave): Constructor can throw when the eg. HttpProvider can't connect to Http
     //               It shouldn't, and should just set null account
     this.currentProvider = provider;
-    this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map(a => a.abi));
+    this.abiDecoder = new AbiDecoder(
+      Object
+        .values<Artifact>(artifacts)
+        .map((a) => a.abi));
     this.nodeStream = new NodeStream();
   }
 
@@ -86,8 +89,7 @@ export class Web3Wrapper {
             return reject((result as any).error);
           }
           return resolve(result);
-        },
-      );
+        });
     });
   }
 
@@ -133,14 +135,12 @@ export class Web3Wrapper {
    * @param txHash Transaction hash for which the receipt is returned
    * @returns Null if the transaction is not yet inside the blockchain (still in mempool), decoded transaction otherwise
    */
-  public async getReceipt(txHash: TxHash): Promise<CivilTransactionReceipt | null> {
+  public async getReceipt(txHash: TxHash): Promise<CivilTransactionReceipt|null> {
     // web3-typescript-typings have wrong type, the call can return null if still in mempool
     // Fix: https://github.com/0xProject/0x.js/pull/338
     // tslint:disable:no-unbound-method
-    const getTransactionReceipt = promisify<Web3.TransactionReceipt | null>(
-      this.web3.eth.getTransactionReceipt,
-      this.web3.eth,
-    );
+    const getTransactionReceipt =
+      promisify<Web3.TransactionReceipt|null>(this.web3.eth.getTransactionReceipt, this.web3.eth);
     // tslint:enable:no-unbound-method
 
     const receipt = await getTransactionReceipt(txHash);
@@ -151,7 +151,7 @@ export class Web3Wrapper {
   }
 
   private receiptToCivilReceipt(receipt: Web3.TransactionReceipt): CivilTransactionReceipt {
-    receipt.logs = receipt.logs.map(log => this.abiDecoder.tryToDecodeLogOrNoop(log));
+    receipt.logs = receipt.logs.map((log) => this.abiDecoder.tryToDecodeLogOrNoop(log));
     return receipt as CivilTransactionReceipt;
   }
 

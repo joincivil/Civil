@@ -14,7 +14,7 @@ export const bold = (options: any): Plugin => {
     name: BOLD,
     renderMark(props: any): JSX.Element | void {
       if (props.mark.type === BOLD) {
-        return <Bold {...props} />;
+        return <Bold {...props}/>;
       }
     },
   };

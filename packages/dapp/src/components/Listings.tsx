@@ -13,10 +13,11 @@ const StyledDiv = styled.div`
 export interface ListingsState {
   applications: List<string>;
   applicationSubscription: Subscription;
-  error: undefined | string;
+  error: undefined|string;
 }
 
 class Listings extends React.Component<{}, ListingsState> {
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -39,7 +40,7 @@ class Listings extends React.Component<{}, ListingsState> {
     return (
       <StyledDiv>
         whaddup listings: {this.state.applications.toString()}
-        <br />
+        <br/>
         {this.state.error}
       </StyledDiv>
     );
@@ -52,18 +53,16 @@ class Listings extends React.Component<{}, ListingsState> {
       tcr = civil.tcrSingletonTrusted();
     } catch (ex) {
       console.log("failed to get tcr.");
-      this.setState({
-        error: "No Supported Network Found. Please set MetaMask network to Rinkeby and Unlock Account.",
-      });
+      this.setState({error: "No Supported Network Found. Please set MetaMask network to Rinkeby and Unlock Account."});
     }
 
     if (tcr) {
-      const subscription = tcr.listingsInApplicationStage().subscribe(listing => {
-        this.setState({ applications: this.state.applications.push(listing) });
+      const subscription = tcr.listingsInApplicationStage().subscribe((listing) => {
+        this.setState({applications: this.state.applications.push(listing)});
       });
-      this.setState({ applicationSubscription: subscription });
+      this.setState({applicationSubscription : subscription});
     }
-  };
+  }
 }
 
 export default Listings;

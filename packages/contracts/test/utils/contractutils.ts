@@ -24,7 +24,7 @@ const OwnedAddressTCRWithAppeals = artifacts.require("OwnedAddressTCRWithAppeals
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
 
-export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T> | undefined {
+export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T>|undefined {
   return tx.logs.find((log: any) => log.event === eventName);
 }
 
@@ -59,11 +59,19 @@ export async function proposeReparamAndGetPropID(
   parameterizer: any,
   account: string,
 ): Promise<any> {
-  const receipt = await parameterizer.proposeReparameterization(propName, propValue, { from: account });
+  const receipt = await parameterizer.proposeReparameterization(
+    propName,
+    propValue,
+    { from: account },
+  );
   return receipt.logs[0].args.propID;
 }
 
-export async function challengeAndGetPollID(listing: string, account: string, registry: any): Promise<string> {
+export async function challengeAndGetPollID(
+  listing: string,
+  account: string,
+  registry: any,
+): Promise<string> {
   const receipt = await registry.challenge(listing, "", { from: account });
   return receipt.logs[0].args.pollID;
 }
@@ -92,14 +100,14 @@ export function toBaseTenBigNumber(p: number): BigNumber {
   return new BigNumber(p.toString(10), 10);
 }
 
-export async function commitVote(
-  voting: any,
-  pollID: any,
-  voteOption: string,
-  tokensArg: string,
-  salt: string,
-  voter: string,
-): Promise<void> {
+export async function commitVote( voting: any,
+                                  pollID: any,
+                                  voteOption: string,
+                                  tokensArg: string,
+                                  salt: string,
+                                  voter: string,
+                                ): Promise<void> {
+
   const hash = getVoteSaltHash(voteOption, salt);
   await voting.requestVotingRights(tokensArg, { from: voter });
 
@@ -122,36 +130,38 @@ export function multiplyByPercentage(x: number, y: number, z: number = 100): Big
   return multiplyFromWei(x, weiQuotient);
 }
 
-async function giveTokensTo(
-  totalSupply: BigNumber,
-  addresses: string[],
-  accounts: string[],
-  token: any,
-): Promise<boolean> {
+async function giveTokensTo(totalSupply: BigNumber,
+                            addresses: string[],
+                            accounts: string[],
+                            token: any,
+                            ): Promise<boolean> {
   const user = addresses[0];
   const allocation = totalSupply.div(new BigNumber(accounts.length, 10));
   await token.transfer(user, allocation);
 
-  if (addresses.length === 1) {
-    return true;
-  }
+  if (addresses.length === 1) { return true; }
   return giveTokensTo(totalSupply, addresses.slice(1), accounts, token);
 }
 
-async function createAndDistributeToken(totalSupply: BigNumber, decimals: string, addresses: string[]): Promise<any> {
+async function createAndDistributeToken(totalSupply: BigNumber,
+                                        decimals: string,
+                                        addresses: string[],
+                                        ): Promise<any> {
   const token = await Token.new(totalSupply, "TestCoin", decimals, "TEST");
   await giveTokensTo(totalSupply, addresses, addresses, token);
   return token;
 }
 
-async function createTestRegistryInstance(registryContract: any, parameterizer: any, accounts: string[]): Promise<any> {
+async function createTestRegistryInstance(
+  registryContract: any,
+  parameterizer: any,
+  accounts: string[],
+): Promise<any> {
   async function approveRegistryFor(addresses: string[]): Promise<boolean> {
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
     await token.approve(registry.address, balanceOfUser, { from: user });
-    if (addresses.length === 1) {
-      return true;
-    }
+    if (addresses.length === 1) { return true; }
     return approveRegistryFor(addresses.slice(1));
   }
 
@@ -175,9 +185,7 @@ async function createTestAppealsRegistryInstance(
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
     await token.approve(registry.address, balanceOfUser, { from: user });
-    if (addresses.length === 1) {
-      return true;
-    }
+    if (addresses.length === 1) { return true; }
     return approveRegistryFor(addresses.slice(1));
   }
 
@@ -208,9 +216,7 @@ async function createTestPLCRInstance(token: any, accounts: string[]): Promise<a
     const balanceOfUser = await token.balanceOf(user);
 
     await token.approve(plcr.address, balanceOfUser, { from: user });
-    if (addresses.length === 1) {
-      return true;
-    }
+    if (addresses.length === 1) { return true; }
     return approvePLCRFor(addresses.slice(1));
   }
 
@@ -225,9 +231,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
     await token.approve(parameterizer.address, balanceOfUser, { from: user });
-    if (addresses.length === 1) {
-      return true;
-    }
+    if (addresses.length === 1) { return true; }
     return approveParameterizerFor(addresses.slice(1));
   }
   const parameterizerConfig = config.paramDefaults;

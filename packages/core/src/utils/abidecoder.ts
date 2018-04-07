@@ -1,3 +1,4 @@
+
 /*
  * This file is used from the 0xproject and it's on Apache 2.0 License
  * https://github.com/0xProject/0x.js/blob/development/packages/0x.js/src/utils/abi_decoder.ts
@@ -49,8 +50,8 @@ export class AbiDecoder {
     let dataIndex = 0;
     let topicsIndex = 1;
 
-    const nonIndexedInputs = event.inputs.filter(input => !input.indexed);
-    const dataTypes = nonIndexedInputs.map(input => input.type);
+    const nonIndexedInputs = event.inputs.filter((input) => !input.indexed);
+    const dataTypes = nonIndexedInputs.map((input) => input.type);
     const decodedData = SolidityCoder.decodeParams(dataTypes, logData.slice("0x".length));
 
     event.inputs.forEach((param: Web3.EventParameter) => {
@@ -77,7 +78,7 @@ export class AbiDecoder {
   private addABI(abiArray: Web3.AbiDefinition[]): void {
     abiArray.forEach((abi: Web3.AbiDefinition) => {
       if (abi.type === AbiType.Event) {
-        const abiTypes = abi.inputs.map(input => input.type);
+        const abiTypes = abi.inputs.map((input) => input.type);
         const signature = `${abi.name}(${abiTypes.join(",")})`;
         const signatureHash = new Web3().sha3(signature);
         this.methodIds[signatureHash] = abi;

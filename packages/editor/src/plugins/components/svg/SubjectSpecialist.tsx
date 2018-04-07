@@ -6,17 +6,21 @@ export interface SvgProps {
 
 export class SubjectSpecialist extends React.Component<SvgProps> {
   public render(): JSX.Element {
-    return (
-      <svg width="16px" height="16px" viewBox="0 0 9 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    return (<svg
+      width="16px"
+      height="16px"
+      viewBox="0 0 9 14"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+     >
         <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-          <g transform="translate(-380.000000, -1237.000000)" fill={this.props.color}>
-            <g transform="translate(126.000000, 212.000000)">
-              <g>
-                <g transform="translate(245.000000, 511.000000)">
-                  <g transform="translate(9.000000, 510.000000)">
-                    <g transform="translate(0.000000, 4.000000)">
-                      <path
-                        d={`M3.9375,9.29674626 C4.122,9.32085678 4.309125,
+            <g transform="translate(-380.000000, -1237.000000)" fill={this.props.color}>
+                <g transform="translate(126.000000, 212.000000)">
+                    <g>
+                        <g transform="translate(245.000000, 511.000000)">
+                            <g transform="translate(9.000000, 510.000000)">
+                                <g transform="translate(0.000000, 4.000000)">
+                                    <path d={`M3.9375,9.29674626 C4.122,9.32085678 4.309125,
                                     9.33310649 4.5,9.33310649 C4.690875,9.33310649 4.878,
                                     9.32085678 5.0625,9.29674626 L5.0625,12.6508314 L4.5,13.1126257 L3.9375,
                                     12.6508314 L3.9375,9.29674626 Z M6.75,8.7011774 L6.75,11.2776981 L5.8125,
@@ -38,16 +42,14 @@ export class SubjectSpecialist extends React.Component<SvgProps> {
                                     13.9146896 C4.4025,14.0284368 4.5975,14.0284368 4.734375,13.9146896 L7.359375,
                                     11.7758527 C7.4484375,11.7019656 7.5,11.5903572 7.5,11.4721378 L7.5,
                                     8.13613558 C8.418375,7.28157302 9,6.04415865 9,4.66674768 C9,2.09411577 6.9808125,
-                                    0 4.5,0 Z`}
-                      />
+                                    0 4.5,0 Z`}></path>
+                                </g>
+                            </g>
+                        </g>
                     </g>
-                  </g>
                 </g>
-              </g>
             </g>
-          </g>
         </g>
-      </svg>
-    );
+    </svg>);
   }
 }

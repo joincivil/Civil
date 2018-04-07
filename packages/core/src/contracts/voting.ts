@@ -17,7 +17,10 @@ const debug = Debug("civil:tcr");
  * Parameterizer or the Registry
  */
 export class Voting extends BaseWrapper<PLCRVotingContract> {
-  public static singleton(web3Wrapper: Web3Wrapper): Voting {
+
+  public static singleton(
+    web3Wrapper: Web3Wrapper,
+  ): Voting {
     const instance = PLCRVotingContract.singletonTrusted(web3Wrapper);
     if (!instance) {
       debug("Smart-contract wrapper for Voting returned null, unsupported network");
@@ -45,11 +48,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @returns currently active polls (by id)
    */
-  public activePolls(fromBlock: number | "latest" = 0): Observable<BigNumber> {
+  public activePolls(fromBlock: number|"latest" = 0): Observable<BigNumber> {
     return this.instance
       .PollCreatedStream({}, { fromBlock })
-      .map(e => e.args.pollID)
-      .concatFilter(async pollID => this.instance.pollExists.callAsync(pollID));
+      .map((e) => e.args.pollID)
+      .concatFilter(async (pollID) => this.instance.pollExists.callAsync(pollID));
   }
 
   /**
@@ -60,7 +63,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Transfer tokens to voting contract (thus getting voting rights)
    * @param numTokens number of tokens to transfer into voting contract
    */
-  public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  public async requestVotingRights(
+    numTokens: BigNumber,
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.requestVotingRights.sendTransactionAsync(numTokens),
@@ -71,7 +76,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Withdraw tokens from voting contract (thus withdrawing voting rights)
    * @param numTokens number of tokens to withdraw from voting contract
    */
-  public async withdrawVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  public async withdrawVotingRights(
+    numTokens: BigNumber,
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens),
@@ -82,8 +89,13 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Unlocks tokens from unrevealed vote where poll has ended
    * @param pollID ID of poll to unlock unrevealed vote of
    */
-  public async rescueTokens(pollID: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.rescueTokens.sendTransactionAsync(pollID));
+  public async rescueTokens(
+    pollID: BigNumber,
+  ): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.rescueTokens.sendTransactionAsync(pollID),
+    );
   }
 
   /**
@@ -112,7 +124,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param voteOption Vote choice used to generate commitHash for poll
    * @param salt Secret number used to generate commitHash for poll
    */
-  public async revealVote(pollID: BigNumber, voteOption: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
+  public async revealVote(
+    pollID: BigNumber,
+    voteOption: BigNumber,
+    salt: BigNumber,
+  ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.revealVote.sendTransactionAsync(pollID, voteOption, salt),
@@ -123,12 +139,12 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Contract Getters
    */
 
-  /**
-   * Gets number of tokens held as voting rights by the Voting contract
-   * Voting contract may hold more tokens than can be withdrawn if some tokens
-   * are currently locked in a vote
-   * @param tokenOwner Address of token owner to check voting rights of
-   */
+   /**
+    * Gets number of tokens held as voting rights by the Voting contract
+    * Voting contract may hold more tokens than can be withdrawn if some tokens
+    * are currently locked in a vote
+    * @param tokenOwner Address of token owner to check voting rights of
+    */
   public async getNumVotingRights(tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
@@ -142,7 +158,10 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param voterAddress voter to check vote status of
    * @param pollID ID of poll to check
    */
-  public async hasVoteBeenRevealed(pollID: BigNumber, voter?: EthAddress): Promise<boolean> {
+  public async hasVoteBeenRevealed(
+    pollID: BigNumber,
+    voter?: EthAddress,
+  ): Promise<boolean> {
     let who = voter;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
@@ -154,7 +173,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Is this poll in reveal period?
    * @param pollID ID of poll to check
    */
-  public async isRevealPeriodActive(pollID: BigNumber): Promise<boolean> {
+  public async isRevealPeriodActive(
+    pollID: BigNumber,
+  ): Promise<boolean> {
     return this.instance.revealPeriodActive.callAsync(pollID);
   }
 
@@ -162,7 +183,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Is this poll in commit period?
    * @param pollID ID of poll to check
    */
-  public async isCommitPeriodActive(pollID: BigNumber): Promise<boolean> {
+  public async isCommitPeriodActive(
+    pollID: BigNumber,
+  ): Promise<boolean> {
     return this.instance.commitPeriodActive.callAsync(pollID);
   }
 
@@ -170,7 +193,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Has this poll ended?
    * @param pollID ID of poll to check
    */
-  public async hasPollEnded(pollID: BigNumber): Promise<boolean> {
+  public async hasPollEnded(
+    pollID: BigNumber,
+  ): Promise<boolean> {
     return this.instance.pollEnded.callAsync(pollID);
   }
 
@@ -178,7 +203,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Gets total number of tokens from winning side of poll
    * @param pollID ID of poll to check
    */
-  public async getTotalTokensForWinners(pollID: BigNumber): Promise<BigNumber> {
+  public async getTotalTokensForWinners(
+    pollID: BigNumber,
+  ): Promise<BigNumber> {
     return this.instance.getTotalNumberOfTokensForWinningOption.callAsync(pollID);
   }
 
@@ -206,7 +233,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Did this poll pass?
    * @param pollID ID of poll to check
    */
-  public async isPollPassed(pollID: BigNumber): Promise<boolean> {
+  public async isPollPassed(
+    pollID: BigNumber,
+  ): Promise<boolean> {
     return this.instance.isPassed.callAsync(pollID);
   }
 
@@ -214,7 +243,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Gets expiry timestamp of commit period.
    * @param pollID ID of poll to check
    */
-  public async getCommitPeriodExpiry(pollID: BigNumber): Promise<BigNumber> {
+  public async getCommitPeriodExpiry(
+    pollID: BigNumber,
+  ): Promise<BigNumber> {
     return this.instance.getPollCommitEndDate.callAsync(pollID);
   }
 
@@ -222,7 +253,9 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Gets expiry timestamp of reveal period.
    * @param pollID ID of poll to check
    */
-  public async getRevealPeriodExpiry(pollID: BigNumber): Promise<BigNumber> {
+  public async getRevealPeriodExpiry(
+    pollID: BigNumber,
+  ): Promise<BigNumber> {
     return this.instance.getPollRevealEndDate.callAsync(pollID);
   }
 
@@ -232,11 +265,15 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param tokens number of tokens being committed this vote
    * @param account account to check pollID for
    */
-  public async getPrevPollID(tokens: BigNumber, account?: EthAddress): Promise<BigNumber> {
+  public async getPrevPollID(
+    tokens: BigNumber,
+    account?: EthAddress,
+  ): Promise<BigNumber> {
     let who = account;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
     return this.instance.getInsertPointForNumTokens.callAsync(who, tokens);
   }
+
 }

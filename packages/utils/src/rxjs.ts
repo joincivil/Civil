@@ -9,14 +9,16 @@ const EMPTY = Symbol();
  */
 export function concatFilter<T>(
   this: Observable<T>,
-  filter: (value: T, index: number) => PromiseLike<boolean> | boolean,
+  filter: (value: T, index: number) => PromiseLike<boolean>|boolean,
 ): Observable<T> {
-  return this.concatMap(async (v, i) => {
-    if (await filter(v, i)) {
-      return v;
-    }
-    return EMPTY;
-  }).filter(x => x !== EMPTY) as Observable<T>;
+  return this
+    .concatMap(async (v, i) => {
+      if (await filter(v, i)) {
+        return v;
+      }
+      return EMPTY;
+    })
+    .filter((x) => x !== EMPTY) as Observable<T>;
 }
 
 /**
@@ -26,14 +28,16 @@ export function concatFilter<T>(
  */
 export function flatFilter<T>(
   this: Observable<T>,
-  filter: (value: T, index: number) => PromiseLike<boolean> | boolean,
+  filter: (value: T, index: number) => PromiseLike<boolean>|boolean,
 ): Observable<T> {
-  return this.flatMap(async (v, i) => {
-    if (await filter(v, i)) {
-      return v;
-    }
-    return EMPTY;
-  }).filter(x => x !== EMPTY) as Observable<T>;
+  return this
+    .flatMap(async (v, i) => {
+      if (await filter(v, i)) {
+        return v;
+      }
+      return EMPTY;
+    })
+    .filter((x) => x !== EMPTY) as Observable<T>;
 }
 
 Observable.prototype.concatFilter = concatFilter;

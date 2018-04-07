@@ -17,12 +17,12 @@ export const title = (options: any): Plugin => {
   return {
     name: TITLE,
     renderEditor(props: any): JSX.Element {
-      return (
-        <>
-          <Title {...props} />
-          <Wrappper>{props.children}</Wrappper>
-        </>
-      );
+      return (<>
+        <Title {...props}/>
+        <Wrappper>
+          {props.children}
+        </Wrappper>
+      </>);
     },
   };
 };

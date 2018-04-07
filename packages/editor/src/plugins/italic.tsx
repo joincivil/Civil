@@ -14,7 +14,7 @@ export const italic = (options: any): Plugin => {
     name: ITALIC,
     renderMark(props: any): JSX.Element | void {
       if (props.mark.type === ITALIC) {
-        return <Italic {...props} />;
+        return <Italic {...props}/>;
       }
     },
   };

@@ -1,5 +1,7 @@
 {
-  "extends": ["@joincivil/tslint-rules"],
+  "extends": [
+    "@joincivil/tslint-rules"
+  ],
   "linterOptions": {
     "exclude": [
       "src/contracts/generated/parameterizer.ts",

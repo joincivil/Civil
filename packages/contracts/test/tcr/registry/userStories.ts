@@ -8,7 +8,7 @@ const PLCRVoting = artifacts.require("PLCRVoting");
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", accounts => {
+contract("Registry", (accounts) => {
   describe("User stories", () => {
     const [applicant, challenger, voter] = accounts;
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
@@ -52,7 +52,8 @@ contract("Registry", accounts => {
       await utils.commitVote(voting, pollID, voteOption, tokensArg, salt, voter);
 
       const numTokens = await voting.getNumTokens(voter, pollID);
-      expect(numTokens).to.be.bignumber.equal(tokensArg, "Should have committed the correct number of tokens");
+      expect(numTokens).to.be.bignumber.equal(tokensArg,
+        "Should have committed the correct number of tokens");
 
       // Reveal
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);

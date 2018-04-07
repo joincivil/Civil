@@ -1,6 +1,6 @@
 import * as React from "react";
 // tslint:disable-next-line
-import styled, { StyledComponentClass } from "styled-components";
+import styled, {StyledComponentClass} from "styled-components";
 import { Modal, ModalInner, FormGroup, Label, Input, Button } from "./Modal";
 
 export interface ImageModalState {
@@ -31,7 +31,7 @@ export class ImageModal extends React.Component<ImageModalProps, ImageModalState
     });
   }
   public applyChange(): void {
-    this.props.applyChange({ ...this.state });
+    this.props.applyChange({...this.state});
   }
   public render(): JSX.Element {
     return (
@@ -39,7 +39,11 @@ export class ImageModal extends React.Component<ImageModalProps, ImageModalState
         <ModalInner>
           <FormGroup>
             <Label>Image URL</Label>
-            <Input type="text" value={this.state.imageUrl} onChange={(e: any): void => this.imageUrlUpdate(e)} />
+            <Input
+              type="text"
+              value={this.state.imageUrl}
+              onChange={(e: any): void => this.imageUrlUpdate(e)}
+            />
           </FormGroup>
           <FormGroup>
             <Label>Full Width</Label>

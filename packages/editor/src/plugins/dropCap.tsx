@@ -2,7 +2,7 @@ import * as React from "react";
 // tslint:disable-next-line
 import styled, { StyledComponentClass } from "styled-components";
 import { Plugin } from "../plugins";
-import { colorConstants } from "../colorConstants";
+import {colorConstants} from "../colorConstants";
 
 export const DropCap = styled.span`
   float: left;
@@ -23,7 +23,7 @@ export const dropCap = (options: any): Plugin => {
     name: DROP_CAP,
     renderMark(props: any): JSX.Element | void {
       if (props.mark.type === DROP_CAP) {
-        return <DropCap {...props} />;
+        return <DropCap {...props}/>;
       }
     },
   };

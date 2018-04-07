@@ -18,7 +18,7 @@ export const Li = styled.li`
 
 export const Ol = styled.ol`
   color: ${colorConstants.PRIMARY_DARK_GREY};
-  font-family: "Spectral", serif;
+  font-family: 'Spectral', serif;
   font-size: 21px;
 `;
 
@@ -33,12 +33,9 @@ export const list = (options: any): Plugin => {
     ...editList,
     renderNode(props: any): JSX.Element | void {
       switch (props.node.type) {
-        case UL_LIST:
-          return <Ul {...props} />;
-        case OL_LIST:
-          return <Ol {...props} />;
-        case LIST_ITEM:
-          return <Li {...props} />;
+        case UL_LIST: return <Ul {...props}/>;
+        case OL_LIST: return <Ol {...props}/>;
+        case LIST_ITEM: return <Li {...props}/>;
       }
     },
   };

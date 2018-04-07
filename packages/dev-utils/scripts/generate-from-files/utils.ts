@@ -9,7 +9,7 @@ export const helpers = {
   capitalize: (what: string) =>
     what
       .split(" ")
-      .map(word => word[0].toUpperCase() + word.slice(1))
+      .map((word) => word[0].toUpperCase() + word.slice(1))
       .join(" "),
   snakecase: toSnakeCase,
 };

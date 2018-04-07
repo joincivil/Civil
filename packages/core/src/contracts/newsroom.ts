@@ -4,7 +4,14 @@ import * as Web3 from "web3";
 import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
-import { ContentHeader, EthAddress, NewsroomContent, TxData, TwoStepEthTransaction, ContentId } from "../types";
+import {
+  ContentHeader,
+  EthAddress,
+  NewsroomContent,
+  TxData,
+  TwoStepEthTransaction,
+  ContentId,
+} from "../types";
 import { isDecodedLog, createTwoStepTransaction, createTwoStepSimple } from "../utils/contractutils";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
@@ -33,8 +40,11 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepTransaction(
       web3Wrapper,
       await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, newsroomName, txData),
-      receipt =>
-        new Newsroom(web3Wrapper, contentProvider, NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!)),
+      (receipt) => new Newsroom(
+        web3Wrapper,
+        contentProvider,
+        NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!),
+      ),
     );
   }
   public static atUntrusted(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, address: EthAddress): Newsroom {
@@ -111,7 +121,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async addRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.addRole.sendTransactionAsync(actor, role));
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.addRole.sendTransactionAsync(actor, role),
+    );
   }
 
   /**
@@ -125,7 +138,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async removeRole(actor: EthAddress, role: Roles): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.removeRole.sendTransactionAsync(actor, role));
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.removeRole.sendTransactionAsync(actor, role),
+    );
   }
 
   /**
@@ -139,7 +155,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async setName(newName: string): Promise<TwoStepEthTransaction> {
     await this.requireOwner();
 
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.setName.sendTransactionAsync(newName));
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.setName.sendTransactionAsync(newName),
+    );
   }
 
   /**
@@ -148,12 +167,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" for only new events
    * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public proposedContent(fromBlock: number | "latest" = 0): Observable<ContentHeader> {
+  public proposedContent(fromBlock: number|"latest" = 0): Observable<ContentHeader> {
     return this.instance
       .ContentProposedStream({}, { fromBlock })
-      .map(e => e.args.id)
-      .concatFilter(async id => this.instance.isProposed.callAsync(id))
-      .concatMap(async id => this.loadArticleHeader(id));
+      .map((e) => e.args.id)
+      .concatFilter(async (id) => this.instance.isProposed.callAsync(id))
+      .concatMap(async (id) => this.loadArticleHeader(id));
   }
 
   /**
@@ -162,11 +181,11 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" to only listen for new events
    * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public approvedContent(fromBlock: number | "latest" = 0): Observable<ContentHeader> {
+  public approvedContent(fromBlock: number|"latest" = 0): Observable<ContentHeader> {
     return this.instance
       .ContentApprovedStream({}, { fromBlock })
-      .map(e => e.args.id)
-      .concatMap(async id => this.loadArticleHeader(id));
+      .map((e) => e.args.id)
+      .concatMap(async (id) => this.loadArticleHeader(id));
   }
 
   /**
@@ -175,8 +194,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" to only listen for new events
    * @returns Name history of this Newsroom
    */
-  public nameChanges(fromBlock: number | "latest" = 0): Observable<string> {
-    return this.instance.NameChangedStream({}, { fromBlock }).map(e => e.args.newName);
+  public nameChanges(fromBlock: number|"latest" = 0): Observable<string> {
+    return this.instance
+      .NameChangedStream({}, { fromBlock })
+      .map((e) => e.args.newName);
   }
 
   /**
@@ -184,7 +205,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * Accesess both Ethereum network as well as the active ContentProvider
    * @param articleId Id of the article that you want to read
    */
-  public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent> {
+  public async loadArticle(articleId: number|BigNumber): Promise<NewsroomContent> {
     const header = await this.loadArticleHeader(articleId);
     return this.resolveContent(header);
   }
@@ -193,7 +214,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * Accesses the Ethereum network and loads basic metatadata about the article
    * @param articleId Id of the article whose metadata you need
    */
-  public async loadArticleHeader(articleId: number | BigNumber): Promise<ContentHeader> {
+  public async loadArticleHeader(articleId: number|BigNumber): Promise<ContentHeader> {
     const id = new BigNumber(articleId);
 
     const [author, timestamp, uri] = await Promise.all([
@@ -232,7 +253,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.proposeContent.sendTransactionAsync(uri),
-      receipt => {
+      (receipt) => {
         for (const log of receipt.logs) {
           if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
             return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
@@ -247,7 +268,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * Allows the Editor to approve content that is waiting to be approved / denied
    * @param contentId The id of the proposed content to be denied
    */
-  public async approveContent(contentId: ContentId | BigNumber): Promise<TwoStepEthTransaction> {
+  public async approveContent(contentId: ContentId|BigNumber): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
     return createTwoStepSimple(
@@ -260,7 +281,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * Allows the Editor to deny content that is waiting to be approverd / denied
    * @param contentId The id of the proposed content to be denied
    */
-  public async denyContent(contentId: number | BigNumber): Promise<TwoStepEthTransaction> {
+  public async denyContent(contentId: number|BigNumber): Promise<TwoStepEthTransaction> {
     await this.requireEditor();
 
     return createTwoStepSimple(
@@ -287,19 +308,19 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   private async requireEditor(): Promise<void> {
-    if (!await this.isEditor()) {
+    if (!(await this.isEditor())) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }
 
   private async requireReporter(): Promise<void> {
-    if (!await this.isReporter()) {
+    if (!(await this.isReporter())) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }
 
   private async requireOwner(): Promise<void> {
-    if (!await this.isOwner()) {
+    if (!(await this.isOwner())) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }

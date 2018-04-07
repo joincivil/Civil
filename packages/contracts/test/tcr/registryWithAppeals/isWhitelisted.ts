@@ -10,7 +10,7 @@ const Newsroom = artifacts.require("Newsroom");
 
 const NEWSROOM_NAME = "unused newsroom name";
 
-contract("Registry With Appeals", accounts => {
+contract("Registry With Appeals", (accounts) => {
   describe("Function: isWhitelisted", () => {
     const [JAB, applicant] = accounts;
     let registry: any;

@@ -8,15 +8,18 @@ export interface NavBarLinkProps {
 }
 
 class NavBarLink extends React.Component<NavBarLinkProps> {
+
   constructor(props: NavBarLinkProps) {
     super(props);
   }
 
   public render(): JSX.Element {
     return (
-      <Link to={this.props.to} style={{ textDecoration: "none", color: "white" }}>
-        <NavBarSpan big={this.props.big}>{this.props.children}</NavBarSpan>
-      </Link>
+        <Link to={this.props.to} style={{ textDecoration: "none", color: "white"}}>
+          <NavBarSpan big={this.props.big}>
+            {this.props.children}
+          </NavBarSpan>
+        </Link>
     );
   }
 }

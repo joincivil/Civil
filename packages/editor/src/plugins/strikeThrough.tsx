@@ -14,7 +14,7 @@ export const strikeThrough = (options: any): Plugin => {
     name: STRIKE_THROUGH,
     renderMark(props: any): JSX.Element | void {
       if (props.mark.type === STRIKE_THROUGH) {
-        return <StrikeThrough {...props} />;
+        return <StrikeThrough {...props}/>;
       }
     },
   };

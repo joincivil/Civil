@@ -7,7 +7,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", accounts => {
+contract("Registry", (accounts) => {
   describe("Function: withdraw", () => {
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
     const withdrawAmount = minDeposit.div(utils.toBaseTenBigNumber(2));
@@ -26,9 +26,8 @@ contract("Registry", accounts => {
       await utils.addToWhitelist(dontChallengeListing, minDeposit, applicant, registry);
       const origDeposit = await registry.getListingUnstakedDeposit(dontChallengeListing);
 
-      await expect(
-        registry.withdraw(dontChallengeListing, withdrawAmount, { from: applicant }),
-      ).to.eventually.be.rejectedWith(REVERTED);
+      await expect(registry.withdraw(dontChallengeListing, withdrawAmount, { from: applicant }))
+      .to.eventually.be.rejectedWith(REVERTED);
 
       const afterWithdrawDeposit = await registry.getListingUnstakedDeposit(dontChallengeListing);
 
@@ -41,10 +40,9 @@ contract("Registry", accounts => {
       await registry.challenge(listing13, "", { from: challenger });
 
       // Attempt to withdraw; should fail
-      await expect(registry.withdraw(listing13, withdrawAmount, { from: applicant })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Applicant should not have been able to withdraw from a challenged, locked listing",
-      );
+      await expect(registry.withdraw(listing13, withdrawAmount, { from: applicant }))
+      .to.eventually.be.rejectedWith(REVERTED,
+        "Applicant should not have been able to withdraw from a challenged, locked listing");
       // TODO: check balance
       // TODO: apply, gets challenged, and then minDeposit lowers during challenge.
       // still shouldn"t be able to withdraw anything.

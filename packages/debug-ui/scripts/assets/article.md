@@ -1,10 +1,8 @@
 # Eureka!
-
 What you're seeing here right now is Jouranlism Reinvented!
 This article is loaded from Ethereum blockchain using the Civil Ecosystem!
 
 ## Wait, start from beginning
-
 Ok, so [Civil](http://joincivil.com) is a New York based startup whose goal
 is to reinvent the business model of journalism in the internet and decentralization era.
 
@@ -13,7 +11,6 @@ is creating an ecosystem that through economic incentives promotes high-quality
 news and journalism being produced.
 
 ## So how did this article work?
-
 This article is loaded using our [open-source civil.ts library](https://github.com/joincivil/civil.ts), it talks with our [smart-contracts deployed on Ethereum](https://github.com/joincivil/contracts) and the content itself is stored
 on a Github gist, because why not.
 

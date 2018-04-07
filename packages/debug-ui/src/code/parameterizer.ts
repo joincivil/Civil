@@ -5,12 +5,12 @@ import { deployNewsroom } from "../../scripts/deploy-newsroom";
 import { proposeReparameterization } from "../../scripts/parameterizerActions";
 import { initializeDebugUI } from "../../scripts/civilActions";
 
-initializeDebugUI(async civil => {
+initializeDebugUI(async (civil) => {
   setParameterizerListeners();
   const tcr = await civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
   document.getElementById("parameterizerInfo")!.innerHTML +=
-    "<br>Parameterizer: " + (await tcr.getParameterizerAddress());
+    "<br>Parameterizer: " + await tcr.getParameterizerAddress();
 
   const keys = [
     "minDeposit",
@@ -28,22 +28,22 @@ initializeDebugUI(async civil => {
     "pProcessBy",
   ];
 
-  keys.forEach(async k => {
+  keys.forEach(async (k) => {
     const value = await parameterizer.getParameterValue(k);
-    document.getElementById("parameterValues")!.innerHTML += "<br>" + k + ": " + value;
+    document.getElementById("parameterValues")!.innerHTML +=
+      "<br>" + k + ": " + value;
   });
 
-  parameterizer.paramPropsInApplicationPhase().subscribe(args => updateSectionWithParamProps("propApplications", args));
-  parameterizer
-    .paramPropsInChallengeCommitPhase()
-    .subscribe(args => updateSectionWithParamProps("challengedCommitProps", args));
-  parameterizer
-    .paramPropsInChallengeRevealPhase()
-    .subscribe(args => updateSectionWithParamProps("challengedRevealProps", args));
-  parameterizer.paramPropsToProcess().subscribe(args => updateSectionWithParamProps("propsToBeUpdated", args));
-  parameterizer
-    .paramPropsForResolvedChallenged()
-    .subscribe(args => updateSectionWithParamProps("completedChallenges", args));
+  parameterizer.paramPropsInApplicationPhase().subscribe((args) =>
+    updateSectionWithParamProps("propApplications", args));
+  parameterizer.paramPropsInChallengeCommitPhase().subscribe((args) =>
+    updateSectionWithParamProps("challengedCommitProps", args));
+  parameterizer.paramPropsInChallengeRevealPhase().subscribe((args) =>
+    updateSectionWithParamProps("challengedRevealProps", args));
+  parameterizer.paramPropsToProcess().subscribe((args) =>
+    updateSectionWithParamProps("propsToBeUpdated", args));
+  parameterizer.paramPropsForResolvedChallenged().subscribe((args) =>
+    updateSectionWithParamProps("completedChallenges", args));
 });
 
 function updateSectionWithParamProps(section: string, paramProp: ParamProp): void {
@@ -58,7 +58,7 @@ function updateSectionWithParamProps(section: string, paramProp: ParamProp): voi
 
 function setParameterizerListeners(): void {
   const reparamButton = document.getElementById("param-proposeReparameterization")!;
-  reparamButton.onclick = async event => {
+  reparamButton.onclick = async (event) => {
     const parameterKey = (document.getElementById("param-paramKey")! as HTMLInputElement).value;
     const parameterValue = (document.getElementById("param-paramValue")! as HTMLInputElement).value;
 

@@ -25,7 +25,7 @@ export const image = (options: any): Plugin => {
     ...instertImagesPlugin,
     renderNode(props: any): JSX.Element | void {
       if (props.node.type === IMAGE) {
-        return <Image {...props} />;
+          return <Image {...props} />;
       }
     },
     schema: {

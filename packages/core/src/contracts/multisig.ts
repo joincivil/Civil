@@ -21,8 +21,10 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   ): Promise<TwoStepEthTransaction<Multisig>> {
     return createTwoStepTransaction(
       web3Wrapper,
-      await MultiSigWalletContract.deployTrusted.sendTransactionAsync(web3Wrapper, owners, new BigNumber(required)),
-      receipt => new Multisig(web3Wrapper, MultiSigWalletContract.atUntrusted(web3Wrapper, receipt.contractAddress!)),
+      await MultiSigWalletContract
+        .deployTrusted
+        .sendTransactionAsync(web3Wrapper, owners, new BigNumber(required)),
+      (receipt) => new Multisig(web3Wrapper, MultiSigWalletContract.atUntrusted(web3Wrapper, receipt.contractAddress!)),
     );
   }
 
@@ -153,8 +155,8 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.submitTransaction.sendTransactionAsync(address, weiToSend, payload),
-      async receipt => {
-        const event = receipt.logs.filter(isDecodedLog).find(log => log.event === MultiSigWalletEvents.Submission);
+      async (receipt) => {
+        const event = receipt.logs.filter(isDecodedLog).find((log) => log.event === MultiSigWalletEvents.Submission);
         if (!event) {
           throw new Error("No Submisison event found when adding transaction to Multisig");
         }
@@ -168,10 +170,9 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * @param filters Change which transactions are counted.
    */
   public async transactionCount(filters: TransactionFilters = { pending: true }): Promise<number> {
-    return (await this.instance.getTransactionCount.callAsync(
-      filters.pending || false,
-      filters.executed || false,
-    )).toNumber();
+    return (await this.instance
+      .getTransactionCount.callAsync(filters.pending || false, filters.executed || false))
+    .toNumber();
   }
 
   // TODO(ritave): Support pagination
@@ -182,19 +183,20 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * order of ids, starting from id 0.
    * @param filters What kind of transactions to return
    */
-  public transactions(filters: TransactionFilters = { pending: true }): Observable<MultisigTransaction> {
-    // Notice that we're using transactionCount smart-contract variable, not getTransactonCount func
-    return Observable.fromPromise(this.instance.transactionCount.callAsync())
-      .concatMap(async noTransactions =>
+  public transactions(
+    filters: TransactionFilters = { pending: true },
+  ): Observable<MultisigTransaction> {
+     // Notice that we're using transactionCount smart-contract variable, not getTransactonCount func
+    return Observable
+      .fromPromise(this.instance.transactionCount.callAsync())
+      .concatMap(async (noTransactions) =>
         this.instance.getTransactionIds.callAsync(
           new BigNumber(0),
           noTransactions,
           filters.pending || false,
-          filters.executed || false,
-        ),
-      )
-      .concatMap(ids => Observable.from(ids))
-      .concatMap(async id => this.transaction(id.toNumber()));
+          filters.executed || false))
+      .concatMap((ids) => Observable.from(ids))
+      .concatMap(async (id) => this.transaction(id.toNumber()));
   }
 
   /**
@@ -207,7 +209,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
 
   private async requireOwner(who?: EthAddress): Promise<void> {
     const owner = who || this.web3Wrapper.account;
-    if (!await this.isOwner(owner)) {
+    if (!(await this.isOwner(owner))) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }
@@ -273,7 +275,7 @@ export class MultisigTransaction {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.executeTransaction.sendTransactionAsync(new BigNumber(this.id)),
-      async receipt => transactionFromId(this.web3Wrapper, this.instance, this.id),
+      async (receipt) => transactionFromId(this.web3Wrapper, this.instance, this.id),
     );
   }
 
@@ -286,7 +288,7 @@ export class MultisigTransaction {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.confirmTransaction.sendTransactionAsync(new BigNumber(this.id)),
-      receipt => this,
+      (receipt) => this,
     );
   }
   /**
@@ -297,7 +299,7 @@ export class MultisigTransaction {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.revokeConfirmation.sendTransactionAsync(new BigNumber(this.id)),
-      receipt => this,
+      (receipt) => this,
     );
   }
 }
@@ -309,10 +311,15 @@ async function transactionFromId(
 ): Promise<MultisigTransaction> {
   const data = await instance.transactions.callAsync(new BigNumber(id));
 
-  return new MultisigTransaction(web3Wrapper, instance, id, {
-    destination: data[0],
-    value: data[1],
-    data: data[2],
-    executed: data[3],
-  });
+  return new MultisigTransaction(
+    web3Wrapper,
+    instance,
+    id,
+    {
+      destination: data[0],
+      value: data[1],
+      data: data[2],
+      executed: data[3],
+    },
+  );
 }

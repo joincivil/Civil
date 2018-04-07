@@ -12,7 +12,7 @@ const PLCRVoting = artifacts.require("PLCRVoting");
 
 const NEWSROOM_ADDRESS = "unused newsroom address";
 
-contract("Registry With Appeals", accounts => {
+contract("Registry With Appeals", (accounts) => {
   describe("Function: whitelistAddress", () => {
     const [JAB, applicant, challenger, voter] = accounts;
     let registry: any;
@@ -31,9 +31,9 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should succeed if no application has already been made", async () => {
+
       await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.fulfilled(
-        "Should have allowed JEC to whitelist address for existing application",
-      );
+        "Should have allowed JEC to whitelist address for existing application");
     });
 
     it("should succeed if challenge is lost, request phase has ended and been processed", async () => {
@@ -45,37 +45,32 @@ contract("Registry With Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.fulfilled(
-        "Should not have allowed JEC to whitelist application with failed challenge that has been processed",
-      );
+        "Should not have allowed JEC to whitelist application with failed challenge that has been processed");
     });
 
     it("should fail if application has already been made", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not have allowed JEC to whitelist address for existing application",
-      );
+      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB }))
+        .to.eventually.be.rejectedWith(REVERTED,
+        "Should not have allowed JEC to whitelist address for existing application");
     });
 
     it("should fail if challenge is in progress", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await registry.challenge(newsroomAddress, "", { from: challenger });
-      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not have allowed JEC to whitelist on application with challenge in progress",
-      );
+      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB }))
+        .to.eventually.be.rejectedWith(REVERTED,
+        "Should not have allowed JEC to whitelist on application with challenge in progress");
 
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
-      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not have allowed JEC to whitelist on application with challenge in progress",
-      );
+      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB }))
+        .to.eventually.be.rejectedWith(REVERTED,
+        "Should not have allowed JEC to whitelist on application with challenge in progress");
 
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not have allowed JEC to whitelist on application with challenge not yet resolved",
-      );
+      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB }))
+        .to.eventually.be.rejectedWith(REVERTED,
+        "Should not have allowed JEC to whitelist on application with challenge not yet resolved");
     });
 
     it("should fail if challenge is lost and status is updated, but appeal not requested", async () => {
@@ -84,10 +79,9 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(newsroomAddress);
-      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not have allowed JEC to whitelist application with failed challenge that has been processed",
-      );
+      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB }))
+        .to.eventually.be.rejectedWith(REVERTED,
+        "Should not have allowed JEC to whitelist application with failed challenge that has been processed");
     });
 
     it("should fail if challenge is lost, status is updated, and request phase has ended", async () => {
@@ -96,10 +90,9 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(newsroomAddress);
       await utils.advanceEvmTime(259250); // hack. can't read directly from contract for some reason, was causing crash
-      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not have allowed JEC to whitelist application with failed challenge that has been processed",
-      );
+      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB }))
+        .to.eventually.be.rejectedWith(REVERTED,
+        "Should not have allowed JEC to whitelist application with failed challenge that has been processed");
     });
 
     it("should fail if challenge is won by applicant", async () => {
@@ -110,10 +103,9 @@ contract("Registry With Appeals", accounts => {
       await voting.revealVote(pollID, 1, 420, { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(newsroomAddress);
-      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not allow JEC to whitelist if challenge is won by applicant",
-      );
+      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB }))
+        .to.eventually.be.rejectedWith(REVERTED,
+        "Should not allow JEC to whitelist if challenge is won by applicant");
     });
 
     it("should fail if challenge is lost and status is updated, and appeal requested", async () => {
@@ -123,10 +115,9 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(newsroomAddress);
       await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not have allowed JEC to whitelist application with failed challenge that has been processed",
-      );
+      await expect(registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB }))
+        .to.eventually.be.rejectedWith(REVERTED,
+        "Should not have allowed JEC to whitelist application with failed challenge that has been processed");
     });
   });
 });

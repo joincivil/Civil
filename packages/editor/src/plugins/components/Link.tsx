@@ -23,16 +23,16 @@ export const LinkElement = styled.a`
   color: #5a5653;
   border-bottom: 2px solid ${colorConstants.ACCENT_GREEN};
   cursor: pointer;
-  &:hover {
+  &:hover{
     border-bottom: 2px solid ${colorConstants.ACCENT_FADED_GREEN};
   }
-  &:visited {
+  &:visited{
     border-bottom: 2px solid ${colorConstants.ACCENT_BLUE};
   }
 `;
 
 export const LinkIcon = styled.span`
-  width: 0;
+  width:0;
   overflow: visible;
   display: inline;
   margin-left: -8px;
@@ -45,8 +45,8 @@ export const LinkIcon = styled.span`
     top: -8px;
   }
   & path {
-    stroke: #2b56ff;
-    fill: #2b56ff;
+    stroke: #2B56FF;
+    fill: #2B56FF;
   }
 `;
 
@@ -77,59 +77,66 @@ export class Link extends React.Component<LinkProps, LinkState> {
       dialogueOpen: false,
     });
     this.props.editor.change((change: any): void => {
-      change.setMarkByKey(this.props.node.key, this.props.offset, this.props.text.length, this.props.mark, {
-        data: { href: this.state.address },
-      });
+      change.setMarkByKey(
+        this.props.node.key,
+        this.props.offset,
+        this.props.text.length,
+        this.props.mark,
+        {
+          data: {href: this.state.address},
+        },
+      );
     });
   }
   public removeLink(e: any): void {
     this.props.editor.change((change: any): void => {
-      change.removeMarkByKey(this.props.node.key, this.props.offset, this.props.text.length, this.props.mark);
+      change.removeMarkByKey(
+        this.props.node.key,
+        this.props.offset,
+        this.props.text.length,
+        this.props.mark,
+      );
     });
   }
   public render(): JSX.Element {
     let linkEditButton = null;
     let linkEditModal = null;
     if (!this.props.editor.props.readOnly) {
-      linkEditButton = (
-        <LinkIcon>
-          <InsertLink />
-        </LinkIcon>
-      );
+      linkEditButton = <LinkIcon><InsertLink/></LinkIcon>;
       if (this.state.dialogueOpen) {
-        linkEditModal = (
-          <Modal>
-            <ModalInner>
-              <FormGroup>
-                <Label>Text</Label>
-                <Input type="text" disabled={true} value={`${this.props.children}`} />
-              </FormGroup>
-              <FormGroup>
-                <Label>Link</Label>
-                <Input type="text" value={this.state.address} onChange={(e: any): void => this.updateAddress(e)} />
-              </FormGroup>
-              <ButtonZone>
-                <Button onClick={(e: any): void => this.setAddress(e)}>Apply</Button>
-                <SecondaryButton onClick={(e: any): void => this.removeLink(e)}>Remove</SecondaryButton>
-              </ButtonZone>
-            </ModalInner>
-          </Modal>
-        );
+        linkEditModal = (<Modal>
+          <ModalInner>
+            <FormGroup>
+              <Label>Text</Label>
+              <Input type="text" disabled={true} value={`${this.props.children}`}/>
+            </FormGroup>
+            <FormGroup>
+              <Label>Link</Label>
+              <Input
+                type="text"
+                value={this.state.address}
+                onChange={(e: any): void => this.updateAddress(e)}
+               />
+            </FormGroup>
+            <ButtonZone>
+              <Button onClick={(e: any): void => this.setAddress(e)}>Apply</Button>
+              <SecondaryButton onClick={(e: any): void => this.removeLink(e)}>Remove</SecondaryButton>
+            </ButtonZone>
+          </ModalInner>
+        </Modal>);
       }
     }
-    return (
-      <>
-        <LinkElement
-          onClick={(e: any) => this.clickLinkEdit(e)}
-          href={this.props.mark.data.get("href")}
-          target="_blank"
-          {...this.props}
-        >
-          {this.props.children}
-          {linkEditButton}
-        </LinkElement>
-        {linkEditModal}
-      </>
-    );
+    return (<>
+      <LinkElement
+        onClick={(e: any) => this.clickLinkEdit(e)}
+        href={this.props.mark.data.get("href")}
+        target="_blank"
+        {...this.props}
+      >
+        {this.props.children}
+        {linkEditButton}
+      </LinkElement>
+      {linkEditModal}
+    </>);
   }
 }

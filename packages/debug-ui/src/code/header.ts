@@ -5,7 +5,7 @@ import BN, { BigNumber } from "bignumber.js";
 import { requestVotingRights, withdrawVotingRights } from "../../scripts/votingActions";
 import { initializeDebugUI } from "../../scripts/civilActions";
 
-initializeDebugUI(async civil => {
+initializeDebugUI(async (civil) => {
   if (civil.userAccount) {
     document.getElementById("account")!.innerHTML = "Account: " + civil.userAccount;
   } else {

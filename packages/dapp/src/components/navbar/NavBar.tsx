@@ -21,6 +21,7 @@ export interface NavBarState {
 }
 
 class NavBar extends React.Component<{}, NavBarState> {
+
   constructor(props: {}) {
     super(props);
 
@@ -39,43 +40,49 @@ class NavBar extends React.Component<{}, NavBarState> {
 
   public render(): JSX.Element {
     return (
-      <StyledUL>
-        <NavBarItem>
-          <NavBarLink to="/" big={true}>
-            C I V I L
-          </NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="registry">Registry</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="constitution">Constitution</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="about">About</NavBarLink>
-        </NavBarItem>
-        <NavBarItem right={true}>
-          <NavBarSpan>{"Your Balance: " + this.state.balance}</NavBarSpan>
-        </NavBarItem>
-      </StyledUL>
+        <StyledUL>
+          <NavBarItem>
+            <NavBarLink to="/" big={true}>
+              C I V I L
+            </NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="registry">
+              Registry
+            </NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="constitution">
+              Constitution
+            </NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="about">
+              About
+            </NavBarLink>
+          </NavBarItem>
+          <NavBarItem right={true}>
+            <NavBarSpan>
+              {"Your Balance: " + this.state.balance}
+            </NavBarSpan>
+          </NavBarItem>
+        </StyledUL>
     );
   }
 
   private initNavBar = () => {
     const civil = new Civil();
     const token = civil.getEIP20ForDeployedTCR();
-    token
-      .then(async t => {
-        return t.getBalance(civil.userAccount).then(balance => {
-          this.setState({ balance: balance.toString() });
-        });
-      })
-      .catch(ex => {
-        if (ex === CivilErrors.NoUnlockedAccount) {
-          this.setState({ balance: "No Unlocked Account Found. Unlock MetaMask and Reload." });
-        }
+    token.then(async (t) => {
+      return t.getBalance(civil.userAccount).then((balance) => {
+        this.setState({balance: balance.toString()});
       });
-  };
+    }).catch((ex) => {
+      if (ex === CivilErrors.NoUnlockedAccount) {
+        this.setState({balance: "No Unlocked Account Found. Unlock MetaMask and Reload."});
+       }
+    });
+  }
 }
 
 export default NavBar;

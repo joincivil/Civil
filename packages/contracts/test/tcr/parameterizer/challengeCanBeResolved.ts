@@ -6,7 +6,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Parameterizer", accounts => {
+contract("Parameterizer", (accounts) => {
   describe("Function: challengeCanBeResolved", () => {
     const [proposer, challenger] = accounts;
     let parameterizer: any;
@@ -21,9 +21,9 @@ contract("Parameterizer", accounts => {
         utils.toBaseTenBigNumber(51),
         parameterizer,
         proposer,
-      );
+    );
 
-      await parameterizer.challengeReparameterization(propID, { from: challenger });
+      await parameterizer.challengeReparameterization(propID, { from: challenger});
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.pRevealStageLength + 1);
 
@@ -36,8 +36,7 @@ contract("Parameterizer", accounts => {
         "voteQuorum",
         utils.toBaseTenBigNumber(59),
         parameterizer,
-        proposer,
-      );
+        proposer);
 
       await parameterizer.challengeReparameterization(propID, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength);

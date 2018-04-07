@@ -10,7 +10,7 @@ const Token = artifacts.require("EIP20.sol");
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Parameterizer", accounts => {
+contract("Parameterizer", (accounts) => {
   describe("Function: processProposal", () => {
     const [proposer, challenger, voter] = accounts;
     let parameterizer: any;
@@ -40,7 +40,7 @@ contract("Parameterizer", accounts => {
       );
     });
 
-    it("should not set new parameters if a proposal's processBy date has passed", async () => {
+    it("should not set new parameters if a proposal\'s processBy date has passed", async () => {
       const receipt = await parameterizer.proposeReparameterization("voteQuorum", "69", { from: proposer });
 
       const { propID } = receipt.logs[0].args;
@@ -56,51 +56,50 @@ contract("Parameterizer", accounts => {
       );
     });
 
-    it(
-      "should not set new parameters if a proposal's processBy date has passed, " +
-        "but should resolve any challenges against the domain",
-      async () => {
-        const proposerStartingBalance = await token.balanceOf(proposer);
-        const challengerStartingBalance = await token.balanceOf(challenger);
+    it("should not set new parameters if a proposal\'s processBy date has passed, " +
+    "but should resolve any challenges against the domain", async () => {
+      const proposerStartingBalance = await token.balanceOf(proposer);
+      const challengerStartingBalance = await token.balanceOf(challenger);
 
-        const receipt = await parameterizer.proposeReparameterization("voteQuorum", "69", { from: proposer });
+      const receipt = await parameterizer.proposeReparameterization("voteQuorum", "69", { from: proposer });
 
-        const { propID } = receipt.logs[0].args;
+      const { propID } = receipt.logs[0].args;
 
-        const challengeReceipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
+      const challengeReceipt =
+        await parameterizer.challengeReparameterization(propID, { from: challenger });
 
-        const { pollID } = challengeReceipt.logs[0].args;
-        await utils.commitVote(voting, pollID, "0", "10", "420", voter);
-        await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);
+      const { pollID } = challengeReceipt.logs[0].args;
+      await utils.commitVote(voting, pollID, "0", "10", "420", voter);
+      await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);
 
-        await voting.revealVote(pollID, "0", "420", { from: voter });
+      await voting.revealVote(pollID, "0", "420", { from: voter });
 
-        const processBy = await parameterizer.getPropProcessBy(propID);
-        await utils.advanceEvmTime(processBy.toNumber() + 1);
+      const processBy = await parameterizer.getPropProcessBy(propID);
+      await utils.advanceEvmTime(processBy.toNumber() + 1);
 
-        await parameterizer.processProposal(propID);
+      await parameterizer.processProposal(propID);
 
-        const voteQuorum = await parameterizer.get("voteQuorum");
-        expect(voteQuorum).to.be.bignumber.equal(
-          utils.paramConfig.voteQuorum,
-          "A proposal whose processBy date passed was able to update the parameterizer",
-        );
+      const voteQuorum = await parameterizer.get("voteQuorum");
+      expect(voteQuorum).to.be.bignumber.equal(
+        utils.paramConfig.voteQuorum,
+        "A proposal whose processBy date passed was able to update the parameterizer",
+      );
 
-        const proposerFinalBalance = await token.balanceOf(proposer);
-        const proposerExpected = proposerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit, 10));
-        expect(proposerFinalBalance).to.be.bignumber.equal(
-          proposerExpected,
-          "The challenge loser's token balance is not as expected",
-        );
+      const proposerFinalBalance = await token.balanceOf(proposer);
+      const proposerExpected = proposerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit, 10));
+      expect(proposerFinalBalance).to.be.bignumber.equal(
+        proposerExpected,
+        "The challenge loser\'s token balance is not as expected",
+      );
 
-        const challengerFinalBalance = await token.balanceOf.call(challenger);
-        const winnings = utils.multiplyByPercentage(utils.paramConfig.pMinDeposit, utils.paramConfig.pDispensationPct);
-        const challengerExpected = challengerStartingBalance.add(winnings);
-        expect(challengerFinalBalance).to.be.bignumber.equal(
-          challengerExpected,
-          "The challenge winner's token balance is not as expected",
-        );
-      },
-    );
+      const challengerFinalBalance = await token.balanceOf.call(challenger);
+      const winnings =
+        utils.multiplyByPercentage(utils.paramConfig.pMinDeposit, utils.paramConfig.pDispensationPct);
+      const challengerExpected = challengerStartingBalance.add(winnings);
+      expect(challengerFinalBalance).to.be.bignumber.equal(
+        challengerExpected,
+        "The challenge winner\'s token balance is not as expected",
+      );
+    });
   });
 });

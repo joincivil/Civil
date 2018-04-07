@@ -11,10 +11,10 @@ export interface ParagraphProps {
 }
 
 export const P = styled<ParagraphProps, "p">("p")`
-  font-family: "Spectral", serif;
+  font-family: 'Spectral', serif;
   font-weight: 400;
-  font-size: ${props => (props.blockquote ? "16px" : "21px")};
-  line-height: ${props => (props.blockquote ? "20px" : "33px")};
+  font-size: ${(props) => props.blockquote ? "16px" : "21px"};
+  line-height: ${(props) => props.blockquote ? "20px" : "33px"};
   margin-top: 0;
   margin-bottom: 13px;
   font-variant-numeric: oldstyle-nums;
@@ -30,13 +30,13 @@ export const paragraph = (options: any): Plugin => {
     renderNode(props: any): JSX.Element | void {
       if (props.node.type === PARAGRAPH) {
         const parentType = props.parent.type;
-        return <P blockquote={parentType === "blockquote"} {...props} />;
+        return <P blockquote={parentType === "blockquote"} {...props}/>;
       }
     },
     schema: {
       document: {
         last: { types: [PARAGRAPH] },
-        normalize: (change: any, reason: string, { node, child }: { node: any; child: any }): void => {
+        normalize: (change: any, reason: string, { node, child }: { node: any, child: any}): void => {
           switch (reason) {
             case LAST_CHILD_TYPE_INVALID: {
               const p = Block.create(PARAGRAPH);
