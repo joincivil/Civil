@@ -2,3 +2,4 @@ node_modules/
 build/
 installed_contracts/
 package.json
+generated/
