@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/core",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "The core library allowing for interfacing with the whole Civil ecosystem",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -29,8 +29,8 @@
   "license": "LGPL-2.1",
   "devDependencies": {
     "@0xproject/abi-gen": "^0.2.7",
-    "@joincivil/dev-utils": "^1.2.0",
-    "@joincivil/tslint-rules": "^2.5.0",
+    "@joincivil/dev-utils": "^1.2.1",
+    "@joincivil/tslint-rules": "^2.6.0",
     "@types/debug": "0.0.30",
     "@types/lodash": "^4.14.92",
     "@types/underscore": "^1.8.6",
@@ -42,7 +42,7 @@
     "web3-typescript-typings": "^0.10.2"
   },
   "dependencies": {
-    "@joincivil/utils": "^1.1.1",
+    "@joincivil/utils": "^1.1.2",
     "bignumber.js": "^5.0.0",
     "debug": "^3.1.0",
     "ethereumjs-blockstream": "^3.1.0",
