@@ -54,8 +54,8 @@ export class BaseMultisigProxy<T extends OwnableContract> {
       proxiedId: async () => {
         const receipt = await twoStep.awaitReceipt();
         const submissionLogs: Array<Web3.DecodedLogEntry<SubmissionArgs>> = receipt.logs
-          .filter((log) => isDecodedLog(log) && log.event === MultiSigWalletEvents.Submission)
-          .map((log) => log as Web3.DecodedLogEntry<SubmissionArgs>);
+          .filter(log => isDecodedLog(log) && log.event === MultiSigWalletEvents.Submission)
+          .map(log => log as Web3.DecodedLogEntry<SubmissionArgs>);
         if (submissionLogs.length !== 1) {
           throw new Error("Too many Submission events than expected in multisig");
         }

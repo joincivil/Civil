@@ -14,17 +14,12 @@ export class MultisigTransaction {
   ): Promise<MultisigTransaction> {
     const data = await instance.transactions.callAsync(new BigNumber(id));
 
-    return new MultisigTransaction(
-      web3Wrapper,
-      instance,
-      id,
-      {
-        destination: data[0],
-        value: data[1],
-        data: data[2],
-        executed: data[3],
-      },
-    );
+    return new MultisigTransaction(web3Wrapper, instance, id, {
+      destination: data[0],
+      value: data[1],
+      data: data[2],
+      executed: data[3],
+    });
   }
 
   public readonly id: number;
@@ -73,7 +68,7 @@ export class MultisigTransaction {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.executeTransaction.sendTransactionAsync(new BigNumber(this.id)),
-      async (receipt) => MultisigTransaction.fromId(this.web3Wrapper, this.instance, this.id),
+      async receipt => MultisigTransaction.fromId(this.web3Wrapper, this.instance, this.id),
     );
   }
 
@@ -86,7 +81,7 @@ export class MultisigTransaction {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.confirmTransaction.sendTransactionAsync(new BigNumber(this.id)),
-      (receipt) => this,
+      receipt => this,
     );
   }
   /**
@@ -97,7 +92,7 @@ export class MultisigTransaction {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.revokeConfirmation.sendTransactionAsync(new BigNumber(this.id)),
-      (receipt) => this,
+      receipt => this,
     );
   }
 }
