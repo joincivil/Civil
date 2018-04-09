@@ -5,11 +5,11 @@ import { ContentProvider } from "./content/contentprovider";
 import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "./types";
-import { OwnedAddressTCRWithAppeals } from "./contracts/ownedAddressTCRWithAppeals";
+import { OwnedAddressTCRWithAppeals } from "./contracts/tcr/ownedAddressTCRWithAppeals";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
-import { EIP20 } from "./contracts/eip20";
-import { Voting } from "./contracts/voting";
+import { EIP20 } from "./contracts/tcr/eip20";
+import { Voting } from "./contracts/tcr/voting";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -113,7 +113,7 @@ export class Civil {
    * might a bad actor or not implementing Newsroom ABIs at all.
    * @param address The address on current Ethereum network where the smart-contract is located
    */
-  public newsroomAtUntrusted(address: EthAddress): Newsroom {
+  public async newsroomAtUntrusted(address: EthAddress): Promise<Newsroom> {
     return Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, address);
   }
 

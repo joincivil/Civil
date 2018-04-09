@@ -1,12 +1,12 @@
 import BigNumber from "bignumber.js";
 import "@joincivil/utils";
 
-import { EthAddress, TwoStepEthTransaction } from "../types";
-import { createTwoStepSimple } from "../utils/contractutils";
-import { requireAccount } from "../utils/errors";
-import { Web3Wrapper } from "../utils/web3wrapper";
-import { BaseWrapper } from "./basewrapper";
-import { EIP20Contract } from "./generated/eip20";
+import { BaseWrapper } from "../basewrapper";
+import { EIP20Contract } from "../generated/eip20";
+import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthAddress, TwoStepEthTransaction } from "../../types";
+import { requireAccount } from "../../utils/errors";
+import { createTwoStepSimple } from "../utils/contracts";
 
 /**
  * EIP20 allows user to interface with token

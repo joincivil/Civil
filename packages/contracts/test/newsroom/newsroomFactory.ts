@@ -1,7 +1,8 @@
 import * as chai from "chai";
 import * as Web3 from "web3";
 import { configureChai } from "@joincivil/dev-utils";
-import { promisify } from "@joincivil/utils";
+import { promisify, isDeployedBytecodeEqual } from "@joincivil/utils";
+
 import { REVERTED } from "../utils/constants";
 
 const Newsroom = artifacts.require("Newsroom");
@@ -30,7 +31,7 @@ const getCode = promisify<string>(web3.eth.getCode);
 // TODO(ritave): Make this into mocha extension
 async function codeMatches(instance: any, clazz: any): Promise<void> {
   const code = await getCode(instance.address);
-  expect(code).to.be.equal(clazz.deployedBytecode);
+  expect(isDeployedBytecodeEqual(code, clazz.deployedBytecode)).to.be.true();
 }
 
 contract("NewsroomFactory", accounts => {

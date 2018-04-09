@@ -5,7 +5,7 @@ import BigNumber from "bignumber.js";
 
 import { Web3Wrapper } from "../../../src/utils/web3wrapper";
 import { MultiSigWalletContract } from "../../../src/contracts/generated/multi_sig_wallet";
-import { Multisig } from "../../../src/contracts/multisig";
+import { Multisig } from "../../../src/contracts/multisig/multisig";
 
 const web3 = new Web3Wrapper(new Web3.providers.HttpProvider("http://localhost:8545"));
 // tslint:disable-next-line:no-non-null-assertion

@@ -45,7 +45,7 @@ export function isPromiseLike<T = any>(what: any): what is PromiseLike<T> {
   return what.then !== undefined && typeof what.then === "function";
 }
 
-export function isDefined<T>(what: T | undefined | null): what is T {
+export function isDefined<T extends any>(what?: T): what is T {
   // Explicitly checking with != instead of !==, this casts what to null if it's undefined
   // tslint:disable-next-line:triple-equals
   return what != null;

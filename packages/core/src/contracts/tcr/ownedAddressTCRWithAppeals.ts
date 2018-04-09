@@ -1,17 +1,17 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import * as Debug from "debug";
-
 import "@joincivil/utils";
-import { ContentProvider } from "../content/contentprovider";
-import { EthAddress, ListingState, TwoStepEthTransaction } from "../types";
-import { createTwoStepSimple } from "../utils/contractutils";
-import { CivilErrors, requireAccount } from "../utils/errors";
-import { Web3Wrapper } from "../utils/web3wrapper";
-import { BaseWrapper } from "./basewrapper";
-import { OwnedAddressTCRWithAppealsContract } from "./generated/owned_address_t_c_r_with_appeals";
+
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
+import { BaseWrapper } from "../basewrapper";
+import { OwnedAddressTCRWithAppealsContract } from "../generated/owned_address_t_c_r_with_appeals";
+import { Web3Wrapper } from "../../utils/web3wrapper";
+import { ContentProvider } from "../../content/contentprovider";
+import { CivilErrors, requireAccount } from "../../utils/errors";
+import { EthAddress, TwoStepEthTransaction, ListingState } from "../../types";
+import { createTwoStepSimple } from "../utils/contracts";
 
 const debug = Debug("civil:tcr");
 

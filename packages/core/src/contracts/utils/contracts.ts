@@ -9,8 +9,8 @@ import {
   TxHash,
   CivilTransactionReceipt,
   TwoStepEthTransaction,
-} from "../types";
-import { Web3Wrapper } from "./web3wrapper";
+} from "../../types";
+import { Web3Wrapper } from "../../utils/web3wrapper";
 
 export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T> {
   return tx.logs.find((log: any) => log.event === eventName);

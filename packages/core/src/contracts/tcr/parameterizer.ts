@@ -3,12 +3,12 @@ import { Observable } from "rxjs";
 import * as Debug from "debug";
 import "@joincivil/utils";
 
-import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProp, ParamProposalState, PollID } from "../types";
-import { requireAccount, CivilErrors } from "../utils/errors";
-import { Web3Wrapper } from "../utils/web3wrapper";
-import { BaseWrapper } from "./basewrapper";
-import { ParameterizerContract } from "./generated/parameterizer";
-import { createTwoStepSimple } from "../utils/contractutils";
+import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProp, ParamProposalState, PollID } from "../../types";
+import { requireAccount, CivilErrors } from "../../utils/errors";
+import { Web3Wrapper } from "../../utils/web3wrapper";
+import { BaseWrapper } from "../basewrapper";
+import { ParameterizerContract } from "../generated/parameterizer";
+import { createTwoStepSimple } from "../utils/contracts";
 import { Voting } from "./voting";
 
 const debug = Debug("civil:tcr");
