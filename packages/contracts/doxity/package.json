@@ -1,8 +1,8 @@
 {
-  "name": "doxity-gatsby-starter-project",
-  "description": "Doxity Example Site",
+  "name": "civil-docs",
+  "description": "Civil Documentation",
   "version": "1.0.0",
-  "author": "Chris Hitchcott <hitchcott@gmail.com>",
+  "author": "Nick Reynolds <nick@joincivil.com>",
   "dependencies": {
     "@hitchcott/semantic-ui-react": "^0.61.1",
     "highlight.js": "^9.7.0",
