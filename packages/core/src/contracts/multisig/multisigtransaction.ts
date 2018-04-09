@@ -51,6 +51,14 @@ export class MultisigTransaction {
   }
 
   /**
+   * Returns how many confirmations this Transaction needs to be executed
+   * This is a sugar function, which is the same as the one in the main Multisig wrapper
+   */
+  public async requiredConfirmations(): Promise<number> {
+    return (await this.instance.required.callAsync()).toNumber();
+  }
+
+  /**
    * How many owners (and who) have confirmed this transaction
    */
   public async confirmations(): Promise<EthAddress[]> {
