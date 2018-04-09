@@ -10,6 +10,8 @@ We hope that those tools will be useful for creation of interesting applications
 [![CircleCI](https://img.shields.io/circleci/project/github/joincivil/Civil.svg)](https://circleci.com/gh/joincivil/Civil)
 [![Slack chat](https://img.shields.io/badge/chat-slack-e6186d.svg)](https://civil-slack-signup.herokuapp.com/)
 
+# Read Documentation at (https://joincivil.github.io/Civil)
+
 ### Published packages
 
 | Package                                             | Badges                                                                                                                                                                                                                                       | Description                                                 |
