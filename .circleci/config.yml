@@ -1,9 +1,13 @@
 version: 2
+
+# What is this - http://yaml.org/type/merge.html
+defaults: &defaults
+  docker:
+    - image: circleci/node:9.3
+
 jobs:
     build:
-        docker:
-            - image: circleci/node:9.3
-        working_directory: ~/repo
+        <<: *defaults
         steps:
             - checkout
             - restore_cache:
@@ -18,29 +22,23 @@ jobs:
             - run:
                 name: Building
                 command: yarn build
-            - save_cache:
-                key: repo-{{ .Environment.CIRCLE_SHA1 }}
+            - persist_to_workspace:
+                root: ./
                 paths:
-                    - ~/repo
+                    - ./
     lint:
-        docker:
-            - image: circleci/node:9.3
-        working_directory: ~/repo
+        <<: *defaults
         steps:
-            - restore_cache:
-                keys:
-                  - repo-{{ .Environment.CIRCLE_SHA1 }}
+            - attach_workspace:
+                at: ./
             - run:
                 name: Linting
                 command: yarn lint
     test:
-        docker:
-            - image: circleci/node:9.3
-        working_directory: ~/repo
+        <<: *defaults
         steps:
-            - restore_cache:
-                keys:
-                  - repo-{{ .Environment.CIRCLE_SHA1 }}
+            - attach_workspace:
+                at: ./
             - run:
                 name: Starting Ganache
                 command: yarn ganache
@@ -48,23 +46,23 @@ jobs:
             - run:
                 name: Running tests
                 command: yarn test
-    
+
     setup-gcp:
+        <<: *defaults
         docker:
             - image: civilmedia/gcloud-node:latest
-        working_directory: ~/repo
         steps:
             - run:
                 name: Dump Google Cloud Credentials to file
                 command: |
-                    echo ${GOOGLE_AUTH} | base64 -d > ${HOME}/gcp-key.json
-                    gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+                    echo ${GOOGLE_AUTH} | base64 -d > ./gcp-key.json
+                    gcloud auth activate-service-account --key-file ./gcp-key.json
                     gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
                     gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
                     gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
                     gcloud docker --authorize-only
             - persist_to_workspace:
-                root: /root
+                root: ./
                 paths:
                     - gcp-key.json
                     - .config/gcloud
@@ -74,13 +72,12 @@ jobs:
                     - .kube
 
     push-containers:
+        <<: *defaults
         docker:
             - image: civilmedia/gcloud-node:latest
-        working_directory: ~/repo
         steps:
             - attach_workspace:
-                at: /root
-            - checkout
+                at: ./
             - setup_remote_docker
             - run:
                 name: Build Container
@@ -97,12 +94,12 @@ jobs:
                     docker push gcr.io/$GOOGLE_PROJECT_ID/dapp
 
     deploy-staging:
+        <<: *defaults
         docker:
             - image: civilmedia/gcloud-node:latest
-        working_directory: ~/repo
         steps:
             - attach_workspace:
-                at: /root
+                at: ./
             - deploy:
                 name: Update Kubernetes Deployment on STAGING
                 command: |
@@ -122,7 +119,8 @@ workflows:
             - setup-gcp:
                 context: gcp-common
                 requires:
-                    - build
+                    - test
+                    - lint
                 filters:
                     branches:
                         only:
@@ -143,10 +141,3 @@ workflows:
                     branches:
                         only:
                             - master
-
-experimental:
-    notify:
-        branches:
-            only:
-                - master
-                - develop
