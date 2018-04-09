@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
 // tslint:disable-next-line
-import styled, {StyledComponentClass} from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import { colorConstants } from "../../colorConstants";
 
 const ModalWrapper = styled.div`
@@ -53,14 +53,14 @@ export const Button = styled.button`
   color: ${colorConstants.WHITE};
   border-radius: 1px;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background-color: ${colorConstants.ACCENT_BLUE};
   }
 `;
 
 export const SecondaryButton = Button.extend`
   background-color: ${colorConstants.ACCENT_GREY};
-  &:hover{
+  &:hover {
     background-color: ${colorConstants.ACCENT_FADED_GREY};
   }
 `;
@@ -87,9 +87,6 @@ export class Modal extends React.Component<any, any> {
     document.body.removeChild(this.el);
   }
   public render(): React.ReactPortal | JSX.Element {
-    return ReactDom.createPortal(
-      <ModalWrapper>{this.props.children}</ModalWrapper>,
-      this.el,
-    );
+    return ReactDom.createPortal(<ModalWrapper>{this.props.children}</ModalWrapper>, this.el);
   }
 }

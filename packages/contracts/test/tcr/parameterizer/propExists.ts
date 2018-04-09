@@ -6,7 +6,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Parameterizer", (accounts) => {
+contract("Parameterizer", accounts => {
   describe("Function: propExists", () => {
     const [proposer] = accounts;
     let parameterizer: any;

@@ -10,18 +10,7 @@
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts"
-  ],
-  "include": [
-    "./**/*.ts",
-    "./**/*.tsx"
-  ],
-  "types": [ "react", "jest" ]
+  "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts"],
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "types": ["react", "jest"]
 }

@@ -4,7 +4,7 @@
   "description": "Set of contracts for Civil, including Newsroom and TCR",
   "authors": [
     "Nick Reynolds",
-    "Olaf Tomalka", 
+    "Olaf Tomalka",
     "Mike Goldin",
     "Isaac Kang",
     "Terry Li",
@@ -14,14 +14,7 @@
     "Yorke Rhodes",
     "Mira Zeitlin"
   ],
-  "keywords": [
-    "newsroom",
-    "civil",
-    "consensys",
-    "plcr",
-    "tokens",
-    "tcr"
-  ],
+  "keywords": ["newsroom", "civil", "consensys", "plcr", "tokens", "tcr"],
   "dependencies": {
     "tokens": "1.0.0",
     "dll": "1.0.3",

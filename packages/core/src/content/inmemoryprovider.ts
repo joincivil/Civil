@@ -1,4 +1,4 @@
-import { ContentHeader, MapObject, Uri} from "../types";
+import { ContentHeader, MapObject, Uri } from "../types";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { ContentProvider } from "./contentprovider";
 
@@ -14,7 +14,7 @@ export class InMemoryProvider implements ContentProvider {
     return "memory";
   }
 
-  public async get(what: Uri|ContentHeader): Promise<string> {
+  public async get(what: Uri | ContentHeader): Promise<string> {
     let uri = "";
     if (typeof what !== "string") {
       uri = what.uri;

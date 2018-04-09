@@ -6,7 +6,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", (accounts) => {
+contract("Registry", accounts => {
   describe("Function: isWhitelisted", () => {
     const [applicant] = accounts;
     const listing19 = "0x0000000000000000000000000000000000000019";

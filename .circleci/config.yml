@@ -32,6 +32,9 @@ jobs:
             - attach_workspace:
                 at: ./
             - run:
+                name: Ensuring prettified
+                command: yarn prettier:ci
+            - run:
                 name: Linting
                 command: yarn lint
     test:

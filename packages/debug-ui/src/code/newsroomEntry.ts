@@ -4,7 +4,7 @@ import { commitVote, revealVote } from "../../scripts/votingActions";
 import { initializeDebugUI } from "../../scripts/civilActions";
 import { BigNumber } from "bignumber.js";
 
-initializeDebugUI(async (civil) => {
+initializeDebugUI(async civil => {
   setNewsroomListeners();
 
   const tcr = await civil.tcrSingletonTrusted();
@@ -23,48 +23,58 @@ initializeDebugUI(async (civil) => {
     case ListingState.APPLYING:
       document.getElementById("application")!.classList.remove("hidden");
       const applicationExpiryDate = await tcr.getApplicationExpiryDate(address);
-      document.getElementById("applicationInfo")!.innerHTML = "Application Phase active.<br>" +
-        "If not challenged, listing can be whitelisted at: " + applicationExpiryDate;
+      document.getElementById("applicationInfo")!.innerHTML =
+        "Application Phase active.<br>" + "If not challenged, listing can be whitelisted at: " + applicationExpiryDate;
       break;
 
     case ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
       document.getElementById("challenge")!.classList.remove("hidden");
       document.getElementById("commitVote")!.classList.remove("hidden");
       const commitVoteExpiryDate = await tcr.getCommitVoteExpiryDate(address);
-      document.getElementById("challengeInfo")!.innerHTML = "Challenge active in Commit Vote phase.<br>" +
-        "Commit Vote phase expires at: " + commitVoteExpiryDate + "<br>" +
-        "Current Challenge ID: " + challengeId;
+      document.getElementById("challengeInfo")!.innerHTML =
+        "Challenge active in Commit Vote phase.<br>" +
+        "Commit Vote phase expires at: " +
+        commitVoteExpiryDate +
+        "<br>" +
+        "Current Challenge ID: " +
+        challengeId;
       break;
 
     case ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
       document.getElementById("challenge")!.classList.remove("hidden");
       document.getElementById("revealVote")!.classList.remove("hidden");
       const revealVoteExpiryDate = await tcr.getRevealVoteExpiryDate(address);
-      document.getElementById("challengeInfo")!.innerHTML = "Challenge active in Reveal Vote phase.<br>" +
-        "Reveal Vote phase expires at: " + revealVoteExpiryDate + "<br>" +
-        "Current Challenge ID: " + challengeId;
+      document.getElementById("challengeInfo")!.innerHTML =
+        "Challenge active in Reveal Vote phase.<br>" +
+        "Reveal Vote phase expires at: " +
+        revealVoteExpiryDate +
+        "<br>" +
+        "Current Challenge ID: " +
+        challengeId;
       break;
 
     case ListingState.WAIT_FOR_APPEAL_REQUEST:
       document.getElementById("appeal")!.classList.remove("hidden");
       const waitForAppealExpiryDate = await tcr.getRequestAppealExpiryDate(address);
-      document.getElementById("appealInfo")!.innerHTML = "Current waiting for listing owner to request appeal.<br>" +
-        "Request phase expires at: " + waitForAppealExpiryDate;
+      document.getElementById("appealInfo")!.innerHTML =
+        "Current waiting for listing owner to request appeal.<br>" +
+        "Request phase expires at: " +
+        waitForAppealExpiryDate;
       break;
 
     case ListingState.IN_APPEAL_PHASE:
       document.getElementById("appeal")!.classList.remove("hidden");
       const inAppealExpiryDate = await tcr.getAppealExpiryDate(address);
-      document.getElementById("appealInfo")!.innerHTML = "Current waiting for JAB to judge appeal.<br>" +
-        "Appeal phase expires at: " + inAppealExpiryDate;
+      document.getElementById("appealInfo")!.innerHTML =
+        "Current waiting for JAB to judge appeal.<br>" + "Appeal phase expires at: " + inAppealExpiryDate;
       break;
   }
 
-  tcr.failedChallengesForListing(address).subscribe((id) => {
+  tcr.failedChallengesForListing(address).subscribe(id => {
     document.getElementById("resolvedChallenges")!.classList.remove("hidden");
     document.getElementById("resolvedChallengesInfo")!.innerHTML += id + ", ";
   });
-  tcr.successfulChallengesForListing(address).subscribe((id) => {
+  tcr.successfulChallengesForListing(address).subscribe(id => {
     document.getElementById("resolvedChallenges")!.classList.remove("hidden");
     document.getElementById("resolvedChallengesInfo")!.innerHTML += id + ", ";
   });
@@ -77,7 +87,7 @@ function setNewsroomListeners(): void {
   const civil = new Civil({ debug: true });
 
   const applyButton = document.getElementById("param-applyToTCR")!;
-  applyButton.onclick = async (event) => {
+  applyButton.onclick = async event => {
     if (address) {
       // TODO(nickreynolds): turn off button, display "deploying..."
       await apply(address, new BigNumber(1000), civil);
@@ -88,7 +98,7 @@ function setNewsroomListeners(): void {
   };
 
   const challengeButton = document.getElementById("param-challengeTCRListing")!;
-  challengeButton.onclick = async (event) => {
+  challengeButton.onclick = async event => {
     if (address) {
       // TODO(nickreynolds): turn off button, display "deploying..."
       await challenge(address, civil);
@@ -99,7 +109,7 @@ function setNewsroomListeners(): void {
   };
 
   const updateStatusButton = document.getElementById("param-updateListingStatus")!;
-  updateStatusButton.onclick = async (event) => {
+  updateStatusButton.onclick = async event => {
     if (address) {
       // TODO(nickreynolds): turn off button, display "updating..."
       await updateStatus(address, civil);
@@ -110,7 +120,7 @@ function setNewsroomListeners(): void {
   };
 
   const proposeAndApproveButton = document.getElementById("param-proposeAndApprove")!;
-  proposeAndApproveButton.onclick = async (event) => {
+  proposeAndApproveButton.onclick = async event => {
     // TODO(nickreynolds): fix fs
     // TODO(ritave): extract into scripts
     // const article = fs.readFileSync("assets/article.md").toString();
@@ -127,14 +137,13 @@ function setNewsroomListeners(): void {
       console.log("Done");
 
       window.location.assign("/article.html?newsroomAddress=" + address + "&articleId=" + articleId);
-
     } else {
       console.error("newsroom address not found in params");
     }
   };
 
   const commitVoteButton = document.getElementById("param-commitVote")!;
-  commitVoteButton.onclick = async (event) => {
+  commitVoteButton.onclick = async event => {
     const pollIDString = (document.getElementById("param-commitVotePollId")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
     const optionString = (document.getElementById("param-commitVoteOption")! as HTMLInputElement).value!;
@@ -147,7 +156,7 @@ function setNewsroomListeners(): void {
   };
 
   const revealVoteButton = document.getElementById("param-revealVote")!;
-  revealVoteButton.onclick = async (event) => {
+  revealVoteButton.onclick = async event => {
     const pollIDString = (document.getElementById("param-revealVotePollId")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
     const optionString = (document.getElementById("param-revealVoteOption")! as HTMLInputElement).value!;
@@ -158,7 +167,7 @@ function setNewsroomListeners(): void {
   };
 
   const claimRewardButton = document.getElementById("param-claimReward")!;
-  claimRewardButton.onclick = async (event) => {
+  claimRewardButton.onclick = async event => {
     const pollIDString = (document.getElementById("param-claimRewardChallengeID")! as HTMLInputElement).value;
     const pollID = new BigNumber(pollIDString);
     const saltString = (document.getElementById("param-claimRewardSalt")! as HTMLInputElement).value;

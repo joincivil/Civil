@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES5",
     "module": "commonjs",
-    "lib": [ "es2017", "dom" ],
+    "lib": ["es2017", "dom"],
     "strict": true,
     "noImplicitAny": true,
     "noImplicitThis": false,

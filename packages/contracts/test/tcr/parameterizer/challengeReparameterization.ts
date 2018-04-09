@@ -10,7 +10,7 @@ const Token = artifacts.require("EIP20.sol");
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Parameterizer", (accounts) => {
+contract("Parameterizer", accounts => {
   describe("Function: challengeReparameterization", () => {
     const [proposer, challenger, voter] = accounts;
     let parameterizer: any;
@@ -59,8 +59,7 @@ contract("Parameterizer", (accounts) => {
       const proposalReceipt = await parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer });
       const { propID } = proposalReceipt.logs[0].args;
 
-      const challengeReceipt =
-        await parameterizer.challengeReparameterization(propID, { from: challenger });
+      const challengeReceipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
       const challengeID = challengeReceipt.logs[0].args.pollID;
 
       await utils.commitVote(voting, challengeID, "1", "10", "420", voter);

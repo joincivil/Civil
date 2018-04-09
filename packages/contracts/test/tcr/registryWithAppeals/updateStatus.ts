@@ -10,7 +10,7 @@ const Newsroom = artifacts.require("Newsroom");
 
 const NEWSROOM_NAME = "unused newsroom name";
 
-contract("Registry With Appeals", (accounts) => {
+contract("Registry With Appeals", accounts => {
   describe("Function: updateStatus", () => {
     const [JAB, applicant, challenger] = accounts;
     let registry: any;
@@ -40,7 +40,8 @@ contract("Registry With Appeals", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.pRevealStageLength + 1);
 
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
-        "Listing should not have been updated post challenge");
+        "Listing should not have been updated post challenge",
+      );
 
       const result = await registry.getListingIsWhitelisted(newsroomAddress);
       expect(result).to.be.false("Listing should have been whitelisted");
@@ -60,7 +61,8 @@ contract("Registry With Appeals", (accounts) => {
       await utils.advanceEvmTime(utils.paramConfig.pRevealStageLength + 1);
 
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
-        "Listing should not have been updated post challenge");
+        "Listing should not have been updated post challenge",
+      );
 
       const result = await registry.getListingIsWhitelisted(newsroomAddress);
       expect(result).to.be.false("Listing should not have been whitelisted");
@@ -68,6 +70,5 @@ contract("Registry With Appeals", (accounts) => {
       const appealPhase3 = await registry.getRequestAppealPhaseExpiry(newsroomAddress);
       expect(appealPhase3).to.be.bignumber.greaterThan(0, "Appeal phase not initialized.");
     });
-
   });
 });

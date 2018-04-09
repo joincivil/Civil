@@ -105,9 +105,6 @@ To refresh the repository state as much as possible run:
 yarn clean && yarn lerna clean --yes && rm -r node_modules && yarn install
 ```
 
-
-
-
 🐙 was here.
 
 [core-url]: /packages/core

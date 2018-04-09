@@ -7,7 +7,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", (accounts) => {
+contract("Registry", accounts => {
   describe("Function: deposit", () => {
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
     const incAmount = minDeposit.div(utils.toBaseTenBigNumber(2));
@@ -29,7 +29,8 @@ contract("Registry", (accounts) => {
 
       const unstakedDeposit = await registry.getListingUnstakedDeposit(listing13);
       const expectedAmount = incAmount.add(minDeposit);
-      expect(unstakedDeposit).to.be.bignumber.equal(expectedAmount,
+      expect(unstakedDeposit).to.be.bignumber.equal(
+        expectedAmount,
         "Unstaked deposit should be equal to the sum of the original + increase amount",
       );
     });
@@ -41,8 +42,10 @@ contract("Registry", (accounts) => {
 
       const unstakedDeposit = await registry.getListingUnstakedDeposit(listing14);
       const expectedAmount = incAmount.add(minDeposit);
-      expect(unstakedDeposit).to.be.bignumber.equal(expectedAmount,
-        "Deposit should have increased for pending application");
+      expect(unstakedDeposit).to.be.bignumber.equal(
+        expectedAmount,
+        "Deposit should have increased for pending application",
+      );
     });
 
     it("should increase deposit for a whitelisted, challenged listing", async () => {
@@ -57,15 +60,19 @@ contract("Registry", (accounts) => {
 
       const expectedAmount = originalDeposit.add(incAmount).sub(minDeposit);
 
-      expect(afterIncDeposit).to.be.bignumber.equal(expectedAmount,
-        "Deposit should have increased for whitelisted, challenged listing");
+      expect(afterIncDeposit).to.be.bignumber.equal(
+        expectedAmount,
+        "Deposit should have increased for whitelisted, challenged listing",
+      );
     });
 
     it("should not increase deposit for a listing not owned by the msg.sender", async () => {
       await utils.addToWhitelist(listing16, minDeposit, applicant, registry);
 
-      await expect(registry.deposit(listing16, incAmount, { from: challenger }))
-      .to.eventually.be.rejectedWith(REVERTED, "Deposit should not have increased when sent by the wrong msg.sender");
+      await expect(registry.deposit(listing16, incAmount, { from: challenger })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "Deposit should not have increased when sent by the wrong msg.sender",
+      );
     });
   });
 });

@@ -18,7 +18,7 @@ Install tslint:
 yarn add --dev tslint
 ```
 
-In your ```tslint.json``` or ```tslint.yaml``` extend the rules:
+In your `tslint.json` or `tslint.yaml` extend the rules:
 
 ```yaml
 ---

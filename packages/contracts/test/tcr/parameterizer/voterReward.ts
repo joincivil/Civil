@@ -8,7 +8,7 @@ const PLCRVoting = artifacts.require("PLCRVoting");
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Parameterizer", (accounts) => {
+contract("Parameterizer", accounts => {
   describe("Function: voterReward", () => {
     const [proposer, challenger, voterAlice] = accounts;
     let parameterizer: any;
@@ -40,16 +40,11 @@ contract("Parameterizer", (accounts) => {
       await parameterizer.processProposal(propID);
 
       // Grab the challenge struct after the proposal has been processed
-      const voterTokens = await voting.getNumPassingTokens(
-        voterAlice,
-        challengeID,
-        "420",
-        false,
-      ); // 10
+      const voterTokens = await voting.getNumPassingTokens(voterAlice, challengeID, "420", false); // 10
       const rewardPool = await parameterizer.getChallengeRewardPool(challengeID); // 250,000
       const totalTokens = await parameterizer.getChallengeWinningTokens(challengeID); // 10
 
-      const expectedVoterReward = (voterTokens.mul(rewardPool)).div(totalTokens); // 250,000
+      const expectedVoterReward = voterTokens.mul(rewardPool).div(totalTokens); // 250,000
       const voterReward = await parameterizer.voterReward(voterAlice, challengeID, "420");
 
       expect(expectedVoterReward).to.be.bignumber.equal(

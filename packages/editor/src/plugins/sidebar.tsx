@@ -17,12 +17,14 @@ export const sidebar = (options: any): Plugin => {
   return {
     name: SIDEBAR,
     renderEditor(props: any): JSX.Element {
-      return (<>
-        <PullQuoteDiv id="civil-pull-quotes">
-          <CredibilityIndicators {...props}/>
-        </PullQuoteDiv>
-        {props.children}
-      </>);
+      return (
+        <>
+          <PullQuoteDiv id="civil-pull-quotes">
+            <CredibilityIndicators {...props} />
+          </PullQuoteDiv>
+          {props.children}
+        </>
+      );
     },
   };
 };

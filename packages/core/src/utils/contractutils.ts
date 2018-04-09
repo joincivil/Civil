@@ -25,14 +25,15 @@ export function isContract<T extends Web3.ContractInstance>(what: any): what is 
 }
 
 export function isDecodedLog<T>(what: Web3.LogEntry | Web3.DecodedLogEntry<T>): what is Web3.DecodedLogEntry<T> {
-  return (typeof (what as any).event === "string") && !isUndefined((what as any).args);
+  return typeof (what as any).event === "string" && !isUndefined((what as any).args);
 }
 
 // TODO(ritave): Think how to solve race condition in filters, concat get/watch perhaps?
-export function streamifyEvent<A>(original: EventFunction<TypedEventFilter<A>>)
-: (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<Web3.DecodedLogEntryEvent<A>> {
+export function streamifyEvent<A>(
+  original: EventFunction<TypedEventFilter<A>>,
+): (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<Web3.DecodedLogEntryEvent<A>> {
   return (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => {
-    return new Observable<Web3.DecodedLogEntryEvent<A>>((subscriber) => {
+    return new Observable<Web3.DecodedLogEntryEvent<A>>(subscriber => {
       const filter = original(paramFilters, filterObject);
       let errored = false;
       filter.watch((err, event) => {
@@ -55,32 +56,29 @@ export function streamifyEvent<A>(original: EventFunction<TypedEventFilter<A>>)
 }
 
 export function isTxData(data: any): data is TxDataBase {
-  return data.gas !== undefined ||
+  return (
+    data.gas !== undefined ||
     data.gasPrice !== undefined ||
     data.nonce !== undefined ||
     data.from !== undefined ||
     data.value !== undefined ||
-    data.to !== undefined;
+    data.to !== undefined
+  );
 }
 
 export function createTwoStepTransaction<T>(
   web3Wrapper: Web3Wrapper,
   txHash: TxHash,
-  transform: (receipt: CivilTransactionReceipt) => Promise<T>|T,
+  transform: (receipt: CivilTransactionReceipt) => Promise<T> | T,
 ): TwoStepEthTransaction<T> {
   return {
     txHash,
     awaitReceipt: async (blockConfirmations?: number) =>
-      web3Wrapper
-        .awaitReceipt(txHash, blockConfirmations)
-        .then(transform),
+      web3Wrapper.awaitReceipt(txHash, blockConfirmations).then(transform),
   };
 }
 
-export function createTwoStepSimple(
-  web3Wrapper: Web3Wrapper,
-  txHash: TxHash,
-): TwoStepEthTransaction {
+export function createTwoStepSimple(web3Wrapper: Web3Wrapper, txHash: TxHash): TwoStepEthTransaction {
   return {
     txHash,
     awaitReceipt: web3Wrapper.awaitReceipt.bind(web3Wrapper, txHash),

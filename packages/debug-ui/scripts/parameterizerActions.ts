@@ -5,7 +5,8 @@ import BigNumber from "bignumber.js";
 export async function proposeReparameterization(
   propName: string,
   newValue: BigNumber,
-  optionalCivil?: Civil): Promise<void> {
+  optionalCivil?: Civil,
+): Promise<void> {
   const civil = optionalCivil || new Civil();
 
   console.log("Propose Reparameterization");
