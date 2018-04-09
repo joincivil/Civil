@@ -2,7 +2,6 @@ version: 2
 
 # What is this - http://yaml.org/type/merge.html
 defaults: &defaults
-  working_directory: ~/repo
   docker:
     - image: circleci/node:9.3
 
