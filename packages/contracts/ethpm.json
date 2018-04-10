@@ -15,9 +15,5 @@
     "Mira Zeitlin"
   ],
   "keywords": ["newsroom", "civil", "consensys", "plcr", "tokens", "tcr"],
-  "dependencies": {
-    "tokens": "1.0.0",
-    "dll": "1.0.3",
-    "attrstore": "1.0.0"
-  }
+  "dependencies": {}
 }

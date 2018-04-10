@@ -16,6 +16,15 @@
     web3 "^0.20.0"
     yargs "^10.0.3"
 
+"@0xproject/doxity@https://github.com/0xProject/doxity.git":
+  version "0.0.1"
+  resolved "https://github.com/0xProject/doxity.git#43faddf7c399284fce73d04790be83e8dbc86900"
+  dependencies:
+    fs-extra "^5.0.0"
+    glob "^7.1.1"
+    keccakjs "^0.2.1"
+    minimist "^1.2.0"
+
 "@0xproject/types@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@0xproject/types/-/types-0.4.1.tgz#d35b19f1774f5a8787be3a05452700aa0593b0d7"
@@ -68,6 +77,15 @@
   dependencies:
     normalize-path "^2.0.1"
     through2 "^2.0.3"
+
+"@joincivil/doxity@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@joincivil/doxity/-/doxity-0.0.1.tgz#43eca9d9dbbe91f3197ad772bdc81ffaa141450d"
+  dependencies:
+    fs-extra "^5.0.0"
+    glob "^7.1.1"
+    keccakjs "^0.2.1"
+    minimist "^1.2.0"
 
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
@@ -4822,6 +4840,14 @@ fs-extra@^0.30.0:
     path-is-absolute "^1.0.0"
     rimraf "^2.2.8"
 
+fs-extra@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-5.0.0.tgz#414d0110cdd06705734d055652c5411260c31abd"
+  dependencies:
+    graceful-fs "^4.1.2"
+    jsonfile "^4.0.0"
+    universalify "^0.1.0"
+
 fs-write-stream-atomic@^1.0.8:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/fs-write-stream-atomic/-/fs-write-stream-atomic-1.0.10.tgz#b47df53493ef911df75731e70a9ded0189db40c9"
@@ -7439,7 +7465,7 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
-keccakjs@^0.2.0:
+keccakjs@^0.2.0, keccakjs@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/keccakjs/-/keccakjs-0.2.1.tgz#1d633af907ef305bbf9f2fa616d56c44561dfa4d"
   dependencies:
