@@ -1,8 +1,8 @@
-pragma solidity 0.4.19;
+pragma solidity ^0.4.19;
 
-import "tokens/eip20/EIP20.sol";
-import "attrstore/AttributeStore.sol";
-import "dll/DLL.sol";
+import "./installed_contracts/tokens/contracts/eip20/EIP20.sol";
+import "./installed_contracts/attrstore/contracts/AttributeStore.sol";
+import "./installed_contracts/dll/contracts/DLL.sol";
 
 /**
 @title Partial-Lock-Commit-Reveal Voting scheme with ERC20 tokens

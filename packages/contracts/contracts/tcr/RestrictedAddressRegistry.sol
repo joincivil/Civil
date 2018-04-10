@@ -1,6 +1,6 @@
-pragma solidity 0.4.19;
+pragma solidity ^0.4.19;
 
-import "../../../../node_modules/zeppelin-solidity/contracts/ownership/Ownable.sol";
+import "../zeppelin-solidity/Ownable.sol";
 
 import "./ContractAddressRegistry.sol";
 

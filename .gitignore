@@ -66,8 +66,5 @@ build/
 # ide / intellij config
 .idea
 
-# EthPM packages
-installed_contracts/
-
 # package
 *package-lock.json

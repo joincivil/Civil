@@ -1,0 +1,4 @@
+{
+  "target": "doxity",
+  "src": "contracts/**/*"
+}

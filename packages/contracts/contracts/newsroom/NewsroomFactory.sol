@@ -1,4 +1,4 @@
-pragma solidity 0.4.19;
+pragma solidity ^0.4.19;
 // TODO(ritave): Think of a way to not require contracts out of package
 import "../multisig/Factory.sol";
 
