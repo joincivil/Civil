@@ -54,7 +54,7 @@ jobs:
     # These steps have a different workspace roots and so will behave a bit differently
     # circleci/node has /users/circleci/project
     # civilmedia/gcloud-node has /root/project
-    setup-gcloud:
+    setup-gcp:
         <<: *defaults
         docker:
             - image: civilmedia/gcloud-node:latest
