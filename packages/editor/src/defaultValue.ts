@@ -11,7 +11,6 @@ export const valueJson = {
             object: "text",
             leaves: [
               {
-                object: "leaf",
                 text: "A paragraph",
               },
             ],
