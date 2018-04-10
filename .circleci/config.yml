@@ -23,14 +23,14 @@ jobs:
                 name: Building
                 command: yarn build
             - persist_to_workspace:
-                root: ./
+                root: ../
                 paths:
-                    - ./
+                    - project/
     lint:
         <<: *defaults
         steps:
             - attach_workspace:
-                at: ./
+                at: ../
             - run:
                 name: Ensuring prettified
                 command: yarn prettier:ci
@@ -41,7 +41,7 @@ jobs:
         <<: *defaults
         steps:
             - attach_workspace:
-                at: ./
+                at: ../
             - run:
                 name: Starting Ganache
                 command: yarn ganache
@@ -50,7 +50,11 @@ jobs:
                 name: Running tests
                 command: yarn test
 
-    setup-gcp:
+    # Docker steps
+    # These steps have a different workspace roots and so will behave a bit differently
+    # circleci/node has /users/circleci/project
+    # civilmedia/gcloud-node has /root/project
+    setup-gcloud:
         <<: *defaults
         docker:
             - image: civilmedia/gcloud-node:latest
@@ -58,14 +62,14 @@ jobs:
             - run:
                 name: Dump Google Cloud Credentials to file
                 command: |
-                    echo ${GOOGLE_AUTH} | base64 -d > ./gcp-key.json
-                    gcloud auth activate-service-account --key-file ./gcp-key.json
+                    echo ${GOOGLE_AUTH} | base64 -d > ${HOME}/gcp-key.json
+                    gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
                     gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
                     gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
                     gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
                     gcloud docker --authorize-only
             - persist_to_workspace:
-                root: ./
+                root: /root
                 paths:
                     - gcp-key.json
                     - .config/gcloud
@@ -80,7 +84,7 @@ jobs:
             - image: civilmedia/gcloud-node:latest
         steps:
             - attach_workspace:
-                at: ./
+                at: /root
             - setup_remote_docker
             - run:
                 name: Build Container
@@ -102,7 +106,7 @@ jobs:
             - image: civilmedia/gcloud-node:latest
         steps:
             - attach_workspace:
-                at: ./
+                at: /root
             - deploy:
                 name: Update Kubernetes Deployment on STAGING
                 command: |
@@ -121,9 +125,6 @@ workflows:
                     - build
             - setup-gcp:
                 context: gcp-common
-                requires:
-                    - test
-                    - lint
                 filters:
                     branches:
                         only:
@@ -131,6 +132,8 @@ workflows:
             - push-containers:
                 context: gcp-common
                 requires:
+                    - test
+                    - lint
                     - setup-gcp
                 filters:
                     branches:
