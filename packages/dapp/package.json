@@ -1,9 +1,9 @@
 {
   "name": "@joincivil/dapp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
-    "@joincivil/core": "^4.0.0",
+    "@joincivil/core": "^4.0.1",
     "bignumber.js": "^6.0.0",
     "immutable": "^3.8.2",
     "react": "^16.2.0",
