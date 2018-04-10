@@ -12,7 +12,8 @@
     "lerna:run": "lerna run",
     "prepare": "lerna run prepare --no-sort",
     "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
-    "serve:dapp": "cd ./packages/dapp && serve -s build"
+    "serve:dapp": "cd ./packages/dapp && serve -s build",
+    "publish:docs": "cp -a ./packages/contracts/doxity/public ./docs"
   },
   "config": {
     "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"
