@@ -1,6 +1,0 @@
-# Normalizes all line endings in the repository
-# as per https://git-scm.com/docs/gitattributes
-#
-# This is needed because Solium has a problem with mixed line endings
-# and returns false positives
-* text=auto
