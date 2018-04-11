@@ -1,7 +1,7 @@
 {
   "name": "@joincivil/dapp",
   "version": "0.1.2",
-  "homepage": "https://joincivil.github.io/Civil",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@joincivil/core": "^4.0.1",
