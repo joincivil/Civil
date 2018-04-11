@@ -83,7 +83,7 @@
     {
       "inputs": [
         {
-          "name": "_multisigFactory",
+          "name": "multisigFactoryAddr",
           "type": "address"
         }
       ],
@@ -116,11 +116,11 @@
           "type": "string"
         },
         {
-          "name": "_owners",
+          "name": "initialOwners",
           "type": "address[]"
         },
         {
-          "name": "_required",
+          "name": "initialRequired",
           "type": "uint256"
         }
       ],

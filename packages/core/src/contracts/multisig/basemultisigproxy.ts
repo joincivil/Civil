@@ -8,7 +8,6 @@ import { Web3Wrapper } from "../../utils/web3wrapper";
 import { artifacts } from "../generated/artifacts";
 import { createTwoStepSimple, isDecodedLog } from "../utils/contracts";
 import { MultiSigWalletEvents, SubmissionArgs } from "../generated/multi_sig_wallet";
-import { MultisigTransaction } from "./multisigtransaction";
 
 export class BaseMultisigProxy {
   protected web3Wrapper: Web3Wrapper;
