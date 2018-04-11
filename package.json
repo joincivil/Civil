@@ -1,6 +1,6 @@
 {
   "private": true,
-  "homepage": "https://joincivil.github.io/civil",
+  "homepage": "https://joincivil.github.io/civil/",
   "workspaces": [
     "packages/*"
   ],
