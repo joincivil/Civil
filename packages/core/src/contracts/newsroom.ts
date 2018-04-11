@@ -72,14 +72,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return new Newsroom(web3Wrapper, contentProvider, instance, multisigProxy);
   }
 
-  private multisigProxy: NewsroomMultisigProxy<NewsroomContract>;
+  private multisigProxy: NewsroomMultisigProxy;
   private contentProvider: ContentProvider;
 
   private constructor(
     web3Wrapper: Web3Wrapper,
     contentProvider: ContentProvider,
     instance: NewsroomContract,
-    multisigProxy: NewsroomMultisigProxy<NewsroomContract>,
+    multisigProxy: NewsroomMultisigProxy,
   ) {
     super(web3Wrapper, instance);
     this.contentProvider = contentProvider;

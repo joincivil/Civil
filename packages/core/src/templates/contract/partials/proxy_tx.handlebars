@@ -8,7 +8,7 @@ public {{this.name}} = {
     txData: TxData = {},
     {{/this.payable}}
   ): Promise<MultisigProxyTransaction> {
-    const self = this as {{contractName}}MultisigProxy<T>;
+    const self = this as {{contractName}}MultisigProxy;
     if (!isDefined(self.multisig)) {
       return createTwoStepSimple(
           self.web3Wrapper,
