@@ -1,5 +1,6 @@
 import * as Web3 from "web3";
 
+import { Contract } from "./interfaces/contract";
 import { TxDataPayable } from "../types";
 
 export interface ContractConfiguration {
@@ -12,7 +13,7 @@ const DEFAULT_CONFIG: ContractConfiguration = {
   txDefaults: {},
 };
 
-export class BaseContract {
+export class BaseContract implements Contract {
   protected configuration: ContractConfiguration;
   protected instance: Web3.ContractInstance;
 

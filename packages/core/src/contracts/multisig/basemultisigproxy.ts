@@ -8,6 +8,7 @@ import { Web3Wrapper } from "../../utils/web3wrapper";
 import { artifacts } from "../generated/artifacts";
 import { createTwoStepSimple, isDecodedLog } from "../utils/contracts";
 import { MultiSigWalletEvents, SubmissionArgs } from "../generated/multi_sig_wallet";
+import { MultisigTransaction } from "./multisigtransaction";
 
 export class BaseMultisigProxy<T extends OwnableContract> {
   protected web3Wrapper: Web3Wrapper;
@@ -40,10 +41,6 @@ export class BaseMultisigProxy<T extends OwnableContract> {
     if (isDeployedBytecodeEqual(artifacts.MultiSigWallet.deployedBytecode, ownerCode)) {
       this.multisig = Multisig.atUntrusted(this.web3Wrapper, owner);
     }
-  }
-
-  protected emptyProxyTransaction(txHash: TxHash): MultisigProxyTransaction {
-    return createTwoStepSimple(this.web3Wrapper, txHash);
   }
 
   protected createProxyTransaction(txHash: TxHash): MultisigProxyTransaction {

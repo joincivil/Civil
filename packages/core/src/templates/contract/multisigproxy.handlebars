@@ -5,6 +5,7 @@
 import { isDefined, bindNestedAll } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 
+import { createTwoStepSimple } from "../../utils/contracts";
 import { BaseMultisigProxy, MultisigProxyTransaction } from "../../multisig/basemultisigproxy";
 import { OwnableContract } from "../../interfaces/ownable";
 import { Web3Wrapper } from "../../../utils/web3wrapper";
@@ -12,6 +13,7 @@ import { TxData } from "../../../types";
 
 // TODO(ritave): Abi-Gen doesn't support lowercase contractName so we can't
 //               import the Contract wrappers, we're using generics instead
+//               This means calls to instance are untyped inside are using (this: any) type
 export class {{contractName}}MultisigProxy<T extends OwnableContract> extends BaseMultisigProxy<T> {
   public static async create<T extends OwnableContract>(
     web3Wrapper: Web3Wrapper,
