@@ -1,4 +1,0 @@
-{
-  "target": "build/docs",
-  "src": "contracts/**/*"
-}

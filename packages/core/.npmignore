@@ -1,7 +1,0 @@
-.*
-tsconfig.json
-tslint.json
-src/
-doc
-build/test
-build/junit

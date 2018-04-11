@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig",
-  "compilerOptions": {
-    "outDir": "build/",
-    "declarationDir": "build/"
-  },
-  "include": ["./src/**/*.ts", "./test/**/*.ts", "../../node_modules/web3-typescript-typings/index.d.ts"]
-}
