@@ -21,7 +21,7 @@ contract("Registry With Appeals", accounts => {
     let registry: any;
 
     beforeEach(async () => {
-      registry = await utils.createAllTestRestrictedAddressRegistryWithAppealsInstance(accounts, JAB);
+      registry = await utils.createAllCivilTCRInstance(accounts, JAB);
     });
 
     describe("with real newsroom", () => {

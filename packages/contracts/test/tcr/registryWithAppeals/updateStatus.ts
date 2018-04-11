@@ -19,7 +19,7 @@ contract("Registry With Appeals", accounts => {
     const minDeposit = utils.paramConfig.minDeposit;
 
     beforeEach(async () => {
-      registry = await utils.createAllTestRestrictedAddressRegistryWithAppealsInstance(accounts, JAB);
+      registry = await utils.createAllCivilTCRInstance(accounts, JAB);
       testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
       newsroomAddress = testNewsroom.address;
     });

@@ -24,7 +24,7 @@ contract("Registry", accounts => {
     let newsroomAddress: string;
 
     beforeEach(async () => {
-      registry = await utils.createAllTestRestrictedAddressRegistryWithAppealsInstance(accounts, JAB);
+      registry = await utils.createAllCivilTCRInstance(accounts, JAB);
       const tokenAddress = await registry.token();
       token = await Token.at(tokenAddress);
       const votingAddress = await registry.voting();
