@@ -4,4 +4,5 @@ installed_contracts/
 package.json
 generated/
 doxity/
-*.json
+docs/asset-manifest.json
+/packages/dapp/src/components/docs/json/
