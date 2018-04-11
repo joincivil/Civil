@@ -5,7 +5,7 @@ import { ContentProvider } from "./content/contentprovider";
 import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "./types";
-import { OwnedAddressTCRWithAppeals } from "./contracts/tcr/ownedAddressTCRWithAppeals";
+import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
 import { EIP20 } from "./contracts/tcr/eip20";
@@ -123,12 +123,12 @@ export class Civil {
    * @returns A singleton instance of TCR living on the current network
    * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton
    */
-  public tcrSingletonTrusted(): OwnedAddressTCRWithAppeals {
-    return OwnedAddressTCRWithAppeals.singleton(this.web3Wrapper, this.contentProvider);
+  public tcrSingletonTrusted(): CivilTCR {
+    return CivilTCR.singleton(this.web3Wrapper, this.contentProvider);
   }
 
   /**
-   * Returns the EIP20 instance associated with the deployed OwnedAddressTCRWithAppeals
+   * Returns the EIP20 instance associated with the deployed CivilTCR
    */
   public async getEIP20ForDeployedTCR(): Promise<EIP20> {
     const tcr = this.tcrSingletonTrusted();
@@ -137,7 +137,7 @@ export class Civil {
   }
 
   /**
-   * Returns the Voting instance associated with the deployed OwnedAddressTCRWithAppeals
+   * Returns the Voting instance associated with the deployed CivilTCR
    */
   public async getVotingForDeployedTCR(): Promise<Voting> {
     const tcr = this.tcrSingletonTrusted();

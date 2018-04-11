@@ -6,7 +6,7 @@ import "@joincivil/utils";
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-import { OwnedAddressTCRWithAppealsContract } from "../generated/owned_address_t_c_r_with_appeals";
+import { CivilTCRContract } from "../generated/civil_t_c_r";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
@@ -16,7 +16,7 @@ import { createTwoStepSimple } from "../utils/contracts";
 const debug = Debug("civil:tcr");
 
 /**
- * The OwnedAddressTCRWithAppeals tracks the status of addresses that have been applied and allows
+ * The CivilTCR tracks the status of addresses that have been applied and allows
  * users to make transactions that modify the state of the TCR.
  *
  * Users can get stream of currently approved addresses, as well as specific information
@@ -25,23 +25,19 @@ const debug = Debug("civil:tcr");
  * Users can also apply to the registry, challenge applications or listings, as well
  * as collect winnings related to challenges, or withdraw/deposit tokens from listings.
  */
-export class OwnedAddressTCRWithAppeals extends BaseWrapper<OwnedAddressTCRWithAppealsContract> {
-  public static singleton(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider): OwnedAddressTCRWithAppeals {
-    const instance = OwnedAddressTCRWithAppealsContract.singletonTrusted(web3Wrapper);
+export class CivilTCR extends BaseWrapper<CivilTCRContract> {
+  public static singleton(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider): CivilTCR {
+    const instance = CivilTCRContract.singletonTrusted(web3Wrapper);
     if (!instance) {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new OwnedAddressTCRWithAppeals(web3Wrapper, contentProvider, instance);
+    return new CivilTCR(web3Wrapper, contentProvider, instance);
   }
 
   private contentProvider: ContentProvider;
 
-  private constructor(
-    web3Wrapper: Web3Wrapper,
-    contentProvider: ContentProvider,
-    instance: OwnedAddressTCRWithAppealsContract,
-  ) {
+  private constructor(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, instance: CivilTCRContract) {
     super(web3Wrapper, instance);
     this.contentProvider = contentProvider;
   }

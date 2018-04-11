@@ -5,14 +5,14 @@ import "./RestrictedAddressRegistry.sol";
 /**
 @title  TCR with appeallate functionality and restrictions on application 
 @author Nick Reynolds - nick@joincivil.com
-@notice The RestrictedAddressTCRWithAppeals is a TCR with restrictions (contracts must have IACL
+@notice The CivilTCR is a TCR with restrictions (contracts must have IACL
         implementation, and only the ACL superuser of a contract can apply on behalf of that contract)
-        and an appeallate entity that can overturn successful challenges (challenges that would prevent 
-        the listing from being whitelisted)
+        and an appeallate entity that can overturn challenges if someone requests an appeal, and a process
+        by which granted appeals can be vetoed by a supermajority vote
         "Listing" refers to the data associated with an address at any stage of the lifecycle (e.g.
         "Listing in Application", "Listing in Challenge", "Listing on Whitelist", "Denied Listing", etc).
 */
-contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
+contract CivilTCR is RestrictedAddressRegistry {
 
   event AppealRequested(address indexed requester, address indexed listing);
   event AppealGranted(address indexed listing);
@@ -63,7 +63,7 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   @param appellateAddr      Address of appellate entity, which could be a regular user, although multisig is recommended
   @param feeRecipientAddr   Address of entity that collects fees from denied appeals
   */
-  function OwnedAddressTCRWithAppeals(
+  function CivilTCR(
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
