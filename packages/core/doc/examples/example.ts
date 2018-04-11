@@ -1,6 +1,7 @@
 import * as process from "process";
 
 import { Civil } from "../../src";
+import { Roles } from "../../src/contracts/newsroom";
 
 (async () => {
   const civil = new Civil();
@@ -27,13 +28,12 @@ import { Civil } from "../../src";
 
   console.log("Am I the owner:", await newsroom.isOwner());
 
+  console.log("Setting myself to be reporter");
+  await (await newsroom.addRole(civil.userAccount!, Roles.Reporter)).awaitReceipt();
+
   console.log("Proposing a new article...");
-  try {
-    const id = await (await newsroom.proposeContent("This is example content that I want to post")).awaitReceipt();
-    console.log("Article proposed: ", id);
-  } catch (e) {
-    console.error("Failed to propose article:", e);
-  }
+  const id = await (await newsroom.proposeContent("This is example content that I want to post")).awaitReceipt();
+  console.log("Article proposed: ", id);
 
   console.log("Changing names");
   await Promise.all(
@@ -44,6 +44,6 @@ import { Civil } from "../../src";
   );
   nameSubscription.unsubscribe();
 })().catch(err => {
-  console.error(err);
+  console.trace(err);
   process.exit(1);
 });

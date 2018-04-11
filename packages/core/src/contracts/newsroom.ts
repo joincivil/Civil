@@ -9,9 +9,14 @@ import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";
 import { TwoStepEthTransaction, TxData, EthAddress, ContentId, ContentHeader, NewsroomContent } from "../types";
-import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog } from "./utils/contracts";
+import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog, findEvents } from "./utils/contracts";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
+import {
+  NewsroomFactoryContract,
+  ContractInstantiationArgs,
+  NewsroomFactoryEvents,
+} from "./generated/newsroom_factory";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -32,11 +37,26 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     newsroomName: string,
   ): Promise<TwoStepEthTransaction<Newsroom>> {
     const txData: TxData = { from: web3Wrapper.account };
+
+    const factory = NewsroomFactoryContract.singletonTrusted(web3Wrapper);
+    if (!factory) {
+      throw new Error(CivilErrors.UnsupportedNetwork);
+    }
+
     return createTwoStepTransaction(
       web3Wrapper,
-      await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, newsroomName, txData),
-      async receipt => {
-        const contract = NewsroomContract.atUntrusted(web3Wrapper, receipt.contractAddress!);
+      await factory.create.sendTransactionAsync(newsroomName, [web3Wrapper.account!], new BigNumber(1), txData),
+      async factoryReceipt => {
+        const createdNewsroom = findEvents<ContractInstantiationArgs>(
+          factoryReceipt,
+          NewsroomFactoryEvents.ContractInstantiation,
+        ).find(log => log.address === factory.address);
+
+        if (!createdNewsroom) {
+          throw new Error("No Newsroom created during deployment through factory");
+        }
+
+        const contract = NewsroomContract.atUntrusted(web3Wrapper, createdNewsroom.args.instantiation);
         const multisigProxy = await NewsroomMultisigProxy.create(web3Wrapper, contract);
         return new Newsroom(web3Wrapper, contentProvider, contract, multisigProxy);
       },
@@ -52,14 +72,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return new Newsroom(web3Wrapper, contentProvider, instance, multisigProxy);
   }
 
-  private multisigProxy: NewsroomMultisigProxy<NewsroomContract>;
+  private multisigProxy: NewsroomMultisigProxy;
   private contentProvider: ContentProvider;
 
   private constructor(
     web3Wrapper: Web3Wrapper,
     contentProvider: ContentProvider,
     instance: NewsroomContract,
-    multisigProxy: NewsroomMultisigProxy<NewsroomContract>,
+    multisigProxy: NewsroomMultisigProxy,
   ) {
     super(web3Wrapper, instance);
     this.contentProvider = contentProvider;

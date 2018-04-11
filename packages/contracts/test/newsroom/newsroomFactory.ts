@@ -60,9 +60,11 @@ contract("NewsroomFactory", accounts => {
     instance = await NewsroomFactory.new(multisigFactoryInstance.address);
   });
 
-  // TODO(ritave): Due to having a construction parameter, the code differs from the expected deployedBytecode,
-  // find out why.
-  it("creates a newsroom");
+  it("creates a newsroom", async () => {
+    const { newsroom } = await createNewsroom([owner]);
+
+    await codeMatches(newsroom, Newsroom);
+  });
 
   it("creates a multisig", async () => {
     const { multisig } = await createNewsroom([owner]);

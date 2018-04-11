@@ -9,12 +9,13 @@ import { artifacts } from "../generated/artifacts";
 import { createTwoStepSimple, isDecodedLog } from "../utils/contracts";
 import { MultiSigWalletEvents, SubmissionArgs } from "../generated/multi_sig_wallet";
 
-export class BaseMultisigProxy<T extends OwnableContract> {
+export class BaseMultisigProxy {
   protected web3Wrapper: Web3Wrapper;
   protected multisig?: Multisig;
-  protected instance: T;
+  // TODO(ritave): Add support for lowercase newsroom contract in abi-gen
+  protected instance: OwnableContract;
 
-  protected constructor(web3Wrapper: Web3Wrapper, instance: T) {
+  protected constructor(web3Wrapper: Web3Wrapper, instance: OwnableContract) {
     this.web3Wrapper = web3Wrapper;
     this.instance = instance;
   }
@@ -40,10 +41,6 @@ export class BaseMultisigProxy<T extends OwnableContract> {
     if (isDeployedBytecodeEqual(artifacts.MultiSigWallet.deployedBytecode, ownerCode)) {
       this.multisig = Multisig.atUntrusted(this.web3Wrapper, owner);
     }
-  }
-
-  protected emptyProxyTransaction(txHash: TxHash): MultisigProxyTransaction {
-    return createTwoStepSimple(this.web3Wrapper, txHash);
   }
 
   protected createProxyTransaction(txHash: TxHash): MultisigProxyTransaction {

@@ -7,7 +7,7 @@
     "noImplicitAny": true,
     "noImplicitThis": false,
     "declaration": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "pretty": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true // https://github.com/ReactiveX/rxjs/issues/3031

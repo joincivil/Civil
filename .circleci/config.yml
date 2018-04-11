@@ -47,6 +47,9 @@ jobs:
                 command: yarn ganache
                 background: true
             - run:
+                name: Running migrations
+                command: yarn lerna -- run --scope=@joincivil/contracts migrate -- --network=ganache
+            - run:
                 name: Running tests
                 command: yarn test
 

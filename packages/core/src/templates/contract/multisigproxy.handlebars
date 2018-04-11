@@ -5,6 +5,7 @@
 import { isDefined, bindNestedAll } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 
+import { createTwoStepSimple } from "../../utils/contracts";
 import { BaseMultisigProxy, MultisigProxyTransaction } from "../../multisig/basemultisigproxy";
 import { OwnableContract } from "../../interfaces/ownable";
 import { Web3Wrapper } from "../../../utils/web3wrapper";
@@ -12,12 +13,13 @@ import { TxData } from "../../../types";
 
 // TODO(ritave): Abi-Gen doesn't support lowercase contractName so we can't
 //               import the Contract wrappers, we're using generics instead
-export class {{contractName}}MultisigProxy<T extends OwnableContract> extends BaseMultisigProxy<T> {
-  public static async create<T extends OwnableContract>(
+//               This means calls to instance are untyped inside are using (this: any) type
+export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
+  public static async create(
     web3Wrapper: Web3Wrapper,
-    instance: T,
-  ): Promise<{{contractName}}MultisigProxy<T>> {
-    const proxy = new {{contractName}}MultisigProxy<T>(web3Wrapper, instance);
+    instance: OwnableContract,
+  ): Promise<{{contractName}}MultisigProxy> {
+    const proxy = new {{contractName}}MultisigProxy(web3Wrapper, instance);
     await proxy.resolveMultisig();
     return proxy;
   }
@@ -28,7 +30,7 @@ export class {{contractName}}MultisigProxy<T extends OwnableContract> extends Ba
   {{/this.constant}}
 {{/each}}
 
-  private constructor(web3Wrapper: Web3Wrapper, instance: T) {
+  private constructor(web3Wrapper: Web3Wrapper, instance: OwnableContract) {
     super(web3Wrapper, instance);
     bindNestedAll(this, ["constructor", "instance", "multisig", "web3Wrapper"]);
   }

@@ -8,15 +8,15 @@ import "./Newsroom.sol";
 contract NewsroomFactory is Factory {
   IMultiSigWalletFactory public multisigFactory;
 
-  function NewsroomFactory(address _multisigFactory) public {
-    multisigFactory = IMultiSigWalletFactory(_multisigFactory);
+  function NewsroomFactory(address multisigFactoryAddr) public {
+    multisigFactory = IMultiSigWalletFactory(multisigFactoryAddr);
   }
 
-  function create(string name, address[] _owners, uint _required)
+  function create(string name, address[] initialOwners, uint initialRequired)
     public
     returns (Newsroom newsroom)
   {
-    address wallet = multisigFactory.create(_owners, _required);
+    address wallet = multisigFactory.create(initialOwners, initialRequired);
     newsroom = new Newsroom(name);
     newsroom.transferOwnership(wallet);
     register(newsroom);

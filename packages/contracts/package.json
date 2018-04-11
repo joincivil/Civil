@@ -4,7 +4,7 @@
   "version": "4.0.1",
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
-    "build": "run-s compile build:stripArtifacts generate:docs",
+    "build": "run-s compile build:stripArtifacts",
     "build:stripArtifacts": "node ../dev-utils/build/scripts/strip-artifacts.js \"build/contracts/**/*.json\" build/artifacts",
     "compile": "run-p --aggregate-output compile:*",
     "compile:typescript": "tsc",

@@ -9,11 +9,22 @@ import {
   TxHash,
   CivilTransactionReceipt,
   TwoStepEthTransaction,
+  CivilEventArgs,
 } from "../../types";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 
-export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T> {
-  return tx.logs.find((log: any) => log.event === eventName);
+export function findEvent<T = CivilEventArgs>(
+  tx: Web3.TransactionReceipt,
+  eventName: string,
+): Web3.DecodedLogEntry<T> | undefined {
+  return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as Web3.DecodedLogEntry<T> | undefined;
+}
+
+export function findEvents<T = CivilEventArgs>(
+  tx: Web3.TransactionReceipt,
+  eventName: string,
+): Array<Web3.DecodedLogEntry<T>> {
+  return tx.logs.filter(log => isDecodedLog(log) && log.event === eventName) as Array<Web3.DecodedLogEntry<T>>;
 }
 
 export function is0x0Address(address: string): boolean {
