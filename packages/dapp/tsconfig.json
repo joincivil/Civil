@@ -8,7 +8,8 @@
     "moduleResolution": "node",
     "rootDir": "src",
     "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "strictPropertyInitialization": false
   },
   "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts"],
   "include": ["./**/*.ts", "./**/*.tsx"],

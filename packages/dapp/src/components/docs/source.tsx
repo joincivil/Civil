@@ -15,6 +15,7 @@ export interface SourceState {
 }
 
 export default class Source extends React.Component<SourceProps, SourceState> {
+  private highlight: HTMLPreElement | null;
   constructor(props: SourceProps) {
     super(props);
     this.state = {
@@ -36,7 +37,7 @@ export default class Source extends React.Component<SourceProps, SourceState> {
     return (
       <div className="source">
         {!this.state.renderHack && (
-          <pre ref="highlight">
+          <pre ref={highlight => (this.highlight = highlight)}>
             <code>{contract.source}</code>
           </pre>
         )}
