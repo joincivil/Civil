@@ -4,3 +4,4 @@ installed_contracts/
 package.json
 generated/
 doxity/
+*.json

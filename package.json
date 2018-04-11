@@ -1,6 +1,8 @@
 {
   "private": true,
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "lerna run build --sort",
     "watch": "lerna run --parallel build:watch",
@@ -12,7 +14,8 @@
     "lerna:run": "lerna run",
     "prepare": "lerna run prepare --no-sort",
     "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
-    "serve:dapp": "cd ./packages/dapp && serve -s build"
+    "serve:dapp": "cd ./packages/dapp && serve -s build",
+    "publish:docs": "ncp ./packages/dapp/build/ ./docs/"
   },
   "config": {
     "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"
@@ -21,6 +24,7 @@
   "devDependencies": {
     "ganache-cli": "^6.1.0-beta.4",
     "lerna": "^2.9.0",
+    "ncp": "^2.0.0",
     "npm-run-all": "^4.1.2",
     "prettier": "^1.11.1"
   }
