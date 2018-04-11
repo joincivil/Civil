@@ -54,6 +54,9 @@ class NavBar extends React.Component<{}, NavBarState> {
         <NavBarItem>
           <NavBarLink to="about">About</NavBarLink>
         </NavBarItem>
+        <NavBarItem>
+          <NavBarLink to="contracts">Contracts</NavBarLink>
+        </NavBarItem>
         <NavBarItem right={true}>
           <NavBarSpan>{"Your Balance: " + this.state.balance}</NavBarSpan>
         </NavBarItem>

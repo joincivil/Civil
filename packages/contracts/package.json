@@ -5,6 +5,7 @@
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
     "build": "run-s compile build:stripArtifacts",
+    "build:createDocsFolder": "mkdirp ./build/docs",
     "build:stripArtifacts": "node ../dev-utils/build/scripts/strip-artifacts.js \"build/contracts/**/*.json\" build/artifacts",
     "compile": "run-p --aggregate-output compile:*",
     "compile:typescript": "tsc",
@@ -26,7 +27,6 @@
   "author": "The Civil Media Company",
   "license": "LGPL-2.1",
   "devDependencies": {
-    "@0xproject/doxity": "https://github.com/0xProject/doxity.git",
     "@joincivil/dev-utils": "^1.2.2",
     "@joincivil/doxity": "^0.0.1",
     "@joincivil/tslint-rules": "^2.6.1",

@@ -1,4 +1,4 @@
 {
-  "target": "doxity",
+  "target": "build/docs",
   "src": "contracts/**/*"
 }
