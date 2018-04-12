@@ -2,6 +2,8 @@
 
 Shared rules for Typescript linter
 
+[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](./LICENSE)
+
 ## Installation
 
 Your tslint needs to be `>=5.9` for the yaml support
