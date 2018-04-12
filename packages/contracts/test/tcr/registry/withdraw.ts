@@ -24,13 +24,15 @@ contract("Registry", accounts => {
       const errMsg = "applicant was able to withdraw tokens";
 
       await utils.addToWhitelist(dontChallengeListing, minDeposit, applicant, registry);
-      const origDeposit = await registry.getListingUnstakedDeposit(dontChallengeListing);
+      const listing = await registry.listings(dontChallengeListing);
+      const origDeposit = listing[3];
 
       await expect(
         registry.withdraw(dontChallengeListing, withdrawAmount, { from: applicant }),
       ).to.eventually.be.rejectedWith(REVERTED);
 
-      const afterWithdrawDeposit = await registry.getListingUnstakedDeposit(dontChallengeListing);
+      const listingAfterWithdraw = await registry.listings(dontChallengeListing);
+      const afterWithdrawDeposit = listingAfterWithdraw[3];
 
       expect(afterWithdrawDeposit).to.be.bignumber.equal(origDeposit, errMsg);
     });

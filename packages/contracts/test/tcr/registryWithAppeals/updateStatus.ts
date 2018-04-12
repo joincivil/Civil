@@ -28,7 +28,8 @@ contract("Registry With Appeals", accounts => {
       // note: this function calls registry.updateStatus at the end
       await utils.addToWhitelist(newsroomAddress, utils.paramConfig.minDeposit, applicant, registry);
 
-      const result = await registry.getListingIsWhitelisted(newsroomAddress);
+      const listing = await registry.listings(newsroomAddress);
+      const result = listing[1];
       expect(result).to.be.true("Listing should have been whitelisted");
     });
 
@@ -43,18 +44,21 @@ contract("Registry With Appeals", accounts => {
         "Listing should not have been updated post challenge",
       );
 
-      const result = await registry.getListingIsWhitelisted(newsroomAddress);
+      const listing = await registry.listings(newsroomAddress);
+      const result = listing[1];
       expect(result).to.be.false("Listing should have been whitelisted");
     });
 
     it("losing a challenge should start the request appeal phase", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
 
-      const appealPhase1 = await registry.getRequestAppealPhaseExpiry(newsroomAddress);
+      const appeal1 = await registry.appeals(newsroomAddress);
+      const appealPhase1 = appeal1[1];
       expect(appealPhase1).to.be.bignumber.equal(0, "Appeal phase initialized early.");
       await registry.challenge(newsroomAddress, "", { from: challenger });
 
-      const appealPhase2 = await registry.getRequestAppealPhaseExpiry(newsroomAddress);
+      const appeal2 = await registry.appeals(newsroomAddress);
+      const appealPhase2 = appeal2[1];
       expect(appealPhase2).to.be.bignumber.equal(0, "Appeal phase initialized early.");
 
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength);
@@ -64,10 +68,12 @@ contract("Registry With Appeals", accounts => {
         "Listing should not have been updated post challenge",
       );
 
-      const result = await registry.getListingIsWhitelisted(newsroomAddress);
+      const listing = await registry.listings(newsroomAddress);
+      const result = listing[1];
       expect(result).to.be.false("Listing should not have been whitelisted");
 
-      const appealPhase3 = await registry.getRequestAppealPhaseExpiry(newsroomAddress);
+      const appeal3 = await registry.appeals(newsroomAddress);
+      const appealPhase3 = appeal3[1];
       expect(appealPhase3).to.be.bignumber.greaterThan(0, "Appeal phase not initialized.");
     });
   });

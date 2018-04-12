@@ -34,13 +34,14 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should allow contract owner to apply on behalf of contract", async () => {
-        await registry.apply(testNewsroom.address, utils.paramConfig.minDeposit, "", { from: applicant });
+        await registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant });
 
-        // get the struct in the mapping
-        const applicationExpiry = await registry.getListingApplicationExpiry(newsroomAddress);
-        const whitelisted = await registry.getListingIsWhitelisted(newsroomAddress);
-        const owner = await registry.getListingOwner(newsroomAddress);
-        const unstakedDeposit = await registry.getListingUnstakedDeposit(newsroomAddress);
+        // get struct from mapping
+        const listing = await registry.listings(newsroomAddress);
+        const applicationExpiry = listing[0];
+        const whitelisted = listing[1];
+        const owner = listing[2];
+        const unstakedDeposit = listing[3];
 
         // check that Application is initialized correctly
         expect(applicationExpiry).to.be.bignumber.gt(0, "challenge time < now");
@@ -60,7 +61,8 @@ contract("Registry With Appeals", accounts => {
         await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
         await registry.updateStatus(newsroomAddress);
-        const result = await registry.getListingIsWhitelisted(newsroomAddress);
+        const listing = await registry.listings(newsroomAddress);
+        const result = listing[1];
         expect(result).to.be.true("listing didn't get whitelisted");
       });
 

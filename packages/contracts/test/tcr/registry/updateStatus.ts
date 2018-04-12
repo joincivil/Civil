@@ -27,7 +27,8 @@ contract("Registry", accounts => {
       // note: this function calls registry.updateStatus at the end
       await utils.addToWhitelist(listing21, minDeposit, applicant, registry);
 
-      const result = await registry.getListingIsWhitelisted(listing21);
+      const listing = await registry.listings(listing21);
+      const result = listing[1];
       expect(result).to.be.true("Listing should have been whitelisted");
     });
 
@@ -58,7 +59,8 @@ contract("Registry", accounts => {
       await utils.advanceEvmTime(plcrComplete);
 
       await registry.updateStatus(listing24);
-      const result = await registry.getListingIsWhitelisted(listing24);
+      const listing = await registry.listings(listing24);
+      const result = listing[1];
       expect(result).to.be.false("Listing should not have been whitelisted");
     });
 
@@ -74,11 +76,13 @@ contract("Registry", accounts => {
         "by calling updateStatus after it has been previously removed",
       async () => {
         await utils.addToWhitelist(listing26, minDeposit, applicant, registry);
-        const resultOne = await registry.getListingIsWhitelisted(listing26);
+        const listingOne = await registry.listings(listing26);
+        const resultOne = listingOne[1];
         expect(resultOne).to.be.true("Listing should have been whitelisted");
 
         await registry.exitListing(listing26, { from: applicant });
-        const resultTwo = await registry.getListingIsWhitelisted(listing26);
+        const listingTwo = await registry.listings(listing26);
+        const resultTwo = listingTwo[1];
         expect(resultTwo).to.be.false("Listing should not be in the whitelist");
 
         await expect(registry.updateStatus(listing26, { from: applicant })).to.eventually.be.rejectedWith(

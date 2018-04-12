@@ -27,7 +27,8 @@ contract("Registry With Appeals", accounts => {
 
     it("should succeed if no application has already been made", async () => {
       await registry.whitelistAddress(newsroomAddress, minDeposit, { from: JAB });
-      const result = await registry.getListingIsWhitelisted(newsroomAddress);
+      const listing = await registry.listings(newsroomAddress);
+      const result = listing[1];
       expect(result).to.be.true("Listing should have been whitelisted");
     });
   });

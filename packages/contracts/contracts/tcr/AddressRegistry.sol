@@ -8,20 +8,20 @@ import "./PLCRVoting.sol";
 
 contract AddressRegistry {
 
-  // ------
-  // EVENTS
-  // ------
+    // ------
+    // EVENTS
+    // ------
 
-  event Application(address indexed listingAddress, uint deposit, string data);
-  event ChallengeInitiated(address indexed listingAddress, uint deposit, uint indexed pollID, string data);
-  event Deposit(address indexed listingAddress, uint added, uint newTotal);
-  event Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal);
-  event NewListingWhitelisted(address indexed listingAddress);
-  event ApplicationRemoved(address indexed listingAddress);
-  event ListingRemoved(address indexed listingAddress);
-  event ChallengeFailed(address indexed listingAddress, uint indexed challengeID);
-  event ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID);
-  event RewardClaimed(address indexed voter, uint indexed challengeID, uint reward);
+    event Application(address indexed listingAddress, uint deposit, string data);
+    event ChallengeInitiated(address indexed listingAddress, uint deposit, uint indexed pollID, string data);
+    event Deposit(address indexed listingAddress, uint added, uint newTotal);
+    event Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal);
+    event NewListingWhitelisted(address indexed listingAddress);
+    event ApplicationRemoved(address indexed listingAddress);
+    event ListingRemoved(address indexed listingAddress);
+    event ChallengeFailed(address indexed listingAddress, uint indexed challengeID);
+    event ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID);
+    event RewardClaimed(address indexed voter, uint indexed challengeID, uint reward);
 
   struct Listing {
     uint applicationExpiry; // Expiration date of apply stage
@@ -37,14 +37,14 @@ contract AddressRegistry {
     bool resolved;          // Indication of if challenge is resolved
     uint stake;             // Number of tokens at stake for either party during challenge
     uint totalTokens;       // (remaining) Number of tokens used in voting by the winning side
-    mapping(address => bool) tokenClaims; // Indicates whether a voter has claimed a reward yet
+    mapping(address => bool) hasClaimedTokens; // Indicates whether a voter has claimed a reward yet
   }
 
   // Maps challengeIDs to associated challenge data
-  mapping(uint => Challenge) internal challenges;
+  mapping(uint => Challenge) public challenges;
 
   // Maps addresses to associated listing data
-  mapping(address => Listing) internal listings;
+  mapping(address => Listing) public listings;
 
   // Global Variables
   EIP20 public token;
@@ -84,7 +84,7 @@ contract AddressRegistry {
   @param data        Extra data relevant to the application. Think IPFS hashes.
   */
   function apply(address listingAddress, uint amount, string data) public {
-    require(!getListingIsWhitelisted(listingAddress));
+    require(!listings[listingAddress].isWhitelisted);
     require(!appWasMade(listingAddress));
     require(amount >= parameterizer.get("minDeposit"));
     require(block.timestamp + parameterizer.get("applyStageLen") > block.timestamp); // avoid overflow
@@ -144,7 +144,7 @@ contract AddressRegistry {
     Listing storage listing = listings[listingAddress];
 
     require(listing.owner == msg.sender);
-    require(getListingIsWhitelisted(listingAddress));
+    require(listings[listingAddress].isWhitelisted);
 
     // Cannot exit during ongoing challenge
     require(listing.challengeID == NO_CHALLENGE || challenges[listing.challengeID].resolved);
@@ -237,7 +237,7 @@ contract AddressRegistry {
   */
   function claimReward(uint challengeID, uint salt) public {
     // Ensures the voter has not already claimed tokens and challenge results have been processed
-    require(challenges[challengeID].tokenClaims[msg.sender] == false);
+    require(challenges[challengeID].hasClaimedTokens[msg.sender] == false);
     require(challenges[challengeID].resolved == true);
 
     uint voterTokens = voting.getNumPassingTokens(msg.sender, challengeID, salt, false);
@@ -251,7 +251,7 @@ contract AddressRegistry {
     require(token.transfer(msg.sender, reward));
 
     // Ensures a voter cannot claim tokens again
-    challenges[challengeID].tokenClaims[msg.sender] = true;
+    challenges[challengeID].hasClaimedTokens[msg.sender] = true;
 
     RewardClaimed(msg.sender, challengeID, reward);
   }
@@ -260,51 +260,6 @@ contract AddressRegistry {
   // GETTERS:
   // --------
 
-  // --------
-  // Basic Listing Getters
-  // --------
-  function getListingApplicationExpiry(address listingAddress) public view returns (uint) {
-    return listings[listingAddress].applicationExpiry;
-  }
-
-  function getListingOwner(address listingAddress) public view returns (address) {
-    return listings[listingAddress].owner;
-  }
-
-  function getListingIsWhitelisted(address listingAddress) public view returns (bool) {
-    return listings[listingAddress].isWhitelisted;
-  }
-
-  function getListingUnstakedDeposit(address listingAddress) public view returns (uint) {
-    return listings[listingAddress].unstakedDeposit;
-  }
-
-  function getListingChallengeID(address listingAddress) public view returns (uint) {
-    return listings[listingAddress].challengeID;
-  }
-
-  // --------
-  // Basic Challenge Getters
-  // --------
-  function getChallengeRewardPool(uint challengeID) public view returns (uint) {
-    return challenges[challengeID].rewardPool;
-  }
-
-  function getChallengeChallenger(uint challengeID) public view returns (address) {
-    return challenges[challengeID].challenger;
-  }
-
-  function getChallengeResolved(uint challengeID) public view returns (bool) {
-    return challenges[challengeID].resolved;
-  }
-
-  function getChallengeStake(uint challengeID) public view returns (uint) {
-    return challenges[challengeID].stake;
-  }
-
-  function getChallengeTotalTokens(uint challengeID) public view returns (uint) {
-    return challenges[challengeID].totalTokens;
-  }
   /**
   @dev                Calculates the provided voter's token reward for the given poll.
   @param voter       The address of the voter whose reward balance is to be returned
@@ -338,7 +293,7 @@ contract AddressRegistry {
     if (
       appWasMade(listingAddress) &&
       listings[listingAddress].applicationExpiry < now &&
-      !getListingIsWhitelisted(listingAddress) &&
+      !listings[listingAddress].isWhitelisted &&
       (challengeID == NO_CHALLENGE || challenges[challengeID].resolved == true)
     ) {
       return true;
@@ -395,12 +350,12 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Getter for Challenge tokenClaims mappings
+  @dev                Getter for Challenge hasClaimedTokens mappings
   @param challengeID The challengeID to query
   @param voter       The voter whose claim status to query for the provided challengeID
   */
-  function tokenClaims(uint challengeID, address voter) public view returns (bool) {
-    return challenges[challengeID].tokenClaims[voter];
+  function hasClaimedTokens(uint challengeID, address voter) public view returns (bool) {
+    return challenges[challengeID].hasClaimedTokens[voter];
   }
 
   // ----------------
@@ -420,7 +375,7 @@ contract AddressRegistry {
     uint reward = determineReward(challengeID);
 
     // Records whether the listingAddress is a listing or an application
-    bool wasWhitelisted = getListingIsWhitelisted(listingAddress);
+    bool wasWhitelisted = listings[listingAddress].isWhitelisted;
 
 
     if (voting.isPassed(challengeID)) { // Case: challenge failed
