@@ -10,10 +10,10 @@ export async function commitVote(
   optionalCivil?: Civil,
 ): Promise<void> {
   const civil = optionalCivil || new Civil();
-
+  const tcr = await civil.tcrSingletonTrusted();
   const secretHash = getVoteSaltHash(voteOption.toString(), salt.toString());
   console.log("Commiting Vote. secretHash: " + secretHash);
-  const voting = await civil.getVotingForDeployedTCR();
+  const voting = await tcr.getVoting();
   const prevPollID = await voting.getPrevPollID(numTokens);
 
   const commitTransaction = await voting.commitVote(pollID, secretHash, numTokens, prevPollID);
@@ -28,9 +28,10 @@ export async function revealVote(
   optionalCivil?: Civil,
 ): Promise<void> {
   const civil = optionalCivil || new Civil();
+  const tcr = await civil.tcrSingletonTrusted();
 
   console.log("Revealing Vote.");
-  const voting = await civil.getVotingForDeployedTCR();
+  const voting = await tcr.getVoting();
 
   const revealTransaction = await voting.revealVote(pollID, voteOption, salt);
   await revealTransaction.awaitReceipt();
@@ -39,9 +40,10 @@ export async function revealVote(
 
 export async function requestVotingRights(numTokens: BigNumber, optionalCivil?: Civil): Promise<void> {
   const civil = optionalCivil || new Civil();
+  const tcr = await civil.tcrSingletonTrusted();
 
-  const voting = await civil.getVotingForDeployedTCR();
-  const eip = await civil.getEIP20ForDeployedTCR();
+  const voting = await tcr.getVoting();
+  const eip = await tcr.getToken();
 
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
   if (approvedTokensForSpender < numTokens) {
@@ -59,8 +61,10 @@ export async function requestVotingRights(numTokens: BigNumber, optionalCivil?: 
 
 export async function withdrawVotingRights(numTokens: BigNumber, optionalCivil?: Civil): Promise<void> {
   const civil = optionalCivil || new Civil();
+  const tcr = await civil.tcrSingletonTrusted();
 
-  const voting = await civil.getVotingForDeployedTCR();
+  const voting = await tcr.getVoting();
+  const eip = await tcr.getToken();
 
   console.log("Withdrawing Voting Rights");
   await voting.withdrawVotingRights(numTokens);

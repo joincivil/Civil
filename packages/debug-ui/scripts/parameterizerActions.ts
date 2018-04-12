@@ -12,7 +12,7 @@ export async function proposeReparameterization(
   console.log("Propose Reparameterization");
   const tcr = await civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
-  const eip = await civil.getEIP20ForDeployedTCR();
+  const eip = await tcr.getToken();
   const deposit = await parameterizer.getParameterValue("pMinDeposit");
 
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(parameterizer.address);
@@ -34,7 +34,7 @@ export async function challengeProp(propID: string, optionalCivil?: Civil): Prom
   console.log("Challenging Reparameterization");
   const tcr = await civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
-  const eip = await civil.getEIP20ForDeployedTCR();
+  const eip = await tcr.getToken();
   const deposit = await parameterizer.getParameterValue("pMinDeposit");
 
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(parameterizer.address);

@@ -3,6 +3,7 @@ import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 
 import {
+  EthAddress,
   EventFunction,
   TxDataBase,
   TypedEventFilter,
@@ -94,4 +95,8 @@ export function createTwoStepSimple(web3Wrapper: Web3Wrapper, txHash: TxHash): T
     txHash,
     awaitReceipt: web3Wrapper.awaitReceipt.bind(web3Wrapper, txHash),
   };
+}
+
+export function isEthAddress(listing: EthAddress | any): listing is EthAddress {
+  return typeof listing === "string";
 }

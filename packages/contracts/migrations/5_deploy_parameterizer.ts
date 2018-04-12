@@ -7,8 +7,8 @@ const Token = artifacts.require("EIP20.sol");
 const DLL = artifacts.require("dll/DLL.sol");
 const AttributeStore = artifacts.require("attrstore/AttributeStore.sol");
 
-const Parameterizer = artifacts.require("tcr/Parameterizer.sol");
-const PLCRVoting = artifacts.require("tcr/PLCRVoting.sol");
+const Parameterizer = artifacts.require("Parameterizer");
+const PLCRVoting = artifacts.require("PLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {

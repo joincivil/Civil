@@ -54,17 +54,9 @@ contract CivilTCR is RestrictedAddressRegistry {
     uint challengeID;
   }
 
-  struct AppealChallenge {
-    uint rewardPool;        // (remaining) Pool of tokens to be distributed to winning voters
-    address challenger;     // Owner of Challenge
-    bool resolved;          // Indication of if challenge is resolved
-    uint stake;             // Number of tokens at stake for either party during challenge
-    uint totalTokens;       // (remaining) Number of tokens used in voting by the winning side
-    mapping(address => bool) hasClaimedTokens; // Indicates whether a voter has claimed a reward yet
-  }
-
   mapping(address => Appeal) public appeals;
   mapping(uint => bool) public challengesOverturned;
+  mapping(uint => Challenge) public appealChallenges;
 
   /**
   @dev Contructor           Sets the addresses for token, voting, parameterizer, appellate, and fee recipient

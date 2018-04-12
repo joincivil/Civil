@@ -102,6 +102,41 @@ export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
 }
 
 /**
+ * This represents the Listing data
+ */
+export interface Listing {
+  appExpiry: BigNumber;
+  isWhitelisted: boolean;
+  owner: EthAddress;
+  unstakedDeposit: BigNumber;
+  challengeID: BigNumber;
+}
+
+/**
+ * The data associated with a Challenge
+ */
+export interface Challenge {
+  rewardPool: BigNumber;
+  challenger: EthAddress;
+  resolved: boolean;
+  stake: BigNumber;
+  totalTokens: BigNumber;
+}
+
+/**
+ * This represents the Appeal data for a Listing
+ */
+export interface Appeal {
+  requester: EthAddress;
+  requestAppealPhaseExpiry: BigNumber;
+  appealRequested: boolean;
+  appealFeePaid: BigNumber;
+  appealPhaseExpiry: BigNumber;
+  appealGranted: boolean;
+  challengeID: BigNumber;
+}
+
+/**
  * This enum represents the various states a listing can be in.
  * A listing can be both whitelisted and in the challenge process.
  */

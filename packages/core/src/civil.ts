@@ -128,24 +128,6 @@ export class Civil {
   }
 
   /**
-   * Returns the EIP20 instance associated with the deployed CivilTCR
-   */
-  public async getEIP20ForDeployedTCR(): Promise<EIP20> {
-    const tcr = this.tcrSingletonTrusted();
-    const tokenAddress = await tcr.getTokenAddress();
-    return EIP20.atUntrusted(this.web3Wrapper, tokenAddress);
-  }
-
-  /**
-   * Returns the Voting instance associated with the deployed CivilTCR
-   */
-  public async getVotingForDeployedTCR(): Promise<Voting> {
-    const tcr = this.tcrSingletonTrusted();
-    const votingAddress = await tcr.getVotingAddress();
-    return Voting.atUntrusted(this.web3Wrapper, votingAddress);
-  }
-
-  /**
    * Waits for the transaction located through the hash gets into the blockchain
    * and returns it's receipt after it gets in.
    * Optionally, since Blockchain can reorganize sometimes and transactions are revoked,

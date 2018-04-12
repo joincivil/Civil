@@ -17,7 +17,10 @@ initializeDebugUI(async civil => {
   const displayState = document.getElementById("state")!;
   displayState.innerHTML = "State: " + ListingState[state].toString();
 
-  const challengeId = await tcr.getListingChallengeID(address);
+  const listing = await tcr.getListing(address);
+  const appeal = await tcr.getAppeal(address);
+
+  const newsroom = await civil.newsroomAtUntrusted(address);
 
   switch (state) {
     case ListingState.APPLYING:
@@ -37,7 +40,7 @@ initializeDebugUI(async civil => {
         commitVoteExpiryDate +
         "<br>" +
         "Current Challenge ID: " +
-        challengeId;
+        listing.challengeID;
       break;
 
     case ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
@@ -50,12 +53,12 @@ initializeDebugUI(async civil => {
         revealVoteExpiryDate +
         "<br>" +
         "Current Challenge ID: " +
-        challengeId;
+        listing.challengeID;
       break;
 
     case ListingState.WAIT_FOR_APPEAL_REQUEST:
       document.getElementById("appeal")!.classList.remove("hidden");
-      const waitForAppealExpiryDate = await tcr.getRequestAppealExpiryDate(address);
+      const waitForAppealExpiryDate = await tcr.getRequestAppealExpiryDate(appeal);
       document.getElementById("appealInfo")!.innerHTML =
         "Current waiting for listing owner to request appeal.<br>" +
         "Request phase expires at: " +
@@ -64,7 +67,7 @@ initializeDebugUI(async civil => {
 
     case ListingState.IN_APPEAL_PHASE:
       document.getElementById("appeal")!.classList.remove("hidden");
-      const inAppealExpiryDate = await tcr.getAppealExpiryDate(address);
+      const inAppealExpiryDate = await tcr.getAppealExpiryDate(appeal);
       document.getElementById("appealInfo")!.innerHTML =
         "Current waiting for JAB to judge appeal.<br>" + "Appeal phase expires at: " + inAppealExpiryDate;
       break;
