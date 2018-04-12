@@ -21,6 +21,11 @@ initializeDebugUI(async civil => {
   const appeal = await tcr.getAppeal(address);
 
   const newsroom = await civil.newsroomAtUntrusted(address);
+  const owners = await newsroom.owners();
+  const owner = await newsroom.owner();
+
+  document.getElementById("owners")!.innerHTML += owners;
+  document.getElementById("owner")!.innerHTML += owner;
 
   switch (state) {
     case ListingState.APPLYING:

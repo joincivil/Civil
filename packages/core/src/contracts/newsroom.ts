@@ -62,6 +62,20 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       },
     );
   }
+
+  public static async deployNonMultisigTrusted(
+    web3Wrapper: Web3Wrapper,
+    contentProvider: ContentProvider,
+    newsroomName: string,
+  ): Promise<TwoStepEthTransaction<Newsroom>> {
+    const txData: TxData = { from: web3Wrapper.account };
+    return createTwoStepTransaction(
+      web3Wrapper,
+      await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, newsroomName, txData),
+      receipt => this.atUntrusted(web3Wrapper, contentProvider, receipt.contractAddress!),
+    );
+  }
+
   public static async atUntrusted(
     web3Wrapper: Web3Wrapper,
     contentProvider: ContentProvider,
@@ -92,6 +106,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async owners(): Promise<EthAddress[]> {
     return this.multisigProxy.owners();
+  }
+
+  public async owner(): Promise<EthAddress> {
+    return this.instance.owner.callAsync();
   }
 
   /**

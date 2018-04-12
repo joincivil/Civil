@@ -226,10 +226,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
 
   public async getListing(listingAddress: EthAddress): Promise<Listing> {
-    console.log("get listing. address: " + listingAddress);
-    console.log("instance.address: " + this.instance.address);
     const listing = await this.instance.listings.callAsync(listingAddress);
-    console.log("listing result: " + listing);
     return {
       appExpiry: listing[0],
       isWhitelisted: listing[1],
@@ -681,7 +678,6 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     deposit: BigNumber,
     applicationContentURI: string,
   ): Promise<TwoStepEthTransaction> {
-    console.log("apply to tcr. tcr address: " + this.instance.address);
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI),

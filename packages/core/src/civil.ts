@@ -80,12 +80,23 @@ export class Civil {
   }
 
   /**
-   * Create a new Newsroom on the current Ethereum network with the bytecode included in this library
+   * Create a new Newsroom owned by a multisig on the current Ethereum network with the
+   * bytecode included in this library
    * The smart contract is trusted since it comes from a trusted source (us).
    * This call may require user input - such as approving a transaction in Metamask
    */
   public async newsroomDeployTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
     return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider, newsroomName);
+  }
+
+  /**
+   * Create a new Newsroom which is not owned by a multisig on the current Ethereum network with the
+   * bytecode included in this library
+   * The smart contract is trusted since it comes from a trusted source (us).
+   * This call may require user input - such as approving a transaction in Metamask
+   */
+  public async newsroomDeployNonMultisigTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
+    return Newsroom.deployNonMultisigTrusted(this.web3Wrapper, this.contentProvider, newsroomName);
   }
 
   /**
