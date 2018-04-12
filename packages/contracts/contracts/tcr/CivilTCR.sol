@@ -21,7 +21,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   event MakeAppealLengthSet(uint length);
   event AppealLengthSet(uint length);
   event FeeRecipientSet(address recipient);
-  
+
   modifier onlyAppellate {
     require(msg.sender == appellate);
     _;
