@@ -7,10 +7,8 @@
 This repository contains all of the open-source Civil tools and packages written in Typescript.
 We hope that those tools will be useful for creation of interesting applications on top of the ecosystem as well as be useful in any project in the Ethereum space.
 
-[![CircleCI](https://img.shields.io/circleci/project/github/joincivil/Civil.svg)](https://circleci.com/gh/joincivil/Civil)
-[![Slack chat](https://img.shields.io/badge/chat-slack-e6186d.svg)](https://civil-slack-signup.herokuapp.com/)
-
-# Read Documentation at (https://joincivil.github.io/Civil)
+[![CircleCI](https://img.shields.io/circleci/project/github/joincivil/Civil.svg)](https://circleci.com/gh/joincivil/Civil/tree/master)
+[![Telegram chat](https://img.shields.io/badge/chat-telegram-blue.svg)](https://t.me/join_civil)
 
 ### Published packages
 
@@ -29,6 +27,10 @@ We hope that those tools will be useful for creation of interesting applications
 | [`@joincivil/dev-utils`](/packages/dev-utils) | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/dev-utils/LICENSE) | Utilities needed for the proper working of the mono-repo packages, builds and tests                                 |
 | [`@joincivil/debug-ui`](/packages/debug-ui)   | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/debug-ui/LICENSE)  | WIP: Minimal website to monitor, observe and debug the protocol and all the utilities and packages of the ecosystem |
 | [`@joincivil/editor`](/packages/editor)       | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/editor/LICENSE)    | WIP: Editor for Civil-formatted articles and content                                                                |
+
+## Usage
+
+Documentation can be found at (https://joincivil.github.io/Civil)
 
 ## Contributing
 
@@ -78,7 +80,14 @@ Tests in Civil's ecosystem require the use of [Ganache](https://github.com/truff
 yarn ganache
 ```
 
-and then run all the tests:
+some of the packages - most notably [`@joincivil/core`][core-url] depend on already deployed singletons. Our ganache is set-up to be deterministic and thus when you migrate contracts locally, singletons will have the same addresses as the artifacts.
+
+```bash
+cd packages/contracts
+yarn migrate --network=ganache
+```
+
+Finally run all the tests in the main repository:
 
 ```bash
 yarn test
