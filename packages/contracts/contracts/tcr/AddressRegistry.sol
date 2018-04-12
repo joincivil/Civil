@@ -8,20 +8,20 @@ import "./PLCRVoting.sol";
 
 contract AddressRegistry {
 
-    // ------
-    // EVENTS
-    // ------
+  // ------
+  // EVENTS
+  // ------
 
-    event Application(address indexed listingAddress, uint deposit, string data);
-    event ChallengeInitiated(address indexed listingAddress, uint deposit, uint indexed pollID, string data);
-    event Deposit(address indexed listingAddress, uint added, uint newTotal);
-    event Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal);
-    event NewListingWhitelisted(address indexed listingAddress);
-    event ApplicationRemoved(address indexed listingAddress);
-    event ListingRemoved(address indexed listingAddress);
-    event ChallengeFailed(address indexed listingAddress, uint indexed challengeID);
-    event ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID);
-    event RewardClaimed(address indexed voter, uint indexed challengeID, uint reward);
+  event Application(address indexed listingAddress, uint deposit, string data);
+  event ChallengeInitiated(address indexed listingAddress, uint deposit, uint indexed pollID, string data);
+  event Deposit(address indexed listingAddress, uint added, uint newTotal);
+  event Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal);
+  event NewListingWhitelisted(address indexed listingAddress);
+  event ApplicationRemoved(address indexed listingAddress);
+  event ListingRemoved(address indexed listingAddress);
+  event ChallengeFailed(address indexed listingAddress, uint indexed challengeID);
+  event ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID);
+  event RewardClaimed(address indexed voter, uint indexed challengeID, uint reward);
 
   struct Listing {
     uint applicationExpiry; // Expiration date of apply stage
