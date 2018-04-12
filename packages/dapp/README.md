@@ -1,4 +1,4 @@
-# Civil DApp
+# @joincivil/dapp
 
 This package contains a React + Typescript app that functions as a DApp for the Civil platform. It is intended to have a nice UX for users to interact with the TCR and Newsrooms.
 
