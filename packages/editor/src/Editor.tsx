@@ -2,7 +2,7 @@ import * as React from "react";
 import { Editor } from "slate-react";
 import styled from "styled-components";
 import { OnChangeFunc, Plugin } from "./plugins";
-import { Value } from "slate";
+import { Value, resetKeyGenerator } from "slate";
 
 export interface EditorProps {
   value: any;
@@ -28,6 +28,7 @@ const StyledEditor = styled(Editor)`
 export class CivilEditor extends React.Component<EditorProps, EditorState> {
   constructor(props: EditorProps) {
     super(props);
+    resetKeyGenerator();
     const value = Value.fromJSON(props.value);
     this.state = {
       value,
