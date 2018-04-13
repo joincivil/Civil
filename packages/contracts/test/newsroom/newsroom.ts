@@ -11,6 +11,7 @@ const expect = chai.expect;
 
 const FIRST_NEWSROOM_NAME = "TEST NAME, PLEASE IGNORE";
 const SOME_URI = "http://thiistest.uri";
+const SOME_HASH = web3.sha3();
 
 contract("Newsroom", (accounts: string[]) => {
   const defaultAccount = accounts[0];
@@ -24,8 +25,8 @@ contract("Newsroom", (accounts: string[]) => {
     let id: any;
 
     beforeEach(async () => {
-      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_REPORTER);
-      const tx = await newsroom.proposeContent(SOME_URI, { from: accounts[1] });
+      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_EDITOR);
+      const tx = await newsroom.addContent(SOME_URI, SOME_HASH, { from: accounts[1] });
       id = idFromEvent(tx);
     });
 
@@ -33,22 +34,9 @@ contract("Newsroom", (accounts: string[]) => {
       const is0x0 = is0x0Address(await newsroom.author(9999));
       expect(is0x0).to.be.true();
     });
-
-    it("returns proper author", async () => {
+    // TODO(ritave): add associating author flow
+    xit("returns proper author", async () => {
       await expect(newsroom.author(id, { from: defaultAccount })).to.eventually.be.equal(accounts[1]);
-    });
-
-    it("works for approved content", async () => {
-      await newsroom.approveContent(id);
-
-      await expect(newsroom.author(id)).to.eventually.be.equal(accounts[1]);
-    });
-
-    it("returns 0x0 on denied content", async () => {
-      await newsroom.denyContent(id);
-
-      const is0x0 = is0x0Address(await newsroom.author(id));
-      expect(is0x0).to.be.true();
     });
   });
 
@@ -56,7 +44,8 @@ contract("Newsroom", (accounts: string[]) => {
     let id: any;
 
     beforeEach(async () => {
-      const tx = await newsroom.proposeContent(SOME_URI);
+      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
+      const tx = await newsroom.addContent(SOME_URI, SOME_HASH);
       id = idFromEvent(tx);
     });
 
@@ -67,18 +56,6 @@ contract("Newsroom", (accounts: string[]) => {
     it("returns proper uri", async () => {
       await expect(newsroom.uri(id)).to.eventually.be.equal(SOME_URI);
     });
-
-    it("works on approved content", async () => {
-      await newsroom.approveContent(id);
-
-      await expect(newsroom.uri(id)).to.eventually.be.equal(SOME_URI);
-    });
-
-    it("returns empty string on denied content", async () => {
-      await newsroom.denyContent(id);
-
-      await expect(newsroom.uri(id)).to.eventually.be.equal("");
-    });
   });
 
   describe("timestamp", () => {
@@ -86,7 +63,8 @@ contract("Newsroom", (accounts: string[]) => {
     let timestamp: any;
 
     beforeEach(async () => {
-      const tx = await newsroom.proposeContent(SOME_URI);
+      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
+      const tx = await newsroom.addContent(SOME_URI, SOME_HASH);
       id = idFromEvent(tx);
       timestamp = await timestampFromTx(web3, tx.receipt);
     });
@@ -97,231 +75,62 @@ contract("Newsroom", (accounts: string[]) => {
       await expect(newsroom.timestamp(id)).to.eventually.be.bignumber.equal(timestamp);
     });
 
-    it("works for approved content", async () => {
-      await newsroom.approveContent(id);
-
-      await expect(newsroom.timestamp(id)).to.eventually.be.bignumber.equal(timestamp);
-    });
-
     it("returns zero on not existent content", async () => {
       await expect(newsroom.timestamp(9999)).to.eventually.be.bignumber.equal(0);
     });
-
-    it("returns zero on denied content", async () => {
-      await newsroom.denyContent(id);
-
-      await expect(newsroom.timestamp(id)).to.eventually.be.bignumber.equal(0);
-    });
   });
 
-  describe("isProposed", () => {
+  describe("hash", () => {
     let id: any;
 
     beforeEach(async () => {
-      const tx = await newsroom.proposeContent(SOME_URI);
+      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
+      const tx = await newsroom.addContent(SOME_URI, SOME_HASH);
       id = idFromEvent(tx);
     });
 
-    it("returns true on proposed content", async () => {
-      await expect(newsroom.isProposed(id)).to.eventually.be.true();
+    it("returns empty string on non-existen content", async () => {
+      await expect(newsroom.uri(9999)).to.eventually.be.equal("");
     });
 
-    it("returns false on approved content", async () => {
-      await newsroom.approveContent(id);
-
-      await expect(newsroom.isProposed(id)).to.eventually.be.false();
-    });
-
-    it("returns false on non-existen content", async () => {
-      await expect(newsroom.isProposed(9999)).to.eventually.be.false();
-    });
-
-    it("returns false on denied content", async () => {
-      await newsroom.denyContent(id);
-
-      await expect(newsroom.isProposed(id)).to.eventually.be.false();
+    it("returns proper hash", async () => {
+      const hash = await newsroom.hash(id);
+      await expect(newsroom.hash(id)).to.eventually.be.equal(`${SOME_HASH}`);
     });
   });
 
-  describe("isApproved", () => {
-    let id: any;
-
-    beforeEach(async () => {
-      const tx = await newsroom.proposeContent(SOME_URI);
-      id = idFromEvent(tx);
-    });
-
-    it("returns false on proposed content", async () => {
-      await expect(newsroom.isApproved(id)).to.eventually.be.false();
-    });
-
-    it("returns true on approved content", async () => {
-      await newsroom.approveContent(id);
-
-      await expect(newsroom.isApproved(id)).to.eventually.be.true();
-    });
-
-    it("returns false on non-existen content", async () => {
-      await expect(newsroom.isProposed(9999)).to.eventually.be.false();
-    });
-
-    it("returns false on denied content", async () => {
-      await newsroom.denyContent(id);
-
-      await expect(newsroom.isProposed(id)).to.eventually.be.false();
-    });
-  });
-
-  describe("proposeContent", () => {
+  describe("addContent", () => {
     it("forbids empty uris", async () => {
-      await expect(newsroom.proposeContent("")).to.be.rejectedWith(REVERTED);
+      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
+      await expect(newsroom.addContent("", SOME_HASH)).to.be.rejectedWith(REVERTED);
     });
 
     it("finishes", async () => {
-      await expect(newsroom.proposeContent(SOME_URI)).to.eventually.be.fulfilled();
+      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
+      await expect(newsroom.addContent(SOME_URI, SOME_HASH)).to.eventually.be.fulfilled();
     });
 
     it("creates an event", async () => {
-      const tx = await newsroom.proposeContent(SOME_URI);
-      const event = findEvent(tx, events.NEWSROOM_PROPOSED);
+      const tx = await newsroom.addContent(SOME_URI, SOME_HASH);
+      const event = findEvent(tx, events.NEWSROOM_ADDED);
       expect(event).to.not.be.undefined();
-      expect(event!.args.author).to.be.equal(defaultAccount);
+      expect(event!.args.editor).to.be.equal(defaultAccount);
     });
 
-    it("fails without reporter role", async () => {
-      const proposeContent = newsroom.proposeContent(SOME_URI, { from: accounts[1] });
+    it("fails with reporter role", async () => {
+      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_REPORTER);
+      const proposeContent = newsroom.addContent(SOME_URI, SOME_HASH, { from: accounts[1] });
 
       await expect(proposeContent).to.eventually.be.rejectedWith(REVERTED);
     });
 
-    it("succeeds with reporter role", async () => {
-      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_REPORTER);
+    it("succeeds with editor role", async () => {
+      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_EDITOR);
 
-      const tx = await newsroom.proposeContent(SOME_URI, { from: accounts[1] });
+      const tx = await newsroom.addContent(SOME_URI, SOME_HASH, { from: accounts[1] });
       const id = idFromEvent(tx);
 
-      expect(await newsroom.isProposed(id)).to.be.true();
-    });
-  });
-
-  describe("approveContent", () => {
-    let id: any;
-
-    beforeEach(async () => {
-      const tx = await newsroom.proposeContent(SOME_URI);
-      id = idFromEvent(tx);
-    });
-
-    it("allows approving", async () => {
-      await expect(newsroom.approveContent(id)).to.eventually.be.fulfilled();
-      expect(await newsroom.isApproved(id)).to.be.true();
-    });
-
-    it("doesn't work without editor role", async () => {
-      await expect(newsroom.approveContent(id, { from: accounts[1] })).to.be.rejectedWith(REVERTED);
-      expect(await newsroom.isApproved(id)).to.be.false();
-    });
-
-    it("fires an event", async () => {
-      const tx = await newsroom.approveContent(id);
-      const event = findEvent(tx, events.NEWSROOM_APPROVED);
-
-      expect(event).to.not.be.undefined();
-      expect(event!.args.id).to.be.bignumber.equal(id);
-    });
-
-    it("can't reapprove", async () => {
-      await newsroom.approveContent(id);
-
-      await expect(newsroom.approveContent(id)).to.be.rejectedWith(REVERTED);
-      expect(await newsroom.isApproved(id)).to.be.true();
-    });
-
-    it("can't deny after", async () => {
-      await newsroom.approveContent(id);
-
-      await expect(newsroom.denyContent(id)).to.be.rejectedWith(REVERTED);
-      expect(await newsroom.isApproved(id)).to.be.true();
-    });
-
-    it("fails on non-existent id", async () => {
-      await expect(newsroom.approveContent(9999)).to.be.rejectedWith(REVERTED);
-    });
-
-    it("doesn't work with only reporter role", async () => {
-      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_REPORTER);
-
-      const approveContent = newsroom.approveContent(id, { from: accounts[1] });
-      await expect(approveContent).to.eventually.be.rejectedWith(REVERTED);
-    });
-
-    it("works with editor role", async () => {
-      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_EDITOR);
-
-      const approveContent = newsroom.approveContent(id, { from: accounts[1] });
-
-      await expect(approveContent).to.eventually.be.fulfilled();
-      expect(await newsroom.isApproved(id)).to.be.true();
-    });
-  });
-
-  describe("denyContent", () => {
-    let id: any;
-
-    beforeEach(async () => {
-      const tx = await newsroom.proposeContent(SOME_URI);
-      id = idFromEvent(tx);
-    });
-
-    it("allows denying", async () => {
-      await expect(newsroom.denyContent(id)).to.eventually.be.fulfilled();
-      expect(await newsroom.isApproved(id)).to.be.false();
-      expect(await newsroom.isProposed(id)).to.be.false();
-    });
-
-    it("doesn't work without role", async () => {
-      await expect(newsroom.denyContent(id, { from: accounts[1] })).to.be.rejectedWith(REVERTED);
-    });
-
-    it("fires an event", async () => {
-      const tx = await newsroom.denyContent(id);
-      const event = findEvent(tx, events.NEWSROOM_DENIED);
-
-      expect(event).to.not.be.undefined();
-      expect(event!.args.id).to.be.bignumber.equal(id);
-    });
-
-    it("can't re-deny", async () => {
-      await newsroom.denyContent(id);
-
-      await expect(newsroom.denyContent(id)).to.be.rejectedWith(REVERTED);
-    });
-
-    it("can't approve after", async () => {
-      await newsroom.denyContent(id);
-
-      await expect(newsroom.approveContent(id)).to.be.rejectedWith(REVERTED);
-    });
-
-    it("fails on non-existent id", async () => {
-      await expect(newsroom.denyContent(9999)).to.be.rejectedWith(REVERTED);
-    });
-
-    it("doesn't work with only reporter role", async () => {
-      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_REPORTER);
-
-      const denyContent = newsroom.denyContent(id, { from: accounts[1] });
-      await expect(denyContent).to.eventually.be.rejectedWith(REVERTED);
-    });
-
-    it("works with editor role", async () => {
-      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_EDITOR);
-
-      const denyContent = newsroom.denyContent(id, { from: accounts[1] });
-
-      await expect(denyContent).to.eventually.be.fulfilled();
-      expect(await newsroom.isApproved(id)).to.be.false();
-      expect(await newsroom.isProposed(id)).to.be.false();
+      await expect(newsroom.uri(id)).to.eventually.be.equal(SOME_URI);
     });
   });
 
