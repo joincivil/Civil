@@ -28,10 +28,6 @@ We hope that those tools will be useful for creation of interesting applications
 | [`@joincivil/dev-utils`](/packages/dev-utils) | Utilities needed for the proper working of the mono-repo packages, builds and tests                                 |
 | [`@joincivil/debug-ui`](/packages/debug-ui)   | WIP: Minimal website to monitor, observe and debug the protocol and all the utilities and packages of the ecosystem |
 
-## Usage
-
-Documentation can be found at (https://joincivil.github.io/Civil)
-
 ## Contributing
 
 Civil's ecosystem is free and open-source, we're all part of it and you're encouraged to be a part of it with us.
