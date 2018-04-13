@@ -262,7 +262,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public async getAppealChallenge(challengeID: BigNumber): Promise<Challenge> {
     // TODO: challenges -> appealChallenges
-    const challenge = await this.instance.challenges.callAsync(challengeID);
+    const challenge = await this.instance.appealChallenges.callAsync(challengeID);
     return {
       rewardPool: challenge[0],
       challenger: challenge[1],
