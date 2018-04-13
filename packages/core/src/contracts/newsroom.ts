@@ -72,7 +72,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepTransaction(
       web3Wrapper,
       await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, newsroomName, txData),
-      async receipt => this.atUntrusted(web3Wrapper, contentProvider, receipt.contractAddress!),
+      async receipt => Newsroom.atUntrusted(web3Wrapper, contentProvider, receipt.contractAddress!),
     );
   }
 

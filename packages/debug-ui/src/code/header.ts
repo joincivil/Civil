@@ -16,7 +16,7 @@ initializeDebugUI(async civil => {
   const balance = await token.getBalance();
   document.getElementById("cvlBalance")!.innerHTML = "CVL Balance: " + balance;
 
-  const voting = await tcr.getVoting();
+  const voting = tcr.getVoting();
   const votingTokens = await voting.getNumVotingRights();
   document.getElementById("votingRights")!.innerHTML = "Voting Rights: " + votingTokens;
 

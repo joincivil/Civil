@@ -53,6 +53,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   /**
+   * Get Voting instance used with this TCR
+   */
+  public getVoting(): Voting {
+    return this.voting;
+  }
+
+  /**
    * Returns Parameterizer instance associated with this TCR
    */
   public async getParameterizer(): Promise<Parameterizer> {
