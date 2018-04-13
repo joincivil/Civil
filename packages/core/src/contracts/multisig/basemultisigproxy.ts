@@ -34,6 +34,13 @@ export class BaseMultisigProxy {
     return this.multisig.isOwner(address);
   }
 
+  public async getMultisigAddress(): Promise<EthAddress | undefined> {
+    if (isDefined(this.multisig)) {
+      return this.multisig.address;
+    }
+    return undefined;
+  }
+
   protected async resolveMultisig(): Promise<void> {
     const owner = await this.instance.owner.callAsync();
     // TODO(ritave): Have backwards compatibillity for older Multisig wallets and bytecodes

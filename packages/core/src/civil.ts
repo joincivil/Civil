@@ -5,11 +5,9 @@ import { ContentProvider } from "./content/contentprovider";
 import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "./types";
-import { OwnedAddressTCRWithAppeals } from "./contracts/tcr/ownedAddressTCRWithAppeals";
+import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
-import { EIP20 } from "./contracts/tcr/eip20";
-import { Voting } from "./contracts/tcr/voting";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -80,12 +78,23 @@ export class Civil {
   }
 
   /**
-   * Create a new Newsroom on the current Ethereum network with the bytecode included in this library
+   * Create a new Newsroom owned by a multisig on the current Ethereum network with the
+   * bytecode included in this library
    * The smart contract is trusted since it comes from a trusted source (us).
    * This call may require user input - such as approving a transaction in Metamask
    */
   public async newsroomDeployTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
     return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider, newsroomName);
+  }
+
+  /**
+   * Create a new Newsroom which is not owned by a multisig on the current Ethereum network with the
+   * bytecode included in this library
+   * The smart contract is trusted since it comes from a trusted source (us).
+   * This call may require user input - such as approving a transaction in Metamask
+   */
+  public async newsroomDeployNonMultisigTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
+    return Newsroom.deployNonMultisigTrusted(this.web3Wrapper, this.contentProvider, newsroomName);
   }
 
   /**
@@ -123,26 +132,8 @@ export class Civil {
    * @returns A singleton instance of TCR living on the current network
    * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton
    */
-  public tcrSingletonTrusted(): OwnedAddressTCRWithAppeals {
-    return OwnedAddressTCRWithAppeals.singleton(this.web3Wrapper, this.contentProvider);
-  }
-
-  /**
-   * Returns the EIP20 instance associated with the deployed OwnedAddressTCRWithAppeals
-   */
-  public async getEIP20ForDeployedTCR(): Promise<EIP20> {
-    const tcr = this.tcrSingletonTrusted();
-    const tokenAddress = await tcr.getTokenAddress();
-    return EIP20.atUntrusted(this.web3Wrapper, tokenAddress);
-  }
-
-  /**
-   * Returns the Voting instance associated with the deployed OwnedAddressTCRWithAppeals
-   */
-  public async getVotingForDeployedTCR(): Promise<Voting> {
-    const tcr = this.tcrSingletonTrusted();
-    const votingAddress = await tcr.getVotingAddress();
-    return Voting.atUntrusted(this.web3Wrapper, votingAddress);
+  public tcrSingletonTrusted(): CivilTCR {
+    return CivilTCR.singleton(this.web3Wrapper, this.contentProvider);
   }
 
   /**

@@ -6,7 +6,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", accounts => {
+contract("AddressRegistry", accounts => {
   describe("Function: appWasMade", () => {
     const [applicant] = accounts;
 
@@ -33,7 +33,7 @@ contract("Registry", accounts => {
       // Reveal stage complete, update status (whitelist it)
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing2, { from: applicant });
-      const isWhitelisted = await registry.getListingIsWhitelisted(listing2);
+      const [, isWhitelisted] = await registry.listings(listing2);
       expect(isWhitelisted).to.be.true("should have been whitelisted");
       const resultThree = await registry.appWasMade(listing2);
       expect(resultThree).to.be.true("should have returned true because its whitelisted");

@@ -11,12 +11,12 @@ initializeDebugUI(async civil => {
   } else {
     document.getElementById("account")!.innerHTML = "No Account Found. Must unlock metamask.";
   }
-
-  const token = await civil.getEIP20ForDeployedTCR();
+  const tcr = await civil.tcrSingletonTrusted();
+  const token = await tcr.getToken();
   const balance = await token.getBalance();
   document.getElementById("cvlBalance")!.innerHTML = "CVL Balance: " + balance;
 
-  const voting = await civil.getVotingForDeployedTCR();
+  const voting = tcr.getVoting();
   const votingTokens = await voting.getNumVotingRights();
   document.getElementById("votingRights")!.innerHTML = "Voting Rights: " + votingTokens;
 
