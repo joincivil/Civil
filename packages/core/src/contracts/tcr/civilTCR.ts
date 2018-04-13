@@ -286,20 +286,24 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     } else if (await this.isReadyToWhitelist(listingAddress)) {
       return ListingState.READY_TO_WHITELIST;
     } else if (await this.hasUnresolvedChallenge(listing)) {
-      if (await this.isInChallengedCommitVotePhase(listingAddress)) {
+      if (await this.isInChallengedCommitVotePhase(listing)) {
         return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
-      } else if (await this.isInChallengedRevealVotePhase(listingAddress)) {
+      } else if (await this.isInChallengedRevealVotePhase(listing)) {
         return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
-      } else if (await this.challengeCanBeResolved(listingAddress)) {
+      } else if (await this.challengeCanBeResolved(listingAddress, listing)) {
         return ListingState.READY_TO_RESOLVE_CHALLENGE;
-      } else if (await this.isInRequestAppealPhase(listingAddress)) {
-        return ListingState.WAIT_FOR_APPEAL_REQUEST;
-      } else if (await this.isInAppealPhase(listingAddress)) {
-        return ListingState.IN_APPEAL_PHASE;
-      } else if (await this.isReadyToResolveAppeal(listingAddress)) {
-        return ListingState.READY_TO_RESOLVE_APPEAL;
       } else {
-        return ListingState.NOT_FOUND;
+        const appeal = await this.getAppeal(listingAddress);
+
+        if (await this.isInRequestAppealPhase(appeal)) {
+          return ListingState.WAIT_FOR_APPEAL_REQUEST;
+        } else if (await this.isInAppealPhase(appeal)) {
+          return ListingState.IN_APPEAL_PHASE;
+        } else if (await this.isReadyToResolveAppeal(appeal)) {
+          return ListingState.READY_TO_RESOLVE_APPEAL;
+        } else {
+          return ListingState.NOT_FOUND;
+        }
       }
     } else if (await this.isWhitelisted(listing)) {
       return ListingState.WHITELISTED_WITHOUT_CHALLENGE;
@@ -332,6 +336,15 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return l;
   }
 
+  public async getAppealInstance(listing: EthAddress | Appeal): Promise<Appeal> {
+    let a: Appeal;
+    if (isEthAddress(listing)) {
+      a = await this.getAppeal(listing);
+    } else {
+      a = listing;
+    }
+    return a;
+  }
   /**
    * Checks if the listing exists on the contract. If this is false, either the listing
    * has never applied, or it has applied and been rejected (whether during application
@@ -375,12 +388,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * appeal has not yet been resolved
    * @param listingAddress Address of listing to check
    */
-  public async isReadyToResolveAppeal(listingAddress: EthAddress): Promise<boolean> {
-    const appeal = await this.getAppeal(listingAddress);
-    const requestAppealPhaseExpiryTimestamp = appeal.requestAppealPhaseExpiry;
+  public async isReadyToResolveAppeal(appeal: EthAddress | Appeal): Promise<boolean> {
+    const a = await this.getAppealInstance(appeal);
+    const requestAppealPhaseExpiryTimestamp = a.requestAppealPhaseExpiry;
     const requestAppealPhaseExpiry = new Date(requestAppealPhaseExpiryTimestamp.toNumber() * 1000);
 
-    const appealPhaseExpiryTimestamp = appeal.appealPhaseExpiry;
+    const appealPhaseExpiryTimestamp = a.appealPhaseExpiry;
     const appealPhaseExpiry = new Date(appealPhaseExpiryTimestamp.toNumber() * 1000);
 
     const now = new Date();
@@ -501,10 +514,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Checks if a listing is currently in the Request Appeal phase
    * @param listingAddress Address of listing to check
    */
-  public async isInRequestAppealPhase(listingAddress: EthAddress): Promise<boolean> {
-    const appeal = await this.getAppeal(listingAddress);
-    const appealExpiryDate = this.getRequestAppealExpiryDate(appeal);
-    const hasRequestedAppeal = appeal.appealRequested;
+  public async isInRequestAppealPhase(appeal: EthAddress | Appeal): Promise<boolean> {
+    const a = await this.getAppealInstance(appeal);
+    const appealExpiryDate = this.getRequestAppealExpiryDate(a);
+    const hasRequestedAppeal = a.appealRequested;
     return !hasRequestedAppeal && appealExpiryDate > new Date();
   }
 
@@ -520,9 +533,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Checks if a listing is currently in the Appeal phase
    * @param listingAddress Address of listing to check
    */
-  public async isInAppealPhase(listingAddress: EthAddress): Promise<boolean> {
-    const appeal = await this.getAppeal(listingAddress);
-    const appealExpiryDate = await this.getAppealExpiryDate(appeal);
+  public async isInAppealPhase(appeal: EthAddress | Appeal): Promise<boolean> {
+    const a = await this.getAppealInstance(appeal);
+    const appealExpiryDate = await this.getAppealExpiryDate(a);
     return appealExpiryDate > new Date();
   }
 
@@ -604,8 +617,17 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Challenge can be resolved if reveal period is over but request appeal phase is uninitialized
    * @param address Address of listing to check
    */
-  public async challengeCanBeResolved(listingAddress: EthAddress): Promise<boolean> {
-    const l = await this.getListing(listingAddress);
+  public async challengeCanBeResolved(
+    listingAddress: EthAddress,
+    listing?: Listing,
+    appeal?: Appeal,
+  ): Promise<boolean> {
+    let l: Listing;
+    if (!listing) {
+      l = await this.getListing(listingAddress);
+    } else {
+      l = listing;
+    }
     // if challenge exists, but not in commit or reveal phase, and request appeal phase not started
     if (!l.challengeID.isZero()) {
       const voting = await this.getVoting();
@@ -614,8 +636,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       if (revealPeriodExpiry < new Date()) {
         const isPassed = await voting.isPollPassed(l.challengeID);
         if (!isPassed) {
-          const appeal = await this.getAppeal(listingAddress);
-          const requestAppealPhaseExpiry = appeal.requestAppealPhaseExpiry;
+          let a: Appeal;
+          if (!appeal) {
+            a = await this.getAppeal(listingAddress);
+          } else {
+            a = appeal;
+          }
+          const requestAppealPhaseExpiry = a.requestAppealPhaseExpiry;
           if (requestAppealPhaseExpiry.isZero()) {
             return true;
           }
