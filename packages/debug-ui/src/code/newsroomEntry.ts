@@ -22,10 +22,10 @@ initializeDebugUI(async civil => {
 
   const newsroom = await civil.newsroomAtUntrusted(address);
   const owners = await newsroom.owners();
-  const owner = await newsroom.getMultisigAddress();
+  const multisig = await newsroom.getMultisigAddress();
 
   document.getElementById("owners")!.innerHTML += owners;
-  document.getElementById("owner")!.innerHTML += owner;
+  document.getElementById("multisig")!.innerHTML += multisig;
 
   switch (state) {
     case ListingState.APPLYING:
