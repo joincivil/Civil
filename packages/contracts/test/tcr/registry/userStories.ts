@@ -31,9 +31,8 @@ contract("Registry", accounts => {
       await registry.updateStatus(listing27);
 
       // should not have been added to whitelist
-      const listing = await registry.listings(listing27);
-      const result = listing[1];
-      expect(result).to.be.false("listing should not be whitelisted");
+      const [, isWhitelisted] = await registry.listings(listing27);
+      expect(isWhitelisted).to.be.false("listing should not be whitelisted");
     });
 
     it("should apply, pass challenge, and whitelist listing", async () => {
@@ -77,9 +76,8 @@ contract("Registry", accounts => {
 
       // Add to whitelist
       await registry.updateStatus(listing28);
-      const listing = await registry.listings(listing28);
-      const result = listing[1];
-      expect(result).to.be.true("Listing should be whitelisted");
+      const [, isWhitelisted] = await registry.listings(listing28);
+      expect(isWhitelisted).to.be.true("Listing should be whitelisted");
     });
   });
 });

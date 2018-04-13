@@ -27,8 +27,7 @@ contract("Registry", accounts => {
       await utils.addToWhitelist(listing13, minDeposit, applicant, registry);
       await registry.deposit(listing13, incAmount, { from: applicant });
 
-      const listing = await registry.listings(listing13);
-      const unstakedDeposit = listing[3];
+      const [, , , unstakedDeposit] = await registry.listings(listing13);
       const expectedAmount = incAmount.add(minDeposit);
       expect(unstakedDeposit).to.be.bignumber.equal(
         expectedAmount,
@@ -41,8 +40,7 @@ contract("Registry", accounts => {
 
       await registry.deposit(listing14, incAmount, { from: applicant });
 
-      const listing = await registry.listings(listing14);
-      const unstakedDeposit = listing[3];
+      const [, , , unstakedDeposit] = await registry.listings(listing14);
       const expectedAmount = incAmount.add(minDeposit);
       expect(unstakedDeposit).to.be.bignumber.equal(
         expectedAmount,
@@ -52,15 +50,13 @@ contract("Registry", accounts => {
 
     it("should increase deposit for a whitelisted, challenged listing", async () => {
       await utils.addToWhitelist(listing15, minDeposit, applicant, registry);
-      const listing = await registry.listings(listing15);
-      const originalDeposit = listing[3];
+      const [, , , originalDeposit] = await registry.listings(listing15);
 
       // challenge, then increase deposit
       await registry.challenge(listing15, "", { from: challenger });
       await registry.deposit(listing15, incAmount, { from: applicant });
 
-      const listingAfterDeposit = await registry.listings(listing15);
-      const afterIncDeposit = listingAfterDeposit[3];
+      const [, , , afterIncDeposit] = await registry.listings(listing15);
 
       const expectedAmount = originalDeposit.add(incAmount).sub(minDeposit);
 

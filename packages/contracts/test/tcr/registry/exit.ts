@@ -28,14 +28,12 @@ contract("Registry", accounts => {
 
       await utils.addToWhitelist(listing17, utils.paramConfig.minDeposit, applicant, registry);
 
-      const listing = await registry.listings(listing17);
-      const isWhitelisted = listing[1];
+      const [, isWhitelisted] = await registry.listings(listing17);
       expect(isWhitelisted).to.be.true("the listing was not added to the registry");
 
       await registry.exitListing(listing17, { from: applicant });
 
-      const listingAfterExit = await registry.listings(listing17);
-      const isWhitelistedAfterExit = listingAfterExit[1];
+      const [, isWhitelistedAfterExit] = await registry.listings(listing17);
       expect(isWhitelistedAfterExit).to.be.false("the listing was not removed on exit");
 
       const finalApplicantTokenHoldings = await token.balanceOf(applicant);
@@ -50,8 +48,7 @@ contract("Registry", accounts => {
 
       await utils.addToWhitelist(listing18, utils.paramConfig.minDeposit, applicant, registry);
 
-      const listing = await registry.listings(listing18);
-      const isWhitelisted = listing[1];
+      const [, isWhitelisted] = await registry.listings(listing18);
       expect(isWhitelisted).to.be.true("the listing was not added to the registry");
 
       await registry.challenge(listing18, "", { from: challenger });
@@ -60,8 +57,7 @@ contract("Registry", accounts => {
         "exit succeeded when it should have failed",
       );
 
-      const listingAfterExit = await registry.listings(listing18);
-      const isWhitelistedAfterExit = listingAfterExit[1];
+      const [, isWhitelistedAfterExit] = await registry.listings(listing18);
       expect(isWhitelistedAfterExit).to.be.true("the listing was able to exit while a challenge was active");
 
       const finalApplicantTokenHoldings = await token.balanceOf(applicant);
@@ -81,8 +77,8 @@ contract("Registry", accounts => {
         REVERTED,
         "exit succeeded when it should have failed",
       );
-      const listingAfterExit = await registry.listings(listing18);
-      const isWhitelistedAfterExit = listingAfterExit[1];
+
+      const [, isWhitelistedAfterExit] = await registry.listings(listing18);
       expect(isWhitelistedAfterExit).to.be.true("the listing was exited by someone other than its owner");
     });
   });

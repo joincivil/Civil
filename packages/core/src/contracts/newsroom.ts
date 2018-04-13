@@ -108,8 +108,11 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.multisigProxy.owners();
   }
 
-  public async owner(): Promise<EthAddress> {
-    return this.instance.owner.callAsync();
+  /**
+   * Returns the address of the multisig that controls this newsroom if one is defined
+   */
+  public async getMultisigAddress(): Promise<EthAddress | undefined> {
+    return this.multisigProxy.getMultisigAddress();
   }
 
   /**

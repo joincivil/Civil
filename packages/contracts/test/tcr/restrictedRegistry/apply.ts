@@ -36,11 +36,7 @@ contract("RestrictedAddressRegistry", accounts => {
         await registry.apply(testNewsroom.address, utils.paramConfig.minDeposit, "", { from: applicant });
 
         // get the struct in the mapping
-        const listing = await registry.listings(address);
-        const applicationExpiry = listing[0];
-        const whitelisted = listing[1];
-        const owner = listing[2];
-        const unstakedDeposit = listing[3];
+        const [applicationExpiry, whitelisted, owner, unstakedDeposit] = await registry.listings(address);
 
         // check that Application is initialized correctly
         expect(applicationExpiry).to.be.bignumber.gt(0, "challenge time < now");
@@ -60,9 +56,8 @@ contract("RestrictedAddressRegistry", accounts => {
         await registry.apply(address, utils.paramConfig.minDeposit, "", { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
         await registry.updateStatus(address);
-        const listing = await registry.listings(address);
-        const result = listing[1];
-        expect(result).to.be.true("listing didn't get whitelisted");
+        const [, isWhitelisted] = await registry.listings(address);
+        expect(isWhitelisted).to.be.true("listing didn't get whitelisted");
       });
 
       it("should not allow a listing to apply which is already listed", async () => {

@@ -36,11 +36,7 @@ contract("ContractAddressRegistry", accounts => {
         ).to.eventually.be.fulfilled();
 
         // get the struct in the mapping
-        const listing = await registry.listings(newsroomAddress);
-        const applicationExpiry = listing[0];
-        const whitelisted = listing[1];
-        const owner = listing[2];
-        const unstakedDeposit = listing[3];
+        const [applicationExpiry, whitelisted, owner, unstakedDeposit] = await registry.listings(newsroomAddress);
 
         // check that Application is initialized correctly
         expect(applicationExpiry).to.be.bignumber.gt(0, "challenge time < now");
@@ -60,8 +56,7 @@ contract("ContractAddressRegistry", accounts => {
         await registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
         await registry.updateStatus(newsroomAddress);
-        const listing = await registry.listings(newsroomAddress);
-        const result = listing[1];
+        const [, result] = await registry.listings(newsroomAddress);
         expect(result).to.be.true("listing didn't get whitelisted");
       });
 
