@@ -2,35 +2,19 @@ pragma solidity ^0.4.19;
 import "./ACL.sol";
 
 contract Newsroom is ACL {
-  event ContentAdded(address indexed editor, uint indexed id);
+  event RevisionPublished(address indexed editor, uint indexed id, string uri);
   event NameChanged(string newName);
 
   string private constant ROLE_REPORTER = "reporter";
   string private constant ROLE_EDITOR = "editor";
 
   uint private latestId;
-  mapping(uint => Revision) private content;
+  mapping(uint => Revision) public content;
 
   string public name;
 
   function Newsroom(string newsroomName) ACL() public {
     setName(newsroomName);
-  }
-
-  function author(uint contentId) public view returns (address) {
-    return content[contentId].author;
-  }
-
-  function uri(uint contentId) public view returns (string) {
-    return content[contentId].uri;
-  }
-
-  function hash(uint contentId) public view returns (bytes32) {
-    return content[contentId].hash;
-  }
-
-  function timestamp(uint contentId) public view returns (uint) {
-    return content[contentId].timestamp;
   }
 
   function setName(string newName) public onlyOwner() {
@@ -48,7 +32,7 @@ contract Newsroom is ACL {
     _removeRole(who, role);
   }
 
-  function addContent(string contentUri, bytes32 contentHash) public requireRole(ROLE_EDITOR) returns (uint) {
+  function publishRevision(string contentUri, bytes32 contentHash) public requireRole(ROLE_EDITOR) returns (uint) {
     require(bytes(contentUri).length > 0);
     require(contentHash.length > 0);
 
@@ -62,7 +46,7 @@ contract Newsroom is ACL {
       0x0
     );
 
-    ContentAdded(msg.sender, id);
+    RevisionPublished(msg.sender, id, contentUri);
     return id;
   }
 

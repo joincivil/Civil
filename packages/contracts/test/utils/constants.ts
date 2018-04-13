@@ -4,7 +4,7 @@ export const events = {
   ACL_ROLE_REMOVED: "RoleRemoved",
   ACL_SUPERUSER_ADDDED: "SuperuserAdded",
   ACL_SUPERUSER_REMOVED: "SuperuserRemoved",
-  NEWSROOM_ADDED: "ContentAdded",
+  NEWSROOM_PUBLISHED: "RevisionPublished",
 };
 export const ACL_TEST_ROLE = "testrole";
 export const NEWSROOM_ROLE_REPORTER = "reporter";

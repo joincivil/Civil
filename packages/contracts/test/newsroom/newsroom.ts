@@ -21,105 +21,27 @@ contract("Newsroom", (accounts: string[]) => {
     newsroom = await Newsroom.new(FIRST_NEWSROOM_NAME);
   });
 
-  describe("author", () => {
-    let id: any;
-
-    beforeEach(async () => {
-      await newsroom.addRole(accounts[1], NEWSROOM_ROLE_EDITOR);
-      const tx = await newsroom.addContent(SOME_URI, SOME_HASH, { from: accounts[1] });
-      id = idFromEvent(tx);
-    });
-
-    it("returns 0x0 on non-existent content", async () => {
-      const is0x0 = is0x0Address(await newsroom.author(9999));
-      expect(is0x0).to.be.true();
-    });
-    // TODO(ritave): add associating author flow
-    xit("returns proper author", async () => {
-      await expect(newsroom.author(id, { from: defaultAccount })).to.eventually.be.equal(accounts[1]);
-    });
-  });
-
-  describe("uri", () => {
-    let id: any;
-
-    beforeEach(async () => {
-      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
-      const tx = await newsroom.addContent(SOME_URI, SOME_HASH);
-      id = idFromEvent(tx);
-    });
-
-    it("returns empty string on non-existen content", async () => {
-      await expect(newsroom.uri(9999)).to.eventually.be.equal("");
-    });
-
-    it("returns proper uri", async () => {
-      await expect(newsroom.uri(id)).to.eventually.be.equal(SOME_URI);
-    });
-  });
-
-  describe("timestamp", () => {
-    let id: any;
-    let timestamp: any;
-
-    beforeEach(async () => {
-      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
-      const tx = await newsroom.addContent(SOME_URI, SOME_HASH);
-      id = idFromEvent(tx);
-      timestamp = await timestampFromTx(web3, tx.receipt);
-    });
-
-    it("returns proper timestamp", async () => {
-      expect(timestamp).not.to.be.bignumber.equal(0);
-
-      await expect(newsroom.timestamp(id)).to.eventually.be.bignumber.equal(timestamp);
-    });
-
-    it("returns zero on not existent content", async () => {
-      await expect(newsroom.timestamp(9999)).to.eventually.be.bignumber.equal(0);
-    });
-  });
-
-  describe("hash", () => {
-    let id: any;
-
-    beforeEach(async () => {
-      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
-      const tx = await newsroom.addContent(SOME_URI, SOME_HASH);
-      id = idFromEvent(tx);
-    });
-
-    it("returns empty string on non-existen content", async () => {
-      await expect(newsroom.uri(9999)).to.eventually.be.equal("");
-    });
-
-    it("returns proper hash", async () => {
-      const hash = await newsroom.hash(id);
-      await expect(newsroom.hash(id)).to.eventually.be.equal(`${SOME_HASH}`);
-    });
-  });
-
-  describe("addContent", () => {
+  describe("publishRevision", () => {
     it("forbids empty uris", async () => {
       await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
-      await expect(newsroom.addContent("", SOME_HASH)).to.be.rejectedWith(REVERTED);
+      await expect(newsroom.publishRevision("", SOME_HASH)).to.be.rejectedWith(REVERTED);
     });
 
     it("finishes", async () => {
       await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
-      await expect(newsroom.addContent(SOME_URI, SOME_HASH)).to.eventually.be.fulfilled();
+      await expect(newsroom.publishRevision(SOME_URI, SOME_HASH)).to.eventually.be.fulfilled();
     });
 
     it("creates an event", async () => {
-      const tx = await newsroom.addContent(SOME_URI, SOME_HASH);
-      const event = findEvent(tx, events.NEWSROOM_ADDED);
+      const tx = await newsroom.publishRevision(SOME_URI, SOME_HASH);
+      const event = findEvent(tx, events.NEWSROOM_PUBLISHED);
       expect(event).to.not.be.undefined();
       expect(event!.args.editor).to.be.equal(defaultAccount);
     });
 
     it("fails with reporter role", async () => {
       await newsroom.addRole(accounts[1], NEWSROOM_ROLE_REPORTER);
-      const proposeContent = newsroom.addContent(SOME_URI, SOME_HASH, { from: accounts[1] });
+      const proposeContent = newsroom.publishRevision(SOME_URI, SOME_HASH, { from: accounts[1] });
 
       await expect(proposeContent).to.eventually.be.rejectedWith(REVERTED);
     });
@@ -127,10 +49,12 @@ contract("Newsroom", (accounts: string[]) => {
     it("succeeds with editor role", async () => {
       await newsroom.addRole(accounts[1], NEWSROOM_ROLE_EDITOR);
 
-      const tx = await newsroom.addContent(SOME_URI, SOME_HASH, { from: accounts[1] });
+      const tx = await newsroom.publishRevision(SOME_URI, SOME_HASH, { from: accounts[1] });
       const id = idFromEvent(tx);
 
-      await expect(newsroom.uri(id)).to.eventually.be.equal(SOME_URI);
+      const [hash, uri, ...rest] = await newsroom.content(id);
+      expect(uri).to.be.equal(SOME_URI);
+      expect(hash).to.be.equal(`${SOME_HASH}`);
     });
   });
 
