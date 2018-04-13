@@ -1,7 +1,7 @@
 /* global artifacts */
 
-const DLL = artifacts.require("dll/DLL.sol");
-const AttributeStore = artifacts.require("attrstore/AttributeStore.sol");
+const DLL = artifacts.require("DLL");
+const AttributeStore = artifacts.require("AttributeStore");
 
 module.exports = (deployer: any) => {
   deployer.then(async () => {

@@ -3,9 +3,9 @@
 import { approveEverything, config, inTesting } from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
 
-const Token = artifacts.require("EIP20.sol");
-const DLL = artifacts.require("dll/DLL.sol");
-const AttributeStore = artifacts.require("attrstore/AttributeStore.sol");
+const Token = artifacts.require("EIP20");
+const DLL = artifacts.require("DLL");
+const AttributeStore = artifacts.require("AttributeStore");
 
 const Parameterizer = artifacts.require("Parameterizer");
 const PLCRVoting = artifacts.require("PLCRVoting");
