@@ -7,15 +7,16 @@ import { CivilLogs } from "./contracts/generated/artifacts";
 export type ContentId = number;
 
 export interface ContentHeader {
-  id: ContentId;
-  author: EthAddress;
-  timestamp: Date;
+  id?: ContentId;
+  author?: EthAddress;
+  timestamp?: Date;
   uri: string;
+  hash: string;
 }
 
 // TODO(ritave, dankins): Decide on content schema and update this type
 export interface NewsroomContent extends ContentHeader {
-  content: string;
+  content: any;
 }
 
 export interface MapObject<T = any> {
@@ -100,6 +101,9 @@ export interface DecodedTransactionReceipt<L extends DecodedLogEntry> {
 }
 
 export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilLogs>;
+
+export { ContentProvider, ContentProviderCreator, ContentProviderOptions } from "./content/contentprovider";
+export { Web3Wrapper } from "./utils/web3wrapper";
 
 export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
   txHash: TxHash;

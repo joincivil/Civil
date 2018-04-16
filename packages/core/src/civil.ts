@@ -1,7 +1,8 @@
 import * as Debug from "debug";
 import * as Web3 from "web3";
 
-import { ContentProvider } from "./content/contentprovider";
+import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
+import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction, Uri } from "./types";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
@@ -26,7 +27,7 @@ export interface CivilOptions {
  */
 export class Civil {
   private web3Wrapper: Web3Wrapper;
-  private contentProvider: ContentProvider;
+  private contentProvider: ContentProvider | IPFSProvider;
 
   /**
    * An optional object, conforming to Web3 provider interface can be provided.
@@ -122,8 +123,12 @@ export class Civil {
    * might a bad actor or not implementing Newsroom ABIs at all.
    * @param address The address on current Ethereum network where the smart-contract is located
    */
-  public async newsroomAtUntrusted(address: EthAddress): Promise<Newsroom> {
-    return Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, address);
+  public async newsroomAtUntrusted(address: EthAddress, contentProviderClass?: ContentProviderCreator): Promise<Newsroom> {
+    let contentProvider = this.contentProvider;
+    if (contentProviderClass) {
+      contentProvider = new contentProviderClass({web3Wrapper: this.web3Wrapper});
+    }
+    return Newsroom.atUntrusted(this.web3Wrapper, contentProvider, address);
   }
 
   /**

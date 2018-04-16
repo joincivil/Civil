@@ -12,7 +12,7 @@ import { NewsroomRoles } from "../../src/types";
 
   console.log("Subscribing to new articles");
   const articleSubscription = newsroom
-    .proposedContent()
+    .revisions()
     .do(header => console.log("\tProposed article, uri: " + header.uri))
     .flatMap(async header => newsroom.resolveContent(header))
     .subscribe(article => {
@@ -32,7 +32,7 @@ import { NewsroomRoles } from "../../src/types";
   await (await newsroom.addRole(civil.userAccount!, NewsroomRoles.Reporter)).awaitReceipt();
 
   console.log("Proposing a new article...");
-  const id = await (await newsroom.proposeContent("This is example content that I want to post")).awaitReceipt();
+  const id = await (await newsroom.publishRevision("This is example content that I want to post")).awaitReceipt();
   console.log("Article proposed: ", id);
 
   console.log("Changing names");
