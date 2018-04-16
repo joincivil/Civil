@@ -3,7 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 
 import { SecondaryButton } from "../Button";
 import { InputLabel } from "./Input";
-import { colors, fonts } from "../styleConstants";
+import { colors } from "../styleConstants";
 
 export interface RadioButtonProps {
   className?: string;
@@ -27,14 +27,13 @@ export const RadioButtonDiv = styled.div`
 `;
 export const RadioButton: React.StatelessComponent<RadioButtonProps> = props => {
   let input: any;
-  const { disabled, onChange, children, name, inputRef } = props;
+  const { onChange, children, name } = props;
   const clickHandler = () => {
     input.checked = true;
     if (onChange) {
       onChange(props.name, input.value);
     }
   };
-  const isActive = input && input.checked;
   const defaultChecked = props.defaultValue === props.value;
 
   return (
@@ -63,7 +62,7 @@ const RadioDiv = styled.div`
   }
 `;
 export const RadioInput: React.StatelessComponent<RadioInputProps> = props => {
-  const { className, defaultValue, onChange, label, name, inputRef, children } = props;
+  const { defaultValue, onChange, label, name, inputRef, children } = props;
 
   const childrenWithProps = React.Children.map(children, (child: React.ReactChild) =>
     React.cloneElement(child as React.ReactElement<any>, { name, onChange, defaultValue }),

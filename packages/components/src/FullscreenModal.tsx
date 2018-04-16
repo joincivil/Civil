@@ -35,9 +35,8 @@ export interface FullScreenModalProps {
   handleClose(): void;
 }
 
-export class FullScreenModal extends React.Component<FullScreenModalProps, {}> {
+export class FullScreenModal extends React.Component<FullScreenModalProps> {
   public el: HTMLDivElement | undefined;
-  private wrapperRef: any;
 
   constructor(props: FullScreenModalProps) {
     super(props);
@@ -52,14 +51,14 @@ export class FullScreenModal extends React.Component<FullScreenModalProps, {}> {
     if (this.el) {
       document.body.appendChild(this.el);
       if (this.props.dismissOnOutsideClick) {
-        document.addEventListener("mousedown", this.handleClickOutside);
+        document.addEventListener("mousedown", ev => this.handleClickOutside(ev));
       }
     }
   }
   public componentWillUnmount(): void {
     if (this.el) {
       document.body.removeChild(this.el);
-      document.removeEventListener("mousedown", this.handleClickOutside);
+      document.removeEventListener("mousedown", ev => this.handleClickOutside(ev));
     }
   }
 
@@ -87,12 +86,7 @@ export class FullScreenModal extends React.Component<FullScreenModalProps, {}> {
     }
   }
 
-  private setWrapperRef(node: any): void {
-    this.wrapperRef = node;
-  }
-
   private close(): void {
-    console.log("CLOSE ME");
     this.props.handleClose();
   }
 }

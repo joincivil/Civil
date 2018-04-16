@@ -27,15 +27,15 @@ export class DropdownComponent extends React.Component<DropdownProps, DropdownSt
   }
 
   public componentWillUnmount(): void {
-    document.removeEventListener("mousedown", this.handleClickOutside);
+    document.removeEventListener("mousedown", this.handleClickOutside.bind(this));
   }
 
   public render(): JSX.Element {
     return (
       <div className={this.props.className}>
-        <div onClick={this.toggle}>{this.props.target}</div>
+        <div onClick={ev => this.toggle()}>{this.props.target}</div>
         {this.state.open ? (
-          <div ref={this.setWrapperRef}>
+          <div ref={ref => this.setWrapperRef(ref)}>
             <div>{this.props.children}</div>
           </div>
         ) : null}
@@ -54,9 +54,9 @@ export class DropdownComponent extends React.Component<DropdownProps, DropdownSt
   }
   private toggle(): void {
     if (this.state.open) {
-      document.removeEventListener("mousedown", this.handleClickOutside);
+      document.removeEventListener("mousedown", ev => this.handleClickOutside(ev));
     } else {
-      document.addEventListener("mousedown", this.handleClickOutside);
+      document.addEventListener("mousedown", ev => this.handleClickOutside(ev));
     }
 
     this.setState({ open: !this.state.open });

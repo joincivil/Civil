@@ -1,7 +1,5 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
-import styled from "styled-components";
-import { Dropdown, DropdownGroup, DropdownItem } from "./Dropdown";
 import { TextInput, HeaderInput, CurrencyInput } from "./Input";
 import { RadioInput, RadioButton } from "./RadioInput";
 
@@ -25,18 +23,6 @@ class ControlComponent extends React.Component<ControlProps, any> {
     this.setState({ [name]: value });
   };
 }
-
-const StyledDiv = styled.div`
-  display: flex;
-  div > * {
-  }
-`;
-
-const Container: React.StatelessComponent<{}> = ({ children }) => (
-  <StyledDiv>
-    <div>{children}</div>
-  </StyledDiv>
-);
 
 storiesOf("Inputs", module)
   .add("Text Input", () => {

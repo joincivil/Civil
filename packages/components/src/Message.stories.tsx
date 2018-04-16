@@ -8,7 +8,7 @@ const StyledDiv = styled.div`
   width: 600px;
 `;
 
-const Container: React.StatelessComponent<{}> = ({ children }) => (
+const Container: React.StatelessComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
