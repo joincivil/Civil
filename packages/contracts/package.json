@@ -31,8 +31,8 @@
     "@joincivil/dev-utils": "^1.2.2",
     "@joincivil/doxity": "^0.0.1",
     "@joincivil/tslint-rules": "^2.6.1",
-    "@joincivil/utils": "^1.1.4",
     "@joincivil/typescript-types": "^1.0.0",
+    "@joincivil/utils": "^1.1.4",
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
     "@types/glob": "^5.0.34",
@@ -56,5 +56,8 @@
     "typescript": "^2.7.2",
     "web3": "^0.20.3",
     "zeppelin-solidity": "1.7.0"
+  },
+  "dependencies": {
+    "@joincivil/typescript-types": "^1.0.0"
   }
 }

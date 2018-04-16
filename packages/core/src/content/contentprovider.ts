@@ -4,7 +4,7 @@ import { Web3Wrapper } from "../utils/web3wrapper";
 export interface ContentProvider {
   scheme(): string;
   get(what: Uri | ContentHeader): Promise<string>;
-  put(content: string, variables?: object): Promise<ContentHeader>;
+  put(content: string | object, variables?: object): Promise<ContentHeader>;
 }
 
 export interface ContentProviderOptions {

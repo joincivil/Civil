@@ -6,8 +6,6 @@ import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
-<<<<<<< HEAD
-import { NewsroomContract, NewsroomEvents, ContentProposedLog } from "./generated/newsroom";
 import {
   NewsroomRoles,
   TwoStepEthTransaction,
@@ -17,10 +15,7 @@ import {
   ContentHeader,
   NewsroomContent,
 } from "../types";
-=======
 import {  NewsroomContract, NewsroomEvents, RevisionPublishedArgs } from "./generated/newsroom";
-import { TwoStepEthTransaction, TxData, EthAddress, ContentId, ContentHeader, NewsroomContent } from "../types";
->>>>>>> refactor core to mach new contract and change content providers
 import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
@@ -287,20 +282,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   /**
-<<<<<<< HEAD
-   * Stores your `content` in the content provider and
-   * publishes a link to that content on Ethereum network.
-   * @param content The the data that you want to store, in the future, probably a JSON
-   * @returns An id assigned on Ethereum to the proposed content
-   */
-  public async proposeContent(content: string): Promise<TwoStepEthTransaction<ContentId>> {
-    const uri = await this.contentProvider.put(content);
-    return this.proposeUri(uri);
-  }
-
-  /**
-=======
->>>>>>> refactor core to mach new contract and change content providers
    * Proposes the given uri into Ethereum's Newsroom,
    * This is low-level call and assumes you stored your content on your own
    * @param uri The link that you want to propose

@@ -78,6 +78,13 @@
     keccakjs "^0.2.1"
     minimist "^1.2.0"
 
+"@joincivil/utils@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@joincivil/utils/-/utils-1.1.4.tgz#85e0786e64c2e3e565b5e9f81561016f037d9619"
+  dependencies:
+    ethereumjs-abi "^0.6.5"
+    rxjs "^5.5.6"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
