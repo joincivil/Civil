@@ -16,14 +16,14 @@ contract("Registry", accounts => {
     });
 
     it("should verify a listing is not in the whitelist", async () => {
-      const result = await registry.getListingIsWhitelisted(listing19);
-      expect(result).to.be.false("Listing should not be whitelisted");
+      const [, isWhitelisted] = await registry.listings(listing19);
+      expect(isWhitelisted).to.be.false("Listing should not be whitelisted");
     });
 
     it("should verify a listing is in the whitelist", async () => {
       await utils.addToWhitelist(listing19, utils.paramConfig.minDeposit, applicant, registry);
-      const result = await registry.getListingIsWhitelisted.call(listing19);
-      expect(result).to.be.true("Listing should have been whitelisted");
+      const [, isWhitelisted] = await registry.listings(listing19);
+      expect(isWhitelisted).to.be.true("Listing should have been whitelisted");
     });
   });
 });

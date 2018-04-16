@@ -4,6 +4,13 @@ block scripts
   script(src="/assets/js/newsroom.js")
 
 block content
+  content#owners Owners: 
+  br
+  content#multisig Multisig Address (if any): 
+  br
+  | (if Owners and Owner are the same, then the newsroom is deployed without a multisig as owner)
+  br
+  br
   content#state State: 
   br
 

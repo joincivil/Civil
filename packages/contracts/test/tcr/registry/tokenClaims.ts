@@ -35,14 +35,14 @@ contract("Registry", accounts => {
 
       await registry.updateStatus(listing20, { from: challenger });
 
-      const initialHasClaimed = await registry.tokenClaims(pollID, voter);
+      const initialHasClaimed = await registry.hasClaimedTokens(pollID, voter);
       expect(initialHasClaimed).to.be.false(
         "The voter is purported to have claimed " + "their reward, when in fact they have not",
       );
 
       await registry.claimReward(pollID, "420", { from: voter });
 
-      const finalHasClaimed = await registry.tokenClaims.call(pollID, voter);
+      const finalHasClaimed = await registry.hasClaimedTokens(pollID, voter);
       expect(finalHasClaimed).to.be.true(
         "The voter is purported to not have claimed " + "their reward, when in fact they have",
       );

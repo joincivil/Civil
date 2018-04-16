@@ -5,7 +5,7 @@ import BN from "bignumber.js";
 import { config } from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
 
-const Token = artifacts.require("tokens/eip20/EIP20.sol");
+const Token = artifacts.require("EIP20");
 
 const BASE_10 = 10;
 

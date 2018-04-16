@@ -22,7 +22,7 @@ contract("Registry", accounts => {
     let newsroomAddress: string;
 
     beforeEach(async () => {
-      registry = await utils.createAllTestRestrictedAddressRegistryWithAppealsInstance(accounts, JAB);
+      registry = await utils.createAllCivilTCRInstance(accounts, JAB);
       const votingAddress = await registry.voting();
       voting = await PLCRVoting.at(votingAddress);
 

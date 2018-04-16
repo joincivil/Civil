@@ -3,34 +3,27 @@
 import { approveEverything, config, inTesting } from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
 
-const Token = artifacts.require("EIP20.sol");
-const DLL = artifacts.require("dll/DLL.sol");
-const AttributeStore = artifacts.require("attrstore/AttributeStore.sol");
+const Token = artifacts.require("EIP20");
+const DLL = artifacts.require("DLL");
+const AttributeStore = artifacts.require("AttributeStore");
 
-const OwnedAddressTCRWithAppeals = artifacts.require("tcr/OwnedAddressTCRWithAppeals.sol");
-const Parameterizer = artifacts.require("tcr/Parameterizer.sol");
-const PLCRVoting = artifacts.require("tcr/PLCRVoting.sol");
+const CivilTCR = artifacts.require("CivilTCR");
+const Parameterizer = artifacts.require("Parameterizer");
+const PLCRVoting = artifacts.require("PLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
-    await deployer.link(DLL, OwnedAddressTCRWithAppeals);
-    await deployer.link(AttributeStore, OwnedAddressTCRWithAppeals);
+    await deployer.link(DLL, CivilTCR);
+    await deployer.link(AttributeStore, CivilTCR);
 
     let tokenAddress = config.TokenAddress;
 
     if (network !== MAIN_NETWORK) {
       tokenAddress = Token.address;
     }
-    await deployer.deploy(
-      OwnedAddressTCRWithAppeals,
-      tokenAddress,
-      PLCRVoting.address,
-      Parameterizer.address,
-      accounts[0],
-      accounts[0],
-    );
+    await deployer.deploy(CivilTCR, tokenAddress, PLCRVoting.address, Parameterizer.address, accounts[0], accounts[0]);
     if (inTesting(network)) {
-      await approveEverything(accounts, Token.at(tokenAddress), OwnedAddressTCRWithAppeals.address);
+      await approveEverything(accounts, Token.at(tokenAddress), CivilTCR.address);
     }
   });
 };

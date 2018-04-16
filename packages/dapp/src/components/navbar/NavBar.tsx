@@ -66,7 +66,8 @@ class NavBar extends React.Component<{}, NavBarState> {
 
   private initNavBar = () => {
     const civil = new Civil();
-    const token = civil.getEIP20ForDeployedTCR();
+    const tcr = civil.tcrSingletonTrusted();
+    const token = tcr.getToken();
     token
       .then(async t => {
         return t.getBalance(civil.userAccount).then(balance => {

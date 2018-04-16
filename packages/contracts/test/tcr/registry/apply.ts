@@ -19,12 +19,8 @@ contract("AddressRegistry", accounts => {
 
     it("should allow a new listing to apply", async () => {
       await registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant });
-      // get the struct in the mapping
-      // TODO: getting structs is undefined behavior, convert this to multiple gets
-      const applicationExpiry = await registry.getListingApplicationExpiry(listing1);
-      const whitelisted = await registry.getListingIsWhitelisted(listing1);
-      const owner = await registry.getListingOwner(listing1);
-      const unstakedDeposit = await registry.getListingUnstakedDeposit(listing1);
+      const [applicationExpiry, whitelisted, owner, unstakedDeposit] = await registry.listings(listing1);
+
       // check that Application is initialized correctly
       expect(applicationExpiry).to.be.bignumber.gt(0, "challenge time < now");
       expect(whitelisted).to.be.false("whitelisted != false");
@@ -43,8 +39,8 @@ contract("AddressRegistry", accounts => {
       await registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
       await registry.updateStatus(listing1);
-      const result = await registry.getListingIsWhitelisted(listing1);
-      expect(result).to.be.true("listing didn't get whitelisted");
+      const [, isWhitelisted] = await registry.listings(listing1);
+      expect(isWhitelisted).to.be.true("listing didn't get whitelisted");
     });
 
     it("should not allow a listing to apply which is already listed", async () => {

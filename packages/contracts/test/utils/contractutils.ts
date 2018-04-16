@@ -19,7 +19,7 @@ const Parameterizer = artifacts.require("Parameterizer");
 const AddressRegistry = artifacts.require("AddressRegistry");
 const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
-const OwnedAddressTCRWithAppeals = artifacts.require("OwnedAddressTCRWithAppeals");
+const CivilTCR = artifacts.require("CivilTCR");
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -166,7 +166,7 @@ async function createTestRegistryInstance(registryContract: any, parameterizer: 
   return registry;
 }
 
-async function createTestAppealsRegistryInstance(
+async function createTestCivilTCRInstance(
   parameterizer: any,
   accounts: string[],
   appellateEntity: string,
@@ -186,13 +186,7 @@ async function createTestAppealsRegistryInstance(
   const parameterizerAddress = await parameterizer.address;
   const token = await Token.at(tokenAddress);
   const feeRecipient = accounts[2];
-  const registry = await OwnedAddressTCRWithAppeals.new(
-    tokenAddress,
-    plcrAddress,
-    parameterizerAddress,
-    appellateEntity,
-    feeRecipient,
-  );
+  const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, appellateEntity, feeRecipient);
 
   await approveRegistryFor(accounts);
   return registry;
@@ -275,10 +269,7 @@ export async function createAllTestContractAddressRegistryInstance(accounts: str
   return createTestRegistryInstance(ContractAddressRegistry, parameterizer, accounts);
 }
 
-export async function createAllTestRestrictedAddressRegistryWithAppealsInstance(
-  accounts: string[],
-  appellateEntity: string,
-): Promise<any> {
+export async function createAllCivilTCRInstance(accounts: string[], appellateEntity: string): Promise<any> {
   const parameterizer = await createAllTestParameterizerInstance(accounts);
-  return createTestAppealsRegistryInstance(parameterizer, accounts, appellateEntity);
+  return createTestCivilTCRInstance(parameterizer, accounts, appellateEntity);
 }

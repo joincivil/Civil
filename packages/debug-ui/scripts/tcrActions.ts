@@ -9,7 +9,7 @@ export async function apply(address: EthAddress, deposit?: BigNumber, optionalCi
   console.log("Apply to TCR");
   const tcr = await civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
-  const eip = await civil.getEIP20ForDeployedTCR();
+  const eip = await tcr.getToken();
   if (!applicationDeposit) {
     applicationDeposit = await parameterizer.getParameterValue("minDeposit");
   }
@@ -33,7 +33,7 @@ export async function challenge(address: EthAddress, optionalCivil?: Civil): Pro
   console.log("Challenging TCR Listing");
   const tcr = await civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
-  const eip = await civil.getEIP20ForDeployedTCR();
+  const eip = await tcr.getToken();
   const deposit = await parameterizer.getParameterValue("minDeposit");
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
   if (approvedTokensForSpender.lessThan(deposit)) {

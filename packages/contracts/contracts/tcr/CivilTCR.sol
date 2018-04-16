@@ -5,14 +5,14 @@ import "./RestrictedAddressRegistry.sol";
 /**
 @title  TCR with appeallate functionality and restrictions on application 
 @author Nick Reynolds - nick@joincivil.com
-@notice The RestrictedAddressTCRWithAppeals is a TCR with restrictions (contracts must have IACL
+@notice The CivilTCR is a TCR with restrictions (contracts must have IACL
         implementation, and only the ACL superuser of a contract can apply on behalf of that contract)
-        and an appeallate entity that can overturn successful challenges (challenges that would prevent 
-        the listing from being whitelisted)
+        and an appeallate entity that can overturn challenges if someone requests an appeal, and a process
+        by which granted appeals can be vetoed by a supermajority vote
         "Listing" refers to the data associated with an address at any stage of the lifecycle (e.g.
         "Listing in Application", "Listing in Challenge", "Listing on Whitelist", "Denied Listing", etc).
 */
-contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
+contract CivilTCR is RestrictedAddressRegistry {
 
   event AppealRequested(address indexed requester, address indexed listing);
   event AppealGranted(address indexed listing);
@@ -45,15 +45,18 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
           when updateStatus is called after a successful challenge.
   */
   struct Appeal {
+    address requester;
     uint requestAppealPhaseExpiry;
     bool appealRequested;
     uint appealFeePaid;
     uint appealPhaseExpiry;
     bool appealGranted;
+    uint challengeID;
   }
 
-  mapping(address => Appeal) internal appeals;
+  mapping(address => Appeal) public appeals;
   mapping(uint => bool) public challengesOverturned;
+  mapping(uint => Challenge) public appealChallenges;
 
   /**
   @dev Contructor           Sets the addresses for token, voting, parameterizer, appellate, and fee recipient
@@ -63,13 +66,13 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   @param appellateAddr      Address of appellate entity, which could be a regular user, although multisig is recommended
   @param feeRecipientAddr   Address of entity that collects fees from denied appeals
   */
-  function OwnedAddressTCRWithAppeals(
+  function CivilTCR(
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
     address appellateAddr,
-    address feeRecipientAddr)
-    public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
+    address feeRecipientAddr
+  ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
   {
     appellate = appellateAddr;
     feeRecipient = feeRecipientAddr;
@@ -118,7 +121,7 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   }
 
   function whitelistAddress(address listingAddress, uint depositAmount) external onlyAppellate {
-    require(!getListingIsWhitelisted(listingAddress));
+    require(!listings[listingAddress].isWhitelisted);
     require(!appWasMade(listingAddress));
     require(depositAmount >= parameterizer.get("minDeposit"));
     Ownable ownedContract = Ownable(listingAddress);
@@ -252,7 +255,7 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   */
   function claimReward(uint challengeID, uint salt) public {
     // Ensures the voter has not already claimed tokens and challenge results have been processed
-    require(challenges[challengeID].tokenClaims[msg.sender] == false);
+    require(challenges[challengeID].hasClaimedTokens[msg.sender] == false);
     require(challenges[challengeID].resolved == true);
 
     uint voterTokens = voting.getNumPassingTokens(msg.sender, challengeID, salt, challengesOverturned[challengeID]);
@@ -266,7 +269,7 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
     require(token.transfer(msg.sender, reward));
 
     // Ensures a voter cannot claim tokens again
-    challenges[challengeID].tokenClaims[msg.sender] = true;
+    challenges[challengeID].hasClaimedTokens[msg.sender] = true;
 
     RewardClaimed(msg.sender, challengeID, reward);
   }
@@ -281,37 +284,13 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
   function voterReward(
     address voter,
     uint challengeID,
-    uint salt)
-    public view returns (uint)
+    uint salt
+  ) public view returns (uint)
   {
     uint totalTokens = challenges[challengeID].totalTokens;
     uint rewardPool = challenges[challengeID].rewardPool;
     uint voterTokens = voting.getNumPassingTokens(voter, challengeID, salt, challengesOverturned[challengeID]);
     return (voterTokens * rewardPool) / totalTokens;
-  }
-
-  // --------
-  // BASIC APPEAL GETTERS
-  // --------
-
-  function getRequestAppealPhaseExpiry(address listingAddress) public view returns (uint) {
-    return appeals[listingAddress].requestAppealPhaseExpiry;
-  }
-
-  function getAppealRequested(address listingAddress) public view returns (bool) {
-    return appeals[listingAddress].appealRequested;
-  }
-
-  function getAppealFeePaid(address listingAddress) public view returns (uint) {
-    return appeals[listingAddress].appealFeePaid;
-  }
-
-  function getAppealPhaseExpiry(address listingAddress) public view returns (uint) {
-    return appeals[listingAddress].appealPhaseExpiry;
-  }
-
-  function getAppealGranted(address listingAddress) public view returns (bool) {
-    return appeals[listingAddress].appealGranted;
   }
 
   /**
@@ -342,7 +321,7 @@ contract OwnedAddressTCRWithAppeals is RestrictedAddressRegistry {
     // which is: (winner's full stake) + (dispensationPct * loser's stake) + (appeal fee paid)
     uint reward = determineReward(challengeID) + appeal.appealFeePaid;
 
-    bool wasWhitelisted = getListingIsWhitelisted(listingAddress);
+    bool wasWhitelisted = listings[listingAddress].isWhitelisted;
     
     whitelistApplication(listingAddress);
 
