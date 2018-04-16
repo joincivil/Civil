@@ -7,26 +7,26 @@
 This repository contains all of the open-source Civil tools and packages written in Typescript.
 We hope that those tools will be useful for creation of interesting applications on top of the ecosystem as well as be useful in any project in the Ethereum space.
 
-[![CircleCI](https://img.shields.io/circleci/project/github/joincivil/Civil.svg)](https://circleci.com/gh/joincivil/Civil)
-[![Slack chat](https://img.shields.io/badge/chat-slack-e6186d.svg)](https://civil-slack-signup.herokuapp.com/)
+[![CircleCI](https://img.shields.io/circleci/project/github/joincivil/Civil.svg)](https://circleci.com/gh/joincivil/Civil/tree/master)
+[![Telegram chat](https://img.shields.io/badge/chat-telegram-blue.svg)](https://t.me/join_civil)
 
 ### Published packages
 
-| Package                                             | Badges                                                                                                                                                                                                                                       | Description                                                 |
-| --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| [`@joincivil/core`][core-url]                       | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/core.svg)](https://www.npmjs.com/package/@joincivil/core)[![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](/packages/core/LICENSE)                           | JS library for interacting with Civil ecosystem             |
-| [`@joincivil/tslint-rules`](/packages/tslint-rules) | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/tslint-rules.svg)](https://www.npmjs.com/package/@joincivil/tslint-rules)[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/tslint-rules/LICENSE) | Linting rules for Civil's Typescript packages               |
-| [`@joincivil/utils`](/packages/utils)               | [![npm (scoped)](https://img.shields.io/npm/v/@joincivil/utils.svg)](https://www.npmjs.com/package/@joincivil/utils)[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/utils/LICENSE)                      | Utilities shared between Civil projects used during runtime |
+| Package                                             | NPM                                                                                                                           | Description                                                 |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| [`@joincivil/core`][core-url]                       | [![npm link](https://img.shields.io/badge/npm-core-blue.svg)](https://www.npmjs.com/package/@joincivil/core)                  | JS library for interacting with Civil ecosystem             |
+| [`@joincivil/tslint-rules`](/packages/tslint-rules) | [![npm link](https://img.shields.io/badge/npm-tslint--rules-blue.svg)](https://www.npmjs.com/package/@joincivil/tslint-rules) | Linting rules for Civil's Typescript packages               |
+| [`@joincivil/utils`](/packages/utils)               | [![npm link](https://img.shields.io/badge/npm-utils-blue.svg)](https://www.npmjs.com/package/@joincivil/utils)                | Utilities shared between Civil projects used during runtime |
+| [`@joincivil/editor`](/packages/editor)             | [![npm link](https://img.shields.io/badge/npm-editor-blue.svg)](https://www.npmjs.com/package/@joincivil/editor)              | Editor for Civil-formatted articles and content             |
 
 ### Private packages
 
-| Package                                       | License                                                                                                 | Description                                                                                                         |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| [`@joincivil/contracts`](/packages/contracts) | [![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](/packages/contracts/LICENSE)   | Smart-contracts needed for the Civil's protocol                                                                     |
-| [`@joincivil/dapp`](/packages/dapp)           | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/dapp/LICENSE)      | DApp for interacting with the Civil contracts                                                                       |
-| [`@joincivil/dev-utils`](/packages/dev-utils) | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/dev-utils/LICENSE) | Utilities needed for the proper working of the mono-repo packages, builds and tests                                 |
-| [`@joincivil/debug-ui`](/packages/debug-ui)   | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/debug-ui/LICENSE)  | WIP: Minimal website to monitor, observe and debug the protocol and all the utilities and packages of the ecosystem |
-| [`@joincivil/editor`](/packages/editor)       | [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](/packages/editor/LICENSE)    | WIP: Editor for Civil-formatted articles and content                                                                |
+| Package                                       | Description                                                                                                         |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| [`@joincivil/contracts`](/packages/contracts) | Smart-contracts needed for the Civil's protocol                                                                     |
+| [`@joincivil/dapp`](/packages/dapp)           | DApp for interacting with the Civil contracts                                                                       |
+| [`@joincivil/dev-utils`](/packages/dev-utils) | Utilities needed for the proper working of the mono-repo packages, builds and tests                                 |
+| [`@joincivil/debug-ui`](/packages/debug-ui)   | WIP: Minimal website to monitor, observe and debug the protocol and all the utilities and packages of the ecosystem |
 
 ## Contributing
 
@@ -76,7 +76,14 @@ Tests in Civil's ecosystem require the use of [Ganache](https://github.com/truff
 yarn ganache
 ```
 
-and then run all the tests:
+some of the packages - most notably [`@joincivil/core`][core-url] depend on already deployed singletons. Our ganache is set-up to be deterministic and thus when you migrate contracts locally, singletons will have the same addresses as the artifacts.
+
+```bash
+cd packages/contracts
+yarn migrate --network=ganache
+```
+
+Finally run all the tests in the main repository:
 
 ```bash
 yarn test

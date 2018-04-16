@@ -1,8 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-
-# Civil DApp
+# @joincivil/dapp
 
 This package contains a React + Typescript app that functions as a DApp for the Civil platform. It is intended to have a nice UX for users to interact with the TCR and Newsrooms.
+
+[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](./LICENSE)
 
 ## To Build for Production
 

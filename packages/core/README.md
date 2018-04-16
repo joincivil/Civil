@@ -2,6 +2,8 @@
 
 This library is the main-entry point for any developer wanting to work with the Civil ecosystem. It abstracts communication with the Ethereum blockchain as well as storing and loading articles from file storage servers.
 
+[![license](https://img.shields.io/badge/license-LGPL%20v2.1-green.svg)](./LICENSE)
+
 ## Installation
 
 ```bash

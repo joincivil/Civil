@@ -1,7 +1,8 @@
-# Static Pug + Typescript + Sass starter
+# @joincivil/debug-ui
 
-This starter allows easy creation of static webpages while allowing nicieties of npm
-packagaes, Typescript, Sass and Pug
+Minimal amount of code to be able to debug stuff inside Civil smart-contracts
+
+[![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](./LICENSE)
 
 ## Start serve server
 
