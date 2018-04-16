@@ -25,7 +25,7 @@
     "build": "tsc",
     "lint": "tslint --exclude \"**/storyFixtures/**\" --project ./",
     "clean": "rimraf build/",
-    "prepublish": "yarn build",
+    "prepublish": "run-s build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o out",
     "test": "jest"
@@ -47,6 +47,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.4.2",
+    "npm-run-all": "^4.1.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",

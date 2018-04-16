@@ -12,7 +12,7 @@ export interface ButtonProps {
   disabled?: boolean;
   inputRef?: any;
   name?: string;
-  onClick?(ev: any): any;
+  onClick?(ev: any): void;
 }
 export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
   const activeClass = props.active ? " active" : "";
