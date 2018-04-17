@@ -128,12 +128,11 @@ export interface Challenge {
  */
 export interface Appeal {
   requester: EthAddress;
-  requestAppealPhaseExpiry: BigNumber;
-  appealRequested: boolean;
   appealFeePaid: BigNumber;
   appealPhaseExpiry: BigNumber;
   appealGranted: boolean;
-  challengeID: BigNumber;
+  appealOpenToChallengeExpiry: BigNumber;
+  appealChallengeID: BigNumber;
 }
 
 /**

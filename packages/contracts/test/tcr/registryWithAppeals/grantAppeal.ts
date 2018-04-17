@@ -78,7 +78,6 @@ contract("Registry With Appeals", accounts => {
         await registry.challenge(newsroomAddress, "", { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.updateStatus(newsroomAddress);
         await expect(registry.grantAppeal(newsroomAddress, { from: JAB })).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed appeal on application with failed challenge that has been processed",
@@ -89,9 +88,8 @@ contract("Registry With Appeals", accounts => {
         await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
         await registry.challenge(newsroomAddress, "", { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
-        await registry.updateStatus(newsroomAddress);
         // hack. can't read directly from contract for some reason, was causing crash
-        await utils.advanceEvmTime(259250);
+        await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength);
         await expect(registry.grantAppeal(newsroomAddress, { from: JAB })).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed grant appeal on application with failed challenge that has been processed",
@@ -105,7 +103,6 @@ contract("Registry With Appeals", accounts => {
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
         await voting.revealVote(pollID, 1, 420, { from: voter });
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.updateStatus(newsroomAddress);
         await expect(registry.grantAppeal(newsroomAddress, { from: JAB })).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not allow grant appeal if challenge is won by applicant",
@@ -117,7 +114,6 @@ contract("Registry With Appeals", accounts => {
         await registry.challenge(newsroomAddress, "", { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.updateStatus(newsroomAddress);
         await registry.requestAppeal(newsroomAddress, { from: applicant });
         await expect(registry.grantAppeal(newsroomAddress, { from: JAB })).to.eventually.be.fulfilled(
           "Should not have allowed appeal on application with failed challenge that has been processed",

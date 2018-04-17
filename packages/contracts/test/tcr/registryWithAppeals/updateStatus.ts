@@ -2,6 +2,7 @@ import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 
 import * as utils from "../../utils/contractutils";
+import { REVERTED } from "../../utils/constants";
 
 configureChai(chai);
 const expect = chai.expect;
@@ -32,43 +33,76 @@ contract("Registry With Appeals", accounts => {
       expect(isWhitelisted).to.be.true("Listing should have been whitelisted");
     });
 
-    it("should not be able to whitelist listing that has passed challenge, so doesn't need to appeal", async () => {
+    it("should succeed if request appeal is over without one requested", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await registry.challenge(newsroomAddress, "", { from: challenger });
-
-      await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength);
-      await utils.advanceEvmTime(utils.paramConfig.pRevealStageLength + 1);
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength);
 
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
-        "Listing should not have been updated post challenge",
+        "should have been able to update status after appeal challenge",
       );
-
-      const [, isWhitelisted] = await registry.listings(newsroomAddress);
-      expect(isWhitelisted).to.be.false("Listing should have been whitelisted");
     });
 
-    it("losing a challenge should start the request appeal phase", async () => {
+    it("should fail if request appeal is over and one is requested", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-
-      const [, appealPhase1] = await registry.appeals(newsroomAddress);
-      expect(appealPhase1).to.be.bignumber.equal(0, "Appeal phase initialized early.");
       await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
 
-      const [, appealPhase2] = await registry.appeals(newsroomAddress);
-      expect(appealPhase2).to.be.bignumber.equal(0, "Appeal phase initialized early.");
+      await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have been able to update status before appeal challenge is over",
+      );
+    });
 
-      await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength);
-      await utils.advanceEvmTime(utils.paramConfig.pRevealStageLength + 1);
-
+    it("should succeed if appeal is requested and that phase ends without one being granted ", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
-        "Listing should not have been updated post challenge",
+        "should not have been able to update status before appeal challenge is over",
+      );
+    });
+
+    it("should succeed if appealChallenge is over", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+
+      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
+
+      await utils.advanceEvmTime(
+        utils.paramConfig.appealChallengeCommitStageLength + utils.paramConfig.appealChallengeRevealStageLength + 1,
       );
 
-      const [, isWhitelisted] = await registry.listings(newsroomAddress);
-      expect(isWhitelisted).to.be.false("Listing should not have been whitelisted");
+      await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
+        "should have been able to update status after appeal challenge",
+      );
+    });
 
-      const [, appealPhase3] = await registry.appeals(newsroomAddress);
-      expect(appealPhase3).to.be.bignumber.greaterThan(0, "Appeal phase not initialized.");
+    it("should fail if appealChallenge is still in progress", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+
+      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
+
+      await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have been able to update status before appeal challenge is over",
+      );
     });
   });
 });

@@ -1,6 +1,7 @@
 import { isUndefined } from "lodash";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
+import BigNumber from "bignumber.js";
 
 import {
   EthAddress,
@@ -98,5 +99,9 @@ export function createTwoStepSimple(web3Wrapper: Web3Wrapper, txHash: TxHash): T
 }
 
 export function isEthAddress(listing: EthAddress | any): listing is EthAddress {
+  return typeof listing === "string";
+}
+
+export function isBigNumber(listing: BigNumber | any): listing is BigNumber {
   return typeof listing === "string";
 }

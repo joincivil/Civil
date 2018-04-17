@@ -22,10 +22,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       tokenAddress = Token.address;
     }
 
-    await deployer.deploy(
-      Parameterizer,
-      tokenAddress,
-      PLCRVoting.address,
+    await deployer.deploy(Parameterizer, tokenAddress, PLCRVoting.address, [
       parameterizerConfig.minDeposit,
       parameterizerConfig.pMinDeposit,
       parameterizerConfig.applyStageLength,
@@ -39,7 +36,10 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.voteQuorum,
       parameterizerConfig.pVoteQuorum,
       parameterizerConfig.pProcessBy,
-    );
+      parameterizerConfig.challengeAppealLength,
+      parameterizerConfig.appealChallengeCommitStageLength,
+      parameterizerConfig.appealChallengeRevealStageLength,
+    ]);
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), Parameterizer.address);
     }

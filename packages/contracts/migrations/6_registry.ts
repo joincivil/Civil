@@ -16,12 +16,22 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(DLL, CivilTCR);
     await deployer.link(AttributeStore, CivilTCR);
 
+    const parameterizerConfig = config.paramDefaults;
     let tokenAddress = config.TokenAddress;
 
     if (network !== MAIN_NETWORK) {
       tokenAddress = Token.address;
     }
-    await deployer.deploy(CivilTCR, tokenAddress, PLCRVoting.address, Parameterizer.address, accounts[0], accounts[0]);
+    await deployer.deploy(
+      CivilTCR,
+      tokenAddress,
+      PLCRVoting.address,
+      Parameterizer.address,
+      accounts[0],
+      parameterizerConfig.appealFeeAmount,
+      parameterizerConfig.requestAppealPhaseLength,
+      parameterizerConfig.judgeAppealPhaseLength,
+    );
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), CivilTCR.address);
     }

@@ -59,56 +59,38 @@ contract Parameterizer {
   // ------------
 
   /**
-  @dev constructor
+  @notice constructor
   @param _tokenAddr        address of the token which parameterizes this system
   @param _plcrAddr         address of a PLCR voting contract for the provided token
-  @param _minDeposit       minimum deposit for listing to be whitelisted
-  @param _pMinDeposit      minimum deposit to propose a reparameterization
-  @param _applyStageLen    period over which applicants wait to be whitelisted
-  @param _pApplyStageLen   period over which reparmeterization proposals wait to be processed
-  @param _dispensationPct  percentage of losing party's deposit distributed to winning party
-  @param _pDispensationPct percentage of losing party's deposit distributed to winning party in parameterizer
-  @param _commitStageLen  length of commit period for voting
-  @param _pCommitStageLen length of commit period for voting in parameterizer
-  @param _revealStageLen  length of reveal period for voting
-  @param _pRevealStageLen length of reveal period for voting in parameterizer
-  @param _voteQuorum       type of majority out of 100 necessary for vote success
-  @param _pVoteQuorum      type of majority out of 100 necessary for vote success in parameterizer
+  @param _uintParameters    array of uint parameters
+  @dev _uintParameters is passed in as an array, rather than as individual parameters
+  to avoid compiler error caused by too many local variables (stack too deep)
   */
   function Parameterizer(
     address _tokenAddr,
     address _plcrAddr,
-    uint _minDeposit,
-    uint _pMinDeposit,
-    uint _applyStageLen,
-    uint _pApplyStageLen,
-    uint _commitStageLen,
-    uint _pCommitStageLen,
-    uint _revealStageLen,
-    uint _pRevealStageLen,
-    uint _dispensationPct,
-    uint _pDispensationPct,
-    uint _voteQuorum,
-    uint _pVoteQuorum,
-    uint _pProcessBy
-    ) public
+    uint[16] _uintParameters
+  ) public
   {
     token = EIP20(_tokenAddr);
     voting = PLCRVoting(_plcrAddr);
 
-    set("minDeposit", _minDeposit);
-    set("pMinDeposit", _pMinDeposit);
-    set("applyStageLen", _applyStageLen);
-    set("pApplyStageLen", _pApplyStageLen);
-    set("commitStageLen", _commitStageLen);
-    set("pCommitStageLen", _pCommitStageLen);
-    set("revealStageLen", _revealStageLen);
-    set("pRevealStageLen", _pRevealStageLen);
-    set("dispensationPct", _dispensationPct);
-    set("pDispensationPct", _pDispensationPct);
-    set("voteQuorum", _voteQuorum);
-    set("pVoteQuorum", _pVoteQuorum);
-    set("pProcessBy", _pProcessBy);
+    set("minDeposit", _uintParameters[0]);
+    set("pMinDeposit", _uintParameters[1]);
+    set("applyStageLen", _uintParameters[2]);
+    set("pApplyStageLen", _uintParameters[3]);
+    set("commitStageLen", _uintParameters[4]);
+    set("pCommitStageLen", _uintParameters[5]);
+    set("revealStageLen", _uintParameters[6]);
+    set("pRevealStageLen", _uintParameters[7]);
+    set("dispensationPct", _uintParameters[8]);
+    set("pDispensationPct", _uintParameters[9]);
+    set("voteQuorum", _uintParameters[10]);
+    set("pVoteQuorum", _uintParameters[11]);
+    set("pProcessBy", _uintParameters[12]);
+    set("challengeAppealLen", _uintParameters[13]);
+    set("challengeAppealCommitLen", _uintParameters[14]);
+    set("challengeAppealRevealLen", _uintParameters[15]);
   }
 
   // -----------------------

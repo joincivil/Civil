@@ -50,9 +50,6 @@ contract("Registry", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      // Update status
-      await registry.updateStatus(newsroomAddress, { from: applicant });
-
       // Pass Request Appeal Phase without requesting
       const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
       await utils.advanceEvmTime(waitTime);
@@ -111,6 +108,7 @@ contract("Registry", accounts => {
         "alices final balance should be exactly the same as her starting balance",
       );
 
+      await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1);
       // Update status
       await registry.updateStatus(newsroomAddress, { from: applicant });
 
@@ -133,9 +131,6 @@ contract("Registry", accounts => {
       // Alice is so revealing
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-
-      // Update status
-      await registry.updateStatus(newsroomAddress, { from: applicant });
 
       const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
       await utils.advanceEvmTime(waitTime);
@@ -205,8 +200,6 @@ contract("Registry", accounts => {
       await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.updateStatus(newsroomAddress, { from: applicant });
-
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await registry.grantAppeal(newsroomAddress, { from: JAB });
       const waitTime = Number(await registry.judgeAppealPhaseLength()) + 1;
@@ -240,11 +233,10 @@ contract("Registry", accounts => {
       await voting.revealVote(pollID, "1", "32  ", { from: voterBob });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.updateStatus(newsroomAddress, { from: applicant });
-
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await registry.grantAppeal(newsroomAddress, { from: JAB });
-      const waitTime = Number(await registry.judgeAppealPhaseLength());
+
+      const waitTime = utils.paramConfig.challengeAppealLength;
       await utils.advanceEvmTime(waitTime + 1);
 
       await registry.updateStatus(newsroomAddress);

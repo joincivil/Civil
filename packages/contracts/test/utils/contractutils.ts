@@ -68,6 +68,11 @@ export async function challengeAndGetPollID(listing: string, account: string, re
   return receipt.logs[0].args.pollID;
 }
 
+export async function challengeAppealAndGetPollID(listing: string, account: string, registry: any): Promise<string> {
+  const receipt = await registry.challengeGrantedAppeal(listing, "", { from: account });
+  return receipt.logs[0].args.appealChallengeID;
+}
+
 export async function challengeReparamAndGetPollID(
   propID: string,
   account: string,
@@ -185,8 +190,15 @@ async function createTestCivilTCRInstance(
   const plcrAddress = await parameterizer.voting();
   const parameterizerAddress = await parameterizer.address;
   const token = await Token.at(tokenAddress);
-  const feeRecipient = accounts[2];
-  const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, appellateEntity, feeRecipient);
+  const registry = await CivilTCR.new(
+    tokenAddress,
+    plcrAddress,
+    parameterizerAddress,
+    appellateEntity,
+    paramConfig.appealFeeAmount,
+    paramConfig.requestAppealPhaseLength,
+    paramConfig.judgeAppealPhaseLength,
+  );
 
   await approveRegistryFor(accounts);
   return registry;
@@ -226,9 +238,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
   }
   const parameterizerConfig = config.paramDefaults;
 
-  const parameterizer = await Parameterizer.new(
-    token.address,
-    plcr.address,
+  const parameterizer = await Parameterizer.new(token.address, plcr.address, [
     parameterizerConfig.minDeposit,
     parameterizerConfig.pMinDeposit,
     parameterizerConfig.applyStageLength,
@@ -242,7 +252,10 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
     parameterizerConfig.voteQuorum,
     parameterizerConfig.pVoteQuorum,
     parameterizerConfig.pProcessBy,
-  );
+    parameterizerConfig.challengeAppealLength,
+    parameterizerConfig.appealChallengeCommitStageLength,
+    parameterizerConfig.appealChallengeRevealStageLength,
+  ]);
 
   await approveParameterizerFor(accounts);
   return parameterizer;
