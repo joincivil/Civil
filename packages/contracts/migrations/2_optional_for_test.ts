@@ -19,14 +19,12 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     let allocation;
     allocation = totalSupply.div(new BN(originalCount, BASE_10));
     await token.transfer(user, allocation);
-    await web3.eth.sendTransaction({ from: accounts[0], to: user, value: web3.toWei(0.01, "ether") });
 
     if (addresses.length === 1) {
       return true;
     }
     return giveTokensTo(addresses.slice(1), originalCount);
   }
-  console.log("network: " + network);
   deployer.then(async () => {
     if (network !== MAIN_NETWORK) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");

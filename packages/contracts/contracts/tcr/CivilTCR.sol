@@ -14,7 +14,7 @@ by which granted appeals can be vetoed by a supermajority vote
 */
 contract CivilTCR is RestrictedAddressRegistry {
 
-  event AppealRequested(address indexed requester, address indexed listing, uint indexed challenge);
+  event AppealRequested(address indexed requester, address indexed listing, uint indexed challengeID);
   event AppealGranted(address indexed listing);
   event AppealFeeSet(uint fee);
   event MakeAppealLengthSet(uint length);
@@ -416,7 +416,6 @@ contract CivilTCR is RestrictedAddressRegistry {
     Challenge storage listingChallenge = challenges[challengeID];
 
     // Calculates the winner's reward,
-    // which is: (winner's full stake) + (dispensationPct * loser's stake)
     uint reward = determineReward(challengeID);
 
     bool wasWhitelisted = listings[listingAddress].isWhitelisted;

@@ -11,7 +11,7 @@ import { Web3Wrapper } from "../../utils/web3wrapper";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
 import { Appeal, EthAddress, Listing, ListingState, TwoStepEthTransaction, Challenge } from "../../types";
-import { createTwoStepSimple, is0x0Address, isBigNumber, isEthAddress } from "../utils/contracts";
+import { createTwoStepSimple, is0x0Address, isEthAddress } from "../utils/contracts";
 import { EIP20 } from "./eip20";
 
 const debug = Debug("civil:tcr");
@@ -298,7 +298,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
         if (await this.isInRequestAppealPhase(listing.challengeID, appeal)) {
           return ListingState.WAIT_FOR_APPEAL_REQUEST;
-        } else if (await this.isInAppealPhase(appeal)) {
+        } else if (await this.isInAppealPhase(listing.challengeID, appeal)) {
           return ListingState.IN_APPEAL_PHASE;
         } else if (await this.isReadyToResolveAppeal(listingAddress)) {
           return ListingState.READY_TO_RESOLVE_APPEAL;
@@ -337,15 +337,6 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return listing;
   }
 
-  public async getAppealInstance(appealOrId: BigNumber | Appeal): Promise<Appeal> {
-    let appeal: Appeal;
-    if (isBigNumber(appealOrId)) {
-      appeal = await this.getAppeal(appealOrId);
-    } else {
-      appeal = appealOrId;
-    }
-    return appeal;
-  }
   /**
    * Checks if the listing exists on the contract. If this is false, either the listing
    * has never applied, or it has applied and been rejected (whether during application
@@ -517,10 +508,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   /**
    * Checks if a listing is currently in the Appeal phase
-   * @param listingAddress Address of listing to check
+   * @param appealId ID of appeal to check (same as ID of challenge being appealed)
    */
-  public async isInAppealPhase(appealOrId: BigNumber | Appeal): Promise<boolean> {
-    const appealExpiryDate = await this.getAppealExpiryDate(appealOrId);
+  public async isInAppealPhase(appealId?: BigNumber, appeal?: Appeal): Promise<boolean> {
+    const appealExpiryDate = await this.getAppealExpiryDate(appealId, appeal);
     return appealExpiryDate > new Date();
   }
 
@@ -528,9 +519,16 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Gets the expiry time of the appeal phase.
    * @param listingAddress Address of listing to check
    */
-  public async getAppealExpiryDate(appealOrId: BigNumber | Appeal): Promise<Date> {
-    const appeal = await this.getAppealInstance(appealOrId);
-    return new Date(appeal.appealPhaseExpiry.toNumber() * 1000);
+  public async getAppealExpiryDate(appealId?: BigNumber, appeal?: Appeal): Promise<Date> {
+    let appealInstance;
+    if (appeal) {
+      appealInstance = appeal;
+    } else if (appealId) {
+      appealInstance = await this.getAppeal(appealId);
+    } else {
+      throw new Error("neither appealId nor appeal instance passed into function");
+    }
+    return new Date(appealInstance.appealPhaseExpiry.toNumber() * 1000);
   }
 
   /**
