@@ -25,7 +25,6 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     }
     return giveTokensTo(addresses.slice(1), originalCount);
   }
-
   deployer.then(async () => {
     if (network !== MAIN_NETWORK) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");

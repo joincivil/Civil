@@ -97,6 +97,6 @@ export function createTwoStepSimple(web3Wrapper: Web3Wrapper, txHash: TxHash): T
   };
 }
 
-export function isEthAddress(listing: EthAddress | any): listing is EthAddress {
-  return typeof listing === "string";
+export function isEthAddress(what: any): what is EthAddress {
+  return typeof what === "string";
 }

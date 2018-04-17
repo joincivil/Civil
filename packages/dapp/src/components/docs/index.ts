@@ -1,6 +1,7 @@
 import * as ACL from "./json/ACL.json";
 import * as AddressRegistry from "./json/AddressRegistry.json";
 import * as AtrributeStore from "./json/AttributeStore.json";
+import * as CivilTCR from "./json/CivilTCR.json";
 import * as ContractAddressRegistry from "./json/ContractAddressRegistry.json";
 import * as DLL from "./json/DLL.json";
 import * as DummyACL from "./json/DummyACL.json";
@@ -13,7 +14,6 @@ import * as MultiSigWalletFactory from "./json/MultiSigWalletFactory.json";
 import * as Newsroom from ".//json/Newsroom.json";
 import * as NewsroomFactory from "./json/NewsroomFactory.json";
 import * as Ownable from "./json/Ownable.json";
-import * as OwnedAddressTCRWithAppeals from "./json/OwnedAddressTCRWithAppeals.json";
 import * as Parameterizer from "./json/Parameterizer.json";
 import * as PLCRVoting from "./json/PLCRVoting.json";
 import * as RestrictedAddressRegistry from "./json/RestrictedAddressRegistry.json";
@@ -22,6 +22,7 @@ const contracts = [
   ACL,
   AddressRegistry,
   AtrributeStore,
+  CivilTCR,
   ContractAddressRegistry,
   DLL,
   DummyACL,
@@ -34,7 +35,6 @@ const contracts = [
   Newsroom,
   NewsroomFactory,
   Ownable,
-  OwnedAddressTCRWithAppeals,
   Parameterizer,
   PLCRVoting,
   RestrictedAddressRegistry,

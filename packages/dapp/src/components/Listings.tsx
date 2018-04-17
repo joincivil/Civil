@@ -38,7 +38,7 @@ class Listings extends React.Component<{}, ListingsState> {
   public render(): JSX.Element {
     return (
       <StyledDiv>
-        whaddup listings: {this.state.applications.toString()}
+        applications: {this.state.applications.toString()}
         <br />
         {this.state.error}
       </StyledDiv>

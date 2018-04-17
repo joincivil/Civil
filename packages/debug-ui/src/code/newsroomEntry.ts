@@ -18,7 +18,6 @@ initializeDebugUI(async civil => {
   displayState.innerHTML = "State: " + ListingState[state].toString();
 
   const listing = await tcr.getListing(address);
-  const appeal = await tcr.getAppeal(address);
 
   const newsroom = await civil.newsroomAtUntrusted(address);
   const owners = await newsroom.owners();
@@ -63,7 +62,7 @@ initializeDebugUI(async civil => {
 
     case ListingState.WAIT_FOR_APPEAL_REQUEST:
       document.getElementById("appeal")!.classList.remove("hidden");
-      const waitForAppealExpiryDate = await tcr.getRequestAppealExpiryDate(appeal);
+      const waitForAppealExpiryDate = await tcr.getRequestAppealExpiryDate(listing.challengeID);
       document.getElementById("appealInfo")!.innerHTML =
         "Current waiting for listing owner to request appeal.<br>" +
         "Request phase expires at: " +
@@ -72,7 +71,7 @@ initializeDebugUI(async civil => {
 
     case ListingState.IN_APPEAL_PHASE:
       document.getElementById("appeal")!.classList.remove("hidden");
-      const inAppealExpiryDate = await tcr.getAppealExpiryDate(appeal);
+      const inAppealExpiryDate = await tcr.getAppealExpiryDate(listing.challengeID);
       document.getElementById("appealInfo")!.innerHTML =
         "Current waiting for JAB to judge appeal.<br>" + "Appeal phase expires at: " + inAppealExpiryDate;
       break;

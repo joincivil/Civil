@@ -12,7 +12,13 @@
     "pDispensationPct": 50,
     "voteQuorum": 50,
     "pVoteQuorum": 50,
-    "pProcessBy": 180
+    "pProcessBy": 180,
+    "appealFeeAmount": 1000,
+    "challengeAppealLength": 180,
+    "requestAppealPhaseLength": 360,
+    "judgeAppealPhaseLength": 360,
+    "appealChallengeCommitStageLength": 160,
+    "appealChallengeRevealStageLength": 160
   },
   "TokenAddress": "0x337cDDa6D41A327c5ad456166CCB781a9722AFf9",
   "testnets": {
@@ -23,6 +29,9 @@
         "0x3a5cdcFBA600e0c669795e0B65c344D5A37a4d5A",
         "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf"
       ]
+    },
+    "ganache": {
+      "tokenHolders": ["0xcec56f1d4dc439e298d5f8b6ff3aa6be58cd6fdf"]
     }
   }
 }

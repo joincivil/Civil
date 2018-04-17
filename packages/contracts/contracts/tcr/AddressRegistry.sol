@@ -78,10 +78,9 @@ contract AddressRegistry {
   // --------------------
 
   /**
-  @dev                Allows a user to start an application. Takes tokens from user and sets
-                      apply stage end time.
-  @param amount      The number of ERC20 tokens a user is willing to potentially stake
-  @param data        Extra data relevant to the application. Think IPFS hashes.
+  @notice Allows a user to start an application. Takes tokens from user and sets apply stage end time.
+  @param amount The number of ERC20 tokens a user is willing to potentially stake
+  @param data Extra data relevant to the application. Think IPFS hashes.
   */
   function apply(address listingAddress, uint amount, string data) public {
     require(!listings[listingAddress].isWhitelisted);
@@ -137,8 +136,8 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Allows the owner of a listing to remove the listingHash from the whitelist
-                      Returns all tokens to the owner of the listing
+  @notice Allows the owner of a listing to remove the listingHash from the whitelist
+  Returns all tokens to the owner of the listing
   */
   function exitListing(address listingAddress) external {
     Listing storage listing = listings[listingAddress];
@@ -158,11 +157,9 @@ contract AddressRegistry {
   // -----------------------
 
   /**
-  @dev                Starts a poll for a listingAddress which is either in the apply stage or
-                      already in the whitelist. Tokens are taken from the challenger and the
-                      applicant's deposits are locked.
-                      D elists listing and returns NO_CHALLENGE if listing's unstakedDeposit
-                      is less than current minDeposit
+  @notice Starts a poll for a listingAddress which is either in the apply stage or
+  already in the whitelist. Tokens are taken from the challenger and the applicant's deposits are locked.
+  Delists listing and returns NO_CHALLENGE if listing's unstakedDeposit is less than current minDeposit
   @param listingAddress The listingAddress being challenged, whether listed or in application
   @param data        Extra data relevant to the challenge. Think IPFS hashes.
   */
@@ -322,8 +319,8 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Determines whether voting has concluded in a challenge for a given
-                      listingAddress. Throws if no challenge exists.
+  @notice Determines whether voting has concluded in a challenge for a given listingAddress.
+  Throws if no challenge exists.
   @param listingAddress A listingAddress with an unresolved challenge
   */
   function challengeCanBeResolved(address listingAddress) view public returns (bool) {
@@ -335,8 +332,8 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Determines the number of tokens awarded to the winning party in a challenge.
-  @param challengeID The challengeID to determine a reward for
+  @notice Determines the number of tokens awarded to the winning party in a challenge.
+  @param challengeID The ID of a challenge to determine a reward for
   */
   function determineReward(uint challengeID) public view returns (uint) {
     require(!challenges[challengeID].resolved && voting.pollEnded(challengeID));
@@ -350,7 +347,7 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Getter for Challenge hasClaimedTokens mappings
+  @notice Getter for Challenge hasClaimedTokens mappings
   @param challengeID The challengeID to query
   @param voter       The voter whose claim status to query for the provided challengeID
   */
@@ -421,7 +418,7 @@ contract AddressRegistry {
   @dev                Deletes a listingAddress from the whitelist and transfers tokens back to owner
   @param listingAddress The listing to delete
   */
-  function resetListing(address listingAddress) private {
+  function resetListing(address listingAddress) internal {
     Listing storage listing = listings[listingAddress];
 
     // Transfers any remaining balance back to the owner
