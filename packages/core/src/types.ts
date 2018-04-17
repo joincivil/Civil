@@ -79,7 +79,7 @@ export enum AbiType {
 }
 
 export { CivilEventArgs, Artifact } from "./contracts/generated/artifacts";
-
+export { ApplicationArgs } from "./contracts/generated/civil_t_c_r";
 export interface DecodedTransactionReceipt<T> {
   blockHash: string;
   blockNumber: number;
@@ -174,4 +174,9 @@ export interface ParamProp {
   paramName: string;
   proposedValue: BigNumber;
   pollID?: BigNumber;
+}
+
+export interface WrappedEvent<T> {
+  decodedLogEntryEvent: Web3.DecodedLogEntryEvent<T>;
+  timestamp: BigNumber;
 }

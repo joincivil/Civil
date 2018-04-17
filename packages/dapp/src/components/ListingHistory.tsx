@@ -4,7 +4,7 @@ import { Civil } from "@joincivil/core";
 import { List } from "immutable";
 import { Subscription } from "rxjs";
 
-import ListingList from "./ListingList";
+import ListingEvent from "./ListingEvent";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -13,45 +13,35 @@ const StyledDiv = styled.div`
   color: black;
 `;
 
-export interface ListingsState {
-  applications: List<string>;
+export interface ListingHistoryProps {
+  match: any;
+}
+
+export interface ListingHistoryState {
+  listingHistory: List<any>;
   applicationSubscription: Subscription;
-  whitelistedListings: List<string>;
   whitelistSubscription: Subscription;
-  readyToWhitelistListings: List<string>;
   readyToWhitelistSubscription: Subscription;
-  inChallengeCommitListings: List<string>;
   inChallengeCommitSubscription: Subscription;
-  inChallengeRevealListings: List<string>;
   inChallengeRevealSubscription: Subscription;
-  canBeUpdatedListings: List<string>;
   canBeUpdatedSubscription: Subscription;
-  awaitingAppealRequestListings: List<string>;
   awaitingAppealRequestSubscription: Subscription;
-  awaitingAppealJudgmentListings: List<string>;
   awaitingAppealJudgmentSubscription: Subscription;
   error: undefined | string;
 }
 
-class Listings extends React.Component<{}, ListingsState> {
+class ListingHistory extends React.Component<ListingHistoryProps, ListingHistoryState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      applications: List<string>(),
+      listingHistory: List<any>(),
       applicationSubscription: new Subscription(),
-      whitelistedListings: List<string>(),
       whitelistSubscription: new Subscription(),
-      readyToWhitelistListings: List<string>(),
       readyToWhitelistSubscription: new Subscription(),
-      inChallengeCommitListings: List<string>(),
       inChallengeCommitSubscription: new Subscription(),
-      inChallengeRevealListings: List<string>(),
       inChallengeRevealSubscription: new Subscription(),
-      canBeUpdatedListings: List<string>(),
       canBeUpdatedSubscription: new Subscription(),
-      awaitingAppealRequestListings: List<string>(),
       awaitingAppealRequestSubscription: new Subscription(),
-      awaitingAppealJudgmentListings: List<string>(),
       awaitingAppealJudgmentSubscription: new Subscription(),
       error: undefined,
     };
@@ -76,31 +66,10 @@ class Listings extends React.Component<{}, ListingsState> {
   public render(): JSX.Element {
     return (
       <StyledDiv>
-        Whitelisted Newsrooms:<br />
-        <ListingList listings={this.state.whitelistedListings} />
-        <br />
-        Applications:<br />
-        <ListingList listings={this.state.applications} />
-        <br />
-        Ready to be Whitelisted:<br />
-        <ListingList listings={this.state.readyToWhitelistListings} />
-        <br />
-        In Challenge Vote-Commit Stage:<br />
-        <ListingList listings={this.state.inChallengeCommitListings} />
-        <br />
-        In Challenge Vote-Reveal Stage:<br />
-        <ListingList listings={this.state.inChallengeRevealListings} />
-        <br />
-        Can be Updated:<br />
-        <ListingList listings={this.state.canBeUpdatedListings} />
-        <br />
-        Awaiting Appeal Request:<br />
-        <ListingList listings={this.state.awaitingAppealRequestListings} />
-        <br />
-        Awaiting Appeal Judgment:<br />
-        <ListingList listings={this.state.awaitingAppealJudgmentListings} />
-        <br />
-        {this.state.error}
+        History:<br />
+        {this.state.listingHistory.map(e => {
+          return <ListingEvent key={this.props.match.params.listing + e.blockNumber} event={e} />;
+        })}
       </StyledDiv>
     );
   }
@@ -119,12 +88,14 @@ class Listings extends React.Component<{}, ListingsState> {
     }
 
     if (tcr) {
-      const applicationSubscription = tcr.listingsInApplicationStage().subscribe(listing => {
-        this.setState({ applications: this.state.applications.push(listing) });
-      });
+      const applicationSubscription = tcr
+        .listingApplications(this.props.match.params.listing)
+        .subscribe(async (e: any) => {
+          this.setState({ listingHistory: this.state.listingHistory.push(await e) });
+        });
       this.setState({ applicationSubscription });
 
-      const whitelistSubscription = tcr.whitelistedListings().subscribe(listing => {
+      /*const whitelistSubscription = tcr.whitelistedListings().subscribe(listing => {
         this.setState({ whitelistedListings: this.state.whitelistedListings.push(listing) });
       });
       this.setState({ whitelistSubscription });
@@ -144,11 +115,6 @@ class Listings extends React.Component<{}, ListingsState> {
       });
       this.setState({ inChallengeRevealSubscription });
 
-      /*const canBeUpdatedSubscription = tcr.canB().subscribe(listing => {
-        this.setState({ applications: this.state.whitelistedListings.push(listing) });
-      });
-      this.setState({ canBeUpdatedSubscription });*/
-
       const awaitingAppealRequestSubscription = tcr.listingsAwaitingAppealRequest().subscribe(listing => {
         this.setState({ awaitingAppealRequestListings: this.state.awaitingAppealRequestListings.push(listing) });
       });
@@ -157,9 +123,9 @@ class Listings extends React.Component<{}, ListingsState> {
       const awaitingAppealJudgmentSubscription = tcr.listingsAwaitingAppeal().subscribe(listing => {
         this.setState({ awaitingAppealJudgmentListings: this.state.awaitingAppealJudgmentListings.push(listing) });
       });
-      this.setState({ awaitingAppealJudgmentSubscription });
+      this.setState({ awaitingAppealJudgmentSubscription });*/
     }
   };
 }
 
-export default Listings;
+export default ListingHistory;

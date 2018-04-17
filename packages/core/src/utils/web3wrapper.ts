@@ -71,6 +71,14 @@ export class Web3Wrapper {
     return this.web3.version.network;
   }
 
+  public async getTimestampForBlock(blockNumber: number): Promise<BigNumber> {
+    return new Promise<BigNumber>((resolve, reject) => {
+      this.web3.eth.getBlock(blockNumber, (err, block) => {
+        resolve(new BigNumber(block.timestamp));
+      });
+    });
+  }
+
   public async getCode(contract: EthAddress | BaseContract | BaseWrapper<any>): Promise<string> {
     let address: EthAddress;
     if (typeof contract === "string") {
