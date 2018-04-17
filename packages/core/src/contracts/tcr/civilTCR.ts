@@ -6,11 +6,11 @@ import "@joincivil/utils";
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-import { CivilTCRContract } from "../generated/civil_t_c_r";
+import { ApplicationArgs, CivilTCRContract } from "../generated/civil_t_c_r";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
-import { Appeal, EthAddress, Listing, ListingState, TwoStepEthTransaction, Challenge } from "../../types";
+import { Appeal, EthAddress, Listing, ListingState, TwoStepEthTransaction, Challenge, WrappedEvent } from "../../types";
 import { createTwoStepSimple, is0x0Address, isEthAddress } from "../utils/contracts";
 import { EIP20 } from "./eip20";
 
@@ -115,6 +115,15 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       .ApplicationStream({}, { fromBlock })
       .map(e => e.args.listingAddress)
       .concatFilter(async listingAddress => this.isInApplicationPhase(listingAddress));
+  }
+
+  public listingApplications(listingAddress: EthAddress): Observable<Promise<WrappedEvent<ApplicationArgs>>> {
+    return this.instance.ApplicationStream({ listingAddress }, { fromBlock: 0 }).map(async e => {
+      return {
+        decodedLogEntryEvent: e,
+        timestamp: await this.web3Wrapper.getTimestampForBlock(e.blockNumber!),
+      };
+    });
   }
 
   /**
