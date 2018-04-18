@@ -20,6 +20,8 @@ declare module "web3" {
     public toHex(data: MixedData): string;
     public toAscii(hex: string): string;
     public fromAscii(ascii: string, padding?: number): string;
+    public toUtf8(hex: string): string;
+    public fromUtf8(text: string, allowZero?: true): string;
     public toDecimal(hex: string): number;
     public fromDecimal(value: number | string): string;
     public fromWei(value: number | string, unit: Unit): string;
