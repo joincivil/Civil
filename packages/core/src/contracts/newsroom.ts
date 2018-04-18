@@ -1,8 +1,6 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-import * as Web3 from "web3";
 import "@joincivil/utils";
-import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
@@ -10,13 +8,7 @@ import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomContract, NewsroomEvents, ContentProposedLog } from "./generated/newsroom";
 import { TwoStepEthTransaction, TxData, EthAddress, ContentId, ContentHeader, NewsroomContent } from "../types";
-import {
-  createTwoStepTransaction,
-  createTwoStepSimple,
-  isDecodedLog,
-  findEvents,
-  findEventOrThrow,
-} from "./utils/contracts";
+import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 import { NewsroomFactoryContract, ContractInstantiationLog, NewsroomFactoryEvents } from "./generated/newsroom_factory";

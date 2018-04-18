@@ -49,11 +49,11 @@ export async function advanceEvmTime(time: number): Promise<void> {
 }
 
 export function getParamFromTxEvent<T>(tx: Web3.TransactionReceipt, param: string, event: string): T {
-  const eventAny = tx.logs.find(log => (log as DecodedLogEntry<any>).event === event);
+  const eventAny = tx.logs.find(log => (log as DecodedLogEntry).event === event);
   if (eventAny === undefined) {
     throw new Error("No event found with name: " + event);
   }
-  const foundEvent = eventAny as DecodedLogEntry<any>;
+  const foundEvent = eventAny as DecodedLogEntry;
   const paramAny = foundEvent.args[param];
   if (paramAny === undefined) {
     throw new Error("No param found with name: " + param + " in event: " + event);

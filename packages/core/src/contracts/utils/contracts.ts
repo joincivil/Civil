@@ -13,7 +13,6 @@ import {
   TwoStepEthTransaction,
 } from "../../types";
 import { Web3Wrapper } from "../../utils/web3wrapper";
-import { CivilLogs, CivilEvents } from "../generated/artifacts";
 
 export function findEvent<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T | undefined {
   return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as T | undefined;

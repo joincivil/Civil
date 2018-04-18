@@ -4,7 +4,7 @@ import * as Web3 from "web3";
 import { delay, promisify } from "@joincivil/utils";
 
 import { artifacts } from "../contracts/generated/artifacts";
-import { Artifact, CivilTransactionReceipt, EthAddress, TxHash, TxDataAll, Hex } from "../types";
+import { Artifact, CivilTransactionReceipt, EthAddress, TxHash, TxDataAll } from "../types";
 import { AbiDecoder } from "./abidecoder";
 import { CivilErrors } from "./errors";
 import { BaseContract } from "../contracts/basecontract";
