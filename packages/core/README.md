@@ -41,18 +41,9 @@ and [**good first issue**](https://github.com/joincivil/Civil/issues?q=is%3Aissu
 ### Developing on ganache
 
 This package has artifacts with singleton addresses of smart-contracts deployed on multiple Ethereum networks, one of which is our Ganache instance, that is set-up to be completely predictable.
-This means that whenever we run migrations on @joincivil/contracts in Ganache, the addresses are gonna be the same as the ones included in this packages.
+This means that whenever we run migrations on [`@joincivil/contracts`](../contracts) in Ganache, the addresses are gonna be the same as the ones included in this packages.
 
-You need to run migrations before being able to work with this package's singletons locally
-
-```bash
-cd ../../
-# Run ganache in another terminal
-yarn ganache
-cd packages/contracts
-yarn build
-yarn migrate --network ganache
-```
+Migrations are run automatically when `yarn ganache` in the root of monorepo is called.
 
 ### Code generation
 
@@ -61,8 +52,11 @@ Run `yarn build` or explicitly `yarn generate` to create them in the `src/contra
 
 #### Adding new smart-contracts
 
-* [ ] Add new .json definition to [`src/artifacts`](./src/artifacts/)
+* [ ] Write new or change some smart-contracts in [`@joincivil/contracts`](../contracts)
+* [ ] Add migration files and build.
+* [ ] Run `yarn ganache` in the root to make migrations
+* [ ] `cp ../contracts/build/artifacts/MyContract.json ./src/artifacts/` (merge manually if deployed on Rinkeby or Mainnet)
 * [ ] Run `yarn generate`
-* [ ] Enjoy automated generated code
+* [ ] Enjoy automatically generated code
 
 The templates for code generation can be found [`src/templates/`](./src/templates).
