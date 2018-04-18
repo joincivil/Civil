@@ -44,11 +44,11 @@ jobs:
                 at: ../
             - run:
                 name: Starting Ganache
-                command: yarn ganache
+                command: yarn ganache:raw
                 background: true
             - run:
                 name: Running migrations
-                command: yarn lerna -- run --scope=@joincivil/contracts migrate -- --network=ganache
+                command: yarn lerna run --scope=@joincivil/contracts migrate:ganache
             - run:
                 name: Running tests
                 command: yarn test
