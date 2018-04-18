@@ -1,4 +1,4 @@
-import { Civil, ListingState, ParamProposalState } from "@joincivil/core";
+import { Civil, ParamProposalState } from "@joincivil/core";
 import { challengeProp, claimReward, updateProp } from "../../scripts/parameterizerActions";
 import { commitVote, revealVote } from "../../scripts/votingActions";
 import { BigNumber } from "bignumber.js";

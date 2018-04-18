@@ -15,6 +15,7 @@
     "lint:typescript": "tslint --project ./",
     "lint:solidity": "solium --dir contracts/",
     "migrate": "truffle migrate",
+    "migrate:ganache": "run-s 'truffle migrate --network=ganache' build:stripArtifacts",
     "test": "truffle test --network ganache",
     "clean": "rimraf build/",
     "prepare": "truffle install",

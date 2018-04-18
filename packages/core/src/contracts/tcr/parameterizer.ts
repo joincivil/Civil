@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import * as Debug from "debug";
 import "@joincivil/utils";
 
-import { Bytes32, EthAddress, TwoStepEthTransaction } from "../../types";
+import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamProp, PollID } from "../../types";
 import { requireAccount, CivilErrors } from "../../utils/errors";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseWrapper } from "../basewrapper";
@@ -13,7 +13,7 @@ import { Voting } from "./voting";
 
 const debug = Debug("civil:tcr");
 
-export enum Parameters {
+export const enum Parameters {
   minDeposit = "minDepost",
   pMinDeposit = "pMinDeposit",
   applyStageLen = "applyStageLen",
@@ -551,27 +551,3 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     return this.instance.getPropValue.callAsync(propID);
   }
 }
-
-/**
- * This enum represents the various states a Parameterizer Proposal can be in.
- */
-export enum ParamProposalState {
-  NOT_FOUND,
-  APPLYING,
-  READY_TO_PROCESS,
-  CHALLENGED_IN_COMMIT_VOTE_PHASE,
-  CHALLENGED_IN_REVEAL_VOTE_PHASE,
-  READY_TO_RESOLVE_CHALLENGE,
-}
-
-/**
- * Interface describing the data associated with Parameterizer Proposals
- */
-export interface ParamProp {
-  propID: Bytes32;
-  paramName: string;
-  proposedValue: BigNumber;
-  pollID?: BigNumber;
-}
-
-export type PollID = BigNumber;

@@ -11,22 +11,24 @@ import {
   TxHash,
   CivilTransactionReceipt,
   TwoStepEthTransaction,
-  CivilEventArgs,
 } from "../../types";
 import { Web3Wrapper } from "../../utils/web3wrapper";
+import { CivilLogs, CivilEvents } from "../generated/artifacts";
 
-export function findEvent<T = CivilEventArgs>(
-  tx: Web3.TransactionReceipt,
-  eventName: string,
-): DecodedLogEntry<T> | undefined {
-  return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as DecodedLogEntry<T> | undefined;
+export function findEvent<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T | undefined {
+  return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as T | undefined;
 }
 
-export function findEvents<T = CivilEventArgs>(
-  tx: Web3.TransactionReceipt,
-  eventName: string,
-): Array<DecodedLogEntry<T>> {
-  return tx.logs.filter(log => isDecodedLog(log) && log.event === eventName) as Array<DecodedLogEntry<T>>;
+export function findEventOrThrow<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T {
+  const event = findEvent<T>(tx, eventName);
+  if (!event) {
+    throw new Error(`Log with event == "${eventName}" not found`);
+  }
+  return event;
+}
+
+export function findEvents<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T[] {
+  return tx.logs.filter(log => isDecodedLog(log) && log.event === eventName) as T[];
 }
 
 export function is0x0Address(address: string): boolean {
@@ -37,7 +39,7 @@ export function isContract<T extends Web3.ContractInstance>(what: any): what is 
   return (what as T).abi !== undefined;
 }
 
-export function isDecodedLog<T>(what: Web3.LogEntry | DecodedLogEntry<T>): what is DecodedLogEntry<T> {
+export function isDecodedLog(what: Web3.LogEntry | DecodedLogEntry): what is DecodedLogEntry {
   return typeof (what as any).event === "string" && !isUndefined((what as any).args);
 }
 

@@ -1,14 +1,3 @@
-export enum {{contractName}}Events {
-  {{#each events}}
-  {{this.name}} = "{{this.name}}",
-  {{/each}}
-}
-
-export type {{contractName}}EventArgs =
-  {{#each events}}
-    {{name}}Args{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
-  {{/each}}
-
 {{#each events}}
 export interface {{this.name}}Args {
   {{#each inputs}}
@@ -16,3 +5,18 @@ export interface {{this.name}}Args {
   {{/each}}
 }
 {{/each}}
+
+export const enum {{contractName}}Events {
+  {{#each events}}
+  {{this.name}} = "{{this.name}}",
+  {{/each}}
+}
+
+{{#each events}}
+export type {{this.name}}Log = DecodedLogEntry<{{this.name}}Args, {{../contractName}}Events.{{this.name}}>;
+{{/each}}
+
+export type {{contractName}}Logs =
+  {{#each events}}
+    {{name}}Log{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+  {{/each}}

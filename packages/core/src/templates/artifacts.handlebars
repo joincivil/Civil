@@ -9,13 +9,18 @@ import * as {{capitalize this.name}}Artifact from "../../artifacts/{{capitalize 
 {{/each}}
 
 {{#each files}}
-import { {{capitalize this.name}}EventArgs } from "./{{snakecase this.name}}";
+import { {{capitalize this.name}}Logs, {{capitalize this.name}}Events } from "./{{snakecase this.name}}";
 {{/each}}
 // tslint:enable:ordered-imports
 
-export type CivilEventArgs =
+export type CivilEvents =
   {{#each files}}
-    {{capitalize this.name}}EventArgs{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+    {{capitalize this.name}}Events{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+  {{/each}}
+
+export type CivilLogs =
+  {{#each files}}
+    {{capitalize this.name}}Logs{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
   {{/each}}
 
 export interface Artifact {

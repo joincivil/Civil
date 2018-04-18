@@ -14,7 +14,7 @@ import * as Web3 from "web3";
 import * as SolidityCoder from "web3/lib/solidity/coder";
 import { DecodedLogEntry } from "@joincivil/typescript-types";
 
-import { AbiType, CivilEventArgs, SolidityTypes } from "../types";
+import { AbiType, SolidityTypes, CivilLogs } from "../types";
 
 const HEX_START = "0x";
 const ADDRESS_LENGTH_CHAR = 40;
@@ -38,9 +38,7 @@ export class AbiDecoder {
     abiArrays.forEach(this.addABI.bind(this));
   }
 
-  public tryToDecodeLogOrNoop<ArgsType extends CivilEventArgs>(
-    log: Web3.LogEntry,
-  ): DecodedLogEntry<ArgsType> | Web3.LogEntry {
+  public tryToDecodeLogOrNoop<LogType extends CivilLogs = CivilLogs>(log: Web3.LogEntry): LogType | Web3.LogEntry {
     const methodId = log.topics[0];
     const event = this.methodIds[methodId];
     if (isUndefined(event)) {
@@ -70,11 +68,12 @@ export class AbiDecoder {
       decodedParams[param.name] = value;
     });
 
-    return {
+    // Due to event.name being run-time and not a literal, we're forced to manually cast
+    return ({
       ...log,
-      event: event.name,
+      event: event.name as any,
       args: decodedParams,
-    };
+    } as any) as LogType;
   }
   private addABI(abiArray: Web3.AbiDefinition[]): void {
     abiArray.forEach((abi: Web3.AbiDefinition) => {

@@ -6,7 +6,7 @@ import BigNumber from "bignumber.js";
 // Needed for the promisifed events, some contracts don't have events
 // tslint:disable-next-line:no-unused-variable
 import { Observable } from "rxjs";
-import { DecodedLogEntryEvent } from "@joincivil/typescript-types";
+import { DecodedLogEntryEvent, DecodedLogEntry } from "@joincivil/typescript-types";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 import { bindNestedAll, promisify, isDefined } from "@joincivil/utils";
