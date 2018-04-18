@@ -4,10 +4,5 @@
     "outDir": "build/",
     "declarationDir": "build/"
   },
-  "include": [
-    "./doc/**/*.ts",
-    "./src/**/*.ts",
-    "./test/**/*.ts",
-    "../../node_modules/web3-typescript-typings/index.d.ts"
-  ]
+  "include": ["./doc/**/*.ts", "./src/**/*.ts", "./test/**/*.ts"]
 }

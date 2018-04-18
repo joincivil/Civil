@@ -2,6 +2,7 @@ import * as chaiAsPromised from "chai-as-promised";
 import * as chaiBignumber from "chai-bignumber";
 import * as dirtyChai from "dirty-chai";
 import * as Web3 from "web3";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 export function configureChai(chai: any): void {
   chai.config.includeStack = true;
@@ -48,11 +49,11 @@ export async function advanceEvmTime(time: number): Promise<void> {
 }
 
 export function getParamFromTxEvent<T>(tx: Web3.TransactionReceipt, param: string, event: string): T {
-  const eventAny = tx.logs.find(log => (log as Web3.DecodedLogEntry<any>).event === event);
+  const eventAny = tx.logs.find(log => (log as DecodedLogEntry<any>).event === event);
   if (eventAny === undefined) {
     throw new Error("No event found with name: " + event);
   }
-  const foundEvent = eventAny as Web3.DecodedLogEntry<any>;
+  const foundEvent = eventAny as DecodedLogEntry<any>;
   const paramAny = foundEvent.args[param];
   if (paramAny === undefined) {
     throw new Error("No param found with name: " + param + " in event: " + event);

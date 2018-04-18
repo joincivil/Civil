@@ -1,5 +1,6 @@
 import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 import { CivilEventArgs } from "./contracts/generated/artifacts";
 
@@ -61,6 +62,7 @@ export type EthAddress = string;
 export type Bytes32 = string;
 export type TxHash = string;
 export type Uri = string;
+export type Hex = string;
 
 export enum SolidityTypes {
   Address = "address",
@@ -91,7 +93,7 @@ export interface DecodedTransactionReceipt<T> {
   cumulativeGasUsed: number;
   gasUsed: number;
   contractAddress: string | null;
-  logs: Array<Web3.DecodedLogEntry<T> | Web3.LogEntry>;
+  logs: Array<DecodedLogEntry<T> | Web3.LogEntry>;
 }
 
 export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilEventArgs>;

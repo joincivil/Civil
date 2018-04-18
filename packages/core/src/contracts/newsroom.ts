@@ -2,13 +2,21 @@ import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import * as Web3 from "web3";
 import "@joincivil/utils";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";
-import { TwoStepEthTransaction, TxData, EthAddress, ContentId, ContentHeader, NewsroomContent } from "../types";
+import {
+  TwoStepEthTransaction,
+  TxData,
+  EthAddress,
+  ContentId,
+  ContentHeader,
+  NewsroomContent,
+} from "../types";
 import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog, findEvents } from "./utils/contracts";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
@@ -304,7 +312,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       receipt => {
         for (const log of receipt.logs) {
           if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
-            return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
+            return (log as DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
           }
         }
         throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");

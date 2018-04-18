@@ -10,6 +10,7 @@
     "sourceMap": true,
     "pretty": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true // https://github.com/ReactiveX/rxjs/issues/3031
+    "skipLibCheck": true, // https://github.com/ReactiveX/rxjs/issues/3031
+    "typeRoots": ["packages/typescript-typings/types", "node_modules/@types"]
   }
 }

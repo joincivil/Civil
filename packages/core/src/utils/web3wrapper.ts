@@ -4,10 +4,9 @@ import * as Web3 from "web3";
 import { delay, promisify } from "@joincivil/utils";
 
 import { artifacts } from "../contracts/generated/artifacts";
-import { Artifact, CivilTransactionReceipt, EthAddress, TxHash, TxDataAll } from "../types";
+import { Artifact, CivilTransactionReceipt, EthAddress, TxHash, TxDataAll, Hex } from "../types";
 import { AbiDecoder } from "./abidecoder";
 import { CivilErrors } from "./errors";
-import { NodeStream } from "./nodestream";
 import { BaseContract } from "../contracts/basecontract";
 import { BaseWrapper } from "../contracts/basewrapper";
 
@@ -36,14 +35,12 @@ export class Web3Wrapper {
   public web3!: Web3;
 
   private abiDecoder: AbiDecoder;
-  private nodeStream: NodeStream;
 
   constructor(provider: Web3.Provider) {
     // TODO(ritave): Constructor can throw when the eg. HttpProvider can't connect to Http
     //               It shouldn't, and should just set null account
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map(a => a.abi));
-    this.nodeStream = new NodeStream();
   }
 
   public get currentProvider(): Web3.Provider {
@@ -128,12 +125,14 @@ export class Web3Wrapper {
       this.checkForEvmException(receipt);
 
       if (blockConfirmations) {
+        throw new Error("Not implemented yet");
+        /*
         try {
           await this.nodeStream.awaitConfirmations(receipt.blockHash, blockConfirmations);
         } catch (e) {
           debug("Failed to get block confirmations, tx got back into mempool", e);
           continue;
-        }
+        }*/
       }
       return receipt;
     }

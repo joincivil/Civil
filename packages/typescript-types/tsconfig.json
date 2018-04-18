@@ -4,5 +4,5 @@
     "outDir": "build/",
     "declarationDir": "build/"
   },
-  "include": ["./src/**/*.ts", "./scripts/**/*.ts", "./test/**/*.ts"]
+  "include": ["./src/**/*.ts"]
 }
