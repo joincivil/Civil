@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import * as Debug from "debug";
 import "@joincivil/utils";
 
-import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProp, ParamProposalState, PollID } from "../../types";
+import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamProp, PollID } from "../../types";
 import { requireAccount, CivilErrors } from "../../utils/errors";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseWrapper } from "../basewrapper";
@@ -13,7 +13,7 @@ import { Voting } from "./voting";
 
 const debug = Debug("civil:tcr");
 
-export enum Parameters {
+export const enum Parameters {
   minDeposit = "minDepost",
   pMinDeposit = "pMinDeposit",
   applyStageLen = "applyStageLen",

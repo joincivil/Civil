@@ -7,6 +7,7 @@ import * as Web3 from "web3";
 
 import { advanceEvmTime } from "@joincivil/dev-utils";
 import { getVoteSaltHash } from "@joincivil/utils";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 // advanceEvmTime was moved to dev-utils
 // We would need to update ALL the tests, this is a workaround
@@ -24,7 +25,7 @@ const CivilTCR = artifacts.require("CivilTCR");
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
 
-export function findEvent<T = any>(tx: any, eventName: string): Web3.DecodedLogEntry<T> | undefined {
+export function findEvent<T = any>(tx: any, eventName: string): DecodedLogEntry<T> | undefined {
   return tx.logs.find((log: any) => log.event === eventName);
 }
 

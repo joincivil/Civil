@@ -1,7 +1,8 @@
 import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
 
-import { CivilEventArgs } from "./contracts/generated/artifacts";
+import { CivilLogs } from "./contracts/generated/artifacts";
 
 export type ContentId = number;
 
@@ -61,6 +62,7 @@ export type EthAddress = string;
 export type Bytes32 = string;
 export type TxHash = string;
 export type Uri = string;
+export type Hex = string;
 
 export enum SolidityTypes {
   Address = "address",
@@ -78,9 +80,9 @@ export enum AbiType {
   Fallback = "fallback",
 }
 
-export { CivilEventArgs, Artifact } from "./contracts/generated/artifacts";
+export { CivilLogs, Artifact } from "./contracts/generated/artifacts";
 
-export interface DecodedTransactionReceipt<T> {
+export interface DecodedTransactionReceipt<L extends DecodedLogEntry> {
   blockHash: string;
   blockNumber: number;
   transactionHash: string;
@@ -91,10 +93,10 @@ export interface DecodedTransactionReceipt<T> {
   cumulativeGasUsed: number;
   gasUsed: number;
   contractAddress: string | null;
-  logs: Array<Web3.DecodedLogEntry<T> | Web3.LogEntry>;
+  logs: Array<L | Web3.LogEntry>;
 }
 
-export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilEventArgs>;
+export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilLogs>;
 
 export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
   txHash: TxHash;

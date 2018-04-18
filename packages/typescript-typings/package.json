@@ -1,0 +1,6 @@
+{
+  "name": "@joincivil/typescript-typings",
+  "version": "1.0.0",
+  "description": "Typescript type roots for external projects and internal modifications",
+  "license": "Apache-2.0"
+}

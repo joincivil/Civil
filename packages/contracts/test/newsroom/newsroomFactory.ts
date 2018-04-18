@@ -2,6 +2,7 @@ import * as chai from "chai";
 import * as Web3 from "web3";
 import { configureChai } from "@joincivil/dev-utils";
 import { promisify, isDeployedBytecodeEqual } from "@joincivil/utils";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 import { REVERTED } from "../utils/constants";
 
@@ -18,7 +19,7 @@ const NEWSROOM_NAME = "Newsroom name";
 
 function createdContract(factory: any, txReceipt: Web3.TransactionReceipt): string {
   const myLog = txReceipt.logs.find((log: any) => log.event === CONTRACT_EVENT && log.address === factory.address) as
-    | Web3.DecodedLogEntry<any>
+    | DecodedLogEntry
     | undefined;
 
   if (!myLog) {

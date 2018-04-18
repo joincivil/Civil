@@ -1,6 +1,7 @@
 import { isUndefined } from "lodash";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
+import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 
 import {
   EthAddress,
@@ -10,22 +11,23 @@ import {
   TxHash,
   CivilTransactionReceipt,
   TwoStepEthTransaction,
-  CivilEventArgs,
 } from "../../types";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 
-export function findEvent<T = CivilEventArgs>(
-  tx: Web3.TransactionReceipt,
-  eventName: string,
-): Web3.DecodedLogEntry<T> | undefined {
-  return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as Web3.DecodedLogEntry<T> | undefined;
+export function findEvent<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T | undefined {
+  return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as T | undefined;
 }
 
-export function findEvents<T = CivilEventArgs>(
-  tx: Web3.TransactionReceipt,
-  eventName: string,
-): Array<Web3.DecodedLogEntry<T>> {
-  return tx.logs.filter(log => isDecodedLog(log) && log.event === eventName) as Array<Web3.DecodedLogEntry<T>>;
+export function findEventOrThrow<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T {
+  const event = findEvent<T>(tx, eventName);
+  if (!event) {
+    throw new Error(`Log with event == "${eventName}" not found`);
+  }
+  return event;
+}
+
+export function findEvents<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T[] {
+  return tx.logs.filter(log => isDecodedLog(log) && log.event === eventName) as T[];
 }
 
 export function is0x0Address(address: string): boolean {
@@ -36,16 +38,16 @@ export function isContract<T extends Web3.ContractInstance>(what: any): what is 
   return (what as T).abi !== undefined;
 }
 
-export function isDecodedLog<T>(what: Web3.LogEntry | Web3.DecodedLogEntry<T>): what is Web3.DecodedLogEntry<T> {
+export function isDecodedLog(what: Web3.LogEntry | DecodedLogEntry): what is DecodedLogEntry {
   return typeof (what as any).event === "string" && !isUndefined((what as any).args);
 }
 
 // TODO(ritave): Think how to solve race condition in filters, concat get/watch perhaps?
 export function streamifyEvent<A>(
   original: EventFunction<TypedEventFilter<A>>,
-): (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<Web3.DecodedLogEntryEvent<A>> {
+): (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<DecodedLogEntryEvent<A>> {
   return (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => {
-    return new Observable<Web3.DecodedLogEntryEvent<A>>(subscriber => {
+    return new Observable<DecodedLogEntryEvent<A>>(subscriber => {
       const filter = original(paramFilters, filterObject);
       let errored = false;
       filter.watch((err, event) => {
@@ -53,7 +55,7 @@ export function streamifyEvent<A>(
           errored = true;
           return filter.stopWatching(() => subscriber.error(err));
         }
-        subscriber.next(event as Web3.DecodedLogEntryEvent<A>);
+        subscriber.next(event as DecodedLogEntryEvent<A>);
       });
 
       return () => {

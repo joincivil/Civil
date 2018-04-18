@@ -14,7 +14,8 @@
     "test": "lerna run test --stream --sort",
     "lerna:run": "lerna run",
     "prepare": "lerna run prepare --no-sort",
-    "ganache": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
+    "ganache": "run-p ganache:raw 'lerna:run --scope @joincivil/contracts migrate:ganache'",
+    "ganache:raw": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
     "serve:dapp": "cd ./packages/dapp && serve -s build",
     "publish:docs": "ncp ./packages/dapp/build/ ./docs/"
   },

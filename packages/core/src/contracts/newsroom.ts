@@ -1,22 +1,17 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-import * as Web3 from "web3";
 import "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
-import { ContentProposedArgs, NewsroomContract, NewsroomEvents } from "./generated/newsroom";
+import { NewsroomContract, NewsroomEvents, ContentProposedLog } from "./generated/newsroom";
 import { TwoStepEthTransaction, TxData, EthAddress, ContentId, ContentHeader, NewsroomContent } from "../types";
-import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog, findEvents } from "./utils/contracts";
+import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
-import {
-  NewsroomFactoryContract,
-  ContractInstantiationArgs,
-  NewsroomFactoryEvents,
-} from "./generated/newsroom_factory";
+import { NewsroomFactoryContract, ContractInstantiationLog, NewsroomFactoryEvents } from "./generated/newsroom_factory";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -47,7 +42,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       web3Wrapper,
       await factory.create.sendTransactionAsync(newsroomName, [web3Wrapper.account!], new BigNumber(1), txData),
       async factoryReceipt => {
-        const createdNewsroom = findEvents<ContractInstantiationArgs>(
+        const createdNewsroom = findEvents<ContractInstantiationLog>(
           factoryReceipt,
           NewsroomFactoryEvents.ContractInstantiation,
         ).find(log => log.address === factory.address);
@@ -302,12 +297,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       this.web3Wrapper,
       await this.instance.proposeContent.sendTransactionAsync(uri),
       receipt => {
-        for (const log of receipt.logs) {
-          if (isDecodedLog(log) && log.event === NewsroomEvents.ContentProposed) {
-            return (log as Web3.DecodedLogEntry<ContentProposedArgs>).args.id.toNumber();
-          }
-        }
-        throw new Error("Propose transaction succeeded, but didn't return ContentProposed log");
+        return findEventOrThrow<ContentProposedLog>(receipt, NewsroomEvents.ContentProposed).args.id.toNumber();
       },
     );
   }
