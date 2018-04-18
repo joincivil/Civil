@@ -4,16 +4,36 @@ import * as Web3 from "web3";
 import { delay, promisify } from "@joincivil/utils";
 
 import { artifacts } from "../contracts/generated/artifacts";
-import { Artifact, CivilTransactionReceipt, EthAddress, TxHash, TxDataAll } from "../types";
+import {
+  Artifact,
+  CivilTransactionReceipt,
+  EthAddress,
+  TxHash,
+  TxDataAll,
+  Hex,
+  EthSignedMessage,
+  EthSignedMessageRecovery,
+} from "../types";
 import { AbiDecoder } from "./abidecoder";
-import { CivilErrors } from "./errors";
+import { CivilErrors, requireAccount } from "./errors";
 import { BaseContract } from "../contracts/basecontract";
 import { BaseWrapper } from "../contracts/basewrapper";
+import {
+  fromRpcSig,
+  bufferToHex,
+  toBuffer,
+  sha3,
+  ecrecover,
+  publicToAddress,
+  toChecksumAddress,
+} from "ethereumjs-util";
 
 const POLL_MILLISECONDS = 1000;
 const DEFAULT_HTTP_NODE = "http://localhost:8545";
 
 const debug = Debug("civil:web3wrapper");
+
+const SIGN_PREFFIX = "\u0019Ethereum Signed Message:\n";
 
 export class Web3Wrapper {
   public static detectProvider(): Web3Wrapper {
@@ -106,6 +126,50 @@ export class Web3Wrapper {
     // tslint:disable-next-line:no-unbound-method
     const sendTransactionAsync = promisify<TxHash>(this.web3.eth.sendTransaction, this.web3.eth);
     return sendTransactionAsync(txData);
+  }
+
+  public sha3String(what: string): string {
+    return this.web3.sha3(what);
+  }
+
+  public sha3Hex(what: Hex): string {
+    return this.web3.sha3(what, { encoding: "hex" });
+  }
+
+  public hashPersonalMessage(message: string): { rawMessage: string; messageHash: string } {
+    const rawMessage = SIGN_PREFFIX + message.length.toString() + message;
+    return {
+      rawMessage,
+      messageHash: bufferToHex(sha3(rawMessage)),
+    };
+  }
+
+  public async signMessage(message: string, account?: EthAddress): Promise<EthSignedMessage> {
+    const messageHex = this.web3.fromUtf8(message);
+
+    const signerAccount = account || requireAccount(this);
+
+    const response = await this.rpc("eth_sign", [signerAccount, messageHex]);
+    const signature = response.result as Hex;
+
+    const rsv = fromRpcSig(signature);
+
+    return {
+      ...this.hashPersonalMessage(message),
+      signature,
+
+      message,
+      r: bufferToHex(rsv.r),
+      s: bufferToHex(rsv.s),
+      v: bufferToHex(toBuffer(rsv.v)),
+      signer: signerAccount,
+    };
+  }
+
+  public recoverSigner(recovery: EthSignedMessageRecovery): EthAddress {
+    const rsv = fromRpcSig(recovery.signature);
+    const publicKey = ecrecover(toBuffer(recovery.messageHash), rsv.v, rsv.r, rsv.s);
+    return toChecksumAddress(bufferToHex(publicToAddress(publicKey)));
   }
 
   /**
