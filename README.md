@@ -1,6 +1,6 @@
 ![Civil Logo](doc/civil_logo_white.png?raw=true)
 
----
+--
 
 [Civil](https://joincivil.com/) is a decentralized and censorship resistant ecosystem for online Journalism. Read more in our whitepaper.
 
