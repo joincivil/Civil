@@ -11,7 +11,7 @@ We hope that those tools will be useful for creation of interesting applications
 [![Telegram chat](https://img.shields.io/badge/chat-telegram-blue.svg)](https://t.me/join_civil)
 
 ### Published packages
-<!-- prettier-ignore-start -->
+
 | Package                                                         | NPM                                                                                                                                      | Description                                                            |
 | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | [`@joincivil/core`][core-url]                                   | [![npm link](https://img.shields.io/badge/npm-core-blue.svg)](https://www.npmjs.com/package/@joincivil/core)                             | JS library for interacting with Civil ecosystem                        |
@@ -20,7 +20,6 @@ We hope that those tools will be useful for creation of interesting applications
 | [`@joincivil/editor`](/packages/editor)                         | [![npm link](https://img.shields.io/badge/npm-editor-blue.svg)](https://www.npmjs.com/package/@joincivil/editor)                         | Editor for Civil-formatted articles and content                        |
 | [`@joincivil/typescript-types`](/packages/typescript-types)     | [![npm link](https://img.shields.io/badge/npm-typescript--types-blue.svg)](https://www.npmjs.com/package/@joincivil/typescript-types)     | Types used in multiple Civil packages                                  |
 | [`@joincivil/typescript-typings`](/packages/typescript-typings) | [![npm link](https://img.shields.io/badge/npm-typescript--typings-blue.svg)](https://www.npmjs.com/package/@joincivil/typescript-typings) | Typescript type roots for external projects and internal modifications |
-<!-- prettier-ignore-end -->
 
 ### Private packages
 
