@@ -7,7 +7,15 @@ import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomContract, NewsroomEvents, ContentProposedLog } from "./generated/newsroom";
-import { TwoStepEthTransaction, TxData, EthAddress, ContentId, ContentHeader, NewsroomContent } from "../types";
+import {
+  NewsroomRoles,
+  TwoStepEthTransaction,
+  TxData,
+  EthAddress,
+  ContentId,
+  ContentHeader,
+  NewsroomContent,
+} from "../types";
 import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
@@ -17,7 +25,7 @@ import { NewsroomFactoryContract, ContractInstantiationLog, NewsroomFactoryEvent
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
  * in an organized way.
  *
- * Newsroom is controlled by access-control pattern, with multiple roles (see [[Roles]]) that allow governing
+ * Newsroom is controlled by access-control pattern, with multiple roles (see [[NewsroomRoles]]) that allow governing
  * what get's published and what isn't.
  *
  * All of the logic exists on the Ethereum network, with the data of articles living outside.
@@ -124,6 +132,19 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.multisigProxy.isOwner(who);
   }
 
+  public editors(): Observable<EthAddress> {
+    return this.instance
+      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: 0 })
+      .map(e => e.args.grantee)
+      .concatFilter(async e => this.isEditor(e));
+  }
+
+  public reporters(): Observable<EthAddress> {
+    return this.instance
+      .RoleAddedStream({ role: NewsroomRoles.Reporter }, { fromBlock: 0 })
+      .map(e => e.args.grantee)
+      .concatFilter(async e => this.isReporter(e));
+  }
   /**
    * Checks if the user can assign roles and approve/deny content
    * Also returns true if user has director super powers
@@ -139,7 +160,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.hasRole.callAsync(who, Roles.Editor);
+    return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
 
   /**
@@ -157,7 +178,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.hasRole.callAsync(who, Roles.Reporter);
+    return this.instance.hasRole.callAsync(who, NewsroomRoles.Reporter);
   }
 
   /**
@@ -167,7 +188,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async addRole(actor: EthAddress, role: Roles): Promise<MultisigProxyTransaction> {
+  public async addRole(actor: EthAddress, role: NewsroomRoles): Promise<MultisigProxyTransaction> {
     if (await this.isOwner()) {
       return this.multisigProxy.addRole.sendTransactionAsync(actor, role);
     }
@@ -184,13 +205,17 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {Civil.NoPrivileges} Requires editor privilege
    * @throws {CivilErrors.NoUnlockedAccount} Needs at least one account for editor role check
    */
-  public async removeRole(actor: EthAddress, role: Roles): Promise<MultisigProxyTransaction> {
+  public async removeRole(actor: EthAddress, role: NewsroomRoles): Promise<MultisigProxyTransaction> {
     if (await this.isOwner()) {
       return this.multisigProxy.removeRole.sendTransactionAsync(actor, role);
     }
 
     await this.requireEditor();
     return createTwoStepSimple(this.web3Wrapper, await this.instance.removeRole.sendTransactionAsync(actor, role));
+  }
+
+  public async getName(): Promise<string> {
+    return this.instance.name.callAsync();
   }
 
   /**
@@ -274,7 +299,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   /**
-   * Stores your `content` in the file system (currently debug [[InMemoryProvider]]) and
+   * Stores your `content` in the content provider and
    * publishes a link to that content on Ethereum network.
    * @param content The the data that you want to store, in the future, probably a JSON
    * @returns An id assigned on Ethereum to the proposed content
@@ -346,14 +371,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   private async requireEditor(): Promise<void> {
-    await this.requireRole(Roles.Editor);
+    await this.requireRole(NewsroomRoles.Editor);
   }
 
   private async requireReporter(): Promise<void> {
-    await this.requireRole(Roles.Reporter);
+    await this.requireRole(NewsroomRoles.Reporter);
   }
 
-  private async requireRole(role: Roles): Promise<void> {
+  private async requireRole(role: NewsroomRoles): Promise<void> {
     const account = requireAccount(this.web3Wrapper);
     if ((await this.instance.owner.callAsync()) !== account) {
       if (!await this.instance.hasRole.callAsync(account, role)) {
@@ -367,15 +392,4 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }
-}
-
-// TODO(ritave): generate roles from smart-contract
-/**
- * Roles that are supported by the Newsroom
- * - Editor can approve or deny contant, as well as assigning roles to actors
- * - Reported who can propose content for the Editors to approve
- */
-export enum Roles {
-  Editor = "editor",
-  Reporter = "reporter",
 }

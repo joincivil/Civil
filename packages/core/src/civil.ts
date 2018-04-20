@@ -2,12 +2,12 @@ import * as Debug from "debug";
 import * as Web3 from "web3";
 
 import { ContentProvider } from "./content/contentprovider";
-import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
-import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "./types";
+import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction, Uri } from "./types";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Web3Wrapper } from "./utils/web3wrapper";
 import { CivilErrors } from "./utils/errors";
+import { IPFSProvider } from "./content/ipfsprovider";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -50,7 +50,7 @@ export class Civil {
     }
 
     // TODO(ritave): Choose a better default provider
-    this.contentProvider = opts.contentProvider || new InMemoryProvider(this.web3Wrapper);
+    this.contentProvider = opts.contentProvider || new IPFSProvider();
   }
 
   /**
@@ -147,5 +147,14 @@ export class Civil {
    */
   public async awaitReceipt(transactionHash: TxHash, blockConfirmations?: number): Promise<CivilTransactionReceipt> {
     return this.web3Wrapper.awaitReceipt(transactionHash, blockConfirmations);
+  }
+
+  /**
+   * Stores content on a content provider (defaults to IPFS)
+   * @param content The the data that you want to store, in the future, probably a JSON
+   * @returns A URI that points to the content
+   */
+  public async publishContent(content: string): Promise<Uri> {
+    return this.contentProvider.put(content);
   }
 }

@@ -1,8 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Civil } from "@joincivil/core";
 import { List } from "immutable";
 import { Subscription } from "rxjs";
+
+import ListingList from "./ListingList";
+import { getTCR } from "../helpers/civilInstance";
+
 const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -12,7 +15,14 @@ const StyledDiv = styled.div`
 
 export interface ListingsState {
   applications: List<string>;
-  applicationSubscription: Subscription;
+  whitelistedListings: List<string>;
+  readyToWhitelistListings: List<string>;
+  inChallengeCommitListings: List<string>;
+  inChallengeRevealListings: List<string>;
+  canBeUpdatedListings: List<string>;
+  awaitingAppealRequestListings: List<string>;
+  awaitingAppealJudgmentListings: List<string>;
+  compositeSubscription: Subscription;
   error: undefined | string;
 }
 
@@ -21,47 +31,119 @@ class Listings extends React.Component<{}, ListingsState> {
     super(props);
     this.state = {
       applications: List<string>(),
-      applicationSubscription: new Subscription(),
+      whitelistedListings: List<string>(),
+      readyToWhitelistListings: List<string>(),
+      inChallengeCommitListings: List<string>(),
+      inChallengeRevealListings: List<string>(),
+      canBeUpdatedListings: List<string>(),
+      awaitingAppealRequestListings: List<string>(),
+      awaitingAppealJudgmentListings: List<string>(),
+      compositeSubscription: new Subscription(),
       error: undefined,
     };
   }
 
-  public componentWillMount(): void {
-    window.addEventListener("load", this.initListings);
+  public async componentDidMount(): Promise<void> {
+    return this.initListings();
   }
 
   public componentWillUnmount(): void {
-    this.state.applicationSubscription.unsubscribe();
-    window.removeEventListener("load", this.initListings);
+    this.state.compositeSubscription.unsubscribe();
   }
 
   public render(): JSX.Element {
     return (
       <StyledDiv>
-        applications: {this.state.applications.toString()}
+        Whitelisted Newsrooms:<br />
+        <ListingList listings={this.state.whitelistedListings} />
+        <br />
+        Applications:<br />
+        <ListingList listings={this.state.applications} />
+        <br />
+        Ready to be Whitelisted:<br />
+        <ListingList listings={this.state.readyToWhitelistListings} />
+        <br />
+        In Challenge Vote-Commit Stage:<br />
+        <ListingList listings={this.state.inChallengeCommitListings} />
+        <br />
+        In Challenge Vote-Reveal Stage:<br />
+        <ListingList listings={this.state.inChallengeRevealListings} />
+        <br />
+        Can be Updated:<br />
+        <ListingList listings={this.state.canBeUpdatedListings} />
+        <br />
+        Awaiting Appeal Request:<br />
+        <ListingList listings={this.state.awaitingAppealRequestListings} />
+        <br />
+        Awaiting Appeal Judgment:<br />
+        <ListingList listings={this.state.awaitingAppealJudgmentListings} />
         <br />
         {this.state.error}
       </StyledDiv>
     );
   }
 
+  // TODO(nickreynolds): move this all into redux
   private initListings = async () => {
-    const civil = new Civil();
-    let tcr;
-    try {
-      tcr = civil.tcrSingletonTrusted();
-    } catch (ex) {
-      console.log("failed to get tcr.");
-      this.setState({
-        error: "No Supported Network Found. Please set MetaMask network to Rinkeby and Unlock Account.",
-      });
-    }
+    const tcr = getTCR();
 
     if (tcr) {
-      const subscription = tcr.listingsInApplicationStage().subscribe(listing => {
-        this.setState({ applications: this.state.applications.push(listing) });
-      });
-      this.setState({ applicationSubscription: subscription });
+      this.state.compositeSubscription.add(
+        tcr
+          .listingsInApplicationStage()
+          .distinct()
+          .subscribe(event => {
+            this.setState({ applications: this.state.applications.push(event) });
+          }),
+      );
+      this.state.compositeSubscription.add(
+        tcr
+          .whitelistedListings()
+          .distinct()
+          .subscribe(event => {
+            this.setState({ whitelistedListings: this.state.whitelistedListings.push(event) });
+          }),
+      );
+      this.state.compositeSubscription.add(
+        tcr
+          .readyToBeWhitelistedListings()
+          .distinct()
+          .subscribe(event => {
+            this.setState({ readyToWhitelistListings: this.state.readyToWhitelistListings.push(event) });
+          }),
+      );
+      this.state.compositeSubscription.add(
+        tcr
+          .currentChallengedCommitVotePhaseListings()
+          .distinct()
+          .subscribe(event => {
+            this.setState({ inChallengeCommitListings: this.state.inChallengeCommitListings.push(event) });
+          }),
+      );
+      this.state.compositeSubscription.add(
+        tcr
+          .currentChallengedRevealVotePhaseListings()
+          .distinct()
+          .subscribe(event => {
+            this.setState({ inChallengeRevealListings: this.state.inChallengeRevealListings.push(event) });
+          }),
+      );
+      this.state.compositeSubscription.add(
+        tcr
+          .listingsAwaitingAppealRequest()
+          .distinct()
+          .subscribe(event => {
+            this.setState({ awaitingAppealRequestListings: this.state.awaitingAppealRequestListings.push(event) });
+          }),
+      );
+      this.state.compositeSubscription.add(
+        tcr
+          .listingsAwaitingAppeal()
+          .distinct()
+          .subscribe(event => {
+            this.setState({ awaitingAppealJudgmentListings: this.state.awaitingAppealJudgmentListings.push(event) });
+          }),
+      );
     }
   };
 }

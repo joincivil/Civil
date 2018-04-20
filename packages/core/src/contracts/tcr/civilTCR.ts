@@ -2,15 +2,36 @@ import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import * as Debug from "debug";
 import "@joincivil/utils";
+import { DecodedLogEntryEvent } from "@joincivil/typescript-types";
 
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-import { CivilTCRContract } from "../generated/civil_t_c_r";
+import {
+  ApplicationArgs,
+  CivilTCRContract,
+  ChallengeInitiatedArgs,
+  DepositArgs,
+  NewListingWhitelistedArgs,
+  ApplicationRemovedArgs,
+  ListingRemovedArgs,
+  ChallengeFailedArgs,
+  ChallengeSucceededArgs,
+  WithdrawalArgs,
+} from "../generated/civil_t_c_r";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
-import { Appeal, EthAddress, Listing, ListingState, TwoStepEthTransaction, Challenge } from "../../types";
+import {
+  Appeal,
+  EthAddress,
+  Listing,
+  ListingState,
+  TwoStepEthTransaction,
+  Challenge,
+  TimestampedEvent,
+} from "../../types";
+import { createTimestampedEvent } from "../../utils/events";
 import { createTwoStepSimple, is0x0Address, isEthAddress } from "../utils/contracts";
 import { EIP20 } from "./eip20";
 
@@ -87,9 +108,85 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return this.instance.parameterizer.callAsync();
   }
 
-  /**
-   * Event Streams
-   */
+  //#region EventStreams
+
+  //#region RawEventStreams
+
+  public listingApplications(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ApplicationArgs, string>>> {
+    return this.instance.ApplicationStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<ApplicationArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  public listingChallenges(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ChallengeInitiatedArgs, string>>> {
+    return this.instance.ChallengeInitiatedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<ChallengeInitiatedArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  public listingDeposits(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<DepositArgs, string>>> {
+    return this.instance.DepositStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<DepositArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  public listingWithdrawls(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<WithdrawalArgs, string>>> {
+    return this.instance.WithdrawalStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<WithdrawalArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  public listingWhitelisted(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<NewListingWhitelistedArgs, string>>> {
+    return this.instance.NewListingWhitelistedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<NewListingWhitelistedArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  public listingApplicationRemoved(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ApplicationRemovedArgs, string>>> {
+    return this.instance.ApplicationRemovedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<ApplicationRemovedArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  public listingRemoved(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ListingRemovedArgs, string>>> {
+    return this.instance.ListingRemovedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<ListingRemovedArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  public listingChallengesFailed(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ChallengeFailedArgs, string>>> {
+    return this.instance.ChallengeFailedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<ChallengeFailedArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  public listingChallengesSucceeded(
+    listingAddress: EthAddress,
+  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ChallengeSucceededArgs, string>>> {
+    return this.instance.ChallengeSucceededStream({ listingAddress }, { fromBlock: 0 }).map(e => {
+      return createTimestampedEvent<DecodedLogEntryEvent<ChallengeSucceededArgs, string>>(this.web3Wrapper, e);
+    });
+  }
+
+  //#endregion
+
+  //#region AdvancedEventStreams
 
   /**
    * An unending stream of all addresses currently whitelisted
@@ -222,6 +319,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   ): Observable<BigNumber> {
     return this.instance.ChallengeSucceededStream({ listingAddress }, { fromBlock }).map(e => e.args.challengeID);
   }
+
+  //#endregion
+
+  //#endregion
 
   /**
    * Contract Getters

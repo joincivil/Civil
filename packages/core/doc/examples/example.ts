@@ -1,7 +1,7 @@
 import * as process from "process";
 
 import { Civil } from "../../src";
-import { Roles } from "../../src/contracts/newsroom";
+import { NewsroomRoles } from "../../src/types";
 
 (async () => {
   const civil = new Civil();
@@ -29,7 +29,7 @@ import { Roles } from "../../src/contracts/newsroom";
   console.log("Am I the owner:", await newsroom.isOwner());
 
   console.log("Setting myself to be reporter");
-  await (await newsroom.addRole(civil.userAccount!, Roles.Reporter)).awaitReceipt();
+  await (await newsroom.addRole(civil.userAccount!, NewsroomRoles.Reporter)).awaitReceipt();
 
   console.log("Proposing a new article...");
   const id = await (await newsroom.proposeContent("This is example content that I want to post")).awaitReceipt();
