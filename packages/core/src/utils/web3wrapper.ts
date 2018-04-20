@@ -88,6 +88,11 @@ export class Web3Wrapper {
     return this.web3.version.network;
   }
 
+  public async getBlock(blockNumber: number): Promise<Web3.BlockWithoutTransactionData> {
+    const getBlockAsync = promisify<Web3.BlockWithoutTransactionData>(this.web3.eth.getBlock, this.web3.eth);
+    return getBlockAsync(blockNumber);
+  }
+
   public async getCode(contract: EthAddress | BaseContract | BaseWrapper<any>): Promise<string> {
     let address: EthAddress;
     if (typeof contract === "string") {

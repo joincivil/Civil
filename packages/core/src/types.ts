@@ -1,13 +1,13 @@
 import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
-import { DecodedLogEntry } from "@joincivil/typescript-types";
+import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 
 import { CivilLogs } from "./contracts/generated/artifacts";
 
 export type ContentId = number;
 
 export interface ContentHeader {
-  id?: ContentId;
+  id: ContentId;
   author: EthAddress;
   timestamp: Date;
   uri: string;
@@ -81,6 +81,9 @@ export enum AbiType {
 }
 
 export { CivilLogs, Artifact } from "./contracts/generated/artifacts";
+
+// TODO(ritave): Refactor below export
+export { ApplicationArgs, NewListingWhitelistedArgs } from "./contracts/generated/civil_t_c_r";
 
 export interface DecodedTransactionReceipt<L extends DecodedLogEntry> {
   blockHash: string;
@@ -202,4 +205,20 @@ export interface EthSignedMessage extends EthSignedMessageRecovery {
   // Recovery value + 27
   v: Hex;
   signer: EthAddress;
+}
+
+// tslint:disable-next-line
+export interface TimestampedEvent<T extends DecodedLogEntryEvent> extends DecodedLogEntryEvent {
+  timestamp(): Promise<number>;
+}
+
+// TODO(ritave): generate roles from smart-contract
+/**
+ * Roles that are supported by the Newsroom
+ * - Editor can approve or deny contant, as well as assigning roles to actors
+ * - Reported who can propose content for the Editors to approve
+ */
+export enum NewsroomRoles {
+  Editor = "editor",
+  Reporter = "reporter",
 }

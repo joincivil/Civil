@@ -293,7 +293,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param challengeID The ID of the appeal challenge to query
   @param voter The voter whose claim status to query for the provided challengeID
   */
-  function hasClaimedChallengeAppealTokens(uint challengeID, address voter) public returns (bool) {
+  function hasClaimedChallengeAppealTokens(uint challengeID, address voter) public view returns (bool) {
     return appealChallenges[challengeID].hasClaimedTokens[voter];
   }
 

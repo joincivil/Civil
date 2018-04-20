@@ -29,7 +29,7 @@ class NavBar extends React.Component<{}, NavBarState> {
     };
   }
 
-  public componentWillMount(): void {
+  public componentDidMount(): void {
     window.addEventListener("load", this.initNavBar);
   }
 
@@ -46,16 +46,22 @@ class NavBar extends React.Component<{}, NavBarState> {
           </NavBarLink>
         </NavBarItem>
         <NavBarItem>
-          <NavBarLink to="registry">Registry</NavBarLink>
+          <NavBarLink to="/registry">Registry</NavBarLink>
         </NavBarItem>
         <NavBarItem>
-          <NavBarLink to="constitution">Constitution</NavBarLink>
+          <NavBarLink to="/constitution">Constitution</NavBarLink>
         </NavBarItem>
         <NavBarItem>
-          <NavBarLink to="about">About</NavBarLink>
+          <NavBarLink to="/about">About</NavBarLink>
         </NavBarItem>
         <NavBarItem>
-          <NavBarLink to="contracts">Contracts</NavBarLink>
+          <NavBarLink to="/contracts">Contracts</NavBarLink>
+        </NavBarItem>
+        <NavBarItem>
+          <NavBarLink to="/editor">Editor</NavBarLink>
+        </NavBarItem>
+        <NavBarItem right={true}>
+          <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
         </NavBarItem>
         <NavBarItem right={true}>
           <NavBarSpan>{"Your Balance: " + this.state.balance}</NavBarSpan>

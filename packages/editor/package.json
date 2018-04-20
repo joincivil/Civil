@@ -73,6 +73,6 @@
     "slate-edit-list": "^0.11.2",
     "slate-react": "^0.12.0",
     "slate-schema-violations": "^0.1.4",
-    "styled-components": "^3.1.6"
+    "styled-components": "^3.2.5"
   }
 }

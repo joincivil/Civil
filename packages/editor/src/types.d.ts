@@ -5,3 +5,4 @@ declare module "slate-edit-list";
 declare module "slate-drop-or-paste-images";
 declare module "material-ui-icons";
 declare module "@storybook/addon-storyshots";
+declare module "@joincivil/editor";
