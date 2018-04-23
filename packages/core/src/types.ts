@@ -23,16 +23,6 @@ export interface MapObject<T = any> {
   [index: string]: T;
 }
 
-export type FilterCallback = (err: Error, result: Web3.LogEntryEvent) => void;
-
-export type EventFunction<T> = (
-  paramFilters?: T,
-  filterObject?: Web3.FilterObject,
-  callback?: FilterCallback,
-) => Web3.FilterResult;
-
-export type TypedEventFilter<T> = { [P in keyof T]?: T[P] | Array<T[P]> };
-
 export interface TxDataBase {
   gas?: number | string | BigNumber;
   gasPrice?: number | string | BigNumber;

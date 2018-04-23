@@ -14,9 +14,15 @@ export const enum {{contractName}}Events {
 
 {{#each events}}
 export type {{this.name}}Log = DecodedLogEntry<{{this.name}}Args, {{../contractName}}Events.{{this.name}}>;
+export type {{this.name}}LogEvent = DecodedLogEntryEvent<{{this.name}}Args, {{../contractName}}Events.{{this.name}}>;
 {{/each}}
 
 export type {{contractName}}Logs =
-  {{#each events}}
-    {{name}}Log{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
-  {{/each}}
+{{#each events}}
+  {{name}}Log{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+{{/each}}
+
+export type {{contractName}}LogEvents =
+{{#each events}}
+  {{name}}LogEvent{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+{{/each}}
