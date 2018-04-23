@@ -2,9 +2,10 @@ import * as process from "process";
 
 import { Civil } from "../../src";
 import { NewsroomRoles } from "../../src/types";
+import { InMemoryProvider } from "../../src/content/inmemoryprovider";
 
 (async () => {
-  const civil = new Civil();
+  const civil = new Civil({ ContentProvider: InMemoryProvider });
 
   console.log("Deploying newsroom...");
   const newsroom = await (await civil.newsroomDeployTrusted("My new newsroom")).awaitReceipt();
@@ -12,7 +13,7 @@ import { NewsroomRoles } from "../../src/types";
 
   console.log("Subscribing to new articles");
   const articleSubscription = newsroom
-    .proposedContent()
+    .revisions()
     .do(header => console.log("\tProposed article, uri: " + header.uri))
     .flatMap(async header => newsroom.resolveContent(header))
     .subscribe(article => {
@@ -29,10 +30,10 @@ import { NewsroomRoles } from "../../src/types";
   console.log("Am I the owner:", await newsroom.isOwner());
 
   console.log("Setting myself to be reporter");
-  await (await newsroom.addRole(civil.userAccount!, NewsroomRoles.Reporter)).awaitReceipt();
+  await (await newsroom.addRole(civil.userAccount!, NewsroomRoles.Editor)).awaitReceipt();
 
-  console.log("Proposing a new article...");
-  const id = await (await newsroom.proposeContent("This is example content that I want to post")).awaitReceipt();
+  console.log("publishing a new article...");
+  const id = await (await newsroom.publishRevision("This is example content that I want to post")).awaitReceipt();
   console.log("Article proposed: ", id);
 
   console.log("Changing names");

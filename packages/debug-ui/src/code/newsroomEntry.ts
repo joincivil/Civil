@@ -136,11 +136,9 @@ function setNewsroomListeners(): void {
       console.log("Deploying newsroom");
       const deployedNewsroom = await civil.newsroomAtUntrusted(address);
       console.log("Proposing content");
-      const articleId = await deployedNewsroom.proposeContent(article);
+      const articleId = await deployedNewsroom.publishRevision(article);
       console.log(`\tContent id: ${articleId}`);
 
-      console.log("Approving content");
-      // console.debug(await deployedNewsroom.approveContent(articleId).awaitReceipt());
       console.log("Done");
 
       window.location.assign("/article.html?newsroomAddress=" + address + "&articleId=" + articleId);

@@ -6,7 +6,6 @@ import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { BaseWrapper } from "./basewrapper";
-import { NewsroomContract, NewsroomEvents, ContentProposedLog } from "./generated/newsroom";
 import {
   NewsroomRoles,
   TwoStepEthTransaction,
@@ -16,6 +15,7 @@ import {
   ContentHeader,
   NewsroomContent,
 } from "../types";
+import { NewsroomContract, NewsroomEvents, RevisionPublishedLog } from "./generated/newsroom";
 import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
@@ -232,28 +232,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   /**
-   * An unending stream of all the contenty *actively* proposed (waiting for approval/deny)
+   * An unending stream of all the revisions
    * @param fromBlock Starting block in history for events concerning content being proposed.
    *                  Set to "latest" for only new events
    * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public proposedContent(fromBlock: number | "latest" = 0): Observable<ContentHeader> {
+  public revisions(fromBlock: number | "latest" = 0): Observable<ContentHeader> {
     return this.instance
-      .ContentProposedStream({}, { fromBlock })
-      .map(e => e.args.id)
-      .concatFilter(async id => this.instance.isProposed.callAsync(id))
-      .concatMap(async id => this.loadArticleHeader(id));
-  }
-
-  /**
-   * An unending stream of all the content that is approved to be displayed in the Newsroom
-   * @param fromBlock Starting block in history for events.
-   *                  Set to "latest" to only listen for new events
-   * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
-   */
-  public approvedContent(fromBlock: number | "latest" = 0): Observable<ContentHeader> {
-    return this.instance
-      .ContentApprovedStream({}, { fromBlock })
+      .RevisionPublishedStream({}, { fromBlock })
       .map(e => e.args.id)
       .concatMap(async id => this.loadArticleHeader(id));
   }
@@ -285,28 +271,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async loadArticleHeader(articleId: number | BigNumber): Promise<ContentHeader> {
     const id = new BigNumber(articleId);
 
-    const [author, timestamp, uri] = await Promise.all([
-      this.instance.author.callAsync(id),
-      this.instance.timestamp.callAsync(id),
-      this.instance.uri.callAsync(id),
-    ]);
+    const [hash, uri, timestamp, author] = await this.instance.content.callAsync(id);
     return {
       id: id.toNumber(),
-      author,
       timestamp: new Date(timestamp.toNumber()),
       uri,
+      author,
+      hash,
     };
-  }
-
-  /**
-   * Stores your `content` in the content provider and
-   * publishes a link to that content on Ethereum network.
-   * @param content The the data that you want to store, in the future, probably a JSON
-   * @returns An id assigned on Ethereum to the proposed content
-   */
-  public async proposeContent(content: string): Promise<TwoStepEthTransaction<ContentId>> {
-    const uri = await this.contentProvider.put(content);
-    return this.proposeUri(uri);
   }
 
   /**
@@ -315,41 +287,16 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param uri The link that you want to propose
    * @returns An id assigned on Ethereum to the uri
    */
-  public async proposeUri(uri: string): Promise<TwoStepEthTransaction<ContentId>> {
-    await this.requireReporter();
+  public async publishRevision(content: string): Promise<TwoStepEthTransaction<ContentId>> {
+    await this.requireEditor();
+    const contentHeader = await this.contentProvider.put(content);
 
     return createTwoStepTransaction(
       this.web3Wrapper,
-      await this.instance.proposeContent.sendTransactionAsync(uri),
+      await this.instance.publishRevision.sendTransactionAsync(contentHeader.uri, contentHeader.hash),
       receipt => {
-        return findEventOrThrow<ContentProposedLog>(receipt, NewsroomEvents.ContentProposed).args.id.toNumber();
+        return findEventOrThrow<RevisionPublishedLog>(receipt, NewsroomEvents.RevisionPublished).args.id.toNumber();
       },
-    );
-  }
-
-  /**
-   * Allows the Editor to approve content that is waiting to be approved / denied
-   * @param contentId The id of the proposed content to be denied
-   */
-  public async approveContent(contentId: ContentId | BigNumber): Promise<TwoStepEthTransaction> {
-    await this.requireEditor();
-
-    return createTwoStepSimple(
-      this.web3Wrapper,
-      await this.instance.approveContent.sendTransactionAsync(new BigNumber(contentId)),
-    );
-  }
-
-  /**
-   * Allows the Editor to deny content that is waiting to be approverd / denied
-   * @param contentId The id of the proposed content to be denied
-   */
-  public async denyContent(contentId: number | BigNumber): Promise<TwoStepEthTransaction> {
-    await this.requireEditor();
-
-    return createTwoStepSimple(
-      this.web3Wrapper,
-      await this.instance.denyContent.sendTransactionAsync(new BigNumber(contentId)),
     );
   }
 
@@ -367,15 +314,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       content,
       timestamp: header.timestamp,
       uri: header.uri,
+      hash: header.hash,
     };
   }
 
   private async requireEditor(): Promise<void> {
     await this.requireRole(NewsroomRoles.Editor);
-  }
-
-  private async requireReporter(): Promise<void> {
-    await this.requireRole(NewsroomRoles.Reporter);
   }
 
   private async requireRole(role: NewsroomRoles): Promise<void> {

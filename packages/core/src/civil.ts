@@ -1,7 +1,7 @@
 import * as Debug from "debug";
 import * as Web3 from "web3";
 
-import { ContentProvider } from "./content/contentprovider";
+import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction, Uri } from "./types";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
@@ -14,7 +14,7 @@ const debug = Debug("civil:main");
 
 export interface CivilOptions {
   web3Provider?: Web3.Provider;
-  contentProvider?: ContentProvider;
+  ContentProvider?: ContentProviderCreator;
   debug?: true;
 }
 
@@ -50,7 +50,11 @@ export class Civil {
     }
 
     // TODO(ritave): Choose a better default provider
-    this.contentProvider = opts.contentProvider || new IPFSProvider();
+    if (opts.ContentProvider) {
+      this.contentProvider = new opts.ContentProvider({ web3Wrapper: this.web3Wrapper });
+    } else {
+      this.contentProvider = new IPFSProvider();
+    }
   }
 
   /**
@@ -155,6 +159,7 @@ export class Civil {
    * @returns A URI that points to the content
    */
   public async publishContent(content: string): Promise<Uri> {
-    return this.contentProvider.put(content);
+    const { uri } = await this.contentProvider.put(content);
+    return uri;
   }
 }

@@ -1,13 +1,13 @@
 import { ContentHeader, MapObject, Uri } from "../types";
 import { Web3Wrapper } from "../utils/web3wrapper";
-import { ContentProvider } from "./contentprovider";
+import { ContentProvider, ContentProviderOptions } from "./contentprovider";
 
 export class InMemoryProvider implements ContentProvider {
   private data: MapObject<string> = {};
   private web3Wrapper: Web3Wrapper;
 
-  constructor(web3Wrapper: Web3Wrapper) {
-    this.web3Wrapper = web3Wrapper;
+  constructor(options: ContentProviderOptions) {
+    this.web3Wrapper = options.web3Wrapper;
   }
 
   public scheme(): string {
@@ -27,10 +27,10 @@ export class InMemoryProvider implements ContentProvider {
     return this.data.uri;
   }
 
-  public async put(content: string): Promise<Uri> {
+  public async put(content: string): Promise<ContentHeader> {
     const hash = this.web3Wrapper.web3.sha3(content);
     const uri = this.scheme() + "://" + hash;
     this.data.uri = content;
-    return uri;
+    return { uri, hash };
   }
 }
