@@ -67,7 +67,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   }
 
   public async getPropState(propID: string): Promise<ParamProposalState> {
-    if (!await this.instance.propExists.callAsync(propID)) {
+    if (!(await this.instance.propExists.callAsync(propID))) {
       return ParamProposalState.NOT_FOUND;
     } else if (await this.isPropInUnchallengedApplicationPhase(propID)) {
       return ParamProposalState.APPLYING;
@@ -378,7 +378,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInUnchallengedApplicationPhase(propID: string): Promise<boolean> {
-    if (!await this.instance.propExists.callAsync(propID)) {
+    if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);
@@ -402,7 +402,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInUnchallengedApplicationUpdatePhase(propID: string): Promise<boolean> {
-    if (!await this.instance.propExists.callAsync(propID)) {
+    if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);
@@ -424,7 +424,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInChallengeCommitPhase(propID: string): Promise<boolean> {
-    if (!await this.instance.propExists.callAsync(propID)) {
+    if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);
@@ -441,7 +441,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInChallengeRevealPhase(propID: string): Promise<boolean> {
-    if (!await this.instance.propExists.callAsync(propID)) {
+    if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);
@@ -458,7 +458,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async isPropInChallengeResolvePhase(propID: string): Promise<boolean> {
-    if (!await this.instance.propExists.callAsync(propID)) {
+    if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
     const pollID = await this.instance.getPropChallengeID.callAsync(propID);

@@ -381,7 +381,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async getListingState(listingAddress: EthAddress): Promise<ListingState> {
     const listing = await this.getListing(listingAddress);
 
-    if (!await this.doesListingExist(listing)) {
+    if (!(await this.doesListingExist(listing))) {
       return ListingState.NOT_FOUND;
     } else if (await this.isInApplicationPhase(listing)) {
       return ListingState.APPLYING;

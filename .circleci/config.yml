@@ -33,7 +33,7 @@ jobs:
                 at: ../
             - run:
                 name: Ensuring prettified
-                command: yarn prettier:ci
+                command: yarn prettier
             - run:
                 name: Linting
                 command: yarn lint
