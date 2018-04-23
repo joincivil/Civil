@@ -12,5 +12,5 @@ export interface ContentProviderOptions {
 }
 
 export interface ContentProviderCreator {
-  new(options: ContentProviderOptions): ContentProvider;
+  new (options: ContentProviderOptions): ContentProvider;
 }

@@ -25,18 +25,13 @@ const data: TxData = {
 
   const subscription = newsroom.RevisionPublishedStream().subscribe(async event => {
     console.log("Content proposed");
-    // console.log("\tAuthor: ", event.args.author);
     console.log("\tContent id:", event.args.id.toString());
-    console.log(
-      "\tTimestamp for article id " + event.args.id.toString() + ": ",
-      // (await newsroom.timestamp.callAsync(event.args.id)).toString(),
-    );
     console.log("\tGot an article, unsubscribing");
     subscription.unsubscribe();
   });
 
   console.log("Publishing a revision");
-  const proposeOptions = await newsroom.publishRevision.getRaw("http://someuirhere.com", "0x01", data);
+  const proposeOptions = await newsroom.publishRevision.getRaw("http://someuirhere.com", "hash", data);
   console.log("Propose options:", proposeOptions);
   const proposeTxHash = await web3.sendTransaction(proposeOptions);
   await web3.awaitReceipt(proposeTxHash);

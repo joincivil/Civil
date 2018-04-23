@@ -2,7 +2,6 @@ import * as Debug from "debug";
 import * as Web3 from "web3";
 
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
-import { InMemoryProvider } from "./content/inmemoryprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction, Uri } from "./types";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
@@ -27,7 +26,7 @@ export interface CivilOptions {
  */
 export class Civil {
   private web3Wrapper: Web3Wrapper;
-  private contentProvider: ContentProvider | IPFSProvider;
+  private contentProvider: ContentProvider;
 
   /**
    * An optional object, conforming to Web3 provider interface can be provided.
@@ -52,7 +51,7 @@ export class Civil {
 
     // TODO(ritave): Choose a better default provider
     if (opts.ContentProvider) {
-      this.contentProvider = new opts.ContentProvider({web3Wrapper: this.web3Wrapper});
+      this.contentProvider = new opts.ContentProvider({ web3Wrapper: this.web3Wrapper });
     } else {
       this.contentProvider = new IPFSProvider();
     }
@@ -160,6 +159,7 @@ export class Civil {
    * @returns A URI that points to the content
    */
   public async publishContent(content: string): Promise<Uri> {
-    return this.contentProvider.put(content);
+    const { uri } = await this.contentProvider.put(content);
+    return uri;
   }
 }

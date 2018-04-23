@@ -15,7 +15,7 @@ import {
   ContentHeader,
   NewsroomContent,
 } from "../types";
-import {  NewsroomContract, NewsroomEvents, RevisionPublishedArgs } from "./generated/newsroom";
+import { NewsroomContract, NewsroomEvents, RevisionPublishedLog } from "./generated/newsroom";
 import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
@@ -295,7 +295,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       this.web3Wrapper,
       await this.instance.publishRevision.sendTransactionAsync(contentHeader.uri, contentHeader.hash),
       receipt => {
-        return findEventOrThrow<RevisionPublishedArgs>(receipt, NewsroomEvents.RevisionPublished).args.id.toNumber();
+        return findEventOrThrow<RevisionPublishedLog>(receipt, NewsroomEvents.RevisionPublished).args.id.toNumber();
       },
     );
   }
@@ -320,10 +320,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
   private async requireEditor(): Promise<void> {
     await this.requireRole(NewsroomRoles.Editor);
-  }
-
-  private async requireReporter(): Promise<void> {
-    await this.requireRole(NewsroomRoles.Reporter);
   }
 
   private async requireRole(role: NewsroomRoles): Promise<void> {

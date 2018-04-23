@@ -31,6 +31,6 @@ export class InMemoryProvider implements ContentProvider {
     const hash = this.web3Wrapper.web3.sha3(content);
     const uri = this.scheme() + "://" + hash;
     this.data.uri = content;
-    return {uri, hash};
+    return { uri, hash };
   }
 }

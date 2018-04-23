@@ -2,7 +2,7 @@ import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 
 import { events, NEWSROOM_ROLE_EDITOR, NEWSROOM_ROLE_REPORTER, REVERTED } from "../utils/constants";
-import { findEvent, idFromEvent, is0x0Address, timestampFromTx } from "../utils/contractutils";
+import { findEvent, idFromEvent } from "../utils/contractutils";
 
 const Newsroom = artifacts.require("Newsroom");
 
@@ -52,7 +52,7 @@ contract("Newsroom", (accounts: string[]) => {
       const tx = await newsroom.publishRevision(SOME_URI, SOME_HASH, { from: accounts[1] });
       const id = idFromEvent(tx);
 
-      const [hash, uri, ...rest] = await newsroom.content(id);
+      const [hash, uri] = await newsroom.content(id);
       expect(uri).to.be.equal(SOME_URI);
       expect(hash).to.be.equal(`${SOME_HASH}`);
     });
