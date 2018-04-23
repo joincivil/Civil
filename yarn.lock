@@ -10197,7 +10197,11 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.11.1, prettier@^1.5.3:
+prettier@1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.12.1.tgz#c1ad20e803e7749faf905a409d2367e06bbe7325"
+
+prettier@^1.5.3:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.11.1.tgz#61e43fc4cd44e68f2b0dfc2c38cd4bb0fccdcc75"
 
@@ -11863,10 +11867,6 @@ slate-schema-violations@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.4.tgz#f87ad4091f72c66edf32f418a33d80e5e87ad5e8"
 
-slate-schema-violations@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.8.tgz#b6bfbcc4defaa4971a96bf2d324c5b67fb4a4e20"
-
 slate@^0.33.0:
   version "0.33.0"
   resolved "http://registry.npmjs.org/slate/-/slate-0.33.0.tgz#6a4e084aa3a55dc5b09bce1b7037f284396b9160"
@@ -11879,20 +11879,6 @@ slate@^0.33.0:
     lodash "^4.17.4"
     slate-dev-logger "^0.1.39"
     slate-schema-violations "^0.1.4"
-    type-of "^2.0.1"
-
-slate@^0.33.4:
-  version "0.33.4"
-  resolved "https://registry.yarnpkg.com/slate/-/slate-0.33.4.tgz#8f39000a7a0fb1ec04b211c3e264e45677dfd9d8"
-  dependencies:
-    debug "^2.3.2"
-    direction "^0.1.5"
-    esrever "^0.2.0"
-    is-empty "^1.0.0"
-    is-plain-object "^2.0.4"
-    lodash "^4.17.4"
-    slate-dev-logger "^0.1.39"
-    slate-schema-violations "^0.1.8"
     type-of "^2.0.1"
 
 slice-ansi@0.0.4:
@@ -12471,7 +12457,7 @@ style-loader@^0.19.1:
     loader-utils "^1.0.2"
     schema-utils "^0.3.0"
 
-styled-components@3.2.5, styled-components@^3.2.5:
+styled-components@^3.2.5:
   version "3.2.5"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-3.2.5.tgz#b5d5d7d618ab240ff10602b5ca5886b8db3d0a0d"
   dependencies:

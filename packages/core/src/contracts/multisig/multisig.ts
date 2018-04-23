@@ -208,7 +208,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
 
   private async requireOwner(who?: EthAddress): Promise<void> {
     const owner = who || this.web3Wrapper.account;
-    if (!await this.isOwner(owner)) {
+    if (!(await this.isOwner(owner))) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }

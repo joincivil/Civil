@@ -381,14 +381,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   private async requireRole(role: NewsroomRoles): Promise<void> {
     const account = requireAccount(this.web3Wrapper);
     if ((await this.instance.owner.callAsync()) !== account) {
-      if (!await this.instance.hasRole.callAsync(account, role)) {
+      if (!(await this.instance.hasRole.callAsync(account, role))) {
         throw new Error(CivilErrors.NoPrivileges);
       }
     }
   }
 
   private async requireOwner(): Promise<void> {
-    if (!await this.isOwner()) {
+    if (!(await this.isOwner())) {
       throw new Error(CivilErrors.NoPrivileges);
     }
   }
