@@ -1,0 +1,42 @@
+import BigNumber from "bignumber.js";
+import { DecodedLogEntryEvent, DecodedLogEntry } from "@joincivil/typescript-types";
+
+export const enum Names {
+  {{#each events}}
+  {{this.name}} = "{{this.name}}",
+  {{/each}}
+}
+
+// tslint:disable:no-namespace
+namespace Args {
+  {{#each events}}
+  export interface {{this.name}} {
+    {{#each inputs}}
+    {{name}}: {{#parameterType type}}{{/parameterType}};
+    {{/each}}
+  }
+  {{/each}}
+}
+
+namespace Logs {
+  {{#each events}}
+  export type {{this.name}} = DecodedLogEntry<Args.{{this.name}}, Names.{{this.name}}>;
+  {{/each}}
+
+  export type All =
+  {{#each events}}
+    Logs.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+  {{/each}}
+}
+
+namespace LogEvents {
+  {{#each events}}
+  export type {{this.name}} = DecodedLogEntryEvent<Args.{{this.name}}, Names.{{this.name}}>;
+  {{/each}}
+
+  export type All =
+  {{#each events}}
+    LogEvents.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+  {{/each}}
+}
+// tslint:enable:no-namespace
