@@ -4413,7 +4413,7 @@ ethereumjs-abi@^0.6.5:
     bn.js "^4.10.0"
     ethereumjs-util "^4.3.0"
 
-ethereumjs-testrpc-sc@6.1.2, ethereumjs-testrpc-sc@^6.1.2:
+ethereumjs-testrpc-sc@6.1.2:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/ethereumjs-testrpc-sc/-/ethereumjs-testrpc-sc-6.1.2.tgz#bd1d8306abb2d51481f3f01538fa71fb7fd44a4d"
   dependencies:
