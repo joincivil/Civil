@@ -52,6 +52,17 @@ jobs:
             - run:
                 name: Running tests
                 command: yarn test
+    coverage:
+        <<: *defaults
+        steps:
+            - attach_workspace:
+                at: ../
+            - run:
+                name: Calculating coverage
+                command: yarn coverage
+            - run:
+                name: Submitting coverage
+                command: yarn coverage:submit
 
     # Docker steps
     # These steps have a different workspace roots and so will behave a bit differently
@@ -121,6 +132,9 @@ workflows:
         jobs:
             - build
             - test:
+                requires:
+                    - build
+            - coverage:
                 requires:
                     - build
             - lint:

@@ -68,3 +68,6 @@ build/
 
 # package
 *package-lock.json
+
+coverage/
+coverage.json
