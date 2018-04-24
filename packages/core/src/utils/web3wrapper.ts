@@ -88,6 +88,7 @@ export class Web3Wrapper {
   }
 
   public async getBlock(blockNumber: number): Promise<Web3.BlockWithoutTransactionData> {
+    // tslint:disable-next-line:no-unbound-method
     const getBlockAsync = promisify<Web3.BlockWithoutTransactionData>(this.web3.eth.getBlock, this.web3.eth);
     return getBlockAsync(blockNumber);
   }
