@@ -10,6 +10,7 @@ This repository contains all of the open-source Civil tools and packages written
 We hope that those tools will be useful for creation of interesting applications on top of the ecosystem as well as be useful in any project in the Ethereum space.
 
 [![CircleCI](https://img.shields.io/circleci/project/github/joincivil/Civil.svg)](https://circleci.com/gh/joincivil/Civil/tree/master)
+[![Gitter chat](https://badges.gitter.im/joincivil/Lobby.png)](https://gitter.im/joincivil/Lobby)
 [![Telegram chat](https://img.shields.io/badge/chat-telegram-blue.svg)](https://t.me/join_civil)
 
 ### Published packages
