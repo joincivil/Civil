@@ -8,6 +8,8 @@
     "build": "lerna run build --sort",
     "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint --parallel",
+    "coverage": "solidity-coverage",
+    "coverage:submit": "lcov-result-merger '{coverage/lcov.info, packages/**/lcov.info}' | coveralls",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
     "clean": "lerna run clean --parallel",
     "test": "lerna run test --stream --sort",
@@ -23,10 +25,13 @@
   },
   "license": "(Apache-2.0 OR LGPL-2.1-only)",
   "devDependencies": {
+    "coveralls": "^3.0.0",
     "ganache-cli": "^6.1.0-beta.4",
+    "lcov-result-merger": "^2.0.0",
     "lerna": "^2.9.0",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.2",
-    "prettier": "1.12.1"
+    "prettier": "1.12.1",
+    "solidity-coverage": "^0.5.0"
   }
 }
