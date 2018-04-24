@@ -13,12 +13,12 @@ import * as Web3 from "web3";
 import { bindNestedAll, promisify, isDefined } from "@joincivil/utils";
 import * as Debug from "debug";
 
-import { EthAddress, TxData, TxDataAll, TxHash } from "../../types";
-import { streamifyEvent } from "../../contracts/utils/contracts";
-import { CivilErrors } from "../../utils/errors";
-import { Web3Wrapper } from "../../utils/web3wrapper";
-import { BaseContract } from "../basecontract";
-import { artifacts } from "./artifacts";
+import { EthAddress, TxData, TxDataAll, TxHash } from "../../../types";
+import { streamifyEvent } from "../../../contracts/utils/contracts";
+import { CivilErrors } from "../../../utils/errors";
+import { Web3Wrapper } from "../../../utils/web3wrapper";
+import { BaseContract } from "../../basecontract";
+import { artifacts } from "../artifacts";
 
 const debug = Debug("civil:contracts:{{contractName}}Contract");
 

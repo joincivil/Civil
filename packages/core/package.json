@@ -15,10 +15,10 @@
     "examples:typed": "node build/doc/examples/low-level/typed_contracts.js",
     "examples:multisig": "node build/doc/examples/low-level/multisig.js",
     "generate": "run-p generate:*",
-    "generate:contracts": "abi-gen --abis 'src/artifacts/**/*.json' --template 'src/templates/contract/wrappers/contract.handlebars' --partials 'src/templates/contract/wrappers/partials/**/*.handlebars' --output 'src/contracts/generated/'",
-    "generate:events": "abi-gen --abis 'src/artifacts/**/*.json' --template 'src/templates/contract/events.handlebars' --output 'src/contracts/generated/events/'",
+    "generate:contracts": "abi-gen --abis 'src/artifacts/**/*.json' --template 'src/templates/contract/contract.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/wrappers/'",
     "generate:artifacts": "node ../dev-utils/build/scripts/generate-from-files/bin.js 'src/artifacts/**/*.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
-    "generate:multisig": "abi-gen --abis 'src/artifacts/Newsroom.json' --template 'src/templates/contract/wrappers/multisigproxy.handlebars' --partials 'src/templates/contract/wrappers/partials/**/*.handlebars' --output 'src/contracts/generated/multisig/'",
+    "generate:events": "node ../dev-utils/build/scripts/generate-from-files/bin.js 'src/artifacts/**/*.json' 'src/templates/events.handlebars' 'src/contracts/generated/events.ts'",
+    "generate:multisig": "abi-gen --abis 'src/artifacts/Newsroom.json' --template 'src/templates/contract/multisigproxy.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/multisig/'",
     "tsc": "tsc",
     "prepublishOnly": "run-s build lint",
     "clean": "rimraf build/ src/contracts/generated/*"

@@ -3,9 +3,8 @@ import * as Debug from "debug";
 import * as Web3 from "web3";
 import { delay, promisify } from "@joincivil/utils";
 
-import { artifacts } from "../contracts/generated/artifacts";
+import { Artifact, artifacts } from "../contracts/generated/artifacts";
 import {
-  Artifact,
   CivilTransactionReceipt,
   EthAddress,
   TxHash,

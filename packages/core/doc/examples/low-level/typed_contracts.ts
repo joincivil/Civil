@@ -2,7 +2,7 @@ import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
 import * as process from "process";
 
-import { NewsroomContract } from "../../../src/contracts/generated/newsroom";
+import { NewsroomContract } from "../../../src/contracts/generated/wrappers/newsroom";
 import { TxData } from "../../../src/types";
 import { Web3Wrapper } from "../../../src/utils/web3wrapper";
 
