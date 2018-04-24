@@ -55,7 +55,7 @@ jobs:
     coverage:
         <<: *defaults
         steps:
-            - attach_worskspace:
+            - attach_workspace:
                 at: ../
             - run:
                 name: Calculating coverage
