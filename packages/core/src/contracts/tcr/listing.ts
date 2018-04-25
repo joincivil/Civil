@@ -5,7 +5,6 @@ import { Web3Wrapper } from "../../utils/web3wrapper";
 import { EthAddress, ListingWrapper, ListingData, TimestampedEvent } from "../../types";
 import { createTimestampedEvent } from "../../utils/events";
 import { Challenge } from "./challenge";
-import { Civil } from "../..";
 
 export class Listing {
   private web3Wrapper: Web3Wrapper;
