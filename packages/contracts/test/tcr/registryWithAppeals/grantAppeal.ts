@@ -14,7 +14,7 @@ const NEWSROOM_NAME = "unused newsroom name";
 
 contract("Registry With Appeals", accounts => {
   describe("Function: setAppealFee", () => {
-    const [JAB, applicant, challenger, voter] = accounts;
+    const [JAB] = accounts;
 
     let registry: any;
 
@@ -22,14 +22,14 @@ contract("Registry With Appeals", accounts => {
       registry = await utils.createAllCivilTCRInstance(accounts, JAB);
     });
 
-    it("should fail if the fee is == 0", async() => {
+    it("should fail if the fee is == 0", async () => {
       await expect(registry.setAppealFee(0, { from: JAB })).to.eventually.be.rejectedWith(
         REVERTED,
         "Should not have allowed a fee that is 0",
       );
     });
 
-    it("should succeed in setting the fee if > 0", async() => {
+    it("should succeed in setting the fee if > 0", async () => {
       const dummyFee = 1000;
       await registry.setAppealFee(dummyFee, { from: JAB });
       const newAppealFee = await registry.appealFee();
@@ -41,7 +41,7 @@ contract("Registry With Appeals", accounts => {
   });
 
   describe("Function: setMakeAppealLength", () => {
-    const [JAB, applicant, challenger, voter] = accounts;
+    const [JAB] = accounts;
 
     let registry: any;
 
@@ -49,14 +49,14 @@ contract("Registry With Appeals", accounts => {
       registry = await utils.createAllCivilTCRInstance(accounts, JAB);
     });
 
-    it("should fail if the appeal phase length is == 0", async() => {
+    it("should fail if the appeal phase length is == 0", async () => {
       await expect(registry.setMakeAppealLength(0, { from: JAB })).to.eventually.be.rejectedWith(
         REVERTED,
         "Should not have allowed an appeal phase length that is 0",
       );
     });
 
-    it("should succeed in setting the appeal phase length if > 0", async() => {
+    it("should succeed in setting the appeal phase length if > 0", async () => {
       const dummyLength = 1000;
       await registry.setMakeAppealLength(dummyLength, { from: JAB });
       const newMakeAppealLength = await registry.requestAppealPhaseLength();
@@ -68,7 +68,7 @@ contract("Registry With Appeals", accounts => {
   });
 
   describe("Function: setAppealLength", () => {
-    const [JAB, applicant, challenger, voter] = accounts;
+    const [JAB] = accounts;
 
     let registry: any;
 
@@ -76,14 +76,14 @@ contract("Registry With Appeals", accounts => {
       registry = await utils.createAllCivilTCRInstance(accounts, JAB);
     });
 
-    it("should fail if the judge appeal phase length is == 0", async() => {
+    it("should fail if the judge appeal phase length is == 0", async () => {
       await expect(registry.setAppealLength(0, { from: JAB })).to.eventually.be.rejectedWith(
         REVERTED,
         "Should not have allowed a judge appeal length that is 0",
       );
     });
 
-    it("should succeed in setting the judge appeal phase length if > 0", async() => {
+    it("should succeed in setting the judge appeal phase length if > 0", async () => {
       const dummyLength = 1000;
       await registry.setAppealLength(dummyLength, { from: JAB });
       const newJudgeAppealLength = await registry.judgeAppealPhaseLength();
