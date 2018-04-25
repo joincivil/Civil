@@ -27,6 +27,9 @@ class ListingEvent extends React.Component<ListingEventProps> {
         break;
       case "NewListingWhitelisted":
         argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as NewListingWhitelistedArgs);
+        break;
+      default:
+        argsData = this.renderUnsupportedEvent(wrappedEvent);
     }
 
     return (
@@ -34,6 +37,10 @@ class ListingEvent extends React.Component<ListingEventProps> {
         {new Date(wrappedEvent.timestamp * 1000).toUTCString()} - {argsData}
       </StyledDiv>
     );
+  }
+
+  private renderUnsupportedEvent(event: any): JSX.Element {
+    return <>{event.event}</>;
   }
 
   private renderApplicationEvent(args: ApplicationArgs): JSX.Element {

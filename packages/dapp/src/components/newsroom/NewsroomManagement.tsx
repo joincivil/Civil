@@ -1,39 +1,34 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { List } from "immutable";
-import { NewsroomRoles } from "@joincivil/core";
+import { NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
 import { Subscription } from "rxjs";
 import TransactionButton from "../utility/TransactionButton";
-import { getCivil } from "../../helpers/civilInstance";
+import { applyToTCR, approve, getNewsroom } from "../../apis/civilTCR";
+import NewsroomDetail from "./NewsroomDetail";
+import BigNumber from "bignumber.js";
 
 export interface NewsroomManagementState {
-  name: string;
   error: string;
   editorAddress: string;
   reporterAddress: string;
   articleURL: string;
-  owners: string[];
-  editors: List<string>;
-  reporters: List<string>;
   proposedArticleIds: List<string>;
   compositeSubscription: Subscription;
 }
 export interface NewsroomManagementProps {
   match: any;
+  history: any;
 }
 
 class NewsroomManagement extends React.Component<NewsroomManagementProps, NewsroomManagementState> {
   constructor(props: NewsroomManagementProps) {
     super(props);
     this.state = {
-      name: "",
       error: "",
       editorAddress: "",
       reporterAddress: "",
       articleURL: "",
-      owners: [],
-      editors: List<string>(),
-      reporters: List<string>(),
       proposedArticleIds: List<string>(),
       compositeSubscription: new Subscription(),
     };
@@ -52,15 +47,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       <>
         {this.state.error}
         {this.state.error && <br />}
-        Newsroom Address: {this.props.match.params.newsroomAddress}
-        <br />
-        Name: {this.state.name}
-        <br />
-        Owners: {this.state.owners}
-        <br />
-        Editors: {this.state.editors}
-        <br />
-        Reporters: {this.state.reporters}
+        <NewsroomDetail address={this.props.match.params.newsroomAddress} />
         <br />
         ProposedArticleIds:
         {this.state.proposedArticleIds.map(id => {
@@ -74,38 +61,45 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
         })}
         <br />
         <input onChange={this.onEditorAddressChange} />
-        <TransactionButton transaction={this.addEditor}>Add Editor</TransactionButton>
+        <TransactionButton firstTransaction={this.addEditor}>Add Editor</TransactionButton>
         <br />
         <input onChange={this.onReporterAddressChange} />
-        <TransactionButton transaction={this.addReporter}>Add Reporter</TransactionButton>
+        <TransactionButton firstTransaction={this.addReporter}>Add Reporter</TransactionButton>
         <br />
         <input onChange={this.onArticleURLChange} />
-        <TransactionButton transaction={this.submitArticle}>Submit Article</TransactionButton>
+        <TransactionButton firstTransaction={this.submitArticle}>Submit Article</TransactionButton>
+        <br />
+        <TransactionButton
+          firstTransaction={this.approve}
+          secondTransaction={this.applyToTCR}
+          postSecondTransaction={this.postApply}
+        >
+          Apply to TCR
+        </TransactionButton>
         <br />
       </>
     );
   }
 
+  private approve = async (): Promise<TwoStepEthTransaction | void> => {
+    return approve(new BigNumber(100));
+  };
+
+  private applyToTCR = async (): Promise<TwoStepEthTransaction> => {
+    return applyToTCR(this.props.match.params.newsroomAddress, new BigNumber(100));
+  };
+
+  private postApply = (result: any) => {
+    this.props.history.push("/listing/" + this.props.match.params.newsroomAddress);
+  };
+
   private onArticleURLChange = async (e: any) => {
     return this.setState({ articleURL: e.target.value });
   };
 
-  private submitArticle = async () => {
-    const newsroomInstance = await this.getNewsroom();
-    if (newsroomInstance) {
-      let newsroomTransaction;
-      try {
-        newsroomTransaction = await newsroomInstance.proposeUri(this.state.articleURL);
-      } catch (ex) {
-        console.log("failed to submit article: " + ex);
-        this.setState({
-          error: "Failed to Submit Article: " + ex,
-        });
-      }
-      if (newsroomTransaction) {
-        await newsroomTransaction.awaitReceipt();
-      }
-    }
+  private submitArticle = async (): Promise<TwoStepEthTransaction> => {
+    const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
+    return newsroomInstance.proposeUri(this.state.articleURL);
   };
 
   private onReporterAddressChange = async (e: any) => {
@@ -116,50 +110,23 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     return this.setState({ editorAddress: e.target.value });
   };
 
-  private addReporter = async () => {
+  private addReporter = async (): Promise<TwoStepEthTransaction> => {
     return this.addRole(NewsroomRoles.Reporter);
   };
 
-  private addEditor = async () => {
+  private addEditor = async (): Promise<TwoStepEthTransaction> => {
     return this.addRole(NewsroomRoles.Editor);
   };
 
-  private addRole = async (role: NewsroomRoles) => {
-    const newsroomInstance = await this.getNewsroom();
-    if (newsroomInstance) {
-      let newsroomTransaction;
-      try {
-        newsroomTransaction = await newsroomInstance.addRole(this.state.editorAddress, role);
-      } catch (ex) {
-        console.log("failed to add role: " + ex);
-        this.setState({
-          error: "Failed to Add Role: " + ex,
-        });
-      }
-      if (newsroomTransaction) {
-        await newsroomTransaction.awaitReceipt();
-      }
-    }
+  private addRole = async (role: NewsroomRoles): Promise<TwoStepEthTransaction> => {
+    const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
+    return newsroomInstance.addRole(this.state.editorAddress, role);
   };
 
   private initNewsroom = async () => {
-    const newsroom = await this.getNewsroom();
+    const newsroom = await getNewsroom(this.props.match.params.newsroomAddress);
     if (newsroom) {
       console.log("lets get name.");
-      this.setState({ name: await newsroom.getName() });
-      this.setState({ owners: await newsroom.owners() });
-      this.state.compositeSubscription.add(
-        newsroom
-          .editors()
-          .distinct()
-          .subscribe((addr: any) => this.setState({ editors: this.state.editors.push(addr) })),
-      );
-      this.state.compositeSubscription.add(
-        newsroom
-          .reporters()
-          .distinct()
-          .subscribe((addr: any) => this.setState({ reporters: this.state.reporters.push(addr) })),
-      );
       this.state.compositeSubscription.add(
         newsroom
           .proposedContent()
@@ -168,21 +135,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           ),
       );
     }
-  };
-
-  private getNewsroom = async (): Promise<any> => {
-    const civil = getCivil();
-    let newsroom;
-    try {
-      newsroom = await civil.newsroomAtUntrusted(this.props.match.params.newsroomAddress);
-    } catch (ex) {
-      console.log("failed to get newsroom.");
-      this.setState({
-        error:
-          "Error resolving newsroom. Ensure Metamask is installed and set to Rinkeby and that the address for the newsroom is correct.",
-      });
-    }
-    return newsroom;
   };
 }
 

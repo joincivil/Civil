@@ -3,6 +3,8 @@ pragma solidity ^0.4.19;
 
 contract Migrations {
   address public owner;
+  
+  // solium-disable-next-line
   uint public last_completed_migration;
 
   // solium-disable-next-line security/enforce-placeholder-last

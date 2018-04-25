@@ -1,0 +1,60 @@
+import BigNumber from "bignumber.js";
+import { getCivil } from "../helpers/civilInstance";
+import { TwoStepEthTransaction, EthAddress } from "@joincivil/core";
+
+export async function approveForChallenge(): Promise<TwoStepEthTransaction | void> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const parameterizer = await tcr.getParameterizer();
+  const minDeposit = await parameterizer.getParameterValue("minDeposit");
+  return approve(minDeposit);
+}
+
+export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const appealFee = await tcr.getAppealFee();
+  return approve(appealFee);
+}
+
+export async function approve(amount: BigNumber): Promise<TwoStepEthTransaction | void> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const token = await tcr.getToken();
+
+  const approvedTokens = await token.getApprovedTokensForSpender(tcr.address);
+  if (approvedTokens < amount) {
+    return token.approveSpender(tcr.address, amount);
+  }
+}
+
+export async function applyToTCR(address: EthAddress, deposit: BigNumber): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.apply(address, deposit, "");
+}
+
+export async function challengeListing(address: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.challenge(address, "");
+}
+
+export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.requestAppeal(address);
+}
+
+export async function resolveChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.updateListing(address);
+}
+
+export async function getNewsroom(address: EthAddress): Promise<any> {
+  const civil = getCivil();
+  let newsroom;
+  newsroom = await civil.newsroomAtUntrusted(address);
+  return newsroom;
+}
