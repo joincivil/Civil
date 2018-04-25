@@ -4,7 +4,7 @@
 
 [Civil](https://joincivil.com/) is a decentralized and censorship resistant ecosystem for online Journalism. Read more in our whitepaper.
 
-[Civil DApp](https://http://dapp.staging.cvl.pub/) - Read Documentation and Interact with Contracts and tools at our DApp, hosted for your convenience.
+[Civil DApp](https://dapp.staging.cvl.pub/) - Read Documentation and Interact with Contracts and tools at our DApp, hosted for your convenience.
 
 This repository contains all of the open-source Civil tools and packages written in Typescript.
 We hope that those tools will be useful for creation of interesting applications on top of the ecosystem as well as be useful in any project in the Ethereum space.
