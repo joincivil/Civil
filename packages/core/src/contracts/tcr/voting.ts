@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 import * as Debug from "debug";
 import "@joincivil/utils";
 
-import { Bytes32, EthAddress, TwoStepEthTransaction } from "../../types";
+import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../types";
 import { CivilErrors, requireAccount } from "../../utils/errors";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseWrapper } from "../basewrapper";
@@ -211,22 +211,6 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   }
 
   /**
-   * Gets expiry timestamp of commit period.
-   * @param pollID ID of poll to check
-   */
-  public async getCommitPeriodExpiry(pollID: BigNumber): Promise<BigNumber> {
-    return this.instance.getPollCommitEndDate.callAsync(pollID);
-  }
-
-  /**
-   * Gets expiry timestamp of reveal period.
-   * @param pollID ID of poll to check
-   */
-  public async getRevealPeriodExpiry(pollID: BigNumber): Promise<BigNumber> {
-    return this.instance.getPollRevealEndDate.callAsync(pollID);
-  }
-
-  /**
    * Gets the pollID of the poll with most tokens less than tokens specified.
    * This is used to insert the new pollID in the correct position of list.
    * @param tokens number of tokens being committed this vote
@@ -238,5 +222,18 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
       who = requireAccount(this.web3Wrapper);
     }
     return this.instance.getInsertPointForNumTokens.callAsync(who, tokens);
+  }
+
+  public async getPoll(pollID: BigNumber): Promise<PollData> {
+    const [commitEndDate, revealEndDate, voteQuorum, votesFor, votesAgainst] = await this.instance.pollMap.callAsync(
+      pollID,
+    );
+    return {
+      commitEndDate,
+      revealEndDate,
+      voteQuorum,
+      votesFor,
+      votesAgainst,
+    };
   }
 }

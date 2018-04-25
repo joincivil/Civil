@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { List } from "immutable";
+import { ListingWrapper } from "@joincivil/core";
 const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -10,7 +11,7 @@ const StyledDiv = styled.div`
 `;
 
 export interface ListingListProps {
-  listings: List<string>;
+  listings: List<ListingWrapper>;
 }
 
 class ListingList extends React.Component<ListingListProps> {
@@ -22,11 +23,11 @@ class ListingList extends React.Component<ListingListProps> {
     return (
       <StyledDiv>
         {this.props.listings.map(l => {
-          const listing = "/listing/" + l;
+          const listing = "/listing/" + l!.address;
           return (
             <>
               <Link key={listing} to={listing}>
-                {listing}
+                {l!.address}
               </Link>
               <br />
             </>

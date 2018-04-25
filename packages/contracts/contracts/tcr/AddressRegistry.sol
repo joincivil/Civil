@@ -170,7 +170,7 @@ contract AddressRegistry {
     // Listing must be in apply stage or already on the whitelist
     require(appWasMade(listingAddress) || listing.isWhitelisted);
     // Prevent multiple challenges
-    require(listing.challengeID == NO_CHALLENGE || challenges[listing.challengeID].resolved);
+    require(listing.challengeID == NO_CHALLENGE);
 
     if (listing.unstakedDeposit < deposit) {
       // Not enough tokens, listing auto-delisted
@@ -384,6 +384,7 @@ contract AddressRegistry {
       if (!wasWhitelisted) {
         NewListingWhitelisted(listingAddress);
       }
+      listings[listingAddress].challengeID = NO_CHALLENGE;
     } else { // Case: challenge succeeded
       resetListing(listingAddress);
       // Transfer the reward to the challenger

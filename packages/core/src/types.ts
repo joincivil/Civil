@@ -110,55 +110,68 @@ export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
   awaitReceipt(blockConfirmations?: number): Promise<T>;
 }
 
+export interface ListingWrapper {
+  address: EthAddress;
+  data: ListingData;
+}
+
 /**
  * This represents the Listing data
  */
-export interface Listing {
+export interface ListingData {
   appExpiry: BigNumber;
   isWhitelisted: boolean;
   owner: EthAddress;
   unstakedDeposit: BigNumber;
   challengeID: BigNumber;
+  challenge?: ChallengeData;
+}
+
+export interface PollData {
+  commitEndDate: BigNumber;
+  revealEndDate: BigNumber;
+  voteQuorum: BigNumber;
+  votesFor: BigNumber;
+  votesAgainst: BigNumber;
 }
 
 /**
  * The data associated with a Challenge
  */
-export interface Challenge {
+export interface ChallengeData {
   rewardPool: BigNumber;
   challenger: EthAddress;
   resolved: boolean;
   stake: BigNumber;
   totalTokens: BigNumber;
+  poll: PollData;
+  requestAppealExpiry: BigNumber;
+  appeal?: AppealData;
 }
 
 /**
  * This represents the Appeal data for a Listing
  */
-export interface Appeal {
+export interface AppealData {
   requester: EthAddress;
   appealFeePaid: BigNumber;
   appealPhaseExpiry: BigNumber;
   appealGranted: boolean;
   appealOpenToChallengeExpiry: BigNumber;
   appealChallengeID: BigNumber;
+  appealChallenge?: AppealChallengeData;
 }
 
 /**
- * This enum represents the various states a listing can be in.
- * A listing can be both whitelisted and in the challenge process.
+ * The data associated with a Challenge
  */
-export enum ListingState {
-  NOT_FOUND,
-  APPLYING,
-  READY_TO_WHITELIST,
-  CHALLENGED_IN_COMMIT_VOTE_PHASE,
-  CHALLENGED_IN_REVEAL_VOTE_PHASE,
-  READY_TO_RESOLVE_CHALLENGE,
-  WAIT_FOR_APPEAL_REQUEST,
-  IN_APPEAL_PHASE,
-  READY_TO_RESOLVE_APPEAL,
-  WHITELISTED_WITHOUT_CHALLENGE,
+export interface AppealChallengeData {
+  rewardPool: BigNumber;
+  challenger: EthAddress;
+  resolved: boolean;
+  stake: BigNumber;
+  totalTokens: BigNumber;
+  poll: PollData;
 }
 
 export type PollID = BigNumber;

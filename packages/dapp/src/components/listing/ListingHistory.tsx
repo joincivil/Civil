@@ -63,51 +63,9 @@ class ListingHistory extends React.Component<ListingHistoryProps, ListingHistory
     const tcr = getTCR();
 
     if (tcr) {
-      this.state.compositeSubscription.add(
-        tcr.listingApplications(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
-      this.state.compositeSubscription.add(
-        tcr.listingChallenges(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
-      this.state.compositeSubscription.add(
-        tcr.listingDeposits(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
-      this.state.compositeSubscription.add(
-        tcr.listingWithdrawls(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
-      this.state.compositeSubscription.add(
-        tcr.listingWhitelisted(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
-      this.state.compositeSubscription.add(
-        tcr.listingApplicationRemoved(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
-      this.state.compositeSubscription.add(
-        tcr.listingRemoved(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
-      this.state.compositeSubscription.add(
-        tcr.listingChallengesFailed(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
-      this.state.compositeSubscription.add(
-        tcr.listingChallengesSucceeded(this.props.match.params.listing).subscribe(async (e: any) => {
-          await this.handleSubscriptionReturn(e);
-        }),
-      );
+      const listingHelper = tcr.getListing(this.props.match.params.listing);
+      const subscription = listingHelper.compositeObservables().subscribe(this.handleSubscriptionReturn);
+      this.setState({ compositeSubscription: subscription });
     }
   };
 }

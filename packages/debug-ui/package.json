@@ -35,7 +35,7 @@
   "dependencies": {
     "@joincivil/core": "^4.0.2",
     "@joincivil/utils": "^1.1.4",
-    "bignumber.js": "5.0.0",
+    "bignumber.js": "~5.0.0",
     "marked": "^0.3.12"
   }
 }
