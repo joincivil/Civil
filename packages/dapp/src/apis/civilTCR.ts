@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { getCivil } from "../helpers/civilInstance";
 import { TwoStepEthTransaction, EthAddress } from "@joincivil/core";
+import { getVoteSaltHash } from "@joincivil/utils";
 
 export async function approveForChallenge(): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
@@ -57,4 +58,19 @@ export async function getNewsroom(address: EthAddress): Promise<any> {
   let newsroom;
   newsroom = await civil.newsroomAtUntrusted(address);
   return newsroom;
+}
+
+export async function commitVote(
+  pollID: BigNumber,
+  voteOption: BigNumber,
+  salt: BigNumber,
+  numTokens: BigNumber,
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const secretHash = getVoteSaltHash(voteOption.toString(), salt.toString());
+  const voting = tcr.getVoting();
+  const prevPollID = await voting.getPrevPollID(numTokens);
+
+  return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
 }

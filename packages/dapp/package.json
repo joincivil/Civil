@@ -6,6 +6,7 @@
   "dependencies": {
     "@joincivil/core": "^4.0.2",
     "@joincivil/editor": "1.1.4",
+    "@joincivil/utils": "^1.1.4",
     "@types/highlight.js": "^9.12.2",
     "bignumber.js": "~5.0.0",
     "highlight.js": "^9.12.0",
