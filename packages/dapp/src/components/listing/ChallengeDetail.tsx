@@ -39,7 +39,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeDet
     super(props);
 
     this.state = {
-      isVoteTokenAmtValid: false
+      isVoteTokenAmtValid: false,
     };
   }
 
@@ -73,24 +73,17 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeDet
     return (
       <>
         <h3>Vote On Challenge</h3>
-
         <label>Poll ID</label>
         <input type="text" name="" />
-
         <label>Vote Option</label>
         <input type="radio" value="0" name="" /> Yes
         <input type="radio" value="1" name="" /> No
-
         <label>Salt</label>
         <input type="text" name="" />
-
         <label>Number of Tokens</label>
         {!this.state.isVoteTokenAmtValid && <FormValidationMessage children="Please enter a valid token amount" />}
         <input type="text" name="" onBlur={this.validateVoteCommittedTokens.bind(this)} />
-
-        <TransactionButton firstTransaction={this.commitVoteOnChallenge}>
-          Commit Vote
-        </TransactionButton>
+        <TransactionButton firstTransaction={this.commitVoteOnChallenge}>Commit Vote</TransactionButton>
       </>
     );
   }
@@ -99,7 +92,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeDet
   private validateVoteCommittedTokens(event: any): void {
     const val: string = event.target.value;
     const isValidTokenAmt: boolean = !!val.length && parseInt(val, 10) > 0;
-    this.setState({ isVoteTokenAmtValid: isValidTokenAmt })
+    this.setState({ isVoteTokenAmtValid: isValidTokenAmt });
   }
   private renderRevealStage(): JSX.Element {
     return <>REVEAL THINGS</>;
