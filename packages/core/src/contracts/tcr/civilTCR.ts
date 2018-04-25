@@ -6,11 +6,7 @@ import "@joincivil/utils";
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-<<<<<<< HEAD
-import { CivilTCRContract } from "../generated/civil_t_c_r";
-=======
 import { CivilTCRContract, CivilTCR as Events } from "../generated/wrappers/civil_t_c_r";
->>>>>>> Refactored events to be more exportable
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";

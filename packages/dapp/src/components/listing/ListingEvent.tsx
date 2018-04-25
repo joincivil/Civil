@@ -19,11 +19,11 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   public render(): JSX.Element {
-    const wrappedEvent = this.props.event as CivilTCR.Logs.Application | CivilTCR.Logs.NewListingWhitelisted;
+    const wrappedEvent = this.props.event as CivilTCR.LogEvents.Application | CivilTCR.LogEvents.NewListingWhitelisted;
     let argsData: JSX.Element | null = null;
     switch (wrappedEvent.event) {
       case CivilTCR.Events.Application:
-        argsData = this.renderApplicationEvent(wrappedEvent.args;
+        argsData = this.renderApplicationEvent(wrappedEvent.args);
         break;
       case CivilTCR.Events.NewListingWhitelisted:
         argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCR.Args.NewListingWhitelisted);
@@ -34,7 +34,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
 
     return (
       <StyledDiv>
-        {new Date(wrappedEvent.timestamp * 1000).toUTCString()} - {argsData}
+        {new Date((wrappedEvent as any).timestamp * 1000).toUTCString()} - {argsData}
       </StyledDiv>
     );
   }
