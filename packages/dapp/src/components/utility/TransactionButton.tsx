@@ -48,7 +48,7 @@ class TransactionButton extends React.Component<TransactionButtonProps, Transact
       <>
         {this.state.error}
         <Button onClick={this.onClick} disabled={this.state.disableButton}>
-          {this.state.step === 1 && "Waitng for Transaction..."}
+          {this.state.step === 1 && "Waiting for Transaction..."}
           {this.state.step === 2 && "Transaction Processing..."}
           {this.state.step === 0 && this.props.children}
         </Button>
