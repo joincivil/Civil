@@ -1,19 +1,24 @@
 pragma solidity ^0.4.19;
+
 import "./ACL.sol";
+import "../zeppelin-solidity/ECRecovery.sol";
 
 contract Newsroom is ACL {
+  using ECRecovery for bytes32;
+
   event RevisionPublished(address indexed editor, uint indexed id, string uri);
+  event RevisionSigned(address indexed editor, uint indexed id, address indexed author);
   event NameChanged(string newName);
 
-  string private constant ROLE_REPORTER = "reporter";
   string private constant ROLE_EDITOR = "editor";
 
   uint private latestId;
   mapping(uint => Revision) public content;
+  mapping(uint => SignedRevision) public signedContent;
 
   string public name;
 
-  function Newsroom(string newsroomName) ACL() public {
+  constructor(string newsroomName) ACL() public {
     setName(newsroomName);
   }
 
@@ -21,7 +26,7 @@ contract Newsroom is ACL {
     require(bytes(newName).length > 0);
     name = newName;
 
-    NameChanged(name);
+    emit NameChanged(name);
   }
 
   function addRole(address who, string role) public requireRole(ROLE_EDITOR) {
@@ -42,18 +47,42 @@ contract Newsroom is ACL {
     content[id] = Revision(
       contentHash,
       contentUri,
-      now,
-      0x0
+      now
     );
 
-    RevisionPublished(msg.sender, id, contentUri);
+    emit RevisionPublished(msg.sender, id, contentUri);
     return id;
   }
 
+  function publishRevisionSigned(string contentUri, bytes32 contentHash, address author, bytes signature) public requireRole(ROLE_EDITOR) returns (uint) {
+    verifyRevisionSignature(contentHash, author, signature);
+
+    uint id = publishRevision(contentUri, contentHash);
+    signedContent[id] = SignedRevision(
+      author,
+      signature
+    );
+
+    emit RevisionSigned(msg.sender, id, author);
+  }
+
+  function verifyRevisionSignature(bytes32 contentHash, address author, bytes signature) view internal {
+    bytes32 hashedMessage = keccak256(
+      this,
+      contentHash
+    ).toEthSignedMessageHash();
+
+    require(hashedMessage.recover(signature) == author);
+  }
+
   struct Revision {
-    bytes32 hash;
+    bytes32 contentHash;
     string uri;
     uint timestamp;
+  }
+
+  struct SignedRevision {
     address author;
+    bytes signature;
   }
 }
