@@ -17,7 +17,7 @@
     "migrate": "truffle migrate",
     "migrate:ganache": "run-s 'truffle migrate --network=ganache' build:stripArtifacts",
     "migrate:rinkeby": "run-s 'truffle migrate --network=rinkeby' build:stripArtifacts",
-    "test": "run-s compile:typescript 'truffle test --network ganache'",
+    "test": "truffle test --network ganache",
     "clean": "rimraf build/",
     "prepare": "truffle install",
     "truffle": "truffle",

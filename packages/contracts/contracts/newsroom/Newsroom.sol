@@ -68,7 +68,7 @@ contract Newsroom is ACL {
 
   function verifyRevisionSignature(bytes32 contentHash, address author, bytes signature) view internal {
     bytes32 hashedMessage = keccak256(
-      this,
+      address(this),
       contentHash
     ).toEthSignedMessageHash();
 
