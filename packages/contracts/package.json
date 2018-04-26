@@ -50,7 +50,7 @@
     "mkdirp": "^0.5.1",
     "npm-run-all": "^4.1.2",
     "rimraf": "^2.6.2",
-    "solium": "^1.1.5",
+    "solium": "github:duaraghav8/Solium#develop",
     "solium-plugin-security": "^0.1.1",
     "truffle": "^4.1.7",
     "tslint": "^5.9.1",
