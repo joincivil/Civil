@@ -38,6 +38,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             {this.props.listing.data.challenge && (
               <>
                 <ChallengeDetail
+                  challengeID={this.props.listing.data.challengeID}
                   challenge={this.props.listing.data.challenge}
                   listingAddress={this.props.listing.address}
                 />
