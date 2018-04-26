@@ -1,6 +1,7 @@
 import * as React from "react";
 import TransactionButton from "./utility/TransactionButton";
 import { getCivil } from "../helpers/civilInstance";
+import { TwoStepEthTransaction } from "@joincivil/core";
 
 export interface CreateNewsroomState {
   name: string;
@@ -26,7 +27,9 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
       <>
         {this.state.error}
         <input onChange={this.onChange} />
-        <TransactionButton transaction={this.createNewsroom}>Deploy Newsroom</TransactionButton>
+        <TransactionButton firstTransaction={this.createNewsroom} postFirstTransaction={this.onNewsroomCreated}>
+          Deploy Newsroom
+        </TransactionButton>
       </>
     );
   }
@@ -35,23 +38,14 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
     this.setState({ name: e.target.value });
   };
 
-  private createNewsroom = async () => {
+  private createNewsroom = async (): Promise<TwoStepEthTransaction<any>> => {
     const civil = getCivil();
-    let newsroomTransaction;
-    try {
-      newsroomTransaction = await civil.newsroomDeployNonMultisigTrusted(this.state.name);
-    } catch (ex) {
-      console.log("failed to create newsroom.");
-      this.setState({
-        error:
-          "Error creating newsroom. Ensure Metamask is installed, unlocked, and set to Rinkeby and that you have enough ETH for the transaction.",
-      });
-    }
-    if (newsroomTransaction) {
-      const newsroom = await newsroomTransaction.awaitReceipt();
-      const address = newsroom.address;
-      this.props.history.push("/newsroom/" + address);
-    }
+    return civil.newsroomDeployNonMultisigTrusted(this.state.name);
+  };
+
+  private onNewsroomCreated = (result: any) => {
+    const address = result.address;
+    this.props.history.push("/mgmt/" + address);
   };
 }
 

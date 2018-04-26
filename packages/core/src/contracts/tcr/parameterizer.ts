@@ -7,7 +7,7 @@ import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamPr
 import { requireAccount, CivilErrors } from "../../utils/errors";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseWrapper } from "../basewrapper";
-import { ParameterizerContract } from "../generated/parameterizer";
+import { ParameterizerContract } from "../generated/wrappers/parameterizer";
 import { createTwoStepSimple } from "../utils/contracts";
 import { Voting } from "./voting";
 
@@ -498,7 +498,8 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
       throw CivilErrors.NoChallenge;
     }
     const voting = await this.getVoting();
-    const expiryTimestamp = await voting.getCommitPeriodExpiry(challengeID);
+    const poll = await voting.getPoll(challengeID);
+    const expiryTimestamp = poll.commitEndDate;
     return new Date(expiryTimestamp.toNumber() * 1000);
   }
 
@@ -513,7 +514,8 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
       throw CivilErrors.NoChallenge;
     }
     const voting = await this.getVoting();
-    const expiryTimestamp = await voting.getRevealPeriodExpiry(challengeID);
+    const poll = await voting.getPoll(challengeID);
+    const expiryTimestamp = poll.revealEndDate;
     return new Date(expiryTimestamp.toNumber() * 1000);
   }
 

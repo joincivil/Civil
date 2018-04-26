@@ -29,7 +29,7 @@ import { InMemoryProvider } from "../../src/content/inmemoryprovider";
 
   console.log("Am I the owner:", await newsroom.isOwner());
 
-  console.log("Setting myself to be reporter");
+  console.log("Setting myself to be editor");
   await (await newsroom.addRole(civil.userAccount!, NewsroomRoles.Editor)).awaitReceipt();
 
   console.log("publishing a new article...");

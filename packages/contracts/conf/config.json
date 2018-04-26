@@ -20,18 +20,23 @@
     "appealChallengeCommitStageLength": 160,
     "appealChallengeRevealStageLength": 160
   },
-  "TokenAddress": "0x337cDDa6D41A327c5ad456166CCB781a9722AFf9",
+  "rinkebyTokenAddress": "0x617e6d6db50b2697b1fa37f43ec2834648c39020",
   "testnets": {
     "rinkeby": {
       "tokenHolders": [
-        "0x1a5cdcFBA600e0c669795e0B65c344D5A37a4d5A",
-        "0x2a5cdcFBA600e0c669795e0B65c344D5A37a4d5A",
-        "0x3a5cdcFBA600e0c669795e0B65c344D5A37a4d5A",
-        "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf"
+        "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
+        "0xE562D05067edEd7a722Ed73b9EbFAAedc60970a1",
+        "0x5385A3a9a1468b7D900A93E6f21E903E30928764",
+        "0x8c722b8ac728add7780a66017e8dadba530ee261"
       ]
     },
     "ganache": {
-      "tokenHolders": ["0xcec56f1d4dc439e298d5f8b6ff3aa6be58cd6fdf"]
+      "tokenHolders": [
+        "0xcec56f1d4dc439e298d5f8b6ff3aa6be58cd6fdf",
+        "0xE562D05067edEd7a722Ed73b9EbFAAedc60970a1",
+        "0x5385A3a9a1468b7D900A93E6f21E903E30928764",
+        "0x8c722b8ac728add7780a66017e8dadba530ee261"
+      ]
     }
   }
 }

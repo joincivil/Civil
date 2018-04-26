@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { ApplicationArgs, NewListingWhitelistedArgs } from "@joincivil/core";
+import { CivilTCR } from "@joincivil/core";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -19,27 +19,34 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   public render(): JSX.Element {
-    const wrappedEvent = this.props.event;
+    const wrappedEvent = this.props.event as CivilTCR.LogEvents.Application | CivilTCR.LogEvents.NewListingWhitelisted;
     let argsData: JSX.Element | null = null;
     switch (wrappedEvent.event) {
-      case "Application":
-        argsData = this.renderApplicationEvent(wrappedEvent.args as ApplicationArgs);
+      case CivilTCR.Events.Application:
+        argsData = this.renderApplicationEvent(wrappedEvent.args);
         break;
-      case "NewListingWhitelisted":
-        argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as NewListingWhitelistedArgs);
+      case CivilTCR.Events.NewListingWhitelisted:
+        argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCR.Args.NewListingWhitelisted);
+        break;
+      default:
+        argsData = this.renderUnsupportedEvent(wrappedEvent);
     }
 
     return (
       <StyledDiv>
-        {new Date(wrappedEvent.timestamp * 1000).toUTCString()} - {argsData}
+        {new Date((wrappedEvent as any).timestamp * 1000).toUTCString()} - {argsData}
       </StyledDiv>
     );
   }
 
-  private renderApplicationEvent(args: ApplicationArgs): JSX.Element {
+  private renderUnsupportedEvent(event: any): JSX.Element {
+    return <>{event.event}</>;
+  }
+
+  private renderApplicationEvent(args: CivilTCR.Args.Application): JSX.Element {
     return <>Application --- Deposit: {args.deposit.toString()}</>;
   }
-  private renderNewListingWhitelistedEvent(args: NewListingWhitelistedArgs): JSX.Element {
+  private renderNewListingWhitelistedEvent(args: CivilTCR.Args.NewListingWhitelisted): JSX.Element {
     return <>Whitelisted!</>;
   }
 }

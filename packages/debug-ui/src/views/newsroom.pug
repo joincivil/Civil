@@ -11,61 +11,62 @@ block content
   | (if Owners and Owner are the same, then the newsroom is deployed without a multisig as owner)
   br
   br
-  content#state State: 
+  content#listingData Listing: 
   br
 
-  div(style = "border : thick solid #0000FF")#application.hidden
-    h3 Applying
-    #applicationInfo info...
-
-  div(style = "border : thick solid #0000FF")#challenge.hidden
-    h3 Challenge
-    #challengeInfo info...
+  div#commitVote
+    | Commit Vote in Poll
     br
-    div#commitVote.hidden
-      | Commit Vote in Challenge
-      br
-      | challengeID
-      input#param-commitVotePollId(type="text")
-      | option
-      input#param-commitVoteOption(type="text")
-      | salt
-      input#param-commitVoteSalt(type="text")
-      | numTokens
-      input#param-commitNumTokens(type="text")
-      button#param-commitVote Commit Vote
-    div#revealVote.hidden
-      | Reveal Vote in Challenge
-      br
-      | challengeID
-      input#param-revealVotePollId(type="text")
-      | option
-      input#param-revealVoteOption(type="text")
-      | salt
-      input#param-revealVoteSalt(type="text")
-      button#param-revealVote Reveal Vote
-
-
-  div(style = "border : thick solid #0000FF")#appeal.hidden
-    h3 Appeal
-    #appealInfo info...
-
-  div(style = "border : thin solid #0000FF")#resolvedChallenges.hidden
-    h3 Resolved Challenges. 
-    #resolvedChallengesInfo Challenges: 
+    | pollID
+    input#param-commitVotePollId(type="text")
+    | option
+    input#param-commitVoteOption(type="text")
+    | salt
+    input#param-commitVoteSalt(type="text")
+    | numTokens
+    input#param-commitNumTokens(type="text")
+    button#param-commitVote Commit Vote
+  div#revealVote
+    | Reveal Vote in Poll
     br
-    | pollID:  
-    input#param-claimRewardChallengeID(type="text")
-    | salt: 
-    input#param-claimRewardSalt(type="text")
-    button#param-claimReward(type="text") Claim Reward
+    | pollID
+    input#param-revealVotePollId(type="text")
+    | option
+    input#param-revealVoteOption(type="text")
+    | salt
+    input#param-revealVoteSalt(type="text")
+    button#param-revealVote Reveal Vote
 
+  div(style = "border : thin solid #0000FF")#events.hidden
+    h3 Events. 
+    #eventsInfo
+    br
+
+  | pollID:  
+  input#param-claimRewardChallengeID(type="text")
+  | salt: 
+  input#param-claimRewardSalt(type="text")
+  button#param-claimReward(type="text") Claim Reward
+
+  br
   | Apply to TCR
   button#param-applyToTCR Apply To TCR
   br
 
   | Challenge TCR Listing
   button#param-challengeTCRListing Challenge TCR Listing
+  br
+
+  | Request Appeal
+  button#param-requestAppeal Request Appeal
+  br
+
+  | Grant Appeal
+  button#param-grantAppeal Grant Appeal
+  br
+
+  | Challenge Granted Appeal
+  button#param-challengeAppeal Challenge Granted Appeal
   br
 
   | Update Listing

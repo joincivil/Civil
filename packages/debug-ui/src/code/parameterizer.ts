@@ -26,6 +26,9 @@ initializeDebugUI(async civil => {
     "voteQuorum",
     "pVoteQuorum",
     "pProcessBy",
+    "challengeAppealLen",
+    "challengeAppealCommitLen",
+    "challengeAppealRevealLen",
   ];
 
   keys.forEach(async k => {

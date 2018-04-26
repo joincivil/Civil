@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 import "@joincivil/utils";
 
 import { BaseWrapper } from "../basewrapper";
-import { EIP20Contract } from "../generated/eip20";
+import { EIP20Contract } from "../generated/wrappers/eip20";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { requireAccount } from "../../utils/errors";

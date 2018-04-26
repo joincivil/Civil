@@ -2,38 +2,32 @@ import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import * as Debug from "debug";
 import "@joincivil/utils";
-import { DecodedLogEntryEvent } from "@joincivil/typescript-types";
 
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-import {
-  ApplicationArgs,
-  CivilTCRContract,
-  ChallengeInitiatedArgs,
-  DepositArgs,
-  NewListingWhitelistedArgs,
-  ApplicationRemovedArgs,
-  ListingRemovedArgs,
-  ChallengeFailedArgs,
-  ChallengeSucceededArgs,
-  WithdrawalArgs,
-} from "../generated/civil_t_c_r";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
-import {
-  Appeal,
-  EthAddress,
-  Listing,
-  ListingState,
-  TwoStepEthTransaction,
-  Challenge,
-  TimestampedEvent,
-} from "../../types";
-import { createTimestampedEvent } from "../../utils/events";
-import { createTwoStepSimple, is0x0Address, isEthAddress } from "../utils/contracts";
+import { EthAddress, TwoStepEthTransaction, ListingWrapper } from "../../types";
+import { createTwoStepSimple } from "../utils/contracts";
 import { EIP20 } from "./eip20";
+import { Listing } from "./listing";
+import {
+  isWhitelisted,
+  isInApplicationPhase,
+  canBeWhitelisted,
+  isInChallengedCommitVotePhase,
+  isInChallengedRevealVotePhase,
+  isAwaitingAppealRequest,
+  canChallengeBeResolved,
+  isAwaitingAppealJudgment,
+  isListingAwaitingAppealChallenge,
+  isListingInAppealChallengeCommitPhase,
+  isInAppealChallengeRevealPhase,
+  canListingAppealBeResolved,
+} from "../../utils/listingDataHelpers/listingHelper";
 
 const debug = Debug("civil:tcr");
 
@@ -110,95 +104,18 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   //#region EventStreams
 
-  //#region RawEventStreams
-
-  public listingApplications(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ApplicationArgs, string>>> {
-    return this.instance.ApplicationStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<ApplicationArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  public listingChallenges(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ChallengeInitiatedArgs, string>>> {
-    return this.instance.ChallengeInitiatedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<ChallengeInitiatedArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  public listingDeposits(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<DepositArgs, string>>> {
-    return this.instance.DepositStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<DepositArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  public listingWithdrawls(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<WithdrawalArgs, string>>> {
-    return this.instance.WithdrawalStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<WithdrawalArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  public listingWhitelisted(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<NewListingWhitelistedArgs, string>>> {
-    return this.instance.NewListingWhitelistedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<NewListingWhitelistedArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  public listingApplicationRemoved(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ApplicationRemovedArgs, string>>> {
-    return this.instance.ApplicationRemovedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<ApplicationRemovedArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  public listingRemoved(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ListingRemovedArgs, string>>> {
-    return this.instance.ListingRemovedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<ListingRemovedArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  public listingChallengesFailed(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ChallengeFailedArgs, string>>> {
-    return this.instance.ChallengeFailedStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<ChallengeFailedArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  public listingChallengesSucceeded(
-    listingAddress: EthAddress,
-  ): Observable<TimestampedEvent<DecodedLogEntryEvent<ChallengeSucceededArgs, string>>> {
-    return this.instance.ChallengeSucceededStream({ listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<DecodedLogEntryEvent<ChallengeSucceededArgs, string>>(this.web3Wrapper, e);
-    });
-  }
-
-  //#endregion
-
-  //#region AdvancedEventStreams
-
   /**
    * An unending stream of all addresses currently whitelisted
    * @param fromBlock Starting block in history for events concerning whitelisted addresses.
    *                  Set to "latest" for only new events
    * @returns currently whitelisted addresses
    */
-  public whitelistedListings(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public whitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       .NewListingWhitelistedStream({}, { fromBlock })
-      .map(e => e.args.listingAddress)
-      .concatFilter(async listingAddress => this.isWhitelisted(listingAddress));
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isWhitelisted(l.data));
   }
 
   /**
@@ -207,11 +124,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns listings currently in application stage
    */
-  public listingsInApplicationStage(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public listingsInApplicationStage(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       .ApplicationStream({}, { fromBlock })
-      .map(e => e.args.listingAddress)
-      .concatFilter(async listingAddress => this.isInApplicationPhase(listingAddress));
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isInApplicationPhase(l.data));
   }
 
   /**
@@ -220,11 +138,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns addresses ready to be whitelisted
    */
-  public readyToBeWhitelistedListings(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public readyToBeWhitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       .ApplicationStream({}, { fromBlock })
-      .map(e => e.args.listingAddress)
-      .concatFilter(async listingAddress => this.isReadyToWhitelist(listingAddress));
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => canBeWhitelisted(l.data));
   }
 
   /**
@@ -233,11 +152,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in commit vote phase
    */
-  public currentChallengedCommitVotePhaseListings(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public currentChallengedCommitVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
-      .map(e => e.args.listingAddress)
-      .concatFilter(async listingAddress => this.isInChallengedCommitVotePhase(listingAddress));
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isInChallengedCommitVotePhase(l.data));
   }
 
   /**
@@ -246,11 +166,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in reveal vote phase
    */
-  public currentChallengedRevealVotePhaseListings(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public currentChallengedRevealVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       .ChallengeInitiatedStream({}, { fromBlock })
-      .map(e => e.args.listingAddress)
-      .concatFilter(async listingAddress => this.isInChallengedRevealVotePhase(listingAddress));
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isInChallengedRevealVotePhase(l.data));
   }
 
   /**
@@ -259,11 +180,20 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in request appeal phase
    */
-  public listingsAwaitingAppealRequest(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public listingsAwaitingAppealRequest(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeFailedStream({}, { fromBlock })
-      .concatFilter(async e => this.isInRequestAppealPhase(e.args.challengeID))
-      .map(e => e.args.listingAddress);
+      .ChallengeInitiatedStream({}, { fromBlock })
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isAwaitingAppealRequest(l.data));
+  }
+
+  public listingsWithChallengeToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+    return this.instance
+      .ChallengeInitiatedStream({}, { fromBlock })
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => canChallengeBeResolved(l.data));
   }
 
   /**
@@ -272,147 +202,100 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsAwaitingAppeal(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public listingsAwaitingAppealJudgment(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeFailedStream({}, { fromBlock })
-      .concatFilter(async e => this.isInAppealPhase(e.args.challengeID))
-      .map(e => e.args.listingAddress);
+      .ChallengeInitiatedStream({}, { fromBlock })
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isAwaitingAppealJudgment(l.data));
   }
 
   /**
-   * An unending stream of all addresses for listings that can be updated
-   * @param fromBlock Starting block in history for events concerning addresses in a state that can be updated
+   * An unending stream of all addresses currently challenged in appeal phase
+   * @param fromBlock Starting block in history for events concerning challenged addresses in appeal phase.
    *                  Set to "latest" for only new events
-   * @returns addresses for listings that can be updated
+   * @returns currently challenged addresses in appeal phase
    */
-  public listingsAwaitingUpdate(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public listingsAwaitingAppealChallenge(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+    return this.instance
+      .ChallengeInitiatedStream({}, { fromBlock })
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isListingAwaitingAppealChallenge(l.data));
+  }
+
+  /**
+   * An unending stream of all addresses currently challenged in appeal phase
+   * @param fromBlock Starting block in history for events concerning challenged addresses in appeal phase.
+   *                  Set to "latest" for only new events
+   * @returns currently challenged addresses in appeal phase
+   */
+  public listingsInAppealChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+    return this.instance
+      .ChallengeInitiatedStream({}, { fromBlock })
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isListingInAppealChallengeCommitPhase(l.data));
+  }
+
+  /**
+   * An unending stream of all addresses currently challenged in appeal phase
+   * @param fromBlock Starting block in history for events concerning challenged addresses in appeal phase.
+   *                  Set to "latest" for only new events
+   * @returns currently challenged addresses in appeal phase
+   */
+  public listingsInAppealChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+    return this.instance
+      .ChallengeInitiatedStream({}, { fromBlock })
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => isInAppealChallengeRevealPhase(l.data));
+  }
+
+  /**
+   * An unending stream of all addresses currently challenged in appeal phase
+   * @param fromBlock Starting block in history for events concerning challenged addresses in appeal phase.
+   *                  Set to "latest" for only new events
+   * @returns currently challenged addresses in appeal phase
+   */
+  public listingsWithAppealToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+    return this.instance
+      .ChallengeInitiatedStream({}, { fromBlock })
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => canListingAppealBeResolved(l.data));
+  }
+
+  /**
+   * An unending stream of all addresses currently challenged in appeal phase
+   * @param fromBlock Starting block in history for events concerning challenged addresses in appeal phase.
+   *                  Set to "latest" for only new events
+   * @returns currently challenged addresses in appeal phase
+   */
+  public rejectedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       .ApplicationStream({}, { fromBlock })
-      .map(e => e.args.listingAddress)
-      .concatFilter(async listingAddress => this.challengeCanBeResolved(listingAddress));
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper())
+      .concatFilter(l => l.data.appExpiry.isZero());
   }
 
-  /**
-   * An unending stream of all challenges that failed for given listing
-   * @param listingAddress Address of failed challenges to get
-   * @param fromBlock Starting block in history for events concerning challenges that failed.
-   *                  Set to "latest" for only new events
-   * @returns all failed challenges for listing since 'fromBlock'
-   */
-  public failedChallengesForListing(
-    listingAddress: EthAddress,
-    fromBlock: number | "latest" = 0,
-  ): Observable<BigNumber> {
-    return this.instance.ChallengeFailedStream({ listingAddress }, { fromBlock }).map(e => e.args.challengeID);
-  }
-
-  /**
-   * An unending stream of all challenges that succeeded for given listing
-   * @param listingAddress Address of succeeded challenges to get
-   * @param fromBlock Starting block in history for events concerning challnges that succeeded.
-   *                  Set to "latest" for only new events
-   * @returns all succeeded challenges for listing since 'fromBlock'
-   */
-  public successfulChallengesForListing(
-    listingAddress: EthAddress,
-    fromBlock: number | "latest" = 0,
-  ): Observable<BigNumber> {
-    return this.instance.ChallengeSucceededStream({ listingAddress }, { fromBlock }).map(e => e.args.challengeID);
+  public allApplicationsEver(): Observable<ListingWrapper> {
+    return this.instance
+      .ApplicationStream({}, { fromBlock: 0 })
+      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .switchMap(async l => l.getListingWrapper());
   }
 
   //#endregion
 
-  //#endregion
+  public getListing(listingAddress: EthAddress): Listing {
+    return new Listing(this.web3Wrapper, this.instance, listingAddress);
+  }
 
   /**
    * Contract Getters
    */
-
-  public async getListing(listingAddress: EthAddress): Promise<Listing> {
-    const listing = await this.instance.listings.callAsync(listingAddress);
-    return {
-      appExpiry: listing[0],
-      isWhitelisted: listing[1],
-      owner: listing[2],
-      unstakedDeposit: listing[3],
-      challengeID: listing[4],
-    };
-  }
-
-  public async getChallenge(challengeID: BigNumber): Promise<Challenge> {
-    const challenge = await this.instance.challenges.callAsync(challengeID);
-    return {
-      rewardPool: challenge[0],
-      challenger: challenge[1],
-      resolved: challenge[2],
-      stake: challenge[3],
-      totalTokens: challenge[4],
-    };
-  }
-
-  public async getAppeal(challengeID: BigNumber): Promise<Appeal> {
-    const appeal = await this.instance.appeals.callAsync(challengeID);
-    return {
-      requester: appeal[0],
-      appealFeePaid: appeal[1],
-      appealPhaseExpiry: appeal[2],
-      appealGranted: appeal[3],
-      appealOpenToChallengeExpiry: appeal[4],
-      appealChallengeID: appeal[5],
-    };
-  }
-
-  public async getAppealChallenge(challengeID: BigNumber): Promise<Challenge> {
-    // TODO: challenges -> appealChallenges
-    const challenge = await this.instance.appealChallenges.callAsync(challengeID);
-    return {
-      rewardPool: challenge[0],
-      challenger: challenge[1],
-      resolved: challenge[2],
-      stake: challenge[3],
-      totalTokens: challenge[4],
-    };
-  }
-
-  /**
-   * Get's the current state of the listing
-   * @param listingAddress Address of listing to check state of
-   */
-  public async getListingState(listingAddress: EthAddress): Promise<ListingState> {
-    const listing = await this.getListing(listingAddress);
-
-    if (!(await this.doesListingExist(listing))) {
-      return ListingState.NOT_FOUND;
-    } else if (await this.isInApplicationPhase(listing)) {
-      return ListingState.APPLYING;
-    } else if (await this.isReadyToWhitelist(listingAddress)) {
-      return ListingState.READY_TO_WHITELIST;
-    } else if (await this.hasUnresolvedChallenge(listing)) {
-      if (await this.isInChallengedCommitVotePhase(listing)) {
-        return ListingState.CHALLENGED_IN_COMMIT_VOTE_PHASE;
-      } else if (await this.isInChallengedRevealVotePhase(listing)) {
-        return ListingState.CHALLENGED_IN_REVEAL_VOTE_PHASE;
-      } else if (await this.challengeCanBeResolved(listingAddress)) {
-        return ListingState.READY_TO_RESOLVE_CHALLENGE;
-      } else {
-        const appeal = await this.getAppeal(listing.challengeID);
-
-        if (await this.isInRequestAppealPhase(listing.challengeID, appeal)) {
-          return ListingState.WAIT_FOR_APPEAL_REQUEST;
-        } else if (await this.isInAppealPhase(listing.challengeID, appeal)) {
-          return ListingState.IN_APPEAL_PHASE;
-        } else if (await this.isReadyToResolveAppeal(listingAddress)) {
-          return ListingState.READY_TO_RESOLVE_APPEAL;
-        } else {
-          return ListingState.NOT_FOUND;
-        }
-      }
-    } else if (await this.isWhitelisted(listing)) {
-      return ListingState.WHITELISTED_WITHOUT_CHALLENGE;
-    } else {
-      return ListingState.NOT_FOUND;
-    }
-  }
 
   /**
    * Gets reward for voter
@@ -426,282 +309,6 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       who = requireAccount(this.web3Wrapper);
     }
     return this.instance.voterReward.callAsync(who, challengeID, salt);
-  }
-
-  public async getListingInstance(listingOrAddress: EthAddress | Listing): Promise<Listing> {
-    let listing: Listing;
-    if (isEthAddress(listingOrAddress)) {
-      listing = await this.getListing(listingOrAddress);
-    } else {
-      listing = listingOrAddress;
-    }
-    return listing;
-  }
-
-  /**
-   * Checks if the listing exists on the contract. If this is false, either the listing
-   * has never applied, or it has applied and been rejected (whether during application
-   * or while on whitelist)
-   * @param listingAddress address of listing to check
-   */
-  public async doesListingExist(listingOrAddress: EthAddress | Listing): Promise<boolean> {
-    const listing = await this.getListingInstance(listingOrAddress);
-    return listing.appExpiry > new BigNumber(0);
-  }
-
-  /**
-   * Checks if listing can be whitelisted (application was made and passed
-   * without challenge or resolved challenge, is not already whitelisted)
-   * @param listingAddress address of listing to check
-   */
-  public async canBeWhitelisted(listingAddress: EthAddress): Promise<boolean> {
-    return this.instance.canBeWhitelisted.callAsync(listingAddress);
-  }
-
-  /**
-   * Checks if a listing address is whitelisted
-   * @param address Address of listing to check
-   */
-  public async isWhitelisted(listingOrAddress: EthAddress | Listing): Promise<boolean> {
-    const listing = await this.getListingInstance(listingOrAddress);
-    return listing.isWhitelisted;
-  }
-
-  /**
-   * Checks if a listing address is ready to be whitelisted
-   * @param listingAddress Address of listing to check
-   */
-  public async isReadyToWhitelist(listingAddress: EthAddress): Promise<boolean> {
-    return this.instance.canBeWhitelisted.callAsync(listingAddress);
-  }
-
-  /**
-   * Checks if a listing is ready to resolve its appeal. Returns true only if as appeal was
-   * requested, and that appeal was either granted and not challenged before the appeal challenge
-   * expiration time, or not granted and past the expiration time of the appeal
-   * @param listingAddress Address of listing to check
-   */
-  public async isReadyToResolveAppeal(listingAddress: EthAddress): Promise<boolean> {
-    return this.instance.appealCanBeResolved.callAsync(listingAddress);
-  }
-
-  /**
-   * Checks if a listing address is in unchallenged application phase
-   * @param listingAddress Address of potential listing to check
-   */
-  public async isInApplicationPhase(listingOrAddress: EthAddress | Listing): Promise<boolean> {
-    let isInApplicationPhase = true;
-    const listing = await this.getListingInstance(listingOrAddress);
-    // if expiry time has passed
-    if (new Date(listing.appExpiry.toNumber() * 1000) < new Date()) {
-      isInApplicationPhase = false;
-    }
-
-    if (isInApplicationPhase) {
-      // if there is a challenge
-      if (!listing.challengeID.isZero()) {
-        isInApplicationPhase = false;
-      }
-    }
-    return isInApplicationPhase;
-  }
-
-  /**
-   * Gets the application expiry timestamp for the given listing address
-   * @param listingAddress Address of listing to check
-   */
-  public async getApplicationExpiryDate(listingOrAddress: EthAddress | Listing): Promise<Date> {
-    const listing = await this.getListingInstance(listingOrAddress);
-    const applicationExpiryTimestamp = listing.appExpiry;
-    return new Date(applicationExpiryTimestamp.toNumber() * 1000);
-  }
-
-  /**
-   * Checks if a listing address is in challenged commit vote phase
-   * @param listingAddress Address of potential listing to check
-   * @param pollID Optional pollID causes function to return true only if active challenge is equal to pollID
-   */
-  public async isInChallengedCommitVotePhase(
-    listingOrAddress: EthAddress | Listing,
-    pollID?: BigNumber,
-  ): Promise<boolean> {
-    let isInCommitPhase = true;
-    const listing = await this.getListingInstance(listingOrAddress);
-    // if there is no challenge
-    if (listing.challengeID.toNumber() === 0) {
-      isInCommitPhase = false;
-    }
-
-    if (pollID) {
-      if (!listing.challengeID.equals(pollID)) {
-        isInCommitPhase = false;
-      }
-    }
-
-    if (isInCommitPhase) {
-      const commitPeriodActive = await this.voting.isCommitPeriodActive(listing.challengeID);
-      if (!commitPeriodActive) {
-        isInCommitPhase = false;
-      }
-    }
-
-    return isInCommitPhase;
-  }
-
-  /**
-   * Checks if a listing address is in challenged commit vote phase
-   * @param listingAddress Address of potential listing to
-   * @param pollID Optional pollID causes function to return true only if active challenge is equal to pollID
-   */
-  public async isInChallengedRevealVotePhase(
-    listingOrAddress: EthAddress | Listing,
-    pollID?: BigNumber,
-  ): Promise<boolean> {
-    let isInRevealPhase = true;
-    const listing = await this.getListingInstance(listingOrAddress);
-
-    // if there is no challenge
-    if (listing.challengeID.toNumber() === 0) {
-      isInRevealPhase = false;
-    }
-
-    if (pollID) {
-      if (!listing.challengeID.equals(pollID)) {
-        isInRevealPhase = false;
-      }
-    }
-
-    if (isInRevealPhase) {
-      // if reveal period not active
-      const revealPeriodActive = await this.voting.isRevealPeriodActive(listing.challengeID);
-      if (!revealPeriodActive) {
-        isInRevealPhase = false;
-      }
-    }
-
-    return isInRevealPhase;
-  }
-
-  /**
-   * Checks if a listing is currently in the Request Appeal phase
-   * @param listingAddress Address of listing to check
-   */
-  public async isInRequestAppealPhase(appealId: BigNumber, appeal?: Appeal): Promise<boolean> {
-    let appealInstance;
-    if (appeal) {
-      appealInstance = appeal;
-    } else {
-      appealInstance = await this.getAppeal(appealId);
-    }
-    const appealExpiryDate = await this.getRequestAppealExpiryDate(appealId);
-    return !is0x0Address(appealInstance.requester) && appealExpiryDate > new Date();
-  }
-
-  /**
-   * Gets the expiry date-time of the request appeal phase.
-   * @param appeal Appeal to check
-   */
-  public async getRequestAppealExpiryDate(appealId: BigNumber): Promise<Date> {
-    const appealExpiry = await this.instance.challengeRequestAppealExpiries.callAsync(appealId);
-    const appealExpiryDate = new Date(appealExpiry.toNumber() * 1000);
-    return appealExpiryDate;
-  }
-
-  /**
-   * Checks if a listing is currently in the Appeal phase
-   * @param appealId ID of appeal to check (same as ID of challenge being appealed)
-   */
-  public async isInAppealPhase(appealId?: BigNumber, appeal?: Appeal): Promise<boolean> {
-    const appealExpiryDate = await this.getAppealExpiryDate(appealId, appeal);
-    return appealExpiryDate > new Date();
-  }
-
-  /**
-   * Gets the expiry time of the appeal phase.
-   * @param listingAddress Address of listing to check
-   */
-  public async getAppealExpiryDate(appealId?: BigNumber, appeal?: Appeal): Promise<Date> {
-    let appealInstance;
-    if (appeal) {
-      appealInstance = appeal;
-    } else if (appealId) {
-      appealInstance = await this.getAppeal(appealId);
-    } else {
-      throw new Error("neither appealId nor appeal instance passed into function");
-    }
-    return new Date(appealInstance.appealPhaseExpiry.toNumber() * 1000);
-  }
-
-  /**
-   * Gets the expiry time of the commit vote phase.
-   * @param listingAddress Address of listing to check
-   * @throws {CivilErrors.NoChallenge}
-   */
-  public async getCommitVoteExpiryDate(listingOrAddress: EthAddress | Listing): Promise<Date> {
-    const listing = await this.getListingInstance(listingOrAddress);
-    // if there is no challenge
-    if (listing.challengeID.isZero()) {
-      throw CivilErrors.NoChallenge;
-    }
-    const revealPeriodActive = await this.voting.getCommitPeriodExpiry(listing.challengeID);
-
-    return new Date(revealPeriodActive.toNumber() * 1000);
-  }
-
-  /**
-   * Gets the expiry time of the commit vote phase.
-   * @param listingAddress Address of listing to check
-   * @throws {CivilErrors.NoChallenge}
-   */
-  public async getRevealVoteExpiryDate(listingOrAddress: EthAddress | Listing): Promise<Date> {
-    const listing = await this.getListingInstance(listingOrAddress);
-    // if there is no challenge
-    if (listing.challengeID.isZero()) {
-      throw CivilErrors.NoChallenge;
-    }
-    const revealPeriodActive = await this.voting.getRevealPeriodExpiry(listing.challengeID);
-
-    return new Date(revealPeriodActive.toNumber() * 1000);
-  }
-
-  /**
-   * Checks if an address has application associated with it
-   * App can either be in progress or approved
-   * @param address Address of listing to check
-   */
-  public async appWasMade(listingAddress: EthAddress): Promise<boolean> {
-    return this.instance.appWasMade.callAsync(listingAddress);
-  }
-
-  /**
-   * Checks if an address has application/listing has an unresolved challenge
-   * @param address Address of listing to check
-   */
-  public async challengeExists(listingAddress: EthAddress): Promise<boolean> {
-    return this.instance.challengeExists.callAsync(listingAddress);
-  }
-
-  /**
-   * Gets whether or not the listing has an unresoved challenge
-   * @param listingAddress Address of listing to check
-   */
-  public async hasUnresolvedChallenge(listingOrAddress: EthAddress | Listing): Promise<boolean> {
-    const listing = await this.getListingInstance(listingOrAddress);
-    if (listing.challengeID.isZero()) {
-      return false;
-    }
-    const challenge = await this.getChallenge(listing.challengeID);
-    const isChallengeResolved = challenge.resolved;
-    return !isChallengeResolved;
-  }
-
-  /**
-   * Checks if an address has challenge that can be resolved
-   * Challenge can be resolved if reveal period is over but request appeal phase is uninitialized
-   * @param address Address of listing to check
-   */
-  public async challengeCanBeResolved(listingAddress: EthAddress): Promise<boolean> {
-    return this.instance.challengeCanBeResolved.callAsync(listingAddress);
   }
 
   /**
@@ -802,6 +409,25 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async challenge(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
     const { uri } = await this.contentProvider.put(data);
     return this.challengeWithURI(listingAddress, uri);
+  }
+
+  public async getAppealFee(): Promise<BigNumber> {
+    return this.instance.appealFee.callAsync();
+  }
+
+  public async requestAppeal(listingAddres: EthAddress): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.web3Wrapper, await this.instance.requestAppeal.sendTransactionAsync(listingAddres));
+  }
+
+  public async grantAppeal(listingAddres: EthAddress): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.web3Wrapper, await this.instance.grantAppeal.sendTransactionAsync(listingAddres));
+  }
+
+  public async challengeGrantedAppeal(listingAddres: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.web3Wrapper,
+      await this.instance.challengeGrantedAppeal.sendTransactionAsync(listingAddres, data),
+    );
   }
 
   /**

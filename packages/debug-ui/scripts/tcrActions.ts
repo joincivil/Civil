@@ -46,6 +46,52 @@ export async function challenge(address: EthAddress, optionalCivil?: Civil): Pro
   console.log("Challenged TCR Listing");
 }
 
+export async function requestAppeal(address: EthAddress, optionalCivil?: Civil): Promise<void> {
+  const civil = optionalCivil || new Civil();
+
+  console.log("Request Appeal on TCR Listing");
+  const tcr = await civil.tcrSingletonTrusted();
+  const fee = await tcr.getAppealFee();
+  const eip = await tcr.getToken();
+  const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
+  if (approvedTokensForSpender.lessThan(fee)) {
+    const approveTransaction = await eip.approveSpender(tcr.address, fee);
+    await approveTransaction.awaitReceipt();
+  }
+
+  const requestAppealTransaction = await tcr.requestAppeal(address);
+  await requestAppealTransaction.awaitReceipt();
+  console.log("Appeal Requested for TCR Listing");
+}
+
+export async function grantAppeal(address: EthAddress, optionalCivil?: Civil): Promise<void> {
+  const civil = optionalCivil || new Civil();
+
+  console.log("Granting Appeal for TCR Listing");
+  const tcr = await civil.tcrSingletonTrusted();
+  const grantAppealTransaction = await tcr.grantAppeal(address);
+  await grantAppealTransaction.awaitReceipt();
+  console.log("Granted Appeal for TCR Listing");
+}
+
+export async function challengeGrantedAppeal(address: EthAddress, optionalCivil?: Civil): Promise<void> {
+  const civil = optionalCivil || new Civil();
+
+  console.log("Challenging Granted Appeal on TCR Listing");
+  const tcr = await civil.tcrSingletonTrusted();
+  const fee = await tcr.getAppealFee();
+  const eip = await tcr.getToken();
+  const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
+  if (approvedTokensForSpender.lessThan(fee)) {
+    const approveTransaction = await eip.approveSpender(tcr.address, fee);
+    await approveTransaction.awaitReceipt();
+  }
+
+  const requestAppealTransaction = await tcr.challengeGrantedAppeal(address);
+  await requestAppealTransaction.awaitReceipt();
+  console.log("Challenged Granted Requested for TCR Listing");
+}
+
 export async function updateStatus(address: EthAddress, optionalCivil?: Civil): Promise<void> {
   const civil = optionalCivil || new Civil();
 
