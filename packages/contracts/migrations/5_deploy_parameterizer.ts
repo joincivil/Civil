@@ -23,8 +23,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       tokenAddress = Token.address;
     }
 
-    const estimate = web3.eth.estimateGas({ data: Parameterizer.bytecode });
-    console.log("Parameterizer gas cost estimate: " + estimate);
+    // const estimate = web3.eth.estimateGas({ data: Parameterizer.bytecode });
+    // console.log("Parameterizer gas cost estimate: " + estimate);
     await deployer.deploy(Parameterizer, tokenAddress, PLCRVoting.address, [
       parameterizerConfig.minDeposit,
       parameterizerConfig.pMinDeposit,

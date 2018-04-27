@@ -24,13 +24,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       tokenAddress = Token.address;
     }
 
-    console.log("governmentAddress: " + Government.address);
-    const government = await Government.deployed();
-    const appellateAddress = await government.appellate();
-    console.log("appellateAddress: " + appellateAddress);
-
-    const estimate = web3.eth.estimateGas({ data: CivilTCR.bytecode });
-    console.log("CivilTCR gas cost estimate: " + estimate);
+    // const estimate = web3.eth.estimateGas({ data: CivilTCR.bytecode });
+    // console.log("CivilTCR gas cost estimate: " + estimate);
 
     await deployer.deploy(CivilTCR, tokenAddress, PLCRVoting.address, Parameterizer.address, Government.address);
     if (inTesting(network)) {

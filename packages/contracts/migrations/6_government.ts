@@ -17,8 +17,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     }
 
     const parameterizerConfig = config.paramDefaults;
-    const estimate = web3.eth.estimateGas({ data: Government.bytecode });
-    console.log("Government gas cost estimate: " + estimate);
+    // const estimate = web3.eth.estimateGas({ data: Government.bytecode });
+    // console.log("Government gas cost estimate: " + estimate);
 
     await deployer.deploy(
       Government,
