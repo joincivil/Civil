@@ -113,8 +113,8 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
 
         <FormGroup>
           <TransactionButton
-            firstTransaction={this.requestVotingRights.bind(this)}
-            secondTransaction={this.commitVoteOnChallenge.bind(this)}
+            firstTransaction={this.requestVotingRights}
+            secondTransaction={this.commitVoteOnChallenge}
           >
             Commit Vote
           </TransactionButton>
