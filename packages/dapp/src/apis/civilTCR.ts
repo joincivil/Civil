@@ -60,6 +60,22 @@ export async function getNewsroom(address: EthAddress): Promise<any> {
   return newsroom;
 }
 
+export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+
+  const voting = tcr.getVoting();
+  const eip = await tcr.getToken();
+
+  const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
+  if (approvedTokensForSpender < numTokens) {
+    const approveSpender = await eip.approveSpender(voting.address, numTokens);
+    await approveSpender.awaitReceipt();
+  }
+
+  return voting.requestVotingRights(numTokens);
+}
+
 export async function commitVote(
   pollID: BigNumber,
   voteOption: BigNumber,
