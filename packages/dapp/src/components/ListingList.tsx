@@ -3,7 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { List } from "immutable";
 import { ListingWrapper } from "@joincivil/core";
-const StyledDiv = styled.div`
+
+const StyledUl = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   width: 100%
@@ -21,19 +25,16 @@ class ListingList extends React.Component<ListingListProps> {
 
   public render(): JSX.Element {
     return (
-      <StyledDiv>
+      <StyledUl>
         {this.props.listings.map(l => {
           const listing = "/listing/" + l!.address;
           return (
-            <>
-              <Link key={listing} to={listing}>
-                {l!.address}
-              </Link>
-              <br />
-            </>
+            <li key={l!.address}>
+              <Link to={listing}>{l!.address}</Link>
+            </li>
           );
         })}
-      </StyledDiv>
+      </StyledUl>
     );
   }
 }

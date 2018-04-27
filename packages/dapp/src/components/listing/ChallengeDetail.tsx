@@ -12,7 +12,7 @@ import {
 import AppealDetail from "./AppealDetail";
 import CommitVoteDetail from "./CommitVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
-import { appealChallenge, approveForAppeal, resolveChallenge } from "../../apis/civilTCR";
+import { appealChallenge, approveForAppeal, updateListing } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 
 const StyledDiv = styled.div`
@@ -80,7 +80,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return <TransactionButton firstTransaction={this.resolve}>Resolve Challenge</TransactionButton>;
   }
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return resolveChallenge(this.props.listingAddress);
+    return updateListing(this.props.listingAddress);
   };
 }
 

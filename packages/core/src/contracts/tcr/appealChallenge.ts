@@ -1,7 +1,7 @@
 import "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import { Voting } from "./voting";
-import { CivilTCRContract } from "../generated/civil_t_c_r";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { AppealChallengeData } from "../../types";
 

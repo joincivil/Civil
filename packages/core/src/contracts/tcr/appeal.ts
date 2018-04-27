@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import "@joincivil/utils";
-import { CivilTCRContract } from "../generated/civil_t_c_r";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { AppealData } from "../../types";
 import { AppealChallenge } from "./appealChallenge";

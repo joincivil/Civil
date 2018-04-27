@@ -3,15 +3,7 @@ import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 
-import {
-  EthAddress,
-  EventFunction,
-  TxDataBase,
-  TypedEventFilter,
-  TxHash,
-  CivilTransactionReceipt,
-  TwoStepEthTransaction,
-} from "../../types";
+import { EthAddress, TxDataBase, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "../../types";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 
 export function findEvent<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T | undefined {
@@ -42,20 +34,33 @@ export function isDecodedLog(what: Web3.LogEntry | DecodedLogEntry): what is Dec
   return typeof (what as any).event === "string" && !isUndefined((what as any).args);
 }
 
+export type TypedEventFilter<T> = { [P in keyof T]?: T[P] | Array<T[P]> };
+export type DecodedFilterCallback<L extends DecodedLogEntryEvent> = (err: Error, result: L) => void;
+export interface DecodedFilterResult<L extends DecodedLogEntryEvent> {
+  get(callback: () => void): void;
+  watch(callback: DecodedFilterCallback<L>): void;
+  stopWatching(callback?: () => void): void;
+}
+export type EventFunction<A, L extends DecodedLogEntryEvent<A>> = (
+  paramFilters?: TypedEventFilter<A>,
+  filterObject?: Web3.FilterObject,
+  callback?: DecodedFilterCallback<L>,
+) => DecodedFilterResult<L>;
+
 // TODO(ritave): Think how to solve race condition in filters, concat get/watch perhaps?
-export function streamifyEvent<A>(
-  original: EventFunction<TypedEventFilter<A>>,
-): (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<DecodedLogEntryEvent<A>> {
+export function streamifyEvent<A, L extends DecodedLogEntryEvent<A>>(
+  original: EventFunction<A, L>,
+): (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<L> {
   return (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => {
-    return new Observable<DecodedLogEntryEvent<A>>(subscriber => {
+    return new Observable<L>(subscriber => {
       const filter = original(paramFilters, filterObject);
       let errored = false;
-      filter.watch((err, event) => {
+      filter.watch((err: Error, event: L) => {
         if (err) {
           errored = true;
           return filter.stopWatching(() => subscriber.error(err));
         }
-        subscriber.next(event as DecodedLogEntryEvent<A>);
+        subscriber.next(event);
       });
 
       return () => {

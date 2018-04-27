@@ -3,9 +3,8 @@ import * as Debug from "debug";
 import * as Web3 from "web3";
 import { delay, promisify } from "@joincivil/utils";
 
-import { artifacts } from "../contracts/generated/artifacts";
+import { Artifact, artifacts } from "../contracts/generated/artifacts";
 import {
-  Artifact,
   CivilTransactionReceipt,
   EthAddress,
   TxHash,
@@ -89,6 +88,7 @@ export class Web3Wrapper {
   }
 
   public async getBlock(blockNumber: number): Promise<Web3.BlockWithoutTransactionData> {
+    // tslint:disable-next-line:no-unbound-method
     const getBlockAsync = promisify<Web3.BlockWithoutTransactionData>(this.web3.eth.getBlock, this.web3.eth);
     return getBlockAsync(blockNumber);
   }
