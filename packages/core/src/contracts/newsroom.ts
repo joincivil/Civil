@@ -271,12 +271,11 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async loadArticleHeader(articleId: number | BigNumber): Promise<ContentHeader> {
     const id = new BigNumber(articleId);
 
-    const [hash, uri, timestamp, author] = await this.instance.content.callAsync(id);
+    const [hash, uri, timestamp] = await this.instance.content.callAsync(id);
     return {
       id: id.toNumber(),
       timestamp: new Date(timestamp.toNumber()),
       uri,
-      author,
       hash,
     };
   }
