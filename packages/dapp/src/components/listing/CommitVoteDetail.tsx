@@ -23,7 +23,6 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
     this.state = {
       isVoteTokenAmtValid: false,
     };
-
   }
 
   public render(): JSX.Element {
@@ -34,13 +33,15 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
         {/* @TODO(jon): Change this to a hidden form field.
             The typical user/voter doesn't need to know about the PollID */}
         <FormGroup>
-          <label>Poll ID
+          <label>
+            Poll ID
             <InputElement type="text" name="" value={this.props.challengeID.toString()} readOnly={true} />
           </label>
         </FormGroup>
 
         <FormGroup>
-          <label>Support This Challenge (Vote Option)
+          <label>
+            Support This Challenge (Vote Option)
             <InputElement type="radio" value="1" name="voteOption" onChange={this.updateCommitVoteParam} /> Yes
             <InputElement type="radio" value="0" name="voteOption" onChange={this.updateCommitVoteParam} /> No
           </label>
@@ -52,7 +53,8 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
         </FormGroup>
 
         <FormGroup>
-          <label>Number of Tokens
+          <label>
+            Number of Tokens
             {!this.state.isVoteTokenAmtValid && <FormValidationMessage children="Please enter a valid token amount" />}
             <InputElement
               type="text"
@@ -64,10 +66,7 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton
-            firstTransaction={this.requestVotingRights}
-            secondTransaction={this.commitVoteOnChallenge}
-          >
+          <TransactionButton firstTransaction={this.requestVotingRights} secondTransaction={this.commitVoteOnChallenge}>
             Commit Vote
           </TransactionButton>
         </FormGroup>
@@ -81,7 +80,7 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
     const newState = {};
     newState[paramName] = val;
     this.setState(newState);
-  }
+  };
 
   // @TODO(jon): Make a nicer validation check than this. But for
   // the meantime, let's do this just to see if this whole thing works.
@@ -89,7 +88,7 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
     const val: string = event.target.value;
     const isValidTokenAmt: boolean = !!val.length && parseInt(val, 10) > 0;
     this.setState({ isVoteTokenAmtValid: isValidTokenAmt });
-  }
+  };
 
   private requestVotingRights = async (): Promise<TwoStepEthTransaction<any>> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
