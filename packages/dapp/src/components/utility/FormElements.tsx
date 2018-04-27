@@ -1,4 +1,18 @@
 import * as React from "react";
+import styled, { StyledComponentClass } from "styled-components";
+
+const StyledFormContainer = styled.div`
+  margin: 1em 0;
+`;
+
+export const FormValidationMessage = styled.div`
+  color: #c00;
+  font-weight: bold;
+`;
+
+export const FormGroup = styled.div`
+  margin: 0 0 1em;
+`;
 
 export interface InputElementProps {
   type: string;
@@ -36,3 +50,5 @@ export class InputElement extends React.Component<InputElementProps> {
     }
   }
 }
+
+export { StyledFormContainer }

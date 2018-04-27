@@ -1,23 +1,9 @@
 import * as React from "react";
-import styled from "styled-components";
 import TransactionButton from "../utility/TransactionButton";
-import { InputElement } from "../utility/FormElements";
+import { InputElement, StyledFormContainer, FormValidationMessage, FormGroup } from "../utility/FormElements";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { commitVote, requestVotingRights } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
-
-const StyledFormContainer = styled.div`
-  margin: 1em 0;
-`;
-
-const FormValidationMessage = styled.div`
-  color: #c00;
-  font-weight: bold;
-`;
-
-const FormGroup = styled.div`
-  margin: 0 0 1em;
-`;
 
 export interface CommitVoteDetailProps {
   challengeID: BigNumber;
