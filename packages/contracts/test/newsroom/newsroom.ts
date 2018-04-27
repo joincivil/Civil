@@ -2,7 +2,7 @@ import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 import { promisify } from "@joincivil/utils";
 import { soliditySHA3 } from "ethereumjs-abi";
-import { bufferToHex, hashPersonalMessage, toBuffer } from "ethereumjs-util";
+import { bufferToHex } from "ethereumjs-util";
 
 import { events, NEWSROOM_ROLE_EDITOR, REVERTED } from "../utils/constants";
 import { findEvent, idFromEvent } from "../utils/contractutils";
@@ -142,7 +142,7 @@ contract("Newsroom", (accounts: string[]) => {
   });
 
   describe("publishRevisionSigned", () => {
-    const [owner, editor, author] = accounts;
+    const [, editor, author] = accounts;
     const signAsync = promisify<string>(web3.eth.sign, web3.eth);
 
     let MESSAGE: string;
