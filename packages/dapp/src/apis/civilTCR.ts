@@ -102,4 +102,3 @@ export async function revealVote(
 
   return voting.revealVote(pollID, voteOption, salt);
 }
-
