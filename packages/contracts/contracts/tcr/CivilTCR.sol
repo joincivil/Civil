@@ -23,11 +23,6 @@ contract CivilTCR is RestrictedAddressRegistry {
   event GrantedAppealOverturned(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID);
   event GrantedAppealConfirmed(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID);
 
-  modifier onlyGovernmentController {
-    require(msg.sender == government.getAppellate());
-    _;
-  }
-
   modifier onlyAppellate {
     require(msg.sender == government.getAppellate());
     _;
