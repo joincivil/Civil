@@ -1,6 +1,7 @@
 pragma solidity ^0.4.19;
 
 import "./RestrictedAddressRegistry.sol";
+import "../interfaces/IGovernment.sol";
 
 /**
 @title TCR with appeallate functionality and restrictions on application 
@@ -16,30 +17,29 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   event AppealRequested(address indexed requester, address indexed listing, uint indexed challengeID);
   event AppealGranted(address indexed listing);
-  event AppealFeeSet(uint fee);
-  event MakeAppealLengthSet(uint length);
-  event AppealLengthSet(uint length);
   event FailedChallengeOverturned(address indexed listing, uint indexed challengeID);
   event SuccessfulChallengeOverturned(address indexed listing, uint indexed challengeID);
   event GrantedAppealChallenged(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID, string data);
   event GrantedAppealOverturned(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID);
   event GrantedAppealConfirmed(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID);
 
-  modifier onlyAppellate {
-    require(msg.sender == appellate);
+  modifier onlyGovernmentController {
+    require(msg.sender == government.getAppellate());
     _;
   }
 
-  address public appellate;
-  uint public appealFee;
-  uint public requestAppealPhaseLength;
-  uint public judgeAppealPhaseLength;
+  modifier onlyAppellate {
+    require(msg.sender == government.getAppellate());
+    _;
+  }
+
+  IGovernment public government;
 
   uint public appealSupermajorityPercentage = 66;
 
   /*
   @notice this struct handles the state of an appeal. It is first initialized 
-          when updateStatus is called after a successful challenge.
+  when updateStatus is called after a successful challenge.
   */
   struct Appeal {
     address requester;
@@ -61,22 +61,16 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param tokenAddr          Address of the TCR's intrinsic ERC20 token
   @param plcrAddr           Address of a PLCR voting contract for the provided token
   @param paramsAddr         Address of a Parameterizer contract 
-  @param appellateAddr      Address of appellate entity, which could be a regular user, although multisig is recommended
+  @param govtAddr             Address of a IGovernment contract
   */
   function CivilTCR(
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
-    address appellateAddr,
-    uint appealFeeAmount,
-    uint requestAppealLength,
-    uint judgeAppealLength
+    address govtAddr
   ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
   {
-    appellate = appellateAddr;
-    requestAppealPhaseLength = requestAppealLength;
-    judgeAppealPhaseLength = judgeAppealLength;
-    appealFee = appealFeeAmount;
+    government = IGovernment(govtAddr);
   }
 
   // --------------------
@@ -97,12 +91,13 @@ contract CivilTCR is RestrictedAddressRegistry {
     require(voting.pollEnded(listing.challengeID));
     require(challengeRequestAppealExpiries[listing.challengeID] > now); // "Request Appeal Phase" active
     require(!appealRequested[listing.challengeID]);
+    uint appealFee = government.get("appealFee");
     require(token.transferFrom(msg.sender, this, appealFee));
 
     Appeal storage appeal = appeals[listing.challengeID];
     appeal.requester = msg.sender;
     appeal.appealFeePaid = appealFee;
-    appeal.appealPhaseExpiry = now + judgeAppealPhaseLength;
+    appeal.appealPhaseExpiry = now + government.get("judgeAppealPhaseLength");
     appealRequested[listing.challengeID] = true;
     AppealRequested(msg.sender, listingAddress, listing.challengeID);
   }
@@ -125,40 +120,6 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealGranted = true;    
     appeal.appealOpenToChallengeExpiry = now + parameterizer.get("challengeAppealLen");
     AppealGranted(listingAddress);
-  }
-
-  /**
-  @notice Set new value for appeal fee
-          Can only be called by Appellate, since only they can decide what fee they require
-  @param fee The new value for the appeal fee
-  */
-  function setAppealFee(uint fee) external onlyAppellate {
-    require(fee > 0); // safety check
-    appealFee = fee;
-    AppealFeeSet(fee);
-  }
-
-  /**
-  @notice Set new value for the length of "Request Appeal Phase"
-          Can only be called by Appellate, allowing this to be controlled 
-          by community adds complexity and seems unnecessary
-  @param length The new value for the "Request Appeal Phase" length
-  */
-  function setMakeAppealLength(uint length) external onlyAppellate {
-    require(length > 0); // safety check
-    requestAppealPhaseLength = length;
-    MakeAppealLengthSet(length);
-  }
-
-  /**
-  @notice Set new value for the length of "Judge Appeal Phase"
-          Can only be called by Appellate, since only they can decide how long they need to process appeals
-  @param length The new value for the "Judge Appeal Phase" length
-  */
-  function setAppealLength(uint length) external onlyAppellate {
-    require(length > 0); // safety check
-    judgeAppealPhaseLength = length;
-    AppealLengthSet(length);
   }
 
   // --------
@@ -224,7 +185,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   function challenge(address listingAddress, string data) public returns (uint challengeID) {
     uint id = super.challenge(listingAddress, data);
     if (id != NO_CHALLENGE) {
-      uint challengeLength = parameterizer.get("commitStageLen") + parameterizer.get("revealStageLen") + requestAppealPhaseLength;
+      uint challengeLength = parameterizer.get("commitStageLen") + parameterizer.get("revealStageLen") + government.get("requestAppealPhaseLength");
       challengeRequestAppealExpiries[id] = now + challengeLength;
     }
     return id;
