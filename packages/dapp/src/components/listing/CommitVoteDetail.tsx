@@ -115,7 +115,9 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
           <TransactionButton
             firstTransaction={this.requestVotingRights.bind(this)}
             secondTransaction={this.commitVoteOnChallenge.bind(this)}
-          >Commit Vote</TransactionButton>
+          >
+            Commit Vote
+          </TransactionButton>
         </FormGroup>
       </StyledFormContainer>
     );
@@ -140,7 +142,7 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
   private requestVotingRights = async (): Promise<TwoStepEthTransaction<any>> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
     return requestVotingRights(numTokens);
-  }
+  };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
