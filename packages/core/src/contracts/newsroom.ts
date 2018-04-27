@@ -14,6 +14,7 @@ import {
   ContentId,
   ContentHeader,
   NewsroomContent,
+  SignedRevision,
 } from "../types";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
@@ -271,19 +272,19 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async loadArticleHeader(articleId: number | BigNumber): Promise<ContentHeader> {
     const id = new BigNumber(articleId);
 
-    const [hash, uri, timestamp] = await this.instance.content.callAsync(id);
+    const [contentHash, uri, timestamp] = await this.instance.content.callAsync(id);
     return {
       id: id.toNumber(),
       timestamp: new Date(timestamp.toNumber()),
       uri,
-      hash,
+      contentHash,
     };
   }
 
   /**
-   * Proposes the given uri into Ethereum's Newsroom,
-   * This is low-level call and assumes you stored your content on your own
-   * @param uri The link that you want to propose
+   * Allows editor to publish a revision on the content storage and record it in the
+   * Blockchain Newsroom.
+   * @param content The content that should be put in the content provider
    * @returns An id assigned on Ethereum to the uri
    */
   public async publishRevision(content: string): Promise<TwoStepEthTransaction<ContentId>> {
@@ -292,7 +293,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
     return createTwoStepTransaction(
       this.web3Wrapper,
-      await this.instance.publishRevision.sendTransactionAsync(contentHeader.uri, contentHeader.hash),
+      await this.instance.publishRevision.sendTransactionAsync(contentHeader.uri, contentHeader.contentHash),
       receipt => {
         return findEventOrThrow<Events.Logs.RevisionPublished>(
           receipt,
@@ -300,6 +301,45 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         ).args.id.toNumber();
       },
     );
+  }
+
+  public async publishRevisionSigned(
+    content: string,
+    signedData: SignedRevision,
+  ): Promise<TwoStepEthTransaction<ContentId>> {
+    await this.requireEditor();
+    const contentHeader = await this.contentProvider.put(content);
+
+    return createTwoStepTransaction(
+      this.web3Wrapper,
+      await this.instance.publishRevisionSigned.sendTransactionAsync(
+        contentHeader.uri,
+        signedData.contentHash,
+        signedData.author,
+        signedData.signature,
+      ),
+      receipt => {
+        return findEventOrThrow<Events.Logs.RevisionPublished>(
+          receipt,
+          Events.Events.RevisionPublished,
+        ).args.id.toNumber();
+      },
+    );
+  }
+
+  public async signRevision(content: string): Promise<SignedRevision> {
+    const author = requireAccount(this.web3Wrapper);
+
+    const contentHash = this.web3Wrapper.sha3String(content);
+    const message = this.web3Wrapper.soliditySha3(["address", "bytes32"], [this.address, contentHash]);
+
+    const { signature } = await this.web3Wrapper.signMessage(message, author);
+    return {
+      author,
+      contentHash,
+      signature,
+      newsroomAddress: this.address,
+    };
   }
 
   /**
@@ -316,7 +356,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       content,
       timestamp: header.timestamp,
       uri: header.uri,
-      hash: header.hash,
+      contentHash: header.contentHash,
     };
   }
 

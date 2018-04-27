@@ -32,7 +32,7 @@ export class IPFSProvider implements ContentProvider {
   public async put(content: string): Promise<ContentHeader> {
     return new Promise<ContentHeader>((resolve, reject) => {
       ipfs.add(Buffer.from(content), (err: any, ipfsHash: any) => {
-        resolve({ uri: this.scheme() + "://" + ipfsHash[0].path, hash: ipfsHash[0].path });
+        resolve({ uri: this.scheme() + "://" + ipfsHash[0].path, contentHash: ipfsHash[0].path });
       });
     });
   }

@@ -10,12 +10,19 @@ export interface ContentHeader {
   author?: EthAddress;
   timestamp?: Date;
   uri: string;
-  hash: string;
+  contentHash: Hex;
 }
 
 // TODO(ritave, dankins): Decide on content schema and update this type
 export interface NewsroomContent extends ContentHeader {
   content: any;
+}
+
+export interface SignedRevision {
+  newsroomAddress: EthAddress;
+  contentHash: Hex;
+  author: EthAddress;
+  signature: EthAddress;
 }
 
 export interface MapObject<T = any> {

@@ -26,6 +26,7 @@ import {
   publicToAddress,
   toChecksumAddress,
 } from "ethereumjs-util";
+import { soliditySHA3 } from "ethereumjs-abi";
 
 const POLL_MILLISECONDS = 1000;
 const DEFAULT_HTTP_NODE = "http://localhost:8545";
@@ -131,6 +132,10 @@ export class Web3Wrapper {
     // tslint:disable-next-line:no-unbound-method
     const sendTransactionAsync = promisify<TxHash>(this.web3.eth.sendTransaction, this.web3.eth);
     return sendTransactionAsync(txData);
+  }
+
+  public soliditySha3(types: string[], data: any[]): Hex {
+    return bufferToHex(soliditySHA3(types, data));
   }
 
   public sha3String(what: string): string {

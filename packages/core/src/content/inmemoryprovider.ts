@@ -28,9 +28,9 @@ export class InMemoryProvider implements ContentProvider {
   }
 
   public async put(content: string): Promise<ContentHeader> {
-    const hash = this.web3Wrapper.web3.sha3(content);
-    const uri = this.scheme() + "://" + hash;
+    const contentHash = this.web3Wrapper.sha3String(content);
+    const uri = this.scheme() + "://" + contentHash;
     this.data.uri = content;
-    return { uri, hash };
+    return { uri, contentHash };
   }
 }
