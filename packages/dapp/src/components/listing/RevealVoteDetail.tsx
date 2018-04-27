@@ -47,9 +47,7 @@ class RevealVoteDetail extends React.Component<RevealVoteDetailProps, RevealVote
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton firstTransaction={this.revealVoteOnChallenge}>
-            Reveal Vote
-          </TransactionButton>
+          <TransactionButton firstTransaction={this.revealVoteOnChallenge}>Reveal Vote</TransactionButton>
         </FormGroup>
       </StyledFormContainer>
     );
