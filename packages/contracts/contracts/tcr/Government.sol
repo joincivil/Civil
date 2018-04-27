@@ -1,9 +1,14 @@
 pragma solidity ^0.4.19;
+import "../interfaces/IGovernment.sol";
+
 /**
 @title Governemnt
+@notice The Government contract keeps track of parameters related to the CivilTCR appeals process.
+@dev These parameters are kept in a mapping, similar to that of the Parameterizer, in order to save on gas
+cost of deployment (specifically to minimize the size of the IGovernment interface)
 @author Nick Reynolds - nick@joincivil.com
 */
-contract Government {
+contract Government is IGovernment {
   event AppellateSet(address newAppellate);
 
   modifier onlyGovernmentController {
@@ -39,36 +44,51 @@ contract Government {
     internalSet("appealFee", appealFeeAmount);
   }
 
+  /**
+  @notice Returns the address of the entity that acts as an Appellate.
+  The Appellate can modify Appeals parameters (via the `set` function)
+  */
   function getAppellate() public view returns (address) {
     return appellate;
   }
 
+  /**
+  @notice Returns the address of the entity that controls this Government.
+  The Government controller can set the Appellate.
+  */
   function getGovernmentController() public view returns (address) {
     return governmentController;
   }
 
   /**
   @notice gets the parameter keyed by the provided name value from the params mapping
-  @param _name the key whose value is to be determined
+  @param name the key whose value is to be determined
   */
-  function get(string _name) public view returns (uint value) {
-    return params[keccak256(_name)];
+  function get(string name) public view returns (uint value) {
+    return params[keccak256(name)];
   }
 
   /**
-  @dev sets the param keted by the provided name to the provided value
-  @param _name the name of the param to be set
-  @param _value the value to set the param to be set
+  @notice sets the param keyed by the provided name to the provided value.
+  Can only be called by the Appellate.
+  @param name the name of the param to be set
+  @param value the value to set the param to be set
   */
-  function set(string _name, uint _value) public onlyAppellate {
-    params[keccak256(_name)] = _value;
-  }
-
-  function internalSet(string _name, uint _value) internal {
-    params[keccak256(_name)] = _value;
+  function set(string name, uint value) public onlyAppellate {
+    internalSet(name, value);
   }
 
   /**
+  @notice sets the param keyed by the provided name to the provided value.
+  @param name the name of the param to be set
+  @param value the value to set the param to be set
+  */
+  function internalSet(string name, uint value) internal {
+    params[keccak256(name)] = value;
+  }
+
+  /**
+  @notice sets a new Appellate address (entity that is allowed to grant appeals and modify appeal parameters)
   @param newAppellate address of entity that will be made the Appellate
   */
   function setAppellate(address newAppellate) external onlyGovernmentController {

@@ -1,6 +1,9 @@
 pragma solidity ^0.4.19;
+
 /**
-@title Governemnt
+@title IGovernemnt
+@notice This is an interface that defines the functionality required by a Government
+The functions herein are accessed by the CivilTCR contract as part of the appeals process.
 @author Nick Reynolds - nick@joincivil.com
 */
 interface IGovernment {
