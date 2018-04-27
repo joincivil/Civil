@@ -46,7 +46,7 @@ contract("Registry With Appeals", accounts => {
         await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1);
 
         const result = await registry.challengeCanBeResolved(newsroomAddress);
-        await expect(result).to.be.true("Should be true if challenge request appeal expires");
+        await expect(result).to.be.true("Should return true if challenge request appeal expires");
       },
     );
   });

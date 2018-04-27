@@ -39,10 +39,8 @@ contract("Registry With Appeals", accounts => {
       await registry.grantAppeal(newsroomAddress, { from: JAB });
 
       const pollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
-
-      // Ensure the poll has truly ended before check.
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 100);
+      await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
 
       await expect(registry.determineAppealChallengeReward(pollID)).to.eventually.be.fulfilled(
         "Should have allowed determineAppealChallengeReward to succeed",
@@ -60,11 +58,9 @@ contract("Registry With Appeals", accounts => {
       const pollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, pollID, "1", "10", "420", voter);
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 100);
+      await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
       await voting.revealVote(pollID, "1", "420", { from: voter });
-
-      // Ensure the poll has truly ended before check.
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 100);
+      await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
 
       await expect(registry.determineAppealChallengeReward(pollID)).to.eventually.be.fulfilled(
         "Should have allowed determineAppealChallengeReward to succeed",
