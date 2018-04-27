@@ -1,7 +1,7 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
-const StyledFormContainer = styled.div`
+export const StyledFormContainer = styled.div`
   margin: 1em 0;
 `;
 
@@ -50,5 +50,3 @@ export class InputElement extends React.Component<InputElementProps> {
     }
   }
 }
-
-export { StyledFormContainer }
