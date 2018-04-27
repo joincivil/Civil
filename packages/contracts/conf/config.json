@@ -20,7 +20,7 @@
     "appealChallengeCommitStageLength": 160,
     "appealChallengeRevealStageLength": 160
   },
-  "TokenAddress": "0x337cDDa6D41A327c5ad456166CCB781a9722AFf9",
+  "rinkebyTokenAddress": "0x617e6d6db50b2697b1fa37f43ec2834648c39020",
   "testnets": {
     "rinkeby": {
       "tokenHolders": [

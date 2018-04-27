@@ -1,1 +1,1 @@
-public {{name}}Stream = streamifyEvent<{{name}}Args>(this.instance.{{this.name}});
+public {{name}}Stream = streamifyEvent<{{contractName}}.Args.{{name}}, {{contractName}}.LogEvents.{{name}}>(this.instance.{{name}});

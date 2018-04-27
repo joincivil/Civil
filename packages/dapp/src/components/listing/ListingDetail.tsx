@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { approveForChallenge, challengeListing } from "../../apis/civilTCR";
-import { canListingBeChallenged, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
+import { approveForChallenge, challengeListing, updateListing } from "../../apis/civilTCR";
+import { canListingBeChallenged, canBeWhitelisted, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -23,6 +23,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
 
   public render(): JSX.Element {
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
+    const canWhitelist = canBeWhitelisted(this.props.listing.data);
     return (
       <StyledDiv>
         {this.props.listing.data && (
@@ -34,6 +35,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             Unstaked Deposit: {this.props.listing.data.unstakedDeposit.toString()}
             <br />
             {canBeChallenged && this.renderCanBeChallenged()}
+            {canWhitelist && this.renderCanWhitelist()}
             <br />
             {this.props.listing.data.challenge && (
               <>
@@ -49,6 +51,14 @@ class ListingDetail extends React.Component<ListingDetailProps> {
       </StyledDiv>
     );
   }
+
+  private renderCanWhitelist = (): JSX.Element => {
+    return <TransactionButton firstTransaction={this.update}>Whitelist Application</TransactionButton>;
+  };
+
+  private update = async (): Promise<TwoStepEthTransaction<any>> => {
+    return updateListing(this.props.listing.address);
+  };
 
   private renderCanBeChallenged = (): JSX.Element => {
     return (

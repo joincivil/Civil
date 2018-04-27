@@ -1,8 +1,7 @@
 import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
 import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
-
-import { CivilLogs } from "./contracts/generated/artifacts";
+import { CivilLogs } from "./contracts/generated/events";
 
 export type ContentId = number;
 
@@ -22,16 +21,6 @@ export interface NewsroomContent extends ContentHeader {
 export interface MapObject<T = any> {
   [index: string]: T;
 }
-
-export type FilterCallback = (err: Error, result: Web3.LogEntryEvent) => void;
-
-export type EventFunction<T> = (
-  paramFilters?: T,
-  filterObject?: Web3.FilterObject,
-  callback?: FilterCallback,
-) => Web3.FilterResult;
-
-export type TypedEventFilter<T> = { [P in keyof T]?: T[P] | Array<T[P]> };
 
 export interface TxDataBase {
   gas?: number | string | BigNumber;
@@ -80,11 +69,6 @@ export enum AbiType {
   Event = "event",
   Fallback = "fallback",
 }
-
-export { CivilLogs, Artifact } from "./contracts/generated/artifacts";
-
-// TODO(ritave): Refactor below export
-export { ApplicationArgs, NewListingWhitelistedArgs } from "./contracts/generated/civil_t_c_r";
 
 export interface DecodedTransactionReceipt<L extends DecodedLogEntry> {
   blockHash: string;

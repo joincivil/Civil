@@ -129,7 +129,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       console.log("lets get name.");
       this.state.compositeSubscription.add(
         newsroom
-          .proposedContent()
+          .revisions()
           .subscribe((contentHeader: any) =>
             this.setState({ proposedArticleIds: this.state.proposedArticleIds.push(contentHeader.id) }),
           ),

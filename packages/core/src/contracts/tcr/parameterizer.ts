@@ -7,7 +7,7 @@ import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamPr
 import { requireAccount, CivilErrors } from "../../utils/errors";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseWrapper } from "../basewrapper";
-import { ParameterizerContract } from "../generated/parameterizer";
+import { ParameterizerContract } from "../generated/wrappers/parameterizer";
 import { createTwoStepSimple } from "../utils/contracts";
 import { Voting } from "./voting";
 

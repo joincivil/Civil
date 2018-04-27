@@ -3,7 +3,7 @@ import { Observable } from "rxjs";
 
 import { MultisigTransaction } from "./multisigtransaction";
 import { BaseWrapper } from "../basewrapper";
-import { MultiSigWalletContract, MultiSigWalletEvents, SubmissionArgs } from "../generated/multi_sig_wallet";
+import { MultiSigWalletContract, MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog } from "../utils/contracts";
@@ -155,11 +155,11 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
       this.web3Wrapper,
       await this.instance.submitTransaction.sendTransactionAsync(address, weiToSend, payload),
       async receipt => {
-        const event = receipt.logs.filter(isDecodedLog).find(log => log.event === MultiSigWalletEvents.Submission);
+        const event = receipt.logs.filter(isDecodedLog).find(log => log.event === MultiSigWallet.Events.Submission);
         if (!event) {
           throw new Error("No Submisison event found when adding transaction to Multisig");
         }
-        return this.transaction((event.args as SubmissionArgs).transactionId.toNumber());
+        return this.transaction((event.args as MultiSigWallet.Args.Submission).transactionId.toNumber());
       },
     );
   }

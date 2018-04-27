@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 
 import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { Web3Wrapper } from "../../utils/web3wrapper";
-import { MultiSigWalletContract } from "../generated/multi_sig_wallet";
+import { MultiSigWalletContract } from "../generated/wrappers/multi_sig_wallet";
 import { createTwoStepTransaction } from "../utils/contracts";
 
 // TODO(ritave): Move to ABI v2 to get support for structs

@@ -7,7 +7,7 @@ import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../type
 import { CivilErrors, requireAccount } from "../../utils/errors";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseWrapper } from "../basewrapper";
-import { PLCRVotingContract } from "../generated/p_l_c_r_voting";
+import { PLCRVotingContract } from "../generated/wrappers/p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contracts";
 
 const debug = Debug("civil:tcr");
