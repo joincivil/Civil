@@ -90,3 +90,16 @@ export async function commitVote(
 
   return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
 }
+
+export async function revealVote(
+  pollID: BigNumber,
+  voteOption: BigNumber,
+  salt: BigNumber,
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const voting = tcr.getVoting();
+
+  return voting.revealVote(pollID, voteOption, salt);
+}
+
