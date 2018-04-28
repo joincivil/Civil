@@ -69,8 +69,8 @@ export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStep
 
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
   if (approvedTokensForSpender < numTokens) {
-    const approveSpender = await eip.approveSpender(voting.address, numTokens);
-    await approveSpender.awaitReceipt();
+    const approveSpenderReceipt = await eip.approveSpender(voting.address, numTokens);
+    await approveSpenderReceipt.awaitReceipt();
   }
 
   return voting.requestVotingRights(numTokens);

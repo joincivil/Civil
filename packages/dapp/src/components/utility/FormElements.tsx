@@ -35,7 +35,7 @@ export class InputElement extends React.Component<InputElementProps> {
         name={this.props.name}
         value={this.props.value}
         readOnly={this.props.readOnly}
-        onChange={this.onChange.bind(this)}
+        onChange={this.onChange}
       />
     );
   }
