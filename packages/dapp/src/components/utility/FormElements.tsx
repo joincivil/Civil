@@ -35,12 +35,12 @@ export class InputElement extends React.Component<InputElementProps> {
         name={this.props.name}
         value={this.props.value}
         readOnly={this.props.readOnly}
-        onChange={this.onChange.bind(this)}
+        onChange={this.onChange}
       />
     );
   }
 
-  private onChange(event: any): void {
+  private onChange = (event: any): void => {
     if (this.props.onChange) {
       this.props.onChange(event);
     }
@@ -48,5 +48,5 @@ export class InputElement extends React.Component<InputElementProps> {
     if (this.props.validate) {
       this.props.validate(event);
     }
-  }
+  };
 }
