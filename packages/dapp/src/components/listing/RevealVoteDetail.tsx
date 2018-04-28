@@ -24,8 +24,9 @@ class RevealVoteDetail extends React.Component<RevealVoteDetailProps, RevealVote
       <StyledFormContainer>
         <h3>Reveal Vote</h3>
 
-        {/* @TODO(jon): Change this to a hidden form field.
-            The typical user/voter doesn't need to know about the PollID */}
+        {/* @TODO(jon): We can remove this at some point in the near future
+          since the value still get stored in React and the user will nver see it.
+          This is just here for debug purposes. */}
         <FormGroup>
           <label>
             Poll ID
