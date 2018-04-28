@@ -40,7 +40,7 @@ export class InputElement extends React.Component<InputElementProps> {
     );
   }
 
-  private onChange(event: any): void {
+  private onChange = (event: any): void => {
     if (this.props.onChange) {
       this.props.onChange(event);
     }
@@ -48,5 +48,5 @@ export class InputElement extends React.Component<InputElementProps> {
     if (this.props.validate) {
       this.props.validate(event);
     }
-  }
+  };
 }
