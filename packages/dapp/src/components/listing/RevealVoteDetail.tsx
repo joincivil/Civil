@@ -1,6 +1,6 @@
 import * as React from "react";
 import TransactionButton from "../utility/TransactionButton";
-import { InputElement, StyledFormContainer, FormValidationMessage, FormGroup } from "../utility/FormElements";
+import { InputElement, StyledFormContainer, FormGroup } from "../utility/FormElements";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { revealVote } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
