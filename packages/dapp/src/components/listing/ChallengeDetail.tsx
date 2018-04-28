@@ -11,6 +11,7 @@ import {
 } from "@joincivil/core";
 import AppealDetail from "./AppealDetail";
 import CommitVoteDetail from "./CommitVoteDetail";
+import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
 import { appealChallenge, approveForAppeal, updateListing } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
@@ -63,7 +64,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return <CommitVoteDetail challengeID={this.props.challengeID} />;
   }
   private renderRevealStage(): JSX.Element {
-    return <>REVEAL THINGS</>;
+    return <RevealVoteDetail challengeID={this.props.challengeID} />;
   }
   private renderRequestAppealStage(): JSX.Element {
     return (
