@@ -6,11 +6,8 @@ import { ContentProvider, ContentProviderOptions } from "./contentprovider";
 
 export class InMemoryProvider implements ContentProvider {
   private data: MapObject<string> = {};
-  private web3Wrapper: Web3Wrapper;
 
-  constructor(options: ContentProviderOptions) {
-    this.web3Wrapper = options.web3Wrapper;
-  }
+  constructor(options: ContentProviderOptions) {}
 
   public scheme(): string {
     return "memory";

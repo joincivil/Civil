@@ -1,4 +1,4 @@
-import { EthContentHeader, Uri, StorageHeader, ContentData } from "../types";
+import { Uri, StorageHeader, ContentData } from "../types";
 import { Web3Wrapper } from "../utils/web3wrapper";
 
 export interface ContentProvider {

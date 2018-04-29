@@ -1,4 +1,4 @@
-import { EthContentHeader, Uri, StorageHeader } from "../types";
+import { Uri, StorageHeader } from "../types";
 import { ContentProvider } from "./contentprovider";
 // tslint:disable-next-line
 import * as IPFS from "ipfs-api";

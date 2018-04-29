@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import * as Web3 from "web3";
 import { delay, promisify, hashPersonalMessage } from "@joincivil/utils";
-import { EthSignedMessage, EthSignedMessageRecovery } from "@joincivil/typescript-types";
+import { EthSignedMessage } from "@joincivil/typescript-types";
 
 import { Artifact, artifacts } from "../contracts/generated/artifacts";
 import { CivilTransactionReceipt, EthAddress, TxHash, TxDataAll, Hex } from "../types";
@@ -10,17 +10,7 @@ import { AbiDecoder } from "./abidecoder";
 import { CivilErrors, requireAccount } from "./errors";
 import { BaseContract } from "../contracts/basecontract";
 import { BaseWrapper } from "../contracts/basewrapper";
-import {
-  fromRpcSig,
-  bufferToHex,
-  toBuffer,
-  sha3,
-  ecrecover,
-  publicToAddress,
-  toChecksumAddress,
-  fromUtf8,
-} from "ethereumjs-util";
-import { soliditySHA3 } from "ethereumjs-abi";
+import { fromRpcSig, bufferToHex, toBuffer, fromUtf8 } from "ethereumjs-util";
 
 const POLL_MILLISECONDS = 1000;
 const DEFAULT_HTTP_NODE = "http://localhost:8545";

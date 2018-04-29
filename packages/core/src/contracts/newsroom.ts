@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-import "@joincivil/utils";
+// import "@joincivil/utils";
 import { prepareNewsroomMessage, hashContent, hashPersonalMessage, recoverSigner } from "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
@@ -17,7 +17,6 @@ import {
   NewsroomContent,
   SignedContentHeader,
   BaseContentHeader,
-  Hex,
   ApprovedRevision,
 } from "../types";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";

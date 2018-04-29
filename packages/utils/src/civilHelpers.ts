@@ -9,5 +9,5 @@ export function prepareNewsroomMessage(newsroomAddress: EthAddress, contentHash:
   // TODO(ritave): We might want to use Metamask's typed signining procedure which would explain
   //               Sadly it's only supported by Metamask so not yet
   //               https://medium.com/metamask/scaling-web3-with-signtypeddata-91d6efc8b290
-  return soliditySha3(["address", "bytes32"], [this.address, contentHash]);
+  return soliditySha3(["address", "bytes32"], [newsroomAddress, contentHash]);
 }
