@@ -1,6 +1,6 @@
 import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-import { promisify } from "@joincivil/utils";
+import { promisify, prepareNewsroomMessage } from "@joincivil/utils";
 import { soliditySHA3 } from "ethereumjs-abi";
 import { bufferToHex } from "ethereumjs-util";
 
@@ -149,7 +149,7 @@ contract("Newsroom", (accounts: string[]) => {
     let SIGNATURE: string;
 
     beforeEach(async () => {
-      MESSAGE = bufferToHex(soliditySHA3(["address", "bytes32"], [newsroom.address, SOME_HASH]));
+      MESSAGE = prepareNewsroomMessage(newsroom.address, SOME_HASH);
       SIGNATURE = await signAsync(author, MESSAGE);
       await newsroom.addRole(editor, NEWSROOM_ROLE_EDITOR);
     });

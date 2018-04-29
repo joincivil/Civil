@@ -1,28 +1,47 @@
 import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
-import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
+import { DecodedLogEntry, DecodedLogEntryEvent, EthAddress, Hex } from "@joincivil/typescript-types";
 import { CivilLogs } from "./contracts/generated/events";
 
+// For backwards compatibillity
+export { EthAddress, Hex } from "@joincivil/typescript-types";
+
+export type ContentData = string | object;
 export type ContentId = number;
 
-export interface ContentHeader {
-  id?: ContentId;
-  author?: EthAddress;
-  timestamp?: Date;
+export interface StorageHeader {
   uri: string;
+  /**
+   * Normalized content schema hashed using keccak256 algorithm
+   */
   contentHash: Hex;
+}
+
+export interface SignedContentHeader {
+  author: EthAddress;
+  signature: Hex;
+  verifySignature(): boolean;
+}
+
+export interface BaseContentHeader extends StorageHeader {
+  id: ContentId;
+  timestamp: Date;
+}
+
+export interface EthContentHeader extends BaseContentHeader, Partial<SignedContentHeader> {
+  isSigned(): boolean;
 }
 
 // TODO(ritave, dankins): Decide on content schema and update this type
-export interface NewsroomContent extends ContentHeader {
-  content: any;
+export interface NewsroomContent extends EthContentHeader {
+  content: ContentData;
 }
 
-export interface SignedRevision {
-  newsroomAddress: EthAddress;
-  contentHash: Hex;
+export interface ApprovedRevision {
   author: EthAddress;
-  signature: EthAddress;
+  contentHash: Hex;
+  signature: Hex;
+  newsroomAddress: EthAddress;
 }
 
 export interface MapObject<T = any> {
@@ -55,11 +74,9 @@ export interface TransactionObject extends TxDataBase {
   data?: string;
 }
 
-export type EthAddress = string;
 export type Bytes32 = string;
 export type TxHash = string;
 export type Uri = string;
-export type Hex = string;
 
 export enum SolidityTypes {
   Address = "address",
@@ -187,32 +204,6 @@ export interface ParamProp {
   paramName: string;
   proposedValue: BigNumber;
   pollID?: BigNumber;
-}
-
-/**
- * Minimal amount of information needed to recover the public address of signer
- */
-export interface EthSignedMessageRecovery {
-  messageHash: Hex;
-  // RLP Encoded
-  signature: Hex;
-}
-
-export interface EthSignedMessage extends EthSignedMessageRecovery {
-  message: string;
-  /**
-   * To avoid bad actors signing transactions on your behalf, Ethereum nodes prepend
-   * additional string on top of your message before signing, according to the spec.
-   *
-   * This property contains the actual raw string that was hashed and signed.
-   */
-  rawMessage: string;
-  // Coordinates of the signature (32 bytes first and 32 bytes second)
-  r: Hex;
-  s: Hex;
-  // Recovery value + 27
-  v: Hex;
-  signer: EthAddress;
 }
 
 // tslint:disable-next-line

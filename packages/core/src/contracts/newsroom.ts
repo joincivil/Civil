@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import "@joincivil/utils";
+import { prepareNewsroomMessage, hashContent, hashPersonalMessage, recoverSigner } from "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
@@ -12,14 +13,23 @@ import {
   TxData,
   EthAddress,
   ContentId,
-  ContentHeader,
+  EthContentHeader,
   NewsroomContent,
-  SignedRevision,
+  SignedContentHeader,
+  BaseContentHeader,
+  Hex,
+  ApprovedRevision,
 } from "../types";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 import { NewsroomFactoryContract, NewsroomFactory } from "./generated/wrappers/newsroom_factory";
-import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
+import {
+  createTwoStepTransaction,
+  createTwoStepSimple,
+  findEvents,
+  findEventOrThrow,
+  is0x0Address,
+} from "./utils/contracts";
 import { NewsroomContract, Newsroom as Events } from "./generated/wrappers/newsroom";
 
 /**
@@ -35,6 +45,7 @@ import { NewsroomContract, Newsroom as Events } from "./generated/wrappers/newsr
  * Right now the only supported systems are HTTP and [[InMemoryProvider]] for debugging purpouses
  */
 export class Newsroom extends BaseWrapper<NewsroomContract> {
+  //#region constructors
   public static async deployTrusted(
     web3Wrapper: Web3Wrapper,
     contentProvider: ContentProvider,
@@ -103,7 +114,63 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     this.contentProvider = contentProvider;
     this.multisigProxy = multisigProxy;
   }
+  //#endregion
 
+  //#region streams
+  public editors(): Observable<EthAddress> {
+    return this.instance
+      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: 0 })
+      .map(e => e.args.grantee)
+      .concatFilter(async e => this.isEditor(e));
+  }
+
+  public reporters(): Observable<EthAddress> {
+    return this.instance
+      .RoleAddedStream({ role: NewsroomRoles.Reporter }, { fromBlock: 0 })
+      .map(e => e.args.grantee)
+      .concatFilter(async e => this.isReporter(e));
+  }
+
+  /**
+   * An unending stream of all the revisions, both signed as well as unsigned.
+   * @param fromBlock Starting block in history for events concerning content being proposed.
+   *                  Set to "latest" for only new events
+   * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
+   */
+  public revisions(fromBlock: number | "latest" = 0): Observable<EthContentHeader> {
+    return this.instance
+      .RevisionPublishedStream({}, { fromBlock })
+      .map(e => e.args.id)
+      .concatMap(this.loadContentHeader.bind(this));
+  }
+
+  /**
+   * An unending stream of only signed revisions.
+   * This is sugar candy function decrasing network time to get only
+   * approved content compared to {Newsroom.revisions} function
+   *
+   * @param fromBlock Starting block in history for event listening, or "latest" for only the new ones
+   * @returns Metadata concerning signed revisions on this newsroom
+   */
+  public signedRevisions(fromBlock: number | "latest" = 0): Observable<EthContentHeader> {
+    return this.instance
+      .RevisionSignedStream({}, { fromBlock })
+      .map(e => e.args.id)
+      .concatMap(this.loadContentHeader.bind(this));
+  }
+
+  /**
+   * An unending stream of all names this Newsroom had ever had.
+   * @param fromBlock Starting block in history for events.
+   *                  Set to "latest" to only listen for new events
+   * @returns Name history of this Newsroom
+   */
+  public nameChanges(fromBlock: number | "latest" = 0): Observable<string> {
+    return this.instance.NameChangedStream({}, { fromBlock }).map(e => e.args.newName);
+  }
+  //#endregion
+
+  //#region views
   /**
    * Returns a list of Board of Directors with superuser powers over this
    * newsroom.
@@ -133,19 +200,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.multisigProxy.isOwner(who);
   }
 
-  public editors(): Observable<EthAddress> {
-    return this.instance
-      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: 0 })
-      .map(e => e.args.grantee)
-      .concatFilter(async e => this.isEditor(e));
-  }
-
-  public reporters(): Observable<EthAddress> {
-    return this.instance
-      .RoleAddedStream({ role: NewsroomRoles.Reporter }, { fromBlock: 0 })
-      .map(e => e.args.grantee)
-      .concatFilter(async e => this.isReporter(e));
-  }
   /**
    * Checks if the user can assign roles and approve/deny content
    * Also returns true if user has director super powers
@@ -183,6 +237,50 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   /**
+   * Loads everything concerning one article needed to read it fully.
+   * Accesess both Ethereum network as well as the active ContentProvider
+   * @param articleId Id of the article that you want to read
+   */
+  public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent> {
+    const header = await this.loadContentHeader(articleId);
+    return this.resolveContent(header);
+  }
+
+  /**
+   * Converts metadata gathered from Ethereum network into a fully fledged Article all the
+   * text needed for display
+   * @param header Metadata you get from Ethereum
+   */
+  public async resolveContent(header: EthContentHeader): Promise<NewsroomContent> {
+    // TODO(ritave): Choose ContentProvider based on schema
+    const content = await this.contentProvider.get(header.uri);
+    return {
+      ...header,
+      content,
+    };
+  }
+
+  /**
+   * Accesses the Ethereum network and loads basic metatadata about the content
+   * @param articleId Id of the article whose metadata you need
+   */
+  public async loadContentHeader(articleId: number | BigNumber): Promise<EthContentHeader> {
+    const baseHeader = await this.resolveBaseContentHeader(articleId);
+    const signedData = await this.resolveSignedData(baseHeader);
+    return {
+      ...baseHeader,
+      ...signedData,
+      isSigned: () => !!signedData && signedData.verifySignature(),
+    };
+  }
+
+  public async getName(): Promise<string> {
+    return this.instance.name.callAsync();
+  }
+  //#endregion
+
+  //#region mutators
+  /**
    * Sets an Access-Control-List role to a specified address
    * @param actor The address that shall be granted a role
    * @param role What privilige the address should be given
@@ -215,10 +313,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepSimple(this.web3Wrapper, await this.instance.removeRole.sendTransactionAsync(actor, role));
   }
 
-  public async getName(): Promise<string> {
-    return this.instance.name.callAsync();
-  }
-
   /**
    * Changes the name of the Newsroom.
    * The name can be any string, but when applying to a TCR, it must be unique in that TCR
@@ -230,55 +324,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     await this.requireOwner();
 
     return this.multisigProxy.setName.sendTransactionAsync(newName);
-  }
-
-  /**
-   * An unending stream of all the revisions
-   * @param fromBlock Starting block in history for events concerning content being proposed.
-   *                  Set to "latest" for only new events
-   * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
-   */
-  public revisions(fromBlock: number | "latest" = 0): Observable<ContentHeader> {
-    return this.instance
-      .RevisionPublishedStream({}, { fromBlock })
-      .map(e => e.args.id)
-      .concatMap(async id => this.loadArticleHeader(id));
-  }
-
-  /**
-   * An unending stream of all names this Newsroom had ever had.
-   * @param fromBlock Starting block in history for events.
-   *                  Set to "latest" to only listen for new events
-   * @returns Name history of this Newsroom
-   */
-  public nameChanges(fromBlock: number | "latest" = 0): Observable<string> {
-    return this.instance.NameChangedStream({}, { fromBlock }).map(e => e.args.newName);
-  }
-
-  /**
-   * Loads everything concerning one article needed to read it fully.
-   * Accesess both Ethereum network as well as the active ContentProvider
-   * @param articleId Id of the article that you want to read
-   */
-  public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent> {
-    const header = await this.loadArticleHeader(articleId);
-    return this.resolveContent(header);
-  }
-
-  /**
-   * Accesses the Ethereum network and loads basic metatadata about the article
-   * @param articleId Id of the article whose metadata you need
-   */
-  public async loadArticleHeader(articleId: number | BigNumber): Promise<ContentHeader> {
-    const id = new BigNumber(articleId);
-
-    const [contentHash, uri, timestamp] = await this.instance.content.callAsync(id);
-    return {
-      id: id.toNumber(),
-      timestamp: new Date(timestamp.toNumber()),
-      uri,
-      contentHash,
-    };
   }
 
   /**
@@ -294,20 +339,28 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepTransaction(
       this.web3Wrapper,
       await this.instance.publishRevision.sendTransactionAsync(contentHeader.uri, contentHeader.contentHash),
-      receipt => {
-        return findEventOrThrow<Events.Logs.RevisionPublished>(
-          receipt,
-          Events.Events.RevisionPublished,
-        ).args.id.toNumber();
-      },
+      receipt =>
+        findEventOrThrow<Events.Logs.RevisionPublished>(receipt, Events.Events.RevisionPublished).args.id.toNumber(),
     );
   }
 
+  /**
+   * Allows editor to publish a pre-approved revision on the content storage and record it
+   * in the Blockchain Newsroom.
+   *
+   * The revision has to be first pre-approved through a signature from the author's private key
+   * @param content Content that should be stored
+   * @param signedData An object representing author's approval concerning this content
+   * @returns An id assigned on Ethereum to the uri
+   */
   public async publishRevisionSigned(
     content: string,
-    signedData: SignedRevision,
+    signedData: ApprovedRevision,
   ): Promise<TwoStepEthTransaction<ContentId>> {
     await this.requireEditor();
+    if (signedData.newsroomAddress !== this.address) {
+      throw new Error("The article is not approved for this specific Newsroom");
+    }
     const contentHeader = await this.contentProvider.put(content);
 
     return createTwoStepTransaction(
@@ -318,20 +371,22 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         signedData.author,
         signedData.signature,
       ),
-      receipt => {
-        return findEventOrThrow<Events.Logs.RevisionPublished>(
-          receipt,
-          Events.Events.RevisionPublished,
-        ).args.id.toNumber();
-      },
+      receipt =>
+        findEventOrThrow<Events.Logs.RevisionPublished>(receipt, Events.Events.RevisionPublished).args.id.toNumber(),
     );
   }
+  //#endregion
 
-  public async signRevision(content: string): Promise<SignedRevision> {
+  /**
+   * Signs that specific content with the current private key of the user of this library with their approval
+   * @param content Data to sign
+   * @returns An object containing all information to represent what has the author approved
+   */
+  public async signRevision(content: string): Promise<ApprovedRevision> {
     const author = requireAccount(this.web3Wrapper);
 
-    const contentHash = this.web3Wrapper.sha3String(content);
-    const message = this.web3Wrapper.soliditySha3(["address", "bytes32"], [this.address, contentHash]);
+    const contentHash = hashContent(content);
+    const message = prepareNewsroomMessage(this.address, contentHash);
 
     const { signature } = await this.web3Wrapper.signMessage(message, author);
     return {
@@ -342,21 +397,29 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     };
   }
 
-  /**
-   * Converts metadata gathered from Ethereum network into a fully fledged Article all the
-   * text needed for display
-   * @param header Metadata you get from Ethereum
-   */
-  public async resolveContent(header: ContentHeader): Promise<NewsroomContent> {
-    // TODO(ritave): Choose ContentProvider based on schema
-    const content = await this.contentProvider.get(header.uri);
+  private async resolveSignedData(baseHeader: BaseContentHeader): Promise<SignedContentHeader | undefined> {
+    const [author, signature] = await this.instance.signedContent.callAsync(new BigNumber(baseHeader.id));
+    if (is0x0Address(author)) {
+      return undefined;
+    }
+    const message = prepareNewsroomMessage(this.address, baseHeader.contentHash);
+    const hashedPersonal = hashPersonalMessage(message);
     return {
-      id: header.id,
-      author: header.author,
-      content,
-      timestamp: header.timestamp,
-      uri: header.uri,
-      contentHash: header.contentHash,
+      author,
+      signature,
+      verifySignature: () => recoverSigner({ signature, messageHash: hashedPersonal.messageHash }) === author,
+    };
+  }
+
+  private async resolveBaseContentHeader(articleId: number | BigNumber): Promise<BaseContentHeader> {
+    const id = new BigNumber(articleId);
+
+    const [contentHash, uri, timestamp] = await this.instance.content.callAsync(id);
+    return {
+      id: id.toNumber(),
+      timestamp: new Date(timestamp.toNumber()),
+      uri,
+      contentHash,
     };
   }
 

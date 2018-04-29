@@ -50,10 +50,6 @@ export async function getBlockTimestamp(): Promise<any> {
   return (await getBlock(blockNumber)).timestamp;
 }
 
-export function is0x0Address(address: string): boolean {
-  return address === "0x0" || address === "0x0000000000000000000000000000000000000000";
-}
-
 export async function timestampFromTx(web3: Web3, tx: Web3.Transaction | Web3.TransactionReceipt): Promise<number> {
   if (tx.blockNumber === null) {
     throw new Error("Transaction not yet mined");

@@ -1,10 +1,10 @@
-import { ContentHeader, Uri } from "../types";
+import { EthContentHeader, Uri, StorageHeader, ContentData } from "../types";
 import { Web3Wrapper } from "../utils/web3wrapper";
 
 export interface ContentProvider {
   scheme(): string;
-  get(what: Uri | ContentHeader): Promise<string>;
-  put(content: string | object, variables?: object): Promise<ContentHeader>;
+  get(what: Uri | StorageHeader): Promise<ContentData>;
+  put(content: ContentData, variables?: object): Promise<StorageHeader>;
 }
 
 export interface ContentProviderOptions {

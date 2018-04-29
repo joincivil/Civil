@@ -1,5 +1,5 @@
 declare module "ethereumjs-util" {
-  export * from "ethjs-util";
+  export { isHexPrefixed, fromUtf8 } from "ethjs-util";
 
   import BN = require("bn.js");
 

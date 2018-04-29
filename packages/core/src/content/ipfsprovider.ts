@@ -1,15 +1,26 @@
-import { ContentHeader, Uri } from "../types";
+import { EthContentHeader, Uri, StorageHeader } from "../types";
 import { ContentProvider } from "./contentprovider";
 // tslint:disable-next-line
 import * as IPFS from "ipfs-api";
+import { hashContent, promisify } from "@joincivil/utils";
+
 const ipfs = new IPFS({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
+
+const ipfsAsync = {
+  get: promisify<[{ path: string; content: Buffer }]>(ipfs.get),
+  add: promisify<[{ path: string; hash: string; size: number }]>(ipfs.add),
+};
+
+export interface IpfsStorageHeader extends StorageHeader {
+  ipfsHash: string;
+}
 
 export class IPFSProvider implements ContentProvider {
   public scheme(): string {
     return "ipfs";
   }
 
-  public async get(what: Uri | ContentHeader): Promise<string> {
+  public async get(what: Uri | StorageHeader): Promise<string> {
     let uri = "";
     if (typeof what !== "string") {
       uri = what.uri;
@@ -17,23 +28,15 @@ export class IPFSProvider implements ContentProvider {
       uri = what;
     }
     uri = uri.replace("ipfs://", "/ipfs/");
-    return new Promise<string>((resolve, reject) => {
-      ipfs.get(uri, (err: any, files: any) => {
-        let content: string = "";
-        files.forEach((file: any) => {
-          content += file.content.toString("utf8");
-        });
-        console.log(err, content);
-        resolve(content);
-      });
-    });
+    return (await ipfsAsync.get(uri)).reduce((acc, file) => acc + file.content.toString("utf8"), "");
   }
 
-  public async put(content: string): Promise<ContentHeader> {
-    return new Promise<ContentHeader>((resolve, reject) => {
-      ipfs.add(Buffer.from(content), (err: any, ipfsHash: any) => {
-        resolve({ uri: this.scheme() + "://" + ipfsHash[0].path, contentHash: ipfsHash[0].path });
-      });
-    });
+  public async put(content: string): Promise<IpfsStorageHeader> {
+    const files = await ipfsAsync.add(Buffer.from(content));
+    return {
+      uri: this.scheme() + "://" + files[0].path,
+      ipfsHash: files[0].hash,
+      contentHash: hashContent(content),
+    };
   }
 }

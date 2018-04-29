@@ -47,7 +47,6 @@
     "@joincivil/utils": "^1.1.4",
     "bignumber.js": "~5.0.0",
     "debug": "^3.1.0",
-    "ethereumjs-util": "^5.1.5",
     "ipfs-api": "^20.0.1",
     "lodash": "^4.17.4",
     "rxjs": "^5.5.6",

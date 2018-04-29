@@ -1,4 +1,6 @@
-import { ContentHeader, MapObject, Uri } from "../types";
+import { hashContent } from "@joincivil/utils";
+
+import { EthContentHeader, MapObject, Uri, StorageHeader } from "../types";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { ContentProvider, ContentProviderOptions } from "./contentprovider";
 
@@ -14,7 +16,7 @@ export class InMemoryProvider implements ContentProvider {
     return "memory";
   }
 
-  public async get(what: Uri | ContentHeader): Promise<string> {
+  public async get(what: Uri | EthContentHeader): Promise<string> {
     let uri = "";
     if (typeof what !== "string") {
       uri = what.uri;
@@ -27,8 +29,8 @@ export class InMemoryProvider implements ContentProvider {
     return this.data.uri;
   }
 
-  public async put(content: string): Promise<ContentHeader> {
-    const contentHash = this.web3Wrapper.sha3String(content);
+  public async put(content: string): Promise<StorageHeader> {
+    const contentHash = hashContent(content);
     const uri = this.scheme() + "://" + contentHash;
     this.data.uri = content;
     return { uri, contentHash };

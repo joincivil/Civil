@@ -67,6 +67,7 @@ contract Newsroom is ACL {
   }
 
   function verifyRevisionSignature(bytes32 contentHash, address author, bytes signature) view internal {
+    require(author != 0x0);
     bytes32 hashedMessage = keccak256(
       address(this),
       contentHash
