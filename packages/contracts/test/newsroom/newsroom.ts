@@ -1,8 +1,6 @@
 import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 import { promisify, prepareNewsroomMessage } from "@joincivil/utils";
-import { soliditySHA3 } from "ethereumjs-abi";
-import { bufferToHex } from "ethereumjs-util";
 
 import { events, NEWSROOM_ROLE_EDITOR, REVERTED } from "../utils/constants";
 import { findEvent, idFromEvent } from "../utils/contractutils";
