@@ -1,4 +1,6 @@
 declare module "ethereumjs-util" {
+  export * from "ethjs-util";
+
   import BN = require("bn.js");
 
   interface Signature {
