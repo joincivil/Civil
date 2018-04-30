@@ -67,9 +67,7 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton
-            transactions={[{ transaction: this.requestVotingRights }, { transaction: this.commitVoteOnChallenge }]}
-          >
+          <TransactionButton transactions={[{transaction: this.requestVotingRights}, {transaction: this.commitVoteOnChallenge}]}>
             Commit Vote
           </TransactionButton>
         </FormGroup>

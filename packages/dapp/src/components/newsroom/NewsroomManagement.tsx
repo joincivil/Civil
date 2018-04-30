@@ -61,13 +61,13 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
         })}
         <br />
         <input onChange={this.onEditorAddressChange} />
-        <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
+        <TransactionButton transactions={[{transaction: this.addEditor}]}>Add Editor</TransactionButton>
         <br />
         <input onChange={this.onReporterAddressChange} />
-        <TransactionButton transactions={[{ transaction: this.addReporter }]}>Add Reporter</TransactionButton>
+        <TransactionButton transactions={[{transaction: this.addReporter}]}>Add Reporter</TransactionButton>
         <br />
         <input onChange={this.onArticleURLChange} />
-        <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
+        <TransactionButton transactions={[{transaction: this.submitArticle}]}>Submit Article</TransactionButton>
         <br />
         <TransactionButton
           transactions={[

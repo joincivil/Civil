@@ -53,7 +53,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   }
 
   private renderCanWhitelist = (): JSX.Element => {
-    return <TransactionButton transactions={[{ transaction: this.update }]}>Whitelist Application</TransactionButton>;
+    return <TransactionButton transactions={[{transaction: this.update}]}>Whitelist Application</TransactionButton>;
   };
 
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -62,7 +62,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
 
   private renderCanBeChallenged = (): JSX.Element => {
     return (
-      <TransactionButton transactions={[{ transaction: approveForChallenge }, { transaction: this.challenge }]}>
+      <TransactionButton transactions={[{transaction: approveForChallenge}, {transaction: this.challenge}]}>
         Challenge Application
       </TransactionButton>
     );
