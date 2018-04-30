@@ -1,13 +1,10 @@
 import { hashContent } from "@joincivil/utils";
 
 import { EthContentHeader, MapObject, Uri, StorageHeader } from "../types";
-import { Web3Wrapper } from "../utils/web3wrapper";
-import { ContentProvider, ContentProviderOptions } from "./contentprovider";
+import { ContentProvider } from "./contentprovider";
 
 export class InMemoryProvider implements ContentProvider {
   private data: MapObject<string> = {};
-
-  constructor(options: ContentProviderOptions) {}
 
   public scheme(): string {
     return "memory";
