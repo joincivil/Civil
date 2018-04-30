@@ -10,8 +10,10 @@ import {
   TwoStepEthTransaction,
 } from "@joincivil/core";
 import AppealDetail from "./AppealDetail";
+import CommitVoteDetail from "./CommitVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
 import { appealChallenge, approveForAppeal, updateListing } from "../../apis/civilTCR";
+import BigNumber from "bignumber.js";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -22,6 +24,7 @@ const StyledDiv = styled.div`
 
 export interface ChallengeDetailProps {
   listingAddress: EthAddress;
+  challengeID: BigNumber;
   challenge: ChallengeData;
 }
 
@@ -57,7 +60,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   }
 
   private renderCommitStage(): JSX.Element {
-    return <>COMMIT THINGS</>;
+    return <CommitVoteDetail challengeID={this.props.challengeID} />;
   }
   private renderRevealStage(): JSX.Element {
     return <>REVEAL THINGS</>;
@@ -69,6 +72,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
       </TransactionButton>
     );
   }
+
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return appealChallenge(this.props.listingAddress);
   };

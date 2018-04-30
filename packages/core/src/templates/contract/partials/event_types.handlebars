@@ -1,41 +1,31 @@
-// tslint:disable:no-namespace
-export namespace {{contractName}} {
-  export const enum Events {
-    {{#each events}}
-    {{this.name}} = "{{this.name}}",
-    {{/each}}
-  }
-
-  export namespace Args {
-    {{#each events}}
-    export interface {{this.name}} {
-      {{#each inputs}}
-      {{name}}: {{#parameterType type}}{{/parameterType}};
-      {{/each}}
-    }
-    {{/each}}
-  }
-
-  export namespace Logs {
-    {{#each events}}
-    export type {{this.name}} = DecodedLogEntry<Args.{{this.name}}, Events.{{this.name}}>;
-    {{/each}}
-
-    export type All =
-    {{#each events}}
-      Logs.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
-    {{/each}}
-  }
-
-  export namespace LogEvents {
-    {{#each events}}
-    export type {{this.name}} = DecodedLogEntryEvent<Args.{{this.name}}, Events.{{this.name}}>;
-    {{/each}}
-
-    export type All =
-    {{#each events}}
-      LogEvents.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
-    {{/each}}
-  }
+export const enum {{contractName}}Events {
+  {{#each events}}
+  {{this.name}} = "{{this.name}}",
+  {{/each}}
 }
-// tslint:enable:no-namespace
+
+{{#each events}}
+export interface {{../contractName}}Args{{this.name}} {
+  {{#each inputs}}
+  {{name}}: {{#parameterType type}}{{/parameterType}};
+  {{/each}}
+}
+{{/each}}
+
+{{#each events}}
+export type {{../contractName}}Logs{{this.name}} = DecodedLogEntry<{{../contractName}}Args{{this.name}}, {{../contractName}}Events.{{this.name}}>;
+{{/each}}
+
+export type {{contractName}}LogsAll =
+{{#each events}}
+  {{../contractName}}Logs{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+{{/each}}
+
+{{#each events}}
+export type {{../contractName}}LogEvents{{this.name}} = DecodedLogEntryEvent<{{../contractName}}Args{{this.name}}, {{../contractName}}Events.{{this.name}}>;
+{{/each}}
+
+export type {{contractName}}LogEventsAll =
+{{#each events}}
+  {{../contractName}}LogEvents{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+{{/each}}
