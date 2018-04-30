@@ -5,7 +5,7 @@ import { MAIN_NETWORK } from "./consts";
 export const config = JSON.parse(fs.readFileSync("../../conf/config.json").toString());
 
 export function inTesting(network: string): boolean {
-  return network !== MAIN_NETWORK && !(network in config.testnets);
+  return network !== MAIN_NETWORK && !(network in config.nets);
 }
 
 export async function approveEverything(addresses: string[], token: any, target: string): Promise<void> {
