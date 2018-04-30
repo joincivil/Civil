@@ -17,9 +17,13 @@ import {
 } from "../types";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
-import { NewsroomFactoryContract, NewsroomFactory } from "./generated/wrappers/newsroom_factory";
+import {
+  NewsroomFactoryContract,
+  NewsroomFactoryLogsContractInstantiation,
+  NewsroomFactoryEvents,
+} from "./generated/wrappers/newsroom_factory";
 import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
-import { NewsroomContract, Newsroom as Events } from "./generated/wrappers/newsroom";
+import { NewsroomContract, NewsroomLogsRevisionPublished, NewsroomEvents } from "./generated/wrappers/newsroom";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -50,9 +54,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       web3Wrapper,
       await factory.create.sendTransactionAsync(newsroomName, [web3Wrapper.account!], new BigNumber(1), txData),
       async factoryReceipt => {
-        const createdNewsroom = findEvents<NewsroomFactory.Logs.ContractInstantiation>(
+        const createdNewsroom = findEvents<NewsroomFactoryLogsContractInstantiation>(
           factoryReceipt,
-          NewsroomFactory.Events.ContractInstantiation,
+          NewsroomFactoryEvents.ContractInstantiation,
         ).find(log => log.address === factory.address);
 
         if (!createdNewsroom) {
@@ -294,9 +298,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       this.web3Wrapper,
       await this.instance.publishRevision.sendTransactionAsync(contentHeader.uri, contentHeader.hash),
       receipt => {
-        return findEventOrThrow<Events.Logs.RevisionPublished>(
+        return findEventOrThrow<NewsroomLogsRevisionPublished>(
           receipt,
-          Events.Events.RevisionPublished,
+          NewsroomEvents.RevisionPublished,
         ).args.id.toNumber();
       },
     );
