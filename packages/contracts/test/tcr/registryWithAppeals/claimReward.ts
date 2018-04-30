@@ -202,7 +202,7 @@ contract("Registry", accounts => {
 
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await registry.grantAppeal(newsroomAddress, { from: JAB });
-      const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
+      const waitTime = utils.paramConfig.challengeAppealLength + 1;
       await utils.advanceEvmTime(waitTime);
 
       await registry.updateStatus(newsroomAddress);

@@ -48,8 +48,8 @@ contract("Registry With Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
-      expect(isWhitelisted).to.be.false(
-        "Should have whitelisted newsroom with failed challenge if appeal granted and appeal challenge fails",
+      expect(isWhitelisted).to.be.true(
+        "Should have whitelisted newsroom with failed challenge if appeal granted and appeal challenge succeeds",
       );
     });
 
@@ -70,7 +70,7 @@ contract("Registry With Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
-      expect(isWhitelisted).to.be.true(
+      expect(isWhitelisted).to.be.false(
         "Should not have whitelisted newsroom with successful challenge if appeal granted and appeal challenge fails",
       );
     });
@@ -89,6 +89,7 @@ contract("Registry With Appeals", accounts => {
       const appealPollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
       await utils.commitVote(voting, appealPollID, "1", "10", "520", voter);
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
+      await voting.revealVote(appealPollID, "1", "520", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
 
       await registry.updateStatus(newsroomAddress);

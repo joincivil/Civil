@@ -23,7 +23,7 @@ contract("Government", accounts => {
       );
     });
 
-    it("should not be possible for troll to set judgeAppealLength value", async () => {
+    it("should not be possible for troll to set appellate", async () => {
       await expect(government.setAppellate(newAppellate, { from: troll })).to.eventually.be.rejectedWith(
         REVERTED,
         "Should not have allowed troll to update appellate",
