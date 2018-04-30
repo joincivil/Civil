@@ -1,7 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
 import { approveForChallenge, challengeListing, grantAppeal, updateListing } from "../../apis/civilTCR";
-import { canListingBeChallenged, canBeWhitelisted, isAwaitingAppealJudgment, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
+import {
+  canListingBeChallenged,
+  canBeWhitelisted,
+  isAwaitingAppealJudgment,
+  ListingWrapper,
+  TwoStepEthTransaction,
+} from "@joincivil/core";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -35,7 +41,9 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             Unstaked Deposit: {this.props.listing.data.unstakedDeposit.toString()}
             <br />
             {canBeChallenged && this.renderCanBeChallenged()}
-            {isAwaitingAppealJudgment(this.props.listing.data) && this.props.listing.data.challenge!.appeal && this.renderGrantAppeal()}
+            {isAwaitingAppealJudgment(this.props.listing.data) &&
+              this.props.listing.data.challenge!.appeal &&
+              this.renderGrantAppeal()}
             {canWhitelist && this.renderCanWhitelist()}
             <br />
             {this.props.listing.data.challenge && (

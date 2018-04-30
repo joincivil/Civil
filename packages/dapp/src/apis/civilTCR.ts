@@ -96,4 +96,3 @@ export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStep
 
   return voting.requestVotingRights(numTokens);
 }
-
