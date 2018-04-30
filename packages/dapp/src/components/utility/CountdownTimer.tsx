@@ -32,12 +32,7 @@ class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimer
   private getReadableTimeRemaining = (): string => {
     const out = [];
     let period: [number, string];
-    const periods: Array<[number, string]> = [
-      [86400, "day"],
-      [3600, "hour"],
-      [60, "minute"],
-      [1, "second"]
-    ];
+    const periods: Array<[number, string]> = [[86400, "day"], [3600, "hour"], [60, "minute"], [1, "second"]];
     let secs: number = this.state.secondsRemaining;
 
     while (periods.length) {
@@ -50,7 +45,7 @@ class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimer
     }
 
     return out.join(" ");
-  }
+  };
 
   // TODO(nickreynolds): move this all into redux
   private initCountdown = async () => {

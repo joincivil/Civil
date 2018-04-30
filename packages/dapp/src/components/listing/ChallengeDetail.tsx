@@ -66,7 +66,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         Commit Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.commitEndDate.toNumber()} />
         <CommitVoteDetail challengeID={this.props.challengeID} />;
       </>
-    )
+    );
   }
   private renderRevealStage(): JSX.Element {
     return <>REVEAL THINGS</>;
