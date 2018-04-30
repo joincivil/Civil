@@ -6,6 +6,7 @@ export const events = {
   ACL_SUPERUSER_REMOVED: "SuperuserRemoved",
   NEWSROOM_PUBLISHED: "RevisionPublished",
   NEWSROOM_SIGNED: "RevisionSigned",
+  EVENTSTORAGE_STORED: "StringStored",
 };
 export const ACL_TEST_ROLE = "testrole";
 export const NEWSROOM_ROLE_EDITOR = "editor";
