@@ -3,21 +3,21 @@
  */
 
 {{#each files}}
-import { {{capitalize this.name}} } from "./wrappers/{{snakecase this.name}}";
-export { {{capitalize this.name}} };
+import * as {{capitalize this.name}} from "./wrappers/{{snakecase this.name}}";
+export * from "./wrappers/{{snakecase this.name}}";
 {{/each}}
 
 export type CivilEvents =
   {{#each files}}
-    {{capitalize this.name}}.Events{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+    {{capitalize this.name}}.{{capitalize this.name}}Events{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
   {{/each}}
 
 export type CivilLogs =
   {{#each files}}
-    {{capitalize this.name}}.Logs.All{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+    {{capitalize this.name}}.{{capitalize this.name}}LogsAll{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
   {{/each}}
 
 export type CivilLogEvents =
   {{#each files}}
-    {{capitalize this.name}}.LogEvents.All{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+    {{capitalize this.name}}.{{capitalize this.name}}LogEventsAll{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
   {{/each}}
