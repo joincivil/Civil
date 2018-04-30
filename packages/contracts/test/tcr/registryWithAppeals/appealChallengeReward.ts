@@ -45,6 +45,7 @@ contract("Registry With Appeals", accounts => {
       await expect(registry.determineAppealChallengeReward(pollID)).to.eventually.be.fulfilled(
         "Should have allowed determineAppealChallengeReward to succeed",
       );
+      // TODO(PN): Add check to ensure value is returned as expected.
     });
 
     it("should succeed if the challenge been issued and voting has ended with a few votes", async () => {
@@ -65,6 +66,7 @@ contract("Registry With Appeals", accounts => {
       await expect(registry.determineAppealChallengeReward(pollID)).to.eventually.be.fulfilled(
         "Should have allowed determineAppealChallengeReward to succeed",
       );
+      // TODO(PN): Add check to ensure value is returned as expected.
     });
   });
 });
