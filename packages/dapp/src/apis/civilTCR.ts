@@ -58,3 +58,10 @@ export async function getNewsroom(address: EthAddress): Promise<any> {
   newsroom = await civil.newsroomAtUntrusted(address);
   return newsroom;
 }
+
+export async function getParameterValue(param: string): Promise<BigNumber> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const parameterizer = await tcr.getParameterizer();
+  return parameterizer.getParameterValue(param);
+}

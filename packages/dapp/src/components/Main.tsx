@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Switch, Route } from "react-router-dom";
 import Listings from "./Listings";
+import Parameterizer from "./Parameterizer";
 import Newsroom from "./newsroom/Newsroom";
 import Contracts from "./Contracts";
 import ContractPage from "./ContractPage";
@@ -35,6 +36,7 @@ class Main extends React.Component<{}, MainState> {
         {!this.state.civilSet && "loading..."}
         {this.state.civilSet && (
           <Switch>
+            <Route exact={true} path="/" component={Parameterizer} />
             <Route exact={true} path="/" component={Listings} />
             <Route path="/newsroom/:newsroomAddress" component={Newsroom} />
             <Route path="/contracts" component={Contracts} />
