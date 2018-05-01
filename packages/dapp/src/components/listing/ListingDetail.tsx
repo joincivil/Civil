@@ -41,9 +41,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             Unstaked Deposit: {this.props.listing.data.unstakedDeposit.toString()}
             <br />
             {canBeChallenged && this.renderCanBeChallenged()}
-            {isAwaitingAppealJudgment(this.props.listing.data) &&
-              this.props.listing.data.challenge!.appeal &&
-              this.renderGrantAppeal()}
+            {isAwaitingAppealJudgment(this.props.listing.data) && this.renderGrantAppeal()}
             {canWhitelist && this.renderCanWhitelist()}
             <br />
             {this.props.listing.data.challenge && (
@@ -66,7 +64,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   };
 
   private renderGrantAppeal = (): JSX.Element => {
-    return <TransactionButton firstTransaction={this.grantAppeal}>Grant Appeal</TransactionButton>;
+    return <TransactionButton transactions={[{ transaction: this.grantAppeal }]}>Grant Appeal</TransactionButton>;
   };
 
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
