@@ -5,7 +5,10 @@ import "./installed_contracts/tokens/contracts/eip20/EIP20.sol";
 import "./Parameterizer.sol";
 import "./PLCRVoting.sol";
 
-
+/**
+@title AddressRegistry - A Token Curated Registry using Ethereum Addresses as keys for listings
+@dev This was originally forked from the (Mike Goldin / AdChain TCR implementation)[https://github.com/skmgoldin/tcr] at commit `b206561` (Jan 22 2018)
+*/
 contract AddressRegistry {
 
   // ------
@@ -57,10 +60,10 @@ contract AddressRegistry {
   // ------------
 
   /**
-  @dev Contructor         Sets the addresses for token, voting, and parameterizer
-  @param tokenAddr       Address of the TCR's intrinsic ERC20 token
-  @param plcrAddr        Address of a PLCR voting contract for the provided token
-  @param paramsAddr      Address of a Parameterizer contract
+  @notice Contructor. Sets the addresses for token, voting, and parameterizer
+  @param tokenAddr Address of the TCR's intrinsic ERC20 token
+  @param plcrAddr Address of a PLCR voting contract for the provided token
+  @param paramsAddr Address of a Parameterizer contract
   */
   function AddressRegistry(
     address tokenAddr,
@@ -78,6 +81,11 @@ contract AddressRegistry {
 
   /**
   @notice Allows a user to start an application. Takes tokens from user and sets apply stage end time.
+  In order to apply:
+  * Listing must not currently be whitelisted
+  * Listing must not currently be in application pahse
+  * Tokens deposited must be greater than or equal to the minDeposit value from the parameterizer
+  Emits `Application` event if successful
   @param amount The number of ERC20 tokens a user is willing to potentially stake
   @param data Extra data relevant to the application. Think IPFS hashes.
   */
@@ -102,8 +110,12 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Allows the owner of a listingHash to increase their unstaked deposit.
-  @param amount      The number of ERC20 tokens to increase a user's unstaked deposit
+  @notice Allows the owner of a listingHash to increase their unstaked deposit.
+  In order to increase deposit:
+  * sender of message must be owner of listing
+  * Must be able to transfer `amount` of tokens into this contract
+  Emits `Deposit` if successful
+  @param amount The number of ERC20 tokens to increase a user's unstaked deposit by
   */
   function deposit(address listingAddress, uint amount) external {
     Listing storage listing = listings[listingAddress];
@@ -117,7 +129,12 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Allows the owner of a listingHash to decrease their unstaked deposit.
+  @notice Allows the owner of a listingHash to decrease their unstaked deposit.
+  In order to withdraw from deposit:
+  * sender of message must be owner of listing
+  * Amount to withdraw must be less than or equal to unstaked deposit on listing
+  * Amount of tokens that would be remaining after withdrawal must be less than or equal to minDeposit from parameterizer.
+  Emits `Withdrawal` if successful
   @param amount      The number of ERC20 tokens to withdraw from the unstaked deposit.
   */
   function withdraw(address listingAddress, uint amount) external {
@@ -137,6 +154,10 @@ contract AddressRegistry {
   /**
   @notice Allows the owner of a listing to remove the listingHash from the whitelist
   Returns all tokens to the owner of the listing
+  In order to exit a listing:
+  * Sender of message must be the owner of the listing
+  * Listing must currently be whitelisted
+  * Listing must not have an active challenge
   */
   function exitListing(address listingAddress) external {
     Listing storage listing = listings[listingAddress];
@@ -159,6 +180,11 @@ contract AddressRegistry {
   @notice Starts a poll for a listingAddress which is either in the apply stage or
   already in the whitelist. Tokens are taken from the challenger and the applicant's deposits are locked.
   Delists listing and returns 0 if listing's unstakedDeposit is less than current minDeposit
+  In order to challenge a listing:
+  * Listing must be in application phase or whitelisted
+  * Listing must not have an active challenge
+  * Sender of message must be able to transfer minDeposit tokens into this contract
+  Emits `ChallengeInitiated` if successful
   @param listingAddress The listingAddress being challenged, whether listed or in application
   @param data        Extra data relevant to the challenge. Think IPFS hashes.
   */
@@ -206,8 +232,7 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Updates a listing's status from 'application' to 'listing' or resolves
-                      a challenge if one exists.
+  @notice Updates a listing's status from 'application' to 'listing' or resolves a challenge if one exists.
   @param listingAddress The listingAddress whose status is being updated
   */
   function updateStatus(address listingAddress) public {
@@ -226,8 +251,11 @@ contract AddressRegistry {
   // ----------------
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote. Someone
-          must call updateStatus() before this can be called.
+  @notice Called by a voter to claim their reward for each completed vote. 
+  In order to claim reward for a challenge:
+  * Challenge must be resolved
+  * Message sender must not have already claimed tokens for this challenge
+  Emits `RewardClaimed` if successful
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt        The salt of a voter's commit hash in the given poll
   */
@@ -268,11 +296,11 @@ contract AddressRegistry {
   // --------
 
   /**
-  @dev                Calculates the provided voter's token reward for the given poll.
-  @param voter       The address of the voter whose reward balance is to be returned
+  @notice Calculates the provided voter's token reward for the given poll.
+  @param voter The address of the voter whose reward balance is to be returned
   @param challengeID The pollID of the challenge a reward balance is being queried for
-  @param salt        The salt of the voter's commit hash in the given poll
-  @return             The uint indicating the voter's reward
+  @param salt The salt of the voter's commit hash in the given poll
+  @return The uint indicating the voter's reward
   */
   function voterReward(
     address voter,
@@ -286,8 +314,10 @@ contract AddressRegistry {
   }
 
   /**
-  @dev                Determines whether the given listingAddress be isWhitelist.
+  @notice Determines whether the given listing can be whitelisted
   @param listingAddress The listingAddress whose status is to be examined
+  @return True if an application has passed its expiry without being challenged or it was challenged and the challenge
+  has been resolved and listing is not already whitelisted. False otherwise.
   */
   function canBeWhitelisted(address listingAddress) view public returns (bool) {
     uint challengeID = listings[listingAddress].challengeID;
@@ -305,22 +335,22 @@ contract AddressRegistry {
     ) {
       return true;
     }
-    // solium-enable operator-whitespace
-
     return false;
   }
 
   /**
-  @dev                Returns true if apply was called for this listingAddress
+  @notice Returns true if apply was called for this listingAddress and listing/application not yet removed
   @param listingAddress The listingAddress whose status is to be examined
+  @return True if an address is in the application phase, or whitelisted. False if never applied or listing/application removed.
   */
   function appWasMade(address listingAddress) view public returns (bool) {
     return listings[listingAddress].applicationExpiry > 0;
   }
 
   /**
-  @dev                Returns true if the application/listing has an unresolved challenge
+  @notice Gets whether or not the given listing address has an active challenge
   @param listingAddress The listingAddress whose status is to be examined
+  @return True if listing has an active, unresolved challenge. False otherwise.
   */
   function challengeExists(address listingAddress) view public returns (bool) {
     uint challengeID = listings[listingAddress].challengeID;
@@ -329,9 +359,10 @@ contract AddressRegistry {
   }
 
   /**
-  @notice Determines whether voting has concluded in a challenge for a given listingAddress.
-  Throws if no challenge exists.
+  @notice Determines whether voting has concluded in a challenge for a given listingAddress.  
+  Reverts if no challenge exists.
   @param listingAddress A listingAddress with an unresolved challenge
+  @return True if a challenge can be resolved, false otherwise
   */
   function challengeCanBeResolved(address listingAddress) view public returns (bool) {
     uint challengeID = listings[listingAddress].challengeID;
@@ -344,6 +375,7 @@ contract AddressRegistry {
   /**
   @notice Determines the number of tokens awarded to the winning party in a challenge.
   @param challengeID The ID of a challenge to determine a reward for
+  @return Number of tokens awarded to winning party in a challenge
   */
   function determineReward(uint challengeID) public view returns (uint) {
     return determineChallengeReward(challenges[challengeID], challengeID);
@@ -365,11 +397,12 @@ contract AddressRegistry {
   }
 
   /**
-  @notice Getter for Challenge hasClaimedTokens mappings
+  @notice Getter for Challenge hasClaimedTokens mapping
   @param challengeID The challengeID to query
-  @param voter       The voter whose claim status to query for the provided challengeID
+  @param voter The voter whose claim status to query for given challenge
+  @return true if voter has claimed tokens for given challenge, false otherwise
   */
-  function hasClaimedTokens(uint challengeID, address voter) public view returns (bool) {
+  function hasClaimedTokens(uint challengeID, address voter) public view returns (bool hasClaimedTokens) {
     return challenges[challengeID].hasClaimedTokens[voter];
   }
 
@@ -378,8 +411,8 @@ contract AddressRegistry {
   // ----------------
 
   /**
-  @dev                Determines the winner in a challenge. Rewards the winner tokens and
-                      either whitelists or de-whitelists the listingAddress.
+  @notice Determines the winner in a challenge. Rewards the winner tokens and either whitelists or
+  de-whitelists the listingAddress. 
   @param listingAddress A listingAddress with a challenge that is to be resolved
   */
   function resolveChallenge(address listingAddress) internal {
@@ -412,8 +445,8 @@ contract AddressRegistry {
   }
 
   /**
-  @dev Called by `updateStatus` if the applicationExpiry date passed without a
-  challenge being made. Called by `resolveChallenge` if an application/listing beat a challenge.
+  @dev Called by `updateStatus()` if the applicationExpiry date passed without a challenge being made. 
+  Called by resolveChallenge() if an application/listing beat a challenge.
   @param listingAddress The listingAddress of an application/listing to be isWhitelist
   */
   function whitelistApplication(address listingAddress) internal {
@@ -425,7 +458,7 @@ contract AddressRegistry {
   }
 
   /**
-  @dev Deletes a listingAddress from the whitelist and transfers tokens back to owner
+  @notice Deletes a listingAddress from the whitelist and transfers tokens back to owner
   @param listingAddress The listing to delete
   */
   function resetListing(address listingAddress) internal {

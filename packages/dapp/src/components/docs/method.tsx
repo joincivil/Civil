@@ -45,7 +45,7 @@ export default class Method extends React.Component<MethodProps, MethodState> {
           <code>{method.name || contract.name}</code>{" "}
           {method.signatureHash && <code className="signature">{method.signatureHash}</code>}
         </Header>
-        {method.notice && <ReactMarkdown className="h2" source={method.notice} />}
+        {method.notice && <ReactMarkdown source={method.notice} />}
         {method.details && <ReactMarkdown source={method.details} />}
         {(method.inputs.length || method.outputs) && (
           <Table definition>
@@ -54,6 +54,11 @@ export default class Method extends React.Component<MethodProps, MethodState> {
               {method.outputs && this.renderParams("outputs")}
             </Table.Body>
           </Table>
+        )}
+        {method.return && (
+          <>
+            Returns: <ReactMarkdown source={method.return} />
+          </>
         )}
       </Segment>
     );
