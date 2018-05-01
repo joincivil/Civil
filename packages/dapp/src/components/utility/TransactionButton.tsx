@@ -25,11 +25,14 @@ export interface TransactionButtonState {
   step: number;
   disableButton: boolean;
 }
+
+export interface Transaction {
+  transaction(): Promise<TwoStepEthTransaction<any> | void>;
+  postTransaction?(result: any): any;
+}
+
 export interface TransactionButtonProps {
-  firstTransaction(): Promise<TwoStepEthTransaction<any> | void>;
-  postFirstTransaction?(result: any): any;
-  secondTransaction?(): Promise<TwoStepEthTransaction<any>>;
-  postSecondTransaction?(result: any): any;
+  transactions: Transaction[];
 }
 
 class TransactionButton extends React.Component<TransactionButtonProps, TransactionButtonState> {
@@ -57,27 +60,30 @@ class TransactionButton extends React.Component<TransactionButtonProps, Transact
   }
 
   private onClick = async () => {
-    this.setState({ step: 1, disableButton: true });
-    const transaction = await this.props.firstTransaction();
-    this.setState({ step: 2 });
-    if (transaction) {
-      const receipt = await transaction.awaitReceipt();
-      if (this.props.postFirstTransaction) {
-        this.props.postFirstTransaction(receipt);
-      }
-    }
+    return this.executeTransactions(this.props.transactions.slice());
+  };
 
-    if (this.props.secondTransaction) {
-      this.setState({ step: 1, disableButton: true });
-      const transaction2 = await this.props.secondTransaction();
-      this.setState({ step: 2 });
-      const receipt2 = await transaction2.awaitReceipt();
-      if (this.props.postSecondTransaction) {
-        this.props.postSecondTransaction(receipt2);
-      }
-    }
-
+  private resetState = async () => {
     this.setState({ step: 0, disableButton: false });
+  };
+
+  private executeTransactions = async (transactions: Transaction[]): Promise<any> => {
+    const currTransaction = transactions.pop();
+    this.setState({ step: 1, disableButton: true });
+    if (currTransaction) {
+      const pending = await currTransaction.transaction();
+      this.setState({ step: 2 });
+      if (pending) {
+        const receipt = await pending.awaitReceipt();
+        if (!transactions.length) {
+          await this.resetState(); // next tick everything after state gets updated, scheduled state update will supercede rest of this function
+        }
+        if (currTransaction.postTransaction) {
+          currTransaction.postTransaction(receipt);
+        }
+      }
+      return this.executeTransactions(transactions);
+    }
   };
 }
 

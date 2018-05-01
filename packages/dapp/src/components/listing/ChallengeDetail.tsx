@@ -11,6 +11,8 @@ import {
 } from "@joincivil/core";
 import AppealDetail from "./AppealDetail";
 import CommitVoteDetail from "./CommitVoteDetail";
+import CountdownTimer from "../utility/CountdownTimer";
+import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
 import { appealChallenge, approveForAppeal, updateListing } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
@@ -60,14 +62,19 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   }
 
   private renderCommitStage(): JSX.Element {
-    return <CommitVoteDetail challengeID={this.props.challengeID} />;
+    return (
+      <>
+        Commit Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.commitEndDate.toNumber()} />
+        <CommitVoteDetail challengeID={this.props.challengeID} />;
+      </>
+    );
   }
   private renderRevealStage(): JSX.Element {
-    return <>REVEAL THINGS</>;
+    return <RevealVoteDetail challengeID={this.props.challengeID} />;
   }
   private renderRequestAppealStage(): JSX.Element {
     return (
-      <TransactionButton firstTransaction={approveForAppeal} secondTransaction={this.appeal}>
+      <TransactionButton transactions={[{ transaction: approveForAppeal }, { transaction: this.appeal }]}>
         Request Appeal
       </TransactionButton>
     );
@@ -77,7 +84,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return appealChallenge(this.props.listingAddress);
   };
   private renderCanResolve(): JSX.Element {
-    return <TransactionButton firstTransaction={this.resolve}>Resolve Challenge</TransactionButton>;
+    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
   }
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateListing(this.props.listingAddress);
