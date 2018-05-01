@@ -1,4 +1,5 @@
 import * as React from "react";
+import { getReadableDuration } from "@joincivil/utils";
 
 export interface CountdownTimerProps {
   endTime: number;
@@ -6,6 +7,7 @@ export interface CountdownTimerProps {
 
 export interface CountdownTimerState {
   secondsRemaining: number;
+  timer?: number;
 }
 
 class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimerState> {
@@ -25,13 +27,21 @@ class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimer
   }
 
   private renderApplicationPhase(): JSX.Element {
-    return <>{this.state.secondsRemaining} seconds</>;
+    return <>{this.getReadableTimeRemaining()}</>;
   }
+
+  private getReadableTimeRemaining = (): string => {
+    return getReadableDuration(this.state.secondsRemaining);
+  };
 
   // TODO(nickreynolds): move this all into redux
   private initCountdown = async () => {
-    this.updateTimeRemaining();
-    setInterval(this.updateTimeRemaining, 1000);
+    const timeRemaining = this.updateTimeRemaining();
+    if (timeRemaining > 0) {
+      this.setState({ timer: window.setInterval(this.updateTimeRemaining, 1000) });
+    } else {
+      window.clearInterval(this.state.timer);
+    }
   };
 
   private updateTimeRemaining = () => {
@@ -39,6 +49,7 @@ class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimer
     const currentTime = parseInt((Date.now() / 1000).toString(), 10); // convert from milliseconds
     const secondsRemaining = expiry - currentTime;
     this.setState({ secondsRemaining });
+    return secondsRemaining;
   };
 }
 

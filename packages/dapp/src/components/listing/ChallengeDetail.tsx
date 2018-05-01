@@ -11,6 +11,7 @@ import {
 } from "@joincivil/core";
 import AppealDetail from "./AppealDetail";
 import CommitVoteDetail from "./CommitVoteDetail";
+import CountdownTimer from "../utility/CountdownTimer";
 import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
 import { appealChallenge, approveForAppeal, updateListing } from "../../apis/civilTCR";
@@ -61,7 +62,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   }
 
   private renderCommitStage(): JSX.Element {
-    return <CommitVoteDetail challengeID={this.props.challengeID} />;
+    return (
+      <>
+        Commit Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.commitEndDate.toNumber()} />
+        <CommitVoteDetail challengeID={this.props.challengeID} />;
+      </>
+    );
   }
   private renderRevealStage(): JSX.Element {
     return <RevealVoteDetail challengeID={this.props.challengeID} />;
