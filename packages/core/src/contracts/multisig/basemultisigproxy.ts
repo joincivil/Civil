@@ -1,5 +1,4 @@
 import { isDeployedBytecodeEqual, isDefined } from "@joincivil/utils";
-import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 import { OwnableContract } from "../interfaces/ownable";
 import { Multisig } from "./multisig";
@@ -57,9 +56,9 @@ export class BaseMultisigProxy {
       isProxied: true,
       proxiedId: async () => {
         const receipt = await twoStep.awaitReceipt();
-        const submissionLogs: Array<DecodedLogEntry<MultiSigWallet.Args.Submission>> = receipt.logs
+        const submissionLogs = receipt.logs
           .filter(log => isDecodedLog(log) && log.event === MultiSigWallet.Events.Submission)
-          .map(log => log as DecodedLogEntry<MultiSigWallet.Args.Submission>);
+          .map(log => log as MultiSigWallet.Logs.Submission);
         if (submissionLogs.length !== 1) {
           throw new Error("Too many Submission events than expected in multisig");
         }

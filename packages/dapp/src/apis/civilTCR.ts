@@ -14,7 +14,8 @@ export async function approveForChallenge(): Promise<TwoStepEthTransaction | voi
 export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
-  const appealFee = await tcr.getAppealFee();
+  const government = await tcr.getGovernment();
+  const appealFee = await government.getAppealFee();
   return approve(appealFee);
 }
 
@@ -89,4 +90,16 @@ export async function commitVote(
   const prevPollID = await voting.getPrevPollID(numTokens);
 
   return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
+}
+
+export async function revealVote(
+  pollID: BigNumber,
+  voteOption: BigNumber,
+  salt: BigNumber,
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const voting = tcr.getVoting();
+
+  return voting.revealVote(pollID, voteOption, salt);
 }

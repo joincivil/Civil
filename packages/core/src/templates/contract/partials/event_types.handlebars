@@ -1,6 +1,6 @@
 // tslint:disable:no-namespace
 export namespace {{contractName}} {
-  export const enum Events {
+  export enum Events {
     {{#each events}}
     {{this.name}} = "{{this.name}}",
     {{/each}}

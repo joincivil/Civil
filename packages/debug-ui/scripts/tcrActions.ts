@@ -51,7 +51,8 @@ export async function requestAppeal(address: EthAddress, optionalCivil?: Civil):
 
   console.log("Request Appeal on TCR Listing");
   const tcr = await civil.tcrSingletonTrusted();
-  const fee = await tcr.getAppealFee();
+  const government = await tcr.getGovernment();
+  const fee = await government.getAppealFee();
   const eip = await tcr.getToken();
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
   if (approvedTokensForSpender.lessThan(fee)) {
@@ -79,7 +80,8 @@ export async function challengeGrantedAppeal(address: EthAddress, optionalCivil?
 
   console.log("Challenging Granted Appeal on TCR Listing");
   const tcr = await civil.tcrSingletonTrusted();
-  const fee = await tcr.getAppealFee();
+  const government = await tcr.getGovernment();
+  const fee = await government.getAppealFee();
   const eip = await tcr.getToken();
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(tcr.address);
   if (approvedTokensForSpender.lessThan(fee)) {
