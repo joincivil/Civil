@@ -37,11 +37,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 
   public render(): JSX.Element {
     const challenge = this.props.challenge;
-    const canResolveChallenge =
-      !isChallengeInCommitStage(challenge) &&
-      !isChallengeInRevealStage(challenge) &&
-      !canRequestAppeal(challenge) &&
-      !challenge.appeal;
     return (
       <StyledDiv>
         Challenger: {challenge.challenger.toString()}
@@ -55,8 +50,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         {isChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
-        {challenge.appeal && <AppealDetail appeal={challenge.appeal} />}
-        {canResolveChallenge && this.renderCanResolve()}
+        {challenge.appeal && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal} />}
       </StyledDiv>
     );
   }
