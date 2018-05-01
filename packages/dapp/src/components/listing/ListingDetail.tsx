@@ -1,7 +1,15 @@
 import * as React from "react";
 import styled from "styled-components";
 import { approveForChallenge, challengeListing, updateListing } from "../../apis/civilTCR";
-import { canListingBeChallenged, canBeWhitelisted, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
+import {
+  canListingBeChallenged,
+  canBeWhitelisted,
+  canRequestAppeal,
+  isChallengeInCommitStage,
+  isChallengeInRevealStage,
+  ListingWrapper,
+  TwoStepEthTransaction,
+} from "@joincivil/core";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -22,8 +30,15 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   }
 
   public render(): JSX.Element {
+    const challenge = this.props.listing.data.challenge;
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
+    const canResolveChallenge =
+      challenge &&
+      !isChallengeInCommitStage(challenge) &&
+      !isChallengeInRevealStage(challenge) &&
+      !canRequestAppeal(challenge) &&
+      !challenge.appeal;
     return (
       <StyledDiv>
         {this.props.listing.data && (
@@ -36,6 +51,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             <br />
             {canBeChallenged && this.renderCanBeChallenged()}
             {canWhitelist && this.renderCanWhitelist()}
+            {canResolveChallenge && this.renderCanResolve()}
             <br />
             {this.props.listing.data.challenge && (
               <>
@@ -66,6 +82,13 @@ class ListingDetail extends React.Component<ListingDetailProps> {
         Challenge Application
       </TransactionButton>
     );
+  };
+
+  private renderCanResolve(): JSX.Element {
+    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
+  }
+  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
+    return updateListing(this.props.listingAddress);
   };
 
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
