@@ -25,7 +25,7 @@ class RevealVoteDetail extends React.Component<RevealVoteDetailProps, RevealVote
         <h3>Reveal Vote</h3>
 
         {/* @TODO(jon): We can remove this at some point in the near future
-          since the value still get stored in React and the user will nver see it.
+          since the value still get stored in React and the user will never see it.
           This is just here for debug purposes. */}
         <FormGroup>
           <label>
