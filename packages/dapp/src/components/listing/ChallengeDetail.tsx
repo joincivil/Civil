@@ -68,7 +68,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   }
   private renderRequestAppealStage(): JSX.Element {
     return (
-      <TransactionButton firstTransaction={approveForAppeal} secondTransaction={this.appeal}>
+      <TransactionButton transactions={[{ transaction: approveForAppeal }, { transaction: this.appeal }]}>
         Request Appeal
       </TransactionButton>
     );
@@ -78,7 +78,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return appealChallenge(this.props.listingAddress);
   };
   private renderCanResolve(): JSX.Element {
-    return <TransactionButton firstTransaction={this.resolve}>Resolve Challenge</TransactionButton>;
+    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
   }
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateListing(this.props.listingAddress);
