@@ -27,7 +27,9 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
       <>
         {this.state.error}
         <input onChange={this.onChange} />
-        <TransactionButton transactions={[{transaction: this.createNewsroom, postTransaction: this.onNewsroomCreated}]}>
+        <TransactionButton
+          transactions={[{ transaction: this.createNewsroom, postTransaction: this.onNewsroomCreated }]}
+        >
           Deploy Newsroom
         </TransactionButton>
       </>
