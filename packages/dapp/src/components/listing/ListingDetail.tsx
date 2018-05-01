@@ -64,6 +64,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   };
 
   private renderGrantAppeal = (): JSX.Element => {
+    // @TODO: Only render this JSX element if the user is in the JEC multisig
     return <TransactionButton transactions={[{ transaction: this.grantAppeal }]}>Grant Appeal</TransactionButton>;
   };
 
