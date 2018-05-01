@@ -1,4 +1,5 @@
 import * as React from "react";
+import { getReadableDuration } from "@joincivil/utils";
 
 export interface CountdownTimerProps {
   endTime: number;
@@ -30,21 +31,7 @@ class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimer
   }
 
   private getReadableTimeRemaining = (): string => {
-    const out = [];
-    let period: [number, string];
-    const periods: Array<[number, string]> = [[86400, "day"], [3600, "hour"], [60, "minute"], [1, "second"]];
-    let secs: number = this.state.secondsRemaining;
-
-    while (periods.length) {
-      period = periods.shift()!;
-      const periodUnits = Math.floor(secs / period[0]);
-      if (periodUnits > 0) {
-        out.push(periodUnits.toString(), period[1] + (periodUnits !== 1 ? "s" : ""));
-        secs = secs % period[0];
-      }
-    }
-
-    return out.join(" ");
+    return getReadableDuration(this.state.secondsRemaining);
   };
 
   // TODO(nickreynolds): move this all into redux
