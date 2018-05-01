@@ -137,11 +137,17 @@
     }
   ],
   "networks": {
+    "4": {
+      "events": {},
+      "links": {},
+      "address": "0xdc6364fe9a9c131ce1e6525d1a17b75687a9a078",
+      "transactionHash": "0x32626f315e6a20a62a8a805ef00fdd4e3a9926c816910e3efbaff920155a5f36"
+    },
     "50": {
       "events": {},
       "links": {},
       "address": "0xb4b9c45d5da7b83d72dd927723d82d971185794d",
-      "transactionHash": "0xab3f551cc01de8dd22d147b40c1d49552a3f44e2b00ec464e368653dc558e53b"
+      "transactionHash": "0x30d32d6fc554143371f9ad26c722586352dfdb6e36403ae51a54e16cbb33edff"
     }
   }
 }

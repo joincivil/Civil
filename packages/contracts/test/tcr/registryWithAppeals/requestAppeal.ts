@@ -46,6 +46,18 @@ contract("Registry With Appeals", accounts => {
       );
     });
 
+    it("should fail if appeal is already in progress", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await expect(registry.requestAppeal(newsroomAddress, { from: applicant })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "Should not have allowed appeal on appeal in progress",
+      );
+    });
+
     it("should succeed if challenge is in after reveal phase", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await registry.challenge(newsroomAddress, "", { from: challenger });

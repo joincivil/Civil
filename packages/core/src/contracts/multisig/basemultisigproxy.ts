@@ -6,7 +6,7 @@ import { TxHash, EthAddress, TwoStepEthTransaction } from "../../types";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { artifacts } from "../generated/artifacts";
 import { createTwoStepSimple, isDecodedLog } from "../utils/contracts";
-import { MultiSigWalletLogsSubmission, MultiSigWalletEvents } from "../generated/wrappers/multi_sig_wallet";
+import { MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
 
 export class BaseMultisigProxy {
   protected web3Wrapper: Web3Wrapper;
@@ -57,8 +57,8 @@ export class BaseMultisigProxy {
       proxiedId: async () => {
         const receipt = await twoStep.awaitReceipt();
         const submissionLogs = receipt.logs
-          .filter(log => isDecodedLog(log) && log.event === MultiSigWalletEvents.Submission)
-          .map(log => log as MultiSigWalletLogsSubmission);
+          .filter(log => isDecodedLog(log) && log.event === MultiSigWallet.Events.Submission)
+          .map(log => log as MultiSigWallet.Logs.Submission);
         if (submissionLogs.length !== 1) {
           throw new Error("Too many Submission events than expected in multisig");
         }

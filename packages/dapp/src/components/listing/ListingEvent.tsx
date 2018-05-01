@@ -1,12 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import {
-  CivilTCRLogEventsApplication,
-  CivilTCRArgsApplication,
-  CivilTCRArgsNewListingWhitelisted,
-  CivilTCRLogEventsNewListingWhitelisted,
-  CivilTCREvents,
-} from "@joincivil/core";
+import { CivilTCR } from "@joincivil/core";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -25,14 +19,14 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   public render(): JSX.Element {
-    const wrappedEvent = this.props.event as CivilTCRLogEventsApplication | CivilTCRLogEventsNewListingWhitelisted;
+    const wrappedEvent = this.props.event as CivilTCR.LogEvents.Application | CivilTCR.LogEvents.NewListingWhitelisted;
     let argsData: JSX.Element | null = null;
     switch (wrappedEvent.event) {
-      case CivilTCREvents.Application:
+      case CivilTCR.Events.Application:
         argsData = this.renderApplicationEvent(wrappedEvent.args);
         break;
-      case CivilTCREvents.NewListingWhitelisted:
-        argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCRArgsNewListingWhitelisted);
+      case CivilTCR.Events.NewListingWhitelisted:
+        argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCR.Args.NewListingWhitelisted);
         break;
       default:
         argsData = this.renderUnsupportedEvent(wrappedEvent);
@@ -49,10 +43,10 @@ class ListingEvent extends React.Component<ListingEventProps> {
     return <>{event.event}</>;
   }
 
-  private renderApplicationEvent(args: CivilTCRArgsApplication): JSX.Element {
+  private renderApplicationEvent(args: CivilTCR.Args.Application): JSX.Element {
     return <>Application --- Deposit: {args.deposit.toString()}</>;
   }
-  private renderNewListingWhitelistedEvent(args: CivilTCRArgsNewListingWhitelisted): JSX.Element {
+  private renderNewListingWhitelistedEvent(args: CivilTCR.Args.NewListingWhitelisted): JSX.Element {
     return <>Whitelisted!</>;
   }
 }

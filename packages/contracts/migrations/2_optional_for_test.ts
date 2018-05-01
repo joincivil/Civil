@@ -28,8 +28,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
     if (network !== MAIN_NETWORK && network !== RINKEBY) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      if (network in config.testnets) {
-        const updatedAccounts = [...accounts, ...config.testnets[network].tokenHolders];
+      if (network in config.nets) {
+        const updatedAccounts = [...accounts, ...config.nets[network].tokenHolders];
         return giveTokensTo(updatedAccounts, updatedAccounts.length);
       }
       return giveTokensTo(accounts, accounts.length);
