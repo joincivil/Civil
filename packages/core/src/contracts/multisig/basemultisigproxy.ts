@@ -1,4 +1,5 @@
 import { isDeployedBytecodeEqual, isDefined } from "@joincivil/utils";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 import { OwnableContract } from "../interfaces/ownable";
 import { Multisig } from "./multisig";
