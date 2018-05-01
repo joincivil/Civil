@@ -4,7 +4,7 @@
 
 {{#each files}}
 import { {{capitalize this.name}} } from "./wrappers/{{snakecase this.name}}";
-export { {{capitalize this.name}} };
+export * from "./wrappers/{{snakecase this.name}}";
 {{/each}}
 
 export type CivilEvents =
