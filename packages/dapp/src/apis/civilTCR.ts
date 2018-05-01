@@ -14,7 +14,8 @@ export async function approveForChallenge(): Promise<TwoStepEthTransaction | voi
 export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
-  const appealFee = await tcr.getAppealFee();
+  const government = await tcr.getGovernment();
+  const appealFee = await government.getAppealFee();
   return approve(appealFee);
 }
 

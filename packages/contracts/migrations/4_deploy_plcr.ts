@@ -14,12 +14,12 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(DLL, PLCRVoting);
     await deployer.link(AttributeStore, PLCRVoting);
 
-    let tokenAddress = Token.address;
-
+    let tokenAddress;
     if (network === RINKEBY) {
-      tokenAddress = config.rinkebyTokenAddress;
+      tokenAddress = config.nets[network].TokenAddress;
+    } else {
+      tokenAddress = Token.address;
     }
-
     await deployer.deploy(PLCRVoting, tokenAddress);
 
     if (inTesting(network)) {
