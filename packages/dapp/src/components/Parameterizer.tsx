@@ -30,22 +30,22 @@ class Parameterizer extends React.Component<{}, ParameterStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      minDeposit: "minDeposit",
-      pMinDeposit: "pMinDeposit",
-      applyStageLen: "applyStageLen",
-      pApplyStageLen: "pApplyStageLen",
-      commitStageLen: "commitStageLen",
-      pCommitStageLen: "pCommitStageLen",
-      revealStageLen: "revealStageLen",
-      pRevealStageLen: "pRevealStageLen",
-      dispensationPct: "dispensationPct",
-      pDispensationPct: "pDispensationPct",
-      voteQuorum: "voteQuorum",
-      pVoteQuorum: "pVoteQuorum",
-      pProcessBy: "pProcessBy",
-      challengeAppealLen: "challengeAppealLen",
-      challengeAppealCommitLen: "challengeAppealCommitLen",
-      challengeAppealRevealLen: "challengeAppealRevealLen",
+      minDeposit: "",
+      pMinDeposit: "",
+      applyStageLen: "",
+      pApplyStageLen: "",
+      commitStageLen: "",
+      pCommitStageLen: "",
+      revealStageLen: "",
+      pRevealStageLen: "",
+      dispensationPct: "",
+      pDispensationPct: "",
+      voteQuorum: "",
+      pVoteQuorum: "",
+      pProcessBy: "",
+      challengeAppealLen: "",
+      challengeAppealCommitLen: "",
+      challengeAppealRevealLen: "",
     };
   }
 
@@ -79,7 +79,7 @@ class Parameterizer extends React.Component<{}, ParameterStates> {
 
   private initParameterValues = async (): Promise<any> => {
     Object.keys(this.state).forEach(async parameterKey => {
-      const parameterVal = await getParameterValue(this.state[parameterKey]);
+      const parameterVal = await getParameterValue(parameterKey);
       const parameterObj = {};
       parameterObj[parameterKey] = parameterVal.toString();
       this.setState(parameterObj);
