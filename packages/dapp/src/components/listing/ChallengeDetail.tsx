@@ -14,7 +14,7 @@ import CommitVoteDetail from "./CommitVoteDetail";
 import CountdownTimer from "../utility/CountdownTimer";
 import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
-import { appealChallenge, approveForAppeal, updateListing } from "../../apis/civilTCR";
+import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 
 const StyledDiv = styled.div`

@@ -86,7 +86,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
     return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
   }
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateListing(this.props.listingAddress);
+    return updateListing(this.props.listing.address);
   };
 
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
