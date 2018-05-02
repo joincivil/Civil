@@ -81,7 +81,7 @@ export async function getParameterValue(param: string): Promise<BigNumber> {
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
   return parameterizer.getParameterValue(param);
-}                                                     
+}
 
 export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
