@@ -42,6 +42,21 @@ export async function challengeListing(address: EthAddress): Promise<TwoStepEthT
   return tcr.challenge(address, "");
 }
 
+export async function commitVote(
+  pollID: BigNumber,
+  voteOption: BigNumber,
+  salt: BigNumber,
+  numTokens: BigNumber,
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const secretHash = getVoteSaltHash(voteOption.toString(), salt.toString());
+  const voting = tcr.getVoting();
+  const prevPollID = await voting.getPrevPollID(numTokens);
+
+  return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
+}
+
 export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
@@ -61,6 +76,12 @@ export async function getNewsroom(address: EthAddress): Promise<any> {
   return newsroom;
 }
 
+export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.grantAppeal(address);
+}
+
 export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
@@ -75,21 +96,6 @@ export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStep
   }
 
   return voting.requestVotingRights(numTokens);
-}
-
-export async function commitVote(
-  pollID: BigNumber,
-  voteOption: BigNumber,
-  salt: BigNumber,
-  numTokens: BigNumber,
-): Promise<TwoStepEthTransaction> {
-  const civil = getCivil();
-  const tcr = civil.tcrSingletonTrusted();
-  const secretHash = getVoteSaltHash(voteOption.toString(), salt.toString());
-  const voting = tcr.getVoting();
-  const prevPollID = await voting.getPrevPollID(numTokens);
-
-  return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
 }
 
 export async function revealVote(
