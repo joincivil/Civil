@@ -18,7 +18,7 @@ contract Newsroom is ACL {
 
   string public name;
 
-  constructor(string newsroomName) ACL() public {
+  function Newsroom(string newsroomName) ACL() public {
     setName(newsroomName);
   }
 

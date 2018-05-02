@@ -4,14 +4,13 @@ import "./RestrictedAddressRegistry.sol";
 import "../interfaces/IGovernment.sol";
 
 /**
-@title TCR with appeallate functionality and restrictions on application 
-@author Nick Reynolds - nick@joincivil.com
-@notice The CivilTCR is a TCR with restrictions (contracts must have IACL
-implementation, and only the ACL superuser of a contract can apply on behalf of that contract)
-and an appeallate entity that can overturn challenges if someone requests an appeal, and a process
-by which granted appeals can be vetoed by a supermajority vote
-"Listing" refers to the data associated with an address at any stage of the lifecycle (e.g.
-"Listing in Application", "Listing in Challenge", "Listing on Whitelist", "Denied Listing", etc).
+@title CivilTCR - Token Curated Registry with Appeallate Functionality and Restrictions on Application 
+@author Nick Reynolds - nick@civil.co / engineering@civil.co
+@notice The CivilTCR is a TCR with restrictions (address applied for must be a contract with Owned
+implementated, and only the owner of a contract can apply on behalf of that contract), an appeallate entity that can 
+overturn challenges if someone requests an appeal, and a process by which granted appeals can be vetoed by a supermajority vote.
+A Granted Appeal reverses the result of the challenge vote (including which parties are considered the winners & receive rewards).
+A successful Appeal Challenge reverses the result of the Granted Appeal (again, including the winners).
 */
 contract CivilTCR is RestrictedAddressRegistry {
 
@@ -29,6 +28,9 @@ contract CivilTCR is RestrictedAddressRegistry {
     _;
   }
 
+  /**
+  @notice modifier that checks that the sender of a message is the Appellate entity set by the Government
+  */
   modifier onlyAppellate {
     require(msg.sender == government.getAppellate());
     _;
@@ -38,7 +40,7 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   /*
   @notice this struct handles the state of an appeal. It is first initialized 
-  when updateStatus is called after a successful challenge.
+  when an appeal is requested
   */
   struct Appeal {
     address requester;
@@ -55,8 +57,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   mapping(uint => Challenge) public appealChallenges; // map challengeID to Challenges of the original Challenge's Appeal
 
   /**
-  @notice Contructor. Sets the addresses for token, voting, parameterizer, and government.
-  @param tokenAddr Address of the TCR's ERC20 token
+  @notice Contructor Sets the addresses for token, voting, parameterizer, appellate, and fee recipient
+  @dev passes tokenAddr, plcrAddr, paramsAddr up to RestrictedAddressRegistry constructor
+  @param tokenAddr Address of the TCR's intrinsic ERC20 token
   @param plcrAddr Address of a PLCR voting contract for the provided token
   @param paramsAddr Address of a Parameterizer contract 
   @param govtAddr Address of a IGovernment contract
@@ -76,12 +79,16 @@ contract CivilTCR is RestrictedAddressRegistry {
   // --------------------
 
   /**
-  @notice Requests an appeal for a listing that has been successfully challenged (and had state updated)
+  @notice Requests an appeal for a listing that has been challenged and completed its voting
+  phase, but has not passed its challengeRequestAppealExpiries time.
   In order to request appeal, the following conditions must be met:
-  - voting for challenge has ended
-  - (now < request appeal expiry) 
-  - appeal not already requested
-  - appeal requester transfers appealFee to TCR
+  * voting for challenge has ended
+  * request appeal expiry has not passed
+  * appeal not already requested
+  * appeal requester transfers appealFee to TCR
+  Initializes `Appeal` struct in `appeals` mapping for active challenge on listing at given address.
+  Sets value in `appealRequested` mapping for challenge to true.
+  Emits `AppealRequested` if successful
   @param listingAddress address of listing that has challenged result that the user wants to appeal
   */
   function requestAppeal(address listingAddress) external {
@@ -104,8 +111,15 @@ contract CivilTCR is RestrictedAddressRegistry {
   // --------
 
   /**
-  @notice Grants a requested appeal, if the appeal has not expired (or already been granted)
-  Can only be called by appellate (JEC)
+  @notice Grants a requested appeal. 
+  In order to grant an appeal:
+  * Message sender must be appellate entity as set by IGovernment contract
+  * An appeal has been requested
+  * The appeal phase expiry has not passed
+  * An appeal has not yet been granted
+  Updates `Appeal` struct for appeal of active challenge for listing at given address by setting `appealGranted` to true and
+  setting the `appealOpenToChallengeExpiry` value to a future time based on current value of `challengeAppealLen` in the Parameterizer.
+  Emits `AppealGranted` if successful
   @param listingAddress The address of the listing associated with the appeal
   */
   function grantAppeal(address listingAddress) external onlyAppellate {
@@ -129,9 +143,10 @@ contract CivilTCR is RestrictedAddressRegistry {
   // ANYONE CAN CALL THESE FUNCTIONS FOR A LISTING
   // --------
 
-/**
-  @notice Updates a listing's status from 'application' to 'listing' or resolves a challenge or appeal 
-  or appeal challenge if one exists.
+  /**
+  @notice Updates a listing's status from 'application' to 'listing', or resolves a challenge or appeal 
+  or appeal challenge if one exists. Reverts if none of `canBeWhitelisted`, `challengeCanBeResolved`, or
+  `appealCanBeResolved` is true for given `listingAddress`.
   @param listingAddress Address of the listing of which the status is being updated
   */
   function updateStatus(address listingAddress) public {
@@ -195,14 +210,16 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @notice Starts a poll for a listingAddress which has recently been granted a challenge. If
+  @notice Starts a poll for a listingAddress which has recently been granted an appeal. If
   the poll passes, the granted appeal will be overturned. In order to start a challenge,
   the following conditions must be met:
-  - There is an active appeal on the listing
-  - This appeal was granted
-  - This appeal has not yet been challenged
-  - The expiry time of the appeal challenge is greater than the current time
-  - The challenger transfers tokens to the TCR equal to appeal fee paid by appeal requester
+  * There is an active appeal on the listing
+  * This appeal was granted
+  * This appeal has not yet been challenged
+  * The expiry time of the appeal challenge is greater than the current time
+  * The challenger transfers tokens to the TCR equal to appeal fee paid by appeal requester
+  Initializes `Challenge` struct in `appealChallenges` mapping
+  Emits `GrantedAppealChallenged` if successful, and sets value of `appealChallengeID` on appeal being challenged.
   @return challengeID associated with the appeal challenge
   @dev challengeID is a nonce created by the PLCRVoting contract, regular challenges and appeal challenges share the same nonce variable
   @param listingAddress The listingAddress associated with the appeal
@@ -238,17 +255,19 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @notice Determines the number of tokens awarded to the winning party in a challenge.
+  @notice Determines the number of tokens awarded to the winning party in an appeal challenge.
   @param challengeID The ID of an appeal challenge to determine a reward for
+  @return Number of tokens to be awarded to winning party in appeal challenge.
   */
   function determineAppealChallengeReward(uint challengeID) public view returns (uint) {
     determineChallengeReward(appealChallenges[challengeID], challengeID);
   }
 
   /**
-  @notice Getter for Challenge hasClaimedTokens mappings inside an appeal challenge
+  @notice Getter for hasClaimedTokens mappings inside an appeal challenge
   @param challengeID The ID of the appeal challenge to query
   @param voter The voter whose claim status to query for the provided challengeID
+  @return True is voter has claimed tokens for specified appeal challenge. False otherwise.
   */
   function hasClaimedChallengeAppealTokens(uint challengeID, address voter) public view returns (bool) {
     return appealChallenges[challengeID].hasClaimedTokens[voter];
@@ -256,9 +275,11 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   /**
   @notice Determines the winner in an appeal challenge. Rewards the winner tokens and
-  either whitelists or de-whitelists the listingAddress. Also resolves the underlying
+  either whitelists or delists the listing at the given address. Also resolves the underlying
   challenge that was originally appealed.
-  @param listingAddress A listingAddress with a challenge that is to be resolved
+  Emits `GrantedAppealConfirmed` if appeal challenge unsuccessful.
+  Emits `GrantedAppealOverturned` if appeal challenge successful.
+  @param listingAddress The address of a listing with an appeal challenge that is to be resolved
   */
   function resolveAppealChallenge(address listingAddress) internal {
     Listing storage listing = listings[listingAddress];
@@ -290,10 +311,13 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote. Someone
-          must call updateStatus() before this can be called.
+  @notice Called by a voter to claim their reward for a vote on a completed appeal challenge
+  In order to claim tokens:
+  * Appeal Challenge must be resolved
+  * Message sender must not have already claimed tokens to this appeal challenge
+  Emits `RewardClaimed` if successful
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
-  @param salt        The salt of a voter's commit hash in the given poll
+  @param salt The salt of a voter's commit hash in the given poll
   */
   function claimAppealChallengeReward(uint challengeID, uint salt) public {
     Challenge storage challenge = appealChallenges[challengeID];
@@ -301,8 +325,11 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote. Someone
-          must call updateStatus() before this can be called.
+  @notice Called by a voter to claim their reward for each completed vote. 
+  In order to claim reward for a challenge:
+  * Challenge must be resolved
+  * Message sender must not have already claimed tokens for this challenge
+  Emits `RewardClaimed` if successful
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt        The salt of a voter's commit hash in the given poll
   */
@@ -312,11 +339,13 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @dev                Calculates the provided voter's token reward for the given poll.
-  @param voter       The address of the voter whose reward balance is to be returned
+  @notice Calculates the provided voter's token reward for the given poll.
+  @dev differs from implementation in `AddressRegistry` in that it takes into consideration whether an
+  appeal was granted and possible overturned via appeal challenge.
+  @param voter The address of the voter whose reward balance is to be returned
   @param challengeID The pollID of the challenge a reward balance is being queried for
-  @param salt        The salt of the voter's commit hash in the given poll
-  @return             The uint indicating the voter's reward
+  @param salt The salt of the voter's commit hash in the given poll
+  @return The uint indicating the voter's reward
   */
   function voterReward(
     address voter,
@@ -334,8 +363,15 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @notice Updates the state of a listing to "whitelisted", and pay out 
-          reward (including appeal fee) to applicant
+  @notice Updates the state of a listing after a challenge was overtuned via appeal (and no appeal
+  challenge was initiated). 
+  If challenge previously failed, transfer reward to original challenger. Otherwise, add reward 
+  to listing's unstaked deposit
+  Emits `FailedChallengeOverturned` if original challenge failed
+  Emits `SuccessfulChallengeOverturned` if original challenge succeeded
+  Emits `ListingRemoved` if original challenge failed and listing was previous whitelisted
+  Emits `ApplicationRemoved` if original challenge failed and listing was not previously whitelisted
+  Emits `NewListingWhitelisted` if original challenge succeeded and listing was not previously whitelisted
   @param listingAddress Address of listing with a challenge that is to be resolved
   */
   function resolveOverturnedChallenge(address listingAddress) private {
@@ -366,9 +402,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @dev                Determines whether voting has concluded in a challenge for a given
-                      listingAddress. Throws if no challenge exists.
-  @param listingAddress A listingAddress with an unresolved challenge
+  @notice Determines whether a challenge can be resolved for a listing at given address. Throws if no challenge exists.
+  @param listingAddress An address for a listing to check
+  @return True if challenge exists, has not already been resolved, has not had appeal requested, and has passed the request appeal expiry time. False otherwise.
   */
   function challengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
@@ -379,6 +415,13 @@ contract CivilTCR is RestrictedAddressRegistry {
     return (appeals[challengeID].appealPhaseExpiry == 0);
   }
 
+  /**
+  @notice Determines whether an appeal can be resolved for a listing at given address. Throws if no challenge exists.
+  @param listingAddress An address for a listing to check
+  @return True if challenge exists, has not already been resolved, has had appeal requested, and has either 
+  (1) had an appeal granted and passed the appeal opten to challenge expiry OR (2) has not had an appeal granted and
+  has passed the appeal phase expiry. False otherwise.
+  */
   function appealCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
     Appeal appeal = appeals[challengeID];
@@ -393,6 +436,11 @@ contract CivilTCR is RestrictedAddressRegistry {
     }
   }
 
+  /**
+  @notice Determines whether an appeal challenge can be resolved for a listing at given address. Throws if no challenge exists.
+  @param listingAddress An address for a listing to check
+  @return True if appeal challenge exists, has not already been resolved, and the voting phase for the appeal challenge is ended. False otherwise.
+  */
   function appealChallengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
     Appeal appeal = appeals[challengeID];
