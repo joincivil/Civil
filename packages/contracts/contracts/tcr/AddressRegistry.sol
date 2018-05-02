@@ -244,7 +244,7 @@ contract AddressRegistry {
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt        The salt of a voter's commit hash in the given poll
   */
-  function claimReward(uint challengeID, uint salt) public {
+  function claimReward(uint challengeID, uint salt) external {
     Challenge storage challenge = challenges[challengeID];
     claimChallengeReward(challengeID, salt, challenge, false);
   }

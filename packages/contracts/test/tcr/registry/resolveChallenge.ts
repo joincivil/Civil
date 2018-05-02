@@ -8,7 +8,7 @@ configureChai(chai);
 const expect = chai.expect;
 
 contract("Registry", accounts => {
-  describe("Function: updateStatus", () => {
+  describe("Function: resolveChallenge", () => {
     const [applicant, challenger] = accounts;
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
     const listing21 = "0x0000000000000000000000000000000000000021";
