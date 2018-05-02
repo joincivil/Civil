@@ -77,12 +77,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return appealChallenge(this.props.listingAddress);
   };
-  private renderCanResolve(): JSX.Element {
-    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
-  }
-  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateListing(this.props.listingAddress);
-  };
 }
 
 export default ChallengeDetail;
