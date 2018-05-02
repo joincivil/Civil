@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
-import { isInApplicationPhase, ListingWrapper } from "@joincivil/core";
-import { getTCR } from "../../helpers/civilInstance";
+import { EthAddress, isInApplicationPhase, ListingWrapper } from "@joincivil/core";
+import { getCivil, getTCR } from "../../helpers/civilInstance";
 import CountdownTimer from "../utility/CountdownTimer";
 
 const StyledDiv = styled.div`
@@ -19,6 +19,7 @@ export interface ListingPageProps {
 }
 
 export interface ListingPageState {
+  userAccount?: EthAddress,
   listing: ListingWrapper | undefined;
   secondsRemaining: number;
 }
@@ -47,7 +48,7 @@ class ListingPage extends React.Component<ListingPageProps, ListingPageState> {
     return (
       <StyledDiv>
         {isInApplication && this.renderApplicationPhase()}
-        {appExists && <ListingDetail listing={this.state.listing!} />}
+        {appExists && <ListingDetail userAccount={this.state.userAccount} listing={this.state.listing!} />}
         {!appExists && this.renderListingNotFound()}
         <ListingHistory match={this.props.match} />
       </StyledDiv>
@@ -68,12 +69,19 @@ class ListingPage extends React.Component<ListingPageProps, ListingPageState> {
 
   // TODO(nickreynolds): move this all into redux
   private initListing = async () => {
+    const civil = getCivil();
     const tcr = getTCR();
 
     if (tcr) {
       const listingHelper = tcr.getListing(this.props.match.params.listing);
       const listing = await listingHelper.getListingWrapper();
+      console.log(listing);
       this.setState({ listing });
+    }
+
+    if (civil) {
+      const userAccount = civil.userAccount;
+      this.setState({ userAccount });
     }
   };
 }
