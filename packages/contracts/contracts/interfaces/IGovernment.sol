@@ -8,5 +8,6 @@ The functions herein are accessed by the CivilTCR contract as part of the appeal
 */
 interface IGovernment {
   function getAppellate() public view returns (address);
+  function getGovernmentController() public view returns (address);
   function get(string name) public view returns (uint);
 }

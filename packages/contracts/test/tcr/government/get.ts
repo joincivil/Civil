@@ -17,20 +17,20 @@ contract("Government", accounts => {
       government = await Government.at(await registry.government());
     });
 
-    it("judgeAppealPhaseLength value should be same as in config after deployment", async () => {
-      const judgeAppealLength = await government.get("judgeAppealPhaseLength");
+    it("judgeAppealLen value should be same as in config after deployment", async () => {
+      const judgeAppealLength = await government.get("judgeAppealLen");
       expect(judgeAppealLength).to.be.bignumber.equal(
         new BigNumber(utils.paramConfig.judgeAppealPhaseLength),
-        "judgeAppealPhaseLength was not equal to value in config immediately after deployment",
+        "judgeAppealLen was not equal to value in config immediately after deployment",
       );
     });
 
-    it("should not be possible for troll to set judgeAppealPhaseLength value", async () => {
-      await government.set("judgeAppealPhaseLength", 100, { from: JAB });
-      const judgeAppealLength = await government.get("judgeAppealPhaseLength");
+    it("should not be possible for troll to set judgeAppealLen value", async () => {
+      await government.set("judgeAppealLen", 100, { from: JAB });
+      const judgeAppealLength = await government.get("judgeAppealLen");
       expect(judgeAppealLength).to.be.bignumber.equal(
         new BigNumber(100),
-        "judgeAppealPhaseLength was not equal to value it was set to",
+        "judgeAppealLen was not equal to value it was set to",
       );
     });
   });

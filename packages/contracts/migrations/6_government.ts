@@ -27,6 +27,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.appealFeeAmount,
       parameterizerConfig.requestAppealPhaseLength,
       parameterizerConfig.judgeAppealPhaseLength,
+      parameterizerConfig.appealSupermajorityPercentage,
     );
   });
 };
