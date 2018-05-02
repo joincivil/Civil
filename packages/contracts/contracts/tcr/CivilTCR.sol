@@ -22,9 +22,10 @@ contract CivilTCR is RestrictedAddressRegistry {
   event GrantedAppealChallenged(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID, string data);
   event GrantedAppealOverturned(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID);
   event GrantedAppealConfirmed(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID);
+  event GovernmentTransfered(address newGovernment);
 
   modifier onlyGovernmentController {
-    require(msg.sender == government.getAppellate());
+    require(msg.sender == government.getGovernmentController());
     _;
   }
 
@@ -34,8 +35,6 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   IGovernment public government;
-
-  uint public appealSupermajorityPercentage = 66;
 
   /*
   @notice this struct handles the state of an appeal. It is first initialized 
@@ -96,7 +95,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     Appeal storage appeal = appeals[listing.challengeID];
     appeal.requester = msg.sender;
     appeal.appealFeePaid = appealFee;
-    appeal.appealPhaseExpiry = now + government.get("judgeAppealPhaseLength");
+    appeal.appealPhaseExpiry = now + government.get("judgeAppealLen");
     AppealRequested(msg.sender, listingAddress, listing.challengeID);
   }
 
@@ -118,6 +117,11 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealGranted = true;    
     appeal.appealOpenToChallengeExpiry = now + parameterizer.get("challengeAppealLen");
     AppealGranted(listingAddress);
+  }
+
+  function transferGovernment(address newAddress) external onlyGovernmentController {
+    government = IGovernment(newAddress);
+    GovernmentTransfered(newAddress);
   }
 
   // --------
@@ -183,8 +187,10 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function challenge(address listingAddress, string data) public returns (uint challengeID) {
     uint id = super.challenge(listingAddress, data);
-    uint challengeLength = parameterizer.get("commitStageLen") + parameterizer.get("revealStageLen") + government.get("requestAppealPhaseLength");
-    challengeRequestAppealExpiries[id] = now + challengeLength;
+    if (id > 0) {
+      uint challengeLength = parameterizer.get("commitStageLen") + parameterizer.get("revealStageLen") + government.get("requestAppealLen");
+      challengeRequestAppealExpiries[id] = now + challengeLength;
+    }
     return id;
   }
 
@@ -205,21 +211,21 @@ contract CivilTCR is RestrictedAddressRegistry {
   function challengeGrantedAppeal(address listingAddress, string data) public returns (uint challengeID) {
     Listing storage listing = listings[listingAddress];
     Appeal storage appeal = appeals[listing.challengeID];
-
+    uint pct = government.get("appealVotePercentage");
     require(appeal.appealGranted);
     require(appeal.appealChallengeID == 0);
     require(appeal.appealOpenToChallengeExpiry > now);
     require(token.transferFrom(msg.sender, this, appeal.appealFeePaid));
 
     uint pollID = voting.startPoll(
-      appealSupermajorityPercentage,
+      pct,
       parameterizer.get("challengeAppealCommitLen"),
       parameterizer.get("challengeAppealRevealLen")
     );
 
     appealChallenges[pollID] = Challenge({
       challenger: msg.sender,
-      rewardPool: ((100 - appealSupermajorityPercentage) * appeal.appealFeePaid) / 100,
+      rewardPool: ((100 - pct) * appeal.appealFeePaid) / 100,
       stake: appeal.appealFeePaid,
       resolved: false,
       totalTokens: 0
@@ -272,7 +278,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     } else { // Case: appeal challenge succeeded, overturn appeal
       require(token.transfer(appealChallenge.challenger, reward));
       super.resolveChallenge(listingAddress);
-      appeals[challengeID].overturned = true;
+      appeal.overturned = true;
       GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID);
     }
 
@@ -318,9 +324,11 @@ contract CivilTCR is RestrictedAddressRegistry {
     uint salt
   ) public view returns (uint)
   {
-    uint totalTokens = challenges[challengeID].totalTokens;
-    uint rewardPool = challenges[challengeID].rewardPool;
-    bool overturnOriginalResult = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
+    Challenge challenge = challenges[challengeID];
+    Appeal appeal = appeals[challengeID];
+    uint totalTokens = challenge.totalTokens;
+    uint rewardPool = challenge.rewardPool;
+    bool overturnOriginalResult = appeal.appealGranted && !appeal.overturned;
     uint voterTokens = voting.getNumPassingTokens(voter, challengeID, salt, overturnOriginalResult);
     return (voterTokens * rewardPool) / totalTokens;
   }
@@ -331,7 +339,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param listingAddress Address of listing with a challenge that is to be resolved
   */
   function resolveOverturnedChallenge(address listingAddress) private {
-    uint challengeID = listings[listingAddress].challengeID;
+    Listing storage listing = listings[listingAddress];
+    uint challengeID = listing.challengeID;
+    Challenge storage challenge = challenges[challengeID];
     // Calculates the winner's reward,
     uint reward = determineReward(challengeID);
 
@@ -339,20 +349,20 @@ contract CivilTCR is RestrictedAddressRegistry {
     if (voting.isPassed(challengeID)) {
       resetListing(listingAddress);
       // Transfer the reward to the challenger
-      require(token.transfer(challenges[challengeID].challenger, reward));
+      require(token.transfer(challenge.challenger, reward));
 
       FailedChallengeOverturned(listingAddress, challengeID);
     } else {
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
-      listings[listingAddress].unstakedDeposit += reward;
+      listing.unstakedDeposit += reward;
 
       SuccessfulChallengeOverturned(listingAddress, challengeID);
     }
 
-    challenges[challengeID].resolved = true;
+    challenge.resolved = true;
     // Stores the total tokens used for voting by the losing side for reward purposes
-    challenges[challengeID].totalTokens = voting.getTotalNumberOfTokensForLosingOption(challengeID);
+    challenge.totalTokens = voting.getTotalNumberOfTokensForLosingOption(challengeID);
   }
 
   /**
@@ -371,26 +381,27 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   function appealCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
+    Appeal appeal = appeals[challengeID];
     require(challengeExists(listingAddress));
-    if (appeals[challengeID].appealPhaseExpiry == 0) {
+    if (appeal.appealPhaseExpiry == 0) {
       return false;
     }
-    if (!appeals[challengeID].appealGranted) {
-      return appeals[challengeID].appealPhaseExpiry < now;
+    if (!appeal.appealGranted) {
+      return appeal.appealPhaseExpiry < now;
     } else {
-      return appeals[challengeID].appealOpenToChallengeExpiry < now && appeals[challengeID].appealChallengeID == 0;
+      return appeal.appealOpenToChallengeExpiry < now && appeal.appealChallengeID == 0;
     }
   }
 
   function appealChallengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
-
-    if (appeals[challengeID].appealChallengeID == 0) {
+    Appeal appeal = appeals[challengeID];
+    if (appeal.appealChallengeID == 0) {
       return false;
     }
-    if (appealChallenges[appeals[challengeID].appealChallengeID].resolved) {
+    if (appealChallenges[appeal.appealChallengeID].resolved) {
       return false;
     }
-    return voting.pollEnded(appeals[challengeID].appealChallengeID);
+    return voting.pollEnded(appeal.appealChallengeID);
   }
 }
