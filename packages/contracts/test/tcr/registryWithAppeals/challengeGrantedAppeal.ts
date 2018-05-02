@@ -15,6 +15,7 @@ const NEWSROOM_NAME = "unused newsroom name";
 contract("Registry With Appeals", accounts => {
   describe("Function: challengeGrantedAppeal", () => {
     const [JAB, applicant, challenger, voter, challenger2] = accounts;
+    const unapproved = accounts[9];
 
     let registry: any;
     let voting: any;
@@ -141,6 +142,39 @@ contract("Registry With Appeals", accounts => {
           registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
         ).to.eventually.be.fulfilled(
           "Should have allowed appeal on application with challenge that has been appeal and had that appeal granted",
+        );
+      });
+
+      it("should fail if try to challenge granted appeal while one already active", async () => {
+        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+        await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+        await registry.requestAppeal(newsroomAddress, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, { from: JAB });
+
+        await expect(
+          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+        ).to.eventually.be.fulfilled("Should have allowed 1st challenge on granted appeal");
+
+        await expect(
+          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+        ).to.eventually.be.rejectedWith(REVERTED, "Should have rejected 2nd challenge on granted appeal");
+      });
+
+      it("should fail if challenge is lost, appeal requested, and granted, but challenger has not approved registry as token spender", async () => {
+        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+        await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+        await registry.requestAppeal(newsroomAddress, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, { from: JAB });
+
+        await expect(
+          registry.challengeGrantedAppeal(newsroomAddress, "", { from: unapproved }),
+        ).to.eventually.be.rejectedWith(
+          REVERTED,
+          "Should not have allowed appeal on application with challenge that has been appeal and had that appeal granted if challenger has not approved registry as token spender",
         );
       });
 

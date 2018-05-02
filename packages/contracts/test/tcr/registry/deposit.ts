@@ -7,20 +7,27 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
+const Token = artifacts.require("EIP20");
+
 contract("Registry", accounts => {
   describe("Function: deposit", () => {
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
     const incAmount = minDeposit.div(utils.toBaseTenBigNumber(2));
     const [applicant, challenger] = accounts;
+    const unapproved = accounts[9];
 
     const listing13 = "0x0000000000000000000000000000000000000013";
     const listing14 = "0x0000000000000000000000000000000000000014";
     const listing15 = "0x0000000000000000000000000000000000000015";
     const listing16 = "0x0000000000000000000000000000000000000016";
+    const listing17 = "0x0000000000000000000000000000000000000017";
     let registry: any;
+    let token: any;
 
     beforeEach(async () => {
       registry = await utils.createAllTestAddressRegistryInstance(accounts);
+      const tokenAddress = await registry.token();
+      token = await Token.at(tokenAddress);
     });
 
     it("should increase the deposit for a specific listing in the listing", async () => {
@@ -32,6 +39,15 @@ contract("Registry", accounts => {
       expect(unstakedDeposit).to.be.bignumber.equal(
         expectedAmount,
         "Unstaked deposit should be equal to the sum of the original + increase amount",
+      );
+    });
+
+    it("should fail for depositer that has not approved registry as spender of additiona tokens after application", async () => {
+      await token.approve(registry.address, minDeposit, { from: unapproved });
+      await utils.addToWhitelist(listing17, minDeposit, unapproved, registry);
+      await expect(registry.deposit(listing17, incAmount, { from: unapproved })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "Should not have allowed listing owner to deposit tokens if they have not approved registry as spender for more than original deposit amount",
       );
     });
 
