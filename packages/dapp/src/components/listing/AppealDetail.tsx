@@ -43,7 +43,12 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         Appeal Granted: {appeal.appealPhaseExpiry.toString()}
         <br />
         {canBeChallenged && this.renderChallengeAppealStage()}
-        {appeal.appealChallenge && <AppealChallengeDetail appealChallenge={appeal.appealChallenge} />}
+        {appeal.appealChallenge && (
+          <AppealChallengeDetail
+            appealChallengeID={appeal.appealChallengeID}
+            appealChallenge={appeal.appealChallenge}
+          />
+        )}
         {canResolve && this.renderCanResolve()}
       </StyledDiv>
     );
