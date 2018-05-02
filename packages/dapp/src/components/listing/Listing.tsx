@@ -19,7 +19,7 @@ export interface ListingPageProps {
 }
 
 export interface ListingPageState {
-  userAccount?: EthAddress,
+  userAccount?: EthAddress;
   listing: ListingWrapper | undefined;
   secondsRemaining: number;
 }

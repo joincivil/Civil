@@ -35,9 +35,7 @@ export class DepositTokens extends React.Component<OwnerListingViewProps, Deposi
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton
-            transactions={[{ transaction: this.approveDeposit }, { transaction: this.deposit }]}
-          >
+          <TransactionButton transactions={[{ transaction: this.approveDeposit }, { transaction: this.deposit }]}>
             Deposit
           </TransactionButton>
         </FormGroup>

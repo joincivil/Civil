@@ -83,9 +83,11 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   };
 
   private renderOwnerListingActionsView = (): JSX.Element => {
-    return <>
-      <DepositTokens listingAddress={this.props.listing.address} />
-    </>;
+    return (
+      <>
+        <DepositTokens listingAddress={this.props.listing.address} />
+      </>
+    );
   };
 
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
