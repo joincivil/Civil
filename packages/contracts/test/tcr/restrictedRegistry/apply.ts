@@ -55,7 +55,7 @@ contract("RestrictedAddressRegistry", accounts => {
       it("should add a listing to the whitelist which went unchallenged in its application period", async () => {
         await registry.apply(address, utils.paramConfig.minDeposit, "", { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
-        await registry.updateStatus(address);
+        await registry.whitelistApplication(address);
         const [, isWhitelisted] = await registry.listings(address);
         expect(isWhitelisted).to.be.true("listing didn't get whitelisted");
       });

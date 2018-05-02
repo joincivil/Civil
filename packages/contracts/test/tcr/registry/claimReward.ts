@@ -48,7 +48,7 @@ contract("Registry", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
       // Update status
-      await registry.updateStatus(listing8, { from: applicant });
+      await registry.resolveChallenge(listing8, { from: applicant });
 
       // Alice claims reward
       const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
@@ -104,7 +104,7 @@ contract("Registry", accounts => {
       );
 
       // Update status
-      await registry.updateStatus(listing10, { from: applicant });
+      await registry.resolveChallenge(listing10, { from: applicant });
 
       await expect(registry.claimReward(pollID, "421", { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
     });
@@ -127,7 +127,7 @@ contract("Registry", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
       // Update status
-      await registry.updateStatus(listing11, { from: applicant });
+      await registry.resolveChallenge(listing11, { from: applicant });
 
       // Claim reward
       await registry.claimReward(pollID, "420", { from: voterAlice });

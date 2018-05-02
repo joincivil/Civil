@@ -47,7 +47,7 @@ contract("Registry", accounts => {
       const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
       await utils.advanceEvmTime(waitTime);
 
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveAppeal(newsroomAddress);
 
       await expect(registry.voterReward(voterAlice, pollID, "42")).to.be.rejectedWith(
         REVERTED,
@@ -77,7 +77,7 @@ contract("Registry", accounts => {
         const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
         await utils.advanceEvmTime(waitTime);
 
-        await registry.updateStatus(newsroomAddress);
+        await registry.resolveAppeal(newsroomAddress);
 
         // Claim reward
         const bobReward = await registry.voterReward(voterBob, pollID, "32");
@@ -107,7 +107,7 @@ contract("Registry", accounts => {
       const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
       await utils.advanceEvmTime(waitTime);
 
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveAppeal(newsroomAddress);
 
       // Claim reward
       await expect(registry.voterReward(voterBob, pollID, "32")).to.eventually.be.rejectedWith(

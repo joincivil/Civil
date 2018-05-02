@@ -53,7 +53,7 @@ contract("Registry", accounts => {
       // Pass Request Appeal Phase without requesting
       const waitTime = utils.paramConfig.requestAppealPhaseLength + 1;
       await utils.advanceEvmTime(waitTime);
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveChallenge(newsroomAddress);
 
       // Alice claims reward
       const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
@@ -110,7 +110,7 @@ contract("Registry", accounts => {
 
       await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1);
       // Update status
-      await registry.updateStatus(newsroomAddress, { from: applicant });
+      await registry.resolveChallenge(newsroomAddress, { from: applicant });
 
       await expect(registry.claimReward(pollID, "421", { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
     });
@@ -134,7 +134,7 @@ contract("Registry", accounts => {
 
       const waitTime = utils.paramConfig.requestAppealPhaseLength + 1;
       await utils.advanceEvmTime(waitTime);
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveChallenge(newsroomAddress);
 
       // Claim reward
       await registry.claimReward(pollID, "420", { from: voterAlice });
@@ -205,7 +205,7 @@ contract("Registry", accounts => {
       const waitTime = utils.paramConfig.challengeAppealLength + 1;
       await utils.advanceEvmTime(waitTime);
 
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveAppeal(newsroomAddress);
 
       // Claim reward
       await expect(registry.claimReward(pollID, "42", { from: voterAlice })).to.be.rejectedWith(
@@ -239,7 +239,7 @@ contract("Registry", accounts => {
       const waitTime = utils.paramConfig.challengeAppealLength;
       await utils.advanceEvmTime(waitTime + 1);
 
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveAppeal(newsroomAddress);
 
       // Claim reward
       await expect(registry.claimReward(pollID, "32", { from: voterBob })).to.be.fulfilled(

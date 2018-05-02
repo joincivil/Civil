@@ -59,7 +59,7 @@ contract("Registry", accounts => {
       await voting.revealVote(appealChallengePollID, "0", "1337", { from: voterBob });
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
 
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveAppealChallenge(newsroomAddress);
       // Alice claims reward
       const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
       await registry.claimReward(pollID, "420", { from: voterAlice });

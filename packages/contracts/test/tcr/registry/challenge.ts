@@ -39,7 +39,9 @@ contract("Registry", accounts => {
       await registry.apply(listing3, utils.paramConfig.minDeposit, "", { from: applicant });
       await utils.challengeAndGetPollID(listing3, challenger, registry);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
-      await registry.updateStatus(listing3);
+      const canResolveChallenge = await registry.challengeCanBeResolved(listing3);
+      console.log("canResolveChallenge: " + canResolveChallenge);
+      await registry.resolveChallenge(listing3);
 
       const [, isWhitelisted] = await registry.listings(listing3);
       expect(isWhitelisted).to.be.false("An application which should have failed succeeded");
@@ -62,7 +64,7 @@ contract("Registry", accounts => {
 
       await utils.challengeAndGetPollID(listing4, challenger, registry);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
-      await registry.updateStatus(listing4);
+      await registry.resolveChallenge(listing4);
 
       const [, isWhitelisted] = await registry.listings(listing4);
       expect(isWhitelisted).to.be.false("An application which should have failed succeeded");
@@ -87,7 +89,7 @@ contract("Registry", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
       await voting.revealVote(pollID, 1, 420, { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.updateStatus(listing5);
+      await registry.resolveChallenge(listing5);
 
       const [, isWhitelisted, , unstakedDeposit] = await registry.listings(listing5);
       expect(isWhitelisted).to.be.true("An application which should have succeeded failed");
@@ -110,7 +112,7 @@ contract("Registry", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
       await voting.revealVote(pollID, 1, 420, { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.updateStatus(listing6);
+      await registry.resolveChallenge(listing6);
 
       const [, isWhitelisted, , unstakedDeposit] = await registry.listings(listing6);
       expect(isWhitelisted).to.be.true("An application which should have succeeded failed");

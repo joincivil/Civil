@@ -119,7 +119,7 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveAppeal(newsroomAddress);
 
       // 2nd time around
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
@@ -138,7 +138,7 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1); // hack. should be getting value from registry contract
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveChallenge(newsroomAddress);
 
       // 2nd time around
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
@@ -166,7 +166,7 @@ contract("Registry With Appeals", accounts => {
       );
     });
 
-    it("should fail if challenge is in after request appeal phase and updateStatus was called", async () => {
+    it("should fail if challenge is in after request appeal phase and resolveChallenge was called", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await registry.challenge(newsroomAddress, "", { from: challenger });
 
@@ -176,7 +176,7 @@ contract("Registry With Appeals", accounts => {
           utils.paramConfig.revealStageLength +
           1,
       );
-      await registry.updateStatus(newsroomAddress);
+      await registry.resolveChallenge(newsroomAddress);
       await expect(registry.requestAppeal(newsroomAddress, { from: applicant })).to.eventually.be.rejectedWith(
         REVERTED,
         "Should have allowed appeal on application with challenge immediately post reveal phase",

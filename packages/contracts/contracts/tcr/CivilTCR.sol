@@ -134,31 +134,12 @@ contract CivilTCR is RestrictedAddressRegistry {
   // ANYONE CAN CALL THESE FUNCTIONS FOR A LISTING
   // --------
 
-  /**
-  @notice Updates a listing's status from 'application' to 'listing', or resolves a challenge or appeal 
-  or appeal challenge if one exists. Reverts if none of `canBeWhitelisted`, `challengeCanBeResolved`, or
-  `appealCanBeResolved` is true for given `listingAddress`.
-  @param listingAddress Address of the listing of which the status is being updated
-  */
-  function updateStatus(address listingAddress) public {
-    if (canBeWhitelisted(listingAddress)) {
-      whitelistApplication(listingAddress);
-    } else if (challengeCanBeResolved(listingAddress)) {
-      resolveChallenge(listingAddress);
-    } else if (appealCanBeResolved(listingAddress)) {
-      resolveAppeal(listingAddress);
-    } else if (appealChallengeCanBeResolved(listingAddress)) {
-      resolveAppealChallenge(listingAddress);
-    } else {
-      revert();
-    }
-  }
-
   /** 
   @notice Update state of listing after "Judge Appeal Phase" has ended. Reverts if cannot be processed yet.
   @param listingAddress Address of listing associated with appeal
   */
-  function resolveAppeal(address listingAddress) internal {
+  function resolveAppeal(address listingAddress) external {
+    require(appealCanBeResolved(listingAddress));
     Listing listing = listings[listingAddress];
     Appeal appeal = appeals[listing.challengeID];
     if (appeal.appealGranted) {
@@ -173,7 +154,7 @@ contract CivilTCR is RestrictedAddressRegistry {
       challenge.rewardPool += extraReward;
       challenge.stake += appeal.appealFeePaid - extraReward;
       // appeal not granted, confirm original decision of voters.
-      super.resolveChallenge(listingAddress);
+      internalResolveChallenge(listingAddress);
     }
   }
 
@@ -214,7 +195,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param listingAddress The listingAddress associated with the appeal
   @param data Extra data relevant to the appeal challenge. Think URLs.
   */
-  function challengeGrantedAppeal(address listingAddress, string data) public returns (uint challengeID) {
+  function challengeGrantedAppeal(address listingAddress, string data) external returns (uint challengeID) {
     Listing storage listing = listings[listingAddress];
     Appeal storage appeal = appeals[listing.challengeID];
 
@@ -270,7 +251,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   Emits `GrantedAppealOverturned` if appeal challenge successful.
   @param listingAddress The address of a listing with an appeal challenge that is to be resolved
   */
-  function resolveAppealChallenge(address listingAddress) internal {
+  function resolveAppealChallenge(address listingAddress) external {
+    require(appealChallengeCanBeResolved(listingAddress));
     Listing storage listing = listings[listingAddress];
     uint challengeID = listings[listingAddress].challengeID;
     Appeal storage appeal = appeals[listing.challengeID];
@@ -287,7 +269,7 @@ contract CivilTCR is RestrictedAddressRegistry {
       GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID);
     } else { // Case: appeal challenge succeeded, overturn appeal
       require(token.transfer(appealChallenge.challenger, reward));
-      super.resolveChallenge(listingAddress);
+      internalResolveChallenge(listingAddress);
       appeals[challengeID].overturned = true;
       GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID);
     }
@@ -308,7 +290,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt The salt of a voter's commit hash in the given poll
   */
-  function claimAppealChallengeReward(uint challengeID, uint salt) public {
+  function claimAppealChallengeReward(uint challengeID, uint salt) external {
     Challenge storage challenge = appealChallenges[challengeID];
     claimChallengeReward(challengeID, salt, challenge, false);
   }
@@ -322,7 +304,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt        The salt of a voter's commit hash in the given poll
   */
-  function claimReward(uint challengeID, uint salt) public {
+  function claimReward(uint challengeID, uint salt) external {
     Challenge storage challenge = challenges[challengeID];
     claimChallengeReward(challengeID, salt, challenge, appeals[challengeID].appealGranted && !appeals[challengeID].overturned);
   }
@@ -374,7 +356,7 @@ contract CivilTCR is RestrictedAddressRegistry {
 
       FailedChallengeOverturned(listingAddress, challengeID);
     } else {
-      whitelistApplication(listingAddress);
+      internalWhitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listings[listingAddress].unstakedDeposit += reward;
 
