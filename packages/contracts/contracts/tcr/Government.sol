@@ -2,7 +2,7 @@ pragma solidity ^0.4.19;
 import "../interfaces/IGovernment.sol";
 
 /**
-@title Governemnt
+@title Government
 @notice The Government contract keeps track of parameters related to the CivilTCR appeals process.
 @dev These parameters are kept in a mapping, similar to that of the Parameterizer, in order to save on gas
 cost of deployment (specifically to minimize the size of the IGovernment interface)
@@ -82,6 +82,8 @@ contract Government is IGovernment {
   @notice sets the param keyed by the provided name to the provided value.
   @param name the name of the param to be set
   @param value the value to set the param to be set
+  @dev this functionality is separated out from `set` so that we can bypass the `onlyAppellate`
+  modifier when setting initial values in the constructor
   */
   function internalSet(string name, uint value) internal {
     params[keccak256(name)] = value;
