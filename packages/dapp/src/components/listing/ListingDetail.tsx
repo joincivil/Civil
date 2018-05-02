@@ -45,13 +45,11 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             {canWhitelist && this.renderCanWhitelist()}
             <br />
             {this.props.listing.data.challenge && (
-              <>
-                <ChallengeDetail
-                  challengeID={this.props.listing.data.challengeID}
-                  challenge={this.props.listing.data.challenge}
-                  listingAddress={this.props.listing.address}
-                />
-              </>
+              <ChallengeDetail
+                challengeID={this.props.listing.data.challengeID}
+                challenge={this.props.listing.data.challenge}
+                listingAddress={this.props.listing.address}
+              />
             )}
           </>
         )}
