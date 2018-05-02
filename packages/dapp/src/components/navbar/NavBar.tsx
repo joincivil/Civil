@@ -60,6 +60,9 @@ class NavBar extends React.Component<{}, NavBarState> {
         <NavBarItem>
           <NavBarLink to="/editor">Editor</NavBarLink>
         </NavBarItem>
+        <NavBarItem>
+          <NavBarLink to="/parameterizer">Parameterizer</NavBarLink>
+        </NavBarItem>
         <NavBarItem right={true}>
           <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
         </NavBarItem>

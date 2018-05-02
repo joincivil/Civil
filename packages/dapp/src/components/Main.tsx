@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Switch, Route } from "react-router-dom";
 import Listings from "./Listings";
-import Parameterizer from "./Parameterizer";
 import Newsroom from "./newsroom/Newsroom";
 import Contracts from "./Contracts";
 import ContractPage from "./ContractPage";
 import Listing from "./listing/Listing";
 import Editor from "./Editor";
 import NewsroomManagement from "./newsroom/NewsroomManagement";
+import Parameterizer from "./Parameterizer";
 import CreateNewsroom from "./CreateNewsroom";
 import Article from "./Article";
 import { setCivil } from "../helpers/civilInstance";
@@ -36,7 +36,6 @@ class Main extends React.Component<{}, MainState> {
         {!this.state.civilSet && "loading..."}
         {this.state.civilSet && (
           <Switch>
-            <Route exact={true} path="/" component={Parameterizer} />
             <Route exact={true} path="/" component={Listings} />
             <Route path="/newsroom/:newsroomAddress" component={Newsroom} />
             <Route path="/contracts" component={Contracts} />
@@ -44,6 +43,7 @@ class Main extends React.Component<{}, MainState> {
             <Route path="/listing/:listing" component={Listing} />
             <Route path="/editor" component={Editor} />
             <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
+            <Route path="/parameterizer" component={Parameterizer} />
             <Route path="/createNewsroom" component={CreateNewsroom} />
             <Route path="/article/:newsroomAddress/:articleId" component={Article} />
           </Switch>
