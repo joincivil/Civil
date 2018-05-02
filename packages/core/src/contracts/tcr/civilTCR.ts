@@ -6,7 +6,7 @@ import "@joincivil/utils";
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-import { CivilTCRContract } from "../generated/civil_t_c_r";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
@@ -28,6 +28,7 @@ import {
   isInAppealChallengeRevealPhase,
   canListingAppealBeResolved,
 } from "../../utils/listingDataHelpers/listingHelper";
+import { Government } from "./government";
 
 const debug = Debug("civil:tcr");
 
@@ -79,6 +80,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async getParameterizer(): Promise<Parameterizer> {
     return Parameterizer.singleton(this.web3Wrapper);
+  }
+
+  public async getGovernment(): Promise<Government> {
+    return Government.singleton(this.web3Wrapper);
   }
 
   /**
@@ -409,10 +414,6 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async challenge(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
     const { uri } = await this.contentProvider.put(data);
     return this.challengeWithURI(listingAddress, uri);
-  }
-
-  public async getAppealFee(): Promise<BigNumber> {
-    return this.instance.appealFee.callAsync();
   }
 
   public async requestAppeal(listingAddres: EthAddress): Promise<TwoStepEthTransaction> {

@@ -10,8 +10,12 @@ import {
   TwoStepEthTransaction,
 } from "@joincivil/core";
 import AppealDetail from "./AppealDetail";
+import CommitVoteDetail from "./CommitVoteDetail";
+import CountdownTimer from "../utility/CountdownTimer";
+import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
-import { appealChallenge, approveForAppeal, resolveChallenge } from "../../apis/civilTCR";
+import { appealChallenge, approveForAppeal, updateListing } from "../../apis/civilTCR";
+import BigNumber from "bignumber.js";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -22,6 +26,7 @@ const StyledDiv = styled.div`
 
 export interface ChallengeDetailProps {
   listingAddress: EthAddress;
+  challengeID: BigNumber;
   challenge: ChallengeData;
 }
 
@@ -57,26 +62,32 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   }
 
   private renderCommitStage(): JSX.Element {
-    return <>COMMIT THINGS</>;
+    return (
+      <>
+        Commit Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.commitEndDate.toNumber()} />
+        <CommitVoteDetail challengeID={this.props.challengeID} />;
+      </>
+    );
   }
   private renderRevealStage(): JSX.Element {
-    return <>REVEAL THINGS</>;
+    return <RevealVoteDetail challengeID={this.props.challengeID} />;
   }
   private renderRequestAppealStage(): JSX.Element {
     return (
-      <TransactionButton firstTransaction={approveForAppeal} secondTransaction={this.appeal}>
+      <TransactionButton transactions={[{ transaction: approveForAppeal }, { transaction: this.appeal }]}>
         Request Appeal
       </TransactionButton>
     );
   }
+
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return appealChallenge(this.props.listingAddress);
   };
   private renderCanResolve(): JSX.Element {
-    return <TransactionButton firstTransaction={this.resolve}>Resolve Challenge</TransactionButton>;
+    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
   }
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return resolveChallenge(this.props.listingAddress);
+    return updateListing(this.props.listingAddress);
   };
 }
 

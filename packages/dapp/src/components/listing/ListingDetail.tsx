@@ -1,7 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import { approveForChallenge, challengeListing } from "../../apis/civilTCR";
-import { canListingBeChallenged, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
+import { approveForChallenge, challengeListing, grantAppeal, updateListing } from "../../apis/civilTCR";
+import {
+  canListingBeChallenged,
+  canBeWhitelisted,
+  isAwaitingAppealJudgment,
+  ListingWrapper,
+  TwoStepEthTransaction,
+} from "@joincivil/core";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -23,6 +29,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
 
   public render(): JSX.Element {
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
+    const canWhitelist = canBeWhitelisted(this.props.listing.data);
     return (
       <StyledDiv>
         {this.props.listing.data && (
@@ -34,14 +41,15 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             Unstaked Deposit: {this.props.listing.data.unstakedDeposit.toString()}
             <br />
             {canBeChallenged && this.renderCanBeChallenged()}
+            {isAwaitingAppealJudgment(this.props.listing.data) && this.renderGrantAppeal()}
+            {canWhitelist && this.renderCanWhitelist()}
             <br />
             {this.props.listing.data.challenge && (
-              <>
-                <ChallengeDetail
-                  challenge={this.props.listing.data.challenge}
-                  listingAddress={this.props.listing.address}
-                />
-              </>
+              <ChallengeDetail
+                challengeID={this.props.listing.data.challengeID}
+                challenge={this.props.listing.data.challenge}
+                listingAddress={this.props.listing.address}
+              />
             )}
           </>
         )}
@@ -49,9 +57,22 @@ class ListingDetail extends React.Component<ListingDetailProps> {
     );
   }
 
+  private renderCanWhitelist = (): JSX.Element => {
+    return <TransactionButton transactions={[{ transaction: this.update }]}>Whitelist Application</TransactionButton>;
+  };
+
+  private renderGrantAppeal = (): JSX.Element => {
+    // @TODO: Only render this JSX element if the user is in the JEC multisig
+    return <TransactionButton transactions={[{ transaction: this.grantAppeal }]}>Grant Appeal</TransactionButton>;
+  };
+
+  private update = async (): Promise<TwoStepEthTransaction<any>> => {
+    return updateListing(this.props.listing.address);
+  };
+
   private renderCanBeChallenged = (): JSX.Element => {
     return (
-      <TransactionButton firstTransaction={approveForChallenge} secondTransaction={this.challenge}>
+      <TransactionButton transactions={[{ transaction: approveForChallenge }, { transaction: this.challenge }]}>
         Challenge Application
       </TransactionButton>
     );
@@ -59,6 +80,9 @@ class ListingDetail extends React.Component<ListingDetailProps> {
 
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
     return challengeListing(this.props.listing.address);
+  };
+  private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return grantAppeal(this.props.listing.address);
   };
 }
 

@@ -1,7 +1,7 @@
 /* global artifacts */
 
 import { approveEverything, config, inTesting } from "./utils";
-import { MAIN_NETWORK } from "./utils/consts";
+import { RINKEBY } from "./utils/consts";
 
 const Token = artifacts.require("EIP20");
 const DLL = artifacts.require("DLL");
@@ -14,12 +14,12 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(DLL, PLCRVoting);
     await deployer.link(AttributeStore, PLCRVoting);
 
-    let tokenAddress = config.TokenAddress;
-
-    if (network !== MAIN_NETWORK) {
+    let tokenAddress;
+    if (network === RINKEBY) {
+      tokenAddress = config.nets[network].TokenAddress;
+    } else {
       tokenAddress = Token.address;
     }
-
     await deployer.deploy(PLCRVoting, tokenAddress);
 
     if (inTesting(network)) {

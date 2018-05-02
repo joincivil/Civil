@@ -61,18 +61,24 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
         })}
         <br />
         <input onChange={this.onEditorAddressChange} />
-        <TransactionButton firstTransaction={this.addEditor}>Add Editor</TransactionButton>
+        <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
         <br />
         <input onChange={this.onReporterAddressChange} />
-        <TransactionButton firstTransaction={this.addReporter}>Add Reporter</TransactionButton>
+        <TransactionButton transactions={[{ transaction: this.addReporter }]}>Add Reporter</TransactionButton>
         <br />
         <input onChange={this.onArticleURLChange} />
-        <TransactionButton firstTransaction={this.submitArticle}>Submit Article</TransactionButton>
+        <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
         <br />
         <TransactionButton
-          firstTransaction={this.approve}
-          secondTransaction={this.applyToTCR}
-          postSecondTransaction={this.postApply}
+          transactions={[
+            {
+              transaction: this.approve,
+            },
+            {
+              transaction: this.applyToTCR,
+              postTransaction: this.postApply,
+            },
+          ]}
         >
           Apply to TCR
         </TransactionButton>
@@ -129,7 +135,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       console.log("lets get name.");
       this.state.compositeSubscription.add(
         newsroom
-          .proposedContent()
+          .revisions()
           .subscribe((contentHeader: any) =>
             this.setState({ proposedArticleIds: this.state.proposedArticleIds.push(contentHeader.id) }),
           ),

@@ -3,7 +3,7 @@
 import BN from "bignumber.js";
 
 import { config } from "./utils";
-import { MAIN_NETWORK } from "./utils/consts";
+import { MAIN_NETWORK, RINKEBY } from "./utils/consts";
 
 const Token = artifacts.require("EIP20");
 
@@ -26,10 +26,10 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     return giveTokensTo(addresses.slice(1), originalCount);
   }
   deployer.then(async () => {
-    if (network !== MAIN_NETWORK) {
+    if (network !== MAIN_NETWORK && network !== RINKEBY) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      if (network in config.testnets) {
-        const updatedAccounts = [...accounts, ...config.testnets[network].tokenHolders];
+      if (network in config.nets) {
+        const updatedAccounts = [...accounts, ...config.nets[network].tokenHolders];
         return giveTokensTo(updatedAccounts, updatedAccounts.length);
       }
       return giveTokensTo(accounts, accounts.length);

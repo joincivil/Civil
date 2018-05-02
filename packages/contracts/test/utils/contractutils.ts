@@ -21,6 +21,7 @@ const AddressRegistry = artifacts.require("AddressRegistry");
 const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const CivilTCR = artifacts.require("CivilTCR");
+const Government = artifacts.require("Government");
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -186,20 +187,21 @@ async function createTestCivilTCRInstance(
     }
     return approveRegistryFor(addresses.slice(1));
   }
-
+  const parameterizerConfig = config.paramDefaults;
   const tokenAddress = await parameterizer.token();
   const plcrAddress = await parameterizer.voting();
   const parameterizerAddress = await parameterizer.address;
   const token = await Token.at(tokenAddress);
-  const registry = await CivilTCR.new(
-    tokenAddress,
-    plcrAddress,
-    parameterizerAddress,
+  const government = await Government.new(
     appellateEntity,
-    paramConfig.appealFeeAmount,
-    paramConfig.requestAppealPhaseLength,
-    paramConfig.judgeAppealPhaseLength,
+    appellateEntity,
+    parameterizerConfig.appealFeeAmount,
+    parameterizerConfig.requestAppealPhaseLength,
+    parameterizerConfig.judgeAppealPhaseLength,
+    parameterizerConfig.appealSupermajorityPercentage,
   );
+
+  const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);
 
   await approveRegistryFor(accounts);
   return registry;

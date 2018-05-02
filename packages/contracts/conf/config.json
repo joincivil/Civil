@@ -2,27 +2,31 @@
   "paramDefaults": {
     "minDeposit": 10,
     "pMinDeposit": 100,
-    "applyStageLength": 120,
+    "applyStageLength": 18000,
     "pApplyStageLength": 120,
-    "commitStageLength": 120,
+    "commitStageLength": 18000,
     "pCommitStageLength": 120,
-    "revealStageLength": 120,
+    "revealStageLength": 18000,
     "pRevealStageLength": 120,
     "dispensationPct": 50,
     "pDispensationPct": 50,
     "voteQuorum": 50,
     "pVoteQuorum": 50,
-    "pProcessBy": 180,
+    "pProcessBy": 18000,
     "appealFeeAmount": 1000,
-    "challengeAppealLength": 180,
-    "requestAppealPhaseLength": 360,
-    "judgeAppealPhaseLength": 360,
-    "appealChallengeCommitStageLength": 160,
-    "appealChallengeRevealStageLength": 160
+    "challengeAppealLength": 18000,
+    "requestAppealPhaseLength": 36000,
+    "judgeAppealPhaseLength": 36000,
+    "appealChallengeCommitStageLength": 16000,
+    "appealChallengeRevealStageLength": 16000,
+    "appealSupermajorityPercentage": 66
   },
-  "TokenAddress": "0x337cDDa6D41A327c5ad456166CCB781a9722AFf9",
-  "testnets": {
+  "nets": {
+    "mainnet": {},
     "rinkeby": {
+      "TokenAddress": "0x617e6d6db50b2697b1fa37f43ec2834648c39020",
+      "AppellateAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
+      "GovernmentControllerAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
       "tokenHolders": [
         "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
         "0xE562D05067edEd7a722Ed73b9EbFAAedc60970a1",

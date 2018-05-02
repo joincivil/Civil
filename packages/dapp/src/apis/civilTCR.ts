@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { getCivil } from "../helpers/civilInstance";
 import { TwoStepEthTransaction, EthAddress } from "@joincivil/core";
+import { getVoteSaltHash } from "@joincivil/utils";
 
 export async function approveForChallenge(): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
@@ -13,7 +14,8 @@ export async function approveForChallenge(): Promise<TwoStepEthTransaction | voi
 export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
-  const appealFee = await tcr.getAppealFee();
+  const government = await tcr.getGovernment();
+  const appealFee = await government.getAppealFee();
   return approve(appealFee);
 }
 
@@ -40,13 +42,28 @@ export async function challengeListing(address: EthAddress): Promise<TwoStepEthT
   return tcr.challenge(address, "");
 }
 
+export async function commitVote(
+  pollID: BigNumber,
+  voteOption: BigNumber,
+  salt: BigNumber,
+  numTokens: BigNumber,
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const secretHash = getVoteSaltHash(voteOption.toString(), salt.toString());
+  const voting = tcr.getVoting();
+  const prevPollID = await voting.getPrevPollID(numTokens);
+
+  return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
+}
+
 export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   return tcr.requestAppeal(address);
 }
 
-export async function resolveChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function updateListing(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   return tcr.updateListing(address);
@@ -64,4 +81,38 @@ export async function getParameterValue(param: string): Promise<BigNumber> {
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
   return parameterizer.getParameterValue(param);
+}                                                     
+
+export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.grantAppeal(address);
+}
+
+export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+
+  const voting = tcr.getVoting();
+  const eip = await tcr.getToken();
+
+  const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
+  if (approvedTokensForSpender < numTokens) {
+    const approveSpenderReceipt = await eip.approveSpender(voting.address, numTokens);
+    await approveSpenderReceipt.awaitReceipt();
+  }
+
+  return voting.requestVotingRights(numTokens);
+}
+
+export async function revealVote(
+  pollID: BigNumber,
+  voteOption: BigNumber,
+  salt: BigNumber,
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const voting = tcr.getVoting();
+
+  return voting.revealVote(pollID, voteOption, salt);
 }

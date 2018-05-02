@@ -51,7 +51,7 @@ contract("Registry", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
       // Pass Request Appeal Phase without requesting
-      const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
+      const waitTime = utils.paramConfig.requestAppealPhaseLength + 1;
       await utils.advanceEvmTime(waitTime);
       await registry.updateStatus(newsroomAddress);
 
@@ -132,7 +132,7 @@ contract("Registry", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      const waitTime = Number(await registry.requestAppealPhaseLength()) + 1;
+      const waitTime = utils.paramConfig.requestAppealPhaseLength + 1;
       await utils.advanceEvmTime(waitTime);
       await registry.updateStatus(newsroomAddress);
 
@@ -202,7 +202,7 @@ contract("Registry", accounts => {
 
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await registry.grantAppeal(newsroomAddress, { from: JAB });
-      const waitTime = Number(await registry.judgeAppealPhaseLength()) + 1;
+      const waitTime = utils.paramConfig.challengeAppealLength + 1;
       await utils.advanceEvmTime(waitTime);
 
       await registry.updateStatus(newsroomAddress);

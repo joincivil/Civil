@@ -44,8 +44,8 @@ contract("Registry", accounts => {
 
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await registry.grantAppeal(newsroomAddress, { from: JAB });
-      const waitTime = Number(await registry.judgeAppealPhaseLength());
-      await utils.advanceEvmTime(waitTime + 1);
+      const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
+      await utils.advanceEvmTime(waitTime);
 
       await registry.updateStatus(newsroomAddress);
 
@@ -74,8 +74,8 @@ contract("Registry", accounts => {
 
         await registry.requestAppeal(newsroomAddress, { from: applicant });
         await registry.grantAppeal(newsroomAddress, { from: JAB });
-        const waitTime = Number(await registry.judgeAppealPhaseLength());
-        await utils.advanceEvmTime(waitTime + 1);
+        const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
+        await utils.advanceEvmTime(waitTime);
 
         await registry.updateStatus(newsroomAddress);
 
@@ -104,8 +104,8 @@ contract("Registry", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
       await registry.requestAppeal(newsroomAddress, { from: applicant });
-      const waitTime = Number(await registry.judgeAppealPhaseLength());
-      await utils.advanceEvmTime(waitTime + 1);
+      const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
+      await utils.advanceEvmTime(waitTime);
 
       await registry.updateStatus(newsroomAddress);
 

@@ -25,11 +25,14 @@ export interface TransactionButtonState {
   step: number;
   disableButton: boolean;
 }
+
+export interface Transaction {
+  transaction(): Promise<TwoStepEthTransaction<any> | void>;
+  postTransaction?(result: any): any;
+}
+
 export interface TransactionButtonProps {
-  firstTransaction(): Promise<TwoStepEthTransaction<any> | void>;
-  postFirstTransaction?(result: any): any;
-  secondTransaction?(): Promise<TwoStepEthTransaction<any>>;
-  postSecondTransaction?(result: any): any;
+  transactions: Transaction[];
 }
 
 class TransactionButton extends React.Component<TransactionButtonProps, TransactionButtonState> {
@@ -44,11 +47,12 @@ class TransactionButton extends React.Component<TransactionButtonProps, Transact
   }
 
   public render(): JSX.Element {
+    console.log(this.state);
     return (
       <>
         {this.state.error}
         <Button onClick={this.onClick} disabled={this.state.disableButton}>
-          {this.state.step === 1 && "Waitng for Transaction..."}
+          {this.state.step === 1 && "Waiting for Transaction..."}
           {this.state.step === 2 && "Transaction Processing..."}
           {this.state.step === 0 && this.props.children}
         </Button>
@@ -57,27 +61,26 @@ class TransactionButton extends React.Component<TransactionButtonProps, Transact
   }
 
   private onClick = async () => {
-    this.setState({ step: 1, disableButton: true });
-    const transaction = await this.props.firstTransaction();
-    this.setState({ step: 2 });
-    if (transaction) {
-      const receipt = await transaction.awaitReceipt();
-      if (this.props.postFirstTransaction) {
-        this.props.postFirstTransaction(receipt);
-      }
-    }
+    return this.executeTransactions(this.props.transactions.slice().reverse());
+  };
 
-    if (this.props.secondTransaction) {
+  private executeTransactions = async (transactions: Transaction[]): Promise<any> => {
+    const currTransaction = transactions.pop();
+    if (currTransaction) {
       this.setState({ step: 1, disableButton: true });
-      const transaction2 = await this.props.secondTransaction();
+      const pending = await currTransaction.transaction();
       this.setState({ step: 2 });
-      const receipt2 = await transaction2.awaitReceipt();
-      if (this.props.postSecondTransaction) {
-        this.props.postSecondTransaction(receipt2);
+      if (pending) {
+        const receipt = await pending.awaitReceipt();
+        if (!transactions.length) {
+          this.setState({ step: 0, disableButton: false });
+        }
+        if (currTransaction.postTransaction) {
+          setImmediate(() => currTransaction.postTransaction!(receipt));
+        }
       }
+      return this.executeTransactions(transactions);
     }
-
-    this.setState({ step: 0, disableButton: false });
   };
 }
 

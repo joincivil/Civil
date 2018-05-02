@@ -1,22 +1,41 @@
-{{#each events}}
-export interface {{this.name}}Args {
-  {{#each inputs}}
-  {{name}}: {{#parameterType type}}{{/parameterType}};
-  {{/each}}
+// tslint:disable:no-namespace
+export namespace {{contractName}} {
+  export enum Events {
+    {{#each events}}
+    {{this.name}} = "{{this.name}}",
+    {{/each}}
+  }
+
+  export namespace Args {
+    {{#each events}}
+    export interface {{this.name}} {
+      {{#each inputs}}
+      {{name}}: {{#parameterType type}}{{/parameterType}};
+      {{/each}}
+    }
+    {{/each}}
+  }
+
+  export namespace Logs {
+    {{#each events}}
+    export type {{this.name}} = DecodedLogEntry<Args.{{this.name}}, Events.{{this.name}}>;
+    {{/each}}
+
+    export type All =
+    {{#each events}}
+      Logs.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+    {{/each}}
+  }
+
+  export namespace LogEvents {
+    {{#each events}}
+    export type {{this.name}} = DecodedLogEntryEvent<Args.{{this.name}}, Events.{{this.name}}>;
+    {{/each}}
+
+    export type All =
+    {{#each events}}
+      LogEvents.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+    {{/each}}
+  }
 }
-{{/each}}
-
-export const enum {{contractName}}Events {
-  {{#each events}}
-  {{this.name}} = "{{this.name}}",
-  {{/each}}
-}
-
-{{#each events}}
-export type {{this.name}}Log = DecodedLogEntry<{{this.name}}Args, {{../contractName}}Events.{{this.name}}>;
-{{/each}}
-
-export type {{contractName}}Logs =
-  {{#each events}}
-    {{name}}Log{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
-  {{/each}}
+// tslint:enable:no-namespace

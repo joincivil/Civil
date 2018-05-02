@@ -119,6 +119,31 @@ contract("Registry With Appeals", accounts => {
           "Should not have allowed appeal on application with failed challenge that has been processed",
         );
       });
+
+      it("should fail if not appellate granting appeal", async () => {
+        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+        await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+        await registry.requestAppeal(newsroomAddress, { from: applicant });
+        await expect(registry.grantAppeal(newsroomAddress, { from: applicant })).to.eventually.be.rejectedWith(
+          REVERTED,
+          "Should not have allowed grant appeal if not granted from appellate",
+        );
+      });
+
+      it("should fail if appeal has already been granted", async () => {
+        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+        await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+        await registry.requestAppeal(newsroomAddress, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, { from: JAB });
+        await expect(registry.grantAppeal(newsroomAddress, { from: JAB })).to.eventually.be.rejectedWith(
+          REVERTED,
+          "Should not have allowed to be granted appeal twice",
+        );
+      });
     });
   });
 });

@@ -7,7 +7,7 @@ import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../type
 import { CivilErrors, requireAccount } from "../../utils/errors";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { BaseWrapper } from "../basewrapper";
-import { PLCRVotingContract } from "../generated/p_l_c_r_voting";
+import { PLCRVotingContract } from "../generated/wrappers/p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contracts";
 
 const debug = Debug("civil:tcr");
@@ -100,6 +100,14 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     numTokens: BigNumber,
     prevPollID: BigNumber,
   ): Promise<TwoStepEthTransaction> {
+    const commitPeriodActive = await this.isCommitPeriodActive(pollID);
+    console.log("pollID: " + pollID);
+    console.log("secretHash: " + secretHash);
+    console.log("numTokens: " + numTokens);
+    console.log("prevPollID: " + prevPollID);
+    console.log("commitPeriodAction: " + commitPeriodActive);
+    const tokenBalance = await this.instance.voteTokenBalance.callAsync(this.web3Wrapper.account!);
+    console.log("tokenBalance: " + tokenBalance);
     return createTwoStepSimple(
       this.web3Wrapper,
       await this.instance.commitVote.sendTransactionAsync(pollID, secretHash, numTokens, prevPollID),

@@ -4423,6 +4423,18 @@ ethereumjs-util@^5.1.5:
     safe-buffer "^5.1.1"
     secp256k1 "^3.0.1"
 
+ethereumjs-util@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/ethereumjs-util/-/ethereumjs-util-5.2.0.tgz#3e0c0d1741471acf1036052d048623dee54ad642"
+  dependencies:
+    bn.js "^4.11.0"
+    create-hash "^1.1.2"
+    ethjs-util "^0.1.3"
+    keccak "^1.0.2"
+    rlp "^2.0.0"
+    safe-buffer "^5.1.1"
+    secp256k1 "^3.0.1"
+
 ethers-contracts@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ethers-contracts/-/ethers-contracts-2.2.1.tgz#e2bf5dd5e157313ba454b50c646c8472fcd0a8b3"
@@ -12020,9 +12032,9 @@ solium-plugin-security@0.1.1, solium-plugin-security@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/solium-plugin-security/-/solium-plugin-security-0.1.1.tgz#2a87bcf8f8c3abf7d198e292e4ac080284e3f3f6"
 
-solium@^1.1.5:
+"solium@github:duaraghav8/Solium#develop":
   version "1.1.6"
-  resolved "https://registry.yarnpkg.com/solium/-/solium-1.1.6.tgz#af3591ba2709c34470e4678ed27026e81c5161d8"
+  resolved "https://codeload.github.com/duaraghav8/Solium/tar.gz/7523126476feef5c6f7f5c8d29b4cbf3cd8d8325"
   dependencies:
     ajv "^5.2.2"
     chokidar "^1.6.0"
@@ -12033,12 +12045,12 @@ solium@^1.1.5:
     sol-digger "0.0.2"
     sol-explore "1.6.1"
     solium-plugin-security "0.1.1"
-    solparse "2.2.4"
+    solparse "2.2.5"
     text-table "^0.2.0"
 
-solparse@2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/solparse/-/solparse-2.2.4.tgz#3980b4db131fa3e17c010d67e1016436f5d46306"
+solparse@2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/solparse/-/solparse-2.2.5.tgz#72709c867cd6bfc50ec2325f4b81d2b3ea365d99"
   dependencies:
     mocha "^4.0.1"
     pegjs "^0.10.0"

@@ -1,7 +1,7 @@
 /* global artifacts */
 
 import { approveEverything, config, inTesting } from "./utils";
-import { MAIN_NETWORK } from "./utils/consts";
+import { RINKEBY } from "./utils/consts";
 
 const Token = artifacts.require("EIP20");
 const DLL = artifacts.require("DLL");
@@ -16,12 +16,15 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(AttributeStore, Parameterizer);
 
     const parameterizerConfig = config.paramDefaults;
-    let tokenAddress = config.TokenAddress;
-
-    if (network !== MAIN_NETWORK) {
+    let tokenAddress;
+    if (network === RINKEBY) {
+      tokenAddress = config.nets[network].TokenAddress;
+    } else {
       tokenAddress = Token.address;
     }
 
+    // const estimate = web3.eth.estimateGas({ data: Parameterizer.bytecode });
+    // console.log("Parameterizer gas cost estimate: " + estimate);
     await deployer.deploy(Parameterizer, tokenAddress, PLCRVoting.address, [
       parameterizerConfig.minDeposit,
       parameterizerConfig.pMinDeposit,
