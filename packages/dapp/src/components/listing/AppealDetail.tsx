@@ -1,7 +1,15 @@
 import * as React from "react";
 import styled from "styled-components";
-import { canAppealBeResolved, isAwaitingAppealChallenge, AppealData } from "@joincivil/core";
+import {
+  AppealData,
+  canAppealBeResolved,
+  EthAddress,
+  isAwaitingAppealChallenge,
+  TwoStepEthTransaction,
+} from "@joincivil/core";
+import { updateListing } from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
+import TransactionButton from "../utility/TransactionButton";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -11,6 +19,7 @@ const StyledDiv = styled.div`
 `;
 
 export interface AppealDetailProps {
+  listingAddress: EthAddress;
   appeal: AppealData;
 }
 
@@ -46,12 +55,16 @@ class AppealDetail extends React.Component<AppealDetailProps> {
   }
 
   private renderCanResolve(): JSX.Element {
-    return <>APPEAL CAN BE RESOLVED</>;
+    return <TransactionButton transactions={[{ transaction: this.resolveAppeal }]}>Resolve Appeal</TransactionButton>;
   }
 
   private renderChallengeAppealStage(): JSX.Element {
     return <>CHALLENGE GRANTED APPEAL</>;
   }
+
+  private resolveAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return updateListing(this.props.listingAddress);
+  };
 }
 
 export default AppealDetail;
