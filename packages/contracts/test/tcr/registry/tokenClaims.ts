@@ -33,7 +33,7 @@ contract("Registry", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.updateStatus(listing20, { from: challenger });
+      await registry.resolveChallenge(listing20, { from: challenger });
 
       const initialHasClaimed = await registry.hasClaimedTokens(pollID, voter);
       expect(initialHasClaimed).to.be.false(

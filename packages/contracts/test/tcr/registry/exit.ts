@@ -67,7 +67,7 @@ contract("Registry", accounts => {
 
       // Clean up state, remove consensys.net (it fails its challenge due to draw)
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
-      await registry.updateStatus(listing18);
+      await registry.resolveChallenge(listing18);
     });
 
     it("should not allow a listing to be exited by someone who doesn't own it", async () => {

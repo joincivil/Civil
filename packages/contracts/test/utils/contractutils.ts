@@ -92,7 +92,7 @@ export async function addToWhitelist(
 ): Promise<void> {
   await registry.apply(listingAddress, deposit, "", { from: account });
   await advanceEvmTime(paramConfig.applyStageLength + 1);
-  await registry.updateStatus(listingAddress, { from: account });
+  await registry.whitelistApplication(listingAddress, { from: account });
 }
 
 export function toBaseTenBigNumber(p: number): BigNumber {

@@ -56,7 +56,7 @@ contract("Registry With Appeals", accounts => {
       it("should add a listing to the whitelist which went unchallenged in its application period", async () => {
         await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
-        await registry.updateStatus(newsroomAddress);
+        await registry.whitelistApplication(newsroomAddress);
         const [, whitelisted] = await registry.listings(newsroomAddress);
 
         expect(whitelisted).to.be.true("listing didn't get whitelisted");
@@ -95,8 +95,10 @@ contract("Registry With Appeals", accounts => {
           await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
           await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
           await registry.requestAppeal(newsroomAddress, { from: applicant });
-          await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
-          await registry.updateStatus(newsroomAddress);
+          await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1); // hack. should be getting value from registry contract
+          const canResolve = await registry.appealCanBeResolved(newsroomAddress);
+          console.log("canResolve: " + canResolve);
+          await registry.resolveAppeal(newsroomAddress);
 
           await expect(registry.apply(newsroomAddress, minDeposit, "", { from: applicant })).to.eventually.be.fulfilled(
             "should have allowed new application after being denied appeal",

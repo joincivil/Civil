@@ -12,7 +12,7 @@ const Newsroom = artifacts.require("Newsroom");
 const NEWSROOM_NAME = "unused newsroom name";
 
 contract("Registry With Appeals", accounts => {
-  describe("Function: updateStatus", () => {
+  describe("Function: resolveAppealChallenge", () => {
     const [JAB, applicant, challenger] = accounts;
     let registry: any;
     let testNewsroom: any;
@@ -25,23 +25,24 @@ contract("Registry With Appeals", accounts => {
       newsroomAddress = testNewsroom.address;
     });
 
-    it("should whitelist listing if apply stage ended without a challenge", async () => {
-      // note: this function calls registry.updateStatus at the end
-      await utils.addToWhitelist(newsroomAddress, utils.paramConfig.minDeposit, applicant, registry);
-
-      const [, isWhitelisted] = await registry.listings(newsroomAddress);
-      expect(isWhitelisted).to.be.true("Listing should have been whitelisted");
+    it("should fail if apply stage in progress without a challenge", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      expect(registry.resolveAppealChallenge(newsroomAddress)).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have been able to resolve appeal challenge on application without challenge",
+      );
     });
 
-    it("should succeed if request appeal is over without one requested", async () => {
+    it("should fail if request appeal is over without one requested", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength);
 
-      await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
-        "should have been able to update status after appeal challenge",
+      await expect(registry.resolveAppealChallenge(newsroomAddress)).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have been able to resolve appeal challenge on completed challenge with no appeal requested",
       );
     });
 
@@ -52,21 +53,22 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.requestAppeal(newsroomAddress, { from: applicant });
 
-      await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.rejectedWith(
+      await expect(registry.resolveAppealChallenge(newsroomAddress)).to.eventually.be.rejectedWith(
         REVERTED,
-        "should not have been able to update status before appeal challenge is over",
+        "should not have been able to resolve appeal challenge before appeal is over",
       );
     });
 
-    it("should succeed if appeal is requested and that phase ends without one being granted ", async () => {
+    it("should fail if appeal is requested and that phase ends without one being granted ", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
-      await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
-        "should not have been able to update status before appeal challenge is over",
+      await expect(registry.resolveAppealChallenge(newsroomAddress)).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have been able to resolve appeal challenge after appeal judgment phase ends without one granted",
       );
     });
 
@@ -84,12 +86,12 @@ contract("Registry With Appeals", accounts => {
         utils.paramConfig.appealChallengeCommitStageLength + utils.paramConfig.appealChallengeRevealStageLength + 1,
       );
 
-      await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
-        "should have been able to update status after appeal challenge",
+      await expect(registry.resolveAppealChallenge(newsroomAddress)).to.eventually.be.fulfilled(
+        "should have been able to resolve appeal challenge after appeal challenge",
       );
     });
 
-    it("should fail if appealChallenge is still in progress", async () => {
+    it("should fail if appealChallenge is in progress", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
@@ -99,9 +101,9 @@ contract("Registry With Appeals", accounts => {
 
       await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
 
-      await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.rejectedWith(
+      await expect(registry.resolveAppealChallenge(newsroomAddress)).to.eventually.be.rejectedWith(
         REVERTED,
-        "should not have been able to update status before appeal challenge is over",
+        "should not have been able to resolve appeal challenge during appeal challenge",
       );
     });
   });

@@ -231,21 +231,6 @@ contract AddressRegistry {
     return pollID;
   }
 
-  /**
-  @notice Updates a listing's status from 'application' to 'listing' or resolves a challenge if one exists.
-  @param listingAddress The listingAddress whose status is being updated
-  */
-  function updateStatus(address listingAddress) public {
-    if (canBeWhitelisted(listingAddress)) {
-      whitelistApplication(listingAddress);
-      NewListingWhitelisted(listingAddress);
-    } else if (challengeCanBeResolved(listingAddress)) {
-      resolveChallenge(listingAddress);
-    } else {
-      revert();
-    }
-  }
-
   // ----------------
   // TOKEN FUNCTIONS:
   // ----------------
@@ -265,8 +250,8 @@ contract AddressRegistry {
   }
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote. Someone
-          must call updateStatus() before this can be called.
+  @notice Called by a voter to claim their reward for each completed vote. Someone must call resolveChallenge() 
+  before this can be called.
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt        The salt of a voter's commit hash in the given poll
   */
@@ -415,7 +400,12 @@ contract AddressRegistry {
   de-whitelists the listingAddress. 
   @param listingAddress A listingAddress with a challenge that is to be resolved
   */
-  function resolveChallenge(address listingAddress) internal {
+  function resolveChallenge(address listingAddress) external {
+    require(challengeCanBeResolved(listingAddress));
+    internalResolveChallenge(listingAddress);
+  }
+
+  function internalResolveChallenge(address listingAddress) internal {
     uint challengeID = listings[listingAddress].challengeID;
 
     // Calculates the winner's reward,
@@ -423,7 +413,7 @@ contract AddressRegistry {
     uint reward = determineReward(challengeID);
 
     if (voting.isPassed(challengeID)) { // Case: challenge failed
-      whitelistApplication(listingAddress);
+      internalWhitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listings[listingAddress].unstakedDeposit += reward;
 
@@ -445,11 +435,19 @@ contract AddressRegistry {
   }
 
   /**
-  @dev Called by `updateStatus()` if the applicationExpiry date passed without a challenge being made. 
-  Called by resolveChallenge() if an application/listing beat a challenge.
-  @param listingAddress The listingAddress of an application/listing to be isWhitelist
+  @notice whitelists an application.
+  In order to whitelist application:
+  * `canBeWhitelisted` must be true for given listingAddress
+  Emits `NewListingWhitelisted` if successful and address not previously whitelisted
+  @dev Called by resolveChallenge() if an application/listing beat a challenge.
+  @param listingAddress The listingAddress of an application/listing to be whitelisted
   */
-  function whitelistApplication(address listingAddress) internal {
+  function whitelistApplication(address listingAddress) external {
+    require(canBeWhitelisted(listingAddress));
+    internalWhitelistApplication(listingAddress);
+  }
+
+  function internalWhitelistApplication(address listingAddress) internal {
     bool wasWhitelisted = listings[listingAddress].isWhitelisted;
     listings[listingAddress].isWhitelisted = true;
     if (!wasWhitelisted) {

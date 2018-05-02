@@ -28,7 +28,7 @@ contract("Registry", accounts => {
       await registry.challenge(listing27, "", { from: challenger });
 
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + utils.paramConfig.commitStageLength + 1);
-      await registry.updateStatus(listing27);
+      await registry.resolveChallenge(listing27);
 
       // should not have been added to whitelist
       const [, isWhitelisted] = await registry.listings(listing27);
@@ -70,12 +70,11 @@ contract("Registry", accounts => {
       rpa = await voting.revealPeriodActive.call(pollID);
       expect(rpa).to.be.false("Reveal period should not be active");
 
-      // updateStatus
       const pollResult = await voting.isPassed.call(pollID);
       expect(pollResult).to.be.true("Poll should have passed");
 
       // Add to whitelist
-      await registry.updateStatus(listing28);
+      await registry.resolveChallenge(listing28);
       const [, isWhitelisted] = await registry.listings(listing28);
       expect(isWhitelisted).to.be.true("Listing should be whitelisted");
     });
