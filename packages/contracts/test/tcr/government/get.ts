@@ -26,9 +26,7 @@ contract("Government", accounts => {
     });
 
     it("should not be possible for troll to set judgeAppealPhaseLength value", async () => {
-      await expect(government.set("judgeAppealPhaseLength", 100, { from: JAB })).to.eventually.be.fulfilled(
-        "Should not have allowed troll to update judgeAppealPhaseLength",
-      );
+      await government.set("judgeAppealPhaseLength", 100, { from: JAB });
       const judgeAppealLength = await government.get("judgeAppealPhaseLength");
       expect(judgeAppealLength).to.be.bignumber.equal(
         new BigNumber(100),
