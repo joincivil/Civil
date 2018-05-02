@@ -34,14 +34,16 @@ contract Government is IGovernment {
     address governmentControllerAddr,
     uint appealFeeAmount,
     uint requestAppealLength,
-    uint judgeAppealLength
+    uint judgeAppealLength,
+    uint appealSupermajorityPercentage
   ) public 
   {
     appellate = appellateAddr;
     governmentController = governmentControllerAddr;
-    internalSet("requestAppealPhaseLength", requestAppealLength);
-    internalSet("judgeAppealPhaseLength", judgeAppealLength);
+    internalSet("requestAppealLen", requestAppealLength);
+    internalSet("judgeAppealLen", judgeAppealLength);
     internalSet("appealFee", appealFeeAmount);
+    internalSet("appealVotePercentage", appealSupermajorityPercentage);
   }
 
   /**
