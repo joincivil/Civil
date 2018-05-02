@@ -1,10 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
-import { approveForChallenge, challengeListing, updateListing } from "../../apis/civilTCR";
+import { approveForChallenge, challengeListing, grantAppeal, updateListing } from "../../apis/civilTCR";
 import {
   canListingBeChallenged,
   canBeWhitelisted,
   canRequestAppeal,
+  isAwaitingAppealJudgment,
   isChallengeInCommitStage,
   isChallengeInRevealStage,
   ListingWrapper,
@@ -50,6 +51,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             Unstaked Deposit: {this.props.listing.data.unstakedDeposit.toString()}
             <br />
             {canBeChallenged && this.renderCanBeChallenged()}
+            {isAwaitingAppealJudgment(this.props.listing.data) && this.renderGrantAppeal()}
             {canWhitelist && this.renderCanWhitelist()}
             {canResolveChallenge && this.renderCanResolve()}
             <br />
@@ -68,6 +70,11 @@ class ListingDetail extends React.Component<ListingDetailProps> {
 
   private renderCanWhitelist = (): JSX.Element => {
     return <TransactionButton transactions={[{ transaction: this.update }]}>Whitelist Application</TransactionButton>;
+  };
+
+  private renderGrantAppeal = (): JSX.Element => {
+    // @TODO: Only render this JSX element if the user is in the JEC multisig
+    return <TransactionButton transactions={[{ transaction: this.grantAppeal }]}>Grant Appeal</TransactionButton>;
   };
 
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -91,6 +98,9 @@ class ListingDetail extends React.Component<ListingDetailProps> {
 
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
     return challengeListing(this.props.listing.address);
+  };
+  private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return grantAppeal(this.props.listing.address);
   };
 }
 
