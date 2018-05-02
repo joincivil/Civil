@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage, AppealChallengeData } from "@joincivil/core";
+import CommitVoteDetail from "./CommitVoteDetail";
+import BigNumber from "bignumber.js";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -10,6 +12,7 @@ const StyledDiv = styled.div`
 `;
 
 export interface AppealChallengeDetailProps {
+  appealChallengeID: BigNumber;
   appealChallenge: AppealChallengeData;
 }
 
@@ -38,7 +41,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
   }
 
   private renderCommitStage(): JSX.Element {
-    return <>COMMIT THINGS</>;
+    return <CommitVoteDetail challengeID={this.props.appealChallengeID} />;
   }
   private renderRevealStage(): JSX.Element {
     return <>REVEAL THINGS</>;
