@@ -18,7 +18,8 @@
     "requestAppealPhaseLength": 36000,
     "judgeAppealPhaseLength": 36000,
     "appealChallengeCommitStageLength": 16000,
-    "appealChallengeRevealStageLength": 16000
+    "appealChallengeRevealStageLength": 16000,
+    "appealSupermajorityPercentage": 66
   },
   "nets": {
     "mainnet": {},

@@ -50,7 +50,6 @@ contract AddressRegistry {
   EIP20 public token;
   PLCRVoting public voting;
   Parameterizer public parameterizer;
-  uint public version = 1;
 
   // ------------
   // CONSTRUCTOR:
@@ -82,13 +81,13 @@ contract AddressRegistry {
   @param data Extra data relevant to the application. Think IPFS hashes.
   */
   function apply(address listingAddress, uint amount, string data) public {
-    require(!listings[listingAddress].isWhitelisted);
+    Listing storage listing = listings[listingAddress];
+    require(!listing.isWhitelisted);
     require(!appWasMade(listingAddress));
     require(amount >= parameterizer.get("minDeposit"));
     require(block.timestamp + parameterizer.get("applyStageLen") > block.timestamp); // avoid overflow
 
     // Sets owner
-    Listing storage listing = listings[listingAddress];
     listing.owner = msg.sender;
 
     // Transfers tokens from user to Registry contract
@@ -167,7 +166,7 @@ contract AddressRegistry {
     uint deposit = parameterizer.get("minDeposit");
 
     // Listing must be in apply stage or already on the whitelist
-    require(appWasMade(listingAddress) || listing.isWhitelisted);
+    require(appWasMade(listingAddress));
     // Prevent multiple challenges
     require(listing.challengeID == 0);
 
@@ -196,10 +195,10 @@ contract AddressRegistry {
     });
 
     // Updates listingHash to store most recent challenge
-    listings[listingAddress].challengeID = pollID;
+    listing.challengeID = pollID;
 
     // Locks tokens for listingHash during challenge
-    listings[listingAddress].unstakedDeposit -= deposit;
+    listing.unstakedDeposit -= deposit;
 
     ChallengeInitiated(listingAddress, deposit, pollID, data);
     return pollID;
@@ -279,8 +278,9 @@ contract AddressRegistry {
     uint challengeID,
     uint salt) public view returns (uint)
   {
-    uint totalTokens = challenges[challengeID].totalTokens;
-    uint rewardPool = challenges[challengeID].rewardPool;
+    Challenge challenge = challenges[challengeID];
+    uint totalTokens = challenge.totalTokens;
+    uint rewardPool = challenge.rewardPool;
     uint voterTokens = voting.getNumPassingTokens(voter, challengeID, salt, false);
     return (voterTokens * rewardPool) / totalTokens;
   }
@@ -290,7 +290,9 @@ contract AddressRegistry {
   @param listingAddress The listingAddress whose status is to be examined
   */
   function canBeWhitelisted(address listingAddress) view public returns (bool) {
-    uint challengeID = listings[listingAddress].challengeID;
+    Listing listing = listings[listingAddress];
+    uint challengeID = listing.challengeID;
+    Challenge challenge = challenges[challengeID];
 
     // Ensures that the application was made,
     // the application period has ended,
@@ -299,9 +301,9 @@ contract AddressRegistry {
     // solium-disable operator-whitespace
     if (
       appWasMade(listingAddress) &&
-      listings[listingAddress].applicationExpiry < now &&
-      !listings[listingAddress].isWhitelisted &&
-      (challengeID == 0 || challenges[challengeID].resolved == true)
+      listing.applicationExpiry < now &&
+      !listing.isWhitelisted &&
+      (challengeID == 0 || challenge.resolved == true)
     ) {
       return true;
     }
@@ -383,7 +385,9 @@ contract AddressRegistry {
   @param listingAddress A listingAddress with a challenge that is to be resolved
   */
   function resolveChallenge(address listingAddress) internal {
-    uint challengeID = listings[listingAddress].challengeID;
+    Listing storage listing = listings[listingAddress];
+    uint challengeID = listing.challengeID;
+    Challenge storage challenge = challenges[challengeID];
 
     // Calculates the winner's reward,
     // which is: (winner's full stake) + (dispensationPct * loser's stake)
@@ -392,23 +396,23 @@ contract AddressRegistry {
     if (voting.isPassed(challengeID)) { // Case: challenge failed
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
-      listings[listingAddress].unstakedDeposit += reward;
+      listing.unstakedDeposit += reward;
 
       ChallengeFailed(listingAddress, challengeID);
-      listings[listingAddress].challengeID = 0;
+      listing.challengeID = 0;
     } else { // Case: challenge succeeded
       resetListing(listingAddress);
       // Transfer the reward to the challenger
-      require(token.transfer(challenges[challengeID].challenger, reward));
+      require(token.transfer(challenge.challenger, reward));
 
       ChallengeSucceeded(listingAddress, challengeID);
     }
 
     // Sets flag on challenge being processed
-    challenges[challengeID].resolved = true;
+    challenge.resolved = true;
 
     // Stores the total tokens used for voting by the winning side for reward purposes
-    challenges[challengeID].totalTokens = voting.getTotalNumberOfTokensForWinningOption(challengeID);
+    challenge.totalTokens = voting.getTotalNumberOfTokensForWinningOption(challengeID);
   }
 
   /**
@@ -417,8 +421,9 @@ contract AddressRegistry {
   @param listingAddress The listingAddress of an application/listing to be isWhitelist
   */
   function whitelistApplication(address listingAddress) internal {
-    bool wasWhitelisted = listings[listingAddress].isWhitelisted;
-    listings[listingAddress].isWhitelisted = true;
+    Listing storage listing = listings[listingAddress];
+    bool wasWhitelisted = listing.isWhitelisted;
+    listing.isWhitelisted = true;
     if (!wasWhitelisted) {
       NewListingWhitelisted(listingAddress);
     }

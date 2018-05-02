@@ -198,6 +198,7 @@ async function createTestCivilTCRInstance(
     parameterizerConfig.appealFeeAmount,
     parameterizerConfig.requestAppealPhaseLength,
     parameterizerConfig.judgeAppealPhaseLength,
+    parameterizerConfig.appealSupermajorityPercentage,
   );
 
   const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);
