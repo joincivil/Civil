@@ -47,6 +47,7 @@ class TransactionButton extends React.Component<TransactionButtonProps, Transact
   }
 
   public render(): JSX.Element {
+    console.log(this.state);
     return (
       <>
         {this.state.error}
@@ -60,26 +61,22 @@ class TransactionButton extends React.Component<TransactionButtonProps, Transact
   }
 
   private onClick = async () => {
-    return this.executeTransactions(this.props.transactions.slice());
-  };
-
-  private resetState = async () => {
-    this.setState({ step: 0, disableButton: false });
+    return this.executeTransactions(this.props.transactions.slice().reverse());
   };
 
   private executeTransactions = async (transactions: Transaction[]): Promise<any> => {
     const currTransaction = transactions.pop();
-    this.setState({ step: 1, disableButton: true });
     if (currTransaction) {
+      this.setState({ step: 1, disableButton: true });
       const pending = await currTransaction.transaction();
       this.setState({ step: 2 });
       if (pending) {
         const receipt = await pending.awaitReceipt();
         if (!transactions.length) {
-          await this.resetState(); // next tick everything after state gets updated, scheduled state update will supercede rest of this function
+          this.setState({ step: 0, disableButton: false });
         }
         if (currTransaction.postTransaction) {
-          currTransaction.postTransaction(receipt);
+          setImmediate(() => currTransaction.postTransaction!(receipt));
         }
       }
       return this.executeTransactions(transactions);

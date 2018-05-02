@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage, AppealChallengeData } from "@joincivil/core";
+import CommitVoteDetail from "./CommitVoteDetail";
 import RevealVoteDetail from "./RevealVoteDetail";
 import BigNumber from "bignumber.js";
 
@@ -41,7 +42,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
   }
 
   private renderCommitStage(): JSX.Element {
-    return <>COMMIT THINGS</>;
+    return <CommitVoteDetail challengeID={this.props.appealChallengeID} />;
   }
   private renderRevealStage(): JSX.Element {
     return <RevealVoteDetail challengeID={this.props.appealChallengeID} />;
