@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EthAddress, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
-import { approve, depositTokens, withdrawTokens } from "../../apis/civilTCR";
+import { approve, depositTokens, exitListing, withdrawTokens } from "../../apis/civilTCR";
 import { InputElement, StyledFormContainer, FormGroup, FormValidationMessage } from "../utility/FormElements";
 import TransactionButton from "../utility/TransactionButton";
 import BigNumber from "bignumber.js";
@@ -119,5 +119,19 @@ export class WithdrawTokens extends React.Component<OwnerListingViewProps, Withd
     const newState = {};
     newState[paramName] = val;
     this.setState(newState);
+  };
+}
+
+export class ExitListing extends React.Component<OwnerListingViewProps> {
+  constructor(props: any) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    return <TransactionButton transactions={[{ transaction: this.exitListing }]}>Exit Listing</TransactionButton>;
+  }
+
+  private exitListing = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    return exitListing(this.props.listingAddress);
   };
 }

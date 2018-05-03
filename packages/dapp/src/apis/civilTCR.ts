@@ -69,6 +69,12 @@ export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTr
   return tcr.requestAppeal(address);
 }
 
+export async function exitListing(address: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.exitListing(address);
+}
+
 export async function updateListing(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
