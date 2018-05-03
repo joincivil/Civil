@@ -12,7 +12,7 @@ import {
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
-import { DepositTokens } from "./OwnerListingViews";
+import { DepositTokens, WithdrawTokens } from "./OwnerListingViews";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -86,6 +86,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
     return (
       <>
         <DepositTokens listingAddress={this.props.listing.address} listing={this.props.listing} />
+        <WithdrawTokens listingAddress={this.props.listing.address} listing={this.props.listing} />
       </>
     );
   };
