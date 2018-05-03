@@ -23,6 +23,14 @@ contract("Registry", accounts => {
       token = await Token.at(tokenAddress);
     });
 
+    it("should not allow a listing to exit if listing is not whitelisted", async () => {
+      await registry.apply(listing17, utils.paramConfig.minDeposit, "", { from: applicant });
+      await expect(registry.exitListing(listing17, { from: applicant })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have allowed listing in application stage to exit",
+      );
+    });
+
     it("should allow a listing to exit when no challenge exists", async () => {
       const initialApplicantTokenHoldings = await token.balanceOf(applicant);
 

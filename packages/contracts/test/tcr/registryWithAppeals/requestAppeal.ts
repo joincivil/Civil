@@ -15,6 +15,7 @@ const NEWSROOM_NAME = "unused newsroom name";
 contract("Registry With Appeals", accounts => {
   describe("Function: requestAppeal", () => {
     const [JAB, applicant, challenger, voter] = accounts;
+    const unapproved = accounts[9];
     let registry: any;
     let voting: any;
     let testNewsroom: any;
@@ -85,6 +86,17 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await expect(registry.requestAppeal(newsroomAddress, { from: applicant })).to.eventually.be.fulfilled(
         "Should have allowed appeal on application with failed challenge that has been processed",
+      );
+    });
+
+    it("should fail if requester has not approved registry as spender of token", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await expect(registry.requestAppeal(newsroomAddress, { from: unapproved })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "Should not have allowed request to appeal if they did not approve registry as spender",
       );
     });
 

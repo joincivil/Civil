@@ -169,7 +169,7 @@ async function createTestRegistryInstance(registryContract: any, parameterizer: 
 
   const registry = await registryContract.new(tokenAddress, plcrAddress, parameterizerAddress);
 
-  await approveRegistryFor(accounts);
+  await approveRegistryFor(accounts.slice(0, 8));
   return registry;
 }
 
@@ -203,7 +203,7 @@ async function createTestCivilTCRInstance(
 
   const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);
 
-  await approveRegistryFor(accounts);
+  await approveRegistryFor(accounts.slice(0, 8));
   return registry;
 }
 

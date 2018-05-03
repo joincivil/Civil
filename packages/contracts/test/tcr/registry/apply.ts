@@ -10,6 +10,7 @@ const expect = chai.expect;
 contract("AddressRegistry", accounts => {
   describe("Function: apply", () => {
     const [applicant] = accounts;
+    const unapproved = accounts[9];
     const listing1 = "0x0000000000000000000000000000000000000001";
     let registry: any;
 
@@ -26,6 +27,21 @@ contract("AddressRegistry", accounts => {
       expect(whitelisted).to.be.false("whitelisted != false");
       expect(owner).to.be.equal(applicant, "owner of application != address that applied");
       expect(unstakedDeposit).to.be.bignumber.equal(utils.paramConfig.minDeposit, "incorrect unstakedDeposit");
+    });
+
+    it("should fail if applicant has not approved registry as spender of token", async () => {
+      await expect(
+        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: unapproved }),
+      ).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have allowed applicant to apply if they have not approved registry as spender",
+      );
+    });
+
+    it("should fail if deposit is less than minimum required", async () => {
+      await expect(
+        registry.apply(listing1, utils.paramConfig.minDeposit - 1, "", { from: applicant }),
+      ).to.eventually.be.rejectedWith(REVERTED, "should not have allowed application with deposit less than minimum");
     });
 
     it("should not allow a listing to apply which has a pending application", async () => {
