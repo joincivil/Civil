@@ -111,9 +111,8 @@ contract Parameterizer {
     uint deposit = get("pMinDeposit");
     bytes32 propID = keccak256(_name, _value);
 
-    if (keccak256(_name) == keccak256('dispensationPct') ||
-       keccak256(_name) == keccak256('pDispensationPct')) {
-        require(_value <= 100);
+    if (keccak256(_name) == keccak256("dispensationPct") || keccak256(_name) == keccak256("pDispensationPct")) {
+      require(_value <= 100);
     }
 
     require(!propExists(propID)); // Forbid duplicate proposals
@@ -169,6 +168,7 @@ contract Parameterizer {
     //take tokens from challenger
     require(token.transferFrom(msg.sender, this, deposit));
 
+    /* solium-disable-next-line */
     var (commitEndDate, revealEndDate,) = voting.pollMap(pollID);
 
     _NewChallenge(_propID, pollID, commitEndDate, revealEndDate, msg.sender);
@@ -187,7 +187,7 @@ contract Parameterizer {
     
     // Before any token transfers, deleting the proposal will ensure that if reentrancy occurs the
     // prop.owner and prop.deposit will be 0, thereby preventing theft
-   if (canBeSet(_propID)) {
+    if (canBeSet(_propID)) {
       // There is no challenge against the proposal. The processBy date for the proposal has not
      // passed, but the proposal's appExpirty date has passed.
       set(prop.name, prop.value);
@@ -257,7 +257,8 @@ contract Parameterizer {
   @return             The uint indicating the voter's reward
   */
   function voterReward(address _voter, uint _challengeID, uint _salt)
-  public view returns (uint) {
+  public view returns (uint) 
+  {
     uint winningTokens = challenges[_challengeID].winningTokens;
     uint rewardPool = challenges[_challengeID].rewardPool;
     uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt);
@@ -290,8 +291,7 @@ contract Parameterizer {
     ParamProposal memory prop = proposals[_propID];
     Challenge memory challenge = challenges[prop.challengeID];
 
-    return (prop.challengeID > 0 && challenge.resolved == false &&
-            voting.pollEnded(prop.challengeID));
+    return (prop.challengeID > 0 && challenge.resolved == false && voting.pollEnded(prop.challengeID));
   }
 
   /**
@@ -299,7 +299,7 @@ contract Parameterizer {
   @param _challengeID The challengeID to determine a reward for
   */
   function challengeWinnerReward(uint _challengeID) public view returns (uint) {
-    if(voting.getTotalNumberOfTokensForWinningOption(_challengeID) == 0) {
+    if (voting.getTotalNumberOfTokensForWinningOption(_challengeID) == 0) {
       // Edge case, nobody voted, give all tokens to the challenger.
       return 2 * challenges[_challengeID].stake;
     }
@@ -339,18 +339,16 @@ contract Parameterizer {
     // winner gets back their full staked deposit, and dispensationPct*loser's stake
     uint reward = challengeWinnerReward(prop.challengeID);
 
-    challenge.winningTokens =
-      voting.getTotalNumberOfTokensForWinningOption(prop.challengeID);
+    challenge.winningTokens = voting.getTotalNumberOfTokensForWinningOption(prop.challengeID);
     challenge.resolved = true;
 
     if (voting.isPassed(prop.challengeID)) { // The challenge failed
-      if(prop.processBy > now) {
+      if (prop.processBy > now) {
         set(prop.name, prop.value);
       }
       _ChallengeFailed(_propID, prop.challengeID, challenge.rewardPool, challenge.winningTokens);
       require(token.transfer(prop.owner, reward));
-    }
-    else { // The challenge succeeded or nobody voted
+    } else { // The challenge succeeded or nobody voted
       _ChallengeSucceeded(_propID, prop.challengeID, challenge.rewardPool, challenge.winningTokens);
       require(token.transfer(challenges[prop.challengeID].challenger, reward));
     }
