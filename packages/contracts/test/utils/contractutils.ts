@@ -84,6 +84,66 @@ export async function challengeReparamAndGetPollID(
   return receipt.logs[0].args.pollID;
 }
 
+export async function simpleSuccessfulChallenge(
+  registry: any,
+  listing: string,
+  challenger: string,
+  voter: string,
+): Promise<void> {
+  const votingAddress = await registry.voting();
+  const voting = PLCRVoting.at(votingAddress);
+  const pollID = await challengeAndGetPollID(listing, challenger, registry);
+  await commitVote(voting, pollID, "1", "100", "123", voter);
+  await advanceEvmTime(paramConfig.commitStageLength + 1);
+  await voting.revealVote(pollID, "1", "123", { from: voter });
+  await advanceEvmTime(paramConfig.revealStageLength + 1);
+}
+
+export async function simpleUnsuccessfulChallenge(
+  registry: any,
+  listing: string,
+  challenger: string,
+  voter: string,
+): Promise<void> {
+  const votingAddress = await registry.voting();
+  const voting = PLCRVoting.at(votingAddress);
+  const pollID = await challengeAndGetPollID(listing, challenger, registry);
+  await commitVote(voting, pollID, "0", "100", "420", voter);
+  await advanceEvmTime(paramConfig.commitStageLength + 1);
+  await voting.revealVote(pollID, "0", "420", { from: voter });
+  await advanceEvmTime(paramConfig.revealStageLength + 1);
+}
+
+export async function simpleSuccessfulAppealChallenge(
+  registry: any,
+  listing: string,
+  challenger: string,
+  voter: string,
+): Promise<void> {
+  const votingAddress = await registry.voting();
+  const voting = PLCRVoting.at(votingAddress);
+  const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
+  await commitVote(voting, pollID, "1", "100", "123", voter);
+  await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
+  await voting.revealVote(pollID, "1", "123", { from: voter });
+  await advanceEvmTime(paramConfig.appealChallengeRevealStageLength + 1);
+}
+
+export async function simpleUnsuccessfulAppealChallenge(
+  registry: any,
+  listing: string,
+  challenger: string,
+  voter: string,
+): Promise<void> {
+  const votingAddress = await registry.voting();
+  const voting = PLCRVoting.at(votingAddress);
+  const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
+  await commitVote(voting, pollID, "0", "100", "420", voter);
+  await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
+  await voting.revealVote(pollID, "0", "420", { from: voter });
+  await advanceEvmTime(paramConfig.appealChallengeRevealStageLength + 1);
+}
+
 export async function addToWhitelist(
   listingAddress: string,
   deposit: BigNumber,
