@@ -274,7 +274,12 @@ contract AddressRegistry {
     require(challenge.hasClaimedTokens[msg.sender] == false);
     require(challenge.resolved == true);
 
-    uint voterTokens = voting.getNumPassingTokens(msg.sender, challengeID, salt, overturned);
+    uint voterTokens = 0;
+    if (overturned) {
+      voterTokens = voting.getNumLosingTokens(msg.sender, challengeID, salt);
+    } else { 
+      voterTokens = voting.getNumPassingTokens(msg.sender, challengeID, salt);
+    }
     uint reward = voterReward(msg.sender, challengeID, salt);
 
     // Subtracts the voter's information to preserve the participation ratios
@@ -309,7 +314,7 @@ contract AddressRegistry {
     Challenge challenge = challenges[challengeID];
     uint totalTokens = challenge.totalTokens;
     uint rewardPool = challenge.rewardPool;
-    uint voterTokens = voting.getNumPassingTokens(voter, challengeID, salt, false);
+    uint voterTokens = voting.getNumPassingTokens(voter, challengeID, salt);
     return (voterTokens * rewardPool) / totalTokens;
   }
 

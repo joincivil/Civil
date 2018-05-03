@@ -170,7 +170,7 @@ export async function commitVote(
   const hash = getVoteSaltHash(voteOption, salt);
   await voting.requestVotingRights(tokensArg, { from: voter });
 
-  const prevPollID = await voting.getInsertPointForNumTokens.call(voter, tokensArg);
+  const prevPollID = await voting.getInsertPointForNumTokens.call(voter, tokensArg, pollID);
   await voting.commitVote(pollID, hash, tokensArg, prevPollID, { from: voter });
 }
 
