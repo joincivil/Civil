@@ -16,6 +16,7 @@ const NEWSROOM_NAME = "unused newsroom name;";
 contract("Registry With Appeals", accounts => {
   describe("Function: apply", () => {
     const [JAB, applicant, troll, challenger] = accounts;
+    const unapproved = accounts[9];
     const listing1 = "0x0000000000000000000000000000000000000001";
     const minDeposit = utils.paramConfig.minDeposit;
     let registry: any;
@@ -44,6 +45,15 @@ contract("Registry With Appeals", accounts => {
         expect(whitelisted).to.be.false("whitelisted != false");
         expect(owner).to.be.equal(applicant, "owner of application != address that applied");
         expect(unstakedDeposit).to.be.bignumber.equal(utils.paramConfig.minDeposit, "incorrect unstakedDeposit");
+      });
+
+      it("should fail if applicant has not approved registry as spender of token", async () => {
+        await expect(
+          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: unapproved }),
+        ).to.eventually.be.rejectedWith(
+          REVERTED,
+          "should not have allowed applicant to apply if they have not approved registry as spender",
+        );
       });
 
       it("should not allow a listing to apply which has a pending application", async () => {
