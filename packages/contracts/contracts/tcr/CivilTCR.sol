@@ -292,15 +292,15 @@ contract CivilTCR is RestrictedAddressRegistry {
     // which is: (winner's full stake) + (dispensationPct * loser's stake)
     uint reward = determineAppealChallengeReward(appealChallengeID);
 
-    if (voting.isPassed(appealChallengeID)) { // Case: appeal challenge failed, don't overturn appeal
-      require(token.transfer(appeal.requester, reward));
-      resolveOverturnedChallenge(listingAddress);
-      GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID);
-    } else { // Case: appeal challenge succeeded, overturn appeal
+    if (voting.isPassed(appealChallengeID)) { // Case: appeal challenge succeeded, overturn appeal
       require(token.transfer(appealChallenge.challenger, reward));
       super.resolveChallenge(listingAddress);
       appeal.overturned = true;
       GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID);
+    } else { // Case: appeal challenge failed, don't overturn appeal
+      require(token.transfer(appeal.requester, reward));
+      resolveOverturnedChallenge(listingAddress);
+      GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID);
     }
 
     // Sets flag on challenge being processed
@@ -382,18 +382,18 @@ contract CivilTCR is RestrictedAddressRegistry {
     uint reward = determineReward(challengeID);
 
     // challenge is overturned, behavior here is opposite resolveChallenge
-    if (voting.isPassed(challengeID)) {
-      resetListing(listingAddress);
-      // Transfer the reward to the challenger
-      require(token.transfer(challenge.challenger, reward));
-
-      FailedChallengeOverturned(listingAddress, challengeID);
-    } else {
+    if (voting.isPassed(challengeID)) { // original vote passed (challenge success), this should whitelist listing
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
 
       SuccessfulChallengeOverturned(listingAddress, challengeID);
+    } else { // original vote failed (challenge failed), this should de-list listing
+      resetListing(listingAddress);
+      // Transfer the reward to the challenger
+      require(token.transfer(challenge.challenger, reward));
+
+      FailedChallengeOverturned(listingAddress, challengeID);
     }
 
     challenge.resolved = true;
