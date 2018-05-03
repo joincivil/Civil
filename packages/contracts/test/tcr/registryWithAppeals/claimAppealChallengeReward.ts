@@ -43,20 +43,20 @@ contract("Registry", accounts => {
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
       // Alice is so committed
-      await utils.commitVote(voting, pollID, "0", "500", "420", voterAlice);
+      await utils.commitVote(voting, pollID, "1", "500", "420", voterAlice);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
 
       // Alice is so revealing
-      await voting.revealVote(pollID, "0", "420", { from: voterAlice });
+      await voting.revealVote(pollID, "1", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
       await registry.requestAppeal(newsroomAddress, { from: voterBob });
       await registry.grantAppeal(newsroomAddress, { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
-      await utils.commitVote(voting, appealChallengePollID, "0", "500", "1337", voterBob);
+      await utils.commitVote(voting, appealChallengePollID, "1", "500", "1337", voterBob);
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
-      await voting.revealVote(appealChallengePollID, "0", "1337", { from: voterBob });
+      await voting.revealVote(appealChallengePollID, "1", "1337", { from: voterBob });
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
 
       await registry.updateStatus(newsroomAddress);
