@@ -1,6 +1,7 @@
 import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 
+import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const Parameterizer = artifacts.require("Parameterizer");
@@ -13,6 +14,7 @@ const expect = chai.expect;
 contract("Registry", accounts => {
   describe("Function: challenge", () => {
     const [applicant, challenger, voter, proposer] = accounts;
+    const unapproved = accounts[9];
     const listing3 = "0x0000000000000000000000000000000000000003";
     const listing4 = "0x0000000000000000000000000000000000000004";
     const listing5 = "0x0000000000000000000000000000000000000005";
@@ -52,6 +54,23 @@ contract("Registry", accounts => {
       expect(challengerFinalBalance).to.be.bignumber.equal(
         expectedFinalBalance,
         "Reward not properly disbursed to challenger",
+      );
+    });
+
+    it("should fail if challenge is already in progress", async () => {
+      await registry.apply(listing3, utils.paramConfig.minDeposit, "", { from: applicant });
+      await utils.challengeAndGetPollID(listing3, challenger, registry);
+      await expect(registry.challenge(listing3, "", { from: challenger })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have allowed user to challenge listing currently undergoing a challenge",
+      );
+    });
+
+    it("should fail if challenger has not approved registry as spender of token", async () => {
+      await registry.apply(listing3, utils.paramConfig.minDeposit, "", { from: applicant });
+      await expect(registry.challenge(listing3, "", { from: unapproved })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have allowed challenge if challenger has not approved registry as spender of token",
       );
     });
 
