@@ -81,7 +81,7 @@ export async function challengeReparamAndGetPollID(
   parameterizer: any,
 ): Promise<string> {
   const receipt = await parameterizer.challengeReparameterization(propID, { from: account });
-  return receipt.logs[0].args.pollID;
+  return receipt.logs[0].args.challengeID;
 }
 
 export async function simpleSuccessfulChallenge(

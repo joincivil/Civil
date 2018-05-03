@@ -28,7 +28,7 @@ contract("Parameterizer", accounts => {
         proposer,
       );
       const receipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
-      const challengeID = receipt.logs[0].args.pollID;
+      const challengeID = receipt.logs[0].args.challengeID;
       // Alice commits a vote: FOR, 10 tokens, 420 salt
       await utils.commitVote(voting, challengeID, "1", "10", "420", voterAlice);
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);
@@ -41,8 +41,7 @@ contract("Parameterizer", accounts => {
 
       // Grab the challenge struct after the proposal has been processed
       const voterTokens = await voting.getNumPassingTokens(voterAlice, challengeID, "420"); // 10
-      const rewardPool = await parameterizer.getChallengeRewardPool(challengeID); // 250,000
-      const totalTokens = await parameterizer.getChallengeWinningTokens(challengeID); // 10
+      const [rewardPool, , , , totalTokens] = await parameterizer.challenges(challengeID); // 250,000
 
       const expectedVoterReward = voterTokens.mul(rewardPool).div(totalTokens); // 250,000
       const voterReward = await parameterizer.voterReward(voterAlice, challengeID, "420");
