@@ -115,3 +115,9 @@ export async function revealVote(
 
   return voting.revealVote(pollID, voteOption, salt);
 }
+
+export async function withdrawTokens(address: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.withdraw(address, numTokens);
+}
