@@ -7,7 +7,7 @@ import {
   isAwaitingAppealChallenge,
   TwoStepEthTransaction,
 } from "@joincivil/core";
-import { updateListing } from "../../apis/civilTCR";
+import { updateStatus } from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -63,7 +63,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
   }
 
   private resolveAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateListing(this.props.listingAddress);
+    return updateStatus(this.props.listingAddress);
   };
 }
 
