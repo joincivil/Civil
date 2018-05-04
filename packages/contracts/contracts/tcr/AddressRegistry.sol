@@ -1,7 +1,7 @@
 pragma solidity ^0.4.19;
 
 import "./installed_contracts/tokens/contracts/eip20/EIP20.sol";
-
+import "../zeppelin-solidity/SafeMath.sol";
 import "./Parameterizer.sol";
 import "./PLCRVoting.sol";
 
@@ -25,6 +25,8 @@ contract AddressRegistry {
   event ChallengeFailed(address indexed listingAddress, uint indexed challengeID);
   event ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID);
   event RewardClaimed(address indexed voter, uint indexed challengeID, uint reward);
+
+  using SafeMath for uint;
 
   struct Listing {
     uint applicationExpiry; // Expiration date of apply stage
@@ -93,7 +95,6 @@ contract AddressRegistry {
     require(!listing.isWhitelisted);
     require(!appWasMade(listingAddress));
     require(amount >= parameterizer.get("minDeposit"));
-    require(block.timestamp + parameterizer.get("applyStageLen") > block.timestamp); // avoid overflow
 
     // Sets owner
     listing.owner = msg.sender;
@@ -102,7 +103,7 @@ contract AddressRegistry {
     require(token.transferFrom(msg.sender, this, amount));
 
     // Sets apply stage end time
-    listing.applicationExpiry = block.timestamp + parameterizer.get("applyStageLen");
+    listing.applicationExpiry = block.timestamp.add(parameterizer.get("applyStageLen"));
     listing.unstakedDeposit = amount;
 
     Application(listingAddress, amount, data);
