@@ -5,12 +5,14 @@ import {
   canListingBeChallenged,
   canBeWhitelisted,
   canRequestAppeal,
+  EthAddress,
   isAwaitingAppealJudgment,
   isChallengeInCommitStage,
   isChallengeInRevealStage,
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
+import { DepositTokens } from "./OwnerListingViews";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -23,6 +25,7 @@ const StyledDiv = styled.div`
 
 export interface ListingDetailProps {
   listing: ListingWrapper;
+  userAccount?: EthAddress;
 }
 
 class ListingDetail extends React.Component<ListingDetailProps> {
@@ -40,6 +43,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
       !isChallengeInRevealStage(challenge) &&
       !canRequestAppeal(challenge) &&
       !challenge.appeal;
+    const isOwnerViewingListing = this.props.listing.data.owner === this.props.userAccount;
     return (
       <StyledDiv>
         {this.props.listing.data && (
@@ -50,6 +54,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             <br />
             Unstaked Deposit: {this.props.listing.data.unstakedDeposit.toString()}
             <br />
+            {isOwnerViewingListing && this.renderOwnerListingActionsView()}
             {canBeChallenged && this.renderCanBeChallenged()}
             {isAwaitingAppealJudgment(this.props.listing.data) && this.renderGrantAppeal()}
             {canWhitelist && this.renderCanWhitelist()}
@@ -75,6 +80,14 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   private renderGrantAppeal = (): JSX.Element => {
     // @TODO: Only render this JSX element if the user is in the JEC multisig
     return <TransactionButton transactions={[{ transaction: this.grantAppeal }]}>Grant Appeal</TransactionButton>;
+  };
+
+  private renderOwnerListingActionsView = (): JSX.Element => {
+    return (
+      <>
+        <DepositTokens listingAddress={this.props.listing.address} />
+      </>
+    );
   };
 
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
