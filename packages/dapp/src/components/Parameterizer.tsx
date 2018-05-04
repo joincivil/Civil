@@ -57,22 +57,54 @@ class Parameterizer extends React.Component<{}, ParameterStates> {
   public render(): JSX.Element {
     return (
       <>
-        <div><StyledSpan>minDeposit:</StyledSpan> {this.state.minDeposit}</div>
-        <div><StyledSpan>pMinDeposit:</StyledSpan> {this.state.pMinDeposit}</div>
-        <div><StyledSpan>applyStageLen:</StyledSpan> {this.state.applyStageLen}</div>
-        <div><StyledSpan>pApplyStageLen:</StyledSpan> {this.state.pApplyStageLen}</div>
-        <div><StyledSpan>commitStageLen:</StyledSpan> {this.state.commitStageLen}</div>
-        <div><StyledSpan>pCommitStageLen:</StyledSpan> {this.state.pCommitStageLen}</div>
-        <div><StyledSpan>revealStageLen:</StyledSpan> {this.state.revealStageLen}</div>
-        <div><StyledSpan>pRevealStageLen:</StyledSpan> {this.state.pRevealStageLen}</div>
-        <div><StyledSpan>dispensationPct:</StyledSpan> {this.state.dispensationPct}</div>
-        <div><StyledSpan>pDispensationPct:</StyledSpan> {this.state.pDispensationPct}</div>
-        <div><StyledSpan>voteQuorum:</StyledSpan> {this.state.voteQuorum}</div>
-        <div><StyledSpan>pVoteQuorum:</StyledSpan> {this.state.pVoteQuorum}</div>
-        <div><StyledSpan>pProcessBy:</StyledSpan> {this.state.pProcessBy}</div>
-        <div><StyledSpan>challengeAppealLen:</StyledSpan> {this.state.challengeAppealLen}</div>
-        <div><StyledSpan>challengeAppealCommitLen:</StyledSpan> {this.state.challengeAppealCommitLen}</div>
-        <div><StyledSpan>challengeAppealRevealLen:</StyledSpan> {this.state.challengeAppealRevealLen}</div>
+        <div>
+          <StyledSpan>minDeposit:</StyledSpan> {this.state.minDeposit}
+        </div>
+        <div>
+          <StyledSpan>pMinDeposit:</StyledSpan> {this.state.pMinDeposit}
+        </div>
+        <div>
+          <StyledSpan>applyStageLen:</StyledSpan> {this.state.applyStageLen}
+        </div>
+        <div>
+          <StyledSpan>pApplyStageLen:</StyledSpan> {this.state.pApplyStageLen}
+        </div>
+        <div>
+          <StyledSpan>commitStageLen:</StyledSpan> {this.state.commitStageLen}
+        </div>
+        <div>
+          <StyledSpan>pCommitStageLen:</StyledSpan> {this.state.pCommitStageLen}
+        </div>
+        <div>
+          <StyledSpan>revealStageLen:</StyledSpan> {this.state.revealStageLen}
+        </div>
+        <div>
+          <StyledSpan>pRevealStageLen:</StyledSpan> {this.state.pRevealStageLen}
+        </div>
+        <div>
+          <StyledSpan>dispensationPct:</StyledSpan> {this.state.dispensationPct}
+        </div>
+        <div>
+          <StyledSpan>pDispensationPct:</StyledSpan> {this.state.pDispensationPct}
+        </div>
+        <div>
+          <StyledSpan>voteQuorum:</StyledSpan> {this.state.voteQuorum}
+        </div>
+        <div>
+          <StyledSpan>pVoteQuorum:</StyledSpan> {this.state.pVoteQuorum}
+        </div>
+        <div>
+          <StyledSpan>pProcessBy:</StyledSpan> {this.state.pProcessBy}
+        </div>
+        <div>
+          <StyledSpan>challengeAppealLen:</StyledSpan> {this.state.challengeAppealLen}
+        </div>
+        <div>
+          <StyledSpan>challengeAppealCommitLen:</StyledSpan> {this.state.challengeAppealCommitLen}
+        </div>
+        <div>
+          <StyledSpan>challengeAppealRevealLen:</StyledSpan> {this.state.challengeAppealRevealLen}
+        </div>
       </>
     );
   }
@@ -83,7 +115,7 @@ class Parameterizer extends React.Component<{}, ParameterStates> {
       const parameterObj = {};
       parameterObj[parameterKey] = parameterVal.toString();
       this.setState(parameterObj);
-    })
+    });
   };
 }
 
