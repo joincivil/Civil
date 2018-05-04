@@ -5,24 +5,20 @@ import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const PLCRVoting = artifacts.require("PLCRVoting");
-const Token = artifacts.require("EIP20.sol");
 
 configureChai(chai);
 const expect = chai.expect;
 
 contract("PLCRVoting", accounts => {
   describe("Function: didCommit", () => {
-    const [proposer, challenger, voterAlice, voterBob] = accounts;
+    const [proposer, challenger, voterAlice] = accounts;
     let parameterizer: any;
     let voting: any;
-    let token: any;
 
     beforeEach(async () => {
       parameterizer = await utils.createAllTestParameterizerInstance(accounts);
       const votingAddress = await parameterizer.voting();
       voting = await PLCRVoting.at(votingAddress);
-      const tokenAddress = await parameterizer.token();
-      token = await Token.at(tokenAddress);
     });
 
     it("should revert if poll does not exists.", async () => {

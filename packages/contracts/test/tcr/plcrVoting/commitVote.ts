@@ -5,25 +5,21 @@ import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const PLCRVoting = artifacts.require("PLCRVoting");
-const Token = artifacts.require("EIP20.sol");
 
 configureChai(chai);
 const expect = chai.expect;
 
 contract("PLCRVoting", accounts => {
   describe("Function: commitVote", () => {
-    const [proposer, challenger, voterAlice, voterBob] = accounts;
+    const [proposer, challenger, voterAlice] = accounts;
     const unapproved = accounts[9];
     let parameterizer: any;
     let voting: any;
-    let token: any;
 
     beforeEach(async () => {
       parameterizer = await utils.createAllTestParameterizerInstance(accounts);
       const votingAddress = await parameterizer.voting();
       voting = await PLCRVoting.at(votingAddress);
-      const tokenAddress = await parameterizer.token();
-      token = await Token.at(tokenAddress);
     });
 
     it("should revert if poll does not exists.", async () => {
@@ -49,7 +45,7 @@ contract("PLCRVoting", accounts => {
 
       const challengeID = challengeReceipt.logs[0].args.challengeID;
 
-      await expect(utils.commitVote(voting, "1", "1", "500", "123", voterAlice)).to.eventually.be.fulfilled(
+      await expect(utils.commitVote(voting, challengeID, "1", "500", "123", voterAlice)).to.eventually.be.fulfilled(
         "should have allowed user to commit vote during commit vote stage",
       );
     });
@@ -63,7 +59,7 @@ contract("PLCRVoting", accounts => {
 
       const challengeID = challengeReceipt.logs[0].args.challengeID;
 
-      await expect(utils.commitVote(voting, "1", "1", "500", "123", unapproved)).to.eventually.be.fulfilled(
+      await expect(utils.commitVote(voting, challengeID, "1", "500", "123", unapproved)).to.eventually.be.fulfilled(
         "should have allowed user to commit vote during commit vote stage",
       );
     });
@@ -78,7 +74,7 @@ contract("PLCRVoting", accounts => {
       const challengeID = challengeReceipt.logs[0].args.challengeID;
 
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);
-      await expect(utils.commitVote(voting, "0", "1", "500", "123", voterAlice)).to.eventually.be.rejectedWith(
+      await expect(utils.commitVote(voting, challengeID, "1", "500", "123", voterAlice)).to.eventually.be.rejectedWith(
         REVERTED,
         "should have reverted after commit vote stage",
       );
