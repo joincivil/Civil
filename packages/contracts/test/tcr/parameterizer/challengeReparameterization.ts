@@ -60,7 +60,7 @@ contract("Parameterizer", accounts => {
       const { propID } = proposalReceipt.logs[0].args;
 
       const challengeReceipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
-      const challengeID = challengeReceipt.logs[0].args.pollID;
+      const challengeID = challengeReceipt.logs[0].args.challengeID;
 
       await utils.commitVote(voting, challengeID, "1", "10", "420", voter);
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);

@@ -1,8 +1,9 @@
 pragma solidity ^0.4.19;
 
-import "./installed_contracts/tokens/contracts/eip20/EIP20.sol";
+import "./installed_contracts/tokens/contracts/eip20/EIP20Interface.sol";
 import "./installed_contracts/attrstore/contracts/AttributeStore.sol";
 import "./installed_contracts/dll/contracts/DLL.sol";
+import "../zeppelin-solidity/SafeMath.sol";
 
 /**
 @title Partial-Lock-Commit-Reveal Voting scheme with ERC20 tokens
@@ -14,11 +15,12 @@ contract PLCRVoting {
   // EVENTS:
   // ============
 
-  event VoteCommitted(address indexed voter, uint indexed pollID, uint numTokens);
-  event VoteRevealed(address indexed voter, uint indexed pollID, uint numTokens, uint choice);
-  event PollCreated(uint voteQuorum, uint commitDuration, uint revealDuration, uint indexed pollID);
-  event VotingRightsGranted(address indexed voter, uint numTokens);
-  event VotingRightsWithdrawn(address indexed voter, uint numTokens);
+  event _VoteCommitted(uint indexed pollID, uint numTokens, address indexed voter);
+  event _VoteRevealed(uint indexed pollID, uint numTokens, uint votesFor, uint votesAgainst, uint indexed choice, address indexed voter);
+  event _PollCreated(uint voteQuorum, uint commitEndDate, uint revealEndDate, uint indexed pollID, address indexed creator);
+  event _VotingRightsGranted(uint numTokens, address indexed voter);
+  event _VotingRightsWithdrawn(uint numTokens, address indexed voter);
+  event _TokensRescued(uint indexed pollID, address indexed voter);
 
   // ============
   // DATA STRUCTURES:
@@ -26,6 +28,7 @@ contract PLCRVoting {
 
   using AttributeStore for AttributeStore.Data;
   using DLL for DLL.Data;
+  using SafeMath for uint;
 
   struct Poll {
     uint commitEndDate;     /// expiration date of commit period for poll
@@ -33,6 +36,8 @@ contract PLCRVoting {
     uint voteQuorum;	    /// number of votes required for a proposal to pass
     uint votesFor;		    /// tally of votes supporting proposal
     uint votesAgainst;      /// tally of votes countering proposal
+    mapping(address => bool) didCommit;  /// indicates whether an address committed a vote for this poll
+    mapping(address => bool) didReveal;   /// indicates whether an address revealed a vote for this poll
   }
 
   // ============
@@ -43,13 +48,12 @@ contract PLCRVoting {
   uint public pollNonce;
 
   mapping(uint => Poll) public pollMap; // maps pollID to Poll struct
-
   mapping(address => uint) public voteTokenBalance; // maps user's address to voteToken balance
 
   mapping(address => DLL.Data) dllMap;
   AttributeStore.Data store;
 
-  EIP20 public token;
+  EIP20Interface public token;
 
   // ============
   // CONSTRUCTOR:
@@ -60,7 +64,7 @@ contract PLCRVoting {
   @param _tokenAddr The address where the ERC20 token contract is deployed
   */
   function PLCRVoting(address _tokenAddr) public {
-    token = EIP20(_tokenAddr);
+    token = EIP20Interface(_tokenAddr);
     pollNonce = INITIAL_POLL_NONCE;
   }
 
@@ -75,9 +79,9 @@ contract PLCRVoting {
   */
   function requestVotingRights(uint _numTokens) external {
     require(token.balanceOf(msg.sender) >= _numTokens);
-    require(token.transferFrom(msg.sender, this, _numTokens));
     voteTokenBalance[msg.sender] += _numTokens;
-    VotingRightsGranted(msg.sender, _numTokens);
+    require(token.transferFrom(msg.sender, this, _numTokens));
+    _VotingRightsGranted(_numTokens, msg.sender);
   }
 
   /**
@@ -85,11 +89,11 @@ contract PLCRVoting {
   @param _numTokens The number of ERC20 tokens desired in exchange for voting rights
   */
   function withdrawVotingRights(uint _numTokens) external {
-    uint availableTokens = voteTokenBalance[msg.sender] - getLockedTokens(msg.sender);
+    uint availableTokens = voteTokenBalance[msg.sender].sub(getLockedTokens(msg.sender));
     require(availableTokens >= _numTokens);
-    require(token.transfer(msg.sender, _numTokens));
     voteTokenBalance[msg.sender] -= _numTokens;
-    VotingRightsWithdrawn(msg.sender, _numTokens);
+    require(token.transfer(msg.sender, _numTokens));
+    _VotingRightsWithdrawn(_numTokens, msg.sender);
   }
 
   /**
@@ -97,10 +101,11 @@ contract PLCRVoting {
   @param _pollID Integer identifier associated with the target poll
   */
   function rescueTokens(uint _pollID) external {
-    require(pollEnded(_pollID));
-    require(!hasBeenRevealed(msg.sender, _pollID));
+    require(isExpired(pollMap[_pollID].revealEndDate));
+    require(dllMap[msg.sender].contains(_pollID));
 
     dllMap[msg.sender].remove(_pollID);
+    _TokensRescued(_pollID, msg.sender);
   }
 
   // =================
@@ -119,9 +124,8 @@ contract PLCRVoting {
     require(voteTokenBalance[msg.sender] >= _numTokens); // prevent user from overspending
     require(_pollID != 0);                // prevent user from committing to zero node placeholder
 
-    // TODO: Move all insert validation into the DLL lib
-    // Check if _prevPollID exists
-    require(_prevPollID == 0 || getCommitHash(msg.sender, _prevPollID) != 0);
+    // Check if _prevPollID exists in the user's DLL or if _prevPollID is 0
+    require(_prevPollID == 0 || dllMap[msg.sender].contains(_prevPollID));
 
     uint nextPollID = dllMap[msg.sender].getNext(_prevPollID);
 
@@ -131,12 +135,14 @@ contract PLCRVoting {
     require(validPosition(_prevPollID, nextPollID, msg.sender, _numTokens));
     dllMap[msg.sender].insert(_prevPollID, _pollID, nextPollID);
 
-    bytes32 uuid = attrUUID(msg.sender, _pollID);
+    /* solium-disable-next-line */
+    bytes32 UUID = attrUUID(msg.sender, _pollID);
 
-    store.setAttribute(uuid, "numTokens", _numTokens);
-    store.setAttribute(uuid, "commitHash", uint(_secretHash));
+    store.setAttribute(UUID, "numTokens", _numTokens);
+    store.setAttribute(UUID, "commitHash", uint(_secretHash));
 
-    VoteCommitted(msg.sender, _pollID, _numTokens);
+    pollMap[_pollID].didCommit[msg.sender] = true;
+    _VoteCommitted(_pollID, _numTokens, msg.sender);
   }
 
   /**
@@ -163,20 +169,22 @@ contract PLCRVoting {
   function revealVote(uint _pollID, uint _voteOption, uint _salt) external {
     // Make sure the reveal period is active
     require(revealPeriodActive(_pollID));
-    require(!hasBeenRevealed(msg.sender, _pollID));                        // prevent user from revealing multiple times
+    require(pollMap[_pollID].didCommit[msg.sender]);                         // make sure user has committed a vote for this poll
+    require(!pollMap[_pollID].didReveal[msg.sender]);                        // prevent user from revealing multiple times
     require(keccak256(_voteOption, _salt) == getCommitHash(msg.sender, _pollID)); // compare resultant hash from inputs to original commitHash
 
     uint numTokens = getNumTokens(msg.sender, _pollID);
 
-    if (_voteOption == 1) { // apply numTokens to appropriate poll choice
+    if (_voteOption == 1) {// apply numTokens to appropriate poll choice
       pollMap[_pollID].votesFor += numTokens;
     } else {
       pollMap[_pollID].votesAgainst += numTokens;
     }
 
     dllMap[msg.sender].remove(_pollID); // remove the node referring to this vote upon reveal
+    pollMap[_pollID].didReveal[msg.sender] = true;
 
-    VoteRevealed(msg.sender, _pollID, numTokens, _voteOption);
+    _VoteRevealed(_pollID, numTokens, pollMap[_pollID].votesFor, pollMap[_pollID].votesAgainst, _voteOption, msg.sender);
   }
 
   /**
@@ -184,15 +192,33 @@ contract PLCRVoting {
   @param _salt Arbitrarily chosen integer used to generate secretHash
   @return correctVotes Number of tokens voted for winning option
   */
-  function getNumPassingTokens(address _voter, uint _pollID, uint _salt, bool _overturned) public constant returns (uint correctVotes) {
+  function getNumPassingTokens(address _voter, uint _pollID, uint _salt) public constant returns (uint correctVotes) {
     require(pollEnded(_pollID));
-    require(hasBeenRevealed(_voter, _pollID));
+    require(pollMap[_pollID].didReveal[_voter]);
 
-    uint winningChoice = (_overturned || isPassed(_pollID)) ? 1 : 0;
+    uint winningChoice = isPassed(_pollID) ? 1 : 0;
     bytes32 winnerHash = keccak256(winningChoice, _salt);
     bytes32 commitHash = getCommitHash(_voter, _pollID);
 
     require(winnerHash == commitHash);
+
+    return getNumTokens(_voter, _pollID);
+  }
+
+  /**
+  @param _pollID Integer identifier associated with target poll
+  @param _salt Arbitrarily chosen integer used to generate secretHash
+  @return correctVotes Number of tokens voted for losing option
+  */
+  function getNumLosingTokens(address _voter, uint _pollID, uint _salt) public constant returns (uint correctVotes) {
+    require(pollEnded(_pollID));
+    require(pollMap[_pollID].didReveal[_voter]);
+
+    uint losingChoice = isPassed(_pollID) ? 0 : 1;
+    bytes32 loserHash = keccak256(losingChoice, _salt);
+    bytes32 commitHash = getCommitHash(_voter, _pollID);
+
+    require(loserHash == commitHash);
 
     return getNumTokens(_voter, _pollID);
   }
@@ -210,15 +236,18 @@ contract PLCRVoting {
   function startPoll(uint _voteQuorum, uint _commitDuration, uint _revealDuration) public returns (uint pollID) {
     pollNonce = pollNonce + 1;
 
+    uint commitEndDate = block.timestamp.add(_commitDuration);
+    uint revealEndDate = commitEndDate.add(_revealDuration);
+
     pollMap[pollNonce] = Poll({
       voteQuorum: _voteQuorum,
-      commitEndDate: block.timestamp + _commitDuration,
-      revealEndDate: block.timestamp + _commitDuration + _revealDuration,
+      commitEndDate: commitEndDate,
+      revealEndDate: revealEndDate,
       votesFor: 0,
       votesAgainst: 0
     });
 
-    PollCreated(_voteQuorum, _commitDuration, _revealDuration, pollNonce);
+    _PollCreated(_voteQuorum, commitEndDate, revealEndDate, pollNonce, msg.sender);
     return pollNonce;
   }
 
@@ -246,26 +275,24 @@ contract PLCRVoting {
   function getTotalNumberOfTokensForWinningOption(uint _pollID) constant public returns (uint numTokens) {
     require(pollEnded(_pollID));
 
-    if (isPassed(_pollID)) {
+    if (isPassed(_pollID))
       return pollMap[_pollID].votesFor;
-    }
-
-    return pollMap[_pollID].votesAgainst;
+    else
+      return pollMap[_pollID].votesAgainst;
   }
 
   /**
-  @dev Gets the total winning votes for reward distribution purposes
+  @dev Gets the total losing votes for reward distribution purposes
   @param _pollID Integer identifier associated with target poll
   @return Total number of votes committed to the losing option for specified poll
   */
   function getTotalNumberOfTokensForLosingOption(uint _pollID) constant public returns (uint numTokens) {
     require(pollEnded(_pollID));
 
-    if (!isPassed(_pollID)) {
+    if (isPassed(_pollID))
+      return pollMap[_pollID].votesAgainst;
+    else
       return pollMap[_pollID].votesFor;
-    }
-
-    return pollMap[_pollID].votesAgainst;
   }
 
   /**
@@ -303,33 +330,36 @@ contract PLCRVoting {
   }
 
   /**
-  @dev Checks if user has already revealed for specified poll
+  @dev Checks if user has committed for specified poll
   @param _voter Address of user to check against
   @param _pollID Integer identifier associated with target poll
-  @return Boolean indication of whether user has already revealed
+  @return Boolean indication of whether user has committed
   */
-  function hasBeenRevealed(address _voter, uint _pollID) constant public returns (bool revealed) {
+  function didCommit(address _voter, uint _pollID) constant public returns (bool committed) {
     require(pollExists(_pollID));
 
-    return !dllMap[_voter].contains(_pollID);
+    return pollMap[_pollID].didCommit[_voter];
   }
 
   /**
-  @dev Checks if a poll exists, throws if the provided poll is in an impossible state
+  @dev Checks if user has revealed for specified poll
+  @param _voter Address of user to check against
+  @param _pollID Integer identifier associated with target poll
+  @return Boolean indication of whether user has revealed
+  */
+  function didReveal(address _voter, uint _pollID) constant public returns (bool revealed) {
+    require(pollExists(_pollID));
+
+    return pollMap[_pollID].didReveal[_voter];
+  }
+
+  /**
+  @dev Checks if a poll exists
   @param _pollID The pollID whose existance is to be evaluated.
   @return Boolean Indicates whether a poll exists for the provided pollID
   */
   function pollExists(uint _pollID) constant public returns (bool exists) {
-    uint commitEndDate = pollMap[_pollID].commitEndDate;
-    uint revealEndDate = pollMap[_pollID].revealEndDate;
-
-    assert(!(commitEndDate == 0 && revealEndDate != 0));
-    assert(!(commitEndDate != 0 && revealEndDate == 0));
-
-    if (commitEndDate == 0 || revealEndDate == 0) {
-      return false;
-    }
-    return true;
+    return (_pollID != 0 && _pollID <= pollNonce);
   }
 
   // ---------------------------
@@ -374,28 +404,40 @@ contract PLCRVoting {
     return getNumTokens(_voter, getLastNode(_voter));
   }
 
-  /**
-  @dev Gets the prevNode a new node should be inserted after given the sort factor
+  /*
+  @dev Takes the last node in the user's DLL and iterates backwards through the list searching
+  for a node with a value less than or equal to the provided _numTokens value. When such a node
+  is found, if the provided _pollID matches the found nodeID, this operation is an in-place
+  update. In that case, return the previous node of the node being updated. Otherwise return the
+  first node that was found with a value less than or equal to the provided _numTokens.
   @param _voter The voter whose DLL will be searched
   @param _numTokens The value for the numTokens attribute in the node to be inserted
   @return the node which the propoded node should be inserted after
   */
-  function getInsertPointForNumTokens(
-    address _voter,
-    uint _numTokens)
-    constant public returns (uint prevNode)
+  function getInsertPointForNumTokens(address _voter, uint _numTokens, uint _pollID)
+  constant public returns (uint prevNode) 
   {
+    // Get the last node in the list and the number of tokens in that node
     uint nodeID = getLastNode(_voter);
     uint tokensInNode = getNumTokens(_voter, nodeID);
 
-    while (tokensInNode != 0) {
+    // Iterate backwards through the list until reaching the root node
+    while (nodeID != 0) {
+      // Get the number of tokens in the current node
       tokensInNode = getNumTokens(_voter, nodeID);
-      if (tokensInNode < _numTokens) {
-        return nodeID;
+      if (tokensInNode <= _numTokens) { // We found the insert point!
+        if (nodeID == _pollID) {
+          // This is an in-place update. Return the prev node of the node being updated
+          nodeID = dllMap[_voter].getPrev(nodeID);
+        }
+        // Return the insert point
+        return nodeID; 
       }
+      // We did not find the insert point. Continue iterating backwards through the list
       nodeID = dllMap[_voter].getPrev(nodeID);
     }
 
+    // The list is empty, or a smaller value than anything else in the list is being inserted
     return nodeID;
   }
 
@@ -417,7 +459,9 @@ contract PLCRVoting {
   @param _pollID Integer identifier associated with target poll
   @return UUID Hash which is deterministic from _user and _pollID
   */
-  function attrUUID(address _user, uint _pollID) public pure returns (bytes32 uuid) {
+  /* solium-disable-next-line */
+  function attrUUID(address _user, uint _pollID) public pure returns (bytes32 UUID) {
     return keccak256(_user, _pollID);
   }
 }
+

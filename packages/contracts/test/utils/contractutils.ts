@@ -43,6 +43,13 @@ export function getReceiptValue(receipt: any, arg: any): any {
   return receipt.logs[0].args[arg];
 }
 
+export async function getBlockTimestamp(): Promise<any> {
+  const blockNumberPromise = promisify<number>(web3.eth.getBlockNumber.bind(web3.eth));
+  const blockNumber = await blockNumberPromise();
+  const getBlock = promisify<number, Web3.BlockWithoutTransactionData>(web3.eth.getBlock.bind(web3.eth));
+  return (await getBlock(blockNumber)).timestamp;
+}
+
 export function is0x0Address(address: string): boolean {
   return address === "0x0" || address === "0x0000000000000000000000000000000000000000";
 }
@@ -81,7 +88,7 @@ export async function challengeReparamAndGetPollID(
   parameterizer: any,
 ): Promise<string> {
   const receipt = await parameterizer.challengeReparameterization(propID, { from: account });
-  return receipt.logs[0].args.pollID;
+  return receipt.logs[0].args.challengeID;
 }
 
 export async function simpleSuccessfulChallenge(
@@ -170,7 +177,7 @@ export async function commitVote(
   const hash = getVoteSaltHash(voteOption, salt);
   await voting.requestVotingRights(tokensArg, { from: voter });
 
-  const prevPollID = await voting.getInsertPointForNumTokens.call(voter, tokensArg);
+  const prevPollID = await voting.getInsertPointForNumTokens.call(voter, tokensArg, pollID);
   await voting.commitVote(pollID, hash, tokensArg, prevPollID, { from: voter });
 }
 
