@@ -34,7 +34,7 @@ contract("Parameterizer", accounts => {
 
       const challengeReceipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
 
-      const challengeID = challengeReceipt.logs[0].args.pollID;
+      const challengeID = challengeReceipt.logs[0].args.challengeID;
 
       await utils.commitVote(voting, challengeID, "1", "10", "420", voterAlice);
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);
@@ -67,7 +67,7 @@ contract("Parameterizer", accounts => {
 
       const challengeReceipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
 
-      const challengeID = challengeReceipt.logs[0].args.pollID;
+      const challengeID = challengeReceipt.logs[0].args.challengeID;
 
       await utils.commitVote(voting, challengeID, "1", "10", "420", voterAlice);
       await utils.commitVote(voting, challengeID, "1", "20", "420", voterBob);
@@ -106,7 +106,7 @@ contract("Parameterizer", accounts => {
 
       const challengeReceipt = await parameterizer.challengeReparameterization(propID, { from: challenger });
 
-      const challengeID = challengeReceipt.logs[0].args.pollID;
+      const challengeID = challengeReceipt.logs[0].args.challengeID;
 
       await utils.commitVote(voting, challengeID, "1", "10", "420", voterAlice);
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + 1);

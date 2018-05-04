@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { approveForChallenge, challengeListing, grantAppeal, updateListing } from "../../apis/civilTCR";
+import { approveForChallenge, challengeListing, grantAppeal, updateStatus } from "../../apis/civilTCR";
 import {
   canListingBeChallenged,
   canBeWhitelisted,
@@ -93,7 +93,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   };
 
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateListing(this.props.listing.address);
+    return updateStatus(this.props.listing.address);
   };
 
   private renderCanBeChallenged = (): JSX.Element => {
@@ -108,7 +108,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
     return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
   }
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateListing(this.props.listing.address);
+    return updateStatus(this.props.listing.address);
   };
 
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {

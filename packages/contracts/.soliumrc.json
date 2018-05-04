@@ -12,7 +12,7 @@
     "function-whitespace": "error",
     "lbrace": "error",
     "mixedcase": "error",
-    "camelcase": "error",
+    "camelcase": "warning",
     "uppercase": "error",
     "no-empty-blocks": "warning",
     "no-unused-vars": "error",
@@ -23,6 +23,7 @@
     "function-order": "off",
     "quotes": ["error", "double"],
     "indentation": ["error", 2],
+    "max-len": "off",
 
     "security/no-throw": "error",
     "security/no-tx-origin": "error",

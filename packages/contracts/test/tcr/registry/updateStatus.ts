@@ -6,10 +6,11 @@ import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
 const expect = chai.expect;
+const PLCRVoting = artifacts.require("PLCRVoting");
 
 contract("Registry", accounts => {
   describe("Function: updateStatus", () => {
-    const [applicant, challenger] = accounts;
+    const [applicant, challenger, voter] = accounts;
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
     const listing21 = "0x0000000000000000000000000000000000000021";
     const listing22 = "0x0000000000000000000000000000000000000022";
@@ -18,9 +19,12 @@ contract("Registry", accounts => {
     const listing25 = "0x0000000000000000000000000000000000000025";
     const listing26 = "0x0000000000000000000000000000000000000026";
     let registry: any;
+    let voting: any;
 
     beforeEach(async () => {
       registry = await utils.createAllTestAddressRegistryInstance(accounts);
+      const votingAddress = await registry.voting();
+      voting = await PLCRVoting.at(votingAddress);
     });
 
     it("should whitelist listing if apply stage ended without a challenge", async () => {
@@ -52,11 +56,11 @@ contract("Registry", accounts => {
 
     it("should not whitelist a listing that failed a challenge", async () => {
       await registry.apply(listing24, minDeposit, "", { from: applicant });
-      await registry.challenge(listing24, "", { from: challenger });
-
-      const plcrComplete = utils.paramConfig.revealStageLength + utils.paramConfig.commitStageLength + 1;
-      await utils.advanceEvmTime(plcrComplete);
-
+      const pollID = await utils.challengeAndGetPollID(listing24, challenger, registry);
+      await utils.commitVote(voting, pollID, "1", "100", "123", voter);
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
+      await voting.revealVote(pollID, "1", "123", { from: voter });
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing24);
       const [, isWhitelisted] = await registry.listings(listing24);
       expect(isWhitelisted).to.be.false("Listing should not have been whitelisted");
