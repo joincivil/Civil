@@ -47,7 +47,6 @@ class TransactionButton extends React.Component<TransactionButtonProps, Transact
   }
 
   public render(): JSX.Element {
-    console.log(this.state);
     return (
       <>
         {this.state.error}

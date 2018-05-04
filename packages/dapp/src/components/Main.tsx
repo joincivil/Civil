@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter, RouteComponentProps } from "react-router-dom";
 import Listings from "./Listings";
 import Newsroom from "./newsroom/Newsroom";
 import Contracts from "./Contracts";
@@ -10,52 +10,34 @@ import NewsroomManagement from "./newsroom/NewsroomManagement";
 import Parameterizer from "./Parameterizer";
 import CreateNewsroom from "./CreateNewsroom";
 import Article from "./Article";
-import { setCivil } from "../helpers/civilInstance";
+import { getCivil } from "../helpers/civilInstance";
+import { initializeSubscriptions } from "../helpers/listingEvents";
+import { addUser } from "../actionCreators/userAccount";
+import { connect, DispatchProp } from "react-redux";
 
-export interface MainState {
-  civilSet: boolean;
-}
-class Main extends React.Component<{}, MainState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      civilSet: false,
-    };
-  }
-  public componentDidMount(): void {
-    window.addEventListener("load", this.initCivil);
-  }
-
-  public componentWillUnmount(): void {
-    window.removeEventListener("load", this.initCivil);
+class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
+  public async componentDidMount(): Promise<void> {
+    const civil = getCivil();
+    await initializeSubscriptions(this.props.dispatch!);
+    this.props.dispatch!(addUser(civil.userAccount));
   }
 
   public render(): JSX.Element {
     return (
-      <>
-        {!this.state.civilSet && "loading..."}
-        {this.state.civilSet && (
-          <Switch>
-            <Route exact={true} path="/" component={Listings} />
-            <Route path="/newsroom/:newsroomAddress" component={Newsroom} />
-            <Route path="/contracts" component={Contracts} />
-            <Route path="/contract/:contract" component={ContractPage} />
-            <Route path="/listing/:listing" component={Listing} />
-            <Route path="/editor" component={Editor} />
-            <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
-            <Route path="/parameterizer" component={Parameterizer} />
-            <Route path="/createNewsroom" component={CreateNewsroom} />
-            <Route path="/article/:newsroomAddress/:articleId" component={Article} />
-          </Switch>
-        )}
-      </>
+      <Switch>
+        <Route exact path="/" component={Listings} />
+        <Route path="/newsroom/:newsroomAddress" component={Newsroom} />
+        <Route path="/contracts" component={Contracts} />
+        <Route path="/contract/:contract" component={ContractPage} />
+        <Route path="/listing/:listing" component={Listing} />
+        <Route path="/editor" component={Editor} />
+        <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
+        <Route path="/parameterizer" component={Parameterizer} />
+        <Route path="/createNewsroom" component={CreateNewsroom} />
+        <Route path="/article/:newsroomAddress/:articleId" component={Article} />
+      </Switch>
     );
   }
-
-  private initCivil = () => {
-    setCivil();
-    this.setState({ civilSet: true });
-  };
 }
 
-export default Main;
+export default withRouter(connect()(Main));
