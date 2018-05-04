@@ -1,4 +1,3 @@
-/* solium-disable */
 pragma solidity^0.4.11;
 
 library DLL {
@@ -53,11 +52,14 @@ library DLL {
   */
   function insert(Data storage self, uint _prev, uint _curr, uint _next) public {
     require(_curr != NULL_NODE_ID);
-    require(_prev == NULL_NODE_ID || contains(self, _prev));
 
     remove(self, _curr);
 
+    require(_prev == NULL_NODE_ID || contains(self, _prev));
+    require(_next == NULL_NODE_ID || contains(self, _next));
+
     require(getNext(self, _prev) == _next);
+    require(getPrev(self, _next) == _prev);
 
     self.dll[_curr].prev = _prev;
     self.dll[_curr].next = _next;
