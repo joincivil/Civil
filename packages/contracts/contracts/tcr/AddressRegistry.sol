@@ -390,7 +390,7 @@ contract AddressRegistry {
   function determineChallengeReward(Challenge challenge, uint challengeID) internal view returns (uint) {
     require(!challenge.resolved && voting.pollEnded(challengeID));
 
-    // Edge case, nobody voted, give all tokens to the challenger.
+    // Edge case, nobody voted, give all tokens to the listing owner.
     if (voting.getTotalNumberOfTokensForWinningOption(challengeID) == 0) {
       return 2 * challenge.stake;
     }
@@ -426,19 +426,19 @@ contract AddressRegistry {
     // which is: (winner's full stake) + (dispensationPct * loser's stake)
     uint reward = determineReward(challengeID);
 
-    if (voting.isPassed(challengeID)) { // Case: challenge failed
+    if (voting.isPassed(challengeID)) { // Case: challenge succeeded, listing to be removed
+      resetListing(listingAddress);
+      // Transfer the reward to the challenger
+      require(token.transfer(challenge.challenger, reward));
+
+      ChallengeSucceeded(listingAddress, challengeID);
+    } else { // Case: challenge failed, listing to be whitelisted
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
 
       ChallengeFailed(listingAddress, challengeID);
       listing.challengeID = 0;
-    } else { // Case: challenge succeeded
-      resetListing(listingAddress);
-      // Transfer the reward to the challenger
-      require(token.transfer(challenge.challenger, reward));
-
-      ChallengeSucceeded(listingAddress, challengeID);
     }
 
     // Sets flag on challenge being processed

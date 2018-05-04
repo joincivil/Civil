@@ -7,7 +7,6 @@ configureChai(chai);
 const expect = chai.expect;
 
 const Newsroom = artifacts.require("Newsroom");
-const PLCRVoting = artifacts.require("PLCRVoting");
 
 const NEWSROOM_NAME = "unused newsroom name";
 
@@ -17,7 +16,6 @@ contract("Registry With Appeals", accounts => {
     let registry: any;
     let testNewsroom: any;
     let newsroomAddress: string;
-    let voting: any;
     const minDeposit = utils.paramConfig.minDeposit;
 
     beforeEach(async () => {
@@ -25,100 +23,125 @@ contract("Registry With Appeals", accounts => {
 
       testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
       newsroomAddress = testNewsroom.address;
-      const votingAddress = await registry.voting();
-      voting = await PLCRVoting.at(votingAddress);
     });
 
-    it("should whitelist if original challenge fails, appeal granted, appeal challenge succeeds", async () => {
+    it("should whitelist if challenge unsuccessful, appeal not requested", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.commitVote(voting, pollID, "1", "10", "420", voter);
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-      await voting.revealVote(pollID, 1, 420, { from: voter });
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
-
-      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
-
-      await utils.advanceEvmTime(
-        utils.paramConfig.appealChallengeCommitStageLength + utils.paramConfig.appealChallengeRevealStageLength + 1,
-      );
-
+      await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1);
       await registry.updateStatus(newsroomAddress);
-
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
       expect(isWhitelisted).to.be.true(
-        "Should have whitelisted newsroom with failed challenge if appeal granted and appeal challenge succeeds",
+        "Should have whitelisted newsroom with unsuccessful challenge if appeal requested but not granted",
       );
     });
 
-    it("should not whitelist if original challenge succeeds, appeal granted, appeal challenge succeeds", async () => {
+    it("should delist if challenge successful, appeal not requested", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
-
-      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
-
-      await utils.advanceEvmTime(
-        utils.paramConfig.appealChallengeCommitStageLength + utils.paramConfig.appealChallengeRevealStageLength + 1,
-      );
-
+      await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1);
       await registry.updateStatus(newsroomAddress);
-
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
       expect(isWhitelisted).to.be.false(
-        "Should not have whitelisted newsroom with successful challenge if appeal granted and appeal challenge fails",
+        "Should not have whitelisted newsroom with successful challenge if appeal requested but not granted",
       );
     });
 
-    it("should not whitelist if original challenge fails, appeal granted, appeal challenge fails", async () => {
+    it("should whitelist if challenge unsuccessful, appeal requested, no granted appeal", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.commitVote(voting, pollID, "1", "10", "420", voter);
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-      await voting.revealVote(pollID, 1, 420, { from: voter });
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
       await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
-
-      // await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
-      const appealPollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.commitVote(voting, appealPollID, "1", "10", "520", voter);
-      await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
-      await voting.revealVote(appealPollID, "1", "520", { from: voter });
-      await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
-
+      await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
       await registry.updateStatus(newsroomAddress);
-
-      const [, isWhitelisted] = await registry.listings(newsroomAddress);
-      expect(isWhitelisted).to.be.false(
-        "Should not have whitelisted newsroom with failed challenge if appeal granted and appeal challenge fails",
-      );
-    });
-
-    it("should whitelist if original challenge succeeds, appeal granted, appeal challenge fails", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
-
-      const appealPollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.commitVote(voting, appealPollID, "1", "10", "520", voter);
-      await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
-      await voting.revealVote(appealPollID, 1, 520, { from: voter });
-      await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
-
-      await registry.updateStatus(newsroomAddress);
-
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
       expect(isWhitelisted).to.be.true(
-        "Should have whitelisted newsroom with successful challenge if appeal granted and appeal challenge fails",
+        "Should have whitelisted newsroom with unsuccessful challenge if appeal requested but not granted",
+      );
+    });
+
+    it("should delist if challenge successful, appeal requested, no granted appeal", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
+      await registry.updateStatus(newsroomAddress);
+      const [, isWhitelisted] = await registry.listings(newsroomAddress);
+      expect(isWhitelisted).to.be.false(
+        "Should not have whitelisted newsroom with successful challenge if appeal requested but not granted",
+      );
+    });
+
+    it("should whitelist if challenge successful, granted appeal", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await utils.advanceEvmTime(utils.paramConfig.challengeAppealLength + 1);
+      await registry.updateStatus(newsroomAddress);
+      const [, isWhitelisted] = await registry.listings(newsroomAddress);
+      expect(isWhitelisted).to.be.true(
+        "Should have whitelisted newsroom with successful challenge if appeal granted and appeal not challenged",
+      );
+    });
+
+    it("should delist if challenge unsuccessful, granted appeal", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await utils.advanceEvmTime(utils.paramConfig.challengeAppealLength + 1);
+      await registry.updateStatus(newsroomAddress);
+      const [, isWhitelisted] = await registry.listings(newsroomAddress);
+      expect(isWhitelisted).to.be.false(
+        "Should not have whitelisted newsroom with unsuccessful challenge if appeal granted and appeal not challenged",
+      );
+    });
+    it("should delist if challenge success, granted appeal, appeal challenge success", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await utils.simpleSuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.updateStatus(newsroomAddress);
+      const [, isWhitelisted] = await registry.listings(newsroomAddress);
+      expect(isWhitelisted).to.be.false(
+        "Should not have whitelisted newsroom with successful challenge, granted appeal, successful appeal challenge",
+      );
+    });
+    it("should whitelist if challenge success, granted appeal, appeal challenge failure", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await utils.simpleUnsuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.updateStatus(newsroomAddress);
+      const [, isWhitelisted] = await registry.listings(newsroomAddress);
+      expect(isWhitelisted).to.be.true(
+        "Should have whitelisted newsroom with successful challenge, granted appeal, unsuccessful appeal challenge",
+      );
+    });
+    it("should whitelist if challenge failure, granted appeal, appeal challenge success", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await utils.simpleSuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.updateStatus(newsroomAddress);
+      const [, isWhitelisted] = await registry.listings(newsroomAddress);
+      expect(isWhitelisted).to.be.true(
+        "Should have whitelisted newsroom with unsuccessful challenge, granted appeal, successful appeal challenge",
+      );
+    });
+    it("should delist if challenge failure, granted appeal, appeal challenge failure", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await utils.simpleUnsuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
+      await registry.updateStatus(newsroomAddress);
+      const [, isWhitelisted] = await registry.listings(newsroomAddress);
+      expect(isWhitelisted).to.be.false(
+        "Should not have whitelisted newsroom with unsuccessful challenge, granted appeal, unsuccessful appeal challenge",
       );
     });
   });

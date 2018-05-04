@@ -13,7 +13,7 @@ const NEWSROOM_NAME = "unused newsroom name";
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", accounts => {
+contract("Registry with Appeals", accounts => {
   describe("Function: claimReward", () => {
     const [JAB, applicant, challenger, voterAlice, voterBob] = accounts;
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
