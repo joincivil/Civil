@@ -57,6 +57,12 @@ export async function commitVote(
   return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
 }
 
+export async function depositTokens(address: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.deposit(address, numTokens);
+}
+
 export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
