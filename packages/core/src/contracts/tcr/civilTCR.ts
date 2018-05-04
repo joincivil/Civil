@@ -448,7 +448,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Updates status of a listing
    * @param address Address of new listing
    */
-  public async updateListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
+  public async updateStatus(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(this.web3Wrapper, await this.instance.updateStatus.sendTransactionAsync(listingAddress));
   }
 
