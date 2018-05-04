@@ -1,8 +1,5 @@
 import * as React from "react";
-import {
-  EthAddress,
-  ListingWrapper,
-} from "@joincivil/core";
+import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { DepositTokens } from "./OwnerListingViews";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 
@@ -50,7 +47,6 @@ class ListingDetail extends React.Component<ListingDetailProps> {
       </ViewModule>
     );
   };
-
 }
 
 export default ListingDetail;
