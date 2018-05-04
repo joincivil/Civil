@@ -126,16 +126,18 @@ contract("Registry With Appeals", accounts => {
     it("should allow a listing to request appeal after going through process before and being denied", async () => {
       // 1st time
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
+      await utils.commitVote(voting, pollID, "1", "500", "420", voter);
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
+      await voting.revealVote(pollID, "1", "420", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
+      await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1); // hack. should be getting value from registry contract
       await registry.updateStatus(newsroomAddress);
 
       // 2nd time around
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await expect(registry.requestAppeal(newsroomAddress, { from: applicant })).to.eventually.be.fulfilled(
@@ -146,15 +148,17 @@ contract("Registry With Appeals", accounts => {
     it("should allow a listing to request appeal the 2nd time around but not requesting one the 1st time", async () => {
       // 1st time
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
+      await utils.commitVote(voting, pollID, "1", "500", "420", voter);
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
+      await voting.revealVote(pollID, "1", "420", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1); // hack. should be getting value from registry contract
       await registry.updateStatus(newsroomAddress);
 
       // 2nd time around
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await expect(registry.requestAppeal(newsroomAddress, { from: applicant })).to.eventually.be.fulfilled(
