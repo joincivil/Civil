@@ -42,8 +42,8 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
 
-      await expect(registry.determineAppealChallengeReward(pollID)).to.eventually.be.fulfilled(
-        "Should have allowed determineAppealChallengeReward to succeed",
+      await expect(registry.determineReward(pollID)).to.eventually.be.fulfilled(
+        "Should have allowed determineReward to succeed",
       );
       // TODO(PN): Add check to ensure value is returned as expected.
     });
@@ -63,8 +63,8 @@ contract("Registry With Appeals", accounts => {
       await voting.revealVote(pollID, "1", "420", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
 
-      await expect(registry.determineAppealChallengeReward(pollID)).to.eventually.be.fulfilled(
-        "Should have allowed determineAppealChallengeReward to succeed",
+      await expect(registry.determineReward(pollID)).to.eventually.be.fulfilled(
+        "Should have allowed determineReward to succeed",
       );
       // TODO(PN): Add check to ensure value is returned as expected.
     });

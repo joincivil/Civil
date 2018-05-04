@@ -12,5 +12,6 @@ module.exports = {
     "tcr/installed_contracts/tokens/contracts/Migrations.sol",
     "zeppelin-solidity/ECRecovery.sol",
     "zeppelin-solidity/Ownable.sol",
+    "zeppelin-solidity/SafeMath.sol",
   ],
 };

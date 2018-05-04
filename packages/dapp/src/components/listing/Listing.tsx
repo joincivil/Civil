@@ -75,7 +75,6 @@ class ListingPage extends React.Component<ListingPageProps, ListingPageState> {
     if (tcr) {
       const listingHelper = tcr.getListing(this.props.match.params.listing);
       const listing = await listingHelper.getListingWrapper();
-      console.log(listing);
       this.setState({ listing });
     }
 
