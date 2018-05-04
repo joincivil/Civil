@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
 import {
   isChallengeInCommitStage,
   isChallengeInRevealStage,
@@ -14,15 +13,9 @@ import CommitVoteDetail from "./CommitVoteDetail";
 import CountdownTimer from "../utility/CountdownTimer";
 import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
+import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%
-  color: black;
-`;
 
 export interface ChallengeDetailProps {
   listingAddress: EthAddress;
@@ -38,20 +31,28 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   public render(): JSX.Element {
     const challenge = this.props.challenge;
     return (
-      <StyledDiv>
-        Challenger: {challenge.challenger.toString()}
-        <br />
-        Reward Pool: {challenge.rewardPool.toString()}
-        <br />
-        Stake: {challenge.stake.toString()}
-        <br />
-        Challenge Succeeded: {didChallengeSucceed(challenge).toString()}
-        <br />
+      <ViewModule>
+        <ViewModuleHeader>Challenge Details</ViewModuleHeader>
+
+        <dl>
+          <dt>Challenger</dt>
+          <dd>{challenge.challenger.toString()}</dd>
+
+          <dt>Reward Pool</dt>
+          <dd>{challenge.rewardPool.toString()}</dd>
+
+          <dt>Stake</dt>
+          <dd>{challenge.stake.toString()}</dd>
+
+          <dt>Challenge Succeeded</dt>
+          <dd>{didChallengeSucceed(challenge).toString()}</dd>
+        </dl>
+
         {isChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
         {challenge.appeal && <AppealDetail appeal={challenge.appeal} />}
-      </StyledDiv>
+      </ViewModule>
     );
   }
 

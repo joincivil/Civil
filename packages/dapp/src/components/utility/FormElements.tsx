@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 export const StyledFormContainer = styled.div`
-  margin: 1em 0;
+  margin: 1rem 0;
 `;
 
 export const FormValidationMessage = styled.div`
@@ -11,7 +11,7 @@ export const FormValidationMessage = styled.div`
 `;
 
 export const FormGroup = styled.div`
-  margin: 0 0 1em;
+  margin: 0 0 1rem;
 `;
 
 export interface InputElementProps {

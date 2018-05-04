@@ -1,17 +1,11 @@
 import * as React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { List } from "immutable";
 import { Subscription } from "rxjs";
 
 import ListingEvent from "./ListingEvent";
 import { getTCR } from "../../helpers/civilInstance";
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%
-  color: black;
-`;
+import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 
 export interface ListingHistoryProps {
   match: any;
@@ -43,12 +37,12 @@ class ListingHistory extends React.Component<ListingHistoryProps, ListingHistory
 
   public render(): JSX.Element {
     return (
-      <StyledDiv>
-        History:<br />
+      <ViewModule>
+        <ViewModuleHeader>Listing History</ViewModuleHeader>
         {this.state.listingHistory.map(e => {
           return <ListingEvent key={this.props.match.params.listing + e.blockNumber} event={e} />;
         })}
-      </StyledDiv>
+      </ViewModule>
     );
   }
 
