@@ -2,6 +2,7 @@ import * as React from "react";
 import TransactionButton from "./utility/TransactionButton";
 import { getCivil } from "../helpers/civilInstance";
 import { TwoStepEthTransaction } from "@joincivil/core";
+import { PageView, ViewModule, ViewModuleHeader } from "./utility/ViewModules";
 
 export interface CreateNewsroomState {
   name: string;
@@ -24,15 +25,18 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
   public render(): JSX.Element {
     console.log("this.props.history: " + this.props.history);
     return (
-      <>
-        {this.state.error}
-        <input onChange={this.onChange} />
-        <TransactionButton
-          transactions={[{ transaction: this.createNewsroom, postTransaction: this.onNewsroomCreated }]}
-        >
-          Deploy Newsroom
-        </TransactionButton>
-      </>
+      <PageView>
+        <ViewModule>
+          <ViewModuleHeader>Create Newsroom</ViewModuleHeader>
+          {this.state.error}
+          <input onChange={this.onChange} />
+          <TransactionButton
+            transactions={[{ transaction: this.createNewsroom, postTransaction: this.onNewsroomCreated }]}
+          >
+            Deploy Newsroom
+          </TransactionButton>
+        </ViewModule>
+      </PageView>
     );
   }
 
