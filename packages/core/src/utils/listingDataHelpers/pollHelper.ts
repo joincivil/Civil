@@ -13,7 +13,7 @@ export function isInCommitStage(pollData: PollData): boolean {
  * @param pollData the PollData to check
  */
 export function isInRevealStage(pollData: PollData): boolean {
-  return pollData.revealEndDate.toNumber() > Date.now() / 1000;
+  return !isInCommitStage(pollData) && pollData.revealEndDate.toNumber() > Date.now() / 1000;
 }
 
 /**
