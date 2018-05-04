@@ -172,6 +172,7 @@ export function resolveAppealListings(state: Set<string> = Set<string>(), action
 }
 
 export function rejectedListings(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
+
   switch (action.type) {
     case listingActions.ADD_LISTING:
       if (action.data.data.appExpiry.isZero()) {
