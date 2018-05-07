@@ -71,6 +71,10 @@ export class DepositTokens extends React.Component<OwnerListingViewProps, Deposi
 export class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawTokensState> {
   constructor(props: any) {
     super(props);
+    this.state = {
+      numTokens: "0",
+      isWithdrawalAmountValid: true
+    };
   }
 
   public render(): JSX.Element {
