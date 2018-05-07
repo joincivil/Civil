@@ -28,7 +28,7 @@ contract("Parameterizer", accounts => {
       const receipt = await parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer });
 
       const propID = utils.getReceiptValue(receipt, "propID");
-      const propValue = await parameterizer.getPropValue(propID);
+      const [, , , , , , propValue] = await parameterizer.proposals(propID);
 
       expect(propValue).to.be.bignumber.equal(
         "51",

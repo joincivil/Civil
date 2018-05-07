@@ -57,16 +57,22 @@ export async function commitVote(
   return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
 }
 
+export async function depositTokens(address: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.deposit(address, numTokens);
+}
+
 export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   return tcr.requestAppeal(address);
 }
 
-export async function updateListing(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function updateStatus(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
-  return tcr.updateListing(address);
+  return tcr.updateStatus(address);
 }
 
 export async function getNewsroom(address: EthAddress): Promise<any> {
@@ -115,4 +121,10 @@ export async function revealVote(
   const voting = tcr.getVoting();
 
   return voting.revealVote(pollID, voteOption, salt);
+}
+
+export async function withdrawTokens(address: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.withdraw(address, numTokens);
 }

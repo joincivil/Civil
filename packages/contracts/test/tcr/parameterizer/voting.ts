@@ -38,7 +38,7 @@ contract("PLCRVoting", accounts => {
       await utils.commitVote(voting, secondPollID, "1", "8", "420", voter);
       await utils.commitVote(voting, firstPollID, "1", "9", "420", voter);
 
-      const insertPoint = await voting.getInsertPointForNumTokens(voter, 6);
+      const insertPoint = await voting.getInsertPointForNumTokens(voter, 6, secondPollID);
       const expectedInsertPoint = 0;
 
       expect(insertPoint).to.be.bignumber.equal(expectedInsertPoint, "The insert point was not correct");

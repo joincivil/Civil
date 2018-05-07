@@ -43,6 +43,13 @@ export function getReceiptValue(receipt: any, arg: any): any {
   return receipt.logs[0].args[arg];
 }
 
+export async function getBlockTimestamp(): Promise<any> {
+  const blockNumberPromise = promisify<number>(web3.eth.getBlockNumber.bind(web3.eth));
+  const blockNumber = await blockNumberPromise();
+  const getBlock = promisify<number, Web3.BlockWithoutTransactionData>(web3.eth.getBlock.bind(web3.eth));
+  return (await getBlock(blockNumber)).timestamp;
+}
+
 export function is0x0Address(address: string): boolean {
   return address === "0x0" || address === "0x0000000000000000000000000000000000000000";
 }
@@ -81,7 +88,67 @@ export async function challengeReparamAndGetPollID(
   parameterizer: any,
 ): Promise<string> {
   const receipt = await parameterizer.challengeReparameterization(propID, { from: account });
-  return receipt.logs[0].args.pollID;
+  return receipt.logs[0].args.challengeID;
+}
+
+export async function simpleSuccessfulChallenge(
+  registry: any,
+  listing: string,
+  challenger: string,
+  voter: string,
+): Promise<void> {
+  const votingAddress = await registry.voting();
+  const voting = PLCRVoting.at(votingAddress);
+  const pollID = await challengeAndGetPollID(listing, challenger, registry);
+  await commitVote(voting, pollID, "1", "100", "123", voter);
+  await advanceEvmTime(paramConfig.commitStageLength + 1);
+  await voting.revealVote(pollID, "1", "123", { from: voter });
+  await advanceEvmTime(paramConfig.revealStageLength + 1);
+}
+
+export async function simpleUnsuccessfulChallenge(
+  registry: any,
+  listing: string,
+  challenger: string,
+  voter: string,
+): Promise<void> {
+  const votingAddress = await registry.voting();
+  const voting = PLCRVoting.at(votingAddress);
+  const pollID = await challengeAndGetPollID(listing, challenger, registry);
+  await commitVote(voting, pollID, "0", "100", "420", voter);
+  await advanceEvmTime(paramConfig.commitStageLength + 1);
+  await voting.revealVote(pollID, "0", "420", { from: voter });
+  await advanceEvmTime(paramConfig.revealStageLength + 1);
+}
+
+export async function simpleSuccessfulAppealChallenge(
+  registry: any,
+  listing: string,
+  challenger: string,
+  voter: string,
+): Promise<void> {
+  const votingAddress = await registry.voting();
+  const voting = PLCRVoting.at(votingAddress);
+  const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
+  await commitVote(voting, pollID, "1", "100", "123", voter);
+  await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
+  await voting.revealVote(pollID, "1", "123", { from: voter });
+  await advanceEvmTime(paramConfig.appealChallengeRevealStageLength + 1);
+}
+
+export async function simpleUnsuccessfulAppealChallenge(
+  registry: any,
+  listing: string,
+  challenger: string,
+  voter: string,
+): Promise<void> {
+  const votingAddress = await registry.voting();
+  const voting = PLCRVoting.at(votingAddress);
+  const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
+  await commitVote(voting, pollID, "0", "100", "420", voter);
+  await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
+  await voting.revealVote(pollID, "0", "420", { from: voter });
+  await advanceEvmTime(paramConfig.appealChallengeRevealStageLength + 1);
 }
 
 export async function addToWhitelist(
@@ -110,7 +177,7 @@ export async function commitVote(
   const hash = getVoteSaltHash(voteOption, salt);
   await voting.requestVotingRights(tokensArg, { from: voter });
 
-  const prevPollID = await voting.getInsertPointForNumTokens.call(voter, tokensArg);
+  const prevPollID = await voting.getInsertPointForNumTokens.call(voter, tokensArg, pollID);
   await voting.commitVote(pollID, hash, tokensArg, prevPollID, { from: voter });
 }
 
@@ -169,7 +236,7 @@ async function createTestRegistryInstance(registryContract: any, parameterizer: 
 
   const registry = await registryContract.new(tokenAddress, plcrAddress, parameterizerAddress);
 
-  await approveRegistryFor(accounts);
+  await approveRegistryFor(accounts.slice(0, 8));
   return registry;
 }
 
@@ -203,7 +270,7 @@ async function createTestCivilTCRInstance(
 
   const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);
 
-  await approveRegistryFor(accounts);
+  await approveRegistryFor(accounts.slice(0, 8));
   return registry;
 }
 

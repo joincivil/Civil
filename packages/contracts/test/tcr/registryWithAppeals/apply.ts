@@ -10,18 +10,23 @@ const expect = chai.expect;
 const Newsroom = artifacts.require("Newsroom");
 const AddressRegistry = artifacts.require("AddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
+const PLCRVoting = artifacts.require("PLCRVoting");
 
 const NEWSROOM_NAME = "unused newsroom name;";
 
 contract("Registry With Appeals", accounts => {
   describe("Function: apply", () => {
-    const [JAB, applicant, troll, challenger] = accounts;
+    const [JAB, applicant, troll, challenger, voter] = accounts;
+    const unapproved = accounts[9];
     const listing1 = "0x0000000000000000000000000000000000000001";
     const minDeposit = utils.paramConfig.minDeposit;
     let registry: any;
+    let voting: any;
 
     beforeEach(async () => {
       registry = await utils.createAllCivilTCRInstance(accounts, JAB);
+      const votingAddress = await registry.voting();
+      voting = PLCRVoting.at(votingAddress);
     });
 
     describe("with real newsroom", () => {
@@ -44,6 +49,15 @@ contract("Registry With Appeals", accounts => {
         expect(whitelisted).to.be.false("whitelisted != false");
         expect(owner).to.be.equal(applicant, "owner of application != address that applied");
         expect(unstakedDeposit).to.be.bignumber.equal(utils.paramConfig.minDeposit, "incorrect unstakedDeposit");
+      });
+
+      it("should fail if applicant has not approved registry as spender of token", async () => {
+        await expect(
+          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: unapproved }),
+        ).to.eventually.be.rejectedWith(
+          REVERTED,
+          "should not have allowed applicant to apply if they have not approved registry as spender",
+        );
       });
 
       it("should not allow a listing to apply which has a pending application", async () => {
@@ -77,7 +91,7 @@ contract("Registry With Appeals", accounts => {
           await registry.challenge(newsroomAddress, "", { from: challenger });
           await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
           await registry.requestAppeal(newsroomAddress, { from: applicant });
-          await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
+          await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
 
           const applyTx = registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
           await expect(applyTx).to.eventually.be.rejectedWith(
@@ -87,22 +101,21 @@ contract("Registry With Appeals", accounts => {
         },
       );
 
-      it(
-        "should allow a listing to re-apply after losing challenge, " + "not being granted appeal, updating status",
-        async () => {
-          await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-          await registry.challenge(newsroomAddress, "", { from: challenger });
-          await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
-          await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-          await registry.requestAppeal(newsroomAddress, { from: applicant });
-          await utils.advanceEvmTime(1209620); // hack. should be getting value from registry contract
-          await registry.updateStatus(newsroomAddress);
+      it("should allow a listing to re-apply after losing challenge (challenge vote successful), not being granted appeal, updating status", async () => {
+        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
+        await utils.commitVote(voting, pollID, "1", "100", "1234", voter);
+        await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
+        await voting.revealVote(pollID, "1", "1234", { from: voter });
+        await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+        await registry.requestAppeal(newsroomAddress, { from: applicant });
+        await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
+        await registry.updateStatus(newsroomAddress);
 
-          await expect(registry.apply(newsroomAddress, minDeposit, "", { from: applicant })).to.eventually.be.fulfilled(
-            "should have allowed new application after being denied appeal",
-          );
-        },
-      );
+        await expect(registry.apply(newsroomAddress, minDeposit, "", { from: applicant })).to.eventually.be.fulfilled(
+          "should have allowed new application after being denied appeal",
+        );
+      });
     });
 
     describe("with troll newsroom", () => {

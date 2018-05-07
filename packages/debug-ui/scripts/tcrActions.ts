@@ -100,7 +100,7 @@ export async function updateStatus(address: EthAddress, optionalCivil?: Civil): 
   console.log("Update Listing Status");
   const tcr = await civil.tcrSingletonTrusted();
 
-  const updateTransaction = await tcr.updateListing(address);
+  const updateTransaction = await tcr.updateStatus(address);
   await updateTransaction.awaitReceipt();
   console.log("Listing Status Updated");
 }

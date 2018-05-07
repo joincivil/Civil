@@ -1,13 +1,18 @@
 import * as React from "react";
 import styled from "styled-components";
-import { approveForChallenge, challengeListing, grantAppeal, updateListing } from "../../apis/civilTCR";
+import { approveForChallenge, challengeListing, grantAppeal, updateStatus } from "../../apis/civilTCR";
 import {
   canListingBeChallenged,
   canBeWhitelisted,
+  canRequestAppeal,
+  EthAddress,
   isAwaitingAppealJudgment,
+  isChallengeInCommitStage,
+  isChallengeInRevealStage,
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
+import { DepositTokens, WithdrawTokens } from "./OwnerListingViews";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -20,6 +25,7 @@ const StyledDiv = styled.div`
 
 export interface ListingDetailProps {
   listing: ListingWrapper;
+  userAccount?: EthAddress;
 }
 
 class ListingDetail extends React.Component<ListingDetailProps> {
@@ -28,8 +34,16 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   }
 
   public render(): JSX.Element {
+    const challenge = this.props.listing.data.challenge;
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
+    const canResolveChallenge =
+      challenge &&
+      !isChallengeInCommitStage(challenge) &&
+      !isChallengeInRevealStage(challenge) &&
+      !canRequestAppeal(challenge) &&
+      !challenge.appeal;
+    const isOwnerViewingListing = this.props.listing.data.owner === this.props.userAccount;
     return (
       <StyledDiv>
         {this.props.listing.data && (
@@ -40,9 +54,11 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             <br />
             Unstaked Deposit: {this.props.listing.data.unstakedDeposit.toString()}
             <br />
+            {isOwnerViewingListing && this.renderOwnerListingActionsView()}
             {canBeChallenged && this.renderCanBeChallenged()}
             {isAwaitingAppealJudgment(this.props.listing.data) && this.renderGrantAppeal()}
             {canWhitelist && this.renderCanWhitelist()}
+            {canResolveChallenge && this.renderCanResolve()}
             <br />
             {this.props.listing.data.challenge && (
               <ChallengeDetail
@@ -66,8 +82,17 @@ class ListingDetail extends React.Component<ListingDetailProps> {
     return <TransactionButton transactions={[{ transaction: this.grantAppeal }]}>Grant Appeal</TransactionButton>;
   };
 
+  private renderOwnerListingActionsView = (): JSX.Element => {
+    return (
+      <>
+        <DepositTokens listingAddress={this.props.listing.address} listing={this.props.listing} />
+        <WithdrawTokens listingAddress={this.props.listing.address} listing={this.props.listing} />
+      </>
+    );
+  };
+
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateListing(this.props.listing.address);
+    return updateStatus(this.props.listing.address);
   };
 
   private renderCanBeChallenged = (): JSX.Element => {
@@ -76,6 +101,13 @@ class ListingDetail extends React.Component<ListingDetailProps> {
         Challenge Application
       </TransactionButton>
     );
+  };
+
+  private renderCanResolve(): JSX.Element {
+    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
+  }
+  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
+    return updateStatus(this.props.listing.address);
   };
 
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {

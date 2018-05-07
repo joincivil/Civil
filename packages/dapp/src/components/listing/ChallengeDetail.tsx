@@ -14,7 +14,7 @@ import CommitVoteDetail from "./CommitVoteDetail";
 import CountdownTimer from "../utility/CountdownTimer";
 import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
-import { appealChallenge, approveForAppeal, updateListing } from "../../apis/civilTCR";
+import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 
 const StyledDiv = styled.div`
@@ -37,11 +37,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 
   public render(): JSX.Element {
     const challenge = this.props.challenge;
-    const canResolveChallenge =
-      !isChallengeInCommitStage(challenge) &&
-      !isChallengeInRevealStage(challenge) &&
-      !canRequestAppeal(challenge) &&
-      !challenge.appeal;
     return (
       <StyledDiv>
         Challenger: {challenge.challenger.toString()}
@@ -55,8 +50,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         {isChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
-        {challenge.appeal && <AppealDetail appeal={challenge.appeal} />}
-        {canResolveChallenge && this.renderCanResolve()}
+        {challenge.appeal && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal} />}
       </StyledDiv>
     );
   }
@@ -82,12 +76,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return appealChallenge(this.props.listingAddress);
-  };
-  private renderCanResolve(): JSX.Element {
-    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
-  }
-  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateListing(this.props.listingAddress);
   };
 }
 
