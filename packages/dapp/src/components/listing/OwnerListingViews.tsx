@@ -73,7 +73,7 @@ export class WithdrawTokens extends React.Component<OwnerListingViewProps, Withd
     super(props);
     this.state = {
       numTokens: "0",
-      isWithdrawalAmountValid: true
+      isWithdrawalAmountValid: true,
     };
   }
 
