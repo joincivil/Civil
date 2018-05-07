@@ -110,11 +110,18 @@ class Parameterizer extends React.Component<{}, ParameterStates> {
   }
 
   private initParameterValues = async (): Promise<any> => {
-    Object.keys(this.state).forEach(async parameterKey => {
+    const parameterObj = {};
+    const keys = Object.keys(this.state);
+    let i = 0;
+
+    keys.forEach(async parameterKey => {
       const parameterVal = await getParameterValue(parameterKey);
-      const parameterObj = {};
       parameterObj[parameterKey] = parameterVal.toString();
-      this.setState(parameterObj);
+      i++;
+
+      if (i === keys.length) {
+        this.setState(parameterObj);
+      }
     });
   };
 }
