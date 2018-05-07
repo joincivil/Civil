@@ -7,6 +7,7 @@ import ContractPage from "./ContractPage";
 import Listing from "./listing/Listing";
 import Editor from "./Editor";
 import NewsroomManagement from "./newsroom/NewsroomManagement";
+import Parameterizer from "./Parameterizer";
 import CreateNewsroom from "./CreateNewsroom";
 import Article from "./Article";
 import { setCivil } from "../helpers/civilInstance";
@@ -42,6 +43,7 @@ class Main extends React.Component<{}, MainState> {
             <Route path="/listing/:listing" component={Listing} />
             <Route path="/editor" component={Editor} />
             <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
+            <Route path="/parameterizer" component={Parameterizer} />
             <Route path="/createNewsroom" component={CreateNewsroom} />
             <Route path="/article/:newsroomAddress/:articleId" component={Article} />
           </Switch>
