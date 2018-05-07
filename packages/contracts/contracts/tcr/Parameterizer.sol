@@ -1,8 +1,8 @@
 pragma solidity ^0.4.19;
 
-import "./installed_contracts/tokens/contracts/eip20/EIP20.sol";
-
 import "./PLCRVoting.sol";
+import "./installed_contracts/tokens/contracts/eip20/EIP20Interface.sol";
+import "../zeppelin-solidity/SafeMath.sol";
 
 contract Parameterizer {
 
@@ -10,12 +10,20 @@ contract Parameterizer {
   // EVENTS
   // ------
 
-  event ReparameterizationProposal(address indexed proposer, bytes32 indexed paramNameHash, string name, uint value, bytes32 propID);
-  event NewChallenge(address indexed challenger, bytes32 indexed propID, uint pollID, string name, uint value);
+  event _ReparameterizationProposal(string name, uint value, bytes32 propID, uint deposit, uint appEndDate, address indexed proposer);
+  event _NewChallenge(bytes32 indexed propID, uint challengeID, uint commitEndDate, uint revealEndDate, address indexed challenger);
+  event _ProposalAccepted(bytes32 indexed propID, string name, uint value);
+  event _ProposalExpired(bytes32 indexed propID);
+  event _ChallengeSucceeded(bytes32 indexed propID, uint indexed challengeID, uint rewardPool, uint totalTokens);
+  event _ChallengeFailed(bytes32 indexed propID, uint indexed challengeID, uint rewardPool, uint totalTokens);
+  event _RewardClaimed(uint indexed challengeID, uint reward, address indexed voter);
+
 
   // ------
   // DATA STRUCTURES
   // ------
+
+  using SafeMath for uint;
 
   struct ParamProposal {
     uint appExpiry;
@@ -43,16 +51,14 @@ contract Parameterizer {
   mapping(bytes32 => uint) public params;
 
   // maps challengeIDs to associated challenge data
-  mapping(uint => Challenge) internal challenges;
+  mapping(uint => Challenge) public challenges;
 
   // maps pollIDs to intended data change if poll passes
-  mapping(bytes32 => ParamProposal) internal proposals;
+  mapping(bytes32 => ParamProposal) public proposals;
 
   // Global Variables
-  EIP20 public token;
+  EIP20Interface public token;
   PLCRVoting public voting;
-
-  uint constant NO_CHALLENGE = 0;
 
   // ------------
   // CONSTRUCTOR
@@ -72,7 +78,7 @@ contract Parameterizer {
     uint[16] _uintParameters
   ) public
   {
-    token = EIP20(_tokenAddr);
+    token = EIP20Interface(_tokenAddr);
     voting = PLCRVoting(_plcrAddr);
 
     set("minDeposit", _uintParameters[0]);
@@ -92,7 +98,6 @@ contract Parameterizer {
     set("challengeAppealCommitLen", _uintParameters[14]);
     set("challengeAppealRevealLen", _uintParameters[15]);
   }
-
   // -----------------------
   // TOKEN HOLDER INTERFACE
   // -----------------------
@@ -106,23 +111,30 @@ contract Parameterizer {
     uint deposit = get("pMinDeposit");
     bytes32 propID = keccak256(_name, _value);
 
+    if (keccak256(_name) == keccak256("dispensationPct") || keccak256(_name) == keccak256("pDispensationPct")) {
+      require(_value <= 100);
+    }
+
     require(!propExists(propID)); // Forbid duplicate proposals
     require(get(_name) != _value); // Forbid NOOP reparameterizations
-    require(token.transferFrom(msg.sender, this, deposit)); // escrow tokens (deposit amt)
 
     // attach name and value to pollID
     proposals[propID] = ParamProposal({
-      appExpiry: now + get("pApplyStageLen"),
+      appExpiry: now.add(get("pApplyStageLen")),
       challengeID: 0,
       deposit: deposit,
       name: _name,
       owner: msg.sender,
-      // solium-disable-next-line operator-whitespace
-      processBy: now + get("pApplyStageLen") + get("pCommitStageLen") + get("pRevealStageLen") + get("pProcessBy"),
+      processBy: now.add(get("pApplyStageLen"))
+        .add(get("pCommitStageLen"))
+        .add(get("pRevealStageLen"))
+        .add(get("pProcessBy")),
       value: _value
     });
 
-    ReparameterizationProposal(msg.sender, keccak256(_name), _name, _value, propID);
+    require(token.transferFrom(msg.sender, this, deposit)); // escrow tokens (deposit amt)
+
+    _ReparameterizationProposal(_name, _value, propID, deposit, proposals[propID].appExpiry, msg.sender);
     return propID;
   }
 
@@ -132,12 +144,10 @@ contract Parameterizer {
   */
   function challengeReparameterization(bytes32 _propID) public returns (uint challengeID) {
     ParamProposal memory prop = proposals[_propID];
-    uint deposit = get("pMinDeposit");
+    uint deposit = prop.deposit;
 
-    require(propExists(_propID) && prop.challengeID == NO_CHALLENGE);
+    require(propExists(_propID) && prop.challengeID == 0);
 
-    //take tokens from challenger
-    require(token.transferFrom(msg.sender, this, deposit));
     //start poll
     uint pollID = voting.startPoll(
       get("pVoteQuorum"),
@@ -147,7 +157,7 @@ contract Parameterizer {
 
     challenges[pollID] = Challenge({
       challenger: msg.sender,
-      rewardPool: ((100 - get("pDispensationPct")) * deposit) / 100,
+      rewardPool: SafeMath.sub(100, get("pDispensationPct")).mul(deposit).div(100),
       stake: deposit,
       resolved: false,
       winningTokens: 0
@@ -155,7 +165,13 @@ contract Parameterizer {
 
     proposals[_propID].challengeID = pollID;       // update listing to store most recent challenge
 
-    NewChallenge(msg.sender, _propID, pollID, proposals[_propID].name, proposals[_propID].value);
+    //take tokens from challenger
+    require(token.transferFrom(msg.sender, this, deposit));
+
+    /* solium-disable-next-line */
+    var (commitEndDate, revealEndDate,) = voting.pollMap(pollID);
+
+    _NewChallenge(_propID, pollID, commitEndDate, revealEndDate, msg.sender);
     return pollID;
   }
 
@@ -165,16 +181,41 @@ contract Parameterizer {
   */
   function processProposal(bytes32 _propID) public {
     ParamProposal storage prop = proposals[_propID];
+    address propOwner = prop.owner;
+    uint propDeposit = prop.deposit;
 
+    
+    // Before any token transfers, deleting the proposal will ensure that if reentrancy occurs the
+    // prop.owner and prop.deposit will be 0, thereby preventing theft
     if (canBeSet(_propID)) {
+      // There is no challenge against the proposal. The processBy date for the proposal has not
+     // passed, but the proposal's appExpirty date has passed.
       set(prop.name, prop.value);
+      _ProposalAccepted(_propID, prop.name, prop.value);
+      delete proposals[_propID];
+      require(token.transfer(propOwner, propDeposit));
     } else if (challengeCanBeResolved(_propID)) {
+      // There is a challenge against the proposal.
       resolveChallenge(_propID);
     } else if (now > prop.processBy) {
-      require(token.transfer(prop.owner, prop.deposit));
+      // There is no challenge against the proposal, but the processBy date has passed.
+      _ProposalExpired(_propID);
+      delete proposals[_propID];
+      require(token.transfer(propOwner, propDeposit));
     } else {
+      // There is no challenge against the proposal, and neither the appExpiry date nor the
+      // processBy date has passed.
       revert();
     }
+
+    assert(get("dispensationPct") <= 100);
+    assert(get("pDispensationPct") <= 100);
+
+    // verify that future proposal appExpiry and processBy times will not overflow
+    now.add(get("pApplyStageLen"))
+      .add(get("pCommitStageLen"))
+      .add(get("pRevealStageLen"))
+      .add(get("pProcessBy"));
 
     delete proposals[_propID];
   }
@@ -189,7 +230,7 @@ contract Parameterizer {
     require(challenges[_challengeID].tokenClaims[msg.sender] == false);
     require(challenges[_challengeID].resolved == true);
 
-    uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt, false);
+    uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt);
     uint reward = voterReward(msg.sender, _challengeID, _salt);
 
     // subtract voter's information to preserve the participation ratios of other voters
@@ -197,75 +238,17 @@ contract Parameterizer {
     challenges[_challengeID].winningTokens -= voterTokens;
     challenges[_challengeID].rewardPool -= reward;
 
-    require(token.transfer(msg.sender, reward));
-
     // ensures a voter cannot claim tokens again
     challenges[_challengeID].tokenClaims[msg.sender] = true;
+
+    _RewardClaimed(_challengeID, reward, msg.sender);
+    require(token.transfer(msg.sender, reward));
   }
 
   // --------
   // GETTERS
   // --------
 
-  // --------
-  // Proposal Mapping
-  // --------
-
-  function getPropAppExpiry(bytes32 _propID) public view returns (uint) {
-    return proposals[_propID].appExpiry;
-  }
-
-  function getPropChallengeID(bytes32 _propID) public view returns (uint) {
-    return proposals[_propID].challengeID;
-  }
-
-  function getPropDeposit(bytes32 _propID) public view returns (uint) {
-    return proposals[_propID].deposit;
-  }
-
-  function getPropName(bytes32 _propID) public view returns (string) {
-    return proposals[_propID].name;
-  }
-
-  function getPropOwner(bytes32 _propID) public view returns (address) {
-    return proposals[_propID].owner;
-  }
-
-  function getPropProcessBy(bytes32 _propID) public view returns (uint) {
-    return proposals[_propID].processBy;
-  }
-
-  function getPropValue(bytes32 _propID) public view returns (uint) {
-    return proposals[_propID].value;
-  }
-
-  // --------
-  // Challenge Mapping
-  // --------
-
-  function getChallengeRewardPool(uint _challengeID) public view returns (uint) {
-    return challenges[_challengeID].rewardPool;
-  }
-
-  function getChallengeChallenger(uint _challengeID) public view returns (address) {
-    return challenges[_challengeID].challenger;
-  }
-
-  function getChallengeResolved(uint _challengeID) public view returns (bool) {
-    return challenges[_challengeID].resolved;
-  }
-
-  function getChallengeStake(uint _challengeID) public view returns (uint) {
-    return challenges[_challengeID].stake;
-  }
-
-  function getChallengeWinningTokens(uint _challengeID) public view returns (uint) {
-    return challenges[_challengeID].winningTokens;
-  }
-
-  // --------
-  // Computed Values
-  // --------
   /**
   @dev                Calculates the provided voter's token reward for the given poll.
   @param _voter       The address of the voter whose reward balance is to be returned
@@ -273,15 +256,12 @@ contract Parameterizer {
   @param _salt        The salt of the voter's commit hash in the given poll
   @return             The uint indicating the voter's reward
   */
-  function voterReward(
-    address _voter,
-    uint _challengeID,
-    uint _salt)
-    public view returns (uint)
+  function voterReward(address _voter, uint _challengeID, uint _salt)
+  public view returns (uint) 
   {
     uint winningTokens = challenges[_challengeID].winningTokens;
     uint rewardPool = challenges[_challengeID].rewardPool;
-    uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt, false);
+    uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt);
     return (voterTokens * rewardPool) / winningTokens;
   }
 
@@ -292,7 +272,7 @@ contract Parameterizer {
   function canBeSet(bytes32 _propID) view public returns (bool) {
     ParamProposal memory prop = proposals[_propID];
 
-    return (now > prop.appExpiry && now < prop.processBy && prop.challengeID == NO_CHALLENGE);
+    return (now > prop.appExpiry && now < prop.processBy && prop.challengeID == 0);
   }
 
   /**
@@ -311,9 +291,7 @@ contract Parameterizer {
     ParamProposal memory prop = proposals[_propID];
     Challenge memory challenge = challenges[prop.challengeID];
 
-    // solium-disable-next-line operator-whitespace
-    return (prop.challengeID > NO_CHALLENGE && challenge.resolved == false &&
-      voting.pollEnded(prop.challengeID));
+    return (prop.challengeID > 0 && challenge.resolved == false && voting.pollEnded(prop.challengeID));
   }
 
   /**
@@ -322,7 +300,7 @@ contract Parameterizer {
   */
   function challengeWinnerReward(uint _challengeID) public view returns (uint) {
     if (voting.getTotalNumberOfTokensForWinningOption(_challengeID) == 0) {
-      // Edge case, nobody voted, give all tokens to the winner.
+      // Edge case, nobody voted, give all tokens to the challenger.
       return 2 * challenges[_challengeID].stake;
     }
 
@@ -335,6 +313,15 @@ contract Parameterizer {
   */
   function get(string _name) public view returns (uint value) {
     return params[keccak256(_name)];
+  }
+
+  /**
+  @dev                Getter for Challenge tokenClaims mappings
+  @param _challengeID The challengeID to query
+  @param _voter       The voter whose claim status to query for the provided challengeID
+  */
+  function tokenClaims(uint _challengeID, address _voter) public view returns (bool) {
+    return challenges[_challengeID].tokenClaims[_voter];
   }
 
   // ----------------
@@ -352,17 +339,19 @@ contract Parameterizer {
     // winner gets back their full staked deposit, and dispensationPct*loser's stake
     uint reward = challengeWinnerReward(prop.challengeID);
 
+    challenge.winningTokens = voting.getTotalNumberOfTokensForWinningOption(prop.challengeID);
+    challenge.resolved = true;
+
     if (voting.isPassed(prop.challengeID)) { // The challenge failed
       if (prop.processBy > now) {
         set(prop.name, prop.value);
       }
+      _ChallengeFailed(_propID, prop.challengeID, challenge.rewardPool, challenge.winningTokens);
       require(token.transfer(prop.owner, reward));
-    } else { // The challenge succeeded
+    } else { // The challenge succeeded or nobody voted
+      _ChallengeSucceeded(_propID, prop.challengeID, challenge.rewardPool, challenge.winningTokens);
       require(token.transfer(challenges[prop.challengeID].challenger, reward));
     }
-
-    challenge.winningTokens = voting.getTotalNumberOfTokensForWinningOption(prop.challengeID);
-    challenge.resolved = true;
   }
 
   /**

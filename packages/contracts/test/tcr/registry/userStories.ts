@@ -23,11 +23,9 @@ contract("Registry", accounts => {
       voting = await PLCRVoting.at(votingAddress);
     });
 
-    it("should apply, fail challenge, and reject listing", async () => {
+    it("should apply, get challenged, have challenge be successful, and reject listing", async () => {
       await registry.apply(listing27, utils.paramConfig.minDeposit, "", { from: applicant });
-      await registry.challenge(listing27, "", { from: challenger });
-
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + utils.paramConfig.commitStageLength + 1);
+      await utils.simpleSuccessfulChallenge(registry, listing27, challenger, voter);
       await registry.updateStatus(listing27);
 
       // should not have been added to whitelist
@@ -35,7 +33,7 @@ contract("Registry", accounts => {
       expect(isWhitelisted).to.be.false("listing should not be whitelisted");
     });
 
-    it("should apply, pass challenge, and whitelist listing", async () => {
+    it("should apply, pass challenge (challenge vote fails), and whitelist listing", async () => {
       await registry.apply(listing28, minDeposit, "", { from: applicant });
 
       // Challenge and get back the pollID
@@ -48,7 +46,7 @@ contract("Registry", accounts => {
       // Virgin commit
       const tokensArg = "10";
       const salt = "420";
-      const voteOption = "1";
+      const voteOption = "0";
       await utils.commitVote(voting, pollID, voteOption, tokensArg, salt, voter);
 
       const numTokens = await voting.getNumTokens(voter, pollID);
@@ -72,7 +70,7 @@ contract("Registry", accounts => {
 
       // updateStatus
       const pollResult = await voting.isPassed.call(pollID);
-      expect(pollResult).to.be.true("Poll should have passed");
+      expect(pollResult).to.be.false("Poll should have failed");
 
       // Add to whitelist
       await registry.updateStatus(listing28);
