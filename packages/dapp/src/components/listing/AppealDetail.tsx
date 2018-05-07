@@ -70,7 +70,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
 
   private challengeGrantedAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return challengeGrantedAppeal(this.props.listingAddress);
-  }
+  };
   private resolveAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateStatus(this.props.listingAddress);
   };
