@@ -43,7 +43,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
     return (
       <ViewModule>
         <ViewModuleHeader>Owner Actions</ViewModuleHeader>
-        <DepositTokens listingAddress={this.props.listing.address} />
+        <DepositTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
       </ViewModule>
     );
   };

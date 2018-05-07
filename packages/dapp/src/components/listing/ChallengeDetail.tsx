@@ -51,7 +51,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         {isChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
-        {challenge.appeal && <AppealDetail appeal={challenge.appeal} />}
+        {challenge.appeal && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal} />}
       </ViewModule>
     );
   }
