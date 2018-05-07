@@ -1,17 +1,23 @@
 import * as React from "react";
-import { EthAddress, TwoStepEthTransaction } from "@joincivil/core";
-import { approve, depositTokens } from "../../apis/civilTCR";
-import { InputElement, FormGroup } from "../utility/FormElements";
+import { EthAddress, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
+import { approve, depositTokens, withdrawTokens } from "../../apis/civilTCR";
+import { InputElement, StyledFormContainer, FormGroup, FormValidationMessage } from "../utility/FormElements";
 import TransactionButton from "../utility/TransactionButton";
 import BigNumber from "bignumber.js";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 
 export interface OwnerListingViewProps {
   listingAddress: EthAddress;
+  listing: ListingWrapper;
 }
 
 export interface DepositTokensState {
   numTokens?: string;
+}
+
+export interface WithdrawTokensState {
+  numTokens?: string;
+  isWithdrawalAmountValid?: boolean;
 }
 
 export class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokensState> {
@@ -54,6 +60,60 @@ export class DepositTokens extends React.Component<OwnerListingViewProps, Deposi
     return depositTokens(this.props.listingAddress, numTokens);
   };
 
+  private updateViewState = (event: any): void => {
+    const paramName = event.target.getAttribute("name");
+    const val = event.target.value;
+    const newState = {};
+    newState[paramName] = val;
+    this.setState(newState);
+  };
+}
+
+export class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawTokensState> {
+  constructor(props: any) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    return (
+      <StyledFormContainer>
+        <h3>Withdraw Unstaked Tokens</h3>
+        <FormGroup>
+          <label>
+            Number of Tokens
+            {!this.state.isWithdrawalAmountValid && (
+              <FormValidationMessage children="Please enter a valid withdrawal amount" />
+            )}
+            <InputElement
+              type="text"
+              name="numTokens"
+              validate={this.validateWithdrawalAmount}
+              onChange={this.updateViewState}
+            />
+          </label>
+        </FormGroup>
+
+        <FormGroup>
+          <TransactionButton transactions={[{ transaction: this.withdraw }]}>Withdraw</TransactionButton>
+        </FormGroup>
+      </StyledFormContainer>
+    );
+  }
+
+  private validateWithdrawalAmount = (event: any): void => {
+    const val: number = parseInt(event.target.value, 10);
+    const isWithdrawalAmountValid: boolean =
+      !!Number.isInteger(val) && val > 0 && val <= this.props.listing.data.unstakedDeposit.toNumber();
+    this.setState({ isWithdrawalAmountValid });
+  };
+
+  private withdraw = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
+    return withdrawTokens(this.props.listingAddress, numTokens);
+  };
+
+  // @TODO(jon): I know this is gross and not very DRY, but this will be refactored
+  // when we have Redux and a canonical store for the app
   private updateViewState = (event: any): void => {
     const paramName = event.target.getAttribute("name");
     const val = event.target.value;
