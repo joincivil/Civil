@@ -228,6 +228,7 @@ contract AddressRegistry {
     // Takes tokens from challenger
     require(token.transferFrom(msg.sender, this, deposit));
 
+    // solium-disable-next-line
     var (commitEndDate, revealEndDate,) = voting.pollMap(pollID);
 
     _Challenge(listingAddress, pollID, data, commitEndDate, revealEndDate, msg.sender);
