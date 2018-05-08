@@ -7,7 +7,7 @@ import {
   isAwaitingAppealChallenge,
   TwoStepEthTransaction,
 } from "@joincivil/core";
-import { updateStatus } from "../../apis/civilTCR";
+import { approveForChallengeGrantedAppeal, challengeGrantedAppeal, updateStatus } from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -59,9 +59,18 @@ class AppealDetail extends React.Component<AppealDetailProps> {
   }
 
   private renderChallengeAppealStage(): JSX.Element {
-    return <>CHALLENGE GRANTED APPEAL</>;
+    return (
+      <TransactionButton
+        transactions={[{ transaction: approveForChallengeGrantedAppeal }, { transaction: this.challengeGrantedAppeal }]}
+      >
+        Challenge Granted Appeal
+      </TransactionButton>
+    );
   }
 
+  private challengeGrantedAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return challengeGrantedAppeal(this.props.listingAddress);
+  };
   private resolveAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateStatus(this.props.listingAddress);
   };
