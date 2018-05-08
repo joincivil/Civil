@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
-import { DepositTokens } from "./OwnerListingViews";
+import { DepositTokens, WithdrawTokens } from "./OwnerListingViews";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 
 export interface ListingDetailProps {
@@ -44,6 +44,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
       <ViewModule>
         <ViewModuleHeader>Owner Actions</ViewModuleHeader>
         <DepositTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
+        <WithdrawTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
       </ViewModule>
     );
   };
