@@ -14,14 +14,14 @@ A successful Appeal Challenge reverses the result of the Granted Appeal (again, 
 */
 contract CivilTCR is RestrictedAddressRegistry {
 
-  event AppealRequested(address indexed requester, address indexed listing, uint indexed challengeID);
-  event AppealGranted(address indexed listing);
-  event FailedChallengeOverturned(address indexed listing, uint indexed challengeID);
-  event SuccessfulChallengeOverturned(address indexed listing, uint indexed challengeID);
-  event GrantedAppealChallenged(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID, string data);
-  event GrantedAppealOverturned(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID);
-  event GrantedAppealConfirmed(address indexed listing, uint indexed challengeID, uint indexed appealChallengeID);
-  event GovernmentTransfered(address newGovernment);
+  event _AppealRequested(address indexed listingAddress, uint indexed challengeID, uint appealFeePaid, address requester);
+  event _AppealGranted(address indexed listingAddress, uint indexed challengeID);
+  event _FailedChallengeOverturned(address indexed listingAddress, uint indexed challengeID, uint rewardPool, uint totalTokens);
+  event _SuccessfulChallengeOverturned(address indexed listingAddress, uint indexed challengeID, uint rewardPool, uint totalTokens);
+  event _GrantedAppealChallenged(address indexed listingAddress, uint indexed challengeID, uint indexed appealChallengeID, string data);
+  event _GrantedAppealOverturned(address indexed listingAddress, uint indexed challengeID, uint indexed appealChallengeID, uint rewardPool, uint totalTokens);
+  event _GrantedAppealConfirmed(address indexed listingAddress, uint indexed challengeID, uint indexed appealChallengeID, uint rewardPool, uint totalTokens);
+  event _GovernmentTransfered(address newGovernment);
 
   modifier onlyGovernmentController {
     require(msg.sender == government.getGovernmentController());
@@ -79,14 +79,14 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   /**
   @notice Requests an appeal for a listing that has been challenged and completed its voting
-  phase, but has not passed its challengeRequestAppealExpiries time.
-  In order to request appeal, the following conditions must be met:
-  * voting for challenge has ended
-  * request appeal expiry has not passed
-  * appeal not already requested
-  * appeal requester transfers appealFee to TCR
-  Initializes `Appeal` struct in `appeals` mapping for active challenge on listing at given address.
-  Sets value in `appealRequested` mapping for challenge to true.
+  phase, but has not passed its challengeRequestAppealExpiries time. [n]
+  In order to request appeal, the following conditions must be met: [n]
+  * voting for challenge has ended [n]
+  * request appeal expiry has not passed [n]
+  * appeal not already requested [n]
+  * appeal requester transfers appealFee to TCR [n]
+  Initializes `Appeal` struct in `appeals` mapping for active challenge on listing at given address. [n]
+  Sets value in `appealRequested` mapping for challenge to true. [n]
   Emits `AppealRequested` if successful
   @param listingAddress address of listing that has challenged result that the user wants to appeal
   */
@@ -103,7 +103,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealPhaseExpiry = now + government.get("judgeAppealLen");
 
     require(token.transferFrom(msg.sender, this, appealFee));
-    AppealRequested(msg.sender, listingAddress, listing.challengeID);
+    _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender);
   }
 
   // --------
@@ -130,12 +130,12 @@ contract CivilTCR is RestrictedAddressRegistry {
 
     appeal.appealGranted = true;    
     appeal.appealOpenToChallengeExpiry = now + parameterizer.get("challengeAppealLen");
-    AppealGranted(listingAddress);
+    _AppealGranted(listingAddress, listing.challengeID);
   }
 
   function transferGovernment(address newAddress) external onlyGovernmentController {
     government = IGovernment(newAddress);
-    GovernmentTransfered(newAddress);
+    _GovernmentTransfered(newAddress);
   }
 
   // --------
@@ -250,7 +250,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealChallengeID = pollID;
 
     require(token.transferFrom(msg.sender, this, appeal.appealFeePaid));
-    GrantedAppealChallenged(listingAddress, listing.challengeID, pollID, data);
+    _GrantedAppealChallenged(listingAddress, listing.challengeID, pollID, data);
     return pollID;
   }
 
@@ -284,11 +284,11 @@ contract CivilTCR is RestrictedAddressRegistry {
       super.resolveChallenge(listingAddress);
       appeal.overturned = true;
       require(token.transfer(appealChallenge.challenger, reward));
-      GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID);
+      _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     } else { // Case: appeal challenge failed, don't overturn appeal
       resolveOverturnedChallenge(listingAddress);
       require(token.transfer(appeal.requester, reward));
-      GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID);
+      _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     }
   }
 
@@ -364,13 +364,13 @@ contract CivilTCR is RestrictedAddressRegistry {
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
 
-      SuccessfulChallengeOverturned(listingAddress, challengeID);
+      _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     } else { // original vote failed (challenge failed), this should de-list listing
       resetListing(listingAddress);
       // Transfer the reward to the challenger
       require(token.transfer(challenge.challenger, reward));
 
-      FailedChallengeOverturned(listingAddress, challengeID);
+      _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     }
   }
 
