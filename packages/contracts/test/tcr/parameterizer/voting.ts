@@ -30,9 +30,9 @@ contract("PLCRVoting", accounts => {
       await registry.apply(listingAddress2, minDeposit, "", { from: applicant2 });
 
       const firstChallengeReceipt = await registry.challenge(listingAddress1, "", { from: challenger });
-      const firstPollID = firstChallengeReceipt.logs[0].args.pollID;
+      const firstPollID = firstChallengeReceipt.logs[0].args.challengeID;
       const secondChallengeReceipt = await registry.challenge(listingAddress2, "", { from: challenger });
-      const secondPollID = secondChallengeReceipt.logs[0].args.pollID;
+      const secondPollID = secondChallengeReceipt.logs[0].args.challengeID;
 
       await utils.commitVote(voting, firstPollID, "1", "7", "420", voter);
       await utils.commitVote(voting, secondPollID, "1", "8", "420", voter);
