@@ -74,7 +74,7 @@ export async function proposeReparamAndGetPropID(
 
 export async function challengeAndGetPollID(listing: string, account: string, registry: any): Promise<string> {
   const receipt = await registry.challenge(listing, "", { from: account });
-  return receipt.logs[0].args.pollID;
+  return receipt.logs[0].args.challengeID;
 }
 
 export async function challengeAppealAndGetPollID(listing: string, account: string, registry: any): Promise<string> {

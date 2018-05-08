@@ -15,16 +15,18 @@ contract AddressRegistry {
   // EVENTS
   // ------
 
-  event Application(address indexed listingAddress, uint deposit, string data);
-  event ChallengeInitiated(address indexed listingAddress, uint deposit, uint indexed pollID, string data);
-  event Deposit(address indexed listingAddress, uint added, uint newTotal);
-  event Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal);
-  event NewListingWhitelisted(address indexed listingAddress);
-  event ApplicationRemoved(address indexed listingAddress);
-  event ListingRemoved(address indexed listingAddress);
-  event ChallengeFailed(address indexed listingAddress, uint indexed challengeID);
-  event ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID);
-  event RewardClaimed(address indexed voter, uint indexed challengeID, uint reward);
+  event _Application(address indexed listingAddress, uint deposit, uint appEndDate, string data, address indexed applicant);
+  event _Challenge(address indexed listingAddress, uint challengeID, string data, uint commitEndDate, uint revealEndDate, address indexed challenger);
+  event _Deposit(address indexed listingAddress, uint added, uint newTotal, address indexed owner);
+  event _Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal, address indexed owner);
+  event _ApplicationWhitelisted(address indexed listingAddress);
+  event _ApplicationRemoved(address indexed listingAddress);
+  event _ListingRemoved(address indexed listingAddress);
+  event _ListingWithdrawn(address indexed listingAddress);
+  event _TouchAndRemoved(address indexed listingAddress);
+  event _ChallengeFailed(address indexed listingAddress, uint indexed challengeID, uint rewardPool, uint totalTokens);
+  event _ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID, uint rewardPool, uint totalTokens);
+  event _RewardClaimed(uint indexed challengeID, uint reward, address indexed voter);
 
   using SafeMath for uint;
 
@@ -104,7 +106,7 @@ contract AddressRegistry {
 
     // Transfers tokens from user to Registry contract
     require(token.transferFrom(msg.sender, this, amount));
-    Application(listingAddress, amount, data);
+    _Application(listingAddress, amount, listing.applicationExpiry, data, msg.sender);
   }
 
   /**
@@ -122,7 +124,7 @@ contract AddressRegistry {
     listing.unstakedDeposit += amount;
 
     require(token.transferFrom(msg.sender, this, amount));
-    Deposit(listingAddress, amount, listing.unstakedDeposit);
+    _Deposit(listingAddress, amount, listing.unstakedDeposit, msg.sender);
   }
 
   /**
@@ -145,7 +147,7 @@ contract AddressRegistry {
 
     listing.unstakedDeposit -= amount;
 
-    Withdrawal(listingAddress, amount, listing.unstakedDeposit);
+    _Withdrawal(listingAddress, amount, listing.unstakedDeposit, msg.sender);
   }
 
   /**
@@ -167,6 +169,7 @@ contract AddressRegistry {
 
     // Remove listingHash & return tokens
     resetListing(listingAddress);
+    _ListingWithdrawn(listingAddress);
   }
 
   // -----------------------
@@ -197,6 +200,7 @@ contract AddressRegistry {
     if (listing.unstakedDeposit < deposit) {
       // Not enough tokens, listing auto-delisted
       resetListing(listingAddress);
+      _TouchAndRemoved(listingAddress);
       return 0;
     }
 
@@ -223,7 +227,11 @@ contract AddressRegistry {
 
     // Takes tokens from challenger
     require(token.transferFrom(msg.sender, this, deposit));
-    ChallengeInitiated(listingAddress, deposit, pollID, data);
+
+    // solium-disable-next-line
+    var (commitEndDate, revealEndDate,) = voting.pollMap(pollID);
+
+    _Challenge(listingAddress, pollID, data, commitEndDate, revealEndDate, msg.sender);
     return pollID;
   }
 
@@ -234,7 +242,7 @@ contract AddressRegistry {
   function updateStatus(address listingAddress) public {
     if (canBeWhitelisted(listingAddress)) {
       whitelistApplication(listingAddress);
-      NewListingWhitelisted(listingAddress);
+      _ApplicationWhitelisted(listingAddress);
     } else if (challengeCanBeResolved(listingAddress)) {
       resolveChallenge(listingAddress);
     } else {
@@ -289,7 +297,7 @@ contract AddressRegistry {
 
     require(token.transfer(msg.sender, reward));
 
-    RewardClaimed(msg.sender, challengeID, reward);
+    _RewardClaimed(challengeID, reward, msg.sender);
   }
 
   // --------
@@ -438,14 +446,14 @@ contract AddressRegistry {
       resetListing(listingAddress);
       // Transfer the reward to the challenger
       require(token.transfer(challenge.challenger, reward));
-      ChallengeSucceeded(listingAddress, challengeID);
+      _ChallengeSucceeded(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     } else { // Case: challenge failed, listing to be whitelisted
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
 
       listing.challengeID = 0;
-      ChallengeFailed(listingAddress, challengeID);
+      _ChallengeFailed(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     }
   }
 
@@ -459,7 +467,7 @@ contract AddressRegistry {
     bool wasWhitelisted = listing.isWhitelisted;
     listing.isWhitelisted = true;
     if (!wasWhitelisted) {
-      NewListingWhitelisted(listingAddress);
+      _ApplicationWhitelisted(listingAddress);
     }
   }
 
@@ -480,9 +488,9 @@ contract AddressRegistry {
       require(token.transfer(owner, unstakedDeposit));
     }
     if (wasWhitelisted) {
-      ListingRemoved(listingAddress);
+      _ListingRemoved(listingAddress);
     } else {
-      ApplicationRemoved(listingAddress);
+      _ApplicationRemoved(listingAddress);
     }
   }
 }
