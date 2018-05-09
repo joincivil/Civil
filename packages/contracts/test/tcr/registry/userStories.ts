@@ -114,6 +114,6 @@ contract("Registry", accounts => {
       await registry.updateStatus(listing28);
       const [, isWhitelisted] = await registry.listings(listing28);
       expect(isWhitelisted).to.be.true("Listing should be whitelisted");
-    })
+    });
   });
 });
