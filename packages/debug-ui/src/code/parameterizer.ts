@@ -39,19 +39,19 @@ initializeDebugUI(async civil => {
   });
 
   parameterizer
-    .paramPropsInApplicationPhase()
+    .propIDsInApplicationPhase()
     .subscribe((propID: string) => updateSectionWithParamProps("propApplications", propID));
   parameterizer
-    .paramPropsInChallengeCommitPhase()
+    .propIDsInChallengeCommitPhase()
     .subscribe((propID: string) => updateSectionWithParamProps("challengedCommitProps", propID));
   parameterizer
-    .paramPropsInChallengeRevealPhase()
+    .propIDsInChallengeRevealPhase()
     .subscribe((propID: string) => updateSectionWithParamProps("challengedRevealProps", propID));
   parameterizer
-    .paramPropsToProcess()
+    .propIDsToProcess()
     .subscribe((propID: string) => updateSectionWithParamProps("propsToBeUpdated", propID));
   parameterizer
-    .paramPropsForResolvedChallenged()
+    .propIDsForResolvedChallenged()
     .subscribe((propID: string) => updateSectionWithParamProps("completedChallenges", propID));
 });
 

@@ -101,18 +101,6 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   }
 
   /**
-   * An unending stream of ParamProps of all active Reparametizations proposed
-   * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
-   * @returns currently active proposals ParamProps
-   */
-  public paramPropsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<string> {
-    return this.instance
-      ._ReparameterizationProposalStream({}, { fromBlock })
-      .map(e => e.args.propID)
-      .concatFilter(async propID => this.isPropInUnchallengedApplicationPhase(propID));
-  }
-
-  /**
    * An unending stream of the propIDs of all Reparametization proposals currently in
    * Challenge Commit Phase
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
@@ -126,19 +114,6 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   }
 
   /**
-   * An unending stream of ParamProps of all active Reparametizations Proposals in
-   * Challenge Commit Phase
-   * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
-   * @returns ParamProps for proposals currently in Challenge Commit Phase
-   */
-  public paramPropsInChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<string> {
-    return this.instance
-      ._NewChallengeStream({}, { fromBlock })
-      .concatFilter(async e => this.isPropInChallengeCommitPhase(e.args.propID))
-      .map(e => e.args.propID);
-  }
-
-  /**
    * An unending stream of the propIDs of all Reparametization proposals currently in
    * Challenge Reveal Phase
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
@@ -149,19 +124,6 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
       ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
       .concatFilter(async propID => this.isPropInChallengeRevealPhase(propID));
-  }
-
-  /**
-   * An unending stream of ParamProps of all active Reparametizations Proposals in
-   * Challenge Reveal Phase
-   * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
-   * @returns ParamProps for proposals currently in Challenge Reveal Phase
-   */
-  public paramPropsInChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<string> {
-    return this.instance
-      ._NewChallengeStream({}, { fromBlock })
-      .concatFilter(async e => this.isPropInChallengeRevealPhase(e.args.propID))
-      .map(e => e.args.propID);
   }
 
   /**
@@ -186,31 +148,6 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   }
 
   /**
-   * An unending stream of the ParamProps of all Reparametization proposals that can be
-   * processed right now. Includes unchallenged applications that have passed their application
-   * expiry time, and proposals with challenges that can be resolved.
-   * @param fromBlock Starting block in history for events. Set to "latest" for only new events
-   * @returns ParamProps for proposals that can be updated
-   */
-  public paramPropsToProcess(fromBlock: number | "latest" = 0): Observable<string> {
-    const challengesToResolve = this.instance
-      ._NewChallengeStream({}, { fromBlock })
-      .concatFilter(async e => {
-        return this.isPropInChallengeResolvePhase(e.args.propID);
-      })
-      .map(e => e.args.propID);
-
-    const applicationsToProcess = this.instance
-      ._ReparameterizationProposalStream({}, { fromBlock })
-      .concatFilter(async e => {
-        return this.isPropInUnchallengedApplicationUpdatePhase(e.args.propID);
-      })
-      .map(e => e.args.propID);
-
-    return Observable.merge(applicationsToProcess, challengesToResolve);
-  }
-
-  /**
    * An unending stream of the pollIDs of all Reparametization proposals that have
    * been challenged and had those challenges resolved.
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
@@ -230,19 +167,6 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @returns propIDs for proposals that have been challenged and resolved
    */
   public propIDsForResolvedChallenges(fromBlock: number | "latest" = 0): Observable<EthAddress> {
-    return this.instance
-      ._NewChallengeStream({}, { fromBlock })
-      .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
-      .map(e => e.args.propID);
-  }
-
-  /**
-   * An unending stream of the ParamProps of all Reparametization proposals that have
-   * been challenged and had those challenges resolved.
-   * @param fromBlock Starting block in history for events. Set to "latest" for only new events
-   * @returns ParamProps for proposals that have been challenged and resolved
-   */
-  public paramPropsForResolvedChallenged(fromBlock: number | "latest" = 0): Observable<string> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
       .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
@@ -304,6 +228,10 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * Contract Getters
    */
 
+  /**
+   * Get ParamProp for proposal
+   * @param propID ID of proposal to get
+   */
   public async getProposal(propID: string): Promise<ParamProp> {
     const [, challengeID, , name, , , value] = await this.instance.proposals.callAsync(propID);
     return {
