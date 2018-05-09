@@ -14,7 +14,7 @@ export async function commitVote(
   const secretHash = getVoteSaltHash(voteOption.toString(), salt.toString());
   console.log("Commiting Vote. secretHash: " + secretHash);
   const voting = tcr.getVoting();
-  const prevPollID = await voting.getPrevPollID(numTokens);
+  const prevPollID = await voting.getPrevPollID(numTokens, pollID);
 
   const commitTransaction = await voting.commitVote(pollID, secretHash, numTokens, prevPollID);
   await commitTransaction.awaitReceipt();

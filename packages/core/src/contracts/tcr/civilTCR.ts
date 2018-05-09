@@ -117,7 +117,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public whitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .NewListingWhitelistedStream({}, { fromBlock })
+      ._ApplicationWhitelistedStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isWhitelisted(l.data));
@@ -131,7 +131,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public listingsInApplicationStage(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ApplicationStream({}, { fromBlock })
+      ._ApplicationStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isInApplicationPhase(l.data));
@@ -145,7 +145,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public readyToBeWhitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ApplicationStream({}, { fromBlock })
+      ._ApplicationStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => canBeWhitelisted(l.data));
@@ -159,7 +159,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public currentChallengedCommitVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isInChallengedCommitVotePhase(l.data));
@@ -173,7 +173,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public currentChallengedRevealVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isInChallengedRevealVotePhase(l.data));
@@ -187,7 +187,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public listingsAwaitingAppealRequest(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isAwaitingAppealRequest(l.data));
@@ -195,7 +195,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public listingsWithChallengeToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => canChallengeBeResolved(l.data));
@@ -209,7 +209,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public listingsAwaitingAppealJudgment(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isAwaitingAppealJudgment(l.data));
@@ -223,7 +223,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public listingsAwaitingAppealChallenge(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isListingAwaitingAppealChallenge(l.data));
@@ -237,7 +237,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public listingsInAppealChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isListingInAppealChallengeCommitPhase(l.data));
@@ -251,7 +251,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public listingsInAppealChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isInAppealChallengeRevealPhase(l.data));
@@ -265,7 +265,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public listingsWithAppealToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ChallengeInitiatedStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => canListingAppealBeResolved(l.data));
@@ -279,7 +279,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public rejectedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
-      .ApplicationStream({}, { fromBlock })
+      ._ApplicationStream({}, { fromBlock })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => l.data.appExpiry.isZero());
@@ -287,7 +287,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public allApplicationsEver(): Observable<ListingWrapper> {
     return this.instance
-      .ApplicationStream({}, { fromBlock: 0 })
+      ._ApplicationStream({}, { fromBlock: 0 })
       .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper());
   }

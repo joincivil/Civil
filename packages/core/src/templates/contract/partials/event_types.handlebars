@@ -6,6 +6,7 @@ export namespace {{contractName}} {
     {{/each}}
   }
 
+  // tslint:disable:class-name
   export namespace Args {
     {{#each events}}
     export interface {{this.name}} {
@@ -15,6 +16,7 @@ export namespace {{contractName}} {
     }
     {{/each}}
   }
+  // tslint:enable:class-name
 
   export namespace Logs {
     {{#each events}}
