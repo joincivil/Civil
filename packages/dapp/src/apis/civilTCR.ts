@@ -52,7 +52,7 @@ export async function commitVote(
   const tcr = civil.tcrSingletonTrusted();
   const secretHash = getVoteSaltHash(voteOption.toString(), salt.toString());
   const voting = tcr.getVoting();
-  const prevPollID = await voting.getPrevPollID(numTokens);
+  const prevPollID = await voting.getPrevPollID(numTokens, pollID);
 
   return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
 }

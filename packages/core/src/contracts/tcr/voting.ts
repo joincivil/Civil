@@ -47,7 +47,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public activePolls(fromBlock: number | "latest" = 0): Observable<BigNumber> {
     return this.instance
-      .PollCreatedStream({}, { fromBlock })
+      ._PollCreatedStream({}, { fromBlock })
       .map(e => e.args.pollID)
       .concatFilter(async pollID => this.instance.pollExists.callAsync(pollID));
   }
@@ -155,7 +155,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.hasBeenRevealed.callAsync(who, pollID);
+    return this.instance.didReveal.callAsync(who, pollID);
   }
 
   /**
@@ -197,17 +197,12 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to check
    * @param salt Salt used by voter for this poll
    */
-  public async getNumPassingTokens(
-    pollID: BigNumber,
-    salt: BigNumber,
-    voter?: EthAddress,
-    wasChallengeOverturned: boolean = false,
-  ): Promise<BigNumber> {
+  public async getNumPassingTokens(pollID: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.getNumPassingTokens.callAsync(who, pollID, salt, wasChallengeOverturned);
+    return this.instance.getNumTokens.callAsync(who, pollID);
   }
 
   /**
@@ -224,12 +219,12 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param tokens number of tokens being committed this vote
    * @param account account to check pollID for
    */
-  public async getPrevPollID(tokens: BigNumber, account?: EthAddress): Promise<BigNumber> {
+  public async getPrevPollID(tokens: BigNumber, pollID: BigNumber, account?: EthAddress): Promise<BigNumber> {
     let who = account;
     if (!who) {
       who = requireAccount(this.web3Wrapper);
     }
-    return this.instance.getInsertPointForNumTokens.callAsync(who, tokens);
+    return this.instance.getInsertPointForNumTokens.callAsync(who, tokens, pollID);
   }
 
   public async getPoll(pollID: BigNumber): Promise<PollData> {

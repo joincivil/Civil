@@ -93,9 +93,9 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals propIDs
    */
-  public propIDsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public propIDsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<string> {
     return this.instance
-      .ReparameterizationProposalStream({}, { fromBlock })
+      ._ReparameterizationProposalStream({}, { fromBlock })
       .map(e => e.args.propID)
       .concatFilter(async propID => this.isPropInUnchallengedApplicationPhase(propID));
   }
@@ -107,7 +107,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public paramPropsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<ParamProp> {
     return this.instance
-      .ReparameterizationProposalStream({}, { fromBlock })
+      ._ReparameterizationProposalStream({}, { fromBlock })
       .map(e => {
         return {
           propID: e.args.propID,
@@ -124,9 +124,9 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals in Challenge Commit Phase propIDs
    */
-  public propIDsInChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public propIDsInChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<string> {
     return this.instance
-      .NewChallengeStream({}, { fromBlock })
+      ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
       .concatFilter(async propID => this.isPropInChallengeCommitPhase(propID));
   }
@@ -137,17 +137,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns ParamProps for proposals currently in Challenge Commit Phase
    */
-  public paramPropsInChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<ParamProp> {
+  public paramPropsInChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<string> {
     return this.instance
-      .NewChallengeStream({}, { fromBlock })
+      ._NewChallengeStream({}, { fromBlock })
       .concatFilter(async e => this.isPropInChallengeCommitPhase(e.args.propID))
-      .map(e => {
-        return {
-          propID: e.args.propID,
-          paramName: e.args.name,
-          proposedValue: e.args.value,
-        };
-      });
+      .map(e => e.args.propID);
   }
 
   /**
@@ -156,9 +150,9 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns currently active proposals in Challenge Reveal Phase propIDs
    */
-  public propIDsInChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public propIDsInChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<string> {
     return this.instance
-      .NewChallengeStream({}, { fromBlock })
+      ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
       .concatFilter(async propID => this.isPropInChallengeRevealPhase(propID));
   }
@@ -169,17 +163,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns ParamProps for proposals currently in Challenge Reveal Phase
    */
-  public paramPropsInChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<ParamProp> {
+  public paramPropsInChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<string> {
     return this.instance
-      .NewChallengeStream({}, { fromBlock })
+      ._NewChallengeStream({}, { fromBlock })
       .concatFilter(async e => this.isPropInChallengeRevealPhase(e.args.propID))
-      .map(e => {
-        return {
-          propID: e.args.propID,
-          paramName: e.args.name,
-          proposedValue: e.args.value,
-        };
-      });
+      .map(e => e.args.propID);
   }
 
   /**
@@ -189,14 +177,14 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that can be updated
    */
-  public propIDsToProcess(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public propIDsToProcess(fromBlock: number | "latest" = 0): Observable<string> {
     const applicationsToProcess = this.instance
-      .ReparameterizationProposalStream({}, { fromBlock })
+      ._ReparameterizationProposalStream({}, { fromBlock })
       .map(e => e.args.propID)
       .concatFilter(async propID => this.isPropInUnchallengedApplicationUpdatePhase(propID));
 
     const challengesToResolve = this.instance
-      .NewChallengeStream({}, { fromBlock })
+      ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
       .concatFilter(async propID => this.isPropInChallengeResolvePhase(propID));
 
@@ -210,34 +198,20 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns ParamProps for proposals that can be updated
    */
-  public paramPropsToProcess(fromBlock: number | "latest" = 0): Observable<ParamProp> {
+  public paramPropsToProcess(fromBlock: number | "latest" = 0): Observable<string> {
     const challengesToResolve = this.instance
-      .NewChallengeStream({}, { fromBlock })
+      ._NewChallengeStream({}, { fromBlock })
       .concatFilter(async e => {
         return this.isPropInChallengeResolvePhase(e.args.propID);
       })
-      .map(e => {
-        return {
-          propID: e.args.propID,
-          paramName: e.args.name,
-          proposedValue: e.args.value,
-          pollID: e.args.pollID,
-        };
-      });
+      .map(e => e.args.propID);
 
     const applicationsToProcess = this.instance
-      .ReparameterizationProposalStream({}, { fromBlock })
+      ._ReparameterizationProposalStream({}, { fromBlock })
       .concatFilter(async e => {
         return this.isPropInUnchallengedApplicationUpdatePhase(e.args.propID);
       })
-      .map(e => {
-        return {
-          propID: e.args.propID,
-          paramName: e.args.name,
-          proposedValue: e.args.value,
-          pollID: undefined,
-        };
-      });
+      .map(e => e.args.propID);
 
     return Observable.merge(applicationsToProcess, challengesToResolve);
   }
@@ -250,9 +224,9 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public pollIDsForResolvedChallenges(propID: string, fromBlock: number | "latest" = 0): Observable<PollID> {
     return this.instance
-      .NewChallengeStream({ propID }, { fromBlock })
-      .concatFilter(async e => this.isChallengeResolved(e.args.pollID))
-      .map(e => e.args.pollID);
+      ._NewChallengeStream({ propID }, { fromBlock })
+      .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
+      .map(e => e.args.challengeID);
   }
 
   /**
@@ -263,8 +237,8 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public propIDsForResolvedChallenges(fromBlock: number | "latest" = 0): Observable<EthAddress> {
     return this.instance
-      .NewChallengeStream({}, { fromBlock })
-      .concatFilter(async e => this.isChallengeResolved(e.args.pollID))
+      ._NewChallengeStream({}, { fromBlock })
+      .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
       .map(e => e.args.propID);
   }
 
@@ -274,18 +248,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns ParamProps for proposals that have been challenged and resolved
    */
-  public paramPropsForResolvedChallenged(fromBlock: number | "latest" = 0): Observable<ParamProp> {
+  public paramPropsForResolvedChallenged(fromBlock: number | "latest" = 0): Observable<string> {
     return this.instance
-      .NewChallengeStream({}, { fromBlock })
-      .concatFilter(async e => this.isChallengeResolved(e.args.pollID))
-      .map(e => {
-        return {
-          propID: e.args.propID,
-          paramName: e.args.name,
-          proposedValue: e.args.value,
-          pollID: e.args.pollID,
-        };
-      });
+      ._NewChallengeStream({}, { fromBlock })
+      .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
+      .map(e => e.args.propID);
   }
 
   /**
@@ -369,8 +336,9 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * Gets the current ChallengeID of the specified parameter
    * @param parameter key of parameter to check
    */
-  public async getChallengeID(parameter: string): Promise<PollID> {
-    return this.instance.getPropChallengeID.callAsync(parameter);
+  public async getChallengeID(parameter: string): Promise<BigNumber> {
+    const [, challengeID] = await this.instance.proposals.callAsync(parameter);
+    return challengeID;
   }
 
   /**
@@ -381,13 +349,12 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
-    const pollID = await this.instance.getPropChallengeID.callAsync(propID);
-    if (!pollID.isZero()) {
+    const [appExpiry, challengeID] = await this.instance.proposals.callAsync(propID);
+    if (!challengeID.isZero()) {
       return false;
     }
 
-    const applicationExpiry = await this.instance.getPropAppExpiry.callAsync(propID);
-    const appExpiryDate = new Date(applicationExpiry.toNumber() * 1000);
+    const appExpiryDate = new Date(appExpiry.toNumber() * 1000);
 
     if (appExpiryDate < new Date()) {
       return false;
@@ -405,13 +372,12 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
-    const pollID = await this.instance.getPropChallengeID.callAsync(propID);
-    if (!pollID.isZero()) {
+    const [appExpiry, challengeID] = await this.instance.proposals.callAsync(propID);
+    if (!challengeID.isZero()) {
       return false;
     }
-    const applicationExpiry = await this.instance.getPropAppExpiry.callAsync(propID);
-    const appExpiryDate = new Date(applicationExpiry.toNumber() * 1000);
 
+    const appExpiryDate = new Date(appExpiry.toNumber() * 1000);
     if (appExpiryDate > new Date()) {
       return false;
     }
@@ -427,13 +393,13 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
-    const pollID = await this.instance.getPropChallengeID.callAsync(propID);
-    if (pollID.isZero()) {
+    const [challengeID] = await this.instance.proposals.callAsync(propID);
+    if (challengeID.isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.isCommitPeriodActive(pollID);
+    return voting.isCommitPeriodActive(challengeID);
   }
 
   /**
@@ -444,13 +410,13 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
-    const pollID = await this.instance.getPropChallengeID.callAsync(propID);
-    if (pollID.isZero()) {
+    const [challengeID] = await this.instance.proposals.callAsync(propID);
+    if (challengeID.isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.isRevealPeriodActive(pollID);
+    return voting.isRevealPeriodActive(challengeID);
   }
 
   /**
@@ -461,13 +427,13 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
-    const pollID = await this.instance.getPropChallengeID.callAsync(propID);
-    if (pollID.isZero()) {
+    const [challengeID] = await this.instance.proposals.callAsync(propID);
+    if (challengeID.isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.hasPollEnded(pollID);
+    return voting.hasPollEnded(challengeID);
   }
 
   /**
@@ -475,7 +441,8 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of poll (challenge) to check
    */
   public async isChallengeResolved(pollID: BigNumber): Promise<boolean> {
-    return this.instance.getChallengeResolved.callAsync(pollID);
+    const [, , resolved] = await this.instance.challenges.callAsync(pollID);
+    return resolved;
   }
 
   /**
@@ -525,7 +492,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async getPropProcessBy(propID: string): Promise<Date> {
-    const expiryTimestamp = await this.instance.getPropProcessBy.callAsync(propID);
+    const [, , , , , expiryTimestamp] = await this.instance.proposals.callAsync(propID);
     return new Date(expiryTimestamp.toNumber() * 1000);
   }
 
@@ -534,7 +501,8 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async getPropApplicationExpiryTimestamp(propID: string): Promise<BigNumber> {
-    return this.instance.getPropAppExpiry.callAsync(propID);
+    const [appExpiry] = await this.instance.proposals.callAsync(propID);
+    return appExpiry;
   }
 
   /**
@@ -542,7 +510,8 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async getPropName(propID: string): Promise<string> {
-    return this.instance.getPropName.callAsync(propID);
+    const [, , , name] = await this.instance.proposals.callAsync(propID);
+    return name;
   }
 
   /**
@@ -550,6 +519,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID ID of prop to check
    */
   public async getPropValue(propID: string): Promise<BigNumber> {
-    return this.instance.getPropValue.callAsync(propID);
+    const [, , , , , , value] = await this.instance.proposals.callAsync(propID);
+    return value;
   }
 }
