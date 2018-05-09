@@ -6,7 +6,6 @@ import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Web3Wrapper } from "../../utils/web3wrapper";
 import { ChallengeData } from "../../types";
 import { Appeal } from "./appeal";
-import { is0x0Address } from "../utils/contracts";
 
 export class Challenge {
   private web3Wrapper: Web3Wrapper;

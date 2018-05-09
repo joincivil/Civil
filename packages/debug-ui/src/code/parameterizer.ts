@@ -4,10 +4,12 @@ import BigNumber from "bignumber.js";
 import { deployNewsroom } from "../../scripts/deploy-newsroom";
 import { proposeReparameterization } from "../../scripts/parameterizerActions";
 import { initializeDebugUI } from "../../scripts/civilActions";
-
+import { Parameterizer } from "../../../core/build/src/contracts/tcr/parameterizer";
+let civilInstance: any;
 initializeDebugUI(async civil => {
+  civilInstance = civil;
   setParameterizerListeners();
-  const tcr = await civil.tcrSingletonTrusted();
+  const tcr = await civilInstance.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
   document.getElementById("parameterizerInfo")!.innerHTML +=
     "<br>Parameterizer: " + (await tcr.getParameterizerAddress());
@@ -36,24 +38,30 @@ initializeDebugUI(async civil => {
     document.getElementById("parameterValues")!.innerHTML += "<br>" + k + ": " + value;
   });
 
-  parameterizer.paramPropsInApplicationPhase().subscribe(args => updateSectionWithParamProps("propApplications", args));
+  parameterizer
+    .paramPropsInApplicationPhase()
+    .subscribe((propID: string) => updateSectionWithParamProps("propApplications", propID));
   parameterizer
     .paramPropsInChallengeCommitPhase()
-    .subscribe(args => updateSectionWithParamProps("challengedCommitProps", args));
+    .subscribe((propID: string) => updateSectionWithParamProps("challengedCommitProps", propID));
   parameterizer
     .paramPropsInChallengeRevealPhase()
-    .subscribe(args => updateSectionWithParamProps("challengedRevealProps", args));
-  parameterizer.paramPropsToProcess().subscribe(args => updateSectionWithParamProps("propsToBeUpdated", args));
+    .subscribe((propID: string) => updateSectionWithParamProps("challengedRevealProps", propID));
+  parameterizer
+    .paramPropsToProcess()
+    .subscribe((propID: string) => updateSectionWithParamProps("propsToBeUpdated", propID));
   parameterizer
     .paramPropsForResolvedChallenged()
-    .subscribe(args => updateSectionWithParamProps("completedChallenges", args));
+    .subscribe((propID: string) => updateSectionWithParamProps("completedChallenges", propID));
 });
 
-function updateSectionWithParamProps(section: string, paramProp: ParamProp): void {
-  let html =
-    "<br><a href='../prop.html?id=" + paramProp.propID + "'>" + paramProp.paramName + " -> " + paramProp.proposedValue;
-  if (paramProp.pollID) {
-    html += " (" + paramProp.pollID! + ")";
+async function updateSectionWithParamProps(section: string, propID: string): Promise<void> {
+  const tcr = await civilInstance.tcrSingletonTrusted();
+  const parameterizer = await tcr.getParameterizer();
+  const prop = await parameterizer.getProposal(propID);
+  let html = "<br><a href='../prop.html?id=" + propID + "'>" + prop.paramName + " -> " + prop.proposedValue;
+  if (prop.pollID) {
+    html += " (" + prop.pollID! + ")";
   }
   html += "</a>";
   document.getElementById(section)!.innerHTML += html;

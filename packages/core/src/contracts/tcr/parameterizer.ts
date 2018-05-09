@@ -105,17 +105,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals ParamProps
    */
-  public paramPropsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<ParamProp> {
+  public paramPropsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<string> {
     return this.instance
       ._ReparameterizationProposalStream({}, { fromBlock })
-      .map(e => {
-        return {
-          propID: e.args.propID,
-          paramName: e.args.name,
-          proposedValue: e.args.value,
-        };
-      })
-      .concatFilter(async args => this.isPropInUnchallengedApplicationPhase(args.propID));
+      .map(e => e.args.propID)
+      .concatFilter(async propID => this.isPropInUnchallengedApplicationPhase(propID));
   }
 
   /**
@@ -309,6 +303,16 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   /**
    * Contract Getters
    */
+
+  public async getProposal(propID: string): Promise<ParamProp> {
+    const [, challengeID, , name, , , value] = await this.instance.proposals.callAsync(propID);
+    return {
+      propID,
+      paramName: name,
+      proposedValue: value,
+      pollID: challengeID,
+    };
+  }
 
   /**
    * Gets reward for voter
