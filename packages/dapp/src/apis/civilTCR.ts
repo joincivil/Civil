@@ -19,6 +19,14 @@ export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> 
   return approve(appealFee);
 }
 
+export async function approveForChallengeGrantedAppeal(): Promise<TwoStepEthTransaction | void> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const government = await tcr.getGovernment();
+  const appealFee = await government.getAppealFee();
+  return approve(appealFee);
+}
+
 export async function approve(amount: BigNumber): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
@@ -34,6 +42,12 @@ export async function applyToTCR(address: EthAddress, deposit: BigNumber): Promi
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   return tcr.apply(address, deposit, "");
+}
+
+export async function challengeGrantedAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  return tcr.challengeGrantedAppeal(address);
 }
 
 export async function challengeListing(address: EthAddress): Promise<TwoStepEthTransaction> {
