@@ -77,5 +77,43 @@ contract("Registry", accounts => {
       const [, isWhitelisted] = await registry.listings(listing28);
       expect(isWhitelisted).to.be.true("Listing should be whitelisted");
     });
+
+    it("should allow someone to update their committed vote", async () => {
+      await registry.apply(listing28, minDeposit, "", { from: applicant });
+
+      // Challenge and get back the pollID
+      const pollID = await utils.challengeAndGetPollID(listing28, challenger, registry);
+
+      await utils.commitVote(voting, pollID, "1", "10", "420", voter);
+      await utils.commitVote(voting, pollID, "0", "15", "123", voter);
+
+      const numTokens = await voting.getNumTokens(voter, pollID);
+      expect(numTokens).to.be.bignumber.equal("15", "Should have committed the correct number of tokens");
+
+      // Reveal
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
+      // Make sure commit period is inactive
+      const commitPeriodActive = await voting.commitPeriodActive.call(pollID);
+      expect(commitPeriodActive).to.be.false("Commit period should be inactive");
+      // Make sure reveal period is active
+      let rpa = await voting.revealPeriodActive.call(pollID);
+      expect(rpa).to.be.true("Reveal period should be active");
+
+      await voting.revealVote(pollID, "0", "123", { from: voter });
+
+      // End reveal period
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      rpa = await voting.revealPeriodActive.call(pollID);
+      expect(rpa).to.be.false("Reveal period should not be active");
+
+      // updateStatus
+      const pollResult = await voting.isPassed.call(pollID);
+      expect(pollResult).to.be.false("Poll should have failed");
+
+      // Add to whitelist
+      await registry.updateStatus(listing28);
+      const [, isWhitelisted] = await registry.listings(listing28);
+      expect(isWhitelisted).to.be.true("Listing should be whitelisted");
+    })
   });
 });
