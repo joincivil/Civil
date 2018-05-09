@@ -21,6 +21,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
   public render(): JSX.Element {
     const wrappedEvent = this.props.event as CivilTCR.LogEvents.Application | CivilTCR.LogEvents.NewListingWhitelisted;
     let argsData: JSX.Element | null = null;
+    console.log(wrappedEvent);
     switch (wrappedEvent.event) {
       case CivilTCR.Events.Application:
         argsData = this.renderApplicationEvent(wrappedEvent.args);

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
-import { DepositTokens, WithdrawTokens } from "./OwnerListingViews";
+import { DepositTokens, ExitListing, WithdrawTokens } from "./OwnerListingViews";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 
 export interface ListingDetailProps {
@@ -40,11 +40,13 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   }
 
   private renderOwnerListingActionsView = (): JSX.Element => {
+    const canExitListing = this.props.listing.data.isWhitelisted && !this.props.listing.data.challenge;
     return (
       <ViewModule>
         <ViewModuleHeader>Owner Actions</ViewModuleHeader>
         <DepositTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
         <WithdrawTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
+        {canExitListing && <ExitListing listingAddress={this.props.listing.address} listing={this.props.listing} />}
       </ViewModule>
     );
   };
