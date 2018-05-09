@@ -12,7 +12,7 @@ import {
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
-import { DepositTokens, WithdrawTokens } from "./OwnerListingViews";
+import { DepositTokens, ExitListing, WithdrawTokens } from "./OwnerListingViews";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 
@@ -83,10 +83,12 @@ class ListingDetail extends React.Component<ListingDetailProps> {
   };
 
   private renderOwnerListingActionsView = (): JSX.Element => {
+    const canExitListing = this.props.listing.data.isWhitelisted && !this.props.listing.data.challenge;
     return (
       <>
         <DepositTokens listingAddress={this.props.listing.address} listing={this.props.listing} />
         <WithdrawTokens listingAddress={this.props.listing.address} listing={this.props.listing} />
+        {canExitListing && <ExitListing listingAddress={this.props.listing.address} listing={this.props.listing} />}
       </>
     );
   };
