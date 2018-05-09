@@ -26,13 +26,9 @@ export class Challenge {
     );
     const poll = await this.voting.getPoll(this.challengeId);
     const requestAppealExpiry = await this.tcrInstance.challengeRequestAppealExpiries.callAsync(this.challengeId);
-    const appealRequested = await this.tcrInstance.appealRequested.callAsync(this.challengeId);
-    let appeal;
 
-    if (appealRequested) {
-      const appealInstance = new Appeal(this.web3Wrapper, this.tcrInstance, this.challengeId);
-      appeal = await appealInstance.getAppealData();
-    }
+    const appealInstance = new Appeal(this.web3Wrapper, this.tcrInstance, this.challengeId);
+    const appeal = await appealInstance.getAppealData();
 
     return {
       rewardPool,

@@ -17,7 +17,7 @@ export class AppealChallenge {
   }
 
   public async getAppealChallengeData(): Promise<AppealChallengeData> {
-    const [rewardPool, challenger, resolved, stake, totalTokens] = await this.tcrInstance.appealChallenges.callAsync(
+    const [rewardPool, challenger, resolved, stake, totalTokens] = await this.tcrInstance.challenges.callAsync(
       this.challengeId,
     );
     const poll = await this.voting.getPoll(this.challengeId);

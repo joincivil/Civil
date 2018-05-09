@@ -19,14 +19,16 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   public render(): JSX.Element {
-    const wrappedEvent = this.props.event as CivilTCR.LogEvents.Application | CivilTCR.LogEvents.NewListingWhitelisted;
+    const wrappedEvent = this.props.event as
+      | CivilTCR.LogEvents._Application
+      | CivilTCR.LogEvents._ApplicationWhitelisted;
     let argsData: JSX.Element | null = null;
     switch (wrappedEvent.event) {
-      case CivilTCR.Events.Application:
+      case CivilTCR.Events._Application:
         argsData = this.renderApplicationEvent(wrappedEvent.args);
         break;
-      case CivilTCR.Events.NewListingWhitelisted:
-        argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCR.Args.NewListingWhitelisted);
+      case CivilTCR.Events._ApplicationWhitelisted:
+        argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCR.Args._ApplicationWhitelisted);
         break;
       default:
         argsData = this.renderUnsupportedEvent(wrappedEvent);
@@ -43,10 +45,10 @@ class ListingEvent extends React.Component<ListingEventProps> {
     return <>{event.event}</>;
   }
 
-  private renderApplicationEvent(args: CivilTCR.Args.Application): JSX.Element {
+  private renderApplicationEvent(args: CivilTCR.Args._Application): JSX.Element {
     return <>Application --- Deposit: {args.deposit.toString()}</>;
   }
-  private renderNewListingWhitelistedEvent(args: CivilTCR.Args.NewListingWhitelisted): JSX.Element {
+  private renderNewListingWhitelistedEvent(args: CivilTCR.Args._ApplicationWhitelisted): JSX.Element {
     return <>Whitelisted!</>;
   }
 }
