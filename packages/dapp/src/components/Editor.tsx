@@ -29,7 +29,6 @@ export interface EditorState {
 class Editor extends React.Component<{}, EditorState> {
   constructor(props: {}) {
     super(props);
-    console.log("defaultValue: " + valueJson);
     this.state = {
       value: valueJson,
       resultURL: "",
