@@ -7,6 +7,7 @@ import TransactionButton from "../utility/TransactionButton";
 import { applyToTCR, approve, getNewsroom } from "../../apis/civilTCR";
 import NewsroomDetail from "./NewsroomDetail";
 import BigNumber from "bignumber.js";
+import { PageView, ViewModule } from "../utility/ViewModules";
 
 export interface NewsroomManagementState {
   error: string;
@@ -44,46 +45,46 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
 
   public render(): JSX.Element {
     return (
-      <>
-        {this.state.error}
-        {this.state.error && <br />}
-        <NewsroomDetail address={this.props.match.params.newsroomAddress} />
-        <br />
-        ProposedArticleIds:
-        {this.state.proposedArticleIds.map(id => {
-          console.log("there is an article here");
-          const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
-          return (
-            <>
-              <Link to={articleAddress}>Article {id}</Link> <br />
-            </>
-          );
-        })}
-        <br />
-        <input onChange={this.onEditorAddressChange} />
-        <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
-        <br />
-        <input onChange={this.onReporterAddressChange} />
-        <TransactionButton transactions={[{ transaction: this.addReporter }]}>Add Reporter</TransactionButton>
-        <br />
-        <input onChange={this.onArticleURLChange} />
-        <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
-        <br />
-        <TransactionButton
-          transactions={[
-            {
-              transaction: this.approve,
-            },
-            {
-              transaction: this.applyToTCR,
-              postTransaction: this.postApply,
-            },
-          ]}
-        >
-          Apply to TCR
-        </TransactionButton>
-        <br />
-      </>
+      <PageView>
+        <ViewModule>
+          {this.state.error}
+          {this.state.error && <br />}
+          <NewsroomDetail address={this.props.match.params.newsroomAddress} />
+          ProposedArticleIds:
+          {this.state.proposedArticleIds.map(id => {
+            console.log("there is an article here");
+            const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
+            return (
+              <>
+                <Link to={articleAddress}>Article {id}</Link> <br />
+              </>
+            );
+          })}
+          <br />
+          <input onChange={this.onEditorAddressChange} />
+          <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
+          <br />
+          <input onChange={this.onReporterAddressChange} />
+          <TransactionButton transactions={[{ transaction: this.addReporter }]}>Add Reporter</TransactionButton>
+          <br />
+          <input onChange={this.onArticleURLChange} />
+          <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
+          <br />
+          <TransactionButton
+            transactions={[
+              {
+                transaction: this.approve,
+              },
+              {
+                transaction: this.applyToTCR,
+                postTransaction: this.postApply,
+              },
+            ]}
+          >
+            Apply to TCR
+          </TransactionButton>
+        </ViewModule>
+      </PageView>
     );
   }
 

@@ -4,6 +4,7 @@ import { approve, depositTokens, exitListing, withdrawTokens } from "../../apis/
 import { InputElement, StyledFormContainer, FormGroup, FormValidationMessage } from "../utility/FormElements";
 import TransactionButton from "../utility/TransactionButton";
 import BigNumber from "bignumber.js";
+import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 
 export interface OwnerListingViewProps {
   listingAddress: EthAddress;
@@ -26,8 +27,8 @@ export class DepositTokens extends React.Component<OwnerListingViewProps, Deposi
 
   public render(): JSX.Element {
     return (
-      <StyledFormContainer>
-        <h3>Deposit Additional Tokens</h3>
+      <ViewModule>
+        <ViewModuleHeader>Deposit Additional Tokens</ViewModuleHeader>
         <FormGroup>
           <label>
             Number of Tokens
@@ -45,7 +46,7 @@ export class DepositTokens extends React.Component<OwnerListingViewProps, Deposi
             Deposit
           </TransactionButton>
         </FormGroup>
-      </StyledFormContainer>
+      </ViewModule>
     );
   }
 
