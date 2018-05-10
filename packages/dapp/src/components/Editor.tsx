@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CivilEditor, defaultValue, plugins } from "@joincivil/editor";
+import { CivilEditor, valueJson, plugins } from "@joincivil/editor";
 import styled from "styled-components";
 import { getCivil } from "../helpers/civilInstance";
 
@@ -30,7 +30,7 @@ class Editor extends React.Component<{}, EditorState> {
   constructor(props: {}) {
     super(props);
     this.state = {
-      value: defaultValue,
+      value: valueJson,
       resultURL: "",
       publishInProgress: false,
     };
@@ -38,7 +38,7 @@ class Editor extends React.Component<{}, EditorState> {
   public render(): JSX.Element {
     return (
       <>
-        <CivilEditor plugins={plugins} value={defaultValue} onChange={this.onChange} readyOnly={false} />
+        <CivilEditor plugins={plugins} value={this.state.value} onChange={this.onChange} readyOnly={false} />
         <Button onClick={this.onProposeClicked} disabled={this.state.publishInProgress}>
           Publish to IPFS
         </Button>
