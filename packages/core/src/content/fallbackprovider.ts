@@ -32,7 +32,7 @@ export class FallbackProvider implements ContentProvider {
   }
 
   public async put(content: string | object, variables?: object | undefined): Promise<StorageHeader> {
-    const headers = await Promise.all(this.providers.map(provider => provider.put(content, variables)));
+    const headers = await Promise.all(this.providers.map(async provider => provider.put(content, variables)));
     return headers[0];
   }
 }

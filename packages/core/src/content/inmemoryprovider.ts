@@ -1,6 +1,6 @@
 import { hashContent } from "@joincivil/utils";
 
-import { EthContentHeader, MapObject, Uri, StorageHeader } from "../types";
+import { MapObject, StorageHeader } from "../types";
 import { ContentProvider } from "./contentprovider";
 
 export class InMemoryProvider implements ContentProvider {

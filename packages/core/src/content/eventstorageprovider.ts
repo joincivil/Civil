@@ -1,5 +1,3 @@
-import BigNumber from "bignumber.js";
-
 import { ContentProvider, ContentProviderOptions } from "./contentprovider";
 import { EventStorageContract, EventStorage } from "../contracts/generated/wrappers/event_storage";
 import { findEventOrThrow } from "../contracts/utils/contracts";

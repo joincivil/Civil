@@ -1,4 +1,4 @@
-import { Uri, StorageHeader } from "../types";
+import { StorageHeader } from "../types";
 import { ContentProvider } from "./contentprovider";
 // tslint:disable-next-line
 import * as IPFS from "ipfs-api";
