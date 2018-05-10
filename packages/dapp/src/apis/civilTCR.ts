@@ -11,6 +11,14 @@ export async function approveForChallenge(): Promise<TwoStepEthTransaction | voi
   return approve(minDeposit);
 }
 
+export async function approveForApply(): Promise<TwoStepEthTransaction | void> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const parameterizer = await tcr.getParameterizer();
+  const minDeposit = await parameterizer.getParameterValue("minDeposit");
+  return approve(minDeposit);
+}
+
 export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
@@ -42,9 +50,11 @@ export async function approve(amount: BigNumber): Promise<TwoStepEthTransaction 
   }
 }
 
-export async function applyToTCR(address: EthAddress, deposit: BigNumber): Promise<TwoStepEthTransaction> {
+export async function applyToTCR(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
+  const parameterizer = await tcr.getParameterizer();
+  const deposit = await parameterizer.getParameterValue("minDeposit");
   return tcr.apply(address, deposit, "");
 }
 

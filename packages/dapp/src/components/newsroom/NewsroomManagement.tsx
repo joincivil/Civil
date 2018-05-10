@@ -4,9 +4,8 @@ import { List } from "immutable";
 import { NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
 import { Subscription } from "rxjs";
 import TransactionButton from "../utility/TransactionButton";
-import { applyToTCR, approve, getNewsroom } from "../../apis/civilTCR";
+import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
 import NewsroomDetail from "./NewsroomDetail";
-import BigNumber from "bignumber.js";
 import { PageView, ViewModule } from "../utility/ViewModules";
 
 export interface NewsroomManagementState {
@@ -89,11 +88,11 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   }
 
   private approve = async (): Promise<TwoStepEthTransaction | void> => {
-    return approve(new BigNumber(100));
+    return approveForApply();
   };
 
   private applyToTCR = async (): Promise<TwoStepEthTransaction> => {
-    return applyToTCR(this.props.match.params.newsroomAddress, new BigNumber(100));
+    return applyToTCR(this.props.match.params.newsroomAddress);
   };
 
   private postApply = (result: any) => {
