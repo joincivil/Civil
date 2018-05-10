@@ -1,6 +1,6 @@
 import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-import { sha3 } from "ethereumjs-util";
+import { keccak256String } from "@joincivil/utils";
 
 import { events } from "../utils/constants";
 import { findEvent } from "../utils/contractutils";
@@ -12,7 +12,7 @@ const expect = chai.expect;
 
 const SOME_DATA = "this is test data, please ignore";
 const SOME_DATA_2 = "this is more data for testing, also ignore";
-const SOME_DATA_HASH = sha3(SOME_DATA);
+const SOME_DATA_HASH = keccak256String(SOME_DATA);
 
 contract("Newsroom", (accounts: string[]) => {
   let eventStorage: any;
