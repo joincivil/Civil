@@ -1,4 +1,6 @@
 declare module "ethereumjs-util" {
+  export { isHexPrefixed, fromUtf8 } from "ethjs-util";
+
   import BN = require("bn.js");
 
   interface Signature {

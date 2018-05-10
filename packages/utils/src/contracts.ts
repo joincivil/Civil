@@ -17,3 +17,7 @@ export function isDeployedBytecodeEqual(deployed1: string, deployed2: string): b
   }
   return withoutMeta1[0] === withoutMeta2[0];
 }
+
+export function is0x0Address(address: string): boolean {
+  return address === "0x0" || address === "0x0000000000000000000000000000000000000000";
+}
