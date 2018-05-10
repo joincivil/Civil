@@ -218,10 +218,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param salt Salt for user's vote on specified challenge
    */
   public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.claimReward.sendTransactionAsync(challengeID, salt),
-    );
+    return createTwoStepSimple(this.ethApi, await this.instance.claimReward.sendTransactionAsync(challengeID, salt));
   }
 
   /**

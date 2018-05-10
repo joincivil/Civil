@@ -438,10 +438,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param data Data associated with challenge (URI that points to data object)
    */
   public async challengeWithURI(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.challenge.sendTransactionAsync(listingAddress, data),
-    );
+    return createTwoStepSimple(this.ethApi, await this.instance.challenge.sendTransactionAsync(listingAddress, data));
   }
 
   /**
@@ -458,9 +455,6 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param salt Salt for user's vote on specified challenge
    */
   public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.claimReward.sendTransactionAsync(challengeID, salt),
-    );
+    return createTwoStepSimple(this.ethApi, await this.instance.claimReward.sendTransactionAsync(challengeID, salt));
   }
 }

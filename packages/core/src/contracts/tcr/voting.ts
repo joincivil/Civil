@@ -61,10 +61,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param numTokens number of tokens to transfer into voting contract
    */
   public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.requestVotingRights.sendTransactionAsync(numTokens),
-    );
+    return createTwoStepSimple(this.ethApi, await this.instance.requestVotingRights.sendTransactionAsync(numTokens));
   }
 
   /**
@@ -72,10 +69,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param numTokens number of tokens to withdraw from voting contract
    */
   public async withdrawVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens),
-    );
+    return createTwoStepSimple(this.ethApi, await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens));
   }
 
   /**
