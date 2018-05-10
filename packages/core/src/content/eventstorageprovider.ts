@@ -1,10 +1,9 @@
 import BigNumber from "bignumber.js";
 
-import { ContentHeader, Uri } from "../types";
 import { Web3Wrapper } from "../utils/web3wrapper";
 import { ContentProvider, ContentProviderOptions } from "./contentprovider";
 import { EventStorageContract, EventStorage } from "../contracts/generated/wrappers/event_storage";
-import { CivilErrors } from "..";
+import { CivilErrors, StorageHeader, ContentData } from "..";
 import { findEventOrThrow } from "../contracts/utils/contracts";
 
 export class EventStorageProvider implements ContentProvider {
@@ -18,35 +17,23 @@ export class EventStorageProvider implements ContentProvider {
     return "eventstorage";
   }
 
-  public async get(what: Uri | ContentHeader): Promise<string> {
-    let uri = "";
-    if (typeof what !== "string") {
-      uri = what.uri;
-    } else {
-      uri = what;
-    }
-
-    const id = new BigNumber(uri.replace(/^(eventstorage:\/\/)/, ""));
-
-    // TODO(ritave): If the id doesn't exist, this will never finish
-    //               Add web3.filter.get, not only watch
+  public async get(what: StorageHeader): Promise<ContentData {
+    // TODO(ritave): If the hash doesn't exist, this will never finish
+    //               Add web3.filter.get to abi-gen, not only watch
     return this.eventStorage
-      .StringStoredStream({ id }, { fromBlock: 0 })
+      .StringStoredStream({ dataHash: what.contentHash }, { fromBlock: 0 })
       .first() // Closes the stream on first event
       .map(event => event.args.data)
       .toPromise();
   }
 
-  public async put(content: string): Promise<ContentHeader> {
-    const hash = this.web3Wrapper.web3.sha3(content);
-
+  public async put(content: string): Promise<StorageHeader> {
     const txHash = await this.eventStorage.store.sendTransactionAsync(content);
     const receipt = await this.web3Wrapper.awaitReceipt(txHash);
-    const id = findEventOrThrow<EventStorage.Logs.StringStored>(receipt, EventStorage.Events.StringStored);
+    const event = findEventOrThrow<EventStorage.Logs.StringStored>(receipt, EventStorage.Events.StringStored);
 
-    // Content hash is stored seperately on blockchain
-    const uri = this.scheme() + "://" + id.args.id.toString();
-    return { uri, hash };
+    const uri = this.scheme() + "://" + event.args.dataHash;
+    return { uri, contentHash: event.args.dataHash };
   }
 
   private get eventStorage(): EventStorageContract {

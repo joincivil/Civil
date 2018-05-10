@@ -252,7 +252,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async resolveContent(header: EthContentHeader): Promise<NewsroomContent> {
     // TODO(ritave): Choose ContentProvider based on schema
-    const content = await this.contentProvider.get(header.uri);
+    const content = await this.contentProvider.get(header);
     return {
       ...header,
       content,

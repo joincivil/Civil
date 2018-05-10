@@ -3,7 +3,7 @@ import { Web3Wrapper } from "../utils/web3wrapper";
 
 export interface ContentProvider {
   scheme(): string;
-  get(what: Uri | StorageHeader): Promise<ContentData>;
+  get(what: StorageHeader): Promise<ContentData>;
   put(content: ContentData, variables?: object): Promise<StorageHeader>;
 }
 
