@@ -7,7 +7,7 @@ import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
 import { EthAddress, TwoStepEthTransaction, ListingWrapper } from "../../types";
@@ -43,22 +43,22 @@ const debug = Debug("civil:tcr");
  * as collect winnings related to challenges, or withdraw/deposit tokens from listings.
  */
 export class CivilTCR extends BaseWrapper<CivilTCRContract> {
-  public static singleton(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider): CivilTCR {
-    const instance = CivilTCRContract.singletonTrusted(web3Wrapper);
+  public static singleton(ethApi: EthApi, contentProvider: ContentProvider): CivilTCR {
+    const instance = CivilTCRContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new CivilTCR(web3Wrapper, contentProvider, instance);
+    return new CivilTCR(ethApi, contentProvider, instance);
   }
 
   private contentProvider: ContentProvider;
   private voting: Voting;
 
-  private constructor(web3Wrapper: Web3Wrapper, contentProvider: ContentProvider, instance: CivilTCRContract) {
-    super(web3Wrapper, instance);
+  private constructor(ethApi: EthApi, contentProvider: ContentProvider, instance: CivilTCRContract) {
+    super(ethApi, instance);
     this.contentProvider = contentProvider;
-    this.voting = Voting.singleton(this.web3Wrapper);
+    this.voting = Voting.singleton(this.ethApi);
   }
 
   /**
@@ -79,11 +79,11 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Returns Parameterizer instance associated with this TCR
    */
   public async getParameterizer(): Promise<Parameterizer> {
-    return Parameterizer.singleton(this.web3Wrapper);
+    return Parameterizer.singleton(this.ethApi);
   }
 
   public async getGovernment(): Promise<Government> {
-    return Government.singleton(this.web3Wrapper);
+    return Government.singleton(this.ethApi);
   }
 
   /**
@@ -97,7 +97,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Get Token instance used with this TCR
    */
   public async getToken(): Promise<EIP20> {
-    return EIP20.atUntrusted(this.web3Wrapper, await this.getTokenAddress());
+    return EIP20.atUntrusted(this.ethApi, await this.getTokenAddress());
   }
 
   /**
@@ -118,7 +118,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public whitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationWhitelistedStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isWhitelisted(l.data));
   }
@@ -132,7 +132,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsInApplicationStage(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isInApplicationPhase(l.data));
   }
@@ -146,7 +146,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public readyToBeWhitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => canBeWhitelisted(l.data));
   }
@@ -160,7 +160,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public currentChallengedCommitVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isInChallengedCommitVotePhase(l.data));
   }
@@ -174,7 +174,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public currentChallengedRevealVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isInChallengedRevealVotePhase(l.data));
   }
@@ -188,7 +188,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsAwaitingAppealRequest(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isAwaitingAppealRequest(l.data));
   }
@@ -196,7 +196,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsWithChallengeToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => canChallengeBeResolved(l.data));
   }
@@ -210,7 +210,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsAwaitingAppealJudgment(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isAwaitingAppealJudgment(l.data));
   }
@@ -224,7 +224,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsAwaitingAppealChallenge(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isListingAwaitingAppealChallenge(l.data));
   }
@@ -238,7 +238,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsInAppealChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isListingInAppealChallengeCommitPhase(l.data));
   }
@@ -252,7 +252,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsInAppealChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => isInAppealChallengeRevealPhase(l.data));
   }
@@ -266,7 +266,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsWithAppealToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => canListingAppealBeResolved(l.data));
   }
@@ -280,7 +280,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public rejectedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationStream({}, { fromBlock })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper())
       .concatFilter(l => l.data.appExpiry.isZero());
   }
@@ -288,14 +288,14 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public allApplicationsEver(): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationStream({}, { fromBlock: 0 })
-      .map(e => new Listing(this.web3Wrapper, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .switchMap(async l => l.getListingWrapper());
   }
 
   //#endregion
 
   public getListing(listingAddress: EthAddress): Listing {
-    return new Listing(this.web3Wrapper, this.instance, listingAddress);
+    return new Listing(this.ethApi, this.instance, listingAddress);
   }
 
   /**
@@ -311,7 +311,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.voterReward.callAsync(who, challengeID, salt);
   }
@@ -332,7 +332,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async hasClaimedTokens(challengeID: BigNumber, voter?: EthAddress): Promise<boolean> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.hasClaimedTokens.callAsync(challengeID, who);
   }
@@ -369,7 +369,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     applicationContentURI: string,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI),
     );
   }
@@ -381,7 +381,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async deposit(listingAddress: EthAddress, depositAmount: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount),
     );
   }
@@ -393,7 +393,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async withdraw(listingAddress: EthAddress, withdrawalAmount: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount),
     );
   }
@@ -403,7 +403,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param address Address of listing to exit
    */
   public async exitListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.exitListing.sendTransactionAsync(listingAddress));
+    return createTwoStepSimple(this.ethApi, await this.instance.exitListing.sendTransactionAsync(listingAddress));
   }
 
   /**
@@ -417,16 +417,16 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   public async requestAppeal(listingAddres: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.requestAppeal.sendTransactionAsync(listingAddres));
+    return createTwoStepSimple(this.ethApi, await this.instance.requestAppeal.sendTransactionAsync(listingAddres));
   }
 
   public async grantAppeal(listingAddres: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.grantAppeal.sendTransactionAsync(listingAddres));
+    return createTwoStepSimple(this.ethApi, await this.instance.grantAppeal.sendTransactionAsync(listingAddres));
   }
 
   public async challengeGrantedAppeal(listingAddres: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.challengeGrantedAppeal.sendTransactionAsync(listingAddres, data),
     );
   }
@@ -439,7 +439,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async challengeWithURI(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.challenge.sendTransactionAsync(listingAddress, data),
     );
   }
@@ -449,7 +449,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param address Address of new listing
    */
   public async updateStatus(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.updateStatus.sendTransactionAsync(listingAddress));
+    return createTwoStepSimple(this.ethApi, await this.instance.updateStatus.sendTransactionAsync(listingAddress));
   }
 
   /**
@@ -459,7 +459,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.claimReward.sendTransactionAsync(challengeID, salt),
     );
   }

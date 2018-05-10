@@ -5,7 +5,7 @@ import "@joincivil/utils";
 
 import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../types";
 import { CivilErrors, requireAccount } from "../../utils/errors";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 import { BaseWrapper } from "../basewrapper";
 import { PLCRVotingContract } from "../generated/wrappers/p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contracts";
@@ -17,22 +17,22 @@ const debug = Debug("civil:tcr");
  * Parameterizer or the Registry
  */
 export class Voting extends BaseWrapper<PLCRVotingContract> {
-  public static singleton(web3Wrapper: Web3Wrapper): Voting {
-    const instance = PLCRVotingContract.singletonTrusted(web3Wrapper);
+  public static singleton(ethApi: EthApi): Voting {
+    const instance = PLCRVotingContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Voting returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new Voting(web3Wrapper, instance);
+    return new Voting(ethApi, instance);
   }
 
-  public static atUntrusted(web3wrapper: Web3Wrapper, address: EthAddress): Voting {
+  public static atUntrusted(web3wrapper: EthApi, address: EthAddress): Voting {
     const instance = PLCRVotingContract.atUntrusted(web3wrapper, address);
     return new Voting(web3wrapper, instance);
   }
 
-  private constructor(web3Wrapper: Web3Wrapper, instance: PLCRVotingContract) {
-    super(web3Wrapper, instance);
+  private constructor(ethApi: EthApi, instance: PLCRVotingContract) {
+    super(ethApi, instance);
   }
 
   /**
@@ -62,7 +62,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.requestVotingRights.sendTransactionAsync(numTokens),
     );
   }
@@ -73,7 +73,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async withdrawVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens),
     );
   }
@@ -83,7 +83,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to unlock unrevealed vote of
    */
   public async rescueTokens(pollID: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.rescueTokens.sendTransactionAsync(pollID));
+    return createTwoStepSimple(this.ethApi, await this.instance.rescueTokens.sendTransactionAsync(pollID));
   }
 
   /**
@@ -106,10 +106,10 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     console.log("numTokens: " + numTokens);
     console.log("prevPollID: " + prevPollID);
     console.log("commitPeriodAction: " + commitPeriodActive);
-    const tokenBalance = await this.instance.voteTokenBalance.callAsync(this.web3Wrapper.account!);
+    const tokenBalance = await this.instance.voteTokenBalance.callAsync(this.ethApi.account!);
     console.log("tokenBalance: " + tokenBalance);
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.commitVote.sendTransactionAsync(pollID, secretHash, numTokens, prevPollID),
     );
   }
@@ -122,7 +122,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async revealVote(pollID: BigNumber, voteOption: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.revealVote.sendTransactionAsync(pollID, voteOption, salt),
     );
   }
@@ -140,7 +140,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async getNumVotingRights(tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.voteTokenBalance.callAsync(who);
   }
@@ -153,7 +153,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async hasVoteBeenRevealed(pollID: BigNumber, voter?: EthAddress): Promise<boolean> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.didReveal.callAsync(who, pollID);
   }
@@ -200,7 +200,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async getNumPassingTokens(pollID: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.getNumTokens.callAsync(who, pollID);
   }
@@ -222,7 +222,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async getPrevPollID(tokens: BigNumber, pollID: BigNumber, account?: EthAddress): Promise<BigNumber> {
     let who = account;
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.getInsertPointForNumTokens.callAsync(who, tokens, pollID);
   }

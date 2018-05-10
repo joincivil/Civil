@@ -1,5 +1,4 @@
-import { Uri, StorageHeader, ContentData } from "../types";
-import { Web3Wrapper } from "../utils/web3wrapper";
+import { StorageHeader, ContentData, EthApi } from "../types";
 
 export interface ContentProvider {
   scheme(): string;
@@ -8,7 +7,7 @@ export interface ContentProvider {
 }
 
 export interface ContentProviderOptions {
-  web3Wrapper: Web3Wrapper;
+  ethApi: EthApi;
 }
 
 export interface ContentProviderCreator {

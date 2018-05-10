@@ -111,7 +111,7 @@ export interface DecodedTransactionReceipt<L extends DecodedLogEntry> {
 export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilLogs>;
 
 export { ContentProvider, ContentProviderCreator, ContentProviderOptions } from "./content/contentprovider";
-export { Web3Wrapper } from "./utils/web3wrapper";
+export { EthApi } from "./utils/ethapi";
 
 export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
   txHash: TxHash;

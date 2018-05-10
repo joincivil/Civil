@@ -4,7 +4,7 @@ import * as Web3 from "web3";
 import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 
 import { EthAddress, TxDataBase, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "../../types";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 
 export function findEvent<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T | undefined {
   return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as T | undefined;
@@ -86,21 +86,21 @@ export function isTxData(data: any): data is TxDataBase {
 }
 
 export function createTwoStepTransaction<T>(
-  web3Wrapper: Web3Wrapper,
+  ethApi: EthApi,
   txHash: TxHash,
   transform: (receipt: CivilTransactionReceipt) => Promise<T> | T,
 ): TwoStepEthTransaction<T> {
   return {
     txHash,
     awaitReceipt: async (blockConfirmations?: number) =>
-      web3Wrapper.awaitReceipt(txHash, blockConfirmations).then(transform),
+      ethApi.awaitReceipt(txHash, blockConfirmations).then(transform),
   };
 }
 
-export function createTwoStepSimple(web3Wrapper: Web3Wrapper, txHash: TxHash): TwoStepEthTransaction {
+export function createTwoStepSimple(ethApi: EthApi, txHash: TxHash): TwoStepEthTransaction {
   return {
     txHash,
-    awaitReceipt: web3Wrapper.awaitReceipt.bind(web3Wrapper, txHash),
+    awaitReceipt: ethApi.awaitReceipt.bind(ethApi, txHash),
   };
 }
 

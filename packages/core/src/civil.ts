@@ -5,7 +5,7 @@ import { ContentProvider, ContentProviderCreator } from "./content/contentprovid
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction, Uri } from "./types";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
-import { Web3Wrapper } from "./utils/web3wrapper";
+import { EthApi } from "./utils/ethapi";
 import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
 
@@ -25,7 +25,7 @@ export interface CivilOptions {
  * and all of them can fail (for eg. when the connection to the node drops)
  */
 export class Civil {
-  private web3Wrapper: Web3Wrapper;
+  private ethApi: EthApi;
   private contentProvider: ContentProvider;
 
   /**
@@ -44,14 +44,14 @@ export class Civil {
     }
 
     if (opts.web3Provider) {
-      this.web3Wrapper = new Web3Wrapper(opts.web3Provider);
+      this.ethApi = new EthApi(opts.web3Provider);
     } else {
-      this.web3Wrapper = Web3Wrapper.detectProvider();
+      this.ethApi = EthApi.detectProvider();
     }
 
     // TODO(ritave): Choose a better default provider
     if (opts.ContentProvider) {
-      this.contentProvider = new opts.ContentProvider({ web3Wrapper: this.web3Wrapper });
+      this.contentProvider = new opts.ContentProvider({ ethApi: this.ethApi });
     } else {
       this.contentProvider = new IPFSProvider();
     }
@@ -61,14 +61,14 @@ export class Civil {
    * @returns Currently default user account used, undefined if none unlocked/found
    */
   public get userAccount(): string | undefined {
-    return this.web3Wrapper.account;
+    return this.ethApi.account;
   }
 
   /**
    * Returns the current provider that is used by all things Civil in the Core
    */
   public get currentProvider(): Web3.Provider {
-    return this.web3Wrapper.currentProvider;
+    return this.ethApi.currentProvider;
   }
 
   /**
@@ -78,7 +78,7 @@ export class Civil {
    * @param web3Provider The new provider that shall replace the old one
    */
   public set currentProvider(web3Provider: Web3.Provider) {
-    this.web3Wrapper.currentProvider = web3Provider;
+    this.ethApi.currentProvider = web3Provider;
   }
 
   /**
@@ -88,7 +88,7 @@ export class Civil {
    * This call may require user input - such as approving a transaction in Metamask
    */
   public async newsroomDeployTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
-    return Newsroom.deployTrusted(this.web3Wrapper, this.contentProvider, newsroomName);
+    return Newsroom.deployTrusted(this.ethApi, this.contentProvider, newsroomName);
   }
 
   /**
@@ -98,7 +98,7 @@ export class Civil {
    * This call may require user input - such as approving a transaction in Metamask
    */
   public async newsroomDeployNonMultisigTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
-    return Newsroom.deployNonMultisigTrusted(this.web3Wrapper, this.contentProvider, newsroomName);
+    return Newsroom.deployNonMultisigTrusted(this.ethApi, this.contentProvider, newsroomName);
   }
 
   /**
@@ -127,7 +127,7 @@ export class Civil {
    * @param address The address on current Ethereum network where the smart-contract is located
    */
   public async newsroomAtUntrusted(address: EthAddress): Promise<Newsroom> {
-    return Newsroom.atUntrusted(this.web3Wrapper, this.contentProvider, address);
+    return Newsroom.atUntrusted(this.ethApi, this.contentProvider, address);
   }
 
   /**
@@ -137,7 +137,7 @@ export class Civil {
    * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton
    */
   public tcrSingletonTrusted(): CivilTCR {
-    return CivilTCR.singleton(this.web3Wrapper, this.contentProvider);
+    return CivilTCR.singleton(this.ethApi, this.contentProvider);
   }
 
   /**
@@ -150,7 +150,7 @@ export class Civil {
    * @param blockConfirmations How man blocks after the block with transaction should wait before confirming
    */
   public async awaitReceipt(transactionHash: TxHash, blockConfirmations?: number): Promise<CivilTransactionReceipt> {
-    return this.web3Wrapper.awaitReceipt(transactionHash, blockConfirmations);
+    return this.ethApi.awaitReceipt(transactionHash, blockConfirmations);
   }
 
   /**

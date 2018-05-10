@@ -5,7 +5,7 @@ import { prepareNewsroomMessage, hashContent, hashPersonalMessage, recoverSigner
 
 import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
-import { Web3Wrapper } from "../utils/web3wrapper";
+import { EthApi } from "../utils/ethapi";
 import { BaseWrapper } from "./basewrapper";
 import {
   NewsroomRoles,
@@ -46,20 +46,20 @@ import { NewsroomContract, Newsroom as Events } from "./generated/wrappers/newsr
 export class Newsroom extends BaseWrapper<NewsroomContract> {
   //#region constructors
   public static async deployTrusted(
-    web3Wrapper: Web3Wrapper,
+    ethApi: EthApi,
     contentProvider: ContentProvider,
     newsroomName: string,
   ): Promise<TwoStepEthTransaction<Newsroom>> {
-    const txData: TxData = { from: web3Wrapper.account };
+    const txData: TxData = { from: ethApi.account };
 
-    const factory = NewsroomFactoryContract.singletonTrusted(web3Wrapper);
+    const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
 
     return createTwoStepTransaction(
-      web3Wrapper,
-      await factory.create.sendTransactionAsync(newsroomName, [web3Wrapper.account!], new BigNumber(1), txData),
+      ethApi,
+      await factory.create.sendTransactionAsync(newsroomName, [ethApi.account!], new BigNumber(1), txData),
       async factoryReceipt => {
         const createdNewsroom = findEvents<NewsroomFactory.Logs.ContractInstantiation>(
           factoryReceipt,
@@ -70,46 +70,46 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
           throw new Error("No Newsroom created during deployment through factory");
         }
 
-        const contract = NewsroomContract.atUntrusted(web3Wrapper, createdNewsroom.args.instantiation);
-        const multisigProxy = await NewsroomMultisigProxy.create(web3Wrapper, contract);
-        return new Newsroom(web3Wrapper, contentProvider, contract, multisigProxy);
+        const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
+        const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
+        return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
       },
     );
   }
 
   public static async deployNonMultisigTrusted(
-    web3Wrapper: Web3Wrapper,
+    ethApi: EthApi,
     contentProvider: ContentProvider,
     newsroomName: string,
   ): Promise<TwoStepEthTransaction<Newsroom>> {
-    const txData: TxData = { from: web3Wrapper.account };
+    const txData: TxData = { from: ethApi.account };
     return createTwoStepTransaction(
-      web3Wrapper,
-      await NewsroomContract.deployTrusted.sendTransactionAsync(web3Wrapper, newsroomName, txData),
-      async receipt => Newsroom.atUntrusted(web3Wrapper, contentProvider, receipt.contractAddress!),
+      ethApi,
+      await NewsroomContract.deployTrusted.sendTransactionAsync(ethApi, newsroomName, txData),
+      async receipt => Newsroom.atUntrusted(ethApi, contentProvider, receipt.contractAddress!),
     );
   }
 
   public static async atUntrusted(
-    web3Wrapper: Web3Wrapper,
+    ethApi: EthApi,
     contentProvider: ContentProvider,
     address: EthAddress,
   ): Promise<Newsroom> {
-    const instance = NewsroomContract.atUntrusted(web3Wrapper, address);
-    const multisigProxy = await NewsroomMultisigProxy.create(web3Wrapper, instance);
-    return new Newsroom(web3Wrapper, contentProvider, instance, multisigProxy);
+    const instance = NewsroomContract.atUntrusted(ethApi, address);
+    const multisigProxy = await NewsroomMultisigProxy.create(ethApi, instance);
+    return new Newsroom(ethApi, contentProvider, instance, multisigProxy);
   }
 
   private multisigProxy: NewsroomMultisigProxy;
   private contentProvider: ContentProvider;
 
   private constructor(
-    web3Wrapper: Web3Wrapper,
+    ethApi: EthApi,
     contentProvider: ContentProvider,
     instance: NewsroomContract,
     multisigProxy: NewsroomMultisigProxy,
   ) {
-    super(web3Wrapper, instance);
+    super(ethApi, instance);
     this.contentProvider = contentProvider;
     this.multisigProxy = multisigProxy;
   }
@@ -194,7 +194,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     let who = address;
 
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.multisigProxy.isOwner(who);
   }
@@ -212,7 +212,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     let who = address;
 
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
@@ -230,7 +230,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     let who = address;
 
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Reporter);
   }
@@ -292,7 +292,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     }
 
     await this.requireEditor();
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.addRole.sendTransactionAsync(actor, role));
+    return createTwoStepSimple(this.ethApi, await this.instance.addRole.sendTransactionAsync(actor, role));
   }
 
   /**
@@ -309,7 +309,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     }
 
     await this.requireEditor();
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.removeRole.sendTransactionAsync(actor, role));
+    return createTwoStepSimple(this.ethApi, await this.instance.removeRole.sendTransactionAsync(actor, role));
   }
 
   /**
@@ -336,7 +336,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const contentHeader = await this.contentProvider.put(content);
 
     return createTwoStepTransaction(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.publishRevision.sendTransactionAsync(contentHeader.uri, contentHeader.contentHash),
       receipt =>
         findEventOrThrow<Events.Logs.RevisionPublished>(receipt, Events.Events.RevisionPublished).args.id.toNumber(),
@@ -363,7 +363,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const contentHeader = await this.contentProvider.put(content);
 
     return createTwoStepTransaction(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.publishRevisionSigned.sendTransactionAsync(
         contentHeader.uri,
         signedData.contentHash,
@@ -382,12 +382,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @returns An object containing all information to represent what has the author approved
    */
   public async signRevision(content: string): Promise<ApprovedRevision> {
-    const author = requireAccount(this.web3Wrapper);
+    const author = requireAccount(this.ethApi);
 
     const contentHash = hashContent(content);
     const message = prepareNewsroomMessage(this.address, contentHash);
 
-    const { signature } = await this.web3Wrapper.signMessage(message, author);
+    const { signature } = await this.ethApi.signMessage(message, author);
     return {
       author,
       contentHash,
@@ -427,7 +427,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   private async requireRole(role: NewsroomRoles): Promise<void> {
-    const account = requireAccount(this.web3Wrapper);
+    const account = requireAccount(this.ethApi);
     if ((await this.instance.owner.callAsync()) !== account) {
       if (!(await this.instance.hasRole.callAsync(account, role))) {
         throw new Error(CivilErrors.NoPrivileges);

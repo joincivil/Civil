@@ -5,7 +5,7 @@ import "@joincivil/utils";
 
 import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamProp, PollID } from "../../types";
 import { requireAccount, CivilErrors } from "../../utils/errors";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 import { BaseWrapper } from "../basewrapper";
 import { ParameterizerContract } from "../generated/wrappers/parameterizer";
 import { createTwoStepSimple } from "../utils/contracts";
@@ -34,29 +34,29 @@ export const enum Parameters {
  * Users can propose new values for parameters, as well as challenge and then vote on those proposals
  */
 export class Parameterizer extends BaseWrapper<ParameterizerContract> {
-  public static singleton(web3Wrapper: Web3Wrapper): Parameterizer {
-    const instance = ParameterizerContract.singletonTrusted(web3Wrapper);
+  public static singleton(ethApi: EthApi): Parameterizer {
+    const instance = ParameterizerContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new Parameterizer(web3Wrapper, instance);
+    return new Parameterizer(ethApi, instance);
   }
 
-  public static atUntrusted(web3wrapper: Web3Wrapper, address: EthAddress): Parameterizer {
+  public static atUntrusted(web3wrapper: EthApi, address: EthAddress): Parameterizer {
     const instance = ParameterizerContract.atUntrusted(web3wrapper, address);
     return new Parameterizer(web3wrapper, instance);
   }
 
-  private constructor(web3Wrapper: Web3Wrapper, instance: ParameterizerContract) {
-    super(web3Wrapper, instance);
+  private constructor(ethApi: EthApi, instance: ParameterizerContract) {
+    super(ethApi, instance);
   }
 
   /**
    * Returns Voting instance associated with this TCR
    */
   public async getVoting(): Promise<Voting> {
-    return Voting.atUntrusted(this.web3Wrapper, await this.getVotingAddress());
+    return Voting.atUntrusted(this.ethApi, await this.getVotingAddress());
   }
 
   /**
@@ -187,7 +187,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
     newValue: BigNumber,
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue),
     );
   }
@@ -198,7 +198,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public async challengeReparameterization(propID: Bytes32): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.challengeReparameterization.sendTransactionAsync(propID),
     );
   }
@@ -209,7 +209,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    * @param propID the ID of the proposed reparameterization to process
    */
   public async processProposal(propID: Bytes32): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.web3Wrapper, await this.instance.processProposal.sendTransactionAsync(propID));
+    return createTwoStepSimple(this.ethApi, await this.instance.processProposal.sendTransactionAsync(propID));
   }
 
   /**
@@ -219,7 +219,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
    */
   public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.claimReward.sendTransactionAsync(challengeID, salt),
     );
   }
@@ -251,7 +251,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.web3Wrapper);
+      who = requireAccount(this.ethApi);
     }
     return this.instance.voterReward.callAsync(who, challengeID, salt);
   }

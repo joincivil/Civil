@@ -1,14 +1,14 @@
 import { EthAddress } from "../types";
-import { Web3Wrapper } from "../utils/web3wrapper";
+import { EthApi } from "../utils/ethapi";
 import { BaseContract } from "./basecontract";
 
 export class BaseWrapper<InstanceType extends BaseContract> {
   protected instance: InstanceType;
-  protected web3Wrapper: Web3Wrapper;
+  protected ethApi: EthApi;
 
-  constructor(web3Wrapper: Web3Wrapper, instance: InstanceType) {
+  constructor(ethApi: EthApi, instance: InstanceType) {
     this.instance = instance;
-    this.web3Wrapper = web3Wrapper;
+    this.ethApi = ethApi;
   }
 
   /**

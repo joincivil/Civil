@@ -4,31 +4,31 @@ import { Observable } from "rxjs";
 import { MultisigTransaction } from "./multisigtransaction";
 import { BaseWrapper } from "../basewrapper";
 import { MultiSigWalletContract, MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog } from "../utils/contracts";
 import { requireAccount, CivilErrors } from "../../utils/errors";
 
 export class Multisig extends BaseWrapper<MultiSigWalletContract> {
-  public static atUntrusted(web3Wrapper: Web3Wrapper, address: EthAddress): Multisig {
-    const instance = MultiSigWalletContract.atUntrusted(web3Wrapper, address);
-    return new Multisig(web3Wrapper, instance);
+  public static atUntrusted(ethApi: EthApi, address: EthAddress): Multisig {
+    const instance = MultiSigWalletContract.atUntrusted(ethApi, address);
+    return new Multisig(ethApi, instance);
   }
 
   public static async deployTrusted(
-    web3Wrapper: Web3Wrapper,
+    ethApi: EthApi,
     owners: EthAddress[],
     required: number,
   ): Promise<TwoStepEthTransaction<Multisig>> {
     return createTwoStepTransaction(
-      web3Wrapper,
-      await MultiSigWalletContract.deployTrusted.sendTransactionAsync(web3Wrapper, owners, new BigNumber(required)),
-      receipt => new Multisig(web3Wrapper, MultiSigWalletContract.atUntrusted(web3Wrapper, receipt.contractAddress!)),
+      ethApi,
+      await MultiSigWalletContract.deployTrusted.sendTransactionAsync(ethApi, owners, new BigNumber(required)),
+      receipt => new Multisig(ethApi, MultiSigWalletContract.atUntrusted(ethApi, receipt.contractAddress!)),
     );
   }
 
-  private constructor(web3Wrapper: Web3Wrapper, instance: MultiSigWalletContract) {
-    super(web3Wrapper, instance);
+  private constructor(ethApi: EthApi, instance: MultiSigWalletContract) {
+    super(ethApi, instance);
   }
 
   /**
@@ -44,7 +44,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * @param address If null, checks your account, othwerise checks the provided address
    */
   public async isOwner(address?: EthAddress): Promise<boolean> {
-    const who = address || requireAccount(this.web3Wrapper);
+    const who = address || requireAccount(this.ethApi);
     return this.instance.isOwner.callAsync(who);
   }
 
@@ -111,10 +111,10 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * @param ethers How many ethers to send
    */
   public async transferEther(ethers: BigNumber): Promise<TwoStepEthTransaction> {
-    const wei = this.web3Wrapper.web3.toWei(ethers.toString(), "ether");
+    const wei = this.ethApi.web3.toWei(ethers.toString(), "ether");
     return createTwoStepSimple(
-      this.web3Wrapper,
-      await this.web3Wrapper.sendTransaction({ to: this.address, value: wei }),
+      this.ethApi,
+      await this.ethApi.sendTransaction({ to: this.address, value: wei }),
     );
   }
 
@@ -152,7 +152,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     payload: string,
   ): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     return createTwoStepTransaction(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.submitTransaction.sendTransactionAsync(address, weiToSend, payload),
       async receipt => {
         const event = receipt.logs.filter(isDecodedLog).find(log => log.event === MultiSigWallet.Events.Submission);
@@ -203,11 +203,11 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * @param id Id the of the wanted transaction
    */
   public async transaction(id: number): Promise<MultisigTransaction> {
-    return MultisigTransaction.fromId(this.web3Wrapper, this.instance, id);
+    return MultisigTransaction.fromId(this.ethApi, this.instance, id);
   }
 
   private async requireOwner(who?: EthAddress): Promise<void> {
-    const owner = who || this.web3Wrapper.account;
+    const owner = who || this.ethApi.account;
     if (!(await this.isOwner(owner))) {
       throw new Error(CivilErrors.NoPrivileges);
     }

@@ -1,23 +1,23 @@
 import BigNumber from "bignumber.js";
 
-import { Web3Wrapper } from "../utils/web3wrapper";
 import { ContentProvider, ContentProviderOptions } from "./contentprovider";
 import { EventStorageContract, EventStorage } from "../contracts/generated/wrappers/event_storage";
-import { CivilErrors, StorageHeader, ContentData } from "..";
 import { findEventOrThrow } from "../contracts/utils/contracts";
+import { EthApi, StorageHeader, ContentData } from "../types";
+import { CivilErrors } from "../utils/errors";
 
 export class EventStorageProvider implements ContentProvider {
-  private web3Wrapper: Web3Wrapper;
+  private ethApi: EthApi;
 
   constructor(options: ContentProviderOptions) {
-    this.web3Wrapper = options.web3Wrapper;
+    this.ethApi = options.ethApi;
   }
 
   public scheme(): string {
     return "eventstorage";
   }
 
-  public async get(what: StorageHeader): Promise<ContentData {
+  public async get(what: StorageHeader): Promise<ContentData> {
     // TODO(ritave): If the hash doesn't exist, this will never finish
     //               Add web3.filter.get to abi-gen, not only watch
     return this.eventStorage
@@ -29,7 +29,7 @@ export class EventStorageProvider implements ContentProvider {
 
   public async put(content: string): Promise<StorageHeader> {
     const txHash = await this.eventStorage.store.sendTransactionAsync(content);
-    const receipt = await this.web3Wrapper.awaitReceipt(txHash);
+    const receipt = await this.ethApi.awaitReceipt(txHash);
     const event = findEventOrThrow<EventStorage.Logs.StringStored>(receipt, EventStorage.Events.StringStored);
 
     const uri = this.scheme() + "://" + event.args.dataHash;
@@ -37,7 +37,7 @@ export class EventStorageProvider implements ContentProvider {
   }
 
   private get eventStorage(): EventStorageContract {
-    const instance = EventStorageContract.singletonTrusted(this.web3Wrapper);
+    const instance = EventStorageContract.singletonTrusted(this.ethApi);
     if (!instance) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }

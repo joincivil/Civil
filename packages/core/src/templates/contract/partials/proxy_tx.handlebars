@@ -11,7 +11,7 @@ public {{this.name}} = {
     const self = this as {{contractName}}MultisigProxy;
     if (!isDefined(self.multisig)) {
       return createTwoStepSimple(
-          self.web3Wrapper,
+          self.ethApi,
           await (self.instance as any).{{this.name}}.sendTransactionAsync(
             {{> params inputs=inputs}}
             txData,
