@@ -20,11 +20,15 @@ export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> 
 }
 
 export async function approve(amount: BigNumber): Promise<TwoStepEthTransaction | void> {
+  console.log("approve");
   const civil = getCivil();
+  console.log("civil gotten.");
   const tcr = civil.tcrSingletonTrusted();
+  console.log("tcr gotten.");
   const token = await tcr.getToken();
-
+  console.log("token address: " + token.address);
   const approvedTokens = await token.getApprovedTokensForSpender(tcr.address);
+  console.log("approved tokens: " + approvedTokens + " - amount: " + amount);
   if (approvedTokens < amount) {
     return token.approveSpender(tcr.address, amount);
   }
