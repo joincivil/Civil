@@ -1,12 +1,9 @@
 pragma solidity ^0.4.19;
 
 contract EventStorage {
-  event StringStored(uint indexed id, string data);
-
-  uint private latestId;
+  event StringStored(bytes32 indexed dataHash, string data);
 
   function store(string data) public {
-    emit StringStored(latestId, data);
-    latestId++;
+    emit StringStored(keccak256((data)), data);
   }
 }
