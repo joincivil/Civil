@@ -8,6 +8,7 @@ import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { EthApi } from "./utils/ethapi";
 import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
+import { FallbackProvider, EventStorageProvider } from ".";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -49,12 +50,8 @@ export class Civil {
       this.ethApi = EthApi.detectProvider();
     }
 
-    // TODO(ritave): Choose a better default provider
-    if (opts.ContentProvider) {
-      this.contentProvider = new opts.ContentProvider({ ethApi: this.ethApi });
-    } else {
-      this.contentProvider = new IPFSProvider();
-    }
+    const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider, EventStorageProvider]);
+    this.contentProvider = new providerConstructor({ ethApi: this.ethApi });
   }
 
   /**
