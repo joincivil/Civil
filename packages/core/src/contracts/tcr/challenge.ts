@@ -3,21 +3,21 @@ import "@joincivil/utils";
 
 import { Voting } from "./voting";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 import { ChallengeData } from "../../types";
 import { Appeal } from "./appeal";
 
 export class Challenge {
-  private web3Wrapper: Web3Wrapper;
+  private ethApi: EthApi;
   private tcrInstance: CivilTCRContract;
   private challengeId: BigNumber;
   private voting: Voting;
 
-  constructor(web3Wrapper: Web3Wrapper, instance: CivilTCRContract, challengeId: BigNumber) {
-    this.web3Wrapper = web3Wrapper;
+  constructor(ethApi: EthApi, instance: CivilTCRContract, challengeId: BigNumber) {
+    this.ethApi = ethApi;
     this.tcrInstance = instance;
     this.challengeId = challengeId;
-    this.voting = Voting.singleton(web3Wrapper);
+    this.voting = Voting.singleton(ethApi);
   }
 
   public async getChallengeData(): Promise<ChallengeData> {
@@ -27,7 +27,7 @@ export class Challenge {
     const poll = await this.voting.getPoll(this.challengeId);
     const requestAppealExpiry = await this.tcrInstance.challengeRequestAppealExpiries.callAsync(this.challengeId);
 
-    const appealInstance = new Appeal(this.web3Wrapper, this.tcrInstance, this.challengeId);
+    const appealInstance = new Appeal(this.ethApi, this.tcrInstance, this.challengeId);
     const appeal = await appealInstance.getAppealData();
 
     return {

@@ -17,8 +17,8 @@ const DEFAULT_HTTP_NODE = "http://localhost:8545";
 
 const debug = Debug("civil:web3wrapper");
 
-export class Web3Wrapper {
-  public static detectProvider(): Web3Wrapper {
+export class EthApi {
+  public static detectProvider(): EthApi {
     let provider: Web3.Provider;
     // Try to use the window's injected provider
     if (typeof window !== "undefined" && (window as any).web3 !== "undefined") {
@@ -30,7 +30,7 @@ export class Web3Wrapper {
       provider = new Web3.providers.HttpProvider(DEFAULT_HTTP_NODE);
       debug("No web3 provider provided or found injected, defaulting to HttpProvider");
     }
-    return new Web3Wrapper(provider);
+    return new EthApi(provider);
   }
 
   // Initialized for sure by the helper method setProvider used in constructor

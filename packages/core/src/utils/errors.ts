@@ -1,5 +1,5 @@
 import { EthAddress } from "../types";
-import { Web3Wrapper } from "./web3wrapper";
+import { EthApi } from "./ethapi";
 
 export enum CivilErrors {
   UnsupportedNetwork = "UNSUPPORTED_NETWORK",
@@ -10,8 +10,8 @@ export enum CivilErrors {
   NoChallenge = "NO_CHALLENGE_FOUND_FOR_LISTING",
 }
 
-export function requireAccount(web3Wrapper: Web3Wrapper): EthAddress {
-  const account = web3Wrapper.account;
+export function requireAccount(ethApi: EthApi): EthAddress {
+  const account = ethApi.account;
   if (account === undefined) {
     throw new Error(CivilErrors.NoUnlockedAccount);
   }

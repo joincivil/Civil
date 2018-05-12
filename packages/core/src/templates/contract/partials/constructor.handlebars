@@ -1,27 +1,27 @@
-public static singletonTrusted(web3Wrapper: Web3Wrapper): {{contractName}}Contract|null {
+public static singletonTrusted(ethApi: EthApi): {{contractName}}Contract|null {
   if (!artifacts.{{contractName}}.networks) {
     debug("Trying to get singleton from contract without any singleton data");
     return null;
   }
-  const networkId = web3Wrapper.networkId;
+  const networkId = ethApi.networkId;
   const networkData = artifacts.{{contractName}}.networks[networkId];
   if (!networkData) {
     return null;
   }
-  return {{contractName}}Contract.atUntrusted(web3Wrapper, networkData.address);
+  return {{contractName}}Contract.atUntrusted(ethApi, networkData.address);
 }
-public static atUntrusted(web3Wrapper: Web3Wrapper, address: EthAddress): {{contractName}}Contract {
-  const clazz = web3Wrapper.web3.eth.contract(artifacts.{{contractName}}.abi);
+public static atUntrusted(ethApi: EthApi, address: EthAddress): {{contractName}}Contract {
+  const clazz = ethApi.web3.eth.contract(artifacts.{{contractName}}.abi);
   return new {{contractName}}Contract(clazz.at(address));
 }
 // TODO(ritave): This code won't work with smart-contracts with library links
 //               see [ch429] in Clubhouse
 public static deployTrusted = {
   async sendTransactionAsync(
-      web3Wrapper: Web3Wrapper,
+      ethApi: EthApi,
       {{> typed_inputs inputs=ctor.inputs }}
       txData?: TxData): Promise<string> {
-    const web3 = web3Wrapper.web3;
+    const web3 = ethApi.web3;
     const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
     const options: TxData = { data: artifacts.{{contractName}}.bytecode };
     Object.assign(options, txData);

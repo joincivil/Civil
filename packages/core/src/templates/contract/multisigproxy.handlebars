@@ -8,7 +8,7 @@ import BigNumber from "bignumber.js";
 import { createTwoStepSimple } from "../../utils/contracts";
 import { BaseMultisigProxy, MultisigProxyTransaction } from "../../multisig/basemultisigproxy";
 import { OwnableContract } from "../../interfaces/ownable";
-import { Web3Wrapper } from "../../../utils/web3wrapper";
+import { EthApi } from "../../../utils/ethapi";
 import { TxData } from "../../../types";
 
 // TODO(ritave): Abi-Gen doesn't support lowercase contractName so we can't
@@ -16,10 +16,10 @@ import { TxData } from "../../../types";
 //               This means calls to instance are untyped inside are using (this: any) type
 export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
   public static async create(
-    web3Wrapper: Web3Wrapper,
+    ethApi: EthApi,
     instance: OwnableContract,
   ): Promise<{{contractName}}MultisigProxy> {
-    const proxy = new {{contractName}}MultisigProxy(web3Wrapper, instance);
+    const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
     await proxy.resolveMultisig();
     return proxy;
   }
@@ -30,8 +30,8 @@ export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
   {{/this.constant}}
 {{/each}}
 
-  private constructor(web3Wrapper: Web3Wrapper, instance: OwnableContract) {
-    super(web3Wrapper, instance);
-    bindNestedAll(this, ["constructor", "instance", "multisig", "web3Wrapper"]);
+  private constructor(ethApi: EthApi, instance: OwnableContract) {
+    super(ethApi, instance);
+    bindNestedAll(this, ["constructor", "instance", "multisig", "ethApi"]);
   }
 }

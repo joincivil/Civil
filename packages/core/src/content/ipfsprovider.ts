@@ -1,4 +1,4 @@
-import { Uri, StorageHeader } from "../types";
+import { StorageHeader } from "../types";
 import { ContentProvider } from "./contentprovider";
 // tslint:disable-next-line
 import * as IPFS from "ipfs-api";
@@ -20,13 +20,8 @@ export class IPFSProvider implements ContentProvider {
     return "ipfs";
   }
 
-  public async get(what: Uri | StorageHeader): Promise<string> {
-    let uri = "";
-    if (typeof what !== "string") {
-      uri = what.uri;
-    } else {
-      uri = what;
-    }
+  public async get(what: StorageHeader): Promise<string> {
+    let uri = what.uri;
     uri = uri.replace("ipfs://", "/ipfs/");
     return (await ipfsAsync.get(uri)).reduce((acc, file) => acc + file.content.toString("utf8"), "");
   }

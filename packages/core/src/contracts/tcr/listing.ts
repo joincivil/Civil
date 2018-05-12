@@ -1,18 +1,18 @@
 import { Observable, Subscription } from "rxjs";
 import "@joincivil/utils";
 import { CivilTCRContract, CivilTCR } from "../generated/wrappers/civil_t_c_r";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 import { EthAddress, ListingWrapper, ListingData, TimestampedEvent } from "../../types";
 import { createTimestampedEvent } from "../../utils/events";
 import { Challenge } from "./challenge";
 
 export class Listing {
-  private web3Wrapper: Web3Wrapper;
+  private ethApi: EthApi;
   private tcrInstance: CivilTCRContract;
   private listingAddress: EthAddress;
 
-  constructor(web3Wrapper: Web3Wrapper, instance: CivilTCRContract, address: EthAddress) {
-    this.web3Wrapper = web3Wrapper;
+  constructor(ethApi: EthApi, instance: CivilTCRContract, address: EthAddress) {
+    this.ethApi = ethApi;
     this.tcrInstance = instance;
     this.listingAddress = address;
   }
@@ -31,7 +31,7 @@ export class Listing {
     );
     let challenge;
     if (!challengeID.isZero()) {
-      const c = new Challenge(this.web3Wrapper, this.tcrInstance, challengeID);
+      const c = new Challenge(this.ethApi, this.tcrInstance, challengeID);
       challenge = await c.getChallengeData();
     }
     return {
@@ -48,25 +48,25 @@ export class Listing {
 
   public applications(): Observable<TimestampedEvent<CivilTCR.LogEvents._Application>> {
     return this.tcrInstance._ApplicationStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<CivilTCR.LogEvents._Application>(this.web3Wrapper, e);
+      return createTimestampedEvent<CivilTCR.LogEvents._Application>(this.ethApi, e);
     });
   }
 
   public challenges(): Observable<TimestampedEvent<CivilTCR.LogEvents._Challenge>> {
     return this.tcrInstance._ChallengeStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<CivilTCR.LogEvents._Challenge>(this.web3Wrapper, e);
+      return createTimestampedEvent<CivilTCR.LogEvents._Challenge>(this.ethApi, e);
     });
   }
 
   public deposits(): Observable<TimestampedEvent<CivilTCR.LogEvents._Deposit>> {
     return this.tcrInstance._DepositStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<CivilTCR.LogEvents._Deposit>(this.web3Wrapper, e);
+      return createTimestampedEvent<CivilTCR.LogEvents._Deposit>(this.ethApi, e);
     });
   }
 
   public withdrawls(): Observable<TimestampedEvent<CivilTCR.LogEvents._Withdrawal>> {
     return this.tcrInstance._WithdrawalStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<CivilTCR.LogEvents._Withdrawal>(this.web3Wrapper, e);
+      return createTimestampedEvent<CivilTCR.LogEvents._Withdrawal>(this.ethApi, e);
     });
   }
 
@@ -74,7 +74,7 @@ export class Listing {
     return this.tcrInstance
       ._ApplicationWhitelistedStream({ listingAddress: this.listingAddress }, { fromBlock: 0 })
       .map(e => {
-        return createTimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted>(this.web3Wrapper, e);
+        return createTimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted>(this.ethApi, e);
       });
   }
 
@@ -82,19 +82,19 @@ export class Listing {
     return this.tcrInstance
       ._ApplicationRemovedStream({ listingAddress: this.listingAddress }, { fromBlock: 0 })
       .map(e => {
-        return createTimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>(this.web3Wrapper, e);
+        return createTimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>(this.ethApi, e);
       });
   }
 
   public listingRemoveds(): Observable<TimestampedEvent<CivilTCR.LogEvents._ListingRemoved>> {
     return this.tcrInstance._ListingRemovedStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<CivilTCR.LogEvents._ListingRemoved>(this.web3Wrapper, e);
+      return createTimestampedEvent<CivilTCR.LogEvents._ListingRemoved>(this.ethApi, e);
     });
   }
 
   public failedChallenges(): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>> {
     return this.tcrInstance._ChallengeFailedStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
-      return createTimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>(this.web3Wrapper, e);
+      return createTimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>(this.ethApi, e);
     });
   }
 
@@ -102,7 +102,7 @@ export class Listing {
     return this.tcrInstance
       ._ChallengeSucceededStream({ listingAddress: this.listingAddress }, { fromBlock: 0 })
       .map(e => {
-        return createTimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>(this.web3Wrapper, e);
+        return createTimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>(this.ethApi, e);
       });
   }
 

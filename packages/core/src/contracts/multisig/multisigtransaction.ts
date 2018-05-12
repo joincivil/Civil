@@ -1,20 +1,20 @@
 import BigNumber from "bignumber.js";
 
 import { EthAddress, TwoStepEthTransaction } from "../../types";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 import { MultiSigWalletContract } from "../generated/wrappers/multi_sig_wallet";
 import { createTwoStepTransaction } from "../utils/contracts";
 
 // TODO(ritave): Move to ABI v2 to get support for structs
 export class MultisigTransaction {
   public static async fromId(
-    web3Wrapper: Web3Wrapper,
+    ethApi: EthApi,
     instance: MultiSigWalletContract,
     id: number,
   ): Promise<MultisigTransaction> {
     const data = await instance.transactions.callAsync(new BigNumber(id));
 
-    return new MultisigTransaction(web3Wrapper, instance, id, {
+    return new MultisigTransaction(ethApi, instance, id, {
       destination: data[0],
       value: data[1],
       data: data[2],
@@ -25,16 +25,16 @@ export class MultisigTransaction {
   public readonly id: number;
   public readonly information: Readonly<MultisigTransactionStruct>;
 
-  private readonly web3Wrapper: Web3Wrapper;
+  private readonly ethApi: EthApi;
   private readonly instance: MultiSigWalletContract;
 
   private constructor(
-    web3Wrapper: Web3Wrapper,
+    ethApi: EthApi,
     instance: MultiSigWalletContract,
     id: number,
     transactionData: MultisigTransactionStruct,
   ) {
-    this.web3Wrapper = web3Wrapper;
+    this.ethApi = ethApi;
     this.instance = instance;
 
     this.id = id;
@@ -74,9 +74,9 @@ export class MultisigTransaction {
    */
   public async execute(): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     return createTwoStepTransaction(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.executeTransaction.sendTransactionAsync(new BigNumber(this.id)),
-      async receipt => MultisigTransaction.fromId(this.web3Wrapper, this.instance, this.id),
+      async receipt => MultisigTransaction.fromId(this.ethApi, this.instance, this.id),
     );
   }
 
@@ -87,7 +87,7 @@ export class MultisigTransaction {
    */
   public async confirmTransaction(): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     return createTwoStepTransaction(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.confirmTransaction.sendTransactionAsync(new BigNumber(this.id)),
       receipt => this,
     );
@@ -98,7 +98,7 @@ export class MultisigTransaction {
    */
   public async revokeConfirmation(): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     return createTwoStepTransaction(
-      this.web3Wrapper,
+      this.ethApi,
       await this.instance.revokeConfirmation.sendTransactionAsync(new BigNumber(this.id)),
       receipt => this,
     );

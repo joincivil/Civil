@@ -3,19 +3,19 @@ import { isDeployedBytecodeEqual, isDefined } from "@joincivil/utils";
 import { OwnableContract } from "../interfaces/ownable";
 import { Multisig } from "./multisig";
 import { TxHash, EthAddress, TwoStepEthTransaction } from "../../types";
-import { Web3Wrapper } from "../../utils/web3wrapper";
+import { EthApi } from "../../utils/ethapi";
 import { artifacts } from "../generated/artifacts";
 import { createTwoStepSimple, isDecodedLog } from "../utils/contracts";
 import { MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
 
 export class BaseMultisigProxy {
-  protected web3Wrapper: Web3Wrapper;
+  protected ethApi: EthApi;
   protected multisig?: Multisig;
   // TODO(ritave): Add support for lowercase newsroom contract in abi-gen
   protected instance: OwnableContract;
 
-  protected constructor(web3Wrapper: Web3Wrapper, instance: OwnableContract) {
-    this.web3Wrapper = web3Wrapper;
+  protected constructor(ethApi: EthApi, instance: OwnableContract) {
+    this.ethApi = ethApi;
     this.instance = instance;
   }
 
@@ -43,14 +43,14 @@ export class BaseMultisigProxy {
   protected async resolveMultisig(): Promise<void> {
     const owner = await this.instance.owner.callAsync();
     // TODO(ritave): Have backwards compatibillity for older Multisig wallets and bytecodes
-    const ownerCode = await this.web3Wrapper.getCode(owner);
+    const ownerCode = await this.ethApi.getCode(owner);
     if (isDeployedBytecodeEqual(artifacts.MultiSigWallet.deployedBytecode, ownerCode)) {
-      this.multisig = Multisig.atUntrusted(this.web3Wrapper, owner);
+      this.multisig = Multisig.atUntrusted(this.ethApi, owner);
     }
   }
 
   protected createProxyTransaction(txHash: TxHash): MultisigProxyTransaction {
-    const twoStep = createTwoStepSimple(this.web3Wrapper, txHash);
+    const twoStep = createTwoStepSimple(this.ethApi, txHash);
     return {
       ...twoStep,
       isProxied: true,
