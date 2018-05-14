@@ -1,13 +1,14 @@
 import * as React from "react";
 import styled from "styled-components";
-import { getParameterValue } from "../apis/civilTCR";
+import { State } from "../reducers";
+import { connect, DispatchProp } from "react-redux";
 
 const StyledSpan = styled.span`
   font-weight: bold;
   margin: 0 10px 0 0;
 `;
 
-export interface ParameterStates {
+export interface ParameterizerProps {
   minDeposit: string;
   pMinDeposit: string;
   applyStageLen: string;
@@ -26,31 +27,13 @@ export interface ParameterStates {
   challengeAppealRevealLen: string;
 }
 
-class Parameterizer extends React.Component<{}, ParameterStates> {
+export interface ParameterizerPageProps {
+  parameters: object;
+}
+
+class Parameterizer extends React.Component<ParameterizerProps & DispatchProp<any>> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      minDeposit: "",
-      pMinDeposit: "",
-      applyStageLen: "",
-      pApplyStageLen: "",
-      commitStageLen: "",
-      pCommitStageLen: "",
-      revealStageLen: "",
-      pRevealStageLen: "",
-      dispensationPct: "",
-      pDispensationPct: "",
-      voteQuorum: "",
-      pVoteQuorum: "",
-      pProcessBy: "",
-      challengeAppealLen: "",
-      challengeAppealCommitLen: "",
-      challengeAppealRevealLen: "",
-    };
-  }
-
-  public async componentDidMount(): Promise<void> {
-    return this.initParameterValues();
   }
 
   // TODO(sruddy): Nguyet is working on designs for this so I'll update with html/css later
@@ -58,72 +41,62 @@ class Parameterizer extends React.Component<{}, ParameterStates> {
     return (
       <>
         <div>
-          <StyledSpan>minDeposit:</StyledSpan> {this.state.minDeposit}
+          <StyledSpan>minDeposit:</StyledSpan> {this.props.minDeposit && this.props.minDeposit.toString()}
         </div>
         <div>
-          <StyledSpan>pMinDeposit:</StyledSpan> {this.state.pMinDeposit}
+          <StyledSpan>pMinDeposit:</StyledSpan> {this.props.pMinDeposit && this.props.pMinDeposit.toString()}
         </div>
         <div>
-          <StyledSpan>applyStageLen:</StyledSpan> {this.state.applyStageLen}
+          <StyledSpan>applyStageLen:</StyledSpan> {this.props.applyStageLen && this.props.applyStageLen.toString()}
         </div>
         <div>
-          <StyledSpan>pApplyStageLen:</StyledSpan> {this.state.pApplyStageLen}
+          <StyledSpan>pApplyStageLen:</StyledSpan> {this.props.pApplyStageLen && this.props.pApplyStageLen.toString()}
         </div>
         <div>
-          <StyledSpan>commitStageLen:</StyledSpan> {this.state.commitStageLen}
+          <StyledSpan>commitStageLen:</StyledSpan> {this.props.commitStageLen && this.props.commitStageLen.toString()}
         </div>
         <div>
-          <StyledSpan>pCommitStageLen:</StyledSpan> {this.state.pCommitStageLen}
+          <StyledSpan>pCommitStageLen:</StyledSpan> {this.props.pCommitStageLen && this.props.pCommitStageLen.toString()}
         </div>
         <div>
-          <StyledSpan>revealStageLen:</StyledSpan> {this.state.revealStageLen}
+          <StyledSpan>revealStageLen:</StyledSpan> {this.props.revealStageLen && this.props.revealStageLen.toString()}
         </div>
         <div>
-          <StyledSpan>pRevealStageLen:</StyledSpan> {this.state.pRevealStageLen}
+          <StyledSpan>pRevealStageLen:</StyledSpan> {this.props.pRevealStageLen && this.props.pRevealStageLen.toString()}
         </div>
         <div>
-          <StyledSpan>dispensationPct:</StyledSpan> {this.state.dispensationPct}
+          <StyledSpan>dispensationPct:</StyledSpan> {this.props.dispensationPct && this.props.dispensationPct.toString()}
         </div>
         <div>
-          <StyledSpan>pDispensationPct:</StyledSpan> {this.state.pDispensationPct}
+          <StyledSpan>pDispensationPct:</StyledSpan> {this.props.pDispensationPct && this.props.pDispensationPct.toString()}
         </div>
         <div>
-          <StyledSpan>voteQuorum:</StyledSpan> {this.state.voteQuorum}
+          <StyledSpan>voteQuorum:</StyledSpan> {this.props.voteQuorum && this.props.voteQuorum.toString()}
         </div>
         <div>
-          <StyledSpan>pVoteQuorum:</StyledSpan> {this.state.pVoteQuorum}
+          <StyledSpan>pVoteQuorum:</StyledSpan> {this.props.pVoteQuorum && this.props.pVoteQuorum.toString()}
         </div>
         <div>
-          <StyledSpan>pProcessBy:</StyledSpan> {this.state.pProcessBy}
+          <StyledSpan>pProcessBy:</StyledSpan> {this.props.pProcessBy && this.props.pProcessBy.toString()}
         </div>
         <div>
-          <StyledSpan>challengeAppealLen:</StyledSpan> {this.state.challengeAppealLen}
+          <StyledSpan>challengeAppealLen:</StyledSpan> {this.props.challengeAppealLen && this.props.challengeAppealLen.toString()}
         </div>
         <div>
-          <StyledSpan>challengeAppealCommitLen:</StyledSpan> {this.state.challengeAppealCommitLen}
+          <StyledSpan>challengeAppealCommitLen:</StyledSpan> {this.props.challengeAppealCommitLen && this.props.challengeAppealCommitLen.toString()}
         </div>
         <div>
-          <StyledSpan>challengeAppealRevealLen:</StyledSpan> {this.state.challengeAppealRevealLen}
+          <StyledSpan>challengeAppealRevealLen:</StyledSpan> {this.props.challengeAppealRevealLen && this.props.challengeAppealRevealLen.toString()}
         </div>
       </>
     );
   }
 
-  private initParameterValues = async (): Promise<any> => {
-    const parameterObj = {};
-    const keys = Object.keys(this.state);
-    let i = 0;
-
-    keys.forEach(async parameterKey => {
-      const parameterVal = await getParameterValue(parameterKey);
-      parameterObj[parameterKey] = parameterVal.toString();
-      i++;
-
-      if (i === keys.length) {
-        this.setState(parameterObj);
-      }
-    });
-  };
 }
 
-export default Parameterizer;
+const mapToStateToProps = (state: State, ownProps: ParameterizerProps): ParameterizerProps => {
+  const { parameters } = state;
+  return parameters as ParameterizerProps;
+};
+
+export default connect(mapToStateToProps)(Parameterizer);

@@ -14,6 +14,7 @@ import {
   resolveAppealListings,
   rejectedListings,
 } from "./listings";
+import { parameters } from "./parameterizer";
 import { user } from "./userAccount";
 import { Set } from "immutable";
 import { ListingWrapper } from "@joincivil/core";
@@ -33,6 +34,7 @@ export interface State {
   resolveAppealListings: Set<string>;
   rejectedListings: Set<string>;
   user: { account: any };
+  parameters: object;
 }
 
 export default combineReducers({
@@ -50,4 +52,5 @@ export default combineReducers({
   resolveAppealListings,
   rejectedListings,
   user,
+  parameters,
 });
