@@ -18,8 +18,8 @@ import { connect, DispatchProp } from "react-redux";
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
     const civil = getCivil();
-    await initializeSubscriptions(this.props.dispatch!);
     this.props.dispatch!(addUser(civil.userAccount));
+    await initializeSubscriptions(this.props.dispatch!);
   }
 
   public render(): JSX.Element {
