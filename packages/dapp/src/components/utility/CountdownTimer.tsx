@@ -57,7 +57,6 @@ class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimer
     this.setState({ secondsRemaining });
     return secondsRemaining;
   };
-
 }
 
 export default CountdownTimer;
