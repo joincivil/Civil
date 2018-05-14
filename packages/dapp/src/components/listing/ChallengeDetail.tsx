@@ -15,6 +15,7 @@ import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
+import { is0x0Address } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 
 export interface ChallengeDetailProps {
@@ -30,6 +31,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 
   public render(): JSX.Element {
     const challenge = this.props.challenge;
+    const appealExists = challenge.appeal && !is0x0Address(challenge.appeal.requester.toString());
     return (
       <ViewModule>
         <ViewModuleHeader>Challenge Details</ViewModuleHeader>
@@ -51,7 +53,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         {isChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
-        {challenge.appeal && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal} />}
+        {appealExists && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal!} />}
       </ViewModule>
     );
   }
@@ -60,12 +62,17 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return (
       <>
         Commit Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.commitEndDate.toNumber()} />
-        <CommitVoteDetail challengeID={this.props.challengeID} />;
+        <CommitVoteDetail challengeID={this.props.challengeID} />
       </>
     );
   }
   private renderRevealStage(): JSX.Element {
-    return <RevealVoteDetail challengeID={this.props.challengeID} />;
+    return (
+      <>
+        Reveal Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.revealEndDate.toNumber()} />
+        <RevealVoteDetail challengeID={this.props.challengeID} />
+      </>
+    );
   }
   private renderRequestAppealStage(): JSX.Element {
     return (
