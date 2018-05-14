@@ -26,6 +26,12 @@ class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimer
     return this.renderApplicationPhase();
   }
 
+  public componentWillUnmount(): void {
+    if (this.state.timer) {
+      window.clearInterval(this.state.timer);
+    }
+  }
+
   private renderApplicationPhase(): JSX.Element {
     return <>{this.getReadableTimeRemaining()}</>;
   }
@@ -51,6 +57,7 @@ class CountdownTimer extends React.Component<CountdownTimerProps, CountdownTimer
     this.setState({ secondsRemaining });
     return secondsRemaining;
   };
+
 }
 
 export default CountdownTimer;
