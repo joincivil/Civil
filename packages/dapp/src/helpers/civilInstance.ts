@@ -16,9 +16,15 @@ export const setCivil = () => {
 };
 
 export const getCivil = () => {
+  if (!civil) {
+    setCivil();
+  }
   return civil;
 };
 
 export const getTCR = () => {
+  if (!tcr) {
+    setCivil();
+  }
   return tcr;
 };

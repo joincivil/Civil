@@ -1,69 +1,67 @@
 import * as React from "react";
+import styled from "styled-components";
 
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
-import ListingPhaseActions from "./ListingPhaseActions";
-import { EthAddress, ListingWrapper } from "@joincivil/core";
-import { getCivil, getTCR } from "../../helpers/civilInstance";
-import { PageView } from "../utility/ViewModules";
+import { EthAddress, isInApplicationPhase, ListingWrapper } from "@joincivil/core";
+import CountdownTimer from "../utility/CountdownTimer";
+import { State } from "../../reducers";
+import { connect, DispatchProp } from "react-redux";
+
+const StyledDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%
+  color: black;
+`;
 
 export interface ListingPageProps {
   match: any;
 }
 
-export interface ListingPageState {
-  userAccount?: EthAddress;
+export interface ListingReduxProps {
   listing: ListingWrapper | undefined;
+  userAccount?: EthAddress;
 }
 
-class ListingPage extends React.Component<ListingPageProps, ListingPageState> {
-  constructor(props: ListingPageProps) {
-    super(props);
-    this.state = {
-      listing: undefined,
-    };
-  }
-
-  public async componentDidMount(): Promise<void> {
-    return this.initListing();
-  }
-
+class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageProps> {
   public render(): JSX.Element {
-    const listing = this.state.listing;
+    const listing = this.props.listing;
     let appExists = false;
+    let isInApplication = false;
     if (listing) {
       appExists = !listing.data.appExpiry.isZero();
+      isInApplication = isInApplicationPhase(listing.data);
     }
     return (
-      <PageView>
-        {appExists && <ListingDetail userAccount={this.state.userAccount} listing={this.state.listing!} />}
-        {appExists && <ListingPhaseActions listing={this.state.listing!} />}
+      <StyledDiv>
+        {isInApplication && this.renderApplicationPhase()}
+        {appExists && <ListingDetail userAccount={this.props.userAccount} listing={this.props.listing!} />}
         {!appExists && this.renderListingNotFound()}
         <ListingHistory match={this.props.match} />
-      </PageView>
+      </StyledDiv>
+    );
+  }
+
+  private renderApplicationPhase(): JSX.Element {
+    return (
+      <>
+        APPLICATION IN PROGRESS. ends in... <CountdownTimer endTime={this.props.listing!.data.appExpiry.toNumber()} />
+      </>
     );
   }
 
   private renderListingNotFound(): JSX.Element {
     return <>NOT FOUND</>;
   }
-
-  // TODO(nickreynolds): move this all into redux
-  private initListing = async () => {
-    const civil = getCivil();
-    const tcr = getTCR();
-
-    if (tcr) {
-      const listingHelper = tcr.getListing(this.props.match.params.listing);
-      const listing = await listingHelper.getListingWrapper();
-      this.setState({ listing });
-    }
-
-    if (civil) {
-      const userAccount = civil.userAccount;
-      this.setState({ userAccount });
-    }
-  };
 }
 
-export default ListingPage;
+const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
+  const { listings, user } = state;
+  return {
+    listing: listings.get(ownProps.match.params.listing),
+    userAccount: user.account,
+  };
+};
+
+export default connect(mapToStateToProps)(ListingPage);
