@@ -1,19 +1,12 @@
 import * as React from "react";
-import styled from "styled-components";
 
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
-import { EthAddress, isInApplicationPhase, ListingWrapper } from "@joincivil/core";
-import CountdownTimer from "../utility/CountdownTimer";
+import ListingPhaseActions from "./ListingPhaseActions";
+import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%
-  color: black;
-`;
+import { PageView } from "../utility/ViewModules";
 
 export interface ListingPageProps {
   match: any;
@@ -28,26 +21,16 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
   public render(): JSX.Element {
     const listing = this.props.listing;
     let appExists = false;
-    let isInApplication = false;
     if (listing) {
       appExists = !listing.data.appExpiry.isZero();
-      isInApplication = isInApplicationPhase(listing.data);
     }
     return (
-      <StyledDiv>
-        {isInApplication && this.renderApplicationPhase()}
+      <PageView>
         {appExists && <ListingDetail userAccount={this.props.userAccount} listing={this.props.listing!} />}
+        {appExists && <ListingPhaseActions listing={this.props.listing!} />}
         {!appExists && this.renderListingNotFound()}
         <ListingHistory match={this.props.match} />
-      </StyledDiv>
-    );
-  }
-
-  private renderApplicationPhase(): JSX.Element {
-    return (
-      <>
-        APPLICATION IN PROGRESS. ends in... <CountdownTimer endTime={this.props.listing!.data.appExpiry.toNumber()} />
-      </>
+      </PageView>
     );
   }
 
