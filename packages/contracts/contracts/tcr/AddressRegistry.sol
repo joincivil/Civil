@@ -84,11 +84,13 @@ contract AddressRegistry {
 
   /**
   @notice Allows a user to start an application. Takes tokens from user and sets apply stage end time.
+  --------
   In order to apply:
-  * Listing must not currently be whitelisted
-  * Listing must not currently be in application pahse
-  * Tokens deposited must be greater than or equal to the minDeposit value from the parameterizer
-  Emits `Application` event if successful
+  1) Listing must not currently be whitelisted
+  2) Listing must not currently be in application pahse
+  3) Tokens deposited must be greater than or equal to the minDeposit value from the parameterizer
+  --------
+  Emits `_Application` event if successful
   @param amount The number of ERC20 tokens a user is willing to potentially stake
   @param data Extra data relevant to the application. Think IPFS hashes.
   */
@@ -111,10 +113,12 @@ contract AddressRegistry {
 
   /**
   @notice Allows the owner of a listingHash to increase their unstaked deposit.
+  --------
   In order to increase deposit:
-  * sender of message must be owner of listing
-  * Must be able to transfer `amount` of tokens into this contract
-  Emits `Deposit` if successful
+  1) sender of message must be owner of listing
+  2) Must be able to transfer `amount` of tokens into this contract
+  --------
+  Emits `_Deposit` if successful
   @param amount The number of ERC20 tokens to increase a user's unstaked deposit by
   */
   function deposit(address listingAddress, uint amount) external {
@@ -129,12 +133,15 @@ contract AddressRegistry {
 
   /**
   @notice Allows the owner of a listingHash to decrease their unstaked deposit.
+  --------
   In order to withdraw from deposit:
-  * sender of message must be owner of listing
-  * Amount to withdraw must be less than or equal to unstaked deposit on listing
-  * Amount of tokens that would be remaining after withdrawal must be less than or equal to minDeposit from parameterizer.
-  Emits `Withdrawal` if successful
-  @param amount      The number of ERC20 tokens to withdraw from the unstaked deposit.
+  1) sender of message must be owner of listing
+  2) Amount to withdraw must be less than or equal to unstaked deposit on listing
+  3) Amount of tokens that would be remaining after withdrawal must be less than or equal to minDeposit from parameterizer.
+  --------
+  Emits `_Withdrawal` if successful
+  @param listingAddress Address of listing to withdraw tokens from
+  @param amount The number of ERC20 tokens to withdraw from the unstaked deposit
   */
   function withdraw(address listingAddress, uint amount) external {
     Listing storage listing = listings[listingAddress];
@@ -153,10 +160,14 @@ contract AddressRegistry {
   /**
   @notice Allows the owner of a listing to remove the listingHash from the whitelist
   Returns all tokens to the owner of the listing
+  --------
   In order to exit a listing:
-  * Sender of message must be the owner of the listing
-  * Listing must currently be whitelisted
-  * Listing must not have an active challenge
+  1) Sender of message must be the owner of the listing
+  2) Listing must currently be whitelisted
+  3) Listing must not have an active challenge
+  --------
+  Emits `_ListingWithdrawn` if successful
+  @param listingAddress Address of listing to exit
   */
   function exitListing(address listingAddress) external {
     Listing storage listing = listings[listingAddress];
@@ -180,11 +191,13 @@ contract AddressRegistry {
   @notice Starts a poll for a listingAddress which is either in the apply stage or
   already in the whitelist. Tokens are taken from the challenger and the applicant's deposits are locked.
   Delists listing and returns 0 if listing's unstakedDeposit is less than current minDeposit
+  --------
   In order to challenge a listing:
-  * Listing must be in application phase or whitelisted
-  * Listing must not have an active challenge
-  * Sender of message must be able to transfer minDeposit tokens into this contract
-  Emits `ChallengeInitiated` if successful
+  1) Listing must be in application phase or whitelisted
+  2) Listing must not have an active challenge
+  3) Sender of message must be able to transfer minDeposit tokens into this contract
+  --------
+  Emits `_ChallengeInitiated` if successful
   @param listingAddress The listingAddress being challenged, whether listed or in application
   @param data        Extra data relevant to the challenge. Think IPFS hashes.
   */
@@ -242,7 +255,6 @@ contract AddressRegistry {
   function updateStatus(address listingAddress) public {
     if (canBeWhitelisted(listingAddress)) {
       whitelistApplication(listingAddress);
-      _ApplicationWhitelisted(listingAddress);
     } else if (challengeCanBeResolved(listingAddress)) {
       resolveChallenge(listingAddress);
     } else {
@@ -256,12 +268,14 @@ contract AddressRegistry {
 
   /**
   @notice Called by a voter to claim their reward for each completed vote. 
+  --------
   In order to claim reward for a challenge:
-  * Challenge must be resolved
-  * Message sender must not have already claimed tokens for this challenge
-  Emits `RewardClaimed` if successful
+  1) Challenge must be resolved
+  2) Message sender must not have already claimed tokens for this challenge
+  --------
+  Emits `_RewardClaimed` if successful
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
-  @param salt        The salt of a voter's commit hash in the given poll
+  @param salt The salt of a voter's commit hash in the given poll
   */
   function claimReward(uint challengeID, uint salt) public {
     Challenge storage challenge = challenges[challengeID];
@@ -269,8 +283,7 @@ contract AddressRegistry {
   }
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote. Someone
-          must call updateStatus() before this can be called.
+  @notice Called by a voter to claim their reward for each completed vote. 
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt        The salt of a voter's commit hash in the given poll
   */
