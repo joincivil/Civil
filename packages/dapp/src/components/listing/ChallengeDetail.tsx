@@ -4,6 +4,7 @@ import {
   isChallengeInRevealStage,
   canRequestAppeal,
   didChallengeSucceed,
+  doesChallengeHaveAppeal,
   ChallengeData,
   EthAddress,
   TwoStepEthTransaction,
@@ -15,7 +16,6 @@ import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
-import { is0x0Address } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 
 export interface ChallengeDetailProps {
@@ -31,7 +31,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 
   public render(): JSX.Element {
     const challenge = this.props.challenge;
-    const appealExists = challenge.appeal && !is0x0Address(challenge.appeal.requester.toString());
+    const appealExists = doesChallengeHaveAppeal(challenge);
     return (
       <ViewModule>
         <ViewModuleHeader>Challenge Details</ViewModuleHeader>

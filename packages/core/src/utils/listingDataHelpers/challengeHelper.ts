@@ -1,4 +1,5 @@
 import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
+import { is0x0Address } from "@joincivil/utils";
 import { ChallengeData } from "../../types";
 
 /**
@@ -27,7 +28,7 @@ export function canRequestAppeal(challengeData: ChallengeData): boolean {
   } else if (isChallengeInRevealStage(challengeData)) {
     return false;
   } else {
-    if (challengeData.appeal) {
+    if (doesChallengeHaveAppeal(challengeData)) {
       return false;
     } else {
       return challengeData.requestAppealExpiry.toNumber() > Date.now() / 1000;
@@ -41,4 +42,26 @@ export function canRequestAppeal(challengeData: ChallengeData): boolean {
  */
 export function didChallengeSucceed(challengeData: ChallengeData): boolean {
   return isVotePassed(challengeData.poll);
+}
+
+/**
+ * Checks if a Challenge has no actionable active phase and can be resolved*
+ * @param challengeData this ChallengeData to check
+ */
+export function canResolveChallenge(challengeData: ChallengeData): boolean {
+  return (
+    challengeData &&
+    !isChallengeInCommitStage(challengeData) &&
+    !isChallengeInRevealStage(challengeData) &&
+    !canRequestAppeal(challengeData) &&
+    !doesChallengeHaveAppeal(challengeData)
+  );
+}
+
+/**
+ * Checks if a Challenge has an active appeal
+ * @param challengeData this ChallengeData to check
+ */
+export function doesChallengeHaveAppeal(challengeData: ChallengeData): boolean {
+  return !challengeData.appeal || is0x0Address(challengeData!.appeal!.requester.toString());
 }

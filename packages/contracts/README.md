@@ -2,6 +2,10 @@
 
 Smart-contracts that build the kernel of the protocol and ecosystem of Civil in general. To be deployed on Ethereum's network.
 
+## Note
+
+In order to generate documentation of Smart-contracts, we use a version of `doxity` forked from `0x`. Unfortunately, this tool is buggy and fails on contracts that try to import from folders outside the contrats folder. Thus, rather than being able to simply install Open Zeppelin contracts via NPM, and install EthPM packages via `truffle install`, we have copied the needed contracts into our repo (relevant folders are `zeppelin-solidity` and `installed_contracts`). Contracts within these folders are not checked for code coverage, as they are widely used across the Ethereum ecosystem already.
+
 ## Usage
 
 Start up [Ganache](https://github.com/trufflesuite/ganache-cli) in the root directory of the monorepo:

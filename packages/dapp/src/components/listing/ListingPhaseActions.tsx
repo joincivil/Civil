@@ -3,11 +3,8 @@ import { approveForChallenge, challengeListing, grantAppeal, updateStatus } from
 import {
   canListingBeChallenged,
   canBeWhitelisted,
-  canRequestAppeal,
-  // EthAddress,
+  canResolveChallenge,
   isAwaitingAppealJudgment,
-  isChallengeInCommitStage,
-  isChallengeInRevealStage,
   isInApplicationPhase,
   ListingWrapper,
   TwoStepEthTransaction,
@@ -33,14 +30,10 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
       isInApplication = isInApplicationPhase(listing!.data);
     }
     const challenge = this.props.listing.data.challenge;
+    console.log(challenge);
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
-    const canResolveChallenge =
-      challenge &&
-      !isChallengeInCommitStage(challenge) &&
-      !isChallengeInRevealStage(challenge) &&
-      !canRequestAppeal(challenge) &&
-      !challenge.appeal;
+    const canResolve = canResolveChallenge(challenge!);
     return (
       <ViewModule>
         <ViewModuleHeader>Application Phase</ViewModuleHeader>
@@ -51,7 +44,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
             {canBeChallenged && this.renderCanBeChallenged()}
             {isAwaitingAppealJudgment(this.props.listing.data) && this.renderGrantAppeal()}
             {canWhitelist && this.renderCanWhitelist()}
-            {canResolveChallenge && this.renderCanResolve()}
+            {canResolve && this.renderCanResolve()}
 
             {this.props.listing.data.challenge && (
               <ChallengeDetail
