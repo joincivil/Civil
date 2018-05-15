@@ -34,6 +34,10 @@ export default class Method extends React.Component<MethodProps, MethodState> {
       constructor: "red",
     };
     const color = colors[method.type];
+    let notice = method.notice;
+    if (notice) {
+      notice = notice.replace(/--------/g, "<br/><br/>");
+    }
     return (
       <Segment color={color}>
         <Label ribbon="right" color={color}>
@@ -45,7 +49,7 @@ export default class Method extends React.Component<MethodProps, MethodState> {
           <code>{method.name || contract.name}</code>{" "}
           {method.signatureHash && <code className="signature">{method.signatureHash}</code>}
         </Header>
-        {method.notice && <ReactMarkdown source={method.notice} />}
+        {notice && <ReactMarkdown source={notice} escapeHtml={false} />}
         {method.details && <ReactMarkdown source={method.details} />}
         {(method.inputs.length || method.outputs) && (
           <Table definition>
