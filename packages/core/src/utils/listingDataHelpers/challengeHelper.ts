@@ -1,4 +1,5 @@
 import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
+import { is0x0Address } from "@joincivil/utils";
 import { ChallengeData } from "../../types";
 
 /**
@@ -27,7 +28,7 @@ export function canRequestAppeal(challengeData: ChallengeData): boolean {
   } else if (isChallengeInRevealStage(challengeData)) {
     return false;
   } else {
-    if (challengeData.appeal) {
+    if (challengeData.appeal && !is0x0Address(challengeData.appeal.requester.toString())) {
       return false;
     } else {
       return challengeData.requestAppealExpiry.toNumber() > Date.now() / 1000;

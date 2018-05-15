@@ -12,6 +12,7 @@ import {
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
+import { is0x0Address } from "@joincivil/utils";
 import ChallengeDetail from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
@@ -33,6 +34,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
       isInApplication = isInApplicationPhase(listing!.data);
     }
     const challenge = this.props.listing.data.challenge;
+    console.log(challenge);
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
     const canResolveChallenge =
@@ -40,7 +42,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
       !isChallengeInCommitStage(challenge) &&
       !isChallengeInRevealStage(challenge) &&
       !canRequestAppeal(challenge) &&
-      !challenge.appeal;
+      (!challenge.appeal || is0x0Address(challenge!.appeal!.requester.toString()));
     return (
       <ViewModule>
         <ViewModuleHeader>Application Phase</ViewModuleHeader>
