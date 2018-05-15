@@ -2,7 +2,7 @@ import * as React from "react";
 import TransactionButton from "../utility/TransactionButton";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { StyledFormContainer, FormGroup, InputElement, InputSelectElement } from "../utility/FormElements";
-import { proposeReparameterization } from "../../apis/civilTCR";
+import { approveForProposeReparameterization, proposeReparameterization } from "../../apis/civilTCR";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { BigNumber } from "bignumber.js";
 
@@ -50,7 +50,12 @@ export class ProposeReparameterization extends React.Component<
           </FormGroup>
 
           <FormGroup>
-            <TransactionButton transactions={[{ transaction: this.proposeReparameterization }]}>
+            <TransactionButton
+              transactions={[
+                { transaction: approveForProposeReparameterization },
+                { transaction: this.proposeReparameterization },
+              ]}
+            >
               Submit Proposal
             </TransactionButton>
           </FormGroup>
@@ -64,11 +69,11 @@ export class ProposeReparameterization extends React.Component<
     const val = event.target.value;
     const newState = {};
     newState[paramName] = val;
-    console.log(newState);
     this.setState(newState);
   };
 
-  private proposeReparameterization = async (): Promise<TwoStepEthTransaction<any>> => {
+  // @TODO(jon): This would probably be a nice place for a confirm dialog
+  private proposeReparameterization = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const newValue: BigNumber = new BigNumber(this.state.newValue);
     return proposeReparameterization(this.state.paramName, newValue);
   };
