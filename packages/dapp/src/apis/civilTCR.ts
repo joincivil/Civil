@@ -51,15 +51,12 @@ export async function approve(amount: BigNumber): Promise<TwoStepEthTransaction 
 }
 
 export async function approveForProposeReparameterization(): Promise<TwoStepEthTransaction | void> {
-  console.log("approveForProposeReparameterization");
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
   const eip = await tcr.getToken();
   const deposit = await parameterizer.getParameterValue("pMinDeposit");
-  console.log("parameterizer address: " + parameterizer.address);
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(parameterizer.address);
-  console.log("approved tokens: ", approvedTokensForSpender, " - amount: " + deposit);
   if (approvedTokensForSpender.lessThan(deposit)) {
     return eip.approveSpender(parameterizer.address, deposit);
   }
@@ -182,7 +179,6 @@ export async function proposeReparameterization(
   paramName: string,
   newValue: BigNumber,
 ): Promise<TwoStepEthTransaction | void> {
-  console.log("proposeReparameterization");
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
