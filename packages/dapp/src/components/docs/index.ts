@@ -5,7 +5,6 @@ import * as CivilTCR from "./json/CivilTCR.json";
 import * as ContractAddressRegistry from "./json/ContractAddressRegistry.json";
 import * as DLL from "./json/DLL.json";
 import * as DummyACL from "./json/DummyACL.json";
-import * as EIP20 from "./json/EIP20.json";
 import * as EIP20Interface from "./json/EIP20Interface.json";
 import * as Factory from "./json/Factory.json";
 import * as IMultiSigWalletFactory from "./json/IMultiSigWalletFactory.json";
@@ -26,7 +25,6 @@ const contracts = [
   ContractAddressRegistry,
   DLL,
   DummyACL,
-  EIP20,
   EIP20Interface,
   Factory,
   IMultiSigWalletFactory,
