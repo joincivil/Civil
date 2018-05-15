@@ -22,7 +22,7 @@ export async function initializeParameterizer(dispatch: Dispatch): Promise<void>
     "challengeAppealRevealLen",
   ];
   await paramKeys.forEach(async paramKey => {
-    const paramVal = await getParameterValue(paramKey)
+    const paramVal = await getParameterValue(paramKey);
     dispatch(setParameter(paramKey, paramVal));
   });
 }

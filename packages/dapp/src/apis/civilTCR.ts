@@ -162,3 +162,13 @@ export async function withdrawTokens(address: EthAddress, numTokens: BigNumber):
   const tcr = civil.tcrSingletonTrusted();
   return tcr.withdraw(address, numTokens);
 }
+
+export async function proposeReparameterization(
+  paramName: string,
+  newValue: BigNumber,
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const parameterizer = await tcr.getParameterizer();
+  return parameterizer.proposeReparameterization(paramName, newValue);
+}
