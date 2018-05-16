@@ -116,7 +116,7 @@ export async function getNewsroom(address: EthAddress): Promise<any> {
   return newsroom;
 }
 
-export async function getParameterValue(params: string[]): Promise<BigNumber[]> {
+export async function getParameterValues(params: string[]): Promise<BigNumber[]> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
@@ -130,7 +130,7 @@ export async function getGovernmentParameters(params: string[]): Promise<BigNumb
 }
 
 export async function getApplicationMaximumLengthInBlocks(): Promise<BigNumber> {
-  const params = await getParameterValue([
+  const params = await getParameterValues([
     "applyStageLen",
     "commitStageLen",
     "revealStageLen",

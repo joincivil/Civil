@@ -78,7 +78,9 @@ export class Listing {
       });
   }
 
-  public applicationRemoveds(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>> {
+  public applicationRemoveds(
+    fromBlock: number = 0,
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>> {
     return this.tcrInstance._ApplicationRemovedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>(this.ethApi, e);
     });
@@ -96,7 +98,9 @@ export class Listing {
     });
   }
 
-  public successfulChallenges(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>> {
+  public successfulChallenges(
+    fromBlock: number = 0,
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>> {
     return this.tcrInstance._ChallengeSucceededStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>(this.ethApi, e);
     });

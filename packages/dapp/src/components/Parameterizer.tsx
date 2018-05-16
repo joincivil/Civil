@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { getParameterValue } from "../apis/civilTCR";
+import { getParameterValues } from "../apis/civilTCR";
 
 const StyledSpan = styled.span`
   font-weight: bold;
@@ -112,7 +112,7 @@ class Parameterizer extends React.Component<{}, ParameterStates> {
   private initParameterValues = async (): Promise<any> => {
     const keys = Object.keys(this.state);
 
-    const parameterVals = await getParameterValue(keys);
+    const parameterVals = await getParameterValues(keys);
     const paramObj = parameterVals.reduce((acc, item, index) => {
       acc[keys[index]] = item.toString();
       return acc;
