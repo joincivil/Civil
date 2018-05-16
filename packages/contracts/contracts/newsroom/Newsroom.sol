@@ -118,7 +118,7 @@ contract Newsroom is ACL {
   function pushRevision(uint contentId, string contentUri, bytes32 contentHash) internal {
     require(contentId < latestContentId);
     require(bytes(contentUri).length > 0);
-    require(contentHash.length > 0);
+    require(contentHash != 0x0);
 
     Revision[] storage revisions = content[contentId];
     uint revisionId = revisions.length;
