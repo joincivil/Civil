@@ -430,7 +430,7 @@ contract("Newsroom", (accounts: string[]) => {
 
       const contentId = idFromEvent(receipt);
 
-      const updateReceipt = await newsroom.updateRevision(contentId, SECOND_URI, SECOND_HASH);
+      await newsroom.updateRevision(contentId, SECOND_URI, SECOND_HASH);
 
       const [hash, uri, timestamp] = await newsroom.getRevision(contentId, 0);
 
