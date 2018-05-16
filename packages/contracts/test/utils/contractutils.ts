@@ -262,6 +262,8 @@ async function createTestCivilTCRInstance(
     parameterizerConfig.requestAppealPhaseLength,
     parameterizerConfig.judgeAppealPhaseLength,
     parameterizerConfig.appealSupermajorityPercentage,
+    web3.sha3("Constitution: Be Bad."),
+    "http://madeupURL.com",
   );
 
   const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);

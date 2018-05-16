@@ -23,6 +23,8 @@ contract Government is IGovernment {
 
   address public appellate;
   address public governmentController;
+  bytes32 public constitutionHash;
+  string public constitutionURI;
   mapping(bytes32 => uint) public params;
 
   /**
@@ -35,7 +37,9 @@ contract Government is IGovernment {
     uint appealFeeAmount,
     uint requestAppealLength,
     uint judgeAppealLength,
-    uint appealSupermajorityPercentage
+    uint appealSupermajorityPercentage,
+    bytes32 constHash,
+    string constURI
   ) public 
   {
     appellate = appellateAddr;
@@ -44,6 +48,8 @@ contract Government is IGovernment {
     internalSet("judgeAppealLen", judgeAppealLength);
     internalSet("appealFee", appealFeeAmount);
     internalSet("appealVotePercentage", appealSupermajorityPercentage);
+    constitutionHash = constHash;
+    constitutionURI = constURI;
   }
 
   /**
