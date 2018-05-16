@@ -29,21 +29,23 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     }
     const link = "/listing/" + address;
     return (
-      <Link to={link}>{name} - {address}</Link>
+      <Link to={link}>
+        {name} - {address}
+      </Link>
     );
   }
 }
 
-const mapStateToProps = (state: State, ownProps: ListingListItemOwnProps): ListingListItemReduxProps & ListingListItemOwnProps => {
-  const {
-    newsrooms,
-    listings
-  } = state;
+const mapStateToProps = (
+  state: State,
+  ownProps: ListingListItemOwnProps,
+): ListingListItemReduxProps & ListingListItemOwnProps => {
+  const { newsrooms, listings } = state;
 
   return {
     newsroom: newsrooms.get(ownProps.listingAddress),
     listing: listings.get(ownProps.listingAddress),
-    listingAddress: ownProps.listingAddress!
+    listingAddress: ownProps.listingAddress,
   };
 };
 

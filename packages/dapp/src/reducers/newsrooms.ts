@@ -1,8 +1,6 @@
 import { Map } from "immutable";
 import { AnyAction } from "redux";
-import {
-  NewsroomWrapper,
-} from "@joincivil/core";
+import { NewsroomWrapper } from "@joincivil/core";
 import { newsroomActions } from "../actionCreators/newsrooms";
 
 export function newsrooms(
