@@ -15,6 +15,7 @@ const SOME_URI = "http://thiistest.uri";
 const SOME_HASH = web3.sha3();
 
 const signAsync = promisify<string>(web3.eth.sign, web3.eth);
+const getBlockAsync = promisify<any>(web3.eth.getBlock, web3.eth);
 
 export function idFromEvent(tx: any): BigNumber | undefined {
   for (const log of tx.logs) {
@@ -61,6 +62,10 @@ contract("Newsroom", (accounts: string[]) => {
 
       expect(uri).to.be.equal(SOME_URI);
       expect(hash).to.be.equal(`${SOME_HASH}`);
+    });
+
+    it("doesn't allow empty hash", async () => {
+      await expect(newsroom.publishContent(SOME_URI, "")).to.eventually.be.rejectedWith(REVERTED);
     });
   });
 
@@ -209,6 +214,12 @@ contract("Newsroom", (accounts: string[]) => {
       expect(signedEvent).to.not.be.null();
       expect(publishedEvent!.args.contentId).to.be.bignumber.equal(signedEvent!.args.contentId);
     });
+
+    it("doesn't allow 0x0 author", async () => {
+      await expect(newsroom.publishContentSigned(SOME_URI, SOME_HASH, "0x0", "0x0")).to.eventually.be.rejectedWith(
+        REVERTED,
+      );
+    });
   });
 
   /*
@@ -336,6 +347,103 @@ contract("Newsroom", (accounts: string[]) => {
       await newsroom.updateRevisionSigned(contentId, SOME_URI, SOME_HASH, signature);
 
       expect(await newsroom.isSigned(contentId)).to.be.true();
+    });
+  });
+
+  describe("getContent", () => {
+    it("returns proper data", async () => {
+      const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH);
+
+      const block = await getBlockAsync(receipt.receipt.blockNumber);
+      const contentId = idFromEvent(receipt);
+
+      const [hash, uri, timestamp] = await newsroom.getContent(contentId);
+
+      expect(uri).to.be.equal(SOME_URI);
+      expect(hash).to.be.equal(SOME_HASH);
+      expect(timestamp).to.be.bignumber.equal(block.timestamp);
+    });
+
+    it("fails on on non-existing content", async () => {
+      await expect(newsroom.getContent(999)).to.eventually.be.rejectedWith(REVERTED);
+    });
+
+    it("returns latest revision", async () => {
+      const SECOND_URI = "http://anotheruri.com";
+      const SECOND_HASH = web3.sha3("Some test content");
+
+      const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH);
+      const contentId = idFromEvent(receipt);
+
+      const updateReceipt = await newsroom.updateRevision(contentId, SECOND_URI, SECOND_HASH);
+      const block = await getBlockAsync(updateReceipt.receipt.blockNumber);
+
+      const [hash, uri, timestamp] = await newsroom.getContent(contentId);
+
+      expect(uri).to.be.equal(SECOND_URI);
+      expect(hash).to.be.equal(SECOND_HASH);
+      expect(timestamp).to.be.bignumber.equal(block.timestamp);
+    });
+  });
+
+  describe("getRevision", () => {
+    it("returns proper data", async () => {
+      const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH);
+
+      const block = await getBlockAsync(receipt.receipt.blockNumber);
+      const contentId = idFromEvent(receipt);
+
+      const [hash, uri, timestamp] = await newsroom.getRevision(contentId, 0);
+
+      expect(uri).to.be.equal(SOME_URI);
+      expect(hash).to.be.equal(SOME_HASH);
+      expect(timestamp).to.be.bignumber.equal(block.timestamp);
+    });
+
+    it("fails on on non-existing content", async () => {
+      await expect(newsroom.getRevision(999, 0)).to.eventually.be.rejectedWith(REVERTED);
+    });
+
+    it("returns latest revision", async () => {
+      const SECOND_URI = "http://anotheruri.com";
+      const SECOND_HASH = web3.sha3("Some test content");
+
+      const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH);
+      const contentId = idFromEvent(receipt);
+
+      const updateReceipt = await newsroom.updateRevision(contentId, SECOND_URI, SECOND_HASH);
+      const block = await getBlockAsync(updateReceipt.receipt.blockNumber);
+
+      const [hash, uri, timestamp] = await newsroom.getRevision(contentId, 1);
+
+      expect(uri).to.be.equal(SECOND_URI);
+      expect(hash).to.be.equal(SECOND_HASH);
+      expect(timestamp).to.be.bignumber.equal(block.timestamp);
+    });
+
+    it("returns previous revision", async () => {
+      const SECOND_URI = "http://anotheruri.com";
+      const SECOND_HASH = web3.sha3("Some test content");
+
+      const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH);
+      const contentId = idFromEvent(receipt);
+
+      const updateReceipt = await newsroom.updateRevision(contentId, SECOND_URI, SECOND_HASH);
+      const block = await getBlockAsync(updateReceipt.receipt.blockNumber);
+
+      const [hash, uri, timestamp] = await newsroom.getRevision(contentId, 0);
+
+      expect(uri).to.be.equal(SOME_URI);
+      expect(hash).to.be.equal(SOME_HASH);
+      expect(timestamp).to.be.bignumber.equal(block.timestamp);
+    });
+
+    it("fails on non-existing revision", async () => {
+      const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH);
+
+      const contentId = idFromEvent(receipt);
+
+      await expect(newsroom.getRevision(contentId, 999)).to.eventually.be.rejectedWith(REVERTED);
     });
   });
 });
