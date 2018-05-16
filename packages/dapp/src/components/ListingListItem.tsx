@@ -45,7 +45,7 @@ const mapStateToProps = (
   return {
     newsroom: newsrooms.get(ownProps.listingAddress),
     listing: listings.get(ownProps.listingAddress),
-    listingAddress: ownProps.listingAddress,
+    ...ownProps,
   };
 };
 

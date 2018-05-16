@@ -21,21 +21,22 @@ export interface ListingReduxProps {
 class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageProps> {
   public render(): JSX.Element {
     const listing = this.props.listing;
-    let appExists = false;
-    if (listing) {
-      appExists = !listing.data.appExpiry.isZero();
+    const newsroom = this.props.newsroom;
+    let appExistsAsNewsroom = false;
+    if (listing && newsroom) {
+      appExistsAsNewsroom = !listing.data.appExpiry.isZero();
     }
     return (
       <PageView>
-        {appExists && (
+        {appExistsAsNewsroom && (
           <ListingDetail
             userAccount={this.props.userAccount}
-            listing={this.props.listing!}
-            newsroom={this.props.newsroom!}
+            listing={listing!}
+            newsroom={newsroom!}
           />
         )}
-        {appExists && <ListingPhaseActions listing={this.props.listing!} />}
-        {!appExists && this.renderListingNotFound()}
+        {appExistsAsNewsroom && <ListingPhaseActions listing={this.props.listing!} />}
+        {!appExistsAsNewsroom && this.renderListingNotFound()}
         <ListingHistory match={this.props.match} />
       </PageView>
     );
