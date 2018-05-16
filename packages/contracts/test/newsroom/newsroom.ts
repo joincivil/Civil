@@ -426,10 +426,11 @@ contract("Newsroom", (accounts: string[]) => {
       const SECOND_HASH = web3.sha3("Some test content");
 
       const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH);
+      const block = await getBlockAsync(receipt.receipt.blockNumber);
+
       const contentId = idFromEvent(receipt);
 
       const updateReceipt = await newsroom.updateRevision(contentId, SECOND_URI, SECOND_HASH);
-      const block = await getBlockAsync(updateReceipt.receipt.blockNumber);
 
       const [hash, uri, timestamp] = await newsroom.getRevision(contentId, 0);
 
