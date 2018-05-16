@@ -222,9 +222,6 @@ contract("Newsroom", (accounts: string[]) => {
     });
   });
 
-  /*
-   * Asume there an
-   */
   const updateRevisionCommon = (
     publishCall: (contentUri: string, contentHash: string, from: string) => Promise<any>,
     updateCall: (contentId: number, contentUri: string, contentHash: string, from: string) => Promise<any>,
@@ -259,6 +256,14 @@ contract("Newsroom", (accounts: string[]) => {
         expect(event!.args.contentId).to.be.bignumber.equal(contentId);
         expect(event!.args.revisionId).to.be.bignumber.equal(1);
         expect(event!.args.uri).to.be.equal(SECOND_URI);
+      });
+
+      it("increases revision count", async () => {
+        expect(await newsroom.revisionCount(contentId)).to.be.bignumber.equal(1);
+
+        await updateCall(contentId, SECOND_URI, SECOND_HASH, editor);
+
+        expect(await newsroom.revisionCount(contentId)).to.be.bignumber.equal(2);
       });
     });
   };

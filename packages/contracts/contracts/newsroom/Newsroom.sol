@@ -13,10 +13,13 @@ contract Newsroom is ACL {
 
   string private constant ROLE_EDITOR = "editor";
 
-  uint private latestContentId;
   mapping(uint => Revision[]) private content;
   mapping(uint => SignedContent) public signedContent;
 
+  /**
+  @notice The number of different contents in this Newsroom, indexed in <0, contentCount) (exclusive) range
+  */
+  uint public contentCount;
   string public name;
 
   function Newsroom(string newsroomName) ACL() public {
@@ -41,6 +44,10 @@ contract Newsroom is ACL {
     return (myRevision.contentHash, myRevision.uri, myRevision.timestamp);
   }
 
+  function revisionCount(uint contentId) external view returns (uint) {
+    return content[contentId].length;
+  }
+
   function isSigned(uint contentId) public view returns (bool) {
     return signedContent[contentId].author != 0x0;
   }
@@ -61,8 +68,8 @@ contract Newsroom is ACL {
   }
 
   function publishContent(string contentUri, bytes32 contentHash) public requireRole(ROLE_EDITOR) returns (uint) {
-    uint contentId = latestContentId;
-    latestContentId++;
+    uint contentId = contentCount;
+    contentCount++;
 
     pushRevision(contentId, contentUri, contentHash);
 
@@ -116,7 +123,7 @@ contract Newsroom is ACL {
   }
 
   function pushRevision(uint contentId, string contentUri, bytes32 contentHash) internal {
-    require(contentId < latestContentId);
+    require(contentId < contentCount);
     require(bytes(contentUri).length > 0);
     require(contentHash != 0x0);
 
