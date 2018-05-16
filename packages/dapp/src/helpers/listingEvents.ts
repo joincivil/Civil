@@ -1,4 +1,4 @@
-import { Dispatch } from "redux";
+import { Dispatch } from "react-redux";
 import { getTCR, getCivil } from "./civilInstance";
 import { addListing } from "../actionCreators/listings";
 import { addNewsroom } from "../actionCreators/newsrooms";
@@ -6,7 +6,7 @@ import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { getApplicationMaximumLengthInBlocks } from "../apis/civilTCR";
 import { Observable } from "rxjs";
 
-export async function initializeSubscriptions(dispatch: Dispatch<any, any>): Promise<void> {
+export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<void> {
   const tcr = getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
@@ -21,7 +21,7 @@ export async function initializeSubscriptions(dispatch: Dispatch<any, any>): Pro
   });
 }
 
-export async function getNewsroom(dispatch: Dispatch, address: EthAddress): Promise<void> {
+export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
   const civil = getCivil();
   const newsroom = await civil.newsroomAtUntrusted(address);
   const newsroomWrapper = await newsroom.getNewsroomWrapper();

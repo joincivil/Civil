@@ -181,7 +181,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   /**
-   * An unending stream of all addresses currently whitelisted
+   * An unending stream of all addresses that have been whitelisted
    * @param fromBlock Starting block in history for events concerning whitelisted addresses.
    *                  Set to "latest" for only new events
    * @returns currently whitelisted addresses
@@ -194,7 +194,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   /**
-   * An unending stream of all addresses currently applied
+   * An unending stream of all addresses that have applied
    * @param fromBlock Starting block in history for events concerning applied addresses.
    *                  Set to "latest" for only new events
    * @returns listings currently in application stage
