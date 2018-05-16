@@ -22,10 +22,6 @@ export function findEvents<T extends DecodedLogEntry>(tx: Web3.TransactionReceip
   return tx.logs.filter(log => isDecodedLog(log) && log.event === eventName) as T[];
 }
 
-export function is0x0Address(address: string): boolean {
-  return address === "0x0" || address === "0x0000000000000000000000000000000000000000";
-}
-
 export function isContract<T extends Web3.ContractInstance>(what: any): what is T {
   return (what as T).abi !== undefined;
 }
