@@ -33,7 +33,7 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
         )}
         {appExistsAsNewsroom && <ListingPhaseActions listing={this.props.listing!} />}
         {!appExistsAsNewsroom && this.renderListingNotFound()}
-        <ListingHistory match={this.props.match} />
+        <ListingHistory listing={this.props.match.params.listing} />
       </PageView>
     );
   }

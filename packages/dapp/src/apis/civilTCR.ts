@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { getCivil } from "../helpers/civilInstance";
+import { getCivil, getTCR } from "../helpers/civilInstance";
 import { TwoStepEthTransaction, EthAddress } from "@joincivil/core";
 import { getVoteSaltHash } from "@joincivil/utils";
 
@@ -116,11 +116,36 @@ export async function getNewsroom(address: EthAddress): Promise<any> {
   return newsroom;
 }
 
-export async function getParameterValue(param: string): Promise<BigNumber> {
+export async function getParameterValue(params: string[]): Promise<BigNumber[]> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
-  return parameterizer.getParameterValue(param);
+  return Promise.all(params.map(async item => parameterizer.getParameterValue(item)));
+}
+
+export async function getGovernmentParameters(params: string[]): Promise<BigNumber[]> {
+  const tcr = getTCR();
+  const government = await tcr.getGovernment();
+  return Promise.all(params.map(async item => government.getParameterValue(item)));
+}
+
+export async function getApplicationMaximumLengthInBlocks(): Promise<BigNumber> {
+  const params = await getParameterValue([
+    "applyStageLen",
+    "commitStageLen",
+    "revealStageLen",
+    "challengeAppealLen",
+    "challengeAppealCommitLen",
+    "challengeAppealRevealLen",
+  ]);
+  const gov = await getGovernmentParameters(["judgeAppealPhaseLength", "requestAppealPhaseLength"]);
+  // TODO: don't rely on constants
+  return params
+    .concat(gov)
+    .reduce((acc, item) => {
+      return acc.plus(item);
+    }, new BigNumber(0))
+    .dividedBy(25); // divided by a pessimistic guess about blocktime
 }
 
 export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {

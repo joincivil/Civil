@@ -15,8 +15,6 @@ import { createTwoStepSimple } from "../utils/contracts";
 import { EIP20 } from "./eip20";
 import { Listing } from "./listing";
 import {
-  isWhitelisted,
-  isInApplicationPhase,
   canBeWhitelisted,
   isInChallengedCommitVotePhase,
   isInChallengedRevealVotePhase,
@@ -108,6 +106,79 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   //#region EventStreams
+  /**
+   * An unending stream of all events that change the state of a listing
+   * @param fromBlock Starting block in history for events concerning whitelisted addresses.
+   *                  Set to "latest" for only new events
+   * @returns currently listings as new events get triggered
+   */
+  public allEventsExceptWhitelistFromBlock(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+    return Observable.merge(
+      this.instance
+        ._AppealRequestedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._AppealGrantedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._FailedChallengeOverturnedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._SuccessfulChallengeOverturnedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._GrantedAppealChallengedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._GrantedAppealOverturnedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._GrantedAppealConfirmedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._ChallengeStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._DepositStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._WithdrawalStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._ApplicationRemovedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._ListingRemovedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._ListingWithdrawnStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._TouchAndRemovedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._ChallengeFailedStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+
+      this.instance
+        ._ChallengeSucceededStream({}, { fromBlock })
+        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+    ).concatMap(async l => l.getListingWrapper());
+  }
 
   /**
    * An unending stream of all addresses currently whitelisted
@@ -119,8 +190,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return this.instance
       ._ApplicationWhitelistedStream({}, { fromBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
-      .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isWhitelisted(l.data));
+      .concatMap(async l => l.getListingWrapper());
   }
 
   /**
@@ -133,8 +203,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return this.instance
       ._ApplicationStream({}, { fromBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
-      .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isInApplicationPhase(l.data));
+      .concatMap(async l => l.getListingWrapper());
   }
 
   /**
