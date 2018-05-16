@@ -311,8 +311,31 @@ contract("Newsroom", (accounts: string[]) => {
   });
 
   describe("isSigned", () => {
-    it("returns true on signed content");
-    it("returns false on non-signed content");
-    it("works with multiple revisions");
+    it("returns true on signed content", async () => {
+      const message = prepareNewsroomMessage(newsroom.address, SOME_HASH);
+      const signature = await signAsync(author, message);
+      const receipt = await newsroom.publishContentSigned(SOME_URI, SOME_HASH, author, signature);
+      const contentId = idFromEvent(receipt);
+
+      expect(await newsroom.isSigned(contentId)).to.be.true();
+    });
+
+    it("returns false on non-signed content", async () => {
+      const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH);
+      const contentId = idFromEvent(receipt);
+
+      expect(await newsroom.isSigned(contentId)).to.be.false();
+    });
+
+    it("works with multiple revisions", async () => {
+      const message = prepareNewsroomMessage(newsroom.address, SOME_HASH);
+      const signature = await signAsync(author, message);
+      const receipt = await newsroom.publishContentSigned(SOME_URI, SOME_HASH, author, signature);
+      const contentId = idFromEvent(receipt);
+
+      await newsroom.updateRevisionSigned(contentId, SOME_URI, SOME_HASH, signature);
+
+      expect(await newsroom.isSigned(contentId)).to.be.true();
+    });
   });
 });
