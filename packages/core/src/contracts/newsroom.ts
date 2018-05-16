@@ -1,7 +1,14 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 // import "@joincivil/utils";
-import { prepareNewsroomMessage, hashContent, hashPersonalMessage, recoverSigner, is0x0Address, is0x0Hash } from "@joincivil/utils";
+import {
+  prepareNewsroomMessage,
+  hashContent,
+  hashPersonalMessage,
+  recoverSigner,
+  is0x0Address,
+  is0x0Hash,
+} from "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
@@ -24,12 +31,7 @@ import {
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 import { NewsroomFactoryContract, NewsroomFactory } from "./generated/wrappers/newsroom_factory";
-import {
-  createTwoStepTransaction,
-  createTwoStepSimple,
-  findEvents,
-  findEventOrThrow
-} from "./utils/contracts";
+import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
 
 import { NewsroomContract, Newsroom as Events } from "./generated/wrappers/newsroom";
 
@@ -263,7 +265,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Reporter);
   }
 
-  public async getCharter(): Promise<NewsroomContent|undefined> {
+  public async getCharter(): Promise<NewsroomContent | undefined> {
     return this.loadArticle(0);
   }
 
@@ -272,7 +274,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * Accesess both Ethereum network as well as the active ContentProvider
    * @param articleId Id of the article that you want to read
    */
-  public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent|undefined> {
+  public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent | undefined> {
     const header = await this.loadContentHeader(articleId);
     if (!is0x0Hash(header.contentHash)) {
       return this.resolveContent(header);
