@@ -8,7 +8,6 @@ import { promisify } from "util";
 // tslint:disable-next-line:no-implicit-dependencies
 import * as Web3 from "web3";
 
-
 // advanceEvmTime was moved to dev-utils
 // We would need to update ALL the tests, this is a workaround
 export { advanceEvmTime } from "@joincivil/dev-utils";
