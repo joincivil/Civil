@@ -5,9 +5,6 @@ import * as utils from "../../utils/contractutils";
 
 const Token = artifacts.require("EIP20");
 const PLCRVoting = artifacts.require("PLCRVoting");
-const Newsroom = artifacts.require("Newsroom");
-
-const NEWSROOM_NAME = "unused newsroom name";
 
 configureChai(chai);
 const expect = chai.expect;

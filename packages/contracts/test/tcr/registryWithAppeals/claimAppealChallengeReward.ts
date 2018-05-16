@@ -4,9 +4,6 @@ import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const PLCRVoting = artifacts.require("PLCRVoting");
-const Newsroom = artifacts.require("Newsroom");
-
-const NEWSROOM_NAME = "unused newsroom name";
 
 configureChai(chai);
 const expect = chai.expect;

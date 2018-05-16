@@ -3,9 +3,6 @@ import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
 const PLCRVoting = artifacts.require("PLCRVoting");
-const Newsroom = artifacts.require("Newsroom");
-
-const NEWSROOM_NAME = "unused newsroom name";
 
 configureChai(chai);
 const expect = chai.expect;

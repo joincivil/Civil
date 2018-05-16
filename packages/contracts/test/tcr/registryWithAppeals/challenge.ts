@@ -6,11 +6,8 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-const Newsroom = artifacts.require("Newsroom");
 const Parameterizer = artifacts.require("Parameterizer");
 const Token = artifacts.require("EIP20");
-
-const NEWSROOM_NAME = "unused newsroom name;";
 
 contract("Registry With Appeals", accounts => {
   describe("Function: apply", () => {
