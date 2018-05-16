@@ -19,7 +19,7 @@ To post cryptographicaly pre-approved content on the Newsroom, the author's sign
 4. Take a keccak256 of that signed messaged
 5. Verification can be done by using EC recovery algorithm using the authors signature
 The verification can be seen in the internal `verifyRevisionsSignature` function.
-The signing can be seen in @joincivil/utils prepareNewsroomMessage function (and web3.eth.sign() it afterwards)
+The signing can be seen in (at)joincivil/utils package, function prepareNewsroomMessage function (and web3.eth.sign() it afterwards)
 */
 contract Newsroom is ACL {
   using ECRecovery for bytes32;
