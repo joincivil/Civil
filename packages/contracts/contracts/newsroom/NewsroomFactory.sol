@@ -20,12 +20,12 @@ contract NewsroomFactory is Factory {
   /**
   @notice Creates a fully-set-up newsroom, a multisig wallet and transfers it's ownership straight to the wallet at hand
   */
-  function create(string name, address[] initialOwners, uint initialRequired)
+  function create(string name, string charterUri, bytes32 charterHash, address[] initialOwners, uint initialRequired)
     public
     returns (Newsroom newsroom)
   {
     address wallet = multisigFactory.create(initialOwners, initialRequired);
-    newsroom = new Newsroom(name);
+    newsroom = new Newsroom(name, charterUri, charterHash);
     newsroom.transferOwnership(wallet);
     register(newsroom);
   }

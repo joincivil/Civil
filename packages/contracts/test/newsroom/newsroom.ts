@@ -31,7 +31,7 @@ contract("Newsroom", (accounts: string[]) => {
   let newsroom: any;
 
   beforeEach(async () => {
-    newsroom = await Newsroom.new(FIRST_NEWSROOM_NAME);
+    newsroom = await Newsroom.new(FIRST_NEWSROOM_NAME, SOME_URI, SOME_HASH);
   });
 
   describe("publishContent", () => {

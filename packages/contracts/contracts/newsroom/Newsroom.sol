@@ -5,9 +5,10 @@ import "../zeppelin-solidity/ECRecovery.sol";
 
 /**
 @title Newsroom - Smart-contract allowing for Newsroom-like goverance and content publishing
-@notice
 
-@dev Roles that are currently supported are:
+@dev The content number 0 is created automatically and it's use is reserved for the Newsroom charter / about page
+
+Roles that are currently supported are:
 - "editor" -> which can publish content, update revisions and add/remove more editors
 
 To post cryptographicaly pre-approved content on the Newsroom, the author's signature must be included and
@@ -43,8 +44,9 @@ contract Newsroom is ACL {
   */
   string public name;
 
-  function Newsroom(string newsroomName) ACL() public {
+  function Newsroom(string newsroomName, string charterUri, bytes32 charterHash) ACL() public {
     setName(newsroomName);
+    publishContent(charterUri, charterHash);
   }
 
   /**

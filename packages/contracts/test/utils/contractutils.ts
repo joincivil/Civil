@@ -21,6 +21,7 @@ const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry")
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
+const Newsroom = artifacts.require("Newsroom");
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -343,4 +344,8 @@ export async function createAllTestContractAddressRegistryInstance(accounts: str
 export async function createAllCivilTCRInstance(accounts: string[], appellateEntity: string): Promise<any> {
   const parameterizer = await createAllTestParameterizerInstance(accounts);
   return createTestCivilTCRInstance(parameterizer, accounts, appellateEntity);
+}
+
+export async function createDummyNewsrom(from?: string): Promise<any> {
+  return Newsroom.new("Fake newsroom name", "http://fakenewsroomcharter.com", web3.sha3(), { from });
 }

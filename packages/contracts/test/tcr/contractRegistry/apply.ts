@@ -1,6 +1,5 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
@@ -26,7 +25,7 @@ contract("ContractAddressRegistry", accounts => {
       let newsroomAddress: string;
 
       beforeEach(async () => {
-        testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
+        testNewsroom = await utils.createDummyNewsrom(applicant);
         newsroomAddress = testNewsroom.address;
       });
 
@@ -73,7 +72,7 @@ contract("ContractAddressRegistry", accounts => {
       let newsroomAddress: string;
 
       beforeEach(async () => {
-        testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: troll });
+        testNewsroom = await utils.createDummyNewsrom(troll);
         newsroomAddress = testNewsroom.address;
       });
 

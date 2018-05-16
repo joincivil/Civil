@@ -1,6 +1,5 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
@@ -21,7 +20,7 @@ contract("Registry With Appeals", accounts => {
     beforeEach(async () => {
       registry = await utils.createAllCivilTCRInstance(accounts, JAB);
 
-      testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
+      testNewsroom = await utils.createDummyNewsrom(applicant);
       newsroomAddress = testNewsroom.address;
     });
 

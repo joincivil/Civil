@@ -1,6 +1,5 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
 const PLCRVoting = artifacts.require("PLCRVoting");
@@ -25,7 +24,7 @@ contract("Registry", accounts => {
       const votingAddress = await registry.voting();
       voting = await PLCRVoting.at(votingAddress);
 
-      testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
+      testNewsroom = await utils.createDummyNewsrom(applicant);
       newsroomAddress = testNewsroom.address;
     });
 
