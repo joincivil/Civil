@@ -1,9 +1,10 @@
 import * as React from "react";
-import { EthAddress, ListingWrapper } from "@joincivil/core";
+import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import { DepositTokens, ExitListing, WithdrawTokens } from "./OwnerListingViews";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 
 export interface ListingDetailProps {
+  newsroom: NewsroomWrapper;
   listing: ListingWrapper;
   userAccount?: EthAddress;
 }
@@ -22,6 +23,9 @@ class ListingDetail extends React.Component<ListingDetailProps> {
         {this.props.listing.data && (
           <>
             <dl>
+              <dt>Name</dt>
+              <dd>{this.props.newsroom.data.name}</dd>
+
               <dt>Is Whitelisted</dt>
               <dd>{this.props.listing.data.isWhitelisted}</dd>
 

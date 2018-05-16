@@ -18,6 +18,8 @@ import {
   SignedContentHeader,
   BaseContentHeader,
   ApprovedRevision,
+  NewsroomWrapper,
+  NewsroomData,
 } from "../types";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
@@ -170,6 +172,30 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   //#endregion
 
   //#region views
+
+  /**
+   * Returns NewsroomWrapper (address + data) for this newsroom
+   */
+  public async getNewsroomWrapper(): Promise<NewsroomWrapper> {
+    const data = await this.getNewsroomData();
+    return {
+      address: this.instance.address,
+      data,
+    };
+  }
+
+  /**
+   * Returns NewsroomData for this newsroom
+   */
+  public async getNewsroomData(): Promise<NewsroomData> {
+    const name = await this.getName();
+    const owners = await this.owners();
+    return {
+      name,
+      owners,
+    };
+  }
+
   /**
    * Returns a list of Board of Directors with superuser powers over this
    * newsroom.

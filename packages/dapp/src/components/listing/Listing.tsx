@@ -3,7 +3,7 @@ import * as React from "react";
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
 import ListingPhaseActions from "./ListingPhaseActions";
-import { EthAddress, ListingWrapper } from "@joincivil/core";
+import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
 import { PageView } from "../utility/ViewModules";
@@ -13,6 +13,7 @@ export interface ListingPageProps {
 }
 
 export interface ListingReduxProps {
+  newsroom: NewsroomWrapper | undefined;
   listing: ListingWrapper | undefined;
   userAccount?: EthAddress;
 }
@@ -26,7 +27,7 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
     }
     return (
       <PageView>
-        {appExists && <ListingDetail userAccount={this.props.userAccount} listing={this.props.listing!} />}
+        {appExists && <ListingDetail userAccount={this.props.userAccount} listing={this.props.listing!} newsroom={this.props.newsroom!} />}
         {appExists && <ListingPhaseActions listing={this.props.listing!} />}
         {!appExists && this.renderListingNotFound()}
         <ListingHistory match={this.props.match} />
@@ -40,8 +41,9 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
 }
 
 const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
-  const { listings, user } = state;
+  const { newsrooms, listings, user } = state;
   return {
+    newsroom: newsrooms.get(ownProps.match.params.listing),
     listing: listings.get(ownProps.match.params.listing),
     userAccount: user.account,
   };

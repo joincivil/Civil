@@ -14,11 +14,13 @@ import {
   resolveAppealListings,
   rejectedListings,
 } from "./listings";
+import { newsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set } from "immutable";
-import { ListingWrapper } from "@joincivil/core";
+import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 
 export interface State {
+  newsrooms: Map<string, NewsroomWrapper>;
   listings: Map<string, ListingWrapper>;
   applications: Set<string>;
   whitelistedListings: Set<string>;
@@ -36,6 +38,7 @@ export interface State {
 }
 
 export default combineReducers({
+  newsrooms,
   listings,
   applications,
   whitelistedListings,

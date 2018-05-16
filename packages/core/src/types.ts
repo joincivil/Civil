@@ -118,6 +118,16 @@ export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
   awaitReceipt(blockConfirmations?: number): Promise<T>;
 }
 
+export interface NewsroomWrapper {
+  address: EthAddress;
+  data: NewsroomData;
+}
+
+export interface NewsroomData {
+  name: string;
+  owners: EthAddress[];
+}
+
 export interface ListingWrapper {
   address: EthAddress;
   data: ListingData;
