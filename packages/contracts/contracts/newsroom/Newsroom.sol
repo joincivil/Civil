@@ -6,20 +6,43 @@ import "../zeppelin-solidity/ECRecovery.sol";
 contract Newsroom is ACL {
   using ECRecovery for bytes32;
 
-  event RevisionPublished(address indexed editor, uint indexed id, string uri);
-  event RevisionSigned(address indexed editor, uint indexed id, address indexed author);
+  event ContentPublished(address indexed editor, uint indexed contentId, string uri);
+  event ContentSigned(uint indexed contentId, address indexed author);
+  event RevisionUpdated(address indexed editor, uint indexed contentId, uint indexed revisionId, string uri);
   event NameChanged(string newName);
 
   string private constant ROLE_EDITOR = "editor";
 
-  uint private latestId;
-  mapping(uint => Revision) public content;
-  mapping(uint => SignedRevision) public signedContent;
+  uint private latestContentId;
+  mapping(uint => Revision[]) private content;
+  mapping(uint => SignedContent) public signedContent;
 
   string public name;
 
   function Newsroom(string newsroomName) ACL() public {
     setName(newsroomName);
+  }
+
+  function getContent(uint contentId) external view returns (bytes32 contentHash, string uri, uint timestamp) {
+    Revision[] storage myContent = content[contentId];
+    require(myContent.length > 0);
+
+    Revision storage myRevision = myContent[myContent.length - 1];
+
+    return (myRevision.contentHash, myRevision.uri, myRevision.timestamp);
+  }
+
+  function getRevision(uint contentId, uint revisionId) external view returns (bytes32 contentHash, string uri, uint timestamp) {
+    Revision[] storage myContent = content[contentId];
+    require(myContent.length > revisionId);
+
+    Revision storage myRevision = myContent[revisionId];
+
+    return (myRevision.contentHash, myRevision.uri, myRevision.timestamp);
+  }
+
+  function isSigned(uint contentId) public view returns (bool) {
+    return signedContent[contentId].author != 0x0;
   }
 
   function setName(string newName) public onlyOwner() {
@@ -29,41 +52,57 @@ contract Newsroom is ACL {
     emit NameChanged(name);
   }
 
-  function addRole(address who, string role) public requireRole(ROLE_EDITOR) {
+  function addRole(address who, string role) external requireRole(ROLE_EDITOR) {
     _addRole(who, role);
   }
 
-  function removeRole(address who, string role) public requireRole(ROLE_EDITOR) {
+  function removeRole(address who, string role) external requireRole(ROLE_EDITOR) {
     _removeRole(who, role);
   }
 
-  function publishRevision(string contentUri, bytes32 contentHash) public requireRole(ROLE_EDITOR) returns (uint) {
-    require(bytes(contentUri).length > 0);
-    require(contentHash.length > 0);
+  function publishContent(string contentUri, bytes32 contentHash) public requireRole(ROLE_EDITOR) returns (uint) {
+    uint contentId = latestContentId;
+    latestContentId++;
 
-    uint id = latestId;
-    latestId++;
+    pushRevision(contentId, contentUri, contentHash);
 
-    content[id] = Revision(
-      contentHash,
-      contentUri,
-      now
-    );
-
-    emit RevisionPublished(msg.sender, id, contentUri);
-    return id;
+    emit ContentPublished(msg.sender, contentId, contentUri);
+    return contentId;
   }
 
-  function publishRevisionSigned(string contentUri, bytes32 contentHash, address author, bytes signature) public requireRole(ROLE_EDITOR) returns (uint) {
-    verifyRevisionSignature(contentHash, author, signature);
+  function publishContentSigned(
+    string contentUri,
+    bytes32 contentHash,
+    address author,
+    bytes signature
+  ) external requireRole(ROLE_EDITOR) returns (uint)
+  {
+    uint contentId = publishContent(contentUri, contentHash);
 
-    uint id = publishRevision(contentUri, contentHash);
-    signedContent[id] = SignedRevision(
-      author,
-      signature
-    );
+    SignedContent storage signData = signedContent[contentId];
+    signData.author = author;
 
-    emit RevisionSigned(msg.sender, id, author);
+    pushSignature(signData, contentHash, signature);
+
+    emit ContentSigned(contentId, author);
+  }
+
+  function updateRevision(uint contentId, string contentUri, bytes32 contentHash) external requireRole(ROLE_EDITOR) {
+    require(!isSigned(contentId));
+    pushRevision(contentId, contentUri, contentHash);
+  }
+
+  function updateRevisionSigned(
+    uint contentId,
+    string contentUri,
+    bytes32 contentHash,
+    bytes signature
+  ) external requireRole(ROLE_EDITOR)
+  {
+    require(isSigned(contentId));
+
+    pushSignature(signedContent[contentId], contentHash, signature);
+    pushRevision(contentId, contentUri, contentHash);
   }
 
   function verifyRevisionSignature(bytes32 contentHash, address author, bytes signature) view internal {
@@ -76,14 +115,36 @@ contract Newsroom is ACL {
     require(hashedMessage.recover(signature) == author);
   }
 
+  function pushRevision(uint contentId, string contentUri, bytes32 contentHash) internal {
+    require(contentId < latestContentId);
+    require(bytes(contentUri).length > 0);
+    require(contentHash.length > 0);
+
+    Revision[] storage revisions = content[contentId];
+    uint revisionId = revisions.length;
+
+    revisions.push(Revision(
+      contentHash,
+      contentUri,
+      now
+    ));
+
+    emit RevisionUpdated(msg.sender, contentId, revisionId, contentUri);
+  }
+
+  function pushSignature(SignedContent storage signData, bytes32 contentHash, bytes signature) internal {
+    verifyRevisionSignature(contentHash, signData.author, signature);
+    signData.revisionSignatures.push(signature);
+  }
+
   struct Revision {
     bytes32 contentHash;
     string uri;
     uint timestamp;
   }
 
-  struct SignedRevision {
+  struct SignedContent {
     address author;
-    bytes signature;
+    bytes[] revisionSignatures;
   }
 }

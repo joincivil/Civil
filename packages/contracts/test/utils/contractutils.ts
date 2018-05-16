@@ -1,3 +1,6 @@
+import { advanceEvmTime } from "@joincivil/dev-utils";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
+import { getVoteSaltHash } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as fs from "fs";
 import { promisify } from "util";
@@ -5,9 +8,6 @@ import { promisify } from "util";
 // tslint:disable-next-line:no-implicit-dependencies
 import * as Web3 from "web3";
 
-import { advanceEvmTime } from "@joincivil/dev-utils";
-import { getVoteSaltHash } from "@joincivil/utils";
-import { DecodedLogEntry } from "@joincivil/typescript-types";
 
 // advanceEvmTime was moved to dev-utils
 // We would need to update ALL the tests, this is a workaround
@@ -28,15 +28,6 @@ export const paramConfig = config.paramDefaults;
 
 export function findEvent<T = any>(tx: any, eventName: string): DecodedLogEntry<T> | undefined {
   return tx.logs.find((log: any) => log.event === eventName);
-}
-
-export function idFromEvent(tx: any): BigNumber | undefined {
-  for (const log of tx.logs) {
-    if (log.args.id) {
-      return log.args.id;
-    }
-  }
-  return undefined;
 }
 
 export function getReceiptValue(receipt: any, arg: any): any {

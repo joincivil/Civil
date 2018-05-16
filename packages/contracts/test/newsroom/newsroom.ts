@@ -1,9 +1,9 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-import { promisify, prepareNewsroomMessage } from "@joincivil/utils";
-
-import { events, NEWSROOM_ROLE_EDITOR, REVERTED } from "../utils/constants";
-import { findEvent, idFromEvent } from "../utils/contractutils";
+import { prepareNewsroomMessage, promisify } from "@joincivil/utils";
+import BigNumber from "bignumber.js";
+import * as chai from "chai";
+import { NEWSROOM_ROLE_EDITOR, REVERTED, events } from "../utils/constants";
+import { findEvent } from "../utils/contractutils";
 
 const Newsroom = artifacts.require("Newsroom");
 
@@ -14,6 +14,15 @@ const FIRST_NEWSROOM_NAME = "TEST NAME, PLEASE IGNORE";
 const SOME_URI = "http://thiistest.uri";
 const SOME_HASH = web3.sha3();
 
+export function idFromEvent(tx: any): BigNumber | undefined {
+  for (const log of tx.logs) {
+    if (log.args.contentId) {
+      return log.args.contentId;
+    }
+  }
+  return undefined;
+}
+
 contract("Newsroom", (accounts: string[]) => {
   const defaultAccount = accounts[0];
   let newsroom: any;
@@ -22,19 +31,19 @@ contract("Newsroom", (accounts: string[]) => {
     newsroom = await Newsroom.new(FIRST_NEWSROOM_NAME);
   });
 
-  describe("publishRevision", () => {
+  describe("publishContent", () => {
     it("forbids empty uris", async () => {
       await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
-      await expect(newsroom.publishRevision("", SOME_HASH)).to.be.rejectedWith(REVERTED);
+      await expect(newsroom.publishContent("", SOME_HASH)).to.be.rejectedWith(REVERTED);
     });
 
     it("finishes", async () => {
       await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
-      await expect(newsroom.publishRevision(SOME_URI, SOME_HASH)).to.eventually.be.fulfilled();
+      await expect(newsroom.publishContent(SOME_URI, SOME_HASH)).to.eventually.be.fulfilled();
     });
 
     it("creates an event", async () => {
-      const tx = await newsroom.publishRevision(SOME_URI, SOME_HASH);
+      const tx = await newsroom.publishContent(SOME_URI, SOME_HASH);
       const event = findEvent(tx, events.NEWSROOM_PUBLISHED);
       expect(event).to.not.be.undefined();
       expect(event!.args.editor).to.be.equal(defaultAccount);
@@ -43,10 +52,11 @@ contract("Newsroom", (accounts: string[]) => {
     it("succeeds with editor role", async () => {
       await newsroom.addRole(accounts[1], NEWSROOM_ROLE_EDITOR);
 
-      const tx = await newsroom.publishRevision(SOME_URI, SOME_HASH, { from: accounts[1] });
+      const tx = await newsroom.publishContent(SOME_URI, SOME_HASH, { from: accounts[1] });
       const id = idFromEvent(tx);
 
-      const [hash, uri] = await newsroom.content(id);
+      const [hash, uri] = await newsroom.getContent(id);
+
       expect(uri).to.be.equal(SOME_URI);
       expect(hash).to.be.equal(`${SOME_HASH}`);
     });
@@ -139,7 +149,7 @@ contract("Newsroom", (accounts: string[]) => {
     });
   });
 
-  describe("publishRevisionSigned", () => {
+  describe("publishContentSigned", () => {
     const [, editor, author] = accounts;
     const signAsync = promisify<string>(web3.eth.sign, web3.eth);
 
@@ -154,25 +164,25 @@ contract("Newsroom", (accounts: string[]) => {
 
     it("fails without editor role", async () => {
       await expect(
-        newsroom.publishRevisionSigned(SOME_URI, SOME_HASH, author, SIGNATURE, { from: author }),
+        newsroom.publishContentSigned(SOME_URI, SOME_HASH, author, SIGNATURE, { from: author }),
       ).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("succeeds with an editor role", async () => {
       await expect(
-        newsroom.publishRevisionSigned(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor }),
+        newsroom.publishContentSigned(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor }),
       ).to.eventually.be.fulfilled();
     });
 
     it("fails without proper signature", async () => {
       const WRONG_SIG = await signAsync(editor, MESSAGE);
       await expect(
-        newsroom.publishRevisionSigned(SOME_URI, SOME_HASH, author, WRONG_SIG, { from: editor }),
+        newsroom.publishContentSigned(SOME_URI, SOME_HASH, author, WRONG_SIG, { from: editor }),
       ).to.eventually.be.rejectedWith(REVERTED);
     });
 
-    it("fires RevisionPublished event", async () => {
-      const receipt = await newsroom.publishRevisionSigned(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor });
+    it("fires ContentPublished event", async () => {
+      const receipt = await newsroom.publishContentSigned(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor });
 
       const event = findEvent(receipt, events.NEWSROOM_PUBLISHED);
 
@@ -181,25 +191,51 @@ contract("Newsroom", (accounts: string[]) => {
       expect(event!.args.uri).to.be.equal(SOME_URI);
     });
 
-    it("fires RevisionSigned event", async () => {
-      const receipt = await newsroom.publishRevisionSigned(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor });
+    it("fires ContentSigned event", async () => {
+      const receipt = await newsroom.publishContentSigned(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor });
 
       const event = findEvent(receipt, events.NEWSROOM_SIGNED);
 
       expect(event).to.not.be.null();
-      expect(event!.args.editor).to.be.equal(editor);
       expect(event!.args.author).to.be.equal(author);
     });
 
     it("has the same id in published and signed events", async () => {
-      const receipt = await newsroom.publishRevisionSigned(SOME_URI, SOME_HASH, author, SIGNATURE);
+      const receipt = await newsroom.publishContentSigned(SOME_URI, SOME_HASH, author, SIGNATURE);
 
       const publishedEvent = findEvent(receipt, events.NEWSROOM_PUBLISHED);
       const signedEvent = findEvent(receipt, events.NEWSROOM_SIGNED);
 
       expect(publishedEvent).to.not.be.null();
       expect(signedEvent).to.not.be.null();
-      expect(publishedEvent!.args.id).to.be.bignumber.equal(signedEvent!.args.id);
+      expect(publishedEvent!.args.contentId).to.be.bignumber.equal(signedEvent!.args.contentId);
     });
+  });
+
+  const updateRevisionCommon = () => {
+    describe("common revision tests", () => {
+      it("can't update non-existing content");
+      it("requires editor role");
+      it("fires RevisionUpdated event");
+      it("doesn't remove previous revisions");
+    });
+  };
+
+  describe("updateRevision", () => {
+    it("can't update signed revisions");
+    updateRevisionCommon();
+  });
+
+  describe("updateContentSigned", () => {
+    it("can't update unsigned revisions");
+    it("requires signature from the same author");
+    it("stores signatures of previous revisions");
+    updateRevisionCommon();
+  });
+
+  describe("isSigned", () => {
+    it("returns true on signed content");
+    it("returns false on non-signed content");
+    it("works with multiple revisions");
   });
 });
