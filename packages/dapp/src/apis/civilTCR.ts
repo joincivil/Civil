@@ -201,7 +201,10 @@ export async function revealVote(
   return voting.revealVote(pollID, voteOption, salt);
 }
 
-export async function withdrawTokens(address: EthAddress, numTokens: number): Promise<TwoStepEthTransaction> {
+export async function withdrawTokens(
+  address: EthAddress,
+  numTokens: number | BigNumber,
+): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   return tcr.withdraw(address, ensureWeb3BigNumber(numTokens));
