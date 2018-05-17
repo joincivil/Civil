@@ -38,10 +38,41 @@ export async function approveForChallengeGrantedAppeal(): Promise<TwoStepEthTran
 export async function approve(amount: BigNumber): Promise<TwoStepEthTransaction | void> {
   console.log("approve");
   const civil = getCivil();
-  console.log("civil gotten.");
+  console.log("civil gotten.", civil);
   const tcr = civil.tcrSingletonTrusted();
   console.log("tcr gotten.");
   const token = await tcr.getToken();
+
+  const parameterizer = await tcr.getParameterizer();
+  const minDeposit = await parameterizer.getParameterValue("minDeposit");
+  console.log("amount instanceof BigNumber", amount instanceof BigNumber);
+  console.log("minDeposit instanceof BigNumber", minDeposit instanceof BigNumber);
+  console.log(amount, minDeposit);
+
+  console.log("token address: " + token.address);
+  const approvedTokens = await token.getApprovedTokensForSpender(tcr.address);
+  console.log("approved tokens: " + approvedTokens + " - amount: " + amount);
+  if (approvedTokens < amount) {
+    return token.approveSpender(tcr.address, amount);
+  }
+}
+
+export async function approve2(amount2: number): Promise<TwoStepEthTransaction | void> {
+  console.log("approve");
+  const civil = getCivil();
+  console.log("civil gotten.", civil);
+  const tcr = civil.tcrSingletonTrusted();
+  console.log("tcr gotten.");
+  const token = await tcr.getToken();
+
+  const amount = civil.toBigNumber(amount2);
+
+  const parameterizer = await tcr.getParameterizer();
+  const minDeposit = await parameterizer.getParameterValue("minDeposit");
+  console.log("amount instanceof BigNumber", amount instanceof BigNumber);
+  console.log("minDeposit instanceof BigNumber", minDeposit instanceof BigNumber);
+  console.log(amount, minDeposit);
+
   console.log("token address: " + token.address);
   const approvedTokens = await token.getApprovedTokensForSpender(tcr.address);
   console.log("approved tokens: " + approvedTokens + " - amount: " + amount);
@@ -85,10 +116,10 @@ export async function commitVote(
   return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
 }
 
-export async function depositTokens(address: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+export async function depositTokens(address: EthAddress, numTokens: number): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
-  return tcr.deposit(address, numTokens);
+  return tcr.deposit(address, civil.toBigNumber(numTokens));
 }
 
 export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {

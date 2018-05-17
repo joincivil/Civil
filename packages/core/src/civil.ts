@@ -55,6 +55,10 @@ export class Civil {
     this.contentProvider = new providerConstructor({ ethApi: this.ethApi });
   }
 
+  public toBigNumber(num: number): any {
+    return this.ethApi.web3.toBigNumber(num);
+  }
+
   /**
    * @returns Currently default user account used, undefined if none unlocked/found
    */
