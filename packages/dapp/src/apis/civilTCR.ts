@@ -96,7 +96,10 @@ export async function commitVote(
   return voting.commitVote(pollID, secretHash, numTokens, prevPollID);
 }
 
-export async function depositTokens(address: EthAddress, numTokens: number | BigNumber): Promise<TwoStepEthTransaction> {
+export async function depositTokens(
+  address: EthAddress,
+  numTokens: number | BigNumber,
+): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   return tcr.deposit(address, ensureWeb3BigNumber(numTokens));
