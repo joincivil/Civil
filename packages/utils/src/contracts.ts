@@ -21,3 +21,7 @@ export function isDeployedBytecodeEqual(deployed1: string, deployed2: string): b
 export function is0x0Address(address: string): boolean {
   return address === "0x0" || address === "0x0000000000000000000000000000000000000000";
 }
+
+export function is0x0Hash(hash: string): boolean {
+  return hash === "0x0" || hash === "0x0000000000000000000000000000000000000000000000000000000000000000";
+}
