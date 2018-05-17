@@ -56,7 +56,7 @@ export class DepositTokens extends React.Component<OwnerListingViewProps, Deposi
   };
 
   private deposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string, 10);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
     return depositTokens(this.props.listingAddress, numTokens);
   };
 
