@@ -435,7 +435,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   private async resolveSignedData(baseHeader: BaseContentHeader): Promise<SignedContentHeader | undefined> {
-    const [author, signature] = await this.instance.signedContent.callAsync(new BigNumber(baseHeader.id));
+    const id = this.ethApi.web3.toBigNumber(baseHeader.id);
+    const [author, signature] = await this.instance.signedContent.callAsync(id);
     if (is0x0Address(author)) {
       return undefined;
     }
@@ -449,7 +450,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   private async resolveBaseContentHeader(articleId: number | BigNumber): Promise<BaseContentHeader> {
-    const id = new BigNumber(articleId);
+    // const id = new BigNumber(articleId);
+    const id = this.ethApi.web3.toBigNumber(typeof articleId === "number" ? articleId : articleId.toNumber());
 
     const [contentHash, uri, timestamp] = await this.instance.content.callAsync(id);
     return {
