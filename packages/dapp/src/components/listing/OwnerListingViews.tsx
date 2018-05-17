@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EthAddress, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
-import { approve2, depositTokens, exitListing, withdrawTokens } from "../../apis/civilTCR";
+import { approve, depositTokens, exitListing, withdrawTokens } from "../../apis/civilTCR";
 import { InputElement, StyledFormContainer, FormGroup, FormValidationMessage } from "../utility/FormElements";
 import TransactionButton from "../utility/TransactionButton";
 import BigNumber from "bignumber.js";
@@ -51,12 +51,12 @@ export class DepositTokens extends React.Component<OwnerListingViewProps, Deposi
   }
 
   private approveDeposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: number = parseInt(this.state.numTokens as string, 10);
-    return approve2(numTokens);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
+    return approve(numTokens);
   };
 
   private deposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: number = parseInt(this.state.numTokens as string, 10);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string, 10);
     return depositTokens(this.props.listingAddress, numTokens);
   };
 
