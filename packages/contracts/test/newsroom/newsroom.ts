@@ -111,8 +111,13 @@ contract("Newsroom", (accounts: string[]) => {
         expect(updatedEvent!.args.revisionId).to.be.bignumber.equal(signedEvent!.args.revisionId);
       });
 
-      it("doesn't allow signature and 0x0 author");
-      it("doesn't allow 0x0 author and a signature");
+      it("doesn't allow signature and 0x0 author", async () => {
+        await expect(newsroom.publishContent(SOME_URI, SOME_HASH, "0x0", SIGNATURE)).to.be.rejected.with(REVERTED);
+      });
+
+      it("doesn't allow empty signature and an author", async () => {
+        await expect(newsroom.publishContent(SOME_URI, SOME_HASH, author, "")).to.be.rejected.with(REVERTED);
+      });
     });
   });
 
@@ -277,9 +282,15 @@ contract("Newsroom", (accounts: string[]) => {
           newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, editorSignature),
         ).to.eventually.be.rejectedWith(REVERTED);
       });
+      it("doesn't allow signing if the first revision was unsigned", async () => {
+        const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, "", "", { from: editor });
+        const event = findEvent(receipt, events.NEWSROOM_PUBLISHED);
+        const secondContentId = event!.args.contentId;
 
-      it("doesn't work with wrong signature");
-      it("doesn't allow signing if the first revision was unsigned");
+        await expect(
+          newsroom.updateRevision(secondContentId, SOME_URI, SOME_HASH, SIGNATURE),
+        ).to.eventually.be.rejectedWith(REVERTED);
+      });
     });
   });
 
