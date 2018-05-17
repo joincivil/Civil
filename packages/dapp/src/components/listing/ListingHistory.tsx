@@ -1,26 +1,31 @@
 import * as React from "react";
 import { List } from "immutable";
 import { Subscription } from "rxjs";
-
+import { State } from "../../reducers";
 import ListingEvent from "./ListingEvent";
 import { getTCR } from "../../helpers/civilInstance";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
+import { connect, DispatchProp } from "react-redux";
+import { addHistoryEvent } from "../../actionCreators/listings";
 
 export interface ListingHistoryProps {
-  match: any;
+  listing: string;
+}
+
+export interface ListingHistoryReduxProps {
+  listingHistory: List<any>;
+  listing: string;
 }
 
 export interface ListingHistoryState {
-  listingHistory: List<any>;
-  compositeSubscription: Subscription;
   error: undefined | string;
+  compositeSubscription: Subscription;
 }
 
-class ListingHistory extends React.Component<ListingHistoryProps, ListingHistoryState> {
-  constructor(props: any) {
+class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryReduxProps, ListingHistoryState> {
+  constructor(props: DispatchProp<any> & ListingHistoryReduxProps) {
     super(props);
     this.state = {
-      listingHistory: List<any>(),
       compositeSubscription: new Subscription(),
       error: undefined,
     };
@@ -38,8 +43,8 @@ class ListingHistory extends React.Component<ListingHistoryProps, ListingHistory
     return (
       <ViewModule>
         <ViewModuleHeader>Listing History</ViewModuleHeader>
-        {this.state.listingHistory.map(e => {
-          return <ListingEvent key={this.props.match.params.listing + e.blockNumber} event={e} />;
+        {this.props.listingHistory.map((e, i) => {
+          return <ListingEvent key={i} event={e} />;
         })}
       </ViewModule>
     );
@@ -47,8 +52,7 @@ class ListingHistory extends React.Component<ListingHistoryProps, ListingHistory
 
   private handleSubscriptionReturn = async (event: any) => {
     const timestamp = await event.timestamp();
-    const newHistory = this.state.listingHistory.push({ ...event, timestamp });
-    this.setState({ listingHistory: newHistory.sort((a, b) => b.blockNumber - a.blockNumber).toList() });
+    this.props.dispatch!(addHistoryEvent(this.props.listing, { ...event, timestamp }));
   };
 
   // TODO(nickreynolds): move this all into redux
@@ -56,11 +60,22 @@ class ListingHistory extends React.Component<ListingHistoryProps, ListingHistory
     const tcr = getTCR();
 
     if (tcr) {
-      const listingHelper = tcr.getListing(this.props.match.params.listing);
-      const subscription = listingHelper.compositeObservables().subscribe(this.handleSubscriptionReturn);
+      const listingHelper = tcr.getListing(this.props.listing);
+      const lastBlock = this.props.listingHistory.size ? this.props.listingHistory.last().blockNumber : 0;
+      const subscription = listingHelper
+        .compositeObservables(lastBlock + 1) // +1 so that you dont get the last event again
+        .subscribe(this.handleSubscriptionReturn);
       this.setState({ compositeSubscription: subscription });
     }
   };
 }
 
-export default ListingHistory;
+const mapToStateToProps = (state: State, ownProps: ListingHistoryProps): ListingHistoryReduxProps => {
+  const { histories } = state;
+  return {
+    ...ownProps,
+    listingHistory: histories.get(ownProps.listing) || List(),
+  };
+};
+
+export default connect(mapToStateToProps)(ListingHistory);

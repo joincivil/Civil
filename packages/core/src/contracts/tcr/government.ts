@@ -39,7 +39,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * Gets the current value of the specified parameter
    * @param parameter key of parameter to check
    */
-  private async getParameterValue(parameter: string): Promise<BigNumber> {
+  public async getParameterValue(parameter: string): Promise<BigNumber> {
     return this.instance.get.callAsync(parameter);
   }
 }

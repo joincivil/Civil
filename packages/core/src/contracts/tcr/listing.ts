@@ -46,76 +46,76 @@ export class Listing {
 
   //#region EventStreams
 
-  public applications(): Observable<TimestampedEvent<CivilTCR.LogEvents._Application>> {
-    return this.tcrInstance._ApplicationStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
+  public applications(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Application>> {
+    return this.tcrInstance._ApplicationStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Application>(this.ethApi, e);
     });
   }
 
-  public challenges(): Observable<TimestampedEvent<CivilTCR.LogEvents._Challenge>> {
-    return this.tcrInstance._ChallengeStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
+  public challenges(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Challenge>> {
+    return this.tcrInstance._ChallengeStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Challenge>(this.ethApi, e);
     });
   }
 
-  public deposits(): Observable<TimestampedEvent<CivilTCR.LogEvents._Deposit>> {
-    return this.tcrInstance._DepositStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
+  public deposits(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Deposit>> {
+    return this.tcrInstance._DepositStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Deposit>(this.ethApi, e);
     });
   }
 
-  public withdrawls(): Observable<TimestampedEvent<CivilTCR.LogEvents._Withdrawal>> {
-    return this.tcrInstance._WithdrawalStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
+  public withdrawls(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Withdrawal>> {
+    return this.tcrInstance._WithdrawalStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Withdrawal>(this.ethApi, e);
     });
   }
 
-  public whitelisteds(): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted>> {
+  public whitelisteds(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted>> {
     return this.tcrInstance
-      ._ApplicationWhitelistedStream({ listingAddress: this.listingAddress }, { fromBlock: 0 })
+      ._ApplicationWhitelistedStream({ listingAddress: this.listingAddress }, { fromBlock })
       .map(e => {
         return createTimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted>(this.ethApi, e);
       });
   }
 
-  public applicationRemoveds(): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>> {
-    return this.tcrInstance
-      ._ApplicationRemovedStream({ listingAddress: this.listingAddress }, { fromBlock: 0 })
-      .map(e => {
-        return createTimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>(this.ethApi, e);
-      });
+  public applicationRemoveds(
+    fromBlock: number = 0,
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>> {
+    return this.tcrInstance._ApplicationRemovedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
+      return createTimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>(this.ethApi, e);
+    });
   }
 
-  public listingRemoveds(): Observable<TimestampedEvent<CivilTCR.LogEvents._ListingRemoved>> {
-    return this.tcrInstance._ListingRemovedStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
+  public listingRemoveds(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._ListingRemoved>> {
+    return this.tcrInstance._ListingRemovedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ListingRemoved>(this.ethApi, e);
     });
   }
 
-  public failedChallenges(): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>> {
-    return this.tcrInstance._ChallengeFailedStream({ listingAddress: this.listingAddress }, { fromBlock: 0 }).map(e => {
+  public failedChallenges(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>> {
+    return this.tcrInstance._ChallengeFailedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>(this.ethApi, e);
     });
   }
 
-  public successfulChallenges(): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>> {
-    return this.tcrInstance
-      ._ChallengeSucceededStream({ listingAddress: this.listingAddress }, { fromBlock: 0 })
-      .map(e => {
-        return createTimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>(this.ethApi, e);
-      });
+  public successfulChallenges(
+    fromBlock: number = 0,
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>> {
+    return this.tcrInstance._ChallengeSucceededStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
+      return createTimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>(this.ethApi, e);
+    });
   }
 
-  public compositeObservables(): Observable<any> {
-    const applications = this.applications();
-    const challenges = this.challenges();
-    const deposits = this.deposits();
-    const withdrawls = this.withdrawls();
-    const whitelisteds = this.whitelisteds();
-    const applicationRemoveds = this.applicationRemoveds();
-    const listingRemoveds = this.listingRemoveds();
-    const failedChallenges = this.failedChallenges();
-    const successfulChallenges = this.successfulChallenges();
+  public compositeObservables(start: number = 0): Observable<any> {
+    const applications = this.applications(start);
+    const challenges = this.challenges(start);
+    const deposits = this.deposits(start);
+    const withdrawls = this.withdrawls(start);
+    const whitelisteds = this.whitelisteds(start);
+    const applicationRemoveds = this.applicationRemoveds(start);
+    const listingRemoveds = this.listingRemoveds(start);
+    const failedChallenges = this.failedChallenges(start);
+    const successfulChallenges = this.successfulChallenges(start);
 
     return Observable.merge(
       applications,
@@ -129,8 +129,8 @@ export class Listing {
       successfulChallenges,
     );
   }
-  public compositeEventsSubscription(): Subscription {
-    return this.compositeObservables().subscribe();
+  public compositeEventsSubscription(start: number = 0): Subscription {
+    return this.compositeObservables(start).subscribe();
   }
 
   //#endregion
