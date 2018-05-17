@@ -344,7 +344,6 @@ contract("Newsroom", (accounts: string[]) => {
       const SIGNATURE = await signAsync(author, MESSAGE);
       const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, author, SIGNATURE);
 
-      const block = await getBlockAsync(receipt.receipt.blockNumber);
       const contentId = idFromEvent(receipt);
 
       const [, , , returnedAuthor, signature] = await newsroom.getContent(contentId);

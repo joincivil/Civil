@@ -138,7 +138,8 @@ contract Newsroom is ACL {
     bytes32 contentHash,
     address author,
     bytes signature
-  ) public requireRole(ROLE_EDITOR) returns (uint) {
+  ) public requireRole(ROLE_EDITOR) returns (uint)
+  {
     uint contentId = contentCount;
     contentCount++;
 
