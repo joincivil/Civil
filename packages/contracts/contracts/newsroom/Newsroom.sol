@@ -26,14 +26,13 @@ contract Newsroom is ACL {
   using ECRecovery for bytes32;
 
   event ContentPublished(address indexed editor, uint indexed contentId, string uri);
-  event ContentSigned(uint indexed contentId, address indexed author);
+  event RevisionSigned(uint indexed contentId, uint indexed revisionId, address indexed author);
   event RevisionUpdated(address indexed editor, uint indexed contentId, uint indexed revisionId, string uri);
   event NameChanged(string newName);
 
   string private constant ROLE_EDITOR = "editor";
 
-  mapping(uint => Revision[]) private content;
-  mapping(uint => SignedContent) public signedContent;
+  mapping(uint => Content) private contents;
 
   /**
   @notice The number of different contents in this Newsroom, indexed in <0, contentCount) (exclusive) range
@@ -46,19 +45,14 @@ contract Newsroom is ACL {
 
   function Newsroom(string newsroomName, string charterUri, bytes32 charterHash) ACL() public {
     setName(newsroomName);
-    publishContent(charterUri, charterHash);
+    publishContent(charterUri, charterHash, 0x0, "");
   }
 
   /**
   @notice Gets the latest revision of the content at id contentId
   */
-  function getContent(uint contentId) external view returns (bytes32 contentHash, string uri, uint timestamp) {
-    Revision[] storage myContent = content[contentId];
-    require(myContent.length > 0);
-
-    Revision storage myRevision = myContent[myContent.length - 1];
-
-    return (myRevision.contentHash, myRevision.uri, myRevision.timestamp);
+  function getContent(uint contentId) external view returns (bytes32 contentHash, string uri, uint timestamp, address author, bytes signature) {
+    return getRevision(contentId, contents[contentId].revisions.length - 1);
   }
 
   /**
@@ -66,27 +60,40 @@ contract Newsroom is ACL {
   @param contentId Which content to get
   @param revisionId Which revision in that get content to get
   */
-  function getRevision(uint contentId, uint revisionId) external view returns (bytes32 contentHash, string uri, uint timestamp) {
-    Revision[] storage myContent = content[contentId];
-    require(myContent.length > revisionId);
+  function getRevision(
+    uint contentId,
+    uint revisionId
+  ) public view returns (bytes32 contentHash, string uri, uint timestamp, address author, bytes signature)
+  {
+    Content storage content = contents[contentId];
+    require(content.revisions.length > revisionId);
 
-    Revision storage myRevision = myContent[revisionId];
+    Revision storage revision = content.revisions[revisionId];
 
-    return (myRevision.contentHash, myRevision.uri, myRevision.timestamp);
+    return (revision.contentHash, revision.uri, revision.timestamp, content.author, revision.signature);
   }
 
   /**
   @return Number of revisions for a this content, 0 if never published
   */
   function revisionCount(uint contentId) external view returns (uint) {
-    return content[contentId].length;
+    return contents[contentId].revisions.length;
   }
 
   /**
-  @notice Returns if the content at the id has the author's signature associated with it
+  @notice Returns if the latest revision of the content at ID has the author's signature associated with it
   */
-  function isSigned(uint contentId) public view returns (bool) {
-    return signedContent[contentId].author != 0x0;
+  function isContentSigned(uint contentId) public view returns (bool) {
+    return isRevisionSigned(contentId, contents[contentId].revisions.length - 1);
+  }
+
+  /**
+  @notice Returns if that specific revision of the content has the author's signature
+  */
+  function isRevisionSigned(uint contentId, uint revisionId) public view returns (bool) {
+    Revision[] storage revisions = contents[contentId].revisions;
+    require(revisions.length > revisionId);
+    return revisions[revisionId].signature.length != 0;
   }
 
   /**
@@ -116,128 +123,95 @@ contract Newsroom is ACL {
 
   /**
   @notice Saves the content's URI and it's hash into this Newsroom, this creates a new Content and Revision number 0.
-  This function requires ROLE_EDITOR or owner to use
+  This function requires ROLE_EDITOR or owner to use.
+  The content can be cryptographicaly secured / approved by author as per signing procedure
   @param contentUri Canonical URI to access the content. The client should then verify that the content has the same hash
   @param contentHash Keccak256 hash of the content that is linked
+  @param author Author that cryptographically signs the content. 0x0 if not signed
+  @param signature Cryptographic signature of the author. Empty if not signed
   @return Content ID of the newly published content
 
-  @dev Emits `ContentPublished` and `RevisionUpdated` events
+  @dev Emits `ContentPublished`, `RevisionUpdated` and optionaly `ContentSigned` events
   */
-  function publishContent(string contentUri, bytes32 contentHash) public requireRole(ROLE_EDITOR) returns (uint) {
+  function publishContent(
+    string contentUri,
+    bytes32 contentHash,
+    address author,
+    bytes signature
+  ) public requireRole(ROLE_EDITOR) returns (uint) {
     uint contentId = contentCount;
     contentCount++;
 
-    pushRevision(contentId, contentUri, contentHash);
+    contents[contentId].author = author;
+    pushRevision(contentId, contentUri, contentHash, signature);
 
     emit ContentPublished(msg.sender, contentId, contentUri);
     return contentId;
   }
 
   /**
-  @notice Allows the editor to publish content that has been cryptographically pre-approved by the author.
-  The signature is verified before the content is added to the newsroom.
-  This function requires ROLE_EDITOR or owner to use
-  @param contentUri Canonical URI to access the content. The client should then verify that the content has the same hash
-  @param contentHash Keccak256 hash of the content that is linked
-  @param author The public address of the author that is cryptographically approving this content
-  @param signature The signature of authors approval as per the signing procedure
-  @return Content ID of the newly published content
-
-  @dev See the signing procedure in the dev comments of the whole smart-contract
-  Emits `ContentPublished`, `ContentSigned` and `RevisionUpdated` events
-  */
-  function publishContentSigned(
-    string contentUri,
-    bytes32 contentHash,
-    address author,
-    bytes signature
-  ) external requireRole(ROLE_EDITOR) returns (uint)
-  {
-    uint contentId = publishContent(contentUri, contentHash);
-
-    SignedContent storage signData = signedContent[contentId];
-    signData.author = author;
-
-    pushSignature(signData, contentHash, signature);
-
-    emit ContentSigned(contentId, author);
-  }
-
-  /**
   @notice Updates the existing content with a new revision, the content id stays the same while revision id increases afterwards
   Requires that the content was first published
   This function can be only called by ROLE_EDITOR or the owner.
-  Can't be used for signed content.
+  The new revision can be left unsigned, even if the previous revisions were signed.
+  If the new revision is also signed, it has to be approved by the same author that has signed the first revision.
+  No signing can be done for articles that were published without any cryptographic author in the first place
+  @param signature Signature that cryptographically approves this revision. Empty if not approved
+  @return Newest revision id
 
-  @dev Emits `RevisionUpdated` event
+  @dev Emits `RevisionUpdated`  event
   */
-  function updateRevision(uint contentId, string contentUri, bytes32 contentHash) external requireRole(ROLE_EDITOR) {
-    require(!isSigned(contentId));
-    pushRevision(contentId, contentUri, contentHash);
+  function updateRevision(uint contentId, string contentUri, bytes32 contentHash, bytes signature) external requireRole(ROLE_EDITOR) {
+    pushRevision(contentId, contentUri, contentHash, signature);
   }
 
-  /**
-  @notice Updates the existing content with new revision, the content id stays the same while the revision id increases aftewards
-  Requires that the content was first published and signed.
-  This function can be only called by ROLE_EDITOR or the owner.
-  No new author is accepted as the revision needs to be pre-approved by the same author as the original published article
+  function verifyRevisionSignature(address author, Revision storage revision) view internal returns (bool isSigned) {
+    if (author == 0x0) {
+      require(revision.signature.length == 0);
+      return false;
+    } else {
+      bytes32 hashedMessage = keccak256(
+        address(this),
+        revision.contentHash
+      ).toEthSignedMessageHash();
 
-  @dev See the signing procedure in the dev comments of the whole smart-contract
-  Emits `RevisionUpdated` event
-  */
-  function updateRevisionSigned(
-    uint contentId,
-    string contentUri,
-    bytes32 contentHash,
-    bytes signature
-  ) external requireRole(ROLE_EDITOR)
-  {
-    require(isSigned(contentId));
-
-    pushSignature(signedContent[contentId], contentHash, signature);
-    pushRevision(contentId, contentUri, contentHash);
+      require(hashedMessage.recover(revision.signature) == author);
+      return true;
+    }
   }
 
-  function verifyRevisionSignature(bytes32 contentHash, address author, bytes signature) view internal {
-    require(author != 0x0);
-    bytes32 hashedMessage = keccak256(
-      address(this),
-      contentHash
-    ).toEthSignedMessageHash();
-
-    require(hashedMessage.recover(signature) == author);
-  }
-
-  function pushRevision(uint contentId, string contentUri, bytes32 contentHash) internal {
+  function pushRevision(uint contentId, string contentUri, bytes32 contentHash, bytes signature) internal returns (uint) {
     require(contentId < contentCount);
     require(bytes(contentUri).length > 0);
     require(contentHash != 0x0);
 
-    Revision[] storage revisions = content[contentId];
-    uint revisionId = revisions.length;
+    Content storage content = contents[contentId];
 
-    revisions.push(Revision(
+    uint revisionId = content.revisions.length;
+
+    content.revisions.push(Revision(
       contentHash,
       contentUri,
-      now
+      now,
+      signature
     ));
+
+    if (verifyRevisionSignature(content.author, content.revisions[revisionId])) {
+      emit RevisionSigned(contentId, revisionId, content.author);
+    }
 
     emit RevisionUpdated(msg.sender, contentId, revisionId, contentUri);
   }
 
-  function pushSignature(SignedContent storage signData, bytes32 contentHash, bytes signature) internal {
-    verifyRevisionSignature(contentHash, signData.author, signature);
-    signData.revisionSignatures.push(signature);
+  struct Content {
+    Revision[] revisions;
+    address author;
   }
 
   struct Revision {
     bytes32 contentHash;
     string uri;
     uint timestamp;
-  }
-
-  struct SignedContent {
-    address author;
-    bytes[] revisionSignatures;
+    bytes signature;
   }
 }
