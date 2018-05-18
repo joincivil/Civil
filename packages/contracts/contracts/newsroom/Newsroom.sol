@@ -143,6 +143,7 @@ contract Newsroom is ACL {
     uint contentId = contentCount;
     contentCount++;
 
+    require((author == 0x0 && signature.length == 0) || (author != 0x0 && signature.length != 0));
     contents[contentId].author = author;
     pushRevision(contentId, contentUri, contentHash, signature);
 
@@ -166,8 +167,35 @@ contract Newsroom is ACL {
     pushRevision(contentId, contentUri, contentHash, signature);
   }
 
+  /**
+  @notice Allows to backsign a revision by the author. This is indented when an author didn't have time to access
+  to their private key but after time they do.
+  The author must be the same as the one during publishing.
+  If there was no author during publishing this functions allows to update the 0x0 author to a real one.
+  Once done, the author can't be changed afterwards
+
+  @dev Emits `RevisionSigned` event
+  */
+  function signRevision(uint contentId, uint revisionId, address author, bytes signature) external requireRole(ROLE_EDITOR) {
+    require(contentId < contentCount);
+
+    Content storage content = contents[contentId];
+
+    require(content.author == 0x0 || content.author == author);
+    require(content.revisions.length > revisionId);
+
+    content.author = author;
+
+    Revision storage revision = content.revisions[revisionId];
+    revision.signature = signature;
+
+    require(verifyRevisionSignature(author, revision));
+
+    emit RevisionSigned(contentId, revisionId, author);
+  }
+
   function verifyRevisionSignature(address author, Revision storage revision) view internal returns (bool isSigned) {
-    if (author == 0x0) {
+    if (author == 0x0 || revision.signature.length == 0) {
       require(revision.signature.length == 0);
       return false;
     } else {
