@@ -4,12 +4,12 @@ import { Set } from "immutable";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
-import { State } from "../reducers";
+import { State } from "../../reducers";
 
 const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 100%
+  width: 80%
   color: black;
 `;
 

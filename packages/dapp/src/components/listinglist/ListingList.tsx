@@ -21,12 +21,14 @@ class ListingList extends React.Component<ListingListOwnProps> {
   }
 
   public render(): JSX.Element {
+    let index = 0;
     return (
       <StyledUl>
         {this.props.listings.map(l => {
+          index++;
           return (
             <li key={l}>
-              <ListingListItem listingAddress={l!} />
+              <ListingListItem listingAddress={l!} even={(index % 2 === 0)} />
             </li>
           );
         })}
