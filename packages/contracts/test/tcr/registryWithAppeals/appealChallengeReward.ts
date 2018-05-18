@@ -1,15 +1,11 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
 const expect = chai.expect;
 
-const Newsroom = artifacts.require("Newsroom");
 const PLCRVoting = artifacts.require("PLCRVoting");
-
-const NEWSROOM_NAME = "unused newsroom name";
 
 contract("Registry With Appeals", accounts => {
   describe("Function: determineAppealChallengeReward", () => {
@@ -26,7 +22,7 @@ contract("Registry With Appeals", accounts => {
       registry = await utils.createAllCivilTCRInstance(accounts, JAB);
       const votingAddress = await registry.voting();
       voting = await PLCRVoting.at(votingAddress);
-      testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
+      testNewsroom = await utils.createDummyNewsrom(applicant);
       newsroomAddress = testNewsroom.address;
     });
 
