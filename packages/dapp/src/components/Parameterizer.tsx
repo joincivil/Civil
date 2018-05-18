@@ -31,7 +31,7 @@ export interface ParameterizerProps {
 }
 
 export interface ParameterizerPageProps {
-  parameters: ParameterizerProps;
+  parameters: object;
 }
 
 class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any>> {
@@ -123,7 +123,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   }
 }
 
-const mapToStateToProps = (state: State, ownProps: ParameterizerPageProps): object => {
+const mapToStateToProps = (state: State): ParameterizerPageProps => {
   const { parameters } = state;
   return { parameters };
 };
