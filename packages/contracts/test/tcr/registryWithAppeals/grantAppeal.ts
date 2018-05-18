@@ -1,16 +1,12 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
 const expect = chai.expect;
 
-const Newsroom = artifacts.require("Newsroom");
 const PLCRVoting = artifacts.require("PLCRVoting");
-
-const NEWSROOM_NAME = "unused newsroom name";
 
 contract("Registry With Appeals", accounts => {
   describe("Function: grantAppeal", () => {
@@ -32,7 +28,7 @@ contract("Registry With Appeals", accounts => {
       let newsroomAddress: string;
 
       beforeEach(async () => {
-        testNewsroom = await Newsroom.new(NEWSROOM_NAME, { from: applicant });
+        testNewsroom = await utils.createDummyNewsrom(applicant);
         newsroomAddress = testNewsroom.address;
       });
 

@@ -1,9 +1,8 @@
+import { configureChai } from "@joincivil/dev-utils";
+import { DecodedLogEntry } from "@joincivil/typescript-types";
+import { isDeployedBytecodeEqual, promisify } from "@joincivil/utils";
 import * as chai from "chai";
 import * as Web3 from "web3";
-import { configureChai } from "@joincivil/dev-utils";
-import { promisify, isDeployedBytecodeEqual } from "@joincivil/utils";
-import { DecodedLogEntry } from "@joincivil/typescript-types";
-
 import { REVERTED } from "../utils/constants";
 
 const Newsroom = artifacts.require("Newsroom");
@@ -16,6 +15,8 @@ const expect = chai.expect;
 
 const CONTRACT_EVENT = "ContractInstantiation";
 const NEWSROOM_NAME = "Newsroom name";
+const SOME_URI = "http://someuri.com";
+const SOME_HASH = web3.sha3();
 
 function createdContract(factory: any, txReceipt: Web3.TransactionReceipt): string {
   const myLog = txReceipt.logs.find((log: any) => log.event === CONTRACT_EVENT && log.address === factory.address) as
@@ -46,7 +47,7 @@ contract("NewsroomFactory", accounts => {
     required: number = 1,
     name: string = NEWSROOM_NAME,
   ): Promise<{ newsroom: any; multisig: any }> {
-    const receipt = await instance.create(name, owners, required);
+    const receipt = await instance.create(name, SOME_URI, SOME_HASH, owners, required);
     return {
       newsroom: Newsroom.at(createdContract(instance, receipt)),
       multisig: MultiSigWallet.at(createdContract(multisigFactoryInstance, receipt)),
@@ -64,7 +65,12 @@ contract("NewsroomFactory", accounts => {
   it("creates a newsroom", async () => {
     const { newsroom } = await createNewsroom([owner]);
 
+    const [charterHash, charterUri] = await newsroom.getContent(0);
+
     await codeMatches(newsroom, Newsroom);
+
+    expect(charterHash).to.be.equal(SOME_HASH);
+    expect(charterUri).to.be.equal(SOME_URI);
   });
 
   it("creates a multisig", async () => {
@@ -117,10 +123,14 @@ contract("NewsroomFactory", accounts => {
   });
 
   it("doesn't allow empty names", async () => {
-    await expect(instance.create("", [owner], 1)).to.eventually.be.rejectedWith(REVERTED);
+    await expect(instance.create("", "somecontent.com", web3.sha3(), [owner], 1)).to.eventually.be.rejectedWith(
+      REVERTED,
+    );
   });
 
   it("checks required amount", async () => {
-    await expect(instance.create(NEWSROOM_NAME, [owner], 2)).to.eventually.be.rejectedWith(REVERTED);
+    await expect(
+      instance.create(NEWSROOM_NAME, "somecontent.com", web3.sha3(), [owner], 2),
+    ).to.eventually.be.rejectedWith(REVERTED);
   });
 });
