@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { Set } from "immutable";
+import ListingListItem from "./ListingListItem";
 
 const StyledUl = styled.ul`
   list-style: none;
@@ -11,11 +11,11 @@ const StyledUl = styled.ul`
   color: black;
 `;
 
-export interface ListingListProps {
+export interface ListingListOwnProps {
   listings: Set<string>;
 }
 
-class ListingList extends React.Component<ListingListProps> {
+class ListingList extends React.Component<ListingListOwnProps> {
   constructor(props: any) {
     super(props);
   }
@@ -24,10 +24,9 @@ class ListingList extends React.Component<ListingListProps> {
     return (
       <StyledUl>
         {this.props.listings.map(l => {
-          const listing = "/listing/" + l;
           return (
             <li key={l}>
-              <Link to={listing}>{l}</Link>
+              <ListingListItem listingAddress={l!} />
             </li>
           );
         })}

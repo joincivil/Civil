@@ -28,6 +28,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.requestAppealPhaseLength,
       parameterizerConfig.judgeAppealPhaseLength,
       parameterizerConfig.appealSupermajorityPercentage,
+      web3.sha3("Constitution: Be Bad."),
+      "http://madeupURL.com",
     );
   });
 };

@@ -1,6 +1,6 @@
 import { AppealData } from "../../types";
 import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage } from "./appealChallengeHelper";
-import { is0x0Address } from "../../contracts/utils/contracts";
+import { is0x0Address } from "@joincivil/utils";
 
 /**
  * Checks if an appeal can be resolved

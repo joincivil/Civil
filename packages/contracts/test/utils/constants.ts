@@ -4,8 +4,9 @@ export const events = {
   ACL_ROLE_REMOVED: "RoleRemoved",
   ACL_SUPERUSER_ADDDED: "SuperuserAdded",
   ACL_SUPERUSER_REMOVED: "SuperuserRemoved",
-  NEWSROOM_PUBLISHED: "RevisionPublished",
+  NEWSROOM_PUBLISHED: "ContentPublished",
   NEWSROOM_SIGNED: "RevisionSigned",
+  NEWSROOM_UPDATED: "RevisionUpdated",
   EVENTSTORAGE_STORED: "StringStored",
 };
 export const ACL_TEST_ROLE = "testrole";

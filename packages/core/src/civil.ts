@@ -8,6 +8,7 @@ import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { EthApi } from "./utils/ethapi";
 import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
+import { promisify } from "@joincivil/utils";
 import { FallbackProvider, EventStorageProvider } from ".";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
@@ -158,5 +159,10 @@ export class Civil {
   public async publishContent(content: string): Promise<Uri> {
     const { uri } = await this.contentProvider.put(content);
     return uri;
+  }
+
+  public async currentBlock(): Promise<number> {
+    const blockNumberPromise = promisify<number>(this.ethApi.web3.eth.getBlockNumber);
+    return blockNumberPromise();
   }
 }

@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import {
   listings,
+  histories,
   applications,
   whitelistedListings,
   readyToWhitelistListings,
@@ -15,12 +16,15 @@ import {
   rejectedListings,
 } from "./listings";
 import { parameters } from "./parameterizer";
+import { newsrooms } from "./newsrooms";
 import { user } from "./userAccount";
-import { Set } from "immutable";
-import { ListingWrapper } from "@joincivil/core";
+import { Set, List, Map } from "immutable";
+import { ListingWrapper, TimestampedEvent, NewsroomWrapper } from "@joincivil/core";
 
 export interface State {
+  newsrooms: Map<string, NewsroomWrapper>;
   listings: Map<string, ListingWrapper>;
+  histories: Map<string, List<TimestampedEvent<any>>>;
   applications: Set<string>;
   whitelistedListings: Set<string>;
   readyToWhitelistListings: Set<string>;
@@ -38,7 +42,9 @@ export interface State {
 }
 
 export default combineReducers({
+  newsrooms,
   listings,
+  histories,
   applications,
   whitelistedListings,
   readyToWhitelistListings,

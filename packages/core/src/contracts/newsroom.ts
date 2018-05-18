@@ -1,7 +1,14 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 // import "@joincivil/utils";
-import { prepareNewsroomMessage, hashContent, hashPersonalMessage, recoverSigner } from "@joincivil/utils";
+import {
+  prepareNewsroomMessage,
+  hashContent,
+  hashPersonalMessage,
+  recoverSigner,
+  is0x0Address,
+  is0x0Hash,
+} from "@joincivil/utils";
 
 import { ContentProvider } from "../content/contentprovider";
 import { CivilErrors, requireAccount } from "../utils/errors";
@@ -18,17 +25,14 @@ import {
   SignedContentHeader,
   BaseContentHeader,
   ApprovedRevision,
+  NewsroomWrapper,
+  NewsroomData,
 } from "../types";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 import { NewsroomFactoryContract, NewsroomFactory } from "./generated/wrappers/newsroom_factory";
-import {
-  createTwoStepTransaction,
-  createTwoStepSimple,
-  findEvents,
-  findEventOrThrow,
-  is0x0Address,
-} from "./utils/contracts";
+import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
+
 import { NewsroomContract, Newsroom as Events } from "./generated/wrappers/newsroom";
 
 /**
@@ -170,6 +174,32 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   //#endregion
 
   //#region views
+
+  /**
+   * Returns NewsroomWrapper (address + data) for this newsroom
+   */
+  public async getNewsroomWrapper(): Promise<NewsroomWrapper> {
+    const data = await this.getNewsroomData();
+    return {
+      address: this.instance.address,
+      data,
+    };
+  }
+
+  /**
+   * Returns NewsroomData for this newsroom
+   */
+  public async getNewsroomData(): Promise<NewsroomData> {
+    const name = await this.getName();
+    const owners = await this.owners();
+    const charter = await this.getCharter();
+    return {
+      name,
+      owners,
+      charter,
+    };
+  }
+
   /**
    * Returns a list of Board of Directors with superuser powers over this
    * newsroom.
@@ -235,14 +265,22 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Reporter);
   }
 
+  public async getCharter(): Promise<NewsroomContent | undefined> {
+    return this.loadArticle(0);
+  }
+
   /**
    * Loads everything concerning one article needed to read it fully.
    * Accesess both Ethereum network as well as the active ContentProvider
    * @param articleId Id of the article that you want to read
    */
-  public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent> {
+  public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent | undefined> {
     const header = await this.loadContentHeader(articleId);
-    return this.resolveContent(header);
+    if (!is0x0Hash(header.contentHash)) {
+      return this.resolveContent(header);
+    } else {
+      return undefined;
+    }
   }
 
   /**
