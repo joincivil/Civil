@@ -516,7 +516,7 @@ contract("Newsroom", (accounts: string[]) => {
 
       it("allows to backsign an unsigned revisision", async () => {
         console.log("hehehe");
-        await newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, "", {from: editor});
+        await newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, "", { from: editor });
 
         expect(await newsroom.isContentSigned(contentId)).to.be.false();
 
