@@ -28,7 +28,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
           index++;
           return (
             <li key={l}>
-              <ListingListItem listingAddress={l!} even={(index % 2 === 0)} />
+              <ListingListItem listingAddress={l!} even={index % 2 === 0} />
             </li>
           );
         })}

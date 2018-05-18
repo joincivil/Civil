@@ -27,10 +27,8 @@ class ListingListItemAction extends React.Component<ListingListItemOwnerProps> {
     const link = "/listing/" + address;
     return (
       <StyledDiv>
-        <SectionHeader>
-          ACTION
-        </SectionHeader>
-        <br/>
+        <SectionHeader>ACTION</SectionHeader>
+        <br />
         <Link to={link}>View Details ></Link>
       </StyledDiv>
     );

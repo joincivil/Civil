@@ -23,10 +23,8 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
 
     return (
       <StyledDiv>
-        <SectionHeader>
-          STATUS
-        </SectionHeader>
-        <br/>
+        <SectionHeader>STATUS</SectionHeader>
+        <br />
         {status}
       </StyledDiv>
     );

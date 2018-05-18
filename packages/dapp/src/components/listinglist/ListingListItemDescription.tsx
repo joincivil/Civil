@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
 const NewsroomName = styled.span`
   font-family: spectral;
   font-size: 24pt;
-`
+`;
 
 export interface ListingListItemDescriptionProps {
   listing: ListingWrapper;
@@ -36,13 +36,9 @@ class ListingListItemDescription extends React.Component<ListingListItemDescript
     const link = "/newsroom/" + address;
     return (
       <StyledDiv>
-        <NewsroomName>
-          {name}
-        </NewsroomName>
-        <br/>
-        <Link to={link}>
-          Go to Newsroom
-        </Link>
+        <NewsroomName>{name}</NewsroomName>
+        <br />
+        <Link to={link}>Go to Newsroom</Link>
       </StyledDiv>
     );
   }

@@ -25,10 +25,8 @@ class ListingListItemOwner extends React.Component<ListingListItemOwnerProps> {
     }
     return (
       <StyledDiv>
-        <SectionHeader>
-          OWNER
-        </SectionHeader>
-        <br/>
+        <SectionHeader>OWNER</SectionHeader>
+        <br />
         {owners}
       </StyledDiv>
     );
