@@ -55,8 +55,8 @@ export class Civil {
     this.contentProvider = new providerConstructor({ ethApi: this.ethApi });
   }
 
-  public toBigNumber(num: number): any {
-    return this.ethApi.web3.toBigNumber(num);
+  public toBigNumber(num: number | string): any {
+    return this.ethApi.toBigNumber(num);
   }
 
   /**
