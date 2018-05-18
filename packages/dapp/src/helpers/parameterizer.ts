@@ -1,8 +1,8 @@
-import { Dispatch } from "redux";
-import { setParameter } from "../actionCreators/parameterizer";
-import { getParameterValue } from "../apis/civilTCR";
+import { Dispatch } from "react-redux";
+import { multiSetParameters } from "../actionCreators/parameterizer";
+import { getParameterValues } from "../apis/civilTCR";
 
-export async function initializeParameterizer(dispatch: Dispatch): Promise<void> {
+export async function initializeParameterizer(dispatch: Dispatch<any>): Promise<void> {
   const paramKeys = [
     "minDeposit",
     "pMinDeposit",
@@ -21,8 +21,12 @@ export async function initializeParameterizer(dispatch: Dispatch): Promise<void>
     "challengeAppealCommitLen",
     "challengeAppealRevealLen",
   ];
-  await paramKeys.forEach(async paramKey => {
-    const paramVal = await getParameterValue(paramKey);
-    dispatch(setParameter(paramKey, paramVal));
-  });
+
+  const parameterVals = await getParameterValues(paramKeys);
+  const paramObj = parameterVals.reduce((acc, item, index) => {
+    acc[paramKeys[index]] = item.toString();
+    return acc;
+  }, {});
+
+  dispatch(multiSetParameters(paramObj));
 }
