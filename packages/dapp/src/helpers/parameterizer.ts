@@ -1,5 +1,5 @@
 import { Dispatch } from "react-redux";
-import { addProposal, multiSetParameters } from "../actionCreators/parameterizer";
+import { addOrUpdateProposal, multiSetParameters } from "../actionCreators/parameterizer";
 import { getParameterValues } from "../apis/civilTCR";
 import { getTCR } from "./civilInstance";
 import { Observable } from "rxjs";
@@ -47,7 +47,7 @@ export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>):
     const propValue = await parameterizer.getPropValue(propID);
     const propState = await parameterizer.getPropState(propID);
     dispatch(
-      addProposal({
+      addOrUpdateProposal({
         id: propID,
         paramName,
         propValue,

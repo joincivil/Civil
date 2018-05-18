@@ -47,6 +47,12 @@ export interface State {
   rejectedListings: Set<string>;
   user: { account: any };
   parameters: object;
+  proposals: Map<string, object>;
+  proposalApplications: Set<object>;
+  challengedCommitProposals: Set<object>;
+  challengedRevealProposals: Set<object>;
+  updateableProposals: Set<object>;
+  resolvableChallengedProposals: Set<object>;
 }
 
 export default combineReducers({

@@ -21,7 +21,7 @@ export const multiSetParameters = (paramsObj: object): AnyAction => {
   };
 };
 
-export const addProposal = (proposal: object): AnyAction => {
+export const addOrUpdateProposal = (proposal: object): AnyAction => {
   return {
     type: parameterizerActions.ADD_OR_UPDATE_PROPOSAL,
     proposal,
