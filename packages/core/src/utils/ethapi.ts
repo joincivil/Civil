@@ -139,6 +139,19 @@ export class EthApi {
   }
 
   /**
+   * Converts a given number into a BigNumber instance
+   * @param numberOrHexString
+   */
+  public toBigNumber(numberOrHexString: number | string): any {
+    // This is a proxy method, for web3.toBigNumber, that exists
+    // to ensure that we're creating instances of BigNumber that are
+    // compatible with the version of web3 we're currently using. We
+    // can likely get rid of this (or modify it) if/when we switch to
+    // Web3 1.0.0 (or another modern version)
+    return this.web3.toBigNumber(numberOrHexString);
+  }
+
+  /**
    * Awaits to confirm that the transaction was succesfull
    * @param txHash Transaction hash which will be checked
    * @param blockConfirmations Blockchain can get reorganized and the transaction can go to mempool,
