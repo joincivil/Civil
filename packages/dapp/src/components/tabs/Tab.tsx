@@ -12,12 +12,12 @@ const StyledLI = styled.li`
   cursor: pointer;
 `;
 
-export interface StyledAProps {
+export interface StyledSpanProps {
   active: boolean;
 }
 
-const StyledA = styled<StyledAProps, "span">("span")`
-  ${(props: StyledAProps): string => (props.active ? "text-decoration: underline" : "")};
+const StyledSpan = styled<StyledSpanProps, "span">("span")`
+  ${(props: StyledSpanProps): string => (props.active ? "text-decoration: underline" : "")};
 `;
 
 export interface TabProps {
@@ -29,16 +29,13 @@ export interface TabProps {
 
 export const Tab = (props: TabProps) => {
   return (
-    <StyledLI className="tab">
-      <StyledA
-        active={props.isActive ? true : false}
-        onClick={(event: any) => {
-          event.preventDefault();
-          props.onClick!(props.tabIndex!);
-        }}
-      >
-        {props.tabText}
-      </StyledA>
+    <StyledLI
+      onClick={(event: any) => {
+        event.preventDefault();
+        props.onClick!(props.tabIndex!);
+      }}
+    >
+      <StyledSpan active={props.isActive ? true : false}>{props.tabText}</StyledSpan>
     </StyledLI>
   );
 };
