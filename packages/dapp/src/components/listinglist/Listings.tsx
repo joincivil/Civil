@@ -70,7 +70,7 @@ class Listings extends React.Component<ListingProps> {
           </div>
         </Tab>
       </Tabs>
-    )
+    );
   }
 }
 
