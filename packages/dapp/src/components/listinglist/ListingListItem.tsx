@@ -15,6 +15,7 @@ export interface ListingListItemDivProps {
 const StyledDiv = styled.div`
   display: flex;
   height: 184px;
+  width: 100%;
   padding: 15px;
   background-color: ${(props: ListingListItemDivProps): string => (props.even ? "#F4F6FF" : "#FFFFFF")};
 `;

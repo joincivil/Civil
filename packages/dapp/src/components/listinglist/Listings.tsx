@@ -9,7 +9,7 @@ import { State } from "../../reducers";
 const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 80%
+  width: 100%
   color: black;
 `;
 
@@ -42,10 +42,10 @@ class Listings extends React.Component<ListingProps> {
         Ready to be Whitelisted:<br />
         <ListingList listings={this.props.readyToWhitelistListings} />
         <br />
-        In Challenge Vote-Commit Stage:<br />
+        In Challenge Vote-Commit:<br />
         <ListingList listings={this.props.inChallengeCommitListings} />
         <br />
-        In Challenge Vote-Reveal Stage:<br />
+        In Challenge Vote-Reveal:<br />
         <ListingList listings={this.props.inChallengeRevealListings} />
         <br />
         Awaiting Appeal Request:<br />
@@ -57,10 +57,10 @@ class Listings extends React.Component<ListingProps> {
         Awaiting Appeal Challenge:<br />
         <ListingList listings={this.props.awaitingAppealChallengeListings} />
         <br />
-        Appeal Challenge in Commit Phase:<br />
+        Appeal Challenge in Commit:<br />
         <ListingList listings={this.props.appealChallengeCommitPhaseListings} />
         <br />
-        Appeal Challenge in Reveal Phase:<br />
+        Appeal Challenge in Reveal:<br />
         <ListingList listings={this.props.appealChallengeRevealPhaseListings} />
         <br />
         Appeal Can Be Resolved:<br />

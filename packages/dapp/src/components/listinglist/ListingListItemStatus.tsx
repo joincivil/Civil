@@ -4,7 +4,6 @@ import { ListingWrapper } from "@joincivil/core";
 import { SectionHeader } from "./ListItemStyle";
 
 const StyledDiv = styled.div`
-  height: 100px;
   width: 18%;
   padding: 5px;
 `;

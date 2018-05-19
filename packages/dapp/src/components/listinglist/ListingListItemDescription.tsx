@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 
 const StyledDiv = styled.div`
-  height: 100px;
   width: 46%;
   padding: 5px;
 `;
