@@ -1,17 +1,11 @@
 import * as React from "react";
-import styled from "styled-components";
 import { Set } from "immutable";
+import { Tabs } from "../tabs/Tabs";
+import { Tab } from "../tabs/Tab";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%
-  color: black;
-`;
 
 export interface ListingProps {
   applications: Set<string>;
@@ -32,46 +26,51 @@ export interface ListingProps {
 class Listings extends React.Component<ListingProps> {
   public render(): JSX.Element {
     return (
-      <StyledDiv>
-        Whitelisted Newsrooms:<br />
-        <ListingList listings={this.props.whitelistedListings} />
-        <br />
-        Applications:<br />
-        <ListingList listings={this.props.applications} />
-        <br />
-        Ready to be Whitelisted:<br />
-        <ListingList listings={this.props.readyToWhitelistListings} />
-        <br />
-        In Challenge Vote-Commit:<br />
-        <ListingList listings={this.props.inChallengeCommitListings} />
-        <br />
-        In Challenge Vote-Reveal:<br />
-        <ListingList listings={this.props.inChallengeRevealListings} />
-        <br />
-        Awaiting Appeal Request:<br />
-        <ListingList listings={this.props.awaitingAppealRequestListings} />
-        <br />
-        Awaiting Appeal Judgment:<br />
-        <ListingList listings={this.props.awaitingAppealJudgmentListings} />
-        <br />
-        Awaiting Appeal Challenge:<br />
-        <ListingList listings={this.props.awaitingAppealChallengeListings} />
-        <br />
-        Appeal Challenge in Commit:<br />
-        <ListingList listings={this.props.appealChallengeCommitPhaseListings} />
-        <br />
-        Appeal Challenge in Reveal:<br />
-        <ListingList listings={this.props.appealChallengeRevealPhaseListings} />
-        <br />
-        Appeal Can Be Resolved:<br />
-        <ListingList listings={this.props.resolveAppealListings} />
-        <br />
-        Rejected Listings:<br />
-        <ListingList listings={this.props.rejectedListings} />
-        <br />
-        {this.props.error}
-      </StyledDiv>
-    );
+      <Tabs>
+        <Tab tabText={"WHITELISTED NEWSROOMS"}>
+          <div>
+            <ListingList listings={this.props.whitelistedListings} />
+          </div>
+        </Tab>
+        <Tab tabText={"NEWSROOMS UNDER CONSIDERATION"}>
+          <div>
+            Applications:<br />
+            <ListingList listings={this.props.applications} />
+            <br />
+            Ready to be Whitelisted:<br />
+            <ListingList listings={this.props.readyToWhitelistListings} />
+            <br />
+            In Challenge Vote-Commit:<br />
+            <ListingList listings={this.props.inChallengeCommitListings} />
+            <br />
+            In Challenge Vote-Reveal:<br />
+            <ListingList listings={this.props.inChallengeRevealListings} />
+            <br />
+            Awaiting Appeal Request:<br />
+            <ListingList listings={this.props.awaitingAppealRequestListings} />
+            <br />
+            Awaiting Appeal Judgment:<br />
+            <ListingList listings={this.props.awaitingAppealJudgmentListings} />
+            <br />
+            Awaiting Appeal Challenge:<br />
+            <ListingList listings={this.props.awaitingAppealChallengeListings} />
+            <br />
+            Appeal Challenge in Commit:<br />
+            <ListingList listings={this.props.appealChallengeCommitPhaseListings} />
+            <br />
+            Appeal Challenge in Reveal:<br />
+            <ListingList listings={this.props.appealChallengeRevealPhaseListings} />
+            <br />
+            Appeal Can Be Resolved:<br />
+            <ListingList listings={this.props.resolveAppealListings} />
+            <br />
+            Rejected Listings:<br />
+            <ListingList listings={this.props.rejectedListings} />
+            <br />
+          </div>
+        </Tab>
+      </Tabs>
+    )
   }
 }
 
