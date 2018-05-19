@@ -14,7 +14,7 @@ const StyledUl = styled.ul`
 
 const StyledLI = styled.li`
   width: 80%;
-`
+`;
 
 export interface ListingListOwnProps {
   listings: Set<string>;
@@ -33,7 +33,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
           index++;
           return (
             <StyledLI key={l}>
-              <ListingListItem listingAddress={l!} even={(index % 2 === 0)}/>
+              <ListingListItem listingAddress={l!} even={index % 2 === 0} />
             </StyledLI>
           );
         })}
