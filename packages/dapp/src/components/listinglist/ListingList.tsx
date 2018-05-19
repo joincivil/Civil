@@ -4,11 +4,16 @@ import { Set } from "immutable";
 import ListingListItem from "./ListingListItem";
 
 const StyledUl = styled.ul`
+  display: flex;
+  flex-direction: column;
   list-style: none;
-  padding: 0;
-  margin: 0;
   width: 100%
   color: black;
+  align-items: center;
+`;
+
+const StyledLI = styled.li`
+  width: 80%;
 `;
 
 export interface ListingListOwnProps {
@@ -21,13 +26,15 @@ class ListingList extends React.Component<ListingListOwnProps> {
   }
 
   public render(): JSX.Element {
+    let index = 0;
     return (
       <StyledUl>
         {this.props.listings.map(l => {
+          index++;
           return (
-            <li key={l}>
-              <ListingListItem listingAddress={l!} />
-            </li>
+            <StyledLI key={l}>
+              <ListingListItem listingAddress={l!} even={index % 2 === 0} />
+            </StyledLI>
           );
         })}
       </StyledUl>
