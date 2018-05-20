@@ -10,6 +10,7 @@ export interface NewsroomDetailState {
   editorAddress: string;
   reporterAddress: string;
   owners: string[];
+  multisig: string;
   editors: List<string>;
   reporters: List<string>;
   compositeSubscription: Subscription;
@@ -26,6 +27,7 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
       error: "",
       editorAddress: "",
       reporterAddress: "",
+      multisig: "",
       owners: [],
       editors: List<string>(),
       reporters: List<string>(),
@@ -50,11 +52,13 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
         <br />
         Name: {this.state.name}
         <br />
-        Owners: {this.state.owners}
+        Multisig: {this.state.multisig || "false"}
         <br />
-        Editors: {this.state.editors}
+        Owners: {this.state.owners.join(", ")}
         <br />
-        Reporters: {this.state.reporters}
+        Editors: {this.state.editors.join(", ")}
+        <br />
+        Reporters: {this.state.reporters.join(", ")}
         <br />
       </>
     );
@@ -64,6 +68,7 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
     const newsroom = await getNewsroom(this.props.address);
     if (newsroom) {
       this.setState({ name: await newsroom.getName() });
+      this.setState({ multisig: await newsroom.getMultisigAddress() });
       this.setState({ owners: await newsroom.owners() });
       this.state.compositeSubscription.add(
         newsroom
