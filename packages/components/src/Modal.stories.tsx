@@ -20,7 +20,12 @@ storiesOf("Modal", module).add("Modal", () => {
   return (
     <Container>
       <p>Some good stuff was already on the page which is pretty exciting</p>
-      <Modal><h3>Hello</h3><p>lorem ipsum whatever you know what i mean. It gets pretty long because thats more useful</p></Modal>
+      {process.env.NODE_ENV !== "test" && (
+        <Modal>
+          <h3>Hello</h3>
+          <p>lorem ipsum whatever you know what i mean. It gets pretty long because thats more useful</p>
+        </Modal>
+      )}
     </Container>
   );
 });
