@@ -34,6 +34,10 @@ contract("Newsroom", (accounts: string[]) => {
     newsroom = await Newsroom.new(FIRST_NEWSROOM_NAME, SOME_URI, SOME_HASH);
   });
 
+  it("allows for empty charter", async () => {
+    await expect(Newsroom.new(FIRST_NEWSROOM_NAME, "", "")).to.eventually.be.fulfilled();
+  });
+
   describe("publishContent", () => {
     it("forbids empty uris", async () => {
       await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
@@ -515,12 +519,9 @@ contract("Newsroom", (accounts: string[]) => {
       });
 
       it("allows to backsign an unsigned revisision", async () => {
-        console.log("hehehe");
         await newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, "", { from: editor });
 
         expect(await newsroom.isContentSigned(contentId)).to.be.false();
-
-        console.log("hehe");
 
         await newsroom.signRevision(contentId, 1, author, SIGNATURE);
 
