@@ -238,3 +238,11 @@ export async function challengeReparameterization(propID: string): Promise<TwoSt
   const parameterizer = await tcr.getParameterizer();
   return parameterizer.challengeReparameterization(propID);
 }
+
+export async function updateReparameterizationProp(propID: string): Promise<TwoStepEthTransaction | void> {
+  const tcr = getTCR();
+  const parameterizer = await tcr.getParameterizer();
+  return parameterizer.processProposal(propID);
+}
+
+export const resolveReparameterizationChallenge = updateReparameterizationProp;

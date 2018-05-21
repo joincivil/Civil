@@ -5,7 +5,12 @@ import { PageView, ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { Link } from "react-router-dom";
 import { ParamProposalState, TwoStepEthTransaction } from "@joincivil/core";
 import TransactionButton from "../utility/TransactionButton";
-import { approveForProposalChallenge, challengeReparameterization } from "../../apis/civilTCR";
+import {
+  approveForProposalChallenge,
+  challengeReparameterization,
+  updateReparameterizationProp,
+  resolveReparameterizationChallenge,
+} from "../../apis/civilTCR";
 import { StyledFormContainer, FormGroup } from "../utility/FormElements";
 import CommitVoteDetail from "../listing/CommitVoteDetail";
 import RevealVoteDetail from "../listing/RevealVoteDetail";
@@ -57,10 +62,9 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
       case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
         return this.renderRevealState();
       case ParamProposalState.READY_TO_PROCESS:
-        return this.renderCommitState();
-      // return <></>;
+        return this.renderUpdateParam();
       case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
-        return this.renderCommitState();
+        return this.renderResolveChallenge();
       // return <></>;
       default:
         return <></>;
@@ -81,6 +85,28 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
     );
   };
 
+  private renderUpdateParam = (): JSX.Element => {
+    return (
+      <StyledFormContainer>
+        <FormGroup>
+          <TransactionButton transactions={[{ transaction: this.updateProposal }]}>Update Parameter</TransactionButton>
+        </FormGroup>
+      </StyledFormContainer>
+    );
+  };
+
+  private renderResolveChallenge = (): JSX.Element => {
+    return (
+      <StyledFormContainer>
+        <FormGroup>
+          <TransactionButton transactions={[{ transaction: this.resolveChallenge }]}>
+            Resolve Challenge
+          </TransactionButton>
+        </FormGroup>
+      </StyledFormContainer>
+    );
+  };
+
   private renderCommitState = (): JSX.Element => {
     return <CommitVoteDetail challengeID={this.props.proposal.challengeID} />;
   };
@@ -91,6 +117,14 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
 
   private challengeProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
     return challengeReparameterization(this.props.proposal.id);
+  };
+
+  private updateProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    return updateReparameterizationProp(this.props.proposal.id);
+  };
+
+  private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    return resolveReparameterizationChallenge(this.props.proposal.id);
   };
 }
 
