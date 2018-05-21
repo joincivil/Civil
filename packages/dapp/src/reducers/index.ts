@@ -12,6 +12,7 @@ import {
   awaitingAppealChallengeListings,
   appealChallengeCommitPhaseListings,
   appealChallengeRevealPhaseListings,
+  resolveChallengeListings,
   resolveAppealListings,
   rejectedListings,
 } from "./listings";
@@ -35,6 +36,7 @@ export interface State {
   awaitingAppealChallengeListings: Set<string>;
   appealChallengeCommitPhaseListings: Set<string>;
   appealChallengeRevealPhaseListings: Set<string>;
+  resolveChallengeListings: Set<string>;
   resolveAppealListings: Set<string>;
   rejectedListings: Set<string>;
   user: { account: any };
@@ -55,6 +57,7 @@ export default combineReducers({
   awaitingAppealChallengeListings,
   appealChallengeCommitPhaseListings,
   appealChallengeRevealPhaseListings,
+  resolveChallengeListings,
   resolveAppealListings,
   rejectedListings,
   user,

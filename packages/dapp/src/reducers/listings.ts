@@ -12,6 +12,7 @@ import {
   isListingAwaitingAppealChallenge,
   isListingInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase,
+  canChallengeBeResolved,
   canListingAppealBeResolved,
   TimestampedEvent,
 } from "@joincivil/core";
@@ -169,6 +170,19 @@ export function appealChallengeRevealPhaseListings(state: Set<string> = Set<stri
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isInAppealChallengeRevealPhase(action.data.data)) {
+        return state.add(action.data.address);
+      } else {
+        return state.remove(action.data.address);
+      }
+    default:
+      return state;
+  }
+}
+
+export function resolveChallengeListings(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
+  switch (action.type) {
+    case listingActions.ADD_OR_UPDATE_LISTING:
+      if (canChallengeBeResolved(action.data.data)) {
         return state.add(action.data.address);
       } else {
         return state.remove(action.data.address);
