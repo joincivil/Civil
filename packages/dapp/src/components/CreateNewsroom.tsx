@@ -3,11 +3,14 @@ import TransactionButton from "./utility/TransactionButton";
 import { getCivil } from "../helpers/civilInstance";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { PageView, ViewModule, ViewModuleHeader } from "./utility/ViewModules";
+import { Modal, ModalHeader, ModalContent } from "@joincivil/components";
+import styled from "styled-components";
 
 export interface CreateNewsroomState {
   name: string;
   multisig: boolean;
   error: string;
+  modalOpen: boolean;
 }
 export interface CreateNewsroomProps {
   match: any;
@@ -21,6 +24,7 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
       name: "",
       multisig: false,
       error: "",
+      modalOpen: true,
     };
   }
 
@@ -40,6 +44,13 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
           <br />
           <input type="checkbox" checked={this.state.multisig} onChange={this.onMultisigChange} /> multisig
         </ViewModule>
+        <Modal>
+          <ModalHeader>Welcome</ModalHeader>
+          <ModalContent>Welcome to our newsroom setup guide</ModalContent>
+          <ModalContent>Here, you'll be going through the steps to set up your newsroom smart contract so that you can publish on Civil and make use of blockchain features such as permananet archiving.</ModalContent>
+          <ModalContent>You'll need to use either Chrome, Brave, or FireFox as your browser and have MetaMask installed. You'll also need the public keys (wallet addresses) of your newsroom co-owners and of your editors, as well as your newsroom charter.</ModalContent>
+          <ModalContent>If you're not sure about some of the above, don't worry, we'll point you to some resources. Let's go!</ModalContent>
+        </Modal>
       </PageView>
     );
   }
