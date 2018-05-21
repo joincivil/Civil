@@ -282,6 +282,16 @@ contract("Newsroom", (accounts: string[]) => {
           newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, editorSignature),
         ).to.eventually.be.rejectedWith(REVERTED);
       });
+
+      it("allows unsigned revisions", async () => {
+        expect(await newsroom.isContentSigned(contentId)).to.be.true();
+
+        await expect(newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, ""));
+
+        expect(await newsroom.isContentSigned(contentId)).to.be.false();
+        expect(await newsroom.isRevisionSigned(contentId, 0)).to.be.true();
+      });
+
       it("doesn't allow signing if the first revision was unsigned", async () => {
         const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, "", "", { from: editor });
         const event = findEvent(receipt, events.NEWSROOM_PUBLISHED);
@@ -433,6 +443,89 @@ contract("Newsroom", (accounts: string[]) => {
       const contentId = idFromEvent(receipt);
 
       await expect(newsroom.getRevision(contentId, 999)).to.eventually.be.rejectedWith(REVERTED);
+    });
+  });
+
+  describe("signRevision", () => {
+    let contentId: BigNumber;
+    let MESSAGE: string;
+    let SIGNATURE: string;
+
+    beforeEach(async () => {
+      MESSAGE = prepareNewsroomMessage(newsroom.address, SOME_HASH);
+      SIGNATURE = await signAsync(author, MESSAGE);
+      await newsroom.addRole(editor, NEWSROOM_ROLE_EDITOR);
+    });
+
+    describe("with no publishing author", () => {
+      beforeEach(async () => {
+        const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, "", "", { from: editor });
+        const event = findEvent(receipt, events.NEWSROOM_PUBLISHED);
+        expect(event).to.not.be.null();
+        contentId = event!.args.contentId;
+      });
+
+      it("doesn't allow to add signature with 0x0 author", async () => {
+        await expect(newsroom.signRevision(contentId, 0, "", SIGNATURE)).to.be.eventually.rejectedWith(REVERTED);
+      });
+
+      it("allows to update author", async () => {
+        const receipt = await newsroom.signRevision(contentId, 0, author, SIGNATURE);
+        const event = findEvent(receipt, events.NEWSROOM_SIGNED);
+
+        const [, , , newAuthor] = await newsroom.getContent(contentId);
+
+        expect(event).to.not.be.null();
+        expect(event!.args.contentId).to.be.bignumber.equal(contentId);
+        expect(event!.args.revisionId).to.be.bignumber.equal(0);
+        expect(event!.args.author).to.be.equal(author);
+
+        expect(newAuthor).to.be.equal(author);
+      });
+
+      it("requires proper signature", async () => {
+        const wrongSignature = await signAsync(editor, MESSAGE);
+
+        await expect(newsroom.signRevision(contentId, 0, author, wrongSignature)).to.eventually.be.rejectedWith(
+          REVERTED,
+        );
+      });
+
+      it("requires editor role", async () => {
+        await expect(
+          newsroom.signRevision(contentId, 0, author, SIGNATURE, { from: author }),
+        ).to.eventually.be.rejectedWith(REVERTED);
+      });
+    });
+
+    describe("with an existing author", () => {
+      beforeEach(async () => {
+        const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor });
+        const event = findEvent(receipt, events.NEWSROOM_PUBLISHED);
+        expect(event).to.not.be.null();
+        contentId = event!.args.contentId;
+      });
+
+      it("doesn't allow to add 0x0 author", async () => {
+        await expect(newsroom.signRevision(contentId, 0, "0x0", SIGNATURE)).to.eventually.be.rejectedWith(REVERTED);
+      });
+
+      it("doesn't allow to unsign revision", async () => {
+        await expect(newsroom.signRevision(contentId, 0, "0x0", "")).to.eventually.be.rejectedWith(REVERTED);
+      });
+
+      it("allows to backsign an unsigned revisision", async () => {
+        console.log("hehehe");
+        await newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, "", { from: editor });
+
+        expect(await newsroom.isContentSigned(contentId)).to.be.false();
+
+        console.log("hehe");
+
+        await newsroom.signRevision(contentId, 1, author, SIGNATURE);
+
+        expect(await newsroom.isContentSigned(contentId)).to.be.true();
+      });
     });
   });
 });
