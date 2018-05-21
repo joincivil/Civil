@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/tslint-rules",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Shared Typescript linter rules for all Civil packages",
   "main": "tslint.yaml",
   "license": "Apache-2.0",

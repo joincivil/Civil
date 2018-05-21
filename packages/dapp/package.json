@@ -1,12 +1,12 @@
 {
   "name": "@joincivil/dapp",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "homepage": "/",
   "private": true,
   "dependencies": {
-    "@joincivil/core": "^4.0.2",
-    "@joincivil/editor": "1.1.4",
-    "@joincivil/utils": "^1.1.4",
+    "@joincivil/core": "^4.0.3",
+    "@joincivil/editor": "^1.1.5",
+    "@joincivil/utils": "^1.1.5",
     "@types/highlight.js": "^9.12.2",
     "@types/react-redux": "^5.0.19",
     "@types/redux": "^3.6.0",
