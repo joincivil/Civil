@@ -8,6 +8,7 @@ import TransactionButton from "../utility/TransactionButton";
 import { approveForProposalChallenge, challengeReparameterization } from "../../apis/civilTCR";
 import { StyledFormContainer, FormGroup } from "../utility/FormElements";
 import CommitVoteDetail from "../listing/CommitVoteDetail";
+import RevealVoteDetail from "../listing/RevealVoteDetail";
 
 export interface ProposalPageProps {
   match: any;
@@ -38,7 +39,6 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
 
           {!this.props.proposal && this.renderProposalNotFound()}
         </ViewModule>
-
       </PageView>
     );
   }
@@ -55,14 +55,13 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
       case ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
         return this.renderCommitState();
       case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
-        return this.renderCommitState();
-        // return <></>;
+        return this.renderRevealState();
       case ParamProposalState.READY_TO_PROCESS:
         return this.renderCommitState();
-        // return <></>;
+      // return <></>;
       case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
         return this.renderCommitState();
-        // return <></>;
+      // return <></>;
       default:
         return <></>;
     }
@@ -83,9 +82,11 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   };
 
   private renderCommitState = (): JSX.Element => {
-    return (
-      <CommitVoteDetail challengeID={this.props.proposal.id} />
-    );
+    return <CommitVoteDetail challengeID={this.props.proposal.challengeID} />;
+  };
+
+  private renderRevealState = (): JSX.Element => {
+    return <RevealVoteDetail challengeID={this.props.proposal.challengeID} />;
   };
 
   private challengeProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
