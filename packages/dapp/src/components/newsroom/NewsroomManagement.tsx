@@ -48,15 +48,17 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           {this.state.error && <br />}
           <NewsroomDetail address={this.props.match.params.newsroomAddress} />
           ProposedArticleIds:
-          {this.state.proposedArticleIds.map(id => {
-            console.log("there is an article here");
-            const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
-            return (
-              <>
-                <Link to={articleAddress}>Article {id}</Link> <br />
-              </>
-            );
-          })}
+          <ul>
+            {this.state.proposedArticleIds.map(id => {
+              console.log("there is an article here");
+              const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
+              return (
+                <li key={id}>
+                  <Link to={articleAddress}>Article {id}</Link>
+                </li>
+              );
+            })}
+          </ul>
           <br />
           <input onChange={this.onEditorAddressChange} />
           <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
@@ -100,7 +102,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
 
   private submitArticle = async (): Promise<TwoStepEthTransaction> => {
     const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
-    return newsroomInstance.proposeUri(this.state.articleURL);
+    return newsroomInstance.publishRevision(this.state.articleURL);
   };
 
   private onEditorAddressChange = async (e: any) => {
