@@ -4,9 +4,16 @@
   "homepage": "/",
   "private": false,
   "dependencies": {
+<<<<<<< HEAD
     "@joincivil/core": "^4.0.4",
     "@joincivil/editor": "^1.1.6",
     "@joincivil/utils": "^1.1.6",
+=======
+    "@joincivil/components": "^1.0.3",
+    "@joincivil/core": "^4.0.2",
+    "@joincivil/editor": "1.1.4",
+    "@joincivil/utils": "^1.1.4",
+>>>>>>> WIP
     "@types/highlight.js": "^9.12.2",
     "@types/react-redux": "^5.0.19",
     "@types/redux": "^3.6.0",
@@ -30,7 +37,9 @@
     "styled-components": "^3.2.5"
   },
   "resolutions": {
-    "styled-components": "3.2.5"
+    "styled-components": "3.2.5",
+    "@types/react": "16.0.40",
+    "@types/react-dom": "16.0.4"
   },
   "scripts": {
     "start": "react-scripts-ts start",
