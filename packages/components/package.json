@@ -3,6 +3,7 @@
   "version": "1.0.3",
   "description": "React components for Civil",
   "main": "build/index.js",
+  "types": "build/src/index.d.ts",
   "license": "Apache-2.0",
   "jest": {
     "transform": {
@@ -28,7 +29,7 @@
     "prepublish": "run-s build",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o out",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "devDependencies": {
     "@storybook/addon-storyshots": "^3.3.14",

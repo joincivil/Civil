@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Dropdown Dropdown 1`] = `
+exports[`Storyshots Modal Modal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kGXeez fvHtEF",
+      "class": "sc-jzJRlG jJfxbJ",
     },
     "children": Array [
       Object {
@@ -14,14 +14,14 @@ initialize {
             "attribs": Object {},
             "children": Array [
               Object {
-                "data": "Click to Activate",
+                "data": "Some good stuff was already on the page which is pretty exciting",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
                 "type": "text",
               },
             ],
-            "name": "span",
+            "name": "p",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": null,
             "parent": [Circular],
