@@ -63,5 +63,5 @@ export function canResolveChallenge(challengeData: ChallengeData): boolean {
  * @param challengeData this ChallengeData to check
  */
 export function doesChallengeHaveAppeal(challengeData: ChallengeData): boolean {
-  return !challengeData.appeal || is0x0Address(challengeData!.appeal!.requester.toString());
+  return challengeData.appeal! && !is0x0Address(challengeData!.appeal!.requester.toString());
 }
