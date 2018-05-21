@@ -1,6 +1,15 @@
 import * as React from "react";
 import { Set } from "immutable";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const StyledUl = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%
+  color: black;
+`;
 
 export interface ProposalsListOwnProps {
   proposals: Set<any>;
@@ -39,7 +48,7 @@ class ProposalListItem extends React.Component<ProposalListItemOwnProps> {
     const link = "/listing/" + this.props.proposal.id;
     return (
       <Link to={link}>
-        {this.props.proposal.paramName!} - {this.props.proposal.propValue}
+        {this.props.proposal.paramName!} - {this.props.proposal.propValue.toString()}
       </Link>
     );
   }

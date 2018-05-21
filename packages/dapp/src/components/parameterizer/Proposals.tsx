@@ -1,26 +1,9 @@
 import * as React from "react";
-import styled from "styled-components";
 import { Set } from "immutable";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
-import { Link } from "react-router-dom";
 import { ProposalsList } from "./ProposalsList";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
-
-const StyledUl = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%
-  color: black;
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%
-  color: black;
-`;
 
 export interface ProposalsProps {
   proposalApplications: Set<object>;
@@ -35,6 +18,7 @@ class Proposals extends React.Component<ProposalsProps> {
   public render(): JSX.Element {
     return (
       <ViewModule>
+        <ViewModuleHeader>Parameterizer Proposals</ViewModuleHeader>
         Proposal Applications:<br />
         <ProposalsList proposals={this.props.proposalApplications} />
         <br />
