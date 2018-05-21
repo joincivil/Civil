@@ -184,7 +184,7 @@ contract Parameterizer {
     address propOwner = prop.owner;
     uint propDeposit = prop.deposit;
 
-    
+
     // Before any token transfers, deleting the proposal will ensure that if reentrancy occurs the
     // prop.owner and prop.deposit will be 0, thereby preventing theft
     if (canBeSet(_propID)) {
@@ -257,7 +257,7 @@ contract Parameterizer {
   @return             The uint indicating the voter's reward
   */
   function voterReward(address _voter, uint _challengeID, uint _salt)
-  public view returns (uint) 
+  public view returns (uint)
   {
     uint winningTokens = challenges[_challengeID].winningTokens;
     uint rewardPool = challenges[_challengeID].rewardPool;

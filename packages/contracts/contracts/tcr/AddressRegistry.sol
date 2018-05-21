@@ -267,7 +267,7 @@ contract AddressRegistry {
   // ----------------
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote. 
+  @notice Called by a voter to claim their reward for each completed vote.
   --------
   In order to claim reward for a challenge:
   1) Challenge must be resolved
@@ -283,7 +283,7 @@ contract AddressRegistry {
   }
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote. 
+  @notice Called by a voter to claim their reward for each completed vote.
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt        The salt of a voter's commit hash in the given poll
   */
@@ -295,7 +295,7 @@ contract AddressRegistry {
     uint voterTokens = 0;
     if (overturned) {
       voterTokens = voting.getNumLosingTokens(msg.sender, challengeID, salt);
-    } else { 
+    } else {
       voterTokens = voting.getNumPassingTokens(msg.sender, challengeID, salt);
     }
     uint reward = voterReward(msg.sender, challengeID, salt);
@@ -384,7 +384,7 @@ contract AddressRegistry {
   }
 
   /**
-  @notice Determines whether voting has concluded in a challenge for a given listingAddress.  
+  @notice Determines whether voting has concluded in a challenge for a given listingAddress.
   Reverts if no challenge exists.
   @param listingAddress A listingAddress with an unresolved challenge
   @return True if a challenge can be resolved, false otherwise
@@ -437,7 +437,7 @@ contract AddressRegistry {
 
   /**
   @notice Determines the winner in a challenge. Rewards the winner tokens and either whitelists or
-  de-whitelists the listingAddress. 
+  de-whitelists the listingAddress.
   @param listingAddress A listingAddress with a challenge that is to be resolved
   */
   function resolveChallenge(address listingAddress) internal {
@@ -471,7 +471,7 @@ contract AddressRegistry {
   }
 
   /**
-  @dev Called by `updateStatus()` if the applicationExpiry date passed without a challenge being made. 
+  @dev Called by `updateStatus()` if the applicationExpiry date passed without a challenge being made.
   Called by resolveChallenge() if an application/listing beat a challenge.
   @param listingAddress The listingAddress of an application/listing to be isWhitelist
   */
@@ -495,7 +495,7 @@ contract AddressRegistry {
     uint unstakedDeposit = listing.unstakedDeposit;
 
     delete listings[listingAddress];
-        
+
     // Transfers any remaining balance back to the owner
     if (unstakedDeposit > 0) {
       require(token.transfer(owner, unstakedDeposit));

@@ -415,7 +415,7 @@ contract PLCRVoting {
   @return the node which the propoded node should be inserted after
   */
   function getInsertPointForNumTokens(address _voter, uint _numTokens, uint _pollID)
-  constant public returns (uint prevNode) 
+  constant public returns (uint prevNode)
   {
     // Get the last node in the list and the number of tokens in that node
     uint nodeID = getLastNode(_voter);
@@ -431,7 +431,7 @@ contract PLCRVoting {
           nodeID = dllMap[_voter].getPrev(nodeID);
         }
         // Return the insert point
-        return nodeID; 
+        return nodeID;
       }
       // We did not find the insert point. Continue iterating backwards through the list
       nodeID = dllMap[_voter].getPrev(nodeID);
