@@ -97,7 +97,7 @@ contract MultiSigWallet {
     public
   {
     if (msg.value > 0) {
-      Deposit(msg.sender, msg.value);
+      emit Deposit(msg.sender, msg.value);
     }
   }
 
@@ -130,7 +130,7 @@ contract MultiSigWallet {
   {
     isOwner[owner] = true;
     owners.push(owner);
-    OwnerAddition(owner);
+    emit OwnerAddition(owner);
   }
 
   /// @dev Allows to remove an owner. Transaction has to be sent by wallet.
@@ -151,7 +151,7 @@ contract MultiSigWallet {
     if (required > owners.length) {
       changeRequirement(owners.length);
     }
-    OwnerRemoval(owner);
+    emit OwnerRemoval(owner);
   }
 
   /// @dev Allows to replace an owner with a new owner. Transaction has to be sent by wallet.
@@ -171,8 +171,8 @@ contract MultiSigWallet {
     }
     isOwner[owner] = false;
     isOwner[newOwner] = true;
-    OwnerRemoval(owner);
-    OwnerAddition(newOwner);
+    emit OwnerRemoval(owner);
+    emit OwnerAddition(newOwner);
   }
 
   /// @dev Allows to change the number of required confirmations. Transaction has to be sent by wallet.
@@ -183,7 +183,7 @@ contract MultiSigWallet {
     validRequirement(owners.length, newRequired)
   {
     required = newRequired;
-    RequirementChange(newRequired);
+    emit RequirementChange(newRequired);
   }
 
   /// @dev Allows an owner to submit and confirm a transaction.
@@ -208,7 +208,7 @@ contract MultiSigWallet {
     notConfirmed(transactionId, msg.sender)
   {
     confirmations[transactionId][msg.sender] = true;
-    Confirmation(msg.sender, transactionId);
+    emit Confirmation(msg.sender, transactionId);
     executeTransaction(transactionId);
   }
 
@@ -221,7 +221,7 @@ contract MultiSigWallet {
     notExecuted(transactionId)
   {
     confirmations[transactionId][msg.sender] = false;
-    Revocation(msg.sender, transactionId);
+    emit Revocation(msg.sender, transactionId);
   }
 
   /// @dev Allows anyone to execute a confirmed transaction.
@@ -237,9 +237,9 @@ contract MultiSigWallet {
       txn.executed = true;
       // solium-disable-next-line security/no-call-value
       if (txn.destination.call.value(txn.value)(txn.data)) {
-        Execution(transactionId);
+        emit Execution(transactionId);
       } else {
-        ExecutionFailure(transactionId);
+        emit ExecutionFailure(transactionId);
         txn.executed = false;
       }
     }
@@ -250,7 +250,7 @@ contract MultiSigWallet {
   /// @return Confirmation status.
   function isConfirmed(uint transactionId)
     public
-    constant
+    view
     returns (bool)
   {
     uint count = 0;
@@ -285,7 +285,7 @@ contract MultiSigWallet {
       executed: false
     });
     transactionCount += 1;
-    Submission(transactionId);
+    emit Submission(transactionId);
   }
 
   /*
@@ -296,7 +296,7 @@ contract MultiSigWallet {
   /// @return Number of confirmations.
   function getConfirmationCount(uint transactionId)
     public
-    constant
+    view
     returns (uint count)
   {
     for (uint i = 0; i < owners.length; i++) {
@@ -312,7 +312,7 @@ contract MultiSigWallet {
   /// @return Total number of transactions after filters are applied.
   function getTransactionCount(bool pending, bool executed)
     public
-    constant
+    view
     returns (uint count)
   {
     for (uint i = 0; i < transactionCount; i++) {
@@ -326,7 +326,7 @@ contract MultiSigWallet {
   /// @return List of owner addresses.
   function getOwners()
     public
-    constant
+    view
     returns (address[])
   {
     return owners;
@@ -337,7 +337,7 @@ contract MultiSigWallet {
   /// @return Returns array of owner addresses.
   function getConfirmations(uint transactionId)
     public
-    constant
+    view
     returns (address[] _confirmations)
   {
     address[] memory confirmationsTemp = new address[](owners.length);
@@ -363,7 +363,7 @@ contract MultiSigWallet {
   /// @return Returns array of transaction IDs.
   function getTransactionIds(uint from, uint to, bool pending, bool executed)
     public
-    constant
+    view
     returns (uint[] _transactionIds)
   {
     uint[] memory transactionIdsTemp = new uint[](transactionCount);

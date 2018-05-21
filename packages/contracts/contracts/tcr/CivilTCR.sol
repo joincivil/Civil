@@ -106,7 +106,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealPhaseExpiry = now + government.get("judgeAppealLen");
 
     require(token.transferFrom(msg.sender, this, appealFee));
-    _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender);
+    emit _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender);
   }
 
   // --------
@@ -136,7 +136,7 @@ contract CivilTCR is RestrictedAddressRegistry {
 
     appeal.appealGranted = true;
     appeal.appealOpenToChallengeExpiry = now + parameterizer.get("challengeAppealLen");
-    _AppealGranted(listingAddress, listing.challengeID);
+    emit _AppealGranted(listingAddress, listing.challengeID);
   }
 
   /**
@@ -148,7 +148,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function transferGovernment(address newAddress) external onlyGovernmentController {
     government = IGovernment(newAddress);
-    _GovernmentTransfered(newAddress);
+    emit _GovernmentTransfered(newAddress);
   }
 
   // --------
@@ -266,7 +266,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealChallengeID = pollID;
 
     require(token.transferFrom(msg.sender, this, appeal.appealFeePaid));
-    _GrantedAppealChallenged(listingAddress, listing.challengeID, pollID, data);
+    emit _GrantedAppealChallenged(listingAddress, listing.challengeID, pollID, data);
     return pollID;
   }
 
@@ -300,11 +300,11 @@ contract CivilTCR is RestrictedAddressRegistry {
       super.resolveChallenge(listingAddress);
       appeal.overturned = true;
       require(token.transfer(appealChallenge.challenger, reward));
-      _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
+      emit _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     } else { // Case: appeal challenge failed, don't overturn appeal
       resolveOverturnedChallenge(listingAddress);
       require(token.transfer(appeal.requester, reward));
-      _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
+      emit _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     }
   }
 
@@ -382,13 +382,13 @@ contract CivilTCR is RestrictedAddressRegistry {
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
 
-      _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
+      emit _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     } else { // original vote failed (challenge failed), this should de-list listing
       resetListing(listingAddress);
       // Transfer the reward to the challenger
       require(token.transfer(challenge.challenger, reward));
 
-      _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
+      emit _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     }
   }
 
