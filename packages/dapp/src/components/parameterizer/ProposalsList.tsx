@@ -45,7 +45,7 @@ class ProposalListItem extends React.Component<ProposalListItemOwnProps> {
   }
 
   public render(): JSX.Element {
-    const link = "/listing/" + this.props.proposal.id;
+    const link = "/parameterizer/proposal/" + this.props.proposal.id;
     return (
       <Link to={link}>
         {this.props.proposal.paramName!} - {this.props.proposal.propValue.toString()}
