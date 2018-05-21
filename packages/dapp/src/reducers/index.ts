@@ -15,6 +15,7 @@ import {
   resolveAppealListings,
   rejectedListings,
 } from "./listings";
+import { parameters } from "./parameterizer";
 import { newsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
@@ -37,6 +38,7 @@ export interface State {
   resolveAppealListings: Set<string>;
   rejectedListings: Set<string>;
   user: { account: any };
+  parameters: object;
 }
 
 export default combineReducers({
@@ -56,4 +58,5 @@ export default combineReducers({
   resolveAppealListings,
   rejectedListings,
   user,
+  parameters,
 });

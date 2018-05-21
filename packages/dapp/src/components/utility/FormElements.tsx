@@ -23,6 +23,13 @@ export interface InputElementProps {
   validate?(event: any): void;
 }
 
+export interface InputSelectElementProps {
+  options: string[];
+  name?: string;
+  value?: string;
+  onChange?(event: any): void;
+}
+
 export class InputElement extends React.Component<InputElementProps> {
   constructor(props: any) {
     super(props);
@@ -49,4 +56,41 @@ export class InputElement extends React.Component<InputElementProps> {
       this.props.validate(event);
     }
   };
+}
+
+export class InputSelectElement extends React.Component<InputSelectElementProps> {
+  constructor(props: any) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    return (
+      <select name={this.props.name} value={this.props.value} onChange={this.onChange}>
+        {this.props.options.map((option: string): JSX.Element => {
+          const optionData = [option, option];
+          return <InputSelectOptionElement option={optionData as [string, string]} key={option} />;
+        })}
+      </select>
+    );
+  }
+
+  private onChange = (event: any): void => {
+    if (this.props.onChange) {
+      this.props.onChange(event);
+    }
+  };
+}
+
+export interface InputElementOptionProps {
+  option: [string, string];
+}
+
+class InputSelectOptionElement extends React.Component<InputElementOptionProps> {
+  constructor(props: any) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    return <option value={this.props.option[1]}>{this.props.option[0]}</option>;
+  }
 }
