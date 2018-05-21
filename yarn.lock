@@ -12328,6 +12328,12 @@ stifle@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/stifle/-/stifle-1.0.4.tgz#8b3bcdf52419b0a9c79e35adadce50123c1d8e99"
 
+storybook-react-router@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/storybook-react-router/-/storybook-react-router-1.0.1.tgz#a33af1cb0c16f0e755f420296352c8f8709cb674"
+  dependencies:
+    prop-types "^15.6.1"
+
 stream-browserify@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-2.0.1.tgz#66266ee5f9bdb9940a4e4514cafb43bb71e5c9db"
