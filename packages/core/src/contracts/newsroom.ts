@@ -1,9 +1,31 @@
 // import "@joincivil/utils";
-import { hashContent, hashPersonalMessage, is0x0Address, is0x0Hash, prepareNewsroomMessage, recoverSigner } from "@joincivil/utils";
+import {
+  hashContent,
+  hashPersonalMessage,
+  is0x0Address,
+  is0x0Hash,
+  prepareNewsroomMessage,
+  recoverSigner,
+} from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import { ContentProvider } from "../content/contentprovider";
-import { ApprovedRevision, ContentId, EthAddress, EthContentHeader, Hex, NewsroomContent, NewsroomData, NewsroomRoles, NewsroomWrapper, RevisionId, StorageHeader, TwoStepEthTransaction, TxData, Uri } from "../types";
+import {
+  ApprovedRevision,
+  ContentId,
+  EthAddress,
+  EthContentHeader,
+  Hex,
+  NewsroomContent,
+  NewsroomData,
+  NewsroomRoles,
+  NewsroomWrapper,
+  RevisionId,
+  StorageHeader,
+  TwoStepEthTransaction,
+  TxData,
+  Uri,
+} from "../types";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { EthApi } from "../utils/ethapi";
 import { BaseWrapper } from "./basewrapper";
@@ -412,7 +434,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     signedData?: ApprovedRevision,
   ): Promise<TwoStepEthTransaction<RevisionId>> {
     await this.requireEditor();
-    const { storageHeader, , signature } = await this.uploadToStorage(content, signedData);
+    const { storageHeader, signature } = await this.uploadToStorage(content, signedData);
 
     return createTwoStepTransaction(
       this.ethApi,
