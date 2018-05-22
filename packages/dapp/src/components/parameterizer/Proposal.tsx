@@ -5,6 +5,7 @@ import { PageView, ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { Link } from "react-router-dom";
 import { ParamProposalState, TwoStepEthTransaction } from "@joincivil/core";
 import TransactionButton from "../utility/TransactionButton";
+import CountdownTimer from "../utility/CountdownTimer";
 import {
   approveForProposalChallenge,
   challengeReparameterization,
@@ -74,6 +75,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderCanBeChallenged = (): JSX.Element => {
     return (
       <StyledFormContainer>
+        Proposal Application Phase ends in <CountdownTimer endTime={this.props.proposal.applicationExpiry.toNumber()} />
         <FormGroup>
           <TransactionButton
             transactions={[{ transaction: approveForProposalChallenge }, { transaction: this.challengeProposal }]}
@@ -88,6 +90,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderUpdateParam = (): JSX.Element => {
     return (
       <StyledFormContainer>
+        Parameter Update Phase ends in <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.toNumber()} />
         <FormGroup>
           <TransactionButton transactions={[{ transaction: this.updateProposal }]}>Update Parameter</TransactionButton>
         </FormGroup>
@@ -98,6 +101,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderResolveChallenge = (): JSX.Element => {
     return (
       <StyledFormContainer>
+        Resolve Challenge Phase ends in <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.toNumber()} />
         <FormGroup>
           <TransactionButton transactions={[{ transaction: this.resolveChallenge }]}>
             Resolve Challenge
@@ -108,11 +112,23 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   };
 
   private renderCommitState = (): JSX.Element => {
-    return <CommitVoteDetail challengeID={this.props.proposal.challengeID} />;
+    return (
+      <>
+        Commit Vote Phase ends in{" "}
+        <CountdownTimer endTime={this.props.proposal.challenge.challengeCommitExpiry.toNumber()} />
+        <CommitVoteDetail challengeID={this.props.proposal.challenge.id} />
+      </>
+    );
   };
 
   private renderRevealState = (): JSX.Element => {
-    return <RevealVoteDetail challengeID={this.props.proposal.challengeID} />;
+    return (
+      <>
+        Reveal Vote Phase ends in{" "}
+        <CountdownTimer endTime={this.props.proposal.challenge.challengeRevealExpiry.toNumber()} />
+        <RevealVoteDetail challengeID={this.props.proposal.challenge.id} />
+      </>
+    );
   };
 
   private challengeProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
