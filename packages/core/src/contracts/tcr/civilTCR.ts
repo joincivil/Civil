@@ -22,7 +22,7 @@ import {
   canChallengeBeResolved,
   isAwaitingAppealJudgment,
   isListingAwaitingAppealChallenge,
-  isListingInAppealChallengeCommitPhase,
+  isInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase,
   canListingAppealBeResolved,
 } from "../../utils/listingDataHelpers/listingHelper";
@@ -309,7 +309,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isListingInAppealChallengeCommitPhase(l.data));
+      .concatFilter(l => isInAppealChallengeCommitPhase(l.data));
   }
 
   /**

@@ -1,7 +1,38 @@
 import { ListingData } from "../../types";
 import { isChallengeInCommitStage, isChallengeInRevealStage, canResolveChallenge } from "./challengeHelper";
 import { isAwaitingAppealChallenge, canAppealBeResolved } from "./appealHelper";
-import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage } from "./appealChallengeHelper";
+import {
+  isAppealChallengeInCommitStage,
+  isAppealChallengeInRevealStage,
+  canAppealChallengeBeResolved,
+} from "./appealChallengeHelper";
+import { is0x0Address } from "@joincivil/utils";
+
+/**
+ * Gets the next expiration timer for the given listing, return 0 if not in an expiration timer stage
+ * @param listing the ListingData to check
+ */
+export function getNextTimerExpiry(listing: ListingData): number {
+  if (isInApplicationPhase(listing)) {
+    return listing.appExpiry.toNumber();
+  } else if (isInChallengedCommitVotePhase(listing)) {
+    return listing.challenge!.poll.commitEndDate.toNumber();
+  } else if (isInChallengedRevealVotePhase(listing)) {
+    return listing.challenge!.poll.revealEndDate.toNumber();
+  } else if (isAwaitingAppealRequest(listing)) {
+    return listing.challenge!.requestAppealExpiry.toNumber();
+  } else if (isAwaitingAppealJudgment(listing)) {
+    return listing.challenge!.appeal!.appealPhaseExpiry.toNumber();
+  } else if (isListingAwaitingAppealChallenge(listing)) {
+    return listing.challenge!.appeal!.appealOpenToChallengeExpiry.toNumber();
+  } else if (isInAppealChallengeCommitPhase(listing)) {
+    return listing.challenge!.appeal!.appealChallenge!.poll.commitEndDate.toNumber();
+  } else if (isInAppealChallengeRevealPhase(listing)) {
+    return listing.challenge!.appeal!.appealChallenge!.poll.revealEndDate.toNumber();
+  }
+
+  return 0;
+}
 
 export function isWhitelisted(listingData: ListingData): boolean {
   return listingData.isWhitelisted;
@@ -93,7 +124,7 @@ export function isAwaitingAppealRequest(listingData: ListingData): boolean {
       return false;
     } else {
       const requestAppealExpiryDate = new Date(listingData.challenge.requestAppealExpiry.toNumber() * 1000);
-      return requestAppealExpiryDate > new Date();
+      return requestAppealExpiryDate > new Date() && is0x0Address(listingData.challenge!.appeal!.requester);
     }
   } else {
     return false;
@@ -150,7 +181,7 @@ export function isListingAwaitingAppealChallenge(listingData: ListingData): bool
  * Checks if a listing is in appeal challenged commit vote phase
  * @param listingData the ListingData to check
  */
-export function isListingInAppealChallengeCommitPhase(listingData: ListingData): boolean {
+export function isInAppealChallengeCommitPhase(listingData: ListingData): boolean {
   const challenge = listingData.challenge;
   if (challenge) {
     const appeal = challenge.appeal;
@@ -192,6 +223,21 @@ export function canListingAppealBeResolved(listingData: ListingData): boolean {
     const appeal = challenge.appeal;
     if (appeal) {
       return canAppealBeResolved(appeal);
+    }
+  }
+  return false;
+}
+
+/**
+ * Checks is a Listing has an appeal challenge that can be resolved
+ * @param listingData ListingData to check
+ */
+export function canListingAppealChallengeBeResolved(listingData: ListingData): boolean {
+  const challenge = listingData.challenge;
+  if (challenge) {
+    const appeal = challenge.appeal;
+    if (appeal && appeal.appealChallenge) {
+      return canAppealChallengeBeResolved(appeal.appealChallenge);
     }
   }
   return false;

@@ -55,7 +55,7 @@ const mapStateToProps = (
 
   return {
     newsroom: newsrooms.get(ownProps.listingAddress),
-    listing: listings.get(ownProps.listingAddress),
+    listing: listings.get(ownProps.listingAddress) ? listings.get(ownProps.listingAddress).listing : undefined,
     ...ownProps,
   };
 };
