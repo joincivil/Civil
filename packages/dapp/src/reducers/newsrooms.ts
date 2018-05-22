@@ -15,10 +15,7 @@ export function newsrooms(
   }
 }
 
-export function currentUserNewsrooms(
-  state: Set<string> = Set<string>(),
-  action: AnyAction,
-): Set<string> {
+export function currentUserNewsrooms(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {
     case newsroomActions.ADD_USER_NEWSROOM:
       return state.add(action.data);
