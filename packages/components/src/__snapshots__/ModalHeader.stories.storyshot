@@ -1,34 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Dropdown Dropdown 1`] = `
+exports[`Storyshots ModalHeader ModalHeader 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kGXeez fvHtEF",
+      "class": "sc-kgoBCf beOYFC",
     },
     "children": Array [
       Object {
         "attribs": Object {},
         "children": Array [
           Object {
-            "attribs": Object {},
+            "attribs": Object {
+              "class": "sc-chPdSV gHbFWC",
+            },
             "children": Array [
               Object {
-                "data": "Click to Activate",
+                "data": "I'm the header of a modal",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
                 "type": "text",
               },
             ],
-            "name": "span",
+            "name": "h2",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": null,
             "parent": [Circular],
             "prev": null,
             "type": "tag",
-            "x-attribsNamespace": Object {},
-            "x-attribsPrefix": Object {},
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
           },
         ],
         "name": "div",
