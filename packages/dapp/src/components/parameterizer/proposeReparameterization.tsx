@@ -23,7 +23,7 @@ export class ProposeReparameterization extends React.Component<
   constructor(props: any) {
     super(props);
     this.state = {
-      paramName: "",
+      paramName: this.props.paramKeys[0],
       newValue: "",
     };
   }
@@ -64,6 +64,15 @@ export class ProposeReparameterization extends React.Component<
     );
   }
 
+  public componentWillReceiveProps(nextProps: ProposeReparameterizationProps): void {
+    // Ensure that the initial `paramName` is set in state
+    // @TODO(jon): This may need to be changed to `getDerivedStateFromProps()` if we upgrade to React 17
+    // @TODO(jon): We might want to prepend the `paramKeys` select element with a placeholder option (ie: Please Select a Parameter) and add some form validation for `paramName` and `propValue`
+    if (!this.props.paramKeys || (!this.props.paramKeys.length && nextProps.paramKeys && nextProps.paramKeys.length)) {
+      this.setState({ paramName: nextProps.paramKeys[0] });
+    }
+  }
+
   private updateProposalState = (event: any): void => {
     const paramName = event.target.getAttribute("name");
     const val = event.target.value;
@@ -74,6 +83,9 @@ export class ProposeReparameterization extends React.Component<
 
   // @TODO(jon): This would probably be a nice place for a confirm dialog
   private proposeReparameterization = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    if (!this.state.paramName || !this.state.newValue.length) {
+      throw new Error("oops. the proposal is missing some key args.");
+    }
     const newValue: BigNumber = new BigNumber(this.state.newValue);
     return proposeReparameterization(this.state.paramName, newValue);
   };

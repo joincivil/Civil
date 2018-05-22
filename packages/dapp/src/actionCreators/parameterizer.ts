@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 
 export enum parameterizerActions {
+  ADD_OR_UPDATE_PROPOSAL = "ADD_OR_UPDATE_PROPOSAL",
   SET_PARAMETER = "SET_PARAMETER",
   MULTI_SET_PARAMETERS = "MULTI_SET_PARAMETERS",
 }
@@ -17,5 +18,12 @@ export const multiSetParameters = (paramsObj: object): AnyAction => {
   return {
     type: parameterizerActions.MULTI_SET_PARAMETERS,
     params: paramsObj,
+  };
+};
+
+export const addOrUpdateProposal = (proposal: object): AnyAction => {
+  return {
+    type: parameterizerActions.ADD_OR_UPDATE_PROPOSAL,
+    proposal,
   };
 };
