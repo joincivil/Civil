@@ -31,24 +31,25 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
         <ViewModule>
           <ViewModuleHeader>Create Newsroom</ViewModuleHeader>
           {this.state.error}
-          <input name="name" onChange={this.onChange} />
+          <input onChange={this.onNameChange} />
           <TransactionButton
             transactions={[{ transaction: this.createNewsroom, postTransaction: this.onNewsroomCreated }]}
           >
             Deploy Newsroom
           </TransactionButton>
           <br />
-          <input type="checkbox" name="multisig" checked={this.state.multisig} onChange={this.onChange} /> multisig
+          <input type="checkbox" checked={this.state.multisig} onChange={this.onMultisigChange} /> multisig
         </ViewModule>
       </PageView>
     );
   }
 
-  private onChange = (e: any) => {
-    const target = e.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    this.setState({ [name]: value });
+  private onNameChange = (e: any) => {
+    return this.setState({ name: e.target.value });
+  };
+
+  private onMultisigChange = (e: any) => {
+    return this.setState({ multisig: e.target.checked });
   };
 
   private createNewsroom = async (): Promise<TwoStepEthTransaction<any>> => {

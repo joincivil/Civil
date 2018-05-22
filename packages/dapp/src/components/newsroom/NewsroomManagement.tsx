@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import { Civil, NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
 import { List } from "immutable";
 import * as React from "react";
@@ -72,15 +73,15 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
             })}
           </ul>
           <br />
-          <input name="editorAddress" onChange={this.onChange} />
+          <input onChange={this.onEditorAddressChange} />
           <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
           <br />
-          <input name="articleURL" onChange={this.onChange} />
+          <input onChange={this.onArticleURLChange} />
           <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
           <br />
           {this.state.multisigAddr && (
             <>
-              <input name="numTokens" value={this.state.numTokens} onChange={this.onChange} />
+              <input value={this.state.numTokens} onChange={this.onNumTokensChange} />
               <TransactionButton
                 transactions={[
                   {
@@ -125,16 +126,17 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     this.props.history.push("/listing/" + this.props.match.params.newsroomAddress);
   };
 
-  private onChange = (e: any) => {
-    const target = e.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    this.setState({ [name]: value });
+  private onArticleURLChange = async (e: any) => {
+    return this.setState({ articleURL: e.target.value });
   };
 
   private submitArticle = async (): Promise<TwoStepEthTransaction> => {
     const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
     return newsroomInstance.publishRevision(this.state.articleURL);
+  };
+
+  private onEditorAddressChange = async (e: any) => {
+    return this.setState({ editorAddress: e.target.value });
   };
 
   private addEditor = async (): Promise<TwoStepEthTransaction> => {
@@ -144,6 +146,10 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   private addRole = async (role: NewsroomRoles): Promise<TwoStepEthTransaction> => {
     const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
     return newsroomInstance.addRole(this.state.editorAddress, role);
+  };
+
+  private onNumTokensChange = async (e: any) => {
+    return this.setState({ numTokens: e.target.value });
   };
 
   private sendTokenToMultisig = async (): Promise<TwoStepEthTransaction | void> => {
