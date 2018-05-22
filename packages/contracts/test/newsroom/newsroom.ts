@@ -39,11 +39,6 @@ contract("Newsroom", (accounts: string[]) => {
   });
 
   describe("publishContent", () => {
-    it("forbids empty uris", async () => {
-      await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
-      await expect(newsroom.publishContent("", SOME_HASH, "", "")).to.be.rejectedWith(REVERTED);
-    });
-
     it("finishes", async () => {
       await newsroom.addRole(defaultAccount, NEWSROOM_ROLE_EDITOR);
       await expect(newsroom.publishContent(SOME_URI, SOME_HASH, "", "")).to.eventually.be.fulfilled();
@@ -66,10 +61,6 @@ contract("Newsroom", (accounts: string[]) => {
 
       expect(uri).to.be.equal(SOME_URI);
       expect(hash).to.be.equal(`${SOME_HASH}`);
-    });
-
-    it("doesn't allow empty hash", async () => {
-      await expect(newsroom.publishContent(SOME_URI, "", "", "")).to.eventually.be.rejectedWith(REVERTED);
     });
 
     describe("with author signature", () => {
