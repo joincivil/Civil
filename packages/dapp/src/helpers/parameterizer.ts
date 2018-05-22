@@ -63,7 +63,7 @@ export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>):
           id: challengeID,
           challengeCommitExpiry,
           challengeRevealExpiry,
-        }
+        },
       }),
     );
   });
