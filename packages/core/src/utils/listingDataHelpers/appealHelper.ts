@@ -9,15 +9,18 @@ import { is0x0Address } from "@joincivil/utils";
 export function canAppealBeResolved(appealData: AppealData): boolean {
   if (is0x0Address(appealData.requester)) {
     return false;
-  } else if (appealData.appealChallenge) {
+  } else if (appealData.appealChallenge && !is0x0Address(appealData.appealChallenge.challenger)) {
     // appeal challenge voting must be over (meaning commit & reveal stages are done)
     const inCommit = isAppealChallengeInCommitStage(appealData.appealChallenge);
     const inReveal = isAppealChallengeInRevealStage(appealData.appealChallenge);
     return !inCommit && !inReveal;
-  } else {
+  } else if (appealData.appealGranted) {
     // appeal challenge request phase must be over
     const appealOpenToChallengeExpiryDate = new Date(appealData.appealOpenToChallengeExpiry.toNumber() * 1000);
     return appealOpenToChallengeExpiryDate < new Date();
+  } else {
+    const judgmentExpiry = new Date(appealData.appealPhaseExpiry.toNumber() * 1000);
+    return judgmentExpiry < new Date();
   }
 }
 

@@ -5,12 +5,13 @@ import {
   isInApplicationPhase,
   isWhitelisted,
   canBeWhitelisted,
+  getNextTimerExpiry,
   isInChallengedCommitVotePhase,
   isInChallengedRevealVotePhase,
   isAwaitingAppealRequest,
   isAwaitingAppealJudgment,
   isListingAwaitingAppealChallenge,
-  isListingInAppealChallengeCommitPhase,
+  isInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase,
   canChallengeBeResolved,
   canListingAppealBeResolved,
@@ -18,13 +19,19 @@ import {
 } from "@joincivil/core";
 import { listingActions } from "../actionCreators/listings";
 
+export interface ListingWrapperWithExpiry {
+  listing: ListingWrapper;
+  expiry: number;
+}
+
 export function listings(
-  state: Map<string, ListingWrapper> = Map<string, ListingWrapper>(),
+  state: Map<string, ListingWrapperWithExpiry> = Map<string, ListingWrapperWithExpiry>(),
   action: AnyAction,
-): Map<string, ListingWrapper> {
+): Map<string, ListingWrapperWithExpiry> {
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
-      return state.set(action.data.address, action.data);
+      const getNextExpiry = getNextTimerExpiry(action.data.data);
+      return state.set(action.data.address, { listing: action.data, expiry: getNextExpiry });
     default:
       return state;
   }
@@ -156,7 +163,7 @@ export function awaitingAppealChallengeListings(state: Set<string> = Set<string>
 export function appealChallengeCommitPhaseListings(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
-      if (isListingInAppealChallengeCommitPhase(action.data.data)) {
+      if (isInAppealChallengeCommitPhase(action.data.data)) {
         return state.add(action.data.address);
       } else {
         return state.remove(action.data.address);

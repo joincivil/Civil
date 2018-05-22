@@ -45,9 +45,10 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
 
 const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
   const { newsrooms, listings, user } = state;
+  const listing = ownProps.match.params.listing;
   return {
-    newsroom: newsrooms.get(ownProps.match.params.listing),
-    listing: listings.get(ownProps.match.params.listing),
+    newsroom: newsrooms.get(listing),
+    listing: listings.get(listing) ? listings.get(listing).listing : undefined,
     userAccount: user.account,
   };
 };
