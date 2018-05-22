@@ -27,9 +27,9 @@ class ListingListItemOwner extends React.Component<ListingListItemOwnerProps> {
       <StyledDiv>
         <SectionHeader>OWNER</SectionHeader>
         <br />
-        {owners.map(owner => {
+        {owners.map((owner, i) => {
           return (
-            <div key={owner + "" + this.props.newsroom.address}>
+            <div key={i}>
               <EllipsisText text={owner} length={12} />
               <br />
             </div>
