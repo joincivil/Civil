@@ -1,5 +1,5 @@
 import { ListingData } from "../../types";
-import { isChallengeInCommitStage, isChallengeInRevealStage } from "./challengeHelper";
+import { isChallengeInCommitStage, isChallengeInRevealStage, canResolveChallenge } from "./challengeHelper";
 import { isAwaitingAppealChallenge, canAppealBeResolved } from "./appealHelper";
 import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage } from "./appealChallengeHelper";
 
@@ -106,19 +106,7 @@ export function isAwaitingAppealRequest(listingData: ListingData): boolean {
  */
 export function canChallengeBeResolved(listingData: ListingData): boolean {
   const challenge = listingData.challenge;
-  if (challenge) {
-    if (challenge.appeal) {
-      return false;
-    } else {
-      return (
-        !isChallengeInCommitStage(challenge) &&
-        !isChallengeInRevealStage(challenge) &&
-        !isAwaitingAppealRequest(listingData)
-      );
-    }
-  } else {
-    return false;
-  }
+  return canResolveChallenge(challenge!);
 }
 
 /**
