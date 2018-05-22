@@ -10,6 +10,8 @@ import NewsroomDetail from "./NewsroomDetail";
 
 export interface NewsroomManagementState {
   newsroom: any;
+  multisigAddr: string;
+  multisigBalance: number;
   error: string;
   editorAddress: string;
   articleURL: string;
@@ -27,6 +29,8 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     super(props);
     this.state = {
       newsroom: null,
+      multisigAddr: "",
+      multisigBalance: 0,
       error: "",
       editorAddress: "",
       articleURL: "",
@@ -51,7 +55,12 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           <span style={{ color: "red"}}>{this.state.error}</span>
           {this.state.error && <><br /><br /></>}
 
-          <NewsroomDetail address={this.props.match.params.newsroomAddress} />
+          <NewsroomDetail
+            address={this.props.match.params.newsroomAddress}
+            multisigAddr={this.state.multisigAddr}
+            multisigBalance={this.state.multisigBalance}
+          />
+
           ProposedArticleIds:
           <ul>
             {this.state.proposedArticleIds.map(id => {
@@ -72,9 +81,16 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           <input name="articleURL" onChange={this.onChange} />
           <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
           <br />
-          <input name="numTokens" onChange={this.onChange} />
-          <TransactionButton transactions={[{ transaction: this.sendTokenToMultisig }]}>Send CVL to Multisig</TransactionButton>
-          <br />
+          {this.state.multisigAddr &&
+            <>
+              <input name="numTokens" value={this.state.numTokens} onChange={this.onChange} />
+              <TransactionButton transactions={[{
+                transaction: this.sendTokenToMultisig,
+                postTransaction: this.postSendToken,
+              }]}>Send CVL to Multisig</TransactionButton>
+              <br />
+            </>
+          }
           <br />
 
           <TransactionButton
@@ -135,24 +151,24 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       // TODO(tobek) returning leaves button in "waiting for transaction" state, should just do nothing
       return;
     }
-
-    if (! this.state.newsroom) {
-      this.setState({ error: "Newsroom not yet loaded" });
-      return;
-    }
-
-    const multisigAddress = await this.state.newsroom.getMultisigAddress();
-    if (! multisigAddress) {
-      this.setState({ error: "Newsroom is not a multisig newsroom" });
-      return;
-    }
-
     this.setState({ error: "" });
 
     const civil = new Civil();
     const tcr = civil.tcrSingletonTrusted();
     const token = await tcr.getToken();
-    return token.transfer(multisigAddress, new BigNumber(numTokens * 1e18));
+    return token.transfer(this.state.multisigAddr, new BigNumber(numTokens * 1e18));
+  };
+
+  private postSendToken = async () => {
+    const civil = new Civil();
+    const tcr = civil.tcrSingletonTrusted();
+    const token = await tcr.getToken();
+    const balance = await token.getBalance(this.state.multisigAddr);
+    this.setState({
+      multisigBalance: balance.toNumber(),
+      numTokens: "",
+    });
+    // TODO(tobek) should also update user's CVL balance in header nav
   };
 
   private initNewsroom = async () => {
@@ -167,6 +183,16 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
             this.setState({ proposedArticleIds: this.state.proposedArticleIds.push(contentHeader.id) }),
           ),
       );
+
+      const multisigAddr = await newsroom.getMultisigAddress();
+      this.setState({ multisigAddr });
+      if (multisigAddr) {
+        const civil = new Civil();
+        const tcr = civil.tcrSingletonTrusted();
+        const token = await tcr.getToken();
+        const balance = await token.getBalance(multisigAddr);
+        this.setState({ multisigBalance: balance.toNumber() });
+      }
     }
   };
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { List } from "immutable";
-import { Civil, EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/core";
 import { Subscription } from "rxjs";
 import { getNewsroom } from "../../apis/civilTCR";
 
@@ -10,14 +10,14 @@ export interface NewsroomDetailState {
   editorAddress: string;
   reporterAddress: string;
   owners: string[];
-  multisig: string;
-  multisigBalance: number;
   editors: List<string>;
   reporters: List<string>;
   compositeSubscription: Subscription;
 }
 export interface NewsroomDetailProps {
   address: EthAddress;
+  multisigAddr: string;
+  multisigBalance: number;
 }
 
 class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetailState> {
@@ -28,8 +28,6 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
       error: "",
       editorAddress: "",
       reporterAddress: "",
-      multisig: "",
-      multisigBalance: 0,
       owners: [],
       editors: List<string>(),
       reporters: List<string>(),
@@ -54,11 +52,11 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
         <br />
         Name: {this.state.name}
         <br />
-        Multisig: {this.state.multisig || "false"}
+        Multisig: {this.props.multisigAddr || "false"}
         <br />
-        {this.state.multisig &&
+        {this.props.multisigAddr &&
           <>
-            Multisig balance: {this.state.multisigBalance} CVL
+            Multisig balance: {this.props.multisigBalance / 1e18} CVL
             <br />
           </>
         }
@@ -76,7 +74,6 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
     const newsroom = await getNewsroom(this.props.address);
     if (newsroom) {
       this.setState({ name: await newsroom.getName() });
-      this.setState({ multisig: await newsroom.getMultisigAddress() });
       this.setState({ owners: await newsroom.owners() });
       this.state.compositeSubscription.add(
         newsroom
@@ -90,14 +87,6 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
           .distinct()
           .subscribe((addr: any) => this.setState({ reporters: this.state.reporters.push(addr) })),
       );
-
-      if (this.state.multisig) {
-        const civil = new Civil();
-        const tcr = civil.tcrSingletonTrusted();
-        const token = await tcr.getToken();
-        const balance = await token.getBalance(this.state.multisig);
-        this.setState({ multisigBalance: balance.toNumber() / 1e18 });
-      }
     }
   };
 }
