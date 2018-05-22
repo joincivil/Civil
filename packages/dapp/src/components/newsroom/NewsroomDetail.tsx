@@ -54,12 +54,12 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
         <br />
         Multisig: {this.props.multisigAddr || "false"}
         <br />
-        {this.props.multisigAddr &&
+        {this.props.multisigAddr && (
           <>
             Multisig balance: {this.props.multisigBalance / 1e18} CVL
             <br />
           </>
-        }
+        )}
         Owners: {this.state.owners.join(", ")}
         <br />
         Editors: {this.state.editors.join(", ")}

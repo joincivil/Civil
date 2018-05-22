@@ -52,15 +52,13 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     return (
       <PageView>
         <ViewModule>
-          <span style={{ color: "red"}}>{this.state.error}</span>
-          {this.state.error && <><br /><br /></>}
-
+          <span style={{ color: "red" }}>{this.state.error}</span>
+          {this.state.error && <br />}
           <NewsroomDetail
             address={this.props.match.params.newsroomAddress}
             multisigAddr={this.state.multisigAddr}
             multisigBalance={this.state.multisigBalance}
           />
-
           ProposedArticleIds:
           <ul>
             {this.state.proposedArticleIds.map(id => {
@@ -74,25 +72,29 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
             })}
           </ul>
           <br />
-
           <input name="editorAddress" onChange={this.onChange} />
           <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
           <br />
           <input name="articleURL" onChange={this.onChange} />
           <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
           <br />
-          {this.state.multisigAddr &&
+          {this.state.multisigAddr && (
             <>
               <input name="numTokens" value={this.state.numTokens} onChange={this.onChange} />
-              <TransactionButton transactions={[{
-                transaction: this.sendTokenToMultisig,
-                postTransaction: this.postSendToken,
-              }]}>Send CVL to Multisig</TransactionButton>
+              <TransactionButton
+                transactions={[
+                  {
+                    transaction: this.sendTokenToMultisig,
+                    postTransaction: this.postSendToken,
+                  },
+                ]}
+              >
+                Send CVL to Multisig
+              </TransactionButton>
               <br />
             </>
-          }
+          )}
           <br />
-
           <TransactionButton
             transactions={[
               {
@@ -146,7 +148,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
 
   private sendTokenToMultisig = async (): Promise<TwoStepEthTransaction | void> => {
     const numTokens = parseInt(this.state.numTokens, 10);
-    if (! numTokens || isNaN(numTokens)) {
+    if (!numTokens || isNaN(numTokens)) {
       this.setState({ error: "Please enter a valid number of tokens" });
       // TODO(tobek) returning leaves button in "waiting for transaction" state, should just do nothing
       return;
