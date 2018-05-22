@@ -12,7 +12,7 @@ import CreateNewsroom from "./CreateNewsroom";
 import Article from "./Article";
 import { getCivil } from "../helpers/civilInstance";
 import { initializeSubscriptions } from "../helpers/listingEvents";
-import { initializeParameterizer } from "../helpers/parameterizer";
+import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { addUser } from "../actionCreators/userAccount";
 import { connect, DispatchProp } from "react-redux";
 
@@ -21,6 +21,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     const civil = getCivil();
     this.props.dispatch!(addUser(civil.userAccount));
     await initializeParameterizer(this.props.dispatch!);
+    await initializeProposalsSubscriptions(this.props.dispatch!);
     await initializeSubscriptions(this.props.dispatch!);
   }
 

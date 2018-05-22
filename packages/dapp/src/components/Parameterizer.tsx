@@ -5,6 +5,7 @@ import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "bignumber.js";
 import { PageView, ViewModule, ViewModuleHeader } from "./utility/ViewModules";
 import { ProposeReparameterization } from "./parameterizer/proposeReparameterization";
+import Proposals from "./parameterizer/Proposals";
 
 const StyledSpan = styled.span`
   font-weight: bold;
@@ -118,6 +119,8 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
           paramKeys={Object.keys(this.props.parameters)}
           pMinDeposit={this.props.parameters.pMinDeposit && this.props.parameters.pMinDeposit.toString()}
         />
+
+        <Proposals />
       </PageView>
     );
   }
