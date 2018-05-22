@@ -1,4 +1,4 @@
-import { NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
+import { Civil, NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
 import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
@@ -9,9 +9,11 @@ import { PageView, ViewModule } from "../utility/ViewModules";
 import NewsroomDetail from "./NewsroomDetail";
 
 export interface NewsroomManagementState {
+  newsroom: any;
   error: string;
   editorAddress: string;
   articleURL: string;
+  numTokens: string;
   proposedArticleIds: List<string>;
   compositeSubscription: Subscription;
 }
@@ -24,9 +26,11 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   constructor(props: NewsroomManagementProps) {
     super(props);
     this.state = {
+      newsroom: null,
       error: "",
       editorAddress: "",
       articleURL: "",
+      numTokens: "",
       proposedArticleIds: List<string>(),
       compositeSubscription: new Subscription(),
     };
@@ -44,8 +48,9 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     return (
       <PageView>
         <ViewModule>
-          {this.state.error}
-          {this.state.error && <br />}
+          <span style={{ color: "red"}}>{this.state.error}</span>
+          {this.state.error && <><br /><br /></>}
+
           <NewsroomDetail address={this.props.match.params.newsroomAddress} />
           ProposedArticleIds:
           <ul>
@@ -60,12 +65,18 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
             })}
           </ul>
           <br />
-          <input onChange={this.onEditorAddressChange} />
+
+          <input name="editorAddress" onChange={this.onChange} />
           <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
           <br />
-          <input onChange={this.onArticleURLChange} />
+          <input name="articleURL" onChange={this.onChange} />
           <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
           <br />
+          <input name="numTokens" onChange={this.onChange} />
+          <TransactionButton transactions={[{ transaction: this.sendTokenToMultisig }]}>Send CVL to Multisig</TransactionButton>
+          <br />
+          <br />
+
           <TransactionButton
             transactions={[
               {
@@ -96,17 +107,16 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     this.props.history.push("/listing/" + this.props.match.params.newsroomAddress);
   };
 
-  private onArticleURLChange = async (e: any) => {
-    return this.setState({ articleURL: e.target.value });
+  private onChange = (e: any) => {
+    const target = e.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    this.setState({ [name]: value });
   };
 
   private submitArticle = async (): Promise<TwoStepEthTransaction> => {
     const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
     return newsroomInstance.publishRevision(this.state.articleURL);
-  };
-
-  private onEditorAddressChange = async (e: any) => {
-    return this.setState({ editorAddress: e.target.value });
   };
 
   private addEditor = async (): Promise<TwoStepEthTransaction> => {
@@ -118,8 +128,36 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     return newsroomInstance.addRole(this.state.editorAddress, role);
   };
 
+  private sendTokenToMultisig = async (): Promise<TwoStepEthTransaction | void> => {
+    const numTokens = parseInt(this.state.numTokens, 10);
+    if (! numTokens || isNaN(numTokens)) {
+      this.setState({ error: "Please enter a valid number of tokens" });
+      // TODO(tobek) returning leaves button in "waiting for transaction" state, should just do nothing
+      return;
+    }
+
+    if (! this.state.newsroom) {
+      this.setState({ error: "Newsroom not yet loaded" });
+      return;
+    }
+
+    const multisigAddress = await this.state.newsroom.getMultisigAddress();
+    if (! multisigAddress) {
+      this.setState({ error: "Newsroom is not a multisig newsroom" });
+      return;
+    }
+
+    this.setState({ error: "" });
+
+    const civil = new Civil();
+    const tcr = civil.tcrSingletonTrusted();
+    const token = await tcr.getToken();
+    return token.transfer(multisigAddress, new BigNumber(numTokens * 1e18));
+  };
+
   private initNewsroom = async () => {
     const newsroom = await getNewsroom(this.props.match.params.newsroomAddress);
+    this.setState({ newsroom });
     if (newsroom) {
       console.log("lets get name.");
       this.state.compositeSubscription.add(

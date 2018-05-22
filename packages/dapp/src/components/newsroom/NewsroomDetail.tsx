@@ -11,7 +11,7 @@ export interface NewsroomDetailState {
   reporterAddress: string;
   owners: string[];
   multisig: string;
-  multisigBalance: string;
+  multisigBalance: number;
   editors: List<string>;
   reporters: List<string>;
   compositeSubscription: Subscription;
@@ -29,7 +29,7 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
       editorAddress: "",
       reporterAddress: "",
       multisig: "",
-      multisigBalance: "",
+      multisigBalance: 0,
       owners: [],
       editors: List<string>(),
       reporters: List<string>(),
@@ -96,7 +96,7 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
         const tcr = civil.tcrSingletonTrusted();
         const token = await tcr.getToken();
         const balance = await token.getBalance(this.state.multisig);
-        this.setState({ multisigBalance: balance.toString() });
+        this.setState({ multisigBalance: balance.toNumber() / 1e18 });
       }
     }
   };
