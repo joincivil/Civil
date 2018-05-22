@@ -11,6 +11,7 @@ import ListingsInProgress from "./ListingsInProgress";
 export interface ListingProps {
   whitelistedListings: Set<string>;
   rejectedListings: Set<string>;
+  currentUserNewsrooms: Set<string>;
   error: undefined | string;
 }
 
@@ -27,17 +28,21 @@ class Listings extends React.Component<ListingProps> {
         <Tab tabText={"REJECTED NEWSROOMS"}>
           <ListingList listings={this.props.rejectedListings} />
         </Tab>
+        <Tab tabText={"MY NEWSROOMS"}>
+          <ListingList listings={this.props.currentUserNewsrooms} />
+        </Tab>
       </Tabs>
     );
   }
 }
 
 const mapStateToProps = (state: State): ListingProps => {
-  const { whitelistedListings, rejectedListings } = state;
+  const { whitelistedListings, rejectedListings, currentUserNewsrooms } = state;
 
   return {
     whitelistedListings,
     rejectedListings,
+    currentUserNewsrooms,
     error: undefined,
   };
 };
