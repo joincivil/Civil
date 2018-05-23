@@ -43,31 +43,33 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
   }
 
   private renderStatus = (): JSX.Element => {
-    const listingData = this.props.listing.data;
-    if (isInApplicationPhase(listingData)) {
-      return this.renderApplicationStatus();
-    } else if (canBeWhitelisted(listingData)) {
-      return this.renderCanWhitelist();
-    } else if (isInChallengedCommitVotePhase(listingData)) {
-      return this.renderChallengeCommitPhase();
-    } else if (isInChallengedRevealVotePhase(listingData)) {
-      return this.renderChallengeRevealPhase();
-    } else if (isAwaitingAppealRequest(listingData)) {
-      return this.renderAwaitingAppealRequest();
-    } else if (canChallengeBeResolved(listingData)) {
-      return this.renderChallengeCanBeResolved();
-    } else if (isAwaitingAppealJudgment(listingData)) {
-      return this.renderAwaitingAppealJudgement();
-    } else if (isListingAwaitingAppealChallenge(listingData)) {
-      return this.renderAwaitingAppealChallenge();
-    } else if (canListingAppealBeResolved(listingData)) {
-      return this.renderAppealCanBeResolved();
-    } else if (isInAppealChallengeCommitPhase(listingData)) {
-      return this.renderAppealChallengeCommitPhase();
-    } else if (isInAppealChallengeRevealPhase(listingData)) {
-      return this.renderAppealChallengeRevealPhase();
-    } else if (canListingAppealChallengeBeResolved(listingData)) {
-      return this.renderAppealChallengeCanBeResolved();
+    if (this.props.listing) {
+      const listingData = this.props.listing.data;
+      if (isInApplicationPhase(listingData)) {
+        return this.renderApplicationStatus();
+      } else if (canBeWhitelisted(listingData)) {
+        return this.renderCanWhitelist();
+      } else if (isInChallengedCommitVotePhase(listingData)) {
+        return this.renderChallengeCommitPhase();
+      } else if (isInChallengedRevealVotePhase(listingData)) {
+        return this.renderChallengeRevealPhase();
+      } else if (isAwaitingAppealRequest(listingData)) {
+        return this.renderAwaitingAppealRequest();
+      } else if (canChallengeBeResolved(listingData)) {
+        return this.renderChallengeCanBeResolved();
+      } else if (isAwaitingAppealJudgment(listingData)) {
+        return this.renderAwaitingAppealJudgement();
+      } else if (isListingAwaitingAppealChallenge(listingData)) {
+        return this.renderAwaitingAppealChallenge();
+      } else if (canListingAppealBeResolved(listingData)) {
+        return this.renderAppealCanBeResolved();
+      } else if (isInAppealChallengeCommitPhase(listingData)) {
+        return this.renderAppealChallengeCommitPhase();
+      } else if (isInAppealChallengeRevealPhase(listingData)) {
+        return this.renderAppealChallengeRevealPhase();
+      } else if (canListingAppealChallengeBeResolved(listingData)) {
+        return this.renderAppealChallengeCanBeResolved();
+      }
     }
     return <>none</>;
   };

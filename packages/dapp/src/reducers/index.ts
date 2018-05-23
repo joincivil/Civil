@@ -26,13 +26,14 @@ import {
   updateableProposals,
   resolvableChallengedProposals,
 } from "./parameterizer";
-import { newsrooms } from "./newsrooms";
+import { newsrooms, currentUserNewsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
 import { TimestampedEvent, NewsroomWrapper } from "@joincivil/core";
 
 export interface State {
   newsrooms: Map<string, NewsroomWrapper>;
+  currentUserNewsrooms: Set<string>;
   listings: Map<string, ListingWrapperWithExpiry>;
   histories: Map<string, List<TimestampedEvent<any>>>;
   applications: Set<string>;
@@ -60,6 +61,7 @@ export interface State {
 
 export default combineReducers({
   newsrooms,
+  currentUserNewsrooms,
   listings,
   histories,
   applications,

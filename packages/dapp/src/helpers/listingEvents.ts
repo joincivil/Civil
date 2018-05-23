@@ -1,7 +1,7 @@
 import { Dispatch } from "react-redux";
 import { getTCR, getCivil } from "./civilInstance";
 import { addListing } from "../actionCreators/listings";
-import { addNewsroom } from "../actionCreators/newsrooms";
+import { addNewsroom, addUserNewsroom } from "../actionCreators/newsrooms";
 import { EthAddress, ListingWrapper, getNextTimerExpiry } from "@joincivil/core";
 import { Observable } from "rxjs";
 
@@ -24,9 +24,13 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
 
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
   const civil = getCivil();
+  const user = civil.userAccount;
   const newsroom = await civil.newsroomAtUntrusted(address);
   const newsroomWrapper = await newsroom.getNewsroomWrapper();
   dispatch(addNewsroom(newsroomWrapper));
+  if (user && newsroomWrapper.data.owners.includes(user)) {
+    dispatch(addUserNewsroom(address));
+  }
 }
 
 function setupListingCallback(listing: ListingWrapper, dispatch: Dispatch<any>): void {
