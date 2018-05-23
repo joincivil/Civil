@@ -74,13 +74,6 @@
     normalize-path "^2.0.1"
     through2 "^2.0.3"
 
-"@joincivil/components@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@joincivil/components/-/components-1.0.3.tgz#465d33aecd515eaf151330c6139701d7dddc2e8b"
-  dependencies:
-    react-router-dom "^4.2.2"
-    styled-components "^3.2.3"
-
 "@joincivil/doxity@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@joincivil/doxity/-/doxity-0.0.1.tgz#43eca9d9dbbe91f3197ad772bdc81ffaa141450d"

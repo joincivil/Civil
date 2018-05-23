@@ -1,39 +1,39 @@
-import BigNumber from "bignumber.js";
-import { Observable } from "rxjs";
 // import "@joincivil/utils";
 import {
-  prepareNewsroomMessage,
   hashContent,
   hashPersonalMessage,
-  recoverSigner,
   is0x0Address,
   is0x0Hash,
+  prepareNewsroomMessage,
+  recoverSigner,
 } from "@joincivil/utils";
-
+import BigNumber from "bignumber.js";
+import { Observable } from "rxjs";
 import { ContentProvider } from "../content/contentprovider";
+import {
+  ApprovedRevision,
+  ContentId,
+  EthAddress,
+  EthContentHeader,
+  Hex,
+  NewsroomContent,
+  NewsroomData,
+  NewsroomRoles,
+  NewsroomWrapper,
+  RevisionId,
+  StorageHeader,
+  TwoStepEthTransaction,
+  TxData,
+  Uri,
+} from "../types";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { EthApi } from "../utils/ethapi";
 import { BaseWrapper } from "./basewrapper";
-import {
-  NewsroomRoles,
-  TwoStepEthTransaction,
-  TxData,
-  EthAddress,
-  ContentId,
-  EthContentHeader,
-  NewsroomContent,
-  SignedContentHeader,
-  BaseContentHeader,
-  ApprovedRevision,
-  NewsroomWrapper,
-  NewsroomData,
-} from "../types";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
+import { Newsroom as Events, NewsroomContract } from "./generated/wrappers/newsroom";
+import { NewsroomFactory, NewsroomFactoryContract } from "./generated/wrappers/newsroom_factory";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
-import { NewsroomFactoryContract, NewsroomFactory } from "./generated/wrappers/newsroom_factory";
-import { createTwoStepTransaction, createTwoStepSimple, findEvents, findEventOrThrow } from "./utils/contracts";
-
-import { NewsroomContract, Newsroom as Events } from "./generated/wrappers/newsroom";
+import { createTwoStepSimple, createTwoStepTransaction, findEventOrThrow, findEvents } from "./utils/contracts";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -53,7 +53,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     ethApi: EthApi,
     contentProvider: ContentProvider,
     newsroomName: string,
+    charterUri: string = "",
+    charterHash: string = "",
   ): Promise<TwoStepEthTransaction<Newsroom>> {
+    if ((charterUri.length === 0) !== (charterHash.length === 0)) {
+      throw new Error("Both charter URI and Hash need to be set, or both empty");
+    }
     const txData: TxData = { from: ethApi.account };
 
     const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
@@ -63,7 +68,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
     return createTwoStepTransaction(
       ethApi,
-      await factory.create.sendTransactionAsync(newsroomName, [ethApi.account!], new BigNumber(1), txData),
+      await factory.create.sendTransactionAsync(
+        newsroomName,
+        charterUri,
+        charterHash,
+        [ethApi.account!],
+        new BigNumber(1),
+        txData,
+      ),
       async factoryReceipt => {
         const createdNewsroom = findEvents<NewsroomFactory.Logs.ContractInstantiation>(
           factoryReceipt,
@@ -85,11 +97,16 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     ethApi: EthApi,
     contentProvider: ContentProvider,
     newsroomName: string,
+    charterUri: Uri = "",
+    charterHash: Hex = "",
   ): Promise<TwoStepEthTransaction<Newsroom>> {
+    if ((charterUri.length === 0) !== (charterHash.length === 0)) {
+      throw new Error("Both charter URI and Hash need to be set, or both empty");
+    }
     const txData: TxData = { from: ethApi.account };
     return createTwoStepTransaction(
       ethApi,
-      await NewsroomContract.deployTrusted.sendTransactionAsync(ethApi, newsroomName, txData),
+      await NewsroomContract.deployTrusted.sendTransactionAsync(ethApi, newsroomName, charterUri, charterHash, txData),
       async receipt => Newsroom.atUntrusted(ethApi, contentProvider, receipt.contractAddress!),
     );
   }
@@ -127,39 +144,34 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       .concatFilter(async e => this.isEditor(e));
   }
 
-  public reporters(): Observable<EthAddress> {
-    return this.instance
-      .RoleAddedStream({ role: NewsroomRoles.Reporter }, { fromBlock: 0 })
-      .map(e => e.args.grantee)
-      .concatFilter(async e => this.isReporter(e));
-  }
-
   /**
-   * An unending stream of all the revisions, both signed as well as unsigned.
+   * An unending stream of all the content, both signed as well as unsigned.
    * @param fromBlock Starting block in history for events concerning content being proposed.
    *                  Set to "latest" for only new events
    * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public revisions(fromBlock: number | "latest" = 0): Observable<EthContentHeader> {
+  public content(fromBlock: number | "latest" = 0): Observable<EthContentHeader> {
     return this.instance
-      .RevisionPublishedStream({}, { fromBlock })
-      .map(e => e.args.id)
+      .ContentPublishedStream({}, { fromBlock })
+      .map(e => e.args.contentId)
       .concatMap(this.loadContentHeader.bind(this));
   }
 
   /**
-   * An unending stream of only signed revisions.
-   * This is sugar candy function decrasing network time to get only
-   * approved content compared to {Newsroom.revisions} function
-   *
-   * @param fromBlock Starting block in history for event listening, or "latest" for only the new ones
-   * @returns Metadata concerning signed revisions on this newsroom
+   * An unending stream of all revsions
+   * @param contentId Optional parameter to get revisions of only specific content
+   * @param fromBlock Starting block in history for events concerning content being proposed.
+   *                  Set to "latest" for only new events
+   * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public signedRevisions(fromBlock: number | "latest" = 0): Observable<EthContentHeader> {
+  public revisions(
+    contentId?: number | BigNumber | undefined,
+    fromBlock: number | "latest" = 0,
+  ): Observable<EthContentHeader> {
+    const myContentId = contentId ? new BigNumber(contentId) : undefined;
     return this.instance
-      .RevisionSignedStream({}, { fromBlock })
-      .map(e => e.args.id)
-      .concatMap(this.loadContentHeader.bind(this));
+      .RevisionUpdatedStream({ contentId: myContentId }, { fromBlock })
+      .concatMap(async e => this.loadContentHeader(e.args.contentId, e.args.revisionId));
   }
 
   /**
@@ -247,24 +259,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
 
-  /**
-   * Checks if the user can propose content to the Newsroom
-   * Also returns true if user has director super powers
-   * @param address Address for the role check, leave empty for current user
-   * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
-   */
-  public async isReporter(address?: EthAddress): Promise<boolean> {
-    if (await this.isOwner(address)) {
-      return true;
-    }
-    let who = address;
-
-    if (!who) {
-      who = requireAccount(this.ethApi);
-    }
-    return this.instance.hasRole.callAsync(who, NewsroomRoles.Reporter);
-  }
-
   public async getCharter(): Promise<NewsroomContent | undefined> {
     return this.loadArticle(0);
   }
@@ -301,13 +295,44 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * Accesses the Ethereum network and loads basic metatadata about the content
    * @param articleId Id of the article whose metadata you need
    */
-  public async loadContentHeader(articleId: number | BigNumber): Promise<EthContentHeader> {
-    const baseHeader = await this.resolveBaseContentHeader(articleId);
-    const signedData = await this.resolveSignedData(baseHeader);
+  public async loadContentHeader(
+    contentId: number | BigNumber,
+    revisionId?: number | BigNumber,
+  ): Promise<EthContentHeader> {
+    const myContentId = this.ethApi.toBigNumber(contentId);
+    let contentHash: string;
+    let uri: string;
+    let timestamp: BigNumber;
+    let author: EthAddress;
+    let signature: string;
+    if (revisionId) {
+      const myRevisionId = this.ethApi.toBigNumber(revisionId);
+      [contentHash, uri, timestamp, author, signature] = await this.instance.getRevision.callAsync(
+        myContentId,
+        myRevisionId,
+      );
+    } else {
+      [contentHash, uri, timestamp, author, signature] = await this.instance.getContent.callAsync(myContentId);
+    }
     return {
-      ...baseHeader,
-      ...signedData,
-      isSigned: () => !!signedData && signedData.verifySignature(),
+      contentId: myContentId.toNumber(),
+      timestamp: new Date(timestamp.toNumber()),
+      uri,
+      contentHash,
+      author,
+      signature,
+      verifySignature: () => {
+        if (is0x0Address(author)) {
+          return false;
+        }
+        const message = prepareNewsroomMessage(this.address, contentHash);
+        const hashedPersonal = hashPersonalMessage(message);
+        const recovered = recoverSigner({ signature, messageHash: hashedPersonal.messageHash });
+        if (recovered !== author) {
+          throw new Error(`The signature for ${contentId} is invalid`);
+        }
+        return true;
+      },
     };
   }
 
@@ -364,52 +389,98 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   /**
-   * Allows editor to publish a revision on the content storage and record it in the
+   * Allows editor to publish content on the ethereum storage and record it in the
    * Blockchain Newsroom.
+   * The content can also be pre-approved by the author through their signature using their private key
    * @param content The content that should be put in the content provider
+   * @param signedData An object representing author's approval concerning this content
    * @returns An id assigned on Ethereum to the uri
    */
-  public async publishRevision(content: string): Promise<TwoStepEthTransaction<ContentId>> {
+  public async publishContent(
+    content: string,
+    signedData?: ApprovedRevision,
+  ): Promise<TwoStepEthTransaction<ContentId>> {
     await this.requireEditor();
-    const contentHeader = await this.contentProvider.put(content);
+    const { storageHeader, author, signature } = await this.uploadToStorage(content, signedData);
 
     return createTwoStepTransaction(
       this.ethApi,
-      await this.instance.publishRevision.sendTransactionAsync(contentHeader.uri, contentHeader.contentHash),
+      await this.instance.publishContent.sendTransactionAsync(
+        storageHeader.uri,
+        storageHeader.contentHash,
+        author,
+        signature,
+      ),
       receipt =>
-        findEventOrThrow<Events.Logs.RevisionPublished>(receipt, Events.Events.RevisionPublished).args.id.toNumber(),
+        findEventOrThrow<Events.Logs.ContentPublished>(
+          receipt,
+          Events.Events.ContentPublished,
+        ).args.contentId.toNumber(),
     );
   }
 
   /**
-   * Allows editor to publish a pre-approved revision on the content storage and record it
-   * in the Blockchain Newsroom.
-   *
-   * The revision has to be first pre-approved through a signature from the author's private key
-   * @param content Content that should be stored
-   * @param signedData An object representing author's approval concerning this content
-   * @returns An id assigned on Ethereum to the uri
+   * Allows editor to create a new revision to already existing content.
+   * The revision can be unsigned. If the revision is signed,
+   * the author has to match the author defined when publishing in the first place.
+   * If there was no author during publishing [[signRevision]] can update them.
+   * @param contentId The id of the already published content
+   * @param content The data that should be stored in content storage
+   * @param signedData Optional pre-approval from the author concerning this article
    */
-  public async publishRevisionSigned(
+  public async updateRevision(
+    contentId: ContentId,
     content: string,
-    signedData: ApprovedRevision,
-  ): Promise<TwoStepEthTransaction<ContentId>> {
+    signedData?: ApprovedRevision,
+  ): Promise<TwoStepEthTransaction<RevisionId>> {
     await this.requireEditor();
-    if (signedData.newsroomAddress !== this.address) {
-      throw new Error("The article is not approved for this specific Newsroom");
-    }
-    const contentHeader = await this.contentProvider.put(content);
+    const { storageHeader, signature } = await this.uploadToStorage(content, signedData);
 
     return createTwoStepTransaction(
       this.ethApi,
-      await this.instance.publishRevisionSigned.sendTransactionAsync(
-        contentHeader.uri,
-        signedData.contentHash,
+      await this.instance.updateRevision.sendTransactionAsync(
+        this.ethApi.toBigNumber(contentId),
+        storageHeader.uri,
+        storageHeader.contentHash,
+        signature,
+      ),
+      receipt =>
+        findEventOrThrow<Events.Logs.RevisionUpdated>(
+          receipt,
+          Events.Events.RevisionUpdated,
+        ).args.revisionId.toNumber(),
+    );
+  }
+
+  /**
+   * Allows editor to back-sign a revision which was previously unsigned.
+   * Additionally if the content was published without the author, this function will allow to set the author.
+   * If the author was set previously, the signature also needs to be from the same author.
+   * @param contentId The id of already published content
+   * @param revisionId The id of already published revision for that content
+   * @param signedData Data needed to back-sign the revision
+   */
+  public async signRevision(
+    contentId: ContentId,
+    revisionId: RevisionId,
+    signedData: ApprovedRevision,
+  ): Promise<TwoStepEthTransaction> {
+    await this.requireEditor();
+
+    const contentHeader = await this.loadContentHeader(contentId, revisionId);
+    this.verifyApprovedRevision(contentHeader, signedData);
+    if (!is0x0Address(contentHeader.author) && contentHeader.author !== signedData.author) {
+      throw new Error(CivilErrors.MalformedParams);
+    }
+
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.signRevision.sendTransactionAsync(
+        this.ethApi.toBigNumber(contentId),
+        this.ethApi.toBigNumber(revisionId),
         signedData.author,
         signedData.signature,
       ),
-      receipt =>
-        findEventOrThrow<Events.Logs.RevisionPublished>(receipt, Events.Events.RevisionPublished).args.id.toNumber(),
     );
   }
   //#endregion
@@ -419,7 +490,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param content Data to sign
    * @returns An object containing all information to represent what has the author approved
    */
-  public async signRevision(content: string): Promise<ApprovedRevision> {
+  public async approveByAuthor(content: string): Promise<ApprovedRevision> {
     const author = requireAccount(this.ethApi);
 
     const contentHash = hashContent(content);
@@ -431,33 +502,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       contentHash,
       signature,
       newsroomAddress: this.address,
-    };
-  }
-
-  private async resolveSignedData(baseHeader: BaseContentHeader): Promise<SignedContentHeader | undefined> {
-    const id = this.ethApi.toBigNumber(baseHeader.id);
-    const [author, signature] = await this.instance.signedContent.callAsync(id);
-    if (is0x0Address(author)) {
-      return undefined;
-    }
-    const message = prepareNewsroomMessage(this.address, baseHeader.contentHash);
-    const hashedPersonal = hashPersonalMessage(message);
-    return {
-      author,
-      signature,
-      verifySignature: () => recoverSigner({ signature, messageHash: hashedPersonal.messageHash }) === author,
-    };
-  }
-
-  private async resolveBaseContentHeader(articleId: number | BigNumber): Promise<BaseContentHeader> {
-    const id = this.ethApi.toBigNumber(typeof articleId === "number" ? articleId : articleId.toNumber());
-
-    const [contentHash, uri, timestamp] = await this.instance.content.callAsync(id);
-    return {
-      id: id.toNumber(),
-      timestamp: new Date(timestamp.toNumber()),
-      uri,
-      contentHash,
     };
   }
 
@@ -478,5 +522,35 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if (!(await this.isOwner())) {
       throw new Error(CivilErrors.NoPrivileges);
     }
+  }
+
+  private verifyApprovedRevision(storageHeader: StorageHeader, signedData: ApprovedRevision): void {
+    if (signedData.newsroomAddress !== this.address) {
+      throw new Error(CivilErrors.MalformedParams);
+    }
+    if (storageHeader.contentHash !== signedData.contentHash) {
+      throw new Error(CivilErrors.NoPrivileges);
+    }
+  }
+
+  private async uploadToStorage(
+    content: string,
+    signedData?: ApprovedRevision,
+  ): Promise<{ storageHeader: StorageHeader; author: EthAddress; signature: Hex }> {
+    const storageHeader = await this.contentProvider.put(content);
+
+    let author: EthAddress = "";
+    let signature: Hex = "";
+
+    if (signedData) {
+      this.verifyApprovedRevision(storageHeader, signedData);
+      author = signedData.author;
+      signature = signedData.signature;
+    }
+    return {
+      storageHeader,
+      author,
+      signature,
+    };
   }
 }

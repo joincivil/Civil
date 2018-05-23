@@ -40,7 +40,7 @@ contract Government is IGovernment {
     uint appealSupermajorityPercentage,
     bytes32 constHash,
     string constURI
-  ) public 
+  ) public
   {
     appellate = appellateAddr;
     governmentController = governmentControllerAddr;
@@ -103,6 +103,6 @@ contract Government is IGovernment {
   */
   function setAppellate(address newAppellate) external onlyGovernmentController {
     appellate = newAppellate;
-    AppellateSet(newAppellate);
+    emit AppellateSet(newAppellate);
   }
 }

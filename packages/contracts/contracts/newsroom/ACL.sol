@@ -42,12 +42,12 @@ contract ACL is Ownable {
 
   function _addRole(address grantee, string role) internal {
     roles[role].actors[grantee] = true;
-    RoleAdded(msg.sender, grantee, role);
+    emit RoleAdded(msg.sender, grantee, role);
   }
 
   function _removeRole(address grantee, string role) internal {
     delete roles[role].actors[grantee];
-    RoleRemoved(msg.sender, grantee, role);
+    emit RoleRemoved(msg.sender, grantee, role);
   }
 
   struct RoleData {

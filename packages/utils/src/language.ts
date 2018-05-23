@@ -1,3 +1,5 @@
+import BigNumber from "bignumber.js";
+
 // tslint:disable promise-function-async
 export function promisify<T>(original: (...params: any[]) => void, thisArg?: any): (...callArgs: any[]) => Promise<T> {
   const promisifed = (...callArgs: any[]): Promise<T> => {
@@ -49,4 +51,8 @@ export function isDefined<T extends any>(what?: T): what is T {
   // Explicitly checking with != instead of !==, this casts what to null if it's undefined
   // tslint:disable-next-line:triple-equals
   return what != null;
+}
+
+export function isBigNumber(what: any): what is BigNumber {
+  return what.toNumber !== undefined && what.toFraction !== undefined;
 }

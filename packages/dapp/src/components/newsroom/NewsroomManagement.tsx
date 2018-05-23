@@ -1,17 +1,16 @@
+import { NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
+import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { List } from "immutable";
-import { NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
 import { Subscription } from "rxjs";
-import TransactionButton from "../utility/TransactionButton";
 import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
-import NewsroomDetail from "./NewsroomDetail";
+import TransactionButton from "../utility/TransactionButton";
 import { PageView, ViewModule } from "../utility/ViewModules";
+import NewsroomDetail from "./NewsroomDetail";
 
 export interface NewsroomManagementState {
   error: string;
   editorAddress: string;
-  reporterAddress: string;
   articleURL: string;
   proposedArticleIds: List<string>;
   compositeSubscription: Subscription;
@@ -27,7 +26,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     this.state = {
       error: "",
       editorAddress: "",
-      reporterAddress: "",
       articleURL: "",
       proposedArticleIds: List<string>(),
       compositeSubscription: new Subscription(),
@@ -62,9 +60,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           <br />
           <input onChange={this.onEditorAddressChange} />
           <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
-          <br />
-          <input onChange={this.onReporterAddressChange} />
-          <TransactionButton transactions={[{ transaction: this.addReporter }]}>Add Reporter</TransactionButton>
           <br />
           <input onChange={this.onArticleURLChange} />
           <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
@@ -108,16 +103,8 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     return newsroomInstance.proposeUri(this.state.articleURL);
   };
 
-  private onReporterAddressChange = async (e: any) => {
-    return this.setState({ reporterAddress: e.target.value });
-  };
-
   private onEditorAddressChange = async (e: any) => {
     return this.setState({ editorAddress: e.target.value });
-  };
-
-  private addReporter = async (): Promise<TwoStepEthTransaction> => {
-    return this.addRole(NewsroomRoles.Reporter);
   };
 
   private addEditor = async (): Promise<TwoStepEthTransaction> => {

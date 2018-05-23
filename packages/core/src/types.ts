@@ -1,6 +1,6 @@
+import { DecodedLogEntry, DecodedLogEntryEvent, EthAddress, Hex } from "@joincivil/typescript-types";
 import BigNumber from "bignumber.js";
 import * as Web3 from "web3";
-import { DecodedLogEntry, DecodedLogEntryEvent, EthAddress, Hex } from "@joincivil/typescript-types";
 import { CivilLogs } from "./contracts/generated/events";
 
 // For backwards compatibillity
@@ -8,6 +8,7 @@ export { EthAddress, Hex } from "@joincivil/typescript-types";
 
 export type ContentData = string | object;
 export type ContentId = number;
+export type RevisionId = ContentId;
 
 export interface StorageHeader {
   uri: string;
@@ -24,13 +25,12 @@ export interface SignedContentHeader {
 }
 
 export interface BaseContentHeader extends StorageHeader {
-  id: ContentId;
+  contentId: ContentId;
+  revisionid?: RevisionId;
   timestamp: Date;
 }
 
-export interface EthContentHeader extends BaseContentHeader, Partial<SignedContentHeader> {
-  isSigned(): boolean;
-}
+export interface EthContentHeader extends BaseContentHeader, SignedContentHeader {}
 
 // TODO(ritave, dankins): Decide on content schema and update this type
 export interface NewsroomContent extends EthContentHeader {
@@ -230,5 +230,4 @@ export interface TimestampedEvent<T extends DecodedLogEntryEvent> extends Decode
  */
 export enum NewsroomRoles {
   Editor = "editor",
-  Reporter = "reporter",
 }
