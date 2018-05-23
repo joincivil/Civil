@@ -20,18 +20,17 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
     multisigAddress?: EthAddress,
   ): Promise<EIP20> {
     const instance = EIP20Contract.atUntrusted(web3wrapper, address);
-    let multisigProxy;
+    const eip20 = new EIP20(web3wrapper, instance);
     if (multisigAddress) {
-      multisigProxy = await EIP20MultisigProxy.create(web3wrapper, instance, multisigAddress);
+      eip20.multisigProxy = await EIP20MultisigProxy.create(web3wrapper, instance, multisigAddress);
     }
-    return new EIP20(web3wrapper, instance, multisigProxy);
+    return eip20;
   }
 
   private multisigProxy?: EIP20MultisigProxy;
 
-  private constructor(ethApi: EthApi, instance: EIP20Contract, multisigProxy?: EIP20MultisigProxy) {
+  private constructor(ethApi: EthApi, instance: EIP20Contract) {
     super(ethApi, instance);
-    this.multisigProxy = multisigProxy;
   }
 
   /**

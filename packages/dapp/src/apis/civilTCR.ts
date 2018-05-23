@@ -21,7 +21,7 @@ export async function approveForApply(multisigAddress?: EthAddress): Promise<Two
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
-  const minDeposit = new BigNumber((await parameterizer.getParameterValue("minDeposit")).toNumber() + 10);
+  const minDeposit = await parameterizer.getParameterValue("minDeposit");
   return approve(minDeposit, multisigAddress);
 }
 

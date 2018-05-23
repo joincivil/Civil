@@ -43,7 +43,7 @@ const debug = Debug("civil:tcr");
  * as collect winnings related to challenges, or withdraw/deposit tokens from listings.
  */
 export class CivilTCR extends BaseWrapper<CivilTCRContract> {
-  public static singleton(ethApi: EthApi, contentProvider: ContentProvider, multisigAddress?: EthAddress): CivilTCR {
+  public static singleton(ethApi: EthApi, contentProvider: ContentProvider): CivilTCR {
     const instance = CivilTCRContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
@@ -59,7 +59,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   ): Promise<CivilTCR> {
     const civilTCR = CivilTCR.singleton(ethApi, contentProvider);
     if (multisigAddress) {
-      await civilTCR.initializeMultisig(multisigAddress);
+      civilTCR.multisigProxy = await CivilTCRMultisigProxy.create(ethApi, civilTCR.instance, multisigAddress);
     }
     return civilTCR;
   }
@@ -68,20 +68,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   private voting: Voting;
   private multisigProxy?: CivilTCRMultisigProxy;
 
-  private constructor(
-    ethApi: EthApi,
-    contentProvider: ContentProvider,
-    instance: CivilTCRContract,
-    multisigProxy?: CivilTCRMultisigProxy,
-  ) {
+  private constructor(ethApi: EthApi, contentProvider: ContentProvider, instance: CivilTCRContract) {
     super(ethApi, instance);
     this.contentProvider = contentProvider;
     this.voting = Voting.singleton(this.ethApi);
-    this.multisigProxy = multisigProxy;
-  }
-
-  private async initializeMultisig(multisigAddress: EthAddress): Promise<void> {
-    this.multisigProxy = await CivilTCRMultisigProxy.create(this.ethApi, this.instance, multisigAddress);
   }
 
   /**

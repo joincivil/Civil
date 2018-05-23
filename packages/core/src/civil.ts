@@ -149,7 +149,7 @@ export class Civil {
    * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton
    */
   public async tcrSingletonTrustedMultisigSupport(multisigAddress?: EthAddress): Promise<CivilTCR> {
-    return await CivilTCR.singletonMultisigProxy(this.ethApi, this.contentProvider, multisigAddress);
+    return CivilTCR.singletonMultisigProxy(this.ethApi, this.contentProvider, multisigAddress);
   }
 
   /**

@@ -18,10 +18,9 @@ import { TxData } from "../../../types";
 export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
   /**
    * Creates a multisig wrapper around a contract
-   * @param ethApi web3 API
-   * @param instance contract we are wrapping
-   * @param multisigAddress (optional) address of multisig wallet - if not supplied, will check if contract is owned by a multisig wallet and use that instead
-   * @returns currently listings as new events get triggered
+   * @param ethApi Web3 API
+   * @param instance Contract we are wrapping
+   * @param multisigAddress (optional) Address of multisig wallet - if not supplied, will check if contract is owned by a multisig wallet and use that instead
    */
   public static async create(
     ethApi: EthApi,
