@@ -15,16 +15,26 @@ import {
   resolveChallengeListings,
   resolveAppealListings,
   rejectedListings,
+  ListingWrapperWithExpiry,
 } from "./listings";
-import { parameters } from "./parameterizer";
-import { newsrooms } from "./newsrooms";
+import {
+  parameters,
+  proposals,
+  proposalApplications,
+  challengedCommitProposals,
+  challengedRevealProposals,
+  updateableProposals,
+  resolvableChallengedProposals,
+} from "./parameterizer";
+import { newsrooms, currentUserNewsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
-import { ListingWrapper, TimestampedEvent, NewsroomWrapper } from "@joincivil/core";
+import { TimestampedEvent, NewsroomWrapper } from "@joincivil/core";
 
 export interface State {
   newsrooms: Map<string, NewsroomWrapper>;
-  listings: Map<string, ListingWrapper>;
+  currentUserNewsrooms: Set<string>;
+  listings: Map<string, ListingWrapperWithExpiry>;
   histories: Map<string, List<TimestampedEvent<any>>>;
   applications: Set<string>;
   whitelistedListings: Set<string>;
@@ -41,10 +51,17 @@ export interface State {
   rejectedListings: Set<string>;
   user: { account: any };
   parameters: object;
+  proposals: Map<string, object>;
+  proposalApplications: Set<object>;
+  challengedCommitProposals: Set<object>;
+  challengedRevealProposals: Set<object>;
+  updateableProposals: Set<object>;
+  resolvableChallengedProposals: Set<object>;
 }
 
 export default combineReducers({
   newsrooms,
+  currentUserNewsrooms,
   listings,
   histories,
   applications,
@@ -62,4 +79,10 @@ export default combineReducers({
   rejectedListings,
   user,
   parameters,
+  proposals,
+  proposalApplications,
+  challengedCommitProposals,
+  challengedRevealProposals,
+  updateableProposals,
+  resolvableChallengedProposals,
 });

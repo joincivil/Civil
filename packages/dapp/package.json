@@ -17,6 +17,7 @@
     "json-loader": "^0.5.7",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-ellipsis-text": "^1.0.0",
     "react-markdown": "^3.3.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
