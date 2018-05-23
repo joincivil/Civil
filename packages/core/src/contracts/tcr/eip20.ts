@@ -61,4 +61,13 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
     }
     return this.instance.balanceOf.callAsync(who);
   }
+
+  /**
+   * Transfer tokens from user to another wallet
+   * @param recipient address to send tokens to
+   * @param numTokens number of tokens to send
+   */
+  public async transfer(recipient: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.ethApi, await this.instance.transfer.sendTransactionAsync(recipient, numTokens));
+  }
 }
