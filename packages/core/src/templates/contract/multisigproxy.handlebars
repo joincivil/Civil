@@ -7,6 +7,7 @@ import BigNumber from "bignumber.js";
 
 import { createTwoStepSimple } from "../../utils/contracts";
 import { BaseMultisigProxy, MultisigProxyTransaction } from "../../multisig/basemultisigproxy";
+import { Contract } from "../../interfaces/contract";
 import { OwnableContract } from "../../interfaces/ownable";
 import { EthApi } from "../../../utils/ethapi";
 import { TxData } from "../../../types";
@@ -15,12 +16,25 @@ import { TxData } from "../../../types";
 //               import the Contract wrappers, we're using generics instead
 //               This means calls to instance are untyped inside are using (this: any) type
 export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
+  /**
+   * Creates a multisig wrapper around a contract
+   * @param ethApi web3 API
+   * @param instance contract we are wrapping
+   * @param multisigAddress (optional) address of multisig wallet - if not supplied, will check if contract is owned by a multisig wallet and use that instead
+   * @returns currently listings as new events get triggered
+   */
   public static async create(
     ethApi: EthApi,
-    instance: OwnableContract,
+    instance: Contract | OwnableContract,
+    multisigAddress?: string,
   ): Promise<{{contractName}}MultisigProxy> {
-    const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
-    await proxy.resolveMultisig();
+    let contractOwner;
+    {{!-- TODO(tobek): Hack here using `Contract | OwnableContract` for contract instance and then casting `instance` and populating `contractOwner` only as needed. Newsroom expects `OwnableContract` but others neither have one nor need one. A more elegant solution be to subclass `BaseMultisigProxy` with a new `BaseMultisigNewsroomProxy` and extend the appropriate class from this template, but without the ability to test equality in handlebars that would require a duplicate template or some solution with partials, but before I go that route I want to confirm this approach actually makes sense. --}}
+    if ((instance as OwnableContract).owner) {
+      contractOwner = await (instance as OwnableContract).owner.callAsync();
+    }
+    const proxy = new {{contractName}}MultisigProxy(ethApi, instance, contractOwner);
+    await proxy.resolveMultisig(multisigAddress);
     return proxy;
   }
 
@@ -30,8 +44,12 @@ export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
   {{/this.constant}}
 {{/each}}
 
-  private constructor(ethApi: EthApi, instance: OwnableContract) {
-    super(ethApi, instance);
-    bindNestedAll(this, ["constructor", "instance", "multisig", "ethApi"]);
+  private constructor(
+    ethApi: EthApi,
+    instance: Contract | OwnableContract,
+    contractOwner?: string,
+  ) {
+    super(ethApi, instance, contractOwner);
+    bindNestedAll(this, ["constructor", "instance", "multisig", "ethApi", "contractOwner"]);
   }
 }

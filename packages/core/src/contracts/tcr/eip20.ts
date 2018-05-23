@@ -7,18 +7,31 @@ import { EthApi } from "../../utils/ethapi";
 import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { requireAccount } from "../../utils/errors";
 import { createTwoStepSimple } from "../utils/contracts";
+import { EIP20MultisigProxy } from "../generated/multisig/eip20";
+import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 
 /**
  * EIP20 allows user to interface with token
  */
 export class EIP20 extends BaseWrapper<EIP20Contract> {
-  public static atUntrusted(web3wrapper: EthApi, address: EthAddress): EIP20 {
+  public static async atUntrusted(
+    web3wrapper: EthApi,
+    address: EthAddress,
+    multisigAddress?: EthAddress,
+  ): Promise<EIP20> {
     const instance = EIP20Contract.atUntrusted(web3wrapper, address);
-    return new EIP20(web3wrapper, instance);
+    let multisigProxy;
+    if (multisigAddress) {
+      multisigProxy = await EIP20MultisigProxy.create(web3wrapper, instance, multisigAddress);
+    }
+    return new EIP20(web3wrapper, instance, multisigProxy);
   }
 
-  private constructor(ethApi: EthApi, instance: EIP20Contract) {
+  private multisigProxy?: EIP20MultisigProxy;
+
+  private constructor(ethApi: EthApi, instance: EIP20Contract, multisigProxy?: EIP20MultisigProxy) {
     super(ethApi, instance);
+    this.multisigProxy = multisigProxy;
   }
 
   /**
@@ -30,7 +43,10 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    * @param spender address to approve as spender of tokens
    * @param numTokens number of tokens to approve for spender to spend on user's behalf
    */
-  public async approveSpender(spender: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+  public async approveSpender(spender: EthAddress, numTokens: BigNumber): Promise<MultisigProxyTransaction> {
+    if (this.multisigProxy) {
+      return this.multisigProxy.approve.sendTransactionAsync(spender, numTokens);
+    }
     return createTwoStepSimple(this.ethApi, await this.instance.approve.sendTransactionAsync(spender, numTokens));
   }
 
@@ -41,6 +57,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
   /**
    * Get number of approved tokens for spender
    * @param spender spender to check approved tokens for
+   * @param tokenOwner address whose tokens we check approval for (defaults to current user)
    */
   public async getApprovedTokensForSpender(spender: EthAddress, tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;
@@ -52,7 +69,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
 
   /**
    * Check the token balance of an address
-   * @param address address to check balance of
+   * @param tokenOwner address to check balance of (defaults to current user)
    */
   public async getBalance(tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;

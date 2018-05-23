@@ -17,12 +17,12 @@ export async function approveForChallenge(): Promise<TwoStepEthTransaction | voi
   return approve(minDeposit);
 }
 
-export async function approveForApply(): Promise<TwoStepEthTransaction | void> {
+export async function approveForApply(multisigAddress?: EthAddress): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
-  const minDeposit = await parameterizer.getParameterValue("minDeposit");
-  return approve(minDeposit);
+  const minDeposit = new BigNumber((await parameterizer.getParameterValue("minDeposit")).toNumber() + 10);
+  return approve(minDeposit, multisigAddress);
 }
 
 export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> {
@@ -41,16 +41,19 @@ export async function approveForChallengeGrantedAppeal(): Promise<TwoStepEthTran
   return approve(appealFee);
 }
 
-export async function approve(amount: number | BigNumber): Promise<TwoStepEthTransaction | void> {
+export async function approve(
+  amount: number | BigNumber,
+  multisigAddress?: EthAddress,
+): Promise<TwoStepEthTransaction | void> {
   console.log("approve");
   const civil = getCivil();
   console.log("civil gotten.", civil);
-  const tcr = civil.tcrSingletonTrusted();
+  const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   console.log("tcr gotten.");
   const token = await tcr.getToken();
   const amountBN = ensureWeb3BigNumber(amount);
   console.log("token address: " + token.address);
-  const approvedTokens = await token.getApprovedTokensForSpender(tcr.address);
+  const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress || undefined);
   console.log("approved tokens: " + approvedTokens + " - amount: " + amount);
   if (approvedTokens < amountBN) {
     return token.approveSpender(tcr.address, amountBN);
@@ -69,9 +72,9 @@ export async function approveForProposeReparameterization(): Promise<TwoStepEthT
   }
 }
 
-export async function applyToTCR(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function applyToTCR(address: EthAddress, multisigAddress?: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
-  const tcr = civil.tcrSingletonTrusted();
+  const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   const parameterizer = await tcr.getParameterizer();
   const deposit = await parameterizer.getParameterValue("minDeposit");
   return tcr.apply(address, deposit, "");
