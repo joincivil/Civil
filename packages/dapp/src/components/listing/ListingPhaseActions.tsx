@@ -30,7 +30,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
       isInApplication = isInApplicationPhase(listing!.data);
     }
     const challenge = this.props.listing.data.challenge;
-    console.log(challenge);
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
     const canResolve = canResolveChallenge(challenge!);
