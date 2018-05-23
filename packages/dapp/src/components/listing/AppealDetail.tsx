@@ -40,7 +40,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         <br />
         Judgment Expiry: {appeal.appealPhaseExpiry.toString()}
         <br />
-        Appeal Granted: {appeal.appealPhaseExpiry.toString()}
+        Appeal Granted: {appeal.appealGranted.toString()}
         <br />
         {canBeChallenged && this.renderChallengeAppealStage()}
         {appeal.appealChallenge && (

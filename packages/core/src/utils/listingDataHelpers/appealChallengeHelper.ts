@@ -1,5 +1,6 @@
 import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
 import { AppealChallengeData } from "../../types";
+import { is0x0Address } from "@joincivil/utils";
 
 /**
  * Checks in an Appeal Challenge is in the Commit stage
@@ -23,4 +24,13 @@ export function isAppealChallengeInRevealStage(challengeData: AppealChallengeDat
  */
 export function didAppealChallengeSucceed(challengeData: AppealChallengeData): boolean {
   return isVotePassed(challengeData.poll);
+}
+
+export function canAppealChallengeBeResolved(challengeData: AppealChallengeData): boolean {
+  return (
+    !is0x0Address(challengeData.challenger) &&
+    !isAppealChallengeInCommitStage(challengeData) &&
+    !isAppealChallengeInRevealStage(challengeData) &&
+    !challengeData.resolved
+  );
 }

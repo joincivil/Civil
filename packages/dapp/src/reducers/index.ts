@@ -15,6 +15,7 @@ import {
   resolveChallengeListings,
   resolveAppealListings,
   rejectedListings,
+  ListingWrapperWithExpiry,
 } from "./listings";
 import {
   parameters,
@@ -28,11 +29,11 @@ import {
 import { newsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
-import { ListingWrapper, TimestampedEvent, NewsroomWrapper } from "@joincivil/core";
+import { TimestampedEvent, NewsroomWrapper } from "@joincivil/core";
 
 export interface State {
   newsrooms: Map<string, NewsroomWrapper>;
-  listings: Map<string, ListingWrapper>;
+  listings: Map<string, ListingWrapperWithExpiry>;
   histories: Map<string, List<TimestampedEvent<any>>>;
   applications: Set<string>;
   whitelistedListings: Set<string>;

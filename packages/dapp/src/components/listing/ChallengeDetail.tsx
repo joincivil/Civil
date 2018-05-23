@@ -62,6 +62,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return (
       <>
         Commit Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.commitEndDate.toNumber()} />
+        <br />
         <CommitVoteDetail challengeID={this.props.challengeID} />
       </>
     );
@@ -70,15 +71,20 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return (
       <>
         Reveal Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.revealEndDate.toNumber()} />
+        <br />
         <RevealVoteDetail challengeID={this.props.challengeID} />
       </>
     );
   }
   private renderRequestAppealStage(): JSX.Element {
     return (
-      <TransactionButton transactions={[{ transaction: approveForAppeal }, { transaction: this.appeal }]}>
-        Request Appeal
-      </TransactionButton>
+      <>
+        Request Appeal Phase Ends in <CountdownTimer endTime={this.props.challenge.requestAppealExpiry.toNumber()} />
+        <br />
+        <TransactionButton transactions={[{ transaction: approveForAppeal }, { transaction: this.appeal }]}>
+          Request Appeal
+        </TransactionButton>
+      </>
     );
   }
 
