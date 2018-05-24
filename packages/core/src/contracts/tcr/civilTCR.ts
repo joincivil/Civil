@@ -10,7 +10,7 @@ import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { EthApi } from "../../utils/ethapi";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
-import { EthAddress, TwoStepEthTransaction, ListingWrapper } from "../../types";
+import { EthAddress, TwoStepEthTransaction, ListingWrapper, ChallengeData, WrappedChallengeData } from "../../types";
 import { createTwoStepSimple } from "../utils/contracts";
 import { EIP20 } from "./eip20";
 import { Listing } from "./listing";
@@ -27,6 +27,7 @@ import {
   canListingAppealBeResolved,
 } from "../../utils/listingDataHelpers/listingHelper";
 import { Government } from "./government";
+import { Challenge } from "./challenge";
 
 const debug = Debug("civil:tcr");
 
@@ -365,6 +366,17 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public getListing(listingAddress: EthAddress): Listing {
     return new Listing(this.ethApi, this.instance, listingAddress);
+  }
+
+  public async getChallengeData(challengeID: BigNumber, user?: EthAddress): Promise<WrappedChallengeData> {
+    const challenge = new Challenge(this.ethApi, this.instance, challengeID);
+    const listingAddress = await challenge.getListingIdForChallenge();
+    const challengeData = await challenge.getChallengeData(user);
+    return {
+      listingAddress,
+      challengeID,
+      challenge: challengeData,
+    };
   }
 
   /**

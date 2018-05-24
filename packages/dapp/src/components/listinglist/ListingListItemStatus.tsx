@@ -14,6 +14,7 @@ import {
   isInAppealChallengeRevealPhase,
   canListingAppealBeResolved,
   canListingAppealChallengeBeResolved,
+  WrappedChallengeData,
 } from "@joincivil/core";
 import { SectionHeader } from "./ListItemStyle";
 import CountdownTimer from "../utility/CountdownTimer";
@@ -25,6 +26,7 @@ const StyledDiv = styled.div`
 
 export interface ListingListItemStatusProps {
   listing: ListingWrapper;
+  challenge?: WrappedChallengeData;
 }
 
 class ListingListItemStatus extends React.Component<ListingListItemStatusProps> {
@@ -38,12 +40,15 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
         <SectionHeader>STATUS</SectionHeader>
         <br />
         {this.renderStatus()}
+        {this.renderUserActions()}
       </StyledDiv>
     );
   }
 
   private renderStatus = (): JSX.Element => {
-    if (this.props.listing) {
+    if (this.props.challenge && this.props.challenge.challenge.resolved) {
+      return this.renderResolvedChallenge();
+    } else if (this.props.listing) {
       const listingData = this.props.listing.data;
       if (isInApplicationPhase(listingData)) {
         return this.renderApplicationStatus();
@@ -72,6 +77,35 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
       }
     }
     return <>none</>;
+  };
+
+  private renderUserActions = (): JSX.Element => {
+    let challenge = this.props.listing.data.challenge;
+    if (this.props.challenge) {
+      challenge = this.props.challenge.challenge;
+    }
+    if (challenge) {
+      return (
+        <>
+          <br />
+          {challenge.didUserCommit && (
+            <>
+              USER DID COMMIT<br />
+            </>
+          )}
+          {challenge.didUserReveal && (
+            <>
+              USER DID REVEAL<br />
+            </>
+          )}
+        </>
+      );
+    }
+    return <></>;
+  };
+
+  private renderResolvedChallenge = (): JSX.Element => {
+    return <>CHALLENGE RESOLVED</>;
   };
 
   private renderApplicationStatus = (): JSX.Element => {

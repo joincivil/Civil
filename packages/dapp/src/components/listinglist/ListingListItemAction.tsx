@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ListingWrapper } from "@joincivil/core";
+import { ListingWrapper, WrappedChallengeData } from "@joincivil/core";
 import { SectionHeader } from "./ListItemStyle";
 
 const StyledDiv = styled.div`
@@ -12,6 +12,7 @@ const StyledDiv = styled.div`
 
 export interface ListingListItemOwnerProps {
   listing: ListingWrapper;
+  challenge?: WrappedChallengeData;
 }
 
 class ListingListItemAction extends React.Component<ListingListItemOwnerProps> {

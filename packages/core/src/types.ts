@@ -154,6 +154,12 @@ export interface PollData {
   votesAgainst: BigNumber;
 }
 
+export interface WrappedChallengeData {
+  listingAddress: EthAddress;
+  challengeID: BigNumber;
+  challenge: ChallengeData;
+}
+
 /**
  * The data associated with a Challenge
  */
@@ -166,6 +172,10 @@ export interface ChallengeData {
   poll: PollData;
   requestAppealExpiry: BigNumber;
   appeal?: AppealData;
+  didUserCommit?: boolean;
+  didUserReveal?: boolean;
+  didUserCollect?: boolean;
+  didUserRescue?: boolean;
 }
 
 /**

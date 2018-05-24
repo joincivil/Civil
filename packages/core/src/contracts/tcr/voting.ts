@@ -52,6 +52,10 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
       .concatFilter(async pollID => this.instance.pollExists.callAsync(pollID));
   }
 
+  public votesCommitted(fromBlock: number | "latest" = 0, user?: EthAddress): Observable<BigNumber> {
+    return this.instance._VoteCommittedStream({ voter: user }, { fromBlock }).map(e => e.args.pollID);
+  }
+
   /**
    * Contract Transactions
    */
@@ -70,6 +74,19 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async withdrawVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(this.ethApi, await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens));
+  }
+
+  public async canRescueTokens(user: EthAddress, pollID: BigNumber): Promise<boolean> {
+    return new Promise<boolean>(async (res, rej) => {
+      try {
+        await this.instance.rescueTokens.estimateGasAsync(pollID, { from: user });
+        console.log("can rescue tokens.");
+        res(true);
+      } catch (ex) {
+        console.log("cannot rescue tokens bud.");
+        res(false);
+      }
+    });
   }
 
   /**
@@ -149,7 +166,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     if (!who) {
       who = requireAccount(this.ethApi);
     }
-    return this.instance.didReveal.callAsync(who, pollID);
+    return this.didRevealVote(who, pollID);
   }
 
   /**
@@ -166,6 +183,19 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async isCommitPeriodActive(pollID: BigNumber): Promise<boolean> {
     return this.instance.commitPeriodActive.callAsync(pollID);
+  }
+
+  public async didCommitVote(user: EthAddress, pollID: BigNumber): Promise<boolean> {
+    return this.instance.didCommit.callAsync(user, pollID);
+  }
+  public async didRevealVote(user: EthAddress, pollID: BigNumber): Promise<boolean> {
+    return this.instance.didReveal.callAsync(user, pollID);
+  }
+
+  public async didRescueTokens(user: EthAddress, pollID: BigNumber): Promise<boolean> {
+    return new Promise<boolean>((res, rej) => {
+      this.instance._TokensRescuedStream({ pollID, voter: user }, { fromBlock: 0 }).subscribe(e => {});
+    });
   }
 
   /**
