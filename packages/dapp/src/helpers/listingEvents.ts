@@ -1,7 +1,7 @@
 import { Dispatch } from "react-redux";
 import { getTCR, getCivil } from "./civilInstance";
 import { addListing } from "../actionCreators/listings";
-import { addChallenge } from "../actionCreators/challenges";
+import { addChallenge, addUserChallengeData } from "../actionCreators/challenges";
 import { addNewsroom, addUserNewsroom } from "../actionCreators/newsrooms";
 import { EthAddress, ListingWrapper, getNextTimerExpiry } from "@joincivil/core";
 import { Observable } from "rxjs";
@@ -32,6 +32,8 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
     .subscribe(async (challengeId: BigNumber) => {
       const wrappedChallenge = await tcr.getChallengeData(challengeId, user);
       dispatch(addChallenge(wrappedChallenge));
+      const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
+      dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
     });
 }
 

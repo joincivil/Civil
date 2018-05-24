@@ -15,6 +15,7 @@ import {
   canListingAppealBeResolved,
   canListingAppealChallengeBeResolved,
   WrappedChallengeData,
+  UserChallengeData,
 } from "@joincivil/core";
 import { SectionHeader } from "./ListItemStyle";
 import CountdownTimer from "../utility/CountdownTimer";
@@ -27,6 +28,7 @@ const StyledDiv = styled.div`
 export interface ListingListItemStatusProps {
   listing: ListingWrapper;
   challenge?: WrappedChallengeData;
+  userChallengeData?: UserChallengeData;
 }
 
 class ListingListItemStatus extends React.Component<ListingListItemStatusProps> {
@@ -80,10 +82,7 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
   };
 
   private renderUserActions = (): JSX.Element => {
-    let challenge = this.props.listing.data.challenge;
-    if (this.props.challenge) {
-      challenge = this.props.challenge.challenge;
-    }
+    const challenge = this.props.userChallengeData;
     if (challenge) {
       return (
         <>

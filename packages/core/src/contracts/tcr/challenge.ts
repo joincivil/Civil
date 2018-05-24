@@ -30,24 +30,6 @@ export class Challenge {
     const appealInstance = new Appeal(this.ethApi, this.tcrInstance, this.challengeId);
     const appeal = await appealInstance.getAppealData();
 
-    let didUserCommit;
-    let didUserReveal;
-    let didUserCollect;
-    let didUserRescue;
-    if (user) {
-      didUserCommit = await this.voting.didCommitVote(user, this.challengeId);
-      if (didUserCommit) {
-        didUserReveal = await this.voting.didRevealVote(user, this.challengeId);
-        if (resolved) {
-          if (didUserReveal) {
-            didUserCollect = await this.tcrInstance.hasClaimedTokens.callAsync(this.challengeId, user);
-          } else {
-            didUserRescue = !(await this.voting.canRescueTokens(user, this.challengeId));
-          }
-        }
-      }
-    }
-
     return {
       rewardPool,
       challenger,
@@ -57,10 +39,6 @@ export class Challenge {
       poll,
       requestAppealExpiry,
       appeal,
-      didUserCommit,
-      didUserReveal,
-      didUserCollect,
-      didUserRescue,
     };
   }
 

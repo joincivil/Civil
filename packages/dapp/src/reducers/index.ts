@@ -27,11 +27,11 @@ import {
   resolvableChallengedProposals,
 } from "./parameterizer";
 import { govtParameters } from "./government";
-import { challenges, currentUserChallengesVotedOn } from "./challenges";
+import { challenges, currentUserChallengesVotedOn, challengeUserData } from "./challenges";
 import { newsrooms, currentUserNewsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
-import { TimestampedEvent, NewsroomWrapper, WrappedChallengeData } from "@joincivil/core";
+import { TimestampedEvent, NewsroomWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 
 export interface State {
   newsrooms: Map<string, NewsroomWrapper>;
@@ -62,6 +62,7 @@ export interface State {
   govtParameters: object;
   challenges: Map<string, WrappedChallengeData>;
   currentUserChallengesVotedOn: Set<string>;
+  challengeUserData: Map<string, Map<string, UserChallengeData>>;
 }
 
 export default combineReducers({
@@ -93,4 +94,5 @@ export default combineReducers({
   govtParameters,
   challenges,
   currentUserChallengesVotedOn,
+  challengeUserData,
 });
