@@ -227,6 +227,11 @@ export interface ParamProp {
   pollID?: BigNumber;
 }
 
+export interface Param {
+  paramName: string;
+  value: BigNumber;
+}
+
 // tslint:disable-next-line
 export interface TimestampedEvent<T extends DecodedLogEntryEvent> extends DecodedLogEntryEvent {
   timestamp(): Promise<number>;

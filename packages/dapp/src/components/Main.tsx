@@ -16,12 +16,14 @@ import { initializeSubscriptions, initializeChallengeSubscriptions } from "../he
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { addUser } from "../actionCreators/userAccount";
 import { connect, DispatchProp } from "react-redux";
+import { initializeGovernment } from "../helpers/government";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
     const civil = getCivil();
     this.props.dispatch!(addUser(civil.userAccount));
     await initializeParameterizer(this.props.dispatch!);
+    await initializeGovernment(this.props.dispatch!);
     await initializeProposalsSubscriptions(this.props.dispatch!);
     await initializeSubscriptions(this.props.dispatch!);
     if (civil.userAccount) {

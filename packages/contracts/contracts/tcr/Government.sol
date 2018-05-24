@@ -10,6 +10,7 @@ cost of deployment (specifically to minimize the size of the IGovernment interfa
 */
 contract Government is IGovernment {
   event AppellateSet(address newAppellate);
+  event ParameterSet(string name, uint value);
 
   modifier onlyGovernmentController {
     require(msg.sender == governmentController);
@@ -95,6 +96,7 @@ contract Government is IGovernment {
   */
   function internalSet(string name, uint value) internal {
     params[keccak256(name)] = value;
+    emit ParameterSet(name, value);
   }
 
   /**

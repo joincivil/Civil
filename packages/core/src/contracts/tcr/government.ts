@@ -2,11 +2,12 @@ import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import "@joincivil/utils";
 
-import { EthAddress } from "../../types";
+import { EthAddress, TwoStepEthTransaction, Param } from "../../types";
 import { CivilErrors } from "../../utils/errors";
 import { EthApi } from "../../utils/ethapi";
 import { BaseWrapper } from "../basewrapper";
 import { GovernmentContract } from "../generated/wrappers/government";
+import { createTwoStepSimple } from "../utils/contracts";
 
 const debug = Debug("civil:tcr");
 /**
@@ -32,6 +33,10 @@ export class Government extends BaseWrapper<GovernmentContract> {
     super(ethApi, instance);
   }
 
+  /*public getParameterSet(): Observable<Param> {
+    return this.instance.
+  }*/
+
   public async getAppealFee(): Promise<BigNumber> {
     return this.getParameterValue("appealFee");
   }
@@ -41,5 +46,14 @@ export class Government extends BaseWrapper<GovernmentContract> {
    */
   public async getParameterValue(parameter: string): Promise<BigNumber> {
     return this.instance.get.callAsync(parameter);
+  }
+
+  /**
+   * Set value of Government Parameter
+   * @param paramName name of parameter you intend to change
+   * @param newValue value you want parameter to be changed to
+   */
+  public async set(paramName: string, newValue: BigNumber): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.ethApi, await this.instance.set.sendTransactionAsync(paramName, newValue));
   }
 }
