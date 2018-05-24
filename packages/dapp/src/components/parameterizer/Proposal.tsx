@@ -76,7 +76,8 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderCanBeChallenged = (): JSX.Element => {
     return (
       <StyledFormContainer>
-        Proposal Application Phase ends in <CountdownTimer endTime={this.props.proposal.applicationExpiry.valueOf() / 1000} />
+        Proposal Application Phase ends in{" "}
+        <CountdownTimer endTime={this.props.proposal.applicationExpiry.valueOf() / 1000} />
         <FormGroup>
           <TransactionButton
             transactions={[{ transaction: approveForProposalChallenge }, { transaction: this.challengeProposal }]}
@@ -91,7 +92,8 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderUpdateParam = (): JSX.Element => {
     return (
       <StyledFormContainer>
-        Parameter Update Phase ends in <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf / 1000} />
+        Parameter Update Phase ends in{" "}
+        <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf / 1000} />
         <FormGroup>
           <TransactionButton transactions={[{ transaction: this.updateProposal }]}>Update Parameter</TransactionButton>
         </FormGroup>
@@ -102,7 +104,8 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderResolveChallenge = (): JSX.Element => {
     return (
       <StyledFormContainer>
-        Resolve Challenge Phase ends in <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
+        Resolve Challenge Phase ends in{" "}
+        <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
         <FormGroup>
           <TransactionButton transactions={[{ transaction: this.resolveChallenge }]}>
             Resolve Challenge
