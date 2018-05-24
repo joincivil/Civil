@@ -31,8 +31,9 @@ export class Listing {
     );
     let challenge;
     if (!challengeID.isZero()) {
+      const user = this.ethApi.account;
       const c = new Challenge(this.ethApi, this.tcrInstance, challengeID);
-      challenge = await c.getChallengeData();
+      challenge = await c.getChallengeData(user);
     }
     return {
       appExpiry,
