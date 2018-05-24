@@ -16,6 +16,8 @@ export interface NewsroomDetailState {
 }
 export interface NewsroomDetailProps {
   address: EthAddress;
+  multisigAddr: string;
+  multisigBalance: number;
 }
 
 class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetailState> {
@@ -50,11 +52,19 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
         <br />
         Name: {this.state.name}
         <br />
-        Owners: {this.state.owners}
+        Multisig: {this.props.multisigAddr || "false"}
         <br />
-        Editors: {this.state.editors}
+        {this.props.multisigAddr && (
+          <>
+            Multisig balance: {this.props.multisigBalance / 1e18} CVL
+            <br />
+          </>
+        )}
+        Owners: {this.state.owners.join(", ")}
         <br />
-        Reporters: {this.state.reporters}
+        Editors: {this.state.editors.join(", ")}
+        <br />
+        Reporters: {this.state.reporters.join(", ")}
         <br />
       </>
     );

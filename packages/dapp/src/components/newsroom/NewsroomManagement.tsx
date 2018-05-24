@@ -1,18 +1,22 @@
+import BigNumber from "bignumber.js";
+import { Civil, NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
+import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { List } from "immutable";
-import { NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
 import { Subscription } from "rxjs";
-import TransactionButton from "../utility/TransactionButton";
 import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
-import NewsroomDetail from "./NewsroomDetail";
+import TransactionButton from "../utility/TransactionButton";
 import { PageView, ViewModule } from "../utility/ViewModules";
+import NewsroomDetail from "./NewsroomDetail";
 
 export interface NewsroomManagementState {
+  newsroom: any;
+  multisigAddr: string;
+  multisigBalance: number;
   error: string;
   editorAddress: string;
-  reporterAddress: string;
   articleURL: string;
+  numTokens: string;
   proposedArticleIds: List<string>;
   compositeSubscription: Subscription;
 }
@@ -25,10 +29,13 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   constructor(props: NewsroomManagementProps) {
     super(props);
     this.state = {
+      newsroom: null,
+      multisigAddr: "",
+      multisigBalance: 0,
       error: "",
       editorAddress: "",
-      reporterAddress: "",
       articleURL: "",
+      numTokens: "",
       proposedArticleIds: List<string>(),
       compositeSubscription: new Subscription(),
     };
@@ -46,28 +53,48 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     return (
       <PageView>
         <ViewModule>
-          {this.state.error}
+          <span style={{ color: "red" }}>{this.state.error}</span>
           {this.state.error && <br />}
-          <NewsroomDetail address={this.props.match.params.newsroomAddress} />
+          <NewsroomDetail
+            address={this.props.match.params.newsroomAddress}
+            multisigAddr={this.state.multisigAddr}
+            multisigBalance={this.state.multisigBalance}
+          />
           ProposedArticleIds:
-          {this.state.proposedArticleIds.map(id => {
-            console.log("there is an article here");
-            const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
-            return (
-              <>
-                <Link to={articleAddress}>Article {id}</Link> <br />
-              </>
-            );
-          })}
+          <ul>
+            {this.state.proposedArticleIds.map(id => {
+              console.log("there is an article here");
+              const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
+              return (
+                <li key={id}>
+                  <Link to={articleAddress}>Article {id}</Link>
+                </li>
+              );
+            })}
+          </ul>
           <br />
           <input onChange={this.onEditorAddressChange} />
           <TransactionButton transactions={[{ transaction: this.addEditor }]}>Add Editor</TransactionButton>
           <br />
-          <input onChange={this.onReporterAddressChange} />
-          <TransactionButton transactions={[{ transaction: this.addReporter }]}>Add Reporter</TransactionButton>
-          <br />
           <input onChange={this.onArticleURLChange} />
           <TransactionButton transactions={[{ transaction: this.submitArticle }]}>Submit Article</TransactionButton>
+          <br />
+          {this.state.multisigAddr && (
+            <>
+              <input value={this.state.numTokens} onChange={this.onNumTokensChange} />
+              <TransactionButton
+                transactions={[
+                  {
+                    transaction: this.sendTokenToMultisig,
+                    postTransaction: this.postSendToken,
+                  },
+                ]}
+              >
+                Send CVL to Multisig
+              </TransactionButton>
+              <br />
+            </>
+          )}
           <br />
           <TransactionButton
             transactions={[
@@ -105,19 +132,11 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
 
   private submitArticle = async (): Promise<TwoStepEthTransaction> => {
     const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
-    return newsroomInstance.proposeUri(this.state.articleURL);
-  };
-
-  private onReporterAddressChange = async (e: any) => {
-    return this.setState({ reporterAddress: e.target.value });
+    return newsroomInstance.publishRevision(this.state.articleURL);
   };
 
   private onEditorAddressChange = async (e: any) => {
     return this.setState({ editorAddress: e.target.value });
-  };
-
-  private addReporter = async (): Promise<TwoStepEthTransaction> => {
-    return this.addRole(NewsroomRoles.Reporter);
   };
 
   private addEditor = async (): Promise<TwoStepEthTransaction> => {
@@ -129,8 +148,40 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     return newsroomInstance.addRole(this.state.editorAddress, role);
   };
 
+  private onNumTokensChange = async (e: any) => {
+    return this.setState({ numTokens: e.target.value });
+  };
+
+  private sendTokenToMultisig = async (): Promise<TwoStepEthTransaction | void> => {
+    const numTokens = parseInt(this.state.numTokens, 10);
+    if (!numTokens || isNaN(numTokens)) {
+      this.setState({ error: "Please enter a valid number of tokens" });
+      // TODO(tobek) returning leaves button in "waiting for transaction" state, should just do nothing
+      return;
+    }
+    this.setState({ error: "" });
+
+    const civil = new Civil();
+    const tcr = civil.tcrSingletonTrusted();
+    const token = await tcr.getToken();
+    return token.transfer(this.state.multisigAddr, new BigNumber(numTokens * 1e18));
+  };
+
+  private postSendToken = async () => {
+    const civil = new Civil();
+    const tcr = civil.tcrSingletonTrusted();
+    const token = await tcr.getToken();
+    const balance = await token.getBalance(this.state.multisigAddr);
+    this.setState({
+      multisigBalance: balance.toNumber(),
+      numTokens: "",
+    });
+    // TODO(tobek) should also update user's CVL balance in header nav
+  };
+
   private initNewsroom = async () => {
     const newsroom = await getNewsroom(this.props.match.params.newsroomAddress);
+    this.setState({ newsroom });
     if (newsroom) {
       console.log("lets get name.");
       this.state.compositeSubscription.add(
@@ -140,6 +191,16 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
             this.setState({ proposedArticleIds: this.state.proposedArticleIds.push(contentHeader.id) }),
           ),
       );
+
+      const multisigAddr = await newsroom.getMultisigAddress();
+      this.setState({ multisigAddr });
+      if (multisigAddr) {
+        const civil = new Civil();
+        const tcr = civil.tcrSingletonTrusted();
+        const token = await tcr.getToken();
+        const balance = await token.getBalance(multisigAddr);
+        this.setState({ multisigBalance: balance.toNumber() });
+      }
     }
   };
 }

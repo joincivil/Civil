@@ -1,16 +1,15 @@
+import { EthSignedMessage } from "@joincivil/typescript-types";
+import { delay, hashPersonalMessage, isBigNumber, promisify } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
+import { bufferToHex, fromRpcSig, fromUtf8, toBuffer } from "ethereumjs-util";
 import * as Web3 from "web3";
-import { delay, promisify, hashPersonalMessage } from "@joincivil/utils";
-import { EthSignedMessage } from "@joincivil/typescript-types";
-
-import { Artifact, artifacts } from "../contracts/generated/artifacts";
-import { CivilTransactionReceipt, EthAddress, TxHash, TxDataAll, Hex } from "../types";
-import { AbiDecoder } from "./abidecoder";
-import { CivilErrors, requireAccount } from "./errors";
 import { BaseContract } from "../contracts/basecontract";
 import { BaseWrapper } from "../contracts/basewrapper";
-import { fromRpcSig, bufferToHex, toBuffer, fromUtf8 } from "ethereumjs-util";
+import { Artifact, artifacts } from "../contracts/generated/artifacts";
+import { CivilTransactionReceipt, EthAddress, Hex, TxDataAll, TxHash } from "../types";
+import { AbiDecoder } from "./abidecoder";
+import { CivilErrors, requireAccount } from "./errors";
 
 const POLL_MILLISECONDS = 1000;
 const DEFAULT_HTTP_NODE = "http://localhost:8545";
@@ -142,12 +141,15 @@ export class EthApi {
    * Converts a given number into a BigNumber instance
    * @param numberOrHexString
    */
-  public toBigNumber(numberOrHexString: number | string): any {
+  public toBigNumber(numberOrHexString: number | string | Hex | BigNumber): any {
     // This is a proxy method, for web3.toBigNumber, that exists
     // to ensure that we're creating instances of BigNumber that are
     // compatible with the version of web3 we're currently using. We
     // can likely get rid of this (or modify it) if/when we switch to
     // Web3 1.0.0 (or another modern version)
+    if (isBigNumber(numberOrHexString)) {
+      return this.web3.toBigNumber(numberOrHexString.toString());
+    }
     return this.web3.toBigNumber(numberOrHexString);
   }
 

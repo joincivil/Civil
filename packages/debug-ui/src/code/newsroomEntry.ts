@@ -1,16 +1,8 @@
 import { Civil } from "@joincivil/core";
-import {
-  apply,
-  challenge,
-  claimReward,
-  updateStatus,
-  requestAppeal,
-  grantAppeal,
-  challengeGrantedAppeal,
-} from "../../scripts/tcrActions";
-import { commitVote, revealVote } from "../../scripts/votingActions";
-import { initializeDebugUI } from "../../scripts/civilActions";
 import { BigNumber } from "bignumber.js";
+import { initializeDebugUI } from "../../scripts/civilActions";
+import { apply, challenge, claimReward, grantAppeal, requestAppeal, updateStatus } from "../../scripts/tcrActions";
+import { commitVote, revealVote } from "../../scripts/votingActions";
 
 initializeDebugUI(async civil => {
   setNewsroomListeners();
@@ -110,7 +102,7 @@ function setNewsroomListeners(): void {
       console.log("Deploying newsroom");
       const deployedNewsroom = await civil.newsroomAtUntrusted(address);
       console.log("Proposing content");
-      const articleId = await deployedNewsroom.publishRevision(article);
+      const articleId = await deployedNewsroom.publishContent(article);
       console.log(`\tContent id: ${articleId}`);
 
       console.log("Done");

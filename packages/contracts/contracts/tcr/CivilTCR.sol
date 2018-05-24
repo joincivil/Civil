@@ -4,10 +4,10 @@ import "./RestrictedAddressRegistry.sol";
 import "../interfaces/IGovernment.sol";
 
 /**
-@title CivilTCR - Token Curated Registry with Appeallate Functionality and Restrictions on Application 
+@title CivilTCR - Token Curated Registry with Appeallate Functionality and Restrictions on Application
 @author Nick Reynolds - nick@civil.co / engineering@civil.co
 @notice The CivilTCR is a TCR with restrictions (address applied for must be a contract with Owned
-implementated, and only the owner of a contract can apply on behalf of that contract), an appeallate entity that can 
+implementated, and only the owner of a contract can apply on behalf of that contract), an appeallate entity that can
 overturn challenges if someone requests an appeal, and a process by which granted appeals can be vetoed by a supermajority vote.
 A Granted Appeal reverses the result of the challenge vote (including which parties are considered the winners & receive rewards).
 A successful Appeal Challenge reverses the result of the Granted Appeal (again, including the winners).
@@ -39,7 +39,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   IGovernment public government;
 
   /*
-  @notice this struct handles the state of an appeal. It is first initialized 
+  @notice this struct handles the state of an appeal. It is first initialized
   when an appeal is requested
   */
   struct Appeal {
@@ -60,7 +60,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   @dev passes tokenAddr, plcrAddr, paramsAddr up to RestrictedAddressRegistry constructor
   @param tokenAddr Address of the TCR's intrinsic ERC20 token
   @param plcrAddr Address of a PLCR voting contract for the provided token
-  @param paramsAddr Address of a Parameterizer contract 
+  @param paramsAddr Address of a Parameterizer contract
   @param govtAddr Address of a IGovernment contract
   */
   function CivilTCR(
@@ -106,7 +106,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealPhaseExpiry = now + government.get("judgeAppealLen");
 
     require(token.transferFrom(msg.sender, this, appealFee));
-    _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender);
+    emit _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender);
   }
 
   // --------
@@ -114,7 +114,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   // --------
 
   /**
-  @notice Grants a requested appeal. 
+  @notice Grants a requested appeal.
   --------
   In order to grant an appeal:
   1) Message sender must be appellate entity as set by IGovernment contract
@@ -134,9 +134,9 @@ contract CivilTCR is RestrictedAddressRegistry {
     require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
     require(!appeal.appealGranted); // don't grant twice
 
-    appeal.appealGranted = true;    
+    appeal.appealGranted = true;
     appeal.appealOpenToChallengeExpiry = now + parameterizer.get("challengeAppealLen");
-    _AppealGranted(listingAddress, listing.challengeID);
+    emit _AppealGranted(listingAddress, listing.challengeID);
   }
 
   /**
@@ -148,7 +148,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function transferGovernment(address newAddress) external onlyGovernmentController {
     government = IGovernment(newAddress);
-    _GovernmentTransfered(newAddress);
+    emit _GovernmentTransfered(newAddress);
   }
 
   // --------
@@ -157,7 +157,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   // --------
 
   /**
-  @notice Updates a listing's status from 'application' to 'listing', or resolves a challenge or appeal 
+  @notice Updates a listing's status from 'application' to 'listing', or resolves a challenge or appeal
   or appeal challenge if one exists. Reverts if none of `canBeWhitelisted`, `challengeCanBeResolved`, or
   `appealCanBeResolved` is true for given `listingAddress`.
   @param listingAddress Address of the listing of which the status is being updated
@@ -176,7 +176,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     }
   }
 
-  /** 
+  /**
   @notice Update state of listing after "Judge Appeal Phase" has ended. Reverts if cannot be processed yet.
   @param listingAddress Address of listing associated with appeal
   */
@@ -204,8 +204,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   // --------------------
 
   /**
-  @notice Starts a poll for a listingAddress which is either in the apply stage or already in the whitelist. 
-  Tokens are taken from the challenger and the applicant's deposits are locked. 
+  @notice Starts a poll for a listingAddress which is either in the apply stage or already in the whitelist.
+  Tokens are taken from the challenger and the applicant's deposits are locked.
   Delists listing and returns 0 if listing's unstakedDeposit is less than current minDeposit
   @dev  Differs from base implementation in that it stores a timestamp in a mapping
   corresponding to the end of the request appeal phase, at which point a challenge
@@ -224,7 +224,7 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   /**
   @notice Starts a poll for a listingAddress which has recently been granted an appeal. If
-  the poll passes, the granted appeal will be overturned. 
+  the poll passes, the granted appeal will be overturned.
   --------
   In order to start a challenge:
   1) There is an active appeal on the listing
@@ -266,7 +266,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealChallengeID = pollID;
 
     require(token.transferFrom(msg.sender, this, appeal.appealFeePaid));
-    _GrantedAppealChallenged(listingAddress, listing.challengeID, pollID, data);
+    emit _GrantedAppealChallenged(listingAddress, listing.challengeID, pollID, data);
     return pollID;
   }
 
@@ -300,16 +300,16 @@ contract CivilTCR is RestrictedAddressRegistry {
       super.resolveChallenge(listingAddress);
       appeal.overturned = true;
       require(token.transfer(appealChallenge.challenger, reward));
-      _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
+      emit _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     } else { // Case: appeal challenge failed, don't overturn appeal
       resolveOverturnedChallenge(listingAddress);
       require(token.transfer(appeal.requester, reward));
-      _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
+      emit _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     }
   }
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote. 
+  @notice Called by a voter to claim their reward for each completed vote.
   --------
   In order to claim reward for a challenge:
   1) Challenge must be resolved
@@ -355,7 +355,7 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   /**
   @notice Updates the state of a listing after a challenge was overtuned via appeal (and no appeal
-  challenge was initiated). If challenge previously failed, transfer reward to original challenger. 
+  challenge was initiated). If challenge previously failed, transfer reward to original challenger.
   Otherwise, add reward to listing's unstaked deposit
   --------
   Emits `_FailedChallengeOverturned` if original challenge failed.
@@ -382,13 +382,13 @@ contract CivilTCR is RestrictedAddressRegistry {
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
 
-      _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
+      emit _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     } else { // original vote failed (challenge failed), this should de-list listing
       resetListing(listingAddress);
       // Transfer the reward to the challenger
       require(token.transfer(challenge.challenger, reward));
 
-      _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
+      emit _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     }
   }
 
@@ -410,7 +410,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   /**
   @notice Determines whether an appeal can be resolved for a listing at given address. Throws if no challenge exists.
   @param listingAddress An address for a listing to check
-  @return True if challenge exists, has not already been resolved, has had appeal requested, and has either 
+  @return True if challenge exists, has not already been resolved, has had appeal requested, and has either
   (1) had an appeal granted and passed the appeal opten to challenge expiry OR (2) has not had an appeal granted and
   has passed the appeal phase expiry. False otherwise.
   */
