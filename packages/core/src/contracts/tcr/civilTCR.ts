@@ -391,7 +391,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let didUserReveal;
     let didUserCollect;
     let didUserRescue;
-    const [, , resolved, ,] = await this.instance.challenges.callAsync(challengeID);
+    const [, , resolved, , ] = await this.instance.challenges.callAsync(challengeID);
     if (user) {
       didUserCommit = await this.voting.didCommitVote(user, challengeID);
       if (didUserCommit) {
