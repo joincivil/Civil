@@ -27,7 +27,6 @@ export interface ProposalReduxProps {
 
 class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   public render(): JSX.Element {
-    console.log(this.props.proposal);
     return (
       <PageView>
         <ViewModule>
