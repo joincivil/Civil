@@ -40,14 +40,14 @@ export class GovernmentReparameterization extends React.Component<
           </FormGroup>
           <FormGroup>
             <label>
-              Enter Proposed Value
+              Enter New Value
               <InputElement type="text" name="newValue" onChange={this.updateProposalState} />
             </label>
           </FormGroup>
 
           <FormGroup>
             <TransactionButton transactions={[{ transaction: this.updateGovernmentParameter }]}>
-              Submit Proposal
+              Update Government Parameter
             </TransactionButton>
           </FormGroup>
         </StyledFormContainer>

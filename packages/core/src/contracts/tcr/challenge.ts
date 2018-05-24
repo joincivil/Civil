@@ -68,10 +68,7 @@ export class Challenge {
   public async getListingIdForChallenge(): Promise<EthAddress> {
     return new Promise<EthAddress>((res, rej) => {
       this.tcrInstance._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 }).subscribe(e => {
-        // TODO: remove this check when indexed event is in
-        if (e.args.challengeID.equals(this.challengeId)) {
-          res(e.args.listingAddress);
-        }
+        res(e.args.listingAddress);
       });
     });
   }
