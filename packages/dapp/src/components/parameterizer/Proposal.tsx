@@ -27,6 +27,7 @@ export interface ProposalReduxProps {
 
 class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   public render(): JSX.Element {
+    console.log(this.props.proposal);
     return (
       <PageView>
         <ViewModule>
@@ -75,7 +76,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderCanBeChallenged = (): JSX.Element => {
     return (
       <StyledFormContainer>
-        Proposal Application Phase ends in <CountdownTimer endTime={this.props.proposal.applicationExpiry.toNumber()} />
+        Proposal Application Phase ends in <CountdownTimer endTime={this.props.proposal.applicationExpiry.valueOf() / 1000} />
         <FormGroup>
           <TransactionButton
             transactions={[{ transaction: approveForProposalChallenge }, { transaction: this.challengeProposal }]}
@@ -90,7 +91,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderUpdateParam = (): JSX.Element => {
     return (
       <StyledFormContainer>
-        Parameter Update Phase ends in <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.toNumber()} />
+        Parameter Update Phase ends in <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf / 1000} />
         <FormGroup>
           <TransactionButton transactions={[{ transaction: this.updateProposal }]}>Update Parameter</TransactionButton>
         </FormGroup>
@@ -101,7 +102,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderResolveChallenge = (): JSX.Element => {
     return (
       <StyledFormContainer>
-        Resolve Challenge Phase ends in <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.toNumber()} />
+        Resolve Challenge Phase ends in <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
         <FormGroup>
           <TransactionButton transactions={[{ transaction: this.resolveChallenge }]}>
             Resolve Challenge
@@ -115,7 +116,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
     return (
       <>
         Commit Vote Phase ends in{" "}
-        <CountdownTimer endTime={this.props.proposal.challenge.challengeCommitExpiry.toNumber()} />
+        <CountdownTimer endTime={this.props.proposal.challenge.challengeCommitExpiry.valueOf() / 1000} />
         <CommitVoteDetail challengeID={this.props.proposal.challenge.id} />
       </>
     );
@@ -125,7 +126,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
     return (
       <>
         Reveal Vote Phase ends in{" "}
-        <CountdownTimer endTime={this.props.proposal.challenge.challengeRevealExpiry.toNumber()} />
+        <CountdownTimer endTime={this.props.proposal.challenge.challengeRevealExpiry.valueOf() / 1000} />
         <RevealVoteDetail challengeID={this.props.proposal.challenge.id} />
       </>
     );
