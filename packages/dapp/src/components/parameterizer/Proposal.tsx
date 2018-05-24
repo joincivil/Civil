@@ -92,7 +92,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
     return (
       <StyledFormContainer>
         Parameter Update Phase ends in{" "}
-        <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf / 1000} />
+        <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
         <FormGroup>
           <TransactionButton transactions={[{ transaction: this.updateProposal }]}>Update Parameter</TransactionButton>
         </FormGroup>
