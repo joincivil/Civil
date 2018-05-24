@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import "@joincivil/utils";
+import { Observable } from "rxjs";
 
 import { EthAddress, TwoStepEthTransaction, Param } from "../../types";
 import { CivilErrors } from "../../utils/errors";
@@ -33,9 +34,17 @@ export class Government extends BaseWrapper<GovernmentContract> {
     super(ethApi, instance);
   }
 
-  /*public getParameterSet(): Observable<Param> {
-    return this.instance.
-  }*/
+  /**
+   * Gets an unending stream of parameters being set
+   */
+  public getParameterSet(fromBlock: number | "latest" = 0): Observable<Param> {
+    return this.instance.ParameterSetStream({}, { fromBlock }).map(e => {
+      return {
+        paramName: e.args.name,
+        value: e.args.value,
+      };
+    });
+  }
 
   public async getAppealFee(): Promise<BigNumber> {
     return this.getParameterValue("appealFee");

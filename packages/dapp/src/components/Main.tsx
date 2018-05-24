@@ -14,9 +14,9 @@ import Article from "./Article";
 import { getCivil } from "../helpers/civilInstance";
 import { initializeSubscriptions, initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
+import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
 import { addUser } from "../actionCreators/userAccount";
 import { connect, DispatchProp } from "react-redux";
-import { initializeGovernment } from "../helpers/government";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -25,6 +25,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     await initializeParameterizer(this.props.dispatch!);
     await initializeGovernment(this.props.dispatch!);
     await initializeProposalsSubscriptions(this.props.dispatch!);
+    await initializeGovernmentParamSubscription(this.props.dispatch!);
     await initializeSubscriptions(this.props.dispatch!);
     if (civil.userAccount) {
       await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
