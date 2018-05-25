@@ -71,6 +71,7 @@ export async function approveForProposeReparameterization(): Promise<TwoStepEthT
     return eip.approveSpender(parameterizer.address, deposit);
   }
 }
+export const approveForProposalChallenge = approveForProposeReparameterization;
 
 export async function applyToTCR(address: EthAddress, multisigAddress?: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
@@ -234,3 +235,17 @@ export async function proposeReparameterization(
   const parameterizer = await tcr.getParameterizer();
   return parameterizer.proposeReparameterization(paramName, newValue);
 }
+
+export async function challengeReparameterization(propID: string): Promise<TwoStepEthTransaction | void> {
+  const tcr = getTCR();
+  const parameterizer = await tcr.getParameterizer();
+  return parameterizer.challengeReparameterization(propID);
+}
+
+export async function updateReparameterizationProp(propID: string): Promise<TwoStepEthTransaction | void> {
+  const tcr = getTCR();
+  const parameterizer = await tcr.getParameterizer();
+  return parameterizer.processProposal(propID);
+}
+
+export const resolveReparameterizationChallenge = updateReparameterizationProp;
