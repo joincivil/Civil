@@ -30,7 +30,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
     .getVoting()
     .votesCommitted(0, user)
     .subscribe(async (challengeId: BigNumber) => {
-      const wrappedChallenge = await tcr.getChallengeData(challengeId, user);
+      const wrappedChallenge = await tcr.getChallengeData(challengeId);
       dispatch(addChallenge(wrappedChallenge));
       const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
       dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));

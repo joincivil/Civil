@@ -20,7 +20,7 @@ export class Challenge {
     this.voting = Voting.singleton(ethApi);
   }
 
-  public async getChallengeData(user?: EthAddress): Promise<ChallengeData> {
+  public async getChallengeData(): Promise<ChallengeData> {
     const [rewardPool, challenger, resolved, stake, totalTokens] = await this.tcrInstance.challenges.callAsync(
       this.challengeId,
     );
@@ -43,10 +43,7 @@ export class Challenge {
   }
 
   public async getListingIdForChallenge(): Promise<EthAddress> {
-    return new Promise<EthAddress>((res, rej) => {
-      this.tcrInstance._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 }).subscribe(e => {
-        res(e.args.listingAddress);
-      });
-    });
+    const challengeEvent = await this.tcrInstance._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 }).first().toPromise();
+    return challengeEvent.args.listingAddress;
   }
 }

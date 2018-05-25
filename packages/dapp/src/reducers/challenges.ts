@@ -17,8 +17,8 @@ export function challenges(
 
 export function currentUserChallengesVotedOn(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {
-    case challengeActions.ADD_OR_UPDATE_CHALLENGE:
-      if (action.data.challenge.didUserCommit) {
+    case challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA:
+      if (action.data.userChallengeData.didUserCommit) {
         return state.add(action.data.challengeID.toString());
       }
     default:

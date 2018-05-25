@@ -375,10 +375,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return new Listing(this.ethApi, this.instance, listingAddress);
   }
 
-  public async getChallengeData(challengeID: BigNumber, user?: EthAddress): Promise<WrappedChallengeData> {
+  public async getChallengeData(challengeID: BigNumber): Promise<WrappedChallengeData> {
     const challenge = new Challenge(this.ethApi, this.instance, challengeID);
     const listingAddress = await challenge.getListingIdForChallenge();
-    const challengeData = await challenge.getChallengeData(user);
+    const challengeData = await challenge.getChallengeData();
     return {
       listingAddress,
       challengeID,
