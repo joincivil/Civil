@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect, DispatchProp } from "react-redux";
 import {
   isChallengeInCommitStage,
   isChallengeInRevealStage,
@@ -8,6 +9,8 @@ import {
   ChallengeData,
   EthAddress,
   TwoStepEthTransaction,
+  UserChallengeData,
+  WrappedChallengeData,
 } from "@joincivil/core";
 import AppealDetail from "./AppealDetail";
 import CommitVoteDetail from "./CommitVoteDetail";
@@ -17,11 +20,14 @@ import TransactionButton from "../utility/TransactionButton";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
+import { State } from "../../reducers";
+import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 
 export interface ChallengeDetailProps {
   listingAddress: EthAddress;
   challengeID: BigNumber;
   challenge: ChallengeData;
+  userChallengeData?: UserChallengeData;
 }
 
 class ChallengeDetail extends React.Component<ChallengeDetailProps> {
@@ -93,4 +99,85 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   };
 }
 
-export default ChallengeDetail;
+class ChallengeContainer extends React.Component<
+  ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
+> {
+  public componentWillReceiveProps(nextProps: any): void {
+    if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
+      console.log("let's get the challenge data");
+      this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString(), this.props.user));
+    }
+  }
+
+  public render(): JSX.Element | null {
+    const challenge = this.props.challengeData && this.props.challengeData.challenge;
+    if (!challenge && this.props.showNotFoundMessage) {
+      return this.renderNoChallengeFound();
+    } else if (!challenge) {
+      return null;
+    }
+    return (
+      <ChallengeDetail
+        listingAddress={this.props.listingAddress}
+        challengeID={this.props.challengeID}
+        challenge={challenge}
+        userChallengeData={this.props.userChallengeData}
+      />
+    );
+  }
+
+  private renderNoChallengeFound = (): JSX.Element => {
+    return <>This is not the challenge that you're looking for.</>;
+  };
+}
+
+export interface ChallengeContainerProps {
+  listingAddress: EthAddress;
+  challengeID: BigNumber;
+  showNotFoundMessage?: boolean;
+}
+
+export interface ChallengeContainerReduxProps {
+  challengeData?: WrappedChallengeData | undefined;
+  userChallengeData?: UserChallengeData | undefined;
+  challengeDataRequestStatus?: any;
+  user: EthAddress;
+}
+
+const mapStateToProps = (
+  state: State,
+  ownProps: ChallengeContainerProps,
+): ChallengeContainerReduxProps & ChallengeContainerProps => {
+  const { challenges, challengesFetching, challengeUserData, user } = state;
+  let listingAddress = ownProps.listingAddress;
+  let challengeData;
+  let userChallengeData;
+  const challengeID = ownProps.challengeID;
+  if (challengeID) {
+    challengeData = challenges.get(challengeID.toString());
+  }
+  if (!listingAddress && challengeData) {
+    listingAddress = challenges.get(challengeID.toString())!.listingAddress;
+  }
+  const userAcct = user.account;
+  if (challengeID && userAcct) {
+    const challengeUserDataMap = challengeUserData.get(challengeID!.toString());
+    if (challengeUserDataMap) {
+      userChallengeData = challengeUserDataMap.get(userAcct);
+    }
+  }
+  let challengeDataRequestStatus;
+  if (challengeID) {
+    challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
+  }
+
+  return {
+    challengeData,
+    userChallengeData,
+    challengeDataRequestStatus,
+    user: userAcct,
+    ...ownProps,
+  };
+};
+
+export default connect(mapStateToProps)(ChallengeContainer);

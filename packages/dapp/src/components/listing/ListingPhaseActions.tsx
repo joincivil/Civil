@@ -9,7 +9,7 @@ import {
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
-import ChallengeDetail from "./ChallengeDetail";
+import ChallengeDetailContainer from "./ChallengeDetail";
 import TransactionButton from "../utility/TransactionButton";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import CountdownTimer from "../utility/CountdownTimer";
@@ -33,6 +33,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
     const canResolve = canResolveChallenge(challenge!);
+    console.log(listing);
     return (
       <ViewModule>
         <ViewModuleHeader>Application Phase</ViewModuleHeader>
@@ -46,9 +47,8 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
             {canResolve && this.renderCanResolve()}
 
             {this.props.listing.data.challenge && (
-              <ChallengeDetail
+              <ChallengeDetailContainer
                 challengeID={this.props.listing.data.challengeID}
-                challenge={this.props.listing.data.challenge}
                 listingAddress={this.props.listing.address}
               />
             )}

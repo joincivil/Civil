@@ -15,6 +15,15 @@ export function challenges(
   }
 }
 
+export function challengesFetching(state: Map<string, any> = Map<string, any>(), action: AnyAction): Map<string, any> {
+  switch (action.type) {
+    case challengeActions.FETCH_CHALLENGE_DATA:
+      return state.set(action.data.challengeID, action.data);
+    default:
+      return state;
+  }
+}
+
 export function currentUserChallengesVotedOn(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA:
