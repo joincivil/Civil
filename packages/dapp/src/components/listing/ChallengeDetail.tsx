@@ -14,6 +14,7 @@ import {
 } from "@joincivil/core";
 import AppealDetail from "./AppealDetail";
 import CommitVoteDetail from "./CommitVoteDetail";
+import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import CountdownTimer from "../utility/CountdownTimer";
 import RevealVoteDetail from "./RevealVoteDetail";
 import TransactionButton from "../utility/TransactionButton";
@@ -28,6 +29,7 @@ export interface ChallengeDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   userChallengeData?: UserChallengeData;
+  user?: EthAddress;
 }
 
 class ChallengeDetail extends React.Component<ChallengeDetailProps> {
@@ -37,7 +39,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 
   public render(): JSX.Element {
     const challenge = this.props.challenge;
+    const userChallengeData = this.props.userChallengeData;
+    console.log(challenge, userChallengeData);
     const appealExists = doesChallengeHaveAppeal(challenge);
+    const canShowRewardsForm = userChallengeData && userChallengeData.didUserReveal;
     return (
       <ViewModule>
         <ViewModuleHeader>Challenge Details</ViewModuleHeader>
@@ -60,6 +65,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
         {appealExists && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal!} />}
+        {canShowRewardsForm && this.renderRewardsDetail()}
       </ViewModule>
     );
   }
@@ -93,6 +99,9 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
       </>
     );
   }
+  private renderRewardsDetail(): JSX.Element {
+    return <ChallengeRewardsDetail challengeID={this.props.challengeID} user={this.props.user} />;
+  }
 
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return appealChallenge(this.props.listingAddress);
@@ -122,6 +131,7 @@ class ChallengeContainer extends React.Component<
         challengeID={this.props.challengeID}
         challenge={challenge}
         userChallengeData={this.props.userChallengeData}
+        user={this.props.user}
       />
     );
   }

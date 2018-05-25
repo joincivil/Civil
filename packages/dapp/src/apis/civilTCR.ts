@@ -256,3 +256,13 @@ export async function updateGovernmentParameter(
   const govt = await tcr.getGovernment();
   return govt.set(paramName, newValue);
 }
+
+export async function voterReward(challengeID: BigNumber, salt: BigNumber, user: EthAddress): Promise<BigNumber> {
+  const tcr = getTCR();
+  return tcr.voterReward(challengeID, salt, user);
+}
+
+export async function claimRewards(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction | void> {
+  const tcr = getTCR();
+  return tcr.claimReward(challengeID, salt);
+}
