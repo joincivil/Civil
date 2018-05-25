@@ -43,7 +43,10 @@ export class Challenge {
   }
 
   public async getListingIdForChallenge(): Promise<EthAddress> {
-    const challengeEvent = await this.tcrInstance._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 }).first().toPromise();
+    const challengeEvent = await this.tcrInstance
+      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 })
+      .first()
+      .toPromise();
     return challengeEvent.args.listingAddress;
   }
 }
