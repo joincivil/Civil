@@ -172,6 +172,9 @@ export interface ChallengeData {
   poll: PollData;
   requestAppealExpiry: BigNumber;
   appeal?: AppealData;
+}
+
+export interface UserChallengeData {
   didUserCommit?: boolean;
   didUserReveal?: boolean;
   didUserCollect?: boolean;

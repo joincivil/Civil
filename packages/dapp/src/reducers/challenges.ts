@@ -1,6 +1,6 @@
 import { Map, Set } from "immutable";
 import { AnyAction } from "redux";
-import { WrappedChallengeData } from "@joincivil/core";
+import { WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 import { challengeActions } from "../actionCreators/challenges";
 
 export function challenges(
@@ -21,6 +21,23 @@ export function currentUserChallengesVotedOn(state: Set<string> = Set<string>(),
       if (action.data.challenge.didUserCommit) {
         return state.add(action.data.challengeID.toString());
       }
+    default:
+      return state;
+  }
+}
+
+export function challengeUserData(
+  state: Map<string, Map<string, UserChallengeData>> = Map<string, Map<string, UserChallengeData>>(),
+  action: AnyAction,
+): Map<string, Map<string, UserChallengeData>> {
+  switch (action.type) {
+    case challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA:
+      let challengeMap = state.get(action.data.challengeID);
+      if (!challengeMap) {
+        challengeMap = Map<string, UserChallengeData>();
+      }
+      const challengeMap2 = challengeMap.set(action.data.user, action.data.userChallengeData);
+      return state.set(action.data.challengeID, challengeMap2);
     default:
       return state;
   }
