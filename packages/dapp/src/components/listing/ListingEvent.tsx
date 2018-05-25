@@ -21,7 +21,8 @@ class ListingEvent extends React.Component<ListingEventProps> {
   public render(): JSX.Element {
     const wrappedEvent = this.props.event as
       | CivilTCR.LogEvents._Application
-      | CivilTCR.LogEvents._ApplicationWhitelisted;
+      | CivilTCR.LogEvents._ApplicationWhitelisted
+      | CivilTCR.LogEvents._Challenge;
     let argsData: JSX.Element | null = null;
     switch (wrappedEvent.event) {
       case CivilTCR.Events._Application:
@@ -29,6 +30,9 @@ class ListingEvent extends React.Component<ListingEventProps> {
         break;
       case CivilTCR.Events._ApplicationWhitelisted:
         argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCR.Args._ApplicationWhitelisted);
+        break;
+      case CivilTCR.Events._Challenge:
+        argsData = this.renderChallengeEvent(wrappedEvent.args as CivilTCR.Args._Challenge);
         break;
       default:
         argsData = this.renderUnsupportedEvent(wrappedEvent);
@@ -43,6 +47,10 @@ class ListingEvent extends React.Component<ListingEventProps> {
 
   private renderUnsupportedEvent(event: any): JSX.Element {
     return <>{event.event}</>;
+  }
+
+  private renderChallengeEvent(args: CivilTCR.Args._Challenge): JSX.Element {
+    return <>Challenge --- ID: {args.challengeID.toString()}</>;
   }
 
   private renderApplicationEvent(args: CivilTCR.Args._Application): JSX.Element {

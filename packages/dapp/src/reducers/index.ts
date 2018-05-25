@@ -26,10 +26,12 @@ import {
   updateableProposals,
   resolvableChallengedProposals,
 } from "./parameterizer";
+import { govtParameters } from "./government";
+import { challenges, currentUserChallengesVotedOn, challengeUserData } from "./challenges";
 import { newsrooms, currentUserNewsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
-import { TimestampedEvent, NewsroomWrapper } from "@joincivil/core";
+import { TimestampedEvent, NewsroomWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 
 export interface State {
   newsrooms: Map<string, NewsroomWrapper>;
@@ -57,6 +59,10 @@ export interface State {
   challengedRevealProposals: Set<object>;
   updateableProposals: Set<object>;
   resolvableChallengedProposals: Set<object>;
+  govtParameters: object;
+  challenges: Map<string, WrappedChallengeData>;
+  currentUserChallengesVotedOn: Set<string>;
+  challengeUserData: Map<string, Map<string, UserChallengeData>>;
 }
 
 export default combineReducers({
@@ -85,4 +91,8 @@ export default combineReducers({
   challengedRevealProposals,
   updateableProposals,
   resolvableChallengedProposals,
+  govtParameters,
+  challenges,
+  currentUserChallengesVotedOn,
+  challengeUserData,
 });

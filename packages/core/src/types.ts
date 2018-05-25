@@ -154,6 +154,12 @@ export interface PollData {
   votesAgainst: BigNumber;
 }
 
+export interface WrappedChallengeData {
+  listingAddress: EthAddress;
+  challengeID: BigNumber;
+  challenge: ChallengeData;
+}
+
 /**
  * The data associated with a Challenge
  */
@@ -166,6 +172,13 @@ export interface ChallengeData {
   poll: PollData;
   requestAppealExpiry: BigNumber;
   appeal?: AppealData;
+}
+
+export interface UserChallengeData {
+  didUserCommit?: boolean;
+  didUserReveal?: boolean;
+  didUserCollect?: boolean;
+  didUserRescue?: boolean;
 }
 
 /**
@@ -215,6 +228,11 @@ export interface ParamProp {
   paramName: string;
   proposedValue: BigNumber;
   pollID?: BigNumber;
+}
+
+export interface Param {
+  paramName: string;
+  value: BigNumber;
 }
 
 // tslint:disable-next-line

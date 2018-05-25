@@ -10,7 +10,14 @@ import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { EthApi } from "../../utils/ethapi";
 import { ContentProvider } from "../../content/contentprovider";
 import { CivilErrors, requireAccount } from "../../utils/errors";
-import { EthAddress, TwoStepEthTransaction, ListingWrapper } from "../../types";
+import {
+  EthAddress,
+  TwoStepEthTransaction,
+  ListingWrapper,
+  ChallengeData,
+  WrappedChallengeData,
+  UserChallengeData,
+} from "../../types";
 import { createTwoStepSimple } from "../utils/contracts";
 import { EIP20 } from "./eip20";
 import { Listing } from "./listing";
@@ -27,6 +34,7 @@ import {
   canListingAppealBeResolved,
 } from "../../utils/listingDataHelpers/listingHelper";
 import { Government } from "./government";
+import { Challenge } from "./challenge";
 
 const debug = Debug("civil:tcr");
 
@@ -365,6 +373,45 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public getListing(listingAddress: EthAddress): Listing {
     return new Listing(this.ethApi, this.instance, listingAddress);
+  }
+
+  public async getChallengeData(challengeID: BigNumber): Promise<WrappedChallengeData> {
+    const challenge = new Challenge(this.ethApi, this.instance, challengeID);
+    const listingAddress = await challenge.getListingIdForChallenge();
+    const challengeData = await challenge.getChallengeData();
+    return {
+      listingAddress,
+      challengeID,
+      challenge: challengeData,
+    };
+  }
+
+  public async getUserChallengeData(challengeID: BigNumber, user: EthAddress): Promise<UserChallengeData> {
+    let didUserCommit;
+    let didUserReveal;
+    let didUserCollect;
+    let didUserRescue;
+    const resolved = (await this.instance.challenges.callAsync(challengeID))[2];
+    if (user) {
+      didUserCommit = await this.voting.didCommitVote(user, challengeID);
+      if (didUserCommit) {
+        didUserReveal = await this.voting.didRevealVote(user, challengeID);
+        if (resolved) {
+          if (didUserReveal) {
+            didUserCollect = await this.instance.hasClaimedTokens.callAsync(challengeID, user);
+          } else {
+            didUserRescue = !(await this.voting.canRescueTokens(user, challengeID));
+          }
+        }
+      }
+    }
+
+    return {
+      didUserCommit,
+      didUserReveal,
+      didUserCollect,
+      didUserRescue,
+    };
   }
 
   /**

@@ -12,8 +12,9 @@ import ParameterizerProposal from "./parameterizer/Proposal";
 import CreateNewsroom from "./CreateNewsroom";
 import Article from "./Article";
 import { getCivil } from "../helpers/civilInstance";
-import { initializeSubscriptions } from "../helpers/listingEvents";
+import { initializeSubscriptions, initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
+import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
 import { addUser } from "../actionCreators/userAccount";
 import { connect, DispatchProp } from "react-redux";
 
@@ -22,8 +23,13 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     const civil = getCivil();
     this.props.dispatch!(addUser(civil.userAccount));
     await initializeParameterizer(this.props.dispatch!);
+    await initializeGovernment(this.props.dispatch!);
     await initializeProposalsSubscriptions(this.props.dispatch!);
+    await initializeGovernmentParamSubscription(this.props.dispatch!);
     await initializeSubscriptions(this.props.dispatch!);
+    if (civil.userAccount) {
+      await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
+    }
   }
 
   public render(): JSX.Element {

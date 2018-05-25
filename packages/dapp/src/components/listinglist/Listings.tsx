@@ -7,6 +7,7 @@ import ListingList from "./ListingList";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
 import ListingsInProgress from "./ListingsInProgress";
+import MyActivity from "./MyActivity";
 
 export interface ListingProps {
   whitelistedListings: Set<string>;
@@ -28,8 +29,8 @@ class Listings extends React.Component<ListingProps> {
         <Tab tabText={"REJECTED NEWSROOMS"}>
           <ListingList listings={this.props.rejectedListings} />
         </Tab>
-        <Tab tabText={"MY NEWSROOMS"}>
-          <ListingList listings={this.props.currentUserNewsrooms} />
+        <Tab tabText={"MY ACTIVITY"}>
+          <MyActivity />
         </Tab>
       </Tabs>
     );

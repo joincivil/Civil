@@ -4,7 +4,7 @@ import "@joincivil/utils";
 import { Voting } from "./voting";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { EthApi } from "../../utils/ethapi";
-import { ChallengeData } from "../../types";
+import { ChallengeData, EthAddress } from "../../types";
 import { Appeal } from "./appeal";
 
 export class Challenge {
@@ -40,5 +40,13 @@ export class Challenge {
       requestAppealExpiry,
       appeal,
     };
+  }
+
+  public async getListingIdForChallenge(): Promise<EthAddress> {
+    const challengeEvent = await this.tcrInstance
+      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 })
+      .first()
+      .toPromise();
+    return challengeEvent.args.listingAddress;
   }
 }
