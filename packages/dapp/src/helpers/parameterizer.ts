@@ -48,8 +48,12 @@ export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>):
     const propState = await parameterizer.getPropState(propID);
     const challengeID = await parameterizer.getChallengeID(propID);
     const applicationExpiry = await parameterizer.getPropApplicationExpiry(propID);
-    const challengeCommitExpiry = await parameterizer.getPropChallengeCommitExpiry(propID);
-    const challengeRevealExpiry = await parameterizer.getPropChallengeRevealExpiry(propID);
+    const challengeCommitExpiry = !challengeID.isZero()
+      ? await parameterizer.getPropChallengeCommitExpiry(propID)
+      : undefined;
+    const challengeRevealExpiry = !challengeID.isZero()
+      ? await parameterizer.getPropChallengeRevealExpiry(propID)
+      : undefined;
     const propProcessByExpiry = await parameterizer.getPropProcessBy(propID);
     dispatch(
       addOrUpdateProposal({
