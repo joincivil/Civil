@@ -93,6 +93,15 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     );
   }
 
+  public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {
+    const txData: TxData = { from: ethApi.account };
+    const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
+    if (!factory) {
+      throw new Error(CivilErrors.UnsupportedNetwork);
+    }
+    return factory.create.estimateGasAsync(newsroomName, "", "", [ethApi.account!], new BigNumber(1), txData);
+  }
+
   public static async deployNonMultisigTrusted(
     ethApi: EthApi,
     contentProvider: ContentProvider,

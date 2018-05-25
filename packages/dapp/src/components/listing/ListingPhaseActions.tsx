@@ -9,8 +9,8 @@ import {
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
-import ChallengeDetailContainer from "./ChallengeDetail";
-import TransactionButton from "../utility/TransactionButton";
+import ChallengeDetail from "./ChallengeDetail";
+import { TransactionButton } from "@joincivil/components";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import CountdownTimer from "../utility/CountdownTimer";
 

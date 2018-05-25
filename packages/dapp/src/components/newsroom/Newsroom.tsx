@@ -1,16 +1,17 @@
 import * as React from "react";
+import { FormHeading, StepProcess } from "@joincivil/components";
+import { NameAndAddress } from "./NameAndAddress";
+import { CompleteYourProfile } from "./CompleteYourProfile";
 
-export interface NewsroomState {
-  listingState: string;
-}
-export interface NewsroomProps {
-  match: any;
-}
-
-class Newsroom extends React.Component<NewsroomProps, NewsroomState> {
+export class Newsroom extends React.Component {
   public render(): JSX.Element {
-    return <div>Newsroom: {this.props.match.params.newsroomAddress}</div>;
+    return (<>
+      <FormHeading>Newsroom Application</FormHeading>
+      <p>Set up your newsroom smart contract and get started publishing on Civil.</p>
+      <StepProcess>
+        <NameAndAddress/>
+        <CompleteYourProfile/>
+      </StepProcess>
+    </>);
   }
 }
-
-export default Newsroom;

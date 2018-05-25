@@ -1,5 +1,5 @@
 import * as React from "react";
-import TransactionButton from "../utility/TransactionButton";
+import { TransactionButton } from "@joincivil/components";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { StyledFormContainer, FormGroup, InputElement, InputSelectElement } from "../utility/FormElements";
 import { approveForProposeReparameterization, proposeReparameterization } from "../../apis/civilTCR";

@@ -4,8 +4,8 @@ import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Subscription } from "rxjs";
+import { TransactionButton } from "@joincivil/components";
 import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
-import TransactionButton from "../utility/TransactionButton";
 import { PageView, ViewModule } from "../utility/ViewModules";
 import NewsroomDetail from "./NewsroomDetail";
 

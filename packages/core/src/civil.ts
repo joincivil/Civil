@@ -8,8 +8,9 @@ import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { EthApi } from "./utils/ethapi";
 import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
-import { promisify } from "@joincivil/utils";
+import { promisify, networkNames } from "@joincivil/utils";
 import { FallbackProvider, EventStorageProvider } from ".";
+import { BigNumber } from "bignumber.js";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -97,6 +98,10 @@ export class Civil {
     return Newsroom.deployTrusted(this.ethApi, this.contentProvider, newsroomName);
   }
 
+  public async estimateNewsroomDeployTrusted(newsroomName: string): Promise<number> {
+    return Newsroom.estimateDeployTrusted(newsroomName, this.ethApi);
+  }
+
   /**
    * Create a new Newsroom which is not owned by a multisig on the current Ethereum network with the
    * bytecode included in this library
@@ -182,5 +187,13 @@ export class Civil {
   public async currentBlock(): Promise<number> {
     const blockNumberPromise = promisify<number>(this.ethApi.web3.eth.getBlockNumber);
     return blockNumberPromise();
+  }
+
+  public get networkName(): string {
+    return networkNames[this.ethApi.networkId] || "unknown network";
+  }
+
+  public async getGasPrice(): Promise<BigNumber> {
+    return this.ethApi.getGasPrice();
   }
 }
