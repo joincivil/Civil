@@ -11,6 +11,14 @@ import { GovernmentContract } from "../generated/wrappers/government";
 import { createTwoStepSimple } from "../utils/contracts";
 
 const debug = Debug("civil:tcr");
+
+export const enum GovtParameters {
+  requestAppealLen = "requestAppealLen",
+  judgeAppealLen = "judgeAppealLen",
+  appealFee = "appealFee",
+  appealVotePercentage = "appealVotePercentage",
+}
+
 /**
  * The Government contract is where parameters related to appeals are stored and where
  * the controlling entities can update them and update the controlling entities as well
@@ -62,7 +70,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param paramName name of parameter you intend to change
    * @param newValue value you want parameter to be changed to
    */
-  public async set(paramName: string, newValue: BigNumber): Promise<TwoStepEthTransaction> {
+  public async set(paramName: GovtParameters | string, newValue: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(this.ethApi, await this.instance.set.sendTransactionAsync(paramName, newValue));
   }
 }
