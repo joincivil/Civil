@@ -20,7 +20,7 @@ export class EthApi {
   public static detectProvider(): EthApi {
     let provider: Web3.Provider;
     // Try to use the window's injected provider
-    if (typeof window !== "undefined" && (window as any).web3 !== "undefined") {
+    if (EthApi.hasInjectedProvider()) {
       const injectedWeb3: Web3 = (window as any).web3;
       provider = injectedWeb3.currentProvider;
       debug("Using injected web3 provider");
@@ -32,6 +32,9 @@ export class EthApi {
     return new EthApi(provider);
   }
 
+  public static hasInjectedProvider(): boolean {
+    return typeof window !== "undefined" && (window as any).web3 !== undefined;
+  }
   // Initialized for sure by the helper method setProvider used in constructor
   public web3!: Web3;
 
@@ -67,6 +70,11 @@ export class EthApi {
 
   public get networkId(): string {
     return this.web3.version.network;
+  }
+
+  public async getGasPrice(): Promise<BigNumber> {
+    const gp = promisify<BigNumber>(this.web3.eth.getGasPrice);
+    return gp();
   }
 
   public async getBlock(blockNumber: number): Promise<Web3.BlockWithoutTransactionData> {

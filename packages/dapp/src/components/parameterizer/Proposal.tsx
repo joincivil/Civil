@@ -4,7 +4,7 @@ import { State } from "../../reducers";
 import { PageView, ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { Link } from "react-router-dom";
 import { ParamProposalState, TwoStepEthTransaction } from "@joincivil/core";
-import TransactionButton from "../utility/TransactionButton";
+import { TransactionButton } from "@joincivil/components";
 import CountdownTimer from "../utility/CountdownTimer";
 import {
   approveForProposalChallenge,

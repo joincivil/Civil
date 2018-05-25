@@ -10,7 +10,7 @@ import {
   TwoStepEthTransaction,
 } from "@joincivil/core";
 import ChallengeDetail from "./ChallengeDetail";
-import TransactionButton from "../utility/TransactionButton";
+import { TransactionButton } from "@joincivil/components";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import CountdownTimer from "../utility/CountdownTimer";
 

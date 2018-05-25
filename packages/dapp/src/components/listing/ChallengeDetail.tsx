@@ -13,7 +13,7 @@ import AppealDetail from "./AppealDetail";
 import CommitVoteDetail from "./CommitVoteDetail";
 import CountdownTimer from "../utility/CountdownTimer";
 import RevealVoteDetail from "./RevealVoteDetail";
-import TransactionButton from "../utility/TransactionButton";
+import { TransactionButton } from "@joincivil/components";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";

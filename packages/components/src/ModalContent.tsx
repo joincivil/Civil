@@ -8,4 +8,5 @@ export const ModalContent = styled.p`
   color: ${colors.primary.CIVIL_GRAY_2};
   font-weight: 200;
   font-size: 12px;
+  line-height: 24px;
 `;
