@@ -20,7 +20,6 @@ import {
   WrappedChallengeData,
   UserChallengeData,
 } from "../../types";
-import { createTwoStepSimple } from "../utils/contracts";
 import { EIP20 } from "./eip20";
 import { Listing } from "./listing";
 import {
@@ -49,6 +48,8 @@ const debug = Debug("civil:tcr");
  *
  * Users can also apply to the registry, challenge applications or listings, as well
  * as collect winnings related to challenges, or withdraw/deposit tokens from listings.
+ *
+ * NOTE: If instantiated with a multisig wallet, *all* transactions are proxied through multisig.
  */
 export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public static singleton(ethApi: EthApi, contentProvider: ContentProvider): CivilTCR {
@@ -57,7 +58,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new CivilTCR(ethApi, contentProvider, instance);
+    // We create this dummy proxy so that `this.multisigProxy` is always available and can be used without knowing if this is a multisig instance or not - the proxy handles non-multisig instances as well.
+    const multisigProxyDummy = CivilTCRMultisigProxy.createNonMultisig(ethApi, instance);
+    return new CivilTCR(ethApi, contentProvider, instance, multisigProxyDummy);
   }
 
   public static async singletonMultisigProxy(
@@ -65,20 +68,29 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     contentProvider: ContentProvider,
     multisigAddress?: EthAddress,
   ): Promise<CivilTCR> {
-    const civilTCR = CivilTCR.singleton(ethApi, contentProvider);
-    if (multisigAddress) {
-      civilTCR.multisigProxy = await CivilTCRMultisigProxy.create(ethApi, civilTCR.instance, multisigAddress);
+    const instance = CivilTCRContract.singletonTrusted(ethApi);
+    if (!instance) {
+      debug("Smart-contract wrapper for TCR returned null, unsupported network");
+      throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return civilTCR;
+    const multisigProxy = await CivilTCRMultisigProxy.create(ethApi, instance, multisigAddress);
+    return new CivilTCR(ethApi, contentProvider, instance, multisigProxy);
   }
 
   private contentProvider: ContentProvider;
   private voting: Voting;
-  private multisigProxy?: CivilTCRMultisigProxy;
+  /** If instantiated with `multisigAddress` undefined, proxy will send transactions directly to the contract instance. */
+  private multisigProxy: CivilTCRMultisigProxy;
 
-  private constructor(ethApi: EthApi, contentProvider: ContentProvider, instance: CivilTCRContract) {
+  private constructor(
+    ethApi: EthApi,
+    contentProvider: ContentProvider,
+    instance: CivilTCRContract,
+    multisigProxy: CivilTCRMultisigProxy,
+  ) {
     super(ethApi, instance);
     this.contentProvider = contentProvider;
+    this.multisigProxy = multisigProxy;
     this.voting = Voting.singleton(this.ethApi);
   }
 
@@ -118,7 +130,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Get Token instance used with this TCR
    */
   public async getToken(): Promise<EIP20> {
-    if (this.multisigProxy) {
+    if (this.multisigProxy.multisigEnabled) {
       return EIP20.atUntrusted(
         this.ethApi,
         await this.getTokenAddress(),
@@ -491,7 +503,6 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     deposit: BigNumber,
     applicationContent: string,
   ): Promise<MultisigProxyTransaction> {
-    // TODO(tobek) Confirm that multisig proxy isn't needed for generating this URI
     const { uri } = await this.contentProvider.put(applicationContent);
 
     return this.applyWithURI(listingAddress, deposit, uri);
@@ -508,14 +519,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     deposit: BigNumber,
     applicationContentURI: string,
   ): Promise<MultisigProxyTransaction> {
-    if (this.multisigProxy) {
-      return this.multisigProxy.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI);
-    }
-
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI),
-    );
+    return this.multisigProxy.apply.sendTransactionAsync(listingAddress, deposit, applicationContentURI);
   }
 
   /**
@@ -523,11 +527,8 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param address Address of listing to deposit to
    * @param depositAmount How many tokens to deposit
    */
-  public async deposit(listingAddress: EthAddress, depositAmount: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.deposit.sendTransactionAsync(listingAddress, depositAmount),
-    );
+  public async deposit(listingAddress: EthAddress, depositAmount: BigNumber): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.deposit.sendTransactionAsync(listingAddress, depositAmount);
   }
 
   /**
@@ -535,19 +536,16 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param address Address of listing to withdraw from
    * @param withdrawalAmount How many tokens to withdraw
    */
-  public async withdraw(listingAddress: EthAddress, withdrawalAmount: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount),
-    );
+  public async withdraw(listingAddress: EthAddress, withdrawalAmount: BigNumber): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.withdraw.sendTransactionAsync(listingAddress, withdrawalAmount);
   }
 
   /**
    * Exits a listing, returning deposited tokens
    * @param address Address of listing to exit
    */
-  public async exitListing(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.exitListing.sendTransactionAsync(listingAddress));
+  public async exitListing(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.exitListing.sendTransactionAsync(listingAddress);
   }
 
   /**
@@ -560,19 +558,19 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return this.challengeWithURI(listingAddress, uri);
   }
 
-  public async requestAppeal(listingAddres: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.requestAppeal.sendTransactionAsync(listingAddres));
+  public async requestAppeal(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.requestAppeal.sendTransactionAsync(listingAddress);
   }
 
-  public async grantAppeal(listingAddres: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.grantAppeal.sendTransactionAsync(listingAddres));
+  public async grantAppeal(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.grantAppeal.sendTransactionAsync(listingAddress);
   }
 
-  public async challengeGrantedAppeal(listingAddres: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.challengeGrantedAppeal.sendTransactionAsync(listingAddres, data),
-    );
+  public async challengeGrantedAppeal(
+    listingAddress: EthAddress,
+    data: string = "",
+  ): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.challengeGrantedAppeal.sendTransactionAsync(listingAddress, data);
   }
 
   /**
@@ -581,16 +579,16 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param address Address of listing to challenge
    * @param data Data associated with challenge (URI that points to data object)
    */
-  public async challengeWithURI(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.challenge.sendTransactionAsync(listingAddress, data));
+  public async challengeWithURI(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.challenge.sendTransactionAsync(listingAddress, data);
   }
 
   /**
    * Updates status of a listing
    * @param address Address of new listing
    */
-  public async updateStatus(listingAddress: EthAddress): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.updateStatus.sendTransactionAsync(listingAddress));
+  public async updateStatus(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.updateStatus.sendTransactionAsync(listingAddress);
   }
 
   /**
@@ -598,7 +596,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param challengeID ID of challenge to claim reward of
    * @param salt Salt for user's vote on specified challenge
    */
-  public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.claimReward.sendTransactionAsync(challengeID, salt));
+  public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.claimReward.sendTransactionAsync(challengeID, salt);
   }
 }

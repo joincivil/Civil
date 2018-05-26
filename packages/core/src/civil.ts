@@ -94,16 +94,6 @@ export class Civil {
   }
 
   /**
-   * Create a new Newsroom which is not owned by a multisig on the current Ethereum network with the
-   * bytecode included in this library
-   * The smart contract is trusted since it comes from a trusted source (us).
-   * This call may require user input - such as approving a transaction in Metamask
-   */
-  public async newsroomDeployNonMultisigTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
-    return Newsroom.deployNonMultisigTrusted(this.ethApi, this.contentProvider, newsroomName);
-  }
-
-  /**
    * Returns a Newsroom object, that was beforehand put into blockchain's mempool,
    * or already mined into a block.
    * If the Newsroom was already mined, returns it immediately, otherwise
@@ -143,7 +133,7 @@ export class Civil {
   }
 
   /**
-   * Same as `initializeMultisig` but supports (but does not require) a multisig proxy.
+   * Same as `tcrSingletonTrusted` but is async and supports (but does not require) a multisig proxy. This is a separate function because most TCR instances don't need multisig and can continue to use synchronous `tcrSingletonTrusted` function.
    * @param multisigAddress (optional) Multisig through which to proxy interactions with this TCR
    * @returns Promise containing singleton instance of TCR living on the current network
    * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton

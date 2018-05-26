@@ -11,7 +11,6 @@ import BigNumber from "bignumber.js";
 import { createTwoStepSimple } from "../../utils/contracts";
 import { BaseMultisigProxy, MultisigProxyTransaction } from "../../multisig/basemultisigproxy";
 import { Contract } from "../../interfaces/contract";
-import { OwnableContract } from "../../interfaces/ownable";
 import { EthApi } from "../../../utils/ethapi";
 import { TxData } from "../../../types";
 
@@ -27,16 +26,25 @@ export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
    */
   public static async create(
     ethApi: EthApi,
-    instance: Contract | OwnableContract,
+    instance: Contract,
     multisigAddress?: string,
   ): Promise<{{contractName}}MultisigProxy> {
-    let contractOwner;
-    {{!-- TODO(tobek): Hack here using `Contract | OwnableContract` for contract instance and then casting `instance` and populating `contractOwner` only as needed. Newsroom expects `OwnableContract` but others neither have one nor need one. A more elegant solution be to subclass `BaseMultisigProxy` with a new `BaseMultisigNewsroomProxy` and extend the appropriate class from this template, but without the ability to test equality in handlebars that would require a duplicate template or some solution with partials, but before I go that route I want to confirm this approach actually makes sense. --}}
-    if ((instance as OwnableContract).owner) {
-      contractOwner = await (instance as OwnableContract).owner.callAsync();
-    }
-    const proxy = new {{contractName}}MultisigProxy(ethApi, instance, contractOwner);
+    const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
     await proxy.resolveMultisig(multisigAddress);
+    return proxy;
+  }
+
+  /**
+   * Creates a wrapper around a contract with identical API to multisig wrapper, but all transactions are passed directly to contract. Essentially just a helper for when we know multisig isn't needed and want a synchronous call.
+   * @param ethApi Web3 API
+   * @param instance Contract we are wrapping
+   */
+  public static createNonMultisig(
+    ethApi: EthApi,
+    instance: Contract,
+  ): {{contractName}}MultisigProxy {
+    const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
+    // No call to `proxy.resolveMultisig`, `proxy.multisig` will remain undefined
     return proxy;
   }
 
@@ -48,10 +56,10 @@ export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
 
   private constructor(
     ethApi: EthApi,
-    instance: Contract | OwnableContract,
+    instance: Contract,
     contractOwner?: string,
   ) {
-    super(ethApi, instance, contractOwner);
-    bindNestedAll(this, ["constructor", "instance", "multisig", "ethApi", "contractOwner"]);
+    super(ethApi, instance);
+    bindNestedAll(this, ["constructor", "instance", "multisig", "ethApi"]);
   }
 }
