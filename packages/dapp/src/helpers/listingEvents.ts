@@ -1,9 +1,11 @@
 import { Dispatch } from "react-redux";
 import { getTCR, getCivil } from "./civilInstance";
 import { addListing } from "../actionCreators/listings";
+import { addChallenge, addUserChallengeData } from "../actionCreators/challenges";
 import { addNewsroom, addUserNewsroom } from "../actionCreators/newsrooms";
 import { EthAddress, ListingWrapper, getNextTimerExpiry } from "@joincivil/core";
 import { Observable } from "rxjs";
+import { BigNumber } from "bignumber.js";
 
 const listingTimeouts = new Map<string, number>();
 
@@ -20,6 +22,19 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
     setupListingCallback(listing, dispatch);
     dispatch(addListing(listing));
   });
+}
+
+export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
+  const tcr = getTCR();
+  tcr
+    .getVoting()
+    .votesCommitted(0, user)
+    .subscribe(async (challengeId: BigNumber) => {
+      const wrappedChallenge = await tcr.getChallengeData(challengeId);
+      dispatch(addChallenge(wrappedChallenge));
+      const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
+      dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
+    });
 }
 
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {

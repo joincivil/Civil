@@ -249,3 +249,13 @@ export async function updateReparameterizationProp(propID: string): Promise<TwoS
 }
 
 export const resolveReparameterizationChallenge = updateReparameterizationProp;
+
+export async function updateGovernmentParameter(
+  paramName: string,
+  newValue: BigNumber,
+): Promise<TwoStepEthTransaction | void> {
+  const civil = getCivil();
+  const tcr = civil.tcrSingletonTrusted();
+  const govt = await tcr.getGovernment();
+  return govt.set(paramName, newValue);
+}

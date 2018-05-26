@@ -5,6 +5,7 @@ import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "bignumber.js";
 import { PageView, ViewModule, ViewModuleHeader } from "./utility/ViewModules";
 import { ProposeReparameterization } from "./parameterizer/proposeReparameterization";
+import { GovernmentReparameterization } from "./parameterizer/GovernmentReparameterization";
 import Proposals from "./parameterizer/Proposals";
 
 const StyledSpan = styled.span`
@@ -31,8 +32,16 @@ export interface ParameterizerProps {
   challengeAppealRevealLen: BigNumber;
 }
 
+export interface GovernmentParameterProps {
+  requestAppealLen: BigNumber;
+  judgeAppealLen: BigNumber;
+  appealFee: BigNumber;
+  appealVotePercentage: BigNumber;
+}
+
 export interface ParameterizerPageProps {
   parameters: ParameterizerProps;
+  govtParameters: GovernmentParameterProps;
 }
 
 class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any>> {
@@ -113,12 +122,33 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
             {this.props.parameters.challengeAppealRevealLen &&
               this.props.parameters.challengeAppealRevealLen.toString()}
           </div>
+          <br />
+          <ViewModuleHeader> Goverment Parameters </ViewModuleHeader>
+          <div>
+            <StyledSpan>requestAppealLen:</StyledSpan>{" "}
+            {this.props.govtParameters.requestAppealLen && this.props.govtParameters.requestAppealLen.toString()}
+          </div>
+          <div>
+            <StyledSpan>judgeAppealLen:</StyledSpan>{" "}
+            {this.props.govtParameters.judgeAppealLen && this.props.govtParameters.judgeAppealLen.toString()}
+          </div>
+          <div>
+            <StyledSpan>appealFee:</StyledSpan>{" "}
+            {this.props.govtParameters.appealFee && this.props.govtParameters.appealFee.toString()}
+          </div>
+          <div>
+            <StyledSpan>appealVotePercentage:</StyledSpan>{" "}
+            {this.props.govtParameters.appealVotePercentage &&
+              this.props.govtParameters.appealVotePercentage.toString()}
+          </div>
         </ViewModule>
 
         <ProposeReparameterization
           paramKeys={Object.keys(this.props.parameters)}
           pMinDeposit={this.props.parameters.pMinDeposit && this.props.parameters.pMinDeposit.toString()}
         />
+
+        <GovernmentReparameterization paramKeys={Object.keys(this.props.govtParameters)} />
 
         <Proposals />
       </PageView>
@@ -128,7 +158,9 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
 const mapToStateToProps = (state: State): ParameterizerPageProps => {
   const parameters: ParameterizerProps = state.parameters as ParameterizerProps;
-  return { parameters };
+  const govtParameters: GovernmentParameterProps = state.govtParameters as GovernmentParameterProps;
+  console.log("govtParameters: ", govtParameters);
+  return { parameters, govtParameters };
 };
 
 export default connect(mapToStateToProps)(Parameterizer);

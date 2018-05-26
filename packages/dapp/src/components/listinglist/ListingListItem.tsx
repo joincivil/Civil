@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { State } from "../../reducers";
-import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { ListingWrapper, NewsroomWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 import ListingListItemDescription from "./ListingListItemDescription";
 import ListingListItemOwner from "./ListingListItemOwner";
 import ListingListItemStatus from "./ListingListItemStatus";
@@ -21,13 +21,17 @@ const StyledDiv = styled.div`
 `;
 
 export interface ListingListItemOwnProps {
-  listingAddress: string;
+  listingAddress?: string;
+  challengeID?: string;
   even: boolean;
+  user?: string;
 }
 
 export interface ListingListItemReduxProps {
   newsroom: NewsroomWrapper | undefined;
   listing: ListingWrapper | undefined;
+  challenge?: WrappedChallengeData;
+  userChallengeData?: UserChallengeData;
 }
 
 class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
@@ -40,8 +44,12 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       <StyledDiv even={this.props.even}>
         <ListingListItemDescription listing={this.props.listing!} newsroom={this.props.newsroom!} />
         <ListingListItemOwner newsroom={this.props.newsroom!} />
-        <ListingListItemStatus listing={this.props.listing!} />
-        <ListingListItemAction listing={this.props.listing!} />
+        <ListingListItemStatus
+          listing={this.props.listing!}
+          challenge={this.props.challenge}
+          userChallengeData={this.props.userChallengeData}
+        />
+        <ListingListItemAction listing={this.props.listing!} challenge={this.props.challenge} />
       </StyledDiv>
     );
   }
@@ -51,11 +59,41 @@ const mapStateToProps = (
   state: State,
   ownProps: ListingListItemOwnProps,
 ): ListingListItemReduxProps & ListingListItemOwnProps => {
-  const { newsrooms, listings } = state;
+  const { newsrooms, listings, challenges, challengeUserData, user } = state;
+
+  let listingAddress = ownProps.listingAddress;
+  let challenge;
+  if (!listingAddress && ownProps.challengeID) {
+    challenge = challenges.get(ownProps.challengeID);
+    listingAddress = challenges.get(ownProps.challengeID)!.listingAddress;
+  }
+
+  const newsroom = newsrooms.get(listingAddress!);
+  const listing = listings.get(listingAddress!) ? listings.get(listingAddress!).listing : undefined;
+
+  let challengeID = ownProps.challengeID;
+  if (!challengeID && listing) {
+    challengeID = listing.data.challengeID!.toString();
+  }
+
+  let userAcct = ownProps.user;
+  if (!userAcct) {
+    userAcct = user.account;
+  }
+
+  let userChallengeData;
+  if (challengeID && userAcct) {
+    const challengeUserDataMap = challengeUserData.get(challengeID!);
+    if (challengeUserDataMap) {
+      userChallengeData = challengeUserDataMap.get(userAcct);
+    }
+  }
 
   return {
-    newsroom: newsrooms.get(ownProps.listingAddress),
-    listing: listings.get(ownProps.listingAddress) ? listings.get(ownProps.listingAddress).listing : undefined,
+    newsroom,
+    listing,
+    challenge,
+    userChallengeData,
     ...ownProps,
   };
 };

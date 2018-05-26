@@ -40,7 +40,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
 
   /**
-   * An unending stream of all active Polls
+   * An unending stream of all IDs of active Polls
    * @param fromBlock Starting block in history for events concerning new polls
    *                  Set to "latest" for only new events
    * @returns currently active polls (by id)
@@ -50,6 +50,16 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
       ._PollCreatedStream({}, { fromBlock })
       .map(e => e.args.pollID)
       .concatFilter(async pollID => this.instance.pollExists.callAsync(pollID));
+  }
+
+  /**
+   * An unending stream of all pollIDs of polls the user has committed votes on
+   * @param fromBlock Starting block in history for events concerning new polls
+   *                  Set to "latest" for only new events
+   * @param user pollIDs of polls the user has committed votes for
+   */
+  public votesCommitted(fromBlock: number | "latest" = 0, user?: EthAddress): Observable<BigNumber> {
+    return this.instance._VoteCommittedStream({ voter: user }, { fromBlock }).map(e => e.args.pollID);
   }
 
   /**
@@ -70,6 +80,26 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async withdrawVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(this.ethApi, await this.instance.withdrawVotingRights.sendTransactionAsync(numTokens));
+  }
+
+  /**
+   * Checks whether or not a user can rescue tokens from a poll by trying to estimate gas cost of the transaction.
+   * If estimate succeeds, it should be true. If the estimate fails, it means the transaction would result in an EVM
+   * exception and should be false.
+   * @param user user to check
+   * @param pollID poll to check
+   */
+  public async canRescueTokens(user: EthAddress, pollID: BigNumber): Promise<boolean> {
+    return new Promise<boolean>(async (res, rej) => {
+      try {
+        await this.instance.rescueTokens.estimateGasAsync(pollID, { from: user });
+        console.log("can rescue tokens.");
+        res(true);
+      } catch (ex) {
+        console.log("cannot rescue tokens bud.");
+        res(false);
+      }
+    });
   }
 
   /**
@@ -149,7 +179,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     if (!who) {
       who = requireAccount(this.ethApi);
     }
-    return this.instance.didReveal.callAsync(who, pollID);
+    return this.didRevealVote(who, pollID);
   }
 
   /**
@@ -166,6 +196,13 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    */
   public async isCommitPeriodActive(pollID: BigNumber): Promise<boolean> {
     return this.instance.commitPeriodActive.callAsync(pollID);
+  }
+
+  public async didCommitVote(user: EthAddress, pollID: BigNumber): Promise<boolean> {
+    return this.instance.didCommit.callAsync(user, pollID);
+  }
+  public async didRevealVote(user: EthAddress, pollID: BigNumber): Promise<boolean> {
+    return this.instance.didReveal.callAsync(user, pollID);
   }
 
   /**

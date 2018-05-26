@@ -17,7 +17,8 @@ const StyledLI = styled.li`
 `;
 
 export interface ListingListOwnProps {
-  listings: Set<string>;
+  listings?: Set<string>;
+  challenges?: Set<string>;
 }
 
 class ListingList extends React.Component<ListingListOwnProps> {
@@ -29,14 +30,24 @@ class ListingList extends React.Component<ListingListOwnProps> {
     let index = 0;
     return (
       <StyledUl>
-        {this.props.listings.map(l => {
-          index++;
-          return (
-            <StyledLI key={l}>
-              <ListingListItem listingAddress={l!} even={index % 2 === 0} />
-            </StyledLI>
-          );
-        })}
+        {this.props.listings &&
+          this.props.listings.map(l => {
+            index++;
+            return (
+              <StyledLI key={l}>
+                <ListingListItem listingAddress={l!} even={index % 2 === 0} />
+              </StyledLI>
+            );
+          })}
+        {this.props.challenges &&
+          this.props.challenges.map(c => {
+            index++;
+            return (
+              <StyledLI key={c}>
+                <ListingListItem challengeID={c!} even={index % 2 === 0} />
+              </StyledLI>
+            );
+          })}
       </StyledUl>
     );
   }
