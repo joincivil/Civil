@@ -87,17 +87,27 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         }
 
         const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
-        const owner = await contract.owner.callAsync();
-        if (!(await NewsroomMultisigProxy.isAddressMultisigWallet(ethApi, owner))) {
-          // TODO(tobek) Temporary while transitioning from non-multisig support
-          // TODO(tobek) Confirm that this check is necessary - I think `deployTrusted` actually only creates multisig newsrooms
-          throw new Error(
-            "Newsroom owner " + owner + " is not a multisig wallet - non-multisig newsrooms are no longer supported.",
-          );
-        }
-        const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract, owner);
+        const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
         return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
       },
+    );
+  }
+
+  public static async deployNonMultisigTrusted(
+    ethApi: EthApi,
+    contentProvider: ContentProvider,
+    newsroomName: string,
+    charterUri: Uri = "",
+    charterHash: Hex = "",
+  ): Promise<TwoStepEthTransaction<Newsroom>> {
+    if ((charterUri.length === 0) !== (charterHash.length === 0)) {
+      throw new Error("Both charter URI and Hash need to be set, or both empty");
+    }
+    const txData: TxData = { from: ethApi.account };
+    return createTwoStepTransaction(
+      ethApi,
+      await NewsroomContract.deployTrusted.sendTransactionAsync(ethApi, newsroomName, charterUri, charterHash, txData),
+      async receipt => Newsroom.atUntrusted(ethApi, contentProvider, receipt.contractAddress!),
     );
   }
 
@@ -107,25 +117,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     address: EthAddress,
   ): Promise<Newsroom> {
     const instance = NewsroomContract.atUntrusted(ethApi, address);
-    const owner = await instance.owner.callAsync();
-
-    let multisigProxy;
-    // TODO(tobek) Temporary check while transitioning from non-multisig support
-    if (await NewsroomMultisigProxy.isAddressMultisigWallet(ethApi, owner)) {
-      multisigProxy = await NewsroomMultisigProxy.create(ethApi, instance, owner);
-    } else {
-      console.warn(
-        'Newsroom "' +
-          (await instance.name.callAsync()) +
-          '" at ' +
-          instance.address +
-          " is owned by " +
-          owner +
-          ", which is not a multisig wallet. Non-multisig newsrooms are no longer supported and some stuff won't work.",
-      );
-      multisigProxy = await NewsroomMultisigProxy.create(ethApi, instance);
-    }
-
+    const multisigProxy = await NewsroomMultisigProxy.create(ethApi, instance);
     return new Newsroom(ethApi, contentProvider, instance, multisigProxy);
   }
 

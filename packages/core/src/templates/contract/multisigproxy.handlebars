@@ -57,7 +57,6 @@ export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
   private constructor(
     ethApi: EthApi,
     instance: Contract,
-    contractOwner?: string,
   ) {
     super(ethApi, instance);
     bindNestedAll(this, ["constructor", "instance", "multisig", "ethApi"]);

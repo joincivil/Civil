@@ -9,15 +9,9 @@ import { createTwoStepSimple, isDecodedLog } from "../utils/contracts";
 import { MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
 
 /**
- * Proxies functionionality to a contract instance via multisig wallet. Also supports instantiation *without* multisig proxy, in which case calls are passed directly to the contract.
+ * Proxies functionionality to a contract instance via multisig wallet. Also supports instantiation *without* multisig proxy, in which case calls are passed directly to the contract. If the wrapped contract has an `owner` property, it will be checked to see if the owner is a multisig wallet.
  */
 export class BaseMultisigProxy {
-  public static async isAddressMultisigWallet(ethApi: EthApi, address: EthAddress): Promise<boolean> {
-    const code = await ethApi.getCode(address);
-    // TODO(ritave): Have backwards compatibillity for older Multisig wallets and bytecodes
-    return isDeployedBytecodeEqual(artifacts.MultiSigWallet.deployedBytecode, code);
-  }
-
   protected ethApi: EthApi;
   protected multisig?: Multisig;
   // TODO(ritave): Add support for lowercase newsroom contract in abi-gen
@@ -35,6 +29,8 @@ export class BaseMultisigProxy {
   public async owners(): Promise<EthAddress[]> {
     if (isDefined(this.multisig)) {
       return this.multisig.owners();
+    } else if (this.instance.owner) {
+      return [await this.instance.owner.callAsync()];
     } else {
       return [];
     }
@@ -43,6 +39,8 @@ export class BaseMultisigProxy {
   public async isOwner(address: EthAddress): Promise<boolean> {
     if (isDefined(this.multisig)) {
       return this.multisig.isOwner(address);
+    } else if (this.instance.owner) {
+      return address === (await this.instance.owner.callAsync());
     } else {
       return false;
     }
@@ -55,19 +53,28 @@ export class BaseMultisigProxy {
     return undefined;
   }
 
+  public async isAddressMultisigWallet(address: EthAddress): Promise<boolean> {
+    const code = await this.ethApi.getCode(address);
+    // TODO(ritave): Have backwards compatibillity for older Multisig wallets and bytecodes
+    return isDeployedBytecodeEqual(artifacts.MultiSigWallet.deployedBytecode, code);
+  }
+
   /**
    * Instantiate `this.multisig` if appropriate.
-   * @param multisigAddress (optional) If supplied, instantiate multisig from that, otherwise `this.multisig` remains undefined
+   * @param multisigAddress (optional) If supplied, instantiate multisig from that, otherwise instance contract will be checked for multisig owner, and if none found, `this.multisig` remains undefined
    */
   protected async resolveMultisig(multisigAddress?: EthAddress): Promise<void> {
-    if (!multisigAddress) {
-      return;
+    if (multisigAddress) {
+      if (!(await this.isAddressMultisigWallet(multisigAddress))) {
+        throw new Error("Expected multisig at address " + multisigAddress + " but none found");
+      }
+      this.multisig = Multisig.atUntrusted(this.ethApi, multisigAddress);
+    } else if (this.instance.owner) {
+      const ownerAddress = await this.instance.owner.callAsync();
+      if (this.isAddressMultisigWallet(ownerAddress)) {
+        this.multisig = Multisig.atUntrusted(this.ethApi, ownerAddress);
+      }
     }
-    if (!(await BaseMultisigProxy.isAddressMultisigWallet(this.ethApi, multisigAddress))) {
-      throw new Error("Expected multisig at address " + multisigAddress + " but none found");
-    }
-
-    this.multisig = Multisig.atUntrusted(this.ethApi, multisigAddress);
   }
 
   protected createProxyTransaction(txHash: TxHash): MultisigProxyTransaction {
