@@ -30,3 +30,9 @@ export const BlockHeading = styled.h3`
   text-transform: uppercase;
   margin: 0;
 `;
+
+export const FormHeading = styled.h3`
+  font-family: ${fonts.SANS_SERIF};
+  font-weight: 400;
+  font-size: 24px;
+`;

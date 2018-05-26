@@ -15,9 +15,10 @@ const ModalOuter = styled.div`
 `;
 
 const ModalInner = styled.div`
-  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.6);
-  max-width: 460px;
+  box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.4);
+  max-width: 400px;
   padding: 35px;
+  padding-bottom: 50px;
   background: #fff;
 `;
 

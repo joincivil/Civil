@@ -9,7 +9,7 @@ import {
 } from "@joincivil/core";
 import { approveForChallengeGrantedAppeal, challengeGrantedAppeal, updateStatus } from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
-import TransactionButton from "../utility/TransactionButton";
+import { TransactionButton } from "@joincivil/components";
 
 const StyledDiv = styled.div`
   display: flex;
