@@ -12,7 +12,7 @@ import { createTwoStepSimple } from "../../utils/contracts";
 import { BaseMultisigProxy, MultisigProxyTransaction } from "../../multisig/basemultisigproxy";
 import { Contract } from "../../interfaces/contract";
 import { EthApi } from "../../../utils/ethapi";
-import { TxData } from "../../../types";
+import { EthAddress, TxData } from "../../../types";
 
 // TODO(ritave): Abi-Gen doesn't support lowercase contractName so we can't
 //               import the Contract wrappers, we're using generics instead
@@ -27,7 +27,7 @@ export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
   public static async create(
     ethApi: EthApi,
     instance: Contract,
-    multisigAddress?: string,
+    multisigAddress?: EthAddress,
   ): Promise<{{contractName}}MultisigProxy> {
     const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
     await proxy.resolveMultisig(multisigAddress);

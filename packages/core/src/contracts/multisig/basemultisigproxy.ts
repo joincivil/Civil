@@ -5,7 +5,7 @@ import { Multisig } from "./multisig";
 import { TxHash, EthAddress, TwoStepEthTransaction } from "../../types";
 import { EthApi } from "../../utils/ethapi";
 import { artifacts } from "../generated/artifacts";
-import { createTwoStepSimple, isDecodedLog } from "../utils/contracts";
+import { createTwoStepSimple, isDecodedLog, isOwnableContract } from "../utils/contracts";
 import { MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
 
 /**
@@ -29,7 +29,7 @@ export class BaseMultisigProxy {
   public async owners(): Promise<EthAddress[]> {
     if (isDefined(this.multisig)) {
       return this.multisig.owners();
-    } else if (this.instance.owner) {
+    } else if (isOwnableContract(this.instance) && this.instance.owner) {
       return [await this.instance.owner.callAsync()];
     } else {
       return [];
@@ -39,7 +39,7 @@ export class BaseMultisigProxy {
   public async isOwner(address: EthAddress): Promise<boolean> {
     if (isDefined(this.multisig)) {
       return this.multisig.isOwner(address);
-    } else if (this.instance.owner) {
+    } else if (isOwnableContract(this.instance) && this.instance.owner) {
       return address === (await this.instance.owner.callAsync());
     } else {
       return false;
@@ -69,7 +69,7 @@ export class BaseMultisigProxy {
         throw new Error("Expected multisig at address " + multisigAddress + " but none found");
       }
       this.multisig = Multisig.atUntrusted(this.ethApi, multisigAddress);
-    } else if (this.instance.owner) {
+    } else if (isOwnableContract(this.instance) && this.instance.owner) {
       const ownerAddress = await this.instance.owner.callAsync();
       if (this.isAddressMultisigWallet(ownerAddress)) {
         this.multisig = Multisig.atUntrusted(this.ethApi, ownerAddress);
