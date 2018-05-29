@@ -2,6 +2,7 @@ import * as React from "react";
 import { FormHeading, StepProcess } from "@joincivil/components";
 import { NameAndAddress } from "./NameAndAddress";
 import { CompleteYourProfile } from "./CompleteYourProfile";
+import { SignConstitution } from "./SingConstitution";
 
 export interface NewsroomState {
   currentStep: number;
@@ -21,6 +22,7 @@ export class Newsroom extends React.Component<{}, NewsroomState> {
       <StepProcess stepIsDisabled={this.isDisabled}>
         <NameAndAddress/>
         <CompleteYourProfile/>
+        <SignConstitution/>
       </StepProcess>
     </>);
   }
