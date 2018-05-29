@@ -8,7 +8,7 @@ import { StepStyled } from "./StepStyled";
 const Step1 = (props: StepProps): JSX.Element => {
   console.log(props);
   return (<StepStyled index={props.index || 0}>
-    <StepHeader el={props.el} isActive={props.active === props.index}>Step 1</StepHeader>
+    <StepHeader el={props.el} completed={true} isActive={props.active === props.index}>Step 1</StepHeader>
     <p> this is a step </p>
   </StepStyled>);
 };

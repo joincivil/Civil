@@ -8,8 +8,8 @@ export interface StepStyledProps {
 
 export const StepStyled = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding-left: 50px;
-  padding-top: 23px;
+  padding: 23px 4px 37px 50px;
+  min-width: 600px;
   position: relative;
   &:after{
     content: "${(props: StepStyledProps) => props.index + 1}";
