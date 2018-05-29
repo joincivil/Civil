@@ -9,13 +9,15 @@ import { debounce } from "lodash";
 export interface DetailTransactionButtonProps {
   civil?: Civil;
   transactions: Transaction[];
-  estimateFunctions?: Array<() => Promise<number>>
+  estimateFunctions?: Array<() => Promise<number>>;
   requiredNetwork: string;
+  progressModal?: JSX.Element;
 }
 
 export interface DetailTransactionButtonState {
   price: number;
   priceFailed: boolean;
+  isProgressModalVisible: boolean;
 }
 
 const Wrapper = styled.div`
@@ -50,12 +52,16 @@ const Link = styled.a`
   color: ${colors.primary.CIVIL_BLUE_1};
 `;
 
-export class DetailTransactionButton extends React.Component<DetailTransactionButtonProps, DetailTransactionButtonState> {
+export class DetailTransactionButton extends React.Component<
+  DetailTransactionButtonProps,
+  DetailTransactionButtonState
+> {
   constructor(props: DetailTransactionButtonProps) {
     super(props);
     this.state = {
       price: 0,
       priceFailed: false,
+      isProgressModalVisible: false,
     };
     this.devinePrice = debounce(this.devinePrice.bind(this), 1000);
   }
@@ -67,18 +73,23 @@ export class DetailTransactionButton extends React.Component<DetailTransactionBu
   public async devinePrice(estimateFunctions?: Array<() => Promise<number>>): Promise<void> {
     if (!this.isDisabled() && estimateFunctions && estimateFunctions.length) {
       try {
-        const gas = (await Promise.all(estimateFunctions.map(item => item())))
-          .reduce((acc: number, item: number) => acc + item, 0);
+        const gas = (await Promise.all(estimateFunctions.map(item => item()))).reduce(
+          (acc: number, item: number) => acc + item,
+          0,
+        );
         const gasPrice = await this.props.civil!.getGasPrice();
         this.setState({
-          price: gasPrice.times(gas).div(this.props.civil!.toBigNumber(10).pow(18)).toNumber(),
+          price: gasPrice
+            .times(gas)
+            .div(this.props.civil!.toBigNumber(10).pow(18))
+            .toNumber(),
           priceFailed: false,
         });
       } catch (error) {
-        this.setState({priceFailed: true});
+        this.setState({ priceFailed: true });
       }
     } else {
-      this.setState({priceFailed: true});
+      this.setState({ priceFailed: true });
     }
   }
 
@@ -88,16 +99,28 @@ export class DetailTransactionButton extends React.Component<DetailTransactionBu
 
   public render(): JSX.Element {
     const details = this.renderDetails();
-    return (<Wrapper>
-      {this.renderDetails()}
-      <TransactionButton size={buttonSizes.SMALL} disabled={this.isDisabled()} transactions={this.props.transactions}>
-        {this.props.children}
-      </TransactionButton>
-    </Wrapper>);
+    const progressModal = this.getProgressModalEl();
+    return (
+      <Wrapper>
+        {this.renderDetails()}
+        <TransactionButton
+          size={buttonSizes.SMALL}
+          disabled={this.isDisabled()}
+          transactions={this.props.transactions}
+          preExecuteTransactions={this.showProgressModal}
+          postExecuteTransactions={this.hideProgressModal}
+        >
+          {this.props.children}
+        </TransactionButton>
+        {progressModal}
+      </Wrapper>
+    );
   }
 
   public isDisabled(): boolean {
-    return !this.props.civil || !this.props.civil.userAccount || this.props.requiredNetwork !== this.props.civil.networkName;
+    return (
+      !this.props.civil || !this.props.civil.userAccount || this.props.requiredNetwork !== this.props.civil.networkName
+    );
   }
 
   public renderNoMetaMask(): JSX.Element {
@@ -105,7 +128,9 @@ export class DetailTransactionButton extends React.Component<DetailTransactionBu
       <DetailSection>
         <SmallHeader>Set up your MetaMask wallet</SmallHeader>
         <SmallText>Download the MetaMask browser plugin and follow the instructions to set up your wallet.</SmallText>
-        <Link href="https://metamask.io/" target="_blank">Get MetaMask ></Link>
+        <Link href="https://metamask.io/" target="_blank">
+          Get MetaMask >
+        </Link>
       </DetailSection>
     );
   }
@@ -123,7 +148,10 @@ export class DetailTransactionButton extends React.Component<DetailTransactionBu
     return (
       <DetailSection>
         <SmallHeader>MetaMask is on the wrong network</SmallHeader>
-        <SmallText>Please change your network to the {this.props.requiredNetwork.replace(/^\w/, c => c.toUpperCase())} Network before proceeding</SmallText>
+        <SmallText>
+          Please change your network to the {this.props.requiredNetwork.replace(/^\w/, c => c.toUpperCase())} Network
+          before proceeding
+        </SmallText>
       </DetailSection>
     );
   }
@@ -158,4 +186,20 @@ export class DetailTransactionButton extends React.Component<DetailTransactionBu
       return this.renderTransactionDetails();
     }
   }
+
+  private getProgressModalEl = (): JSX.Element | undefined => {
+    if (this.props.progressModal) {
+      return React.cloneElement(this.props.progressModal as React.ReactElement<any>, {
+        visible: this.state.isProgressModalVisible,
+      });
+    }
+  };
+
+  private hideProgressModal = (): void => {
+    this.setState({ isProgressModalVisible: false });
+  };
+
+  private showProgressModal = (): void => {
+    this.setState({ isProgressModalVisible: true });
+  };
 }
