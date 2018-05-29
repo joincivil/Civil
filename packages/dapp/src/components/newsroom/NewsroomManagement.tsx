@@ -115,11 +115,11 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   }
 
   private approve = async (): Promise<TwoStepEthTransaction | void> => {
-    return approveForApply();
+    return approveForApply(this.state.multisigAddr);
   };
 
   private applyToTCR = async (): Promise<TwoStepEthTransaction> => {
-    return applyToTCR(this.props.match.params.newsroomAddress);
+    return applyToTCR(this.props.match.params.newsroomAddress, this.state.multisigAddr);
   };
 
   private postApply = (result: any) => {

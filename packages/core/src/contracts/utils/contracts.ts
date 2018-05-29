@@ -2,6 +2,8 @@ import { isUndefined } from "lodash";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
+import { Contract } from "../interfaces/contract";
+import { OwnableContract } from "../interfaces/ownable";
 
 import { EthAddress, TxDataBase, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "../../types";
 import { EthApi } from "../../utils/ethapi";
@@ -24,6 +26,10 @@ export function findEvents<T extends DecodedLogEntry>(tx: Web3.TransactionReceip
 
 export function isContract<T extends Web3.ContractInstance>(what: any): what is T {
   return (what as T).abi !== undefined;
+}
+
+export function isOwnableContract(contract: Contract | OwnableContract): contract is OwnableContract {
+  return (contract as OwnableContract).owner !== undefined;
 }
 
 export function isDecodedLog(what: Web3.LogEntry | DecodedLogEntry): what is DecodedLogEntry {

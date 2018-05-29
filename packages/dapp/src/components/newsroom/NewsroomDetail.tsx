@@ -11,7 +11,6 @@ export interface NewsroomDetailState {
   reporterAddress: string;
   owners: string[];
   editors: List<string>;
-  reporters: List<string>;
   compositeSubscription: Subscription;
 }
 export interface NewsroomDetailProps {
@@ -30,7 +29,6 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
       reporterAddress: "",
       owners: [],
       editors: List<string>(),
-      reporters: List<string>(),
       compositeSubscription: new Subscription(),
     };
   }
@@ -64,8 +62,6 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
         <br />
         Editors: {this.state.editors.join(", ")}
         <br />
-        Reporters: {this.state.reporters.join(", ")}
-        <br />
       </>
     );
   }
@@ -80,12 +76,6 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
           .editors()
           .distinct()
           .subscribe((addr: any) => this.setState({ editors: this.state.editors.push(addr) })),
-      );
-      this.state.compositeSubscription.add(
-        newsroom
-          .reporters()
-          .distinct()
-          .subscribe((addr: any) => this.setState({ reporters: this.state.reporters.push(addr) })),
       );
     }
   };
