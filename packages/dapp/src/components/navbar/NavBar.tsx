@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Civil, CivilErrors } from "@joincivil/core";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 import NavBarItem from "./NavBarItem";
 import NavBarLink from "./NavBarLink";
 import NavBarSpan from "./NavBarSpan";
@@ -80,7 +81,7 @@ class NavBar extends React.Component<{}, NavBarState> {
     token
       .then(async t => {
         return t.getBalance(civil.userAccount).then(balance => {
-          this.setState({ balance: balance.toString() });
+          this.setState({ balance: getFormattedTokenBalance(balance) });
         });
       })
       .catch(ex => {
