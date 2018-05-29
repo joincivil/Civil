@@ -5,8 +5,11 @@ import styled from "styled-components";
 interface ToggleDisplayEl {
   visible: boolean;
 }
+interface TextAlignProps {
+  textAlign?: string | undefined;
+}
 
-const ModalOuter = styled<ToggleDisplayEl, "div">("div")`
+const ModalOuter = styled<ToggleDisplayEl & TextAlignProps, "div">("div")`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -17,6 +20,7 @@ const ModalOuter = styled<ToggleDisplayEl, "div">("div")`
   display: ${props => (props.visible ? "flex" : "none")};
   justify-content: center;
   align-items: center;
+  text-align: ${props => props.textAlign || "left"};
 `;
 
 const ModalInner = styled.div`
@@ -29,6 +33,7 @@ const ModalInner = styled.div`
 
 export interface ModalPropsAndState {
   visible?: boolean;
+  textAlign?: string;
 }
 
 export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndState> {
@@ -60,7 +65,7 @@ export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndStat
 
   public render(): React.ReactPortal {
     return ReactDOM.createPortal(
-      <ModalOuter visible={this.props.visible!}>
+      <ModalOuter visible={this.state.visible!} textAlign={this.props.textAlign}>
         <ModalInner>{this.props.children}</ModalInner>
       </ModalOuter>,
       this.bucket,
