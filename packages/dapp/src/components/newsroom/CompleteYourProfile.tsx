@@ -6,6 +6,7 @@ export class CompleteYourProfile extends React.Component<StepProps> {
     super(props);
   }
   public render(): JSX.Element {
+    console.log(this.props.disabled);
     return (<StepStyled index={this.props.index || 0}>
       <StepHeader el={this.props.el} isActive={this.props.active === this.props.index}>
         Complete your profile

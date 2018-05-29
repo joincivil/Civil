@@ -7,10 +7,15 @@ export interface StepProcessState {
   active: number;
 }
 
+export interface StepProcessProps {
+  stepIsDisabled?(index: number): boolean;
+}
+
 export interface StepProps {
   el?: HTMLDivElement;
   index?: number;
   active?: number;
+  disabled?: boolean;
 }
 
 const Container = styled.div`
@@ -26,7 +31,7 @@ const StepIndicators = styled.div`
   margin-right: 35px;
 `;
 
-export class StepProcess extends React.Component<{}, StepProcessState> {
+export class StepProcess extends React.Component<StepProcessProps, StepProcessState> {
   public el: HTMLDivElement | null = null;
   constructor(props: {}) {
     super(props);
@@ -40,7 +45,12 @@ export class StepProcess extends React.Component<{}, StepProcessState> {
   }
   public render(): JSX.Element {
     const childrenWithEl = React.Children.map(this.props.children, (child, index) => {
-      return React.cloneElement(child as JSX.Element, {el: this.state.el, index, active: this.state.active });
+      return React.cloneElement(child as JSX.Element, {
+        el: this.state.el,
+        index,
+        active: this.state.active,
+        disabled: this.props.stepIsDisabled ? this.props.stepIsDisabled(index) : false,
+      });
     })
     return (<Container>
       <StepIndicators><div ref={el => this.el = el}></div></StepIndicators>
