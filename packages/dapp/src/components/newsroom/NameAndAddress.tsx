@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StepHeader, StepProps, StepStyled, TextInput, DetailTransactionButton } from "@joincivil/components";
+import { StepHeader, StepProps, StepStyled, TextInput, DetailTransactionButton, Collapsable } from "@joincivil/components";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { getCivil } from "../../helpers/civilInstance";
 
@@ -18,21 +18,28 @@ export class NameAndAddress extends React.Component<StepProps, NameAndAddressSta
     this.setState({name: value || ""});
   }
   public render(): JSX.Element {
+    console.log(this.props.disabled);
     const civil = getCivil();
     return (<StepStyled index={this.props.index || 0}>
-      <StepHeader el={this.props.el} isActive={this.props.active === this.props.index}>
-        Set up a newsroom
-      </StepHeader>
-      <p>Enter your newsroom name to create your newsroom smart contract.</p>
-      <TextInput label="Newsroom Name" placeholder="Enter your newsroom's name" name="NameInput" value={this.state.name} onChange={(name, val) => this.onChange(name, val)} />
-      <DetailTransactionButton
-        transactions={[{ transaction: this.createNewsroom }]}
-        civil={civil}
-        estimateFunctions={[civil.estimateNewsroomDeployTrusted.bind(civil, this.state.name)]}
-        requiredNetwork="rinkeby"
+      <Collapsable
+        open={true}
+        header={<>
+          <StepHeader el={this.props.el} isActive={this.props.active === this.props.index}>
+            Set up a newsroom
+          </StepHeader>
+          <p>Enter your newsroom name to create your newsroom smart contract.</p>
+        </>}
       >
-        Create Newsroom
-      </DetailTransactionButton>
+        <TextInput label="Newsroom Name" placeholder="Enter your newsroom's name" name="NameInput" value={this.state.name} onChange={(name, val) => this.onChange(name, val)} />
+        <DetailTransactionButton
+          transactions={[{ transaction: this.createNewsroom }]}
+          civil={civil}
+          estimateFunctions={[civil.estimateNewsroomDeployTrusted.bind(civil, this.state.name)]}
+          requiredNetwork="rinkeby"
+        >
+          Create Newsroom
+        </DetailTransactionButton>
+      </Collapsable>
     </StepStyled>)
   }
   private createNewsroom = async (): Promise<TwoStepEthTransaction<any>> => {
