@@ -4,21 +4,33 @@ import "@joincivil/utils";
 import { BaseWrapper } from "../basewrapper";
 import { EIP20Contract } from "../generated/wrappers/eip20";
 import { EthApi } from "../../utils/ethapi";
-import { EthAddress, TwoStepEthTransaction } from "../../types";
+import { EthAddress } from "../../types";
 import { requireAccount } from "../../utils/errors";
-import { createTwoStepSimple } from "../utils/contracts";
+import { EIP20MultisigProxy } from "../generated/multisig/eip20";
+import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 
 /**
- * EIP20 allows user to interface with token
+ * EIP20 allows user to interface with token.
+ *
+ * NOTE: If instantiated with a multisig wallet, all transactions are proxied through multisig, and all functions default to multisig address as the "current" user.
  */
 export class EIP20 extends BaseWrapper<EIP20Contract> {
-  public static atUntrusted(web3wrapper: EthApi, address: EthAddress): EIP20 {
+  public static async atUntrusted(
+    web3wrapper: EthApi,
+    address: EthAddress,
+    multisigAddress?: EthAddress,
+  ): Promise<EIP20> {
     const instance = EIP20Contract.atUntrusted(web3wrapper, address);
-    return new EIP20(web3wrapper, instance);
+    const multisigProxy = await EIP20MultisigProxy.create(web3wrapper, instance, multisigAddress);
+    return new EIP20(web3wrapper, instance, multisigProxy);
   }
 
-  private constructor(ethApi: EthApi, instance: EIP20Contract) {
+  /** If instantiated with `multisigAddress` undefined, proxy will send transactions directly to the contract instance. */
+  private multisigProxy: EIP20MultisigProxy;
+
+  private constructor(ethApi: EthApi, instance: EIP20Contract, multisigProxy: EIP20MultisigProxy) {
     super(ethApi, instance);
+    this.multisigProxy = multisigProxy;
   }
 
   /**
@@ -30,8 +42,8 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    * @param spender address to approve as spender of tokens
    * @param numTokens number of tokens to approve for spender to spend on user's behalf
    */
-  public async approveSpender(spender: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.approve.sendTransactionAsync(spender, numTokens));
+  public async approveSpender(spender: EthAddress, numTokens: BigNumber): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.approve.sendTransactionAsync(spender, numTokens);
   }
 
   /**
@@ -41,33 +53,45 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
   /**
    * Get number of approved tokens for spender
    * @param spender spender to check approved tokens for
+   * @param tokenOwner address whose tokens we check approval for (defaults to current user, or multisig if instantiated with multisig)
    */
   public async getApprovedTokensForSpender(spender: EthAddress, tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await this.getDefaultCurrentAddress();
     }
     return this.instance.allowance.callAsync(who, spender);
   }
 
   /**
    * Check the token balance of an address
-   * @param address address to check balance of
+   * @param tokenOwner address to check balance of (defaults to current user, or multisig if instantiated with multisig)
    */
   public async getBalance(tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await this.getDefaultCurrentAddress();
     }
     return this.instance.balanceOf.callAsync(who);
   }
 
   /**
-   * Transfer tokens from user to another wallet
+   * Transfer tokens from user or multisig to another wallet
    * @param recipient address to send tokens to
    * @param numTokens number of tokens to send
    */
-  public async transfer(recipient: EthAddress, numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.transfer.sendTransactionAsync(recipient, numTokens));
+  public async transfer(recipient: EthAddress, numTokens: BigNumber): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.transfer.sendTransactionAsync(recipient, numTokens);
+  }
+
+  private async getDefaultCurrentAddress(): Promise<EthAddress> {
+    let who;
+    if (this.multisigProxy.multisigEnabled) {
+      who = await this.multisigProxy.getMultisigAddress();
+    }
+    if (!who) {
+      who = requireAccount(this.ethApi);
+    }
+    return who;
   }
 }

@@ -143,6 +143,16 @@ export class Civil {
   }
 
   /**
+   * Same as `tcrSingletonTrusted` but is async and supports (but does not require) a multisig proxy. This is a separate function because most TCR instances don't need multisig and can continue to use synchronous `tcrSingletonTrusted` function.
+   * @param multisigAddress (optional) Multisig through which to proxy interactions with this TCR
+   * @returns Promise containing singleton instance of TCR living on the current network
+   * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton
+   */
+  public async tcrSingletonTrustedMultisigSupport(multisigAddress?: EthAddress): Promise<CivilTCR> {
+    return CivilTCR.singletonMultisigProxy(this.ethApi, this.contentProvider, multisigAddress);
+  }
+
+  /**
    * Waits for the transaction located through the hash gets into the blockchain
    * and returns it's receipt after it gets in.
    * Optionally, since Blockchain can reorganize sometimes and transactions are revoked,

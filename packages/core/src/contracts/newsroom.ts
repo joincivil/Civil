@@ -53,8 +53,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     ethApi: EthApi,
     contentProvider: ContentProvider,
     newsroomName: string,
-    charterUri: string = "",
-    charterHash: string = "",
+    charterUri: Uri = "",
+    charterHash: Hex = "",
   ): Promise<TwoStepEthTransaction<Newsroom>> {
     if ((charterUri.length === 0) !== (charterHash.length === 0)) {
       throw new Error("Both charter URI and Hash need to be set, or both empty");

@@ -60,23 +60,28 @@ const mapStateToProps = (
   ownProps: ListingListItemOwnProps,
 ): ListingListItemReduxProps & ListingListItemOwnProps => {
   const { newsrooms, listings, challenges, challengeUserData, user } = state;
+
   let listingAddress = ownProps.listingAddress;
   let challenge;
-  let userChallengeData;
   if (!listingAddress && ownProps.challengeID) {
     challenge = challenges.get(ownProps.challengeID);
     listingAddress = challenges.get(ownProps.challengeID)!.listingAddress;
   }
+
   const newsroom = newsrooms.get(listingAddress!);
   const listing = listings.get(listingAddress!) ? listings.get(listingAddress!).listing : undefined;
+
   let challengeID = ownProps.challengeID;
   if (!challengeID && listing) {
     challengeID = listing.data.challengeID!.toString();
   }
+
   let userAcct = ownProps.user;
   if (!userAcct) {
     userAcct = user.account;
   }
+
+  let userChallengeData;
   if (challengeID && userAcct) {
     const challengeUserDataMap = challengeUserData.get(challengeID!);
     if (challengeUserDataMap) {
