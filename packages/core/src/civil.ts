@@ -10,7 +10,6 @@ import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
 import { promisify } from "@joincivil/utils";
 import { FallbackProvider, EventStorageProvider } from ".";
-import * as Events from "events";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -30,7 +29,6 @@ export interface CivilOptions {
 export class Civil {
   private ethApi: EthApi;
   private contentProvider: ContentProvider;
-  private accountUpdated?: () => any;
 
   /**
    * An optional object, conforming to Web3 provider interface can be provided.
@@ -39,7 +37,7 @@ export class Civil {
    * to default http on localhost.
    * @param web3Provider Explicitly provide an Ethereum Node connection provider
    */
-  constructor(options?: CivilOptions, accountUpdated?: () => any) {
+  constructor(options?: CivilOptions) {
     const opts: CivilOptions = { ...options };
 
     if (opts.debug === true) {
@@ -47,9 +45,6 @@ export class Civil {
       debug('Enabled debug for "civil:*" namespace');
     }
 
-    if (accountUpdated) {
-      this.accountUpdated = accountUpdated;
-    }
     if (opts.web3Provider) {
       this.ethApi = new EthApi(opts.web3Provider);
     } else {
