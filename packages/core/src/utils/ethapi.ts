@@ -234,8 +234,9 @@ export class EthApi {
   }
 
   private setAccount = (newAccount: EthAddress): void => {
-    if (newAccount !== this.currentAccount) {
+    if (newAccount !== this.currentAccount || newAccount !== this.web3.eth.defaultAccount) {
       this.currentAccount = newAccount;
+      this.web3.eth.defaultAccount = this.currentAccount;
       if (this.onAccountSet) {
         this.onAccountSet();
       }
