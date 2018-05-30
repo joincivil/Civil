@@ -18,15 +18,24 @@ import { initializeGovernment, initializeGovernmentParamSubscription } from "../
 import { addUser } from "../actionCreators/userAccount";
 import { connect, DispatchProp } from "react-redux";
 
+let civil: any;
+
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
-    const civil = getCivil();
-    this.props.dispatch!(addUser(civil.userAccount));
+    civil = getCivil(this.onAccountUpdated);
     await initializeParameterizer(this.props.dispatch!);
     await initializeGovernment(this.props.dispatch!);
     await initializeProposalsSubscriptions(this.props.dispatch!);
     await initializeGovernmentParamSubscription(this.props.dispatch!);
     await initializeSubscriptions(this.props.dispatch!);
+
+  }
+
+  public onAccountUpdated = async (): Promise<void> => {
+    const tcr = civil.tcrSingletonTrusted();
+    const token = await tcr.getToken();
+    const balance = await token.getBalance(civil.userAccount);
+    this.props.dispatch!(addUser(civil.userAccount, balance));
     if (civil.userAccount) {
       await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
     }

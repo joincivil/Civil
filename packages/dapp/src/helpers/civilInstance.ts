@@ -4,9 +4,9 @@ import { CivilTCR } from "../../../core/build/src/contracts/tcr/civilTCR";
 let civil: Civil;
 let tcr: CivilTCR;
 
-export const setCivil = () => {
+export const setCivil = (onAccountUpdated?: () => any) => {
   if (!civil) {
-    civil = new Civil();
+    civil = new Civil(undefined, onAccountUpdated);
     try {
       tcr = civil.tcrSingletonTrusted();
     } catch (ex) {
@@ -15,9 +15,9 @@ export const setCivil = () => {
   }
 };
 
-export const getCivil = () => {
-  if (!civil) {
-    setCivil();
+export const getCivil = (onAccountUpdated?: () => any) => {
+  if (!civil || onAccountUpdated) {
+    setCivil(onAccountUpdated);
   }
   return civil;
 };

@@ -29,6 +29,7 @@ export interface CivilOptions {
 export class Civil {
   private ethApi: EthApi;
   private contentProvider: ContentProvider;
+  private accountUpdated?: () => any;
 
   /**
    * An optional object, conforming to Web3 provider interface can be provided.
@@ -37,7 +38,7 @@ export class Civil {
    * to default http on localhost.
    * @param web3Provider Explicitly provide an Ethereum Node connection provider
    */
-  constructor(options?: CivilOptions) {
+  constructor(options?: CivilOptions, accountUpdated?: () => any) {
     const opts: CivilOptions = { ...options };
 
     if (opts.debug === true) {
@@ -45,10 +46,13 @@ export class Civil {
       debug('Enabled debug for "civil:*" namespace');
     }
 
+    if (accountUpdated) {
+      this.accountUpdated = accountUpdated;
+    }
     if (opts.web3Provider) {
-      this.ethApi = new EthApi(opts.web3Provider);
+      this.ethApi = new EthApi(opts.web3Provider, this.onAccountUpdated);
     } else {
-      this.ethApi = EthApi.detectProvider();
+      this.ethApi = EthApi.detectProvider(this.onAccountUpdated);
     }
 
     const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider, EventStorageProvider]);
@@ -57,6 +61,12 @@ export class Civil {
 
   public toBigNumber(num: number | string): any {
     return this.ethApi.toBigNumber(num);
+  }
+
+  public onAccountUpdated = (): void => {
+    if (this.accountUpdated) {
+      this.accountUpdated();
+    }
   }
 
   /**

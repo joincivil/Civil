@@ -5,6 +5,8 @@ import { getFormattedTokenBalance } from "@joincivil/utils";
 import NavBarItem from "./NavBarItem";
 import NavBarLink from "./NavBarLink";
 import NavBarSpan from "./NavBarSpan";
+import { connect } from "react-redux";
+import { State } from "../../reducers";
 
 const StyledUL = styled.ul`
   display: flex;
@@ -17,25 +19,13 @@ const StyledUL = styled.ul`
   background-color: black;
 `;
 
-export interface NavBarState {
+export interface NavBarProps {
   balance: string;
 }
 
-class NavBar extends React.Component<{}, NavBarState> {
-  constructor(props: {}) {
+class NavBar extends React.Component<NavBarProps> {
+  constructor(props: NavBarProps) {
     super(props);
-
-    this.state = {
-      balance: "loading....",
-    };
-  }
-
-  public componentDidMount(): void {
-    window.addEventListener("load", this.initNavBar);
-  }
-
-  public componentWillUnmount(): void {
-    window.removeEventListener("load", this.initNavBar);
   }
 
   public render(): JSX.Element {
@@ -68,28 +58,22 @@ class NavBar extends React.Component<{}, NavBarState> {
           <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
         </NavBarItem>
         <NavBarItem right={true}>
-          <NavBarSpan>{"Your Balance: " + this.state.balance}</NavBarSpan>
+          <NavBarSpan>{"Your Balance: " + this.props.balance}</NavBarSpan>
         </NavBarItem>
       </StyledUL>
     );
   }
+}
+const mapStateToProps = (
+  state: State,
+): NavBarProps => {
+  const { user } = state;
 
-  private initNavBar = () => {
-    const civil = new Civil();
-    const tcr = civil.tcrSingletonTrusted();
-    const token = tcr.getToken();
-    token
-      .then(async t => {
-        return t.getBalance(civil.userAccount).then(balance => {
-          this.setState({ balance: getFormattedTokenBalance(balance) });
-        });
-      })
-      .catch(ex => {
-        if (ex === CivilErrors.NoUnlockedAccount) {
-          this.setState({ balance: "No Unlocked Account Found. Unlock MetaMask and Reload." });
-        }
-      });
-  };
+  let balance = "loading...";
+  if (user.account && user.account.balance) {
+    balance = getFormattedTokenBalance(user.account.balance);
+  }
+  return { balance }
 }
 
-export default NavBar;
+export default connect(mapStateToProps)(NavBar);
