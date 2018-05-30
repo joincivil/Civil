@@ -1,12 +1,13 @@
 import { AnyAction } from "redux";
+import { BigNumber } from "bignumber.js";
 
 export enum userActions {
   ADD_USER = "ADD_USER",
 }
 
-export const addUser = (user: any): AnyAction => {
+export const addUser = (account: any, balance: BigNumber): AnyAction => {
   return {
     type: userActions.ADD_USER,
-    data: user,
+    data: { account, balance },
   };
 };

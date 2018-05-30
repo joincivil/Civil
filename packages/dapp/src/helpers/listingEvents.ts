@@ -4,7 +4,7 @@ import { addListing } from "../actionCreators/listings";
 import { addChallenge, addUserChallengeData } from "../actionCreators/challenges";
 import { addNewsroom, addUserNewsroom } from "../actionCreators/newsrooms";
 import { EthAddress, ListingWrapper, getNextTimerExpiry } from "@joincivil/core";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { BigNumber } from "bignumber.js";
 
 const listingTimeouts = new Map<string, number>();
@@ -24,9 +24,14 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
   });
 }
 
+let challengeSubscriptions: Subscription;
 export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
+  if (challengeSubscriptions) {
+    challengeSubscriptions.unsubscribe();
+  }
+
   const tcr = getTCR();
-  tcr
+  challengeSubscriptions = tcr
     .getVoting()
     .votesCommitted(0, user)
     .subscribe(async (challengeId: BigNumber) => {

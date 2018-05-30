@@ -83,6 +83,10 @@ export class Civil {
     this.ethApi.currentProvider = web3Provider;
   }
 
+  public addCallbackToSetAccountEmitter(callback: () => any): void {
+    this.ethApi.on("accountSet", callback);
+  }
+
   /**
    * Create a new Newsroom owned by a multisig on the current Ethereum network with the
    * bytecode included in this library
