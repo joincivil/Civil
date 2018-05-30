@@ -33,7 +33,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     const canBeChallenged = canListingBeChallenged(this.props.listing.data);
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
     const canResolve = canResolveChallenge(challenge!);
-    console.log(listing);
     return (
       <ViewModule>
         <ViewModuleHeader>Application Phase</ViewModuleHeader>
