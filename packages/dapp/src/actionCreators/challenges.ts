@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { Dispatch } from "react-redux";
 import { getTCR } from "../helpers/civilInstance";
-import { BigNumber } from "bignumber.js";
+import { ensureWeb3BigNumber } from "../apis/civilTCR";
 import { WrappedChallengeData, UserChallengeData, EthAddress } from "@joincivil/core";
 
 export enum challengeActions {
@@ -67,7 +67,7 @@ export const fetchAndAddChallengeData = (challengeID: string, user: EthAddress):
       dispatch(fetchChallenge(challengeID));
 
       const tcr = getTCR();
-      const challengeIDBN = new BigNumber(challengeID);
+      const challengeIDBN = ensureWeb3BigNumber(parseInt(challengeID, 10));
       const wrappedChallenge = await tcr.getChallengeData(challengeIDBN);
       const challengeUserData = await tcr.getUserChallengeData(challengeIDBN, user);
       dispatch(addChallenge(wrappedChallenge));

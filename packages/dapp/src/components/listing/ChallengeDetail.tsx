@@ -100,7 +100,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     );
   }
   private renderRewardsDetail(): JSX.Element {
-    return <ChallengeRewardsDetail challengeID={this.props.challengeID} user={this.props.user} />;
+    return (
+      <ChallengeRewardsDetail
+        challengeID={this.props.challengeID}
+        user={this.props.user}
+        userChallengeData={this.props.userChallengeData}
+      />
+    );
   }
 
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -113,7 +119,6 @@ class ChallengeContainer extends React.Component<
 > {
   public componentWillReceiveProps(nextProps: any): void {
     if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
-      console.log("let's get the challenge data");
       this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString(), this.props.user));
     }
   }
