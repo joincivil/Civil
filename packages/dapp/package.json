@@ -7,6 +7,7 @@
     "@joincivil/components": "^1.0.3",
     "@joincivil/core": "^4.0.2",
     "@joincivil/editor": "1.1.4",
+    "@joincivil/typescript-types": "^1.0.2",
     "@joincivil/utils": "^1.1.4",
     "@types/highlight.js": "^9.12.2",
     "@types/react-redux": "^5.0.19",
