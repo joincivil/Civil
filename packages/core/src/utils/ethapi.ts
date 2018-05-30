@@ -43,11 +43,9 @@ export class EthApi {
     //               It shouldn't, and should just set null account
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map(a => a.abi));
-    if (onAccountSet) {
-      this.onAccountSet = onAccountSet;
-      setInterval(this.accountPing, 100);
-      this.accountPing();
-    }
+    this.onAccountSet = onAccountSet;
+    setInterval(this.accountPing, 100);
+    this.accountPing();
   }
 
   public get currentProvider(): Web3.Provider {

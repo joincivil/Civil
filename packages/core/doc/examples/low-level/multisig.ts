@@ -13,6 +13,7 @@ const account = web3.account!;
 
 (async () => {
   console.log("Deploying multisig");
+  console.log("account: ", account);
   const deployTxHash = await MultiSigWalletContract.deployTrusted.sendTransactionAsync(
     web3,
     [account],
