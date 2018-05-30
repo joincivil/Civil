@@ -46,6 +46,7 @@ export class EthApi {
     if (onAccountSet) {
       this.onAccountSet = onAccountSet;
       setInterval(this.accountPing, 100);
+      this.accountPing();
     }
   }
 
