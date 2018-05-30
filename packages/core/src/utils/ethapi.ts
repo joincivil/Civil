@@ -43,8 +43,10 @@ export class EthApi {
     //               It shouldn't, and should just set null account
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map(a => a.abi));
-    this.onAccountSet = onAccountSet;
-    setInterval(this.accountPing, 100);
+    if (this.onAccountSet) {
+      this.onAccountSet = onAccountSet;
+      setInterval(this.accountPing, 100);
+    }
     this.accountPing();
   }
 
