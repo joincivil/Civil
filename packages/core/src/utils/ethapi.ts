@@ -16,6 +16,7 @@ const POLL_MILLISECONDS = 1000;
 const DEFAULT_HTTP_NODE = "http://localhost:8545";
 
 const debug = Debug("civil:web3wrapper");
+let interval: NodeJS.Timer;
 
 export class EthApi extends Events {
   public static detectProvider(onAccountSet?: () => void): EthApi {
@@ -44,7 +45,7 @@ export class EthApi extends Events {
     //               It shouldn't, and should just set null account
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map(a => a.abi));
-    setInterval(this.accountPing, 100);
+    interval = setInterval(this.accountPing, 100);
     this.accountPing();
   }
 
@@ -68,6 +69,12 @@ export class EthApi extends Events {
 
   public get networkId(): string {
     return this.web3.version.network;
+  }
+
+  public cancelAccountPing(): void {
+    if (interval) {
+      clearInterval(interval);
+    }
   }
 
   public async getBlock(blockNumber: number): Promise<Web3.BlockWithoutTransactionData> {

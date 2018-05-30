@@ -8,6 +8,7 @@ import { MultiSigWalletContract } from "../../../src/contracts/generated/wrapper
 import { Multisig } from "../../../src/contracts/multisig/multisig";
 
 const web3 = new EthApi(new Web3.providers.HttpProvider("http://localhost:8545"));
+web3.cancelAccountPing();
 // tslint:disable-next-line:no-non-null-assertion
 const account = web3.account!;
 
