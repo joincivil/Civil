@@ -10,6 +10,7 @@ import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
 import { promisify } from "@joincivil/utils";
 import { FallbackProvider, EventStorageProvider } from ".";
+import * as Events from "events";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -50,9 +51,9 @@ export class Civil {
       this.accountUpdated = accountUpdated;
     }
     if (opts.web3Provider) {
-      this.ethApi = new EthApi(opts.web3Provider, this.onAccountUpdated);
+      this.ethApi = new EthApi(opts.web3Provider);
     } else {
-      this.ethApi = EthApi.detectProvider(this.onAccountUpdated);
+      this.ethApi = EthApi.detectProvider();
     }
 
     const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider, EventStorageProvider]);
@@ -62,12 +63,6 @@ export class Civil {
   public toBigNumber(num: number | string): any {
     return this.ethApi.toBigNumber(num);
   }
-
-  public onAccountUpdated = (): void => {
-    if (this.accountUpdated) {
-      this.accountUpdated();
-    }
-  };
 
   /**
    * @returns Currently default user account used, undefined if none unlocked/found
@@ -91,6 +86,10 @@ export class Civil {
    */
   public set currentProvider(web3Provider: Web3.Provider) {
     this.ethApi.currentProvider = web3Provider;
+  }
+
+  public addCallbackToSetAccountEmitter(callback: () => any): void {
+    this.ethApi.on("accountSet", callback);
   }
 
   /**

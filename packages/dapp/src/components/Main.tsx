@@ -20,7 +20,9 @@ import { connect, DispatchProp } from "react-redux";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
-    getCivil(this.onAccountUpdated);
+    const civil = getCivil();
+    civil.addCallbackToSetAccountEmitter(this.onAccountUpdated);
+    await this.onAccountUpdated();
     await initializeParameterizer(this.props.dispatch!);
     await initializeGovernment(this.props.dispatch!);
     await initializeProposalsSubscriptions(this.props.dispatch!);
@@ -30,11 +32,11 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
 
   public onAccountUpdated = async (): Promise<void> => {
     const civil = getCivil();
-    const tcr = civil.tcrSingletonTrusted();
-    const token = await tcr.getToken();
-    const balance = await token.getBalance(civil.userAccount);
-    this.props.dispatch!(addUser(civil.userAccount, balance));
     if (civil.userAccount) {
+      const tcr = civil.tcrSingletonTrusted();
+      const token = await tcr.getToken();
+      const balance = await token.getBalance(civil.userAccount);
+      this.props.dispatch!(addUser(civil.userAccount, balance));
       await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
     }
   };

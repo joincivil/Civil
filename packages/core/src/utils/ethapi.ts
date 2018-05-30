@@ -10,13 +10,14 @@ import { Artifact, artifacts } from "../contracts/generated/artifacts";
 import { CivilTransactionReceipt, EthAddress, Hex, TxDataAll, TxHash } from "../types";
 import { AbiDecoder } from "./abidecoder";
 import { CivilErrors, requireAccount } from "./errors";
+import * as Events from "events";
 
 const POLL_MILLISECONDS = 1000;
 const DEFAULT_HTTP_NODE = "http://localhost:8545";
 
 const debug = Debug("civil:web3wrapper");
 
-export class EthApi {
+export class EthApi extends Events {
   public static detectProvider(onAccountSet?: () => void): EthApi {
     let provider: Web3.Provider;
     // Try to use the window's injected provider
@@ -29,24 +30,21 @@ export class EthApi {
       provider = new Web3.providers.HttpProvider(DEFAULT_HTTP_NODE);
       debug("No web3 provider provided or found injected, defaulting to HttpProvider");
     }
-    return new EthApi(provider, onAccountSet);
+    return new EthApi(provider);
   }
 
   // Initialized for sure by the helper method setProvider used in constructor
   public web3!: Web3;
   private currentAccount?: EthAddress;
   private abiDecoder: AbiDecoder;
-  private onAccountSet?: () => void;
 
-  constructor(provider: Web3.Provider, onAccountSet?: () => void) {
+  constructor(provider: Web3.Provider) {
+    super();
     // TODO(ritave): Constructor can throw when the eg. HttpProvider can't connect to Http
     //               It shouldn't, and should just set null account
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map(a => a.abi));
-    if (this.onAccountSet) {
-      this.onAccountSet = onAccountSet;
-      setInterval(this.accountPing, 100);
-    }
+    setInterval(this.accountPing, 100);
     this.accountPing();
   }
 
@@ -56,9 +54,6 @@ export class EthApi {
 
   public set currentProvider(provider: Web3.Provider) {
     this.web3 = new Web3(provider);
-    // There's an error in web3 typings
-    // defaultAccount can be set to undefined
-    this.web3.eth.defaultAccount = this.currentAccount;
   }
 
   public get account(): EthAddress | undefined {
@@ -66,9 +61,7 @@ export class EthApi {
   }
 
   public accountPing = (): void => {
-    if (this.web3.eth.defaultAccount !== undefined) {
-      this.setAccount(this.web3.eth.defaultAccount);
-    } else if (this.web3.eth.accounts.length > 0) {
+    if (this.web3.eth.accounts.length > 0) {
       this.setAccount(this.web3.eth.accounts[0]);
     }
   };
@@ -239,9 +232,7 @@ export class EthApi {
     if (newAccount !== this.currentAccount || newAccount !== this.web3.eth.defaultAccount) {
       this.currentAccount = newAccount;
       this.web3.eth.defaultAccount = this.currentAccount;
-      if (this.onAccountSet) {
-        this.onAccountSet();
-      }
+      this.emit("accountSet");
     }
   };
 }
