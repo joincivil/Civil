@@ -18,6 +18,8 @@ export function challenges(
 export function challengesFetching(state: Map<string, any> = Map<string, any>(), action: AnyAction): Map<string, any> {
   switch (action.type) {
     case challengeActions.FETCH_CHALLENGE_DATA:
+    case challengeActions.FETCH_CHALLENGE_DATA_COMPLETE:
+    case challengeActions.FETCH_CHALLENGE_DATA_IN_PROGRESS:
       return state.set(action.data.challengeID, action.data);
     default:
       return state;
