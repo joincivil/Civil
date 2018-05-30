@@ -70,7 +70,7 @@ export class EthApi {
     } else if (this.web3.eth.accounts.length > 0) {
       this.setAccount(this.web3.eth.accounts[0]);
     }
-  }
+  };
 
   public get networkId(): string {
     return this.web3.version.network;
@@ -241,5 +241,5 @@ export class EthApi {
         this.onAccountSet();
       }
     }
-  }
+  };
 }

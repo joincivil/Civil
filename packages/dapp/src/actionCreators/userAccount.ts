@@ -8,6 +8,6 @@ export enum userActions {
 export const addUser = (account: any, balance: BigNumber): AnyAction => {
   return {
     type: userActions.ADD_USER,
-    data: { account, balance},
+    data: { account, balance },
   };
 };

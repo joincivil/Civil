@@ -28,7 +28,6 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     await initializeProposalsSubscriptions(this.props.dispatch!);
     await initializeGovernmentParamSubscription(this.props.dispatch!);
     await initializeSubscriptions(this.props.dispatch!);
-
   }
 
   public onAccountUpdated = async (): Promise<void> => {
@@ -39,7 +38,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     if (civil.userAccount) {
       await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
     }
-  }
+  };
 
   public render(): JSX.Element {
     return (

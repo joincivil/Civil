@@ -67,7 +67,7 @@ export class Civil {
     if (this.accountUpdated) {
       this.accountUpdated();
     }
-  }
+  };
 
   /**
    * @returns Currently default user account used, undefined if none unlocked/found

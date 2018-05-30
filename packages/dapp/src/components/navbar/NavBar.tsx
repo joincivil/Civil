@@ -64,16 +64,14 @@ class NavBar extends React.Component<NavBarProps> {
     );
   }
 }
-const mapStateToProps = (
-  state: State,
-): NavBarProps => {
+const mapStateToProps = (state: State): NavBarProps => {
   const { user } = state;
 
   let balance = "loading...";
   if (user.account && user.account.balance) {
     balance = getFormattedTokenBalance(user.account.balance);
   }
-  return { balance }
-}
+  return { balance };
+};
 
 export default connect(mapStateToProps)(NavBar);
