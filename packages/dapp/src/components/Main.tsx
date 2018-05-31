@@ -4,6 +4,7 @@ import Listings from "./listinglist/Listings";
 import Newsroom from "./newsroom/Newsroom";
 import Contracts from "./Contracts";
 import ContractPage from "./ContractPage";
+import ChallengePage from "./listing/Challenge";
 import Listing from "./listing/Listing";
 import Editor from "./Editor";
 import NewsroomManagement from "./newsroom/NewsroomManagement";
@@ -48,6 +49,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
         <Route path="/newsroom/:newsroomAddress" component={Newsroom} />
         <Route path="/contracts" component={Contracts} />
         <Route path="/contract/:contract" component={ContractPage} />
+        <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
         <Route path="/listing/:listing" component={Listing} />
         <Route path="/editor" component={Editor} />
         <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />

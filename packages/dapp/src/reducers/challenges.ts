@@ -9,7 +9,19 @@ export function challenges(
 ): Map<string, WrappedChallengeData> {
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_CHALLENGE:
+      console.log(action.data);
       return state.set(action.data.challengeID.toString(), action.data);
+    default:
+      return state;
+  }
+}
+
+export function challengesFetching(state: Map<string, any> = Map<string, any>(), action: AnyAction): Map<string, any> {
+  switch (action.type) {
+    case challengeActions.FETCH_CHALLENGE_DATA:
+    case challengeActions.FETCH_CHALLENGE_DATA_COMPLETE:
+    case challengeActions.FETCH_CHALLENGE_DATA_IN_PROGRESS:
+      return state.set(action.data.challengeID, action.data);
     default:
       return state;
   }

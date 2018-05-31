@@ -27,7 +27,7 @@ import {
   resolvableChallengedProposals,
 } from "./parameterizer";
 import { govtParameters } from "./government";
-import { challenges, challengesVotedOnByUser, challengeUserData } from "./challenges";
+import { challenges, challengesFetching, challengesVotedOnByUser, challengeUserData } from "./challenges";
 import { newsrooms, currentUserNewsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
@@ -61,6 +61,7 @@ export interface State {
   resolvableChallengedProposals: Set<object>;
   govtParameters: object;
   challenges: Map<string, WrappedChallengeData>;
+  challengesFetching: Map<string, any>;
   challengesVotedOnByUser: Map<string, Set<string>>;
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
 }
@@ -93,6 +94,7 @@ export default combineReducers({
   resolvableChallengedProposals,
   govtParameters,
   challenges,
+  challengesFetching,
   challengesVotedOnByUser,
   challengeUserData,
 });

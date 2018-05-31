@@ -3,7 +3,7 @@ import { getCivil, getTCR } from "../helpers/civilInstance";
 import { TwoStepEthTransaction, EthAddress } from "@joincivil/core";
 import { getVoteSaltHash } from "@joincivil/utils";
 
-function ensureWeb3BigNumber(num: number | BigNumber): any {
+export function ensureWeb3BigNumber(num: number | BigNumber): any {
   const tNum = typeof num === "number" ? num : num.toNumber();
   const civil = getCivil();
   return civil.toBigNumber(tNum);
@@ -258,4 +258,15 @@ export async function updateGovernmentParameter(
   const tcr = civil.tcrSingletonTrusted();
   const govt = await tcr.getGovernment();
   return govt.set(paramName, newValue);
+}
+
+export async function claimRewards(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction | void> {
+  const tcr = getTCR();
+  return tcr.claimReward(challengeID, salt);
+}
+
+export async function rescueTokens(challengeID: BigNumber): Promise<TwoStepEthTransaction | void> {
+  const tcr = getTCR();
+  const voting = tcr.getVoting();
+  return voting.rescueTokens(challengeID);
 }
