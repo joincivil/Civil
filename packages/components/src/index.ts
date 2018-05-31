@@ -10,5 +10,7 @@ export * from "./ModalContent";
 export * from "./StepProcess";
 export * from "./TransactionButton";
 export * from "./DetailTransactionButton";
+export * from "./DetailsButtonComponent";
+export * from "./SignConstitutionButton";
 export * from "./Collapsable";
 export * from "./AddressWithCopyButton";
