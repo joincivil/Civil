@@ -27,11 +27,19 @@ export function challengesFetching(state: Map<string, any> = Map<string, any>(),
   }
 }
 
-export function currentUserChallengesVotedOn(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
+export function challengesVotedOnByUser(
+  state: Map<string, Set<string>> = Map<string, Set<string>>(),
+  action: AnyAction,
+): Map<string, Set<string>> {
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA:
       if (action.data.userChallengeData.didUserCommit) {
-        return state.add(action.data.challengeID.toString());
+        let userSet = state.get(action.data.user);
+        if (!userSet) {
+          userSet = Set<string>();
+        }
+        const userSet2 = userSet.add(action.data.challengeID);
+        return state.set(action.data.user, userSet2);
       }
     default:
       return state;
