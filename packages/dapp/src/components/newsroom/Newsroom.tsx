@@ -2,11 +2,11 @@ import * as React from "react";
 import { FormHeading, StepProcess, Modal, ModalContent, Button, buttonSizes } from "@joincivil/components";
 import { NameAndAddress } from "./NameAndAddress";
 import { CompleteYourProfile } from "./CompleteYourProfile";
-import { SignConstitution } from "./SingConstitution";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../../reducers";
 import { addNewsroom, getNewsroom, getEditors } from "../../actionCreators/newsrooms";
 import { EthAddress } from "@joincivil/core";
+import SignConstitution from "./SignConstitution";
 
 export interface NewsroomState {
   modalOpen: boolean;
