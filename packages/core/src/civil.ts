@@ -61,8 +61,8 @@ export class Civil {
     return this.ethApi.toBigNumber(num);
   }
 
-  public async signMessage(message: string): Promise<EthSignedMessage> {
-    return this.ethApi.signMessage(message, this.userAccount);
+  public async signMessage(message: string, account?: EthAddress): Promise<EthSignedMessage> {
+    return this.ethApi.signMessage(message, account);
   }
 
   /**
