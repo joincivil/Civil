@@ -12,11 +12,14 @@ export interface TransactionButtonState {
 
 export interface Transaction {
   transaction(): Promise<TwoStepEthTransaction<any> | void>;
+  preTransaction?(): any;
   postTransaction?(result: any): any;
 }
 
 export interface TransactionButtonProps {
   transactions: Transaction[];
+  preExecuteTransactions?(): any;
+  postExecuteTransactions?(): any;
   disabled?: boolean;
   size?: buttonSizes;
 }
@@ -46,12 +49,18 @@ export class TransactionButton extends React.Component<TransactionButtonProps, T
   }
 
   private onClick = async () => {
+    if (this.props.preExecuteTransactions) {
+      setImmediate(() => this.props.preExecuteTransactions!());
+    }
     return this.executeTransactions(this.props.transactions.slice().reverse());
   };
 
   private executeTransactions = async (transactions: Transaction[]): Promise<any> => {
     const currTransaction = transactions.pop();
     if (currTransaction) {
+      if (currTransaction.preTransaction) {
+        setImmediate(() => currTransaction.preTransaction!());
+      }
       this.setState({ step: 1, disableButton: true });
       const pending = await currTransaction.transaction();
       this.setState({ step: 2 });
@@ -65,6 +74,8 @@ export class TransactionButton extends React.Component<TransactionButtonProps, T
         }
       }
       return this.executeTransactions(transactions);
+    } else if (this.props.postExecuteTransactions) {
+      setImmediate(() => this.props.postExecuteTransactions!());
     }
   };
 }
