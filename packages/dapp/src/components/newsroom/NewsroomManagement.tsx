@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { Civil, NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
+import { Civil, NewsroomRoles, TwoStepEthTransaction, CivilErrors } from "@joincivil/core";
 import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
@@ -115,10 +115,26 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   }
 
   private approve = async (): Promise<TwoStepEthTransaction | void> => {
-    return approveForApply(this.state.multisigAddr);
+    this.setState({ error: "" });
+    try {
+      return await approveForApply(this.state.multisigAddr);
+    } catch (e) {
+      if (e.message === CivilErrors.InsufficientToken) {
+        this.setState({
+          error:
+            (this.state.multisigAddr ? "Newsroom multisig wallet" : "Your account") +
+            " has insufficient CVL token to apply",
+        });
+      } else {
+        throw e;
+      }
+    }
   };
 
-  private applyToTCR = async (): Promise<TwoStepEthTransaction> => {
+  private applyToTCR = async (): Promise<TwoStepEthTransaction | void> => {
+    if (this.state.error) {
+      return;
+    }
     return applyToTCR(this.props.match.params.newsroomAddress, this.state.multisigAddr);
   };
 

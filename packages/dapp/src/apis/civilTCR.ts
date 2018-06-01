@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 import { getCivil, getTCR } from "../helpers/civilInstance";
-import { TwoStepEthTransaction, EthAddress } from "@joincivil/core";
+import { TwoStepEthTransaction, EthAddress, CivilErrors } from "@joincivil/core";
 import { getVoteSaltHash } from "@joincivil/utils";
 
 export function ensureWeb3BigNumber(num: number | BigNumber): any {
@@ -53,6 +53,9 @@ export async function approve(
   const token = await tcr.getToken();
   const amountBN = ensureWeb3BigNumber(amount);
   console.log("token address: " + token.address);
+  if ((await token.getBalance()) < amountBN) {
+    throw new Error(CivilErrors.InsufficientToken);
+  }
   const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress || undefined);
   console.log("approved tokens: " + approvedTokens + " - amount: " + amount);
   if (approvedTokens < amountBN) {

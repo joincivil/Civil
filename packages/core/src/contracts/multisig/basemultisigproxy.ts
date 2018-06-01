@@ -71,7 +71,7 @@ export class BaseMultisigProxy {
       this.multisig = Multisig.atUntrusted(this.ethApi, multisigAddress);
     } else if (isOwnableContract(this.instance) && this.instance.owner) {
       const ownerAddress = await this.instance.owner.callAsync();
-      if (this.isAddressMultisigWallet(ownerAddress)) {
+      if (await this.isAddressMultisigWallet(ownerAddress)) {
         this.multisig = Multisig.atUntrusted(this.ethApi, ownerAddress);
       }
     }
