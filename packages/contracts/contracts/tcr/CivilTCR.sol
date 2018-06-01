@@ -309,19 +309,19 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @notice Called by a voter to claim their reward for each completed vote.
-  --------
-  In order to claim reward for a challenge:
-  1) Challenge must be resolved
-  2) Message sender must not have already claimed tokens for this challenge
-  --------
-  Emits `_RewardClaimed` if successful
-  @param challengeID The PLCR pollID of the challenge a reward is being claimed for
-  @param salt        The salt of a voter's commit hash in the given poll
+  @notice gets the number of tokens the voter staked on the winning side of the challenge,
+  or the losing side if the challenge has been overturned
+  @param voter The Voter to check
+  @param challengeID The PLCR pollID of the challenge to check
+  @param salt The salt of a voter's commit hash in the given poll
   */
-  function claimReward(uint challengeID, uint salt) public {
-    Challenge storage challenge = challenges[challengeID];
-    claimChallengeReward(challengeID, salt, challenge, appeals[challengeID].appealGranted && !appeals[challengeID].overturned);
+  function getNumChallengeTokens(address voter, uint challengeID, uint salt) internal view returns (uint) {
+    var overturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
+    if (overturned) {
+      return voting.getNumLosingTokens(voter, challengeID, salt);
+    } else {
+      return voting.getNumPassingTokens(voter, challengeID, salt);
+    }
   }
 
   /**

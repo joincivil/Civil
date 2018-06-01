@@ -279,7 +279,17 @@ contract AddressRegistry {
   */
   function claimReward(uint challengeID, uint salt) public {
     Challenge storage challenge = challenges[challengeID];
-    claimChallengeReward(challengeID, salt, challenge, false);
+    claimChallengeReward(challengeID, salt, challenge);
+  }
+
+  /**
+  @notice gets the number of tokens the voter staked on the winning side of the challenge
+  @param voter The Voter to check
+  @param challengeID The PLCR pollID of the challenge to check
+  @param salt The salt of a voter's commit hash in the given poll
+  */
+  function getNumChallengeTokens(address voter, uint challengeID, uint salt) internal view returns (uint) {
+    return voting.getNumPassingTokens(voter, challengeID, salt);
   }
 
   /**
@@ -287,17 +297,12 @@ contract AddressRegistry {
   @param challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param salt        The salt of a voter's commit hash in the given poll
   */
-  function claimChallengeReward(uint challengeID, uint salt, Challenge storage challenge, bool overturned) internal {
+  function claimChallengeReward(uint challengeID, uint salt, Challenge storage challenge) internal {
     // Ensures the voter has not already claimed tokens and challenge results have been processed
     require(challenge.hasClaimedTokens[msg.sender] == false);
     require(challenge.resolved == true);
 
-    uint voterTokens = 0;
-    if (overturned) {
-      voterTokens = voting.getNumLosingTokens(msg.sender, challengeID, salt);
-    } else {
-      voterTokens = voting.getNumPassingTokens(msg.sender, challengeID, salt);
-    }
+    uint voterTokens = getNumChallengeTokens(msg.sender, challengeID, salt);
     uint reward = voterReward(msg.sender, challengeID, salt);
 
     // Subtracts the voter's information to preserve the participation ratios
