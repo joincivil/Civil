@@ -10,7 +10,7 @@ export const InputIcon = styled.div`
 
 export const InputLabel = styled.label`
   font-size: 15px;
-  color: ${colors.accent.CIVIL_GRAY_2};
+  color: #000;
   font-family: ${fonts.SANS_SERIF};
 `;
 
@@ -59,15 +59,11 @@ const InputBase = styled(InputBaseComponent)`
   > input {
     margin: 5px 0px 10px 0;
     padding: 10px;
-    border: none;
-    border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    border: 1px solid ${colors.accent.CIVIL_GRAY_3};
     outline: none;
   }
   > input::placeholder {
     color: ${colors.accent.CIVIL_GRAY_3};
-  }
-  > input:focus + label {
-    color: ${colors.accent.CIVIL_BLUE};
   }
   > input:focus {
     border-bottom: 1px solid ${colors.accent.CIVIL_BLUE};

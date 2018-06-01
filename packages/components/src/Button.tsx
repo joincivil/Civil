@@ -121,3 +121,19 @@ export const CancelButton = SecondaryButton.extend`
     color: ${colors.accent.CIVIL_RED};
   }
 `;
+
+export const BorderlessButton = Button.extend`
+  border: none;
+  font-family: ${fonts.SANS_SERIF};
+  color: ${colors.primary.CIVIL_BLUE_1};
+  font-weight: 700;
+  margin-left: 15px;
+  letter-spacing: 0.7px;
+  padding: ${sizesObject[buttonSizes.SMALL]};
+  font-size: 15px;
+  background-color: transparent;
+  &:hover {
+    background-color: transparent;
+    color: ${colors.accent.CIVIL_BLUE_FADED};
+  }
+`;

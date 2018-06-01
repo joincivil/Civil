@@ -6,7 +6,7 @@ import Contracts from "./Contracts";
 import ContractPage from "./ContractPage";
 import Listing from "./listing/Listing";
 import Editor from "./Editor";
-import NewsroomManagement from "./newsroom/NewsroomManagement";
+import NewsroomManagement from "./newsroom/NewsroomManagementV2";
 import Parameterizer from "./Parameterizer";
 import ParameterizerProposal from "./parameterizer/Proposal";
 import CreateNewsroom from "./CreateNewsroom";

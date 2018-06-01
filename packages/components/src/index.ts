@@ -11,3 +11,4 @@ export * from "./StepProcess";
 export * from "./TransactionButton";
 export * from "./DetailTransactionButton";
 export * from "./Collapsable";
+export * from "./AddressWithCopyButton";
