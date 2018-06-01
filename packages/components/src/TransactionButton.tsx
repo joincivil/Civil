@@ -20,6 +20,7 @@ export interface Transaction {
   transaction(): Promise<TwoStepEthTransaction<any> | void>;
   preTransaction?(): any;
   postTransaction?(result: any): any;
+  handleTransactionError?(err: any): any;
 }
 
 export interface TransactionButtonProps {
@@ -96,19 +97,25 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
       if (currTransaction.preTransaction) {
         setImmediate(() => currTransaction.preTransaction!());
       }
-      this.setState({ step: 1, disableButton: true });
-      const pending = await currTransaction.transaction();
-      this.setState({ step: 2 });
-      if (pending) {
-        const receipt = await pending.awaitReceipt();
-        if (!transactions.length) {
-          this.setState({ step: 0, disableButton: false });
+      try {
+        this.setState({ step: 1, disableButton: true });
+        const pending = await currTransaction.transaction();
+        this.setState({ step: 2 });
+        if (pending) {
+          const receipt = await pending.awaitReceipt();
+          if (!transactions.length) {
+            this.setState({ step: 0, disableButton: false });
+          }
+          if (currTransaction.postTransaction) {
+            setImmediate(() => currTransaction.postTransaction!(receipt));
+          }
         }
-        if (currTransaction.postTransaction) {
-          setImmediate(() => currTransaction.postTransaction!(receipt));
+        return this.executeTransactions(transactions);
+      } catch (err) {
+        if (currTransaction.handleTransactionError) {
+          setImmediate(() => currTransaction.handleTransactionError!(err));
         }
       }
-      return this.executeTransactions(transactions);
     } else if (this.props.postExecuteTransactions) {
       setImmediate(() => this.props.postExecuteTransactions!());
     }
@@ -127,19 +134,30 @@ export class TransactionButton extends React.Component<
   }
 
   public render(): JSX.Element {
-    const { modalComponent, modalContentComponents, ...other } = this.props;
+    const { modalComponent, modalContentComponents, transactions, ...other } = this.props;
     const progressModal = this.getProgressModalEl(modalComponent, modalContentComponents);
+    const extendedTransactions = this.extendTransactionsErrorHandlers(transactions);
     return (
       <>
         <TransactionButtonNoModal
           preExecuteTransactions={this.showProgressModal}
           postExecuteTransactions={this.showProgressModalSuccess}
+          transactions={extendedTransactions}
           {...other}
         />
         {progressModal}
       </>
     );
   }
+
+  private extendTransactionsErrorHandlers = (transactions: Transaction[]): Transaction[] => {
+    return transactions.map(transaction => {
+      if (!transaction.handleTransactionError) {
+        transaction.handleTransactionError = this.showProgressModalError;
+      }
+      return transaction;
+    });
+  };
 
   private getProgressModalEl = (
     modalComponent: JSX.Element | undefined,
@@ -172,6 +190,10 @@ export class TransactionButton extends React.Component<
 
   private showProgressModalSuccess = (): void => {
     this.setState({ progressModalState: progressModalStates.SUCCESS });
+  };
+
+  private showProgressModalError = (): void => {
+    this.setState({ progressModalState: progressModalStates.ERROR });
   };
 
   private showProgressModal = (): void => {
