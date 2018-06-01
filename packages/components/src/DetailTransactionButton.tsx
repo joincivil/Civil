@@ -99,20 +99,12 @@ export class DetailTransactionButton extends React.Component<
 
   public render(): JSX.Element {
     const details = this.renderDetails();
-    const progressModal = this.getProgressModalEl();
     return (
       <Wrapper>
         {this.renderDetails()}
-        <TransactionButton
-          size={buttonSizes.SMALL}
-          disabled={this.isDisabled()}
-          transactions={this.props.transactions}
-          preExecuteTransactions={this.showProgressModal}
-          postExecuteTransactions={this.hideProgressModal}
-        >
+        <TransactionButton size={buttonSizes.SMALL} disabled={this.isDisabled()} transactions={this.props.transactions}>
           {this.props.children}
         </TransactionButton>
-        {progressModal}
       </Wrapper>
     );
   }
@@ -186,20 +178,4 @@ export class DetailTransactionButton extends React.Component<
       return this.renderTransactionDetails();
     }
   }
-
-  private getProgressModalEl = (): JSX.Element | undefined => {
-    if (this.props.progressModal) {
-      return React.cloneElement(this.props.progressModal as React.ReactElement<any>, {
-        visible: this.state.isProgressModalVisible,
-      });
-    }
-  };
-
-  private hideProgressModal = (): void => {
-    this.setState({ isProgressModalVisible: false });
-  };
-
-  private showProgressModal = (): void => {
-    this.setState({ isProgressModalVisible: true });
-  };
 }

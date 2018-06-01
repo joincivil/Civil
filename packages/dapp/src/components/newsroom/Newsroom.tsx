@@ -2,24 +2,16 @@ import * as React from "react";
 import { FormHeading, StepProcess, Modal, ModalContent, Button, buttonSizes } from "@joincivil/components";
 import { NameAndAddress } from "./NameAndAddress";
 import { CompleteYourProfile } from "./CompleteYourProfile";
-<<<<<<< HEAD
-=======
-import { SignConstitution } from "./SignConstitution";
->>>>>>> Updates to Signing the Constitution
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../../reducers";
 import { addNewsroom, getNewsroom, getEditors } from "../../actionCreators/newsrooms";
 import { EthAddress } from "@joincivil/core";
-import SignConstitution from "./SignConstitution";
+import { SignConstitution } from "./SignConstitution";
 
 export interface NewsroomState {
   modalOpen: boolean;
-<<<<<<< HEAD
   currentStep: number;
 };
-=======
-}
->>>>>>> Updates to Signing the Constitution
 
 export interface NewsroomProps {
   address?: string;
