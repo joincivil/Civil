@@ -316,7 +316,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param salt The salt of a voter's commit hash in the given poll
   */
   function getNumChallengeTokens(address voter, uint challengeID, uint salt) internal view returns (uint) {
-    var overturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
+    bool overturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
     if (overturned) {
       return voting.getNumLosingTokens(voter, challengeID, salt);
     } else {
