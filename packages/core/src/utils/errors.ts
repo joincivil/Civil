@@ -8,6 +8,7 @@ export enum CivilErrors {
   NoPrivileges = "NOT_ENOUGH_PRIVILEGES_FOR_ACTION",
   EvmException = "EVM_EXCEPTION_OCCURED",
   NoChallenge = "NO_CHALLENGE_FOUND_FOR_LISTING",
+  InsufficientToken = "INSUFFICIENT_TOKEN_FOR_ACTION",
 }
 
 export function requireAccount(ethApi: EthApi): EthAddress {
