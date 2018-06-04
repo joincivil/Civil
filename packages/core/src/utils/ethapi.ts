@@ -136,8 +136,7 @@ export class EthApi extends Events {
 
     const signerAccount = account || requireAccount(this);
 
-    // const response = await this.rpc("eth_sign", [signerAccount, messageHex]);
-    const response = await this.rpc("personal_sign", messageHex, signerAccount);
+    const response = await this.rpc("eth_sign", signerAccount, messageHex);
     const signature = response.result as Hex;
 
     const rsv = fromRpcSig(signature);
