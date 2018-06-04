@@ -62,11 +62,13 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
           <div>
             <StyledSpan>minDeposit:</StyledSpan>{" "}
-            {this.props.parameters.minDeposit && getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit.toString()))}
+            {this.props.parameters.minDeposit &&
+              getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit.toString()))}
           </div>
           <div>
             <StyledSpan>pMinDeposit:</StyledSpan>{" "}
-            {this.props.parameters.pMinDeposit && getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.pMinDeposit.toString()))}
+            {this.props.parameters.pMinDeposit &&
+              getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.pMinDeposit.toString()))}
           </div>
           <div>
             <StyledSpan>applyStageLen:</StyledSpan>{" "}
@@ -138,7 +140,8 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
           </div>
           <div>
             <StyledSpan>appealFee:</StyledSpan>{" "}
-            {this.props.govtParameters.appealFee && getFormattedTokenBalance(civil.toBigNumber(this.props.govtParameters.appealFee.toString()))}
+            {this.props.govtParameters.appealFee &&
+              getFormattedTokenBalance(civil.toBigNumber(this.props.govtParameters.appealFee.toString()))}
           </div>
           <div>
             <StyledSpan>appealVotePercentage:</StyledSpan>{" "}

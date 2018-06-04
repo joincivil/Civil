@@ -52,7 +52,11 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderChallengeEvent(args: CivilTCR.Args._Challenge): JSX.Element {
-    return <Link to={"/listing/" + this.props.listing + "/challenge/" + args.challengeID.toString()}>Challenge --- ID: {args.challengeID.toString()}</Link>;
+    return (
+      <Link to={"/listing/" + this.props.listing + "/challenge/" + args.challengeID.toString()}>
+        Challenge --- ID: {args.challengeID.toString()}
+      </Link>
+    );
   }
 
   private renderApplicationEvent(args: CivilTCR.Args._Application): JSX.Element {
