@@ -15,21 +15,24 @@ const StyledLegalIframe = styled.iframe`
   width: 100%;
 `;
 
+export interface SignConstitutionProps {
+  address?: string;
+}
+
 export interface SignConstitutionReduxProps {
-  ui: Map<string, any>;
-  government: Map<string, string>;
-  user: any;
+  government?: Map<string, string>;
+  user?: any;
 }
 
 export interface SignConstitutionState {
   isNewsroomOwner?: boolean;
 }
 
-class SignConstitution extends React.Component<
-  DispatchProp<any> & StepProps & SignConstitutionReduxProps,
+class SignConstitutionComponent extends React.Component<
+  DispatchProp<any> & StepProps & SignConstitutionProps & SignConstitutionReduxProps,
   SignConstitutionState
 > {
-  constructor(props: StepProps & SignConstitutionReduxProps) {
+  constructor(props: StepProps & SignConstitutionProps & SignConstitutionReduxProps) {
     super(props);
     this.state = {
       isNewsroomOwner: false,
@@ -37,21 +40,27 @@ class SignConstitution extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
+    console.log(this.props.address);
+    if (this.props.address && this.props.address.length) {
+      const isOwner = await this.isNewsroomOwner();
+      this.setState({ isNewsroomOwner: isOwner });
+    }
     return this.initGovernmentData();
   }
 
   public async componentDidUpdate(
-    prevProps: StepProps & SignConstitutionReduxProps,
+    prevProps: StepProps & SignConstitutionProps & SignConstitutionReduxProps,
     prevState: SignConstitutionState,
   ): Promise<void> {
-    const prevNewsroomAddress = prevProps.ui.get("newsroomMgmtCurrentAddress");
-    const newsroomAddress = this.props.ui.get("newsroomMgmtCurrentAddress");
+    const prevNewsroomAddress = prevProps.address;
+    const newsroomAddress = this.props.address;
     const newState: SignConstitutionState = {};
 
-    if (!prevNewsroomAddress && newsroomAddress) {
-      const userAccount = (this.props.user && this.props.user.account) || undefined;
-      const newsroom = await getNewsroom(newsroomAddress);
-      const isOwner = await newsroom.isOwner(userAccount);
+    const isUpdatedAddress = !prevNewsroomAddress && newsroomAddress && newsroomAddress.length;
+    const isUpdatedUser = prevProps.user !== this.props.user;
+
+    if (isUpdatedAddress || isUpdatedUser) {
+      const isOwner = await this.isNewsroomOwner();
       newState.isNewsroomOwner = isOwner;
     }
 
@@ -75,7 +84,7 @@ class SignConstitution extends React.Component<
           }
           open={false}
         >
-          <StyledLegalIframe src={this.props.government.get("constitutionURI")} />
+          <StyledLegalIframe src={this.props.government!.get("constitutionURI")} />
 
           <SignConstitutionButton
             civil={civil}
@@ -98,19 +107,32 @@ class SignConstitution extends React.Component<
   };
 
   private signConstitution = async (): Promise<void> => {
-    const signature = await signMessage(this.props.government.get("constitutionHash"));
+    const signature = await signMessage(this.props.government!.get("constitutionHash"));
     console.log(signature);
+  };
+
+  private isNewsroomOwner = async (): Promise<boolean> => {
+    const userAccount = (this.props.user && this.props.user.account) || undefined;
+    if (!userAccount || Object.keys(userAccount).length === 0) {
+      return false;
+    }
+    const newsroom = await getNewsroom(this.props.address!);
+    const isOwner = await newsroom.isOwner(userAccount);
+    return isOwner;
   };
 }
 
-const mapStateToProps = (state: State, ownProps: StepProps): SignConstitutionReduxProps => {
-  const { ui, government, user } = state;
+const mapStateToProps = (
+  state: State,
+  ownProps: StepProps & SignConstitutionReduxProps,
+): StepProps & SignConstitutionReduxProps & SignConstitutionReduxProps => {
+  const { government, user } = state;
 
   return {
-    ui,
+    ...ownProps,
     government,
     user,
   };
 };
 
-export default connect(mapStateToProps)(SignConstitution);
+export const SignConstitution = connect(mapStateToProps)(SignConstitutionComponent);
