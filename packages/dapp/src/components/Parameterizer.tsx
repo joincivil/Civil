@@ -7,6 +7,8 @@ import { PageView, ViewModule, ViewModuleHeader } from "./utility/ViewModules";
 import { ProposeReparameterization } from "./parameterizer/proposeReparameterization";
 import { GovernmentReparameterization } from "./parameterizer/GovernmentReparameterization";
 import Proposals from "./parameterizer/Proposals";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getCivil } from "../helpers/civilInstance";
 
 const StyledSpan = styled.span`
   font-weight: bold;
@@ -51,6 +53,8 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
   // TODO(sruddy): Nguyet is working on designs for this so I'll update with html/css later
   public render(): JSX.Element {
+    const civil = getCivil();
+
     return (
       <PageView>
         <ViewModule>
@@ -58,11 +62,11 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
           <div>
             <StyledSpan>minDeposit:</StyledSpan>{" "}
-            {this.props.parameters.minDeposit && this.props.parameters.minDeposit.toString()}
+            {this.props.parameters.minDeposit && getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit.toString()))}
           </div>
           <div>
             <StyledSpan>pMinDeposit:</StyledSpan>{" "}
-            {this.props.parameters.pMinDeposit && this.props.parameters.pMinDeposit.toString()}
+            {this.props.parameters.pMinDeposit && getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.pMinDeposit.toString()))}
           </div>
           <div>
             <StyledSpan>applyStageLen:</StyledSpan>{" "}
@@ -134,7 +138,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
           </div>
           <div>
             <StyledSpan>appealFee:</StyledSpan>{" "}
-            {this.props.govtParameters.appealFee && this.props.govtParameters.appealFee.toString()}
+            {this.props.govtParameters.appealFee && getFormattedTokenBalance(civil.toBigNumber(this.props.govtParameters.appealFee.toString()))}
           </div>
           <div>
             <StyledSpan>appealVotePercentage:</StyledSpan>{" "}

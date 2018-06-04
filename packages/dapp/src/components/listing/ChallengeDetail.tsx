@@ -42,7 +42,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     const userChallengeData = this.props.userChallengeData;
     console.log(challenge, userChallengeData);
     const appealExists = doesChallengeHaveAppeal(challenge);
-    const canShowRewardsForm = userChallengeData && userChallengeData.didUserReveal;
+    const canShowRewardsForm = userChallengeData && userChallengeData.didUserCommit;
     return (
       <ViewModule>
         <ViewModuleHeader>Challenge Details</ViewModuleHeader>
@@ -119,7 +119,7 @@ class ChallengeContainer extends React.Component<
 > {
   public componentWillReceiveProps(nextProps: any): void {
     if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString(), this.props.user));
+      this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
     }
   }
 
@@ -178,7 +178,7 @@ const mapStateToProps = (
   if (challengeID && userAcct) {
     const challengeUserDataMap = challengeUserData.get(challengeID!.toString());
     if (challengeUserDataMap) {
-      userChallengeData = challengeUserDataMap.get(userAcct);
+      userChallengeData = challengeUserDataMap.get(userAcct.account);
     }
   }
   let challengeDataRequestStatus;
