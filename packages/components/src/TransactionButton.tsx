@@ -18,10 +18,10 @@ export interface Transaction {
 
 export interface TransactionButtonProps {
   transactions: Transaction[];
-  preExecuteTransactions?(): any;
-  postExecuteTransactions?(): any;
   disabled?: boolean;
   size?: buttonSizes;
+  preExecuteTransactions?(): any;
+  postExecuteTransactions?(): any;
 }
 
 export class TransactionButton extends React.Component<TransactionButtonProps, TransactionButtonState> {
@@ -67,6 +67,7 @@ export class TransactionButton extends React.Component<TransactionButtonProps, T
       if (pending) {
         const receipt = await pending.awaitReceipt();
         if (!transactions.length) {
+          console.log("set it back to 0");
           this.setState({ step: 0, disableButton: false });
         }
         if (currTransaction.postTransaction) {

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { State } from "../../reducers";
 import { ListingWrapper, NewsroomWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
+import { NewsroomState } from "../../reducers/newsrooms";
 import ListingListItemDescription from "./ListingListItemDescription";
 import ListingListItemOwner from "./ListingListItemOwner";
 import ListingListItemStatus from "./ListingListItemStatus";
@@ -28,7 +29,7 @@ export interface ListingListItemOwnProps {
 }
 
 export interface ListingListItemReduxProps {
-  newsroom: NewsroomWrapper | undefined;
+  newsroom: NewsroomState | undefined;
   listing: ListingWrapper | undefined;
   challenge?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
@@ -42,8 +43,8 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   public render(): JSX.Element {
     return (
       <StyledDiv even={this.props.even}>
-        <ListingListItemDescription listing={this.props.listing!} newsroom={this.props.newsroom!} />
-        <ListingListItemOwner newsroom={this.props.newsroom!} />
+        <ListingListItemDescription listing={this.props.listing!} newsroom={this.props.newsroom!.wrapper} />
+        <ListingListItemOwner newsroom={this.props.newsroom!.wrapper} />
         <ListingListItemStatus
           listing={this.props.listing!}
           challenge={this.props.challenge}

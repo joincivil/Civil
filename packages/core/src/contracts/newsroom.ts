@@ -33,6 +33,8 @@ import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { Newsroom as Events, NewsroomContract } from "./generated/wrappers/newsroom";
 import { NewsroomFactory, NewsroomFactoryContract } from "./generated/wrappers/newsroom_factory";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
+import { Multisig } from "./multisig/multisig";
+import { MultisigTransaction } from "./multisig/multisigtransaction";
 import { createTwoStepSimple, createTwoStepTransaction, findEventOrThrow, findEvents } from "./utils/contracts";
 
 /**
@@ -227,6 +229,18 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async owners(): Promise<EthAddress[]> {
     return this.multisigProxy.owners();
+  }
+
+  public async addOwner(owner: EthAddress): Promise<TwoStepEthTransaction<MultisigTransaction>> {
+    const address = await this.multisigProxy.getMultisigAddress();
+    const contract = await Multisig.atUntrusted(this.ethApi, address!);
+    return contract.addOwner(owner);
+  }
+
+  public async estimateAddOwner(owner: EthAddress): Promise<number> {
+    const address = await this.multisigProxy.getMultisigAddress();
+    const contract = await Multisig.atUntrusted(this.ethApi, address!);
+    return contract.estimateAddOwner(owner);
   }
 
   /**

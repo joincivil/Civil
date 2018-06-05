@@ -5,7 +5,7 @@ import { CompleteYourProfile } from "./CompleteYourProfile";
 import { SignConstitution } from "./SingConstitution";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../../reducers";
-import { addNewsroom, getNewsroom } from "../../actionCreators/newsrooms";
+import { addNewsroom, getNewsroom, getEditors } from "../../actionCreators/newsrooms";
 import { EthAddress } from "@joincivil/core";
 
 export interface NewsroomState {
@@ -31,6 +31,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   public componentDidMount(): void {
     if (this.props.address) {
       this.props.dispatch!(getNewsroom(this.props.address));
+      this.props.dispatch!(getEditors(this.props.address));
     }
   }
 
@@ -72,11 +73,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
 const mapStateToProps = (state: State, ownProps: NewsroomProps): NewsroomProps => {
   const { address } = ownProps;
-  const newsroom = state.newsrooms.get(address || "") || {data: {}};
+  const newsroom = state.newsrooms.get(address || "") || {wrapper: {data: {}}};
   return {
     ...ownProps,
     address,
-    name: newsroom.data.name,
+    name: newsroom.wrapper.data.name,
   };
 };
 

@@ -22,7 +22,7 @@ export const Label: StyledComponentClass<any, "div"> = styled.div`
 class NameAndAddressComponent extends React.Component<NameAndAddressProps & DispatchProp<any>> {
 
   public onChange(name: string, value: string | void): void {
-    this.props.dispatch!(updateNewsroom(this.props.address || "", {name: value || ""}));
+    this.props.dispatch!(updateNewsroom(this.props.address || "", {wrapper: {data: {name: value || ""}}}));
   }
 
   public renderNoContract(): JSX.Element {

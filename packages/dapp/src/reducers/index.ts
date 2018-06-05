@@ -29,13 +29,13 @@ import {
 } from "./parameterizer";
 import { govtParameters } from "./government";
 import { challenges, challengesFetching, challengesVotedOnByUser, challengeUserData } from "./challenges";
-import { newsrooms, currentUserNewsrooms } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
 import { TimestampedEvent, NewsroomWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
+import { newsrooms, currentUserNewsrooms, NewsroomState } from "./newsrooms";
 
 export interface State {
-  newsrooms: Map<string, NewsroomWrapper>;
+  newsrooms: Map<string, NewsroomState>;
   currentUserNewsrooms: Set<string>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsFetching: Map<string, any>;
