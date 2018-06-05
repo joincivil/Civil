@@ -10,10 +10,10 @@ RUN yarn install
 RUN yarn build
 
 # Install `serve` to run the application.
-RUN npm install -g serve
+RUN npm install -g serve@7.2.0
 
 # Set the command to start the node server.
 CMD yarn serve:dapp
 
 # Tell Docker about the port we'll run on.
-EXPOSE 5000
+EXPOSE 3000
