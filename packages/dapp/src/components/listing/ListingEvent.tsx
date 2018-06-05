@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { CivilTCR } from "@joincivil/core";
+import { Link } from "react-router-dom";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -11,6 +12,7 @@ const StyledDiv = styled.div`
 
 export interface ListingEventProps {
   event: any;
+  listing: string;
 }
 
 class ListingEvent extends React.Component<ListingEventProps> {
@@ -50,7 +52,11 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderChallengeEvent(args: CivilTCR.Args._Challenge): JSX.Element {
-    return <>Challenge --- ID: {args.challengeID.toString()}</>;
+    return (
+      <Link to={"/listing/" + this.props.listing + "/challenge/" + args.challengeID.toString()}>
+        Challenge --- ID: {args.challengeID.toString()}
+      </Link>
+    );
   }
 
   private renderApplicationEvent(args: CivilTCR.Args._Application): JSX.Element {

@@ -44,7 +44,7 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
       <ViewModule>
         <ViewModuleHeader>Listing History</ViewModuleHeader>
         {this.props.listingHistory.map((e, i) => {
-          return <ListingEvent key={i} event={e} />;
+          return <ListingEvent key={i} event={e} listing={this.props.listing} />;
         })}
       </ViewModule>
     );

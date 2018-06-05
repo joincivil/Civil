@@ -57,7 +57,7 @@ export const fetchChallengeComplete = (challengeID: string): AnyAction => {
   };
 };
 
-export const fetchAndAddChallengeData = (challengeID: string, user: EthAddress): any => {
+export const fetchAndAddChallengeData = (challengeID: string): any => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
     const { challengesFetching } = getState();
     const challengeRequest = challengesFetching.get(challengeID);
@@ -69,9 +69,7 @@ export const fetchAndAddChallengeData = (challengeID: string, user: EthAddress):
       const tcr = getTCR();
       const challengeIDBN = ensureWeb3BigNumber(parseInt(challengeID, 10));
       const wrappedChallenge = await tcr.getChallengeData(challengeIDBN);
-      const challengeUserData = await tcr.getUserChallengeData(challengeIDBN, user);
       dispatch(addChallenge(wrappedChallenge));
-      dispatch(addUserChallengeData(challengeIDBN.toString(), user, challengeUserData));
 
       return dispatch(fetchChallengeComplete(challengeID));
 
