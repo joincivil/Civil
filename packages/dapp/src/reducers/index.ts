@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import {
   listings,
+  listingsFetching,
   histories,
   applications,
   whitelistedListings,
@@ -37,6 +38,7 @@ export interface State {
   newsrooms: Map<string, NewsroomWrapper>;
   currentUserNewsrooms: Set<string>;
   listings: Map<string, ListingWrapperWithExpiry>;
+  listingsFetching: Map<string, any>;
   histories: Map<string, List<TimestampedEvent<any>>>;
   applications: Set<string>;
   whitelistedListings: Set<string>;
@@ -70,6 +72,7 @@ export default combineReducers({
   newsrooms,
   currentUserNewsrooms,
   listings,
+  listingsFetching,
   histories,
   applications,
   whitelistedListings,
