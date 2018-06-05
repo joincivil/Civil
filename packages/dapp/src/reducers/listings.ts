@@ -37,6 +37,17 @@ export function listings(
   }
 }
 
+export function listingsFetching(state: Map<string, any> = Map<string, any>(), action: AnyAction): Map<string, any> {
+  switch (action.type) {
+    case listingActions.FETCH_LISTING_DATA:
+    case listingActions.FETCH_LISTING_DATA_COMPLETE:
+    case listingActions.FETCH_LISTING_DATA_IN_PROGRESS:
+      return state.set(action.data.listingID, action.data);
+    default:
+      return state;
+  }
+}
+
 export function histories(
   state: Map<string, List<TimestampedEvent<any>>> = Map<string, List<TimestampedEvent<any>>>(),
   action: AnyAction,

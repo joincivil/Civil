@@ -9,7 +9,6 @@ export function challenges(
 ): Map<string, WrappedChallengeData> {
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_CHALLENGE:
-      console.log(action.data);
       return state.set(action.data.challengeID.toString(), action.data);
     default:
       return state;
