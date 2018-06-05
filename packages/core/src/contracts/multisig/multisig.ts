@@ -66,7 +66,14 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     await this.requireOwner();
 
     const options = await this.instance.addOwner.getRaw(owner, { gas: 0 });
+    console.log(options);
     return this.submitTransaction(this.address, new BigNumber(0), options.data!);
+  }
+
+  public async estimateAddOwner(owner: EthAddress): Promise<number> {
+    await this.requireOwner();
+    const options = await this.instance.addOwner.getRaw(owner, { gas: 0 });
+    return this.estimateTransaction(this.address, new BigNumber(0), options.data!);
   }
 
   /**
@@ -159,6 +166,14 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
         return this.transaction((event.args as MultiSigWallet.Args.Submission).transactionId.toNumber());
       },
     );
+  }
+
+  public async estimateTransaction(
+    address: EthAddress,
+    weiToSend: BigNumber,
+    payload: string
+  ): Promise<number> {
+      return this.instance.submitTransaction.estimateGasAsync(address, weiToSend, payload);
   }
 
   /**

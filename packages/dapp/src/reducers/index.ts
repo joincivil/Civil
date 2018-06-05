@@ -26,13 +26,13 @@ import {
   updateableProposals,
   resolvableChallengedProposals,
 } from "./parameterizer";
-import { newsrooms, currentUserNewsrooms } from "./newsrooms";
+import { newsrooms, currentUserNewsrooms, NewsroomState } from "./newsrooms";
 import { user } from "./userAccount";
 import { Set, List, Map } from "immutable";
-import { TimestampedEvent, NewsroomWrapper } from "@joincivil/core";
+import { TimestampedEvent } from "@joincivil/core";
 
 export interface State {
-  newsrooms: Map<string, NewsroomWrapper>;
+  newsrooms: Map<string, NewsroomState>;
   currentUserNewsrooms: Set<string>;
   listings: Map<string, ListingWrapperWithExpiry>;
   histories: Map<string, List<TimestampedEvent<any>>>;
