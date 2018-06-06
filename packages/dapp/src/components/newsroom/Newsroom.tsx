@@ -28,9 +28,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     };
   }
 
-  public componentDidMount(): void {
+  public async componentDidMount(): Promise<void> {
     if (this.props.address) {
-      this.props.dispatch!(getNewsroom(this.props.address));
+      await this.props.dispatch!(getNewsroom(this.props.address));
       this.props.dispatch!(getEditors(this.props.address));
     }
   }
