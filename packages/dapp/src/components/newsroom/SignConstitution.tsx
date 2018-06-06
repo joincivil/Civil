@@ -3,7 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { State } from "../../reducers";
 import { addGovernmentData } from "../../actionCreators/government";
 import { getConstitutionHash, getConstitutionUri, getNewsroom, signMessage } from "../../apis/civilTCR";
-import { StepHeader, StepProps, StepStyled, Collapsable, SignConstitutionButton } from "@joincivil/components";
+import { StepHeader, StepProps, StepStyled, Collapsable, SignConstitutionButton, StepDescription } from "@joincivil/components";
 import styled from "styled-components";
 import { Map } from "immutable";
 import { getCivil } from "../../helpers/civilInstance";
@@ -72,16 +72,17 @@ class SignConstitutionComponent extends React.Component<
   public render(): JSX.Element {
     const civil = getCivil();
     return (
-      <StepStyled index={this.props.index || 0}>
+      <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
         <Collapsable
           header={
             <>
-              <StepHeader el={this.props.el} isActive={this.props.active === this.props.index}>
-                Sign the Civil Constitution
+              <StepHeader disabled={this.props.disabled} el={this.props.el} isActive={this.props.active === this.props.index}>
+                Sign the Civil Constitution (Coming Soon!)
               </StepHeader>
-              <p>Agree to the Civil Constitution</p>
+              <StepDescription disabled={this.props.disabled}>Agree to the Civil Constitution</StepDescription>
             </>
           }
+          disabled={this.props.disabled}
           open={false}
         >
           <StyledLegalIframe src={this.props.government!.get("constitutionURI")} />

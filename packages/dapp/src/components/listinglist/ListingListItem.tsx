@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { State } from "../../reducers";
-import { ListingWrapper, NewsroomWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
+import { ListingWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 import { NewsroomState } from "../../reducers/newsrooms";
 import ListingListItemDescription from "./ListingListItemDescription";
 import ListingListItemOwner from "./ListingListItemOwner";

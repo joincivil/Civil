@@ -32,7 +32,7 @@ import { government, govtParameters } from "./government";
 import { user } from "./userAccount";
 import { ui } from "./ui";
 import { Set, List, Map } from "immutable";
-import { TimestampedEvent, NewsroomWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
+import { TimestampedEvent, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 import { newsrooms, currentUserNewsrooms, NewsroomState } from "./newsrooms";
 
 export interface State {

@@ -7,6 +7,8 @@ import { State } from "../../reducers";
 import { addNewsroom, getNewsroom, getEditors } from "../../actionCreators/newsrooms";
 import { EthAddress } from "@joincivil/core";
 import { SignConstitution } from "./SignConstitution";
+import { CreateCharter } from "./CreateCharter";
+import { ApplyToTCR } from "./ApplyToTCR";
 
 export interface NewsroomState {
   modalOpen: boolean;
@@ -72,7 +74,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             address={this.props.address}
           />
           <CompleteYourProfile active={this.state.currentStep} address={this.props.address} />
+          <CreateCharter/>
           <SignConstitution address={this.props.address} active={this.state.currentStep} />
+          <ApplyToTCR/>
         </StepProcess>
         {this.state.modalOpen && !this.props.address && this.renderModal()}
       </>
