@@ -73,7 +73,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         charterUri,
         charterHash,
         [ethApi.account!],
-        new BigNumber(1),
+        ethApi.toBigNumber(1),
         txData,
       ),
       async factoryReceipt => {
