@@ -9,7 +9,8 @@ import {
   colors,
   fonts,
   TextInput,
-  DetailTransactionButton
+  DetailTransactionButton,
+  StepDescription,
 } from "@joincivil/components";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
@@ -18,7 +19,7 @@ import { State } from "../../reducers";
 import { fetchNewsroom } from "../../actionCreators/newsrooms";
 import { getCivil } from "../../helpers/civilInstance";
 
-export interface CompleteYourProfileComponentExternalProps {
+export interface CompleteYourProfileComponentExternalProps extends StepProps {
   address?: EthAddress;
 }
 
@@ -123,15 +124,18 @@ class CompleteYourProfileComponent extends React.Component<CompleteYourProfileCo
   }
 
   public render(): JSX.Element {
-    return (<StepStyled index={this.props.index || 0}>
+    return (<StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
       <Collapsable header={
-        <>
-          <StepHeader el={this.props.el} isActive={this.props.active === this.props.index}>
-            Complete your profile
-          </StepHeader>
-          <p>Add owners, editors, and your charter to your profile.</p>
-        </>
-      } open={false}>
+          <>
+            <StepHeader disabled={this.props.disabled} el={this.props.el} isActive={this.props.active === this.props.index}>
+              Complete your profile
+            </StepHeader>
+            <StepDescription disabled={this.props.disabled}>Add owners, editors, and your charter to your profile.</StepDescription>
+          </>
+        }
+        open={!!this.props.address}
+        disabled={this.props.disabled}
+      >
         <FormSection>
           <Section>
             <FormTitle>Owners</FormTitle>

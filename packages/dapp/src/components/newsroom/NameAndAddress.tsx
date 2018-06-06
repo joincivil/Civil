@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StepHeader, StepProps, StepStyled, TextInput, DetailTransactionButton, Collapsable, fonts, AddressWithCopyButton } from "@joincivil/components";
+import { StepHeader, StepProps, StepStyled, TextInput, DetailTransactionButton, Collapsable, fonts, AddressWithCopyButton, StepDescription } from "@joincivil/components";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { getCivil } from "../../helpers/civilInstance";
 import styled, { StyledComponentClass } from "styled-components";
@@ -52,14 +52,15 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
 
   public render(): JSX.Element {
     const body = this.props.address ? this.renderContract() : this.renderNoContract();
-    return (<StepStyled index={this.props.index || 0}>
+    return (<StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
       <Collapsable
         open={true}
+        disabled={this.props.disabled}
         header={<>
-          <StepHeader el={this.props.el} isActive={this.props.active === this.props.index}>
+          <StepHeader completed={!!this.props.address} disabled={this.props.disabled} el={this.props.el} isActive={this.props.active === this.props.index}>
             Set up a newsroom
           </StepHeader>
-          <p>Enter your newsroom name to create your newsroom smart contract.</p>
+          <StepDescription disabled={this.props.disabled}>Enter your newsroom name to create your newsroom smart contract.</StepDescription>
         </>}
       >
         {body}

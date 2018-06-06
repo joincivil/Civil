@@ -9,8 +9,8 @@ import { addNewsroom, getNewsroom, getEditors } from "../../actionCreators/newsr
 import { EthAddress } from "@joincivil/core";
 
 export interface NewsroomState {
-  currentStep: number;
   modalOpen: boolean;
+  currentStep: number;
 };
 
 export interface NewsroomProps {
@@ -23,8 +23,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   constructor(props: NewsroomProps) {
     super(props);
     this.state = {
-      currentStep: 0,
       modalOpen: true,
+      currentStep: props.address ? 1 : 0,
     };
   }
 
@@ -51,11 +51,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <FormHeading>Newsroom Application</FormHeading>
       <p>Set up your newsroom smart contract and get started publishing on Civil.</p>
       <StepProcess stepIsDisabled={this.isDisabled}>
-        <NameAndAddress onNewsroomCreated={this.onNewsroomCreated} name={this.props.name} address={this.props.address}/>
-        <CompleteYourProfile address={this.props.address}/>
-        <SignConstitution/>
+        <NameAndAddress active={this.state.currentStep} onNewsroomCreated={this.onNewsroomCreated} name={this.props.name} address={this.props.address}/>
+        <CompleteYourProfile active={this.state.currentStep} address={this.props.address}/>
+        <SignConstitution active={this.state.currentStep}/>
       </StepProcess>
-      {this.state.modalOpen && this.renderModal()}
+      {this.state.modalOpen && !this.props.address && this.renderModal()}
     </>);
   }
 
@@ -67,7 +67,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public isDisabled = (index: number) => {
-    return index <= this.state.currentStep;
+    if (index === 0) {
+      return false;
+    } else if (index < 2 && this.props.address) {
+      return false;
+    }
+    return true;
   }
 }
 

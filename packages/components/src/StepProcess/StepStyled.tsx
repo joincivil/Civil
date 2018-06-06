@@ -4,6 +4,11 @@ import { colors, fonts } from "../styleConstants";
 
 export interface StepStyledProps {
   index: number;
+  disabled?: boolean;
+}
+
+export interface StepDescriptionProps {
+  disabled?: boolean;
 }
 
 export const StepStyled = styled.div`
@@ -13,6 +18,7 @@ export const StepStyled = styled.div`
   position: relative;
   &:after{
     content: "${(props: StepStyledProps) => props.index + 1}";
+    color: ${(props: StepStyledProps) => props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000"};
     position: absolute;
     left: 3px;
     top: 20px;
@@ -21,4 +27,8 @@ export const StepStyled = styled.div`
     font-size: 16px;
     font-weight: 400;
   }
+`;
+
+export const StepDescription = styled<StepDescriptionProps, "p">("p")`
+  color: ${props => props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000"};
 `;
