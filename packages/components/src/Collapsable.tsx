@@ -21,7 +21,7 @@ export interface CollapseAreaProps extends OpenBool {
 
 export const CollapseArea: StyledComponentClass<CollapseAreaProps, "div"> = styled<CollapseAreaProps, "div">("div")`
   height: ${props => props.open ? `${props.height ? `${props.height}px` : "auto"}` : "0px"};
-  transition: height 0.5s;
+  transition: height 1s;
   overflow: hidden;
 `;
 
@@ -52,9 +52,15 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
     };
     this.collapseArea = null;
   }
+
   public componentDidMount(): void {
-    this.setState({height: this.collapseArea && this.collapseArea.clientHeight});
+    this.collapseArea!.addEventListener("transitionend", () => {
+      if (this.state.open) {
+        this.setState({height: null});
+      }
+    });
   }
+
   public componentWillReceiveProps(nextProps: CollapsableProps): void {
     if (nextProps.open !== this.props.open) {
       this.setState({ open: nextProps.open });
@@ -63,9 +69,19 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
   public render(): JSX.Element {
     return (
       <div>
-        <HeaderWrapper  onClick={() => !this.props.disabled && this.setState({open: !this.state.open})}>{this.props.header} <Arrow disabled={this.props.disabled} open={this.state.open}/></HeaderWrapper>
+        <HeaderWrapper  onClick={this.open}>{this.props.header} <Arrow disabled={this.props.disabled} open={this.state.open}/></HeaderWrapper>
         <CollapseArea innerRef={el => this.collapseArea = el} height={this.state.height} open={this.state.open}>{this.props.children}</CollapseArea>
       </div>
     );
+  }
+  private open = (): void => {
+    if (!this.props.disabled) {
+      if (this.state.open) {
+        this.setState({height: this.collapseArea!.clientHeight});
+      }
+      setImmediate(() => {
+        this.setState({open: !this.state.open})
+      });
+    }
   }
 }

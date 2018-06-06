@@ -11,7 +11,7 @@ export interface NewsroomState {
 }
 
 export function newsrooms(
-  state: Map<string, NewsroomState> = Map<string, NewsroomState>({"": {wrapper: {data: {}}}}),
+  state: Map<string, NewsroomState> = Map<string, NewsroomState>({"": {editors: [], wrapper: {data: {}}}}),
   action: AnyAction,
 ): Map<string, NewsroomState> {
   switch (action.type) {

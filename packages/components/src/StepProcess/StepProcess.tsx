@@ -4,7 +4,6 @@ import { colors } from "../styleConstants";
 
 export interface StepProcessState {
   el?: HTMLDivElement | null;
-  active: number;
 }
 
 export interface StepProcessProps {
@@ -37,7 +36,6 @@ export class StepProcess extends React.Component<StepProcessProps, StepProcessSt
     super(props);
     this.state = {
       el: null,
-      active: 0,
     };
   }
   public componentDidMount(): void {
@@ -48,7 +46,6 @@ export class StepProcess extends React.Component<StepProcessProps, StepProcessSt
       return React.cloneElement(child as JSX.Element, {
         el: this.state.el,
         index,
-        active: this.state.active,
         disabled: this.props.stepIsDisabled ? this.props.stepIsDisabled(index) : false,
       });
     })

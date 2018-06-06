@@ -15,6 +15,7 @@ export const Box: StyledComponentClass<any, "div"> = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 350px;
 `;
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
