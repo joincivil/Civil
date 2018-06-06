@@ -179,6 +179,7 @@ export interface UserChallengeData {
   didUserReveal?: boolean;
   didUserCollect?: boolean;
   didUserRescue?: boolean;
+  didCollectAmount?: BigNumber;
 }
 
 /**

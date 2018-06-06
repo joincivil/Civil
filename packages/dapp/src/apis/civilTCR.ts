@@ -45,20 +45,17 @@ export async function approve(
   amount: number | BigNumber,
   multisigAddress?: EthAddress,
 ): Promise<TwoStepEthTransaction | void> {
-  console.log("approve");
   const civil = getCivil();
-  console.log("civil gotten.", civil);
   const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
-  console.log("tcr gotten.");
   const token = await tcr.getToken();
   const amountBN = ensureWeb3BigNumber(amount);
-  console.log("token address: " + token.address);
-  if ((await token.getBalance()) < amountBN) {
+  const balance = ensureWeb3BigNumber(await token.getBalance());
+  if (balance.lessThan(amountBN)) {
     throw new Error(CivilErrors.InsufficientToken);
   }
   const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress || undefined);
   console.log("approved tokens: " + approvedTokens + " - amount: " + amount);
-  if (approvedTokens < amountBN) {
+  if (approvedTokens.lessThan(amountBN)) {
     return token.approveSpender(tcr.address, amountBN);
   }
 }

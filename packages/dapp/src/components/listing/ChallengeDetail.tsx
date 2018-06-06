@@ -40,7 +40,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   public render(): JSX.Element {
     const challenge = this.props.challenge;
     const userChallengeData = this.props.userChallengeData;
-    console.log(challenge, userChallengeData);
+    console.log("ChallengeDetail render: ", challenge, userChallengeData);
     const appealExists = doesChallengeHaveAppeal(challenge);
     const canShowRewardsForm = userChallengeData && userChallengeData.didUserCommit;
     return (
