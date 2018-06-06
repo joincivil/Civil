@@ -26,28 +26,28 @@ storiesOf("DetailTransactionButton", module)
   .add("detail transaction button", () => {
     return (
       <Wrapper>
-        <DetailTransactionButton
+        {process.env.NODE_ENV !== "test" && <DetailTransactionButton
           civil={civil}
           transactions={[{ transaction: createNewsroom }]}
           estimateFunctions={[civil!.estimateNewsroomDeployTrusted.bind(civil, "some name")]}
           requiredNetwork="rinkeby"
         >
           Create Newsroom
-        </DetailTransactionButton>
+        </DetailTransactionButton>}
       </Wrapper>
     );
   })
   .add("detail transaction button with visible progress modal", () => {
     return (
       <Wrapper>
-        <DetailTransactionButton
+        {process.env.NODE_ENV !== "test" && <DetailTransactionButton
           civil={civil}
           transactions={[{ transaction: createNewsroom }]}
           estimateFunctions={[civil!.estimateNewsroomDeployTrusted.bind(civil, "some name")]}
           requiredNetwork="rinkeby"
         >
           Create Newsroom
-        </DetailTransactionButton>
+        </DetailTransactionButton>}
       </Wrapper>
     );
   });
