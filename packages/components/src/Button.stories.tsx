@@ -18,18 +18,24 @@ storiesOf("Buttons", module)
   .add("Button", () => {
     return (
       <Container>
-        <Button>Standard Button</Button><br/>
-        <Button disabled>Disabled</Button><br/>
-        <Button to="/home">Link Button</Button><br/>
+        <Button>Standard Button</Button>
+        <br />
+        <Button disabled>Disabled</Button>
+        <br />
+        <Button to="/home">Link Button</Button>
+        <br />
       </Container>
     );
   })
   .add("sizes", () => {
     return (
       <Container>
-        <Button size={buttonSizes.LARGE}>large</Button><br/>
-        <Button size={buttonSizes.MEDIUM}>medium</Button><br/>
-        <Button size={buttonSizes.SMALL}>small</Button><br/>
+        <Button size={buttonSizes.LARGE}>large</Button>
+        <br />
+        <Button size={buttonSizes.MEDIUM}>medium</Button>
+        <br />
+        <Button size={buttonSizes.SMALL}>small</Button>
+        <br />
       </Container>
     );
   })

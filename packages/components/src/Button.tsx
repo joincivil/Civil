@@ -8,7 +8,7 @@ export enum buttonSizes {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
   LARGE = "LARGE",
-};
+}
 
 export interface ButtonProps {
   className?: string;
@@ -22,19 +22,19 @@ export interface ButtonProps {
   onClick?(ev: any): void;
 }
 
-const sizesObject: {[index: string]: string} = {
+const sizesObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "8px 12px",
   [buttonSizes.MEDIUM]: "10px 25px",
   [buttonSizes.LARGE]: "20px 50px",
 };
 
-const spacingObject: {[index: string]: string} = {
+const spacingObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "0.5px",
   [buttonSizes.MEDIUM]: "1px",
   [buttonSizes.LARGE]: "3px",
 };
 
-const fontObject: {[index: string]: string} = {
+const fontObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "12px",
   [buttonSizes.MEDIUM]: "18px",
   [buttonSizes.LARGE]: "24px",

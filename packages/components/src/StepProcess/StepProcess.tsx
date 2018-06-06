@@ -39,7 +39,7 @@ export class StepProcess extends React.Component<StepProcessProps, StepProcessSt
     };
   }
   public componentDidMount(): void {
-    this.setState({el: this.el});
+    this.setState({ el: this.el });
   }
   public render(): JSX.Element {
     const childrenWithEl = React.Children.map(this.props.children, (child, index) => {
@@ -48,10 +48,14 @@ export class StepProcess extends React.Component<StepProcessProps, StepProcessSt
         index,
         disabled: this.props.stepIsDisabled ? this.props.stepIsDisabled(index) : false,
       });
-    })
-    return (<Container>
-      <StepIndicators><div ref={el => this.el = el}></div></StepIndicators>
-      <div>{childrenWithEl}</div>
-    </Container>);
+    });
+    return (
+      <Container>
+        <StepIndicators>
+          <div ref={el => (this.el = el)} />
+        </StepIndicators>
+        <div>{childrenWithEl}</div>
+      </Container>
+    );
   }
-};
+}

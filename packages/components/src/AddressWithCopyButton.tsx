@@ -1,6 +1,6 @@
 import * as React from "react";
-import styled, {StyledComponentClass} from "styled-components";
-import {colors, fonts} from "./styleConstants";
+import styled, { StyledComponentClass } from "styled-components";
+import { colors, fonts } from "./styleConstants";
 import { BorderlessButton } from "./Button";
 
 export interface Props {
@@ -28,10 +28,12 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
 export class AddressWithCopyButton extends React.Component<Props> {
   public addressBox?: HTMLDivElement;
   public render(): JSX.Element {
-    return <Wrapper>
-      <Box innerRef={(el: HTMLDivElement) => this.addressBox = el}>{this.props.address}</Box>
-      <BorderlessButton onClick={this.copy}>Copy</BorderlessButton>
-    </Wrapper>
+    return (
+      <Wrapper>
+        <Box innerRef={(el: HTMLDivElement) => (this.addressBox = el)}>{this.props.address}</Box>
+        <BorderlessButton onClick={this.copy}>Copy</BorderlessButton>
+      </Wrapper>
+    );
   }
   private copy = (): void => {
     const el: HTMLTextAreaElement = document.createElement("textarea");
@@ -43,5 +45,5 @@ export class AddressWithCopyButton extends React.Component<Props> {
     el.select();
     document.execCommand("copy");
     document.body.removeChild(el);
-  }
+  };
 }

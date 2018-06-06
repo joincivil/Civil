@@ -1,12 +1,6 @@
 import * as React from "react";
 import { PageView, ViewModule } from "./utility/ViewModules";
-import {
-  Modal,
-  FormHeading,
-  ModalContent,
-  Button,
-  buttonSizes,
-} from "@joincivil/components";
+import { Modal, FormHeading, ModalContent, Button, buttonSizes } from "@joincivil/components";
 import { Newsroom } from "./newsroom/Newsroom";
 import { EthAddress } from "@joincivil/core";
 
@@ -31,7 +25,7 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
     return (
       <PageView>
         <ViewModule>
-          <Newsroom onNewsroomCreated={this.onCreated}/>
+          <Newsroom onNewsroomCreated={this.onCreated} />
         </ViewModule>
       </PageView>
     );
@@ -39,8 +33,7 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
 
   private onCreated = (address: EthAddress) => {
     this.props.history.push("/mgmt/" + address);
-  }
-
+  };
 }
 
 export default CreateNewsroom;

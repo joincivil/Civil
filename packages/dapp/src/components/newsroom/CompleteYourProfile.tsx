@@ -63,7 +63,10 @@ const FormDescription = styled.p`
   font-size: 15px;
 `;
 
-class CompleteYourProfileComponent extends React.Component<CompleteYourProfileComponentProps & DispatchProp<any>, CompleteYourProfileComponentState> {
+class CompleteYourProfileComponent extends React.Component<
+  CompleteYourProfileComponentProps & DispatchProp<any>,
+  CompleteYourProfileComponentState
+> {
   constructor(props: CompleteYourProfileComponentProps & DispatchProp<any>) {
     super(props);
     this.state = {
@@ -77,87 +80,114 @@ class CompleteYourProfileComponent extends React.Component<CompleteYourProfileCo
   public renderAddEditorForm(): JSX.Element {
     const civil = getCivil();
     if (!this.state.addEditor) {
-      return <BorderlessButton onClick={() => this.setState({addEditor: true})}>ADD EDITORS +</BorderlessButton>;
+      return <BorderlessButton onClick={() => this.setState({ addEditor: true })}>ADD EDITORS +</BorderlessButton>;
     } else {
-      return <>
-        <TextInput label="Wallet Address" placeholder="Enter Wallet Address" name="EditorWalletInput" value={this.state.newEditor} onChange={(name, val) => this.setState({newEditor: val})} />
-        <DetailTransactionButton
-          transactions={[
-            {
-              transaction: this.addEditor,
-              postTransaction: (result) => {
-                this.setState({addEditor: false, newEditor: ""});
+      return (
+        <>
+          <TextInput
+            label="Wallet Address"
+            placeholder="Enter Wallet Address"
+            name="EditorWalletInput"
+            value={this.state.newEditor}
+            onChange={(name, val) => this.setState({ newEditor: val })}
+          />
+          <DetailTransactionButton
+            transactions={[
+              {
+                transaction: this.addEditor,
+                postTransaction: result => {
+                  this.setState({ addEditor: false, newEditor: "" });
+                },
               },
-            },
-          ]}
-          civil={civil}
-          // estimateFunctions={[this.props.newsroom.estimateAddOwner.bind(this.props.newsroom, this.state.newOwner)]}
-          requiredNetwork="rinkeby"
-        >Add Owner</DetailTransactionButton>
-      </>;
+            ]}
+            civil={civil}
+            // estimateFunctions={[this.props.newsroom.estimateAddOwner.bind(this.props.newsroom, this.state.newOwner)]}
+            requiredNetwork="rinkeby"
+          >
+            Add Owner
+          </DetailTransactionButton>
+        </>
+      );
     }
   }
 
   public renderAddOwnerForm(): JSX.Element {
     const civil = getCivil();
     if (!this.state.addOwner) {
-      return <BorderlessButton onClick={() => this.setState({addOwner: true})}>ADD OWNER +</BorderlessButton>;
+      return <BorderlessButton onClick={() => this.setState({ addOwner: true })}>ADD OWNER +</BorderlessButton>;
     } else {
-      return <>
-        <TextInput label="Wallet Address" placeholder="Enter Wallet Address" name="OwnerWalletInput" value={this.state.newOwner} onChange={(name, val) => this.setState({newOwner: val})} />
-        <DetailTransactionButton
-          transactions={[
-            {
-              transaction: this.addOwner,
-              postTransaction: (result) => {
-                this.props.dispatch!(fetchNewsroom(this.props.address!));
-                this.setState({addOwner: false, newOwner: ""});
+      return (
+        <>
+          <TextInput
+            label="Wallet Address"
+            placeholder="Enter Wallet Address"
+            name="OwnerWalletInput"
+            value={this.state.newOwner}
+            onChange={(name, val) => this.setState({ newOwner: val })}
+          />
+          <DetailTransactionButton
+            transactions={[
+              {
+                transaction: this.addOwner,
+                postTransaction: result => {
+                  this.props.dispatch!(fetchNewsroom(this.props.address!));
+                  this.setState({ addOwner: false, newOwner: "" });
+                },
               },
-            },
-          ]}
-          civil={civil}
-          // estimateFunctions={[this.props.newsroom.estimateAddOwner.bind(this.props.newsroom, this.state.newOwner)]}
-          requiredNetwork="rinkeby"
-        >Add Owner</DetailTransactionButton>
-      </>;
+            ]}
+            civil={civil}
+            // estimateFunctions={[this.props.newsroom.estimateAddOwner.bind(this.props.newsroom, this.state.newOwner)]}
+            requiredNetwork="rinkeby"
+          >
+            Add Owner
+          </DetailTransactionButton>
+        </>
+      );
     }
   }
 
   public render(): JSX.Element {
-    return (<StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
-      <Collapsable header={
-          <>
-            <StepHeader disabled={this.props.disabled} el={this.props.el} isActive={this.props.active === this.props.index}>
-              Complete your profile
-            </StepHeader>
-            <StepDescription disabled={this.props.disabled}>Add owners, editors, and your charter to your profile.</StepDescription>
-          </>
-        }
-        open={!!this.props.address}
-        disabled={this.props.disabled}
-      >
-        <FormSection>
-          <Section>
-            <FormTitle>Owners</FormTitle>
-            <FormDescription>Owners can add members to the newsroom contract (including you, if you lose your private key).</FormDescription>
-          </Section>
-          <Section>
-            {this.props.owners.map(item => <AddressWithCopyButton key={item} address={item}/>)}
-          </Section>
-          {this.renderAddOwnerForm()}
-        </FormSection>
-        <FormSection>
-          <Section>
-            <FormTitle>Editors</FormTitle>
-            <FormDescription>Editors can publish articles to the blockchain.</FormDescription>
-          </Section>
-          <Section>
-            {this.props.editors.map(item => <AddressWithCopyButton key={item} address={item}/>)}
-          </Section>
-          {this.renderAddEditorForm()}
-        </FormSection>
-      </Collapsable>
-    </StepStyled>);
+    return (
+      <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
+        <Collapsable
+          header={
+            <>
+              <StepHeader
+                disabled={this.props.disabled}
+                el={this.props.el}
+                isActive={this.props.active === this.props.index}
+              >
+                Complete your profile
+              </StepHeader>
+              <StepDescription disabled={this.props.disabled}>
+                Add owners, editors, and your charter to your profile.
+              </StepDescription>
+            </>
+          }
+          open={!!this.props.address}
+          disabled={this.props.disabled}
+        >
+          <FormSection>
+            <Section>
+              <FormTitle>Owners</FormTitle>
+              <FormDescription>
+                Owners can add members to the newsroom contract (including you, if you lose your private key).
+              </FormDescription>
+            </Section>
+            <Section>{this.props.owners.map(item => <AddressWithCopyButton key={item} address={item} />)}</Section>
+            {this.renderAddOwnerForm()}
+          </FormSection>
+          <FormSection>
+            <Section>
+              <FormTitle>Editors</FormTitle>
+              <FormDescription>Editors can publish articles to the blockchain.</FormDescription>
+            </Section>
+            <Section>{this.props.editors.map(item => <AddressWithCopyButton key={item} address={item} />)}</Section>
+            {this.renderAddEditorForm()}
+          </FormSection>
+        </Collapsable>
+      </StepStyled>
+    );
   }
 
   private addOwner = async (): Promise<void> => {
@@ -165,19 +195,22 @@ class CompleteYourProfileComponent extends React.Component<CompleteYourProfileCo
   };
   private addEditor = async (): Promise<void> => {
     return this.props.newsroom.addRole(this.state.newEditor, NewsroomRoles.Editor);
-  }
+  };
 }
 
-const mapStateToProps = (state: State, ownProps: CompleteYourProfileComponentExternalProps): CompleteYourProfileComponentProps => {
-    const { address } = ownProps;
-    const newsroom = state.newsrooms.get(address || "") || {wrapper: {data: {}}};
-    return {
-      ...ownProps,
-      address,
-      owners: newsroom.wrapper.data.owners || [],
-      editors: newsroom.editors || [],
-      newsroom: newsroom.newsroom,
-    };
+const mapStateToProps = (
+  state: State,
+  ownProps: CompleteYourProfileComponentExternalProps,
+): CompleteYourProfileComponentProps => {
+  const { address } = ownProps;
+  const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
+  return {
+    ...ownProps,
+    address,
+    owners: newsroom.wrapper.data.owners || [],
+    editors: newsroom.editors || [],
+    newsroom: newsroom.newsroom,
+  };
 };
 
 export const CompleteYourProfile = connect(mapStateToProps)(CompleteYourProfileComponent);

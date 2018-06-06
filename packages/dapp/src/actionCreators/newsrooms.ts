@@ -27,8 +27,8 @@ export const getEditors = (address: EthAddress): any => async (dispatch: any): P
 export const getNewsroom = (address: EthAddress): any => async (dispatch: any): Promise<AnyAction> => {
   const civil = getCivil();
   const newsroom = await civil.newsroomAtUntrusted(address);
-  const wrapper =  await newsroom.getNewsroomWrapper();
-  return dispatch(addNewsroom({wrapper, newsroom, address}));
+  const wrapper = await newsroom.getNewsroomWrapper();
+  return dispatch(addNewsroom({ wrapper, newsroom, address }));
 };
 
 export const addNewsroom = (newsroom: NewsroomState): AnyAction => {
@@ -44,8 +44,8 @@ export const updateNewsroom = (address: EthAddress, data: any): AnyAction => {
     data: {
       address,
       ...data,
-    }
-  }
+    },
+  };
 };
 
 export const addEditor = (address: EthAddress, editor: EthAddress): AnyAction => {
@@ -54,13 +54,13 @@ export const addEditor = (address: EthAddress, editor: EthAddress): AnyAction =>
     data: {
       address,
       editor,
-    }
+    },
   };
 };
 
 export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
   const { newsrooms }: State = getState();
   const newsroom = newsrooms.get(address);
-  const wrapper = await newsroom.newsroom!.getNewsroomWrapper()
-  return dispatch(updateNewsroom(address, {...newsroom, wrapper}));
+  const wrapper = await newsroom.newsroom!.getNewsroomWrapper();
+  return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
 };

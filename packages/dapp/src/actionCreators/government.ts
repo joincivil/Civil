@@ -27,6 +27,6 @@ export const addGovernmentData = (governmentDataKey: string, governmentDataValue
     data: {
       key: governmentDataKey,
       value: governmentDataValue,
-    }
+    },
   };
 };

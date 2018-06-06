@@ -7,6 +7,6 @@ export interface NewsroomManagementProps {
 
 export default class NewsroomManagement extends React.Component<NewsroomManagementProps> {
   public render(): JSX.Element {
-    return <Newsroom address={this.props.match.params.newsroomAddress}/>
+    return <Newsroom address={this.props.match.params.newsroomAddress} />;
   }
 }

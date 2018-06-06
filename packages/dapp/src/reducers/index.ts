@@ -67,7 +67,7 @@ export interface State {
   challengesFetching: Map<string, any>;
   challengesVotedOnByUser: Map<string, Set<string>>;
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
-  government: Map<string, string>,
+  government: Map<string, string>;
   ui: Map<string, any>;
 }
 

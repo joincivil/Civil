@@ -12,7 +12,7 @@ const SectionHeader = styled<ComponentProps, "h4">("h4")`
   font-family: ${fonts.SANS_SERIF};
   font-weight: 600;
   margin-top: 20px;
-  color: ${props => props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000"};
+  color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
 `;
 
 const StyledDone = styled(Done)`
@@ -41,7 +41,7 @@ const SectionIndicator = styled<ComponentProps, "div">("div")`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 15px 25px;
   position: relative;
-  color: ${props => props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000"};
+  color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
   &:last-child {
     border-bottom: none;
   }
@@ -70,15 +70,24 @@ export interface StepHeaderProps {
 }
 
 export const StepHeader = (props: StepHeaderProps): JSX.Element => {
-  const completed = props.completed ? <DoneWrapper><StyledDone/></DoneWrapper> : "";
-  return (<>
-    <SectionHeader disabled={props.disabled}>{props.children}</SectionHeader>
-    {
-      props.el &&
-      ReactDOM.createPortal(<SectionIndicator
-        disabled={props.disabled}
-        className={props.isActive ? "active" : ""}
-      >{props.children}{completed}</SectionIndicator>, props.el)
-    }
-  </>)
+  const completed = props.completed ? (
+    <DoneWrapper>
+      <StyledDone />
+    </DoneWrapper>
+  ) : (
+    ""
+  );
+  return (
+    <>
+      <SectionHeader disabled={props.disabled}>{props.children}</SectionHeader>
+      {props.el &&
+        ReactDOM.createPortal(
+          <SectionIndicator disabled={props.disabled} className={props.isActive ? "active" : ""}>
+            {props.children}
+            {completed}
+          </SectionIndicator>,
+          props.el,
+        )}
+    </>
+  );
 };

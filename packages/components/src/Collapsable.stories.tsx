@@ -8,28 +8,31 @@ const Wrapper = styled.div`
   max-width: 500px;
 `;
 
-storiesOf("Collapsable", module).add("open", () => {
-  return (
-    <Wrapper>
-      <Collapsable header={<h3>Hello</h3>} open={true}>
-        <p> Some Content </p>
-      </Collapsable>
-    </Wrapper>
-  );
-}).add("closed", () => {
-  return (
-    <Wrapper>
-      <Collapsable header={<h3>Hello</h3>} open={false}>
-        <p> Some Content </p>
-      </Collapsable>
-    </Wrapper>
-  );
-}).add("disabled", () => {
-  return (
-    <Wrapper>
-      <Collapsable disabled={true} header={<h3>Hello</h3>} open={false}>
-        <p> Some Content </p>
-      </Collapsable>
-    </Wrapper>
-  );
-});;
+storiesOf("Collapsable", module)
+  .add("open", () => {
+    return (
+      <Wrapper>
+        <Collapsable header={<h3>Hello</h3>} open={true}>
+          <p> Some Content </p>
+        </Collapsable>
+      </Wrapper>
+    );
+  })
+  .add("closed", () => {
+    return (
+      <Wrapper>
+        <Collapsable header={<h3>Hello</h3>} open={false}>
+          <p> Some Content </p>
+        </Collapsable>
+      </Wrapper>
+    );
+  })
+  .add("disabled", () => {
+    return (
+      <Wrapper>
+        <Collapsable disabled={true} header={<h3>Hello</h3>} open={false}>
+          <p> Some Content </p>
+        </Collapsable>
+      </Wrapper>
+    );
+  });

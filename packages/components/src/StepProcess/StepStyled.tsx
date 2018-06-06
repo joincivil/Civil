@@ -18,7 +18,7 @@ export const StepStyled = styled.div`
   position: relative;
   &:after{
     content: "${(props: StepStyledProps) => props.index + 1}";
-    color: ${(props: StepStyledProps) => props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000"};
+    color: ${(props: StepStyledProps) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
     position: absolute;
     left: 3px;
     top: 20px;
@@ -30,5 +30,5 @@ export const StepStyled = styled.div`
 `;
 
 export const StepDescription = styled<StepDescriptionProps, "p">("p")`
-  color: ${props => props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000"};
+  color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
 `;

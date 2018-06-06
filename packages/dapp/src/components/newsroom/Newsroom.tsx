@@ -11,7 +11,7 @@ import { SignConstitution } from "./SignConstitution";
 export interface NewsroomState {
   modalOpen: boolean;
   currentStep: number;
-};
+}
 
 export interface NewsroomProps {
   address?: string;
@@ -60,16 +60,23 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public render(): JSX.Element {
-    return (<>
-      <FormHeading>Newsroom Application</FormHeading>
-      <p>Set up your newsroom smart contract and get started publishing on Civil.</p>
-      <StepProcess stepIsDisabled={this.isDisabled}>
-        <NameAndAddress active={this.state.currentStep} onNewsroomCreated={this.onNewsroomCreated} name={this.props.name} address={this.props.address}/>
-        <CompleteYourProfile active={this.state.currentStep} address={this.props.address}/>
-        <SignConstitution address={this.props.address} active={this.state.currentStep}/>
-      </StepProcess>
-      {this.state.modalOpen && !this.props.address && this.renderModal()}
-    </>);
+    return (
+      <>
+        <FormHeading>Newsroom Application</FormHeading>
+        <p>Set up your newsroom smart contract and get started publishing on Civil.</p>
+        <StepProcess stepIsDisabled={this.isDisabled}>
+          <NameAndAddress
+            active={this.state.currentStep}
+            onNewsroomCreated={this.onNewsroomCreated}
+            name={this.props.name}
+            address={this.props.address}
+          />
+          <CompleteYourProfile active={this.state.currentStep} address={this.props.address} />
+          <SignConstitution address={this.props.address} active={this.state.currentStep} />
+        </StepProcess>
+        {this.state.modalOpen && !this.props.address && this.renderModal()}
+      </>
+    );
   }
 
   public onNewsroomCreated = async (result: any) => {
@@ -86,12 +93,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       return false;
     }
     return true;
-  }
+  };
 }
 
 const mapStateToProps = (state: State, ownProps: NewsroomProps): NewsroomProps => {
   const { address } = ownProps;
-  const newsroom = state.newsrooms.get(address || "") || {wrapper: {data: {}}};
+  const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   return {
     ...ownProps,
     address,

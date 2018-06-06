@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, {StyledComponentClass} from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import { colors } from "./styleConstants";
 
 export interface OpenBool {
@@ -20,7 +20,7 @@ export interface CollapseAreaProps extends OpenBool {
 }
 
 export const CollapseArea: StyledComponentClass<CollapseAreaProps, "div"> = styled<CollapseAreaProps, "div">("div")`
-  height: ${props => props.open ? `${props.height ? `${props.height}px` : "auto"}` : "0px"};
+  height: ${props => (props.open ? `${props.height ? `${props.height}px` : "auto"}` : "0px")};
   transition: height 1s;
   overflow: hidden;
 `;
@@ -28,9 +28,9 @@ export const CollapseArea: StyledComponentClass<CollapseAreaProps, "div"> = styl
 export const Arrow: StyledComponentClass<ArrowProps, "div"> = styled<ArrowProps, "div">("div")`
   width: 8px;
   height: 8px;
-  border-left: 3px solid ${props => props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.CIVIL_GRAY_1};
-  border-bottom: 3px solid  ${props => props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.CIVIL_GRAY_1};
-  transform: ${props => props.open ? "rotate(135deg)" : "rotate(-45deg)"};
+  border-left: 3px solid ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.CIVIL_GRAY_1)};
+  border-bottom: 3px solid ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.CIVIL_GRAY_1)};
+  transform: ${props => (props.open ? "rotate(135deg)" : "rotate(-45deg)")};
   transition: transform 1s;
   position: absolute;
   right: 0;
@@ -56,7 +56,7 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
   public componentDidMount(): void {
     this.collapseArea!.addEventListener("transitionend", () => {
       if (this.state.open) {
-        this.setState({height: null});
+        this.setState({ height: null });
       }
     });
   }
@@ -69,19 +69,23 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
   public render(): JSX.Element {
     return (
       <div>
-        <HeaderWrapper  onClick={this.open}>{this.props.header} <Arrow disabled={this.props.disabled} open={this.state.open}/></HeaderWrapper>
-        <CollapseArea innerRef={el => this.collapseArea = el} height={this.state.height} open={this.state.open}>{this.props.children}</CollapseArea>
+        <HeaderWrapper onClick={this.open}>
+          {this.props.header} <Arrow disabled={this.props.disabled} open={this.state.open} />
+        </HeaderWrapper>
+        <CollapseArea innerRef={el => (this.collapseArea = el)} height={this.state.height} open={this.state.open}>
+          {this.props.children}
+        </CollapseArea>
       </div>
     );
   }
   private open = (): void => {
     if (!this.props.disabled) {
       if (this.state.open) {
-        this.setState({height: this.collapseArea!.clientHeight});
+        this.setState({ height: this.collapseArea!.clientHeight });
       }
       setImmediate(() => {
-        this.setState({open: !this.state.open})
+        this.setState({ open: !this.state.open });
       });
     }
-  }
+  };
 }

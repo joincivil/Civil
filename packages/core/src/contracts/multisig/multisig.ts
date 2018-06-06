@@ -168,12 +168,8 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     );
   }
 
-  public async estimateTransaction(
-    address: EthAddress,
-    weiToSend: BigNumber,
-    payload: string
-  ): Promise<number> {
-      return this.instance.submitTransaction.estimateGasAsync(address, weiToSend, payload);
+  public async estimateTransaction(address: EthAddress, weiToSend: BigNumber, payload: string): Promise<number> {
+    return this.instance.submitTransaction.estimateGasAsync(address, weiToSend, payload);
   }
 
   /**
