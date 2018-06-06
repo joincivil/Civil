@@ -456,7 +456,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   public async getRewardClaimed(challengeID: BigNumber, user: EthAddress): Promise<BigNumber> {
-    const reward = await this.instance._RewardClaimedStream( { challengeID, voter: user }, { fromBlock: 0 }).first().toPromise();
+    const reward = await this.instance
+      ._RewardClaimedStream({ challengeID, voter: user }, { fromBlock: 0 })
+      .first()
+      .toPromise();
     return reward.args.reward;
   }
 

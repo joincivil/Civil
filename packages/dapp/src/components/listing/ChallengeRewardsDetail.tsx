@@ -19,8 +19,15 @@ export interface ChallengeRewardsDetailState {
 class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps, ChallengeRewardsDetailState> {
   public render(): JSX.Element {
     const isNoRewardsVisible = this.props.userChallengeData && !this.props.userChallengeData.didUserCollect;
-    const isClaimRewardsVisible = this.props.userChallengeData && this.props.userChallengeData.didUserReveal && !this.props.userChallengeData.didUserCollect;
-    const isRescueTokensVisible = this.props.userChallengeData && this.props.userChallengeData.didUserCommit && !this.props.userChallengeData.didUserReveal && !this.props.userChallengeData.didUserRescue;
+    const isClaimRewardsVisible =
+      this.props.userChallengeData &&
+      this.props.userChallengeData.didUserReveal &&
+      !this.props.userChallengeData.didUserCollect;
+    const isRescueTokensVisible =
+      this.props.userChallengeData &&
+      this.props.userChallengeData.didUserCommit &&
+      !this.props.userChallengeData.didUserReveal &&
+      !this.props.userChallengeData.didUserRescue;
     const isClaimedRewardVisible = this.props.userChallengeData && this.props.userChallengeData.didCollectAmount;
     return (
       <StyledFormContainer>
@@ -34,7 +41,8 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
           <>
             <h3>Reward Claimed</h3>
             <label>
-              You have collected {getFormattedTokenBalance(this.props.userChallengeData!.didCollectAmount!)} tokens by voting with the winning side of this challenge.
+              You have collected {getFormattedTokenBalance(this.props.userChallengeData!.didCollectAmount!)} tokens by
+              voting with the winning side of this challenge.
             </label>
           </>
         )}
