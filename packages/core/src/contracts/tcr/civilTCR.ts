@@ -426,6 +426,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let didUserReveal;
     let didUserCollect;
     let didUserRescue;
+    let didCollectAmount;
     const resolved = (await this.instance.challenges.callAsync(challengeID))[2];
     if (user) {
       didUserCommit = await this.voting.didCommitVote(user, challengeID);
@@ -441,12 +442,22 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       }
     }
 
+    if (didUserCollect) {
+      didCollectAmount = await this.getRewardClaimed(challengeID, user);
+    }
+
     return {
       didUserCommit,
       didUserReveal,
       didUserCollect,
       didUserRescue,
+      didCollectAmount,
     };
+  }
+
+  public async getRewardClaimed(challengeID: BigNumber, user: EthAddress): Promise<BigNumber> {
+    const reward = await this.instance._RewardClaimedStream( { challengeID, voter: user }, { fromBlock: 0 }).first().toPromise();
+    return reward.args.reward;
   }
 
   /**

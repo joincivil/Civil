@@ -4,6 +4,7 @@ import { InputElement, StyledFormContainer, FormGroup } from "../utility/FormEle
 import { EthAddress, TwoStepEthTransaction, UserChallengeData } from "@joincivil/core";
 import { claimRewards, rescueTokens } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 
 export interface ChallengeRewardsDetailProps {
   challengeID: BigNumber;
@@ -17,16 +18,25 @@ export interface ChallengeRewardsDetailState {
 
 class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps, ChallengeRewardsDetailState> {
   public render(): JSX.Element {
-    const isNoRewardsVisible = this.props.userChallengeData && this.props.userChallengeData.didUserCollect === false;
-    const isClaimRewardsVisible = this.props.userChallengeData && this.props.userChallengeData.didUserCollect;
-    const isRescueTokensVisible = this.props.userChallengeData && this.props.userChallengeData.didUserRescue === false;
-
+    const isNoRewardsVisible = this.props.userChallengeData && !this.props.userChallengeData.didUserCollect;
+    const isClaimRewardsVisible = this.props.userChallengeData && this.props.userChallengeData.didUserReveal && !this.props.userChallengeData.didUserCollect;
+    const isRescueTokensVisible = this.props.userChallengeData && this.props.userChallengeData.didUserCommit && !this.props.userChallengeData.didUserReveal && !this.props.userChallengeData.didUserRescue;
+    const isClaimedRewardVisible = this.props.userChallengeData && this.props.userChallengeData.didCollectAmount;
     return (
       <StyledFormContainer>
         {isNoRewardsVisible && (
           <FormGroup>
             Sorry, there are no rewards available for you for this challenge. Better luck next time!
           </FormGroup>
+        )}
+
+        {isClaimedRewardVisible && (
+          <>
+            <h3>Reward Claimed</h3>
+            <label>
+              You have collected {getFormattedTokenBalance(this.props.userChallengeData!.didCollectAmount!)} tokens by voting with the winning side of this challenge.
+            </label>
+          </>
         )}
 
         {isClaimRewardsVisible && (
