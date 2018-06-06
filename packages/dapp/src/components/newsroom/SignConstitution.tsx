@@ -40,8 +40,7 @@ class SignConstitutionComponent extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    console.log(this.props.address);
-    if (this.props.address && this.props.address.length) {
+    if (this.props.address && this.props.address.length && !this.props.disabled) {
       const isOwner = await this.isNewsroomOwner();
       this.setState({ isNewsroomOwner: isOwner });
     }
@@ -59,7 +58,7 @@ class SignConstitutionComponent extends React.Component<
     const isUpdatedAddress = !prevNewsroomAddress && newsroomAddress && newsroomAddress.length;
     const isUpdatedUser = prevProps.user !== this.props.user;
 
-    if (isUpdatedAddress || isUpdatedUser) {
+    if (isUpdatedAddress || isUpdatedUser && !this.props.disabled) {
       const isOwner = await this.isNewsroomOwner();
       newState.isNewsroomOwner = isOwner;
     }
