@@ -2,16 +2,24 @@ import * as React from "react";
 import { FormHeading, StepProcess, Modal, ModalContent, Button, buttonSizes } from "@joincivil/components";
 import { NameAndAddress } from "./NameAndAddress";
 import { CompleteYourProfile } from "./CompleteYourProfile";
-import { SignConstitution } from "./SingConstitution";
+<<<<<<< HEAD
+=======
+import { SignConstitution } from "./SignConstitution";
+>>>>>>> Updates to Signing the Constitution
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../../reducers";
 import { addNewsroom, getNewsroom, getEditors } from "../../actionCreators/newsrooms";
 import { EthAddress } from "@joincivil/core";
+import SignConstitution from "./SignConstitution";
 
 export interface NewsroomState {
   modalOpen: boolean;
+<<<<<<< HEAD
   currentStep: number;
 };
+=======
+}
+>>>>>>> Updates to Signing the Constitution
 
 export interface NewsroomProps {
   address?: string;
@@ -36,14 +44,27 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public renderModal(): JSX.Element {
-    return (<Modal>
-      <FormHeading>Welcome</FormHeading>
-      <ModalContent>Welcome to our newsroom setup guide</ModalContent>
-      <ModalContent>Here, you'll be going through the steps to set up your newsroom smart contract so that you can publish on Civil and make use of blockchain features such as permananet archiving.</ModalContent>
-      <ModalContent>You'll need to use either Chrome, Brave, or FireFox as your browser and have MetaMask installed. You'll also need the public keys (wallet addresses) of your newsroom co-owners and of your editors, as well as your newsroom charter.</ModalContent>
-      <ModalContent>If you're not sure about some of the above, don't worry, we'll point you to some resources. Let's go!</ModalContent>
-      <Button onClick={() => this.setState({modalOpen: false})} size={buttonSizes.MEDIUM}>Get Started</Button>
-    </Modal>);
+    return (
+      <Modal>
+        <FormHeading>Welcome</FormHeading>
+        <ModalContent>Welcome to our newsroom setup guide</ModalContent>
+        <ModalContent>
+          Here, you'll be going through the steps to set up your newsroom smart contract so that you can publish on
+          Civil and make use of blockchain features such as permananet archiving.
+        </ModalContent>
+        <ModalContent>
+          You'll need to use either Chrome, Brave, or FireFox as your browser and have MetaMask installed. You'll also
+          need the public keys (wallet addresses) of your newsroom co-owners and of your editors, as well as your
+          newsroom charter.
+        </ModalContent>
+        <ModalContent>
+          If you're not sure about some of the above, don't worry, we'll point you to some resources. Let's go!
+        </ModalContent>
+        <Button onClick={() => this.setState({ modalOpen: false })} size={buttonSizes.MEDIUM}>
+          Get Started
+        </Button>
+      </Modal>
+    );
   }
 
   public render(): JSX.Element {
@@ -53,7 +74,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <StepProcess stepIsDisabled={this.isDisabled}>
         <NameAndAddress active={this.state.currentStep} onNewsroomCreated={this.onNewsroomCreated} name={this.props.name} address={this.props.address}/>
         <CompleteYourProfile active={this.state.currentStep} address={this.props.address}/>
-        <SignConstitution active={this.state.currentStep}/>
+        <SignConstitution address={this.props.address} active={this.state.currentStep}/>
       </StepProcess>
       {this.state.modalOpen && !this.props.address && this.renderModal()}
     </>);
@@ -64,7 +85,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (this.props.onNewsroomCreated) {
       this.props.onNewsroomCreated(result.address);
     }
-  }
+  };
 
   public isDisabled = (index: number) => {
     if (index === 0) {
@@ -86,4 +107,4 @@ const mapStateToProps = (state: State, ownProps: NewsroomProps): NewsroomProps =
   };
 };
 
-export const Newsroom  = connect(mapStateToProps)(NewsroomComponent);
+export const Newsroom = connect(mapStateToProps)(NewsroomComponent);

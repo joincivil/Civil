@@ -4,6 +4,7 @@ import * as Web3 from "web3";
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction, Uri } from "./types";
+import { EthSignedMessage } from "@joincivil/typescript-types";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { EthApi } from "./utils/ethapi";
 import { CivilErrors } from "./utils/errors";
@@ -58,6 +59,10 @@ export class Civil {
 
   public toBigNumber(num: number | string): any {
     return this.ethApi.toBigNumber(num);
+  }
+
+  public async signMessage(message: string, account?: EthAddress): Promise<EthSignedMessage> {
+    return this.ethApi.signMessage(message, account);
   }
 
   /**

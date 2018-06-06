@@ -42,4 +42,18 @@ export class Government extends BaseWrapper<GovernmentContract> {
   public async getParameterValue(parameter: string): Promise<BigNumber> {
     return this.instance.get.callAsync(parameter);
   }
+
+  /**
+   * Get the URI of the Civil Constitution
+   */
+  public async getConstitutionURI(): Promise<string> {
+    return this.instance.constitutionURI.callAsync();
+  }
+
+  /**
+   * Get the hash of the Civil Constitution
+   */
+  public async getConstitutionHash(): Promise<string> {
+    return this.instance.constitutionHash.callAsync();
+  }
 }
