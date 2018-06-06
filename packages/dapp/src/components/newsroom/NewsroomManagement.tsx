@@ -12,7 +12,7 @@ import NewsroomDetail from "./NewsroomDetail";
 export interface NewsroomManagementState {
   newsroom: any;
   multisigAddr: string;
-  multisigBalance: number;
+  multisigBalance: BigNumber;
   error: string;
   editorAddress: string;
   articleURL: string;
@@ -31,7 +31,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     this.state = {
       newsroom: null,
       multisigAddr: "",
-      multisigBalance: 0,
+      multisigBalance: new BigNumber(0),
       error: "",
       editorAddress: "",
       articleURL: "",
@@ -180,7 +180,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     const civil = new Civil();
     const tcr = civil.tcrSingletonTrusted();
     const token = await tcr.getToken();
-    return token.transfer(this.state.multisigAddr, new BigNumber(numTokens * 1e18));
+    return token.transfer(this.state.multisigAddr, new BigNumber(numTokens).mul(1e18));
   };
 
   private postSendToken = async () => {
@@ -189,7 +189,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     const token = await tcr.getToken();
     const balance = await token.getBalance(this.state.multisigAddr);
     this.setState({
-      multisigBalance: balance.toNumber(),
+      multisigBalance: balance,
       numTokens: "",
     });
     // TODO(tobek) should also update user's CVL balance in header nav
@@ -199,7 +199,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     const newsroom = await getNewsroom(this.props.match.params.newsroomAddress);
     this.setState({ newsroom });
     if (newsroom) {
-      console.log("lets get name.");
       this.state.compositeSubscription.add(
         newsroom
           .revisions()
@@ -215,7 +214,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
         const tcr = civil.tcrSingletonTrusted();
         const token = await tcr.getToken();
         const balance = await token.getBalance(multisigAddr);
-        this.setState({ multisigBalance: balance.toNumber() });
+        this.setState({ multisigBalance: balance });
       }
     }
   };

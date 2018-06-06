@@ -22,6 +22,6 @@ export function getReadableDuration(seconds: number): string {
 
 // accepts token balance in lowest-level form (no decimals). Converts to readable format (18 decimal places; cut off at 2)
 export function getFormattedTokenBalance(balance: BigNumber): string {
-  const formattedBalance = balance.div(10e18);
+  const formattedBalance = balance.div(1e18);
   return formattedBalance.toFormat(2) + " CVL";
 }

@@ -1,8 +1,10 @@
 import * as React from "react";
 import { List } from "immutable";
 import { EthAddress } from "@joincivil/core";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Subscription } from "rxjs";
 import { getNewsroom } from "../../apis/civilTCR";
+import BigNumber from "bignumber.js";
 
 export interface NewsroomDetailState {
   name: string;
@@ -16,7 +18,7 @@ export interface NewsroomDetailState {
 export interface NewsroomDetailProps {
   address: EthAddress;
   multisigAddr: string;
-  multisigBalance: number;
+  multisigBalance: BigNumber;
 }
 
 class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetailState> {
@@ -54,7 +56,7 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
         <br />
         {this.props.multisigAddr && (
           <>
-            Multisig balance: {this.props.multisigBalance / 1e18} CVL
+            Multisig balance: {getFormattedTokenBalance(this.props.multisigBalance)}
             <br />
           </>
         )}
