@@ -180,7 +180,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     const civil = new Civil();
     const tcr = civil.tcrSingletonTrusted();
     const token = await tcr.getToken();
-    return token.transfer(this.state.multisigAddr, new BigNumber(numTokens).mul(1e18));
+    return token.transfer(this.state.multisigAddr, civil.toBigNumber(numTokens).mul(1e18));
   };
 
   private postSendToken = async () => {
