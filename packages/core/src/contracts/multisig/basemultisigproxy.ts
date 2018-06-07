@@ -1,12 +1,11 @@
-import { isDeployedBytecodeEqual, isDefined } from "@joincivil/utils";
-
-import { Contract } from "../interfaces/contract";
-import { Multisig } from "./multisig";
-import { TxHash, EthAddress, TwoStepEthTransaction } from "../../types";
+import { isDefined, isDeployedBytecodeEqual } from "@joincivil/utils";
+import { EthAddress, TwoStepEthTransaction, TxHash } from "../../types";
 import { EthApi } from "../../utils/ethapi";
 import { artifacts } from "../generated/artifacts";
-import { createTwoStepSimple, isDecodedLog, isOwnableContract } from "../utils/contracts";
 import { MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
+import { Contract } from "../interfaces/contract";
+import { createTwoStepSimple, isDecodedLog, isOwnableContract } from "../utils/contracts";
+import { Multisig } from "./multisig";
 
 /**
  * Proxies functionionality to a contract instance via multisig wallet. Also supports instantiation *without* multisig proxy, in which case calls are passed directly to the contract. If the wrapped contract has an `owner` property, it will be checked to see if the owner is a multisig wallet.
@@ -24,6 +23,13 @@ export class BaseMultisigProxy {
 
   public get multisigEnabled(): boolean {
     return isDefined(this.multisig);
+  }
+
+  public requireMultisig(): Multisig {
+    if (!this.multisig) {
+      throw new Error("Unexpected state happened, multisig not found but required");
+    }
+    return this.multisig;
   }
 
   public async owners(): Promise<EthAddress[]> {
