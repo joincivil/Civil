@@ -117,7 +117,7 @@ class SignConstitutionComponent extends React.Component<
       return false;
     }
     const newsroom = await getNewsroom(this.props.address!);
-    const isOwner = await newsroom.isOwner(userAccount);
+    const isOwner = await newsroom.isOwner(userAccount.account);
     return isOwner;
   };
 }
