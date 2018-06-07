@@ -12,6 +12,7 @@ import { Observable } from "rxjs";
 import { ContentProvider } from "../content/contentprovider";
 import {
   ApprovedRevision,
+  CivilTransactionReceipt,
   ContentId,
   EthAddress,
   EthContentHeader,
@@ -30,12 +31,19 @@ import { CivilErrors, requireAccount } from "../utils/errors";
 import { EthApi } from "../utils/ethapi";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
+import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";
 import { Newsroom as Events, NewsroomContract } from "./generated/wrappers/newsroom";
 import { NewsroomFactory, NewsroomFactoryContract } from "./generated/wrappers/newsroom_factory";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 import { Multisig } from "./multisig/multisig";
 import { MultisigTransaction } from "./multisig/multisigtransaction";
-import { createTwoStepSimple, createTwoStepTransaction, findEventOrThrow, findEvents } from "./utils/contracts";
+import {
+  createTwoStepSimple,
+  createTwoStepTransaction,
+  findEvent,
+  findEventOrThrow,
+  findEvents,
+} from "./utils/contracts";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -417,29 +425,41 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * The content can also be pre-approved by the author through their signature using their private key
    * @param content The content that should be put in the content provider
    * @param signedData An object representing author's approval concerning this content
-   * @returns An id assigned on Ethereum to the uri
+   * @returns An id assigned on Ethereum to the uri, or a multig transaction if it requires more confirmations
    */
   public async publishContent(
     content: string,
     signedData?: ApprovedRevision,
-  ): Promise<TwoStepEthTransaction<ContentId>> {
-    await this.requireEditor();
+  ): Promise<TwoStepEthTransaction<ContentId | MultisigTransaction>> {
     const { storageHeader, author, signature } = await this.uploadToStorage(content, signedData);
 
-    return createTwoStepTransaction(
-      this.ethApi,
-      await this.instance.publishContent.sendTransactionAsync(
-        storageHeader.uri,
-        storageHeader.contentHash,
-        author,
-        signature,
-      ),
-      receipt =>
-        findEventOrThrow<Events.Logs.ContentPublished>(
-          receipt,
-          Events.Events.ContentPublished,
-        ).args.contentId.toNumber(),
-    );
+    const findContentId = (receipt: CivilTransactionReceipt) =>
+      findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
+
+    if (this.isOwner()) {
+      return this.twoStepOrMulti(
+        await this.multisigProxy.publishContent.sendTransactionAsync(
+          storageHeader.uri,
+          storageHeader.contentHash,
+          author,
+          signature,
+        ),
+        findContentId,
+      );
+    } else {
+      await this.requireEditor();
+
+      return createTwoStepTransaction(
+        this.ethApi,
+        await this.instance.publishContent.sendTransactionAsync(
+          storageHeader.uri,
+          storageHeader.contentHash,
+          author,
+          signature,
+        ),
+        findContentId,
+      );
+    }
   }
 
   /**
@@ -455,24 +475,36 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: ContentId,
     content: string,
     signedData?: ApprovedRevision,
-  ): Promise<TwoStepEthTransaction<RevisionId>> {
-    await this.requireEditor();
+  ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
     const { storageHeader, signature } = await this.uploadToStorage(content, signedData);
 
-    return createTwoStepTransaction(
-      this.ethApi,
-      await this.instance.updateRevision.sendTransactionAsync(
-        this.ethApi.toBigNumber(contentId),
-        storageHeader.uri,
-        storageHeader.contentHash,
-        signature,
-      ),
-      receipt =>
-        findEventOrThrow<Events.Logs.RevisionUpdated>(
-          receipt,
-          Events.Events.RevisionUpdated,
-        ).args.revisionId.toNumber(),
-    );
+    const findRevisionId = (receipt: CivilTransactionReceipt) =>
+      findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
+
+    if (this.isOwner()) {
+      return this.twoStepOrMulti(
+        await this.multisigProxy.updateRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          storageHeader.uri,
+          storageHeader.contentHash,
+          signature,
+        ),
+        findRevisionId,
+      );
+    } else {
+      await this.requireEditor();
+
+      return createTwoStepTransaction(
+        this.ethApi,
+        await this.instance.updateRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          storageHeader.uri,
+          storageHeader.contentHash,
+          signature,
+        ),
+        findRevisionId,
+      );
+    }
   }
 
   /**
@@ -487,24 +519,36 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: ContentId,
     revisionId: RevisionId,
     signedData: ApprovedRevision,
-  ): Promise<TwoStepEthTransaction> {
-    await this.requireEditor();
-
+  ): Promise<TwoStepEthTransaction<CivilTransactionReceipt | MultisigTransaction>> {
     const contentHeader = await this.loadContentHeader(contentId, revisionId);
     this.verifyApprovedRevision(contentHeader, signedData);
     if (!is0x0Address(contentHeader.author) && contentHeader.author !== signedData.author) {
       throw new Error(CivilErrors.MalformedParams);
     }
 
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.signRevision.sendTransactionAsync(
-        this.ethApi.toBigNumber(contentId),
-        this.ethApi.toBigNumber(revisionId),
-        signedData.author,
-        signedData.signature,
-      ),
-    );
+    if (this.isOwner()) {
+      return this.twoStepOrMulti(
+        await this.multisigProxy.signRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          this.ethApi.toBigNumber(revisionId),
+          signedData.author,
+          signedData.signature,
+        ),
+        receipt => receipt,
+      );
+    } else {
+      await this.requireEditor();
+
+      return createTwoStepSimple(
+        this.ethApi,
+        await this.instance.signRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          this.ethApi.toBigNumber(revisionId),
+          signedData.author,
+          signedData.signature,
+        ),
+      );
+    }
   }
   //#endregion
 
@@ -575,5 +619,22 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       author,
       signature,
     };
+  }
+
+  /**
+   * Used when the transaction might go through a multisig wallet
+   * In that case, more confirmations might be needed from other owners
+   */
+  private twoStepOrMulti<T>(
+    tx: MultisigProxyTransaction,
+    transformation: (receipt: CivilTransactionReceipt) => T | Promise<T>,
+  ): TwoStepEthTransaction<T | MultisigTransaction> {
+    return createTwoStepTransaction(this.ethApi, tx.txHash, async receipt => {
+      if (tx.isProxied && !findEvent<MultisigEvents.Logs.Execution>(receipt, MultisigEvents.Events.Execution)) {
+        const transactionId = await tx.proxiedId!();
+        return this.multisigProxy.requireMultisig().transaction(transactionId);
+      }
+      return transformation(receipt);
+    });
   }
 }
