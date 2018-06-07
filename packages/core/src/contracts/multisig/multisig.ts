@@ -66,7 +66,6 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     await this.requireOwner();
 
     const options = await this.instance.addOwner.getRaw(owner, { gas: 0 });
-    console.log(options);
     return this.submitTransaction(this.address, new BigNumber(0), options.data!);
   }
 

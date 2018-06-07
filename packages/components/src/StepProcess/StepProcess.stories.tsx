@@ -6,7 +6,6 @@ import { StepHeader } from "./StepHeader";
 import { StepStyled } from "./StepStyled";
 
 const Step1 = (props: StepProps): JSX.Element => {
-  console.log(props);
   return (
     <StepStyled index={props.index || 0}>
       <StepHeader el={props.el} completed={true} isActive={props.active === props.index}>
