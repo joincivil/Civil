@@ -238,7 +238,7 @@ export class EthApi extends Events {
       throw new Error(CivilErrors.EvmException);
     }
 
-    if (new BigNumber(receipt.status).isZero()) {
+    if (this.toBigNumber(receipt.status).isZero()) {
       throw new Error(CivilErrors.EvmException);
     }
   }

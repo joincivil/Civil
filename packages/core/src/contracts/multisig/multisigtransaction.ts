@@ -12,7 +12,7 @@ export class MultisigTransaction {
     instance: MultiSigWalletContract,
     id: number,
   ): Promise<MultisigTransaction> {
-    const data = await instance.transactions.callAsync(new BigNumber(id));
+    const data = await instance.transactions.callAsync(ethApi.toBigNumber(id));
 
     return new MultisigTransaction(ethApi, instance, id, {
       destination: data[0],
@@ -47,7 +47,7 @@ export class MultisigTransaction {
    *  - Has enough confirmations
    */
   public async canBeExecuted(): Promise<boolean> {
-    return !this.information.executed && this.instance.isConfirmed.callAsync(new BigNumber(this.id));
+    return !this.information.executed && this.instance.isConfirmed.callAsync(this.ethApi.toBigNumber(this.id));
   }
 
   /**
@@ -62,7 +62,7 @@ export class MultisigTransaction {
    * How many owners (and who) have confirmed this transaction
    */
   public async confirmations(): Promise<EthAddress[]> {
-    return this.instance.getConfirmations.callAsync(new BigNumber(this.id));
+    return this.instance.getConfirmations.callAsync(this.ethApi.toBigNumber(this.id));
   }
 
   /**
@@ -75,7 +75,7 @@ export class MultisigTransaction {
   public async execute(): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     return createTwoStepTransaction(
       this.ethApi,
-      await this.instance.executeTransaction.sendTransactionAsync(new BigNumber(this.id)),
+      await this.instance.executeTransaction.sendTransactionAsync(this.ethApi.toBigNumber(this.id)),
       async receipt => MultisigTransaction.fromId(this.ethApi, this.instance, this.id),
     );
   }
@@ -88,7 +88,7 @@ export class MultisigTransaction {
   public async confirmTransaction(): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     return createTwoStepTransaction(
       this.ethApi,
-      await this.instance.confirmTransaction.sendTransactionAsync(new BigNumber(this.id)),
+      await this.instance.confirmTransaction.sendTransactionAsync(this.ethApi.toBigNumber(this.id)),
       receipt => this,
     );
   }
@@ -99,7 +99,7 @@ export class MultisigTransaction {
   public async revokeConfirmation(): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     return createTwoStepTransaction(
       this.ethApi,
-      await this.instance.revokeConfirmation.sendTransactionAsync(new BigNumber(this.id)),
+      await this.instance.revokeConfirmation.sendTransactionAsync(this.ethApi.toBigNumber(this.id)),
       receipt => this,
     );
   }

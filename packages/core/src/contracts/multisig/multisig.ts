@@ -22,7 +22,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   ): Promise<TwoStepEthTransaction<Multisig>> {
     return createTwoStepTransaction(
       ethApi,
-      await MultiSigWalletContract.deployTrusted.sendTransactionAsync(ethApi, owners, new BigNumber(required)),
+      await MultiSigWalletContract.deployTrusted.sendTransactionAsync(ethApi, owners, ethApi.toBigNumber(required)),
       receipt => new Multisig(ethApi, MultiSigWalletContract.atUntrusted(ethApi, receipt.contractAddress!)),
     );
   }
@@ -66,13 +66,13 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     await this.requireOwner();
 
     const options = await this.instance.addOwner.getRaw(owner, { gas: 0 });
-    return this.submitTransaction(this.address, new BigNumber(0), options.data!);
+    return this.submitTransaction(this.address, this.ethApi.toBigNumber(0), options.data!);
   }
 
   public async estimateAddOwner(owner: EthAddress): Promise<number> {
     await this.requireOwner();
     const options = await this.instance.addOwner.getRaw(owner, { gas: 0 });
-    return this.estimateTransaction(this.address, new BigNumber(0), options.data!);
+    return this.estimateTransaction(this.address, this.ethApi.toBigNumber(0), options.data!);
   }
 
   /**
@@ -89,7 +89,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     await this.requireOwner();
 
     const options = await this.instance.removeOwner.getRaw(owner, { gas: 0 });
-    return this.submitTransaction(this.address, new BigNumber(0), options.data!);
+    return this.submitTransaction(this.address, this.ethApi.toBigNumber(0), options.data!);
   }
 
   /**
@@ -109,7 +109,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     await this.requireOwner();
 
     const options = await this.instance.replaceOwner.getRaw(oldOwner, newOwner, { gas: 0 });
-    return this.submitTransaction(this.address, new BigNumber(0), options.data!);
+    return this.submitTransaction(this.address, this.ethApi.toBigNumber(0), options.data!);
   }
 
   /**
@@ -134,8 +134,8 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   public async changeRequirement(newRequired: number): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     await this.requireOwner();
 
-    const options = await this.instance.changeRequirement.getRaw(new BigNumber(newRequired), { gas: 0 });
-    return this.submitTransaction(this.address, new BigNumber(0), options.data!);
+    const options = await this.instance.changeRequirement.getRaw(this.ethApi.toBigNumber(newRequired), { gas: 0 });
+    return this.submitTransaction(this.address, this.ethApi.toBigNumber(0), options.data!);
   }
 
   /**
@@ -195,7 +195,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     return Observable.fromPromise(this.instance.transactionCount.callAsync())
       .concatMap(async noTransactions =>
         this.instance.getTransactionIds.callAsync(
-          new BigNumber(0),
+          this.ethApi.toBigNumber(0),
           noTransactions,
           filters.pending || false,
           filters.executed || false,

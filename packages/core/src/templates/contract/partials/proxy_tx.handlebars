@@ -29,7 +29,7 @@ public {{this.name}} = {
         txData.value,
         {{/this.payable}}
         {{^this.payable}}
-        new BigNumber(0),
+        self.ethApi.toBigNumber(0),
         {{/this.payable}}
         raw.data!,
       )).txHash,
