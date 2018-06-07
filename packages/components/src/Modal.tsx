@@ -10,7 +10,7 @@ interface TextAlignProps {
 }
 
 const ModalOuter = styled<ToggleDisplayEl & TextAlignProps, "div">("div")`
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;

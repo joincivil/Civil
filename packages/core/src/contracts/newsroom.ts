@@ -109,7 +109,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return factory.create.estimateGasAsync(newsroomName, "", "", [ethApi.account!], new BigNumber(1), txData);
+    return factory.create.estimateGasAsync(newsroomName, "", "", [ethApi.account!], ethApi.toBigNumber(1), txData);
   }
 
   public static async deployNonMultisigTrusted(
@@ -187,7 +187,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId?: number | BigNumber | undefined,
     fromBlock: number | "latest" = 0,
   ): Observable<EthContentHeader> {
-    const myContentId = contentId ? new BigNumber(contentId) : undefined;
+    const myContentId = contentId ? this.ethApi.toBigNumber(contentId) : undefined;
     return this.instance
       .RevisionUpdatedStream({ contentId: myContentId }, { fromBlock })
       .concatMap(async e => this.loadContentHeader(e.args.contentId, e.args.revisionId));
