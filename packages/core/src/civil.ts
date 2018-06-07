@@ -4,12 +4,14 @@ import * as Web3 from "web3";
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
 import { Newsroom } from "./contracts/newsroom";
 import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction, Uri } from "./types";
+import { EthSignedMessage } from "@joincivil/typescript-types";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { EthApi } from "./utils/ethapi";
 import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
-import { promisify } from "@joincivil/utils";
+import { promisify, networkNames } from "@joincivil/utils";
 import { FallbackProvider, EventStorageProvider } from ".";
+import { BigNumber } from "bignumber.js";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -59,6 +61,10 @@ export class Civil {
     return this.ethApi.toBigNumber(num);
   }
 
+  public async signMessage(message: string, account?: EthAddress): Promise<EthSignedMessage> {
+    return this.ethApi.signMessage(message, account);
+  }
+
   /**
    * @returns Currently default user account used, undefined if none unlocked/found
    */
@@ -95,6 +101,10 @@ export class Civil {
    */
   public async newsroomDeployTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
     return Newsroom.deployTrusted(this.ethApi, this.contentProvider, newsroomName);
+  }
+
+  public async estimateNewsroomDeployTrusted(newsroomName: string): Promise<number> {
+    return Newsroom.estimateDeployTrusted(newsroomName, this.ethApi);
   }
 
   /**
@@ -182,5 +192,13 @@ export class Civil {
   public async currentBlock(): Promise<number> {
     const blockNumberPromise = promisify<number>(this.ethApi.web3.eth.getBlockNumber);
     return blockNumberPromise();
+  }
+
+  public get networkName(): string {
+    return networkNames[this.ethApi.networkId] || "unknown network";
+  }
+
+  public async getGasPrice(): Promise<BigNumber> {
+    return this.ethApi.getGasPrice();
   }
 }

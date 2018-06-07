@@ -4,7 +4,7 @@ exports[`Storyshots ModalContent content 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kAzzGY bOfWLD",
+      "class": "sc-eHgmQL boMFph",
     },
     "children": Array [
       Object {
@@ -12,7 +12,58 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cSHVUG jeEbMk",
+              "class": "sc-VigVT hmXJHO",
+            },
+            "children": Array [
+              Object {
+                "data": "I'm a Heading",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-jTzLTM bzMphI",
+              },
+              "children": Array [
+                Object {
+                  "data": "I'm a paragraph of some sorts",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-jTzLTM bzMphI",
             },
             "children": Array [
               Object {
@@ -27,7 +78,32 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": null,
             "parent": [Circular],
-            "prev": null,
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-VigVT hmXJHO",
+              },
+              "children": Array [
+                Object {
+                  "data": "I'm a Heading",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "h2",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,

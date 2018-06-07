@@ -2,7 +2,7 @@ import * as React from "react";
 import { EthAddress, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
 import { approve, depositTokens, exitListing, withdrawTokens } from "../../apis/civilTCR";
 import { InputElement, StyledFormContainer, FormGroup, FormValidationMessage } from "../utility/FormElements";
-import TransactionButton from "../utility/TransactionButton";
+import { TransactionButton } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 

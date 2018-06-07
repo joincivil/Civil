@@ -1,11 +1,10 @@
 import * as React from "react";
-import TransactionButton from "./utility/TransactionButton";
-import { getCivil } from "../helpers/civilInstance";
-import { TwoStepEthTransaction } from "@joincivil/core";
-import { PageView, ViewModule, ViewModuleHeader } from "./utility/ViewModules";
+import { PageView, ViewModule } from "./utility/ViewModules";
+import { Modal, FormHeading, ModalContent, Button, buttonSizes } from "@joincivil/components";
+import { Newsroom } from "./newsroom/Newsroom";
+import { EthAddress } from "@joincivil/core";
 
 export interface CreateNewsroomState {
-  name: string;
   error: string;
 }
 export interface CreateNewsroomProps {
@@ -17,7 +16,6 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
   constructor(props: CreateNewsroomProps) {
     super(props);
     this.state = {
-      name: "",
       error: "",
     };
   }
@@ -27,30 +25,13 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
     return (
       <PageView>
         <ViewModule>
-          <ViewModuleHeader>Create Newsroom</ViewModuleHeader>
-          {this.state.error}
-          <input onChange={this.onNameChange} />
-          <TransactionButton
-            transactions={[{ transaction: this.createNewsroom, postTransaction: this.onNewsroomCreated }]}
-          >
-            Deploy Newsroom
-          </TransactionButton>
+          <Newsroom onNewsroomCreated={this.onCreated} />
         </ViewModule>
       </PageView>
     );
   }
 
-  private onNameChange = (e: any) => {
-    return this.setState({ name: e.target.value });
-  };
-
-  private createNewsroom = async (): Promise<TwoStepEthTransaction<any>> => {
-    const civil = getCivil();
-    return civil.newsroomDeployTrusted(this.state.name);
-  };
-
-  private onNewsroomCreated = (result: any) => {
-    const address = result.address;
+  private onCreated = (address: EthAddress) => {
     this.props.history.push("/mgmt/" + address);
   };
 }

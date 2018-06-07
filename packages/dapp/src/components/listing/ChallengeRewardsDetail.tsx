@@ -1,5 +1,5 @@
 import * as React from "react";
-import TransactionButton from "../utility/TransactionButton";
+import { TransactionButton } from "@joincivil/components";
 import { InputElement, StyledFormContainer, FormGroup } from "../utility/FormElements";
 import { EthAddress, TwoStepEthTransaction, UserChallengeData } from "@joincivil/core";
 import { claimRewards, rescueTokens } from "../../apis/civilTCR";

@@ -22,7 +22,7 @@ export class EthApi extends Events {
   public static detectProvider(onAccountSet?: () => void): EthApi {
     let provider: Web3.Provider;
     // Try to use the window's injected provider
-    if (typeof window !== "undefined" && (window as any).web3 !== "undefined") {
+    if (EthApi.hasInjectedProvider()) {
       const injectedWeb3: Web3 = (window as any).web3;
       provider = injectedWeb3.currentProvider;
       debug("Using injected web3 provider");
@@ -34,6 +34,9 @@ export class EthApi extends Events {
     return new EthApi(provider);
   }
 
+  public static hasInjectedProvider(): boolean {
+    return typeof window !== "undefined" && (window as any).web3 !== undefined;
+  }
   // Initialized for sure by the helper method setProvider used in constructor
   public web3!: Web3;
   private currentAccount?: EthAddress;
@@ -75,6 +78,11 @@ export class EthApi extends Events {
     if (interval) {
       clearInterval(interval);
     }
+  }
+
+  public async getGasPrice(): Promise<BigNumber> {
+    const gp = promisify<BigNumber>(this.web3.eth.getGasPrice);
+    return gp();
   }
 
   public async getBlock(blockNumber: number): Promise<Web3.BlockWithoutTransactionData> {
@@ -128,7 +136,7 @@ export class EthApi extends Events {
 
     const signerAccount = account || requireAccount(this);
 
-    const response = await this.rpc("eth_sign", [signerAccount, messageHex]);
+    const response = await this.rpc("eth_sign", signerAccount, messageHex);
     const signature = response.result as Hex;
 
     const rsv = fromRpcSig(signature);

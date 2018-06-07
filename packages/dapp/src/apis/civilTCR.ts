@@ -1,6 +1,7 @@
 import BigNumber from "bignumber.js";
 import { getCivil, getTCR } from "../helpers/civilInstance";
 import { TwoStepEthTransaction, EthAddress, CivilErrors } from "@joincivil/core";
+import { EthSignedMessage } from "@joincivil/typescript-types";
 import { getVoteSaltHash } from "@joincivil/utils";
 
 export function ensureWeb3BigNumber(num: number | BigNumber): any {
@@ -269,4 +270,21 @@ export async function rescueTokens(challengeID: BigNumber): Promise<TwoStepEthTr
   const tcr = getTCR();
   const voting = tcr.getVoting();
   return voting.rescueTokens(challengeID);
+}
+
+export async function signMessage(message: string): Promise<EthSignedMessage> {
+  const civil = getCivil();
+  return civil.signMessage(message);
+}
+
+export async function getConstitutionUri(): Promise<string> {
+  const tcr = getTCR();
+  const government = await tcr.getGovernment();
+  return government.getConstitutionURI();
+}
+
+export async function getConstitutionHash(): Promise<string> {
+  const tcr = getTCR();
+  const government = await tcr.getGovernment();
+  return government.getConstitutionHash();
 }

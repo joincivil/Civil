@@ -51,3 +51,11 @@ export function hashContent(content: string | object): Hex {
   }
   return keccak256String(serialized);
 }
+
+export const networkNames: { [index: string]: string } = {
+  1: "main",
+  2: "morden",
+  3: "ropsten",
+  4: "rinkeby",
+  50: "ganache",
+};

@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Switch, Route, withRouter, RouteComponentProps } from "react-router-dom";
 import Listings from "./listinglist/Listings";
-import Newsroom from "./newsroom/Newsroom";
+import { Newsroom } from "./newsroom/Newsroom";
 import Contracts from "./Contracts";
 import ContractPage from "./ContractPage";
 import ChallengePage from "./listing/Challenge";
 import Listing from "./listing/Listing";
 import Editor from "./Editor";
-import NewsroomManagement from "./newsroom/NewsroomManagement";
+import NewsroomManagement from "./newsroom/NewsroomManagementV2";
 import Parameterizer from "./Parameterizer";
 import ParameterizerProposal from "./parameterizer/Proposal";
 import CreateNewsroom from "./CreateNewsroom";

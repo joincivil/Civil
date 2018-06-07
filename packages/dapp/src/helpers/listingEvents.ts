@@ -46,9 +46,9 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
   const civil = getCivil();
   const user = civil.userAccount;
   const newsroom = await civil.newsroomAtUntrusted(address);
-  const newsroomWrapper = await newsroom.getNewsroomWrapper();
-  dispatch(addNewsroom(newsroomWrapper));
-  if (user && newsroomWrapper.data.owners.includes(user)) {
+  const wrapper = await newsroom.getNewsroomWrapper();
+  dispatch(addNewsroom({ wrapper, address: wrapper.address, newsroom }));
+  if (user && wrapper.data.owners.includes(user)) {
     dispatch(addUserNewsroom(address));
   }
 }

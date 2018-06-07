@@ -2,10 +2,12 @@ import { storiesOf } from "@storybook/react";
 import StoryRouter from "storybook-react-router";
 import * as React from "react";
 import styled from "styled-components";
-import { Button, SecondaryButton, CancelButton, InvertedButton } from "./Button";
+import { Button, SecondaryButton, CancelButton, InvertedButton, buttonSizes } from "./Button";
 
 const StyledDiv = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 400px;
 `;
 
@@ -17,8 +19,23 @@ storiesOf("Buttons", module)
     return (
       <Container>
         <Button>Standard Button</Button>
+        <br />
         <Button disabled>Disabled</Button>
+        <br />
         <Button to="/home">Link Button</Button>
+        <br />
+      </Container>
+    );
+  })
+  .add("sizes", () => {
+    return (
+      <Container>
+        <Button size={buttonSizes.LARGE}>large</Button>
+        <br />
+        <Button size={buttonSizes.MEDIUM}>medium</Button>
+        <br />
+        <Button size={buttonSizes.SMALL}>small</Button>
+        <br />
       </Container>
     );
   })

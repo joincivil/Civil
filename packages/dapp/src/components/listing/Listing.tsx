@@ -3,18 +3,19 @@ import * as React from "react";
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
 import ListingPhaseActions from "./ListingPhaseActions";
-import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
 import { PageView } from "../utility/ViewModules";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
+import { NewsroomState } from "../../reducers/newsrooms";
 
 export interface ListingPageProps {
   match: any;
 }
 
 export interface ListingReduxProps {
-  newsroom: NewsroomWrapper | undefined;
+  newsroom: NewsroomState | undefined;
   listing: ListingWrapper | undefined;
   userAccount?: EthAddress;
   listingDataRequestStatus?: any;
@@ -37,7 +38,7 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
     return (
       <PageView>
         {appExistsAsNewsroom && (
-          <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!} />
+          <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
         )}
         {appExistsAsNewsroom && <ListingPhaseActions listing={this.props.listing!} />}
         {!appExistsAsNewsroom && this.renderListingNotFound()}
