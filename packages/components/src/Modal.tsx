@@ -37,6 +37,7 @@ export interface ModalPropsAndState {
 }
 
 export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndState> {
+  // tslint:disable-next-line
   private static getDerivedStateFromProps(props: ModalPropsAndState, state: ModalPropsAndState): any | null {
     if (typeof props.visible !== "undefined") {
       const visible = props.visible;

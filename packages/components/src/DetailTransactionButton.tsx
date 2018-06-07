@@ -66,14 +66,14 @@ export class DetailTransactionButton extends React.Component<
     this.divinePrice = debounce(this.divinePrice.bind(this), 1000);
   }
 
-  public componentWillReceiveProps(nextProps: DetailTransactionButtonProps): void {
-    this.divinePrice(nextProps.estimateFunctions);
+  public async componentWillReceiveProps(nextProps: DetailTransactionButtonProps): Promise<void> {
+    await this.divinePrice(nextProps.estimateFunctions);
   }
 
   public async divinePrice(estimateFunctions?: Array<() => Promise<number>>): Promise<void> {
     if (!this.isDisabled() && estimateFunctions && estimateFunctions.length) {
       try {
-        const gas = (await Promise.all(estimateFunctions.map(item => item()))).reduce(
+        const gas = (await Promise.all(estimateFunctions.map(async item => item()))).reduce(
           (acc: number, item: number) => acc + item,
           0,
         );
@@ -94,11 +94,10 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    this.divinePrice(this.props.estimateFunctions);
+    await this.divinePrice(this.props.estimateFunctions);
   }
 
   public render(): JSX.Element {
-    const details = this.renderDetails();
     return (
       <Wrapper>
         {this.renderDetails()}

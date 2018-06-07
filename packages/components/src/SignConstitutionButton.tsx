@@ -1,9 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Civil, TwoStepEthTransaction } from "@joincivil/core";
-import { Button, buttonSizes } from "./Button";
+import { Civil } from "@joincivil/core";
+import { Button } from "./Button";
 import { fonts, colors } from "./styleConstants";
-import { debounce } from "lodash";
 import { DetailsButtonComponent } from "./DetailsButtonComponent";
 
 export interface SignConstitutionButtonProps {
@@ -119,7 +118,7 @@ export class SignConstitutionButton extends React.Component<SignConstitutionButt
     }
   }
 
-  private handleOnClick = (event: any): Promise<void> => {
+  private handleOnClick = async (event: any): Promise<void> => {
     return this.props.signConstitution();
   };
 
