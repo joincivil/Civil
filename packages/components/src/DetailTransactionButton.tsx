@@ -63,14 +63,14 @@ export class DetailTransactionButton extends React.Component<
       priceFailed: false,
       isProgressModalVisible: false,
     };
-    this.devinePrice = debounce(this.devinePrice.bind(this), 1000);
+    this.divinePrice = debounce(this.divinePrice.bind(this), 1000);
   }
 
   public componentWillReceiveProps(nextProps: DetailTransactionButtonProps): void {
-    this.devinePrice(nextProps.estimateFunctions);
+    this.divinePrice(nextProps.estimateFunctions);
   }
 
-  public async devinePrice(estimateFunctions?: Array<() => Promise<number>>): Promise<void> {
+  public async divinePrice(estimateFunctions?: Array<() => Promise<number>>): Promise<void> {
     if (!this.isDisabled() && estimateFunctions && estimateFunctions.length) {
       try {
         const gas = (await Promise.all(estimateFunctions.map(item => item()))).reduce(
@@ -94,7 +94,7 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    this.devinePrice(this.props.estimateFunctions);
+    this.divinePrice(this.props.estimateFunctions);
   }
 
   public render(): JSX.Element {
