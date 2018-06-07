@@ -74,9 +74,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             address={this.props.address}
           />
           <CompleteYourProfile active={this.state.currentStep} address={this.props.address} />
-          <CreateCharter/>
+          <CreateCharter />
           <SignConstitution address={this.props.address} active={this.state.currentStep} />
-          <ApplyToTCR/>
+          <ApplyToTCR />
         </StepProcess>
         {this.state.modalOpen && !this.props.address && this.renderModal()}
       </>

@@ -3,7 +3,14 @@ import { connect, DispatchProp } from "react-redux";
 import { State } from "../../reducers";
 import { addGovernmentData } from "../../actionCreators/government";
 import { getConstitutionHash, getConstitutionUri, getNewsroom, signMessage } from "../../apis/civilTCR";
-import { StepHeader, StepProps, StepStyled, Collapsable, SignConstitutionButton, StepDescription } from "@joincivil/components";
+import {
+  StepHeader,
+  StepProps,
+  StepStyled,
+  Collapsable,
+  SignConstitutionButton,
+  StepDescription,
+} from "@joincivil/components";
 import styled from "styled-components";
 import { Map } from "immutable";
 import { getCivil } from "../../helpers/civilInstance";
@@ -58,7 +65,7 @@ class SignConstitutionComponent extends React.Component<
     const isUpdatedAddress = !prevNewsroomAddress && newsroomAddress && newsroomAddress.length;
     const isUpdatedUser = prevProps.user !== this.props.user;
 
-    if (isUpdatedAddress || isUpdatedUser && !this.props.disabled) {
+    if (isUpdatedAddress || (isUpdatedUser && !this.props.disabled)) {
       const isOwner = await this.isNewsroomOwner();
       newState.isNewsroomOwner = isOwner;
     }
@@ -75,7 +82,11 @@ class SignConstitutionComponent extends React.Component<
         <Collapsable
           header={
             <>
-              <StepHeader disabled={this.props.disabled} el={this.props.el} isActive={this.props.active === this.props.index}>
+              <StepHeader
+                disabled={this.props.disabled}
+                el={this.props.el}
+                isActive={this.props.active === this.props.index}
+              >
                 Sign the Civil Constitution (Coming Soon!)
               </StepHeader>
               <StepDescription disabled={this.props.disabled}>Agree to the Civil Constitution</StepDescription>

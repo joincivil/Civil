@@ -8,7 +8,11 @@ export class CreateCharter extends React.Component<StepProps> {
         <Collapsable
           header={
             <>
-              <StepHeader disabled={this.props.disabled} el={this.props.el} isActive={this.props.active === this.props.index}>
+              <StepHeader
+                disabled={this.props.disabled}
+                el={this.props.el}
+                isActive={this.props.active === this.props.index}
+              >
                 Create your charter (Coming Soon!)
               </StepHeader>
               <StepDescription disabled={this.props.disabled}>State your newsrooms goals.</StepDescription>
@@ -16,8 +20,7 @@ export class CreateCharter extends React.Component<StepProps> {
           }
           disabled={this.props.disabled}
           open={false}
-        >
-        </Collapsable>
+        />
       </StepStyled>
     );
   }
