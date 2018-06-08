@@ -33,7 +33,8 @@ import { user } from "./userAccount";
 import { ui } from "./ui";
 import { Set, List, Map } from "immutable";
 import { TimestampedEvent, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
-import { newsrooms, currentUserNewsrooms, NewsroomState } from "./newsrooms";
+import { currentUserNewsrooms } from "./newsrooms";
+import { newsrooms, NewsroomState } from "@joincivil/newsroom-manager";
 
 export interface State {
   newsrooms: Map<string, NewsroomState>;

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { State } from "../../reducers";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
-import { NewsroomState } from "../../reducers/newsrooms";
+import { NewsroomState } from "@joincivil/newsroom-manager";
 import ListingListItemDescription from "./ListingListItemDescription";
 import ListingListItemOwner from "./ListingListItemOwner";
 import ListingListItemStatus from "./ListingListItemStatus";

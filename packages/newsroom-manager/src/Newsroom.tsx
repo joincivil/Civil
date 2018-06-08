@@ -3,14 +3,15 @@ import { FormHeading, StepProcess, Modal, ModalContent, Button, buttonSizes } fr
 import { NameAndAddress } from "./NameAndAddress";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { connect, DispatchProp } from "react-redux";
-import { State } from "../../reducers";
-import { addNewsroom, getNewsroom, getEditors } from "../../actionCreators/newsrooms";
-import { EthAddress } from "@joincivil/core";
+import { StateWithNewsroom } from "./reducers";
+import { addNewsroom, getNewsroom, getEditors } from "./actionCreators";
+import { EthAddress, Civil } from "@joincivil/core";
 import { SignConstitution } from "./SignConstitution";
 import { CreateCharter } from "./CreateCharter";
 import { ApplyToTCR } from "./ApplyToTCR";
+import { CivilContext } from "./CivilContext";
 
-export interface NewsroomState {
+export interface NewsroomComponentState {
   modalOpen: boolean;
   currentStep: number;
 }
@@ -18,10 +19,11 @@ export interface NewsroomState {
 export interface NewsroomProps {
   address?: string;
   name?: string;
+  civil: Civil;
   onNewsroomCreated?(address: EthAddress): void;
 }
 
-class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomState> {
+class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
   constructor(props: NewsroomProps) {
     super(props);
     this.state = {
@@ -32,8 +34,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   public async componentDidMount(): Promise<void> {
     if (this.props.address) {
-      await this.props.dispatch!(getNewsroom(this.props.address));
-      this.props.dispatch!(getEditors(this.props.address));
+      await this.props.dispatch!(getNewsroom(this.props.address, this.props.civil));
+      this.props.dispatch!(getEditors(this.props.address, this.props.civil));
     }
   }
 
@@ -66,18 +68,20 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <>
         <FormHeading>Newsroom Application</FormHeading>
         <p>Set up your newsroom smart contract and get started publishing on Civil.</p>
-        <StepProcess stepIsDisabled={this.isDisabled}>
-          <NameAndAddress
-            active={this.state.currentStep}
-            onNewsroomCreated={this.onNewsroomCreated}
-            name={this.props.name}
-            address={this.props.address}
-          />
-          <CompleteYourProfile active={this.state.currentStep} address={this.props.address} />
-          <CreateCharter />
-          <SignConstitution address={this.props.address} active={this.state.currentStep} />
-          <ApplyToTCR />
-        </StepProcess>
+        <CivilContext.Provider value={this.props.civil}>
+          <StepProcess stepIsDisabled={this.isDisabled}>
+            <NameAndAddress
+              active={this.state.currentStep}
+              onNewsroomCreated={this.onNewsroomCreated}
+              name={this.props.name}
+              address={this.props.address}
+            />
+            <CompleteYourProfile active={this.state.currentStep} address={this.props.address} />
+            <CreateCharter />
+            <SignConstitution address={this.props.address} active={this.state.currentStep} />
+            <ApplyToTCR />
+          </StepProcess>
+        </CivilContext.Provider>
         {this.state.modalOpen && !this.props.address && this.renderModal()}
       </>
     );
@@ -100,7 +104,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 }
 
-const mapStateToProps = (state: State, ownProps: NewsroomProps): NewsroomProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   return {

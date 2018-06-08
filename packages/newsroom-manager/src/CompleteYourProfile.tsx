@@ -14,10 +14,10 @@ import {
 } from "@joincivil/components";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
-import { EthAddress, NewsroomRoles } from "@joincivil/core";
-import { State } from "../../reducers";
-import { fetchNewsroom } from "../../actionCreators/newsrooms";
-import { getCivil } from "../../helpers/civilInstance";
+import { EthAddress, NewsroomRoles, Civil } from "@joincivil/core";
+import { CivilContext } from "./CivilContext";
+import { StateWithNewsroom } from "./reducers";
+import { fetchNewsroom } from "./actionCreators";
 
 export interface CompleteYourProfileComponentExternalProps extends StepProps {
   address?: EthAddress;
@@ -78,70 +78,74 @@ class CompleteYourProfileComponent extends React.Component<
   }
 
   public renderAddEditorForm(): JSX.Element {
-    const civil = getCivil();
     if (!this.state.addEditor) {
       return <BorderlessButton onClick={() => this.setState({ addEditor: true })}>ADD EDITORS +</BorderlessButton>;
     } else {
       return (
-        <>
-          <TextInput
-            label="Wallet Address"
-            placeholder="Enter Wallet Address"
-            name="EditorWalletInput"
-            value={this.state.newEditor}
-            onChange={(name, val) => this.setState({ newEditor: val })}
-          />
-          <DetailTransactionButton
-            transactions={[
-              {
-                transaction: this.addEditor,
-                postTransaction: result => {
-                  this.setState({ addEditor: false, newEditor: "" });
-                },
-              },
-            ]}
-            civil={civil}
-            // estimateFunctions={[this.props.newsroom.estimateAddOwner.bind(this.props.newsroom, this.state.newOwner)]}
-            requiredNetwork="rinkeby"
-          >
-            Add Owner
-          </DetailTransactionButton>
-        </>
+        <CivilContext.Consumer>
+          {(civil: Civil) => (
+            <>
+              <TextInput
+                label="Wallet Address"
+                placeholder="Enter Wallet Address"
+                name="EditorWalletInput"
+                value={this.state.newEditor}
+                onChange={(name: any, val: any) => this.setState({ newEditor: val })}
+              />
+              <DetailTransactionButton
+                transactions={[
+                    {
+                      transaction: this.addEditor,
+                      postTransaction: (result: any) => {
+                      this.setState({ addEditor: false, newEditor: "" });
+                    },
+                  },
+                ]}
+                civil={civil}
+                requiredNetwork="rinkeby"
+              >
+                Add Owner
+              </DetailTransactionButton>
+            </>
+          )}
+        </CivilContext.Consumer>
       );
     }
   }
 
   public renderAddOwnerForm(): JSX.Element {
-    const civil = getCivil();
     if (!this.state.addOwner) {
       return <BorderlessButton onClick={() => this.setState({ addOwner: true })}>ADD OWNER +</BorderlessButton>;
     } else {
       return (
-        <>
-          <TextInput
-            label="Wallet Address"
-            placeholder="Enter Wallet Address"
-            name="OwnerWalletInput"
-            value={this.state.newOwner}
-            onChange={(name, val) => this.setState({ newOwner: val })}
-          />
-          <DetailTransactionButton
-            transactions={[
-              {
-                transaction: this.addOwner,
-                postTransaction: result => {
-                  this.props.dispatch!(fetchNewsroom(this.props.address!));
-                  this.setState({ addOwner: false, newOwner: "" });
-                },
-              },
-            ]}
-            civil={civil}
-            // estimateFunctions={[this.props.newsroom.estimateAddOwner.bind(this.props.newsroom, this.state.newOwner)]}
-            requiredNetwork="rinkeby"
-          >
-            Add Owner
-          </DetailTransactionButton>
-        </>
+        <CivilContext.Consumer>
+          {(civil: Civil) => (
+            <>
+              <TextInput
+                label="Wallet Address"
+                placeholder="Enter Wallet Address"
+                name="OwnerWalletInput"
+                value={this.state.newOwner}
+                onChange={(name, val) => this.setState({ newOwner: val })}
+              />
+              <DetailTransactionButton
+                transactions={[
+                  {
+                    transaction: this.addOwner,
+                    postTransaction: result => {
+                      this.props.dispatch!(fetchNewsroom(this.props.address!));
+                      this.setState({ addOwner: false, newOwner: "" });
+                    },
+                  },
+                ]}
+                civil={civil}
+                requiredNetwork="rinkeby"
+              >
+                Add Owner
+              </DetailTransactionButton>
+            </>
+          )}
+        </CivilContext.Consumer>
       );
     }
   }
@@ -157,10 +161,10 @@ class CompleteYourProfileComponent extends React.Component<
                 el={this.props.el}
                 isActive={this.props.active === this.props.index}
               >
-                Complete your profile
+                Add other users
               </StepHeader>
               <StepDescription disabled={this.props.disabled}>
-                Add owners, editors, and your charter to your profile.
+                Add owners and editors to your newsroom contract.
               </StepDescription>
             </>
           }
@@ -199,7 +203,7 @@ class CompleteYourProfileComponent extends React.Component<
 }
 
 const mapStateToProps = (
-  state: State,
+  state: StateWithNewsroom,
   ownProps: CompleteYourProfileComponentExternalProps,
 ): CompleteYourProfileComponentProps => {
   const { address } = ownProps;

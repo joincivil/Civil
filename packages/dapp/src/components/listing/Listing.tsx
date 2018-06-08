@@ -8,7 +8,7 @@ import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
 import { PageView } from "../utility/ViewModules";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
-import { NewsroomState } from "../../reducers/newsrooms";
+import { NewsroomState } from "@joincivil/newsroom-manager";
 
 export interface ListingPageProps {
   match: any;

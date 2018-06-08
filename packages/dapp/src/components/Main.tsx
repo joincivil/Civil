@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Switch, Route, withRouter, RouteComponentProps } from "react-router-dom";
 import Listings from "./listinglist/Listings";
-import { Newsroom } from "./newsroom/Newsroom";
 import Contracts from "./Contracts";
 import ContractPage from "./ContractPage";
 import ChallengePage from "./listing/Challenge";
@@ -47,7 +46,6 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     return (
       <Switch>
         <Route exact path="/" component={Listings} />
-        <Route path="/newsroom/:newsroomAddress" component={Newsroom} />
         <Route path="/contracts" component={Contracts} />
         <Route path="/contract/:contract" component={ContractPage} />
         <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />

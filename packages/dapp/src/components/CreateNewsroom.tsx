@@ -1,8 +1,9 @@
 import * as React from "react";
 import { PageView, ViewModule } from "./utility/ViewModules";
 import { Modal, FormHeading, ModalContent, Button, buttonSizes } from "@joincivil/components";
-import { Newsroom } from "./newsroom/Newsroom";
+import { Newsroom } from "@joincivil/newsroom-manager";
 import { EthAddress } from "@joincivil/core";
+import { getCivil } from "../helpers/civilInstance";
 
 export interface CreateNewsroomState {
   error: string;
@@ -22,10 +23,11 @@ class CreateNewsroom extends React.Component<CreateNewsroomProps, CreateNewsroom
 
   public render(): JSX.Element {
     console.log("this.props.history:", this.props.history);
+    const civil = getCivil();
     return (
       <PageView>
         <ViewModule>
-          <Newsroom onNewsroomCreated={this.onCreated} />
+          <Newsroom civil={civil} onNewsroomCreated={this.onCreated} />
         </ViewModule>
       </PageView>
     );
