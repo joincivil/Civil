@@ -94,9 +94,9 @@ class CompleteYourProfileComponent extends React.Component<
               />
               <DetailTransactionButton
                 transactions={[
-                    {
-                      transaction: this.addEditor,
-                      postTransaction: (result: any) => {
+                  {
+                    transaction: this.addEditor,
+                    postTransaction: (result: any) => {
                       this.setState({ addEditor: false, newEditor: "" });
                     },
                   },

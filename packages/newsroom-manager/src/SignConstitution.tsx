@@ -15,10 +15,10 @@ import { Map } from "immutable";
 // import { getCivil } from "../../helpers/civilInstance";
 
 // const StyledLegalIframe = styled.iframe`
-  // border-width: 1px;
-  // height: 15rem;
-  // margin: 0 0 2rem;
-  // width: 100%;
+// border-width: 1px;
+// height: 15rem;
+// margin: 0 0 2rem;
+// width: 100%;
 // `;
 
 export interface SignConstitutionProps {
@@ -60,17 +60,14 @@ class SignConstitutionComponent extends React.Component<
     // const prevNewsroomAddress = prevProps.address;
     // const newsroomAddress = this.props.address;
     // const newState: SignConstitutionState = {};
-
     // const isUpdatedAddress = !prevNewsroomAddress && newsroomAddress && newsroomAddress.length;
     // const isUpdatedUser = prevProps.user !== this.props.user;
-
     // if (isUpdatedAddress || (isUpdatedUser && !this.props.disabled)) {
-      // const isOwner = await this.isNewsroomOwner();
-      // newState.isNewsroomOwner = isOwner;
+    // const isOwner = await this.isNewsroomOwner();
+    // newState.isNewsroomOwner = isOwner;
     // }
-
     // if (Object.keys(newState).length) {
-      // this.setState(newState);
+    // this.setState(newState);
     // }
   }
 
@@ -97,12 +94,12 @@ class SignConstitutionComponent extends React.Component<
           {/* <StyledLegalIframe src={this.props.government!.get("constitutionURI")} /> */}
 
           {/* <SignConstitutionButton */}
-            {/* civil={civil} */}
-            {/* requiredNetwork="rinkeby" */}
-            {/* isNewsroomOwner={this.state.isNewsroomOwner} */}
-            {/* signConstitution={this.signConstitution} */}
+          {/* civil={civil} */}
+          {/* requiredNetwork="rinkeby" */}
+          {/* isNewsroomOwner={this.state.isNewsroomOwner} */}
+          {/* signConstitution={this.signConstitution} */}
           {/* > */}
-            {/* Create Newsroom */}
+          {/* Create Newsroom */}
           {/* </SignConstitutionButton> */}
         </Collapsable>
       </StepStyled>
@@ -110,25 +107,25 @@ class SignConstitutionComponent extends React.Component<
   }
 
   // private initGovernmentData = async (): Promise<void> => {
-    // const constitutionHash = await getConstitutionHash();
-    // this.props.dispatch!(addGovernmentData("constitutionHash", constitutionHash));
-    // const constitutionURI = await getConstitutionUri();
-    // this.props.dispatch!(addGovernmentData("constitutionURI", constitutionURI));
+  // const constitutionHash = await getConstitutionHash();
+  // this.props.dispatch!(addGovernmentData("constitutionHash", constitutionHash));
+  // const constitutionURI = await getConstitutionUri();
+  // this.props.dispatch!(addGovernmentData("constitutionURI", constitutionURI));
   // };
 
   // private signConstitution = async (): Promise<void> => {
-    // const signature = await signMessage(this.props.government!.get("constitutionHash"));
-    // console.log(signature);
+  // const signature = await signMessage(this.props.government!.get("constitutionHash"));
+  // console.log(signature);
   // };
 
   // private isNewsroomOwner = async (): Promise<boolean> => {
-    // const userAccount = (this.props.user && this.props.user.account) || undefined;
-    // if (!userAccount || Object.keys(userAccount).length === 0) {
-      // return false;
-    // }
-    // const newsroom = await getNewsroom(this.props.address!);
-    // const isOwner = await newsroom.isOwner(userAccount.account);
-    // return isOwner;
+  // const userAccount = (this.props.user && this.props.user.account) || undefined;
+  // if (!userAccount || Object.keys(userAccount).length === 0) {
+  // return false;
+  // }
+  // const newsroom = await getNewsroom(this.props.address!);
+  // const isOwner = await newsroom.isOwner(userAccount.account);
+  // return isOwner;
   // };
 }
 

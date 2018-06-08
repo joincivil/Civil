@@ -11,7 +11,7 @@ export interface NewsroomState {
 }
 
 export interface StateWithNewsroom {
-  newsrooms: Map<string, NewsroomState>
+  newsrooms: Map<string, NewsroomState>;
 }
 
 export function newsrooms(

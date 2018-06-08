@@ -47,7 +47,9 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               onChange={(name, val) => this.onChange(name, val)}
             />
             <DetailTransactionButton
-              transactions={[{ transaction: this.createNewsroom.bind(this, civil), postTransaction: this.props.onNewsroomCreated }]}
+              transactions={[
+                { transaction: this.createNewsroom.bind(this, civil), postTransaction: this.props.onNewsroomCreated },
+              ]}
               civil={civil}
               estimateFunctions={[civil.estimateNewsroomDeployTrusted.bind(civil, this.props.name)]}
               requiredNetwork="rinkeby"
