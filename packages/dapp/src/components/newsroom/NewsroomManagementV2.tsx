@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Newsroom } from "./Newsroom";
+import { Newsroom } from "@joincivil/newsroom-manager";
+import { getCivil } from "../../helpers/civilInstance";
 
 export interface NewsroomManagementProps {
   match: any;
@@ -7,6 +8,7 @@ export interface NewsroomManagementProps {
 
 export default class NewsroomManagement extends React.Component<NewsroomManagementProps> {
   public render(): JSX.Element {
-    return <Newsroom address={this.props.match.params.newsroomAddress} />;
+    const civil = getCivil();
+    return <Newsroom civil={civil} address={this.props.match.params.newsroomAddress} />;
   }
 }

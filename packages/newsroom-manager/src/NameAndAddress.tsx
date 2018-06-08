@@ -10,11 +10,11 @@ import {
   AddressWithCopyButton,
   StepDescription,
 } from "@joincivil/components";
-import { TwoStepEthTransaction } from "@joincivil/core";
-import { getCivil } from "../../helpers/civilInstance";
+import { TwoStepEthTransaction, Civil } from "@joincivil/core";
 import styled, { StyledComponentClass } from "styled-components";
 import { connect, DispatchProp } from "react-redux";
-import { updateNewsroom } from "../../actionCreators/newsrooms";
+import { updateNewsroom } from "./actionCreators";
+import { CivilContext } from "./CivilContext";
 
 export interface NameAndAddressProps extends StepProps {
   address?: string;
@@ -35,25 +35,30 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
   }
 
   public renderNoContract(): JSX.Element {
-    const civil = getCivil();
     return (
-      <>
-        <TextInput
-          label="Newsroom Name"
-          placeholder="Enter your newsroom's name"
-          name="NameInput"
-          value={this.props.name || ""}
-          onChange={(name, val) => this.onChange(name, val)}
-        />
-        <DetailTransactionButton
-          transactions={[{ transaction: this.createNewsroom, postTransaction: this.props.onNewsroomCreated }]}
-          civil={civil}
-          estimateFunctions={[civil.estimateNewsroomDeployTrusted.bind(civil, this.props.name)]}
-          requiredNetwork="rinkeby"
-        >
-          Create Newsroom
-        </DetailTransactionButton>
-      </>
+      <CivilContext.Consumer>
+        {(civil: Civil) => (
+          <>
+            <TextInput
+              label="Newsroom Name"
+              placeholder="Enter your newsroom's name"
+              name="NameInput"
+              value={this.props.name || ""}
+              onChange={(name, val) => this.onChange(name, val)}
+            />
+            <DetailTransactionButton
+              transactions={[
+                { transaction: this.createNewsroom.bind(this, civil), postTransaction: this.props.onNewsroomCreated },
+              ]}
+              civil={civil}
+              estimateFunctions={[civil.estimateNewsroomDeployTrusted.bind(civil, this.props.name)]}
+              requiredNetwork="rinkeby"
+            >
+              Create Newsroom
+            </DetailTransactionButton>
+          </>
+        )}
+      </CivilContext.Consumer>
     );
   }
 
@@ -104,8 +109,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     );
   }
 
-  private createNewsroom = async (): Promise<TwoStepEthTransaction<any>> => {
-    const civil = getCivil();
+  private createNewsroom = async (civil: Civil): Promise<TwoStepEthTransaction<any>> => {
     return civil.newsroomDeployTrusted(this.props.name!);
   };
 }
