@@ -94,11 +94,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public onNewsroomCreated = async (result: any) => {
-    await this.props.dispatch!(addNewsroom({
-      wrapper: await result.getNewsroomWrapper(),
-      address: result.address,
-      newsroom: result,
-    }));
+    await this.props.dispatch!(
+      addNewsroom({
+        wrapper: await result.getNewsroomWrapper(),
+        address: result.address,
+        newsroom: result,
+      }),
+    );
     if (this.props.onNewsroomCreated) {
       this.props.onNewsroomCreated(result.address);
     }
