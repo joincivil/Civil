@@ -39,6 +39,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   }
 
+  public componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): void {
+    if (newProps.address && !this.props.address) {
+      this.props.dispatch!(getEditors(newProps.address, this.props.civil));
+    }
+  }
+
   public renderModal(): JSX.Element {
     return (
       <Modal>
@@ -88,7 +94,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public onNewsroomCreated = async (result: any) => {
-    await this.props.dispatch!(addNewsroom(result.getNewsroomWrapper()));
+    await this.props.dispatch!(addNewsroom({
+      wrapper: await result.getNewsroomWrapper(),
+      address: result.address,
+      newsroom: result,
+    }));
     if (this.props.onNewsroomCreated) {
       this.props.onNewsroomCreated(result.address);
     }
