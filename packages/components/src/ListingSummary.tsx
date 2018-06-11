@@ -8,6 +8,7 @@ import { buttonSizes, InvertedButton } from "./Button";
 export const StyledListingSummaryList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
   width: 1200px;
 `;
 
@@ -42,9 +43,9 @@ const StyledListingSummaryDek = styled.div`
 
 const NewsroomIcon = styled.figure`
   background: ${colors.accent.CIVIL_GRAY_4};
-  height: 80px;
   margin: 0 17px 0 0;
-  width: 80px;
+  min-height: 80px;
+  min-width: 80px;
 `;
 
 const MetaItem = styled.div`
@@ -58,12 +59,15 @@ const MetaLabel = styled.div`
 const MetaValue = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1};
   font: normal 14px/17px ${fonts.SANS_SERIF};
+  max-width: 80%;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
 `;
 
 export interface ListingSummaryComponentProps {
   address?: EthAddress;
   name?: string;
-  owner?: EthAddress;
+  owners?: EthAddress[];
   description?: string;
   listingDetailURL?: string;
 }
@@ -78,7 +82,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
             <StyledListingSummaryNewsroomName>{this.props.name}</StyledListingSummaryNewsroomName>
             <MetaItem>
               <MetaLabel>Owner</MetaLabel>
-              <MetaValue>{this.props.owner}</MetaValue>
+              <MetaValue title={this.props.owners![0]}>{this.props.owners![0]}</MetaValue>
             </MetaItem>
             <InvertedButton size={buttonSizes.SMALL} to={this.props.listingDetailURL}>
               View Details
