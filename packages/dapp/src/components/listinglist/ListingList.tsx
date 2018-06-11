@@ -1,20 +1,8 @@
 import * as React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { Set } from "immutable";
 import ListingListItem from "./ListingListItem";
-
-const StyledUl = styled.ul`
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  width: 100%
-  color: black;
-  align-items: center;
-`;
-
-const StyledLI = styled.li`
-  width: 80%;
-`;
+import { StyledListingSummaryList } from "@joincivil/components";
 
 export interface ListingListOwnProps {
   listings?: Set<string>;
@@ -29,26 +17,18 @@ class ListingList extends React.Component<ListingListOwnProps> {
   public render(): JSX.Element {
     let index = 0;
     return (
-      <StyledUl>
+      <StyledListingSummaryList>
         {this.props.listings &&
           this.props.listings.map(l => {
             index++;
-            return (
-              <StyledLI key={l}>
-                <ListingListItem listingAddress={l!} even={index % 2 === 0} />
-              </StyledLI>
-            );
+            return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
           })}
         {this.props.challenges &&
           this.props.challenges.map(c => {
             index++;
-            return (
-              <StyledLI key={c}>
-                <ListingListItem challengeID={c!} even={index % 2 === 0} />
-              </StyledLI>
-            );
+            return <ListingListItem key={c} challengeID={c!} even={index % 2 === 0} />;
           })}
-      </StyledUl>
+      </StyledListingSummaryList>
     );
   }
 }
