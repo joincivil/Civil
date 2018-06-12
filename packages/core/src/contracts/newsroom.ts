@@ -419,6 +419,31 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.multisigProxy.setName.sendTransactionAsync(newName);
   }
 
+  public async publishURIAndHash(
+    uri: string,
+    hash: string,
+    author: string = "",
+    signature: string = "",
+  ): Promise<TwoStepEthTransaction<ContentId | MultisigTransaction>> {
+    const findContentId = (receipt: CivilTransactionReceipt) =>
+      findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
+
+    if (this.isOwner()) {
+      return this.twoStepOrMulti(
+        await this.multisigProxy.publishContent.sendTransactionAsync(uri, hash, author, signature),
+        findContentId,
+      );
+    } else {
+      await this.requireEditor();
+
+      return createTwoStepTransaction(
+        this.ethApi,
+        await this.instance.publishContent.sendTransactionAsync(uri, hash, author, signature),
+        findContentId,
+      );
+    }
+  }
+
   /**
    * Allows editor to publish content on the ethereum storage and record it in the
    * Blockchain Newsroom.
@@ -458,6 +483,41 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
           signature,
         ),
         findContentId,
+      );
+    }
+  }
+
+  public async updateRevisionURIAndHash(
+    contentId: ContentId,
+    uri: string,
+    hash: string,
+    signature: string = "",
+  ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
+    const findRevisionId = (receipt: CivilTransactionReceipt) =>
+      findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
+
+    if (this.isOwner()) {
+      return this.twoStepOrMulti(
+        await this.multisigProxy.updateRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          uri,
+          hash,
+          signature,
+        ),
+        findRevisionId,
+      );
+    } else {
+      await this.requireEditor();
+
+      return createTwoStepTransaction(
+        this.ethApi,
+        await this.instance.updateRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          uri,
+          hash,
+          signature,
+        ),
+        findRevisionId,
       );
     }
   }

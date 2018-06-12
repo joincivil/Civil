@@ -21,6 +21,7 @@ export interface NewsroomProps {
   name?: string;
   civil: Civil;
   onNewsroomCreated?(address: EthAddress): void;
+  getNameForAddress?(address: EthAddress): Promise<string>;
 }
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
