@@ -1,13 +1,23 @@
 import * as React from "react";
 import { getReadableDuration } from "@joincivil/utils";
-import { colors } from "./styleConstants";
+import { colors, fonts } from "./styleConstants";
 import styled, { StyledComponentClass } from "styled-components";
+
+const StyledCountdownTimerContainer = styled.div`
+  font: normal 16px/19px ${fonts.SANS_SERIF};
+  margin: 0 0 16px;
+`;
 
 const StyledCountdownLabel = styled.span`
   color: ${colors.primary.BLACK};
 `;
 const StyledCountdownLabelWarn = StyledCountdownLabel.extend`
   color: ${colors.accent.CIVIL_RED};
+`;
+const StyledExpiry = styled.div`
+  font-size: 14px;
+  line-height: 17px;
+  margin: 2px 0 0;
 `;
 
 export interface CountdownTimerProps {
@@ -43,23 +53,47 @@ export class CountdownTimer extends React.Component<CountdownTimerProps, Countdo
   }
 
   private renderApplicationPhase(): JSX.Element {
-    const labelText = this.state.secondsRemaining ? "Ends in " : "Ended";
+    const labelText = this.state.secondsRemaining > 0 ? "Ends in " : "Ended";
     let label;
     if (this.props.warn) {
-      label = <StyledCountdownLabelWarn>{label}</StyledCountdownLabelWarn>;
+      label = <StyledCountdownLabelWarn>{labelText}</StyledCountdownLabelWarn>;
     } else {
-      label = <StyledCountdownLabel>{label}</StyledCountdownLabel>;
+      label = <StyledCountdownLabel>{labelText}</StyledCountdownLabel>;
     }
     return (
-      <>
+      <StyledCountdownTimerContainer>
         {label}
-        {this.getReadableTimeRemaining()}
-      </>
+        {this.renderReadableTimeRemaining()}
+        {this.renderExpiry()}
+      </StyledCountdownTimerContainer>
     );
   }
 
-  private getReadableTimeRemaining = (): string => {
-    return getReadableDuration(this.state.secondsRemaining);
+  private renderExpiry = (): JSX.Element => {
+    const expiryDateTime = new Date(this.props.endTime * 1000);
+    const timeString = `${pad(expiryDateTime.getHours(), 2)}:${pad(expiryDateTime.getMinutes(), 2)} GMT-${pad(
+      expiryDateTime.getTimezoneOffset() / 60,
+      2,
+    )}${pad(expiryDateTime.getTimezoneOffset() % 60, 2)}`;
+    // const timeString = expiryDateTime.toTimeString();
+    const expiryText = `${expiryDateTime.getFullYear()}-${expiryDateTime.getMonth() + 1}-${expiryDateTime.getDate()} `;
+    return (
+      <StyledExpiry>
+        <b>{expiryText}</b>
+        {timeString}
+      </StyledExpiry>
+    );
+  };
+
+  private renderReadableTimeRemaining = (): JSX.Element => {
+    if (this.props.warn) {
+      return (
+        <StyledCountdownLabelWarn>
+          <b>{getReadableDuration(this.state.secondsRemaining)}</b>
+        </StyledCountdownLabelWarn>
+      );
+    }
+    return <b>{getReadableDuration(this.state.secondsRemaining)}</b>;
   };
 
   // TODO(nickreynolds): move this all into redux
@@ -79,4 +113,16 @@ export class CountdownTimer extends React.Component<CountdownTimerProps, Countdo
     this.setState({ secondsRemaining });
     return secondsRemaining;
   };
+}
+
+function pad(num: number | string, places: number, append: boolean = false): string {
+  let out = typeof num === "number" ? num.toString() : num;
+  while (out.length < places) {
+    if (append) {
+      out += "0";
+    } else {
+      out = "0" + out;
+    }
+  }
+  return out;
 }
