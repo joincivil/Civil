@@ -73,11 +73,6 @@ const MetaValue = styled.abbr`
   text-overflow: ellipsis;
 `;
 
-const PhaseCountdownContainer = styled.div`
-  font: bold 16px/19px ${fonts.SANS_SERIF};
-  margin: 0 0 16px;
-`;
-
 export interface ListingSummaryComponentProps {
   address?: EthAddress;
   name?: string;
@@ -144,11 +139,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     const warn = this.props.inChallengePhase || this.props.inRevealPhase;
 
     if (expiry) {
-      return (
-        <PhaseCountdownContainer>
-          <CountdownTimer endTime={expiry!} warn={warn} />
-        </PhaseCountdownContainer>
-      );
+      return <CountdownTimer endTime={expiry!} warn={warn} />;
     }
 
     return;
