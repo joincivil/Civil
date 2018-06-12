@@ -430,12 +430,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
     if (this.isOwner()) {
       return this.twoStepOrMulti(
-        await this.multisigProxy.publishContent.sendTransactionAsync(
-          uri,
-          hash,
-          author,
-          signature,
-        ),
+        await this.multisigProxy.publishContent.sendTransactionAsync(uri, hash, author, signature),
         findContentId,
       );
     } else {
@@ -443,12 +438,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
       return createTwoStepTransaction(
         this.ethApi,
-        await this.instance.publishContent.sendTransactionAsync(
-          uri,
-          hash,
-          author,
-          signature,
-        ),
+        await this.instance.publishContent.sendTransactionAsync(uri, hash, author, signature),
         findContentId,
       );
     }
@@ -504,7 +494,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     signature: string = "",
   ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
     const findRevisionId = (receipt: CivilTransactionReceipt) =>
-    findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
+      findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
 
     if (this.isOwner()) {
       return this.twoStepOrMulti(
