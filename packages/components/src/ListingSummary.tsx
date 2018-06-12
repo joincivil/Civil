@@ -5,6 +5,12 @@ import { colors, fonts } from "./styleConstants";
 import { SectionHeading } from "./Heading";
 import { buttonSizes, InvertedButton } from "./Button";
 import { CountdownTimer } from "./PhaseCountdown";
+import {
+  AwaitingApprovalStatusLabel,
+  CommitVoteStatusLabel,
+  RevealVoteStatusLabel,
+  RequestingAppealStatusLabel,
+} from "./ApplicationPhaseStatusLabels";
 
 export const StyledListingSummaryList = styled.div`
   display: flex;
@@ -63,33 +69,13 @@ const MetaValue = styled.abbr`
   font: normal 14px/17px ${fonts.SANS_SERIF};
   max-width: 65%;
   overflow-y: hidden;
+  text-decoration: none;
   text-overflow: ellipsis;
 `;
 
 const PhaseCountdownContainer = styled.div`
   font: bold 16px/19px ${fonts.SANS_SERIF};
   margin: 0 0 16px;
-`;
-
-const BaseStatus = styled.div`
-  color: ${colors.primary.BLACK};
-  display: inline-block;
-  font: bold 12px/15px ${fonts.SANS_SERIF};
-  letter-spacing: 1px;
-  margin: 0 0 9px;
-  padding: 5px 8px;
-  text-transform: uppercase;
-`;
-
-export const CommitVoteStatus = BaseStatus.extend`
-  background-color: ${colors.accent.CIVIL_YELLOW};
-`;
-export const RevealVoteStatus = BaseStatus.extend`
-  background-color: ${colors.accent.CIVIL_TEAL_FADED};
-`;
-export const RequestingAppealStatus = BaseStatus.extend`
-  background-color: ${colors.primary.BLACK};
-  color: ${colors.basic.WHITE};
 `;
 
 export interface ListingSummaryComponentProps {
@@ -134,16 +120,18 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     );
   }
 
-  private renderPhaseLabel = (): JSX.Element => {
-    if (this.props.inChallengePhase) {
-      return <CommitVoteStatus>Accepting Votes</CommitVoteStatus>;
+  private renderPhaseLabel = (): JSX.Element | undefined => {
+    if (this.props.isInApplication) {
+      return <AwaitingApprovalStatusLabel />;
+    } else if (this.props.inChallengePhase) {
+      return <CommitVoteStatusLabel />;
     } else if (this.props.inRevealPhase) {
-      return <RevealVoteStatus>Revealing Votes</RevealVoteStatus>;
+      return <RevealVoteStatusLabel />;
     }
-    return <></>;
+    return;
   };
 
-  private renderPhaseCountdown = (): JSX.Element => {
+  private renderPhaseCountdown = (): JSX.Element | undefined => {
     let expiry: number | undefined;
     if (this.props.isInApplication) {
       expiry = this.props.appExpiry;
@@ -153,15 +141,17 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
       expiry = this.props.revealEndDate;
     }
 
+    const warn = this.props.inChallengePhase || this.props.inRevealPhase;
+
     if (expiry) {
       return (
         <PhaseCountdownContainer>
-          Ends in <CountdownTimer endTime={expiry!} />
+          <CountdownTimer endTime={expiry!} warn={warn} />
         </PhaseCountdownContainer>
       );
     }
 
-    return <></>;
+    return;
   };
 }
 
