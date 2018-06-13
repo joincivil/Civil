@@ -45,7 +45,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
   }
 
   public componentWillReceiveProps(newProps: NameAndAddressProps): void {
-    this.setState({name: newProps.name});
+    this.setState({ name: newProps.name });
   }
 
   public onChange(name: string, value: string | void): void {
@@ -53,7 +53,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
   }
 
   public onContractChange(name: string, value: string | void): void {
-    this.setState({name: value || undefined});
+    this.setState({ name: value || undefined });
   }
 
   public renderNoContract(): JSX.Element {
@@ -97,9 +97,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               onChange={(name, val) => this.onContractChange(name, val)}
             />
             <DetailTransactionButton
-              transactions={[
-                { transaction: this.changeName, postTransaction: this.onNameChange },
-              ]}
+              transactions={[{ transaction: this.changeName, postTransaction: this.onNameChange }]}
               civil={civil}
               requiredNetwork="rinkeby"
             >
@@ -146,9 +144,9 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
 
   private changeName = async (): Promise<TwoStepEthTransaction<any>> => {
     return this.props.newsroom!.setName(this.state.name!);
-  }
+  };
 
-  private onNameChange =  (result: any): void => {
+  private onNameChange = (result: any): void => {
     this.props.dispatch!(changeName(this.props.address!, this.state.name!));
   };
 
@@ -165,7 +163,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NameAndAddressProps
   return {
     newsroom,
     ...ownProps,
-  }
+  };
 };
 
 export const NameAndAddress = connect(mapStateToProps)(NameAndAddressComponent);

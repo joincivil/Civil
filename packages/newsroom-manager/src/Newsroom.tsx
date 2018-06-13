@@ -123,7 +123,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private onModalClose = () => {
     this.setState({ modalOpen: false });
     window.localStorage.setItem("civil:hasSeenWelcomeModal", "true");
-  }
+  };
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {

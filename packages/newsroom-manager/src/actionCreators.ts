@@ -18,20 +18,26 @@ export enum userActions {
   ADD_USER = "ADD_USER",
 }
 
-export const getEditors = (address: EthAddress, civil: Civil): any => async (dispatch: any, getState: any): Promise<void> => {
+export const getEditors = (address: EthAddress, civil: Civil): any => async (
+  dispatch: any,
+  getState: any,
+): Promise<void> => {
   const state = getState();
   const newsroom = await civil.newsroomAtUntrusted(address);
-  await newsroom.editors().forEach(async (val) => {
+  await newsroom.editors().forEach(async val => {
     const getNameForAddress = state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS);
     if (getNameForAddress) {
       const name = await getNameForAddress(val);
       dispatch(addUser(val, name));
     }
-    dispatch(addEditor(address, val))
+    dispatch(addEditor(address, val));
   });
 };
 
-export const getNewsroom = (address: EthAddress, civil: Civil): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
+export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
+  dispatch: any,
+  getState: any,
+): Promise<AnyAction> => {
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
   const state = getState();
@@ -75,8 +81,8 @@ export const addEditor = (address: EthAddress, editor: EthAddress): AnyAction =>
 export const changeName = (address: EthAddress, name: String): AnyAction => {
   return {
     type: newsroomActions.CHANGE_NAME,
-    data: {name, address},
-  }
+    data: { name, address },
+  };
 };
 
 export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
