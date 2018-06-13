@@ -4,7 +4,6 @@ import {
   StepProps,
   StepStyled,
   Collapsable,
-  AddressWithCopyButton,
   BorderlessButton,
   colors,
   fonts,

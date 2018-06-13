@@ -78,7 +78,7 @@ export const addEditor = (address: EthAddress, editor: EthAddress): AnyAction =>
   };
 };
 
-export const changeName = (address: EthAddress, name: String): AnyAction => {
+export const changeName = (address: EthAddress, name: string): AnyAction => {
   return {
     type: newsroomActions.CHANGE_NAME,
     data: { name, address },
