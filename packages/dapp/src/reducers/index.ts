@@ -32,12 +32,14 @@ import { government, govtParameters } from "./government";
 import { user } from "./userAccount";
 import { ui } from "./ui";
 import { Set, List, Map } from "immutable";
-import { TimestampedEvent, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
+import { TimestampedEvent, WrappedChallengeData, UserChallengeData, EthAddress } from "@joincivil/core";
 import { currentUserNewsrooms } from "./newsrooms";
-import { newsrooms, NewsroomState } from "@joincivil/newsroom-manager";
+import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
 
 export interface State {
   newsrooms: Map<string, NewsroomState>;
+  newsroomUi: Map<string, any>;
+  newsroomUsers: Map<EthAddress, string>;
   currentUserNewsrooms: Set<string>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsFetching: Map<string, any>;
@@ -74,6 +76,8 @@ export interface State {
 
 export default combineReducers({
   newsrooms,
+  newsroomUi,
+  newsroomUsers,
   currentUserNewsrooms,
   listings,
   listingsFetching,

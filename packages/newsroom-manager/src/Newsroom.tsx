@@ -4,7 +4,7 @@ import { NameAndAddress } from "./NameAndAddress";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { connect, DispatchProp } from "react-redux";
 import { StateWithNewsroom } from "./reducers";
-import { addNewsroom, getNewsroom, getEditors } from "./actionCreators";
+import { addNewsroom, getNewsroom, getEditors, addGetNameForAddress } from "./actionCreators";
 import { EthAddress, Civil } from "@joincivil/core";
 import { SignConstitution } from "./SignConstitution";
 import { CreateCharter } from "./CreateCharter";
@@ -28,12 +28,16 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   constructor(props: NewsroomProps) {
     super(props);
     this.state = {
-      modalOpen: true,
+      modalOpen: !JSON.parse(window.localStorage.getItem("civil:hasSeenWelcomeModal") || "false"),
       currentStep: props.address ? 1 : 0,
     };
   }
 
   public async componentDidMount(): Promise<void> {
+    if (this.props.getNameForAddress) {
+      this.props.dispatch!(addGetNameForAddress(this.props.getNameForAddress));
+    }
+
     if (this.props.address) {
       await this.props.dispatch!(getNewsroom(this.props.address, this.props.civil));
       this.props.dispatch!(getEditors(this.props.address, this.props.civil));
@@ -63,7 +67,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         <ModalContent>
           If you're not sure about some of the above, don't worry, we'll point you to some resources. Let's go!
         </ModalContent>
-        <Button onClick={() => this.setState({ modalOpen: false })} size={buttonSizes.MEDIUM}>
+        <Button onClick={this.onModalClose} size={buttonSizes.MEDIUM}>
           Get Started
         </Button>
       </Modal>
@@ -115,6 +119,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
     return true;
   };
+
+  private onModalClose = () => {
+    this.setState({ modalOpen: false });
+    window.localStorage.setItem("civil:hasSeenWelcomeModal", "true");
+  }
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {

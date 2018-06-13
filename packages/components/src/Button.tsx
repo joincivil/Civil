@@ -127,7 +127,7 @@ export const BorderlessButton = Button.extend`
   font-family: ${fonts.SANS_SERIF};
   color: ${colors.primary.CIVIL_BLUE_1};
   font-weight: 700;
-  margin-left: 15px;
+  margin-left: 8px;
   letter-spacing: 0.7px;
   padding: ${sizesObject[buttonSizes.SMALL]};
   font-size: 15px;
