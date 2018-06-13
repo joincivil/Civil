@@ -53,7 +53,7 @@ export class Civil {
       this.ethApi = EthApi.detectProvider();
     }
 
-    const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider, EventStorageProvider]);
+    const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider]);
     this.contentProvider = new providerConstructor({ ethApi: this.ethApi });
   }
 
