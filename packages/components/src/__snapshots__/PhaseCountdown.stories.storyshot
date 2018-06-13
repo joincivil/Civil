@@ -6,37 +6,7 @@ initialize {
     "attribs": Object {
       "class": "sc-eqIVtm fazBEB",
     },
-    "children": Array [
-      Object {
-        "attribs": Object {
-          "class": "sc-EHOje kddJZS",
-          "type": "button",
-        },
-        "children": Array [
-          Object {
-            "data": "Initialize Timers",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "text",
-          },
-        ],
-        "name": "button",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-          "type": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-          "type": undefined,
-        },
-      },
-    ],
+    "children": Array [],
     "name": "div",
     "namespace": "http://www.w3.org/1999/xhtml",
     "next": null,
