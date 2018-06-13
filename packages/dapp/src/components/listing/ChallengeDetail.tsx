@@ -43,6 +43,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     console.log("ChallengeDetail render: ", challenge, userChallengeData);
     const appealExists = doesChallengeHaveAppeal(challenge);
     const canShowRewardsForm = userChallengeData && userChallengeData.didUserCommit;
+    const canShowResult = this.props.challenge.resolved;
     return (
       <ViewModule>
         <ViewModuleHeader>Challenge Details</ViewModuleHeader>
@@ -65,6 +66,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
         {appealExists && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal!} />}
+        {canShowResult && this.renderVoteResult()}
         {canShowRewardsForm && this.renderRewardsDetail()}
       </ViewModule>
     );
@@ -96,6 +98,20 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         <TransactionButton transactions={[{ transaction: approveForAppeal }, { transaction: this.appeal }]}>
           Request Appeal
         </TransactionButton>
+      </>
+    );
+  }
+  private renderVoteResult(): JSX.Element {
+    const totalVotes = this.props.challenge.poll.votesAgainst.add(this.props.challenge.poll.votesFor);
+    const percentFor = this.props.challenge.poll.votesFor.div(totalVotes).mul(100);
+    const percentAgainst = this.props.challenge.poll.votesAgainst.div(totalVotes).mul(100);
+    return (
+      <>
+        Result:
+        <br/>
+        Reject: {this.props.challenge.poll.votesFor.toString() + " CVL"} - {percentFor.toString() + "%"}
+        <br/>
+        Allow: {this.props.challenge.poll.votesAgainst.toString() + " CVL"} - {percentAgainst.toString() + "%"}
       </>
     );
   }
