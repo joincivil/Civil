@@ -26,3 +26,30 @@ export function getFormattedTokenBalance(balance: BigNumber): string {
   const formattedBalance = balance.div(1e18);
   return formattedBalance.toFormat(2) + " CVL";
 }
+
+// Accepts a `seconds` or `Date` argument and returns a tuple containing
+// localized Date and Time strings in a human-readable format
+export function getLocalDateTimeStrings(seconds: number | Date): [string, string] {
+  const theDate = typeof seconds === "number" ? new Date(seconds * 1000) : seconds;
+  const pad = (num: number | string) => {
+    return padString(num, 2, "0");
+  };
+  const hours = pad(theDate.getHours());
+  const mins = pad(theDate.getMinutes());
+  const tzOffset = `${pad(theDate.getTimezoneOffset() / 60)}${pad(theDate.getTimezoneOffset() % 60)}`;
+  const dateString = `${theDate.getFullYear()}-${theDate.getMonth() + 1}-${theDate.getDate()}`;
+  const timeString = `${hours}:${mins} GMT-${tzOffset}`;
+  return [dateString, timeString];
+}
+
+export function padString(value: number | string, places: number, char: string, append: boolean = false): string {
+  let out = typeof value === "number" ? value.toString() : value;
+  while (out.length < places) {
+    if (append) {
+      out += char;
+    } else {
+      out = char + out;
+    }
+  }
+  return out;
+}

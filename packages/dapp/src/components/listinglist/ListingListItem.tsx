@@ -1,25 +1,20 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { State } from "../../reducers";
-import { ListingWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
+import {
+  canListingBeChallenged,
+  // canBeWhitelisted,
+  // canResolveChallenge,
+  // isAwaitingAppealJudgment,
+  isInApplicationPhase,
+  isChallengeInCommitStage,
+  isChallengeInRevealStage,
+  ListingWrapper,
+  UserChallengeData,
+  WrappedChallengeData,
+} from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-import ListingListItemDescription from "./ListingListItemDescription";
-import ListingListItemOwner from "./ListingListItemOwner";
-import ListingListItemStatus from "./ListingListItemStatus";
-import ListingListItemAction from "./ListingListItemAction";
-
-export interface ListingListItemDivProps {
-  even: boolean;
-}
-
-const StyledDiv = styled.div`
-  display: flex;
-  height: 184px;
-  width: 100%;
-  padding: 15px;
-  background-color: ${(props: ListingListItemDivProps): string => (props.even ? "#F4F6FF" : "#FFFFFF")};
-`;
+import { ListingSummaryComponent } from "@joincivil/components";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -41,18 +36,37 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   }
 
   public render(): JSX.Element {
-    return (
-      <StyledDiv even={this.props.even}>
-        <ListingListItemDescription listing={this.props.listing!} newsroom={this.props.newsroom!.wrapper} />
-        <ListingListItemOwner newsroom={this.props.newsroom!.wrapper} />
-        <ListingListItemStatus
-          listing={this.props.listing!}
-          challenge={this.props.challenge}
-          userChallengeData={this.props.userChallengeData}
-        />
-        <ListingListItemAction listing={this.props.listing!} challenge={this.props.challenge} />
-      </StyledDiv>
-    );
+    const { listingAddress: address, listing, newsroom } = this.props;
+    const newsroomData = newsroom!.wrapper.data;
+    const listingData = listing && listing.data;
+    const description =
+      "This will be a great description someday, but until then The Dude Abides. um i to you you call duder or so thats the dude thats what i am brevity thing um i let me duder or";
+    const listingDetailURL = `/listing/${address}`;
+    const isInApplication = listingData && isInApplicationPhase(listingData);
+    const canBeChallenged = listingData && canListingBeChallenged(listingData);
+    const inChallengePhase = listingData && listingData.challenge && isChallengeInCommitStage(listingData.challenge);
+    const inRevealPhase = listing && listing.data.challenge && isChallengeInRevealStage(listing.data.challenge);
+    const appExpiry = listingData && listingData.appExpiry && listingData.appExpiry.toNumber();
+
+    const pollData = listingData && listingData!.challenge && listingData!.challenge!.poll;
+    const commitEndDate = pollData && pollData!.commitEndDate.toNumber();
+    const revealEndDate = pollData && pollData!.revealEndDate.toNumber();
+
+    const listingViewProps = {
+      ...newsroomData,
+      address,
+      description,
+      listingDetailURL,
+      isInApplication,
+      canBeChallenged,
+      inChallengePhase,
+      inRevealPhase,
+      appExpiry,
+      commitEndDate,
+      revealEndDate,
+    };
+
+    return <ListingSummaryComponent {...listingViewProps} />;
   }
 }
 
