@@ -78,8 +78,6 @@ storiesOf("Listing Summary", module)
     );
   })
   .add("Card Grid", () => {
-    const newsroom = newsrooms[0];
-
     return (
       <Container>
         <ListingSummaryList listings={newsrooms} />

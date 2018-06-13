@@ -9,7 +9,6 @@ import {
   AwaitingApprovalStatusLabel,
   CommitVoteStatusLabel,
   RevealVoteStatusLabel,
-  RequestingAppealStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
 
 const StyledListingSummaryContainer = styled.div`
