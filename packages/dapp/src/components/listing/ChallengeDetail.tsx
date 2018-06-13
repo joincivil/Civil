@@ -23,6 +23,7 @@ import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 
 export interface ChallengeDetailProps {
   listingAddress: EthAddress;
@@ -53,10 +54,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
           <dd>{challenge.challenger.toString()}</dd>
 
           <dt>Reward Pool</dt>
-          <dd>{challenge.rewardPool.toString()}</dd>
+          <dd>{getFormattedTokenBalance(challenge.rewardPool)}</dd>
 
           <dt>Stake</dt>
-          <dd>{challenge.stake.toString()}</dd>
+          <dd>{getFormattedTokenBalance(challenge.stake)}</dd>
 
           <dt>Challenge Succeeded</dt>
           <dd>{didChallengeSucceed(challenge).toString()}</dd>

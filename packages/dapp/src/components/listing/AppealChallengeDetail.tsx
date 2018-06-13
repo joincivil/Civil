@@ -4,6 +4,7 @@ import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage, AppealC
 import CommitVoteDetail from "./CommitVoteDetail";
 import RevealVoteDetail from "./RevealVoteDetail";
 import BigNumber from "bignumber.js";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -28,10 +29,16 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
       !isAppealChallengeInCommitStage(challenge) && !isAppealChallengeInRevealStage(challenge);
     return (
       <StyledDiv>
-        Challenger: {challenge.challenger}
-        <br />
-        Reward Pool: {challenge.rewardPool.toString()}
-        <br />
+        <dl>
+          <dt>Appeal Challenger</dt>
+          <dd>{challenge.challenger.toString()}</dd>
+
+          <dt>Appeal Reward Pool</dt>
+          <dd>{getFormattedTokenBalance(challenge.rewardPool)}</dd>
+
+          <dt>Appeal Stake</dt>
+          <dd>{getFormattedTokenBalance(challenge.stake)}</dd>
+        </dl>
         {isAppealChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isAppealChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canResolveChallenge && this.renderResolveAppealChallenge()}
