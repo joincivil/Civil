@@ -12,13 +12,6 @@ import {
   RequestingAppealStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
 
-export const StyledListingSummaryList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  width: 1200px;
-`;
-
 const StyledListingSummaryContainer = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   box-shadow: inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_4}, 0 2px 4px 0 ${colors.accent.CIVIL_GRAY_3};
@@ -144,17 +137,4 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
 
     return;
   };
-}
-
-export interface ListingSummaryListComponentProps {
-  listings: any[];
-}
-
-export class ListingSummaryListComponent extends React.Component<ListingSummaryListComponentProps> {
-  public render(): JSX.Element {
-    const listingViews = this.props.listings.map((listing: any) => (
-      <ListingSummaryComponent key={listing.address} {...listing} />
-    ));
-    return <StyledListingSummaryList>{listingViews}</StyledListingSummaryList>;
-  }
 }

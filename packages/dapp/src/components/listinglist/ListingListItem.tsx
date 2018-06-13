@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from "react-redux";
-// import styled from "styled-components";
 import { State } from "../../reducers";
 import {
   canListingBeChallenged,
@@ -15,11 +14,6 @@ import {
   WrappedChallengeData,
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-// import ListingListItemDescription from "./ListingListItemDescription";
-// import ListingListItemOwner from "./ListingListItemOwner";
-// import ListingListItemStatus from "./ListingListItemStatus";
-// import ListingListItemAction from "./ListingListItemAction";
-
 import { ListingSummaryComponent } from "@joincivil/components";
 
 export interface ListingListItemOwnProps {
@@ -71,8 +65,6 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       commitEndDate,
       revealEndDate,
     };
-
-    // console.log(this.props, listingViewProps);
 
     return <ListingSummaryComponent {...listingViewProps} />;
   }
