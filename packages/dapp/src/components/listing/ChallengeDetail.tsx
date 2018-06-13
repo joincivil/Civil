@@ -109,9 +109,9 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return (
       <>
         Result:
-        <br/>
+        <br />
         Reject: {this.props.challenge.poll.votesFor.toString() + " CVL"} - {percentFor.toString() + "%"}
-        <br/>
+        <br />
         Allow: {this.props.challenge.poll.votesAgainst.toString() + " CVL"} - {percentAgainst.toString() + "%"}
       </>
     );
