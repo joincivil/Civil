@@ -27,7 +27,7 @@ export class Appeal {
     ] = await this.tcrInstance.appeals.callAsync(this.challengeId);
     let appealChallenge;
     if (!appealChallengeID.isZero()) {
-      const appealChallengeInstance = new AppealChallenge(this.ethApi, this.tcrInstance, this.challengeId);
+      const appealChallengeInstance = new AppealChallenge(this.ethApi, this.tcrInstance, appealChallengeID);
       appealChallenge = await appealChallengeInstance.getAppealChallengeData();
     }
     return {

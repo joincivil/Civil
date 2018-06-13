@@ -30,9 +30,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
       <StyledDiv>
         Challenger: {challenge.challenger}
         <br />
-        Reward Pool: {challenge.rewardPool}
-        <br />
-        Reward Pool: {challenge.rewardPool}
+        Reward Pool: {challenge.rewardPool.toString()}
         <br />
         {isAppealChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isAppealChallengeInRevealStage(challenge) && this.renderRevealStage()}
