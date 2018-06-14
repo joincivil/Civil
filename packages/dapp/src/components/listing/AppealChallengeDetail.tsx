@@ -4,6 +4,8 @@ import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage, AppealC
 import CommitVoteDetail from "./CommitVoteDetail";
 import RevealVoteDetail from "./RevealVoteDetail";
 import BigNumber from "bignumber.js";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import CountdownTimer from "../utility/CountdownTimer";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -28,12 +30,16 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
       !isAppealChallengeInCommitStage(challenge) && !isAppealChallengeInRevealStage(challenge);
     return (
       <StyledDiv>
-        Challenger: {challenge.challenger}
-        <br />
-        Reward Pool: {challenge.rewardPool}
-        <br />
-        Reward Pool: {challenge.rewardPool}
-        <br />
+        <dl>
+          <dt>Appeal Challenger</dt>
+          <dd>{challenge.challenger.toString()}</dd>
+
+          <dt>Appeal Reward Pool</dt>
+          <dd>{getFormattedTokenBalance(challenge.rewardPool)}</dd>
+
+          <dt>Appeal Stake</dt>
+          <dd>{getFormattedTokenBalance(challenge.stake)}</dd>
+        </dl>
         {isAppealChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isAppealChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canResolveChallenge && this.renderResolveAppealChallenge()}
@@ -42,10 +48,22 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
   }
 
   private renderCommitStage(): JSX.Element {
-    return <CommitVoteDetail challengeID={this.props.appealChallengeID} />;
+    return (
+      <>
+        Commit Vote Phase ends in <CountdownTimer endTime={this.props.appealChallenge.poll.commitEndDate.toNumber()} />
+        <br />
+        <CommitVoteDetail challengeID={this.props.appealChallengeID} />
+      </>
+    );
   }
   private renderRevealStage(): JSX.Element {
-    return <RevealVoteDetail challengeID={this.props.appealChallengeID} />;
+    return (
+      <>
+        Reveal Vote Phase ends in <CountdownTimer endTime={this.props.appealChallenge.poll.revealEndDate.toNumber()} />
+        <br />
+        <RevealVoteDetail challengeID={this.props.appealChallengeID} />
+      </>
+    );
   }
   private renderResolveAppealChallenge(): JSX.Element {
     return <>RESOLVE APPEAL CHALLENGE</>;

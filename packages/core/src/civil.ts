@@ -10,7 +10,7 @@ import { EthApi } from "./utils/ethapi";
 import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
 import { promisify, networkNames } from "@joincivil/utils";
-import { FallbackProvider, EventStorageProvider } from ".";
+import { FallbackProvider } from ".";
 import { BigNumber } from "bignumber.js";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
@@ -53,7 +53,7 @@ export class Civil {
       this.ethApi = EthApi.detectProvider();
     }
 
-    const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider, EventStorageProvider]);
+    const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider]);
     this.contentProvider = new providerConstructor({ ethApi: this.ethApi });
   }
 

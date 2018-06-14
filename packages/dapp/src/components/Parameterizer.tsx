@@ -7,7 +7,7 @@ import { PageView, ViewModule, ViewModuleHeader } from "./utility/ViewModules";
 import { ProposeReparameterization } from "./parameterizer/proposeReparameterization";
 import { GovernmentReparameterization } from "./parameterizer/GovernmentReparameterization";
 import Proposals from "./parameterizer/Proposals";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, getReadableDuration } from "@joincivil/utils";
 import { getCivil } from "../helpers/civilInstance";
 
 const StyledSpan = styled.span`
@@ -72,27 +72,33 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
           </div>
           <div>
             <StyledSpan>applyStageLen:</StyledSpan>{" "}
-            {this.props.parameters.applyStageLen && this.props.parameters.applyStageLen.toString()}
+            {this.props.parameters.applyStageLen &&
+              getReadableDuration(civil.toBigNumber(this.props.parameters.applyStageLen.toString()))}
           </div>
           <div>
             <StyledSpan>pApplyStageLen:</StyledSpan>{" "}
-            {this.props.parameters.pApplyStageLen && this.props.parameters.pApplyStageLen.toString()}
+            {this.props.parameters.pApplyStageLen &&
+              getReadableDuration(civil.toBigNumber(this.props.parameters.pApplyStageLen.toString()))}
           </div>
           <div>
             <StyledSpan>commitStageLen:</StyledSpan>{" "}
-            {this.props.parameters.commitStageLen && this.props.parameters.commitStageLen.toString()}
+            {this.props.parameters.commitStageLen &&
+              getReadableDuration(civil.toBigNumber(this.props.parameters.commitStageLen.toString()))}
           </div>
           <div>
             <StyledSpan>pCommitStageLen:</StyledSpan>{" "}
-            {this.props.parameters.pCommitStageLen && this.props.parameters.pCommitStageLen.toString()}
+            {this.props.parameters.pCommitStageLen &&
+              getReadableDuration(civil.toBigNumber(this.props.parameters.pCommitStageLen.toString()))}
           </div>
           <div>
             <StyledSpan>revealStageLen:</StyledSpan>{" "}
-            {this.props.parameters.revealStageLen && this.props.parameters.revealStageLen.toString()}
+            {this.props.parameters.revealStageLen &&
+              getReadableDuration(civil.toBigNumber(this.props.parameters.revealStageLen.toString()))}
           </div>
           <div>
             <StyledSpan>pRevealStageLen:</StyledSpan>{" "}
-            {this.props.parameters.pRevealStageLen && this.props.parameters.pRevealStageLen.toString()}
+            {this.props.parameters.pRevealStageLen &&
+              getReadableDuration(civil.toBigNumber(this.props.parameters.pRevealStageLen.toString()))}
           </div>
           <div>
             <StyledSpan>dispensationPct:</StyledSpan>{" "}
@@ -112,31 +118,35 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
           </div>
           <div>
             <StyledSpan>pProcessBy:</StyledSpan>{" "}
-            {this.props.parameters.pProcessBy && this.props.parameters.pProcessBy.toString()}
+            {this.props.parameters.pProcessBy &&
+              getReadableDuration(civil.toBigNumber(this.props.parameters.pProcessBy.toString()))}
           </div>
           <div>
             <StyledSpan>challengeAppealLen:</StyledSpan>{" "}
-            {this.props.parameters.challengeAppealLen && this.props.parameters.challengeAppealLen.toString()}
+            {this.props.parameters.challengeAppealLen &&
+              getReadableDuration(civil.toBigNumber(this.props.parameters.challengeAppealLen.toString()))}
           </div>
           <div>
             <StyledSpan>challengeAppealCommitLen:</StyledSpan>{" "}
             {this.props.parameters.challengeAppealCommitLen &&
-              this.props.parameters.challengeAppealCommitLen.toString()}
+              getReadableDuration(civil.toBigNumber(this.props.parameters.challengeAppealCommitLen.toString()))}
           </div>
           <div>
             <StyledSpan>challengeAppealRevealLen:</StyledSpan>{" "}
             {this.props.parameters.challengeAppealRevealLen &&
-              this.props.parameters.challengeAppealRevealLen.toString()}
+              getReadableDuration(civil.toBigNumber(this.props.parameters.challengeAppealRevealLen.toString()))}
           </div>
           <br />
           <ViewModuleHeader> Goverment Parameters </ViewModuleHeader>
           <div>
             <StyledSpan>requestAppealLen:</StyledSpan>{" "}
-            {this.props.govtParameters.requestAppealLen && this.props.govtParameters.requestAppealLen.toString()}
+            {this.props.govtParameters.requestAppealLen &&
+              getReadableDuration(civil.toBigNumber(this.props.govtParameters.requestAppealLen.toString()))}
           </div>
           <div>
             <StyledSpan>judgeAppealLen:</StyledSpan>{" "}
-            {this.props.govtParameters.judgeAppealLen && this.props.govtParameters.judgeAppealLen.toString()}
+            {this.props.govtParameters.judgeAppealLen &&
+              getReadableDuration(civil.toBigNumber(this.props.govtParameters.judgeAppealLen.toString()))}
           </div>
           <div>
             <StyledSpan>appealFee:</StyledSpan>{" "}

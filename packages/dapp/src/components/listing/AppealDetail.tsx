@@ -10,6 +10,7 @@ import {
 import { approveForChallengeGrantedAppeal, challengeGrantedAppeal, updateStatus } from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 import { TransactionButton } from "@joincivil/components";
+import CountdownTimer from "../utility/CountdownTimer";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -38,7 +39,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         <br />
         Appeal Fee Paid: {appeal.appealFeePaid.toString()}
         <br />
-        Judgment Expiry: {appeal.appealPhaseExpiry.toString()}
+        Judgment Expiry: <CountdownTimer endTime={appeal.appealPhaseExpiry.toNumber()} />
         <br />
         Appeal Granted: {appeal.appealGranted.toString()}
         <br />
