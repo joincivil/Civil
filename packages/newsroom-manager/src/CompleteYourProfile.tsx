@@ -4,7 +4,6 @@ import {
   StepProps,
   StepStyled,
   Collapsable,
-  AddressWithCopyButton,
   BorderlessButton,
   colors,
   fonts,
@@ -17,15 +16,16 @@ import { connect, DispatchProp } from "react-redux";
 import { EthAddress, NewsroomRoles, Civil } from "@joincivil/core";
 import { CivilContext } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
-import { fetchNewsroom } from "./actionCreators";
+import { fetchNewsroom, uiActions } from "./actionCreators";
+import { NewsroomUser } from "./NewsroomUser";
 
 export interface CompleteYourProfileComponentExternalProps extends StepProps {
   address?: EthAddress;
 }
 
 export interface CompleteYourProfileComponentProps extends StepProps {
-  owners: EthAddress[];
-  editors: EthAddress[];
+  owners: Array<{ address: EthAddress; name?: string }>;
+  editors: Array<{ address: EthAddress; name?: string }>;
   address?: EthAddress;
   newsroom: any;
 }
@@ -62,6 +62,17 @@ const FormDescription = styled.p`
   color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 15px;
 `;
+
+const makeUserObject = (state: StateWithNewsroom, item: EthAddress): { address: EthAddress; name?: string } => {
+  let name;
+  if (state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS)) {
+    name = state.newsroomUsers.get(item);
+  }
+  return {
+    address: item,
+    name,
+  };
+};
 
 class CompleteYourProfileComponent extends React.Component<
   CompleteYourProfileComponentProps & DispatchProp<any>,
@@ -178,7 +189,11 @@ class CompleteYourProfileComponent extends React.Component<
                 Owners can add members to the newsroom contract (including you, if you lose your private key).
               </FormDescription>
             </Section>
-            <Section>{this.props.owners.map(item => <AddressWithCopyButton key={item} address={item} />)}</Section>
+            <Section>
+              {this.props.owners.map(item => (
+                <NewsroomUser key={item.address} address={item.address} name={item.name} />
+              ))}
+            </Section>
             {this.renderAddOwnerForm()}
           </FormSection>
           <FormSection>
@@ -186,7 +201,11 @@ class CompleteYourProfileComponent extends React.Component<
               <FormTitle>Editors</FormTitle>
               <FormDescription>Editors can publish articles to the blockchain.</FormDescription>
             </Section>
-            <Section>{this.props.editors.map(item => <AddressWithCopyButton key={item} address={item} />)}</Section>
+            <Section>
+              {this.props.editors.map(item => (
+                <NewsroomUser key={item.address} address={item.address} name={item.name} />
+              ))}
+            </Section>
             {this.renderAddEditorForm()}
           </FormSection>
         </Collapsable>
@@ -208,11 +227,17 @@ const mapStateToProps = (
 ): CompleteYourProfileComponentProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
+  const owners: Array<{ address: EthAddress; name?: string }> = (newsroom.wrapper.data.owners || []).map(
+    makeUserObject.bind(null, state),
+  );
+  const editors: Array<{ address: EthAddress; name?: string }> = (newsroom.editors || []).map(
+    makeUserObject.bind(null, state),
+  );
   return {
     ...ownProps,
     address,
-    owners: newsroom.wrapper.data.owners || [],
-    editors: newsroom.editors || [],
+    owners,
+    editors,
     newsroom: newsroom.newsroom,
   };
 };

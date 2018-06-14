@@ -9,15 +9,7 @@ import {
   AwaitingApprovalStatusLabel,
   CommitVoteStatusLabel,
   RevealVoteStatusLabel,
-  RequestingAppealStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
-
-export const StyledListingSummaryList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  width: 1200px;
-`;
 
 const StyledListingSummaryContainer = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -71,11 +63,6 @@ const MetaValue = styled.abbr`
   overflow-y: hidden;
   text-decoration: none;
   text-overflow: ellipsis;
-`;
-
-const PhaseCountdownContainer = styled.div`
-  font: bold 16px/19px ${fonts.SANS_SERIF};
-  margin: 0 0 16px;
 `;
 
 export interface ListingSummaryComponentProps {
@@ -144,26 +131,9 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     const warn = this.props.inChallengePhase || this.props.inRevealPhase;
 
     if (expiry) {
-      return (
-        <PhaseCountdownContainer>
-          <CountdownTimer endTime={expiry!} warn={warn} />
-        </PhaseCountdownContainer>
-      );
+      return <CountdownTimer endTime={expiry!} warn={warn} />;
     }
 
     return;
   };
-}
-
-export interface ListingSummaryListComponentProps {
-  listings: any[];
-}
-
-export class ListingSummaryListComponent extends React.Component<ListingSummaryListComponentProps> {
-  public render(): JSX.Element {
-    const listingViews = this.props.listings.map((listing: any) => (
-      <ListingSummaryComponent key={listing.address} {...listing} />
-    ));
-    return <StyledListingSummaryList>{listingViews}</StyledListingSummaryList>;
-  }
 }

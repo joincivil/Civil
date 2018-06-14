@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getReadableDuration } from "@joincivil/utils";
+import { getLocalDateTimeStrings, getReadableDuration } from "@joincivil/utils";
 import { colors, fonts } from "./styleConstants";
 import styled, { StyledComponentClass } from "styled-components";
 
@@ -70,17 +70,11 @@ export class CountdownTimer extends React.Component<CountdownTimerProps, Countdo
   }
 
   private renderExpiry = (): JSX.Element => {
-    const expiryDateTime = new Date(this.props.endTime * 1000);
-    const timeString = `${pad(expiryDateTime.getHours(), 2)}:${pad(expiryDateTime.getMinutes(), 2)} GMT-${pad(
-      expiryDateTime.getTimezoneOffset() / 60,
-      2,
-    )}${pad(expiryDateTime.getTimezoneOffset() % 60, 2)}`;
-    // const timeString = expiryDateTime.toTimeString();
-    const expiryText = `${expiryDateTime.getFullYear()}-${expiryDateTime.getMonth() + 1}-${expiryDateTime.getDate()} `;
+    const [expiryDateString, expiryTimeString] = getLocalDateTimeStrings(this.props.endTime);
     return (
       <StyledExpiry>
-        <b>{expiryText}</b>
-        {timeString}
+        <b>{expiryDateString}</b>
+        {expiryTimeString}
       </StyledExpiry>
     );
   };
@@ -96,7 +90,6 @@ export class CountdownTimer extends React.Component<CountdownTimerProps, Countdo
     return <b>{getReadableDuration(this.state.secondsRemaining)}</b>;
   };
 
-  // TODO(nickreynolds): move this all into redux
   private initCountdown = async () => {
     const timeRemaining = this.updateTimeRemaining();
     if (timeRemaining > 0) {
@@ -113,16 +106,4 @@ export class CountdownTimer extends React.Component<CountdownTimerProps, Countdo
     this.setState({ secondsRemaining });
     return secondsRemaining;
   };
-}
-
-function pad(num: number | string, places: number, append: boolean = false): string {
-  let out = typeof num === "number" ? num.toString() : num;
-  while (out.length < places) {
-    if (append) {
-      out += "0";
-    } else {
-      out = "0" + out;
-    }
-  }
-  return out;
 }

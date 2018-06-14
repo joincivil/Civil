@@ -2,7 +2,8 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import StoryRouter from "storybook-react-router";
-import { ListingSummaryComponent, ListingSummaryComponentProps, ListingSummaryListComponent } from "./ListingSummary";
+import { ListingSummaryComponent, ListingSummaryComponentProps } from "./ListingSummary";
+import { ListingSummaryList } from "./ListingSummaryList";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -77,11 +78,9 @@ storiesOf("Listing Summary", module)
     );
   })
   .add("Card Grid", () => {
-    const newsroom = newsrooms[0];
-
     return (
       <Container>
-        <ListingSummaryListComponent listings={newsrooms} />
+        <ListingSummaryList listings={newsrooms} />
       </Container>
     );
   });

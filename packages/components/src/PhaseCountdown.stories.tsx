@@ -17,14 +17,18 @@ const eightDaysFromNow = now + 86400 * 8;
 storiesOf("Application Phase Countdown Timer", module).add("Timers", () => {
   return (
     <Container>
-      <h3>Base style</h3>
-      <CountdownTimer endTime={eightDaysFromNow} />
+      {process.env.NODE_ENV !== "test" && (
+        <>
+          <h3>Base style</h3>
+          <CountdownTimer endTime={eightDaysFromNow} />
 
-      <h3>Warning style</h3>
-      <CountdownTimer endTime={eightDaysFromNow} warn={true} />
+          <h3>Warning style</h3>
+          <CountdownTimer endTime={eightDaysFromNow} warn={true} />
 
-      <h3>Ended</h3>
-      <CountdownTimer endTime={now} />
+          <h3>Ended</h3>
+          <CountdownTimer endTime={now} />
+        </>
+      )}
     </Container>
   );
 });
