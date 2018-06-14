@@ -51,10 +51,16 @@ storiesOf("Application Phase Countdown Timer", module)
               endTime={shortEndTime}
               totalSeconds={shortTotalSeconds}
               flavorText={flavorText}
+              displayLabel="Waiting for approval"
             />
 
             <h3>A Long Phase</h3>
-            <ProgressBarCountdownTimer endTime={endTime} totalSeconds={totalSeconds} flavorText={flavorText} />
+            <ProgressBarCountdownTimer
+              endTime={endTime}
+              totalSeconds={totalSeconds}
+              flavorText={flavorText}
+              displayLabel="Waiting for approval"
+            />
           </>
         )}
       </Container>

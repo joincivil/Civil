@@ -7,6 +7,12 @@ import { CountdownTimerProps, InjectedCountdownTimerProps, CountdownTimerState }
 const ProgressBarCountdownContainer = styled.div`
   margin: 0 0 24px;
 `;
+const ProgressBarDisplayLabel = styled.h4`
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 19px;
+  margin: 0 0 7px;
+`;
 const ProgressBarBase = styled.div`
   height: 12px;
   border-radius: 7.5px;
@@ -61,6 +67,7 @@ const StyledExpiry = styled.div`
 `;
 
 export interface ProgressBarCountdownProps {
+  displayLabel: string;
   flavorText: string;
   totalSeconds: number;
 }
@@ -74,6 +81,7 @@ export class ProgressBarCountdownTimerComponent extends React.Component<
     return (
       <StyledProgressBarCountdownTimer>
         <ProgressBarCountdownContainer>
+          <ProgressBarDisplayLabel>{this.props.displayLabel}</ProgressBarDisplayLabel>
           <ProgressBarCountdownTotal>
             <ProgressBarCountdownProgress style={style} />
           </ProgressBarCountdownTotal>
