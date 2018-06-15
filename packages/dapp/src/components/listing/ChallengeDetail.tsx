@@ -46,7 +46,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     console.log("ChallengeDetail render: ", challenge, userChallengeData);
     const appealExists = doesChallengeHaveAppeal(challenge);
     const canShowRewardsForm = userChallengeData && userChallengeData.didUserCommit && this.props.challenge.resolved;
-    const canShowAppealChallengeRewardsFrom = userAppealChallengeData && userAppealChallengeData.didUserCommit && this.props.challenge.appeal!.appealChallenge!.resolved;
+    const canShowAppealChallengeRewardsFrom =
+      userAppealChallengeData &&
+      userAppealChallengeData.didUserCommit &&
+      this.props.challenge.appeal!.appealChallenge!.resolved;
     const canShowResult = this.props.challenge.resolved;
     return (
       <ViewModule>

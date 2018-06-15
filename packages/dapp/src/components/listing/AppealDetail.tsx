@@ -68,7 +68,8 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         <>
           Judgment Expiry: <CountdownTimer endTime={appeal.appealPhaseExpiry.toNumber()} />
           <br />
-        </>);
+        </>
+      );
     }
   }
 
