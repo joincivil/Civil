@@ -421,9 +421,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @return the challengeID associated with the pollID passed in
    */
   public async getChallengeIDForPollID(pollID: BigNumber): Promise<BigNumber> {
-    const challengeStream = this.instance._ChallengeStream({ challengeID: pollID }, { fromBlock: 0});
-    const appealChallengeStream = this.instance._GrantedAppealChallengedStream( { appealChallengeID: pollID}, { fromBlock: 0});
-    const event = await challengeStream.merge(appealChallengeStream)
+    const challengeStream = this.instance._ChallengeStream({ challengeID: pollID }, { fromBlock: 0 });
+    const appealChallengeStream = this.instance._GrantedAppealChallengedStream(
+      { appealChallengeID: pollID },
+      { fromBlock: 0 },
+    );
+    const event = await challengeStream
+      .merge(appealChallengeStream)
       .first() // only one will ever emit an event and it will emit exactly one
       .toPromise();
     switch (event.event) {
