@@ -18,6 +18,7 @@ export interface InputBaseProps {
   className?: string;
   icon?: JSX.Element;
   label?: string;
+  noLabel?: boolean;
   inputRef?: string;
 
   name: string;
@@ -31,7 +32,7 @@ export interface InputBaseProps {
 }
 
 const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
-  const { icon, onChange, className, label, inputRef, ...inputProps } = props;
+  const { icon, onChange, className, label, noLabel, inputRef, ...inputProps } = props;
   let cb;
   if (onChange) {
     cb = (ev: any) => onChange(props.name, ev.target.value);
@@ -40,7 +41,7 @@ const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
     <div className={className}>
       {icon ? <InputIcon>{icon}</InputIcon> : null}
       <input {...inputProps} onChange={cb} ref={inputRef} />
-      <InputLabel>{label || props.placeholder}</InputLabel>
+      {noLabel ? null : <InputLabel>{label || props.placeholder}</InputLabel>}
     </div>
   );
 };
@@ -57,6 +58,7 @@ const InputBase = styled(InputBaseComponent)`
     flex-direction: row;
   }
   > input {
+    font-size: inherit;
     margin: 5px 0px 10px 0;
     padding: 10px;
     border: 1px solid ${colors.accent.CIVIL_GRAY_3};
@@ -75,6 +77,7 @@ export interface InputProps {
   value?: string;
   placeholder?: string;
   label?: string;
+  noLabel?: boolean;
   onChange(name: string, value: string): any;
 }
 
