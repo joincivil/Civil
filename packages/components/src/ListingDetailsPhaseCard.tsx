@@ -8,7 +8,7 @@ import { buttonSizes, InvertedButton } from "./Button";
 import { CountdownTimer } from "./PhaseCountdown";
 =======
 import { colors, fonts } from "../styleConstants";
-import { buttonSizes, InvertedButton } from "../Button";
+import { buttonSizes, Button, InvertedButton } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 >>>>>>> 9aa17e4... Stub out `ListingDetailPhaseCard`s for the initial application cycle:packages/components/src/ListingDetailPhaseCard/ListingDetailsPhaseCard.tsx
 
@@ -23,7 +23,6 @@ const StyledListingDetailPhaseCardSection = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   color: ${colors.primary.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
-  margin: 0 0 23px;
   padding: 23px 0 26px;
   text-align: left;
 
@@ -220,6 +219,153 @@ export class AwaitingAppealRequestCard extends React.Component<ListingDetailPhas
         <StyledListingDetailPhaseCardSection>
           <CTACopy>If you disagree with the community, you may request an appeal to the Civil Council.</CTACopy>
           <InvertedButton size={buttonSizes.MEDIUM}>Request Appeal from Civil Council</InvertedButton>
+        </StyledListingDetailPhaseCardSection>
+      </StyledListingDetailPhaseCardContainer>
+    );
+  }
+}
+
+export class AwaitingAppealCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+  public render(): JSX.Element {
+    const now = Date.now() / 1000;
+    const oneDay = 86400;
+    const endTime = now + oneDay * 4.25;
+    const phaseLength = oneDay * 7;
+    return (
+      <StyledListingDetailPhaseCardContainer>
+        <StyledListingDetailPhaseCardSection>
+          <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
+          <ProgressBarCountdownTimer
+            endTime={endTime}
+            totalSeconds={phaseLength}
+            displayLabel="Waiting for Council's decision"
+            flavorText="under Appeal to Council"
+          />
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>1,000 CVL</MetaItemValue>
+          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <CTACopy>
+            Check back on August 24, 2018 for Civil Council’s decision to reject or grant the appeal. Read more for
+            details of this appeal.
+          </CTACopy>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <CTACopy>Challenge Results</CTACopy>
+          Cool graph goes here!
+        </StyledListingDetailPhaseCardSection>
+      </StyledListingDetailPhaseCardContainer>
+    );
+  }
+}
+
+export class CanChallengeAppealCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+  public render(): JSX.Element {
+    const now = Date.now() / 1000;
+    const oneDay = 86400;
+    const endTime = now + oneDay * 4.25;
+    const phaseLength = oneDay * 7;
+    return (
+      <StyledListingDetailPhaseCardContainer>
+        <StyledListingDetailPhaseCardSection>
+          <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
+          <ProgressBarCountdownTimer
+            endTime={endTime}
+            totalSeconds={phaseLength}
+            displayLabel="Request to challenge Council's decision"
+            flavorText="under Appeal to Council"
+          />
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>1,000 CVL</MetaItemValue>
+          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <CTACopy>Civil Council Decision</CTACopy>
+          The Civil Council has decided to grant the appeal. Read more about their methodology and how they’ve come to
+          this decision.
+          <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <CTACopy>
+            If you believe this newsroom does not align with the Civil Constitution, you may challenge the Council’s
+            decision.{" "}
+          </CTACopy>
+          <InvertedButton size={buttonSizes.MEDIUM}>Submit a Challenge</InvertedButton>
+        </StyledListingDetailPhaseCardSection>
+      </StyledListingDetailPhaseCardContainer>
+    );
+  }
+}
+
+export class AppealChallengeCommitVoteCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+  public render(): JSX.Element {
+    const now = Date.now() / 1000;
+    const oneDay = 86400;
+    const endTime = now + oneDay * 4.25;
+    const phaseLength = oneDay * 7;
+    return (
+      <StyledListingDetailPhaseCardContainer>
+        <StyledListingDetailPhaseCardSection>
+          <StyledPhaseDisplayName>Challenge Appeal Decision</StyledPhaseDisplayName>
+          <ProgressBarCountdownTimer
+            endTime={endTime}
+            totalSeconds={phaseLength}
+            displayLabel="Accepting votes"
+            flavorText="under challenge"
+          />
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>1,000 CVL</MetaItemValue>
+          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <CTACopy>Civil Council Decision</CTACopy>
+          The Civil Council has decided to grant the appeal. Read more about their methodology and how they’ve come to
+          this decision.
+          <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <CTACopy>You're invited to vote!</CTACopy>
+          <InvertedButton size={buttonSizes.MEDIUM}>Vote</InvertedButton>
+        </StyledListingDetailPhaseCardSection>
+      </StyledListingDetailPhaseCardContainer>
+    );
+  }
+}
+
+export class AppealChallengeRevealVoteCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+  public render(): JSX.Element {
+    const now = Date.now() / 1000;
+    const oneDay = 86400;
+    const endTime = now + oneDay * 4.25;
+    const phaseLength = oneDay * 7;
+    return (
+      <StyledListingDetailPhaseCardContainer>
+        <StyledListingDetailPhaseCardSection>
+          <StyledPhaseDisplayName>Challenge Appeal Decision</StyledPhaseDisplayName>
+          <ProgressBarCountdownTimer
+            endTime={endTime}
+            totalSeconds={phaseLength}
+            displayLabel="Revealing votes"
+            flavorText="under challenge"
+          />
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>1,000 CVL</MetaItemValue>
+          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <CTACopy>Civil Council Decision</CTACopy>
+          The Civil Council has decided to grant the appeal. Read more about their methodology and how they’ve come to
+          this decision.
+          <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <CTACopy>Verify Your Votes and Make Them Count!</CTACopy>
+          <InvertedButton size={buttonSizes.MEDIUM}>Reveal My Votes</InvertedButton>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
