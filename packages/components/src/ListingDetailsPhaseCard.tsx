@@ -5,6 +5,7 @@ import { colors, fonts } from "../styleConstants";
 import { buttonSizes, Button, InvertedButton } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
+import { RevealVote } from "./RevealVote";
 
 const StyledListingDetailPhaseCardContainer = styled.div`
   box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
@@ -173,8 +174,7 @@ export class RevealVoteCard extends React.Component<ListingDetailPhaseCardCompon
           <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>Verify Your Votes and Make Them Count!</CTACopy>
-          <InvertedButton size={buttonSizes.MEDIUM}>Reveal My Votes</InvertedButton>
+          <RevealVote />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
