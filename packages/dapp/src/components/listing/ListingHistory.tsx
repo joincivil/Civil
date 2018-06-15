@@ -71,7 +71,7 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
 }
 
 const mapToStateToProps = (state: State, ownProps: ListingHistoryProps): ListingHistoryReduxProps => {
-  const { histories } = state;
+  const { histories } = state.networkDependent;
   return {
     ...ownProps,
     listingHistory: histories.get(ownProps.listing) || List(),
