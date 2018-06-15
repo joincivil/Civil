@@ -174,8 +174,8 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 }
 
 const mapToStateToProps = (state: State): ParameterizerPageProps => {
-  const parameters: ParameterizerProps = state.parameters as ParameterizerProps;
-  const govtParameters: GovernmentParameterProps = state.govtParameters as GovernmentParameterProps;
+  const parameters: ParameterizerProps = state.networkDependent.parameters as ParameterizerProps;
+  const govtParameters: GovernmentParameterProps = state.networkDependent.govtParameters as GovernmentParameterProps;
   console.log("govtParameters: ", govtParameters);
   return { parameters, govtParameters };
 };

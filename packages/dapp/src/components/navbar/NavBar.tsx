@@ -19,8 +19,18 @@ const StyledUL = styled.ul`
   background-color: black;
 `;
 
+const StyledErrorBar = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 0;
+  height: 30px;
+  background-color: red;
+`;
+
 export interface NavBarProps {
   balance: string;
+  network: string;
 }
 
 class NavBar extends React.Component<NavBarProps> {
@@ -29,7 +39,9 @@ class NavBar extends React.Component<NavBarProps> {
   }
 
   public render(): JSX.Element {
+    const shouldRenderErrorBar = this.props.network !== "4";
     return (
+      <>
       <StyledUL>
         <NavBarItem>
           <NavBarLink to="/" big={true}>
@@ -61,17 +73,19 @@ class NavBar extends React.Component<NavBarProps> {
           <NavBarSpan>{"Your Balance: " + this.props.balance}</NavBarSpan>
         </NavBarItem>
       </StyledUL>
+      {shouldRenderErrorBar && <StyledErrorBar>PLEASE SWITCH TO RINKEBY TESTNET</StyledErrorBar>}
+      </>
     );
   }
 }
 const mapStateToProps = (state: State): NavBarProps => {
-  const { user } = state;
+  const { networkDependent, network } = state;
 
   let balance = "loading...";
-  if (user.account && user.account.balance) {
-    balance = getFormattedTokenBalance(user.account.balance);
+  if (networkDependent.user.account && networkDependent.user.account.balance) {
+    balance = getFormattedTokenBalance(networkDependent.user.account.balance);
   }
-  return { balance };
+  return { balance, network };
 };
 
 export default connect(mapStateToProps)(NavBar);

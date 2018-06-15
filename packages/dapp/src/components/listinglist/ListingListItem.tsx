@@ -75,7 +75,7 @@ const mapStateToProps = (
   state: State,
   ownProps: ListingListItemOwnProps,
 ): ListingListItemReduxProps & ListingListItemOwnProps => {
-  const { newsrooms, listings, challenges, challengeUserData, appealChallengeUserData, user } = state;
+  const { newsrooms, listings, challenges, challengeUserData, appealChallengeUserData, user } = state.networkDependent;
 
   let listingAddress = ownProps.listingAddress;
   let challenge;
