@@ -71,7 +71,7 @@ const mapStateToProps = (state: State): ListingProps => {
     appealChallengeRevealPhaseListings,
     resolveChallengeListings,
     resolveAppealListings,
-  } = state;
+  } = state.networkDependent;
 
   return {
     applications,

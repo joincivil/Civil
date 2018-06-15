@@ -46,7 +46,7 @@ const mapStateToProps = (state: State): ProposalsProps => {
     challengedRevealProposals,
     updateableProposals,
     resolvableChallengedProposals,
-  } = state;
+  } = state.networkDependent;
 
   return {
     proposalApplications,

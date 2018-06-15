@@ -301,7 +301,8 @@ const mapStateToProps = (
     user,
     parameters,
     govtParameters,
-  } = state;
+  } = state.networkDependent;
+
   let listingAddress = ownProps.listingAddress;
   let challengeData;
   let userChallengeData;

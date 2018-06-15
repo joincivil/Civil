@@ -148,7 +148,7 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ProposalPageProps): ProposalReduxProps => {
-  const { proposals } = state;
+  const { proposals } = state.networkDependent;
 
   return {
     proposal: proposals.get(ownProps.match.params.propId),
