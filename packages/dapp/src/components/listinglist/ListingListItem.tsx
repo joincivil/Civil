@@ -28,6 +28,7 @@ export interface ListingListItemReduxProps {
   listing: ListingWrapper | undefined;
   challenge?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
+  userAppealChallengeData?: UserChallengeData;
 }
 
 class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
@@ -74,7 +75,7 @@ const mapStateToProps = (
   state: State,
   ownProps: ListingListItemOwnProps,
 ): ListingListItemReduxProps & ListingListItemOwnProps => {
-  const { newsrooms, listings, challenges, challengeUserData, user } = state;
+  const { newsrooms, listings, challenges, challengeUserData, appealChallengeUserData, user } = state;
 
   let listingAddress = ownProps.listingAddress;
   let challenge;
@@ -97,10 +98,22 @@ const mapStateToProps = (
   }
 
   let userChallengeData;
+  let userAppealChallengeData;
+
   if (challengeID && userAcct) {
     const challengeUserDataMap = challengeUserData.get(challengeID!);
     if (challengeUserDataMap) {
       userChallengeData = challengeUserDataMap.get(userAcct);
+    }
+    if (challenge) {
+      const wrappedChallenge = (challenge as WrappedChallengeData)
+      if (wrappedChallenge && wrappedChallenge.challenge && wrappedChallenge.challenge.appeal) {
+        const appealChallengeID = wrappedChallenge.challenge.appeal.appealChallengeID;
+        const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID!.toString());
+        if (appealChallengeUserDataMap) {
+          userAppealChallengeData = appealChallengeUserDataMap.get(userAcct);
+        }
+      }
     }
   }
 
@@ -109,6 +122,7 @@ const mapStateToProps = (
     listing,
     challenge,
     userChallengeData,
+    userAppealChallengeData,
     ...ownProps,
   };
 };
