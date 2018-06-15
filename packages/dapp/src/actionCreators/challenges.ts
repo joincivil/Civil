@@ -28,7 +28,11 @@ export const addUserChallengeData = (challengeID: string, user: EthAddress, user
   };
 };
 
-export const addUserAppealChallengeData = (challengeID: string, user: EthAddress, userChallengeData: UserChallengeData) => {
+export const addUserAppealChallengeData = (
+  challengeID: string,
+  user: EthAddress,
+  userChallengeData: UserChallengeData,
+) => {
   return {
     type: challengeActions.ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA,
     data: { challengeID, user, userChallengeData },

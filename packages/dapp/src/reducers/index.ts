@@ -27,7 +27,13 @@ import {
   updateableProposals,
   resolvableChallengedProposals,
 } from "./parameterizer";
-import { appealChallengeUserData, challenges, challengesFetching, challengesVotedOnByUser, challengeUserData } from "./challenges";
+import {
+  appealChallengeUserData,
+  challenges,
+  challengesFetching,
+  challengesVotedOnByUser,
+  challengeUserData,
+} from "./challenges";
 import { government, govtParameters } from "./government";
 import { user } from "./userAccount";
 import { ui } from "./ui";

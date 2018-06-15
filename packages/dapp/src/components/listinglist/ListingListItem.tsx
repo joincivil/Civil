@@ -106,7 +106,7 @@ const mapStateToProps = (
       userChallengeData = challengeUserDataMap.get(userAcct);
     }
     if (challenge) {
-      const wrappedChallenge = (challenge as WrappedChallengeData)
+      const wrappedChallenge = challenge as WrappedChallengeData;
       if (wrappedChallenge && wrappedChallenge.challenge && wrappedChallenge.challenge.appeal) {
         const appealChallengeID = wrappedChallenge.challenge.appeal.appealChallengeID;
         const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID!.toString());
