@@ -1,16 +1,10 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { EthAddress } from "@joincivil/core";
-<<<<<<< HEAD:packages/components/src/ListingDetailsPhaseCard.tsx
-import { colors, fonts } from "./styleConstants";
-import { Heading } from "./Heading";
-import { buttonSizes, InvertedButton } from "./Button";
-import { CountdownTimer } from "./PhaseCountdown";
-=======
 import { colors, fonts } from "../styleConstants";
 import { buttonSizes, Button, InvertedButton } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
->>>>>>> 9aa17e4... Stub out `ListingDetailPhaseCard`s for the initial application cycle:packages/components/src/ListingDetailPhaseCard/ListingDetailsPhaseCard.tsx
+import { CommitVote } from "./CommitVote";
 
 const StyledListingDetailPhaseCardContainer = styled.div`
   box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
@@ -70,18 +64,11 @@ export interface ListingDetailPhaseCardComponentProps {
   challenge?: any;
 }
 
-<<<<<<< HEAD:packages/components/src/ListingDetailsPhaseCard.tsx
-export class ListingDetailPhaseCardComponent extends React.Component<ListingDetailPhaseCardComponentProps> {
-=======
 export class WhitelistedCard extends React.Component<ListingDetailPhaseCardComponentProps> {
->>>>>>> 9aa17e4... Stub out `ListingDetailPhaseCard`s for the initial application cycle:packages/components/src/ListingDetailPhaseCard/ListingDetailsPhaseCard.tsx
   public render(): JSX.Element {
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
-<<<<<<< HEAD:packages/components/src/ListingDetailsPhaseCard.tsx
-          <StyledPhaseDisplayName>{"Approved Newsroom"}</StyledPhaseDisplayName>
-=======
           <StyledPhaseDisplayName>Approved Newsroom</StyledPhaseDisplayName>
           <MetaItemValue>May 5, 2018, 8:30 GMT-0400</MetaItemValue>
           <MetaItemLabel>Approved date</MetaItemLabel>
@@ -157,8 +144,7 @@ export class CommitVoteCard extends React.Component<ListingDetailPhaseCardCompon
           <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>You're invited to vote!</CTACopy>
-          <InvertedButton size={buttonSizes.MEDIUM}>Vote</InvertedButton>
+          <CommitVote />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
@@ -388,7 +374,6 @@ export class RejectedCard extends React.Component<ListingDetailPhaseCardComponen
         <StyledListingDetailPhaseCardSection>
           <CTACopy>Challenge Results</CTACopy>
           Cool graph goes here!
->>>>>>> 9aa17e4... Stub out `ListingDetailPhaseCard`s for the initial application cycle:packages/components/src/ListingDetailPhaseCard/ListingDetailsPhaseCard.tsx
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
