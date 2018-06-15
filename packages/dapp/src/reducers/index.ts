@@ -131,10 +131,10 @@ const networkDependent = (state: any, action: AnyAction) => {
     return networkDependentReducers(undefined, action);
   }
   return networkDependentReducers(state, action);
-}
+};
 
 export default combineReducers({
   networkDependent,
   network,
-  ui
-})
+  ui,
+});

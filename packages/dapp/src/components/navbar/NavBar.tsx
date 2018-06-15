@@ -42,38 +42,38 @@ class NavBar extends React.Component<NavBarProps> {
     const shouldRenderErrorBar = this.props.network !== "4";
     return (
       <>
-      <StyledUL>
-        <NavBarItem>
-          <NavBarLink to="/" big={true}>
-            C I V I L
-          </NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/registry">Registry</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/constitution">Constitution</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/about">About</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/contracts">Contracts</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/editor">Editor</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/parameterizer">Parameterizer</NavBarLink>
-        </NavBarItem>
-        <NavBarItem right={true}>
-          <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
-        </NavBarItem>
-        <NavBarItem right={true}>
-          <NavBarSpan>{"Your Balance: " + this.props.balance}</NavBarSpan>
-        </NavBarItem>
-      </StyledUL>
-      {shouldRenderErrorBar && <StyledErrorBar>PLEASE SWITCH TO RINKEBY TESTNET</StyledErrorBar>}
+        <StyledUL>
+          <NavBarItem>
+            <NavBarLink to="/" big={true}>
+              C I V I L
+            </NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/registry">Registry</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/constitution">Constitution</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/about">About</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/contracts">Contracts</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/editor">Editor</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/parameterizer">Parameterizer</NavBarLink>
+          </NavBarItem>
+          <NavBarItem right={true}>
+            <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
+          </NavBarItem>
+          <NavBarItem right={true}>
+            <NavBarSpan>{"Your Balance: " + this.props.balance}</NavBarSpan>
+          </NavBarItem>
+        </StyledUL>
+        {shouldRenderErrorBar && <StyledErrorBar>PLEASE SWITCH TO RINKEBY TESTNET</StyledErrorBar>}
       </>
     );
   }
