@@ -4,6 +4,7 @@ import { EthAddress } from "@joincivil/core";
 import { colors, fonts } from "../styleConstants";
 import { buttonSizes, Button, InvertedButton } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
+import { CommitVote } from "./CommitVote";
 
 const StyledListingDetailPhaseCardContainer = styled.div`
   box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
@@ -143,8 +144,7 @@ export class CommitVoteCard extends React.Component<ListingDetailPhaseCardCompon
           <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>You're invited to vote!</CTACopy>
-          <InvertedButton size={buttonSizes.MEDIUM}>Vote</InvertedButton>
+          <CommitVote />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
