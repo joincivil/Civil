@@ -8,6 +8,10 @@ import {
   CommitVoteCard,
   RevealVoteCard,
   AwaitingAppealRequestCard,
+  AwaitingAppealCard,
+  CanChallengeAppealCard,
+  AppealChallengeCommitVoteCard,
+  AppealChallengeRevealVoteCard,
   RejectedCard,
 } from "./ListingDetailsPhaseCard";
 
@@ -56,6 +60,34 @@ storiesOf("Listing Details Phase Card", module)
     return (
       <Container>
         <AwaitingAppealRequestCard />
+      </Container>
+    );
+  })
+  .add("Awaiting Appeal", () => {
+    return (
+      <Container>
+        <AwaitingAppealCard />
+      </Container>
+    );
+  })
+  .add("Can Challenge Appeal", () => {
+    return (
+      <Container>
+        <CanChallengeAppealCard />
+      </Container>
+    );
+  })
+  .add("Commit Vote on Appeal Challenge", () => {
+    return (
+      <Container>
+        <AppealChallengeCommitVoteCard />
+      </Container>
+    );
+  })
+  .add("Reveal Vote on Appeal Challenge", () => {
+    return (
+      <Container>
+        <AppealChallengeRevealVoteCard />
       </Container>
     );
   })
