@@ -413,8 +413,8 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   /*
    * It is possible to have a pollID without knowing if it corresponds to a challenge or an appeal challenge
    * (e.g., if you subscribed to an event stream on the voting contract)
-   * This function checks event streams on the CivilTCR contract (only one of which will ever fire) in order to 
-   * return the challengeID associated with the poll. If the pollID corresponds to a challenge, the returned value will 
+   * This function checks event streams on the CivilTCR contract (only one of which will ever fire) in order to
+   * return the challengeID associated with the poll. If the pollID corresponds to a challenge, the returned value will
    * equal the poll ID. If the pollID corresponds to an appeal challenge, the returned value will be the challengeID
    * of the challenge that was appealed.
    * @param pollID an ID of a poll which can correspond to either a challenge or an appeal challenge
