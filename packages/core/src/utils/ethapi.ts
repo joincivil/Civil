@@ -76,7 +76,7 @@ export class EthApi extends Events {
 
   public networkPing = (): void => {
     this.setNetwork(this.web3.version.network);
-  }
+  };
 
   public get networkId(): string {
     return this.currentNetwork;
@@ -85,6 +85,12 @@ export class EthApi extends Events {
   public cancelAccountPing(): void {
     if (interval) {
       clearInterval(interval);
+    }
+  }
+
+  public cancelNetworkPing(): void {
+    if (networkInterval) {
+      clearInterval(networkInterval);
     }
   }
 
@@ -267,5 +273,5 @@ export class EthApi extends Events {
       this.currentNetwork = newNetwork;
       this.emit("networkSet");
     }
-  }
+  };
 }
