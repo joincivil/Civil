@@ -26,7 +26,6 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     civil.addCallbackToSetNetworkEmitter(this.onNetworkUpdated);
     civil.addCallbackToSetAccountEmitter(this.onAccountUpdated);
     await this.onNetworkUpdated();
-
   }
 
   public onNetworkUpdated = async (): Promise<void> => {
@@ -41,7 +40,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       await initializeGovernmentParamSubscription(this.props.dispatch!);
       await initializeSubscriptions(this.props.dispatch!);
     }
-  }
+  };
 
   public onAccountUpdated = async (): Promise<void> => {
     const civil = getCivil();
