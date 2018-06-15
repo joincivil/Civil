@@ -30,6 +30,7 @@ export interface ChallengeDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   userChallengeData?: UserChallengeData;
+  userAppealChallengeData?: UserChallengeData;
   user?: EthAddress;
 }
 
@@ -41,9 +42,11 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   public render(): JSX.Element {
     const challenge = this.props.challenge;
     const userChallengeData = this.props.userChallengeData;
+    const userAppealChallengeData = this.props.userAppealChallengeData;
     console.log("ChallengeDetail render: ", challenge, userChallengeData);
     const appealExists = doesChallengeHaveAppeal(challenge);
-    const canShowRewardsForm = userChallengeData && userChallengeData.didUserCommit;
+    const canShowRewardsForm = userChallengeData && userChallengeData.didUserCommit && this.props.challenge.resolved;
+    const canShowAppealChallengeRewardsFrom = userAppealChallengeData && userAppealChallengeData.didUserCommit && this.props.challenge.appeal!.appealChallenge!.resolved;
     const canShowResult = this.props.challenge.resolved;
     return (
       <ViewModule>
@@ -66,9 +69,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         {isChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
-        {appealExists && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal!} />}
         {canShowResult && this.renderVoteResult()}
+        {appealExists && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal!} />}
         {canShowRewardsForm && this.renderRewardsDetail()}
+        {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail()}
       </ViewModule>
     );
   }
@@ -125,6 +129,15 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
       />
     );
   }
+  private renderAppealChallengeRewardsDetail(): JSX.Element {
+    return (
+      <ChallengeRewardsDetail
+        challengeID={this.props.challenge.appeal!.appealChallengeID}
+        user={this.props.user}
+        userChallengeData={this.props.userAppealChallengeData}
+      />
+    );
+  }
 
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return appealChallenge(this.props.listingAddress);
@@ -153,6 +166,7 @@ class ChallengeContainer extends React.Component<
         challengeID={this.props.challengeID}
         challenge={challenge}
         userChallengeData={this.props.userChallengeData}
+        userAppealChallengeData={this.props.userAppealChallengeData}
         user={this.props.user}
       />
     );
@@ -172,6 +186,7 @@ export interface ChallengeContainerProps {
 export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData | undefined;
   userChallengeData?: UserChallengeData | undefined;
+  userAppealChallengeData?: UserChallengeData | undefined;
   challengeDataRequestStatus?: any;
   user: EthAddress;
 }
@@ -180,10 +195,11 @@ const mapStateToProps = (
   state: State,
   ownProps: ChallengeContainerProps,
 ): ChallengeContainerReduxProps & ChallengeContainerProps => {
-  const { challenges, challengesFetching, challengeUserData, user } = state;
+  const { challenges, challengesFetching, challengeUserData, appealChallengeUserData, user } = state;
   let listingAddress = ownProps.listingAddress;
   let challengeData;
   let userChallengeData;
+  let userAppealChallengeData;
   const challengeID = ownProps.challengeID;
   if (challengeID) {
     challengeData = challenges.get(challengeID.toString());
@@ -197,15 +213,25 @@ const mapStateToProps = (
     if (challengeUserDataMap) {
       userChallengeData = challengeUserDataMap.get(userAcct.account);
     }
+    if (challengeData) {
+      const wrappedChallenge = challengeData as WrappedChallengeData;
+      if (wrappedChallenge && wrappedChallenge.challenge && wrappedChallenge.challenge.appeal) {
+        const appealChallengeID = wrappedChallenge.challenge.appeal.appealChallengeID;
+        const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID!.toString());
+        if (appealChallengeUserDataMap) {
+          userAppealChallengeData = appealChallengeUserDataMap.get(userAcct.account);
+        }
+      }
+    }
   }
   let challengeDataRequestStatus;
   if (challengeID) {
     challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
   }
-
   return {
     challengeData,
     userChallengeData,
+    userAppealChallengeData,
     challengeDataRequestStatus,
     user: userAcct,
     ...ownProps,

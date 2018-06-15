@@ -11,6 +11,7 @@ import { approveForChallengeGrantedAppeal, challengeGrantedAppeal, updateStatus 
 import AppealChallengeDetail from "./AppealChallengeDetail";
 import { TransactionButton } from "@joincivil/components";
 import CountdownTimer from "../utility/CountdownTimer";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -37,10 +38,9 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       <StyledDiv>
         Requester: {appeal.requester.toString()}
         <br />
-        Appeal Fee Paid: {appeal.appealFeePaid.toString()}
+        Appeal Fee Paid: {getFormattedTokenBalance(appeal.appealFeePaid)}
         <br />
-        Judgment Expiry: <CountdownTimer endTime={appeal.appealPhaseExpiry.toNumber()} />
-        <br />
+        {this.renderJudgmentExpiry()}
         Appeal Granted: {appeal.appealGranted.toString()}
         <br />
         {canBeChallenged && this.renderChallengeAppealStage()}
@@ -57,6 +57,19 @@ class AppealDetail extends React.Component<AppealDetailProps> {
 
   private renderCanResolve(): JSX.Element {
     return <TransactionButton transactions={[{ transaction: this.resolveAppeal }]}>Resolve Appeal</TransactionButton>;
+  }
+
+  private renderJudgmentExpiry(): JSX.Element {
+    const appeal = this.props.appeal;
+    if (appeal.appealGranted) {
+      return <></>;
+    } else {
+      return (
+        <>
+          Judgment Expiry: <CountdownTimer endTime={appeal.appealPhaseExpiry.toNumber()} />
+          <br />
+        </>);
+    }
   }
 
   private renderChallengeAppealStage(): JSX.Element {
