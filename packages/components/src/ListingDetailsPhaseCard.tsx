@@ -6,6 +6,7 @@ import { buttonSizes, Button, InvertedButton } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
 import { RevealVote } from "./RevealVote";
+import { ChallengeResults } from "./ChallengeResults";
 
 const StyledListingDetailPhaseCardContainer = styled.div`
   box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
@@ -201,6 +202,9 @@ export class AwaitingAppealRequestCard extends React.Component<ListingDetailPhas
         <StyledListingDetailPhaseCardSection>
           <MetaItemValue>1,000 CVL</MetaItemValue>
           <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <ChallengeResults />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>If you disagree with the community, you may request an appeal to the Civil Council.</CTACopy>
