@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, ChallengePhaseProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -10,7 +10,9 @@ import {
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
 
-export class ChallengeCommitVoteCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+export class ChallengeCommitVoteCard extends React.Component<
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps
+> {
   public render(): JSX.Element {
     const now = Date.now() / 1000;
     const oneDay = 86400;
@@ -28,8 +30,16 @@ export class ChallengeCommitVoteCard extends React.Component<ListingDetailPhaseC
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
+          <MetaItemValue>{this.props.challenger}</MetaItemValue>
+          <MetaItemLabel>Challenger</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>{this.props.rewardPool}</MetaItemValue>
+          <MetaItemLabel>Reward Pool</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>{this.props.stake}</MetaItemValue>
+          <MetaItemLabel>Stake</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CommitVote />

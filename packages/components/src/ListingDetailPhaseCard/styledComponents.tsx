@@ -38,6 +38,8 @@ export const StyledListingDetailPhaseCardHed = styled.div`
 export const MetaItemValue = styled.div`
   font-size: 24px;
   line-height: 29px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 export const MetaItemValueAccent = MetaItemValue.extend`
   color: ${colors.primary.CIVIL_BLUE_1};

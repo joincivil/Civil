@@ -9,7 +9,7 @@ import {
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
-import ChallengeDetailContainer from "./ChallengeDetail";
+import ChallengeDetailContainer, { ChallengeResolve } from "./ChallengeDetail";
 import {
   TransactionButton,
   InApplicationCard,
@@ -58,6 +58,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
               <ChallengeDetailContainer
                 challengeID={this.props.listing.data.challengeID}
                 listingAddress={this.props.listing.address}
+                parameters={this.props.parameters}
               />
             )}
           </>
@@ -80,7 +81,15 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   };
 
   private renderCanResolve(): JSX.Element {
-    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
+    const transactions = [{ transaction: this.resolve }];
+    return (
+      <ChallengeResolve
+        listingAddress={this.props.listing.address}
+        challengeID={this.props.listing.data.challengeID}
+        transactions={transactions}
+        parameters={this.props.parameters}
+      />
+    );
   }
 
   private renderApplicationPhase(): JSX.Element | null {

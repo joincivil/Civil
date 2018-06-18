@@ -13,10 +13,11 @@ import {
   VoteOptionsContainer,
   StyledOrText,
 } from "./styledComponents";
+import { ChallengeResultsProps } from "./types";
 
 export interface BreakdownBarPercentageProps {
   vote: string;
-  percentage: number;
+  percentage: string;
 }
 export interface VotesPerTokenVoteProps {
   vote?: string;
@@ -59,7 +60,7 @@ const BreakdownBarPercentage = styled<BreakdownBarPercentageProps, "div">("div")
   top: 0;
   position: absolute;
   transition: width 500ms ease;
-  width: ${props => props.percentage.toString()}%;
+  width: ${props => props.percentage}%;
 `;
 
 const VotesPerTokenContainer = styled.div`
@@ -79,12 +80,8 @@ const VotesPerTokenTotal = VotesPerTokenVote.extend`
 `;
 const VotesPerTokenCount = styled.div``;
 
-export class ChallengeResults extends React.Component {
+export class ChallengeResults extends React.Component<ChallengeResultsProps> {
   public render(): JSX.Element {
-    const remain = 73000;
-    const remove = 27000;
-    const remainPct = Math.floor(remain / (remain + remove) * 100);
-    const removePct = 100 - remainPct;
     return (
       <>
         <FormHeader>Challenge Results</FormHeader>
@@ -94,13 +91,13 @@ export class ChallengeResults extends React.Component {
             <VotesPerTokenVote vote="remain">
               <span>✔</span> Remain
             </VotesPerTokenVote>
-            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(remain)}</VotesPerTokenCount>
+            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(this.props.votesAgainst)} CVL</VotesPerTokenCount>
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
-            <BreakdownBarPercentageLabel>{remainPct}%</BreakdownBarPercentageLabel>
+            <BreakdownBarPercentageLabel>{this.props.percentAgainst}%</BreakdownBarPercentageLabel>
             <BreakdownBarTotal>
-              <BreakdownBarPercentage vote="remain" percentage={remainPct} />
+              <BreakdownBarPercentage vote="remain" percentage={this.props.percentAgainst} />
             </BreakdownBarTotal>
           </BreakdownBarContainer>
         </VoteTypeSummary>
@@ -110,13 +107,13 @@ export class ChallengeResults extends React.Component {
             <VotesPerTokenVote vote="remove">
               <span>✖</span> Remove
             </VotesPerTokenVote>
-            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(remove)}</VotesPerTokenCount>
+            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(this.props.votesFor)} CVL</VotesPerTokenCount>
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
-            <BreakdownBarPercentageLabel>{removePct}%</BreakdownBarPercentageLabel>
+            <BreakdownBarPercentageLabel>{this.props.percentFor}%</BreakdownBarPercentageLabel>
             <BreakdownBarTotal>
-              <BreakdownBarPercentage vote="remove" percentage={removePct} />
+              <BreakdownBarPercentage vote="remove" percentage={this.props.percentFor} />
             </BreakdownBarTotal>
           </BreakdownBarContainer>
         </VoteTypeSummary>
@@ -124,7 +121,7 @@ export class ChallengeResults extends React.Component {
         <VoteTypeSummary>
           <VotesPerTokenContainer>
             <VotesPerTokenTotal>Total Votes</VotesPerTokenTotal>
-            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(remain + remove)}</VotesPerTokenCount>
+            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(this.props.totalVotes)}</VotesPerTokenCount>
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
@@ -134,8 +131,4 @@ export class ChallengeResults extends React.Component {
       </>
     );
   }
-
-  private onChange = (): void => {
-    return;
-  };
 }
