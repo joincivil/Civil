@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { TwoStepEthTransaction } from "@joincivil/core";
-import { Button, buttonSizes } from "./Button";
+import { Button, InvertedButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
 import {
   ProgressModalContentInProgress,
@@ -27,6 +27,7 @@ export interface TransactionButtonProps {
   transactions: Transaction[];
   disabled?: boolean;
   size?: buttonSizes;
+  style?: string | undefined;
   preExecuteTransactions?(): any;
   postExecuteTransactions?(): any;
 }
@@ -72,6 +73,22 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
   }
 
   public render(): JSX.Element {
+    if (this.props.style && this.props.style === "inverted") {
+      return (
+        <>
+          {this.state.error}
+          <InvertedButton
+            onClick={this.onClick}
+            disabled={this.state.disableButton}
+            size={this.props.size || buttonSizes.MEDIUM}
+          >
+            {this.state.step === 1 && "Waiting for Transaction..."}
+            {this.state.step === 2 && "Transaction Processing..."}
+            {this.state.step === 0 && this.props.children}
+          </InvertedButton>
+        </>
+      );
+    }
     return (
       <>
         {this.state.error}

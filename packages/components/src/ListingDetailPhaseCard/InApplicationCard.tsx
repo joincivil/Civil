@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -8,22 +8,19 @@ import {
   MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
-import { buttonSizes, InvertedButton } from "../Button";
+import { buttonSizes } from "../Button";
+import { TransactionButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 
-export class InApplicationCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+export class InApplicationCard extends React.Component<ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps> {
   public render(): JSX.Element {
-    const now = Date.now() / 1000;
-    const oneDay = 86400;
-    const endTime = now + oneDay * 4.25;
-    const phaseLength = oneDay * 7;
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>New Application</StyledPhaseDisplayName>
           <ProgressBarCountdownTimer
-            endTime={endTime}
-            totalSeconds={phaseLength}
+            endTime={this.props.endTime}
+            totalSeconds={this.props.phaseLength}
             displayLabel="Waiting for approval"
             flavorText="under community review"
           />
@@ -37,7 +34,9 @@ export class InApplicationCard extends React.Component<ListingDetailPhaseCardCom
             If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
             <a href="#">submit a challenge</a>.
           </CTACopy>
-          <InvertedButton size={buttonSizes.MEDIUM}>Submit a Challenge</InvertedButton>
+          <TransactionButton size={buttonSizes.MEDIUM} style="inverted" transactions={this.props.transactions!}>
+            Submit a Challenge
+          </TransactionButton>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );

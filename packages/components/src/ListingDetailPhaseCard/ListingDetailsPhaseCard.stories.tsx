@@ -30,9 +30,13 @@ const Container: React.StatelessComponent = ({ children }) => (
 storiesOf("Listing Details Phase Card", module)
   .addDecorator(StoryRouter())
   .add("In Application", () => {
+    const now = Date.now() / 1000;
+    const oneDay = 86400;
+    const endTime = now + oneDay * 4.25;
+    const phaseLength = oneDay * 7;
     return (
       <Container>
-        <InApplicationCard />
+        <InApplicationCard endTime={endTime} phaseLength={phaseLength} />
       </Container>
     );
   })
