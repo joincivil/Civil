@@ -74,7 +74,7 @@ const VotesPerTokenCount = styled.div``;
 const FormHeader = styled.h4`
   font-size: 21px;
   line-height: 25px;
-  margin: 0;
+  margin: 0 0 18px;
 `;
 const FormCopy = styled.p`
   font-size: 16px;
