@@ -3,17 +3,18 @@ import * as React from "react";
 import styled from "styled-components";
 import StoryRouter from "storybook-react-router";
 import {
-  WhitelistedCard,
   InApplicationCard,
-  CommitVoteCard,
-  RevealVoteCard,
-  AwaitingAppealRequestCard,
-  AwaitingAppealCard,
-  CanChallengeAppealCard,
+  ChallengeCommitVoteCard,
+  ChallengeRevealVoteCard,
+  ChallengeRequestAppealCard,
+  ChallengeResolveCard,
+  AppealAwaitingDecisionCard,
+  AppealDecisionCard,
   AppealChallengeCommitVoteCard,
   AppealChallengeRevealVoteCard,
+  WhitelistedCard,
   RejectedCard,
-} from "./ListingDetailsPhaseCard";
+} from "./index";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -28,13 +29,6 @@ const Container: React.StatelessComponent = ({ children }) => (
 
 storiesOf("Listing Details Phase Card", module)
   .addDecorator(StoryRouter())
-  .add("Whitelisted", () => {
-    return (
-      <Container>
-        <WhitelistedCard />
-      </Container>
-    );
-  })
   .add("In Application", () => {
     return (
       <Container>
@@ -42,52 +36,66 @@ storiesOf("Listing Details Phase Card", module)
       </Container>
     );
   })
-  .add("Commit Vote", () => {
+  .add("Under Challenge: Commit Vote", () => {
     return (
       <Container>
-        <CommitVoteCard />
+        <ChallengeCommitVoteCard />
       </Container>
     );
   })
-  .add("Reveal Vote", () => {
+  .add("Under Challenge: Reveal Vote", () => {
     return (
       <Container>
-        <RevealVoteCard />
+        <ChallengeRevealVoteCard />
       </Container>
     );
   })
-  .add("Awaiting Appeal Request", () => {
+  .add("Under Challenge: Request Appeal", () => {
     return (
       <Container>
-        <AwaitingAppealRequestCard />
+        <ChallengeRequestAppealCard />
       </Container>
     );
   })
-  .add("Awaiting Appeal", () => {
+  .add("Under Challenge: Resolve", () => {
     return (
       <Container>
-        <AwaitingAppealCard />
+        <ChallengeResolveCard />
       </Container>
     );
   })
-  .add("Can Challenge Appeal", () => {
+  .add("Under Appeal: Awaiting Appeal Decision", () => {
     return (
       <Container>
-        <CanChallengeAppealCard />
+        <AppealAwaitingDecisionCard />
       </Container>
     );
   })
-  .add("Commit Vote on Appeal Challenge", () => {
+  .add("Under Appeal: Decision / Can Challenge", () => {
+    return (
+      <Container>
+        <AppealDecisionCard />
+      </Container>
+    );
+  })
+  .add("Appeal Challenge: Commit Vote", () => {
     return (
       <Container>
         <AppealChallengeCommitVoteCard />
       </Container>
     );
   })
-  .add("Reveal Vote on Appeal Challenge", () => {
+  .add("Appeal Challenge: Reveal Vote", () => {
     return (
       <Container>
         <AppealChallengeRevealVoteCard />
+      </Container>
+    );
+  })
+  .add("Whitelisted", () => {
+    return (
+      <Container>
+        <WhitelistedCard />
       </Container>
     );
   })
