@@ -4,7 +4,7 @@ import {
   isChallengeInCommitStage,
   isChallengeInRevealStage,
   canRequestAppeal,
-  didChallengeSucceed,
+  // didChallengeSucceed,
   doesChallengeHaveAppeal,
   ChallengeData,
   EthAddress,
@@ -13,14 +13,25 @@ import {
   WrappedChallengeData,
   didUserCommit,
 } from "@joincivil/core";
+import {
+  TransactionButton,
+  ChallengeCommitVoteCard,
+  // ChallengeRevealVoteCard,
+  // ChallengeRequestAppealCard,
+  ChallengeResolveCard,
+  // AppealAwaitingDecisionCard,
+  // AppealDecisionCard,
+  // AppealChallengeCommitVoteCard,
+  // AppealChallengeRevealVoteCard,
+  // WhitelistedCard,
+  // RejectedCard,
+} from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
-import CommitVoteDetail from "./CommitVoteDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import CountdownTimer from "../utility/CountdownTimer";
 import RevealVoteDetail from "./RevealVoteDetail";
-import { TransactionButton } from "@joincivil/components";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
-import { appealChallenge, approveForAppeal } from "../../apis/civilTCR";
+import { appealChallenge, approveForAppeal, commitVote, requestVotingRights } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
@@ -30,14 +41,26 @@ export interface ChallengeDetailProps {
   listingAddress: EthAddress;
   challengeID: BigNumber;
   challenge: ChallengeData;
+  parameters: any;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
   user?: EthAddress;
 }
 
-class ChallengeDetail extends React.Component<ChallengeDetailProps> {
+export interface ChallengeVoteState {
+  isVoteTokenAmtValid: boolean;
+  voteOption?: string;
+  salt?: string;
+  numTokens?: string;
+}
+
+class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState> {
   constructor(props: any) {
     super(props);
+
+    this.state = {
+      isVoteTokenAmtValid: false,
+    };
   }
 
   public render(): JSX.Element {
@@ -54,23 +77,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
       didUserCommit(userAppealChallengeData) && challenge.appeal!.appealChallenge!.resolved;
 
     return (
-      <ViewModule>
-        <ViewModuleHeader>Challenge Details</ViewModuleHeader>
-
-        <dl>
-          <dt>Challenger</dt>
-          <dd>{challenge.challenger.toString()}</dd>
-
-          <dt>Reward Pool</dt>
-          <dd>{getFormattedTokenBalance(challenge.rewardPool)}</dd>
-
-          <dt>Stake</dt>
-          <dd>{getFormattedTokenBalance(challenge.stake)}</dd>
-
-          <dt>Challenge Succeeded</dt>
-          <dd>{didChallengeSucceed(challenge).toString()}</dd>
-        </dl>
-
+      <>
         {isChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
@@ -78,19 +85,32 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         {appealExists && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal!} />}
         {canShowRewardsForm && this.renderRewardsDetail()}
         {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail()}
-      </ViewModule>
-    );
-  }
-
-  private renderCommitStage(): JSX.Element {
-    return (
-      <>
-        Commit Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.commitEndDate.toNumber()} />
-        <br />
-        <CommitVoteDetail challengeID={this.props.challengeID} />
       </>
     );
   }
+
+  private renderCommitStage(): JSX.Element | null {
+    const endTime = this.props.challenge.poll.commitEndDate.toNumber();
+    const phaseLength = this.props.parameters.commitStageLen;
+    const challenge = this.props.challenge;
+    const transactions = [{ transaction: this.requestVotingRights }, { transaction: this.commitVoteOnChallenge }];
+
+    if (!challenge) {
+      return null;
+    }
+
+    return (
+      <ChallengeCommitVoteCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        challenger={challenge!.challenger.toString()}
+        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+        stake={getFormattedTokenBalance(challenge!.stake)}
+        transactions={transactions}
+      />
+    );
+  }
+
   private renderRevealStage(): JSX.Element {
     return (
       <>
@@ -147,6 +167,18 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return appealChallenge(this.props.listingAddress);
   };
+
+  private requestVotingRights = async (): Promise<TwoStepEthTransaction<any>> => {
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
+    return requestVotingRights(numTokens);
+  };
+
+  private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
+    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
+    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
+    return commitVote(this.props.challengeID, voteOption, salt, numTokens);
+  };
 }
 
 class ChallengeContainer extends React.Component<
@@ -173,6 +205,7 @@ class ChallengeContainer extends React.Component<
         userChallengeData={this.props.userChallengeData}
         userAppealChallengeData={this.props.userAppealChallengeData}
         user={this.props.user}
+        parameters={this.props.parameters}
       />
     );
   }
@@ -186,6 +219,7 @@ export interface ChallengeContainerProps {
   listingAddress: EthAddress;
   challengeID: BigNumber;
   showNotFoundMessage?: boolean;
+  parameters: any;
 }
 
 export interface ChallengeContainerReduxProps {
@@ -200,7 +234,7 @@ const mapStateToProps = (
   state: State,
   ownProps: ChallengeContainerProps,
 ): ChallengeContainerReduxProps & ChallengeContainerProps => {
-  const { challenges, challengesFetching, challengeUserData, appealChallengeUserData, user } = state;
+  const { challenges, challengesFetching, challengeUserData, appealChallengeUserData, user, parameters } = state;
   let listingAddress = ownProps.listingAddress;
   let challengeData;
   let userChallengeData;
@@ -243,8 +277,52 @@ const mapStateToProps = (
     userAppealChallengeData,
     challengeDataRequestStatus,
     user: userAcct,
+    parameters,
     ...ownProps,
   };
 };
+
+export interface ChallengeTransactionsProps {
+  transactions: any[];
+}
+
+class ChallengeResolveContainer extends React.Component<
+  ChallengeContainerProps & ChallengeContainerReduxProps & ChallengeTransactionsProps & DispatchProp<any>
+> {
+  public componentWillReceiveProps(nextProps: any): void {
+    if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
+      this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+    }
+  }
+
+  public render(): JSX.Element | null {
+    const challenge = this.props.challengeData && this.props.challengeData.challenge;
+
+    if (!challenge) {
+      return null;
+    }
+
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    const votesFor = challenge.poll.votesFor;
+    const votesAgainst = challenge.poll.votesFor;
+    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100);
+    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100);
+
+    return (
+      <ChallengeResolveCard
+        challenger={challenge!.challenger.toString()}
+        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+        stake={getFormattedTokenBalance(challenge!.stake)}
+        totalVotes={totalVotes.toString()}
+        votesFor={votesFor.toString()}
+        votesAgainst={votesAgainst.toString()}
+        percentFor={percentFor.toString()}
+        percentAgainst={percentAgainst.toString()}
+        transactions={this.props.transactions}
+      />
+    );
+  }
+}
+export const ChallengeResolve = connect(mapStateToProps)(ChallengeResolveContainer);
 
 export default connect(mapStateToProps)(ChallengeContainer);
