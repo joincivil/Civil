@@ -1,10 +1,18 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
+import { colors, fonts } from "../styleConstants";
 import { EthAddress } from "@joincivil/core";
 import { getNumberStringWithCommaDelimeters } from "@joincivil/utils";
-import { colors, fonts } from "../styleConstants";
-import { buttonSizes, Button, DarkButton, InvertedButton } from "../Button";
+import { buttonSizes, DarkButton } from "../Button";
 import { InputGroup, TextInput } from "../input/";
+import {
+  FormHeader,
+  FormCopy,
+  AccentHRule,
+  FormQuestion,
+  VoteOptionsContainer,
+  StyledOrText,
+} from "./styledComponents";
 
 export interface BreakdownBarPercentageProps {
   vote: string;
@@ -70,17 +78,6 @@ const VotesPerTokenTotal = VotesPerTokenVote.extend`
   width: 95px;
 `;
 const VotesPerTokenCount = styled.div``;
-
-const FormHeader = styled.h4`
-  font-size: 21px;
-  line-height: 25px;
-  margin: 0 0 18px;
-`;
-const FormCopy = styled.p`
-  font-size: 16px;
-  line-height: 26px;
-  margin: 0 0 10px;
-`;
 
 export class ChallengeResults extends React.Component {
   public render(): JSX.Element {

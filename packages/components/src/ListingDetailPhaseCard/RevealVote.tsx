@@ -4,26 +4,7 @@ import { EthAddress } from "@joincivil/core";
 import { colors, fonts } from "../styleConstants";
 import { buttonSizes, Button, DarkButton, InvertedButton } from "../Button";
 import { InputGroup, TextInput } from "../input/";
-
-const VoteOptionsContainer = styled.div`
-  display: flex;
-  margin: 20px 0 0;
-`;
-const StyledOrText = styled.div`
-  font: italic normal 20px/30px ${fonts.SERIF};
-  padding: 10px 13px;
-  text-align: center;
-`;
-const FormHeader = styled.h4`
-  font-size: 21px;
-  line-height: 25px;
-  margin: 0;
-`;
-const FormCopy = styled.p`
-  font-size: 16px;
-  line-height: 26px;
-  margin: 0 0 10px;
-`;
+import { VoteOptionsContainer, StyledOrText, FormHeader, FormCopy } from "./styledComponents";
 
 export class RevealVote extends React.Component {
   public render(): JSX.Element {
