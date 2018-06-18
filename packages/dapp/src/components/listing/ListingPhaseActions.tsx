@@ -1,7 +1,7 @@
 import * as React from "react";
 import { approveForChallenge, challengeListing, grantAppeal, updateStatus } from "../../apis/civilTCR";
 import {
-  canListingBeChallenged,
+  // canListingBeChallenged,
   canBeWhitelisted,
   canResolveChallenge,
   isAwaitingAppealJudgment,
@@ -10,12 +10,24 @@ import {
   TwoStepEthTransaction,
 } from "@joincivil/core";
 import ChallengeDetailContainer from "./ChallengeDetail";
-import { TransactionButton } from "@joincivil/components";
-import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
-import CountdownTimer from "../utility/CountdownTimer";
+import {
+  TransactionButton,
+  InApplicationCard,
+  // ChallengeCommitVoteCard,
+  // ChallengeRevealVoteCard,
+  // ChallengeRequestAppealCard,
+  // ChallengeResolveCard,
+  // AppealAwaitingDecisionCard,
+  // AppealDecisionCard,
+  // AppealChallengeCommitVoteCard,
+  // AppealChallengeRevealVoteCard,
+  // WhitelistedCard,
+  // RejectedCard,
+} from "@joincivil/components";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
+  parameters: any;
 }
 
 class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
@@ -30,17 +42,14 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
       isInApplication = isInApplicationPhase(listing!.data);
     }
     const challenge = this.props.listing.data.challenge;
-    const canBeChallenged = canListingBeChallenged(this.props.listing.data);
+    // const canBeChallenged = canListingBeChallenged(this.props.listing.data);
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
     const canResolve = canResolveChallenge(challenge!);
     return (
-      <ViewModule>
-        <ViewModuleHeader>Application Phase</ViewModuleHeader>
-
+      <>
         {isInApplication && this.renderApplicationPhase()}
         {this.props.listing.data && (
           <>
-            {canBeChallenged && this.renderCanBeChallenged()}
             {isAwaitingAppealJudgment(this.props.listing.data) && this.renderGrantAppeal()}
             {canWhitelist && this.renderCanWhitelist()}
             {canResolve && this.renderCanResolve()}
@@ -53,7 +62,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
             )}
           </>
         )}
-      </ViewModule>
+      </>
     );
   }
 
@@ -70,17 +79,22 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     return updateStatus(this.props.listing.address);
   };
 
-  private renderCanBeChallenged = (): JSX.Element => {
-    return (
-      <TransactionButton transactions={[{ transaction: approveForChallenge }, { transaction: this.challenge }]}>
-        Challenge Application
-      </TransactionButton>
-    );
-  };
-
   private renderCanResolve(): JSX.Element {
     return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
   }
+
+  private renderApplicationPhase(): JSX.Element | null {
+    const endTime = this.props.listing!.data.appExpiry.toNumber();
+    const phaseLength = this.props.parameters.applyStageLen;
+    const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
+
+    if (!endTime || !phaseLength) {
+      return null;
+    }
+
+    return <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={transactions} />;
+  }
+
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateStatus(this.props.listing.address);
   };
@@ -91,13 +105,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return grantAppeal(this.props.listing.address);
   };
-  private renderApplicationPhase(): JSX.Element {
-    return (
-      <>
-        APPLICATION IN PROGRESS. ends in... <CountdownTimer endTime={this.props.listing!.data.appExpiry.toNumber()} />
-      </>
-    );
-  }
 }
 
 export default ListingPhaseActions;
