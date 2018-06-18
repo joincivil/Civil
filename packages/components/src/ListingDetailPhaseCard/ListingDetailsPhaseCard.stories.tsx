@@ -58,18 +58,13 @@ storiesOf("Listing Details Phase Card", module)
   .add("In Application", () => {
     return (
       <Container>
-<<<<<<< HEAD
         {process.env.NODE_ENV !== "test" && (
           <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
         )}
-=======
-        <InApplicationCard />
->>>>>>> f509f1c... Refactor Application Phase cards into separate module files
       </Container>
     );
   })
   .add("Under Challenge: Commit Vote", () => {
-<<<<<<< HEAD
     return (
       <Container>
         {process.env.NODE_ENV !== "test" && (
@@ -201,73 +196,12 @@ storiesOf("Listing Details Phase Card", module)
       </Container>
     );
   })
-<<<<<<< HEAD
-  .add("Whitelisted", () => {
-    return <Container>{process.env.NODE_ENV !== "test" && <WhitelistedCard transactions={[]} />}</Container>;
-=======
-  .add("Awaiting Appeal", () => {
-=======
-    return (
-      <Container>
-        <ChallengeCommitVoteCard />
-      </Container>
-    );
-  })
-  .add("Under Challenge: Reveal Vote", () => {
-    return (
-      <Container>
-        <ChallengeRevealVoteCard />
-      </Container>
-    );
-  })
-  .add("Under Challenge: Request Appeal", () => {
-    return (
-      <Container>
-        <ChallengeRequestAppealCard />
-      </Container>
-    );
-  })
-  .add("Under Challenge: Resolve", () => {
-    return (
-      <Container>
-        <ChallengeResolveCard />
-      </Container>
-    );
-  })
-  .add("Under Appeal: Awaiting Appeal Decision", () => {
->>>>>>> f509f1c... Refactor Application Phase cards into separate module files
-    return (
-      <Container>
-        <AppealAwaitingDecisionCard />
-      </Container>
-    );
-  })
-  .add("Under Appeal: Decision / Can Challenge", () => {
-    return (
-      <Container>
-        <AppealDecisionCard />
-      </Container>
-    );
-  })
-  .add("Appeal Challenge: Commit Vote", () => {
-    return (
-      <Container>
-        <AppealChallengeCommitVoteCard />
-      </Container>
-    );
-  })
-  .add("Appeal Challenge: Reveal Vote", () => {
-    return (
-      <Container>
-        <AppealChallengeRevealVoteCard />
-      </Container>
-    );
->>>>>>> f9ab9ec... Stub components for Appeal Phase cards
-  })
   .add("Whitelisted", () => {
     return (
       <Container>
-        <WhitelistedCard />
+        {process.env.NODE_ENV !== "test" && (
+          <WhitelistedCard transactions={[]} />
+        )}
       </Container>
     );
   })
