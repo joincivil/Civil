@@ -38,11 +38,8 @@ export const StyledListingDetailPhaseCardHed = styled.div`
 export const MetaItemValue = styled.div`
   font-size: 24px;
   line-height: 29px;
-<<<<<<< HEAD
   overflow: hidden;
   text-overflow: ellipsis;
-=======
->>>>>>> f509f1c... Refactor Application Phase cards into separate module files
 `;
 export const MetaItemValueAccent = MetaItemValue.extend`
   color: ${colors.primary.CIVIL_BLUE_1};
@@ -65,7 +62,6 @@ export const FormCopy = styled.p`
   line-height: 26px;
   margin: 0 0 10px;
 `;
-<<<<<<< HEAD
 
 export const VoteOptionsContainer = styled.div`
   display: flex;
@@ -93,5 +89,65 @@ export const FormQuestion = styled.p`
   line-height: 36px;
   margin: 0 0 24px;
 `;
+<<<<<<< HEAD
 =======
 >>>>>>> f509f1c... Refactor Application Phase cards into separate module files
+=======
+
+const VoteTypeSummary = styled.div`
+  display: flex;
+
+  & > div {
+    box-shadow: inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_4}, inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_4};
+    padding: 14px 0;
+    width: 50%;
+  }
+`;
+
+const BreakdownBarContainer = styled.div`
+  display: flex;
+`;
+
+const BreakdownBarPercentageLabel = styled.div`
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 17px;
+  width: 50px;
+`;
+
+const BreakdownBarTotal = styled.div`
+  background-color: ${colors.accent.CIVIL_GRAY_4};
+  box-sizing: border-box;
+  height: 8px;
+  margin-top: 4px;
+  position: relative;
+  width: 100%;
+`;
+const BreakdownBarPercentage = styled<BreakdownBarPercentageProps, "div">("div")`
+  display: inline-block;
+  background-color: ${props => (props.vote === "remain" ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED)};
+  height: 8px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  transition: width 500ms ease;
+  width: ${props => props.percentage.toString()}%;
+`;
+
+const VotesPerTokenContainer = styled.div`
+  display: flex;
+`;
+const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
+  width: 95px;
+
+  & > span {
+    color: ${props => (props.vote === "remain" ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED)};
+  ]
+`;
+const VotesPerTokenTotal = VotesPerTokenVote.extend`
+  color: ${colors.accent.CIVIL_GRAY_3};
+  text-transform: uppercase;
+  width: 95px;
+`;
+const VotesPerTokenCount = styled.div``;
+>>>>>>> 2a942ee... DRY up styled components a bit for Application Phase cards
