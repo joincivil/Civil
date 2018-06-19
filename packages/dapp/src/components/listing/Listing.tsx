@@ -20,6 +20,7 @@ export interface ListingReduxProps {
   userAccount?: EthAddress;
   listingDataRequestStatus?: any;
   parameters: any;
+  govtParameters: any;
 }
 
 class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageProps> {
@@ -42,7 +43,11 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
           <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
         )}
         {appExistsAsNewsroom && (
-          <ListingPhaseActions listing={this.props.listing!} parameters={this.props.parameters} />
+          <ListingPhaseActions
+            listing={this.props.listing!}
+            parameters={this.props.parameters}
+            govtParameters={this.props.govtParameters}
+          />
         )}
         {!appExistsAsNewsroom && this.renderListingNotFound()}
         <ListingHistory listing={this.props.match.params.listing} />
@@ -56,7 +61,7 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
 }
 
 const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
-  const { newsrooms, listings, listingsFetching, user, parameters } = state;
+  const { newsrooms, listings, listingsFetching, user, parameters, govtParameters } = state;
   const listing = ownProps.match.params.listing;
 
   let listingDataRequestStatus;
@@ -70,6 +75,7 @@ const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingRed
     userAccount: user.account,
     listingDataRequestStatus,
     parameters,
+    govtParameters,
   };
 };
 

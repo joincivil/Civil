@@ -13,10 +13,9 @@ import {
   WrappedChallengeData,
 } from "@joincivil/core";
 import {
-  TransactionButton,
   ChallengeCommitVoteCard,
-  // ChallengeRevealVoteCard,
-  // ChallengeRequestAppealCard,
+  ChallengeRevealVoteCard,
+  ChallengeRequestAppealCard,
   ChallengeResolveCard,
   // AppealAwaitingDecisionCard,
   // AppealDecisionCard,
@@ -27,10 +26,7 @@ import {
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import CountdownTimer from "../utility/CountdownTimer";
-import RevealVoteDetail from "./RevealVoteDetail";
-import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
-import { appealChallenge, approveForAppeal, commitVote, requestVotingRights } from "../../apis/civilTCR";
+import { appealChallenge, approveForAppeal, commitVote, requestVotingRights, revealVote } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
@@ -41,6 +37,7 @@ export interface ChallengeDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   parameters: any;
+  govtParameters: any;
   userChallengeData?: UserChallengeData;
   user?: EthAddress;
 }
@@ -102,24 +99,48 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     );
   }
 
-  private renderRevealStage(): JSX.Element {
+  private renderRevealStage(): JSX.Element | null {
+    const endTime = this.props.challenge.poll.revealEndDate.toNumber();
+    const phaseLength = this.props.parameters.revealStageLen;
+    const challenge = this.props.challenge;
+    const transactions = [{ transaction: this.revealVoteOnChallenge }];
+
+    if (!challenge) {
+      return null;
+    }
+
     return (
-      <>
-        Reveal Vote Phase ends in <CountdownTimer endTime={this.props.challenge.poll.revealEndDate.toNumber()} />
-        <br />
-        <RevealVoteDetail challengeID={this.props.challengeID} />
-      </>
+      <ChallengeRevealVoteCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        challenger={challenge!.challenger.toString()}
+        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+        stake={getFormattedTokenBalance(challenge!.stake)}
+        transactions={transactions}
+      />
     );
   }
   private renderRequestAppealStage(): JSX.Element {
+    const challenge = this.props.challenge;
+    const endTime = this.props.challenge.requestAppealExpiry.toNumber();
+    const phaseLength = this.props.govtParameters.requestAppealLen;
+    const transactions = [{ transaction: approveForAppeal }, { transaction: this.appeal }];
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    const votesFor = challenge.poll.votesFor;
+    const votesAgainst = challenge.poll.votesFor;
+    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100);
+    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100);
     return (
-      <>
-        Request Appeal Phase Ends in <CountdownTimer endTime={this.props.challenge.requestAppealExpiry.toNumber()} />
-        <br />
-        <TransactionButton transactions={[{ transaction: approveForAppeal }, { transaction: this.appeal }]}>
-          Request Appeal
-        </TransactionButton>
-      </>
+      <ChallengeRequestAppealCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        transactions={transactions}
+        totalVotes={totalVotes.toString()}
+        votesFor={votesFor.toString()}
+        votesAgainst={votesAgainst.toString()}
+        percentFor={percentFor.toString()}
+        percentAgainst={percentAgainst.toString()}
+      />
     );
   }
   private renderVoteResult(): JSX.Element {
@@ -161,6 +182,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };
+
+  private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
+    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
+    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    return revealVote(this.props.challengeID, voteOption, salt);
+  };
 }
 
 class ChallengeContainer extends React.Component<
@@ -187,6 +214,7 @@ class ChallengeContainer extends React.Component<
         userChallengeData={this.props.userChallengeData}
         user={this.props.user}
         parameters={this.props.parameters}
+        govtParameters={this.props.govtParameters}
       />
     );
   }
@@ -201,6 +229,7 @@ export interface ChallengeContainerProps {
   challengeID: BigNumber;
   showNotFoundMessage?: boolean;
   parameters: any;
+  govtParameters: any;
 }
 
 export interface ChallengeContainerReduxProps {
@@ -214,7 +243,7 @@ const mapStateToProps = (
   state: State,
   ownProps: ChallengeContainerProps,
 ): ChallengeContainerReduxProps & ChallengeContainerProps => {
-  const { challenges, challengesFetching, challengeUserData, user, parameters } = state;
+  const { challenges, challengesFetching, challengeUserData, user, parameters, govtParameters } = state;
   let listingAddress = ownProps.listingAddress;
   let challengeData;
   let userChallengeData;
@@ -243,6 +272,7 @@ const mapStateToProps = (
     challengeDataRequestStatus,
     user: userAcct,
     parameters,
+    govtParameters,
     ...ownProps,
   };
 };
