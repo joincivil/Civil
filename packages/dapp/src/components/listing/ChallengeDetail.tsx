@@ -282,7 +282,15 @@ const mapStateToProps = (
   state: State,
   ownProps: ChallengeContainerProps,
 ): ChallengeContainerReduxProps & ChallengeContainerProps => {
-  const { challenges, challengesFetching, challengeUserData, appealChallengeUserData, user, parameters, govtParameters } = state;
+  const {
+    challenges,
+    challengesFetching,
+    challengeUserData,
+    appealChallengeUserData,
+    user,
+    parameters,
+    govtParameters,
+  } = state;
   let listingAddress = ownProps.listingAddress;
   let challengeData;
   let userChallengeData;
