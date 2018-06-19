@@ -131,27 +131,16 @@ export class EthApi extends Events {
     return sendTransactionAsync(txData);
   }
 
-  public async signPersonalMessage(message: string, account?: EthAddress): Promise<Hex> {
-    const signerAccount = account || requireAccount(this);
-
-    const response = await new Promise<Hex>((resolve, reject) => {
-      this.web3.personal!.sign(bufferToHex(toBuffer(message)), signerAccount, (err, result) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(result);
-      });
-    });
-    return response;
-  }
-
   public async signMessage(message: string, account?: EthAddress): Promise<EthSignedMessage> {
     const messageHex = fromUtf8(message);
 
     const signerAccount = account || requireAccount(this);
-
-    const response = await this.rpc("eth_sign", signerAccount, messageHex);
-    const signature = response.result as Hex;
+    let signature: Hex;
+    try {
+      signature = (await this.rpc("personal_sign", messageHex, signerAccount, "")).result;
+    } catch {
+      signature = (await this.rpc("eth_sign", signerAccount, messageHex)).result;
+    }
 
     const rsv = fromRpcSig(signature);
 

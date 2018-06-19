@@ -636,11 +636,11 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async approveByAuthorPersonalSign(contentHash: Hex): Promise<ApprovedRevision> {
     const author = requireAccount(this.ethApi);
     const message = prepareUserFriendlyNewsroomMessage(this.address, contentHash);
-    const result = await this.ethApi.signPersonalMessage(message, author);
+    const { signature } = await this.ethApi.signMessage(message, author);
     return {
       author,
       contentHash,
-      signature: result,
+      signature,
       newsroomAddress: this.address,
     };
   }
