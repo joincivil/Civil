@@ -19,8 +19,8 @@ export const addListing = (listing: ListingWrapper): any => {
       const wrappedChallenge = {
         listingAddress: listing.address,
         challengeID: listing.data.challengeID,
-        challenge: listing.data.challenge!
-      }
+        challenge: listing.data.challenge!,
+      };
       dispatch(addChallenge(wrappedChallenge));
     }
     return dispatch(addListingBasic(listing));
@@ -31,8 +31,8 @@ const addListingBasic = (listing: ListingWrapper): AnyAction => {
   return {
     type: listingActions.ADD_OR_UPDATE_LISTING,
     data: listing,
-  }
-}
+  };
+};
 
 export const addHistoryEvent = (address: string, event: TimestampedEvent<any>): AnyAction => {
   return {
