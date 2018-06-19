@@ -7,6 +7,7 @@ import { WrappedChallengeData, UserChallengeData, EthAddress } from "@joincivil/
 export enum challengeActions {
   ADD_OR_UPDATE_CHALLENGE = "ADD_OR_UPDATE_CHALLENGE",
   ADD_OR_UPDATE_USER_CHALLENGE_DATA = "ADD_OR_UPDATE_USER_CHALLENGE_DATA",
+  ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA = "ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA",
   FETCH_CHALLENGE_DATA = "FETCH_CHALLENGE_DATA",
   FETCH_CHALLENGE_DATA_COMPLETE = "FETCH_CHALLENGE_DATA_COMPLETE",
   FETCH_CHALLENGE_DATA_IN_PROGRESS = "FETCH_CHALLENGE_DATA_IN_PROGRESS",
@@ -23,6 +24,17 @@ export const addChallenge = (wrappedChallenge: WrappedChallengeData): AnyAction 
 export const addUserChallengeData = (challengeID: string, user: EthAddress, userChallengeData: UserChallengeData) => {
   return {
     type: challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA,
+    data: { challengeID, user, userChallengeData },
+  };
+};
+
+export const addUserAppealChallengeData = (
+  challengeID: string,
+  user: EthAddress,
+  userChallengeData: UserChallengeData,
+) => {
+  return {
+    type: challengeActions.ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA,
     data: { challengeID, user, userChallengeData },
   };
 };
