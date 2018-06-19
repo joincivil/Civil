@@ -50,7 +50,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     return (
       <>
         {isWhitelisted && !challenge && this.renderApplicationWhitelisted()}
-        {!isWhitelisted && !isInApplication && this.renderRejected()}
+        {!isWhitelisted && !isInApplication && !challenge && this.renderRejected()}
         {isInApplication && this.renderApplicationPhase()}
         {this.props.listing.data && (
           <>
