@@ -8,7 +8,8 @@ import {
   MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
-import { buttonSizes, InvertedButton } from "../Button";
+import { buttonSizes } from "../Button";
+import { TransactionButton } from "../TransactionButton";
 
 export class WhitelistedCard extends React.Component<ListingDetailPhaseCardComponentProps> {
   public render(): JSX.Element {
@@ -28,7 +29,9 @@ export class WhitelistedCard extends React.Component<ListingDetailPhaseCardCompo
             If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
             <a href="#">submit a challenge</a>.
           </CTACopy>
-          <InvertedButton size={buttonSizes.MEDIUM}>Submit a Challenge</InvertedButton>
+          <TransactionButton size={buttonSizes.MEDIUM} style="inverted" transactions={this.props.transactions!}>
+            Submit a Challenge
+          </TransactionButton>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
