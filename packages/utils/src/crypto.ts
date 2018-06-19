@@ -8,8 +8,10 @@ import {
   toChecksumAddress,
   publicToAddress,
 } from "ethereumjs-util";
+import { recoverPersonalSignature } from "eth-sig-util";
 import { soliditySHA3 } from "ethereumjs-abi";
 import { Hex, EthSignedMessageRecovery, EthAddress } from "@joincivil/typescript-types";
+import { functionTypeAnnotation } from "babel-types";
 
 const SIGN_PREFFIX = "\u0019Ethereum Signed Message:\n";
 
@@ -40,6 +42,13 @@ export function recoverSigner(recovery: EthSignedMessageRecovery): EthAddress {
   const rsv = fromRpcSig(recovery.signature);
   const publicKey = ecrecover(toBuffer(recovery.messageHash), rsv.v, rsv.r, rsv.s);
   return toChecksumAddress(bufferToHex(publicToAddress(publicKey)));
+}
+
+export function recoverSignerPersonal(recovery: {message: string, signature: Hex}): EthAddress {
+  return recoverPersonalSignature({
+    data: bufferToHex(toBuffer(recovery.message)),
+    sig: recovery.signature,
+  });
 }
 
 export function hashContent(content: string | object): Hex {
