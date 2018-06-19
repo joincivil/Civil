@@ -44,7 +44,7 @@ export function recoverSigner(recovery: EthSignedMessageRecovery): EthAddress {
   return toChecksumAddress(bufferToHex(publicToAddress(publicKey)));
 }
 
-export function recoverSignerPersonal(recovery: {message: string, signature: Hex}): EthAddress {
+export function recoverSignerPersonal(recovery: { message: string; signature: Hex }): EthAddress {
   return recoverPersonalSignature({
     data: bufferToHex(toBuffer(recovery.message)),
     sig: recovery.signature,

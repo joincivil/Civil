@@ -140,7 +140,7 @@ export class EthApi extends Events {
           return reject(err);
         }
         return resolve(result);
-      })
+      });
     });
     return response;
   }
