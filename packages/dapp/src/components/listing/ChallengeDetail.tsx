@@ -152,13 +152,16 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 class ChallengeContainer extends React.Component<
   ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
 > {
-  public componentWillReceiveProps(nextProps: any): void {
-    if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
+  public componentDidUpdate(): void {
+    console.log("will receive thisprops: ", this.props.challengeData);
+    console.log("will receieve requeststatus: ", this.props.challengeDataRequestStatus);
+    if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
     }
   }
 
   public render(): JSX.Element | null {
+    console.log("render challenge container!");
     const challenge = this.props.challengeData && this.props.challengeData.challenge;
     if (!challenge && this.props.showNotFoundMessage) {
       return this.renderNoChallengeFound();
@@ -200,6 +203,7 @@ const mapStateToProps = (
   state: State,
   ownProps: ChallengeContainerProps,
 ): ChallengeContainerReduxProps & ChallengeContainerProps => {
+  console.log("MAP STATE TO PROPS");
   const { challenges, challengesFetching, challengeUserData, appealChallengeUserData, user } = state;
   let listingAddress = ownProps.listingAddress;
   let challengeData;
@@ -237,7 +241,7 @@ const mapStateToProps = (
   if (challengeID) {
     challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
   }
-  return {
+  const newProps = {
     challengeData,
     userChallengeData,
     userAppealChallengeData,
@@ -245,6 +249,8 @@ const mapStateToProps = (
     user: userAcct,
     ...ownProps,
   };
+  console.log("newProps: ", newProps);
+  return newProps;
 };
 
 export default connect(mapStateToProps)(ChallengeContainer);

@@ -22,8 +22,8 @@ export interface ListingReduxProps {
 }
 
 class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageProps> {
-  public componentWillReceiveProps(nextProps: any): void {
-    if (!this.props.listing && !nextProps.listing && !this.props.listingDataRequestStatus) {
+  public componentDidUpdate(): void {
+    if (!this.props.listing && !this.props.listingDataRequestStatus) {
       this.props.dispatch!(fetchAndAddListingData(this.props.match.params.listing.toString()));
     }
   }
@@ -54,16 +54,17 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
 
 const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
   const { newsrooms, listings, listingsFetching, user } = state;
-  const listing = ownProps.match.params.listing;
+  const listingAddress = ownProps.match.params.listing;
 
   let listingDataRequestStatus;
-  if (listing) {
-    listingDataRequestStatus = listingsFetching.get(listing.toString());
+  if (listingAddress) {
+    listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
   }
 
+  const listing = listings.get(listingAddress) ? listings.get(listingAddress).listing : undefined;
   return {
-    newsroom: newsrooms.get(listing),
-    listing: listings.get(listing) ? listings.get(listing).listing : undefined,
+    newsroom: newsrooms.get(listingAddress),
+    listing,
     userAccount: user.account,
     listingDataRequestStatus,
   };
