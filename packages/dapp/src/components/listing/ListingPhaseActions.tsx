@@ -28,6 +28,7 @@ import {
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
   parameters: any;
+  govtParameters: any;
 }
 
 class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
@@ -61,6 +62,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
                 challengeID={this.props.listing.data.challengeID}
                 listingAddress={this.props.listing.address}
                 parameters={this.props.parameters}
+                govtParameters={this.props.govtParameters}
               />
             )}
           </>
@@ -90,6 +92,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
         challengeID={this.props.listing.data.challengeID}
         transactions={transactions}
         parameters={this.props.parameters}
+        govtParameters={this.props.govtParameters}
       />
     );
   }

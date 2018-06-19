@@ -19,6 +19,7 @@ class ChallengePage extends React.Component<ChallengePageProps> {
           challengeID={challengeID}
           showNotFoundMessage={true}
           parameters={{}}
+          govtParameters={{}}
         />
       </PageView>
     );
