@@ -18,6 +18,8 @@ class ChallengePage extends React.Component<ChallengePageProps> {
           listingAddress={listingAddress}
           challengeID={challengeID}
           showNotFoundMessage={true}
+          parameters={{}}
+          govtParameters={{}}
         />
       </PageView>
     );

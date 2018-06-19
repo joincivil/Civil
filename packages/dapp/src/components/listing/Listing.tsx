@@ -19,6 +19,8 @@ export interface ListingReduxProps {
   listing: ListingWrapper | undefined;
   userAccount?: EthAddress;
   listingDataRequestStatus?: any;
+  parameters: any;
+  govtParameters: any;
 }
 
 class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageProps> {
@@ -31,17 +33,30 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
   public render(): JSX.Element {
     const listing = this.props.listing;
     const newsroom = this.props.newsroom;
+    /*
     let appExistsAsNewsroom = false;
     if (listing && newsroom) {
       appExistsAsNewsroom = !listing.data.appExpiry.isZero();
     }
+    //*/
     return (
       <PageView>
-        {appExistsAsNewsroom && (
-          <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
-        )}
-        {appExistsAsNewsroom && <ListingPhaseActions listing={this.props.listing!} />}
-        {!appExistsAsNewsroom && this.renderListingNotFound()}
+        {listing &&
+          newsroom && (
+            <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
+          )}
+
+        {listing &&
+          newsroom && (
+            <ListingPhaseActions
+              listing={this.props.listing!}
+              parameters={this.props.parameters}
+              govtParameters={this.props.govtParameters}
+            />
+          )}
+
+        {!listing || (!newsroom && this.renderListingNotFound())}
+
         <ListingHistory listing={this.props.match.params.listing} />
       </PageView>
     );
@@ -53,7 +68,7 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
 }
 
 const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
-  const { newsrooms, listings, listingsFetching, user } = state;
+  const { newsrooms, listings, listingsFetching, user, parameters, govtParameters } = state;
   const listing = ownProps.match.params.listing;
 
   let listingDataRequestStatus;
@@ -66,6 +81,8 @@ const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingRed
     listing: listings.get(listing) ? listings.get(listing).listing : undefined,
     userAccount: user.account,
     listingDataRequestStatus,
+    parameters,
+    govtParameters,
   };
 };
 
