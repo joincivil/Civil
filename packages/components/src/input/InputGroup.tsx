@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors } from "../styleConstants";
 import { TextInput, InputLabel, InputProps } from "./Input";
 
 const StyledInputGroupContainer = styled.div`
