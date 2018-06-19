@@ -27,30 +27,67 @@ const Container: React.StatelessComponent = ({ children }) => (
   </StyledDiv>
 );
 
+const now = Date.now() / 1000;
+const oneDay = 86400;
+const endTime = now + oneDay * 4.25;
+const phaseLength = oneDay * 7;
+
+const challenger = "0x0";
+const rewardPool = "1000000";
+const stake = "100000";
+
+const totalVotes = "100000";
+const votesFor = "73000";
+const votesAgainst = "27000";
+const percentFor = "73";
+const percentAgainst = "27";
+
+const tokenBalance = 10000;
+let commitVoteState = {
+  salt: "",
+  numTokens: tokenBalance,
+  voteOption: undefined,
+};
+
+function commitVoteChange(data: any): void {
+  commitVoteState = { ...commitVoteState, ...data };
+}
+
+function commitVoteSubmit(): void {
+  console.log("Commit Vote!", commitVoteState);
+}
+
 storiesOf("Listing Details Phase Card", module)
   .addDecorator(StoryRouter())
   .add("In Application", () => {
-    const now = Date.now() / 1000;
-    const oneDay = 86400;
-    const endTime = now + oneDay * 4.25;
-    const phaseLength = oneDay * 7;
     return (
       <Container>
-        <InApplicationCard endTime={endTime} phaseLength={phaseLength} />
+        <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
       </Container>
     );
   })
   .add("Under Challenge: Commit Vote", () => {
-    const now = Date.now() / 1000;
-    const oneDay = 86400;
-    const endTime = now + oneDay * 4.25;
-    const phaseLength = oneDay * 7;
-    const challenger = "0x0";
-    const rewardPool = "1000000";
-    const stake = "100000";
     return (
       <Container>
         <ChallengeCommitVoteCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          challenger={challenger}
+          rewardPool={rewardPool}
+          stake={stake}
+          tokenBalance={tokenBalance}
+          salt={commitVoteState.salt}
+          numTokens={commitVoteState.numTokens}
+          onInputChange={commitVoteChange}
+          submit={commitVoteSubmit}
+        />
+      </Container>
+    );
+  })
+  .add("Under Challenge: Reveal Vote", () => {
+    return (
+      <Container>
+        <ChallengeRevealVoteCard
           endTime={endTime}
           phaseLength={phaseLength}
           challenger={challenger}
@@ -60,29 +97,22 @@ storiesOf("Listing Details Phase Card", module)
       </Container>
     );
   })
-  .add("Under Challenge: Reveal Vote", () => {
-    return (
-      <Container>
-        <ChallengeRevealVoteCard />
-      </Container>
-    );
-  })
   .add("Under Challenge: Request Appeal", () => {
     return (
       <Container>
-        <ChallengeRequestAppealCard />
+        <ChallengeRequestAppealCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          totalVotes={totalVotes}
+          votesFor={votesFor}
+          votesAgainst={votesAgainst}
+          percentFor={percentFor}
+          percentAgainst={percentAgainst}
+        />
       </Container>
     );
   })
   .add("Under Challenge: Resolve", () => {
-    const challenger = "0x0";
-    const rewardPool = "1000000";
-    const stake = "100000";
-    const totalVotes = "100000";
-    const votesFor = "73000";
-    const votesAgainst = "27000";
-    const percentFor = "73";
-    const percentAgainst = "27";
     return (
       <Container>
         <ChallengeResolveCard
@@ -94,6 +124,7 @@ storiesOf("Listing Details Phase Card", module)
           votesAgainst={votesAgainst}
           percentFor={percentFor}
           percentAgainst={percentAgainst}
+          transactions={[]}
         />
       </Container>
     );
@@ -101,42 +132,64 @@ storiesOf("Listing Details Phase Card", module)
   .add("Under Appeal: Awaiting Appeal Decision", () => {
     return (
       <Container>
-        <AppealAwaitingDecisionCard />
+        <AppealAwaitingDecisionCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          totalVotes={totalVotes}
+          votesFor={votesFor}
+          votesAgainst={votesAgainst}
+          percentFor={percentFor}
+          percentAgainst={percentAgainst}
+        />
       </Container>
     );
   })
   .add("Under Appeal: Decision / Can Challenge", () => {
     return (
       <Container>
-        <AppealDecisionCard />
+        <AppealDecisionCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
       </Container>
     );
   })
   .add("Appeal Challenge: Commit Vote", () => {
     return (
       <Container>
-        <AppealChallengeCommitVoteCard />
+        <AppealChallengeCommitVoteCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          tokenBalance={tokenBalance}
+          salt={commitVoteState.salt}
+          numTokens={commitVoteState.numTokens}
+          onInputChange={commitVoteChange}
+          submit={commitVoteSubmit}
+        />
       </Container>
     );
   })
   .add("Appeal Challenge: Reveal Vote", () => {
     return (
       <Container>
-        <AppealChallengeRevealVoteCard />
+        <AppealChallengeRevealVoteCard endTime={endTime} phaseLength={phaseLength} />
       </Container>
     );
   })
   .add("Whitelisted", () => {
     return (
       <Container>
-        <WhitelistedCard />
+        <WhitelistedCard transactions={[]} />
       </Container>
     );
   })
   .add("Rejected", () => {
     return (
       <Container>
-        <RejectedCard />
+        <RejectedCard
+          totalVotes={totalVotes}
+          votesFor={votesFor}
+          votesAgainst={votesAgainst}
+          percentFor={percentFor}
+          percentAgainst={percentAgainst}
+        />
       </Container>
     );
   });

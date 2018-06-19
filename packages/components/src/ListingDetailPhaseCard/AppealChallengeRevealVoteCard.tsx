@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -14,19 +14,17 @@ import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults } from "./ChallengeResults";
 import { RevealVote } from "./RevealVote";
 
-export class AppealChallengeRevealVoteCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+export class AppealChallengeRevealVoteCard extends React.Component<
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps
+> {
   public render(): JSX.Element {
-    const now = Date.now() / 1000;
-    const oneDay = 86400;
-    const endTime = now + oneDay * 4.25;
-    const phaseLength = oneDay * 7;
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>Challenge Appeal Decision</StyledPhaseDisplayName>
           <ProgressBarCountdownTimer
-            endTime={endTime}
-            totalSeconds={phaseLength}
+            endTime={this.props.endTime}
+            totalSeconds={this.props.phaseLength}
             displayLabel="Revealing votes"
             flavorText="under challenge"
           />

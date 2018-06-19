@@ -1,4 +1,5 @@
 import { EthAddress } from "@joincivil/core";
+import BigNumber from "bignumber.js";
 
 export interface ListingDetailPhaseCardComponentProps {
   challenge?: any;
@@ -23,4 +24,13 @@ export interface ChallengeResultsProps {
   votesAgainst: string;
   percentFor: string;
   percentAgainst: string;
+}
+
+export interface CommitVoteProps {
+  // challengeID: BigNumber;
+  tokenBalance: number;
+  salt: string | undefined;
+  numTokens: number | undefined;
+  onInputChange(propsData: any): void;
+  submit(): void;
 }

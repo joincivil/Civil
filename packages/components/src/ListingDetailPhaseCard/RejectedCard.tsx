@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, ChallengeResultsProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -13,7 +13,7 @@ import { buttonSizes, Button, InvertedButton } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults } from "./ChallengeResults";
 
-export class RejectedCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+export class RejectedCard extends React.Component<ListingDetailPhaseCardComponentProps & ChallengeResultsProps> {
   public render(): JSX.Element {
     return (
       <StyledListingDetailPhaseCardContainer>
@@ -27,7 +27,13 @@ export class RejectedCard extends React.Component<ListingDetailPhaseCardComponen
           <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <ChallengeResults />
+          <ChallengeResults
+            totalVotes={this.props.totalVotes}
+            votesFor={this.props.votesFor}
+            votesAgainst={this.props.votesAgainst}
+            percentFor={this.props.percentFor}
+            percentAgainst={this.props.percentAgainst}
+          />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );

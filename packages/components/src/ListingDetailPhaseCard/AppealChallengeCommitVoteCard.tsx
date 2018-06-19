@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, CommitVoteProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -14,19 +14,17 @@ import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults } from "./ChallengeResults";
 import { CommitVote } from "./CommitVote";
 
-export class AppealChallengeCommitVoteCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+export class AppealChallengeCommitVoteCard extends React.Component<
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & CommitVoteProps
+> {
   public render(): JSX.Element {
-    const now = Date.now() / 1000;
-    const oneDay = 86400;
-    const endTime = now + oneDay * 4.25;
-    const phaseLength = oneDay * 7;
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>Challenge Appeal Decision</StyledPhaseDisplayName>
           <ProgressBarCountdownTimer
-            endTime={endTime}
-            totalSeconds={phaseLength}
+            endTime={this.props.endTime}
+            totalSeconds={this.props.phaseLength}
             displayLabel="Accepting votes"
             flavorText="under challenge"
           />
@@ -44,7 +42,13 @@ export class AppealChallengeCommitVoteCard extends React.Component<ListingDetail
           <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CommitVote />
+          <CommitVote
+            tokenBalance={this.props.tokenBalance}
+            salt={this.props.salt}
+            numTokens={this.props.numTokens}
+            onInputChange={this.props.onInputChange}
+            submit={this.props.submit}
+          />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );

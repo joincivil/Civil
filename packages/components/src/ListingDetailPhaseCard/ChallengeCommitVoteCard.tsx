@@ -1,5 +1,10 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, ChallengePhaseProps } from "./types";
+import {
+  ListingDetailPhaseCardComponentProps,
+  PhaseWithExpiryProps,
+  ChallengePhaseProps,
+  CommitVoteProps,
+} from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -11,7 +16,7 @@ import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
 
 export class ChallengeCommitVoteCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & CommitVoteProps
 > {
   public render(): JSX.Element {
     return (
@@ -38,7 +43,13 @@ export class ChallengeCommitVoteCard extends React.Component<
           <MetaItemLabel>Stake</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CommitVote />
+          <CommitVote
+            tokenBalance={this.props.tokenBalance}
+            salt={this.props.salt}
+            numTokens={this.props.numTokens}
+            onInputChange={this.props.onInputChange}
+            submit={this.props.submit}
+          />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );

@@ -15,7 +15,7 @@ export const InputLabel = styled.label`
 `;
 
 export interface InputBaseProps {
-  className?: string;
+  className?: string | undefined;
   icon?: JSX.Element;
   label?: string;
   noLabel?: boolean;
@@ -70,6 +70,13 @@ const InputBase = styled(InputBaseComponent)`
   > input:focus {
     border-bottom: 1px solid ${colors.accent.CIVIL_BLUE};
   }
+  &.error {
+    color: ${colors.accent.CIVIL_RED};
+  }
+  &.error > input {
+    color: ${colors.accent.CIVIL_RED};
+    border-color: ${colors.accent.CIVIL_RED};
+  }
 `;
 
 export interface InputProps {
@@ -77,6 +84,7 @@ export interface InputProps {
   value?: string;
   placeholder?: string;
   label?: string;
+  className?: string | undefined;
   noLabel?: boolean;
   onChange(name: string, value: string): any;
 }
