@@ -39,3 +39,9 @@ export interface RevealVoteProps {
   transactions: any[];
   onInputChange(propsData: any, validateFn?: () => boolean): void;
 }
+
+export interface RevealVoteProps {
+  salt: string | undefined;
+  transactions: any[];
+  onInputChange(propsData: any): void;
+}
