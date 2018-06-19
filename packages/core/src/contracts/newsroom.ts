@@ -5,7 +5,6 @@ import {
   is0x0Address,
   is0x0Hash,
   prepareNewsroomMessage,
-  prepareUserFriendlyNewsroomMessage,
   recoverSigner,
 } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
@@ -629,18 +628,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       author,
       contentHash,
       signature,
-      newsroomAddress: this.address,
-    };
-  }
-
-  public async approveByAuthorPersonalSign(contentHash: Hex): Promise<ApprovedRevision> {
-    const author = requireAccount(this.ethApi);
-    const message = prepareUserFriendlyNewsroomMessage(this.address, contentHash);
-    const result = await this.ethApi.signPersonalMessage(message, author);
-    return {
-      author,
-      contentHash,
-      signature: result,
       newsroomAddress: this.address,
     };
   }
