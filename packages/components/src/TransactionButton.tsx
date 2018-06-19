@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { TwoStepEthTransaction } from "@joincivil/core";
-import { Button, InvertedButton, buttonSizes } from "./Button";
+import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
 import {
   ProgressModalContentInProgress,
@@ -88,6 +88,21 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
           </InvertedButton>
         </>
       );
+    } else if (this.props.style && this.props.style === "dark") {
+      return (
+        <>
+          {this.state.error}
+          <DarkButton
+            onClick={this.onClick}
+            disabled={this.state.disableButton}
+            size={this.props.size || buttonSizes.MEDIUM}
+          >
+            {this.state.step === 1 && "Waiting for Transaction..."}
+            {this.state.step === 2 && "Transaction Processing..."}
+            {this.state.step === 0 && this.props.children}
+          </DarkButton>
+        </>
+      );
     }
     return (
       <>
@@ -151,14 +166,37 @@ export class TransactionButton extends React.Component<
   }
 
   public render(): JSX.Element {
-    const { modalComponent, modalContentComponents, transactions, ...other } = this.props;
+    const {
+      modalComponent,
+      modalContentComponents,
+      transactions,
+      preExecuteTransactions,
+      postExecuteTransactions,
+      ...other
+    } = this.props;
     const progressModal = this.getProgressModalEl(modalComponent, modalContentComponents);
     const extendedTransactions = this.extendTransactionsErrorHandlers(transactions);
+    let extendedPreExecuteTransactions = this.showProgressModal;
+    let extendedPostExecuteTransactions = this.showProgressModalSuccess;
+
+    if (!!preExecuteTransactions) {
+      extendedPreExecuteTransactions = (): void => {
+        preExecuteTransactions();
+        this.showProgressModal();
+      };
+    }
+    if (!!postExecuteTransactions) {
+      extendedPostExecuteTransactions = (): void => {
+        postExecuteTransactions();
+        this.showProgressModalSuccess();
+      };
+    }
+
     return (
       <>
         <TransactionButtonNoModal
-          preExecuteTransactions={this.showProgressModal}
-          postExecuteTransactions={this.showProgressModalSuccess}
+          preExecuteTransactions={extendedPreExecuteTransactions}
+          postExecuteTransactions={extendedPostExecuteTransactions}
           transactions={extendedTransactions}
           {...other}
         />

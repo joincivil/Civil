@@ -48,7 +48,7 @@ export class ChallengeCommitVoteCard extends React.Component<
             salt={this.props.salt}
             numTokens={this.props.numTokens}
             onInputChange={this.props.onInputChange}
-            submit={this.props.submit}
+            transactions={this.props.transactions}
           />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>

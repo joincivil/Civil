@@ -1,8 +1,9 @@
 import * as React from "react";
 import { EthAddress } from "@joincivil/core";
-import { buttonSizes, DarkButton } from "../Button";
+import { buttonSizes } from "../Button";
 import { InputGroup, TextInput } from "../input/";
 import { CommitVoteProps } from "./types";
+import { TransactionButton } from "../TransactionButton";
 import {
   FormHeader,
   FormCopy,
@@ -40,13 +41,23 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         {this.renderSaltInput()}
 
         <VoteOptionsContainer>
-          <DarkButton size={buttonSizes.MEDIUM} onClick={this.submitRemain}>
+          <TransactionButton
+            size={buttonSizes.MEDIUM}
+            style="dark"
+            preExecuteTransactions={this.setVoteToRemain}
+            transactions={this.props.transactions}
+          >
             ✔ Remain
-          </DarkButton>
+          </TransactionButton>
           <StyledOrText>or</StyledOrText>
-          <DarkButton size={buttonSizes.MEDIUM} onClick={this.submitRemove}>
+          <TransactionButton
+            size={buttonSizes.MEDIUM}
+            style="dark"
+            preExecuteTransactions={this.setVoteToRemove}
+            transactions={this.props.transactions}
+          >
             ✖ Remove
-          </DarkButton>
+          </TransactionButton>
         </VoteOptionsContainer>
       </>
     );
@@ -93,24 +104,20 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     );
   };
 
-  private onChange = (event: any): void => {
-    const paramName = event.target.getAttribute("name");
-    const val = event.target.value;
-    this.props.onInputChange({ [paramName]: val });
+  private onChange = (name: string, value: string): void => {
+    this.props.onInputChange({ [name]: value });
   };
 
-  private submitRemain = (event: any): void => {
+  private setVoteToRemain = (): void => {
     // A "remain" vote is a vote that doesn't support the
     // challenge, so `voteOption === 0`
     this.props.onInputChange({ voteOption: "0" });
-    this.submit();
   };
 
-  private submitRemove = (event: any): void => {
+  private setVoteToRemove = (): void => {
     // A "remove" vote is a vote that supports the
     // challenge, so `voteOption === 1`
     this.props.onInputChange({ voteOption: "1" });
-    this.submit();
   };
 
   private validateSalt = (): boolean => {
@@ -129,7 +136,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private validateNumTokens = (): boolean => {
-    const numTokens = this.props.numTokens;
+    const numTokens = !this.props.numTokens ? 0 : parseInt(this.props.numTokens as string, 10);
     let isValid = true;
 
     if (!numTokens || numTokens === 0) {
@@ -154,7 +161,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     const isNumTokensValid = this.validateNumTokens();
 
     if (isSaltValid && isNumTokensValid) {
-      this.props.submit();
+      // this.props.submit();
     }
   };
 }

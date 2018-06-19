@@ -40,10 +40,10 @@ export interface ChallengeDetailProps {
   govtParameters: any;
   userChallengeData?: UserChallengeData;
   user?: EthAddress;
+  balance?: BigNumber;
 }
 
 export interface ChallengeVoteState {
-  isVoteTokenAmtValid: boolean;
   voteOption?: string;
   salt?: string;
   numTokens?: string;
@@ -54,7 +54,9 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     super(props);
 
     this.state = {
-      isVoteTokenAmtValid: false,
+      voteOption: undefined,
+      salt: undefined,
+      numTokens: undefined,
     };
   }
 
@@ -81,6 +83,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const endTime = this.props.challenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
+    const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
     const transactions = [{ transaction: this.requestVotingRights }, { transaction: this.commitVoteOnChallenge }];
 
     if (!challenge) {
@@ -94,6 +97,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
+        onInputChange={this.updateCommitVoteState}
+        tokenBalance={tokenBalance}
+        salt={this.state.salt}
+        numTokens={this.state.numTokens}
         transactions={transactions}
       />
     );
@@ -167,6 +174,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     );
   }
 
+  private updateCommitVoteState = (data: any): void => {
+    this.setState({ ...data });
+  };
+
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return appealChallenge(this.props.listingAddress);
   };
@@ -237,6 +248,7 @@ export interface ChallengeContainerReduxProps {
   userChallengeData?: UserChallengeData | undefined;
   challengeDataRequestStatus?: any;
   user: EthAddress;
+  balance: BigNumber;
 }
 
 const mapStateToProps = (
@@ -271,6 +283,7 @@ const mapStateToProps = (
     userChallengeData,
     challengeDataRequestStatus,
     user: userAcct,
+    balance: user.account.balance,
     parameters,
     govtParameters,
     ...ownProps,

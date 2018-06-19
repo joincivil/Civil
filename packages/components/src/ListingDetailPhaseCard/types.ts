@@ -27,10 +27,9 @@ export interface ChallengeResultsProps {
 }
 
 export interface CommitVoteProps {
-  // challengeID: BigNumber;
   tokenBalance: number;
   salt: string | undefined;
-  numTokens: number | undefined;
+  numTokens: string | undefined;
+  transactions: any[];
   onInputChange(propsData: any): void;
-  submit(): void;
 }

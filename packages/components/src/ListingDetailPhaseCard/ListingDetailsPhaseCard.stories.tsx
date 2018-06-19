@@ -45,16 +45,12 @@ const percentAgainst = "27";
 const tokenBalance = 10000;
 let commitVoteState = {
   salt: "",
-  numTokens: tokenBalance,
+  numTokens: tokenBalance.toString(),
   voteOption: undefined,
 };
 
 function commitVoteChange(data: any): void {
   commitVoteState = { ...commitVoteState, ...data };
-}
-
-function commitVoteSubmit(): void {
-  console.log("Commit Vote!", commitVoteState);
 }
 
 storiesOf("Listing Details Phase Card", module)
@@ -79,7 +75,7 @@ storiesOf("Listing Details Phase Card", module)
           salt={commitVoteState.salt}
           numTokens={commitVoteState.numTokens}
           onInputChange={commitVoteChange}
-          submit={commitVoteSubmit}
+          transactions={[]}
         />
       </Container>
     );
@@ -161,7 +157,7 @@ storiesOf("Listing Details Phase Card", module)
           salt={commitVoteState.salt}
           numTokens={commitVoteState.numTokens}
           onInputChange={commitVoteChange}
-          submit={commitVoteSubmit}
+          transactions={[]}
         />
       </Container>
     );
