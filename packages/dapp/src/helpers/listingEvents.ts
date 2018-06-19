@@ -1,7 +1,7 @@
 import { Dispatch } from "react-redux";
 import { getTCR, getCivil } from "./civilInstance";
 import { addListing } from "../actionCreators/listings";
-import { addChallenge, addUserChallengeData } from "../actionCreators/challenges";
+import { addChallenge, addUserChallengeData, addUserAppealChallengeData } from "../actionCreators/challenges";
 import { addUserNewsroom } from "../actionCreators/newsrooms";
 import { addNewsroom } from "@joincivil/newsroom-manager";
 import { EthAddress, ListingWrapper, getNextTimerExpiry } from "@joincivil/core";
@@ -35,11 +35,18 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
   challengeSubscriptions = tcr
     .getVoting()
     .votesCommitted(0, user)
-    .subscribe(async (challengeId: BigNumber) => {
+    .subscribe(async (pollID: BigNumber) => {
+      const challengeId = await tcr.getChallengeIDForPollID(pollID);
       const wrappedChallenge = await tcr.getChallengeData(challengeId);
       dispatch(addChallenge(wrappedChallenge));
       const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
       dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
+
+      // if the challenge ID corresponds to an appeal challenge, get any user data for it
+      if (!pollID.equals(challengeId)) {
+        const appealChallengeUserData = await tcr.getUserChallengeData(pollID, user);
+        dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
+      }
     });
 }
 
