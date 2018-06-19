@@ -11,7 +11,6 @@ import {
 import { recoverPersonalSignature } from "eth-sig-util";
 import { soliditySHA3 } from "ethereumjs-abi";
 import { Hex, EthSignedMessageRecovery, EthAddress } from "@joincivil/typescript-types";
-import { functionTypeAnnotation } from "babel-types";
 
 const SIGN_PREFFIX = "\u0019Ethereum Signed Message:\n";
 
