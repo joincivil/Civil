@@ -4,7 +4,7 @@ exports[`Storyshots Inputs Currency Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fYxtnH jrZHMe",
+      "class": "sc-fYxtnH jxuYdh",
     },
     "children": Array [
       Object {
@@ -329,7 +329,7 @@ exports[`Storyshots Inputs Header Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-tilXH clASrO sc-fYxtnH jrZHMe",
+      "class": "sc-tilXH clASrO sc-fYxtnH jxuYdh",
     },
     "children": Array [
       Object {
@@ -469,6 +469,488 @@ initialize {
 }
 `;
 
+exports[`Storyshots Inputs Input Group 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "class": "sc-hEsumM jMPfBg",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {
+          "class": "sc-jnlKLf hmCXMa",
+        },
+        "children": Array [
+          Object {
+            "data": "Input Group with Prepend Text",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "label",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
+          "attribs": Object {
+            "class": "sc-ktHwxA shCMD",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-cIShpX cwJsid",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kafWEX crmSOM",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "CVL",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-fYxtnH jxuYdh",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "name": "TextInput",
+                      "placeholder": "Enter a value",
+                      "type": "text",
+                    },
+                    "children": Array [],
+                    "name": "input",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "name": undefined,
+                      "placeholder": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "name": undefined,
+                      "placeholder": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            Object {
+              "attribs": Object {
+                "class": "sc-fYxtnH jxuYdh",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "name": "TextInput",
+                    "placeholder": "Enter a value",
+                    "type": "text",
+                  },
+                  "children": Array [],
+                  "name": "input",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "name": undefined,
+                    "placeholder": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "name": undefined,
+                    "placeholder": undefined,
+                    "type": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": Object {
+                "attribs": Object {
+                  "class": "sc-cIShpX cwJsid",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kafWEX crmSOM",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "CVL",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "span",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+      Object {
+        "attribs": Object {
+          "class": "sc-ktHwxA shCMD",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-cIShpX cwJsid",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "class": "sc-kafWEX crmSOM",
+                },
+                "children": Array [
+                  Object {
+                    "data": "CVL",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "span",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-fYxtnH jxuYdh",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "name": "TextInput",
+                    "placeholder": "Enter a value",
+                    "type": "text",
+                  },
+                  "children": Array [],
+                  "name": "input",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "name": undefined,
+                    "placeholder": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "name": undefined,
+                    "placeholder": undefined,
+                    "type": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-fYxtnH jxuYdh",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "name": "TextInput",
+                  "placeholder": "Enter a value",
+                  "type": "text",
+                },
+                "children": Array [],
+                "name": "input",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "name": undefined,
+                  "placeholder": undefined,
+                  "type": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "name": undefined,
+                  "placeholder": undefined,
+                  "type": undefined,
+                },
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-cIShpX cwJsid",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kafWEX crmSOM",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "CVL",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": Object {
+          "attribs": Object {
+            "class": "sc-jnlKLf hmCXMa",
+          },
+          "children": Array [
+            Object {
+              "data": "Input Group with Prepend Text",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "label",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 1,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;
+
 exports[`Storyshots Inputs Radio Input 1`] = `
 initialize {
   "0": Object {
@@ -476,7 +958,7 @@ initialize {
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-ktHwxA eplczG",
+          "class": "sc-iELTvK jdgngQ",
         },
         "children": Array [
           Object {
@@ -499,7 +981,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -611,7 +1093,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -723,7 +1205,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hEsumM ieYFjO",
+                        "class": "sc-feJyhm BXalm",
                       },
                       "children": Array [
                         Object {
@@ -835,7 +1317,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-hEsumM ieYFjO",
+                          "class": "sc-feJyhm BXalm",
                         },
                         "children": Array [
                           Object {
@@ -988,7 +1470,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -1100,7 +1582,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -1212,7 +1694,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hEsumM ieYFjO",
+                        "class": "sc-feJyhm BXalm",
                       },
                       "children": Array [
                         Object {
@@ -1346,7 +1828,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -1477,7 +1959,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -1589,7 +2071,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -1713,7 +2195,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -1827,7 +2309,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hEsumM ieYFjO",
+                        "class": "sc-feJyhm BXalm",
                       },
                       "children": Array [
                         Object {
@@ -1966,7 +2448,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -2080,7 +2562,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -2194,7 +2676,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hEsumM ieYFjO",
+                        "class": "sc-feJyhm BXalm",
                       },
                       "children": Array [
                         Object {
@@ -2308,7 +2790,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-hEsumM ieYFjO",
+                          "class": "sc-feJyhm BXalm",
                         },
                         "children": Array [
                           Object {
@@ -2478,7 +2960,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-hEsumM ieYFjO",
+                  "class": "sc-feJyhm BXalm",
                 },
                 "children": Array [
                   Object {
@@ -2590,7 +3072,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -2702,7 +3184,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -2814,7 +3296,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hEsumM ieYFjO",
+                        "class": "sc-feJyhm BXalm",
                       },
                       "children": Array [
                         Object {
@@ -2967,7 +3449,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hEsumM ieYFjO",
+                  "class": "sc-feJyhm BXalm",
                 },
                 "children": Array [
                   Object {
@@ -3079,7 +3561,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -3191,7 +3673,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -3325,7 +3807,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -3456,7 +3938,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hEsumM ieYFjO",
+                  "class": "sc-feJyhm BXalm",
                 },
                 "children": Array [
                   Object {
@@ -3568,7 +4050,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -3692,7 +4174,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -3806,7 +4288,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -3945,7 +4427,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hEsumM ieYFjO",
+                  "class": "sc-feJyhm BXalm",
                 },
                 "children": Array [
                   Object {
@@ -4059,7 +4541,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hEsumM ieYFjO",
+                    "class": "sc-feJyhm BXalm",
                   },
                   "children": Array [
                     Object {
@@ -4173,7 +4655,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hEsumM ieYFjO",
+                      "class": "sc-feJyhm BXalm",
                     },
                     "children": Array [
                       Object {
@@ -4287,7 +4769,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hEsumM ieYFjO",
+                        "class": "sc-feJyhm BXalm",
                       },
                       "children": Array [
                         Object {
@@ -4520,7 +5002,7 @@ exports[`Storyshots Inputs Text Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fYxtnH jrZHMe",
+      "class": "sc-fYxtnH jxuYdh",
     },
     "children": Array [
       Object {
