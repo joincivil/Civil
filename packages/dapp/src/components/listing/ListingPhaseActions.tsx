@@ -48,7 +48,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     const canResolve = canResolveChallenge(challenge!);
     return (
       <>
-        {isWhitelisted && this.renderApplicationWhitelisted()}
+        {isWhitelisted && !challenge && this.renderApplicationWhitelisted()}
         {isInApplication && this.renderApplicationPhase()}
         {this.props.listing.data && (
           <>
