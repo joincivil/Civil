@@ -23,7 +23,7 @@ export class ChallengeRequestAppealCard extends React.Component<
           <ProgressBarCountdownTimer
             endTime={this.props.endTime}
             totalSeconds={this.props.phaseLength}
-            displayLabel="Revealing votes"
+            displayLabel="Accepting Appeal Requests"
             flavorText="under challenge"
           />
         </StyledListingDetailPhaseCardSection>
