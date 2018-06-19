@@ -41,23 +41,17 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         {this.renderSaltInput()}
 
         <VoteOptionsContainer>
-          <TransactionButton
-            size={buttonSizes.MEDIUM}
-            style="dark"
-            preExecuteTransactions={this.setVoteToRemain}
-            transactions={this.props.transactions}
-          >
-            ✔ Remain
-          </TransactionButton>
+          <div onMouseEnter={this.setVoteToRemain}>
+            <TransactionButton size={buttonSizes.MEDIUM} style="dark" transactions={this.props.transactions}>
+              ✔ Remain
+            </TransactionButton>
+          </div>
           <StyledOrText>or</StyledOrText>
-          <TransactionButton
-            size={buttonSizes.MEDIUM}
-            style="dark"
-            preExecuteTransactions={this.setVoteToRemove}
-            transactions={this.props.transactions}
-          >
-            ✖ Remove
-          </TransactionButton>
+          <div onMouseEnter={this.setVoteToRemove}>
+            <TransactionButton size={buttonSizes.MEDIUM} style="dark" transactions={this.props.transactions}>
+              ✖ Remove
+            </TransactionButton>
+          </div>
         </VoteOptionsContainer>
       </>
     );

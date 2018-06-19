@@ -74,7 +74,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
         {appealExists && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal!} />}
         {canShowResult && this.renderVoteResult()}
-        {canShowRewardsForm && this.renderRewardsDetail()}
+        {canShowRewardsForm &&
+          !isChallengeInCommitStage(challenge) &&
+          !isChallengeInRevealStage(challenge) &&
+          this.renderRewardsDetail()}
       </>
     );
   }
@@ -123,6 +126,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
+        salt={this.state.salt}
+        onInputChange={this.updateCommitVoteState}
         transactions={transactions}
       />
     );
@@ -175,7 +180,9 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   }
 
   private updateCommitVoteState = (data: any): void => {
-    this.setState({ ...data });
+    this.setState({ ...data }, () => {
+      console.log(this.state);
+    });
   };
 
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {

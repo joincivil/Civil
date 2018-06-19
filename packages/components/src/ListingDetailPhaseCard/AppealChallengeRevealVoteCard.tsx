@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, RevealVoteProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -15,7 +15,7 @@ import { ChallengeResults } from "./ChallengeResults";
 import { RevealVote } from "./RevealVote";
 
 export class AppealChallengeRevealVoteCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & RevealVoteProps
 > {
   public render(): JSX.Element {
     return (
@@ -40,7 +40,11 @@ export class AppealChallengeRevealVoteCard extends React.Component<
           <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <RevealVote />
+          <RevealVote
+            salt={this.props.salt}
+            onInputChange={this.props.onInputChange}
+            transactions={this.props.transactions}
+          />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );

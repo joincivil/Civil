@@ -89,6 +89,9 @@ storiesOf("Listing Details Phase Card", module)
           challenger={challenger}
           rewardPool={rewardPool}
           stake={stake}
+          salt={commitVoteState.salt}
+          onInputChange={commitVoteChange}
+          transactions={[]}
         />
       </Container>
     );
@@ -165,7 +168,13 @@ storiesOf("Listing Details Phase Card", module)
   .add("Appeal Challenge: Reveal Vote", () => {
     return (
       <Container>
-        <AppealChallengeRevealVoteCard endTime={endTime} phaseLength={phaseLength} />
+        <AppealChallengeRevealVoteCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          salt={commitVoteState.salt}
+          onInputChange={commitVoteChange}
+          transactions={[]}
+        />
       </Container>
     );
   })

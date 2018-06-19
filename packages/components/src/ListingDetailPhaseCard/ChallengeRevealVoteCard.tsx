@@ -1,5 +1,10 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, ChallengePhaseProps } from "./types";
+import {
+  ListingDetailPhaseCardComponentProps,
+  PhaseWithExpiryProps,
+  ChallengePhaseProps,
+  RevealVoteProps,
+} from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -11,7 +16,7 @@ import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { RevealVote } from "./RevealVote";
 
 export class ChallengeRevealVoteCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & RevealVoteProps
 > {
   public render(): JSX.Element {
     return (
@@ -38,7 +43,11 @@ export class ChallengeRevealVoteCard extends React.Component<
           <MetaItemLabel>Stake</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <RevealVote />
+          <RevealVote
+            salt={this.props.salt}
+            onInputChange={this.props.onInputChange}
+            transactions={this.props.transactions}
+          />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );

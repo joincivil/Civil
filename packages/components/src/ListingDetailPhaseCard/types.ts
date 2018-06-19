@@ -33,3 +33,9 @@ export interface CommitVoteProps {
   transactions: any[];
   onInputChange(propsData: any): void;
 }
+
+export interface RevealVoteProps {
+  salt: string | undefined;
+  transactions: any[];
+  onInputChange(propsData: any): void;
+}
