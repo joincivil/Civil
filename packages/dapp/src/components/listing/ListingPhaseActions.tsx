@@ -22,7 +22,7 @@ import {
   // AppealChallengeCommitVoteCard,
   // AppealChallengeRevealVoteCard,
   WhitelistedCard,
-  // RejectedCard,
+  RejectedCard,
 } from "@joincivil/components";
 
 export interface ListingPhaseActionsProps {
@@ -50,6 +50,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     return (
       <>
         {isWhitelisted && !challenge && this.renderApplicationWhitelisted()}
+        {!isWhitelisted && !isInApplication && this.renderRejected()}
         {isInApplication && this.renderApplicationPhase()}
         {this.props.listing.data && (
           <>
@@ -100,6 +101,18 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   private renderApplicationWhitelisted(): JSX.Element {
     const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
     return <WhitelistedCard transactions={transactions} />;
+  }
+
+  private renderRejected(): JSX.Element {
+    return (
+      <RejectedCard
+        totalVotes={"100000"}
+        votesFor={"27000"}
+        votesAgainst={"73000"}
+        percentFor={"27"}
+        percentAgainst={"73"}
+      />
+    );
   }
 
   private renderApplicationPhase(): JSX.Element | null {

@@ -15,7 +15,7 @@ export const InputLabel = styled.label`
 `;
 
 export interface InputBaseProps {
-  className?: string;
+  className?: string | undefined;
   icon?: JSX.Element;
   label?: string;
   noLabel?: boolean;
