@@ -1,4 +1,5 @@
 import { EthAddress } from "@joincivil/core";
+import BigNumber from "bignumber.js";
 
 export interface ListingDetailPhaseCardComponentProps {
   challenge?: any;
