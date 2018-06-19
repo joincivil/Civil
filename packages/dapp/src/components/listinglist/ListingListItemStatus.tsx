@@ -43,8 +43,10 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
         <SectionHeader>STATUS</SectionHeader>
         <br />
         {this.renderStatus()}
-        {this.renderUserChallengeActions()}
-        {this.renderUserAppealChallengeActions()}
+        <dl>
+          {this.renderUserChallengeActions()}
+          {this.renderUserAppealChallengeActions()}
+        </dl>
       </StyledDiv>
     );
   }
@@ -88,17 +90,8 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
     if (challenge) {
       return (
         <>
-          <br />
-          {challenge.didUserCommit && (
-            <>
-              USER DID COMMIT<br />
-            </>
-          )}
-          {challenge.didUserReveal && (
-            <>
-              USER DID REVEAL<br />
-            </>
-          )}
+          {challenge.didUserCommit && <dt>USER DID COMMIT</dt>}
+          {challenge.didUserReveal && <dt>USER DID REVEAL</dt>}
         </>
       );
     }
@@ -110,17 +103,8 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
     if (challenge) {
       return (
         <>
-          <br />
-          {challenge.didUserCommit && (
-            <>
-              USER DID COMMIT ON APPEAL CHALLENGE<br />
-            </>
-          )}
-          {challenge.didUserReveal && (
-            <>
-              USER DID REVEAL ON APPEAL CHALLENGE<br />
-            </>
-          )}
+          {challenge.didUserCommit && <dt>USER DID COMMIT ON APPEAL CHALLENGE</dt>}
+          {challenge.didUserReveal && <dt>USER DID REVEAL ON APPEAL CHALLENGE</dt>}
         </>
       );
     }

@@ -36,8 +36,7 @@ export function challengesVotedOnByUser(
       if (!userSet) {
         userSet = Set<string>();
       }
-      const userSet2 = userSet.add(action.data.challengeID);
-      return state.set(action.data.user, userSet2);
+      return state.set(action.data.user, userSet.add(action.data.challengeID));
     default:
       return state;
   }
@@ -49,12 +48,13 @@ export function challengeUserData(
 ): Map<string, Map<string, UserChallengeData>> {
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA:
-      let challengeMap = state.get(action.data.challengeID);
-      if (!challengeMap) {
-        challengeMap = Map<string, UserChallengeData>();
+      if (!state.contains(action.data.challengeID)) {
+        return state.set(
+          action.data.challengeID,
+          Map<string, UserChallengeData>([[action.data.user.toString(), action.data.userChallengeData]]),
+        );
       }
-      const challengeMap2 = challengeMap.set(action.data.user, action.data.userChallengeData);
-      return state.set(action.data.challengeID, challengeMap2);
+      return state.setIn([action.data.challengeID, action.data.user], action.data.userChallengeData);
     default:
       return state;
   }
@@ -66,12 +66,13 @@ export function appealChallengeUserData(
 ): Map<string, Map<string, UserChallengeData>> {
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA:
-      let challengeMap = state.get(action.data.challengeID);
-      if (!challengeMap) {
-        challengeMap = Map<string, UserChallengeData>();
+      if (!state.contains(action.data.challengeID)) {
+        return state.set(
+          action.data.challengeID,
+          Map<string, UserChallengeData>([[action.data.user.toString(), action.data.userChallengeData]]),
+        );
       }
-      const challengeMap2 = challengeMap.set(action.data.user, action.data.userChallengeData);
-      return state.set(action.data.challengeID, challengeMap2);
+      return state.setIn([action.data.challengeID, action.data.user], action.data.userChallengeData);
     default:
       return state;
   }

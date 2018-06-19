@@ -38,36 +38,40 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
 
   public render(): JSX.Element {
     const { listingAddress: address, listing, newsroom } = this.props;
-    const newsroomData = newsroom!.wrapper.data;
-    const listingData = listing && listing.data;
-    const description =
-      "This will be a great description someday, but until then The Dude Abides. um i to you you call duder or so thats the dude thats what i am brevity thing um i let me duder or";
-    const listingDetailURL = `/listing/${address}`;
-    const isInApplication = listingData && isInApplicationPhase(listingData);
-    const canBeChallenged = listingData && canListingBeChallenged(listingData);
-    const inChallengePhase = listingData && listingData.challenge && isChallengeInCommitStage(listingData.challenge);
-    const inRevealPhase = listing && listing.data.challenge && isChallengeInRevealStage(listing.data.challenge);
-    const appExpiry = listingData && listingData.appExpiry && listingData.appExpiry.toNumber();
+    if (listing && listing.data && newsroom) {
+      const newsroomData = newsroom.wrapper.data;
+      const listingData = listing.data;
+      const description =
+        "This will be a great description someday, but until then The Dude Abides. um i to you you call duder or so thats the dude thats what i am brevity thing um i let me duder or";
+      const listingDetailURL = `/listing/${address}`;
+      const isInApplication = isInApplicationPhase(listingData);
+      const canBeChallenged = canListingBeChallenged(listingData);
+      const inChallengePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
+      const inRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
+      const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
 
-    const pollData = listingData && listingData!.challenge && listingData!.challenge!.poll;
-    const commitEndDate = pollData && pollData!.commitEndDate.toNumber();
-    const revealEndDate = pollData && pollData!.revealEndDate.toNumber();
+      const pollData = listingData.challenge && listingData.challenge.poll;
+      const commitEndDate = pollData && pollData.commitEndDate.toNumber();
+      const revealEndDate = pollData && pollData.revealEndDate.toNumber();
 
-    const listingViewProps = {
-      ...newsroomData,
-      address,
-      description,
-      listingDetailURL,
-      isInApplication,
-      canBeChallenged,
-      inChallengePhase,
-      inRevealPhase,
-      appExpiry,
-      commitEndDate,
-      revealEndDate,
-    };
+      const listingViewProps = {
+        ...newsroomData,
+        address,
+        description,
+        listingDetailURL,
+        isInApplication,
+        canBeChallenged,
+        inChallengePhase,
+        inRevealPhase,
+        appExpiry,
+        commitEndDate,
+        revealEndDate,
+      };
 
-    return <ListingSummaryComponent {...listingViewProps} />;
+      return <ListingSummaryComponent {...listingViewProps} />;
+    } else {
+      return <></>;
+    }
   }
 }
 
@@ -124,6 +128,7 @@ const mapStateToProps = (
     userChallengeData,
     userAppealChallengeData,
     ...ownProps,
+    listingAddress,
   };
 };
 
