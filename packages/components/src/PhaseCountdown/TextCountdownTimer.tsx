@@ -2,7 +2,7 @@ import * as React from "react";
 import { getLocalDateTimeStrings, getReadableDuration } from "@joincivil/utils";
 import { colors, fonts } from "../styleConstants";
 import styled, { StyledComponentClass } from "styled-components";
-import { CountdownTimerProps, InjectedCountdownTimerProps, CountdownTimerState } from "./types";
+import { CountdownTimerProps, InjectedCountdownTimerProps } from "./types";
 
 const StyledCountdownTimerContainer = styled.div`
   font: normal 16px/19px ${fonts.SANS_SERIF};

@@ -1,6 +1,6 @@
 import { CountdownTimerProps, InjectedCountdownTimerProps, CountdownTimerState } from "./types";
 import { TextCountdownTimerComponent } from "./TextCountdownTimer";
-import { ProgressBarCountdownTimerComponent, ProgressBarCountdownProps } from "./ProgressBarCountdownTimer";
+import { ProgressBarCountdownTimerComponent } from "./ProgressBarCountdownTimer";
 import * as React from "react";
 
 const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimerProps>(

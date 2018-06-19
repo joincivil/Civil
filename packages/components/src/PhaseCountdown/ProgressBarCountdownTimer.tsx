@@ -2,7 +2,7 @@ import * as React from "react";
 import { getLocalDateTimeStrings, getReadableDuration } from "@joincivil/utils";
 import { colors, fonts } from "../styleConstants";
 import styled, { StyledComponentClass } from "styled-components";
-import { CountdownTimerProps, InjectedCountdownTimerProps, CountdownTimerState } from "./types";
+import { CountdownTimerProps, InjectedCountdownTimerProps } from "./types";
 
 const ProgressBarCountdownContainer = styled.div`
   margin: 0 0 24px;
@@ -53,17 +53,6 @@ const MetaItemLabel = styled.div`
 const ProgressBarCopy = styled.div`
   font-size: 16px;
   line-height: 26px;
-`;
-const StyledCountdownLabel = styled.span`
-  color: ${colors.primary.BLACK};
-`;
-const StyledCountdownLabelWarn = StyledCountdownLabel.extend`
-  color: ${colors.accent.CIVIL_RED};
-`;
-const StyledExpiry = styled.div`
-  font-size: 14px;
-  line-height: 17px;
-  margin: 2px 0 0;
 `;
 
 export interface ProgressBarCountdownProps {
