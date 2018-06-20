@@ -243,3 +243,23 @@ export class TransactionButton extends React.Component<
     this.setState({ isProgressModalVisible: false });
   };
 }
+
+export class TransactionDarkButton extends React.Component<
+  TransactionButtonProps & TransactionButtonModalProps,
+  TransitionButtonModalState
+> {
+  public render(): JSX.Element {
+    const style = "dark";
+    return <TransactionButton style={style} {...this.props} />;
+  }
+}
+
+export class TransactionInvertedButton extends React.Component<
+  TransactionButtonProps & TransactionButtonModalProps,
+  TransitionButtonModalState
+> {
+  public render(): JSX.Element {
+    const style = "inverted";
+    return <TransactionButton style={style} {...this.props} />;
+  }
+}
