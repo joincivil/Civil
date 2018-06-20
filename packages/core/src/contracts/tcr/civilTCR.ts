@@ -6,7 +6,7 @@ import "@joincivil/utils";
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
+import { CivilTCR as GeneratedCivilTCR, CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 import { EthApi } from "../../utils/ethapi";
@@ -408,6 +408,34 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public getListing(listingAddress: EthAddress): Listing {
     return new Listing(this.ethApi, this.instance, listingAddress);
+  }
+
+  /*
+   * It is possible to have a pollID without knowing if it corresponds to a challenge or an appeal challenge
+   * (e.g., if you subscribed to an event stream on the voting contract)
+   * This function checks event streams on the CivilTCR contract (only one of which will ever fire) in order to
+   * return the challengeID associated with the poll. If the pollID corresponds to a challenge, the returned value will
+   * equal the poll ID. If the pollID corresponds to an appeal challenge, the returned value will be the challengeID
+   * of the original challenge that was appealed.
+   * @param pollID an ID of a poll which can correspond to either a challenge or an appeal challenge
+   * @return the challengeID associated with the pollID passed in
+   */
+  public async getChallengeIDForPollID(pollID: BigNumber): Promise<BigNumber> {
+    const challengeStream = this.instance._ChallengeStream({ challengeID: pollID }, { fromBlock: 0 });
+    const appealChallengeStream = this.instance._GrantedAppealChallengedStream(
+      { appealChallengeID: pollID },
+      { fromBlock: 0 },
+    );
+    const event = await challengeStream
+      .merge(appealChallengeStream)
+      .first() // only one will ever emit an event and it will emit exactly one
+      .toPromise();
+    switch (event.event) {
+      case GeneratedCivilTCR.Events._Challenge:
+        return event.args.challengeID;
+      case GeneratedCivilTCR.Events._GrantedAppealChallenged:
+        return event.args.challengeID;
+    }
   }
 
   public async getChallengeData(challengeID: BigNumber): Promise<WrappedChallengeData> {

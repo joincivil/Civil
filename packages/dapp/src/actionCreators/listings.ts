@@ -3,6 +3,7 @@ import { Dispatch } from "react-redux";
 import { ListingWrapper, TimestampedEvent } from "@joincivil/core";
 import { getTCR } from "../helpers/civilInstance";
 import { getNewsroom } from "../helpers/listingEvents";
+import { addChallenge } from "./challenges";
 
 export enum listingActions {
   ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
@@ -12,7 +13,21 @@ export enum listingActions {
   FETCH_LISTING_DATA_IN_PROGRESS = "FETCH_LISTING_DATA_IN_PROGRESS",
 }
 
-export const addListing = (listing: ListingWrapper): AnyAction => {
+export const addListing = (listing: ListingWrapper): any => {
+  return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
+    if (!listing.data.challengeID.isZero()) {
+      const wrappedChallenge = {
+        listingAddress: listing.address,
+        challengeID: listing.data.challengeID,
+        challenge: listing.data.challenge!,
+      };
+      dispatch(addChallenge(wrappedChallenge));
+    }
+    return dispatch(addListingBasic(listing));
+  };
+};
+
+const addListingBasic = (listing: ListingWrapper): AnyAction => {
   return {
     type: listingActions.ADD_OR_UPDATE_LISTING,
     data: listing,

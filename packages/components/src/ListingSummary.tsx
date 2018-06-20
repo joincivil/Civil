@@ -4,7 +4,7 @@ import { EthAddress } from "@joincivil/core";
 import { colors, fonts } from "./styleConstants";
 import { SectionHeading } from "./Heading";
 import { buttonSizes, InvertedButton } from "./Button";
-import { CountdownTimer } from "./PhaseCountdown";
+import { TextCountdownTimer } from "./PhaseCountdown/";
 import {
   AwaitingApprovalStatusLabel,
   CommitVoteStatusLabel,
@@ -131,7 +131,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     const warn = this.props.inChallengePhase || this.props.inRevealPhase;
 
     if (expiry) {
-      return <CountdownTimer endTime={expiry!} warn={warn} />;
+      return <TextCountdownTimer endTime={expiry!} warn={warn} />;
     }
 
     return;

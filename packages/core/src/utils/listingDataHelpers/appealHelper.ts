@@ -13,7 +13,7 @@ export function canAppealBeResolved(appealData: AppealData): boolean {
     // appeal challenge voting must be over (meaning commit & reveal stages are done)
     const inCommit = isAppealChallengeInCommitStage(appealData.appealChallenge);
     const inReveal = isAppealChallengeInRevealStage(appealData.appealChallenge);
-    return !inCommit && !inReveal;
+    return !inCommit && !inReveal && !appealData.appealChallenge!.resolved;
   } else if (appealData.appealGranted) {
     // appeal challenge request phase must be over
     const appealOpenToChallengeExpiryDate = new Date(appealData.appealOpenToChallengeExpiry.toNumber() * 1000);
