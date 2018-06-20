@@ -152,8 +152,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 class ChallengeContainer extends React.Component<
   ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
 > {
-  public componentWillReceiveProps(nextProps: any): void {
-    if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
+  public componentDidUpdate(): void {
+    if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
     }
   }
