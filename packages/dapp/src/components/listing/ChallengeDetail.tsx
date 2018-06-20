@@ -37,8 +37,8 @@ export interface ChallengeDetailProps {
   listingAddress: EthAddress;
   challengeID: BigNumber;
   challenge: ChallengeData;
-  parameters: any;
-  govtParameters: any;
+  parameters?: any;
+  govtParameters?: any;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
   user?: EthAddress;
@@ -265,8 +265,6 @@ export interface ChallengeContainerProps {
   listingAddress: EthAddress;
   challengeID: BigNumber;
   showNotFoundMessage?: boolean;
-  parameters: any;
-  govtParameters: any;
 }
 
 export interface ChallengeContainerReduxProps {
@@ -276,6 +274,8 @@ export interface ChallengeContainerReduxProps {
   challengeDataRequestStatus?: any;
   user: EthAddress;
   balance: BigNumber;
+  parameters: any;
+  govtParameters: any;
 }
 
 const mapStateToProps = (

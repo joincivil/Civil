@@ -62,8 +62,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
               <ChallengeDetailContainer
                 challengeID={this.props.listing.data.challengeID}
                 listingAddress={this.props.listing.address}
-                parameters={this.props.parameters}
-                govtParameters={this.props.govtParameters}
               />
             )}
           </>
@@ -92,8 +90,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
         listingAddress={this.props.listing.address}
         challengeID={this.props.listing.data.challengeID}
         transactions={transactions}
-        parameters={this.props.parameters}
-        govtParameters={this.props.govtParameters}
       />
     );
   }
