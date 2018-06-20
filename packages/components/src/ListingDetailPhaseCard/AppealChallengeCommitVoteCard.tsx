@@ -4,14 +4,11 @@ import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
   CTACopy,
   FormCopy,
 } from "./styledComponents";
-import { buttonSizes, Button, InvertedButton } from "../Button";
+import { buttonSizes, Button } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
-import { ChallengeResults } from "./ChallengeResults";
 import { CommitVote } from "./CommitVote";
 
 export class AppealChallengeCommitVoteCard extends React.Component<
@@ -28,10 +25,6 @@ export class AppealChallengeCommitVoteCard extends React.Component<
             displayLabel="Accepting votes"
             flavorText="under challenge"
           />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>Civil Council Decision</CTACopy>

@@ -1,11 +1,10 @@
 import * as React from "react";
+import { getLocalDateTimeStrings } from "@joincivil/utils";
 import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, ChallengeResultsProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
@@ -15,6 +14,7 @@ export class AppealAwaitingDecisionCard extends React.Component<
   ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengeResultsProps
 > {
   public render(): JSX.Element {
+    const localDateTime = getLocalDateTimeStrings(this.props.endTime);
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
@@ -27,13 +27,9 @@ export class AppealAwaitingDecisionCard extends React.Component<
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
           <CTACopy>
-            Check back on August 24, 2018 for Civil Council’s decision to reject or grant the appeal. Read more for
-            details of this appeal.
+            Check back on {localDateTime[0]} for the Civil Council’s decision to reject or grant the appeal. Read more
+            for details of this appeal.
           </CTACopy>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
