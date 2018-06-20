@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { EthAddress } from "@joincivil/core";
 
 export interface ListingDetailPhaseCardComponentProps {
@@ -37,4 +38,8 @@ export interface RevealVoteProps {
   salt: string | undefined;
   transactions: any[];
   onInputChange(propsData: any, validateFn?: () => boolean): void;
+=======
+export interface ListingDetailPhaseCardComponentProps {
+  challenge?: any;
+>>>>>>> f509f1c... Refactor Application Phase cards into separate module files
 }
