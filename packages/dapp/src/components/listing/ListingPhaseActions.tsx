@@ -1,7 +1,7 @@
 import * as React from "react";
 import { approveForChallenge, challengeListing, grantAppeal, updateStatus } from "../../apis/civilTCR";
 import {
-  canListingBeChallenged,
+  // canListingBeChallenged,
   canBeWhitelisted,
   canResolveChallenge,
   isAwaitingAppealJudgment,
@@ -9,13 +9,13 @@ import {
   ListingWrapper,
   TwoStepEthTransaction,
 } from "@joincivil/core";
-import ChallengeDetailContainer from "./ChallengeDetail";
-import { TransactionButton } from "@joincivil/components";
-import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
-import CountdownTimer from "../utility/CountdownTimer";
+import ChallengeDetailContainer, { ChallengeResolve } from "./ChallengeDetail";
+import { TransactionButton, InApplicationCard, WhitelistedCard, RejectedCard } from "@joincivil/components";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
+  parameters: any;
+  govtParameters: any;
 }
 
 class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
@@ -30,17 +30,17 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
       isInApplication = isInApplicationPhase(listing!.data);
     }
     const challenge = this.props.listing.data.challenge;
-    const canBeChallenged = canListingBeChallenged(this.props.listing.data);
+    // const canBeChallenged = canListingBeChallenged(this.props.listing.data);
+    const isWhitelisted = listing!.data.isWhitelisted;
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
     const canResolve = canResolveChallenge(challenge!);
     return (
-      <ViewModule>
-        <ViewModuleHeader>Application Phase</ViewModuleHeader>
-
+      <>
+        {isWhitelisted && !challenge && this.renderApplicationWhitelisted()}
+        {!isWhitelisted && !isInApplication && !challenge && this.renderRejected()}
         {isInApplication && this.renderApplicationPhase()}
         {this.props.listing.data && (
           <>
-            {canBeChallenged && this.renderCanBeChallenged()}
             {isAwaitingAppealJudgment(this.props.listing.data) && this.renderGrantAppeal()}
             {canWhitelist && this.renderCanWhitelist()}
             {canResolve && this.renderCanResolve()}
@@ -53,10 +53,11 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
             )}
           </>
         )}
-      </ViewModule>
+      </>
     );
   }
 
+  // @TODO(jon): We don't have a card for this phase yet (Application phase ended w/ no challenges), so create one and implement here.
   private renderCanWhitelist = (): JSX.Element => {
     return <TransactionButton transactions={[{ transaction: this.update }]}>Whitelist Application</TransactionButton>;
   };
@@ -70,17 +71,55 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     return updateStatus(this.props.listing.address);
   };
 
-  private renderCanBeChallenged = (): JSX.Element => {
-    return (
-      <TransactionButton transactions={[{ transaction: approveForChallenge }, { transaction: this.challenge }]}>
-        Challenge Application
-      </TransactionButton>
-    );
-  };
-
   private renderCanResolve(): JSX.Element {
-    return <TransactionButton transactions={[{ transaction: this.resolve }]}>Resolve Challenge</TransactionButton>;
+    const transactions = [{ transaction: this.resolve }];
+    return (
+      <ChallengeResolve
+        listingAddress={this.props.listing.address}
+        challengeID={this.props.listing.data.challengeID}
+        transactions={transactions}
+      />
+    );
   }
+
+  private renderApplicationWhitelisted(): JSX.Element {
+    // @TODO(jon): Get the Whitelisted event for this listing and display that event's date
+    // in the card
+    const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
+    return <WhitelistedCard transactions={transactions} />;
+  }
+
+  private renderRejected(): JSX.Element {
+    // @TODO(jon): Get the Rejected DateTime and Challenge Results for the challenge
+    // that resulted in the listing being rejected to display for this card. We should
+    // probably create a Container component that fetches that data and stores it in Redux,
+    // and then the container should render this RejectedCard.
+    // For now, these are hard-coded values so the card renders in the UI when the listing
+    // state is Rejected
+    return (
+      <RejectedCard
+        totalVotes={"100000"}
+        votesFor={"27000"}
+        votesAgainst={"73000"}
+        percentFor={"27"}
+        percentAgainst={"73"}
+      />
+    );
+  }
+
+  private renderApplicationPhase(): JSX.Element | null {
+    const endTime = this.props.listing!.data.appExpiry.toNumber();
+    const phaseLength = this.props.parameters.applyStageLen;
+    const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
+
+    if (!endTime || !phaseLength) {
+      return null;
+    }
+
+    return <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={transactions} />;
+  }
+
+  // Transactions
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateStatus(this.props.listing.address);
   };
@@ -91,13 +130,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return grantAppeal(this.props.listing.address);
   };
-  private renderApplicationPhase(): JSX.Element {
-    return (
-      <>
-        APPLICATION IN PROGRESS. ends in... <CountdownTimer endTime={this.props.listing!.data.appExpiry.toNumber()} />
-      </>
-    );
-  }
 }
 
 export default ListingPhaseActions;
