@@ -45,7 +45,7 @@ contract Newsroom is ACL {
 
   function Newsroom(string newsroomName, string charterUri, bytes32 charterHash) ACL() public {
     setName(newsroomName);
-    publishContent(charterUri, charterHash, 0x0, "");
+    publishContent(charterUri, charterHash, address(0), "");
   }
 
   /**
@@ -127,7 +127,7 @@ contract Newsroom is ACL {
   The content can be cryptographicaly secured / approved by author as per signing procedure
   @param contentUri Canonical URI to access the content. The client should then verify that the content has the same hash
   @param contentHash Keccak256 hash of the content that is linked
-  @param author Author that cryptographically signs the content. 0x0 if not signed
+  @param author Author that cryptographically signs the content. Null if not signed
   @param signature Cryptographic signature of the author. Empty if not signed
   @return Content ID of the newly published content
 
@@ -143,7 +143,7 @@ contract Newsroom is ACL {
     uint contentId = contentCount;
     contentCount++;
 
-    require((author == 0x0 && signature.length == 0) || (author != 0x0 && signature.length != 0));
+    require((author == address(0) && signature.length == 0) || (author != address(0) && signature.length != 0));
     contents[contentId].author = author;
     pushRevision(contentId, contentUri, contentHash, signature);
 
@@ -171,7 +171,7 @@ contract Newsroom is ACL {
   @notice Allows to backsign a revision by the author. This is indented when an author didn't have time to access
   to their private key but after time they do.
   The author must be the same as the one during publishing.
-  If there was no author during publishing this functions allows to update the 0x0 author to a real one.
+  If there was no author during publishing this functions allows to update the null author to a real one.
   Once done, the author can't be changed afterwards
 
   @dev Emits `RevisionSigned` event
@@ -181,7 +181,7 @@ contract Newsroom is ACL {
 
     Content storage content = contents[contentId];
 
-    require(content.author == 0x0 || content.author == author);
+    require(content.author == address(0) || content.author == author);
     require(content.revisions.length > revisionId);
 
     content.author = author;
@@ -195,7 +195,7 @@ contract Newsroom is ACL {
   }
 
   function verifyRevisionSignature(address author, Revision storage revision) view internal returns (bool isSigned) {
-    if (author == 0x0 || revision.signature.length == 0) {
+    if (author == address(0) || revision.signature.length == 0) {
       require(revision.signature.length == 0);
       return false;
     } else {
