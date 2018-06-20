@@ -52,4 +52,6 @@ const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimer
 };
 
 export const TextCountdownTimer = connectCountdownTimer()(TextCountdownTimerComponent);
-export const ProgressBarCountdownTimer: React.ComponentClass<ProgressBarCountdownProps & CountdownTimerProps> = connectCountdownTimer()(ProgressBarCountdownTimerComponent);
+export const ProgressBarCountdownTimer: React.ComponentClass<
+  ProgressBarCountdownProps & CountdownTimerProps
+> = connectCountdownTimer()(ProgressBarCountdownTimerComponent);
