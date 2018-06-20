@@ -97,7 +97,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     Listing storage listing = listings[listingAddress];
     require(voting.pollEnded(listing.challengeID));
     require(challengeRequestAppealExpiries[listing.challengeID] > now); // "Request Appeal Phase" active
-    require(appeals[listing.challengeID].requester == 0);
+    require(appeals[listing.challengeID].requester == address(0));
 
     uint appealFee = government.get("appealFee");
     Appeal storage appeal = appeals[listing.challengeID];
