@@ -6,7 +6,6 @@ import {
   StyledPhaseDisplayName,
   MetaItemValue,
   MetaItemLabel,
-  CTACopy,
 } from "./styledComponents";
 import { buttonSizes } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";

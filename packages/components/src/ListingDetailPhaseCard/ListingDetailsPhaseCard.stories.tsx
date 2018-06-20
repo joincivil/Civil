@@ -58,143 +58,159 @@ storiesOf("Listing Details Phase Card", module)
   .add("In Application", () => {
     return (
       <Container>
-        <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
+        {process.env.NODE_ENV !== "test" && (
+          <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
+        )}
       </Container>
     );
   })
   .add("Under Challenge: Commit Vote", () => {
     return (
       <Container>
-        <ChallengeCommitVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          challenger={challenger}
-          rewardPool={rewardPool}
-          stake={stake}
-          tokenBalance={tokenBalance}
-          salt={commitVoteState.salt}
-          numTokens={commitVoteState.numTokens}
-          onInputChange={commitVoteChange}
-          transactions={[]}
-        />
+        {process.env.NODE_ENV !== "test" && (
+          <ChallengeCommitVoteCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
+            tokenBalance={tokenBalance}
+            salt={commitVoteState.salt}
+            numTokens={commitVoteState.numTokens}
+            onInputChange={commitVoteChange}
+            transactions={[]}
+          />
+        )}
       </Container>
     );
   })
   .add("Under Challenge: Reveal Vote", () => {
     return (
       <Container>
-        <ChallengeRevealVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          challenger={challenger}
-          rewardPool={rewardPool}
-          stake={stake}
-          salt={commitVoteState.salt}
-          onInputChange={commitVoteChange}
-          transactions={[]}
-        />
+        {process.env.NODE_ENV !== "test" && (
+          <ChallengeRevealVoteCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
+            salt={commitVoteState.salt}
+            onInputChange={commitVoteChange}
+            transactions={[]}
+          />
+        )}
       </Container>
     );
   })
   .add("Under Challenge: Request Appeal", () => {
     return (
       <Container>
-        <ChallengeRequestAppealCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          totalVotes={totalVotes}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor}
-          percentAgainst={percentAgainst}
-        />
+        {process.env.NODE_ENV !== "test" && (
+          <ChallengeRequestAppealCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+          />
+        )}
       </Container>
     );
   })
   .add("Under Challenge: Resolve", () => {
     return (
       <Container>
-        <ChallengeResolveCard
-          challenger={challenger}
-          rewardPool={rewardPool}
-          stake={stake}
-          totalVotes={totalVotes}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor}
-          percentAgainst={percentAgainst}
-          transactions={[]}
-        />
+        {process.env.NODE_ENV !== "test" && (
+          <ChallengeResolveCard
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            transactions={[]}
+          />
+        )}
       </Container>
     );
   })
   .add("Under Appeal: Awaiting Appeal Decision", () => {
     return (
       <Container>
-        <AppealAwaitingDecisionCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          totalVotes={totalVotes}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor}
-          percentAgainst={percentAgainst}
-        />
+        {process.env.NODE_ENV !== "test" && (
+          <AppealAwaitingDecisionCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+          />
+        )}
       </Container>
     );
   })
   .add("Under Appeal: Decision / Can Challenge", () => {
     return (
       <Container>
-        <AppealDecisionCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
+        {process.env.NODE_ENV !== "test" && (
+          <AppealDecisionCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
+        )}
       </Container>
     );
   })
   .add("Appeal Challenge: Commit Vote", () => {
     return (
       <Container>
-        <AppealChallengeCommitVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          tokenBalance={tokenBalance}
-          salt={commitVoteState.salt}
-          numTokens={commitVoteState.numTokens}
-          onInputChange={commitVoteChange}
-          transactions={[]}
-        />
+        {process.env.NODE_ENV !== "test" && (
+          <AppealChallengeCommitVoteCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            tokenBalance={tokenBalance}
+            salt={commitVoteState.salt}
+            numTokens={commitVoteState.numTokens}
+            onInputChange={commitVoteChange}
+            transactions={[]}
+          />
+        )}
       </Container>
     );
   })
   .add("Appeal Challenge: Reveal Vote", () => {
     return (
       <Container>
-        <AppealChallengeRevealVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          salt={commitVoteState.salt}
-          onInputChange={commitVoteChange}
-          transactions={[]}
-        />
+        {process.env.NODE_ENV !== "test" && (
+          <AppealChallengeRevealVoteCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            salt={commitVoteState.salt}
+            onInputChange={commitVoteChange}
+            transactions={[]}
+          />
+        )}
       </Container>
     );
   })
   .add("Whitelisted", () => {
-    return (
-      <Container>
-        <WhitelistedCard transactions={[]} />
-      </Container>
-    );
+    return <Container>{process.env.NODE_ENV !== "test" && <WhitelistedCard transactions={[]} />}</Container>;
   })
   .add("Rejected", () => {
     return (
       <Container>
-        <RejectedCard
-          totalVotes={totalVotes}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor}
-          percentAgainst={percentAgainst}
-        />
+        {process.env.NODE_ENV !== "test" && (
+          <RejectedCard
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+          />
+        )}
       </Container>
     );
   });

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { EthAddress } from "@joincivil/core";
 import { buttonSizes } from "../Button";
 import { InputGroup, TextInput } from "../input/";
 import { CommitVoteProps } from "./types";
@@ -14,8 +13,8 @@ import {
 } from "./styledComponents";
 
 export interface CommitVoteState {
-  numTokensError: string | undefined;
-  saltError: string | undefined;
+  numTokensError?: string;
+  saltError?: string;
 }
 
 export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState> {
@@ -28,6 +27,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   }
 
   public render(): JSX.Element {
+    const disableButtons = !!this.state.numTokensError || !!this.state.saltError;
     return (
       <>
         <FormHeader>You’re invited to vote!</FormHeader>
@@ -42,13 +42,21 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
 
         <VoteOptionsContainer>
           <div onMouseEnter={this.setVoteToRemain}>
-            <TransactionDarkButton size={buttonSizes.MEDIUM} transactions={this.props.transactions}>
+            <TransactionDarkButton
+              size={buttonSizes.MEDIUM}
+              transactions={this.props.transactions}
+              disabled={disableButtons}
+            >
               ✔ Remain
             </TransactionDarkButton>
           </div>
           <StyledOrText>or</StyledOrText>
           <div onMouseEnter={this.setVoteToRemove}>
-            <TransactionDarkButton size={buttonSizes.MEDIUM} transactions={this.props.transactions}>
+            <TransactionDarkButton
+              size={buttonSizes.MEDIUM}
+              transactions={this.props.transactions}
+              disabled={disableButtons}
+            >
               ✖ Remove
             </TransactionDarkButton>
           </div>
@@ -99,7 +107,14 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private onChange = (name: string, value: string): void => {
-    this.props.onInputChange({ [name]: value });
+    let validateFn;
+    if (name === "salt") {
+      validateFn = this.validateSalt;
+    }
+    if (name === "numTokens") {
+      validateFn = this.validateNumTokens;
+    }
+    this.props.onInputChange({ [name]: value }, validateFn);
   };
 
   private setVoteToRemain = (): void => {
@@ -148,14 +163,5 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     }
 
     return isValid;
-  };
-
-  private submit = (): void => {
-    const isSaltValid = this.validateSalt();
-    const isNumTokensValid = this.validateNumTokens();
-
-    if (isSaltValid && isNumTokensValid) {
-      // this.props.submit();
-    }
   };
 }

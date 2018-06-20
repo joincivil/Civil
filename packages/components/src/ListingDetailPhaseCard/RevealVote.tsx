@@ -1,11 +1,9 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { EthAddress } from "@joincivil/core";
-import { colors, fonts } from "../styleConstants";
 import { RevealVoteProps } from "./types";
 import { buttonSizes } from "../Button";
 import { TransactionDarkButton } from "../TransactionButton";
-import { InputGroup, TextInput } from "../input/";
+import { TextInput } from "../input/";
 import { VoteOptionsContainer, StyledOrText, FormHeader, FormCopy } from "./styledComponents";
 
 export class RevealVote extends React.Component<RevealVoteProps> {
@@ -50,7 +48,26 @@ export class RevealVote extends React.Component<RevealVoteProps> {
     this.props.onInputChange({ voteOption: "1" });
   };
 
+  private validateSalt = (): boolean => {
+    let isValid = true;
+
+    if (!this.props.salt || this.props.salt.length === 0) {
+      isValid = false;
+      this.setState({
+        saltError: "Please enter a valid salt phrase",
+      });
+    } else {
+      this.setState({ saltError: undefined });
+    }
+
+    return isValid;
+  };
+
   private onChange = (name: string, value: string): void => {
-    this.props.onInputChange({ [name]: value });
+    let validateFn;
+    if (name === "salt") {
+      validateFn = this.validateSalt;
+    }
+    this.props.onInputChange({ [name]: value }, validateFn);
   };
 }

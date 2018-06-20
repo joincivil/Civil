@@ -6,11 +6,7 @@ import {
   StyledPhaseDisplayName,
   MetaItemValue,
   MetaItemLabel,
-  CTACopy,
-  FormCopy,
 } from "./styledComponents";
-import { buttonSizes, Button, InvertedButton } from "../Button";
-import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults } from "./ChallengeResults";
 
 export class RejectedCard extends React.Component<ListingDetailPhaseCardComponentProps & ChallengeResultsProps> {
