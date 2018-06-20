@@ -33,21 +33,14 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
   public render(): JSX.Element {
     const listing = this.props.listing;
     const newsroom = this.props.newsroom;
-    /*
-    let appExistsAsNewsroom = false;
-    if (listing && newsroom) {
-      appExistsAsNewsroom = !listing.data.appExpiry.isZero();
-    }
-    //*/
+    const listingExistsAsNewsroom = listing && newsroom;
     return (
       <PageView>
-        {listing &&
-          newsroom && (
+        {listingExistsAsNewsroom && (
             <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
           )}
 
-        {listing &&
-          newsroom && (
+        {listingExistsAsNewsroom && (
             <ListingPhaseActions
               listing={this.props.listing!}
               parameters={this.props.parameters}
@@ -55,7 +48,7 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
             />
           )}
 
-        {!listing || (!newsroom && this.renderListingNotFound())}
+        {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
         <ListingHistory listing={this.props.match.params.listing} />
       </PageView>
