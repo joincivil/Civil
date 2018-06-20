@@ -15,7 +15,7 @@ export const InputLabel = styled.label`
 `;
 
 export interface InputBaseProps {
-  className?: string | undefined;
+  className?: string;
   icon?: JSX.Element;
   label?: string;
   noLabel?: boolean;
@@ -41,7 +41,7 @@ const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
     <div className={className}>
       {icon ? <InputIcon>{icon}</InputIcon> : null}
       <input {...inputProps} onChange={cb} ref={inputRef} />
-      {noLabel ? null : <InputLabel>{label || props.placeholder}</InputLabel>}
+      {!noLabel && <InputLabel>{label || props.placeholder}</InputLabel>}
     </div>
   );
 };
@@ -84,7 +84,7 @@ export interface InputProps {
   value?: string;
   placeholder?: string;
   label?: string;
-  className?: string | undefined;
+  className?: string;
   noLabel?: boolean;
   onChange(name: string, value: string): any;
 }

@@ -35,7 +35,6 @@ const StyledInputGroupPrepend = styled.div`
 const InputGroupText = styled.span`
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   display: flex;
-  // padding: 12px 19px;
   font-size: inherit;
   padding: 10px;
   text-align: center;
@@ -61,7 +60,7 @@ export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> 
     <StyledInputGroupContainer>
       <InputLabel>{label || props.placeholder}</InputLabel>
       <StyledInputGroup>
-        {prepend ? <InputGroupPrepend>{props.prepend}</InputGroupPrepend> : null}
+        {prepend && <InputGroupPrepend>{props.prepend}</InputGroupPrepend>}
         <TextInput noLabel={true} placeholder={placeholder} name={name} onChange={onChange} />
       </StyledInputGroup>
     </StyledInputGroupContainer>
