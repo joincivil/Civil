@@ -1,6 +1,6 @@
 import { CountdownTimerProps, InjectedCountdownTimerProps, CountdownTimerState } from "./types";
 import { TextCountdownTimerComponent } from "./TextCountdownTimer";
-import { ProgressBarCountdownTimerComponent } from "./ProgressBarCountdownTimer";
+import { ProgressBarCountdownTimerComponent, ProgressBarCountdownProps } from "./ProgressBarCountdownTimer";
 import * as React from "react";
 
 const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimerProps>(
@@ -9,7 +9,7 @@ const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimer
     | React.StatelessComponent<TCountdownTimerProps & InjectedCountdownTimerProps>,
 ) => {
   return class HOCountdownTimerContainer extends React.Component<TCountdownTimerProps, CountdownTimerState> {
-    public _timer: number | undefined;
+    public timer: number | undefined;
 
     constructor(props: TCountdownTimerProps) {
       super(props);
@@ -27,8 +27,8 @@ const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimer
     }
 
     public componentWillUnmount(): void {
-      if (this._timer) {
-        window.clearInterval(this._timer);
+      if (this.timer) {
+        window.clearInterval(this.timer);
       }
     }
 
@@ -43,13 +43,13 @@ const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimer
     public initCountdown = async () => {
       const timeRemaining = this.updateTimeRemaining();
       if (timeRemaining > 0) {
-        this._timer = window.setInterval(this.updateTimeRemaining, 1000);
+        this.timer = window.setInterval(this.updateTimeRemaining, 1000);
       } else {
-        window.clearInterval(this._timer);
+        window.clearInterval(this.timer);
       }
     };
   };
 };
 
 export const TextCountdownTimer = connectCountdownTimer()(TextCountdownTimerComponent);
-export const ProgressBarCountdownTimer = connectCountdownTimer()(ProgressBarCountdownTimerComponent);
+export const ProgressBarCountdownTimer: React.ComponentClass<ProgressBarCountdownProps & CountdownTimerProps> = connectCountdownTimer()(ProgressBarCountdownTimerComponent);
