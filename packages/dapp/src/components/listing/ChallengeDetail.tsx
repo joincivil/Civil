@@ -18,12 +18,6 @@ import {
   ChallengeRevealVoteCard,
   ChallengeRequestAppealCard,
   ChallengeResolveCard,
-  // AppealAwaitingDecisionCard,
-  // AppealDecisionCard,
-  // AppealChallengeCommitVoteCard,
-  // AppealChallengeRevealVoteCard,
-  // WhitelistedCard,
-  // RejectedCard,
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
@@ -32,6 +26,27 @@ import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+
+export interface ChallengeContainerProps {
+  listingAddress: EthAddress;
+  challengeID: BigNumber;
+  showNotFoundMessage?: boolean;
+}
+
+export interface ChallengeContainerReduxProps {
+  challengeData?: WrappedChallengeData | undefined;
+  userChallengeData?: UserChallengeData | undefined;
+  userAppealChallengeData?: UserChallengeData | undefined;
+  challengeDataRequestStatus?: any;
+  user: EthAddress;
+  balance: BigNumber;
+  parameters: any;
+  govtParameters: any;
+}
+
+export interface ChallengeTransactionsProps {
+  transactions: any[];
+}
 
 export interface ChallengeDetailProps {
   listingAddress: EthAddress;
@@ -51,6 +66,8 @@ export interface ChallengeVoteState {
   numTokens?: string;
 }
 
+// A container encapsultes the Commit Vote, Reveal Vote and Rewards phases for a Challenge.
+// @TODO(jon): Clean this up... by maybe separating into separate containers for each phase card component
 class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState> {
   constructor(props: any) {
     super(props);
@@ -81,13 +98,26 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         {isChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
         {canShowResult && this.renderVoteResult()}
-        {appealExists && <AppealDetail listingAddress={this.props.listingAddress} appeal={challenge.appeal!} />}
+        {appealExists && this.renderAppeal()}
         {canShowRewardsForm &&
           !isChallengeInCommitStage(challenge) &&
           !isChallengeInRevealStage(challenge) &&
           this.renderRewardsDetail()}
         {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail()}
       </>
+    );
+  }
+
+  private renderAppeal(): JSX.Element {
+    const challenge = this.props.challenge;
+    return (
+      <AppealDetail
+        listingAddress={this.props.listingAddress}
+        appeal={challenge.appeal!}
+        challenge={challenge}
+        govtParameters={this.props.govtParameters}
+        tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
+      />
     );
   }
 
@@ -198,9 +228,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   }
 
   private updateCommitVoteState = (data: any): void => {
-    this.setState({ ...data }, () => {
-      console.log(this.state);
-    });
+    this.setState({ ...data });
   };
 
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -259,23 +287,6 @@ class ChallengeContainer extends React.Component<
   private renderNoChallengeFound = (): JSX.Element => {
     return <>This is not the challenge that you're looking for.</>;
   };
-}
-
-export interface ChallengeContainerProps {
-  listingAddress: EthAddress;
-  challengeID: BigNumber;
-  showNotFoundMessage?: boolean;
-}
-
-export interface ChallengeContainerReduxProps {
-  challengeData?: WrappedChallengeData | undefined;
-  userChallengeData?: UserChallengeData | undefined;
-  userAppealChallengeData?: UserChallengeData | undefined;
-  challengeDataRequestStatus?: any;
-  user: EthAddress;
-  balance: BigNumber;
-  parameters: any;
-  govtParameters: any;
 }
 
 const mapStateToProps = (
@@ -340,10 +351,7 @@ const mapStateToProps = (
   };
 };
 
-export interface ChallengeTransactionsProps {
-  transactions: any[];
-}
-
+// A container for the Challenge Resolve Card component
 class ChallengeResolveContainer extends React.Component<
   ChallengeContainerProps & ChallengeContainerReduxProps & ChallengeTransactionsProps & DispatchProp<any>
 > {
@@ -381,6 +389,7 @@ class ChallengeResolveContainer extends React.Component<
     );
   }
 }
+
 export const ChallengeResolve = connect(mapStateToProps)(ChallengeResolveContainer);
 
 export default connect(mapStateToProps)(ChallengeContainer);

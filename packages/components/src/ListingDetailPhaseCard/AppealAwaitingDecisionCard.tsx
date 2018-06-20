@@ -5,13 +5,20 @@ import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
+  MetaItemValue,
+  MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults } from "./ChallengeResults";
 
+export interface AppealProps {
+  requester: string;
+  appealFeePaid: string;
+}
+
 export class AppealAwaitingDecisionCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengeResultsProps
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & AppealProps & ChallengeResultsProps
 > {
   public render(): JSX.Element {
     const localDateTime = getLocalDateTimeStrings(this.props.endTime);
@@ -25,6 +32,14 @@ export class AppealAwaitingDecisionCard extends React.Component<
             displayLabel="Waiting for Council's decision"
             flavorText="under Appeal to Council"
           />
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>{this.props.requester}</MetaItemValue>
+          <MetaItemLabel>Requester</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>{this.props.appealFeePaid}</MetaItemValue>
+          <MetaItemLabel>Appeal Fee Paid</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>
