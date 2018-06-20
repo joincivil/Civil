@@ -61,6 +61,11 @@ const CTACopy = styled.p`
     text-decoration: none;
   }
 `;
+const FormCopy = styled.p`
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0 0 10px;
+`;
 
 export interface ListingDetailPhaseCardComponentProps {
   challenge?: any;
@@ -243,8 +248,7 @@ export class AwaitingAppealCard extends React.Component<ListingDetailPhaseCardCo
           </CTACopy>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>Challenge Results</CTACopy>
-          Cool graph goes here!
+          <ChallengeResults />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
@@ -274,8 +278,7 @@ export class CanChallengeAppealCard extends React.Component<ListingDetailPhaseCa
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>Civil Council Decision</CTACopy>
-          The Civil Council has decided to grant the appeal. Read more about their methodology and how they’ve come to
-          this decision.
+          <FormCopy>The Civil Council has decided to grant the appeal. Read more about their methodology and how they’ve come to this decision.</FormCopy>
           <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
@@ -313,13 +316,11 @@ export class AppealChallengeCommitVoteCard extends React.Component<ListingDetail
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>Civil Council Decision</CTACopy>
-          The Civil Council has decided to grant the appeal. Read more about their methodology and how they’ve come to
-          this decision.
+          <FormCopy>The Civil Council has decided to grant the appeal. Read more about their methodology and how they’ve come to this decision.</FormCopy>
           <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>You're invited to vote!</CTACopy>
-          <InvertedButton size={buttonSizes.MEDIUM}>Vote</InvertedButton>
+          <CommitVote />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
@@ -354,8 +355,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<ListingDetail
           <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>Verify Your Votes and Make Them Count!</CTACopy>
-          <InvertedButton size={buttonSizes.MEDIUM}>Reveal My Votes</InvertedButton>
+          <RevealVote />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
@@ -376,8 +376,7 @@ export class RejectedCard extends React.Component<ListingDetailPhaseCardComponen
           <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>Challenge Results</CTACopy>
-          Cool graph goes here!
+          <ChallengeResults />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
