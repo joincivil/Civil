@@ -9,7 +9,7 @@ const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimer
     | React.StatelessComponent<TCountdownTimerProps & InjectedCountdownTimerProps>,
 ) => {
   return class HOCountdownTimerContainer extends React.Component<TCountdownTimerProps, CountdownTimerState> {
-    public timer: number | undefined;
+    public timer?: number;
 
     constructor(props: TCountdownTimerProps) {
       super(props);
