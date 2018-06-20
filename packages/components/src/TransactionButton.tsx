@@ -128,6 +128,7 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
         }
         return this.executeTransactions(transactions);
       } catch (err) {
+        this.setState({ step: 0, disableButton: false });
         if (currTransaction.handleTransactionError) {
           setImmediate(() => currTransaction.handleTransactionError!(err));
         }
