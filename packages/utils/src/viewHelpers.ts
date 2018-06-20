@@ -53,3 +53,17 @@ export function padString(value: number | string, places: number, char: string, 
   }
   return out;
 }
+
+export function getNumberStringWithCommaDelimeters(
+  num: number | string,
+  delim: string = ",",
+  places: number = 3,
+): string {
+  const numString = typeof num === "number" ? num.toString() : num;
+  const lenStr = numString.length;
+  const out = numString.split("").reverse();
+  for (let i = places; i < lenStr; i = i + places) {
+    out[i] = out[i] + ",";
+  }
+  return out.reverse().join("");
+}
