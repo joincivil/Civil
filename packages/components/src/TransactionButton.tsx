@@ -73,45 +73,29 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
   }
 
   public render(): JSX.Element {
-    if (this.props.style && this.props.style === "inverted") {
-      return (
-        <>
-          {this.state.error}
-          <InvertedButton
-            onClick={this.onClick}
-            disabled={this.state.disableButton}
-            size={this.props.size || buttonSizes.MEDIUM}
-          >
-            {this.state.step === 1 && "Waiting for Transaction..."}
-            {this.state.step === 2 && "Transaction Processing..."}
-            {this.state.step === 0 && this.props.children}
-          </InvertedButton>
-        </>
-      );
-    } else if (this.props.style && this.props.style === "dark") {
-      return (
-        <>
-          {this.state.error}
-          <DarkButton
-            onClick={this.onClick}
-            disabled={this.state.disableButton}
-            size={this.props.size || buttonSizes.MEDIUM}
-          >
-            {this.state.step === 1 && "Waiting for Transaction..."}
-            {this.state.step === 2 && "Transaction Processing..."}
-            {this.state.step === 0 && this.props.children}
-          </DarkButton>
-        </>
-      );
+    let StyledButton;
+    switch (this.props.style) {
+      case "inverted":
+        StyledButton = InvertedButton;
+        break;
+      case "dark":
+        StyledButton = DarkButton;
+        break;
+      default:
+        StyledButton = Button;
     }
     return (
       <>
         {this.state.error}
-        <Button onClick={this.onClick} disabled={this.state.disableButton} size={this.props.size || buttonSizes.MEDIUM}>
+        <StyledButton
+          onClick={this.onClick}
+          disabled={this.state.disableButton}
+          size={this.props.size || buttonSizes.MEDIUM}
+        >
           {this.state.step === 1 && "Waiting for Transaction..."}
           {this.state.step === 2 && "Transaction Processing..."}
           {this.state.step === 0 && this.props.children}
-        </Button>
+        </StyledButton>
       </>
     );
   }
