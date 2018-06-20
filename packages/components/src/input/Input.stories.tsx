@@ -1,6 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import { TextInput, HeaderInput, CurrencyInput } from "./Input";
+import { InputGroup } from "./InputGroup";
 import { RadioInput, RadioButton } from "./RadioInput";
 
 type changeCallback = (name: string, value: any) => any;
@@ -34,6 +35,23 @@ storiesOf("Inputs", module)
       </ControlComponent>
     );
   })
+
+  .add("Input Group", () => {
+    return (
+      <ControlComponent>
+        {(state: any, onChange: changeCallback) => (
+          <InputGroup
+            prepend="CVL"
+            label="Input Group with Prepend Text"
+            placeholder="Enter a value"
+            name="TextInput"
+            onChange={onChange}
+          />
+        )}
+      </ControlComponent>
+    );
+  })
+
   .add("Header Input", () => {
     return (
       <ControlComponent>

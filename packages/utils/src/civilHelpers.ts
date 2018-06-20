@@ -11,3 +11,7 @@ export function prepareNewsroomMessage(newsroomAddress: EthAddress, contentHash:
   //               https://medium.com/metamask/scaling-web3-with-signtypeddata-91d6efc8b290
   return soliditySha3(["address", "bytes32"], [newsroomAddress, contentHash]);
 }
+
+export function prepareUserFriendlyNewsroomMessage(newsroomAddress: EthAddress, contentHash: Hex): string {
+  return `I authorize this newsroom with address ${newsroomAddress} to publish this article whose content hashes to ${contentHash} using keccak256`;
+}
