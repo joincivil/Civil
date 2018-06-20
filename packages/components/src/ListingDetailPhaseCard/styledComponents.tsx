@@ -38,8 +38,11 @@ export const StyledListingDetailPhaseCardHed = styled.div`
 export const MetaItemValue = styled.div`
   font-size: 24px;
   line-height: 29px;
+<<<<<<< HEAD
   overflow: hidden;
   text-overflow: ellipsis;
+=======
+>>>>>>> f509f1c... Refactor Application Phase cards into separate module files
 `;
 export const MetaItemValueAccent = MetaItemValue.extend`
   color: ${colors.primary.CIVIL_BLUE_1};
@@ -62,6 +65,7 @@ export const FormCopy = styled.p`
   line-height: 26px;
   margin: 0 0 10px;
 `;
+<<<<<<< HEAD
 
 export const VoteOptionsContainer = styled.div`
   display: flex;
@@ -89,3 +93,5 @@ export const FormQuestion = styled.p`
   line-height: 36px;
   margin: 0 0 24px;
 `;
+=======
+>>>>>>> f509f1c... Refactor Application Phase cards into separate module files
