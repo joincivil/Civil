@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   AppealData,
+  ChallengeData,
   canAppealBeResolved,
   EthAddress,
   isAwaitingAppealChallenge,
@@ -9,9 +10,8 @@ import {
 } from "@joincivil/core";
 import { approveForChallengeGrantedAppeal, challengeGrantedAppeal, updateStatus } from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
-import { TransactionButton } from "@joincivil/components";
-import CountdownTimer from "../utility/CountdownTimer";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { AppealAwaitingDecisionCard, TransactionButton, AppealDecisionCard } from "@joincivil/components";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -23,6 +23,9 @@ const StyledDiv = styled.div`
 export interface AppealDetailProps {
   listingAddress: EthAddress;
   appeal: AppealData;
+  challenge: ChallengeData;
+  govtParameters: any;
+  tokenBalance: number;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -34,22 +37,17 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const appeal = this.props.appeal;
     const canResolve = canAppealBeResolved(appeal);
     const canBeChallenged = isAwaitingAppealChallenge(appeal);
+    const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
-        <dl>
-          <dt>Requester:</dt>
-          <dd>{appeal.requester.toString()}</dd>
-          <dt>Appeal Fee Paid:</dt>
-          <dd>{getFormattedTokenBalance(appeal.appealFeePaid)}</dd>
-          {this.renderJudgmentExpiry()}
-          <dt>Appeal Granted:</dt>
-          <dd>{appeal.appealGranted.toString()}</dd>
-        </dl>
+        {!hasAppealChallenge && this.renderAwaitingAppealDecision()}
         {canBeChallenged && this.renderChallengeAppealStage()}
         {appeal.appealChallenge && (
           <AppealChallengeDetail
             appealChallengeID={appeal.appealChallengeID}
             appealChallenge={appeal.appealChallenge}
+            govtParameters={this.props.govtParameters}
+            tokenBalance={this.props.tokenBalance}
           />
         )}
         {canResolve && this.renderCanResolve()}
@@ -57,33 +55,53 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     );
   }
 
+  private renderAwaitingAppealDecision(): JSX.Element {
+    const appeal = this.props.appeal;
+    const challenge = this.props.challenge;
+    const requester = appeal.requester.toString();
+    const appealFeePaid = getFormattedTokenBalance(appeal.appealFeePaid);
+    const endTime = appeal.appealPhaseExpiry.toNumber();
+    const phaseLength = this.props.govtParameters.judgeAppealLen;
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    const votesFor = challenge.poll.votesFor;
+    const votesAgainst = challenge.poll.votesFor;
+    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100);
+    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100);
+    return (
+      <AppealAwaitingDecisionCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        requester={requester}
+        appealFeePaid={appealFeePaid}
+        totalVotes={totalVotes.toString()}
+        votesFor={votesFor.toString()}
+        votesAgainst={votesAgainst.toString()}
+        percentFor={percentFor.toString()}
+        percentAgainst={percentAgainst.toString()}
+      />
+    );
+  }
+
   private renderCanResolve(): JSX.Element {
     return <TransactionButton transactions={[{ transaction: this.resolveAppeal }]}>Resolve Appeal</TransactionButton>;
   }
 
-  private renderJudgmentExpiry(): JSX.Element {
-    const appeal = this.props.appeal;
-    if (appeal.appealGranted) {
-      return <></>;
-    } else {
-      return (
-        <>
-          <dt>Judgment Expiry:</dt>
-          <dd>
-            <CountdownTimer endTime={appeal.appealPhaseExpiry.toNumber()} />
-          </dd>
-        </>
-      );
-    }
-  }
-
   private renderChallengeAppealStage(): JSX.Element {
+    const appeal = this.props.appeal;
+    const appealGranted = appeal.appealGranted;
+    const transactions = [
+      { transaction: approveForChallengeGrantedAppeal },
+      { transaction: this.challengeGrantedAppeal },
+    ];
+    const endTime = appeal.appealOpenToChallengeExpiry.toNumber();
+    const phaseLength = this.props.govtParameters.challengeAppealLen;
     return (
-      <TransactionButton
-        transactions={[{ transaction: approveForChallengeGrantedAppeal }, { transaction: this.challengeGrantedAppeal }]}
-      >
-        Challenge Granted Appeal
-      </TransactionButton>
+      <AppealDecisionCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        transactions={transactions}
+        appealGranted={appealGranted}
+      />
     );
   }
 
