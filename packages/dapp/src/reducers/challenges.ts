@@ -32,14 +32,11 @@ export function challengesVotedOnByUser(
 ): Map<string, Set<string>> {
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA:
-      if (action.data.userChallengeData.didUserCommit) {
-        let userSet = state.get(action.data.user);
-        if (!userSet) {
-          userSet = Set<string>();
-        }
-        const userSet2 = userSet.add(action.data.challengeID);
-        return state.set(action.data.user, userSet2);
+      let userSet = state.get(action.data.user);
+      if (!userSet) {
+        userSet = Set<string>();
       }
+      return state.set(action.data.user, userSet.add(action.data.challengeID));
     default:
       return state;
   }
@@ -51,12 +48,31 @@ export function challengeUserData(
 ): Map<string, Map<string, UserChallengeData>> {
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA:
-      let challengeMap = state.get(action.data.challengeID);
-      if (!challengeMap) {
-        challengeMap = Map<string, UserChallengeData>();
+      if (!state.contains(action.data.challengeID)) {
+        return state.set(
+          action.data.challengeID,
+          Map<string, UserChallengeData>([[action.data.user.toString(), action.data.userChallengeData]]),
+        );
       }
-      const challengeMap2 = challengeMap.set(action.data.user, action.data.userChallengeData);
-      return state.set(action.data.challengeID, challengeMap2);
+      return state.setIn([action.data.challengeID, action.data.user], action.data.userChallengeData);
+    default:
+      return state;
+  }
+}
+
+export function appealChallengeUserData(
+  state: Map<string, Map<string, UserChallengeData>> = Map<string, Map<string, UserChallengeData>>(),
+  action: AnyAction,
+): Map<string, Map<string, UserChallengeData>> {
+  switch (action.type) {
+    case challengeActions.ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA:
+      if (!state.contains(action.data.challengeID)) {
+        return state.set(
+          action.data.challengeID,
+          Map<string, UserChallengeData>([[action.data.user.toString(), action.data.userChallengeData]]),
+        );
+      }
+      return state.setIn([action.data.challengeID, action.data.user], action.data.userChallengeData);
     default:
       return state;
   }

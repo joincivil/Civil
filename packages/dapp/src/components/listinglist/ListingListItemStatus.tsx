@@ -29,6 +29,7 @@ export interface ListingListItemStatusProps {
   listing: ListingWrapper;
   challenge?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
+  userAppealChallengeData?: UserChallengeData;
 }
 
 class ListingListItemStatus extends React.Component<ListingListItemStatusProps> {
@@ -42,7 +43,10 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
         <SectionHeader>STATUS</SectionHeader>
         <br />
         {this.renderStatus()}
-        {this.renderUserActions()}
+        <dl>
+          {this.renderUserChallengeActions()}
+          {this.renderUserAppealChallengeActions()}
+        </dl>
       </StyledDiv>
     );
   }
@@ -81,22 +85,26 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
     return <>none</>;
   };
 
-  private renderUserActions = (): JSX.Element => {
+  private renderUserChallengeActions = (): JSX.Element => {
     const challenge = this.props.userChallengeData;
     if (challenge) {
       return (
         <>
-          <br />
-          {challenge.didUserCommit && (
-            <>
-              USER DID COMMIT<br />
-            </>
-          )}
-          {challenge.didUserReveal && (
-            <>
-              USER DID REVEAL<br />
-            </>
-          )}
+          {challenge.didUserCommit && <dt>USER DID COMMIT</dt>}
+          {challenge.didUserReveal && <dt>USER DID REVEAL</dt>}
+        </>
+      );
+    }
+    return <></>;
+  };
+
+  private renderUserAppealChallengeActions = (): JSX.Element => {
+    const challenge = this.props.userAppealChallengeData;
+    if (challenge) {
+      return (
+        <>
+          {challenge.didUserCommit && <dt>USER DID COMMIT ON APPEAL CHALLENGE</dt>}
+          {challenge.didUserReveal && <dt>USER DID REVEAL ON APPEAL CHALLENGE</dt>}
         </>
       );
     }
