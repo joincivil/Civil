@@ -59,7 +59,7 @@ contract MultiSigWallet {
   }
 
   modifier transactionExists(uint transactionId) {
-    require(transactions[transactionId].destination != 0);
+    require(transactions[transactionId].destination != address(0));
     _;
   }
 
