@@ -21,7 +21,7 @@ import {
   // AppealDecisionCard,
   // AppealChallengeCommitVoteCard,
   // AppealChallengeRevealVoteCard,
-  // WhitelistedCard,
+  WhitelistedCard,
   // RejectedCard,
 } from "@joincivil/components";
 
@@ -43,10 +43,12 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     }
     const challenge = this.props.listing.data.challenge;
     // const canBeChallenged = canListingBeChallenged(this.props.listing.data);
+    const isWhitelisted = listing!.data.isWhitelisted;
     const canWhitelist = canBeWhitelisted(this.props.listing.data);
     const canResolve = canResolveChallenge(challenge!);
     return (
       <>
+        {isWhitelisted && this.renderApplicationWhitelisted()}
         {isInApplication && this.renderApplicationPhase()}
         {this.props.listing.data && (
           <>
@@ -90,6 +92,11 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
         parameters={this.props.parameters}
       />
     );
+  }
+
+  private renderApplicationWhitelisted(): JSX.Element {
+    const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
+    return <WhitelistedCard transactions={transactions} />;
   }
 
   private renderApplicationPhase(): JSX.Element | null {
