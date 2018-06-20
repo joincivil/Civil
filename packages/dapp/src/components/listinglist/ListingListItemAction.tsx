@@ -22,7 +22,7 @@ class ListingListItemAction extends React.Component<ListingListItemOwnerProps> {
 
   public render(): JSX.Element {
     let address = "";
-    if (this.props.listing && this.props.listing.data) {
+    if (this.props.listing) {
       address = this.props.listing.address;
     }
     const link = "/listing/" + address;

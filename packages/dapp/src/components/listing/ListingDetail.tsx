@@ -2,6 +2,7 @@ import * as React from "react";
 import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import { DepositTokens, ExitListing, WithdrawTokens } from "./OwnerListingViews";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 
 export interface ListingDetailProps {
   newsroom: NewsroomWrapper;
@@ -33,7 +34,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
               <dd>{this.props.listing.data.owner}</dd>
 
               <dt>Unstaked Deposit</dt>
-              <dd>{this.props.listing.data.unstakedDeposit.toString()}</dd>
+              <dd>{getFormattedTokenBalance(this.props.listing.data.unstakedDeposit)}</dd>
             </dl>
 
             {isOwnerViewingListing && this.renderOwnerListingActionsView()}
