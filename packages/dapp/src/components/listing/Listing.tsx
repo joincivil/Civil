@@ -37,16 +37,16 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
     return (
       <PageView>
         {listingExistsAsNewsroom && (
-            <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
-          )}
+          <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
+        )}
 
         {listingExistsAsNewsroom && (
-            <ListingPhaseActions
-              listing={this.props.listing!}
-              parameters={this.props.parameters}
-              govtParameters={this.props.govtParameters}
-            />
-          )}
+          <ListingPhaseActions
+            listing={this.props.listing!}
+            parameters={this.props.parameters}
+            govtParameters={this.props.govtParameters}
+          />
+        )}
 
         {!listingExistsAsNewsroom && this.renderListingNotFound()}
 

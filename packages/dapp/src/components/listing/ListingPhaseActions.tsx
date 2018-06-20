@@ -10,20 +10,7 @@ import {
   TwoStepEthTransaction,
 } from "@joincivil/core";
 import ChallengeDetailContainer, { ChallengeResolve } from "./ChallengeDetail";
-import {
-  TransactionButton,
-  InApplicationCard,
-  // ChallengeCommitVoteCard,
-  // ChallengeRevealVoteCard,
-  // ChallengeRequestAppealCard,
-  // ChallengeResolveCard,
-  // AppealAwaitingDecisionCard,
-  // AppealDecisionCard,
-  // AppealChallengeCommitVoteCard,
-  // AppealChallengeRevealVoteCard,
-  WhitelistedCard,
-  RejectedCard,
-} from "@joincivil/components";
+import { TransactionButton, InApplicationCard, WhitelistedCard, RejectedCard } from "@joincivil/components";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
@@ -70,6 +57,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     );
   }
 
+  // @TODO(jon): We don't have a card for this phase yet (Application phase ended w/ no challenges), so create one and implement here.
   private renderCanWhitelist = (): JSX.Element => {
     return <TransactionButton transactions={[{ transaction: this.update }]}>Whitelist Application</TransactionButton>;
   };
@@ -95,11 +83,19 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   }
 
   private renderApplicationWhitelisted(): JSX.Element {
+    // @TODO(jon): Get the Whitelisted event for this listing and display that event's date
+    // in the card
     const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
     return <WhitelistedCard transactions={transactions} />;
   }
 
   private renderRejected(): JSX.Element {
+    // @TODO(jon): Get the Rejected DateTime and Challenge Results for the challenge
+    // that resulted in the listing being rejected to display for this card. We should
+    // probably create a Container component that fetches that data and stores it in Redux,
+    // and then the container should render this RejectedCard.
+    // For now, these are hard-coded values so the card renders in the UI when the listing
+    // state is Rejected
     return (
       <RejectedCard
         totalVotes={"100000"}
@@ -123,6 +119,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     return <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={transactions} />;
   }
 
+  // Transactions
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateStatus(this.props.listing.address);
   };

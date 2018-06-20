@@ -1,9 +1,16 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, CommitVoteProps } from "./types";
+import {
+  ListingDetailPhaseCardComponentProps,
+  PhaseWithExpiryProps,
+  ChallengePhaseProps,
+  CommitVoteProps,
+} from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
+  MetaItemValue,
+  MetaItemLabel,
   CTACopy,
   FormCopy,
 } from "./styledComponents";
@@ -12,7 +19,7 @@ import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
 
 export class AppealChallengeCommitVoteCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & CommitVoteProps
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & CommitVoteProps
 > {
   public render(): JSX.Element {
     return (
@@ -33,6 +40,18 @@ export class AppealChallengeCommitVoteCard extends React.Component<
             this decision.
           </FormCopy>
           <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>{this.props.challenger}</MetaItemValue>
+          <MetaItemLabel>Challenger</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>{this.props.rewardPool}</MetaItemValue>
+          <MetaItemLabel>Reward Pool</MetaItemLabel>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <MetaItemValue>{this.props.stake}</MetaItemValue>
+          <MetaItemLabel>Stake</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CommitVote
