@@ -36,6 +36,9 @@ const challenger = "0x0";
 const rewardPool = "1000000";
 const stake = "100000";
 
+const requester = "0x01";
+const appealFeePaid = "10.00 CVL";
+
 const totalVotes = "100000";
 const votesFor = "73000";
 const votesAgainst = "27000";
@@ -145,6 +148,8 @@ storiesOf("Listing Details Phase Card", module)
           <AppealAwaitingDecisionCard
             endTime={endTime}
             phaseLength={phaseLength}
+            requester={requester}
+            appealFeePaid={appealFeePaid}
             totalVotes={totalVotes}
             votesFor={votesFor}
             votesAgainst={votesAgainst}
@@ -159,7 +164,7 @@ storiesOf("Listing Details Phase Card", module)
     return (
       <Container>
         {process.env.NODE_ENV !== "test" && (
-          <AppealDecisionCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
+          <AppealDecisionCard endTime={endTime} phaseLength={phaseLength} appealGranted={true} transactions={[]} />
         )}
       </Container>
     );
@@ -173,6 +178,9 @@ storiesOf("Listing Details Phase Card", module)
             phaseLength={phaseLength}
             tokenBalance={tokenBalance}
             salt={commitVoteState.salt}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
             numTokens={commitVoteState.numTokens}
             onInputChange={commitVoteChange}
             transactions={[]}
@@ -188,6 +196,9 @@ storiesOf("Listing Details Phase Card", module)
           <AppealChallengeRevealVoteCard
             endTime={endTime}
             phaseLength={phaseLength}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}
