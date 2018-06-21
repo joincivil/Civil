@@ -270,4 +270,12 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
       votesAgainst,
     };
   }
+
+  public async getVotingBalance(account?: EthAddress): Promise<BigNumber> {
+    let who = account;
+    if (!who) {
+      who = requireAccount(this.ethApi);
+    }
+    return this.instance.voteTokenBalance.callAsync(who);
+  }
 }
