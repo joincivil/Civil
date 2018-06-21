@@ -5,6 +5,7 @@ import { colors, fonts } from "../styleConstants";
 export const StyledListingDetailPhaseCardContainer = styled.div`
   box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
   box-sizing: border-box;
+  background: ${colors.basic.WHITE};
   padding: 30px 40px 50px;
   width: 485px;
 `;

@@ -6,9 +6,23 @@ import ListingPhaseActions from "./ListingPhaseActions";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
-import { PageView } from "../utility/ViewModules";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { NewsroomState } from "@joincivil/newsroom-manager";
+
+import styled from "styled-components";
+const GridRow = styled.div`
+  display: flex;
+  margin: 0 auto;
+  padding: 0 0 200px;
+  width: 1200px;
+`;
+const LeftShark = styled.div`
+  width: 695px;
+`;
+const RightShark = styled.div`
+  margin: -100px 0 0 15px;
+  width: 485px;
+`;
 
 export interface ListingPageProps {
   match: any;
@@ -35,23 +49,28 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
     const newsroom = this.props.newsroom;
     const listingExistsAsNewsroom = listing && newsroom;
     return (
-      <PageView>
+      <>
         {listingExistsAsNewsroom && (
           <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
         )}
 
-        {listingExistsAsNewsroom && (
-          <ListingPhaseActions
-            listing={this.props.listing!}
-            parameters={this.props.parameters}
-            govtParameters={this.props.govtParameters}
-          />
-        )}
+        <GridRow>
+          <LeftShark>
+            {!listingExistsAsNewsroom && this.renderListingNotFound()}
+            <ListingHistory listing={this.props.match.params.listing} />
+          </LeftShark>
 
-        {!listingExistsAsNewsroom && this.renderListingNotFound()}
-
-        <ListingHistory listing={this.props.match.params.listing} />
-      </PageView>
+          <RightShark>
+            {listingExistsAsNewsroom && (
+              <ListingPhaseActions
+                listing={this.props.listing!}
+                parameters={this.props.parameters}
+                govtParameters={this.props.govtParameters}
+              />
+            )}
+          </RightShark>
+        </GridRow>
+      </>
     );
   }
 
