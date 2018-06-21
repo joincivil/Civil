@@ -36,8 +36,10 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     if (civil.userAccount) {
       const tcr = civil.tcrSingletonTrusted();
       const token = await tcr.getToken();
+      const voting = await tcr.getVoting();
       const balance = await token.getBalance(civil.userAccount);
-      this.props.dispatch!(addUser(civil.userAccount, balance));
+      const votingBalance = await voting.getVotingBalance(civil.userAccount);
+      this.props.dispatch!(addUser(civil.userAccount, balance, votingBalance));
       await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
     }
   };
