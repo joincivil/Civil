@@ -94,7 +94,7 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
   };
 
   private requestVotingRights = async (): Promise<TwoStepEthTransaction<any>> => {
-    const numTokens: BigNumber = (new BigNumber(this.state.numTokens as string)).mul(1e18);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return requestVotingRights(numTokens);
   };
 
