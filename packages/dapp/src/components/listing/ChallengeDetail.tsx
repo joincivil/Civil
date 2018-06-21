@@ -178,7 +178,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const transactions = [{ transaction: approveForAppeal }, { transaction: this.appeal }];
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
     const votesFor = challenge.poll.votesFor;
-    const votesAgainst = challenge.poll.votesFor;
+    const votesAgainst = challenge.poll.votesAgainst;
     const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100);
     const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100);
     return (
