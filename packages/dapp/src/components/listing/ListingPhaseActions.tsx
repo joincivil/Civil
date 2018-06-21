@@ -99,10 +99,10 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     return (
       <RejectedCard
         totalVotes={"100000"}
-        votesFor={"27000"}
-        votesAgainst={"73000"}
-        percentFor={"27"}
-        percentAgainst={"73"}
+        votesFor={"73000"}
+        votesAgainst={"27000"}
+        percentFor={"73"}
+        percentAgainst={"27"}
       />
     );
   }
