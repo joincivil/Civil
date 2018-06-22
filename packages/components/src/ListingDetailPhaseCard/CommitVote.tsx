@@ -130,6 +130,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private validateSalt = (): boolean => {
+    console.log("validate salt", this.props);
     let isValid = true;
 
     if (!this.props.salt || this.props.salt.length === 0) {
@@ -145,6 +146,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private validateNumTokens = (): boolean => {
+    console.log("validate num tokens", this.props);
     const numTokens = !this.props.numTokens ? 0 : parseInt(this.props.numTokens as string, 10);
     let isValid = true;
 
@@ -153,11 +155,13 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       this.setState({
         numTokensError: "Please enter a valid token vote amount",
       });
+    /*
     } else if (numTokens > this.props.tokenBalance) {
       isValid = false;
       this.setState({
         numTokensError: "Token vote amount exceeds your balance",
       });
+    //*/
     } else {
       this.setState({ numTokensError: undefined });
     }

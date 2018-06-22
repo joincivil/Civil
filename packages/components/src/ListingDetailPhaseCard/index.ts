@@ -3,6 +3,7 @@ export * from "./ChallengeCommitVoteCard";
 export * from "./ChallengeRevealVoteCard";
 export * from "./ChallengeRequestAppealCard";
 export * from "./ChallengeResolveCard";
+export * from "./ChallengeResults";
 export * from "./AppealAwaitingDecisionCard";
 export * from "./AppealDecisionCard";
 export * from "./AppealChallengeCommitVoteCard";

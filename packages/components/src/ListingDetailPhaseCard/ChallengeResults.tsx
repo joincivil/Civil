@@ -83,7 +83,7 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
             <VotesPerTokenVote vote="remain">
               <span>✔</span> Remain
             </VotesPerTokenVote>
-            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(this.props.votesAgainst)} CVL</VotesPerTokenCount>
+            <VotesPerTokenCount>{this.props.votesAgainst}</VotesPerTokenCount>
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
@@ -99,7 +99,7 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
             <VotesPerTokenVote vote="remove">
               <span>✖</span> Remove
             </VotesPerTokenVote>
-            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(this.props.votesFor)} CVL</VotesPerTokenCount>
+            <VotesPerTokenCount>{this.props.votesFor}</VotesPerTokenCount>
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
@@ -113,7 +113,7 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
         <VoteTypeSummary>
           <VotesPerTokenContainer>
             <VotesPerTokenTotal>Total Votes</VotesPerTokenTotal>
-            <VotesPerTokenCount>{getNumberStringWithCommaDelimeters(this.props.totalVotes)}</VotesPerTokenCount>
+            <VotesPerTokenCount>{this.props.totalVotes}</VotesPerTokenCount>
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
