@@ -155,13 +155,14 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       this.setState({
         numTokensError: "Please enter a valid token vote amount",
       });
-      /*
-    } else if (numTokens > this.props.tokenBalance) {
-      isValid = false;
-      this.setState({
-        numTokensError: "Token vote amount exceeds your balance",
-      });
-    //*/
+
+      // @TODO(jon): Add client-side validation that checks that
+      // numTokens <= this.props.tokenBalance. Though this may
+      // not be needed if we change to a slider UI element or
+      // when we implement pre-approving tokens for voting
+      // If we do client-side validation, we'd want to do
+      // something like:
+      // `this.setState({ numTokensError: "Token vote amount exceeds your balance" });`
     } else {
       this.setState({ numTokensError: undefined });
     }
