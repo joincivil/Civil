@@ -17,7 +17,7 @@ export class RevealVote extends React.Component<RevealVoteProps> {
           voted for this challenge.
         </FormCopy>
 
-        <TextInput label="Enter your salt" placeholder="Enter a value" name="salt" onChange={this.onChange} />
+        <TextInput label="Enter your salt" placeholder="Salt" name="salt" onChange={this.onChange} />
 
         <VoteOptionsContainer>
           <div onMouseEnter={this.setVoteToRemain}>

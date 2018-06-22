@@ -87,7 +87,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private renderSaltInput = (): JSX.Element => {
-    let label = "Enter your salt phrase";
+    let label = "Enter a number to use as your salt";
     let className;
 
     if (this.state.saltError) {
@@ -98,7 +98,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       <TextInput
         label={label}
         className={className}
-        placeholder="Salt"
+        placeholder="Enter a unique number"
         value={this.props.salt}
         name="salt"
         onChange={this.onChange}
