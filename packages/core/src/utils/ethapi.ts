@@ -17,6 +17,7 @@ const DEFAULT_HTTP_NODE = "http://localhost:8545";
 
 const debug = Debug("civil:web3wrapper");
 let interval: NodeJS.Timer;
+let networkInterval: NodeJS.Timer;
 
 export class EthApi extends Events {
   public static detectProvider(onAccountSet?: () => void): EthApi {
@@ -40,6 +41,7 @@ export class EthApi extends Events {
   // Initialized for sure by the helper method setProvider used in constructor
   public web3!: Web3;
   private currentAccount?: EthAddress;
+  private currentNetwork: string;
   private abiDecoder: AbiDecoder;
 
   constructor(provider: Web3.Provider) {
@@ -49,7 +51,9 @@ export class EthApi extends Events {
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map(a => a.abi));
     interval = setInterval(this.accountPing, 100);
+    networkInterval = setInterval(this.networkPing, 100);
     this.accountPing();
+    this.currentNetwork = this.web3.version.network;
   }
 
   public get currentProvider(): Web3.Provider {
@@ -70,13 +74,23 @@ export class EthApi extends Events {
     }
   };
 
+  public networkPing = (): void => {
+    this.setNetwork(this.web3.version.network);
+  };
+
   public get networkId(): string {
-    return this.web3.version.network;
+    return this.currentNetwork;
   }
 
   public cancelAccountPing(): void {
     if (interval) {
       clearInterval(interval);
+    }
+  }
+
+  public cancelNetworkPing(): void {
+    if (networkInterval) {
+      clearInterval(networkInterval);
     }
   }
 
@@ -251,6 +265,13 @@ export class EthApi extends Events {
       this.currentAccount = newAccount;
       this.web3.eth.defaultAccount = this.currentAccount;
       this.emit("accountSet");
+    }
+  };
+
+  private setNetwork = (newNetwork: string): void => {
+    if (newNetwork !== this.currentNetwork) {
+      this.currentNetwork = newNetwork;
+      this.emit("networkSet");
     }
   };
 }

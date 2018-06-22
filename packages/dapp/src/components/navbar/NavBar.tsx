@@ -19,9 +19,19 @@ const StyledUL = styled.ul`
   background-color: black;
 `;
 
+const StyledErrorBar = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 0;
+  height: 30px;
+  background-color: red;
+`;
+
 export interface NavBarProps {
   balance: string;
   votingBalance: string;
+  network: string;
 }
 
 class NavBar extends React.Component<NavBarProps> {
@@ -30,55 +40,59 @@ class NavBar extends React.Component<NavBarProps> {
   }
 
   public render(): JSX.Element {
+    const shouldRenderErrorBar = this.props.network !== "4";
     return (
-      <StyledUL>
-        <NavBarItem>
-          <NavBarLink to="/" big={true}>
-            C I V I L
-          </NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/registry">Registry</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/constitution">Constitution</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/about">About</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/contracts">Contracts</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/editor">Editor</NavBarLink>
-        </NavBarItem>
-        <NavBarItem>
-          <NavBarLink to="/parameterizer">Parameterizer</NavBarLink>
-        </NavBarItem>
-        <NavBarItem right={true}>
-          <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
-        </NavBarItem>
-        <NavBarItem right={true}>
-          <NavBarSpan>{"Your Balance: " + this.props.balance + " + " + this.props.votingBalance}</NavBarSpan>
-        </NavBarItem>
-      </StyledUL>
+      <>
+        <StyledUL>
+          <NavBarItem>
+            <NavBarLink to="/" big={true}>
+              C I V I L
+            </NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/registry">Registry</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/constitution">Constitution</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/about">About</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/contracts">Contracts</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/editor">Editor</NavBarLink>
+          </NavBarItem>
+          <NavBarItem>
+            <NavBarLink to="/parameterizer">Parameterizer</NavBarLink>
+          </NavBarItem>
+          <NavBarItem right={true}>
+            <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
+          </NavBarItem>
+          <NavBarItem right={true}>
+            <NavBarSpan>{"Your Balance: " + this.props.balance + " + " + this.props.votingBalance}</NavBarSpan>
+          </NavBarItem>
+        </StyledUL>
+        {shouldRenderErrorBar && <StyledErrorBar>PLEASE SWITCH TO RINKEBY TESTNET</StyledErrorBar>}
+      </>
     );
   }
 }
 const mapStateToProps = (state: State): NavBarProps => {
-  const { user } = state;
+  const { networkDependent, network } = state;
 
   let balance = "loading...";
-  if (user.account && user.account.balance) {
-    balance = getFormattedTokenBalance(user.account.balance);
+  if (networkDependent.user.account && networkDependent.user.account.balance) {
+    balance = getFormattedTokenBalance(networkDependent.user.account.balance);
   }
 
   let votingBalance = "";
-  if (user.account && user.account.votingBalance) {
-    votingBalance = getFormattedTokenBalance(user.account.votingBalance);
+  if (networkDependent.user.account && networkDependent.user.account.votingBalance) {
+    votingBalance = getFormattedTokenBalance(networkDependent.user.account.votingBalance);
   }
 
-  return { balance, votingBalance };
+  return { balance, votingBalance, network };
 };
 
 export default connect(mapStateToProps)(NavBar);

@@ -38,7 +38,7 @@ class Listings extends React.Component<ListingProps> {
 }
 
 const mapStateToProps = (state: State): ListingProps => {
-  const { whitelistedListings, rejectedListings, currentUserNewsrooms } = state;
+  const { whitelistedListings, rejectedListings, currentUserNewsrooms } = state.networkDependent;
 
   return {
     whitelistedListings,
