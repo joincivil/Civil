@@ -19,6 +19,8 @@ import {
   ChallengeRequestAppealCard,
   ChallengeResolveCard,
   ChallengeResults,
+  ModalHeading,
+  ModalContent,
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
@@ -28,6 +30,11 @@ import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import styled from "styled-components";
+
+enum ModalContentEventNames {
+  IN_PROGRESS_REQUEST_VOTING_RIGHTS = "IN_PROGRESS:REQUEST_VOTING_RIGHTS",
+  IN_PROGRESS_COMMIT_VOTE = "IN_PROGRESS:COMMIT_VOTE",
+}
 
 const StyledChallengeResults = styled.div`
   width: 460px;
@@ -132,7 +139,22 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const phaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
-    const transactions = [{ transaction: this.requestVotingRights }, { transaction: this.commitVoteOnChallenge }];
+    const requestVotingRightsProgressModal = this.renderRequestVotingRightsProgress();
+    const commitVoteProgressModal = this.renderCommitVoteProgress();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_REQUEST_VOTING_RIGHTS]: requestVotingRightsProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE]: commitVoteProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: this.requestVotingRights,
+        progressModalEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_VOTING_RIGHTS,
+      },
+      {
+        transaction: this.commitVoteOnChallenge,
+        progressModalEventName: ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE,
+      }
+    ];
 
     if (!challenge) {
       return null;
@@ -150,7 +172,28 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         salt={this.state.salt}
         numTokens={this.state.numTokens}
         transactions={transactions}
+        modalContentComponents={modalContentComponents}
       />
+    );
+  }
+
+  private renderRequestVotingRightsProgress(): JSX.Element {
+    return (
+      <>
+        <ModalHeading>Transaction 1 of 2 - Requesting Voting Rights</ModalHeading>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private renderCommitVoteProgress(): JSX.Element {
+    return (
+      <>
+        <ModalHeading>Transaction 2 of 2 - Commiting Vote</ModalHeading>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
     );
   }
 

@@ -4,6 +4,7 @@ export interface ListingDetailPhaseCardComponentProps {
   challenge?: any;
   listing?: any;
   transactions?: any[];
+  modalContentComponents?: any;
 }
 
 export interface PhaseWithExpiryProps {
@@ -30,6 +31,7 @@ export interface CommitVoteProps {
   salt?: string;
   numTokens?: string;
   transactions: any[];
+  modalContentComponents?: any;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
 }
 

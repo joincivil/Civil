@@ -17,6 +17,7 @@ export interface TransactionButtonState {
 }
 
 export interface Transaction {
+  progressEventName?: string,
   transaction(): Promise<TwoStepEthTransaction<any> | void>;
   preTransaction?(): any;
   postTransaction?(result: any): any;
@@ -46,8 +47,8 @@ export interface TransactionButtonModalContentComponentsProps {
 }
 
 export interface TransactionButtonModalProps {
-  modalComponent?: JSX.Element | undefined;
-  modalContentComponents?: TransactionButtonModalContentComponentsProps | undefined;
+  modalComponent?: JSX.Element;
+  modalContentComponents?: any;
 }
 
 export interface TransitionButtonModalState {
@@ -160,7 +161,7 @@ export class TransactionButton extends React.Component<
       ...other
     } = this.props;
     const progressModal = this.getProgressModalEl(modalComponent, modalContentComponents);
-    const extendedTransactions = this.extendTransactionsErrorHandlers(transactions);
+    const extendedTransactions = this.extendTransactionsHandlers(transactions);
     let extendedPreExecuteTransactions = this.showProgressModal;
     let extendedPostExecuteTransactions = this.showProgressModalSuccess;
 
@@ -190,10 +191,15 @@ export class TransactionButton extends React.Component<
     );
   }
 
-  private extendTransactionsErrorHandlers = (transactions: Transaction[]): Transaction[] => {
+  private extendTransactionsHandlers = (transactions: Transaction[]): Transaction[] => {
     return transactions.map(transaction => {
       if (!transaction.handleTransactionError) {
         transaction.handleTransactionError = this.showProgressModalError;
+      }
+      if (transaction.progressEventName) {
+        transaction.preTransaction = () => {
+          this.showProgressModal(transaction.progressEventName);
+        };
       }
       return transaction;
     });
@@ -201,7 +207,7 @@ export class TransactionButton extends React.Component<
 
   private getProgressModalEl = (
     modalComponent: JSX.Element | undefined,
-    modalContentComponents: TransactionButtonModalContentComponentsProps | undefined,
+    modalContentComponents?: any,
   ): JSX.Element | undefined => {
     const modalContentSource =
       (modalContentComponents && modalContentComponents[this.state.progressModalState!]) ||
@@ -236,8 +242,8 @@ export class TransactionButton extends React.Component<
     this.setState({ progressModalState: progressModalStates.ERROR });
   };
 
-  private showProgressModal = (): void => {
-    this.setState({ isProgressModalVisible: true, progressModalState: progressModalStates.IN_PROGRESS });
+  private showProgressModal = (progressModalState: string = progressModalStates.IN_PROGRESS): void => {
+    this.setState({ isProgressModalVisible: true, progressModalState });
   };
 
   private hideProgressModal = (): void => {
