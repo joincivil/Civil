@@ -185,8 +185,14 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor).toString();
     const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
     const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100).toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100).toFixed(0);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
     return (
       <ChallengeRequestAppealCard
         endTime={endTime}
@@ -205,18 +211,24 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
     const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
     const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100).toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100).toFixed(0);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
     console.log(challenge);
     return (
       <StyledChallengeResults>
-      <ChallengeResults
-        totalVotes={getFormattedTokenBalance(totalVotes)}
-        votesFor={votesFor.toString()}
-        votesAgainst={votesAgainst.toString()}
-        percentFor={percentFor.toString()}
-        percentAgainst={percentAgainst.toString()}
-      />
+        <ChallengeResults
+          totalVotes={getFormattedTokenBalance(totalVotes)}
+          votesFor={votesFor.toString()}
+          votesAgainst={votesAgainst.toString()}
+          percentFor={percentFor.toString()}
+          percentAgainst={percentAgainst.toString()}
+        />
       </StyledChallengeResults>
     );
   }
@@ -387,8 +399,14 @@ class ChallengeResolveContainer extends React.Component<
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
     const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
     const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100).toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100).toFixed(0);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
 
     return (
       <ChallengeResolveCard

@@ -155,7 +155,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       this.setState({
         numTokensError: "Please enter a valid token vote amount",
       });
-    /*
+      /*
     } else if (numTokens > this.props.tokenBalance) {
       isValid = false;
       this.setState({

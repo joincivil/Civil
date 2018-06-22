@@ -1418,7 +1418,7 @@ initialize {
                 },
                 "children": Array [
                   Object {
-                    "data": "MetaMask is on the wrong network",
+                    "data": "Set up your MetaMask wallet",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -1433,7 +1433,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "Please change your network to the Rinkeby Network before proceeding",
+                      "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -1442,7 +1442,38 @@ initialize {
                   ],
                   "name": "p",
                   "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-hXRMBi vpcGX",
+                      "href": "https://metamask.io/",
+                      "target": "_blank",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Get MetaMask >",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                  },
                   "parent": [Circular],
                   "prev": [Circular],
                   "type": "tag",
@@ -1469,7 +1500,7 @@ initialize {
                 },
                 "children": Array [
                   Object {
-                    "data": "Please change your network to the Rinkeby Network before proceeding",
+                    "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -1478,7 +1509,38 @@ initialize {
                 ],
                 "name": "p",
                 "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-hXRMBi vpcGX",
+                    "href": "https://metamask.io/",
+                    "target": "_blank",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Get MetaMask >",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                  },
+                },
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
@@ -1486,7 +1548,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "MetaMask is on the wrong network",
+                      "data": "Set up your MetaMask wallet",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -1512,6 +1574,88 @@ initialize {
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                },
+              },
+              Object {
+                "attribs": Object {
+                  "class": "sc-hXRMBi vpcGX",
+                  "href": "https://metamask.io/",
+                  "target": "_blank",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Get MetaMask >",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "class": "sc-gwVKww fjjecZ",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-eTuwsz cDPKYd",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Set up your MetaMask wallet",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "h4",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "target": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "target": undefined,
                 },
               },
             ],
@@ -1589,7 +1733,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "MetaMask is on the wrong network",
+                      "data": "Set up your MetaMask wallet",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -1604,7 +1748,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Please change your network to the Rinkeby Network before proceeding",
+                        "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -1613,7 +1757,38 @@ initialize {
                     ],
                     "name": "p",
                     "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-hXRMBi vpcGX",
+                        "href": "https://metamask.io/",
+                        "target": "_blank",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Get MetaMask >",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                    },
                     "parent": [Circular],
                     "prev": [Circular],
                     "type": "tag",
@@ -1640,7 +1815,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "Please change your network to the Rinkeby Network before proceeding",
+                      "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -1649,7 +1824,38 @@ initialize {
                   ],
                   "name": "p",
                   "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-hXRMBi vpcGX",
+                      "href": "https://metamask.io/",
+                      "target": "_blank",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Get MetaMask >",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                  },
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
@@ -1657,7 +1863,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "MetaMask is on the wrong network",
+                        "data": "Set up your MetaMask wallet",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -1683,6 +1889,88 @@ initialize {
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-hXRMBi vpcGX",
+                    "href": "https://metamask.io/",
+                    "target": "_blank",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Get MetaMask >",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-gwVKww fjjecZ",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "p",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-eTuwsz cDPKYd",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Set up your MetaMask wallet",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "h4",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
                   },
                 },
               ],
@@ -1787,7 +2075,7 @@ initialize {
                 },
                 "children": Array [
                   Object {
-                    "data": "MetaMask is on the wrong network",
+                    "data": "Set up your MetaMask wallet",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -1802,7 +2090,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "Please change your network to the Rinkeby Network before proceeding",
+                      "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -1811,7 +2099,38 @@ initialize {
                   ],
                   "name": "p",
                   "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-hXRMBi vpcGX",
+                      "href": "https://metamask.io/",
+                      "target": "_blank",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Get MetaMask >",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                  },
                   "parent": [Circular],
                   "prev": [Circular],
                   "type": "tag",
@@ -1838,7 +2157,7 @@ initialize {
                 },
                 "children": Array [
                   Object {
-                    "data": "Please change your network to the Rinkeby Network before proceeding",
+                    "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -1847,7 +2166,38 @@ initialize {
                 ],
                 "name": "p",
                 "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-hXRMBi vpcGX",
+                    "href": "https://metamask.io/",
+                    "target": "_blank",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Get MetaMask >",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                  },
+                },
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
@@ -1855,7 +2205,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "MetaMask is on the wrong network",
+                      "data": "Set up your MetaMask wallet",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -1881,6 +2231,88 @@ initialize {
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                },
+              },
+              Object {
+                "attribs": Object {
+                  "class": "sc-hXRMBi vpcGX",
+                  "href": "https://metamask.io/",
+                  "target": "_blank",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Get MetaMask >",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "class": "sc-gwVKww fjjecZ",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-eTuwsz cDPKYd",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Set up your MetaMask wallet",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "h4",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "target": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "target": undefined,
                 },
               },
             ],
@@ -1958,7 +2390,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "MetaMask is on the wrong network",
+                      "data": "Set up your MetaMask wallet",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -1973,7 +2405,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Please change your network to the Rinkeby Network before proceeding",
+                        "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -1982,7 +2414,38 @@ initialize {
                     ],
                     "name": "p",
                     "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-hXRMBi vpcGX",
+                        "href": "https://metamask.io/",
+                        "target": "_blank",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Get MetaMask >",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                    },
                     "parent": [Circular],
                     "prev": [Circular],
                     "type": "tag",
@@ -2009,7 +2472,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "Please change your network to the Rinkeby Network before proceeding",
+                      "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -2018,7 +2481,38 @@ initialize {
                   ],
                   "name": "p",
                   "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-hXRMBi vpcGX",
+                      "href": "https://metamask.io/",
+                      "target": "_blank",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Get MetaMask >",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                  },
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
@@ -2026,7 +2520,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "MetaMask is on the wrong network",
+                        "data": "Set up your MetaMask wallet",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -2052,6 +2546,88 @@ initialize {
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-hXRMBi vpcGX",
+                    "href": "https://metamask.io/",
+                    "target": "_blank",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Get MetaMask >",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-gwVKww fjjecZ",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Download the MetaMask browser plugin and follow the instructions to set up your wallet.",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "p",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-eTuwsz cDPKYd",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Set up your MetaMask wallet",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "h4",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
                   },
                 },
               ],

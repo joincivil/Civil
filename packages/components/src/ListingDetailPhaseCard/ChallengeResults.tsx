@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors } from "../styleConstants";
-import { getNumberStringWithCommaDelimeters } from "@joincivil/utils";
 import { buttonSizes, DarkButton } from "../Button";
 import { InputGroup, TextInput } from "../input/";
 import { FormHeader } from "./styledComponents";

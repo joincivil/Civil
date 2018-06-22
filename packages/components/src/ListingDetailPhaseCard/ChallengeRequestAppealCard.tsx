@@ -43,7 +43,9 @@ export class ChallengeRequestAppealCard extends React.Component<
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>If you disagree with the community, you may request an appeal to the Civil Council.</CTACopy>
-          <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>Request Appeal from Civil Council</TransactionInvertedButton>
+          <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
+            Request Appeal from Civil Council
+          </TransactionInvertedButton>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
