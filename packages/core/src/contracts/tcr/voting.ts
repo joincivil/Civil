@@ -93,10 +93,10 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     return new Promise<boolean>(async (res, rej) => {
       try {
         await this.instance.rescueTokens.estimateGasAsync(pollID, { from: user });
-        console.log("can rescue tokens.");
+        console.log("can rescue tokens. pollID: " + pollID);
         res(true);
       } catch (ex) {
-        console.log("cannot rescue tokens bud.");
+        console.log("cannot rescue tokens bud. " + pollID);
         res(false);
       }
     });
@@ -107,7 +107,10 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to unlock unrevealed vote of
    */
   public async rescueTokens(pollID: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.rescueTokens.sendTransactionAsync(pollID));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.rescueTokens.sendTransactionAsync(this.ethApi.toBigNumber(pollID)),
+    );
   }
 
   /**
@@ -149,6 +152,30 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
       this.ethApi,
       await this.instance.revealVote.sendTransactionAsync(pollID, voteOption, salt),
     );
+  }
+
+  public async getRevealedVote(pollID: BigNumber, voter: EthAddress): Promise<BigNumber | undefined> {
+    if (await this.didRevealVote(voter, pollID)) {
+      const reveal = await this.instance
+        ._VoteRevealedStream({ pollID }, { fromBlock: 0 })
+        .first()
+        .toPromise();
+      return reveal.args.choice;
+    }
+    return undefined;
+  }
+
+  public async isVoterWinner(pollID: BigNumber, voter: EthAddress): Promise<boolean> {
+    const vote = await this.getRevealedVote(pollID, voter);
+    if (vote) {
+      const isPollPassed = await this.instance.isPassed.callAsync(pollID);
+      if (vote.equals("1") && isPollPassed) {
+        return true;
+      } else if (vote.equals("0") && !isPollPassed) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**

@@ -268,8 +268,9 @@ export async function claimRewards(challengeID: BigNumber, salt: BigNumber): Pro
 
 export async function rescueTokens(challengeID: BigNumber): Promise<TwoStepEthTransaction | void> {
   const tcr = getTCR();
+  const civil = getCivil();
   const voting = tcr.getVoting();
-  return voting.rescueTokens(challengeID);
+  return voting.rescueTokens(civil.toBigNumber(challengeID.toString()));
 }
 
 export async function signMessage(message: string): Promise<EthSignedMessage> {

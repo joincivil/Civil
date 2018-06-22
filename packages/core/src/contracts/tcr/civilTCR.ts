@@ -455,6 +455,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let didUserCollect;
     let didUserRescue;
     let didCollectAmount;
+    let isVoterWinner;
     const resolved = (await this.instance.challenges.callAsync(challengeID))[2];
     if (user) {
       didUserCommit = await this.voting.didCommitVote(user, challengeID);
@@ -466,6 +467,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
           } else {
             didUserRescue = !(await this.voting.canRescueTokens(user, challengeID));
           }
+          isVoterWinner = await this.voting.isVoterWinner(challengeID, user);
         }
       }
     }
@@ -480,6 +482,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       didUserCollect,
       didUserRescue,
       didCollectAmount,
+      isVoterWinner,
     };
   }
 

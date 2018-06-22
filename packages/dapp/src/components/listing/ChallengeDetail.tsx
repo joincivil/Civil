@@ -214,6 +214,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challengeID}
         user={this.props.user}
         userChallengeData={this.props.userChallengeData}
+        challenge={this.props.challenge!}
       />
     );
   }
@@ -223,6 +224,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challenge.appeal!.appealChallengeID}
         user={this.props.user}
         userChallengeData={this.props.userAppealChallengeData}
+        appealChallenge={this.props.challenge.appeal!.appealChallenge!}
       />
     );
   }
