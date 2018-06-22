@@ -185,7 +185,7 @@ export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransa
   return tcr.grantAppeal(address);
 }
 
-export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
 
@@ -193,14 +193,16 @@ export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStep
   const eip = await tcr.getToken();
 
   const numTokensBN = ensureWeb3BigNumber(numTokens);
+  const currentApprovedTokens = await voting.getNumVotingRights();
+  if (currentApprovedTokens.lessThan(numTokensBN)) {
+    const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
+    if (approvedTokensForSpender < numTokensBN) {
+      const approveSpenderReceipt = await eip.approveSpender(voting.address, numTokensBN);
+      await approveSpenderReceipt.awaitReceipt();
+    }
 
-  const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
-  if (approvedTokensForSpender < numTokensBN) {
-    const approveSpenderReceipt = await eip.approveSpender(voting.address, numTokensBN);
-    await approveSpenderReceipt.awaitReceipt();
+    return voting.requestVotingRights(numTokensBN);
   }
-
-  return voting.requestVotingRights(numTokensBN);
 }
 
 export async function revealVote(

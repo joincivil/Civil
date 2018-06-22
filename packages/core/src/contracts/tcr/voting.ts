@@ -70,8 +70,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Transfer tokens to voting contract (thus getting voting rights)
    * @param numTokens number of tokens to transfer into voting contract
    */
-  public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.requestVotingRights.sendTransactionAsync(numTokens));
+  public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | undefined> {
+    const currentVotingRights = await this.getNumVotingRights();
+    if (currentVotingRights.lessThan(numTokens)) {
+      return createTwoStepSimple(this.ethApi, await this.instance.requestVotingRights.sendTransactionAsync(numTokens));
+    }
   }
 
   /**
@@ -296,13 +299,5 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
       votesFor,
       votesAgainst,
     };
-  }
-
-  public async getVotingBalance(account?: EthAddress): Promise<BigNumber> {
-    let who = account;
-    if (!who) {
-      who = requireAccount(this.ethApi);
-    }
-    return this.instance.voteTokenBalance.callAsync(who);
   }
 }
