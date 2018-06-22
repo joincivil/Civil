@@ -21,6 +21,7 @@ const StyledUL = styled.ul`
 
 export interface NavBarProps {
   balance: string;
+  votingBalance: string;
 }
 
 class NavBar extends React.Component<NavBarProps> {
@@ -58,7 +59,7 @@ class NavBar extends React.Component<NavBarProps> {
           <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
         </NavBarItem>
         <NavBarItem right={true}>
-          <NavBarSpan>{"Your Balance: " + this.props.balance}</NavBarSpan>
+          <NavBarSpan>{"Your Balance: " + this.props.balance + " + " + this.props.votingBalance}</NavBarSpan>
         </NavBarItem>
       </StyledUL>
     );
@@ -71,7 +72,13 @@ const mapStateToProps = (state: State): NavBarProps => {
   if (user.account && user.account.balance) {
     balance = getFormattedTokenBalance(user.account.balance);
   }
-  return { balance };
+
+  let votingBalance = "";
+  if (user.account && user.account.votingBalance) {
+    votingBalance = getFormattedTokenBalance(user.account.votingBalance);
+  }
+
+  return { balance, votingBalance };
 };
 
 export default connect(mapStateToProps)(NavBar);
