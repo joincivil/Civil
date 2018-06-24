@@ -101,6 +101,10 @@ export class Civil {
     this.ethApi.on("networkSet", callback);
   }
 
+  public removeCallbackFromSetNetworkEmitter(callback: () => any): void {
+    this.ethApi.removeListener("networkSet", callback);
+  }
+
   /**
    * Create a new Newsroom owned by a multisig on the current Ethereum network with the
    * bytecode included in this library
