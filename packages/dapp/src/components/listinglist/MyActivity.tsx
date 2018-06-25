@@ -30,7 +30,7 @@ class MyActivity extends React.Component<MyActivityProps> {
 }
 
 const mapStateToProps = (state: State): MyActivityProps => {
-  const { currentUserNewsrooms, challengesVotedOnByUser, user } = state;
+  const { currentUserNewsrooms, challengesVotedOnByUser, user } = state.networkDependent;
   let currentUserChallengesVotedOn = Set<string>();
   if (user.account && challengesVotedOnByUser.has(user.account.account)) {
     currentUserChallengesVotedOn = challengesVotedOnByUser.get(user.account.account);

@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers, AnyAction } from "redux";
 import {
   listings,
   listingsFetching,
@@ -36,13 +36,21 @@ import {
 } from "./challenges";
 import { government, govtParameters } from "./government";
 import { user } from "./userAccount";
+import { network } from "./network";
 import { ui } from "./ui";
 import { Set, List, Map } from "immutable";
 import { TimestampedEvent, WrappedChallengeData, UserChallengeData, EthAddress } from "@joincivil/core";
 import { currentUserNewsrooms } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
+import { networkActions } from "../actionCreators/network";
 
 export interface State {
+  networkDependent: NetworkDependentState;
+  network: string;
+  ui: Map<string, any>;
+}
+
+export interface NetworkDependentState {
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, string>;
@@ -78,10 +86,9 @@ export interface State {
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
   appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
-  ui: Map<string, any>;
 }
 
-export default combineReducers({
+const networkDependentReducers = combineReducers({
   newsrooms,
   newsroomUi,
   newsroomUsers,
@@ -117,5 +124,17 @@ export default combineReducers({
   challengeUserData,
   appealChallengeUserData,
   government,
+});
+
+const networkDependent = (state: any, action: AnyAction) => {
+  if (action.type === networkActions.SET_NETWORK) {
+    return networkDependentReducers(undefined, action);
+  }
+  return networkDependentReducers(state, action);
+};
+
+export default combineReducers({
+  networkDependent,
+  network,
   ui,
 });

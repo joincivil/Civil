@@ -72,6 +72,10 @@ export class Civil {
     return this.ethApi.account;
   }
 
+  public get network(): string {
+    return this.ethApi.networkId;
+  }
+
   /**
    * Returns the current provider that is used by all things Civil in the Core
    */
@@ -91,6 +95,14 @@ export class Civil {
 
   public addCallbackToSetAccountEmitter(callback: () => any): void {
     this.ethApi.on("accountSet", callback);
+  }
+
+  public addCallbackToSetNetworkEmitter(callback: () => any): void {
+    this.ethApi.on("networkSet", callback);
+  }
+
+  public removeCallbackFromSetNetworkEmitter(callback: () => any): void {
+    this.ethApi.removeListener("networkSet", callback);
   }
 
   /**

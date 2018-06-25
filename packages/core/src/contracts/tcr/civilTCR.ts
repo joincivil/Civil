@@ -6,7 +6,7 @@ import "@joincivil/utils";
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-import { CivilTCR as GeneratedCivilTCR, CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 import { EthApi } from "../../utils/ethapi";
@@ -430,12 +430,8 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       .merge(appealChallengeStream)
       .first() // only one will ever emit an event and it will emit exactly one
       .toPromise();
-    switch (event.event) {
-      case GeneratedCivilTCR.Events._Challenge:
-        return event.args.challengeID;
-      case GeneratedCivilTCR.Events._GrantedAppealChallenged:
-        return event.args.challengeID;
-    }
+
+    return event.args.challengeID; // both events have this argument
   }
 
   public async getChallengeData(challengeID: BigNumber): Promise<WrappedChallengeData> {
