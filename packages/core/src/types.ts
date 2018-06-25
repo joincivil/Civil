@@ -180,6 +180,7 @@ export interface UserChallengeData {
   didUserCollect?: boolean;
   didUserRescue?: boolean;
   didCollectAmount?: BigNumber;
+  isVoterWinner?: boolean;
 }
 
 /**

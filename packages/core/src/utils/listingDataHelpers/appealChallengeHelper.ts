@@ -1,5 +1,5 @@
 import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
-import { AppealChallengeData } from "../../types";
+import { AppealChallengeData, UserChallengeData } from "../../types";
 import { is0x0Address } from "@joincivil/utils";
 
 /**
@@ -33,4 +33,38 @@ export function canAppealChallengeBeResolved(challengeData: AppealChallengeData)
     !isAppealChallengeInRevealStage(challengeData) &&
     !challengeData.resolved
   );
+}
+
+export function isUserAppealChallengeWinner(
+  challengeData: AppealChallengeData,
+  userChallengeData: UserChallengeData,
+): boolean {
+  if (challengeData.resolved && userChallengeData.didUserReveal) {
+    if (userChallengeData.isVoterWinner) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function canUserCollectAppealChallengeReward(
+  challengeData: AppealChallengeData,
+  userChallengeData: UserChallengeData,
+): boolean {
+  return isUserAppealChallengeWinner(challengeData, userChallengeData) && !userChallengeData.didUserCollect;
+}
+
+export function canRescueAppealChallengeTokens(
+  challengeData: AppealChallengeData,
+  userChallengeData: UserChallengeData,
+): boolean {
+  if (
+    challengeData.resolved &&
+    userChallengeData.didUserCommit &&
+    !userChallengeData.didUserReveal &&
+    !userChallengeData.didUserRescue
+  ) {
+    return true;
+  }
+  return false;
 }
