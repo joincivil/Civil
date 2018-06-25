@@ -5,7 +5,7 @@ import { CompleteYourProfile } from "./CompleteYourProfile";
 import { connect, DispatchProp } from "react-redux";
 import { StateWithNewsroom } from "./reducers";
 import { addNewsroom, getNewsroom, getEditors, addGetNameForAddress } from "./actionCreators";
-import { EthAddress, Civil } from "@joincivil/core";
+import { EthAddress, Civil, TxHash } from "@joincivil/core";
 import { SignConstitution } from "./SignConstitution";
 import { CreateCharter } from "./CreateCharter";
 import { ApplyToTCR } from "./ApplyToTCR";
@@ -17,10 +17,12 @@ export interface NewsroomComponentState {
 }
 
 export interface NewsroomProps {
-  address?: string;
+  address?: EthAddress;
+  txHash?: TxHash;
   name?: string;
   civil: Civil;
   onNewsroomCreated?(address: EthAddress): void;
+  onContractDeployStarted?(txHash: TxHash): void;
   getNameForAddress?(address: EthAddress): Promise<string>;
 }
 
@@ -39,14 +41,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
 
     if (this.props.address) {
-      await this.props.dispatch!(getNewsroom(this.props.address, this.props.civil));
-      this.props.dispatch!(getEditors(this.props.address, this.props.civil));
+      this.hydrateNewsroom(this.props.address);
     }
   }
 
   public componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): void {
     if (newProps.address && !this.props.address) {
-      this.props.dispatch!(getEditors(newProps.address, this.props.civil));
+      this.hydrateNewsroom(newProps.address);
     }
   }
 
@@ -86,6 +87,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               onNewsroomCreated={this.onNewsroomCreated}
               name={this.props.name}
               address={this.props.address}
+              txHash={this.props.txHash}
+              onContractDeployStarted={this.props.onContractDeployStarted}
             />
             <CompleteYourProfile active={this.state.currentStep} address={this.props.address} />
             <CreateCharter />
@@ -120,6 +123,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return true;
   };
 
+  private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
+    await this.props.dispatch!(getNewsroom(address, this.props.civil));
+    this.props.dispatch!(getEditors(address, this.props.civil));
+  }
+
   private onModalClose = () => {
     this.setState({ modalOpen: false });
     window.localStorage.setItem("civil:hasSeenWelcomeModal", "true");
@@ -131,7 +139,6 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): New
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   return {
     ...ownProps,
-    address,
     name: newsroom.wrapper.data.name,
   };
 };
