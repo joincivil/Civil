@@ -61,7 +61,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           Civil and make use of blockchain features such as permananet archiving.
         </ModalContent>
         <ModalContent>
-          You'll need to use either Chrome, Brave, or FireFox as your browser and have MetaMask installed. You'll also
+          You'll need to use either Chrome, Brave, or Firefox as your browser and have MetaMask installed. You'll also
           need the public keys (wallet addresses) of your newsroom co-owners and of your editors, as well as your
           newsroom charter.
         </ModalContent>
