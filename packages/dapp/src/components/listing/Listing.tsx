@@ -31,6 +31,7 @@ export interface ListingPageProps {
 export interface ListingReduxProps {
   newsroom: NewsroomState | undefined;
   listing: ListingWrapper | undefined;
+  expiry?: number;
   userAccount?: EthAddress;
   listingDataRequestStatus?: any;
   parameters: any;
@@ -64,6 +65,7 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
             {listingExistsAsNewsroom && (
               <ListingPhaseActions
                 listing={this.props.listing!}
+                expiry={this.props.expiry}
                 parameters={this.props.parameters}
                 govtParameters={this.props.govtParameters}
               />
@@ -88,10 +90,17 @@ const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingRed
     listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
   }
 
-  const listing = listings.get(listingAddress) ? listings.get(listingAddress).listing : undefined;
+  let listing;
+  let expiry;
+  const l = listings.get(listingAddress);
+  if (l) {
+    listing = l.listing;
+    expiry = l.expiry;
+  }
   return {
     newsroom: newsrooms.get(listingAddress),
     listing,
+    expiry,
     userAccount: user.account,
     listingDataRequestStatus,
     parameters,
