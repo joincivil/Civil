@@ -209,6 +209,7 @@ export class TransactionButton extends React.Component<
     modalComponent: JSX.Element | undefined,
     modalContentComponents?: any,
   ): JSX.Element | undefined => {
+    console.log("get progress modal");
     const modalContentSource =
       (modalContentComponents && modalContentComponents[this.state.progressModalState!]) ||
       DEFAULT_MODAL_COMPONENTS[this.state.progressModalState!];
