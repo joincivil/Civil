@@ -41,13 +41,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
 
     if (this.props.address) {
-      this.hydrateNewsroom(this.props.address);
+      await this.hydrateNewsroom(this.props.address);
     }
   }
 
-  public componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): void {
+  public async componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): void {
     if (newProps.address && !this.props.address) {
-      this.hydrateNewsroom(newProps.address);
+      await this.hydrateNewsroom(newProps.address);
     }
   }
 
