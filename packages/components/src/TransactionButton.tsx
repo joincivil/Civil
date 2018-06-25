@@ -111,7 +111,6 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
   private executeTransactions = async (transactions: Transaction[]): Promise<any> => {
     const currTransaction = transactions.pop();
     if (currTransaction) {
-
       if (currTransaction.preTransaction) {
         setImmediate(() => currTransaction.preTransaction!());
       }
@@ -138,7 +137,6 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
         }
 
         return this.executeTransactions(transactions);
-
       } catch (err) {
         this.setState({ step: 0, disableButton: false });
 

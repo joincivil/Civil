@@ -156,7 +156,10 @@ export class Civil {
    * @param transactionHash The transaction hash which creates the Newsroom
    * @param blockConfirmations How many blocks should be mined before the Newsroom is considered immutabely created
    */
-  public async newsroomFromFactoryTxHashUntrusted(transactionHash: TxHash, blockConfirmations?: number): Promise<Newsroom> {
+  public async newsroomFromFactoryTxHashUntrusted(
+    transactionHash: TxHash,
+    blockConfirmations?: number,
+  ): Promise<Newsroom> {
     const receipt = await this.awaitReceipt(transactionHash, blockConfirmations);
     return Newsroom.fromFactoryReceipt(receipt, this.ethApi, this.contentProvider);
   }

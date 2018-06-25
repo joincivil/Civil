@@ -93,7 +93,11 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     );
   }
 
-  public static async fromFactoryReceipt(factoryReceipt: TransactionReceipt, ethApi: EthApi, contentProvider: ContentProvider): Promise<Newsroom> {
+  public static async fromFactoryReceipt(
+    factoryReceipt: TransactionReceipt,
+    ethApi: EthApi,
+    contentProvider: ContentProvider,
+  ): Promise<Newsroom> {
     const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);

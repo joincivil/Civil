@@ -126,7 +126,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil));
     this.props.dispatch!(getEditors(address, this.props.civil));
-  }
+  };
 
   private onModalClose = () => {
     this.setState({ modalOpen: false });
