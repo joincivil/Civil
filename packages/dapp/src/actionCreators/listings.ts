@@ -76,7 +76,7 @@ export const fetchListingComplete = (listingID: string): AnyAction => {
 
 export const fetchAndAddListingData = (listingID: string): any => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
-    const { listingsFetching } = getState();
+    const { listingsFetching } = getState().networkDependent;
     const challengeRequest = listingsFetching.get(listingID);
 
     // Never fetched this before, so let's fetch it
