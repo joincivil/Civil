@@ -1,6 +1,6 @@
 import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
 import { is0x0Address } from "@joincivil/utils";
-import { ChallengeData } from "../../types";
+import { ChallengeData, UserChallengeData } from "../../types";
 
 /**
  * Checks if a Challenge is in the Commit stage
@@ -64,4 +64,47 @@ export function canResolveChallenge(challengeData: ChallengeData): boolean {
  */
 export function doesChallengeHaveAppeal(challengeData: ChallengeData): boolean {
   return challengeData.appeal! && !is0x0Address(challengeData!.appeal!.requester.toString());
+}
+
+export function canCollectRewardOrRescue(challengeData: ChallengeData): boolean {
+  return challengeData && challengeData.resolved;
+}
+
+export function isOriginalChallengeVoteOverturned(challengeData: ChallengeData): boolean {
+  if (challengeData.appeal) {
+    if (challengeData.appeal.appealGranted) {
+      if (challengeData.appeal.appealChallenge) {
+        if (isVotePassed(challengeData.appeal.appealChallenge.poll)) {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+  return false;
+}
+
+export function isUserWinner(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
+  if (challengeData.resolved && userChallengeData.didUserReveal) {
+    const isOverturned = isOriginalChallengeVoteOverturned(challengeData);
+    const isWinner = userChallengeData.isVoterWinner;
+    return (isWinner && !isOverturned) || (!isWinner && isOverturned);
+  }
+  return false;
+}
+
+export function canUserCollectReward(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
+  return isUserWinner(challengeData, userChallengeData) && !userChallengeData.didUserCollect;
+}
+
+export function canRescueTokens(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
+  if (
+    challengeData.resolved &&
+    userChallengeData.didUserCommit &&
+    !userChallengeData.didUserReveal &&
+    !userChallengeData.didUserRescue
+  ) {
+    return true;
+  }
+  return false;
 }
