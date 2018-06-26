@@ -45,6 +45,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
             <TransactionDarkButton
               size={buttonSizes.MEDIUM}
               transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
               disabled={disableButtons}
             >
               ✔ Remain

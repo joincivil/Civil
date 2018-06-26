@@ -148,12 +148,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const transactions = [
       {
         transaction: this.requestVotingRights,
-        progressModalEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_VOTING_RIGHTS,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_VOTING_RIGHTS,
       },
       {
         transaction: this.commitVoteOnChallenge,
-        progressModalEventName: ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE,
-      }
+        progressEventName: ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE,
+      },
     ];
 
     if (!challenge) {
@@ -281,7 +281,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challengeID}
         user={this.props.user}
         userChallengeData={this.props.userChallengeData}
-        challenge={this.props.challenge!}
       />
     );
   }
@@ -291,7 +290,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challenge.appeal!.appealChallengeID}
         user={this.props.user}
         userChallengeData={this.props.userAppealChallengeData}
-        appealChallenge={this.props.challenge.appeal!.appealChallenge!}
       />
     );
   }
@@ -375,7 +373,6 @@ const mapStateToProps = (
     parameters,
     govtParameters,
   } = state.networkDependent;
-
   let listingAddress = ownProps.listingAddress;
   let challengeData;
   let userChallengeData;
