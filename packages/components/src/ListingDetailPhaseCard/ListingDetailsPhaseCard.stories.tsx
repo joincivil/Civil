@@ -52,8 +52,11 @@ let commitVoteState = {
   voteOption: undefined,
 };
 
-function commitVoteChange(data: any): void {
+function commitVoteChange(data: any, callback?: () => any): void {
   commitVoteState = { ...commitVoteState, ...data };
+  if (callback) {
+    callback();
+  }
 }
 
 storiesOf("Listing Details Phase Card", module)

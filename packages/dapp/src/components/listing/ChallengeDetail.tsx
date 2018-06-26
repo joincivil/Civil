@@ -18,6 +18,7 @@ import {
   ChallengeRevealVoteCard,
   ChallengeRequestAppealCard,
   ChallengeResolveCard,
+  ChallengeResults,
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
@@ -26,6 +27,11 @@ import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import styled from "styled-components";
+
+const StyledChallengeResults = styled.div`
+  width: 460px;
+`;
 
 export interface ChallengeContainerProps {
   listingAddress: EthAddress;
@@ -176,36 +182,54 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const endTime = this.props.challenge.requestAppealExpiry.toNumber();
     const phaseLength = this.props.govtParameters.requestAppealLen;
     const transactions = [{ transaction: approveForAppeal }, { transaction: this.appeal }];
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = challenge.poll.votesFor;
-    const votesAgainst = challenge.poll.votesFor;
-    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100);
-    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100);
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor).toString();
+    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
     return (
       <ChallengeRequestAppealCard
         endTime={endTime}
         phaseLength={phaseLength}
         transactions={transactions}
-        totalVotes={totalVotes.toString()}
-        votesFor={votesFor.toString()}
-        votesAgainst={votesAgainst.toString()}
-        percentFor={percentFor.toString()}
-        percentAgainst={percentAgainst.toString()}
+        totalVotes={totalVotes}
+        votesFor={votesFor}
+        votesAgainst={votesAgainst}
+        percentFor={percentFor}
+        percentAgainst={percentAgainst}
       />
     );
   }
   private renderVoteResult(): JSX.Element {
-    const totalVotes = this.props.challenge.poll.votesAgainst.add(this.props.challenge.poll.votesFor);
-    const percentFor = this.props.challenge.poll.votesFor.div(totalVotes).mul(100);
-    const percentAgainst = this.props.challenge.poll.votesAgainst.div(totalVotes).mul(100);
+    const challenge = this.props.challenge;
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    console.log(challenge);
     return (
-      <>
-        Result:
-        <br />
-        Reject: {this.props.challenge.poll.votesFor.toString() + " CVL"} - {percentFor.toString() + "%"}
-        <br />
-        Allow: {this.props.challenge.poll.votesAgainst.toString() + " CVL"} - {percentAgainst.toString() + "%"}
-      </>
+      <StyledChallengeResults>
+        <ChallengeResults
+          totalVotes={getFormattedTokenBalance(totalVotes)}
+          votesFor={votesFor.toString()}
+          votesAgainst={votesAgainst.toString()}
+          percentFor={percentFor.toString()}
+          percentAgainst={percentAgainst.toString()}
+        />
+      </StyledChallengeResults>
     );
   }
   private renderRewardsDetail(): JSX.Element {
@@ -229,8 +253,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     );
   }
 
-  private updateCommitVoteState = (data: any): void => {
-    this.setState({ ...data });
+  private updateCommitVoteState = (data: any, callback?: () => void): void => {
+    if (callback) {
+      this.setState({ ...data }, callback);
+    } else {
+      this.setState({ ...data });
+    }
   };
 
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -372,17 +400,23 @@ class ChallengeResolveContainer extends React.Component<
     }
 
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = challenge.poll.votesFor;
-    const votesAgainst = challenge.poll.votesFor;
-    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100);
-    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100);
+    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
 
     return (
       <ChallengeResolveCard
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
-        totalVotes={totalVotes.toString()}
+        totalVotes={getFormattedTokenBalance(totalVotes)}
         votesFor={votesFor.toString()}
         votesAgainst={votesAgainst.toString()}
         percentFor={percentFor.toString()}
