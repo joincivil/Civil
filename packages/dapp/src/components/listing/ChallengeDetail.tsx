@@ -139,6 +139,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const phaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
+    const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
     const requestVotingRightsProgressModal = this.renderRequestVotingRightsProgress();
     const commitVoteProgressModal = this.renderCommitVoteProgress();
     const modalContentComponents = {
@@ -167,6 +168,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
+        userHasCommittedVote={userHasCommittedVote}
         onInputChange={this.updateCommitVoteState}
         tokenBalance={tokenBalance}
         salt={this.state.salt}

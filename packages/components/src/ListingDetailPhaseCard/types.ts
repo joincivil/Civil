@@ -16,6 +16,7 @@ export interface ChallengePhaseProps {
   challenger: EthAddress;
   rewardPool: string;
   stake: string;
+  userHasCommittedVote?: boolean;
 }
 
 export interface ChallengeResultsProps {
@@ -32,6 +33,7 @@ export interface CommitVoteProps {
   numTokens?: string;
   transactions: any[];
   modalContentComponents?: any;
+  userHasCommittedVote?: boolean;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
 }
 

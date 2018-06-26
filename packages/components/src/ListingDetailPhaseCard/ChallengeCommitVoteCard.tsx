@@ -49,6 +49,7 @@ export class ChallengeCommitVoteCard extends React.Component<
             numTokens={this.props.numTokens}
             onInputChange={this.props.onInputChange}
             transactions={this.props.transactions}
+            userHasCommittedVote={this.props.userHasCommittedVote}
             modalContentComponents={this.props.modalContentComponents}
           />
         </StyledListingDetailPhaseCardSection>
