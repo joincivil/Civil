@@ -1,4 +1,3 @@
-// import "@joincivil/utils";
 import {
   hashContent,
   hashPersonalMessage,
@@ -45,6 +44,7 @@ import {
   findEventOrThrow,
   findEvents,
 } from "./utils/contracts";
+import { TransactionReceipt } from "web3";
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -88,20 +88,33 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         txData,
       ),
       async factoryReceipt => {
-        const createdNewsroom = findEvents<NewsroomFactory.Logs.ContractInstantiation>(
-          factoryReceipt,
-          NewsroomFactory.Events.ContractInstantiation,
-        ).find(log => log.address === factory.address);
-
-        if (!createdNewsroom) {
-          throw new Error("No Newsroom created during deployment through factory");
-        }
-
-        const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
-        const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
-        return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
+        return Newsroom.fromFactoryReceipt(factoryReceipt, ethApi, contentProvider);
       },
     );
+  }
+
+  public static async fromFactoryReceipt(
+    factoryReceipt: TransactionReceipt,
+    ethApi: EthApi,
+    contentProvider: ContentProvider,
+  ): Promise<Newsroom> {
+    const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
+    if (!factory) {
+      throw new Error(CivilErrors.UnsupportedNetwork);
+    }
+
+    const createdNewsroom = findEvents<NewsroomFactory.Logs.ContractInstantiation>(
+      factoryReceipt,
+      NewsroomFactory.Events.ContractInstantiation,
+    ).find(log => log.address === factory.address);
+
+    if (!createdNewsroom) {
+      throw new Error("No Newsroom created during deployment through factory");
+    }
+
+    const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
+    const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
+    return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
   }
 
   public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {

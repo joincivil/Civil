@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { TwoStepEthTransaction } from "@joincivil/core";
+import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
 import {
@@ -21,6 +21,7 @@ export interface Transaction {
   preTransaction?(): any;
   postTransaction?(result: any): any;
   handleTransactionError?(err: any): any;
+  handleTransactionHash?(txhash: TxHash): void;
 }
 
 export interface TransactionButtonProps {
@@ -113,22 +114,32 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
       if (currTransaction.preTransaction) {
         setImmediate(() => currTransaction.preTransaction!());
       }
+
       try {
         this.setState({ step: 1, disableButton: true });
         const pending = await currTransaction.transaction();
         this.setState({ step: 2 });
+
+        if (currTransaction.handleTransactionHash && pending) {
+          currTransaction.handleTransactionHash(pending.txHash);
+        }
+
         if (pending) {
           const receipt = await pending.awaitReceipt();
+
           if (!transactions.length) {
             this.setState({ step: 0, disableButton: false });
           }
+
           if (currTransaction.postTransaction) {
             setImmediate(() => currTransaction.postTransaction!(receipt));
           }
         }
+
         return this.executeTransactions(transactions);
       } catch (err) {
         this.setState({ step: 0, disableButton: false });
+
         if (currTransaction.handleTransactionError) {
           setImmediate(() => currTransaction.handleTransactionError!(err));
         }
