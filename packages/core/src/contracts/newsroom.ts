@@ -238,6 +238,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const name = await this.getName();
     const owners = await this.owners();
     const charter = await this.getCharter();
+    console.log("got charter: ", charter);
     return {
       name,
       owners,
@@ -315,6 +316,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent | undefined> {
     const header = await this.loadContentHeader(articleId);
+    console.log("header: ", header);
     if (!is0x0Hash(header.contentHash)) {
       return this.resolveContent(header);
     } else {
@@ -344,14 +346,18 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: number | BigNumber,
     revisionId?: number | BigNumber,
   ): Promise<EthContentHeader> {
+    let revision = revisionId;
+    if (!revision) {
+      revision = (await this.instance.revisionCount.callAsync(this.ethApi.toBigNumber(contentId))).sub(1);
+    }
     const myContentId = this.ethApi.toBigNumber(contentId);
     let contentHash: string;
     let uri: string;
     let timestamp: BigNumber;
     let author: EthAddress;
     let signature: string;
-    if (revisionId) {
-      const myRevisionId = this.ethApi.toBigNumber(revisionId);
+    if (revision) {
+      const myRevisionId = this.ethApi.toBigNumber(revision);
       [contentHash, uri, timestamp, author, signature] = await this.instance.getRevision.callAsync(
         myContentId,
         myRevisionId,
