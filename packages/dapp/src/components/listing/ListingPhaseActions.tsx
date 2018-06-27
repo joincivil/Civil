@@ -93,8 +93,23 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   private renderApplicationWhitelisted(): JSX.Element {
     // @TODO(jon): Get the Whitelisted event for this listing and display that event's date
     // in the card
-    const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
-    return <WhitelistedCard transactions={transactions} />;
+    const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
+    const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE]: approveForChallengeProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE]: submitChallengeProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: approveForChallenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE,
+      },
+      {
+        transaction: this.challenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
+      },
+    ];
+    return <WhitelistedCard modalContentComponents={modalContentComponents} transactions={transactions} />;
   }
 
   private renderRejected(): JSX.Element {
