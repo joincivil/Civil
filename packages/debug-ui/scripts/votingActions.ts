@@ -55,7 +55,9 @@ export async function requestVotingRights(numTokens: BigNumber, optionalCivil?: 
 
   console.log("Requesting Voting Rights");
   const requestRights = await voting.requestVotingRights(numTokens);
-  await requestRights.awaitReceipt();
+  if (requestRights) {
+    await requestRights.awaitReceipt();
+  }
   console.log("Voting Rights Requested");
 }
 
