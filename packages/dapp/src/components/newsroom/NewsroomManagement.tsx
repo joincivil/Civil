@@ -116,6 +116,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
           <br />
           <TransactionButton transactions={[{ transaction: this.updateCharter }]}> Update Charter </TransactionButton>
+          <br />
           <TransactionButton
             transactions={[
               {

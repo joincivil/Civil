@@ -238,7 +238,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const name = await this.getName();
     const owners = await this.owners();
     const charter = await this.getCharter();
-    console.log("got charter: ", charter);
     return {
       name,
       owners,
@@ -316,7 +315,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent | undefined> {
     const header = await this.loadContentHeader(articleId);
-    console.log("header: ", header);
     if (!is0x0Hash(header.contentHash)) {
       return this.resolveContent(header);
     } else {
