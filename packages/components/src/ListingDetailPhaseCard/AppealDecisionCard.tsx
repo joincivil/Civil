@@ -44,7 +44,11 @@ export class AppealDecisionCard extends React.Component<
             If you believe this newsroom does not align with the Civil Constitution, you may challenge the Council’s
             decision.
           </CTACopy>
-          <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
+          <TransactionInvertedButton
+            size={buttonSizes.MEDIUM}
+            transactions={this.props.transactions!}
+            modalContentComponents={this.props.modalContentComponents}
+          >
             Submit a Challenge
           </TransactionInvertedButton>
         </StyledListingDetailPhaseCardSection>

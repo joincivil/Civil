@@ -42,7 +42,11 @@ export class ChallengeResolveCard extends React.Component<
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
+          <TransactionInvertedButton
+            size={buttonSizes.MEDIUM}
+            transactions={this.props.transactions!}
+            modalContentComponents={this.props.modalContentComponents}
+          >
             Resolve Challenge
           </TransactionInvertedButton>
         </StyledListingDetailPhaseCardSection>
