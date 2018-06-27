@@ -189,7 +189,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction 1 of 2 - Requesting Voting Rights</ModalHeading>
+        <ModalHeading>Transaction in progress... Requesting Voting Rights</ModalHeading>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
@@ -199,7 +199,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private renderCommitVoteProgress(): JSX.Element {
     return (
       <>
-        <ModalHeading>Transaction 2 of 2 - Commiting Vote</ModalHeading>
+        <ModalHeading>Transaction in progress... Committing Vote</ModalHeading>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
