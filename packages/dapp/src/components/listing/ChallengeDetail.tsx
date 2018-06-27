@@ -19,6 +19,7 @@ import {
   ChallengeRequestAppealCard,
   ChallengeResolveCard,
   ChallengeResults,
+  LoadingIndicator,
   ModalHeading,
   ModalContent,
 } from "@joincivil/components";
@@ -182,6 +183,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private renderRequestVotingRightsProgress(): JSX.Element {
     return (
       <>
+        <LoadingIndicator height={100} />
         <ModalHeading>Transaction 1 of 2 - Requesting Voting Rights</ModalHeading>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>

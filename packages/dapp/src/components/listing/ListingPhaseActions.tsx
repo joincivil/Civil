@@ -10,12 +10,25 @@ import {
   TwoStepEthTransaction,
 } from "@joincivil/core";
 import ChallengeDetailContainer, { ChallengeResolve } from "./ChallengeDetail";
-import { TransactionButton, InApplicationCard, WhitelistedCard, RejectedCard } from "@joincivil/components";
+import {
+  TransactionButton,
+  InApplicationCard,
+  WhitelistedCard,
+  RejectedCard,
+  LoadingIndicator,
+  ModalHeading,
+  ModalContent,
+} from "@joincivil/components";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
   parameters: any;
   govtParameters: any;
+}
+
+enum ModalContentEventNames {
+  IN_PROGRESS_APPROVE_FOR_CHALLENGE = "IN_PROGRESS:APPROVE_FOR_CHALLENGE",
+  IN_PROGRESS_SUBMIT_CHALLENGE = "IN_PROGRESS:SUBMIT_CHALLENGE",
 }
 
 class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
@@ -107,16 +120,60 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     );
   }
 
+  private renderApproveForChallengeProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress... Approving For Challenge</ModalHeading>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private renderSubmitChallengeProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress... Submitting Challenge</ModalHeading>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
   private renderApplicationPhase(): JSX.Element | null {
     const endTime = this.props.listing!.data.appExpiry.toNumber();
     const phaseLength = this.props.parameters.applyStageLen;
-    const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
+    const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
+    const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE]: approveForChallengeProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE]: submitChallengeProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: approveForChallenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE,
+      },
+      {
+        transaction: this.challenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
+      },
+    ];
 
     if (!endTime || !phaseLength) {
       return null;
     }
 
-    return <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={transactions} />;
+    return (
+      <InApplicationCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        transactions={transactions}
+        modalContentComponents={modalContentComponents}
+      />
+    );
   }
 
   // Transactions
