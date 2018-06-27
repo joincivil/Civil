@@ -25,7 +25,14 @@ import {
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import { appealChallenge, approveForAppeal, commitVote, requestVotingRights, revealVote } from "../../apis/civilTCR";
+import {
+  appealChallenge,
+  approveForAppeal,
+  commitVote,
+  requestVotingRights,
+  revealVote,
+  updateStatus,
+} from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
@@ -35,6 +42,8 @@ import styled from "styled-components";
 enum ModalContentEventNames {
   IN_PROGRESS_REQUEST_VOTING_RIGHTS = "IN_PROGRESS:REQUEST_VOTING_RIGHTS",
   IN_PROGRESS_COMMIT_VOTE = "IN_PROGRESS:COMMIT_VOTE",
+  IN_PROGRESS_REVEAL_VOTE = "IN_PROGRESS:REVEAL_VOTE",
+  IN_PROGRESS_RESOLVE_CHALLENGE = "IN_PROGRESS:RESOLVE_CHALLENGE",
 }
 
 const StyledChallengeResults = styled.div`
@@ -56,10 +65,6 @@ export interface ChallengeContainerReduxProps {
   balance: BigNumber;
   parameters: any;
   govtParameters: any;
-}
-
-export interface ChallengeTransactionsProps {
-  transactions: any[];
 }
 
 export interface ChallengeDetailProps {
@@ -205,7 +210,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const endTime = this.props.challenge.poll.revealEndDate.toNumber();
     const phaseLength = this.props.parameters.revealStageLen;
     const challenge = this.props.challenge;
-    const transactions = [{ transaction: this.revealVoteOnChallenge }];
+    const revealVoteProgressModal = this.renderRevealVoteProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE]: revealVoteProgressModal,
+    };
+    const transactions = [
+      { transaction: this.revealVoteOnChallenge, progressEventName: ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE },
+    ];
 
     if (!challenge) {
       return null;
@@ -220,10 +231,23 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         stake={getFormattedTokenBalance(challenge!.stake)}
         salt={this.state.salt}
         onInputChange={this.updateCommitVoteState}
+        modalContentComponents={modalContentComponents}
         transactions={transactions}
       />
     );
   }
+
+  private renderRevealVoteProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress... Revealing your vote</ModalHeading>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
   private renderRequestAppealStage(): JSX.Element {
     const challenge = this.props.challenge;
     const endTime = this.props.challenge.requestAppealExpiry.toNumber();
@@ -428,9 +452,9 @@ const mapStateToProps = (
 
 // A container for the Challenge Resolve Card component
 class ChallengeResolveContainer extends React.Component<
-  ChallengeContainerProps & ChallengeContainerReduxProps & ChallengeTransactionsProps & DispatchProp<any>
+  ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
 > {
-  public componentWillReceiveProps(nextProps: any): void {
+  public componentDidUpdate(nextProps: any): void {
     if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
     }
@@ -454,6 +478,13 @@ class ChallengeResolveContainer extends React.Component<
       .div(totalVotes)
       .mul(100)
       .toFixed(0);
+    const resolveChallengeProgressModal = this.renderResolveChallengeProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_RESOLVE_CHALLENGE]: resolveChallengeProgressModal,
+    };
+    const transactions = [
+      { transaction: this.resolve, progressEventName: ModalContentEventNames.IN_PROGRESS_RESOLVE_CHALLENGE },
+    ];
 
     return (
       <ChallengeResolveCard
@@ -465,10 +496,26 @@ class ChallengeResolveContainer extends React.Component<
         votesAgainst={votesAgainst.toString()}
         percentFor={percentFor.toString()}
         percentAgainst={percentAgainst.toString()}
-        transactions={this.props.transactions}
+        modalContentComponents={modalContentComponents}
+        transactions={transactions}
       />
     );
   }
+
+  private renderResolveChallengeProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction is in progress... Resolving Challenge</ModalHeading>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
+    return updateStatus(this.props.listingAddress);
+  };
 }
 
 export const ChallengeResolve = connect(mapStateToProps)(ChallengeResolveContainer);

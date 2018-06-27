@@ -85,13 +85,8 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   };
 
   private renderCanResolve(): JSX.Element {
-    const transactions = [{ transaction: this.resolve }];
     return (
-      <ChallengeResolve
-        listingAddress={this.props.listing.address}
-        challengeID={this.props.listing.data.challengeID}
-        transactions={transactions}
-      />
+      <ChallengeResolve listingAddress={this.props.listing.address} challengeID={this.props.listing.data.challengeID} />
     );
   }
 
@@ -177,10 +172,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   }
 
   // Transactions
-  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateStatus(this.props.listing.address);
-  };
-
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
     return challengeListing(this.props.listing.address);
   };
