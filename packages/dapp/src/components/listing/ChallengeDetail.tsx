@@ -44,6 +44,8 @@ enum ModalContentEventNames {
   IN_PROGRESS_COMMIT_VOTE = "IN_PROGRESS:COMMIT_VOTE",
   IN_PROGRESS_REVEAL_VOTE = "IN_PROGRESS:REVEAL_VOTE",
   IN_PROGRESS_RESOLVE_CHALLENGE = "IN_PROGRESS:RESOLVE_CHALLENGE",
+  IN_PROGRESS_APPROVE_FOR_APPEAL = "IN_PROGRESS:APPROVE_FOR_APPEAL",
+  IN_PROGRESS_REQUEST_APPEAL = "IN_PROGRESS:REQUEST_APPEAL",
 }
 
 const StyledChallengeResults = styled.div`
@@ -199,6 +201,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private renderCommitVoteProgress(): JSX.Element {
     return (
       <>
+        <LoadingIndicator height={100} />
         <ModalHeading>Transaction in progress... Committing Vote</ModalHeading>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
@@ -252,7 +255,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const challenge = this.props.challenge;
     const endTime = this.props.challenge.requestAppealExpiry.toNumber();
     const phaseLength = this.props.govtParameters.requestAppealLen;
-    const transactions = [{ transaction: approveForAppeal }, { transaction: this.appeal }];
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor).toString();
     const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
     const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
@@ -264,19 +266,60 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       .div(totalVotes)
       .mul(100)
       .toFixed(0);
+    const approveForAppealProgressModal = this.renderApproveForAppealProgressModal();
+    const requestAppealProgressModal = this.renderRequestAppealProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL]: approveForAppealProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL]: requestAppealProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: approveForAppeal,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL,
+      },
+      {
+        transaction: this.appeal,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL,
+      },
+    ];
+
     return (
       <ChallengeRequestAppealCard
         endTime={endTime}
         phaseLength={phaseLength}
-        transactions={transactions}
         totalVotes={totalVotes}
         votesFor={votesFor}
         votesAgainst={votesAgainst}
         percentFor={percentFor}
         percentAgainst={percentAgainst}
+        modalContentComponents={modalContentComponents}
+        transactions={transactions}
       />
     );
   }
+
+  private renderApproveForAppealProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction is in progress... Approving for Request</ModalHeading>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private renderRequestAppealProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction is in progress... Submitting Appeal</ModalHeading>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
   private renderVoteResult(): JSX.Element {
     const challenge = this.props.challenge;
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
