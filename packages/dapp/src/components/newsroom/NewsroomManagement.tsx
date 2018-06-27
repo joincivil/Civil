@@ -3,6 +3,7 @@ import { Civil, NewsroomRoles, TwoStepEthTransaction, CivilErrors } from "@joinc
 import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import RichTextEditor from "react-rte";
 import { Subscription } from "rxjs";
 import { TransactionButton } from "@joincivil/components";
 import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
@@ -19,10 +20,13 @@ export interface NewsroomManagementState {
   numTokens: string;
   proposedArticleIds: List<string>;
   compositeSubscription: Subscription;
+  value: any;
+  descValue: string;
 }
 export interface NewsroomManagementProps {
   match: any;
   history: any;
+  initialValue: any;
 }
 
 class NewsroomManagement extends React.Component<NewsroomManagementProps, NewsroomManagementState> {
@@ -38,8 +42,18 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       numTokens: "",
       proposedArticleIds: List<string>(),
       compositeSubscription: new Subscription(),
+      value: RichTextEditor.createEmptyValue(),
+      descValue: "",
     };
   }
+
+  public handleValueChange = (value: any) => {
+    this.setState({ value });
+  };
+
+  public onDescChange = (event: any) => {
+    this.setState({ descValue: event.target.value });
+  };
 
   public async componentDidMount(): Promise<void> {
     return this.initNewsroom();
@@ -63,7 +77,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           ProposedArticleIds:
           <ul>
             {this.state.proposedArticleIds.map(id => {
-              console.log("there is an article here");
               const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
               return (
                 <li key={id}>
@@ -95,6 +108,14 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
               <br />
             </>
           )}
+          Short Description:
+          <br />
+          <textarea value={this.state.descValue} onChange={this.onDescChange} />
+          <br />
+          Charter:
+          <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
+          <br />
+          <TransactionButton transactions={[{ transaction: this.updateCharter }]}> Update Charter </TransactionButton>
           <br />
           <TransactionButton
             transactions={[
@@ -113,6 +134,12 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       </PageView>
     );
   }
+
+  private updateCharter = async (): Promise<TwoStepEthTransaction | void> => {
+    const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
+    const jsonToSave = { desc: this.state.descValue, charter: this.state.value.toString("html") };
+    return newsroomInstance.updateRevision(0, JSON.stringify(jsonToSave));
+  };
 
   private approve = async (): Promise<TwoStepEthTransaction | void> => {
     this.setState({ error: "" });
@@ -198,6 +225,10 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   private initNewsroom = async () => {
     const newsroom = await getNewsroom(this.props.match.params.newsroomAddress);
     this.setState({ newsroom });
+    const data = await newsroom.getNewsroomData();
+    const charterStuff = JSON.parse(data.charter.content);
+    this.setState({ descValue: charterStuff.desc });
+    this.setState({ value: RichTextEditor.createValueFromString(charterStuff.charter, "html") });
     if (newsroom) {
       this.state.compositeSubscription.add(
         newsroom

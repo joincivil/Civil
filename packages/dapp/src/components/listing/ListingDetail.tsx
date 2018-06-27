@@ -53,6 +53,11 @@ class ListingDetail extends React.Component<ListingDetailProps> {
 
   public render(): JSX.Element {
     // const isOwnerViewingListing = this.props.listing.data.owner === this.props.userAccount;
+    let description =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id.";
+    if (this.props.newsroom.data.charter) {
+      description = JSON.parse(this.props.newsroom.data.charter.content.toString()).desc;
+    }
     return (
       <ListingDetailOuter>
         {this.props.listing.data && (
@@ -60,13 +65,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
             <GridRow>
               <LeftShark>
                 <ListingDetailNewsroomName>{this.props.newsroom.data.name}</ListingDetailNewsroomName>
-                <ListingDetailNewsroomDek>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id.
-                </ListingDetailNewsroomDek>
+                <ListingDetailNewsroomDek>{description}</ListingDetailNewsroomDek>
                 <Button size={buttonSizes.MEDIUM}>Support Our Work</Button>
               </LeftShark>
 
