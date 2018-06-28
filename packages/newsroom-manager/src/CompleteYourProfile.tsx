@@ -115,7 +115,7 @@ class CompleteYourProfileComponent extends React.Component<
                 civil={civil}
                 requiredNetwork="rinkeby"
               >
-                Add Owner
+                Add Editor
               </DetailTransactionButton>
             </>
           )}

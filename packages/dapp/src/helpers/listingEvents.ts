@@ -9,6 +9,7 @@ import { Observable, Subscription } from "rxjs";
 import { BigNumber } from "bignumber.js";
 
 const listingTimeouts = new Map<string, number>();
+const setTimeoutTimeouts = new Map<string, number>();
 
 export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<void> {
   const tcr = getTCR();
@@ -62,14 +63,21 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
 }
 
 function setupListingCallback(listing: ListingWrapper, dispatch: Dispatch<any>): void {
-  if (listingTimeouts[listing.address]) {
-    clearTimeout(listingTimeouts[listing.address]);
+  if (listingTimeouts.get(listing.address)) {
+    clearTimeout(listingTimeouts.get(listing.address));
     listingTimeouts.delete(listing.address);
   }
+
+  if (setTimeoutTimeouts.get(listing.address)) {
+    clearTimeout(setTimeoutTimeouts.get(listing.address));
+    setTimeoutTimeouts.delete(listing.address);
+  }
+
   const nowSeconds = Date.now() / 1000;
   const nextExpiry = getNextTimerExpiry(listing.data);
   if (nextExpiry > 0) {
-    const delaySeconds = nowSeconds - nextExpiry;
+    const delaySeconds = nextExpiry - nowSeconds;
     listingTimeouts.set(listing.address, setTimeout(dispatch, delaySeconds * 1000, addListing(listing))); // convert to milliseconds
+    setTimeoutTimeouts.set(listing.address, setTimeout(setupListingCallback, delaySeconds * 1000, listing, dispatch));
   }
 }

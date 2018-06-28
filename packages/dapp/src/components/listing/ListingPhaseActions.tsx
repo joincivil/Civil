@@ -25,6 +25,7 @@ import {
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
+  expiry?: number;
   parameters: any;
   govtParameters: any;
 }
