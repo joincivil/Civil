@@ -82,7 +82,8 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
 }
 
 const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
-  const { newsrooms, listings, listingsFetching, user, parameters, govtParameters } = state.networkDependent;
+  const { newsrooms } = state;
+  const { listings, listingsFetching, user, parameters, govtParameters } = state.networkDependent;
   const listingAddress = ownProps.match.params.listing;
 
   let listingDataRequestStatus;
