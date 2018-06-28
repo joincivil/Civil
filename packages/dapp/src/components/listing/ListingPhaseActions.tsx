@@ -14,6 +14,7 @@ import { TransactionButton, InApplicationCard, WhitelistedCard, RejectedCard } f
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
+  expiry?: number;
   parameters: any;
   govtParameters: any;
 }
