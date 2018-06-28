@@ -39,7 +39,7 @@ export enum ModalListItemTypes {
 }
 
 const ModalListItemStyles: ModalListItemColorsProps = {
-  [ModalListItemTypes.FADED]: [colors.accent.CIVIL_GRAY_4, "italic", "normal"],
+  [ModalListItemTypes.FADED]: [colors.accent.CIVIL_GRAY_3, "italic", "normal"],
   [ModalListItemTypes.STRONG]: [colors.primary.CIVIL_BLUE_1, "normal", "bold"],
 };
 

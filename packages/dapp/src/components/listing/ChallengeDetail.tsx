@@ -286,11 +286,16 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL]: approveForAppealProgressModal,
       [ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL]: requestAppealProgressModal,
     };
-    const transactions = [{ transaction: approveForAppeal,
+    const transactions = [
+      {
+        transaction: approveForAppeal,
         progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL,
-    }, { transaction: this.appeal,
+      },
+      {
+        transaction: this.appeal,
         progressEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL,
-    }];
+      },
+    ];
 
     return (
       <ChallengeRequestAppealCard
