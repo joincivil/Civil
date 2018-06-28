@@ -77,7 +77,7 @@ export const StyledOrText = styled.div`
 export const FormHeader = styled.h4`
   font-size: 21px;
   line-height: 25px;
-  margin: 0;
+  margin: 0 0 5px;
 `;
 export const AccentHRule = styled.div`
   box-shadow: inset 0 5px 0 0 ${colors.accent.CIVIL_BLUE};

@@ -73,7 +73,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         <>
           <FormHeader>Thanks for participating in this challenge!</FormHeader>
           <FormCopy>
-            You have committed a vote in this challnge. Thanks for that. You can change your vote until the deadline.
+            You have committed a vote in this challenge. Thanks for that. You can change your vote until the deadline.
           </FormCopy>
         </>
       );
