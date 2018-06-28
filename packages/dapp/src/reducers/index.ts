@@ -48,12 +48,12 @@ export interface State {
   networkDependent: NetworkDependentState;
   network: string;
   ui: Map<string, any>;
-}
-
-export interface NetworkDependentState {
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, string>;
+}
+
+export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsFetching: Map<string, any>;
@@ -89,9 +89,6 @@ export interface NetworkDependentState {
 }
 
 const networkDependentReducers = combineReducers({
-  newsrooms,
-  newsroomUi,
-  newsroomUsers,
   currentUserNewsrooms,
   listings,
   listingsFetching,
@@ -134,6 +131,9 @@ const networkDependent = (state: any, action: AnyAction) => {
 };
 
 export default combineReducers({
+  newsrooms, // have to be top level because come from a package
+  newsroomUi,
+  newsroomUsers,
   networkDependent,
   network,
   ui,
