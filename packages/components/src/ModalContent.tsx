@@ -16,3 +16,37 @@ export const ModalContent = styled.p`
   font-size: 12px;
   line-height: 24px;
 `;
+
+export const ModalOrderedList = styled.ol`
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  font-size: 14px;
+  line-height: 19px;
+`;
+
+export interface ModalListItemProps {
+  type?: string;
+}
+
+export interface ModalListItemColorsProps {
+  [index: string]: [string, string, string];
+}
+
+export enum ModalListItemTypes {
+  FADED = "faded",
+  STRONG = "strong",
+}
+
+const ModalListItemStyles: ModalListItemColorsProps = {
+  [ModalListItemTypes.FADED]: [colors.accent.CIVIL_GRAY_4, "italic", "normal"],
+  [ModalListItemTypes.STRONG]: [colors.primary.CIVIL_BLUE_1, "normal", "bold"],
+};
+
+export const ModalListItem = styled<ModalListItemProps, "li">("li")`
+  color: ${props => (props.type && ModalListItemStyles[props.type][0]) || colors.primary.CIVIL_GRAY_2}
+  font-style: ${props => (props.type && ModalListItemStyles[props.type][1]) || "normal"};
+  font-weight: ${props => (props.type && ModalListItemStyles[props.type][2]) || "normal"};
+  margin: 0 0 5px;
+  white-space: nowrap;
+`;

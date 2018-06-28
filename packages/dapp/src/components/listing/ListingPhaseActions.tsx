@@ -18,6 +18,9 @@ import {
   LoadingIndicator,
   ModalHeading,
   ModalContent,
+  ModalOrderedList,
+  ModalListItem,
+  ModalListItemTypes,
 } from "@joincivil/components";
 
 export interface ListingPhaseActionsProps {
@@ -134,7 +137,11 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress... Approving For Challenge</ModalHeading>
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Approving For Challenge</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.FADED}>Submitting Challenge</ModalListItem>
+        </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
@@ -145,7 +152,11 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress... Submitting Challenge</ModalHeading>
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem>Approving For Challenge</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Submitting Challenge</ModalListItem>
+        </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>

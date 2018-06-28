@@ -22,6 +22,9 @@ import {
   LoadingIndicator,
   ModalHeading,
   ModalContent,
+  ModalOrderedList,
+  ModalListItem,
+  ModalListItemTypes,
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
@@ -191,7 +194,11 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress... Requesting Voting Rights</ModalHeading>
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Requesting Voting Rights</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.FADED}>Committing Vote</ModalListItem>
+        </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
@@ -202,7 +209,11 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress... Committing Vote</ModalHeading>
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem>Requesting Voting Rights</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Committing Vote</ModalListItem>
+        </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
@@ -244,7 +255,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress... Revealing your vote</ModalHeading>
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Revealing Vote</ModalListItem>
+        </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
@@ -302,7 +316,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction is in progress... Approving for Request</ModalHeading>
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving Challenge</ModalListItem>
+        </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
@@ -313,7 +330,11 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction is in progress... Submitting Appeal</ModalHeading>
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem>Approving for Request Appeal</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Requesting Appeal</ModalListItem>
+        </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
@@ -549,7 +570,10 @@ class ChallengeResolveContainer extends React.Component<
     return (
       <>
         <LoadingIndicator height={100} />
-        <ModalHeading>Transaction is in progress... Resolving Challenge</ModalHeading>
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving Challenge</ModalListItem>
+        </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
