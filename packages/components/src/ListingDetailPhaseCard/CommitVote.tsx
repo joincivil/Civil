@@ -30,7 +30,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     const disableButtons = !!this.state.numTokensError || !!this.state.saltError;
     return (
       <>
-        <FormHeader>You’re invited to vote!</FormHeader>
+        {this.renderFormHeader()}
         <FormCopy>Vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.</FormCopy>
         <AccentHRule />
 
@@ -45,6 +45,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
             <TransactionDarkButton
               size={buttonSizes.MEDIUM}
               transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
               disabled={disableButtons}
             >
               ✔ Remain
@@ -55,6 +56,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
             <TransactionDarkButton
               size={buttonSizes.MEDIUM}
               transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
               disabled={disableButtons}
             >
               ✖ Remove
@@ -64,6 +66,20 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       </>
     );
   }
+
+  private renderFormHeader = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return (
+        <>
+          <FormHeader>Thanks for participating in this challenge!</FormHeader>
+          <FormCopy>
+            You have committed a vote in this challenge. Thanks for that. You can change your vote until the deadline.
+          </FormCopy>
+        </>
+      );
+    }
+    return <FormHeader>You’re invited to vote!</FormHeader>;
+  };
 
   private renderNumTokensInput = (): JSX.Element => {
     let label = "Enter amount of tokens to vote";

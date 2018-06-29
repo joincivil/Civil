@@ -60,6 +60,7 @@ export class AppealChallengeCommitVoteCard extends React.Component<
             numTokens={this.props.numTokens}
             onInputChange={this.props.onInputChange}
             transactions={this.props.transactions}
+            modalContentComponents={this.props.modalContentComponents}
           />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>

@@ -10,13 +10,29 @@ import {
   TwoStepEthTransaction,
 } from "@joincivil/core";
 import ChallengeDetailContainer, { ChallengeResolve } from "./ChallengeDetail";
-import { TransactionButton, InApplicationCard, WhitelistedCard, RejectedCard } from "@joincivil/components";
+import {
+  TransactionButton,
+  InApplicationCard,
+  WhitelistedCard,
+  RejectedCard,
+  LoadingIndicator,
+  ModalHeading,
+  ModalContent,
+  ModalOrderedList,
+  ModalListItem,
+  ModalListItemTypes,
+} from "@joincivil/components";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
   expiry?: number;
   parameters: any;
   govtParameters: any;
+}
+
+enum ModalContentEventNames {
+  IN_PROGRESS_APPROVE_FOR_CHALLENGE = "IN_PROGRESS:APPROVE_FOR_CHALLENGE",
+  IN_PROGRESS_SUBMIT_CHALLENGE = "IN_PROGRESS:SUBMIT_CHALLENGE",
 }
 
 class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
@@ -73,21 +89,31 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   };
 
   private renderCanResolve(): JSX.Element {
-    const transactions = [{ transaction: this.resolve }];
     return (
-      <ChallengeResolve
-        listingAddress={this.props.listing.address}
-        challengeID={this.props.listing.data.challengeID}
-        transactions={transactions}
-      />
+      <ChallengeResolve listingAddress={this.props.listing.address} challengeID={this.props.listing.data.challengeID} />
     );
   }
 
   private renderApplicationWhitelisted(): JSX.Element {
     // @TODO(jon): Get the Whitelisted event for this listing and display that event's date
     // in the card
-    const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
-    return <WhitelistedCard transactions={transactions} />;
+    const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
+    const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE]: approveForChallengeProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE]: submitChallengeProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: approveForChallenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE,
+      },
+      {
+        transaction: this.challenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
+      },
+    ];
+    return <WhitelistedCard modalContentComponents={modalContentComponents} transactions={transactions} />;
   }
 
   private renderRejected(): JSX.Element {
@@ -108,23 +134,71 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
     );
   }
 
+  private renderApproveForChallengeProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Approving For Challenge</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.FADED}>Submitting Challenge</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private renderSubmitChallengeProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem>Approving For Challenge</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Submitting Challenge</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
   private renderApplicationPhase(): JSX.Element | null {
     const endTime = this.props.listing!.data.appExpiry.toNumber();
     const phaseLength = this.props.parameters.applyStageLen;
-    const transactions = [{ transaction: approveForChallenge }, { transaction: this.challenge }];
+    const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
+    const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE]: approveForChallengeProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE]: submitChallengeProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: approveForChallenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE,
+      },
+      {
+        transaction: this.challenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
+      },
+    ];
 
     if (!endTime || !phaseLength) {
       return null;
     }
 
-    return <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={transactions} />;
+    return (
+      <InApplicationCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        transactions={transactions}
+        modalContentComponents={modalContentComponents}
+      />
+    );
   }
 
   // Transactions
-  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateStatus(this.props.listing.address);
-  };
-
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
     return challengeListing(this.props.listing.address);
   };

@@ -29,7 +29,11 @@ export class WhitelistedCard extends React.Component<ListingDetailPhaseCardCompo
             If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
             <a href="#">submit a challenge</a>.
           </CTACopy>
-          <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
+          <TransactionInvertedButton
+            size={buttonSizes.MEDIUM}
+            transactions={this.props.transactions!}
+            modalContentComponents={this.props.modalContentComponents}
+          >
             Submit a Challenge
           </TransactionInvertedButton>
         </StyledListingDetailPhaseCardSection>

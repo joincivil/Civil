@@ -4,6 +4,7 @@ export interface ListingDetailPhaseCardComponentProps {
   challenge?: any;
   listing?: any;
   transactions?: any[];
+  modalContentComponents?: any;
 }
 
 export interface PhaseWithExpiryProps {
@@ -15,6 +16,8 @@ export interface ChallengePhaseProps {
   challenger: EthAddress;
   rewardPool: string;
   stake: string;
+  userHasCommittedVote?: boolean;
+  userHasRevealedVote?: boolean;
 }
 
 export interface ChallengeResultsProps {
@@ -30,17 +33,15 @@ export interface CommitVoteProps {
   salt?: string;
   numTokens?: string;
   transactions: any[];
+  modalContentComponents?: any;
+  userHasCommittedVote?: boolean;
+  userHasRevealedVote?: boolean;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
 }
 
 export interface RevealVoteProps {
   salt: string | undefined;
   transactions: any[];
+  modalContentComponents?: any;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
-}
-
-export interface RevealVoteProps {
-  salt: string | undefined;
-  transactions: any[];
-  onInputChange(propsData: any): void;
 }
