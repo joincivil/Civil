@@ -19,15 +19,37 @@ import {
   ChallengeRequestAppealCard,
   ChallengeResolveCard,
   ChallengeResults,
+  LoadingIndicator,
+  ModalHeading,
+  ModalContent,
+  ModalOrderedList,
+  ModalListItem,
+  ModalListItemTypes,
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import { appealChallenge, approveForAppeal, commitVote, requestVotingRights, revealVote } from "../../apis/civilTCR";
+import {
+  appealChallenge,
+  approveForAppeal,
+  commitVote,
+  requestVotingRights,
+  revealVote,
+  updateStatus,
+} from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import styled from "styled-components";
+
+enum ModalContentEventNames {
+  IN_PROGRESS_REQUEST_VOTING_RIGHTS = "IN_PROGRESS:REQUEST_VOTING_RIGHTS",
+  IN_PROGRESS_COMMIT_VOTE = "IN_PROGRESS:COMMIT_VOTE",
+  IN_PROGRESS_REVEAL_VOTE = "IN_PROGRESS:REVEAL_VOTE",
+  IN_PROGRESS_RESOLVE_CHALLENGE = "IN_PROGRESS:RESOLVE_CHALLENGE",
+  IN_PROGRESS_APPROVE_FOR_APPEAL = "IN_PROGRESS:APPROVE_FOR_APPEAL",
+  IN_PROGRESS_REQUEST_APPEAL = "IN_PROGRESS:REQUEST_APPEAL",
+}
 
 const StyledChallengeResults = styled.div`
   width: 460px;
@@ -48,10 +70,6 @@ export interface ChallengeContainerReduxProps {
   balance: BigNumber;
   parameters: any;
   govtParameters: any;
-}
-
-export interface ChallengeTransactionsProps {
-  transactions: any[];
 }
 
 export interface ChallengeDetailProps {
@@ -132,7 +150,23 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const phaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
-    const transactions = [{ transaction: this.requestVotingRights }, { transaction: this.commitVoteOnChallenge }];
+    const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
+    const requestVotingRightsProgressModal = this.renderRequestVotingRightsProgress();
+    const commitVoteProgressModal = this.renderCommitVoteProgress();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_REQUEST_VOTING_RIGHTS]: requestVotingRightsProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE]: commitVoteProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: this.requestVotingRights,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_VOTING_RIGHTS,
+      },
+      {
+        transaction: this.commitVoteOnChallenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE,
+      },
+    ];
 
     if (!challenge) {
       return null;
@@ -145,12 +179,44 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
+        userHasCommittedVote={userHasCommittedVote}
         onInputChange={this.updateCommitVoteState}
         tokenBalance={tokenBalance}
         salt={this.state.salt}
         numTokens={this.state.numTokens}
         transactions={transactions}
+        modalContentComponents={modalContentComponents}
       />
+    );
+  }
+
+  private renderRequestVotingRightsProgress(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Requesting Voting Rights</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.FADED}>Committing Vote</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private renderCommitVoteProgress(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem>Requesting Voting Rights</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Committing Vote</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
     );
   }
 
@@ -158,7 +224,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const endTime = this.props.challenge.poll.revealEndDate.toNumber();
     const phaseLength = this.props.parameters.revealStageLen;
     const challenge = this.props.challenge;
-    const transactions = [{ transaction: this.revealVoteOnChallenge }];
+    const revealVoteProgressModal = this.renderRevealVoteProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE]: revealVoteProgressModal,
+    };
+    const transactions = [
+      { transaction: this.revealVoteOnChallenge, progressEventName: ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE },
+    ];
 
     if (!challenge) {
       return null;
@@ -173,16 +245,31 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         stake={getFormattedTokenBalance(challenge!.stake)}
         salt={this.state.salt}
         onInputChange={this.updateCommitVoteState}
+        modalContentComponents={modalContentComponents}
         transactions={transactions}
       />
     );
   }
+
+  private renderRevealVoteProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Revealing Vote</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
   private renderRequestAppealStage(): JSX.Element {
     const challenge = this.props.challenge;
     const endTime = this.props.challenge.requestAppealExpiry.toNumber();
     const phaseLength = this.props.govtParameters.requestAppealLen;
-    const transactions = [{ transaction: approveForAppeal }, { transaction: this.appeal }];
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor).toString();
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
     const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
     const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
     const percentFor = challenge.poll.votesFor
@@ -193,19 +280,67 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       .div(totalVotes)
       .mul(100)
       .toFixed(0);
+    const approveForAppealProgressModal = this.renderApproveForAppealProgressModal();
+    const requestAppealProgressModal = this.renderRequestAppealProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL]: approveForAppealProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL]: requestAppealProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: approveForAppeal,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL,
+      },
+      {
+        transaction: this.appeal,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL,
+      },
+    ];
+
     return (
       <ChallengeRequestAppealCard
         endTime={endTime}
         phaseLength={phaseLength}
-        transactions={transactions}
-        totalVotes={totalVotes}
+        totalVotes={getFormattedTokenBalance(totalVotes)}
         votesFor={votesFor}
         votesAgainst={votesAgainst}
         percentFor={percentFor}
         percentAgainst={percentAgainst}
+        modalContentComponents={modalContentComponents}
+        transactions={transactions}
       />
     );
   }
+
+  private renderApproveForAppealProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving Challenge</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private renderRequestAppealProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem>Approving for Request Appeal</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Requesting Appeal</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
   private renderVoteResult(): JSX.Element {
     const challenge = this.props.challenge;
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
@@ -238,7 +373,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challengeID}
         user={this.props.user}
         userChallengeData={this.props.userChallengeData}
-        challenge={this.props.challenge!}
       />
     );
   }
@@ -248,7 +382,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challenge.appeal!.appealChallengeID}
         user={this.props.user}
         userChallengeData={this.props.userAppealChallengeData}
-        appealChallenge={this.props.challenge.appeal!.appealChallenge!}
       />
     );
   }
@@ -332,7 +465,6 @@ const mapStateToProps = (
     parameters,
     govtParameters,
   } = state.networkDependent;
-
   let listingAddress = ownProps.listingAddress;
   let challengeData;
   let userChallengeData;
@@ -384,9 +516,9 @@ const mapStateToProps = (
 
 // A container for the Challenge Resolve Card component
 class ChallengeResolveContainer extends React.Component<
-  ChallengeContainerProps & ChallengeContainerReduxProps & ChallengeTransactionsProps & DispatchProp<any>
+  ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
 > {
-  public componentWillReceiveProps(nextProps: any): void {
+  public componentDidUpdate(nextProps: any): void {
     if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
     }
@@ -410,6 +542,13 @@ class ChallengeResolveContainer extends React.Component<
       .div(totalVotes)
       .mul(100)
       .toFixed(0);
+    const resolveChallengeProgressModal = this.renderResolveChallengeProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_RESOLVE_CHALLENGE]: resolveChallengeProgressModal,
+    };
+    const transactions = [
+      { transaction: this.resolve, progressEventName: ModalContentEventNames.IN_PROGRESS_RESOLVE_CHALLENGE },
+    ];
 
     return (
       <ChallengeResolveCard
@@ -421,10 +560,29 @@ class ChallengeResolveContainer extends React.Component<
         votesAgainst={votesAgainst.toString()}
         percentFor={percentFor.toString()}
         percentAgainst={percentAgainst.toString()}
-        transactions={this.props.transactions}
+        modalContentComponents={modalContentComponents}
+        transactions={transactions}
       />
     );
   }
+
+  private renderResolveChallengeProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving Challenge</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
+    return updateStatus(this.props.listingAddress);
+  };
 }
 
 export const ChallengeResolve = connect(mapStateToProps)(ChallengeResolveContainer);

@@ -120,6 +120,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            transactions={[]}
           />
         )}
       </Container>
