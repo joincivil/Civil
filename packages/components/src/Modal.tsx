@@ -21,7 +21,9 @@ const ModalOuter = styled<ToggleDisplayEl & TextAlignProps, "div">("div")`
   justify-content: center;
   align-items: center;
   text-align: ${props => props.textAlign || "left"};
+  z-index: 50;
 `;
+// z-index to beat wp tools
 
 const ModalInner = styled.div`
   box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.4);
