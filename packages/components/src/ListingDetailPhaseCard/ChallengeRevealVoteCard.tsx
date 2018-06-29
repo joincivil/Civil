@@ -44,12 +44,12 @@ export class ChallengeRevealVoteCard extends React.Component<
           <MetaItemValue>{this.props.stake}</MetaItemValue>
           <MetaItemLabel>Stake</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>{this.renderCommitVote()}</StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>{this.renderRevealVote()}</StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
   }
 
-  private renderCommitVote = (): JSX.Element => {
+  private renderRevealVote = (): JSX.Element => {
     if (!!this.props.userHasCommittedVote) {
       return (
         <>
