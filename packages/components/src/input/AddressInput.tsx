@@ -14,16 +14,18 @@ export class AddressInput extends React.Component<AddressInputProps> {
   }
   public render(): JSX.Element {
     const invalid = this.invalid();
-    console.log({invalid});
+    console.log({ invalid });
     const errorMessage = invalid ? "The address you have entered is invalid" : undefined;
-    return (<TextInput
-      label="Wallet Address"
-      placeholder="Enter Wallet Address"
-      name="EditorWalletInput"
-      onChange={this.props.onChange}
-      value={this.props.address}
-      invalid={invalid}
-      errorMessage={errorMessage}
-    />);
+    return (
+      <TextInput
+        label="Wallet Address"
+        placeholder="Enter Wallet Address"
+        name="EditorWalletInput"
+        onChange={this.props.onChange}
+        value={this.props.address}
+        invalid={invalid}
+        errorMessage={errorMessage}
+      />
+    );
   }
 }

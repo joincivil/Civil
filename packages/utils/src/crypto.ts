@@ -70,4 +70,4 @@ export const networkNames: { [index: string]: string } = {
 
 export function isWellFormattedAddress(address: EthAddress): boolean {
   return /^(0x)?[0-9a-f]{40}$/i.test(address);
-};
+}

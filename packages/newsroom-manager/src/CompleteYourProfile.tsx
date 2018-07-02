@@ -129,10 +129,7 @@ class CompleteYourProfileComponent extends React.Component<
         <CivilContext.Consumer>
           {(civil: Civil) => (
             <>
-              <AddressInput
-                address={this.state.newOwner}
-                onChange={(name, val) => this.setState({ newOwner: val })}
-              />
+              <AddressInput address={this.state.newOwner} onChange={(name, val) => this.setState({ newOwner: val })} />
               <DetailTransactionButton
                 transactions={[
                   {
