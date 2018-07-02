@@ -16,7 +16,7 @@ const Container: React.StatelessComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Listing Detail Header", module)
+storiesOf("Listing Details Header", module)
   .add("No phase label", () => {
     const props: ListingDetailHeaderProps = {
       newsroomName: "The Civil Times",
