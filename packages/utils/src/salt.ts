@@ -12,8 +12,8 @@ export function toAlphabet(srcNum: BigNumber, alphabet: string[]): string[] {
 
   do {
     digits.push(num.mod(base));
-    num = num.dividedBy(base).integerValue(BigNumber.ROUND_FLOOR);
-  } while (num.isGreaterThan(0));
+    num = num.dividedBy(base).round(0, BigNumber.ROUND_FLOOR);
+  } while (num.greaterThan(0));
 
   const chars = [];
   while (digits.length) {
@@ -38,7 +38,7 @@ export function fromAlphabet(srcWords: string[], alphabet: string[]): BigNumber 
       throw new Error("Invalid word: " + word);
     }
 
-    const n = new BigNumber(base).pow(pos).multipliedBy(idx);
+    const n = new BigNumber(base).pow(pos).mul(idx);
     num = num.plus(n);
   }
 
