@@ -7,7 +7,7 @@ import {
   BorderlessButton,
   colors,
   fonts,
-  TextInput,
+  AddressInput,
   DetailTransactionButton,
   StepDescription,
 } from "@joincivil/components";
@@ -96,11 +96,8 @@ class CompleteYourProfileComponent extends React.Component<
         <CivilContext.Consumer>
           {(civil: Civil) => (
             <>
-              <TextInput
-                label="Wallet Address"
-                placeholder="Enter Wallet Address"
-                name="EditorWalletInput"
-                value={this.state.newEditor}
+              <AddressInput
+                address={this.state.newEditor}
                 onChange={(name: any, val: any) => this.setState({ newEditor: val })}
               />
               <DetailTransactionButton
@@ -132,11 +129,8 @@ class CompleteYourProfileComponent extends React.Component<
         <CivilContext.Consumer>
           {(civil: Civil) => (
             <>
-              <TextInput
-                label="Wallet Address"
-                placeholder="Enter Wallet Address"
-                name="OwnerWalletInput"
-                value={this.state.newOwner}
+              <AddressInput
+                address={this.state.newOwner}
                 onChange={(name, val) => this.setState({ newOwner: val })}
               />
               <DetailTransactionButton
