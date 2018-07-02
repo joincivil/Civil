@@ -1,9 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import BigNumber from "bignumber.js";
 import { colors, fonts } from "./styleConstants";
 import { Button, buttonSizes } from "./Button";
-import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
   AwaitingApprovalStatusLabel,
   CommitVoteStatusLabel,
@@ -18,6 +16,7 @@ const ListingDetailOuter = styled.div`
 
 const StyledListingDetailHeader = styled.div`
   color: ${colors.basic.WHITE};
+  font-family: ${fonts.SANS_SERIF};
   padding: 78px 0 62px;
 `;
 
@@ -48,7 +47,7 @@ export interface ListingDetailHeaderProps {
   newsroomName: string;
   newsroomDescription: string;
   owner: string;
-  unstakedDeposit: BigNumber;
+  unstakedDeposit: string;
   isInApplication?: boolean;
   inChallengePhase?: boolean;
   inRevealPhase?: boolean;
@@ -74,7 +73,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
                 <dd>{this.props.owner}</dd>
 
                 <dt>Unstaked Deposit</dt>
-                <dd>{getFormattedTokenBalance(this.props.unstakedDeposit)}</dd>
+                <dd>{this.props.unstakedDeposit}</dd>
               </dl>
             </RightShark>
           </GridRow>

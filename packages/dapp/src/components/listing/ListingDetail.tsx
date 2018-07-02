@@ -1,8 +1,9 @@
 import * as React from "react";
 import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 import { DepositTokens, ExitListing, WithdrawTokens } from "./OwnerListingViews";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
-import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/components";
 
 export interface ListingDetailProps {
   newsroom: NewsroomWrapper;
@@ -28,7 +29,7 @@ class ListingDetail extends React.Component<ListingDetailProps> {
       newsroomName: this.props.newsroom.data.name,
       newsroomDescription,
       owner: this.props.listing.data.owner,
-      unstakedDeposit: this.props.listing.data.unstakedDeposit,
+      unstakedDeposit: getFormattedTokenBalance(this.props.listing.data.unstakedDeposit),
       ...this.props.listingPhaseState,
     };
 
