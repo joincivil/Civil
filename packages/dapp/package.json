@@ -27,6 +27,7 @@
     "react-scripts-ts": "2.14.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "rxjs": "^5.5.7",
     "semantic-ui-react": "^0.79.1",
     "sort-by": "^1.2.0",

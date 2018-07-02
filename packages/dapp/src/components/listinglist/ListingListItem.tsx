@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
+import { makeGetListingPhaseState, makeGetListing, makeGetListingAddressByChallengeID } from "../../selectors/listings";
 import {
   canListingBeChallenged,
   // canBeWhitelisted,
@@ -10,28 +11,29 @@ import {
   isChallengeInCommitStage,
   isChallengeInRevealStage,
   ListingWrapper,
-  UserChallengeData,
-  WrappedChallengeData,
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { ListingSummaryComponent } from "@joincivil/components";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
-  challengeID?: string;
+  even: boolean;
+  user?: string;
+}
+
+export interface ChallengeListingListItemOwnProps {
+  challengeID: string;
   even: boolean;
   user?: string;
 }
 
 export interface ListingListItemReduxProps {
-  newsroom: NewsroomState | undefined;
-  listing: ListingWrapper | undefined;
-  challenge?: WrappedChallengeData;
-  userChallengeData?: UserChallengeData;
-  userAppealChallengeData?: UserChallengeData;
+  newsroom?: NewsroomState;
+  listing?: ListingWrapper;
+  listingPhaseState?: any;
 }
 
-class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
+class ListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
   constructor(props: any) {
     super(props);
   }
@@ -75,62 +77,60 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   }
 }
 
-const mapStateToProps = (
-  state: State,
-  ownProps: ListingListItemOwnProps,
-): ListingListItemReduxProps & ListingListItemOwnProps => {
-  const { newsrooms } = state;
-  const { listings, challenges, challengeUserData, appealChallengeUserData, user } = state.networkDependent;
+const makeMapStateToProps = () => {
+  const getListingPhaseState = makeGetListingPhaseState();
+  const getListing = makeGetListing();
 
-  let listingAddress = ownProps.listingAddress;
-  let challenge;
-  if (!listingAddress && ownProps.challengeID) {
-    challenge = challenges.get(ownProps.challengeID);
-    listingAddress = challenges.get(ownProps.challengeID)!.listingAddress;
-  }
+  const mapStateToProps = (
+    state: State,
+    ownProps: ListingListItemOwnProps,
+  ): ListingListItemReduxProps & ListingListItemOwnProps => {
+    const { newsrooms } = state;
+    const { user } = state.networkDependent;
+    const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
+    const listing = getListing(state, ownProps);
 
-  const newsroom = newsrooms.get(listingAddress!);
-  const listing = listings.get(listingAddress!) ? listings.get(listingAddress!).listing : undefined;
-
-  let challengeID = ownProps.challengeID;
-  if (!challengeID && listing) {
-    challengeID = listing.data.challengeID!.toString();
-  }
-
-  let userAcct = ownProps.user;
-  if (!userAcct) {
-    userAcct = user.account.account;
-  }
-
-  let userChallengeData;
-  let userAppealChallengeData;
-
-  if (challengeID && userAcct) {
-    const challengeUserDataMap = challengeUserData.get(challengeID!);
-    if (challengeUserDataMap) {
-      userChallengeData = challengeUserDataMap.get(userAcct);
+    let userAcct = ownProps.user;
+    if (!userAcct) {
+      userAcct = user.account.account;
     }
-    if (challenge) {
-      const wrappedChallenge = challenge as WrappedChallengeData;
-      if (wrappedChallenge && wrappedChallenge.challenge && wrappedChallenge.challenge.appeal) {
-        const appealChallengeID = wrappedChallenge.challenge.appeal.appealChallengeID;
-        const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID!.toString());
-        if (appealChallengeUserDataMap) {
-          userAppealChallengeData = appealChallengeUserDataMap.get(userAcct);
-        }
-      }
-    }
-  }
 
-  return {
-    newsroom,
-    listing,
-    challenge,
-    userChallengeData,
-    userAppealChallengeData,
-    ...ownProps,
-    listingAddress,
+    return {
+      newsroom,
+      listing,
+      listingPhaseState: getListingPhaseState(state, ownProps),
+      ...ownProps,
+    };
   };
+
+  return mapStateToProps;
 };
 
-export default connect(mapStateToProps)(ListingListItem);
+export const ListingListItem = connect(makeMapStateToProps)(ListingListItemComponent);
+
+const makeChallengeMapStateToProps = () => {
+  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
+
+  const mapStateToProps = (state: State, ownProps: ChallengeListingListItemOwnProps): ListingListItemOwnProps => {
+    const listingAddress = getListingAddressByChallengeID(state, ownProps);
+    const { even, user } = ownProps;
+
+    return {
+      listingAddress,
+      even,
+      user,
+    };
+  };
+
+  return mapStateToProps;
+};
+
+export class ChallengeListingItemComponent extends React.Component<
+  ChallengeListingListItemOwnProps & ListingListItemOwnProps
+> {
+  public render(): JSX.Element {
+    return <ListingListItem {...this.props} />;
+  }
+}
+
+export const ChallengeListingListItem = connect(makeChallengeMapStateToProps)(ChallengeListingItemComponent);
