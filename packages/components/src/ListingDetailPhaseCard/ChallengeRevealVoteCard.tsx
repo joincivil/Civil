@@ -11,6 +11,8 @@ import {
   StyledPhaseDisplayName,
   MetaItemValue,
   MetaItemLabel,
+  FormHeader,
+  FormCopy,
 } from "./styledComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { RevealVote } from "./RevealVote";
@@ -42,14 +44,37 @@ export class ChallengeRevealVoteCard extends React.Component<
           <MetaItemValue>{this.props.stake}</MetaItemValue>
           <MetaItemLabel>Stake</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <RevealVote
-            salt={this.props.salt}
-            onInputChange={this.props.onInputChange}
-            transactions={this.props.transactions}
-          />
-        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>{this.renderRevealVote()}</StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
   }
+
+  private renderRevealVote = (): JSX.Element => {
+    if (!!this.props.userHasCommittedVote) {
+      return (
+        <>
+          <FormHeader>You did not participate in this challenge</FormHeader>
+          <FormCopy>You did not commit a vote, so there is nothing here for you to reveal</FormCopy>
+        </>
+      );
+    } else if (this.props.userHasRevealedVote) {
+      return (
+        <>
+          <FormHeader>You have revealed your vote</FormHeader>
+          <FormCopy>
+            Thank you for participating! Please check back after the challenge ends to see if you have earned a reward{" "}
+          </FormCopy>
+        </>
+      );
+    } else {
+      return (
+        <RevealVote
+          salt={this.props.salt}
+          onInputChange={this.props.onInputChange}
+          transactions={this.props.transactions}
+          modalContentComponents={this.props.modalContentComponents}
+        />
+      );
+    }
+  };
 }

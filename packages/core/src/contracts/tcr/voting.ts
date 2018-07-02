@@ -62,6 +62,13 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     return this.instance._VoteCommittedStream({ voter: user }, { fromBlock }).map(e => e.args.pollID);
   }
 
+  public balanceUpdate(fromBlock: number | "latest" = 0, user: EthAddress): Observable<BigNumber> {
+    return this.instance
+      ._VotingRightsGrantedStream({ voter: user }, { fromBlock })
+      .merge(this.instance._VotingRightsWithdrawnStream({ voter: user }, { fromBlock }))
+      .concatMap(async e => this.getNumVotingRights(user));
+  }
+
   /**
    * Contract Transactions
    */
