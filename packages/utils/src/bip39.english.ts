@@ -2046,5 +2046,5 @@ export const words = [
   "zebra",
   "zero",
   "zone",
-  "zoo"
-]
+  "zoo",
+];
