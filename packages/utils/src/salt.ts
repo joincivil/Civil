@@ -1,9 +1,9 @@
 import { words } from "../src/bip39.english";
 import { BigNumber } from "bignumber.js";
 
-// Adapted from: https://github.com/aseemk/bases.js/blob/master/bases.js#L8
-
 export { words };
+
+// Adapted from: https://github.com/aseemk/bases.js/blob/master/bases.js#L8
 
 export function toAlphabet(srcNum: BigNumber, alphabet: string[]): string[] {
   const base = alphabet.length;
