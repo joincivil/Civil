@@ -344,14 +344,18 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: number | BigNumber,
     revisionId?: number | BigNumber,
   ): Promise<EthContentHeader> {
+    let revision = revisionId;
+    if (!revision) {
+      revision = (await this.instance.revisionCount.callAsync(this.ethApi.toBigNumber(contentId))).sub(1);
+    }
     const myContentId = this.ethApi.toBigNumber(contentId);
     let contentHash: string;
     let uri: string;
     let timestamp: BigNumber;
     let author: EthAddress;
     let signature: string;
-    if (revisionId) {
-      const myRevisionId = this.ethApi.toBigNumber(revisionId);
+    if (revision) {
+      const myRevisionId = this.ethApi.toBigNumber(revision);
       [contentHash, uri, timestamp, author, signature] = await this.instance.getRevision.callAsync(
         myContentId,
         myRevisionId,
