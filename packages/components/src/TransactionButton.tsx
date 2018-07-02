@@ -74,6 +74,12 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
     };
   }
 
+  public componentDidUpdate(prevProps: TransactionButtonProps): void {
+    if (prevProps.disabled !== this.props.disabled) {
+      this.setState({ disableButton: !!this.props.disabled });
+    }
+  }
+
   public render(): JSX.Element {
     let StyledButton;
     switch (this.props.style) {
