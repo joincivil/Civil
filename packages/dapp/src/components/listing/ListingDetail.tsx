@@ -18,17 +18,20 @@ class ListingDetail extends React.Component<ListingDetailProps> {
 
   public render(): JSX.Element {
     // const isOwnerViewingListing = this.props.listing.data.owner === this.props.userAccount;
+    let newsroomDescription =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id.";
+    if (this.props.newsroom.data.charter) {
+      newsroomDescription = JSON.parse(this.props.newsroom.data.charter.content.toString()).desc;
+    }
+
     const props: ListingDetailHeaderProps = {
       newsroomName: this.props.newsroom.data.name,
-      newsroomDescription: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-        officia deserunt mollit anim id.`,
+      newsroomDescription,
       owner: this.props.listing.data.owner,
       unstakedDeposit: this.props.listing.data.unstakedDeposit,
       ...this.props.listingPhaseState,
     };
+
     return <>{this.props.listing.data && <ListingDetailHeader {...props} />}</>;
   }
 

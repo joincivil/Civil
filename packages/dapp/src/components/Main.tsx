@@ -16,6 +16,7 @@ import { getCivil } from "../helpers/civilInstance";
 import { initializeSubscriptions, initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
+import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { addUser } from "../actionCreators/userAccount";
 import { setNetwork } from "../actionCreators/network";
 import { connect, DispatchProp } from "react-redux";
@@ -51,6 +52,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       const balance = await token.getBalance(civil.userAccount);
       const votingBalance = await voting.getNumVotingRights(civil.userAccount);
       this.props.dispatch!(addUser(civil.userAccount, balance, votingBalance));
+      await initializeTokenSubscriptions(this.props.dispatch!, civil.userAccount);
       await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
     }
   };
