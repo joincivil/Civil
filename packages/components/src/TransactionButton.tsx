@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { TwoStepEthTransaction } from "@joincivil/core";
+import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
 import {
@@ -17,10 +17,12 @@ export interface TransactionButtonState {
 }
 
 export interface Transaction {
+  progressEventName?: string;
   transaction(): Promise<TwoStepEthTransaction<any> | void>;
   preTransaction?(): any;
   postTransaction?(result: any): any;
   handleTransactionError?(err: any): any;
+  handleTransactionHash?(txhash: TxHash): void;
 }
 
 export interface TransactionButtonProps {
@@ -46,8 +48,8 @@ export interface TransactionButtonModalContentComponentsProps {
 }
 
 export interface TransactionButtonModalProps {
-  modalComponent?: JSX.Element | undefined;
-  modalContentComponents?: TransactionButtonModalContentComponentsProps | undefined;
+  modalComponent?: JSX.Element;
+  modalContentComponents?: any;
 }
 
 export interface TransitionButtonModalState {
@@ -70,6 +72,12 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
       step: 0,
       disableButton: !!props.disabled,
     };
+  }
+
+  public componentDidUpdate(prevProps: TransactionButtonProps): void {
+    if (prevProps.disabled !== this.props.disabled) {
+      this.setState({ disableButton: !!this.props.disabled });
+    }
   }
 
   public render(): JSX.Element {
@@ -113,22 +121,32 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
       if (currTransaction.preTransaction) {
         setImmediate(() => currTransaction.preTransaction!());
       }
+
       try {
         this.setState({ step: 1, disableButton: true });
         const pending = await currTransaction.transaction();
         this.setState({ step: 2 });
+
+        if (currTransaction.handleTransactionHash && pending) {
+          currTransaction.handleTransactionHash(pending.txHash);
+        }
+
         if (pending) {
           const receipt = await pending.awaitReceipt();
+
           if (!transactions.length) {
             this.setState({ step: 0, disableButton: false });
           }
+
           if (currTransaction.postTransaction) {
             setImmediate(() => currTransaction.postTransaction!(receipt));
           }
         }
+
         return this.executeTransactions(transactions);
       } catch (err) {
         this.setState({ step: 0, disableButton: false });
+
         if (currTransaction.handleTransactionError) {
           setImmediate(() => currTransaction.handleTransactionError!(err));
         }
@@ -160,7 +178,7 @@ export class TransactionButton extends React.Component<
       ...other
     } = this.props;
     const progressModal = this.getProgressModalEl(modalComponent, modalContentComponents);
-    const extendedTransactions = this.extendTransactionsErrorHandlers(transactions);
+    const extendedTransactions = this.extendTransactionsHandlers(transactions);
     let extendedPreExecuteTransactions = this.showProgressModal;
     let extendedPostExecuteTransactions = this.showProgressModalSuccess;
 
@@ -190,10 +208,15 @@ export class TransactionButton extends React.Component<
     );
   }
 
-  private extendTransactionsErrorHandlers = (transactions: Transaction[]): Transaction[] => {
+  private extendTransactionsHandlers = (transactions: Transaction[]): Transaction[] => {
     return transactions.map(transaction => {
       if (!transaction.handleTransactionError) {
         transaction.handleTransactionError = this.showProgressModalError;
+      }
+      if (transaction.progressEventName) {
+        transaction.preTransaction = () => {
+          this.showProgressModal(transaction.progressEventName);
+        };
       }
       return transaction;
     });
@@ -201,7 +224,7 @@ export class TransactionButton extends React.Component<
 
   private getProgressModalEl = (
     modalComponent: JSX.Element | undefined,
-    modalContentComponents: TransactionButtonModalContentComponentsProps | undefined,
+    modalContentComponents?: any,
   ): JSX.Element | undefined => {
     const modalContentSource =
       (modalContentComponents && modalContentComponents[this.state.progressModalState!]) ||
@@ -236,8 +259,8 @@ export class TransactionButton extends React.Component<
     this.setState({ progressModalState: progressModalStates.ERROR });
   };
 
-  private showProgressModal = (): void => {
-    this.setState({ isProgressModalVisible: true, progressModalState: progressModalStates.IN_PROGRESS });
+  private showProgressModal = (progressModalState: string = progressModalStates.IN_PROGRESS): void => {
+    this.setState({ isProgressModalVisible: true, progressModalState });
   };
 
   private hideProgressModal = (): void => {

@@ -58,6 +58,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
             salt={this.props.salt}
             onInputChange={this.props.onInputChange}
             transactions={this.props.transactions}
+            modalContentComponents={this.props.modalContentComponents}
           />
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>

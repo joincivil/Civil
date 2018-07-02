@@ -21,13 +21,21 @@ export class RevealVote extends React.Component<RevealVoteProps> {
 
         <VoteOptionsContainer>
           <div onMouseEnter={this.setVoteToRemain}>
-            <TransactionDarkButton size={buttonSizes.MEDIUM} transactions={this.props.transactions}>
+            <TransactionDarkButton
+              size={buttonSizes.MEDIUM}
+              transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
+            >
               ✔ Remain
             </TransactionDarkButton>
           </div>
           <StyledOrText>or</StyledOrText>
           <div onMouseEnter={this.setVoteToRemove}>
-            <TransactionDarkButton size={buttonSizes.MEDIUM} transactions={this.props.transactions}>
+            <TransactionDarkButton
+              size={buttonSizes.MEDIUM}
+              transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
+            >
               ✖ Remove
             </TransactionDarkButton>
           </div>

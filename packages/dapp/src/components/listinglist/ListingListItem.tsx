@@ -41,8 +41,11 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     if (listing && listing.data && newsroom) {
       const newsroomData = newsroom.wrapper.data;
       const listingData = listing.data;
-      const description =
+      let description =
         "This will be a great description someday, but until then The Dude Abides. um i to you you call duder or so thats the dude thats what i am brevity thing um i let me duder or";
+      if (newsroom.wrapper.data.charter) {
+        description = JSON.parse(newsroom.wrapper.data.charter.content.toString()).desc;
+      }
       const listingDetailURL = `/listing/${address}`;
       const isInApplication = isInApplicationPhase(listingData);
       const canBeChallenged = canListingBeChallenged(listingData);
@@ -79,7 +82,8 @@ const mapStateToProps = (
   state: State,
   ownProps: ListingListItemOwnProps,
 ): ListingListItemReduxProps & ListingListItemOwnProps => {
-  const { newsrooms, listings, challenges, challengeUserData, appealChallengeUserData, user } = state.networkDependent;
+  const { newsrooms } = state;
+  const { listings, challenges, challengeUserData, appealChallengeUserData, user } = state.networkDependent;
 
   let listingAddress = ownProps.listingAddress;
   let challenge;

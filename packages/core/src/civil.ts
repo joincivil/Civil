@@ -148,6 +148,23 @@ export class Civil {
   }
 
   /**
+   * Returns a Newsroom object, that was beforehand put into blockchain's mempool using the factory method,
+   * or already mined into a block.
+   * If the Newsroom was already mined, returns it immediately, otherwise
+   * waits until it's put onto blockchain.
+   * @see {@link Civil.awaitReceipt}
+   * @param transactionHash The transaction hash which creates the Newsroom
+   * @param blockConfirmations How many blocks should be mined before the Newsroom is considered immutabely created
+   */
+  public async newsroomFromFactoryTxHashUntrusted(
+    transactionHash: TxHash,
+    blockConfirmations?: number,
+  ): Promise<Newsroom> {
+    const receipt = await this.awaitReceipt(transactionHash, blockConfirmations);
+    return Newsroom.fromFactoryReceipt(receipt, this.ethApi, this.contentProvider);
+  }
+
+  /**
    * Returns a Newsroom object, which is an abstraction layer to
    * the smart-contract located a Ethereum on `address` in the current network.
    * No sanity checks are done concerning that smart-contracts, and so the contract
