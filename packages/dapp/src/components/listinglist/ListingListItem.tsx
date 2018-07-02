@@ -1,17 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
-import { makeGetListingPhaseState, makeGetListing, makeGetListingAddressByChallengeID } from "../../selectors/listings";
-import {
-  canListingBeChallenged,
-  // canBeWhitelisted,
-  // canResolveChallenge,
-  // isAwaitingAppealJudgment,
-  isInApplicationPhase,
-  isChallengeInCommitStage,
-  isChallengeInRevealStage,
-  ListingWrapper,
-} from "@joincivil/core";
+import { makeGetListingPhaseState, makeGetListing, makeGetListingAddressByChallengeID } from "../../selectors";
+import { ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { ListingSummaryComponent } from "@joincivil/components";
 
@@ -34,13 +25,9 @@ export interface ListingListItemReduxProps {
 }
 
 class ListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
-  constructor(props: any) {
-    super(props);
-  }
-
   public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom } = this.props;
-    if (listing && listing.data && newsroom) {
+    const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
+    if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
       const listingData = listing.data;
       let description =
@@ -49,12 +36,7 @@ class ListingListItemComponent extends React.Component<ListingListItemOwnProps &
         description = JSON.parse(newsroom.wrapper.data.charter.content.toString()).desc;
       }
       const listingDetailURL = `/listing/${address}`;
-      const isInApplication = isInApplicationPhase(listingData);
-      const canBeChallenged = canListingBeChallenged(listingData);
-      const inChallengePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
-      const inRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
       const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-
       const pollData = listingData.challenge && listingData.challenge.poll;
       const commitEndDate = pollData && pollData.commitEndDate.toNumber();
       const revealEndDate = pollData && pollData.revealEndDate.toNumber();
@@ -64,10 +46,7 @@ class ListingListItemComponent extends React.Component<ListingListItemOwnProps &
         address,
         description,
         listingDetailURL,
-        isInApplication,
-        canBeChallenged,
-        inChallengePhase,
-        inRevealPhase,
+        ...listingPhaseState,
         appExpiry,
         commitEndDate,
         revealEndDate,
@@ -128,6 +107,9 @@ const makeChallengeMapStateToProps = () => {
   return mapStateToProps;
 };
 
+/**
+ * Container that renders a listing associated with the specified `ChallengeID`
+ */
 export class ChallengeListingItemComponent extends React.Component<
   ChallengeListingListItemOwnProps & ListingListItemOwnProps
 > {

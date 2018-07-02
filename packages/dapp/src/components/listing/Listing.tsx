@@ -8,7 +8,7 @@ import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors/listings";
+import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
 
 import styled from "styled-components";
 const GridRow = styled.div`
