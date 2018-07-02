@@ -10,8 +10,6 @@ export class ApplyToTCR extends React.Component<StepProps> {
             <>
               <StepHeader
                 disabled={this.props.disabled}
-                el={this.props.el}
-                isActive={this.props.active === this.props.index}
               >
                 Apply to the Civil Registry (Coming Soon!)
               </StepHeader>

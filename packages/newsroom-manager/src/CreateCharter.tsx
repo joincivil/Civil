@@ -10,8 +10,6 @@ export class CreateCharter extends React.Component<StepProps> {
             <>
               <StepHeader
                 disabled={this.props.disabled}
-                el={this.props.el}
-                isActive={this.props.active === this.props.index}
               >
                 Create your charter (Coming Soon!)
               </StepHeader>

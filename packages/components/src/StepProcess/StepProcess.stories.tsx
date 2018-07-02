@@ -8,7 +8,7 @@ import { StepStyled } from "./StepStyled";
 const Step1 = (props: StepProps): JSX.Element => {
   return (
     <StepStyled index={props.index || 0}>
-      <StepHeader el={props.el} completed={true} isActive={props.active === props.index}>
+      <StepHeader>
         Step 1
       </StepHeader>
       <p> this is a step </p>
@@ -19,7 +19,7 @@ const Step1 = (props: StepProps): JSX.Element => {
 const Step2 = (props: StepProps): JSX.Element => {
   return (
     <StepStyled index={props.index || 0}>
-      <StepHeader el={props.el} isActive={props.active === props.index}>
+      <StepHeader>
         Step 2
       </StepHeader>
       <p> this is another step </p>
@@ -30,7 +30,7 @@ const Step2 = (props: StepProps): JSX.Element => {
 const Step3 = (props: StepProps): JSX.Element => {
   return (
     <StepStyled index={props.index || 0}>
-      <StepHeader el={props.el} isActive={props.active === props.index}>
+      <StepHeader>
         Step 3
       </StepHeader>
       <p> this is another step </p>

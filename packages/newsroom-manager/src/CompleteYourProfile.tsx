@@ -160,8 +160,6 @@ class CompleteYourProfileComponent extends React.Component<
             <>
               <StepHeader
                 disabled={this.props.disabled}
-                el={this.props.el}
-                isActive={this.props.active === this.props.index}
               >
                 Add other users
               </StepHeader>

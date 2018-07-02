@@ -80,8 +80,6 @@ class SignConstitutionComponent extends React.Component<
             <>
               <StepHeader
                 disabled={this.props.disabled}
-                el={this.props.el}
-                isActive={this.props.active === this.props.index}
               >
                 Sign the Civil Constitution (Coming Soon!)
               </StepHeader>
