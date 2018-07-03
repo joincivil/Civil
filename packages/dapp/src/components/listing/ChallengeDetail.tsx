@@ -41,6 +41,7 @@ import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import styled from "styled-components";
+import { fetchSalt } from "../../helpers/salt";
 
 enum ModalContentEventNames {
   IN_PROGRESS_REQUEST_VOTING_RIGHTS = "IN_PROGRESS:REQUEST_VOTING_RIGHTS",
@@ -96,9 +97,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   constructor(props: any) {
     super(props);
 
+    console.log("CAHH", this.props.challenge);
     this.state = {
       voteOption: undefined,
-      salt: "838932748",
+      salt: fetchSalt("11"),
       numTokens: undefined,
     };
   }
