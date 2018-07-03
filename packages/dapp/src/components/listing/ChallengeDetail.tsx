@@ -97,10 +97,9 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   constructor(props: any) {
     super(props);
 
-    console.log("CAHH", this.props.challenge);
     this.state = {
       voteOption: undefined,
-      salt: fetchSalt("11"),
+      salt: fetchSalt(this.props.challengeID, this.props.user),
       numTokens: undefined,
     };
   }
