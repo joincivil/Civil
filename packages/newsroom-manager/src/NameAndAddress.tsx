@@ -139,11 +139,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
           disabled={this.props.disabled}
           header={
             <>
-              <StepHeader
-                disabled={this.props.disabled}
-              >
-                Set up a newsroom
-              </StepHeader>
+              <StepHeader disabled={this.props.disabled}>Set up a newsroom</StepHeader>
               <StepDescription disabled={this.props.disabled}>
                 Enter your newsroom name to create your newsroom smart contract.
               </StepDescription>

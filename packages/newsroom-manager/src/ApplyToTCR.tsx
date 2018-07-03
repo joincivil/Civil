@@ -8,11 +8,7 @@ export class ApplyToTCR extends React.Component<StepProps> {
         <Collapsable
           header={
             <>
-              <StepHeader
-                disabled={this.props.disabled}
-              >
-                Apply to the Civil Registry (Coming Soon!)
-              </StepHeader>
+              <StepHeader disabled={this.props.disabled}>Apply to the Civil Registry (Coming Soon!)</StepHeader>
               <StepDescription disabled={this.props.disabled}>
                 Submit your application to the token-curated registry (TCR) and view your status.
               </StepDescription>

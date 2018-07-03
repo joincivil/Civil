@@ -158,11 +158,7 @@ class CompleteYourProfileComponent extends React.Component<
         <Collapsable
           header={
             <>
-              <StepHeader
-                disabled={this.props.disabled}
-              >
-                Add other users
-              </StepHeader>
+              <StepHeader disabled={this.props.disabled}>Add other users</StepHeader>
               <StepDescription disabled={this.props.disabled}>
                 Add owners and editors to your newsroom contract.
               </StepDescription>

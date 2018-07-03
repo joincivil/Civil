@@ -2,7 +2,6 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import styled, { StyledComponentClass } from "styled-components";
 import { fonts, colors } from "../styleConstants";
-import { Done } from "@material-ui/icons";
 
 export interface ComponentProps {
   disabled?: boolean;
@@ -21,5 +20,5 @@ export interface StepHeaderProps {
 }
 
 export const StepHeader = (props: StepHeaderProps): JSX.Element => {
-  return (<SectionHeader disabled={props.disabled}>{props.children}</SectionHeader>);
+  return <SectionHeader disabled={props.disabled}>{props.children}</SectionHeader>;
 };

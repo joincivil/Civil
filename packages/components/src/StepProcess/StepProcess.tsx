@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors } from "../styleConstants";
 
 export interface StepProcessProps {
   stepIsDisabled?(index: number): boolean;
@@ -26,10 +25,6 @@ export class StepProcess extends React.Component<StepProcessProps> {
         disabled: this.props.stepIsDisabled ? this.props.stepIsDisabled(index) : false,
       });
     });
-    return (
-      <Container>
-        {childrenWithDisabled}
-      </Container>
-    );
+    return <Container>{childrenWithDisabled}</Container>;
   }
 }

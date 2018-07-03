@@ -1,25 +1,25 @@
-import { storiesOf } from "@storybook/react";
-import * as React from "react";
-import styled from "styled-components";
-import { SignConstitutionButton } from "./SignConstitutionButton";
-import { Civil } from "@joincivil/core";
+// import { storiesOf } from "@storybook/react";
+// import * as React from "react";
+// import styled from "styled-components";
+// import { SignConstitutionButton } from "./SignConstitutionButton";
+// import { Civil } from "@joincivil/core";
 
-let civil: Civil | undefined;
+// let civil: Civil | undefined;
 
-try {
-  civil = new Civil();
-} catch (error) {
-  civil = undefined;
-}
+// try {
+// civil = new Civil();
+// } catch (error) {
+// civil = undefined;
+// }
 
-const signConstitution = async (): Promise<void> => {
-  console.log("Signing the Constituion!");
-};
+// const signConstitution = async (): Promise<void> => {
+// console.log("Signing the Constituion!");
+// };
 
-const Wrapper = styled.div`
-  margin: 50px;
-  max-width: 500px;
-`;
+// const Wrapper = styled.div`
+// margin: 50px;
+// max-width: 500px;
+// `;
 // TODO: Fix these when we build constitution
 // storiesOf("Sign Constitution Button", module)
 //   .add("User can sign", () => {
