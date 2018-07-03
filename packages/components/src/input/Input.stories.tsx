@@ -1,6 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
-import { TextInput, HeaderInput, CurrencyInput } from "./Input";
+import { TextInput, HeaderInput, CurrencyInput, TextareaInput } from "./Input";
 import { InputGroup } from "./InputGroup";
 import { RadioInput, RadioButton } from "./RadioInput";
 
@@ -93,4 +93,15 @@ storiesOf("Inputs", module)
         </RadioInput>
       </div>
     );
-  });
+  })
+
+  .add("Texarea Input", () => {
+    return (
+      <ControlComponent>
+        {(state: any, onChange: changeCallback) => (
+          <TextareaInput label="Textarea Input" placeholder="Input your long text" name="TexareaInput" onChange={onChange} />
+        )}
+      </ControlComponent>
+    );
+  })
+;
