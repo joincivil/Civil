@@ -29,7 +29,7 @@ storiesOf("Listing Details Header", module)
     };
     return (
       <Container>
-          <ListingDetailHeader {...props} />
+        <ListingDetailHeader {...props} />
       </Container>
     );
   })
@@ -45,7 +45,7 @@ storiesOf("Listing Details Header", module)
     };
     return (
       <Container>
-          <ListingDetailHeader {...props} />
+        <ListingDetailHeader {...props} />
       </Container>
     );
   })
@@ -61,7 +61,7 @@ storiesOf("Listing Details Header", module)
     };
     return (
       <Container>
-          <ListingDetailHeader {...props} />
+        <ListingDetailHeader {...props} />
       </Container>
     );
   })
@@ -77,8 +77,7 @@ storiesOf("Listing Details Header", module)
     };
     return (
       <Container>
-          <ListingDetailHeader {...props} />
+        <ListingDetailHeader {...props} />
       </Container>
     );
-  })
-;
+  });
