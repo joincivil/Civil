@@ -14,7 +14,7 @@ import {
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
 import { EthAddress, NewsroomRoles, Civil } from "@joincivil/core";
-import { CivilContext } from "./CivilContext";
+import { CivilContext, CivilContextValue } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
 import { fetchNewsroom, uiActions } from "./actionCreators";
 import { NewsroomUser } from "./NewsroomUser";
@@ -94,7 +94,7 @@ class CompleteYourProfileComponent extends React.Component<
     } else {
       return (
         <CivilContext.Consumer>
-          {(civil: Civil) => (
+          {(value: CivilContextValue) => (
             <>
               <AddressInput
                 address={this.state.newEditor}
@@ -109,8 +109,8 @@ class CompleteYourProfileComponent extends React.Component<
                     },
                   },
                 ]}
-                civil={civil}
-                requiredNetwork="rinkeby"
+                civil={value.civil}
+                requiredNetwork={value.network}
               >
                 Add Editor
               </DetailTransactionButton>
@@ -127,7 +127,7 @@ class CompleteYourProfileComponent extends React.Component<
     } else {
       return (
         <CivilContext.Consumer>
-          {(civil: Civil) => (
+          {(value: CivilContextValue) => (
             <>
               <AddressInput address={this.state.newOwner} onChange={(name, val) => this.setState({ newOwner: val })} />
               <DetailTransactionButton
@@ -140,8 +140,8 @@ class CompleteYourProfileComponent extends React.Component<
                     },
                   },
                 ]}
-                civil={civil}
-                requiredNetwork="rinkeby"
+                civil={value.civil}
+                requiredNetwork={value.network}
               >
                 Add Owner
               </DetailTransactionButton>
@@ -164,7 +164,7 @@ class CompleteYourProfileComponent extends React.Component<
               </StepDescription>
             </>
           }
-          open={!!this.props.address}
+          open={!!this.props.address && !this.props.disabled}
           disabled={this.props.disabled}
         >
           <FormSection>

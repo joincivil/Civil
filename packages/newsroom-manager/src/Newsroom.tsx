@@ -20,7 +20,9 @@ export interface NewsroomProps {
   address?: EthAddress;
   txHash?: TxHash;
   name?: string;
-  civil: Civil;
+  disabled?: boolean;
+  network?: string;
+  civil?: Civil;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
   getNameForAddress?(address: EthAddress): Promise<string>;
@@ -80,8 +82,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <>
         <FormHeading>Newsroom Application</FormHeading>
         <p>Set up your newsroom smart contract and get started publishing on Civil.</p>
-        <CivilContext.Provider value={this.props.civil}>
-          <StepProcess stepIsDisabled={this.isDisabled}>
+        <CivilContext.Provider value={{ civil: this.props.civil, network: this.props.network || "rinkeby" }}>
+          <StepProcess disabled={this.isDisabled()} stepIsDisabled={this.isStepDisabled}>
             <NameAndAddress
               active={this.state.currentStep}
               onNewsroomCreated={this.onNewsroomCreated}
@@ -114,7 +116,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   };
 
-  public isDisabled = (index: number) => {
+  public isStepDisabled = (index: number) => {
     if (index === 0) {
       return false;
     } else if (index < 2 && this.props.address) {
@@ -123,9 +125,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return true;
   };
 
+  private isDisabled = (): boolean => {
+    return this.props.disabled || !this.props.civil || this.props.network !== this.props.civil.networkName || !this.props.civil.userAccount;
+  }
+
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
-    await this.props.dispatch!(getNewsroom(address, this.props.civil));
-    this.props.dispatch!(getEditors(address, this.props.civil));
+    await this.props.dispatch!(getNewsroom(address, this.props.civil!));
+    this.props.dispatch!(getEditors(address, this.props.civil!));
   };
 
   private onModalClose = () => {

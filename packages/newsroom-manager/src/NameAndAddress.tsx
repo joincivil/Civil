@@ -15,7 +15,7 @@ import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
 import styled, { StyledComponentClass } from "styled-components";
 import { connect, DispatchProp } from "react-redux";
 import { updateNewsroom, changeName } from "./actionCreators";
-import { CivilContext } from "./CivilContext";
+import { CivilContext, CivilContextValue } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
 
 export interface NameAndAddressProps extends StepProps {
@@ -61,7 +61,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
   public renderNoContract(): JSX.Element {
     return (
       <CivilContext.Consumer>
-        {(civil: Civil) => (
+        {(value: CivilContextValue) => (
           <>
             <TextInput
               label="Newsroom Name"
@@ -73,13 +73,13 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <DetailTransactionButton
               transactions={[
                 {
-                  transaction: this.createNewsroom.bind(this, civil),
+                  transaction: this.createNewsroom.bind(this, value.civil),
                   postTransaction: this.props.onNewsroomCreated,
                   handleTransactionHash: this.props.onContractDeployStarted,
                 },
               ]}
-              civil={civil}
-              estimateFunctions={[civil.estimateNewsroomDeployTrusted.bind(civil, this.props.name)]}
+              civil={value.civil}
+              estimateFunctions={[value.civil!.estimateNewsroomDeployTrusted.bind(value.civil, this.props.name)]}
               requiredNetwork="rinkeby"
             >
               Create Newsroom
@@ -93,7 +93,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
   public renderContract(): JSX.Element {
     return (
       <CivilContext.Consumer>
-        {(civil: Civil) => (
+        {(value: CivilContextValue) => (
           <>
             <TextInput
               label="Newsroom Name"
@@ -104,8 +104,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             />
             <DetailTransactionButton
               transactions={[{ transaction: this.changeName, postTransaction: this.onNameChange }]}
-              civil={civil}
-              requiredNetwork="rinkeby"
+              civil={value.civil}
+              requiredNetwork={value.network}
             >
               Change Name
             </DetailTransactionButton>
@@ -135,7 +135,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     return (
       <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
         <Collapsable
-          open={true}
+          open={!this.props.disabled}
           disabled={this.props.disabled}
           header={
             <>
