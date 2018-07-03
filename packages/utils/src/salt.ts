@@ -45,12 +45,36 @@ export function fromAlphabet(srcWords: string[], alphabet: string[]): BigNumber 
   return num;
 }
 
-export function wordsToSalt(str: string): string {
+export function wordsToSalt(wrds: string | string[]): BigNumber {
+  const str = typeof wrds === "string" ? wrds : wrds.join(" ");
   const w = str.split(" ").filter(s => s.trim().length);
-  return fromAlphabet(w, words).toFixed();
+  return fromAlphabet(w, words);
 }
 
 export function saltToWords(salt: string | BigNumber): string[] {
   const bn = typeof salt === "string" ? new BigNumber(salt) : salt;
   return toAlphabet(bn, words);
+}
+
+export function randomSalt(wordCount: number): BigNumber {
+  if (!wordCount) {
+    throw new Error("wordCount must be at least 1.");
+  }
+
+  let salt = new BigNumber(0);
+  const base = new BigNumber(words.length);
+
+  const min = base.pow(wordCount - 1);
+  const max = base.pow(wordCount);
+
+  const spread = max.minus(min);
+
+  const rand = BigNumber.random()
+    .mul(spread)
+    .plus(min)
+    .round(0, BigNumber.ROUND_FLOOR);
+
+  salt = salt.plus(rand);
+
+  return salt;
 }

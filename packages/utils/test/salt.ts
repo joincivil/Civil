@@ -1,6 +1,6 @@
 import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-import { toAlphabet, fromAlphabet, words, wordsToSalt, saltToWords } from "../src/salt";
+import { toAlphabet, fromAlphabet, words, wordsToSalt, saltToWords, randomSalt } from "../src/salt";
 import { BigNumber } from "bignumber.js";
 
 configureChai(chai);
@@ -19,16 +19,13 @@ describe("utils/salt", () => {
       "957389742598724985243799573897425987249852437995738974259872498524379",
       new BigNumber(2048).pow(10),
     ];
-
     for (const num of testNumbers) {
       const tn = typeof num === "string" ? new BigNumber(num) : num;
       const asWords = toAlphabet(tn, words);
       const asNum = fromAlphabet(asWords, words);
-
       expect(tn.toFixed()).equal(asNum.toFixed());
     }
   });
-
   it("Converts words to salt string", async () => {
     const strs = [
       ["life peasant", "2657290"],
@@ -37,14 +34,12 @@ describe("utils/salt", () => {
       ["     life peasant  ", "2657290"],
       [" abandon abandon ability", new BigNumber(2048).pow(2).toFixed()],
     ];
-
     for (const [ws, salt] of strs) {
       const s = wordsToSalt(ws);
       const ts = new BigNumber(salt);
-      expect(s).equal(ts.toFixed());
+      expect(s.toFixed()).equal(ts.toFixed());
     }
   });
-
   it("Converts salt to words", async () => {
     const strs = [
       ["life peasant", "2657290"],
@@ -52,15 +47,26 @@ describe("utils/salt", () => {
       ["angry electric feed farm", "5715147216967"],
       ["abandon abandon ability", new BigNumber(2048).pow(2).toFixed()],
     ];
-
     for (const [ws, salt] of strs) {
       const tw = saltToWords(salt).join(" ");
       expect(ws).equal(tw);
     }
   });
-
   it("Should throw an error", async () => {
     const fn = () => wordsToSalt("crab talk");
     expect(fn).to.throw(Error, "Invalid word: crab");
+  });
+  it("Should throw an error", async () => {
+    const fn = () => wordsToSalt("crab talk");
+    expect(fn).to.throw(Error, "Invalid word: crab");
+  });
+  it("Should generate a random salts at various word lengths.", async () => {
+    for (let cnt = 1; cnt <= 50; cnt++) {
+      const salt = randomSalt(cnt);
+      const wrds = saltToWords(salt);
+
+      expect(wrds.length).equal(cnt);
+      expect(salt.toFixed()).equal(wordsToSalt(wrds).toFixed());
+    }
   });
 });

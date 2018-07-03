@@ -98,7 +98,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
     this.state = {
       voteOption: undefined,
-      salt: undefined,
+      salt: "838932748",
       numTokens: undefined,
     };
   }
