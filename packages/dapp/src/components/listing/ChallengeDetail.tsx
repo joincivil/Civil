@@ -99,7 +99,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
     this.state = {
       voteOption: undefined,
-      salt: fetchSalt(this.props.challengeID, this.props.user),
+      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
     };
   }
