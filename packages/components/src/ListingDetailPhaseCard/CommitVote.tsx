@@ -1,6 +1,6 @@
 import * as React from "react";
 import { buttonSizes } from "../Button";
-import { InputGroup, TextInput } from "../input/";
+import { InputGroup } from "../input/";
 import { CommitVoteProps } from "./types";
 import { TransactionDarkButton } from "../TransactionButton";
 import {
