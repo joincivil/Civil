@@ -4,12 +4,12 @@ exports[`Storyshots AddressInput invalid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "civil-input-error sc-gGBfsJ dqKlEX",
+      "class": "civil-input-error sc-feJyhm AeQK",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-bbmXgH dlJwqg",
+          "class": "sc-kafWEX nRqDv",
         },
         "children": Array [
           Object {
@@ -34,7 +34,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-uJMKN bDQyDG",
+              "class": "sc-cIShpX lvpdL",
             },
             "children": Array [
               Object {
@@ -96,7 +96,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-uJMKN bDQyDG",
+            "class": "sc-cIShpX lvpdL",
           },
           "children": Array [
             Object {
@@ -123,7 +123,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-bbmXgH dlJwqg",
+            "class": "sc-kafWEX nRqDv",
           },
           "children": Array [
             Object {
@@ -163,7 +163,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-uJMKN bDQyDG",
+          "class": "sc-cIShpX lvpdL",
         },
         "children": Array [
           Object {
@@ -192,7 +192,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-bbmXgH dlJwqg",
+              "class": "sc-kafWEX nRqDv",
             },
             "children": Array [
               Object {
@@ -281,7 +281,7 @@ exports[`Storyshots AddressInput valid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": " sc-gGBfsJ dqKlEX",
+      "class": " sc-feJyhm AeQK",
     },
     "children": Array [
       Object {
@@ -296,7 +296,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-uJMKN bDQyDG",
+            "class": "sc-cIShpX lvpdL",
           },
           "children": Array [
             Object {
@@ -338,7 +338,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-uJMKN bDQyDG",
+          "class": "sc-cIShpX lvpdL",
         },
         "children": Array [
           Object {
