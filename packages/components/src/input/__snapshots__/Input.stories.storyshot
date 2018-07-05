@@ -4,7 +4,7 @@ exports[`Storyshots Inputs Currency Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kafWEX iRRKOd",
+      "class": " sc-gGBfsJ dqKlEX",
     },
     "children": Array [
       Object {
@@ -329,7 +329,7 @@ exports[`Storyshots Inputs Header Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-feJyhm csUUfx sc-kafWEX iRRKOd",
+      "class": " sc-jnlKLf axMQb sc-gGBfsJ dqKlEX",
     },
     "children": Array [
       Object {
@@ -473,7 +473,7 @@ exports[`Storyshots Inputs Input Group 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iELTvK fFLffp",
+      "class": "sc-fYxtnH cARkVs",
     },
     "children": Array [
       Object {
@@ -493,17 +493,17 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-cmTdod iJUbEU",
+            "class": "sc-tilXH kNbbWz",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-jwKygS yRWUW",
+                "class": "sc-hEsumM LEDNk",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-btzYZH vIhg",
+                    "class": "sc-ktHwxA bzBNAj",
                   },
                   "children": Array [
                     Object {
@@ -532,7 +532,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kafWEX iRRKOd",
+                  "class": " sc-gGBfsJ dqKlEX",
                 },
                 "children": Array [
                   Object {
@@ -585,7 +585,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-kafWEX iRRKOd",
+                "class": " sc-gGBfsJ dqKlEX",
               },
               "children": Array [
                 Object {
@@ -619,12 +619,12 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jwKygS yRWUW",
+                  "class": "sc-hEsumM LEDNk",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-btzYZH vIhg",
+                      "class": "sc-ktHwxA bzBNAj",
                     },
                     "children": Array [
                       Object {
@@ -696,17 +696,17 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-cmTdod iJUbEU",
+          "class": "sc-tilXH kNbbWz",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-jwKygS yRWUW",
+              "class": "sc-hEsumM LEDNk",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-btzYZH vIhg",
+                  "class": "sc-ktHwxA bzBNAj",
                 },
                 "children": Array [
                   Object {
@@ -735,7 +735,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kafWEX iRRKOd",
+                "class": " sc-gGBfsJ dqKlEX",
               },
               "children": Array [
                 Object {
@@ -788,7 +788,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-kafWEX iRRKOd",
+              "class": " sc-gGBfsJ dqKlEX",
             },
             "children": Array [
               Object {
@@ -822,12 +822,12 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jwKygS yRWUW",
+                "class": "sc-hEsumM LEDNk",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-btzYZH vIhg",
+                    "class": "sc-ktHwxA bzBNAj",
                   },
                   "children": Array [
                     Object {
@@ -958,7 +958,7 @@ initialize {
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-bYSBpT kcQaYA",
+          "class": "sc-kafWEX gVeNCk",
         },
         "children": Array [
           Object {
@@ -981,7 +981,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -1093,7 +1093,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -1205,7 +1205,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-lhVmIH kWyiPV",
+                        "class": "sc-cIShpX ksyYFN",
                       },
                       "children": Array [
                         Object {
@@ -1317,7 +1317,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-lhVmIH kWyiPV",
+                          "class": "sc-cIShpX ksyYFN",
                         },
                         "children": Array [
                           Object {
@@ -1470,7 +1470,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -1582,7 +1582,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -1694,7 +1694,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-lhVmIH kWyiPV",
+                        "class": "sc-cIShpX ksyYFN",
                       },
                       "children": Array [
                         Object {
@@ -1828,7 +1828,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -1959,7 +1959,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -2071,7 +2071,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -2195,7 +2195,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -2309,7 +2309,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-lhVmIH kWyiPV",
+                        "class": "sc-cIShpX ksyYFN",
                       },
                       "children": Array [
                         Object {
@@ -2448,7 +2448,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -2562,7 +2562,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -2676,7 +2676,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-lhVmIH kWyiPV",
+                        "class": "sc-cIShpX ksyYFN",
                       },
                       "children": Array [
                         Object {
@@ -2790,7 +2790,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-lhVmIH kWyiPV",
+                          "class": "sc-cIShpX ksyYFN",
                         },
                         "children": Array [
                           Object {
@@ -2960,7 +2960,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-lhVmIH kWyiPV",
+                  "class": "sc-cIShpX ksyYFN",
                 },
                 "children": Array [
                   Object {
@@ -3072,7 +3072,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -3184,7 +3184,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -3296,7 +3296,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-lhVmIH kWyiPV",
+                        "class": "sc-cIShpX ksyYFN",
                       },
                       "children": Array [
                         Object {
@@ -3449,7 +3449,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-lhVmIH kWyiPV",
+                  "class": "sc-cIShpX ksyYFN",
                 },
                 "children": Array [
                   Object {
@@ -3561,7 +3561,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -3673,7 +3673,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -3807,7 +3807,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -3938,7 +3938,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-lhVmIH kWyiPV",
+                  "class": "sc-cIShpX ksyYFN",
                 },
                 "children": Array [
                   Object {
@@ -4050,7 +4050,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -4174,7 +4174,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -4288,7 +4288,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -4427,7 +4427,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-lhVmIH kWyiPV",
+                  "class": "sc-cIShpX ksyYFN",
                 },
                 "children": Array [
                   Object {
@@ -4541,7 +4541,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-lhVmIH kWyiPV",
+                    "class": "sc-cIShpX ksyYFN",
                   },
                   "children": Array [
                     Object {
@@ -4655,7 +4655,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-lhVmIH kWyiPV",
+                      "class": "sc-cIShpX ksyYFN",
                     },
                     "children": Array [
                       Object {
@@ -4769,7 +4769,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-lhVmIH kWyiPV",
+                        "class": "sc-cIShpX ksyYFN",
                       },
                       "children": Array [
                         Object {
@@ -5002,7 +5002,7 @@ exports[`Storyshots Inputs Text Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kafWEX iRRKOd",
+      "class": " sc-gGBfsJ dqKlEX",
     },
     "children": Array [
       Object {

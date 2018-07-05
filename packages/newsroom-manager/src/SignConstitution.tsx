@@ -78,13 +78,7 @@ class SignConstitutionComponent extends React.Component<
         <Collapsable
           header={
             <>
-              <StepHeader
-                disabled={this.props.disabled}
-                el={this.props.el}
-                isActive={this.props.active === this.props.index}
-              >
-                Sign the Civil Constitution (Coming Soon!)
-              </StepHeader>
+              <StepHeader disabled={this.props.disabled}>Sign the Civil Constitution (Coming Soon!)</StepHeader>
               <StepDescription disabled={this.props.disabled}>Agree to the Civil Constitution</StepDescription>
             </>
           }
