@@ -12,7 +12,7 @@ export class SaltField extends React.Component<SaltFieldProps> {
     const label = "Write down your salt please.";
 
     const saltWords = this.getSaltyWords();
-    return <TextInput label={label} placeholder="Enter a unique number" value={saltWords} name="salt" readOnly />;
+    return <TextInput label={label} value={saltWords} name="salt" readOnly />;
   }
 
   private getSaltyWords(): string {
