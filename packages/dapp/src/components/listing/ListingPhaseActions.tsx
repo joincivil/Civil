@@ -21,7 +21,11 @@ import {
   ModalOrderedList,
   ModalListItem,
   ModalListItemTypes,
+  SubmitChallengeModal,
+  SubmitChallengeModalProps,
 } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getCivil } from "../../helpers/civilInstance";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
@@ -30,14 +34,24 @@ export interface ListingPhaseActionsProps {
   govtParameters: any;
 }
 
+export interface ListingPhaseActionsState {
+  isChallengeModalOpen?: boolean;
+  isPostStatementDisabled?: boolean;
+  challengeStatement?: any;
+}
+
 enum ModalContentEventNames {
   IN_PROGRESS_APPROVE_FOR_CHALLENGE = "IN_PROGRESS:APPROVE_FOR_CHALLENGE",
   IN_PROGRESS_SUBMIT_CHALLENGE = "IN_PROGRESS:SUBMIT_CHALLENGE",
 }
 
-class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
+class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, ListingPhaseActionsState> {
   constructor(props: any) {
     super(props);
+    this.state = {
+      isChallengeModalOpen: false,
+      isPostStatementDisabled: false,
+    };
   }
 
   public render(): JSX.Element {
@@ -97,6 +111,17 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   private renderApplicationWhitelisted(): JSX.Element {
     // @TODO(jon): Get the Whitelisted event for this listing and display that event's date
     // in the card
+    return (
+      <>
+        <WhitelistedCard handleSubmitChallenge={this.handleSubmitChallenge} />
+        {this.renderSubmitChallengeModal()}
+      </>
+    );
+  }
+
+  private renderSubmitChallengeModal(): JSX.Element {
+    console.log("render submit challenge modal", this.props, this.state);
+    const civil = getCivil();
     const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
     const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
     const modalContentComponents = {
@@ -113,7 +138,24 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
         progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
       },
     ];
-    return <WhitelistedCard modalContentComponents={modalContentComponents} transactions={transactions} />;
+    const minDeposit = getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit), true);
+    const dispensationPct = `${this.props.parameters.minDeposit.dispensationPct}%`;
+    const props: SubmitChallengeModalProps = {
+      open: this.state.isChallengeModalOpen,
+      constitutionURI: "https://civil.co",
+      minDeposit,
+      dispensationPct,
+      isPostStatementDisabled: this.state.isPostStatementDisabled!,
+      postStatementTransactions: [],
+      modalContentComponents,
+      submitChallengeTransactions: transactions,
+      updateStatementValue: this.updateChallengeStatement,
+      handleClose: () => {
+        this.setState({ isChallengeModalOpen: false });
+      },
+    };
+    console.log(props);
+    return <SubmitChallengeModal {...props} />;
   }
 
   private renderRejected(): JSX.Element {
@@ -197,6 +239,19 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
       />
     );
   }
+
+  private handleSubmitChallenge = () => {
+    console.log("show submit challenge modal");
+    this.setState({ isChallengeModalOpen: true }, () => {
+      console.log(this.state);
+    });
+  };
+
+  private updateChallengeStatement = (value: any) => {
+    this.setState(() => ({ isPostStatementDisabled: true }));
+    this.setState(() => ({ challengeStatement: value }));
+    this.setState(() => ({ isPostStatementDisabled: false }));
+  };
 
   // Transactions
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {

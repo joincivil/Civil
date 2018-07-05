@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, SubmitChallengeProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -8,10 +8,10 @@ import {
   MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
-import { buttonSizes } from "../Button";
+import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 
-export class WhitelistedCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+export class WhitelistedCard extends React.Component<ListingDetailPhaseCardComponentProps & SubmitChallengeProps> {
   public render(): JSX.Element {
     return (
       <StyledListingDetailPhaseCardContainer>
@@ -29,15 +29,25 @@ export class WhitelistedCard extends React.Component<ListingDetailPhaseCardCompo
             If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
             <a href="#">submit a challenge</a>.
           </CTACopy>
-          <TransactionInvertedButton
-            size={buttonSizes.MEDIUM}
-            transactions={this.props.transactions!}
-            modalContentComponents={this.props.modalContentComponents}
-          >
-            Submit a Challenge
-          </TransactionInvertedButton>
+          {this.renderSubmitChallengeButton()}
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
   }
+
+  private renderSubmitChallengeButton = (): JSX.Element => {
+    if (this.props.handleSubmitChallenge) {
+      return (
+        <InvertedButton size={buttonSizes.MEDIUM} onClick={this.props.handleSubmitChallenge}>
+          Submit a Challenge
+        </InvertedButton>
+      );
+    }
+
+    return (
+      <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
+        Submit a Challenge
+      </TransactionInvertedButton>
+    );
+  };
 }

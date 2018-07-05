@@ -85,14 +85,15 @@ export interface SubmitChallengeModalProps {
   constitutionURI: string;
   minDeposit: string;
   dispensationPct: string;
+  isPostStatementDisabled: boolean;
   postStatementTransactions: any[];
   submitChallengeTransactions: any[];
+  modalContentComponents?: { [index: string]: JSX.Element };
   updateStatementValue(value: any): void;
   handleClose?(): void;
 }
 
 export interface SubmitChallengeModalState {
-  open: boolean;
   value: any;
 }
 
@@ -103,14 +104,13 @@ export class SubmitChallengeModal extends React.Component<
   constructor(props: SubmitChallengeModalProps) {
     super(props);
     this.state = {
-      open: this.props.open || false,
       value: RichTextEditor.createEmptyValue(),
     };
   }
 
   public render(): JSX.Element {
     return (
-      <FullScreenModal open={this.state.open}>
+      <FullScreenModal open={this.props.open || false}>
         <SubmitChallengeModalOuter>
           <SubmitChallengeModalContent>
             <CloseModalButton onClick={this.closeModal}>
@@ -143,11 +143,9 @@ export class SubmitChallengeModal extends React.Component<
   };
 
   private closeModal = () => {
-    this.setState({ open: false }, () => {
-      if (this.props.handleClose) {
-        this.props.handleClose();
-      }
-    });
+    if (this.props.handleClose) {
+      this.props.handleClose();
+    }
   };
 
   private renderChallengeReason = (): JSX.Element => {
@@ -163,7 +161,11 @@ export class SubmitChallengeModal extends React.Component<
             <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
           </FormInputGroup>
           <PullRight>
-            <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.postStatementTransactions}>
+            <TransactionInvertedButton
+              size={buttonSizes.MEDIUM}
+              transactions={this.props.postStatementTransactions}
+              disabled={this.props.isPostStatementDisabled}
+            >
               Post Statement
             </TransactionInvertedButton>
           </PullRight>
@@ -188,7 +190,11 @@ export class SubmitChallengeModal extends React.Component<
             Cancel
           </CancelButtonWithMargin>
 
-          <TransactionButton size={buttonSizes.MEDIUM} transactions={this.props.submitChallengeTransactions}>
+          <TransactionButton
+            size={buttonSizes.MEDIUM}
+            modalContentComponents={this.props.modalContentComponents}
+            transactions={this.props.submitChallengeTransactions}
+          >
             Submit Challenge
           </TransactionButton>
         </PullRight>
