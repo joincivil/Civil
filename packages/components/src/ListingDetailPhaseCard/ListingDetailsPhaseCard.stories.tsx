@@ -47,7 +47,7 @@ const percentAgainst = "27";
 
 const tokenBalance = 10000;
 let commitVoteState = {
-  salt: "",
+  salt: "9635457449074",
   numTokens: tokenBalance.toString(),
   voteOption: undefined,
 };
