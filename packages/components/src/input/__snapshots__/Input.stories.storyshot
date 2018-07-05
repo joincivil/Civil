@@ -4,7 +4,7 @@ exports[`Storyshots Inputs Currency Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": " sc-feJyhm AeQK",
+      "class": " sc-feJyhm dOrQyJ",
     },
     "children": Array [
       Object {
@@ -37,6 +37,9 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
+            "class": "sc-feJyhm dOrQyJ",
+            "icon": "[object Object]",
+            "label": "Currency Input",
             "min": "0.01",
             "name": "CurrencyInput",
             "placeholder": "$0.00",
@@ -76,6 +79,9 @@ initialize {
           "prev": [Circular],
           "type": "tag",
           "x-attribsNamespace": Object {
+            "class": undefined,
+            "icon": undefined,
+            "label": undefined,
             "min": undefined,
             "name": undefined,
             "placeholder": undefined,
@@ -83,6 +89,9 @@ initialize {
             "type": undefined,
           },
           "x-attribsPrefix": Object {
+            "class": undefined,
+            "icon": undefined,
+            "label": undefined,
             "min": undefined,
             "name": undefined,
             "placeholder": undefined,
@@ -102,6 +111,9 @@ initialize {
       },
       Object {
         "attribs": Object {
+          "class": "sc-feJyhm dOrQyJ",
+          "icon": "[object Object]",
+          "label": "Currency Input",
           "min": "0.01",
           "name": "CurrencyInput",
           "placeholder": "$0.00",
@@ -179,6 +191,9 @@ initialize {
         },
         "type": "tag",
         "x-attribsNamespace": Object {
+          "class": undefined,
+          "icon": undefined,
+          "label": undefined,
           "min": undefined,
           "name": undefined,
           "placeholder": undefined,
@@ -186,6 +201,9 @@ initialize {
           "type": undefined,
         },
         "x-attribsPrefix": Object {
+          "class": undefined,
+          "icon": undefined,
+          "label": undefined,
           "min": undefined,
           "name": undefined,
           "placeholder": undefined,
@@ -212,6 +230,9 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+            "class": "sc-feJyhm dOrQyJ",
+            "icon": "[object Object]",
+            "label": "Currency Input",
             "min": "0.01",
             "name": "CurrencyInput",
             "placeholder": "$0.00",
@@ -264,6 +285,9 @@ initialize {
           },
           "type": "tag",
           "x-attribsNamespace": Object {
+            "class": undefined,
+            "icon": undefined,
+            "label": undefined,
             "min": undefined,
             "name": undefined,
             "placeholder": undefined,
@@ -271,6 +295,9 @@ initialize {
             "type": undefined,
           },
           "x-attribsPrefix": Object {
+            "class": undefined,
+            "icon": undefined,
+            "label": undefined,
             "min": undefined,
             "name": undefined,
             "placeholder": undefined,
@@ -329,11 +356,13 @@ exports[`Storyshots Inputs Header Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": " sc-iELTvK eWdIwo sc-feJyhm AeQK",
+      "class": " sc-iELTvK eWdIwo sc-feJyhm dOrQyJ",
     },
     "children": Array [
       Object {
         "attribs": Object {
+          "class": "sc-iELTvK eWdIwo sc-feJyhm dOrQyJ",
+          "label": "Header Input",
           "name": "HeaderInput",
           "placeholder": "I am a header input",
           "type": "text",
@@ -371,11 +400,15 @@ initialize {
         "prev": null,
         "type": "tag",
         "x-attribsNamespace": Object {
+          "class": undefined,
+          "label": undefined,
           "name": undefined,
           "placeholder": undefined,
           "type": undefined,
         },
         "x-attribsPrefix": Object {
+          "class": undefined,
+          "label": undefined,
           "name": undefined,
           "placeholder": undefined,
           "type": undefined,
@@ -400,6 +433,8 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+            "class": "sc-iELTvK eWdIwo sc-feJyhm dOrQyJ",
+            "label": "Header Input",
             "name": "HeaderInput",
             "placeholder": "I am a header input",
             "type": "text",
@@ -412,11 +447,15 @@ initialize {
           "prev": null,
           "type": "tag",
           "x-attribsNamespace": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,
           },
           "x-attribsPrefix": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,
@@ -532,13 +571,13 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": " sc-feJyhm AeQK",
+                  "class": " sc-feJyhm dOrQyJ",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
+                      "class": "sc-feJyhm dOrQyJ",
                       "name": "TextInput",
-                      "placeholder": "Enter a value",
                       "type": "text",
                     },
                     "children": Array [],
@@ -549,13 +588,13 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "class": undefined,
                       "name": undefined,
-                      "placeholder": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "class": undefined,
                       "name": undefined,
-                      "placeholder": undefined,
                       "type": undefined,
                     },
                   },
@@ -585,13 +624,13 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": " sc-feJyhm AeQK",
+                "class": " sc-feJyhm dOrQyJ",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
+                    "class": "sc-feJyhm dOrQyJ",
                     "name": "TextInput",
-                    "placeholder": "Enter a value",
                     "type": "text",
                   },
                   "children": Array [],
@@ -602,13 +641,13 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "class": undefined,
                     "name": undefined,
-                    "placeholder": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "class": undefined,
                     "name": undefined,
-                    "placeholder": undefined,
                     "type": undefined,
                   },
                 },
@@ -735,13 +774,13 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": " sc-feJyhm AeQK",
+                "class": " sc-feJyhm dOrQyJ",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
+                    "class": "sc-feJyhm dOrQyJ",
                     "name": "TextInput",
-                    "placeholder": "Enter a value",
                     "type": "text",
                   },
                   "children": Array [],
@@ -752,13 +791,13 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "class": undefined,
                     "name": undefined,
-                    "placeholder": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "class": undefined,
                     "name": undefined,
-                    "placeholder": undefined,
                     "type": undefined,
                   },
                 },
@@ -788,13 +827,13 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": " sc-feJyhm AeQK",
+              "class": " sc-feJyhm dOrQyJ",
             },
             "children": Array [
               Object {
                 "attribs": Object {
+                  "class": "sc-feJyhm dOrQyJ",
                   "name": "TextInput",
-                  "placeholder": "Enter a value",
                   "type": "text",
                 },
                 "children": Array [],
@@ -805,13 +844,13 @@ initialize {
                 "prev": null,
                 "type": "tag",
                 "x-attribsNamespace": Object {
+                  "class": undefined,
                   "name": undefined,
-                  "placeholder": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
+                  "class": undefined,
                   "name": undefined,
-                  "placeholder": undefined,
                   "type": undefined,
                 },
               },
@@ -4998,15 +5037,173 @@ initialize {
 }
 `;
 
-exports[`Storyshots Inputs Text Input 1`] = `
+exports[`Storyshots Inputs Texarea Input 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": " sc-feJyhm AeQK",
+      "class": " sc-feJyhm dOrQyJ",
     },
     "children": Array [
       Object {
         "attribs": Object {
+          "class": "sc-feJyhm dOrQyJ",
+          "label": "Textarea Input",
+          "name": "TexareaInput",
+          "placeholder": "Input your long text",
+          "type": "textarea",
+        },
+        "children": Array [],
+        "name": "textarea",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
+          "attribs": Object {
+            "class": "sc-cIShpX lvpdL",
+          },
+          "children": Array [
+            Object {
+              "data": "Textarea Input",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "label",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+          "label": undefined,
+          "name": undefined,
+          "placeholder": undefined,
+          "type": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+          "label": undefined,
+          "name": undefined,
+          "placeholder": undefined,
+          "type": undefined,
+        },
+      },
+      Object {
+        "attribs": Object {
+          "class": "sc-cIShpX lvpdL",
+        },
+        "children": Array [
+          Object {
+            "data": "Textarea Input",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "label",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": Object {
+          "attribs": Object {
+            "class": "sc-feJyhm dOrQyJ",
+            "label": "Textarea Input",
+            "name": "TexareaInput",
+            "placeholder": "Input your long text",
+            "type": "textarea",
+          },
+          "children": Array [],
+          "name": "textarea",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+            "label": undefined,
+            "name": undefined,
+            "placeholder": undefined,
+            "type": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+            "label": undefined,
+            "name": undefined,
+            "placeholder": undefined,
+            "type": undefined,
+          },
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 1,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;
+
+exports[`Storyshots Inputs Text Input 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "class": " sc-feJyhm dOrQyJ",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {
+          "class": "sc-feJyhm dOrQyJ",
+          "label": "Text Input",
           "name": "TextInput",
           "placeholder": "Enter a value",
           "type": "text",
@@ -5044,11 +5241,15 @@ initialize {
         "prev": null,
         "type": "tag",
         "x-attribsNamespace": Object {
+          "class": undefined,
+          "label": undefined,
           "name": undefined,
           "placeholder": undefined,
           "type": undefined,
         },
         "x-attribsPrefix": Object {
+          "class": undefined,
+          "label": undefined,
           "name": undefined,
           "placeholder": undefined,
           "type": undefined,
@@ -5073,6 +5274,8 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+            "class": "sc-feJyhm dOrQyJ",
+            "label": "Text Input",
             "name": "TextInput",
             "placeholder": "Enter a value",
             "type": "text",
@@ -5085,11 +5288,15 @@ initialize {
           "prev": null,
           "type": "tag",
           "x-attribsNamespace": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,
           },
           "x-attribsPrefix": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,

@@ -51,7 +51,7 @@ const InputBaseWrapperComponent: React.StatelessComponent<InputBaseProps> = prop
 };
 
 const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
-  const { onChange, inputRef, ...inputProps } = props;
+  const { onChange, inputRef, invalid, noLabel, errorMessage, ...inputProps } = props;
   let cb;
   if (onChange) {
     cb = (ev: any) => onChange(props.name, ev.target.value);
