@@ -17,6 +17,7 @@ import {
   resolveAppealListings,
   rejectedListings,
   ListingWrapperWithExpiry,
+  listingHistorySubscriptions,
 } from "./listings";
 import {
   parameters,
@@ -43,6 +44,7 @@ import { TimestampedEvent, WrappedChallengeData, UserChallengeData, EthAddress }
 import { currentUserNewsrooms } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
 import { networkActions } from "../actionCreators/network";
+import { Subscription } from "rxjs";
 
 export interface State {
   networkDependent: NetworkDependentState;
@@ -86,6 +88,7 @@ export interface NetworkDependentState {
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
   appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
+  listingHistorySubscriptions: Map<string, Subscription>;
 }
 
 const networkDependentReducers = combineReducers({
@@ -121,6 +124,7 @@ const networkDependentReducers = combineReducers({
   challengeUserData,
   appealChallengeUserData,
   government,
+  listingHistorySubscriptions,
 });
 
 const networkDependent = (state: any, action: AnyAction) => {
