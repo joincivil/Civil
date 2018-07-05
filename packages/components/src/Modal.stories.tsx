@@ -46,5 +46,4 @@ storiesOf("Modal", module)
         )}
       </Container>
     );
-  })
-;
+  });

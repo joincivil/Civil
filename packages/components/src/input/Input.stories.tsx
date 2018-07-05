@@ -99,9 +99,13 @@ storiesOf("Inputs", module)
     return (
       <ControlComponent>
         {(state: any, onChange: changeCallback) => (
-          <TextareaInput label="Textarea Input" placeholder="Input your long text" name="TexareaInput" onChange={onChange} />
+          <TextareaInput
+            label="Textarea Input"
+            placeholder="Input your long text"
+            name="TexareaInput"
+            onChange={onChange}
+          />
         )}
       </ControlComponent>
     );
-  })
-;
+  });

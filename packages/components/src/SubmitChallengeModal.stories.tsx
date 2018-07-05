@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
-import { SubmitChallengeModal } from "./SubmitChallengeModal";
+import { SubmitChallengeModal, SubmitChallengeModalProps } from "./SubmitChallengeModal";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -16,14 +16,28 @@ const Container: React.StatelessComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Submit Challenge Modal", module)
-  .add("Submit Challenge Modal", () => {
-    return (
-      <Container>
-        <p>Some good stuff was already on the page which is pretty exciting</p>
-        {process.env.NODE_ENV !== "test" && (
-          <SubmitChallengeModal />
-        )}
-      </Container>
-    );
-  });
+storiesOf("Submit Challenge Modal", module).add("Submit Challenge Modal", () => {
+  const updateStatementValue = (value: any) => {
+    console.log(value);
+  };
+  const handleClose = () => {
+    console.log("Closed the Submit Challenge modal");
+  };
+  const props: SubmitChallengeModalProps = {
+    open: true,
+    constitutionURI: "https://civil.co",
+    minDeposit: "100,000",
+    dispensationPct: "50%",
+    postStatementTransactions: [],
+    submitChallengeTransactions: [],
+    updateStatementValue,
+    handleClose,
+  };
+
+  return (
+    <Container>
+      <p>Some good stuff was already on the page which is pretty exciting</p>
+      {process.env.NODE_ENV !== "test" && <SubmitChallengeModal {...props} />}
+    </Container>
+  );
+});

@@ -48,7 +48,7 @@ const InputBaseWrapperComponent: React.StatelessComponent<InputBaseProps> = prop
       {!noLabel && <InputLabel>{label || props.placeholder}</InputLabel>}
     </div>
   );
-}
+};
 
 const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
   const { onChange, inputRef, ...inputProps } = props;
@@ -59,14 +59,16 @@ const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
 
   if (inputProps.type === "textarea") {
     return (
-      <InputBaseWrapperComponent {...props} >
-        <textarea {...inputProps} onChange={cb} ref={inputRef}>{inputProps.value}</textarea>
+      <InputBaseWrapperComponent {...props}>
+        <textarea {...inputProps} onChange={cb} ref={inputRef}>
+          {inputProps.value}
+        </textarea>
       </InputBaseWrapperComponent>
     );
   }
 
   return (
-    <InputBaseWrapperComponent {...props} >
+    <InputBaseWrapperComponent {...props}>
       <input {...inputProps} onChange={cb} ref={inputRef} />
     </InputBaseWrapperComponent>
   );
@@ -151,7 +153,5 @@ export interface TextareaProps {
 }
 
 export const TextareaInput: React.StatelessComponent<TextareaProps & InputProps> = props => {
-  return (
-    <InputBase type="textarea" {...props} />
-  );
-}
+  return <InputBase type="textarea" {...props} />;
+};

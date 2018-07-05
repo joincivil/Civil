@@ -1,14 +1,31 @@
 import * as React from "react";
+import RichTextEditor from "react-rte";
 import styled, { StyledComponentClass } from "styled-components";
 import { FullScreenModal } from "./FullscreenModal";
 import { Heading } from "./Heading";
 import { StepProcess, StepProps } from "./StepProcess";
 import { SectionHeader } from "./StepProcess/StepHeader";
-import { StepDescription, StepStyledFluid } from "./StepProcess/StepStyled";
-import { TextareaInput, InputGroup } from "./input";
-import { InvertedButton, buttonSizes } from "./Button";
-import { TransactionButton } from "./TransactionButton";
-import { fonts } from "./styleConstants";
+import { StepStyledFluid } from "./StepProcess/StepStyled";
+import { InputGroup } from "./input";
+import { buttonSizes, CancelButton } from "./Button";
+import { TransactionButton, TransactionInvertedButton } from "./TransactionButton";
+import { colors, fonts } from "./styleConstants";
+
+export interface CloseModalButtonProps {
+  onClick(): void;
+}
+
+const CloseModalButton = styled<CloseModalButtonProps, "div">("div")`
+  color: ${colors.accent.CIVIL_GRAY_1}
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0 0 45px;
+
+  &:hover {
+    color: ${colors.primary.CIVIL_BLUE_1};
+  }
+`;
 
 const ModalHeading = Heading.extend`
   font-size: 32px;
@@ -33,8 +50,9 @@ const CopyLarge = styled.p`
 `;
 
 const CopyHelper = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_2};
   font: normal 16px/19px ${fonts.SANS_SERIF};
-  margin: -12px 0 32px;
+  margin: 0 0 24px;
 `;
 
 const SubmitChallengeModalOuter = styled.div`
@@ -46,48 +64,108 @@ const SubmitChallengeModalOuter = styled.div`
 `;
 
 const SubmitChallengeModalContent = styled.div`
+  padding: 32px 0 156px;
   width: 582px;
+`;
+
+const FormInputGroup = styled.div`
+  margin: 0 0 24px;
 `;
 
 const PullRight = styled.div`
   float: right;
 `;
 
+const CancelButtonWithMargin = CancelButton.extend`
+  margin-right: 10px;
+`;
+
 export interface SubmitChallengeModalProps {
+  open?: boolean;
   constitutionURI: string;
   minDeposit: string;
   dispensationPct: string;
-  transactions: any[];
+  postStatementTransactions: any[];
+  submitChallengeTransactions: any[];
+  updateStatementValue(value: any): void;
+  handleClose?(): void;
 }
 
-export class SubmitChallengeModal extends React.Component<StepProps & SubmitChallengeModalProps> {
+export interface SubmitChallengeModalState {
+  open: boolean;
+  value: any;
+}
+
+export class SubmitChallengeModal extends React.Component<
+  StepProps & SubmitChallengeModalProps,
+  SubmitChallengeModalState
+> {
+  constructor(props: SubmitChallengeModalProps) {
+    super(props);
+    this.state = {
+      open: this.props.open || false,
+      value: RichTextEditor.createEmptyValue(),
+    };
+  }
+
   public render(): JSX.Element {
     return (
-      <FullScreenModal open={true} >
+      <FullScreenModal open={this.state.open}>
         <SubmitChallengeModalOuter>
           <SubmitChallengeModalContent>
+            <CloseModalButton onClick={this.closeModal}>
+              <PullRight>Close ✕</PullRight>
+            </CloseModalButton>
             <ModalHeading>Challenge this Newsroom listing</ModalHeading>
-            <CopyLarge>CVL token holders may challenge any newsroom believed to be in breach of the <a href={this.props.constitutionURI}>Civil Constitution</a>. This includes new applications and approved newsrooms. After a challenge is submitted, the CVL token-holder community will have 5 days to vote on whether the newsroom can stay on the Civil Registry.</CopyLarge>
-            <CopyLarge> This challenge requires a deposit of <strong>{this.props.minDeposit} CVL tokens</strong>.</CopyLarge>
-          <StepProcess>
-            {this.renderChallengeReason()}
-            {this.renderChallengeForm()}
-          </StepProcess>
+            <CopyLarge>
+              CVL token holders may challenge any newsroom believed to be in breach of the{" "}
+              <a href={this.props.constitutionURI}>Civil Constitution</a>. This includes new applications and approved
+              newsrooms. After a challenge is submitted, the CVL token-holder community will have 5 days to vote on
+              whether the newsroom can stay on the Civil Registry.
+            </CopyLarge>
+            <CopyLarge>
+              {" "}
+              This challenge requires a deposit of <strong>{this.props.minDeposit} CVL tokens</strong>.
+            </CopyLarge>
+            <StepProcess>
+              {this.renderChallengeReason()}
+              {this.renderChallengeForm()}
+            </StepProcess>
           </SubmitChallengeModalContent>
         </SubmitChallengeModalOuter>
       </FullScreenModal>
     );
   }
 
+  public handleValueChange = (value: any) => {
+    this.setState({ value });
+    this.props.updateStatementValue(value);
+  };
+
+  private closeModal = () => {
+    this.setState({ open: false }, () => {
+      if (this.props.handleClose) {
+        this.props.handleClose();
+      }
+    });
+  };
+
   private renderChallengeReason = (): JSX.Element => {
     return (
       <StepStyledFluid index={this.props.index || 0}>
         <ModalSectionHeader>State reasons for your challenge</ModalSectionHeader>
-        <CopyLarge>State reasons why you are challenging this Newsroom. If possible, <a href="#">provide evidence</a> to support your statements.</CopyLarge>
+        <CopyLarge>
+          State reasons why you are challenging this Newsroom. If possible, <a href="#">provide evidence</a> to support
+          your statements.
+        </CopyLarge>
         <SectionFormOuter>
-          <TextareaInput name="challenge_reason" />
+          <FormInputGroup>
+            <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
+          </FormInputGroup>
           <PullRight>
-            <InvertedButton size={buttonSizes.MEDIUM}>Post Statement</InvertedButton>
+            <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.postStatementTransactions}>
+              Post Statement
+            </TransactionInvertedButton>
           </PullRight>
         </SectionFormOuter>
       </StepStyledFluid>
@@ -99,16 +177,21 @@ export class SubmitChallengeModal extends React.Component<StepProps & SubmitChal
     return (
       <StepStyledFluid index={this.props.index || 0}>
         <ModalSectionHeader>Deposit CVL tokens for your challenge</ModalSectionHeader>
-        <CopyLarge>This challenge requires a deposit of 1,000 CVL tokens. If you don’t have enough CVL tokens, <a href="#">buy more here</a>.</CopyLarge>
-        <InputGroup
-          name="challenge_deposit"
-          prepend="CVL"
-          disabled={true}
-          value={this.props.minDeposit}
-        />
+        <CopyLarge>
+          This challenge requires a deposit of 1,000 CVL tokens. If you don’t have enough CVL tokens,{" "}
+          <a href="#">buy more here</a>.
+        </CopyLarge>
+        <InputGroup name="challenge_deposit" prepend="CVL" disabled={true} value={this.props.minDeposit} />
         <CopyHelper>Your percentage reward if successful is {this.props.dispensationPct}</CopyHelper>
-        <TransactionButton size={buttonSizes.MEDIUM} transactions={this.props.transactions}>
-        </TransactionButton>
+        <PullRight>
+          <CancelButtonWithMargin size={buttonSizes.MEDIUM} onClick={this.closeModal}>
+            Cancel
+          </CancelButtonWithMargin>
+
+          <TransactionButton size={buttonSizes.MEDIUM} transactions={this.props.submitChallengeTransactions}>
+            Submit Challenge
+          </TransactionButton>
+        </PullRight>
       </StepStyledFluid>
     );
   };
