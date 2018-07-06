@@ -13,7 +13,7 @@ import {
 } from "@joincivil/components";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
-import { EthAddress, NewsroomRoles, Civil } from "@joincivil/core";
+import { EthAddress, NewsroomRoles } from "@joincivil/core";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
 import { fetchNewsroom, uiActions } from "./actionCreators";

@@ -126,8 +126,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private isDisabled = (): boolean => {
-    return this.props.disabled || !this.props.civil || this.props.network !== this.props.civil.networkName || !this.props.civil.userAccount;
-  }
+    return (
+      this.props.disabled ||
+      !this.props.civil ||
+      this.props.network !== this.props.civil.networkName ||
+      !this.props.civil.userAccount
+    );
+  };
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));

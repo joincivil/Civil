@@ -17,6 +17,7 @@ export interface TransactionButtonState {
 
 export interface Transaction {
   progressEventName?: string;
+  modalContent?: JSX.Element;
   transaction(): Promise<TwoStepEthTransaction<any> | void>;
   preTransaction?(): any;
   postTransaction?(result: any): any;

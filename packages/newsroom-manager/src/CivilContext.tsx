@@ -6,6 +6,6 @@ export interface CivilContextValue {
   network: string;
 }
 
-const defaultContext: CivilContextValue = { civil: undefined, network: "rinkeby"};
+const defaultContext: CivilContextValue = { civil: undefined, network: "rinkeby" };
 
 export const CivilContext = React.createContext(defaultContext);
