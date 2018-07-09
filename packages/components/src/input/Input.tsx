@@ -95,7 +95,8 @@ export interface InputProps {
   invalid?: boolean;
   errorMessage?: string;
   noLabel?: boolean;
-  onChange(name: string, value: string): any;
+  readOnly?: boolean;
+  onChange?(name: string, value: string): any;
 }
 
 export const TextInput: React.StatelessComponent<InputProps> = props => {

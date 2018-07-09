@@ -13,6 +13,7 @@
     "@types/highlight.js": "^9.12.2",
     "@types/react-redux": "^5.0.19",
     "@types/redux": "^3.6.0",
+    "@types/storejs": "^2.0.2",
     "bignumber.js": "~5.0.0",
     "highlight.js": "^9.12.0",
     "highlightjs-solidity": "^1.0.6",
@@ -32,6 +33,7 @@
     "rxjs": "^5.5.7",
     "semantic-ui-react": "^0.79.1",
     "sort-by": "^1.2.0",
+    "store": "^2.0.12",
     "styled-components": "^3.2.5"
   },
   "resolutions": {

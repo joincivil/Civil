@@ -41,6 +41,7 @@ import { State } from "../../reducers";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import styled from "styled-components";
+import { fetchSalt } from "../../helpers/salt";
 
 enum ModalContentEventNames {
   IN_PROGRESS_REQUEST_VOTING_RIGHTS = "IN_PROGRESS:REQUEST_VOTING_RIGHTS",
@@ -98,7 +99,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
     this.state = {
       voteOption: undefined,
-      salt: undefined,
+      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
     };
   }
