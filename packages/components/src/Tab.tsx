@@ -114,7 +114,7 @@ export const BorderBottomTab = BaseTab.extend`
   color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 19px;
   font-weight: 800;
-  margin: 39px 20px 0 0;
+  margin: 39px 40px 0 0;
   padding: 0 0 10px;
   &:last-of-type {
     margin: 39px 0 0 0;
