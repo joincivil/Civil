@@ -404,6 +404,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       .concatMap(async l => l.getListingWrapper());
   }
 
+  public challengesStartedByUser(user: EthAddress): Observable<BigNumber> {
+    return this.instance
+      ._ChallengeStream({challenger: user}, {fromBlock: 0})
+      .map(e => e.args.challengeID);
+  }
+
   //#endregion
 
   public getListing(listingAddress: EthAddress): Listing {

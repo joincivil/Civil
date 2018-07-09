@@ -8,6 +8,7 @@ export enum challengeActions {
   ADD_OR_UPDATE_CHALLENGE = "ADD_OR_UPDATE_CHALLENGE",
   ADD_OR_UPDATE_USER_CHALLENGE_DATA = "ADD_OR_UPDATE_USER_CHALLENGE_DATA",
   ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA = "ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA",
+  ADD_USER_CHALLENGE_STARTED = "ADD_USER_CHALLENGE_STARTED",
   FETCH_CHALLENGE_DATA = "FETCH_CHALLENGE_DATA",
   FETCH_CHALLENGE_DATA_COMPLETE = "FETCH_CHALLENGE_DATA_COMPLETE",
   FETCH_CHALLENGE_DATA_IN_PROGRESS = "FETCH_CHALLENGE_DATA_IN_PROGRESS",
@@ -25,6 +26,13 @@ export const addUserChallengeData = (challengeID: string, user: EthAddress, user
   return {
     type: challengeActions.ADD_OR_UPDATE_USER_CHALLENGE_DATA,
     data: { challengeID, user, userChallengeData },
+  };
+};
+
+export const addUserChallengeStarted = (challengeID: string, user: EthAddress) => {
+  return {
+    type: challengeActions.ADD_USER_CHALLENGE_STARTED,
+    data: { challengeID, user },
   };
 };
 
