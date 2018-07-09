@@ -4,6 +4,7 @@ export enum governmentActions {
   SET_GOVT_PARAMETER = "SET_GOVT_PARAMETER",
   MULTI_SET_GOVT_PARAMETERS = "MULTI_SET_GOVT_PARAMETERS",
   ADD_GOVERNMENT_DATA = "ADD_GOVERNMENT_DATA",
+  SET_CONSTITUTION_DATA = "SET_CONTITUTION_DATA",
 }
 
 export const setGovernmentParameter = (paramName: string, paramValue: any): AnyAction => {
@@ -27,6 +28,16 @@ export const addGovernmentData = (governmentDataKey: string, governmentDataValue
     data: {
       key: governmentDataKey,
       value: governmentDataValue,
+    },
+  };
+};
+
+export const setConstitutionData = (constitutionDataKey: string, constitutionDataValue: string): AnyAction => {
+  return {
+    type: governmentActions.SET_CONSTITUTION_DATA,
+    data: {
+      key: constitutionDataKey,
+      value: constitutionDataValue,
     },
   };
 };

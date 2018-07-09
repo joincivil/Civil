@@ -42,6 +42,7 @@ export interface ListingReduxProps {
   listingPhaseState?: any;
   parameters: any;
   govtParameters: any;
+  constitutionURI: string;
 }
 
 class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
@@ -79,6 +80,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                 expiry={this.props.expiry}
                 parameters={this.props.parameters}
                 govtParameters={this.props.govtParameters}
+                constitutionURI={this.props.constitutionURI}
               />
             )}
           </RightShark>
@@ -98,7 +100,8 @@ const makeMapStateToProps = () => {
   const getListingExpiry = makeGetListingExpiry();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
     const { newsrooms } = state;
-    const { listingsFetching, user, parameters, govtParameters } = state.networkDependent;
+    const { listingsFetching, user, parameters, govtParameters, constitution } = state.networkDependent;
+    const constitutionURI = constitution.get("uri");
 
     let listingDataRequestStatus;
     if (ownProps.listingAddress) {
@@ -114,6 +117,7 @@ const makeMapStateToProps = () => {
       userAccount: user.account,
       parameters,
       govtParameters,
+      constitutionURI,
     };
   };
   return mapStateToProps;

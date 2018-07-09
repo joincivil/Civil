@@ -119,9 +119,10 @@ export class SubmitChallengeModal extends React.Component<
             <ModalHeading>Challenge this Newsroom listing</ModalHeading>
             <CopyLarge>
               CVL token holders may challenge any newsroom believed to be in breach of the{" "}
-              <a href={this.props.constitutionURI}>Civil Constitution</a>. This includes new applications and approved
-              newsrooms. After a challenge is submitted, the CVL token-holder community will have 5 days to vote on
-              whether the newsroom can stay on the Civil Registry.
+              <a href={this.props.constitutionURI} target="_blank">
+                Civil Constitution
+              </a>. This includes new applications and approved newsrooms. After a challenge is submitted, the CVL
+              token-holder community will have 5 days to vote on whether the newsroom can stay on the Civil Registry.
             </CopyLarge>
             <CopyLarge>
               {" "}
@@ -153,8 +154,11 @@ export class SubmitChallengeModal extends React.Component<
       <StepStyledFluid index={this.props.index || 0}>
         <ModalSectionHeader>State reasons for your challenge</ModalSectionHeader>
         <CopyLarge>
-          State reasons why you are challenging this Newsroom. If possible, <a href="#">provide evidence</a> to support
-          your statements.
+          State reasons why you are challenging this Newsroom. If possible,{" "}
+          <a href={this.props.constitutionURI} target="_blank">
+            provide evidence
+          </a>{" "}
+          to support your statements.
         </CopyLarge>
         <SectionFormOuter>
           <FormInputGroup>

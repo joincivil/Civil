@@ -1,5 +1,5 @@
 import { Dispatch } from "react-redux";
-import { multiSetGovtParameters, setGovernmentParameter } from "../actionCreators/government";
+import { multiSetGovtParameters, setGovernmentParameter, setConstitutionData } from "../actionCreators/government";
 import { getGovernmentParameters } from "../apis/civilTCR";
 import { getTCR, getCivil } from "./civilInstance";
 import { Param } from "@joincivil/core";
@@ -24,4 +24,14 @@ export async function initializeGovernmentParamSubscription(dispatch: Dispatch<a
   govt.getParameterSet(current).subscribe(async (p: Param) => {
     dispatch(setGovernmentParameter(p.paramName, p.value));
   });
+}
+
+export async function initializeConstitution(dispatch: Dispatch<any>): Promise<void> {
+  const tcr = getTCR();
+  const govt = await tcr.getGovernment();
+  const uri = await govt.getConstitutionURI();
+  dispatch(setConstitutionData("uri", uri));
+
+  const hash = await govt.getConstitutionHash();
+  dispatch(setConstitutionData("hash", hash));
 }

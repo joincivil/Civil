@@ -36,6 +36,7 @@ export class InApplicationCard extends React.Component<
             If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
             <a href="#">submit a challenge</a>.
           </CTACopy>
+          {this.renderSubmitChallengeButton()}
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );

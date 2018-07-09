@@ -32,6 +32,7 @@ export interface ListingPhaseActionsProps {
   expiry?: number;
   parameters: any;
   govtParameters: any;
+  constitutionURI?: string;
 }
 
 export interface ListingPhaseActionsState {
@@ -120,7 +121,10 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderSubmitChallengeModal(): JSX.Element {
-    console.log("render submit challenge modal", this.props, this.state);
+    if (!this.props.parameters || !this.props.constitutionURI) {
+      return <></>;
+    }
+
     const civil = getCivil();
     const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
     const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
@@ -138,11 +142,12 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
         progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
       },
     ];
+    const constitutionURI = this.props.constitutionURI;
     const minDeposit = getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit), true);
     const dispensationPct = `${this.props.parameters.minDeposit.dispensationPct}%`;
     const props: SubmitChallengeModalProps = {
       open: this.state.isChallengeModalOpen,
-      constitutionURI: "https://civil.co",
+      constitutionURI,
       minDeposit,
       dispensationPct,
       isPostStatementDisabled: this.state.isPostStatementDisabled!,
@@ -154,7 +159,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
         this.setState({ isChallengeModalOpen: false });
       },
     };
-    console.log(props);
     return <SubmitChallengeModal {...props} />;
   }
 
@@ -209,34 +213,19 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   private renderApplicationPhase(): JSX.Element | null {
     const endTime = this.props.listing!.data.appExpiry.toNumber();
     const phaseLength = this.props.parameters.applyStageLen;
-    const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
-    const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE]: approveForChallengeProgressModal,
-      [ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE]: submitChallengeProgressModal,
-    };
-    const transactions = [
-      {
-        transaction: approveForChallenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE,
-      },
-      {
-        transaction: this.challenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
-      },
-    ];
-
     if (!endTime || !phaseLength) {
       return null;
     }
 
     return (
-      <InApplicationCard
-        endTime={endTime}
-        phaseLength={phaseLength}
-        transactions={transactions}
-        modalContentComponents={modalContentComponents}
-      />
+      <>
+        <InApplicationCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          handleSubmitChallenge={this.handleSubmitChallenge}
+        />
+        {this.renderSubmitChallengeModal()}
+      </>
     );
   }
 
