@@ -85,11 +85,11 @@ export interface SubmitChallengeModalProps {
   constitutionURI: string;
   minDeposit: string;
   dispensationPct: string;
-  isPostStatementDisabled: boolean;
   transactions: any[];
   modalContentComponents?: { [index: string]: JSX.Element };
   updateStatementValue(value: any): void;
   handleClose?(): void;
+  postExecuteTransactions?(): void;
 }
 
 export interface SubmitChallengeModalState {
@@ -188,6 +188,7 @@ export class SubmitChallengeModal extends React.Component<
             size={buttonSizes.MEDIUM}
             modalContentComponents={this.props.modalContentComponents}
             transactions={this.props.transactions}
+            postExecuteTransactions={this.props.postExecuteTransactions}
           >
             Submit Challenge
           </TransactionButton>

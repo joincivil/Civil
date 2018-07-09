@@ -37,7 +37,6 @@ export interface ListingPhaseActionsProps {
 
 export interface ListingPhaseActionsState {
   isChallengeModalOpen?: boolean;
-  isPostStatementDisabled?: boolean;
   challengeStatement?: any;
 }
 
@@ -51,7 +50,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     super(props);
     this.state = {
       isChallengeModalOpen: false,
-      isPostStatementDisabled: false,
     };
   }
 
@@ -144,19 +142,17 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     ];
     const constitutionURI = this.props.constitutionURI;
     const minDeposit = getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit), true);
-    const dispensationPct = `${this.props.parameters.minDeposit.dispensationPct}%`;
+    const dispensationPct = `${this.props.parameters.dispensationPct}%`;
     const props: SubmitChallengeModalProps = {
       open: this.state.isChallengeModalOpen,
       constitutionURI,
       minDeposit,
       dispensationPct,
-      isPostStatementDisabled: this.state.isPostStatementDisabled!,
       modalContentComponents,
       transactions,
       updateStatementValue: this.updateChallengeStatement,
-      handleClose: () => {
-        this.setState({ isChallengeModalOpen: false });
-      },
+      postExecuteTransactions: this.closeSubmitChallengeModal,
+      handleClose: this.closeSubmitChallengeModal,
     };
     return <SubmitChallengeModal {...props} />;
   }
@@ -228,16 +224,16 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     );
   }
 
+  private closeSubmitChallengeModal = () => {
+    this.setState({ isChallengeModalOpen: false });
+  };
+
   private handleSubmitChallenge = () => {
     this.setState({ isChallengeModalOpen: true });
   };
 
   private updateChallengeStatement = (value: any) => {
-    // Using functions here ensures that these state changes
-    // happen synchronously
-    this.setState(() => ({ isPostStatementDisabled: true }));
     this.setState(() => ({ challengeStatement: value }));
-    this.setState(() => ({ isPostStatementDisabled: false }));
   };
 
   // Transactions
