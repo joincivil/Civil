@@ -8,7 +8,7 @@ import { SectionHeader } from "./StepProcess/StepHeader";
 import { StepStyledFluid } from "./StepProcess/StepStyled";
 import { InputGroup } from "./input";
 import { buttonSizes, CancelButton } from "./Button";
-import { TransactionButton, TransactionInvertedButton } from "./TransactionButton";
+import { TransactionButton  } from "./TransactionButton";
 import { colors, fonts } from "./styleConstants";
 
 export interface CloseModalButtonProps {
