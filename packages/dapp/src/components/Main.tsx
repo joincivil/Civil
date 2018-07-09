@@ -1,30 +1,26 @@
 import * as React from "react";
-import { Switch, Route, withRouter, RouteComponentProps } from "react-router-dom";
-import Listings from "./listinglist/Listings";
-import Contracts from "./Contracts";
+import { connect, DispatchProp } from "react-redux";
+import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
+import { setNetwork } from "../actionCreators/network";
+import { addUser } from "../actionCreators/userAccount";
+import { getCivil } from "../helpers/civilInstance";
+import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
+import { initializeChallengeSubscriptions, initializeSubscriptions } from "../helpers/listingEvents";
+import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
+import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
+import Article from "./Article";
 import ContractPage from "./ContractPage";
+import Contracts from "./Contracts";
+import CreateNewsroom from "./CreateNewsroom";
+import Editor from "./Editor";
 import ChallengePage from "./listing/Challenge";
 import Listing from "./listing/Listing";
-import Editor from "./Editor";
-import NewsroomManagement from "./newsroom/NewsroomManagementV2";
+import Listings from "./listinglist/Listings";
 import NewsroomManagementV1 from "./newsroom/NewsroomManagement";
+import NewsroomManagement from "./newsroom/NewsroomManagementV2";
 import Parameterizer from "./Parameterizer";
 import Government from "./council/Government";
 import ParameterizerProposal from "./parameterizer/Proposal";
-import CreateNewsroom from "./CreateNewsroom";
-import Article from "./Article";
-import { getCivil } from "../helpers/civilInstance";
-import { initializeSubscriptions, initializeChallengeSubscriptions } from "../helpers/listingEvents";
-import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
-import {
-  initializeGovernment,
-  initializeGovernmentParamSubscription,
-  initializeConstitution,
-} from "../helpers/government";
-import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
-import { addUser } from "../actionCreators/userAccount";
-import { setNetwork } from "../actionCreators/network";
-import { connect, DispatchProp } from "react-redux";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -36,7 +32,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
 
   public onNetworkUpdated = async (): Promise<void> => {
     const civil = getCivil();
-    if (civil.network) {
+    if (civil.network === "4") {
       this.props.dispatch!(setNetwork(civil.network));
 
       await this.onAccountUpdated();
@@ -51,7 +47,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
 
   public onAccountUpdated = async (): Promise<void> => {
     const civil = getCivil();
-    if (civil.userAccount) {
+    if (civil.userAccount && civil.network === "4") {
       const tcr = civil.tcrSingletonTrusted();
       const token = await tcr.getToken();
       const voting = await tcr.getVoting();

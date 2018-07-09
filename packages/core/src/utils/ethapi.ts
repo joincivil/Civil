@@ -3,6 +3,7 @@ import { delay, hashPersonalMessage, isBigNumber, promisify } from "@joincivil/u
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { bufferToHex, fromRpcSig, fromUtf8, toBuffer } from "ethereumjs-util";
+import * as Events from "events";
 import * as Web3 from "web3";
 import { BaseContract } from "../contracts/basecontract";
 import { BaseWrapper } from "../contracts/basewrapper";
@@ -10,7 +11,6 @@ import { Artifact, artifacts } from "../contracts/generated/artifacts";
 import { CivilTransactionReceipt, EthAddress, Hex, TxDataAll, TxHash } from "../types";
 import { AbiDecoder } from "./abidecoder";
 import { CivilErrors, requireAccount } from "./errors";
-import * as Events from "events";
 
 const POLL_MILLISECONDS = 1000;
 const DEFAULT_HTTP_NODE = "http://localhost:8545";
@@ -52,8 +52,10 @@ export class EthApi extends Events {
     this.abiDecoder = new AbiDecoder(Object.values<Artifact>(artifacts).map(a => a.abi));
     interval = setInterval(this.accountPing, 100);
     networkInterval = setInterval(this.networkPing, 100);
+    this.currentAccount = "0x0";
+    this.currentNetwork = "-1";
     this.accountPing();
-    this.currentNetwork = this.web3.version.network;
+    this.networkPing();
   }
 
   public get currentProvider(): Web3.Provider {
@@ -69,13 +71,24 @@ export class EthApi extends Events {
   }
 
   public accountPing = (): void => {
-    if (this.web3.eth.accounts.length > 0) {
-      this.setAccount(this.web3.eth.accounts[0]);
-    }
+    this.web3.eth.getAccounts((err, accounts) => {
+      if (err) {
+        throw err;
+      }
+      if (accounts.length > 0) {
+        this.setAccount(accounts[0]);
+      }
+    });
   };
 
   public networkPing = (): void => {
-    this.setNetwork(this.web3.version.network);
+    this.web3.version.getNetwork((err, networkId) => {
+      if (err) {
+        throw err;
+      }
+
+      this.setNetwork(networkId);
+    });
   };
 
   public get networkId(): string {
@@ -270,6 +283,7 @@ export class EthApi extends Events {
 
   private setNetwork = (newNetwork: string): void => {
     if (newNetwork !== this.currentNetwork) {
+      console.log(newNetwork);
       this.currentNetwork = newNetwork;
       this.emit("networkSet");
     }
