@@ -237,6 +237,8 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   };
 
   private updateChallengeStatement = (value: any) => {
+    // Using functions here ensures that these state changes
+    // happen synchronously
     this.setState(() => ({ isPostStatementDisabled: true }));
     this.setState(() => ({ challengeStatement: value }));
     this.setState(() => ({ isPostStatementDisabled: false }));
