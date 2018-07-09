@@ -1,0 +1,27 @@
+{
+  "name": "@joincivil/wsprovider-backport",
+  "version": "0.0.1",
+  "description": "Web3 websocket provider backported to web3 0.x",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "lint": "tslint --project ./",
+    "clean": "rimraf build/"
+  },
+  "author": "The Civil Media Company",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@joincivil/typescript-types": "^1.0.2",
+    "typescript": "^2.7.2",
+    "web3": "^0.20.6"
+  },
+  "bugs": {
+    "url": "https://github.com/joincivil/Civil/issues"
+  },
+  "homepage": "https://github.com/joincivil/Civil",
+  "dependencies": {
+    "web3-providers-ws": "^1.0.0-beta.34"
+  }
+}
