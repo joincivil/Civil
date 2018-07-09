@@ -405,9 +405,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   public challengesStartedByUser(user: EthAddress): Observable<BigNumber> {
-    return this.instance
-      ._ChallengeStream({challenger: user}, {fromBlock: 0})
-      .map(e => e.args.challengeID);
+    return this.instance._ChallengeStream({ challenger: user }, { fromBlock: 0 }).map(e => e.args.challengeID);
   }
 
   //#endregion
