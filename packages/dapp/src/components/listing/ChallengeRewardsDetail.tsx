@@ -1,15 +1,29 @@
 import * as React from "react";
 import { TransactionButton } from "@joincivil/components";
 import { InputElement, StyledFormContainer, FormGroup } from "../utility/FormElements";
-import { EthAddress, TwoStepEthTransaction, UserChallengeData } from "@joincivil/core";
+import {
+  EthAddress,
+  TwoStepEthTransaction,
+  UserChallengeData,
+  ChallengeData,
+  canUserCollectReward,
+  canRescueTokens,
+  isUserWinner,
+  AppealChallengeData,
+  isUserAppealChallengeWinner,
+  canUserCollectAppealChallengeReward,
+  canRescueAppealChallengeTokens,
+} from "@joincivil/core";
 import { claimRewards, rescueTokens } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 export interface ChallengeRewardsDetailProps {
   challengeID: BigNumber;
+  challenge?: ChallengeData;
+  appealChallenge?: AppealChallengeData;
   user?: EthAddress;
-  userChallengeData: UserChallengeData | undefined;
+  userChallengeData?: UserChallengeData;
 }
 
 export interface ChallengeRewardsDetailState {
@@ -18,20 +32,29 @@ export interface ChallengeRewardsDetailState {
 
 class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps, ChallengeRewardsDetailState> {
   public render(): JSX.Element {
-    const isNoRewardsVisible = this.props.userChallengeData && !this.props.userChallengeData.didUserCollect;
-    const isClaimRewardsVisible =
-      this.props.userChallengeData &&
-      this.props.userChallengeData.didUserReveal &&
-      !this.props.userChallengeData.didUserCollect;
-    const isRescueTokensVisible =
-      this.props.userChallengeData &&
-      this.props.userChallengeData.didUserCommit &&
-      !this.props.userChallengeData.didUserReveal &&
-      !this.props.userChallengeData.didUserRescue;
-    const isClaimedRewardVisible = this.props.userChallengeData && this.props.userChallengeData.didCollectAmount;
+    const userChallengeData = this.props.userChallengeData;
+    let isWinner;
+    let isClaimRewardsVisible;
+    let isRescueTokensVisible;
+    let isClaimedRewardVisible;
+    if (userChallengeData) {
+      const challenge = this.props.challenge;
+      const appealChallenge = this.props.appealChallenge;
+      if (challenge) {
+        isWinner = isUserWinner(challenge, userChallengeData);
+        isClaimRewardsVisible = canUserCollectReward(challenge, userChallengeData);
+        isRescueTokensVisible = canRescueTokens(challenge, userChallengeData);
+      } else if (appealChallenge) {
+        isWinner = isUserAppealChallengeWinner(appealChallenge, userChallengeData);
+        isClaimedRewardVisible = canUserCollectAppealChallengeReward(appealChallenge, userChallengeData);
+        isRescueTokensVisible = canRescueAppealChallengeTokens(appealChallenge, userChallengeData);
+      }
+      isClaimedRewardVisible = userChallengeData.didCollectAmount;
+    }
+
     return (
       <StyledFormContainer>
-        {isNoRewardsVisible && (
+        {!isWinner && (
           <FormGroup>
             Sorry, there are no rewards available for you for this challenge. Better luck next time!
           </FormGroup>
@@ -94,7 +117,7 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
             </FormGroup>
 
             <FormGroup>
-              <TransactionButton transactions={[{ transaction: this.rescueTokens }]}>Claim Rewards</TransactionButton>
+              <TransactionButton transactions={[{ transaction: this.rescueTokens }]}>Rescue Tokens</TransactionButton>
             </FormGroup>
           </>
         )}

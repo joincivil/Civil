@@ -1,6 +1,6 @@
 import * as React from "react";
 import { buttonSizes } from "../Button";
-import { InputGroup, TextInput } from "../input/";
+import { InputGroup } from "../input/";
 import { CommitVoteProps } from "./types";
 import { TransactionDarkButton } from "../TransactionButton";
 import {
@@ -11,6 +11,7 @@ import {
   VoteOptionsContainer,
   StyledOrText,
 } from "./styledComponents";
+import { SaltField } from "./SaltField";
 
 export interface CommitVoteState {
   numTokensError?: string;
@@ -30,7 +31,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     const disableButtons = !!this.state.numTokensError || !!this.state.saltError;
     return (
       <>
-        <FormHeader>You’re invited to vote!</FormHeader>
+        {this.renderFormHeader()}
         <FormCopy>Vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.</FormCopy>
         <AccentHRule />
 
@@ -45,6 +46,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
             <TransactionDarkButton
               size={buttonSizes.MEDIUM}
               transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
               disabled={disableButtons}
             >
               ✔ Remain
@@ -55,6 +57,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
             <TransactionDarkButton
               size={buttonSizes.MEDIUM}
               transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
               disabled={disableButtons}
             >
               ✖ Remove
@@ -64,6 +67,20 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       </>
     );
   }
+
+  private renderFormHeader = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return (
+        <>
+          <FormHeader>Thanks for participating in this challenge!</FormHeader>
+          <FormCopy>
+            You have committed a vote in this challenge. Thanks for that. You can change your vote until the deadline.
+          </FormCopy>
+        </>
+      );
+    }
+    return <FormHeader>You’re invited to vote!</FormHeader>;
+  };
 
   private renderNumTokensInput = (): JSX.Element => {
     let label = "Enter amount of tokens to vote";
@@ -87,23 +104,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private renderSaltInput = (): JSX.Element => {
-    let label = "Enter your salt phrase";
-    let className;
-
-    if (this.state.saltError) {
-      label = this.state.saltError;
-      className = "error";
-    }
-    return (
-      <TextInput
-        label={label}
-        className={className}
-        placeholder="Salt"
-        value={this.props.salt}
-        name="salt"
-        onChange={this.onChange}
-      />
-    );
+    return <SaltField salt={this.props.salt} />;
   };
 
   private onChange = (name: string, value: string): void => {
@@ -130,6 +131,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private validateSalt = (): boolean => {
+    console.log("validate salt", this.props);
     let isValid = true;
 
     if (!this.props.salt || this.props.salt.length === 0) {
@@ -145,6 +147,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private validateNumTokens = (): boolean => {
+    console.log("validate num tokens", this.props);
     const numTokens = !this.props.numTokens ? 0 : parseInt(this.props.numTokens as string, 10);
     let isValid = true;
 
@@ -153,11 +156,14 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       this.setState({
         numTokensError: "Please enter a valid token vote amount",
       });
-    } else if (numTokens > this.props.tokenBalance) {
-      isValid = false;
-      this.setState({
-        numTokensError: "Token vote amount exceeds your balance",
-      });
+
+      // @TODO(jon): Add client-side validation that checks that
+      // numTokens <= this.props.tokenBalance. Though this may
+      // not be needed if we change to a slider UI element or
+      // when we implement pre-approving tokens for voting
+      // If we do client-side validation, we'd want to do
+      // something like:
+      // `this.setState({ numTokensError: "Token vote amount exceeds your balance" });`
     } else {
       this.setState({ numTokensError: undefined });
     }

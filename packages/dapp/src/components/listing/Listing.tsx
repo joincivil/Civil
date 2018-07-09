@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
 import ListingPhaseActions from "./ListingPhaseActions";
@@ -8,6 +9,7 @@ import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { NewsroomState } from "@joincivil/newsroom-manager";
+import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
 
 import styled from "styled-components";
 const GridRow = styled.div`
@@ -28,19 +30,25 @@ export interface ListingPageProps {
   match: any;
 }
 
+export interface ListingPageComponentProps {
+  listingAddress: EthAddress;
+}
+
 export interface ListingReduxProps {
   newsroom: NewsroomState | undefined;
   listing: ListingWrapper | undefined;
+  expiry?: number;
   userAccount?: EthAddress;
   listingDataRequestStatus?: any;
+  listingPhaseState?: any;
   parameters: any;
   govtParameters: any;
 }
 
-class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageProps> {
+class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
   public componentDidUpdate(): void {
     if (!this.props.listing && !this.props.listingDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.match.params.listing.toString()));
+      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
     }
   }
 
@@ -51,19 +59,26 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
     return (
       <>
         {listingExistsAsNewsroom && (
-          <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
+          <ListingDetail
+            userAccount={this.props.userAccount}
+            listing={listing!}
+            newsroom={newsroom!.wrapper}
+            listingPhaseState={this.props.listingPhaseState}
+          />
         )}
 
         <GridRow>
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
-            <ListingHistory listing={this.props.match.params.listing} />
+            <ListingHistory listing={this.props.listingAddress} />
+            <ListingDiscourse />
           </LeftShark>
 
           <RightShark>
             {listingExistsAsNewsroom && (
               <ListingPhaseActions
                 listing={this.props.listing!}
+                expiry={this.props.expiry}
                 parameters={this.props.parameters}
                 govtParameters={this.props.govtParameters}
               />
@@ -79,24 +94,38 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
   }
 }
 
-const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
-  const { newsrooms, listings, listingsFetching, user, parameters, govtParameters } = state.networkDependent;
-  const listingAddress = ownProps.match.params.listing;
+const makeMapStateToProps = () => {
+  const getListingPhaseState = makeGetListingPhaseState();
+  const getListing = makeGetListing();
+  const getListingExpiry = makeGetListingExpiry();
+  const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
+    const { newsrooms } = state;
+    const { listingsFetching, user, parameters, govtParameters } = state.networkDependent;
 
-  let listingDataRequestStatus;
-  if (listingAddress) {
-    listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
-  }
+    let listingDataRequestStatus;
+    if (ownProps.listingAddress) {
+      listingDataRequestStatus = listingsFetching.get(ownProps.listingAddress.toString());
+    }
 
-  const listing = listings.get(listingAddress) ? listings.get(listingAddress).listing : undefined;
-  return {
-    newsroom: newsrooms.get(listingAddress),
-    listing,
-    userAccount: user.account,
-    listingDataRequestStatus,
-    parameters,
-    govtParameters,
+    return {
+      newsroom: newsrooms.get(ownProps.listingAddress),
+      listing: getListing(state, ownProps),
+      expiry: getListingExpiry(state, ownProps),
+      listingDataRequestStatus,
+      listingPhaseState: getListingPhaseState(state, ownProps),
+      userAccount: user.account,
+      parameters,
+      govtParameters,
+    };
   };
+  return mapStateToProps;
 };
 
-export default connect(mapToStateToProps)(ListingPage);
+export const ListingPage = connect(makeMapStateToProps)(ListingPageComponent);
+
+export default class ListingPageContainer extends React.Component<ListingPageProps> {
+  public render(): JSX.Element {
+    const listingAddress = this.props.match.params.listing;
+    return <ListingPage listingAddress={listingAddress} />;
+  }
+}

@@ -47,13 +47,16 @@ const percentAgainst = "27";
 
 const tokenBalance = 10000;
 let commitVoteState = {
-  salt: "",
+  salt: "9635457449074",
   numTokens: tokenBalance.toString(),
   voteOption: undefined,
 };
 
-function commitVoteChange(data: any): void {
+function commitVoteChange(data: any, callback?: () => any): void {
   commitVoteState = { ...commitVoteState, ...data };
+  if (callback) {
+    callback();
+  }
 }
 
 storiesOf("Listing Details Phase Card", module)
@@ -117,6 +120,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            transactions={[]}
           />
         )}
       </Container>

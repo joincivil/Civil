@@ -17,17 +17,25 @@ export class RevealVote extends React.Component<RevealVoteProps> {
           voted for this challenge.
         </FormCopy>
 
-        <TextInput label="Enter your salt" placeholder="Enter a value" name="salt" onChange={this.onChange} />
+        <TextInput label="Enter your salt" placeholder="Salt" name="salt" onChange={this.onChange} />
 
         <VoteOptionsContainer>
           <div onMouseEnter={this.setVoteToRemain}>
-            <TransactionDarkButton size={buttonSizes.MEDIUM} transactions={this.props.transactions}>
+            <TransactionDarkButton
+              size={buttonSizes.MEDIUM}
+              transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
+            >
               ✔ Remain
             </TransactionDarkButton>
           </div>
           <StyledOrText>or</StyledOrText>
           <div onMouseEnter={this.setVoteToRemove}>
-            <TransactionDarkButton size={buttonSizes.MEDIUM} transactions={this.props.transactions}>
+            <TransactionDarkButton
+              size={buttonSizes.MEDIUM}
+              transactions={this.props.transactions}
+              modalContentComponents={this.props.modalContentComponents}
+            >
               ✖ Remove
             </TransactionDarkButton>
           </div>

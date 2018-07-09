@@ -9,6 +9,7 @@ const ipfs = new IPFS({ host: "ipfs.infura.io", port: 5001, protocol: "https" })
 const ipfsAsync = {
   get: promisify<[{ path: string; content: Buffer }]>(ipfs.get),
   add: promisify<[{ path: string; hash: string; size: number }]>(ipfs.add),
+  pin: promisify<[{ hash: string }]>(ipfs.pin.add),
 };
 
 export interface IpfsStorageHeader extends StorageHeader {
@@ -28,6 +29,7 @@ export class IPFSProvider implements ContentProvider {
 
   public async put(content: string): Promise<IpfsStorageHeader> {
     const files = await ipfsAsync.add(Buffer.from(content));
+    await ipfsAsync.pin(files[0].hash);
     return {
       uri: this.scheme() + "://" + files[0].path,
       ipfsHash: files[0].hash,

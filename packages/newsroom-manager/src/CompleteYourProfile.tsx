@@ -7,7 +7,7 @@ import {
   BorderlessButton,
   colors,
   fonts,
-  TextInput,
+  AddressInput,
   DetailTransactionButton,
   StepDescription,
 } from "@joincivil/components";
@@ -96,11 +96,8 @@ class CompleteYourProfileComponent extends React.Component<
         <CivilContext.Consumer>
           {(civil: Civil) => (
             <>
-              <TextInput
-                label="Wallet Address"
-                placeholder="Enter Wallet Address"
-                name="EditorWalletInput"
-                value={this.state.newEditor}
+              <AddressInput
+                address={this.state.newEditor}
                 onChange={(name: any, val: any) => this.setState({ newEditor: val })}
               />
               <DetailTransactionButton
@@ -115,7 +112,7 @@ class CompleteYourProfileComponent extends React.Component<
                 civil={civil}
                 requiredNetwork="rinkeby"
               >
-                Add Owner
+                Add Editor
               </DetailTransactionButton>
             </>
           )}
@@ -132,13 +129,7 @@ class CompleteYourProfileComponent extends React.Component<
         <CivilContext.Consumer>
           {(civil: Civil) => (
             <>
-              <TextInput
-                label="Wallet Address"
-                placeholder="Enter Wallet Address"
-                name="OwnerWalletInput"
-                value={this.state.newOwner}
-                onChange={(name, val) => this.setState({ newOwner: val })}
-              />
+              <AddressInput address={this.state.newOwner} onChange={(name, val) => this.setState({ newOwner: val })} />
               <DetailTransactionButton
                 transactions={[
                   {
@@ -167,13 +158,7 @@ class CompleteYourProfileComponent extends React.Component<
         <Collapsable
           header={
             <>
-              <StepHeader
-                disabled={this.props.disabled}
-                el={this.props.el}
-                isActive={this.props.active === this.props.index}
-              >
-                Add other users
-              </StepHeader>
+              <StepHeader disabled={this.props.disabled}>Add other users</StepHeader>
               <StepDescription disabled={this.props.disabled}>
                 Add owners and editors to your newsroom contract.
               </StepDescription>

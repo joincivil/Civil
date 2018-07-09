@@ -62,6 +62,13 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     return this.instance._VoteCommittedStream({ voter: user }, { fromBlock }).map(e => e.args.pollID);
   }
 
+  public balanceUpdate(fromBlock: number | "latest" = 0, user: EthAddress): Observable<BigNumber> {
+    return this.instance
+      ._VotingRightsGrantedStream({ voter: user }, { fromBlock })
+      .merge(this.instance._VotingRightsWithdrawnStream({ voter: user }, { fromBlock }))
+      .concatMap(async e => this.getNumVotingRights(user));
+  }
+
   /**
    * Contract Transactions
    */
@@ -70,8 +77,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * Transfer tokens to voting contract (thus getting voting rights)
    * @param numTokens number of tokens to transfer into voting contract
    */
-  public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.requestVotingRights.sendTransactionAsync(numTokens));
+  public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | undefined> {
+    const currentVotingRights = await this.getNumVotingRights();
+    if (currentVotingRights.lessThan(numTokens)) {
+      return createTwoStepSimple(this.ethApi, await this.instance.requestVotingRights.sendTransactionAsync(numTokens));
+    }
   }
 
   /**
@@ -93,10 +103,10 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     return new Promise<boolean>(async (res, rej) => {
       try {
         await this.instance.rescueTokens.estimateGasAsync(pollID, { from: user });
-        console.log("can rescue tokens.");
+        console.log("can rescue tokens. pollID: " + pollID);
         res(true);
       } catch (ex) {
-        console.log("cannot rescue tokens bud.");
+        console.log("cannot rescue tokens bud. " + pollID);
         res(false);
       }
     });
@@ -107,7 +117,10 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
    * @param pollID ID of poll to unlock unrevealed vote of
    */
   public async rescueTokens(pollID: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.rescueTokens.sendTransactionAsync(pollID));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.rescueTokens.sendTransactionAsync(this.ethApi.toBigNumber(pollID)),
+    );
   }
 
   /**
@@ -149,6 +162,30 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
       this.ethApi,
       await this.instance.revealVote.sendTransactionAsync(pollID, voteOption, salt),
     );
+  }
+
+  public async getRevealedVote(pollID: BigNumber, voter: EthAddress): Promise<BigNumber | undefined> {
+    if (await this.didRevealVote(voter, pollID)) {
+      const reveal = await this.instance
+        ._VoteRevealedStream({ pollID }, { fromBlock: 0 })
+        .first()
+        .toPromise();
+      return reveal.args.choice;
+    }
+    return undefined;
+  }
+
+  public async isVoterWinner(pollID: BigNumber, voter: EthAddress): Promise<boolean> {
+    const vote = await this.getRevealedVote(pollID, voter);
+    if (vote) {
+      const isPollPassed = await this.instance.isPassed.callAsync(pollID);
+      if (vote.equals("1") && isPollPassed) {
+        return true;
+      } else if (vote.equals("0") && !isPollPassed) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -269,13 +306,5 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
       votesFor,
       votesAgainst,
     };
-  }
-
-  public async getVotingBalance(account?: EthAddress): Promise<BigNumber> {
-    let who = account;
-    if (!who) {
-      who = requireAccount(this.ethApi);
-    }
-    return this.instance.voteTokenBalance.callAsync(who);
   }
 }

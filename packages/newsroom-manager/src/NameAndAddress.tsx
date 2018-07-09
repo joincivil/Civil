@@ -10,7 +10,7 @@ import {
   AddressWithCopyButton,
   StepDescription,
 } from "@joincivil/components";
-import { TwoStepEthTransaction, Civil } from "@joincivil/core";
+import { TwoStepEthTransaction, Civil, TxHash, EthAddress } from "@joincivil/core";
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
 import styled, { StyledComponentClass } from "styled-components";
 import { connect, DispatchProp } from "react-redux";
@@ -19,10 +19,12 @@ import { CivilContext } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
 
 export interface NameAndAddressProps extends StepProps {
-  address?: string;
+  address?: EthAddress;
+  txHash?: TxHash;
   name?: string;
   newsroom?: Newsroom;
   onNewsroomCreated?(result: any): void;
+  onContractDeployStarted?(txHash: TxHash): void;
 }
 
 export interface NameAndAddressState {
@@ -70,7 +72,11 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             />
             <DetailTransactionButton
               transactions={[
-                { transaction: this.createNewsroom.bind(this, civil), postTransaction: this.props.onNewsroomCreated },
+                {
+                  transaction: this.createNewsroom.bind(this, civil),
+                  postTransaction: this.props.onNewsroomCreated,
+                  handleTransactionHash: this.props.onContractDeployStarted,
+                },
               ]}
               civil={civil}
               estimateFunctions={[civil.estimateNewsroomDeployTrusted.bind(civil, this.props.name)]}
@@ -113,8 +119,19 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     );
   }
 
+  public renderOnlyTxHash(): JSX.Element {
+    return <p>Still waiting for contract to sync</p>;
+  }
+
   public render(): JSX.Element {
-    const body = this.props.address ? this.renderContract() : this.renderNoContract();
+    let body;
+    if (this.props.address) {
+      body = this.renderContract();
+    } else if (this.props.txHash) {
+      body = this.renderOnlyTxHash();
+    } else {
+      body = this.renderNoContract();
+    }
     return (
       <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
         <Collapsable
@@ -122,14 +139,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
           disabled={this.props.disabled}
           header={
             <>
-              <StepHeader
-                completed={!!this.props.address}
-                disabled={this.props.disabled}
-                el={this.props.el}
-                isActive={this.props.active === this.props.index}
-              >
-                Set up a newsroom
-              </StepHeader>
+              <StepHeader disabled={this.props.disabled}>Set up a newsroom</StepHeader>
               <StepDescription disabled={this.props.disabled}>
                 Enter your newsroom name to create your newsroom smart contract.
               </StepDescription>

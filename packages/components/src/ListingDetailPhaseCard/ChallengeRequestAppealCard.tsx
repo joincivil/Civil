@@ -8,7 +8,8 @@ import {
   MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
-import { buttonSizes, InvertedButton } from "../Button";
+import { buttonSizes } from "../Button";
+import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults } from "./ChallengeResults";
 
@@ -42,7 +43,13 @@ export class ChallengeRequestAppealCard extends React.Component<
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>If you disagree with the community, you may request an appeal to the Civil Council.</CTACopy>
-          <InvertedButton size={buttonSizes.MEDIUM}>Request Appeal from Civil Council</InvertedButton>
+          <TransactionInvertedButton
+            size={buttonSizes.MEDIUM}
+            transactions={this.props.transactions!}
+            modalContentComponents={this.props.modalContentComponents}
+          >
+            Request Appeal from Civil Council
+          </TransactionInvertedButton>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );

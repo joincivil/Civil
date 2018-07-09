@@ -1,7 +1,7 @@
 import * as React from "react";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { ModalHeading, ModalContent } from "./ModalContent";
-import { Button } from "./Button";
+import { Button, buttonSizes } from "./Button";
 
 export interface ProgressModalContentProps {
   hideModal?(): () => void;
@@ -26,7 +26,9 @@ export class ProgressModalContentSuccess extends React.Component<ProgressModalCo
       <>
         <ModalHeading>Success!</ModalHeading>
         <ModalContent>Transaction processed.</ModalContent>
-        <Button onClick={this.handleOnClick}>Ok!</Button>
+        <Button onClick={this.handleOnClick} size={buttonSizes.MEDIUM}>
+          Ok!
+        </Button>
       </>
     );
   }
@@ -44,7 +46,9 @@ export class ProgressModalContentError extends React.Component<ProgressModalCont
       <>
         <ModalHeading>Uh oh!</ModalHeading>
         <ModalContent>Your transaction failed. Please try again.</ModalContent>
-        <Button onClick={this.handleOnClick}>Dismiss</Button>
+        <Button onClick={this.handleOnClick} size={buttonSizes.MEDIUM}>
+          Dismiss
+        </Button>
       </>
     );
   }

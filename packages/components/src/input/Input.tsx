@@ -14,13 +14,19 @@ export const InputLabel = styled.label`
   font-family: ${fonts.SANS_SERIF};
 `;
 
+export const ErrorMessage = styled.small`
+  color: ${colors.accent.CIVIL_RED};
+  font-family: ${fonts.SANS_SERIF};
+`;
+
 export interface InputBaseProps {
   className?: string;
   icon?: JSX.Element;
   label?: string;
   noLabel?: boolean;
   inputRef?: string;
-
+  invalid?: boolean;
+  errorMessage?: string;
   name: string;
   value?: string;
   placeholder?: string;
@@ -32,13 +38,14 @@ export interface InputBaseProps {
 }
 
 const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
-  const { icon, onChange, className, label, noLabel, inputRef, ...inputProps } = props;
+  const { icon, onChange, className, label, noLabel, inputRef, invalid, errorMessage, ...inputProps } = props;
   let cb;
   if (onChange) {
     cb = (ev: any) => onChange(props.name, ev.target.value);
   }
   return (
-    <div className={className}>
+    <div className={`${invalid ? "civil-input-error" : ""} ${className}`}>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       {icon ? <InputIcon>{icon}</InputIcon> : null}
       <input {...inputProps} onChange={cb} ref={inputRef} />
       {!noLabel && <InputLabel>{label || props.placeholder}</InputLabel>}
@@ -70,12 +77,12 @@ const InputBase = styled(InputBaseComponent)`
   > input:focus {
     border-bottom: 1px solid ${colors.accent.CIVIL_BLUE};
   }
-  &.error {
+  &.civil-input-error {
     color: ${colors.accent.CIVIL_RED};
   }
-  &.error > input {
+  &.civil-input-error > input {
     color: ${colors.accent.CIVIL_RED};
-    border-color: ${colors.accent.CIVIL_RED};
+    border-bottom-color: ${colors.accent.CIVIL_RED};
   }
 `;
 
@@ -85,8 +92,11 @@ export interface InputProps {
   placeholder?: string;
   label?: string;
   className?: string;
+  invalid?: boolean;
+  errorMessage?: string;
   noLabel?: boolean;
-  onChange(name: string, value: string): any;
+  readOnly?: boolean;
+  onChange?(name: string, value: string): any;
 }
 
 export const TextInput: React.StatelessComponent<InputProps> = props => {

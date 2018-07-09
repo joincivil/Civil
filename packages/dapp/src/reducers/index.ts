@@ -17,6 +17,7 @@ import {
   resolveAppealListings,
   rejectedListings,
   ListingWrapperWithExpiry,
+  listingHistorySubscriptions,
 } from "./listings";
 import {
   parameters,
@@ -43,17 +44,18 @@ import { TimestampedEvent, WrappedChallengeData, UserChallengeData, EthAddress }
 import { currentUserNewsrooms } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
 import { networkActions } from "../actionCreators/network";
+import { Subscription } from "rxjs";
 
 export interface State {
   networkDependent: NetworkDependentState;
   network: string;
   ui: Map<string, any>;
-}
-
-export interface NetworkDependentState {
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, string>;
+}
+
+export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsFetching: Map<string, any>;
@@ -86,12 +88,10 @@ export interface NetworkDependentState {
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
   appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
+  listingHistorySubscriptions: Map<string, Subscription>;
 }
 
 const networkDependentReducers = combineReducers({
-  newsrooms,
-  newsroomUi,
-  newsroomUsers,
   currentUserNewsrooms,
   listings,
   listingsFetching,
@@ -124,6 +124,7 @@ const networkDependentReducers = combineReducers({
   challengeUserData,
   appealChallengeUserData,
   government,
+  listingHistorySubscriptions,
 });
 
 const networkDependent = (state: any, action: AnyAction) => {
@@ -134,6 +135,9 @@ const networkDependent = (state: any, action: AnyAction) => {
 };
 
 export default combineReducers({
+  newsrooms, // have to be top level because come from a package
+  newsroomUi,
+  newsroomUsers,
   networkDependent,
   network,
   ui,
