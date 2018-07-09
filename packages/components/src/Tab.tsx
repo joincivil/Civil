@@ -1,9 +1,10 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
+
+import { colors, fonts } from "./styleConstants";
 
 export interface TabProps {
   className?: string;
-  icon?: any;
   tabIndex?: number;
   isActive?: boolean;
   tabText?: string;
@@ -14,7 +15,7 @@ export interface TabProps {
 
 export const TabComponent: React.StatelessComponent<TabProps> = props => {
   const activeClass = props.isActive ? " active" : "";
-  const hasImg = props.tabImg ? <Icon src={props.tabImg} /> : "";
+  const hasIcon = props.tabImg ? <Icon src={props.tabImg} /> : "";
   const hasCount = props.tabCount ? <Count>{props.tabCount}</Count> : "";
 
   return (
@@ -25,18 +26,18 @@ export const TabComponent: React.StatelessComponent<TabProps> = props => {
       }}
       className={props.className + activeClass}
     >
-      {hasImg}
+      {hasIcon}
       {props.tabText}
       {hasCount}
     </button>
   );
 };
 
-const BaseTab = styled(TabComponent)`
+export const BaseTab = styled(TabComponent)`
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-family: "Libre Franklin", sans-serif;
+  font-family: ${fonts.SANS_SERIF};
   outline: none;
   text-align: center;
   text-decoration: none;
@@ -44,73 +45,73 @@ const BaseTab = styled(TabComponent)`
 `;
 
 export const Tab = BaseTab.extend`
-  color: #7D7373;
+  color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 14px;
   &:hover {
-    color: #000;
+    color: ${colors.primary.BLACK};
   }
   &.active {
-    color: #000;
+    color: ${colors.primary.BLACK};
   }
 `;
 
 export const BasicTab = BaseTab.extend`
-  border-bottom: 2px soild #2B56FF;
-  color: #7D7373;
+  border-bottom: 2px soild ${colors.accent.CIVIL_BLUE};
+  color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 14px;
   letter-spacing: -0.12px;
   margin-right: 15px;
   padding: 10px 0;
   &:hover {
-    border-bottom: 2px soild #2B56FF;
-    color: #000;
+    border-bottom: 2px soild ${colors.accent.CIVIL_BLUE};
+    color: ${colors.primary.BLACK};
   }
   &.active {
-    border-bottom: 2px soild #2B56FF;
-    color: #000;
+    border-bottom: 2px soild ${colors.accent.CIVIL_BLUE};
+    color: ${colors.primary.BLACK};
   }
 `;
 
 export const PillTab = BaseTab.extend`
-  border: 1px solid #E9E9EA;
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-radius: 23px;
-  color: #000;
+  color: ${colors.primary.BLACK};
   font-size: 14px;
   letter-spacing: -0.13px;
   margin-right: 10px;
   padding: 8px 15px;
   &:hover {
-    background-color: #E9E9EA;
+    background-color: ${colors.accent.CIVIL_GRAY_4};
   }
   &.active {
-    background-color: #E9E9EA;
+    background-color: ${colors.accent.CIVIL_GRAY_4};
   }
 `;
 
 export const BoxTab = BaseTab.extend`
-  border: 1px solid #E9E9EA;
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-right: none;
-  color: #000;
+  color: ${colors.primary.BLACK};
   font-size: 14px;
   font-weight: 600;
   line-height: 17px;
   padding: 20px 44px;
   &:last-of-type {
-    border-right: 1px solid #E9E9EA;
+    border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
   }
   &:hover {
-    color: #2B56FF;
+    color: ${colors.accent.CIVIL_BLUE};
     background-color: #E9EEFF;
   }
   &.active {
-    color: #2B56FF;
+    color: ${colors.accent.CIVIL_BLUE};
     background-color: #E9EEFF;
   }
 `;
 
 export const BorderBottomTab = BaseTab.extend`
   border-bottom: 8px solid transparent;
-  color: #7D7373;
+  color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 19px;
   font-weight: 800;
   margin: 39px 20px 0 0;
@@ -119,16 +120,16 @@ export const BorderBottomTab = BaseTab.extend`
     margin: 39px 0 0 0;
   }
   &:hover {
-    border-bottom: 8px solid #7D7373;
+    border-bottom: 8px solid ${colors.accent.CIVIL_GRAY_2};
   }
   &.active {
-    border-bottom: 8px solid #2B56FF;
-    color: #2B56FF;
+    border-bottom: 8px solid ${colors.accent.CIVIL_BLUE};
+    color: ${colors.accent.CIVIL_BLUE};
   }
 `;
 
 export const Icon = styled.img`
-  background-color: #2B56FF;
+  background-color: ${colors.accent.CIVIL_BLUE};
   border: none;
   display: inline-block;
   height: 15px;

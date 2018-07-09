@@ -17,3 +17,4 @@ export * from "./AddressWithCopyButton";
 export * from "./ListingSummary";
 export * from "./ListingSummaryList";
 export * from "./ListingDetailPhaseCard";
+export * from "./Tab";

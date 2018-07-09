@@ -13,7 +13,7 @@ const StyledUL = styled.ul`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  margin-top: 0;
+  margin: 0;
   padding: 0;
   height: 50px;
   background-color: black;

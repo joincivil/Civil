@@ -1,17 +1,32 @@
 import * as React from "react";
 import styled from "styled-components";
 
-const StyledUL = styled.ul`
-  border-bottom: 1px solid #aaa;
-  margin: 0 0 10px;
-  padding: 0;
+const TabContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
 `;
+
+const TabNav = styled.div`
+  margin: 0 auto 50px;
+  &.listings-nav {
+    background-color: #E9E9EA;
+    height: 76px;
+  }
+  &.listings-subnav {
+    max-width: 1200px;
+  }
+`;
+
+export interface TabsProps {
+  className?: string;
+}
 
 export interface TabsState {
   activeTabIndex: number;
 }
 
-export class Tabs extends React.Component<{}, TabsState> {
+export class Tabs extends React.Component<TabsProps, TabsState> {
   constructor(props: {}, context: any) {
     super(props, context);
     this.state = {
@@ -50,7 +65,9 @@ export class Tabs extends React.Component<{}, TabsState> {
   public render(): JSX.Element {
     return (
       <div>
-        <StyledUL>{this.renderChildrenWithTabsApiAsProps()}</StyledUL>
+        <TabNav className={this.props.className}>
+          <TabContainer>{this.renderChildrenWithTabsApiAsProps()}</TabContainer>
+        </TabNav>
         <div>{this.renderActiveTabContent()}</div>
       </div>
     );
