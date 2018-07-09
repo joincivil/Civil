@@ -29,8 +29,7 @@ storiesOf("Submit Challenge Modal", module).add("Submit Challenge Modal", () => 
     minDeposit: "100,000",
     dispensationPct: "50%",
     isPostStatementDisabled: true,
-    postStatementTransactions: [],
-    submitChallengeTransactions: [],
+    transactions: [],
     updateStatementValue,
     handleClose,
   };

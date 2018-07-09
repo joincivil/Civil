@@ -88,10 +88,10 @@ export async function challengeGrantedAppeal(address: EthAddress): Promise<TwoSt
   return tcr.challengeGrantedAppeal(address);
 }
 
-export async function challengeListing(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function challengeListing(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
-  return tcr.challenge(address, "");
+  return tcr.challenge(address, data);
 }
 
 export async function commitVote(

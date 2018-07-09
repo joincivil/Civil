@@ -151,9 +151,8 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       minDeposit,
       dispensationPct,
       isPostStatementDisabled: this.state.isPostStatementDisabled!,
-      postStatementTransactions: [],
       modalContentComponents,
-      submitChallengeTransactions: transactions,
+      transactions,
       updateStatementValue: this.updateChallengeStatement,
       handleClose: () => {
         this.setState({ isChallengeModalOpen: false });
@@ -230,10 +229,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private handleSubmitChallenge = () => {
-    console.log("show submit challenge modal");
-    this.setState({ isChallengeModalOpen: true }, () => {
-      console.log(this.state);
-    });
+    this.setState({ isChallengeModalOpen: true });
   };
 
   private updateChallengeStatement = (value: any) => {
@@ -246,8 +242,11 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
 
   // Transactions
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    return challengeListing(this.props.listing.address);
+    const statement = this.state.challengeStatement.value.toString("html");
+    const jsonToSave = { statement };
+    return challengeListing(this.props.listing.address, JSON.stringify(jsonToSave));
   };
+
   private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return grantAppeal(this.props.listing.address);
   };

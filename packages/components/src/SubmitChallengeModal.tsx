@@ -86,8 +86,7 @@ export interface SubmitChallengeModalProps {
   minDeposit: string;
   dispensationPct: string;
   isPostStatementDisabled: boolean;
-  postStatementTransactions: any[];
-  submitChallengeTransactions: any[];
+  transactions: any[];
   modalContentComponents?: { [index: string]: JSX.Element };
   updateStatementValue(value: any): void;
   handleClose?(): void;
@@ -164,15 +163,6 @@ export class SubmitChallengeModal extends React.Component<
           <FormInputGroup>
             <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
           </FormInputGroup>
-          <PullRight>
-            <TransactionInvertedButton
-              size={buttonSizes.MEDIUM}
-              transactions={this.props.postStatementTransactions}
-              disabled={this.props.isPostStatementDisabled}
-            >
-              Post Statement
-            </TransactionInvertedButton>
-          </PullRight>
         </SectionFormOuter>
       </StepStyledFluid>
     );
@@ -197,7 +187,7 @@ export class SubmitChallengeModal extends React.Component<
           <TransactionButton
             size={buttonSizes.MEDIUM}
             modalContentComponents={this.props.modalContentComponents}
-            transactions={this.props.submitChallengeTransactions}
+            transactions={this.props.transactions}
           >
             Submit Challenge
           </TransactionButton>
