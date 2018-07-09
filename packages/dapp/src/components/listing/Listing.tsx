@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
 import ListingPhaseActions from "./ListingPhaseActions";
@@ -71,6 +72,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
             <ListingHistory listing={this.props.listingAddress} />
+            <ListingDiscourse />
           </LeftShark>
 
           <RightShark>

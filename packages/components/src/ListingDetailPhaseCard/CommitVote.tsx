@@ -1,6 +1,6 @@
 import * as React from "react";
 import { buttonSizes } from "../Button";
-import { InputGroup, TextInput } from "../input/";
+import { InputGroup } from "../input/";
 import { CommitVoteProps } from "./types";
 import { TransactionDarkButton } from "../TransactionButton";
 import {
@@ -11,6 +11,7 @@ import {
   VoteOptionsContainer,
   StyledOrText,
 } from "./styledComponents";
+import { SaltField } from "./SaltField";
 
 export interface CommitVoteState {
   numTokensError?: string;
@@ -103,23 +104,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private renderSaltInput = (): JSX.Element => {
-    let label = "Enter a number to use as your salt";
-    let className;
-
-    if (this.state.saltError) {
-      label = this.state.saltError;
-      className = "error";
-    }
-    return (
-      <TextInput
-        label={label}
-        className={className}
-        placeholder="Enter a unique number"
-        value={this.props.salt}
-        name="salt"
-        onChange={this.onChange}
-      />
-    );
+    return <SaltField salt={this.props.salt} />;
   };
 
   private onChange = (name: string, value: string): void => {

@@ -121,6 +121,7 @@ export interface InputProps {
   disabled?: boolean;
   errorMessage?: string;
   noLabel?: boolean;
+  readOnly?: boolean;
   onChange?(name: string, value: string): any;
 }
 
