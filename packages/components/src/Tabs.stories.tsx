@@ -24,10 +24,10 @@ storiesOf("Tabs", module)
   .add("Registry Sub Tabs", () => {
     return (
       <Container>
-        <BoxTab tabText="New Applications"></BoxTab>
-        <BoxTab tabText="Under Challenge"></BoxTab>
-        <BoxTab tabText="Appeal to Council"></BoxTab>
-        <BoxTab tabText="Challenge Council Appeal"></BoxTab>
+        <BoxTab tabText="New Applications" tabCount=" (0)"></BoxTab>
+        <BoxTab tabText="Under Challenge" tabCount=" (5)"></BoxTab>
+        <BoxTab tabText="Appeal to Council" tabCount=" (7)"></BoxTab>
+        <BoxTab tabText="Challenge Council Appeal" tabCount=" (10)"></BoxTab>
       </Container>
     );
   })
@@ -35,7 +35,7 @@ storiesOf("Tabs", module)
     return (
       <Container>
         <PillTab tabText="All"></PillTab>
-        <PillTab tabText="Accepting Votes"></PillTab>
+        <PillTab tabText="Accepting Votes" tabCount=" (0)"></PillTab>
         <PillTab tabText="Verifying Votes"></PillTab>
         <PillTab tabText="Request Appeal"></PillTab>
         <PillTab tabText="Ready to Complete"></PillTab>

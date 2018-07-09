@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs } from "../tabs/Tabs";
-import { BorderBottomTab } from "../tabs/Tab";
-// import { BorderBottomTab } from "@joincivil/components";
+import { Tabs } from "../utility/Tabs";
+import { BorderBottomTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";

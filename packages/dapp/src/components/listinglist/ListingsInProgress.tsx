@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs } from "../tabs/Tabs";
-import { BoxTab } from "../tabs/Tab";
+import { Tabs } from "../utility/Tabs";
+import { BoxTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
+import { Tabs } from "../utility/Tabs";
+import { PillTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -18,12 +18,12 @@ class MyActivity extends React.Component<MyActivityProps> {
     const currentUserChallengesVotedOn = this.props.currentUserChallengesVotedOn;
     return (
       <Tabs>
-        <Tab tabText={"My Newsrooms (" + currentUserNewsrooms.count() + ")"}>
+        <PillTab tabText={"My Newsrooms"} tabCount={" (" + currentUserNewsrooms.count() + ")"}>
           <ListingList listings={currentUserNewsrooms} />
-        </Tab>
-        <Tab tabText={"Challenges I've Voted On (" + currentUserChallengesVotedOn.count() + ")"}>
+        </PillTab>
+        <PillTab tabText={"Challenges I've Voted On"} tabCount={" (" + currentUserChallengesVotedOn.count() + ")"}>
           <ListingList challenges={currentUserChallengesVotedOn} />
-        </Tab>
+        </PillTab>
       </Tabs>
     );
   }
