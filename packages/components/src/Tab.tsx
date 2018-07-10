@@ -101,11 +101,11 @@ export const BoxTab = BaseTab.extend`
   }
   &:hover {
     color: ${colors.accent.CIVIL_BLUE};
-    background-color: #E9EEFF;
+    background-color: #e9eeff;
   }
   &.active {
     color: ${colors.accent.CIVIL_BLUE};
-    background-color: #E9EEFF;
+    background-color: #e9eeff;
   }
 `;
 

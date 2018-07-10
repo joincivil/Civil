@@ -10,7 +10,7 @@ const TabContainer = styled.div`
 const TabNav = styled.div`
   margin: 0 auto 50px;
   &.listings-nav {
-    background-color: #E9E9EA;
+    background-color: #e9e9ea;
     height: 76px;
   }
   &.listings-subnav {

@@ -15,39 +15,39 @@ storiesOf("Tabs", module)
   .add("Registry Main Tabs", () => {
     return (
       <Container>
-        <BorderBottomTab tabText="Approved Newsrooms"></BorderBottomTab>
-        <BorderBottomTab tabText="Applicaitons In Progress"></BorderBottomTab>
-        <BorderBottomTab tabText="Rejected Newsrooms"></BorderBottomTab>
+        <BorderBottomTab tabText="Approved Newsrooms" />
+        <BorderBottomTab tabText="Applicaitons In Progress" />
+        <BorderBottomTab tabText="Rejected Newsrooms" />
       </Container>
     );
   })
   .add("Registry Sub Tabs", () => {
     return (
       <Container>
-        <BoxTab tabText="New Applications" tabCount=" (0)"></BoxTab>
-        <BoxTab tabText="Under Challenge" tabCount=" (5)"></BoxTab>
-        <BoxTab tabText="Appeal to Council" tabCount=" (7)"></BoxTab>
-        <BoxTab tabText="Challenge Council Appeal" tabCount=" (10)"></BoxTab>
+        <BoxTab tabText="New Applications" tabCount=" (0)" />
+        <BoxTab tabText="Under Challenge" tabCount=" (5)" />
+        <BoxTab tabText="Appeal to Council" tabCount=" (7)" />
+        <BoxTab tabText="Challenge Council Appeal" tabCount=" (10)" />
       </Container>
     );
   })
   .add("Registry Pill Tabs", () => {
     return (
       <Container>
-        <PillTab tabText="All"></PillTab>
-        <PillTab tabText="Accepting Votes" tabCount=" (0)"></PillTab>
-        <PillTab tabText="Verifying Votes"></PillTab>
-        <PillTab tabText="Request Appeal"></PillTab>
-        <PillTab tabText="Ready to Complete"></PillTab>
+        <PillTab tabText="All" />
+        <PillTab tabText="Accepting Votes" tabCount=" (0)" />
+        <PillTab tabText="Verifying Votes" />
+        <PillTab tabText="Request Appeal" />
+        <PillTab tabText="Ready to Complete" />
       </Container>
     );
   })
   .add("Newsroom Tabs", () => {
     return (
       <Container>
-        <BasicTab tabText="About"></BasicTab>
-        <BasicTab tabText="Discussions"></BasicTab>
-        <BasicTab tabText="History"></BasicTab>
+        <BasicTab tabText="About" />
+        <BasicTab tabText="Discussions" />
+        <BasicTab tabText="History" />
       </Container>
     );
   });
