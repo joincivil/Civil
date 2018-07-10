@@ -1,4 +1,5 @@
 export * from "./InApplicationCard";
+export * from "./InApplicationResolveCard";
 export * from "./ChallengeCommitVoteCard";
 export * from "./ChallengeRevealVoteCard";
 export * from "./ChallengeRequestAppealCard";
