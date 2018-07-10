@@ -25,7 +25,7 @@ export class SaltInput extends React.Component<SaltInputProps, SaltInputState> {
 
   public render(): JSX.Element {
     const { name, label, placeholder } = this.props;
-    const { value, isValid } = this.state;
+    const { value } = this.state;
 
     return <TextInput label={label} placeholder={placeholder} name={name} onChange={this.handleChange} value={value} />;
   }

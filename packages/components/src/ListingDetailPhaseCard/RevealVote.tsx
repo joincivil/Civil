@@ -1,9 +1,8 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
 import { RevealVoteProps } from "./types";
 import { buttonSizes } from "../Button";
 import { TransactionDarkButton } from "../TransactionButton";
-import { TextInput, SaltInput } from "../input/";
+import { SaltInput } from "../input/";
 import { VoteOptionsContainer, StyledOrText, FormHeader, FormCopy } from "./styledComponents";
 
 export class RevealVote extends React.Component<RevealVoteProps> {

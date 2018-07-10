@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
