@@ -1,7 +1,12 @@
 import { Dispatch } from "react-redux";
 import { getTCR, getCivil } from "./civilInstance";
 import { addListing } from "../actionCreators/listings";
-import { addChallenge, addUserChallengeData, addUserAppealChallengeData } from "../actionCreators/challenges";
+import {
+  addChallenge,
+  addUserChallengeData,
+  addUserChallengeStarted,
+  addUserAppealChallengeData,
+} from "../actionCreators/challenges";
 import { addUserNewsroom } from "../actionCreators/newsrooms";
 import { addNewsroom } from "@joincivil/newsroom-manager";
 import { EthAddress, ListingWrapper, getNextTimerExpiry } from "@joincivil/core";
@@ -26,14 +31,18 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
   });
 }
 
-let challengeSubscriptions: Subscription;
+let challengeSubscription: Subscription;
+let challengeStartedSubscription: Subscription;
 export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
-  if (challengeSubscriptions) {
-    challengeSubscriptions.unsubscribe();
+  if (challengeSubscription) {
+    challengeSubscription.unsubscribe();
+  }
+  if (challengeStartedSubscription) {
+    challengeStartedSubscription.unsubscribe();
   }
 
   const tcr = getTCR();
-  challengeSubscriptions = tcr
+  challengeSubscription = tcr
     .getVoting()
     .votesCommitted(0, user)
     .subscribe(async (pollID: BigNumber) => {
@@ -49,6 +58,12 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
         dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
       }
     });
+
+  challengeStartedSubscription = tcr.challengesStartedByUser(user).subscribe(async (challengeId: BigNumber) => {
+    const wrappedChallenge = await tcr.getChallengeData(challengeId);
+    dispatch(addChallenge(wrappedChallenge));
+    dispatch(addUserChallengeStarted(challengeId.toString(), user));
+  });
 }
 
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
