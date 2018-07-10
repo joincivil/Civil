@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import StoryRouter from "storybook-react-router";
 import * as React from "react";
 import styled from "styled-components";
-import { Tab, BasicTab, PillTab, BoxTab, BorderBottomTab, Count } from "./Tab";
+import { BasicTab, PillTab, BoxTab, BorderBottomTab } from "./Tab";
 
 const StyledDiv = styled.div`
   display: flex;
