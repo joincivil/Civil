@@ -7,11 +7,6 @@ let tcr: CivilTCR;
 export const setCivil = () => {
   if (!civil) {
     civil = new Civil();
-    try {
-      tcr = civil.tcrSingletonTrusted();
-    } catch (ex) {
-      console.error("Unable to get TCR. Check that Metamask is installed and set to Rinkeby.");
-    }
   }
 };
 
@@ -25,6 +20,13 @@ export const getCivil = () => {
 export const getTCR = () => {
   if (!tcr) {
     setCivil();
+  }
+  if (!tcr) {
+    try {
+      tcr = civil.tcrSingletonTrusted();
+    } catch (ex) {
+      console.error("Unable to get TCR. Check that Metamask is installed and set to Rinkeby.");
+    }
   }
   return tcr;
 };

@@ -283,7 +283,6 @@ export class EthApi extends Events {
 
   private setNetwork = (newNetwork: string): void => {
     if (newNetwork !== this.currentNetwork) {
-      console.log(newNetwork);
       this.currentNetwork = newNetwork;
       this.emit("networkSet");
     }
