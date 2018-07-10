@@ -21,13 +21,23 @@ import {
   ModalOrderedList,
   ModalListItem,
   ModalListItemTypes,
+  SubmitChallengeModal,
+  SubmitChallengeModalProps,
 } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getCivil } from "../../helpers/civilInstance";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
   expiry?: number;
   parameters: any;
   govtParameters: any;
+  constitutionURI?: string;
+}
+
+export interface ListingPhaseActionsState {
+  isChallengeModalOpen?: boolean;
+  challengeStatement?: any;
 }
 
 enum ModalContentEventNames {
@@ -35,9 +45,12 @@ enum ModalContentEventNames {
   IN_PROGRESS_SUBMIT_CHALLENGE = "IN_PROGRESS:SUBMIT_CHALLENGE",
 }
 
-class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
+class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, ListingPhaseActionsState> {
   constructor(props: any) {
     super(props);
+    this.state = {
+      isChallengeModalOpen: false,
+    };
   }
 
   public render(): JSX.Element {
@@ -97,6 +110,20 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   private renderApplicationWhitelisted(): JSX.Element {
     // @TODO(jon): Get the Whitelisted event for this listing and display that event's date
     // in the card
+    return (
+      <>
+        <WhitelistedCard handleSubmitChallenge={this.handleSubmitChallenge} />
+        {this.renderSubmitChallengeModal()}
+      </>
+    );
+  }
+
+  private renderSubmitChallengeModal(): JSX.Element {
+    if (!this.props.parameters || !this.props.constitutionURI) {
+      return <></>;
+    }
+
+    const civil = getCivil();
     const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
     const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
     const modalContentComponents = {
@@ -113,7 +140,21 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
         progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
       },
     ];
-    return <WhitelistedCard modalContentComponents={modalContentComponents} transactions={transactions} />;
+    const constitutionURI = this.props.constitutionURI;
+    const minDeposit = getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit), true);
+    const dispensationPct = `${this.props.parameters.dispensationPct}%`;
+    const props: SubmitChallengeModalProps = {
+      open: this.state.isChallengeModalOpen,
+      constitutionURI,
+      minDeposit,
+      dispensationPct,
+      modalContentComponents,
+      transactions,
+      updateStatementValue: this.updateChallengeStatement,
+      postExecuteTransactions: this.closeSubmitChallengeModal,
+      handleClose: this.closeSubmitChallengeModal,
+    };
+    return <SubmitChallengeModal {...props} />;
   }
 
   private renderRejected(): JSX.Element {
@@ -167,41 +208,41 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   private renderApplicationPhase(): JSX.Element | null {
     const endTime = this.props.listing!.data.appExpiry.toNumber();
     const phaseLength = this.props.parameters.applyStageLen;
-    const approveForChallengeProgressModal = this.renderApproveForChallengeProgressModal();
-    const submitChallengeProgressModal = this.renderSubmitChallengeProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE]: approveForChallengeProgressModal,
-      [ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE]: submitChallengeProgressModal,
-    };
-    const transactions = [
-      {
-        transaction: approveForChallenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE,
-      },
-      {
-        transaction: this.challenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
-      },
-    ];
-
     if (!endTime || !phaseLength) {
       return null;
     }
 
     return (
-      <InApplicationCard
-        endTime={endTime}
-        phaseLength={phaseLength}
-        transactions={transactions}
-        modalContentComponents={modalContentComponents}
-      />
+      <>
+        <InApplicationCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          handleSubmitChallenge={this.handleSubmitChallenge}
+        />
+        {this.renderSubmitChallengeModal()}
+      </>
     );
   }
 
+  private closeSubmitChallengeModal = () => {
+    this.setState({ isChallengeModalOpen: false });
+  };
+
+  private handleSubmitChallenge = () => {
+    this.setState({ isChallengeModalOpen: true });
+  };
+
+  private updateChallengeStatement = (value: any) => {
+    this.setState(() => ({ challengeStatement: value }));
+  };
+
   // Transactions
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    return challengeListing(this.props.listing.address);
+    const statement = this.state.challengeStatement.toString("html");
+    const jsonToSave = { statement };
+    return challengeListing(this.props.listing.address, JSON.stringify(jsonToSave));
   };
+
   private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return grantAppeal(this.props.listing.address);
   };

@@ -15,7 +15,11 @@ import Article from "./Article";
 import { getCivil } from "../helpers/civilInstance";
 import { initializeSubscriptions, initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
-import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
+import {
+  initializeGovernment,
+  initializeGovernmentParamSubscription,
+  initializeConstitution,
+} from "../helpers/government";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { addUser } from "../actionCreators/userAccount";
 import { setNetwork } from "../actionCreators/network";
@@ -37,6 +41,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       await this.onAccountUpdated();
       await initializeParameterizer(this.props.dispatch!);
       await initializeGovernment(this.props.dispatch!);
+      await initializeConstitution(this.props.dispatch!);
       await initializeProposalsSubscriptions(this.props.dispatch!);
       await initializeGovernmentParamSubscription(this.props.dispatch!);
       await initializeSubscriptions(this.props.dispatch!);

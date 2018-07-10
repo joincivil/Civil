@@ -12,6 +12,10 @@ export interface PhaseWithExpiryProps {
   phaseLength: number;
 }
 
+export interface SubmitChallengeProps {
+  handleSubmitChallenge?(): void;
+}
+
 export interface ChallengePhaseProps {
   challenger: EthAddress;
   rewardPool: string;

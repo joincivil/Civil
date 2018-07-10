@@ -35,7 +35,7 @@ import {
   challengesVotedOnByUser,
   challengeUserData,
 } from "./challenges";
-import { government, govtParameters } from "./government";
+import { government, govtParameters, constitution } from "./government";
 import { user } from "./userAccount";
 import { network } from "./network";
 import { ui } from "./ui";
@@ -88,6 +88,7 @@ export interface NetworkDependentState {
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
   appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
+  constitution: Map<string, string>;
   listingHistorySubscriptions: Map<string, Subscription>;
 }
 
@@ -124,6 +125,7 @@ const networkDependentReducers = combineReducers({
   challengeUserData,
   appealChallengeUserData,
   government,
+  constitution,
   listingHistorySubscriptions,
 });
 

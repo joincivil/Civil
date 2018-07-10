@@ -29,6 +29,24 @@ export const StepStyled = styled.div`
   }
 `;
 
+export const StepStyledFluid = StepStyled.extend`
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+
+  // Step counter marker is position "outside" for Fluid sections
+  &:after {
+    background: ${colors.accent.CIVIL_GRAY_4};
+    border-radius: 50%;
+    box-sizing: border-box;
+    left: -52px;
+    height: 34px;
+    padding-top: 8px;
+    text-align: center;
+    width: 34px;
+  }
+`;
+
 export const StepDescription = styled<StepDescriptionProps, "p">("p")`
   color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
 `;

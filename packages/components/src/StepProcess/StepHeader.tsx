@@ -7,7 +7,7 @@ export interface ComponentProps {
   disabled?: boolean;
 }
 
-const SectionHeader = styled<ComponentProps, "h4">("h4")`
+export const SectionHeader = styled<ComponentProps, "h4">("h4")`
   font-family: ${fonts.SANS_SERIF};
   font-weight: 600;
   margin-top: 20px;

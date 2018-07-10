@@ -134,6 +134,7 @@ export const CancelButton = SecondaryButton.extend`
   border: none;
   &:hover {
     background-color: ${colors.accent.CIVIL_RED_VERY_FADED};
+    border: none;
     color: ${colors.accent.CIVIL_RED};
   }
 `;
