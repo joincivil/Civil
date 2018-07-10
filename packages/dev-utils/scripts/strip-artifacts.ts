@@ -22,6 +22,11 @@ const ARGV_OUT_DIR = 3;
 
 function strip(filePath: string, outPath: string): void {
   const data = JSON.parse(fs.readFileSync(filePath) as any);
+
+  // A debug list of events that happened
+  for (const network of Object.keys(data.networks)) {
+    data.networks[network].events = {};
+  }
   // tslint:disable:object-literal-sort-keys
   const filtered = {
     contractName: data.contractName,

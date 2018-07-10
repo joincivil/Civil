@@ -20,7 +20,6 @@
     "generate:events": "node ../dev-utils/build/scripts/generate-from-files/bin.js 'src/artifacts/**/*.json' 'src/templates/events.handlebars' 'src/contracts/generated/events.ts'",
     "generate:multisig": "abi-gen --abis 'src/artifacts/'\"${npm_package_config_multisigGlob}\"'.json' --template 'src/templates/contract/multisigproxy.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/multisig/'",
     "tsc": "tsc",
-    "prepublishOnly": "run-s build lint",
     "clean": "rimraf build/ src/contracts/generated/*"
   },
   "config": {
