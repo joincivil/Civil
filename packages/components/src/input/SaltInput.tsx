@@ -21,8 +21,6 @@ export class SaltInput extends React.Component<SaltInputProps, SaltInputState> {
       isValid: false,
       value: "",
     };
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
   public render(): JSX.Element {
@@ -32,7 +30,7 @@ export class SaltInput extends React.Component<SaltInputProps, SaltInputState> {
     return <TextInput label={label} placeholder={placeholder} name={name} onChange={this.handleChange} value={value} />;
   }
 
-  private handleChange(name: string, value: string): void {
+  private handleChange = (name: string, value: string): void => {
     const { onChange } = this.props;
 
     const nextState = { ...this.state };
@@ -51,5 +49,5 @@ export class SaltInput extends React.Component<SaltInputProps, SaltInputState> {
     }
 
     this.setState(nextState);
-  }
+  };
 }
