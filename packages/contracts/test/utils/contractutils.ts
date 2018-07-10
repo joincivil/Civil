@@ -14,7 +14,7 @@ export { advanceEvmTime } from "@joincivil/dev-utils";
 
 const Token = artifacts.require("tokens/eip20/EIP20");
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Parameterizer = artifacts.require("Parameterizer");
 const AddressRegistry = artifacts.require("AddressRegistry");
 const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry");
@@ -279,7 +279,8 @@ async function createTestPLCRInstance(token: any, accounts: string[]): Promise<a
     return approvePLCRFor(addresses.slice(1));
   }
 
-  const plcr = await PLCRVoting.new(token.address);
+  const plcr = await PLCRVoting.new();
+  await plcr.init(token.address);
   await approvePLCRFor(accounts);
 
   return plcr;

@@ -8,7 +8,7 @@ const DLL = artifacts.require("DLL");
 const AttributeStore = artifacts.require("AttributeStore");
 
 const Parameterizer = artifacts.require("Parameterizer");
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
