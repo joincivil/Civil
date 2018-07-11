@@ -1,32 +1,35 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, AppealDecisionProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
   CTACopy,
+  FormCopy,
 } from "./styledComponents";
-import { buttonSizes, InvertedButton } from "../Button";
+import { buttonSizes, Button } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 
-export class InApplicationResolveCard extends React.Component<ListingDetailPhaseCardComponentProps> {
+export class AppealResolveCard extends React.Component<ListingDetailPhaseCardComponentProps & AppealDecisionProps> {
   public render(): JSX.Element {
+    const decisionText = this.props.appealGranted ? "grant" : "dismiss";
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
+          <CTACopy>Civil Council Decision</CTACopy>
+          <FormCopy>
+            The Civil Council has decided to {decisionText} the appeal. Read more about their methodology and how
+            they’ve come to this decision.
+          </FormCopy>
+          <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>This listing has passed the application process</CTACopy>
           <TransactionInvertedButton
             size={buttonSizes.MEDIUM}
             transactions={this.props.transactions!}
             modalContentComponents={this.props.modalContentComponents}
           >
-            Add To Registry
+            Resolve Appeal
           </TransactionInvertedButton>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>

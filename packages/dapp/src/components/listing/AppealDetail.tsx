@@ -1,17 +1,25 @@
 import * as React from "react";
 import styled from "styled-components";
+import { AppealData, ChallengeData, EthAddress, TwoStepEthTransaction } from "@joincivil/core";
 import {
-  AppealData,
-  ChallengeData,
-  canAppealBeResolved,
-  EthAddress,
-  isAwaitingAppealChallenge,
-  TwoStepEthTransaction,
-} from "@joincivil/core";
-import { approveForChallengeGrantedAppeal, challengeGrantedAppeal, updateStatus } from "../../apis/civilTCR";
+  approveForChallengeGrantedAppeal,
+  challengeGrantedAppeal,
+  grantAppeal,
+  updateStatus,
+} from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { AppealAwaitingDecisionCard, TransactionButton, AppealDecisionCard } from "@joincivil/components";
+import {
+  AppealAwaitingDecisionCard,
+  AppealResolveCard,
+  AppealDecisionCard,
+  LoadingIndicator,
+  ModalHeading,
+  ModalContent,
+  ModalOrderedList,
+  ModalListItem,
+  ModalListItemTypes,
+} from "@joincivil/components";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -20,10 +28,18 @@ const StyledDiv = styled.div`
   color: black;
 `;
 
+enum ModalContentEventNames {
+  GRANT_APPEAL = "GRANT_APPEAL",
+  RESOLVE_APPEAL = "RESOLVE_APPEAL",
+  APPROVE_CHALLENGE_APPEAL = "APPROVE_CHALLENGE_APPEAL",
+  CHALLENGE_APPEAL = "CHALLENGE_APPEAL",
+}
+
 export interface AppealDetailProps {
   listingAddress: EthAddress;
   appeal: AppealData;
   challenge: ChallengeData;
+  challengeState: any;
   govtParameters: any;
   tokenBalance: number;
 }
@@ -35,22 +51,24 @@ class AppealDetail extends React.Component<AppealDetailProps> {
 
   public render(): JSX.Element {
     const appeal = this.props.appeal;
-    const canResolve = canAppealBeResolved(appeal);
-    const canBeChallenged = isAwaitingAppealChallenge(appeal);
+    const { canAppealBeResolved, isAwaitingAppealChallenge } = this.props.challengeState;
     const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
         {!hasAppealChallenge && this.renderAwaitingAppealDecision()}
-        {canBeChallenged && this.renderChallengeAppealStage()}
+        {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
         {appeal.appealChallenge && (
           <AppealChallengeDetail
+            listingAddress={this.props.listingAddress}
+            challenge={this.props.challenge}
+            appeal={this.props.appeal}
             appealChallengeID={appeal.appealChallengeID}
             appealChallenge={appeal.appealChallenge}
             govtParameters={this.props.govtParameters}
             tokenBalance={this.props.tokenBalance}
           />
         )}
-        {canResolve && this.renderCanResolve()}
+        {canAppealBeResolved && this.renderCanResolve()}
       </StyledDiv>
     );
   }
@@ -67,6 +85,25 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const votesAgainst = challenge.poll.votesFor;
     const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100);
     const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100);
+
+    const { isAppealAwaitingJudgment } = this.props.challengeState;
+
+    // @TODO(jon): Check if user is in Civil Council multi-sig
+    let transactions;
+    let modalContentComponents;
+    if (isAppealAwaitingJudgment) {
+      const grantAppealProgressModal = this.renderGrantAppealProgressModal();
+      modalContentComponents = {
+        [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,
+      };
+      transactions = [
+        {
+          transaction: this.grantAppeal,
+          progressEventName: ModalContentEventNames.GRANT_APPEAL,
+        },
+      ];
+    }
+
     return (
       <AppealAwaitingDecisionCard
         endTime={endTime}
@@ -78,20 +115,48 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         votesAgainst={votesAgainst.toString()}
         percentFor={percentFor.toString()}
         percentAgainst={percentAgainst.toString()}
+        transactions={transactions}
+        modalContentComponents={modalContentComponents}
       />
     );
   }
 
   private renderCanResolve(): JSX.Element {
-    return <TransactionButton transactions={[{ transaction: this.resolveAppeal }]}>Resolve Appeal</TransactionButton>;
+    const resolveAppealProgressModal = this.renderResolveAppealProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.RESOLVE_APPEAL]: resolveAppealProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: this.resolveAppeal,
+        progressEventName: ModalContentEventNames.RESOLVE_APPEAL,
+      },
+    ];
+    const appealGranted = this.props.appeal.appealGranted;
+    return (
+      <AppealResolveCard
+        appealGranted={appealGranted}
+        transactions={transactions}
+        modalContentComponents={modalContentComponents}
+      />
+    );
   }
 
   private renderChallengeAppealStage(): JSX.Element {
     const appeal = this.props.appeal;
     const appealGranted = appeal.appealGranted;
+    const approveForChallengeProgressModal = this.getApproveForChallengeProgressModal();
+    const challengeProgressModal = this.getChallengeProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.APPROVE_CHALLENGE_APPEAL]: approveForChallengeProgressModal,
+      [ModalContentEventNames.CHALLENGE_APPEAL]: challengeProgressModal,
+    };
     const transactions = [
-      { transaction: approveForChallengeGrantedAppeal },
-      { transaction: this.challengeGrantedAppeal },
+      {
+        transaction: approveForChallengeGrantedAppeal,
+        progressEventName: ModalContentEventNames.APPROVE_CHALLENGE_APPEAL,
+      },
+      { transaction: this.challengeGrantedAppeal, progressEventName: ModalContentEventNames.CHALLENGE_APPEAL },
     ];
     const endTime = appeal.appealOpenToChallengeExpiry.toNumber();
     const phaseLength = this.props.govtParameters.challengeAppealLen;
@@ -99,11 +164,74 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       <AppealDecisionCard
         endTime={endTime}
         phaseLength={phaseLength}
-        transactions={transactions}
         appealGranted={appealGranted}
+        transactions={transactions}
+        modalContentComponents={modalContentComponents}
       />
     );
   }
+
+  private getApproveForChallengeProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Approving for Challenge</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.FADED}>Challenge Granted Appeal</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private getChallengeProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transactions in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem>Approving for Challenge</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Challenge Granted Appeal</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private renderResolveAppealProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving appeal</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private renderGrantAppealProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Granting appeal</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
+  private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return grantAppeal(this.props.listingAddress);
+  };
 
   private challengeGrantedAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return challengeGrantedAppeal(this.props.listingAddress);

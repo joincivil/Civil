@@ -75,7 +75,7 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
   public render(): JSX.Element {
     return (
       <>
-        <FormHeader>Challenge Results</FormHeader>
+        <FormHeader>{this.props.headerText || "Challenge Results"}</FormHeader>
 
         <VoteTypeSummary>
           <VotesPerTokenContainer>

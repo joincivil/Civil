@@ -30,6 +30,7 @@ export interface ChallengeResultsProps {
   votesAgainst: string;
   percentFor: string;
   percentAgainst: string;
+  headerText?: string;
 }
 
 export interface CommitVoteProps {
@@ -48,4 +49,8 @@ export interface RevealVoteProps {
   transactions: any[];
   modalContentComponents?: any;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
+}
+
+export interface AppealDecisionProps {
+  appealGranted: boolean;
 }

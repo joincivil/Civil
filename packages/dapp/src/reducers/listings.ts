@@ -9,7 +9,7 @@ import {
   isInChallengedCommitVotePhase,
   isInChallengedRevealVotePhase,
   isAwaitingAppealRequest,
-  isAwaitingAppealJudgment,
+  isListingAwaitingAppealJudgment,
   isListingAwaitingAppealChallenge,
   isInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase,
@@ -161,7 +161,7 @@ export function awaitingAppealRequestListings(state: Set<string> = Set<string>()
 export function awaitingAppealJudgmentListings(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
-      if (isAwaitingAppealJudgment(action.data.data)) {
+      if (isListingAwaitingAppealJudgment(action.data.data)) {
         return state.add(action.data.address);
       } else {
         return state.remove(action.data.address);

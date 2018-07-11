@@ -11,6 +11,8 @@ import {
 } from "./styledComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults } from "./ChallengeResults";
+import { buttonSizes } from "../Button";
+import { TransactionInvertedButton } from "../TransactionButton";
 
 export interface AppealProps {
   requester: string;
@@ -46,6 +48,7 @@ export class AppealAwaitingDecisionCard extends React.Component<
             Check back on {localDateTime[0]} for the Civil Council’s decision to reject or grant the appeal. Read more
             for details of this appeal.
           </CTACopy>
+          {this.props.transactions && this.renderGrantAppealButton()}
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <ChallengeResults
@@ -59,4 +62,16 @@ export class AppealAwaitingDecisionCard extends React.Component<
       </StyledListingDetailPhaseCardContainer>
     );
   }
+
+  private renderGrantAppealButton = (): JSX.Element => {
+    return (
+      <TransactionInvertedButton
+        size={buttonSizes.MEDIUM}
+        transactions={this.props.transactions!}
+        modalContentComponents={this.props.modalContentComponents}
+      >
+        Grant Appeal
+      </TransactionInvertedButton>
+    );
+  };
 }

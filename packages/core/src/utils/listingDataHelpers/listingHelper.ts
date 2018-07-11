@@ -1,6 +1,6 @@
 import { ListingData } from "../../types";
 import { isChallengeInCommitStage, isChallengeInRevealStage, canResolveChallenge } from "./challengeHelper";
-import { isAwaitingAppealChallenge, canAppealBeResolved } from "./appealHelper";
+import { isAwaitingAppealChallenge, canAppealBeResolved, isAppealAwaitingJudgment } from "./appealHelper";
 import {
   isAppealChallengeInCommitStage,
   isAppealChallengeInRevealStage,
@@ -21,7 +21,7 @@ export function getNextTimerExpiry(listing: ListingData): number {
     return listing.challenge!.poll.revealEndDate.toNumber();
   } else if (isAwaitingAppealRequest(listing)) {
     return listing.challenge!.requestAppealExpiry.toNumber();
-  } else if (isAwaitingAppealJudgment(listing)) {
+  } else if (isListingAwaitingAppealJudgment(listing)) {
     return listing.challenge!.appeal!.appealPhaseExpiry.toNumber();
   } else if (isListingAwaitingAppealChallenge(listing)) {
     return listing.challenge!.appeal!.appealOpenToChallengeExpiry.toNumber();
@@ -144,21 +144,11 @@ export function canChallengeBeResolved(listingData: ListingData): boolean {
  * Checks if a listing has an appeal that is awaiting judgment
  * @param listingData the ListingData to check
  */
-export function isAwaitingAppealJudgment(listingData: ListingData): boolean {
-  if (listingData.challenge) {
-    if (listingData.challenge.appeal) {
-      if (listingData.challenge.appeal.appealGranted) {
-        return false;
-      } else {
-        const appealExpiryDate = new Date(listingData.challenge.appeal.appealPhaseExpiry.toNumber() * 1000);
-        return appealExpiryDate > new Date();
-      }
-    } else {
-      return false;
-    }
-  } else {
-    return false;
+export function isListingAwaitingAppealJudgment(listingData: ListingData): boolean {
+  if (listingData.challenge && listingData.challenge.appeal) {
+    return isAppealAwaitingJudgment(listingData.challenge.appeal);
   }
+  return false;
 }
 
 /**
