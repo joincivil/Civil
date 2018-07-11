@@ -8,13 +8,16 @@ import {
   MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
-import { buttonSizes, InvertedButton } from "../Button";
+import { buttonSizes } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 
 export class InApplicationResolveCard extends React.Component<ListingDetailPhaseCardComponentProps> {
   public render(): JSX.Element {
     return (
       <StyledListingDetailPhaseCardContainer>
+        <StyledListingDetailPhaseCardSection>
+          <StyledPhaseDisplayName>New Application</StyledPhaseDisplayName>
+        </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <MetaItemValue>1,000 CVL</MetaItemValue>
           <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>

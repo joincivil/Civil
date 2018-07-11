@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, AppealDecisionProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, AppealDecisionProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -15,6 +15,9 @@ export class AppealResolveCard extends React.Component<ListingDetailPhaseCardCom
     const decisionText = this.props.appealGranted ? "grant" : "dismiss";
     return (
       <StyledListingDetailPhaseCardContainer>
+        <StyledListingDetailPhaseCardSection>
+          <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
+        </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>Civil Council Decision</CTACopy>
           <FormCopy>

@@ -1,16 +1,9 @@
 import * as React from "react";
-import {
-  ListingDetailPhaseCardComponentProps,
-  ChallengePhaseProps,
-  ChallengeResultsProps,
-  AppealDecisionProps,
-} from "./types";
+import { ListingDetailPhaseCardComponentProps, ChallengeResultsProps, AppealDecisionProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
   CTACopy,
   FormCopy,
 } from "./styledComponents";
@@ -33,6 +26,9 @@ export class AppealChallengeResolveCard extends React.Component<
     const decisionText = this.props.appealGranted ? "grant" : "dismiss";
     return (
       <StyledListingDetailPhaseCardContainer>
+        <StyledListingDetailPhaseCardSection>
+          <StyledPhaseDisplayName>Challenge Granted Appeal</StyledPhaseDisplayName>
+        </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>Civil Council Decision</CTACopy>
           <FormCopy>
