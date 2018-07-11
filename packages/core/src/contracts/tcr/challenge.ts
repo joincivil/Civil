@@ -55,7 +55,7 @@ export class Challenge {
     return challengeEvent.args.listingAddress;
   }
 
-  public async getChallengeURI(): Promise<EthAddress> {
+  private async getChallengeURI(): Promise<EthAddress> {
     const challengeEvent = await this.tcrInstance
       ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 })
       .first()
