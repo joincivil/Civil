@@ -81,10 +81,16 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const endTime = appeal.appealPhaseExpiry.toNumber();
     const phaseLength = this.props.govtParameters.judgeAppealLen;
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = challenge.poll.votesFor;
-    const votesAgainst = challenge.poll.votesFor;
-    const percentFor = challenge.poll.votesFor.div(totalVotes).mul(100);
-    const percentAgainst = challenge.poll.votesAgainst.div(totalVotes).mul(100);
+    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
 
     const { isAppealAwaitingJudgment } = this.props.challengeState;
 
@@ -110,9 +116,9 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         phaseLength={phaseLength}
         requester={requester}
         appealFeePaid={appealFeePaid}
-        totalVotes={totalVotes.toString()}
-        votesFor={votesFor.toString()}
-        votesAgainst={votesAgainst.toString()}
+        totalVotes={getFormattedTokenBalance(totalVotes)}
+        votesFor={votesFor}
+        votesAgainst={votesAgainst}
         percentFor={percentFor.toString()}
         percentAgainst={percentAgainst.toString()}
         transactions={transactions}
@@ -132,9 +138,26 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         progressEventName: ModalContentEventNames.RESOLVE_APPEAL,
       },
     ];
+    const challenge = this.props.challenge;
     const appealGranted = this.props.appeal.appealGranted;
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
     return (
       <AppealResolveCard
+        totalVotes={getFormattedTokenBalance(totalVotes)}
+        votesFor={votesFor}
+        votesAgainst={votesAgainst}
+        percentFor={percentFor.toString()}
+        percentAgainst={percentAgainst.toString()}
         appealGranted={appealGranted}
         transactions={transactions}
         modalContentComponents={modalContentComponents}
@@ -143,6 +166,18 @@ class AppealDetail extends React.Component<AppealDetailProps> {
   }
 
   private renderChallengeAppealStage(): JSX.Element {
+    const challenge = this.props.challenge;
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
     const appeal = this.props.appeal;
     const appealGranted = appeal.appealGranted;
     const approveForChallengeProgressModal = this.getApproveForChallengeProgressModal();
@@ -164,6 +199,11 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       <AppealDecisionCard
         endTime={endTime}
         phaseLength={phaseLength}
+        totalVotes={getFormattedTokenBalance(totalVotes)}
+        votesFor={votesFor}
+        votesAgainst={votesAgainst}
+        percentFor={percentFor.toString()}
+        percentAgainst={percentAgainst.toString()}
         appealGranted={appealGranted}
         transactions={transactions}
         modalContentComponents={modalContentComponents}

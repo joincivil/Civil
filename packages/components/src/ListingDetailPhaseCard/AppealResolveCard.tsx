@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, AppealDecisionProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, AppealDecisionProps, ChallengeResultsProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -9,14 +9,26 @@ import {
 } from "./styledComponents";
 import { buttonSizes, Button } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
+import { ChallengeResults } from "./ChallengeResults";
 
-export class AppealResolveCard extends React.Component<ListingDetailPhaseCardComponentProps & AppealDecisionProps> {
+export class AppealResolveCard extends React.Component<
+  ListingDetailPhaseCardComponentProps & AppealDecisionProps & ChallengeResultsProps
+> {
   public render(): JSX.Element {
     const decisionText = this.props.appealGranted ? "grant" : "dismiss";
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <ChallengeResults
+            totalVotes={this.props.totalVotes}
+            votesFor={this.props.votesFor}
+            votesAgainst={this.props.votesAgainst}
+            percentFor={this.props.percentFor}
+            percentAgainst={this.props.percentAgainst}
+          />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>Civil Council Decision</CTACopy>

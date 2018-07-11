@@ -4,14 +4,17 @@ import styled from "styled-components";
 import StoryRouter from "storybook-react-router";
 import {
   InApplicationCard,
+  InApplicationResolveCard,
   ChallengeCommitVoteCard,
   ChallengeRevealVoteCard,
   ChallengeRequestAppealCard,
   ChallengeResolveCard,
   AppealAwaitingDecisionCard,
   AppealDecisionCard,
+  AppealResolveCard,
   AppealChallengeCommitVoteCard,
   AppealChallengeRevealVoteCard,
+  AppealChallengeResolveCard,
   WhitelistedCard,
   RejectedCard,
 } from "./index";
@@ -69,6 +72,9 @@ storiesOf("Listing Details Phase Card", module)
         )}
       </Container>
     );
+  })
+  .add("Resolve Application", () => {
+    return <Container>{process.env.NODE_ENV !== "test" && <InApplicationResolveCard transactions={[]} />}</Container>;
   })
   .add("Under Challenge: Commit Vote", () => {
     return (
@@ -159,6 +165,27 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            transactions={[]}
+          />
+        )}
+      </Container>
+    );
+  })
+  .add("Under Appeal: Awaiting Appeal Decision, Civil Council Multisig", () => {
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <AppealAwaitingDecisionCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            requester={requester}
+            appealFeePaid={appealFeePaid}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            transactions={[]}
           />
         )}
       </Container>
@@ -168,7 +195,34 @@ storiesOf("Listing Details Phase Card", module)
     return (
       <Container>
         {process.env.NODE_ENV !== "test" && (
-          <AppealDecisionCard endTime={endTime} phaseLength={phaseLength} appealGranted={true} transactions={[]} />
+          <AppealDecisionCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            appealGranted={true}
+            transactions={[]}
+          />
+        )}
+      </Container>
+    );
+  })
+  .add("Under Appeal: Resolve", () => {
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <AppealResolveCard
+            appealGranted={true}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            transactions={[]}
+          />
         )}
       </Container>
     );
@@ -205,6 +259,28 @@ storiesOf("Listing Details Phase Card", module)
             stake={stake}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
+            transactions={[]}
+          />
+        )}
+      </Container>
+    );
+  })
+  .add("Appeal Challenge: Resolve", () => {
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <AppealChallengeResolveCard
+            appealGranted={true}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            appealChallengeTotalVotes={totalVotes}
+            appealChallengeVotesFor={votesFor}
+            appealChallengeVotesAgainst={votesAgainst}
+            appealChallengePercentFor={percentFor}
+            appealChallengePercentAgainst={percentAgainst}
             transactions={[]}
           />
         )}
