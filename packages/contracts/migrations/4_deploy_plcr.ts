@@ -21,7 +21,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       tokenAddress = Token.address;
     }
     await deployer.deploy(PLCRVoting);
-    await PLCRVoting.init(tokenAddress);
+    const plcr = await PLCRVoting.at(PLCRVoting.address);
+    await plcr.init(tokenAddress);
 
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), PLCRVoting.address);
