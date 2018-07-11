@@ -1,5 +1,14 @@
 import * as React from "react";
-import { FormHeading, StepProcess, Modal, ModalContent, Button, buttonSizes } from "@joincivil/components";
+import {
+  FormHeading,
+  StepProcess,
+  Modal,
+  ModalContent,
+  Button,
+  buttonSizes,
+  colors,
+  ButtonTheme,
+} from "@joincivil/components";
 import { NameAndAddress } from "./NameAndAddress";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { connect, DispatchProp } from "react-redux";
@@ -10,9 +19,9 @@ import { SignConstitution } from "./SignConstitution";
 import { CreateCharter } from "./CreateCharter";
 import { ApplyToTCR } from "./ApplyToTCR";
 import { CivilContext } from "./CivilContext";
+import styled, { ThemeProvider, StyledComponentClass } from "styled-components";
 
 export interface NewsroomComponentState {
-  modalOpen: boolean;
   currentStep: number;
 }
 
@@ -23,16 +32,26 @@ export interface NewsroomProps {
   disabled?: boolean;
   network?: string;
   civil?: Civil;
+  theme?: ButtonTheme;
+  renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
   getNameForAddress?(address: EthAddress): Promise<string>;
 }
 
+export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
+  font-style: italic;
+  color: ${colors.accent.CIVIL_GRAY_2};
+`;
+
+export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+  max-width: 750px;
+`;
+
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
   constructor(props: NewsroomProps) {
     super(props);
     this.state = {
-      modalOpen: !JSON.parse(window.localStorage.getItem("civil:hasSeenWelcomeModal") || "false"),
       currentStep: props.address ? 1 : 0,
     };
   }
@@ -53,53 +72,41 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   }
 
-  public renderModal(): JSX.Element {
-    return (
-      <Modal>
-        <FormHeading>Welcome</FormHeading>
-        <ModalContent>Welcome to our newsroom setup guide</ModalContent>
-        <ModalContent>
-          Here, you'll be going through the steps to set up your newsroom smart contract so that you can publish on
-          Civil and make use of blockchain features such as permananet archiving.
-        </ModalContent>
-        <ModalContent>
-          You'll need to use either Chrome, Brave, or Firefox as your browser and have MetaMask installed. You'll also
-          need the public keys (wallet addresses) of your newsroom co-owners and of your editors, as well as your
-          newsroom charter.
-        </ModalContent>
-        <ModalContent>
-          If you're not sure about some of the above, don't worry, we'll point you to some resources. Let's go!
-        </ModalContent>
-        <Button onClick={this.onModalClose} size={buttonSizes.MEDIUM}>
-          Get Started
-        </Button>
-      </Modal>
-    );
-  }
-
   public render(): JSX.Element {
     return (
-      <>
-        <FormHeading>Newsroom Application</FormHeading>
-        <p>Set up your newsroom smart contract and get started publishing on Civil.</p>
-        <CivilContext.Provider value={{ civil: this.props.civil, network: this.props.network || "rinkeby" }}>
-          <StepProcess disabled={this.isDisabled()} stepIsDisabled={this.isStepDisabled}>
-            <NameAndAddress
-              active={this.state.currentStep}
-              onNewsroomCreated={this.onNewsroomCreated}
-              name={this.props.name}
-              address={this.props.address}
-              txHash={this.props.txHash}
-              onContractDeployStarted={this.props.onContractDeployStarted}
-            />
-            <CompleteYourProfile active={this.state.currentStep} address={this.props.address} />
-            <CreateCharter />
-            <SignConstitution address={this.props.address} active={this.state.currentStep} />
-            <ApplyToTCR />
-          </StepProcess>
-        </CivilContext.Provider>
-        {this.state.modalOpen && !this.props.address && this.renderModal()}
-      </>
+      <ThemeProvider theme={this.props.theme}>
+        <Wrapper>
+          <FormHeading>Newsroom Smart Contract</FormHeading>
+          <p>
+            Here are the steps to set up your newsroom smart contract. You'll be able to use Civil's blockchain features
+            such as indexing and signing posts.
+          </p>
+          <NoteSection>
+            Note: Each step will involve a transaction from your wallet, which will open in a new pop-up window in
+            MetaMask. You'll need to confirm the transaction
+          </NoteSection>
+          <CivilContext.Provider value={{ civil: this.props.civil, network: this.props.network || "rinkeby" }}>
+            <StepProcess disabled={this.isDisabled()} stepIsDisabled={this.isStepDisabled}>
+              <NameAndAddress
+                active={this.state.currentStep}
+                onNewsroomCreated={this.onNewsroomCreated}
+                name={this.props.name}
+                address={this.props.address}
+                txHash={this.props.txHash}
+                onContractDeployStarted={this.props.onContractDeployStarted}
+              />
+              <CompleteYourProfile
+                active={this.state.currentStep}
+                address={this.props.address}
+                renderUserSearch={this.props.renderUserSearch}
+              />
+              <CreateCharter />
+              <SignConstitution address={this.props.address} active={this.state.currentStep} />
+              <ApplyToTCR />
+            </StepProcess>
+          </CivilContext.Provider>
+        </Wrapper>
+      </ThemeProvider>
     );
   }
 
@@ -137,11 +144,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
-  };
-
-  private onModalClose = () => {
-    this.setState({ modalOpen: false });
-    window.localStorage.setItem("civil:hasSeenWelcomeModal", "true");
   };
 }
 

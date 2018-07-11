@@ -1,17 +1,20 @@
 import * as React from "react";
 import styled from "styled-components";
-import { TransactionButton, Transaction } from "./TransactionButton";
+import { TransactionButton, Transaction, TransactionButtonModalContentComponentsProps, TransactionButtonNoModal } from "./TransactionButton";
 import { Civil } from "@joincivil/core";
 import { buttonSizes } from "./Button";
 import { fonts, colors } from "./styleConstants";
 import { debounce } from "lodash";
+import { QuestionToolTip } from "./QuestionToolTip";
 
 export interface DetailTransactionButtonProps {
   civil?: Civil;
   transactions: Transaction[];
   estimateFunctions?: Array<() => Promise<number>>;
   requiredNetwork: string;
-  progressModal?: JSX.Element;
+  noModal?: boolean;
+  size?: buttonSizes;
+  preExecuteTransactions?(): any;
 }
 
 export interface DetailTransactionButtonState {
@@ -24,7 +27,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: top;
   margin-bottom: 15px;
 `;
 
@@ -34,15 +37,20 @@ const DetailSection = styled.div`
 
 const SmallHeader = styled.h4`
   font-family: ${fonts.SANS_SERIF};
-  font-weight: 600;
+  font-weight: 500;
   font-size: 14px;
   margin-bottom: 10px;
+  margin-top: 0px;
 `;
 
 const SmallText = styled.p`
   font-family: ${fonts.SANS_SERIF};
-  font-size: 11px;
+  color: ${colors.accent.CIVIL_GRAY_2};
+  font-size: 13px;
   line-height: 18px;
+  display: flex;
+  align-items: center;
+  margin: 0;
 `;
 
 const Link = styled.a`
@@ -51,6 +59,20 @@ const Link = styled.a`
   text-decoration: none;
   font-weight: 600;
   color: ${colors.primary.CIVIL_BLUE_1};
+`;
+
+const ToolTipLink = styled.a`
+  color: ${colors.basic.WHITE};
+`;
+
+const PopUpWarning = styled.p`
+  color: ${colors.accent.CIVIL_GRAY_2};
+  font-size: 12px;
+`;
+
+const ButtonWrapper = styled.div`
+  text-align: center;
+  max-width: 200px;
 `;
 
 export class DetailTransactionButton extends React.Component<
@@ -99,12 +121,16 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public render(): JSX.Element {
+    const TransactionButtonComponent = this.props.noModal ? TransactionButtonNoModal : TransactionButton;
     return (
       <Wrapper>
         {this.renderDetails()}
-        <TransactionButton size={buttonSizes.SMALL} disabled={this.isDisabled()} transactions={this.props.transactions}>
-          {this.props.children}
-        </TransactionButton>
+        <ButtonWrapper>
+          <TransactionButtonComponent preExecuteTransactions={this.props.preExecuteTransactions} size={this.props.size || buttonSizes.SMALL} disabled={this.isDisabled()} transactions={this.props.transactions}>
+            {this.props.children}
+          </TransactionButtonComponent>
+          <PopUpWarning>This will open a pop-up to confirm your transaction.</PopUpWarning>
+        </ButtonWrapper>
       </Wrapper>
     );
   }
@@ -154,7 +180,7 @@ export class DetailTransactionButton extends React.Component<
     } else if (this.state.priceFailed) {
       return <SmallText>Could not estimate cost.</SmallText>;
     } else {
-      return <SmallText>Estimate Cost: {this.state.price.toFixed(5)} ETH</SmallText>;
+      return <SmallText>ETH: {this.state.price.toFixed(5)}</SmallText>;
     }
   }
 
@@ -162,6 +188,7 @@ export class DetailTransactionButton extends React.Component<
     return (
       <DetailSection>
         <SmallHeader>Wallet Connected</SmallHeader>
+        <SmallText>Estimated Cost <QuestionToolTip explainerText={<>Current Prices based on <ToolTipLink href="https://ethgasstation.info/" target="_blank">https://ethgasstation.info/</ToolTipLink></>}/></SmallText>
         {this.renderCostsEstimates()}
       </DetailSection>
     );
