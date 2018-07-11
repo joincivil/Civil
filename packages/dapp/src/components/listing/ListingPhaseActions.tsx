@@ -141,7 +141,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       },
     ];
     const constitutionURI = this.props.constitutionURI;
-    const minDeposit = getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit), true);
+    const minDeposit = getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit));
     const dispensationPct = `${this.props.parameters.dispensationPct}%`;
     const props: SubmitChallengeModalProps = {
       open: this.state.isChallengeModalOpen,

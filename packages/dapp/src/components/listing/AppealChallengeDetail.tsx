@@ -9,12 +9,14 @@ import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { AppealChallengeCommitVoteCard, AppealChallengeRevealVoteCard } from "@joincivil/components";
 import { commitVote, requestVotingRights, revealVote } from "../../apis/civilTCR";
+import { fetchSalt } from "../../helpers/salt";
 
 export interface AppealChallengeDetailProps {
   appealChallengeID: BigNumber;
   appealChallenge: AppealChallengeData;
   govtParameters: any;
   tokenBalance: number;
+  user: any;
 }
 
 export interface ChallengeVoteState {
@@ -26,6 +28,10 @@ export interface ChallengeVoteState {
 class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, ChallengeVoteState> {
   constructor(props: AppealChallengeDetailProps) {
     super(props);
+
+    this.state = {
+      salt: fetchSalt(this.props.appealChallengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
+    };
   }
 
   public render(): JSX.Element {

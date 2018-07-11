@@ -142,6 +142,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challenge={challenge}
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
+        user={this.props.user}
       />
     );
   }

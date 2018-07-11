@@ -26,6 +26,7 @@ export interface AppealDetailProps {
   challenge: ChallengeData;
   govtParameters: any;
   tokenBalance: number;
+  user: any; // TODO(jorge): What type is user?
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -48,6 +49,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
             appealChallenge={appeal.appealChallenge}
             govtParameters={this.props.govtParameters}
             tokenBalance={this.props.tokenBalance}
+            user={this.props.user}
           />
         )}
         {canResolve && this.renderCanResolve()}
