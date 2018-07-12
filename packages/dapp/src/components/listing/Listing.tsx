@@ -85,6 +85,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
               <ListingPhaseActions
                 listing={this.props.listing!}
                 expiry={this.props.expiry}
+                listingPhaseState={this.props.listingPhaseState}
                 parameters={this.props.parameters}
                 govtParameters={this.props.govtParameters}
                 constitutionURI={this.props.constitutionURI}
