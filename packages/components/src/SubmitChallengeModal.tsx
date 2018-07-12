@@ -11,6 +11,8 @@ import { buttonSizes, CancelButton } from "./Button";
 import { TransactionButton } from "./TransactionButton";
 import { colors, fonts } from "./styleConstants";
 
+const SUMMARY_MAX_LENGTH = 120;
+
 export interface CloseModalButtonProps {
   onClick(): void;
 }
@@ -88,11 +90,13 @@ export interface SubmitChallengeModalProps {
   transactions: any[];
   modalContentComponents?: { [index: string]: JSX.Element };
   updateStatementValue(value: any): void;
+  updateStatementSummaryValue(value: any): void;
   handleClose?(): void;
   postExecuteTransactions?(): void;
 }
 
 export interface SubmitChallengeModalState {
+  summaryValue: any;
   value: any;
 }
 
@@ -103,6 +107,7 @@ export class SubmitChallengeModal extends React.Component<
   constructor(props: SubmitChallengeModalProps) {
     super(props);
     this.state = {
+      summaryValue: RichTextEditor.createEmptyValue(),
       value: RichTextEditor.createEmptyValue(),
     };
   }
@@ -142,6 +147,11 @@ export class SubmitChallengeModal extends React.Component<
     this.props.updateStatementValue(value);
   };
 
+  public handleSummaryValueChange = (summaryValue: any) => {
+    this.setState({ summaryValue });
+    this.props.updateStatementSummaryValue(summaryValue);
+  };
+
   private closeModal = () => {
     if (this.props.handleClose) {
       this.props.handleClose();
@@ -152,8 +162,20 @@ export class SubmitChallengeModal extends React.Component<
     return (
       <StepStyledFluid index={this.props.index || 0}>
         <ModalSectionHeader>State reasons for your challenge</ModalSectionHeader>
+        <CopyLarge>Enter a summary of the reasons for your challenge (Max 120 characters)</CopyLarge>
+        <SectionFormOuter>
+          <FormInputGroup>
+            <RichTextEditor
+              value={this.state.summaryValue}
+              onChange={this.handleSummaryValueChange}
+              handleBeforeInput={this.handleBeforeInput}
+              handlePastedText={this.handlePastedText}
+            />
+          </FormInputGroup>
+        </SectionFormOuter>
+
         <CopyLarge>
-          State reasons why you are challenging this Newsroom. If possible,{" "}
+          State reasons why you are challenging this Newsroom. Please include as much detail as possible, and{" "}
           <a href={this.props.constitutionURI} target="_blank">
             provide evidence
           </a>{" "}
@@ -166,6 +188,45 @@ export class SubmitChallengeModal extends React.Component<
         </SectionFormOuter>
       </StepStyledFluid>
     );
+  };
+
+  private getLengthOfSelectedText = () => {
+    const currentSelection = this.state.summaryValue.getEditorState().getSelection();
+    const isCollapsed = currentSelection.isCollapsed();
+
+    let length = 0;
+
+    if (!isCollapsed) {
+      const currentContent = this.state.summaryValue.getCurrentContent();
+      const startKey = currentSelection.getStartKey();
+      const endKey = currentSelection.getEndKey();
+      const startBlock = currentContent.getBlockForKey(startKey);
+      const isStartAndEndBlockAreTheSame = startKey === endKey;
+      const startBlockTextLength = startBlock.getLength();
+      const startSelectedTextLength = startBlockTextLength - currentSelection.getStartOffset();
+      const endSelectedTextLength = currentSelection.getEndOffset();
+      const keyAfterEnd = currentContent.getKeyAfter(endKey);
+      console.log(currentSelection);
+      if (isStartAndEndBlockAreTheSame) {
+        length += currentSelection.getEndOffset() - currentSelection.getStartOffset();
+      } else {
+        let currentKey = startKey;
+
+        while (currentKey && currentKey !== keyAfterEnd) {
+          if (currentKey === startKey) {
+            length += startSelectedTextLength + 1;
+          } else if (currentKey === endKey) {
+            length += endSelectedTextLength;
+          } else {
+            length += currentContent.getBlockForKey(currentKey).getLength() + 1;
+          }
+
+          currentKey = currentContent.getKeyAfter(currentKey);
+        }
+      }
+    }
+
+    return length;
   };
 
   private renderChallengeForm = (): JSX.Element => {
@@ -195,5 +256,29 @@ export class SubmitChallengeModal extends React.Component<
         </PullRight>
       </StepStyledFluid>
     );
+  };
+
+  private handleBeforeInput = () => {
+    const currentContent = this.state.summaryValue.getEditorState().getCurrentContent();
+    const currentContentLength = currentContent.getPlainText("").length;
+    const selectedTextLength = this.getLengthOfSelectedText();
+
+    if (currentContentLength - selectedTextLength > SUMMARY_MAX_LENGTH - 1) {
+      console.log("You can type max", SUMMARY_MAX_LENGTH, "characters");
+
+      return "handled";
+    }
+  };
+
+  private handlePastedText = (pastedText: string) => {
+    const currentContent = this.state.summaryValue.getEditorState().getCurrentContent();
+    const currentContentLength = currentContent.getPlainText("").length;
+    const selectedTextLength = this.getLengthOfSelectedText();
+
+    if (currentContentLength + pastedText.length - selectedTextLength > SUMMARY_MAX_LENGTH) {
+      console.log("You can type max", SUMMARY_MAX_LENGTH, "characters");
+
+      return "handled";
+    }
   };
 }
