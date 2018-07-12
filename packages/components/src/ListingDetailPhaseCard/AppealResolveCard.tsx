@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, ChallengeResultsProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, AppealDecisionProps, ChallengeResultsProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -8,16 +8,11 @@ import {
   FormCopy,
 } from "./styledComponents";
 import { buttonSizes, Button } from "../Button";
-import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ChallengeResults } from "./ChallengeResults";
 
-export interface AppealDecisionProps {
-  appealGranted: boolean;
-}
-
-export class AppealDecisionCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & AppealDecisionProps & ChallengeResultsProps
+export class AppealResolveCard extends React.Component<
+  ListingDetailPhaseCardComponentProps & AppealDecisionProps & ChallengeResultsProps
 > {
   public render(): JSX.Element {
     const decisionText = this.props.appealGranted ? "grant" : "dismiss";
@@ -25,12 +20,6 @@ export class AppealDecisionCard extends React.Component<
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
-            endTime={this.props.endTime}
-            totalSeconds={this.props.phaseLength}
-            displayLabel="Request to challenge Council's decision"
-            flavorText="under Appeal to Council"
-          />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <ChallengeResults
@@ -50,16 +39,12 @@ export class AppealDecisionCard extends React.Component<
           <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>
-            If you believe this newsroom does not align with the Civil Constitution, you may challenge the Council’s
-            decision.
-          </CTACopy>
           <TransactionInvertedButton
             size={buttonSizes.MEDIUM}
             transactions={this.props.transactions!}
             modalContentComponents={this.props.modalContentComponents}
           >
-            Submit a Challenge
+            Resolve Appeal
           </TransactionInvertedButton>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>

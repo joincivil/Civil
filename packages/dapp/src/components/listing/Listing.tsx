@@ -4,6 +4,7 @@ import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
 import ListingPhaseActions from "./ListingPhaseActions";
+import ListingChallengeStatement from "./ListingChallengeStatement";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
@@ -12,6 +13,7 @@ import { NewsroomState } from "@joincivil/newsroom-manager";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
 
 import styled from "styled-components";
+import { ViewModule } from "../utility/ViewModules";
 const GridRow = styled.div`
   display: flex;
   margin: 0 auto;
@@ -72,7 +74,10 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
             <ListingHistory listing={this.props.listingAddress} />
-            <ListingDiscourse />
+            <ViewModule>
+              <ListingChallengeStatement listing={this.props.listingAddress} />
+              <ListingDiscourse />
+            </ViewModule>
           </LeftShark>
 
           <RightShark>
@@ -80,6 +85,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
               <ListingPhaseActions
                 listing={this.props.listing!}
                 expiry={this.props.expiry}
+                listingPhaseState={this.props.listingPhaseState}
                 parameters={this.props.parameters}
                 govtParameters={this.props.govtParameters}
                 constitutionURI={this.props.constitutionURI}
