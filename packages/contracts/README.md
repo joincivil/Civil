@@ -4,7 +4,19 @@ Smart-contracts that build the kernel of the protocol and ecosystem of Civil in 
 
 ## Note
 
-In order to generate documentation of Smart-contracts, we use a version of `doxity` forked from `0x`. Unfortunately, this tool is buggy and fails on contracts that try to import from folders outside the contrats folder. Thus, rather than being able to simply install Open Zeppelin contracts via NPM, and install EthPM packages via `truffle install`, we have copied the needed contracts into our repo (relevant folders are `zeppelin-solidity` and `installed_contracts`). Contracts within these folders are not checked for code coverage, as they are widely used across the Ethereum ecosystem already.
+To support our code coverage and documentation generation tools (`solcover` and `doxity` respectively), which cannot correctly instrument and parse contracts that import files added to this repo via EPM, we have brought several contracts in via EPM and then moved them into the `/contracts/installed_contracts` folder. We have also modified the import paths of those files appropriately but otherwise there are no changes. The contracts originally brought in via EPM are:
+
+AttributeStore.sol (package: `attrstore @ v1.0.0`)
+DLL.sol (package: `dll @ v1.0.3`)
+ERC20Interface.sol (package: `tokens @ v1.0.0`)
+ERC20.sol (package: `tokens @ v1.0.0`)
+PLCRVoting.sol (package: `plcr-revival @ v1.3.0`)
+
+For the same reason, we have brought several files from OpenZeppelin originally added via NPM into the `contracts/zeppelin-solidity` folder. Those contracts are:
+
+ECRecovery.sol
+Ownable.sol
+SafeMath.sol
 
 ## Usage
 

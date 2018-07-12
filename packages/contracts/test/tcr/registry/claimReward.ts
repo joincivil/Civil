@@ -5,7 +5,7 @@ import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const Token = artifacts.require("EIP20");
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 configureChai(chai);
 const expect = chai.expect;
