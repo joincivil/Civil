@@ -9,7 +9,6 @@ import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { AppealChallengeCommitVoteCard, AppealChallengeRevealVoteCard } from "@joincivil/components";
 import { commitVote, requestVotingRights, revealVote } from "../../apis/civilTCR";
-import { fetchSalt } from "../../helpers/salt";
 
 export interface AppealChallengeDetailProps {
   appealChallengeID: BigNumber;
