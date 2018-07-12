@@ -22,6 +22,7 @@ import {
   ModalListItemTypes,
 } from "@joincivil/components";
 import { commitVote, requestVotingRights, revealVote, updateStatus } from "../../apis/civilTCR";
+import { fetchSalt } from "../../helpers/salt";
 
 export enum ModalContentEventNames {
   REQUEST_VOTING_RIGHTS = "REQUEST_VOTING_RIGHTS",
