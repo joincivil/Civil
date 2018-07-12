@@ -9,8 +9,12 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-`
+`;
 
 storiesOf("QuestionToolTip", module).add("tooltip", () => {
-  return <Wrapper><QuestionToolTip explainerText={"this is a tool tip"}/></Wrapper>;
+  return (
+    <Wrapper>
+      <QuestionToolTip explainerText={"this is a tool tip"} />
+    </Wrapper>
+  );
 });
