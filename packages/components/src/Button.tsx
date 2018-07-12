@@ -25,7 +25,7 @@ export interface ButtonProps {
 export interface ButtonTheme {
   primaryButtonBackground?: string;
   primaryButtonColor?: string;
-  primaryButtonHoverBrackground?: string;
+  primaryButtonHoverBackground?: string;
   primaryButtonDisabledBackground?: string;
   primaryButtonDisabledColor?: string;
   invertedButtonBackground?: string;
@@ -96,10 +96,10 @@ export const Button = BaseButton.extend`
   color: ${props => props.theme.primaryButtonColor};
   text-transform: uppercase;
   &:hover {
-    background-color: ${props => props.theme.primaryButtonHoverBrackground};
+    background-color: ${props => props.theme.primaryButtonHoverBackground};
   }
   :disabled {
-    background-color: ${props => props.theme.primaryButtonHoverBrackground};
+    background-color: ${props => props.theme.primaryButtonHoverBackground};
     color: ${props => props.theme.primaryButtonDisabledColor};
   }
 `;
@@ -108,7 +108,7 @@ Button.defaultProps = {
   theme: {
     primaryButtonBackground: colors.accent.CIVIL_BLUE,
     primaryButtonColor: colors.basic.WHITE,
-    primaryButtonHoverBrackground: colors.accent.CIVIL_BLUE_FADED,
+    primaryButtonHoverBackground: colors.accent.CIVIL_BLUE_FADED,
     primaryButtonDisabledBackground: colors.accent.CIVIL_BLUE_VERY_FADED,
     primaryButtonDisabledColor: colors.basic.WHITE,
   },
