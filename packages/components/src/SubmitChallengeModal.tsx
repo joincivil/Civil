@@ -6,7 +6,7 @@ import { Heading } from "./Heading";
 import { StepProcess, StepProps } from "./StepProcess";
 import { SectionHeader } from "./StepProcess/StepHeader";
 import { StepStyledFluid } from "./StepProcess/StepStyled";
-import { InputGroup } from "./input";
+import { InputGroup, TextareaInput } from "./input";
 import { buttonSizes, CancelButton } from "./Button";
 import { TransactionButton } from "./TransactionButton";
 import { colors, fonts } from "./styleConstants";
@@ -165,11 +165,11 @@ export class SubmitChallengeModal extends React.Component<
         <CopyLarge>Enter a summary of the reasons for your challenge (Max 120 characters)</CopyLarge>
         <SectionFormOuter>
           <FormInputGroup>
-            <RichTextEditor
+            <TextareaInput
+              name="challenge_statement_summary"
               value={this.state.summaryValue}
               onChange={this.handleSummaryValueChange}
-              handleBeforeInput={this.handleBeforeInput}
-              handlePastedText={this.handlePastedText}
+              maxLength={SUMMARY_MAX_LENGTH.toString()}
             />
           </FormInputGroup>
         </SectionFormOuter>
@@ -188,97 +188,5 @@ export class SubmitChallengeModal extends React.Component<
         </SectionFormOuter>
       </StepStyledFluid>
     );
-  };
-
-  private getLengthOfSelectedText = () => {
-    const currentSelection = this.state.summaryValue.getEditorState().getSelection();
-    const isCollapsed = currentSelection.isCollapsed();
-
-    let length = 0;
-
-    if (!isCollapsed) {
-      const currentContent = this.state.summaryValue.getCurrentContent();
-      const startKey = currentSelection.getStartKey();
-      const endKey = currentSelection.getEndKey();
-      const startBlock = currentContent.getBlockForKey(startKey);
-      const isStartAndEndBlockAreTheSame = startKey === endKey;
-      const startBlockTextLength = startBlock.getLength();
-      const startSelectedTextLength = startBlockTextLength - currentSelection.getStartOffset();
-      const endSelectedTextLength = currentSelection.getEndOffset();
-      const keyAfterEnd = currentContent.getKeyAfter(endKey);
-      console.log(currentSelection);
-      if (isStartAndEndBlockAreTheSame) {
-        length += currentSelection.getEndOffset() - currentSelection.getStartOffset();
-      } else {
-        let currentKey = startKey;
-
-        while (currentKey && currentKey !== keyAfterEnd) {
-          if (currentKey === startKey) {
-            length += startSelectedTextLength + 1;
-          } else if (currentKey === endKey) {
-            length += endSelectedTextLength;
-          } else {
-            length += currentContent.getBlockForKey(currentKey).getLength() + 1;
-          }
-
-          currentKey = currentContent.getKeyAfter(currentKey);
-        }
-      }
-    }
-
-    return length;
-  };
-
-  private renderChallengeForm = (): JSX.Element => {
-    // TODO(jon): Add DetailTransactionButton with estimate functon
-    return (
-      <StepStyledFluid index={this.props.index || 0}>
-        <ModalSectionHeader>Deposit CVL tokens for your challenge</ModalSectionHeader>
-        <CopyLarge>
-          This challenge requires a deposit of 1,000 CVL tokens. If you don’t have enough CVL tokens,{" "}
-          <a href="#">buy more here</a>.
-        </CopyLarge>
-        <InputGroup name="challenge_deposit" prepend="CVL" readOnly={true} value={this.props.minDeposit} />
-        <CopyHelper>Your percentage reward if successful is {this.props.dispensationPct}</CopyHelper>
-        <PullRight>
-          <CancelButtonWithMargin size={buttonSizes.MEDIUM} onClick={this.closeModal}>
-            Cancel
-          </CancelButtonWithMargin>
-
-          <TransactionButton
-            size={buttonSizes.MEDIUM}
-            modalContentComponents={this.props.modalContentComponents}
-            transactions={this.props.transactions}
-            postExecuteTransactions={this.props.postExecuteTransactions}
-          >
-            Submit Challenge
-          </TransactionButton>
-        </PullRight>
-      </StepStyledFluid>
-    );
-  };
-
-  private handleBeforeInput = () => {
-    const currentContent = this.state.summaryValue.getEditorState().getCurrentContent();
-    const currentContentLength = currentContent.getPlainText("").length;
-    const selectedTextLength = this.getLengthOfSelectedText();
-
-    if (currentContentLength - selectedTextLength > SUMMARY_MAX_LENGTH - 1) {
-      console.log("You can type max", SUMMARY_MAX_LENGTH, "characters");
-
-      return "handled";
-    }
-  };
-
-  private handlePastedText = (pastedText: string) => {
-    const currentContent = this.state.summaryValue.getEditorState().getCurrentContent();
-    const currentContentLength = currentContent.getPlainText("").length;
-    const selectedTextLength = this.getLengthOfSelectedText();
-
-    if (currentContentLength + pastedText.length - selectedTextLength > SUMMARY_MAX_LENGTH) {
-      console.log("You can type max", SUMMARY_MAX_LENGTH, "characters");
-
-      return "handled";
-    }
   };
 }

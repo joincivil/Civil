@@ -31,7 +31,7 @@ export interface ListingPhaseActionsProps {
 export interface ListingPhaseActionsState {
   isChallengeModalOpen?: boolean;
   challengeStatement?: any;
-  challengeSummaryStatement?: any;
+  challengeSummaryStatement?: string;
 }
 
 enum ModalContentEventNames {
@@ -246,7 +246,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   // Transactions
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const statement = this.state.challengeStatement.toString("html");
-    const summary = this.state.challengeSummaryStatement.toString("html");
+    const summary = this.state.challengeSummaryStatement;
     const jsonToSave = { statement, summary };
     return challengeListing(this.props.listing.address, JSON.stringify(jsonToSave));
   };
