@@ -10,6 +10,7 @@ import {
   ListingWrapper,
   WrappedChallengeData,
 } from "@joincivil/core";
+import { NewsroomState } from "@joincivil/newsroom-manager";
 
 // @TODO(jon): Export this in reducers?
 import { ListingWrapperWithExpiry } from "../reducers/listings";
@@ -21,6 +22,28 @@ export interface ListingContainerProps {
 export interface ChallengeContainerProps {
   challengeID?: string;
 }
+
+export const getUser = (state: State) => {
+  return state.networkDependent.user;
+};
+
+export const getNewsroom = (state: State, props: ListingContainerProps): NewsroomState | undefined => {
+  if (!props.listingAddress) {
+    return;
+  }
+  return state.newsrooms.get(props.listingAddress);
+};
+
+export const makeGetIsUserNewsroomOwner = () => {
+  return createSelector([getNewsroom, getUser], (newsroom, user) => {
+    if (!newsroom || !user) {
+      return;
+    }
+    const newsroomWrapper = newsroom.wrapper;
+    const userAccount = user.account && user.account.account;
+    return newsroomWrapper.data.owners.includes(userAccount);
+  });
+};
 
 export const getListings = (state: State) => state.networkDependent.listings;
 

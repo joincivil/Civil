@@ -6,6 +6,10 @@ import { TransactionButton } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 
+export interface ListingOwnerActionsProps {
+  listing: ListingWrapper;
+}
+
 export interface OwnerListingViewProps {
   listingAddress: EthAddress;
   listing: ListingWrapper;
@@ -20,7 +24,7 @@ export interface WithdrawTokensState {
   isWithdrawalAmountValid?: boolean;
 }
 
-export class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokensState> {
+class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokensState> {
   constructor(props: any) {
     super(props);
   }
@@ -69,7 +73,7 @@ export class DepositTokens extends React.Component<OwnerListingViewProps, Deposi
   };
 }
 
-export class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawTokensState> {
+class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawTokensState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -127,7 +131,7 @@ export class WithdrawTokens extends React.Component<OwnerListingViewProps, Withd
   };
 }
 
-export class ExitListing extends React.Component<OwnerListingViewProps> {
+class ExitListing extends React.Component<OwnerListingViewProps> {
   constructor(props: any) {
     super(props);
   }
@@ -139,4 +143,18 @@ export class ExitListing extends React.Component<OwnerListingViewProps> {
   private exitListing = async (): Promise<TwoStepEthTransaction<any> | void> => {
     return exitListing(this.props.listingAddress);
   };
+}
+
+export default class ListingOwnerActions extends React.Component<ListingOwnerActionsProps> {
+  public render(): JSX.Element {
+    const canExitListing = this.props.listing.data.isWhitelisted && !this.props.listing.data.challenge;
+    return (
+      <ViewModule>
+        <ViewModuleHeader>Owner Actions</ViewModuleHeader>
+        <DepositTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
+        <WithdrawTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
+        {canExitListing && <ExitListing listingAddress={this.props.listing.address} listing={this.props.listing} />}
+      </ViewModule>
+    );
+  }
 }

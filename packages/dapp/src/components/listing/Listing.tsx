@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
@@ -9,7 +10,12 @@ import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
+import {
+  makeGetListingPhaseState,
+  makeGetListing,
+  makeGetListingExpiry,
+  makeGetIsUserNewsroomOwner,
+} from "../../selectors";
 
 import styled from "styled-components";
 const GridRow = styled.div`
@@ -39,6 +45,7 @@ export interface ListingReduxProps {
   listing: ListingWrapper | undefined;
   expiry?: number;
   userAccount?: EthAddress;
+  isUserNewsroomOwner?: boolean;
   listingDataRequestStatus?: any;
   listingPhaseState?: any;
   parameters: any;
@@ -73,6 +80,8 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
             <ListingHistory listing={this.props.listingAddress} />
             <ListingDiscourse />
+            {listingExistsAsNewsroom &&
+              this.props.isUserNewsroomOwner && <ListingOwnerActions listing={this.props.listing!} />}
           </LeftShark>
 
           <RightShark>
@@ -100,6 +109,7 @@ const makeMapStateToProps = () => {
   const getListingPhaseState = makeGetListingPhaseState();
   const getListing = makeGetListing();
   const getListingExpiry = makeGetListingExpiry();
+  const getIsUserNewsroomOwner = makeGetIsUserNewsroomOwner();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
     const { newsrooms } = state;
     const { listingsFetching, user, parameters, govtParameters, constitution } = state.networkDependent;
@@ -116,6 +126,7 @@ const makeMapStateToProps = () => {
       expiry: getListingExpiry(state, ownProps),
       listingDataRequestStatus,
       listingPhaseState: getListingPhaseState(state, ownProps),
+      isUserNewsroomOwner: getIsUserNewsroomOwner(state, ownProps),
       userAccount: user.account,
       parameters,
       govtParameters,
