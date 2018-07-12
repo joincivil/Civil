@@ -112,7 +112,7 @@ Button.defaultProps = {
     primaryButtonDisabledBackground: colors.accent.CIVIL_BLUE_VERY_FADED,
     primaryButtonDisabledColor: colors.basic.WHITE,
   },
-}
+};
 
 export const InvertedButton = BaseButton.extend`
   text-transform: uppercase;
@@ -129,14 +129,15 @@ InvertedButton.defaultProps = {
   theme: {
     invertedButtonBackground: colors.basic.WHITE,
     invertedButtonColor: colors.accent.CIVIL_BLUE,
-  }
-}
+  },
+};
 
 export const SecondaryButton = BaseButton.extend`
   background-color: ${props => props.theme.secondaryButtonBackground};
   color: ${props => props.theme.secondaryButtonColor};
   border: 1px solid ${props => props.theme.secondaryButtonBorder};
-  &:hover, &.active {
+  &:hover,
+  &.active {
     background-color: ${props => props.theme.secondaryButtonHoverBackground};
     border: 1px solid ${props => props.theme.secondaryButtonHoverBackground};
     color: ${props => props.theme.secondaryButtonHoverColor};
@@ -151,12 +152,13 @@ SecondaryButton.defaultProps = {
     secondaryButtonHoverBackground: colors.accent.CIVIL_BLUE,
     secondaryButtonHoverColor: colors.basic.WHITE,
   },
-}
+};
 
 export const DarkButton = BaseButton.extend`
   background-color: ${props => props.theme.darkButtonBackground};
   color: ${props => props.theme.darkButtonColor};
-  &:hover, &.active {
+  &:hover,
+  &.active {
     background-color: ${props => props.theme.darkButtonHoverBackground};
   }
 `;
@@ -167,7 +169,7 @@ DarkButton.defaultProps = {
     darkButtonColor: colors.basic.WHITE,
     darkButtonHoverBackground: colors.accent.CIVIL_GRAY_1,
   },
-}
+};
 
 export const CancelButton = SecondaryButton.extend`
   color: ${colors.accent.CIVIL_BLUE};
