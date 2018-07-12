@@ -169,6 +169,16 @@ DarkButton.defaultProps = {
   },
 }
 
+export const CancelButton = SecondaryButton.extend`
+  color: ${colors.accent.CIVIL_BLUE};
+  border: none;
+  &:hover {
+    background-color: ${colors.accent.CIVIL_RED_VERY_FADED};
+    border: none;
+    color: ${colors.accent.CIVIL_RED};
+  }
+`;
+
 export const BorderlessButton = Button.extend`
   border: none;
   font-family: ${fonts.SANS_SERIF};
