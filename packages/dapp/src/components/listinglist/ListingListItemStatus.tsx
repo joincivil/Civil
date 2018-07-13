@@ -9,7 +9,7 @@ import {
   isInChallengedRevealVotePhase,
   isListingAwaitingAppealChallenge,
   isAwaitingAppealRequest,
-  isAwaitingAppealJudgment,
+  isListingAwaitingAppealJudgment,
   isInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase,
   canListingAppealBeResolved,
@@ -68,7 +68,7 @@ class ListingListItemStatus extends React.Component<ListingListItemStatusProps> 
         return this.renderAwaitingAppealRequest();
       } else if (canChallengeBeResolved(listingData)) {
         return this.renderChallengeCanBeResolved();
-      } else if (isAwaitingAppealJudgment(listingData)) {
+      } else if (isListingAwaitingAppealJudgment(listingData)) {
         return this.renderAwaitingAppealJudgement();
       } else if (isListingAwaitingAppealChallenge(listingData)) {
         return this.renderAwaitingAppealChallenge();
