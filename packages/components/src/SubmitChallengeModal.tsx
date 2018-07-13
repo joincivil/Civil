@@ -96,7 +96,7 @@ export interface SubmitChallengeModalProps {
 }
 
 export interface SubmitChallengeModalState {
-  summaryValue: any;
+  summaryValue: string;
   value: any;
 }
 
@@ -107,7 +107,7 @@ export class SubmitChallengeModal extends React.Component<
   constructor(props: SubmitChallengeModalProps) {
     super(props);
     this.state = {
-      summaryValue: RichTextEditor.createEmptyValue(),
+      summaryValue: "",
       value: RichTextEditor.createEmptyValue(),
     };
   }
@@ -186,6 +186,35 @@ export class SubmitChallengeModal extends React.Component<
             <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
           </FormInputGroup>
         </SectionFormOuter>
+      </StepStyledFluid>
+    );
+  };
+
+  private renderChallengeForm = (): JSX.Element => {
+    // TODO(jon): Add DetailTransactionButton with estimate functon
+    return (
+      <StepStyledFluid index={this.props.index || 0}>
+        <ModalSectionHeader>Deposit CVL tokens for your challenge</ModalSectionHeader>
+        <CopyLarge>
+          This challenge requires a deposit of 1,000 CVL tokens. If you don’t have enough CVL tokens,{" "}
+          <a href="#">buy more here</a>.
+        </CopyLarge>
+        <InputGroup name="challenge_deposit" prepend="CVL" readOnly={true} value={this.props.minDeposit} />
+        <CopyHelper>Your percentage reward if successful is {this.props.dispensationPct}</CopyHelper>
+        <PullRight>
+          <CancelButtonWithMargin size={buttonSizes.MEDIUM} onClick={this.closeModal}>
+            Cancel
+          </CancelButtonWithMargin>
+
+          <TransactionButton
+            size={buttonSizes.MEDIUM}
+            modalContentComponents={this.props.modalContentComponents}
+            transactions={this.props.transactions}
+            postExecuteTransactions={this.props.postExecuteTransactions}
+          >
+            Submit Challenge
+          </TransactionButton>
+        </PullRight>
       </StepStyledFluid>
     );
   };
