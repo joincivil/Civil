@@ -147,7 +147,7 @@ export class SubmitChallengeModal extends React.Component<
     this.props.updateStatementValue(value);
   };
 
-  public handleSummaryValueChange = (summaryValue: any) => {
+  public handleSummaryValueChange = (fieldName: string, summaryValue: string) => {
     this.setState({ summaryValue });
     this.props.updateStatementSummaryValue(summaryValue);
   };

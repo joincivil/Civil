@@ -20,8 +20,10 @@ storiesOf("Submit Challenge Modal", module).add("Submit Challenge Modal", () => 
   const updateStatementValue = (value: any) => {
     console.log("update statement", value);
   };
+  let summaryValue = "";
   const updateStatementSummaryValue = (value: any) => {
     console.log("update summary", value);
+    summaryValue = value;
   };
   const handleClose = () => {
     console.log("Closed the Submit Challenge modal");
