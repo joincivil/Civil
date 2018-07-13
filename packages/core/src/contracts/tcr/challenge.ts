@@ -66,7 +66,12 @@ export class Challenge {
   private async getChallengeStatement(): Promise<ContentData | undefined> {
     const uri = await this.getChallengeURI();
     if (uri) {
-      return this.contentProvider.get({ uri, contentHash: "" });
+      try {
+        const challengeStatement = await this.contentProvider.get({ uri, contentHash: "" });
+        return challengeStatement;
+      } catch (e) {
+        return;
+      }
     }
   }
 }
