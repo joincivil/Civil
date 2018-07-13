@@ -1,3 +1,4 @@
+import * as Debug from "debug";
 import BigNumber from "bignumber.js";
 import "@joincivil/utils";
 
@@ -7,6 +8,8 @@ import { EthApi } from "../../utils/ethapi";
 import { ChallengeData, EthAddress, ContentData } from "../../types";
 import { Appeal } from "./appeal";
 import { ContentProvider } from "../../content/contentprovider";
+
+const debug = Debug("civil:challenge");
 
 export class Challenge {
   private ethApi: EthApi;
