@@ -89,7 +89,7 @@ export interface SubmitChallengeModalProps {
   dispensationPct: string;
   transactions: any[];
   modalContentComponents?: { [index: string]: JSX.Element };
-  updateStatementValue(value: any): void;
+  updateStatementValue(name: string, value: string): void;
   updateStatementSummaryValue(value: any): void;
   handleClose?(): void;
   postExecuteTransactions?(): void;
