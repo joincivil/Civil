@@ -73,6 +73,7 @@ export class Challenge {
         const challengeStatement = await this.contentProvider.get({ uri, contentHash: "" });
         return challengeStatement;
       } catch (e) {
+        debug(`Getting Challenge Statement failed for ChallenegID: ${this.challengeId}`, e);
         return;
       }
     }
