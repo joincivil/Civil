@@ -1,3 +1,4 @@
+import * as Debug from "debug";
 import BigNumber from "bignumber.js";
 import "@joincivil/utils";
 
@@ -7,6 +8,8 @@ import { EthApi } from "../../utils/ethapi";
 import { ChallengeData, EthAddress, ContentData } from "../../types";
 import { Appeal } from "./appeal";
 import { ContentProvider } from "../../content/contentprovider";
+
+const debug = Debug("civil:challenge");
 
 export class Challenge {
   private ethApi: EthApi;
@@ -66,7 +69,13 @@ export class Challenge {
   private async getChallengeStatement(): Promise<ContentData | undefined> {
     const uri = await this.getChallengeURI();
     if (uri) {
-      return this.contentProvider.get({ uri, contentHash: "" });
+      try {
+        const challengeStatement = await this.contentProvider.get({ uri, contentHash: "" });
+        return challengeStatement;
+      } catch (e) {
+        debug(`Getting Challenge Statement failed for ChallengeID: ${this.challengeId}`, e);
+        return;
+      }
     }
   }
 }
