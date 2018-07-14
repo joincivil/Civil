@@ -31,6 +31,7 @@ export interface ListingPhaseActionsProps {
 export interface ListingPhaseActionsState {
   isChallengeModalOpen?: boolean;
   challengeStatement?: any;
+  challengeSummaryStatement?: string;
 }
 
 enum ModalContentEventNames {
@@ -138,6 +139,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       modalContentComponents,
       transactions,
       updateStatementValue: this.updateChallengeStatement,
+      updateStatementSummaryValue: this.updateChallengeSummaryStatement,
       postExecuteTransactions: this.closeSubmitChallengeModal,
       handleClose: this.closeSubmitChallengeModal,
     };
@@ -237,10 +239,15 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     this.setState(() => ({ challengeStatement: value }));
   };
 
+  private updateChallengeSummaryStatement = (value: any) => {
+    this.setState(() => ({ challengeSummaryStatement: value }));
+  };
+
   // Transactions
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const statement = this.state.challengeStatement.toString("html");
-    const jsonToSave = { statement };
+    const summary = this.state.challengeSummaryStatement;
+    const jsonToSave = { statement, summary };
     return challengeListing(this.props.listing.address, JSON.stringify(jsonToSave));
   };
 
