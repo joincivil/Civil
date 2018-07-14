@@ -1,14 +1,14 @@
 import * as React from "react";
-import styled from "styled-components";
 import { CivilTCR } from "@joincivil/core";
-import { Link } from "react-router-dom";
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%
-  color: black;
-`;
+import {
+  ApplicationEvent,
+  ChallengeEvent,
+  ChallengeFailedEvent,
+  ChallengeSucceededEvent,
+  ListingHistoryEvent as ListingHistoryEventComponent,
+  RejectedEvent,
+  WhitelistedEvent,
+} from "@joincivil/components";
 
 export interface ListingEventProps {
   event: any;
@@ -24,46 +24,59 @@ class ListingEvent extends React.Component<ListingEventProps> {
     const wrappedEvent = this.props.event as
       | CivilTCR.LogEvents._Application
       | CivilTCR.LogEvents._ApplicationWhitelisted
-      | CivilTCR.LogEvents._Challenge;
-    let argsData: JSX.Element | null = null;
+      | CivilTCR.LogEvents._Challenge
+      | CivilTCR.LogEvents._ChallengeFailed
+      | CivilTCR.LogEvents._ChallengeSucceeded
+      | CivilTCR.LogEvents._ListingRemoved;
+
     switch (wrappedEvent.event) {
       case CivilTCR.Events._Application:
-        argsData = this.renderApplicationEvent(wrappedEvent.args);
-        break;
+        return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp} {...wrappedEvent.args} />;
       case CivilTCR.Events._ApplicationWhitelisted:
-        argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCR.Args._ApplicationWhitelisted);
-        break;
+        return <WhitelistedEvent timestamp={(wrappedEvent as any).timestamp} />;
+      case CivilTCR.Events._ListingRemoved:
+        return <RejectedEvent timestamp={(wrappedEvent as any).timestamp} />;
       case CivilTCR.Events._Challenge:
-        argsData = this.renderChallengeEvent(wrappedEvent.args as CivilTCR.Args._Challenge);
-        break;
+        const challengeURI = `/listing/${this.props.listing}/challenge/${wrappedEvent.args.challengeID.toString()}`;
+        return (
+          <ChallengeEvent
+            timestamp={(wrappedEvent as any).timestamp}
+            challengeURI={challengeURI}
+            {...wrappedEvent.args}
+          />
+        );
+      case CivilTCR.Events._ChallengeFailed:
+        // TODO(jon): Look up challenge by challenge ID and pass results to results component
+        return (
+          <ChallengeFailedEvent
+            timestamp={(wrappedEvent as any).timestamp}
+            totalVotes="100"
+            votesFor="20"
+            votesAgainst="80"
+            percentFor="20"
+            percentAgainst="80"
+          />
+        );
+      case CivilTCR.Events._ChallengeSucceeded:
+        // TODO(jon): Look up challenge by challenge ID and pass results to results component
+        return (
+          <ChallengeSucceededEvent
+            timestamp={(wrappedEvent as any).timestamp}
+            totalVotes="100"
+            votesFor="80"
+            votesAgainst="20"
+            percentFor="80"
+            percentAgainst="20"
+          />
+        );
       default:
-        argsData = this.renderUnsupportedEvent(wrappedEvent);
+        const props = {
+          timestamp: (wrappedEvent as any).timestamp,
+          title: (wrappedEvent as any).event,
+        };
+
+        return <ListingHistoryEventComponent {...props} />;
     }
-
-    return (
-      <StyledDiv>
-        {new Date((wrappedEvent as any).timestamp * 1000).toUTCString()} - {argsData}
-      </StyledDiv>
-    );
-  }
-
-  private renderUnsupportedEvent(event: any): JSX.Element {
-    return <>{event.event}</>;
-  }
-
-  private renderChallengeEvent(args: CivilTCR.Args._Challenge): JSX.Element {
-    return (
-      <Link to={"/listing/" + this.props.listing + "/challenge/" + args.challengeID.toString()}>
-        Challenge --- ID: {args.challengeID.toString()}
-      </Link>
-    );
-  }
-
-  private renderApplicationEvent(args: CivilTCR.Args._Application): JSX.Element {
-    return <>Application --- Deposit: {args.deposit.toString()}</>;
-  }
-  private renderNewListingWhitelistedEvent(args: CivilTCR.Args._ApplicationWhitelisted): JSX.Element {
-    return <>Whitelisted!</>;
   }
 }
 
