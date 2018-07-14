@@ -371,6 +371,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <ChallengeRewardsDetail
         challengeID={this.props.challengeID}
+        challenge={this.props.challenge}
         user={this.props.user}
         userChallengeData={this.props.userChallengeData}
       />
@@ -380,6 +381,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <ChallengeRewardsDetail
         challengeID={this.props.challenge.appeal!.appealChallengeID}
+        appealChallenge={this.props.challenge.appeal!.appealChallenge}
         user={this.props.user}
         userChallengeData={this.props.userAppealChallengeData}
       />
