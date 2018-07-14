@@ -11,6 +11,8 @@ import { connect, DispatchProp } from "react-redux";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
+import { Tabs } from "../tabs/Tabs";
+import { Tab } from "../tabs/Tab";
 
 import styled from "styled-components";
 import { ViewModule } from "../utility/ViewModules";
@@ -73,11 +75,19 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
         <GridRow>
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
-            <ListingHistory listing={this.props.listingAddress} />
-            <ViewModule>
-              <ListingChallengeStatement listing={this.props.listingAddress} />
-              <ListingDiscourse />
-            </ViewModule>
+
+            <Tabs>
+              <Tab tabText="Discuss">
+                <ViewModule>
+                  <ListingChallengeStatement listing={this.props.listingAddress} />
+                  <ListingDiscourse />
+                </ViewModule>
+              </Tab>
+
+              <Tab tabText="History">
+                <ListingHistory listing={this.props.listingAddress} />
+              </Tab>
+            </Tabs>
           </LeftShark>
 
           <RightShark>
