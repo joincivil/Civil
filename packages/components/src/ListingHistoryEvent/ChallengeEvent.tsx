@@ -1,10 +1,12 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { CivilTCR } from "@joincivil/core";
+import { EthAddress } from "@joincivil/core";
 import { ListingHistoryEventTimestampProps } from "./types";
 import { ListingHistoryEvent, StyledEventCopy } from "./ListingHistoryEvent";
 
-export interface ChallengeEventProps extends ListingHistoryEventTimestampProps, CivilTCR.Args._Challenge {
+export interface ChallengeEventProps extends ListingHistoryEventTimestampProps {
+  challengeID: string;
+  challenger: EthAddress;
   challengeURI: string;
 }
 
@@ -14,7 +16,7 @@ export const ChallengeEvent: React.StatelessComponent<ChallengeEventProps> = pro
       <StyledEventCopy>
         by <strong>{props.challenger}</strong>
       </StyledEventCopy>
-      <Link to={props.challengeURI}>View Historical Challenge - Challenge ID: {props.challengeID.toString()}</Link>
+      <Link to={props.challengeURI}>View Historical Challenge - Challenge ID: {props.challengeID}</Link>
     </ListingHistoryEvent>
   );
 };
