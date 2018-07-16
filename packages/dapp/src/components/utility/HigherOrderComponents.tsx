@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import BigNumber from "bignumber.js";
 import { WrappedChallengeData } from "@joincivil/core";
-import { ChallengeResultsProps } from "@joincivil/components";
+import { ChallengeResultsProps, ListingHistoryEventTimestampProps } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { State } from "../../reducers";
@@ -17,19 +17,20 @@ export interface ChallengeContainerReduxProps {
 }
 
 /**
- * Generates a HO-Component Container for Challenge Results presentation components.
+ * Generates a HO-Component Container for Challenge Succeeded/Failed Event
+ * presentation components.
  * Given a `challengeID`, this container fetches the challenge data from the Redux store
  * then extracts and passes props for rendering a Challenge Results component
  */
-export const connectChallengeResults = <TChallengeContainerProps extends ChallengeContainerProps>(
+export const connectChallengeResults = <TOriginalProps extends ListingHistoryEventTimestampProps & ChallengeContainerProps>(
   PhaseCardComponent:
-    | React.ComponentClass<ChallengeResultsProps>
-    | React.StatelessComponent<ChallengeResultsProps>,
+    | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
+    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
   const mapStateToProps = (
     state: State,
-    ownProps: ChallengeContainerProps,
-  ): ChallengeContainerReduxProps => {
+    ownProps: ListingHistoryEventTimestampProps & ChallengeContainerProps,
+  ): ListingHistoryEventTimestampProps & ChallengeContainerReduxProps & ChallengeContainerProps => {
     const { challenges, challengesFetching } = state.networkDependent;
     let challengeData;
     const challengeID = ownProps.challengeID;
@@ -43,21 +44,24 @@ export const connectChallengeResults = <TChallengeContainerProps extends Challen
     return {
       challengeData,
       challengeDataRequestStatus,
+      ...ownProps,
     };
   };
 
   class HOChallengeResultsContainer extends React.Component<
-    TChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
+    TOriginalProps & ChallengeContainerReduxProps & DispatchProp<any>
   > {
-    public componentDidUpdate(): void {
-      if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
-      }
+    public componentDidMount(): void {
+      this.ensureHasChallengeData();
     }
 
-    public render(): JSX.Element | undefined {
+    public componentDidUpdate(): void {
+      this.ensureHasChallengeData();
+    }
+
+    public render(): JSX.Element | null {
       if (!this.props.challengeData) {
-        return;
+        return null;
       }
 
       const challenge = this.props.challengeData.challenge;
@@ -73,15 +77,23 @@ export const connectChallengeResults = <TChallengeContainerProps extends Challen
         .mul(100)
         .toFixed(0);
       return (
-        <PhaseCardComponent
-          totalVotes={getFormattedTokenBalance(totalVotes)}
-          votesFor={votesFor.toString()}
-          votesAgainst={votesAgainst.toString()}
-          percentFor={percentFor.toString()}
-          percentAgainst={percentAgainst.toString()}
-          {...this.props}
-        />
+        <>
+          <PhaseCardComponent
+            totalVotes={getFormattedTokenBalance(totalVotes)}
+            votesFor={votesFor.toString()}
+            votesAgainst={votesAgainst.toString()}
+            percentFor={percentFor.toString()}
+            percentAgainst={percentAgainst.toString()}
+            {...this.props}
+          />
+        </>
       );
+    }
+
+    private ensureHasChallengeData = (): void => {
+      if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+      }
     }
   }
 
