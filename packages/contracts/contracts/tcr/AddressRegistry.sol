@@ -1,6 +1,6 @@
 pragma solidity ^0.4.19;
 
-import "./Parameterizer.sol";
+import "../installed_contracts/Parameterizer.sol";
 import "./CivilPLCRVoting.sol";
 
 /**

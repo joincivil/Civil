@@ -7,7 +7,7 @@ const Token = artifacts.require("EIP20");
 const DLL = artifacts.require("DLL");
 const AttributeStore = artifacts.require("AttributeStore");
 
-const Parameterizer = artifacts.require("Parameterizer");
+const Parameterizer = artifacts.require("CivilParameterizer");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
@@ -25,7 +25,9 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
 
     // const estimate = web3.eth.estimateGas({ data: Parameterizer.bytecode });
     // console.log("Parameterizer gas cost estimate: " + estimate);
-    await deployer.deploy(Parameterizer, tokenAddress, PLCRVoting.address, [
+    await deployer.deploy(Parameterizer);
+    const parameterizer = await Parameterizer.at(Parameterizer.address);
+    await parameterizer.init(tokenAddress, PLCRVoting.address, [
       parameterizerConfig.minDeposit,
       parameterizerConfig.pMinDeposit,
       parameterizerConfig.applyStageLength,
@@ -38,7 +40,6 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.pDispensationPct,
       parameterizerConfig.voteQuorum,
       parameterizerConfig.pVoteQuorum,
-      parameterizerConfig.pProcessBy,
       parameterizerConfig.challengeAppealLength,
       parameterizerConfig.appealChallengeCommitStageLength,
       parameterizerConfig.appealChallengeRevealStageLength,
