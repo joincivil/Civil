@@ -11,6 +11,7 @@ DLL.sol (package: `dll @ v1.0.3`)
 ERC20Interface.sol (package: `tokens @ v1.0.0`)
 ERC20.sol (package: `tokens @ v1.0.0`)
 PLCRVoting.sol (package: `plcr-revival @ v1.3.0`)
+Parameterizer.sol (package: `tcr @ v1.1.0`)
 
 For the same reason, we have brought several files from OpenZeppelin originally added via NPM into the `contracts/zeppelin-solidity` folder. Those contracts are:
 
