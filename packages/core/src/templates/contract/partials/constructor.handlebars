@@ -1,17 +1,17 @@
-public static singletonTrusted(ethApi: EthApi): {{contractName}}Contract|null {
+public static async singletonTrusted(ethApi: EthApi): Promise<{{contractName}}Contract|undefined> {
   if (!artifacts.{{contractName}}.networks) {
     debug("Trying to get singleton from contract without any singleton data");
-    return null;
+    return undefined;
   }
-  const networkId = ethApi.networkId;
+  const networkId = (await currentNetwork(ethApi)).toString();
   const networkData = artifacts.{{contractName}}.networks[networkId];
   if (!networkData) {
-    return null;
+    return undefined;
   }
   return {{contractName}}Contract.atUntrusted(ethApi, networkData.address);
 }
 public static atUntrusted(ethApi: EthApi, address: EthAddress): {{contractName}}Contract {
-  const clazz = ethApi.web3.eth.contract(artifacts.{{contractName}}.abi);
+  const clazz = ethApi.getContractClass(artifacts.{{contractName}}.abi);
   return new {{contractName}}Contract(clazz.at(address));
 }
 // TODO(ritave): This code won't work with smart-contracts with library links
@@ -21,14 +21,13 @@ public static deployTrusted = {
       ethApi: EthApi,
       {{> typed_inputs inputs=ctor.inputs }}
       txData?: TxData): Promise<string> {
-    const web3 = ethApi.web3;
-    const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
+    const clazz = ethApi.getContractClass(artifacts.{{contractName}}.abi);
     const options: TxData = { data: artifacts.{{contractName}}.bytecode };
     Object.assign(options, txData);
     if (!options.gas) {
       options.gas = await {{contractName}}Contract.deployTrusted
         .estimateGasAsync(
-          web3,
+          ethApi,
           {{> params inputs=ctor.inputs }}
           options);
     }
@@ -50,15 +49,13 @@ public static deployTrusted = {
     return txhash;
   },
   async estimateGasAsync(
-      web3: Web3,
+      ethApi: EthApi,
       {{> typed_inputs inputs=ctor.inputs }}
       txData?: TxData): Promise<number> {
-    const clazz = web3.eth.contract(artifacts.{{contractName}}.abi);
+    const clazz = ethApi.getContractClass(artifacts.{{contractName}}.abi);
     const contractData = ((clazz.new) as any).getData(
       {{> params inputs=ctor.inputs}}
       txData);
-    // tslint:disable-next-line:no-unbound-method
-    const promisifed = promisify<number>(web3.eth.estimateGas, web3.eth);
-    return promisifed({data: contractData});
+    return ethApi.estimateGas({data: contractData});
   },
 };

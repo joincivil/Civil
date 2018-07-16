@@ -1,11 +1,13 @@
-import * as React from "react";
-import styled from "styled-components";
-import { TransactionButton, Transaction, TransactionButtonNoModal } from "./TransactionButton";
-import { Civil } from "@joincivil/core";
-import { buttonSizes } from "./Button";
-import { fonts, colors } from "./styleConstants";
+import { Civil, EthAddress } from "@joincivil/core";
+import { networkNames } from "@joincivil/utils";
 import { debounce } from "lodash";
+import * as React from "react";
+import { Subscription } from "rxjs/Subscription";
+import styled from "styled-components";
+import { buttonSizes } from "./Button";
 import { QuestionToolTip } from "./QuestionToolTip";
+import { colors, fonts } from "./styleConstants";
+import { Transaction, TransactionButton, TransactionButtonNoModal } from "./TransactionButton";
 
 export interface DetailTransactionButtonProps {
   civil?: Civil;
@@ -21,6 +23,9 @@ export interface DetailTransactionButtonState {
   price: number;
   priceFailed: boolean;
   isProgressModalVisible: boolean;
+  currentNetwork: string;
+  currentAccount?: EthAddress;
+  ethereumUpdates?: Subscription;
 }
 
 const Wrapper = styled.div`
@@ -85,11 +90,13 @@ export class DetailTransactionButton extends React.Component<
       price: 0,
       priceFailed: false,
       isProgressModalVisible: false,
+      currentNetwork: "",
     };
     this.divinePrice = debounce(this.divinePrice.bind(this), 1000);
   }
 
   public async componentWillReceiveProps(nextProps: DetailTransactionButtonProps): Promise<void> {
+    this.createEthereumSubscription(nextProps.civil);
     await this.divinePrice(nextProps.estimateFunctions);
   }
 
@@ -117,7 +124,39 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
+    this.createEthereumSubscription(this.props.civil);
     await this.divinePrice(this.props.estimateFunctions);
+  }
+
+  public async componentWillUnmount(): Promise<void> {
+    this.unbscribeEthereum();
+  }
+
+  public createEthereumSubscription(civil?: Civil): void {
+    this.unbscribeEthereum();
+    let subscription: Subscription | undefined;
+    if (civil) {
+      subscription = civil.accountStream
+        .subscribe(currentAccount =>
+          this.setState({
+            currentAccount,
+          }),
+        )
+        .add(
+          civil.networkStream
+            .map(id => networkNames[id] || "unknown")
+            .subscribe(currentNetwork => this.setState({ currentNetwork })),
+        );
+    }
+    this.setState({
+      ethereumUpdates: subscription,
+    });
+  }
+
+  public unbscribeEthereum(): void {
+    if (this.state.ethereumUpdates) {
+      this.state.ethereumUpdates.unsubscribe();
+    }
   }
 
   public render(): JSX.Element {
@@ -141,9 +180,7 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public isDisabled(): boolean {
-    return (
-      !this.props.civil || !this.props.civil.userAccount || this.props.requiredNetwork !== this.props.civil.networkName
-    );
+    return !this.props.civil || !this.state.currentAccount || this.props.requiredNetwork !== this.state.currentNetwork;
   }
 
   public renderNoMetaMask(): JSX.Element {
@@ -214,9 +251,9 @@ export class DetailTransactionButton extends React.Component<
   public renderDetails(): JSX.Element {
     if (!this.props.civil) {
       return this.renderNoMetaMask();
-    } else if (!this.props.civil.userAccount) {
+    } else if (!this.state.currentAccount) {
       return this.renderMetaMaskLocked();
-    } else if (this.props.requiredNetwork !== this.props.civil.networkName) {
+    } else if (this.props.requiredNetwork !== this.state.currentNetwork) {
       return this.renderWrongNetwork();
     } else {
       return this.renderTransactionDetails();

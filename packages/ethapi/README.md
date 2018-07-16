@@ -1,5 +1,5 @@
-# @joincivil/wsprovider-backport"
+# @joincivil/ethapi
 
-Web3 websocket provider backported to web3 0.x
+An abstraction of Ethereum communication
 
 [![license](https://img.shields.io/badge/license-Apache%20v2.0-green.svg)](./LICENSE)

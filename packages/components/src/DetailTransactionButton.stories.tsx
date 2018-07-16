@@ -1,8 +1,8 @@
+import { Civil, TwoStepEthTransaction } from "@joincivil/core";
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import { DetailTransactionButton } from "./DetailTransactionButton";
-import { Civil, TwoStepEthTransaction } from "@joincivil/core";
 
 let civil: Civil | undefined;
 

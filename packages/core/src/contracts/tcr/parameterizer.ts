@@ -1,11 +1,10 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import * as Debug from "debug";
-import "@joincivil/utils";
+import { CivilErrors} from "@joincivil/utils";
 
 import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamProp, PollID } from "../../types";
-import { requireAccount, CivilErrors } from "../../utils/errors";
-import { EthApi } from "../../utils/ethapi";
+import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "../basewrapper";
 import { ParameterizerContract } from "../generated/wrappers/parameterizer";
 import { createTwoStepSimple } from "../utils/contracts";
@@ -34,8 +33,8 @@ export const enum Parameters {
  * Users can propose new values for parameters, as well as challenge and then vote on those proposals
  */
 export class Parameterizer extends BaseWrapper<ParameterizerContract> {
-  public static singleton(ethApi: EthApi): Parameterizer {
-    const instance = ParameterizerContract.singletonTrusted(ethApi);
+  public static async singleton(ethApi: EthApi): Promise<Parameterizer> {
+    const instance = await ParameterizerContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
@@ -248,7 +247,7 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.voterReward.callAsync(who, challengeID, salt);
   }

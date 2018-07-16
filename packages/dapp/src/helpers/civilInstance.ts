@@ -17,13 +17,13 @@ export const getCivil = () => {
   return civil;
 };
 
-export const getTCR = () => {
+export const getTCR = async () => {
   if (!tcr) {
     setCivil();
   }
   if (!tcr) {
     try {
-      tcr = civil.tcrSingletonTrusted();
+      tcr = await civil.tcrSingletonTrusted();
     } catch (ex) {
       console.error("Unable to get TCR. Check that Metamask is installed and set to Rinkeby.");
     }

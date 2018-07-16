@@ -1,30 +1,38 @@
+import { EthAddress, getNextTimerExpiry, ListingWrapper } from "@joincivil/core";
+import { addNewsroom } from "@joincivil/newsroom-manager";
+import { BigNumber } from "bignumber.js";
 import { Dispatch } from "react-redux";
-import { getTCR, getCivil } from "./civilInstance";
-import { addListing } from "../actionCreators/listings";
+import { Observable, Subscription } from "rxjs";
 import {
   addChallenge,
+  addUserAppealChallengeData,
   addUserChallengeData,
   addUserChallengeStarted,
-  addUserAppealChallengeData,
 } from "../actionCreators/challenges";
+import { addListing } from "../actionCreators/listings";
 import { addUserNewsroom } from "../actionCreators/newsrooms";
-import { addNewsroom } from "@joincivil/newsroom-manager";
-import { EthAddress, ListingWrapper, getNextTimerExpiry } from "@joincivil/core";
-import { Observable, Subscription } from "rxjs";
-import { BigNumber } from "bignumber.js";
+import { getCivil, getTCR } from "./civilInstance";
 
 const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
 
 export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = getTCR();
+  console.log("asdasd");
+  const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
-  await Observable.merge(
+  console.debug(tcr);
+  console.log("Current: ", current);
+  await tcr
+    .whitelistedListings()
+    .do(console.debug)
+    .toPromise();
+  Observable.merge(
     tcr.whitelistedListings(0),
     tcr.listingsInApplicationStage(),
     tcr.allEventsExceptWhitelistFromBlock(current),
   ).subscribe(async (listing: ListingWrapper) => {
+    console.debug(listing);
     await getNewsroom(dispatch, listing.address);
     setupListingCallback(listing, dispatch);
     dispatch(addListing(listing));
@@ -41,7 +49,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
     challengeStartedSubscription.unsubscribe();
   }
 
-  const tcr = getTCR();
+  const tcr = await getTCR();
   challengeSubscription = tcr
     .getVoting()
     .votesCommitted(0, user)
@@ -68,7 +76,9 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
 
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
   const civil = getCivil();
-  const user = civil.userAccount;
+  console.debug("user");
+  const user = await civil.accountStream.first().toPromise();
+  console.debug(user);
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
   dispatch(addNewsroom({ wrapper, address: wrapper.address, newsroom }));

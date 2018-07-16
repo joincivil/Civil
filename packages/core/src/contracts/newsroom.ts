@@ -6,6 +6,7 @@ import {
   prepareNewsroomMessage,
   prepareUserFriendlyNewsroomMessage,
   recoverSigner,
+  CivilErrors
 } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
@@ -28,8 +29,7 @@ import {
   Uri,
   TxHash,
 } from "../types";
-import { CivilErrors, requireAccount } from "../utils/errors";
-import { EthApi } from "../utils/ethapi";
+import { EthApi, requireAccount, currentAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";
@@ -74,9 +74,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if ((charterUri.length === 0) !== (charterHash.length === 0)) {
       throw new Error("Both charter URI and Hash need to be set, or both empty");
     }
-    const txData: TxData = { from: ethApi.account };
+    const account = await requireAccount(ethApi).toPromise();
+    const txData: TxData = { from: account };
 
-    const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
@@ -87,7 +88,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         newsroomName,
         charterUri,
         charterHash,
-        [ethApi.account!],
+        [account],
         ethApi.toBigNumber(1),
         txData,
       ),
@@ -102,7 +103,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     ethApi: EthApi,
     contentProvider: ContentProvider,
   ): Promise<Newsroom> {
-    const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
@@ -122,12 +123,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {
-    const txData: TxData = { from: ethApi.account };
-    const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
+    const account = await requireAccount(ethApi).toPromise();
+    const txData: TxData = { from: account };
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return factory.create.estimateGasAsync(newsroomName, "", "", [ethApi.account!], ethApi.toBigNumber(1), txData);
+    return factory.create.estimateGasAsync(newsroomName, "", "", [account], ethApi.toBigNumber(1), txData);
   }
 
   public static async deployNonMultisigTrusted(
@@ -140,7 +142,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if ((charterUri.length === 0) !== (charterHash.length === 0)) {
       throw new Error("Both charter URI and Hash need to be set, or both empty");
     }
-    const txData: TxData = { from: ethApi.account };
+    const txData: TxData = { from: await currentAccount(ethApi) };
     return createTwoStepTransaction(
       ethApi,
       await NewsroomContract.deployTrusted.sendTransactionAsync(ethApi, newsroomName, charterUri, charterHash, txData),
@@ -285,7 +287,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     let who = address;
 
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.multisigProxy.isOwner(who);
   }
@@ -303,7 +305,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     let who = address;
 
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
@@ -660,7 +662,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @returns An object containing all information to represent what has the author approved
    */
   public async approveByAuthor(content: string): Promise<ApprovedRevision> {
-    const author = requireAccount(this.ethApi);
+    const author = await requireAccount(this.ethApi).toPromise();
 
     const contentHash = hashContent(content);
     const message = prepareNewsroomMessage(this.address, contentHash);
@@ -675,7 +677,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   public async approveByAuthorPersonalSign(contentHash: Hex): Promise<ApprovedRevision> {
-    const author = requireAccount(this.ethApi);
+    const author = await requireAccount(this.ethApi).toPromise();
     const message = prepareUserFriendlyNewsroomMessage(this.address, contentHash);
     const { signature } = await this.ethApi.signMessage(message, author);
     return {
@@ -691,7 +693,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   private async requireRole(role: NewsroomRoles): Promise<void> {
-    const account = requireAccount(this.ethApi);
+    const account = await requireAccount(this.ethApi).toPromise();
     if ((await this.instance.owner.callAsync()) !== account) {
       if (!(await this.instance.hasRole.callAsync(account, role))) {
         throw new Error(CivilErrors.NoPrivileges);

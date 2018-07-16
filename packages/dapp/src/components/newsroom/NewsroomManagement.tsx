@@ -1,11 +1,12 @@
+import { TransactionButton } from "@joincivil/components";
+import { Civil, NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
+import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
-import { Civil, NewsroomRoles, TwoStepEthTransaction, CivilErrors } from "@joincivil/core";
 import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import RichTextEditor from "react-rte";
 import { Subscription } from "rxjs";
-import { TransactionButton } from "@joincivil/components";
 import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
 import { PageView, ViewModule } from "../utility/ViewModules";
 import NewsroomDetail from "./NewsroomDetail";
@@ -205,14 +206,14 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     this.setState({ error: "" });
 
     const civil = new Civil();
-    const tcr = civil.tcrSingletonTrusted();
+    const tcr = await civil.tcrSingletonTrusted();
     const token = await tcr.getToken();
     return token.transfer(this.state.multisigAddr, civil.toBigNumber(numTokens).mul(1e18));
   };
 
   private postSendToken = async () => {
     const civil = new Civil();
-    const tcr = civil.tcrSingletonTrusted();
+    const tcr = await civil.tcrSingletonTrusted();
     const token = await tcr.getToken();
     const balance = await token.getBalance(this.state.multisigAddr);
     this.setState({
@@ -243,7 +244,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       this.setState({ multisigAddr });
       if (multisigAddr) {
         const civil = new Civil();
-        const tcr = civil.tcrSingletonTrusted();
+        const tcr = await civil.tcrSingletonTrusted();
         const token = await tcr.getToken();
         const balance = await token.getBalance(multisigAddr);
         this.setState({ multisigBalance: balance });

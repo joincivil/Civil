@@ -1,38 +1,16 @@
+import { EthApi, requireAccount } from "@joincivil/ethapi";
+import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
-import { Observable } from "rxjs";
 import * as Debug from "debug";
 
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
 import { BaseWrapper } from "../basewrapper";
-import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
-import { EthApi } from "../../utils/ethapi";
-import { ContentProvider } from "../../content/contentprovider";
-import { CivilErrors, requireAccount } from "../../utils/errors";
-import {
-  EthAddress,
-  TwoStepEthTransaction,
-  ListingWrapper,
-  ChallengeData,
-  WrappedChallengeData,
-  UserChallengeData,
-} from "../../types";
+import { Challenge } from "./challenge";
 import { EIP20 } from "./eip20";
-import { Listing } from "./listing";
-import {
-  canBeWhitelisted,
-  isInChallengedCommitVotePhase,
-  isInChallengedRevealVotePhase,
-  isAwaitingAppealRequest,
-  canChallengeBeResolved,
-  isListingAwaitingAppealJudgment,
-  isListingAwaitingAppealChallenge,
-  isInAppealChallengeCommitPhase,
-  isInAppealChallengeRevealPhase,
-  canListingAppealBeResolved,
-} from "../../utils/listingDataHelpers/listingHelper";
 import { Government } from "./government";
 import { Challenge } from "./challenge";
 import { Council } from "./council";
@@ -52,15 +30,15 @@ const debug = Debug("civil:tcr");
  * NOTE: If instantiated with a multisig wallet, *all* transactions are proxied through multisig.
  */
 export class CivilTCR extends BaseWrapper<CivilTCRContract> {
-  public static singleton(ethApi: EthApi, contentProvider: ContentProvider): CivilTCR {
-    const instance = CivilTCRContract.singletonTrusted(ethApi);
+  public static async singleton(ethApi: EthApi, contentProvider: ContentProvider): Promise<CivilTCR> {
+    const instance = await CivilTCRContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
     // We create this dummy proxy so that `this.multisigProxy` is always available and can be used without knowing if this is a multisig instance or not - the proxy handles non-multisig instances as well.
     const multisigProxyDummy = CivilTCRMultisigProxy.createNonMultisig(ethApi, instance);
-    return new CivilTCR(ethApi, contentProvider, instance, multisigProxyDummy);
+    return new CivilTCR(ethApi, contentProvider, instance, multisigProxyDummy, await Voting.singleton(ethApi));
   }
 
   public static async singletonMultisigProxy(
@@ -68,13 +46,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     contentProvider: ContentProvider,
     multisigAddress?: EthAddress,
   ): Promise<CivilTCR> {
-    const instance = CivilTCRContract.singletonTrusted(ethApi);
+    const instance = await CivilTCRContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
     const multisigProxy = await CivilTCRMultisigProxy.create(ethApi, instance, multisigAddress);
-    return new CivilTCR(ethApi, contentProvider, instance, multisigProxy);
+    return new CivilTCR(ethApi, contentProvider, instance, multisigProxy, await Voting.singleton(ethApi));
   }
 
   private contentProvider: ContentProvider;
@@ -87,11 +65,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     contentProvider: ContentProvider,
     instance: CivilTCRContract,
     multisigProxy: CivilTCRMultisigProxy,
+    voting: Voting,
   ) {
     super(ethApi, instance);
     this.contentProvider = contentProvider;
     this.multisigProxy = multisigProxy;
-    this.voting = Voting.singleton(this.ethApi);
+    this.voting = voting;
   }
 
   /**
@@ -511,7 +490,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.voterReward.callAsync(who, challengeID, salt);
   }
@@ -532,7 +511,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async hasClaimedTokens(challengeID: BigNumber, voter?: EthAddress): Promise<boolean> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.hasClaimedTokens.callAsync(challengeID, who);
   }

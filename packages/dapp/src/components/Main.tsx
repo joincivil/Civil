@@ -1,8 +1,9 @@
-import { CivilErrors } from "@joincivil/core";
+import { Civil, EthAddress } from "@joincivil/core";
+import { CivilErrors } from "@joincivil/utils";
+import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
-import { BigNumber } from "../../../../node_modules/bignumber.js";
 import { setNetwork } from "../actionCreators/network";
 import { addUser } from "../actionCreators/userAccount";
 import { getCivil } from "../helpers/civilInstance";
@@ -27,54 +28,57 @@ import ParameterizerProposal from "./parameterizer/Proposal";
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
     const civil = getCivil();
-    civil.addCallbackToSetNetworkEmitter(this.onNetworkUpdated);
-    civil.addCallbackToSetAccountEmitter(this.onAccountUpdated);
-    await this.onNetworkUpdated();
+    civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
+    civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
   }
 
-  public onNetworkUpdated = async (): Promise<void> => {
-    const civil = getCivil();
-    if (civil.network) {
-      this.props.dispatch!(setNetwork(civil.network));
+  public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
+    console.log("Updating network");
+    this.props.dispatch!(setNetwork(network.toString()));
 
-      await this.onAccountUpdated();
-      try {
-        await initializeParameterizer(this.props.dispatch!);
-        await initializeGovernment(this.props.dispatch!);
-        await initializeConstitution(this.props.dispatch!);
-        await initializeProposalsSubscriptions(this.props.dispatch!);
-        await initializeGovernmentParamSubscription(this.props.dispatch!);
-        await initializeSubscriptions(this.props.dispatch!);
-      } catch (err) {
-        if (err.message !== CivilErrors.UnsupportedNetwork) {
-          throw err;
-        } else {
-          console.error("Unsupported network, unlock Metamask and switch to Rinkeby");
-        }
+    await civil.accountStream.first().forEach(this.onAccountUpdated.bind(this, civil));
+    try {
+      await initializeParameterizer(this.props.dispatch!);
+      await initializeGovernment(this.props.dispatch!);
+      await initializeConstitution(this.props.dispatch!);
+      await initializeProposalsSubscriptions(this.props.dispatch!);
+      await initializeGovernmentParamSubscription(this.props.dispatch!);
+      await initializeSubscriptions(this.props.dispatch!);
+    } catch (err) {
+      if (err.message !== CivilErrors.UnsupportedNetwork) {
+        throw err;
+      } else {
+        console.error("Unsupported network, unlock Metamask and switch to Rinkeby");
       }
     }
+    console.log("Network updated");
   };
 
-  public onAccountUpdated = async (): Promise<void> => {
-    const civil = getCivil();
-    if (civil.userAccount) {
+  public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
+    console.log("Updating account");
+    if (account) {
       try {
-        const tcr = civil.tcrSingletonTrusted();
+        const tcr = await civil.tcrSingletonTrusted();
         const token = await tcr.getToken();
         const voting = await tcr.getVoting();
-        const balance = await token.getBalance(civil.userAccount);
-        const votingBalance = await voting.getNumVotingRights(civil.userAccount);
-        this.props.dispatch!(addUser(civil.userAccount, balance, votingBalance));
-        await initializeTokenSubscriptions(this.props.dispatch!, civil.userAccount);
-        await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
+        const balance = await token.getBalance(account);
+        const votingBalance = await voting.getNumVotingRights(account);
+        this.props.dispatch!(addUser(account, balance, votingBalance));
+        await initializeTokenSubscriptions(this.props.dispatch!, account);
+        await initializeChallengeSubscriptions(this.props.dispatch!, account);
       } catch (err) {
         if (err.message === CivilErrors.UnsupportedNetwork) {
-          this.props.dispatch!(addUser(civil.userAccount, new BigNumber(0), new BigNumber(0)));
+          this.props.dispatch!(addUser(account, new BigNumber(0), new BigNumber(0)));
+          console.error("Unsupported network when trying to set-up user");
         } else {
           throw err;
         }
       }
+    } else {
+      console.log("No account found");
+      this.props.dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
     }
+    console.log("Account updated");
   };
 
   public render(): JSX.Element {
