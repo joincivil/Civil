@@ -1,20 +1,33 @@
 import * as React from "react";
+import { compose } from "redux";
 import { CivilTCR } from "@joincivil/core";
 import {
   ApplicationEvent,
   ChallengeEvent,
-  ChallengeFailedEvent,
-  ChallengeSucceededEvent,
+  ChallengeCompletedEventProps,
+  ChallengeFailedEvent as ChallengeFailedEventComponent,
+  ChallengeSucceededEvent as ChallengeSucceededEventComponent,
   ListingHistoryEvent as ListingHistoryEventComponent,
+  ListingHistoryEventTimestampProps,
   RejectedEvent,
   WhitelistedEvent,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
 
 export interface ListingEventProps {
   event: any;
   listing: string;
 }
+
+const challengeCompletedEventContainer = (WrappedComponent: React.StatelessComponent<ChallengeCompletedEventProps>) => {
+
+  const wrappedChallengeResults = (props: ChallengeCompletedEventProps)  => {
+    return <WrappedComponent {...props} />;
+  };
+
+  return compose(connectChallengeResults)(wrappedChallengeResults) as React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>;
+};
 
 class ListingEvent extends React.Component<ListingEventProps> {
   constructor(props: any) {
@@ -74,29 +87,26 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderChallengeFailedEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeFailed): JSX.Element {
-    // TODO(jon): Look up challenge by challenge ID and pass results to results component
+    const { challengeID  } = wrappedEvent.args;
+    const ChallengeFailedComponent = challengeCompletedEventContainer(ChallengeFailedEventComponent);
+
     return (
-      <ChallengeFailedEvent
+      <ChallengeFailedComponent
         timestamp={(wrappedEvent as any).timestamp}
-        totalVotes="100"
-        votesFor="20"
-        votesAgainst="80"
-        percentFor="20"
-        percentAgainst="80"
+        challengeID={challengeID}
       />
     );
+
   }
 
   private renderChallengeSucceededEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeSucceeded): JSX.Element {
-    // TODO(jon): Look up challenge by challenge ID and pass results to results component
+    const { challengeID  } = wrappedEvent.args;
+    const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
+
     return (
-      <ChallengeSucceededEvent
+      <ChallengeSucceededComponent
         timestamp={(wrappedEvent as any).timestamp}
-        totalVotes="100"
-        votesFor="80"
-        votesAgainst="20"
-        percentFor="80"
-        percentAgainst="20"
+        challengeID={challengeID}
       />
     );
   }

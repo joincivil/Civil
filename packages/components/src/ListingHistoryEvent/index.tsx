@@ -5,3 +5,4 @@ export * from "./ChallengeSucceededEvent";
 export * from "./ListingHistoryEvent";
 export * from "./RejectedEvent";
 export * from "./WhitelistedEvent";
+export * from "./types";

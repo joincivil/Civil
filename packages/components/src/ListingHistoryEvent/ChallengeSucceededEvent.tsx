@@ -1,13 +1,9 @@
 import * as React from "react";
-import { ChallengeResultsProps } from "../ListingDetailPhaseCard/types";
 import { ChallengeResults } from "../ListingDetailPhaseCard/ChallengeResults";
-
-import { ListingHistoryEventTimestampProps } from "./types";
+import { ChallengeCompletedEventProps } from "./types";
 import { ListingHistoryEvent } from "./ListingHistoryEvent";
 
-export interface ChallengeSucceededEventProps extends ListingHistoryEventTimestampProps, ChallengeResultsProps {}
-
-export const ChallengeSucceededEvent: React.StatelessComponent<ChallengeSucceededEventProps> = props => {
+export const ChallengeSucceededEvent: React.StatelessComponent<ChallengeCompletedEventProps> = props => {
   return (
     <ListingHistoryEvent title="Challenge succeeded" timestamp={props.timestamp}>
       <ChallengeResults
