@@ -1,20 +1,35 @@
 import * as React from "react";
+import { compose } from "redux";
 import { CivilTCR } from "@joincivil/core";
 import {
   ApplicationEvent,
   ChallengeEvent,
-  ChallengeFailedEvent,
+  ChallengeFailedEvent as ChallengeFailedEventComponent,
+  ChallengeFailedEventProps,
   ChallengeSucceededEvent,
+  ChallengeResultsProps,
   ListingHistoryEvent as ListingHistoryEventComponent,
+  ListingHistoryEventProps,
   RejectedEvent,
   WhitelistedEvent,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
 
 export interface ListingEventProps {
   event: any;
   listing: string;
 }
+
+const ChallengeFailedEventContainer = (WrappedComponent: React.StatelessComponent<ChallengeFailedEventProps>): React.StatelessComponent<ListingHistoryEventProps & ChallengeContainerProps> => {
+  const WrappedChallengeResults = (props: ChallengeFailedEventProps) => {
+    return <WrappedComponent {...props} />;
+  };
+
+  return compose(connectChallengeResults)(WrappedChallengeResults);
+};
+
+const ChallengeFailedComponent = ChallengeFailedEventContainer(ChallengeFailedEventComponent)
 
 class ListingEvent extends React.Component<ListingEventProps> {
   constructor(props: any) {
@@ -76,7 +91,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
   private renderChallengeFailedEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeFailed): JSX.Element {
     // TODO(jon): Look up challenge by challenge ID and pass results to results component
     return (
-      <ChallengeFailedEvent
+      <ChallengeFailedEventComponent
         timestamp={(wrappedEvent as any).timestamp}
         totalVotes="100"
         votesFor="20"
