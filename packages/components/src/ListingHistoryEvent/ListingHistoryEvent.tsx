@@ -29,12 +29,16 @@ const StyledEventDetail = styled<StyledEventDetailProps, "div">("div")`
   position: relative;
 
   & svg {
-    color: ${props => (props.eventStyle ? eventColors[props.eventStyle] : colors.accent.CIVIL_GRAY_2)};
     background: ${colors.basic.WHITE};
     position: absolute;
     left: -15px;
     top: 0;
     z-index: 2;
+  }
+
+  & circle {
+    fill: ${props => (props.eventStyle ? eventColors[props.eventStyle] : colors.accent.CIVIL_GRAY_2)};
+    stroke: ${props => (props.eventStyle ? eventColors[props.eventStyle] : colors.accent.CIVIL_GRAY_2)};
   }
 `;
 
