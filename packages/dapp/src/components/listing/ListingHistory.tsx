@@ -1,9 +1,9 @@
+import { List } from "immutable";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { List } from "immutable";
+import { setupListingHistorySubscription } from "../../actionCreators/listings";
 import { State } from "../../reducers";
 import ListingEvent from "./ListingEvent";
-import { setupListingHistorySubscription } from "../../actionCreators/listings";
 import { ListingTabHeading } from "./styledComponents";
 
 export interface ListingHistoryProps {
@@ -28,7 +28,7 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
   }
 
   public async componentDidMount(): Promise<void> {
-    this.props.dispatch!(setupListingHistorySubscription(this.props.listing));
+    this.props.dispatch!(await setupListingHistorySubscription(this.props.listing));
   }
 
   public render(): JSX.Element {

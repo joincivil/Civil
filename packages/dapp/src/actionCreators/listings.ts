@@ -99,7 +99,7 @@ export const fetchAndAddListingData = (listingID: string): any => {
       const tcr = await getTCR();
       const listing = tcr.getListing(listingID);
       const wrappedListing = await listing.getListingWrapper();
-      dispatch(setupListingHistorySubscription(listingID));
+      dispatch(await setupListingHistorySubscription(listingID));
       await getNewsroom(dispatch, listingID);
       dispatch(addListing(wrappedListing));
 
@@ -117,12 +117,13 @@ export const fetchAndAddListingData = (listingID: string): any => {
   };
 };
 
-export const setupListingHistorySubscription = (listingID: string): any => {
-  return async (dispatch: Dispatch<any>, getState: any): Promise<any> => {
+export const setupListingHistorySubscription = async (listingID: string): Promise<any> => {
+  const tcr = await getTCR();
+  return (dispatch: Dispatch<any>, getState: any): any => {
+    console.log(tcr);
     const { histories, listingHistorySubscriptions } = getState().networkDependent;
     if (!listingHistorySubscriptions.get(listingID)) {
       const listingHistory = histories.get(listingID) || List();
-      const tcr = await getTCR();
       const listing = tcr.getListing(listingID);
       const lastBlock = listingHistory.size ? listingHistory.last().blockNumber : 0;
       const subscription = listing

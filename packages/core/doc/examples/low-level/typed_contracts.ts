@@ -12,11 +12,12 @@ const web3 = new EthApi(
 );
 
 (async () => {
+  const account = (await currentAccount(web3))!;
+
   const data: TxData = {
     gasPrice: await web3.getGasPrice(),
   };
   // tslint:disable-next-line:no-non-null-assertion
-  const account = (await currentAccount(web3))!;
   console.log("Deploying contract");
   const deployTxHash = await NewsroomContract.deployTrusted.sendTransactionAsync(
     web3,

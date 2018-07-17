@@ -36,8 +36,9 @@ public static deployTrusted = {
        * gets into mempool, and second when it's mined. But it's called only once, so we have to resolve
        * the contract on our own
        */
+      console.log(options);
       clazz.new(
-        {{> params inputs=contract.inputs}}
+        {{> params inputs=ctor.inputs}}
         options,
         (err: any, instance: Web3.ContractInstance) => {
           if (err) {

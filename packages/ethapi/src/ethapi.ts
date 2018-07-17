@@ -1,7 +1,9 @@
+import { CivilErrors, delay, hashPersonalMessage, isBigNumber, promisify } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { bufferToHex, fromRpcSig, fromUtf8, toBuffer } from "ethereumjs-util";
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
+import { ReplaySubject } from "rxjs/ReplaySubject";
 import * as Web3 from "web3";
 import {
   DecodedTransactionReceipt,
@@ -11,9 +13,9 @@ import {
   TxDataAll,
   TxHash,
 } from "../../typescript-types/build";
-import { CivilErrors, delay, hashPersonalMessage, isBigNumber, promisify } from "../../utils/build/src";
 import { AbiDecoder } from "./abidecoder";
 import { requireAccount } from "./helpers";
+
 const DEFAULT_HTTP_NODE = "http://localhost:8545";
 
 const debug = Debug("civil:ethapi");
@@ -55,20 +57,25 @@ export class EthApi {
     // the polling starts, and the results are given to all listeners.
     // If all listeners stop listening - the polling stops
     // There is a cached version of the poll last result, which is invalidated after POLL_MILLISECONDS
+    // FYI for dev: shareReplay doesn't unsubscribe properly
     const lazyPoll = <T extends any>(method: string, map: (result: Web3.JSONRPCResponsePayload) => T): Observable<T> =>
       Observable.timer(0, POLL_MILLISECONDS)
-        .switchMap(_ => this.rpc(method))
+        .switchMap(_ => {
+          console.log(`rpc: ${method}`);
+          return this.rpc(method);
+        })
+        .do(console.log)
         .map(map)
         .distinctUntilChanged()
-        .shareReplay(1, POLL_MILLISECONDS);
+        .multicast(() => new ReplaySubject(1))
+        .refCount();
 
     this.networkObservable = lazyPoll("net_version", res => Number.parseInt(res.result));
     this.accountObservable = lazyPoll("eth_accounts", res => {
       const accounts = res.result as EthAddress[];
-      if (accounts.length < 1) {
-        return undefined;
-      }
-      return accounts[0];
+      const account = accounts.length > 0 ? accounts[0] : undefined;
+      this.web3.eth.defaultAccount = account;
+      return account;
     });
   }
 

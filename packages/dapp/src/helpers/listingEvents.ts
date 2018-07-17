@@ -23,10 +23,6 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
   const current = await civil.currentBlock();
   console.debug(tcr);
   console.log("Current: ", current);
-  await tcr
-    .whitelistedListings()
-    .do(console.debug)
-    .toPromise();
   Observable.merge(
     tcr.whitelistedListings(0),
     tcr.listingsInApplicationStage(),
