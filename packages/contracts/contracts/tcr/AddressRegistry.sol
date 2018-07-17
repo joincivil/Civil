@@ -204,7 +204,7 @@ contract AddressRegistry {
     uint deposit = parameterizer.get("minDeposit");
 
     // Listing must be in apply stage or already on the whitelist
-    require(appWasMade(listingAddress));
+    require(appWasMade(listingAddress) || listing.isWhitelisted);
     // Prevent multiple challenges
     require(listing.challengeID == 0);
 
