@@ -5,7 +5,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 contract("Registry With Appeals", accounts => {
   describe("Function: determineAppealChallengeReward", () => {

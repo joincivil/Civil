@@ -1,0 +1,30 @@
+{
+  "authors": [
+    "Yorke Rhodes",
+    "Cem Ozer",
+    "Aspyn Palatnick"
+  ],
+  "license": "Apache 2.0",
+  "description": "PLCR voting for ERC20 tokens",
+  "keywords": [
+    "tokens",
+    "consensys",
+    "plcr"
+  ],
+  "links": {},
+  "sources": [
+    "./contracts/Migrations.sol",
+    "./contracts/PLCRFactory.sol",
+    "./contracts/PLCRVoting.sol",
+    "./contracts/ProxyFactory.sol"
+  ],
+  "dependencies": {
+    "tokens": "ipfs://QmZKeKhJdrfkP5MiPPddNaLMUxyt9YdKb7UaBPLsA4QUs8",
+    "dll": "ipfs://QmZUzH1cuECCitEvPa2dgaubXLcTGtK1Nyrzp658YfA9nE",
+    "attrstore": "ipfs://QmW48Zt6z3Q7bmJnLbnbN1P8eXnURxLevtWp13u5nqu4dS",
+    "zeppelin": "ipfs://QmaCaDgbXgTJXdt8JRU46R59sH4UwnDHiAopdbndEDGqxV"
+  },
+  "manifest_version": 1,
+  "package_name": "plcr-revival",
+  "version": "1.3.0"
+}

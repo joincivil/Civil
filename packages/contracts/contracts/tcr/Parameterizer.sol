@@ -1,8 +1,6 @@
 pragma solidity ^0.4.19;
 
-import "./PLCRVoting.sol";
-import "./installed_contracts/tokens/contracts/eip20/EIP20Interface.sol";
-import "../zeppelin-solidity/SafeMath.sol";
+import "./CivilPLCRVoting.sol";
 
 contract Parameterizer {
 
@@ -58,7 +56,7 @@ contract Parameterizer {
 
   // Global Variables
   EIP20Interface public token;
-  PLCRVoting public voting;
+  CivilPLCRVoting public voting;
 
   // ------------
   // CONSTRUCTOR
@@ -79,7 +77,7 @@ contract Parameterizer {
   ) public
   {
     token = EIP20Interface(_tokenAddr);
-    voting = PLCRVoting(_plcrAddr);
+    voting = CivilPLCRVoting(_plcrAddr);
 
     set("minDeposit", _uintParameters[0]);
     set("pMinDeposit", _uintParameters[1]);

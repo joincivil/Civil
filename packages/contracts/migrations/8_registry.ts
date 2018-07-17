@@ -9,7 +9,7 @@ const AttributeStore = artifacts.require("AttributeStore");
 
 const CivilTCR = artifacts.require("CivilTCR");
 const Parameterizer = artifacts.require("Parameterizer");
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Government = artifacts.require("Government");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
