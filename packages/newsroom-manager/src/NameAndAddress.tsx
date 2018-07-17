@@ -125,7 +125,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               transactions={[
                 {
                   transaction: this.createNewsroom.bind(this, value.civil),
-                  postTransaction: this.props.onNewsroomCreated,
+                  postTransaction: this.postTransaction,
                   handleTransactionHash: this.props.onContractDeployStarted,
                 },
               ]}
@@ -228,10 +228,11 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     );
   }
 
-  private postTransactions = (result: any): void => {
+  private postTransaction = (result: any): void => {
     if (this.props.onNewsroomCreated) {
       this.props.onNewsroomCreated(result);
     }
+    console.log("hiding")
     this.setState({modalOpen: false});
   }
 
