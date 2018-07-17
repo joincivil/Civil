@@ -96,9 +96,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 address={this.props.address}
                 renderUserSearch={this.props.renderUserSearch}
               />
-              <CreateCharter />
-              <SignConstitution address={this.props.address} active={this.state.currentStep} />
-              <ApplyToTCR />
+              {/* <CreateCharter /> */}
+              {/* <SignConstitution address={this.props.address} active={this.state.currentStep} /> */}
+              {/* <ApplyToTCR /> */}
             </StepProcess>
           </CivilContext.Provider>
         </Wrapper>

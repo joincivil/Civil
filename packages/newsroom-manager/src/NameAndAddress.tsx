@@ -228,6 +228,13 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     );
   }
 
+  private postTransactions = (result: any): void => {
+    if (this.props.onNewsroomCreated) {
+      this.props.onNewsroomCreated(result);
+    }
+    this.setState({modalOpen: false});
+  }
+
   private changeName = async (): Promise<TwoStepEthTransaction<any>> => {
     return this.props.newsroom!.setName(this.state.name!);
   };
