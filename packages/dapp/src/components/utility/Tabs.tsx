@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { colors } from "@joincivil/components";
 
 const TabContainer = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ export const TabNav = styled.div`
 `;
 
 export const ListingsNavTabs = TabNav.extend`
-  background-color: #e9e9ea;
+  background-color: ${colors.accent.CIVIL_GRAY_4};
   height: 76px;
 `;
 
@@ -22,17 +23,25 @@ export const ListingsSubnavTabs = TabNav.extend`
   max-width: 1200px;
 `;
 
+export const ListingNavTabs = TabNav.extend`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin-top: 30px;
+  width: 100%;
+  & > div {
+    justify-content: left;
+  }
+`;
+
 export interface TabsProps {
   tabNameComponent?: string;
 }
 
-export interface TabsChildrenProps {
-  [index: string]: JSX.Element | undefined;
-  activeTabIndex?: JSX.Element;
-}
-
 export interface TabsState {
   activeTabIndex: number;
+}
+
+export interface RenderActiveTabContentProps {
+  [index: string]: JSX.Element | undefined;
 }
 
 export class Tabs extends React.Component<TabsProps, TabsState> {
@@ -82,6 +91,9 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
         break;
       case "listingsSubnavTabs":
         CustomTabNav = ListingsSubnavTabs;
+        break;
+      case "listingNavTabs":
+        CustomTabNav = ListingNavTabs;
         break;
       default:
         CustomTabNav = TabNav;

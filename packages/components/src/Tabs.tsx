@@ -23,6 +23,15 @@ export const ListingsSubnavTabs = TabNav.extend`
   max-width: 1200px;
 `;
 
+export const ListingNavTabs = TabNav.extend`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin-top: 30px;
+  width: 100%;
+  & > div {
+    justify-content: left;
+  }
+`;
+
 export interface TabsProps {
   tabNameComponent?: string;
 }
@@ -82,6 +91,9 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
         break;
       case "listingsSubnavTabs":
         CustomTabNav = ListingsSubnavTabs;
+        break;
+      case "listingNavTabs":
+        CustomTabNav = ListingNavTabs;
         break;
       default:
         CustomTabNav = TabNav;

@@ -56,18 +56,18 @@ export const Tab = BaseTab.extend`
 `;
 
 export const BasicTab = BaseTab.extend`
-  border-bottom: 2px soild ${colors.accent.CIVIL_BLUE};
+  border-bottom: 2px solid transparent;
   color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 14px;
   letter-spacing: -0.12px;
   margin-right: 15px;
-  padding: 10px 0;
+  padding: 10px 0 15px;
   &:hover {
-    border-bottom: 2px soild ${colors.accent.CIVIL_BLUE};
+    border-bottom: 2px solid ${colors.accent.CIVIL_BLUE};
     color: ${colors.primary.BLACK};
   }
   &.active {
-    border-bottom: 2px soild ${colors.accent.CIVIL_BLUE};
+    border-bottom: 2px solid ${colors.accent.CIVIL_BLUE};
     color: ${colors.primary.BLACK};
   }
 `;
