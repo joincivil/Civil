@@ -54,14 +54,14 @@ export interface InputGroupProps {
 }
 
 export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> = (props: any) => {
-  const { label, prepend, placeholder, name, onChange } = props;
+  const { label, prepend, placeholder, ...inputProps } = props;
 
   return (
     <StyledInputGroupContainer>
-      <InputLabel>{label || props.placeholder}</InputLabel>
+      <InputLabel>{label || placeholder}</InputLabel>
       <StyledInputGroup>
         {prepend && <InputGroupPrepend>{props.prepend}</InputGroupPrepend>}
-        <TextInput noLabel={true} placeholder={placeholder} name={name} onChange={onChange} />
+        <TextInput noLabel={true} {...inputProps} />
       </StyledInputGroup>
     </StyledInputGroupContainer>
   );

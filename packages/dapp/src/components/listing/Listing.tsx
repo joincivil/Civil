@@ -4,14 +4,18 @@ import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
 import ListingPhaseActions from "./ListingPhaseActions";
+import ListingChallengeStatement from "./ListingChallengeStatement";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
+import { Tabs } from "../tabs/Tabs";
+import { Tab } from "../tabs/Tab";
 
 import styled from "styled-components";
+import { ViewModule } from "../utility/ViewModules";
 const GridRow = styled.div`
   display: flex;
   margin: 0 auto;
@@ -43,6 +47,7 @@ export interface ListingReduxProps {
   listingPhaseState?: any;
   parameters: any;
   govtParameters: any;
+  constitutionURI: string;
 }
 
 class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
@@ -70,8 +75,19 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
         <GridRow>
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
-            <ListingHistory listing={this.props.listingAddress} />
-            <ListingDiscourse />
+
+            <Tabs>
+              <Tab tabText="Discuss">
+                <ViewModule>
+                  <ListingChallengeStatement listing={this.props.listingAddress} />
+                  <ListingDiscourse />
+                </ViewModule>
+              </Tab>
+
+              <Tab tabText="History">
+                <ListingHistory listing={this.props.listingAddress} />
+              </Tab>
+            </Tabs>
           </LeftShark>
 
           <RightShark>
@@ -79,8 +95,10 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
               <ListingPhaseActions
                 listing={this.props.listing!}
                 expiry={this.props.expiry}
+                listingPhaseState={this.props.listingPhaseState}
                 parameters={this.props.parameters}
                 govtParameters={this.props.govtParameters}
+                constitutionURI={this.props.constitutionURI}
               />
             )}
           </RightShark>
@@ -100,7 +118,8 @@ const makeMapStateToProps = () => {
   const getListingExpiry = makeGetListingExpiry();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
     const { newsrooms } = state;
-    const { listingsFetching, user, parameters, govtParameters } = state.networkDependent;
+    const { listingsFetching, user, parameters, govtParameters, constitution } = state.networkDependent;
+    const constitutionURI = constitution.get("uri");
 
     let listingDataRequestStatus;
     if (ownProps.listingAddress) {
@@ -116,6 +135,7 @@ const makeMapStateToProps = () => {
       userAccount: user.account,
       parameters,
       govtParameters,
+      constitutionURI,
     };
   };
   return mapStateToProps;

@@ -1,4 +1,5 @@
 export * from "./InApplicationCard";
+export * from "./InApplicationResolveCard";
 export * from "./ChallengeCommitVoteCard";
 export * from "./ChallengeRevealVoteCard";
 export * from "./ChallengeRequestAppealCard";
@@ -6,7 +7,9 @@ export * from "./ChallengeResolveCard";
 export * from "./ChallengeResults";
 export * from "./AppealAwaitingDecisionCard";
 export * from "./AppealDecisionCard";
+export * from "./AppealResolveCard";
 export * from "./AppealChallengeCommitVoteCard";
 export * from "./AppealChallengeRevealVoteCard";
+export * from "./AppealChallengeResolveCard";
 export * from "./WhitelistedCard";
 export * from "./RejectedCard";

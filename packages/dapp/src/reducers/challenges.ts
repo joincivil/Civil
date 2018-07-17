@@ -26,6 +26,22 @@ export function challengesFetching(state: Map<string, any> = Map<string, any>(),
   }
 }
 
+export function challengesStartedByUser(
+  state: Map<string, Set<string>> = Map<string, Set<string>>(),
+  action: AnyAction,
+): Map<string, Set<string>> {
+  switch (action.type) {
+    case challengeActions.ADD_USER_CHALLENGE_STARTED:
+      let userSet = state.get(action.data.user);
+      if (!userSet) {
+        userSet = Set<string>();
+      }
+      return state.set(action.data.user, userSet.add(action.data.challengeID));
+    default:
+      return state;
+  }
+}
+
 export function challengesVotedOnByUser(
   state: Map<string, Set<string>> = Map<string, Set<string>>(),
   action: AnyAction,

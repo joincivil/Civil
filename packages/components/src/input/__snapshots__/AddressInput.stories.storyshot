@@ -4,7 +4,7 @@ exports[`Storyshots AddressInput invalid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "civil-input-error sc-feJyhm AeQK",
+      "class": "civil-input-error sc-feJyhm dOrQyJ",
     },
     "children": Array [
       Object {
@@ -24,6 +24,8 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
+            "class": "sc-feJyhm dOrQyJ",
+            "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",
             "type": "text",
@@ -62,12 +64,16 @@ initialize {
           "prev": [Circular],
           "type": "tag",
           "x-attribsNamespace": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,
             "value": undefined,
           },
           "x-attribsPrefix": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,
@@ -86,6 +92,8 @@ initialize {
       },
       Object {
         "attribs": Object {
+          "class": "sc-feJyhm dOrQyJ",
+          "label": "Wallet Address",
           "name": "EditorWalletInput",
           "placeholder": "Enter Wallet Address",
           "type": "text",
@@ -149,12 +157,16 @@ initialize {
         },
         "type": "tag",
         "x-attribsNamespace": Object {
+          "class": undefined,
+          "label": undefined,
           "name": undefined,
           "placeholder": undefined,
           "type": undefined,
           "value": undefined,
         },
         "x-attribsPrefix": Object {
+          "class": undefined,
+          "label": undefined,
           "name": undefined,
           "placeholder": undefined,
           "type": undefined,
@@ -180,6 +192,8 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+            "class": "sc-feJyhm dOrQyJ",
+            "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",
             "type": "text",
@@ -218,12 +232,16 @@ initialize {
           },
           "type": "tag",
           "x-attribsNamespace": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,
             "value": undefined,
           },
           "x-attribsPrefix": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,
@@ -281,11 +299,13 @@ exports[`Storyshots AddressInput valid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": " sc-feJyhm AeQK",
+      "class": " sc-feJyhm dOrQyJ",
     },
     "children": Array [
       Object {
         "attribs": Object {
+          "class": "sc-feJyhm dOrQyJ",
+          "label": "Wallet Address",
           "name": "EditorWalletInput",
           "placeholder": "Enter Wallet Address",
           "type": "text",
@@ -324,12 +344,16 @@ initialize {
         "prev": null,
         "type": "tag",
         "x-attribsNamespace": Object {
+          "class": undefined,
+          "label": undefined,
           "name": undefined,
           "placeholder": undefined,
           "type": undefined,
           "value": undefined,
         },
         "x-attribsPrefix": Object {
+          "class": undefined,
+          "label": undefined,
           "name": undefined,
           "placeholder": undefined,
           "type": undefined,
@@ -355,6 +379,8 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+            "class": "sc-feJyhm dOrQyJ",
+            "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",
             "type": "text",
@@ -368,12 +394,16 @@ initialize {
           "prev": null,
           "type": "tag",
           "x-attribsNamespace": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,
             "value": undefined,
           },
           "x-attribsPrefix": Object {
+            "class": undefined,
+            "label": undefined,
             "name": undefined,
             "placeholder": undefined,
             "type": undefined,

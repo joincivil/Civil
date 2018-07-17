@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, ChallengeResultsProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, ChallengeResultsProps, AppealDecisionProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -8,29 +8,26 @@ import {
   FormCopy,
 } from "./styledComponents";
 import { buttonSizes, Button } from "../Button";
-import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ChallengeResults } from "./ChallengeResults";
 
-export interface AppealDecisionProps {
-  appealGranted: boolean;
+export interface AppealChallengeResultsProps {
+  appealChallengeTotalVotes: string;
+  appealChallengeVotesFor: string;
+  appealChallengeVotesAgainst: string;
+  appealChallengePercentFor: string;
+  appealChallengePercentAgainst: string;
 }
 
-export class AppealDecisionCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & AppealDecisionProps & ChallengeResultsProps
+export class AppealChallengeResolveCard extends React.Component<
+  ListingDetailPhaseCardComponentProps & ChallengeResultsProps & AppealDecisionProps & AppealChallengeResultsProps
 > {
   public render(): JSX.Element {
     const decisionText = this.props.appealGranted ? "grant" : "dismiss";
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
-            endTime={this.props.endTime}
-            totalSeconds={this.props.phaseLength}
-            displayLabel="Request to challenge Council's decision"
-            flavorText="under Appeal to Council"
-          />
+          <StyledPhaseDisplayName>Challenge Granted Appeal</StyledPhaseDisplayName>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <ChallengeResults
@@ -50,16 +47,22 @@ export class AppealDecisionCard extends React.Component<
           <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>
-            If you believe this newsroom does not align with the Civil Constitution, you may challenge the Council’s
-            decision.
-          </CTACopy>
+          <ChallengeResults
+            headerText="Appeal Challenge Results"
+            totalVotes={this.props.appealChallengeTotalVotes}
+            votesFor={this.props.appealChallengeVotesFor}
+            votesAgainst={this.props.appealChallengeVotesAgainst}
+            percentFor={this.props.appealChallengePercentFor}
+            percentAgainst={this.props.appealChallengePercentAgainst}
+          />
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
           <TransactionInvertedButton
             size={buttonSizes.MEDIUM}
             transactions={this.props.transactions!}
             modalContentComponents={this.props.modalContentComponents}
           >
-            Submit a Challenge
+            Resolve Appeal Challenge
           </TransactionInvertedButton>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, SubmitChallengeProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -8,11 +8,13 @@ import {
   MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
-import { buttonSizes } from "../Button";
+import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 
-export class InApplicationCard extends React.Component<ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps> {
+export class InApplicationCard extends React.Component<
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & SubmitChallengeProps
+> {
   public render(): JSX.Element {
     return (
       <StyledListingDetailPhaseCardContainer>
@@ -34,11 +36,25 @@ export class InApplicationCard extends React.Component<ListingDetailPhaseCardCom
             If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
             <a href="#">submit a challenge</a>.
           </CTACopy>
-          <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
-            Submit a Challenge
-          </TransactionInvertedButton>
+          {this.renderSubmitChallengeButton()}
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
   }
+
+  private renderSubmitChallengeButton = (): JSX.Element => {
+    if (this.props.handleSubmitChallenge) {
+      return (
+        <InvertedButton size={buttonSizes.MEDIUM} onClick={this.props.handleSubmitChallenge}>
+          Submit a Challenge
+        </InvertedButton>
+      );
+    }
+
+    return (
+      <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
+        Submit a Challenge
+      </TransactionInvertedButton>
+    );
+  };
 }

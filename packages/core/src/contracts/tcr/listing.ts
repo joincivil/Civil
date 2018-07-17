@@ -5,15 +5,18 @@ import { EthApi } from "../../utils/ethapi";
 import { EthAddress, ListingWrapper, ListingData, TimestampedEvent } from "../../types";
 import { createTimestampedEvent } from "../../utils/events";
 import { Challenge } from "./challenge";
+import { ContentProvider } from "../../content/contentprovider";
 
 export class Listing {
   private ethApi: EthApi;
   private tcrInstance: CivilTCRContract;
+  private contentProvider: ContentProvider;
   private listingAddress: EthAddress;
 
-  constructor(ethApi: EthApi, instance: CivilTCRContract, address: EthAddress) {
+  constructor(ethApi: EthApi, instance: CivilTCRContract, contentProvider: ContentProvider, address: EthAddress) {
     this.ethApi = ethApi;
     this.tcrInstance = instance;
+    this.contentProvider = contentProvider;
     this.listingAddress = address;
   }
 
@@ -31,7 +34,7 @@ export class Listing {
     );
     let challenge;
     if (!challengeID.isZero()) {
-      const c = new Challenge(this.ethApi, this.tcrInstance, challengeID);
+      const c = new Challenge(this.ethApi, this.tcrInstance, this.contentProvider, challengeID);
       challenge = await c.getChallengeData();
     }
     return {

@@ -88,10 +88,10 @@ export async function challengeGrantedAppeal(address: EthAddress): Promise<TwoSt
   return tcr.challengeGrantedAppeal(address);
 }
 
-export async function challengeListing(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function challengeListing(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
-  return tcr.challenge(address, "");
+  return tcr.challenge(address, data);
 }
 
 export async function commitVote(
@@ -236,7 +236,8 @@ export async function proposeReparameterization(
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
-  return parameterizer.proposeReparameterization(paramName, newValue);
+  const newValueBN = ensureWeb3BigNumber(newValue);
+  return parameterizer.proposeReparameterization(paramName, newValueBN);
 }
 
 export async function challengeReparameterization(propID: string): Promise<TwoStepEthTransaction | void> {
@@ -260,12 +261,15 @@ export async function updateGovernmentParameter(
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
   const govt = await tcr.getGovernment();
-  return govt.set(paramName, newValue);
+  const newValueBN = ensureWeb3BigNumber(newValue);
+  return govt.set(paramName, newValueBN);
 }
 
 export async function claimRewards(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction | void> {
   const tcr = getTCR();
-  return tcr.claimReward(challengeID, salt);
+  const challengeIDBN = ensureWeb3BigNumber(challengeID);
+  const saltBN = ensureWeb3BigNumber(salt);
+  return tcr.claimReward(challengeIDBN, saltBN);
 }
 
 export async function rescueTokens(challengeID: BigNumber): Promise<TwoStepEthTransaction | void> {

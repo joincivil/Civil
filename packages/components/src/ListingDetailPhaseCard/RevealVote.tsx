@@ -1,9 +1,8 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
 import { RevealVoteProps } from "./types";
 import { buttonSizes } from "../Button";
 import { TransactionDarkButton } from "../TransactionButton";
-import { TextInput } from "../input/";
+import { SaltInput } from "../input/";
 import { VoteOptionsContainer, StyledOrText, FormHeader, FormCopy } from "./styledComponents";
 
 export class RevealVote extends React.Component<RevealVoteProps> {
@@ -17,7 +16,7 @@ export class RevealVote extends React.Component<RevealVoteProps> {
           voted for this challenge.
         </FormCopy>
 
-        <TextInput label="Enter your salt" placeholder="Salt" name="salt" onChange={this.onChange} />
+        <SaltInput label="Enter your salt" name="salt" onChange={this.onChange} />
 
         <VoteOptionsContainer>
           <div onMouseEnter={this.setVoteToRemain}>
@@ -73,6 +72,7 @@ export class RevealVote extends React.Component<RevealVoteProps> {
 
   private onChange = (name: string, value: string): void => {
     let validateFn;
+
     if (name === "salt") {
       validateFn = this.validateSalt;
     }
