@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { colors } from "./styleConstants";
 
 const TabContainer = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ export const TabNav = styled.div`
 `;
 
 export const ListingsNavTabs = TabNav.extend`
-  background-color: #e9e9ea;
+  background-color: ${colors.accent.CIVIL_GRAY_4};
   height: 76px;
 `;
 
@@ -26,13 +27,12 @@ export interface TabsProps {
   tabNameComponent?: string;
 }
 
-export interface TabsChildrenProps {
-  [index: string]: JSX.Element | undefined;
-  activeTabIndex?: JSX.Element;
-}
-
 export interface TabsState {
   activeTabIndex: number;
+}
+
+export interface RenderActiveTabContentProps {
+  [index: string]: JSX.Element | undefined;
 }
 
 export class Tabs extends React.Component<TabsProps, TabsState> {

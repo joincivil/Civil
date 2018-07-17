@@ -19,7 +19,7 @@ export interface ListingProps {
 class Listings extends React.Component<ListingProps> {
   public render(): JSX.Element {
     return (
-      <Tabs className={"listings-nav"}>
+      <Tabs tabNameComponent={"listingsNavTabs"}>
         <BorderBottomTab tabText={"Whitelisted Newsrooms"}>
           <ListingList listings={this.props.whitelistedListings} />
         </BorderBottomTab>
