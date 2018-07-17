@@ -21,12 +21,13 @@ export interface ListingEventProps {
 }
 
 const challengeCompletedEventContainer = (WrappedComponent: React.StatelessComponent<ChallengeCompletedEventProps>) => {
-
-  const wrappedChallengeResults = (props: ChallengeCompletedEventProps)  => {
+  const wrappedChallengeResults = (props: ChallengeCompletedEventProps) => {
     return <WrappedComponent {...props} />;
   };
 
-  return compose(connectChallengeResults)(wrappedChallengeResults) as React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>;
+  return compose(connectChallengeResults)(wrappedChallengeResults) as React.ComponentClass<
+    ListingHistoryEventTimestampProps & ChallengeContainerProps
+  >;
 };
 
 class ListingEvent extends React.Component<ListingEventProps> {
@@ -87,28 +88,17 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderChallengeFailedEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeFailed): JSX.Element {
-    const { challengeID  } = wrappedEvent.args;
+    const { challengeID } = wrappedEvent.args;
     const ChallengeFailedComponent = challengeCompletedEventContainer(ChallengeFailedEventComponent);
 
-    return (
-      <ChallengeFailedComponent
-        timestamp={(wrappedEvent as any).timestamp}
-        challengeID={challengeID}
-      />
-    );
-
+    return <ChallengeFailedComponent timestamp={(wrappedEvent as any).timestamp} challengeID={challengeID} />;
   }
 
   private renderChallengeSucceededEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeSucceeded): JSX.Element {
-    const { challengeID  } = wrappedEvent.args;
+    const { challengeID } = wrappedEvent.args;
     const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
 
-    return (
-      <ChallengeSucceededComponent
-        timestamp={(wrappedEvent as any).timestamp}
-        challengeID={challengeID}
-      />
-    );
+    return <ChallengeSucceededComponent timestamp={(wrappedEvent as any).timestamp} challengeID={challengeID} />;
   }
 
   private renderUnsupportedEvent(wrappedEvent: any): JSX.Element {

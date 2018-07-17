@@ -22,7 +22,9 @@ export interface ChallengeContainerReduxProps {
  * Given a `challengeID`, this container fetches the challenge data from the Redux store
  * then extracts and passes props for rendering a Challenge Results component
  */
-export const connectChallengeResults = <TOriginalProps extends ListingHistoryEventTimestampProps & ChallengeContainerProps>(
+export const connectChallengeResults = <
+  TOriginalProps extends ListingHistoryEventTimestampProps & ChallengeContainerProps
+>(
   PhaseCardComponent:
     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
     | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
@@ -94,7 +96,7 @@ export const connectChallengeResults = <TOriginalProps extends ListingHistoryEve
       if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
         this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
       }
-    }
+    };
   }
 
   return connect(mapStateToProps)(HOChallengeResultsContainer);

@@ -1,5 +1,10 @@
 import * as React from "react";
-import { AppealDecisionProps, ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, ChallengeResultsProps } from "./types";
+import {
+  AppealDecisionProps,
+  ListingDetailPhaseCardComponentProps,
+  PhaseWithExpiryProps,
+  ChallengeResultsProps,
+} from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
