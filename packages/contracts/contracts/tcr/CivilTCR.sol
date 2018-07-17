@@ -343,7 +343,6 @@ contract CivilTCR is RestrictedAddressRegistry {
     Appeal appeal = appeals[challengeID];
     uint totalTokens = challenge.totalTokens;
     uint rewardPool = challenge.rewardPool;
-    bool overturnOriginalResult = appeal.appealGranted && !appeal.overturned;
     uint voterTokens = getNumChallengeTokens(voter, challengeID, salt);
     return (voterTokens * rewardPool) / totalTokens;
   }
