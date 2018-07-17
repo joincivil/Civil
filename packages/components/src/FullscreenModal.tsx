@@ -32,7 +32,7 @@ export interface FullScreenModalProps {
   open: boolean;
   dismissOnOutsideClick?: boolean;
   className?: string;
-  handleClose(): void;
+  handleClose?(): void;
 }
 
 export class FullScreenModal extends React.Component<FullScreenModalProps> {
@@ -87,6 +87,8 @@ export class FullScreenModal extends React.Component<FullScreenModalProps> {
   }
 
   private close(): void {
-    this.props.handleClose();
+    if (this.props.handleClose) {
+      this.props.handleClose();
+    }
   }
 }

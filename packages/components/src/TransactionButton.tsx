@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
@@ -214,7 +213,11 @@ export class TransactionButton extends React.Component<
         transaction.handleTransactionError = this.showProgressModalError;
       }
       if (transaction.progressEventName) {
+        const preTransaction = transaction.preTransaction;
         transaction.preTransaction = () => {
+          if (preTransaction) {
+            preTransaction();
+          }
           this.showProgressModal(transaction.progressEventName);
         };
       }

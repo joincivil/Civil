@@ -4,7 +4,7 @@ exports[`Storyshots Application Phase Countdown Timer Progress Bar Timers 1`] = 
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iuJeZd lhTUQE",
+      "class": "sc-bAeIUo hpUVKv",
     },
     "children": Array [],
     "name": "div",
@@ -49,7 +49,7 @@ exports[`Storyshots Application Phase Countdown Timer Text Timers 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iuJeZd lhTUQE",
+      "class": "sc-bAeIUo hpUVKv",
     },
     "children": Array [],
     "name": "div",

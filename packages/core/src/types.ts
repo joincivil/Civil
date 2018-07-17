@@ -164,6 +164,7 @@ export interface WrappedChallengeData {
  * The data associated with a Challenge
  */
 export interface ChallengeData {
+  statement?: ContentData;
   rewardPool: BigNumber;
   challenger: EthAddress;
   resolved: boolean;

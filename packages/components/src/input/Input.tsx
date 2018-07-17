@@ -26,6 +26,7 @@ export interface InputBaseProps {
   noLabel?: boolean;
   inputRef?: string;
   invalid?: boolean;
+  disabled?: boolean;
   errorMessage?: string;
   name: string;
   value?: string;
@@ -37,19 +38,39 @@ export interface InputBaseProps {
   onChange?(name: string, value: string | null): void;
 }
 
-const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
-  const { icon, onChange, className, label, noLabel, inputRef, invalid, errorMessage, ...inputProps } = props;
-  let cb;
-  if (onChange) {
-    cb = (ev: any) => onChange(props.name, ev.target.value);
-  }
+const InputBaseWrapperComponent: React.StatelessComponent<InputBaseProps> = props => {
+  const { icon, className, label, noLabel, invalid, errorMessage } = props;
   return (
     <div className={`${invalid ? "civil-input-error" : ""} ${className}`}>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       {icon ? <InputIcon>{icon}</InputIcon> : null}
-      <input {...inputProps} onChange={cb} ref={inputRef} />
+      {props.children}
       {!noLabel && <InputLabel>{label || props.placeholder}</InputLabel>}
     </div>
+  );
+};
+
+const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
+  const { onChange, inputRef, invalid, noLabel, errorMessage, ...inputProps } = props;
+  let cb;
+  if (onChange) {
+    cb = (ev: any) => onChange(props.name, ev.target.value);
+  }
+
+  if (inputProps.type === "textarea") {
+    return (
+      <InputBaseWrapperComponent {...props}>
+        <textarea {...inputProps} onChange={cb} ref={inputRef}>
+          {inputProps.value}
+        </textarea>
+      </InputBaseWrapperComponent>
+    );
+  }
+
+  return (
+    <InputBaseWrapperComponent {...props}>
+      <input {...inputProps} onChange={cb} ref={inputRef} />
+    </InputBaseWrapperComponent>
   );
 };
 
@@ -64,17 +85,21 @@ const InputBase = styled(InputBaseComponent)`
     display: flex;
     flex-direction: row;
   }
-  > input {
+  > input,
+  > textarea {
+    box-sizing: border-box;
     font-size: inherit;
     margin: 5px 0px 10px 0;
     padding: 10px;
     border: 1px solid ${colors.accent.CIVIL_GRAY_3};
     outline: none;
   }
-  > input::placeholder {
+  > input::placeholder,
+  > textarea::placeholder {
     color: ${colors.accent.CIVIL_GRAY_3};
   }
-  > input:focus {
+  > input:focus,
+  > textarea:focus {
     border-bottom: 1px solid ${colors.accent.CIVIL_BLUE};
   }
   &.civil-input-error {
@@ -93,6 +118,7 @@ export interface InputProps {
   label?: string;
   className?: string;
   invalid?: boolean;
+  disabled?: boolean;
   errorMessage?: string;
   noLabel?: boolean;
   readOnly?: boolean;
@@ -122,3 +148,12 @@ export const HeaderInput = styled(TextInput)`
     font-size: 25px;
   }
 `;
+
+export interface TextareaProps {
+  height?: string;
+  maxLength?: string;
+}
+
+export const TextareaInput: React.StatelessComponent<TextareaProps & InputProps> = props => {
+  return <InputBase type="textarea" {...props} />;
+};

@@ -33,9 +33,10 @@ import {
   challenges,
   challengesFetching,
   challengesVotedOnByUser,
+  challengesStartedByUser,
   challengeUserData,
 } from "./challenges";
-import { government, govtParameters } from "./government";
+import { government, govtParameters, constitution } from "./government";
 import { user } from "./userAccount";
 import { network } from "./network";
 import { ui } from "./ui";
@@ -85,9 +86,11 @@ export interface NetworkDependentState {
   challenges: Map<string, WrappedChallengeData>;
   challengesFetching: Map<string, any>;
   challengesVotedOnByUser: Map<string, Set<string>>;
+  challengesStartedByUser: Map<string, Set<string>>;
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
   appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
+  constitution: Map<string, string>;
   listingHistorySubscriptions: Map<string, Subscription>;
 }
 
@@ -121,9 +124,11 @@ const networkDependentReducers = combineReducers({
   challenges,
   challengesFetching,
   challengesVotedOnByUser,
+  challengesStartedByUser,
   challengeUserData,
   appealChallengeUserData,
   government,
+  constitution,
   listingHistorySubscriptions,
 });
 

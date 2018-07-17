@@ -1,5 +1,10 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
+import {
+  AppealDecisionProps,
+  ListingDetailPhaseCardComponentProps,
+  PhaseWithExpiryProps,
+  ChallengeResultsProps,
+} from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -10,13 +15,10 @@ import {
 import { buttonSizes, Button } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { TransactionInvertedButton } from "../TransactionButton";
-
-export interface AppealDecisionProps {
-  appealGranted: boolean;
-}
+import { ChallengeResults } from "./ChallengeResults";
 
 export class AppealDecisionCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & AppealDecisionProps
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & AppealDecisionProps & ChallengeResultsProps
 > {
   public render(): JSX.Element {
     const decisionText = this.props.appealGranted ? "grant" : "dismiss";
@@ -29,6 +31,15 @@ export class AppealDecisionCard extends React.Component<
             totalSeconds={this.props.phaseLength}
             displayLabel="Request to challenge Council's decision"
             flavorText="under Appeal to Council"
+          />
+        </StyledListingDetailPhaseCardSection>
+        <StyledListingDetailPhaseCardSection>
+          <ChallengeResults
+            totalVotes={this.props.totalVotes}
+            votesFor={this.props.votesFor}
+            votesAgainst={this.props.votesAgainst}
+            percentFor={this.props.percentFor}
+            percentAgainst={this.props.percentAgainst}
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
