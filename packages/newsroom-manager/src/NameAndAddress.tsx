@@ -107,7 +107,6 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
   }
 
   public renderCheckMark(): JSX.Element | null {
-    console.log(this.props.address);
     if (!this.props.address) {
       return null;
     }
