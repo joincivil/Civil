@@ -46,6 +46,7 @@ export class EthApi {
   private abiDecoder: AbiDecoder;
   private accountObservable: Observable<EthAddress | undefined>;
   private networkObservable: Observable<number>;
+  private rpcId: number = 0; // Decreasing ids to not collide with web3
 
   // TODO(ritave): Use abi decoding seperatly in just the generated smart-contracts
   constructor(provider: Web3.Provider, abis: Web3.AbiDefinition[][]) {
@@ -60,15 +61,11 @@ export class EthApi {
     // FYI for dev: shareReplay doesn't unsubscribe properly
     const lazyPoll = <T extends any>(method: string, map: (result: Web3.JSONRPCResponsePayload) => T): Observable<T> =>
       Observable.timer(0, POLL_MILLISECONDS)
-        .switchMap(_ => {
-          console.log(`rpc: ${method}`);
-          return this.rpc(method);
-        })
-        .do(console.log)
+        .exhaustMap(_ => this.rpc(method)) // Waits for the last rpc request to finish before sending a new one
         .map(map)
-        .distinctUntilChanged()
-        .multicast(() => new ReplaySubject(1))
-        .refCount();
+        .multicast(() => new ReplaySubject(1, POLL_MILLISECONDS)) // Do only one rpc call for everyone wanting updates, cache the last output
+        .refCount() // Stop polling if everybody unsubscribes
+        .distinctUntilChanged();
 
     this.networkObservable = lazyPoll("net_version", res => Number.parseInt(res.result));
     this.accountObservable = lazyPoll("eth_accounts", res => {
@@ -118,10 +115,11 @@ export class EthApi {
   }
 
   public async rpc(method: string, ...params: any[]): Promise<Web3.JSONRPCResponsePayload> {
+    this.rpcId--;
     return new Promise<Web3.JSONRPCResponsePayload>((resolve, reject) => {
       this.currentProvider.sendAsync(
         {
-          id: new Date().getSeconds(),
+          id: this.rpcId,
           jsonrpc: "2.0",
           method,
           params,
