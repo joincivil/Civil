@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { EthAddress } from "@joincivil/core";
 import { ListingHistoryEventTimestampProps } from "./types";
+import { ListingEventTitles } from "./constants";
 import { ListingHistoryEvent, StyledEventCopy } from "./ListingHistoryEvent";
 
 export interface ChallengeEventProps extends ListingHistoryEventTimestampProps {
@@ -12,7 +13,7 @@ export interface ChallengeEventProps extends ListingHistoryEventTimestampProps {
 
 export const ChallengeEvent: React.StatelessComponent<ChallengeEventProps> = props => {
   return (
-    <ListingHistoryEvent title="Challenge Submitted" timestamp={props.timestamp}>
+    <ListingHistoryEvent title={ListingEventTitles.CHALLENGE} timestamp={props.timestamp}>
       <StyledEventCopy>
         by <strong>{props.challenger}</strong>
       </StyledEventCopy>
