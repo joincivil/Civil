@@ -222,9 +222,10 @@ contract AddressRegistry {
       parameterizer.get("revealStageLen")
     );
 
+    uint oneHundred = 100; // Kludge that we need to use SafeMath
     challenges[pollID] = Challenge({
       challenger: msg.sender,
-      rewardPool: ((100 - parameterizer.get("dispensationPct")) * deposit) / 100,
+      rewardPool: ((oneHundred.sub(parameterizer.get("dispensationPct"))).mul(deposit)).div(100),
       stake: deposit,
       resolved: false,
       totalTokens: 0
