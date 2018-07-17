@@ -6,7 +6,7 @@ export const NorthWestArrow = (): JSX.Element => {
       <path
         d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
         fill="#23282d"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       />
     </svg>
   );
