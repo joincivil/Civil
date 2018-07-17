@@ -103,7 +103,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
       <CustomTabNav>
         <TabContainer>{this.renderChildrenWithTabsApiAsProps()}</TabContainer>
       </CustomTabNav>
-    )
+    );
   };
 
   public render(): JSX.Element {
