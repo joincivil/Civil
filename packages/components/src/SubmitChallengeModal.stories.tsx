@@ -18,7 +18,10 @@ const Container: React.StatelessComponent = ({ children }) => (
 
 storiesOf("Submit Challenge Modal", module).add("Submit Challenge Modal", () => {
   const updateStatementValue = (value: any) => {
-    console.log(value);
+    console.log("update statement", value);
+  };
+  const updateStatementSummaryValue = (value: string) => {
+    console.log("update summary", value);
   };
   const handleClose = () => {
     console.log("Closed the Submit Challenge modal");
@@ -30,6 +33,7 @@ storiesOf("Submit Challenge Modal", module).add("Submit Challenge Modal", () => 
     dispensationPct: "50%",
     transactions: [],
     updateStatementValue,
+    updateStatementSummaryValue,
     handleClose,
   };
 

@@ -6,10 +6,12 @@ import { Heading } from "./Heading";
 import { StepProcess, StepProps } from "./StepProcess";
 import { SectionHeader } from "./StepProcess/StepHeader";
 import { StepStyledFluid } from "./StepProcess/StepStyled";
-import { InputGroup } from "./input";
+import { InputGroup, TextareaInput } from "./input";
 import { buttonSizes, CancelButton } from "./Button";
 import { TransactionButton } from "./TransactionButton";
 import { colors, fonts } from "./styleConstants";
+
+const SUMMARY_MAX_LENGTH = 120;
 
 export interface CloseModalButtonProps {
   onClick(): void;
@@ -88,11 +90,13 @@ export interface SubmitChallengeModalProps {
   transactions: any[];
   modalContentComponents?: { [index: string]: JSX.Element };
   updateStatementValue(value: any): void;
+  updateStatementSummaryValue(value: string): void;
   handleClose?(): void;
   postExecuteTransactions?(): void;
 }
 
 export interface SubmitChallengeModalState {
+  summaryValue: string;
   value: any;
 }
 
@@ -103,6 +107,7 @@ export class SubmitChallengeModal extends React.Component<
   constructor(props: SubmitChallengeModalProps) {
     super(props);
     this.state = {
+      summaryValue: "",
       value: RichTextEditor.createEmptyValue(),
     };
   }
@@ -142,6 +147,11 @@ export class SubmitChallengeModal extends React.Component<
     this.props.updateStatementValue(value);
   };
 
+  public handleSummaryValueChange = (fieldName: string, summaryValue: string) => {
+    this.setState({ summaryValue });
+    this.props.updateStatementSummaryValue(summaryValue);
+  };
+
   private closeModal = () => {
     if (this.props.handleClose) {
       this.props.handleClose();
@@ -152,8 +162,20 @@ export class SubmitChallengeModal extends React.Component<
     return (
       <StepStyledFluid index={this.props.index || 0}>
         <ModalSectionHeader>State reasons for your challenge</ModalSectionHeader>
+        <CopyLarge>Enter a summary of the reasons for your challenge (Max 120 characters)</CopyLarge>
+        <SectionFormOuter>
+          <FormInputGroup>
+            <TextareaInput
+              name="challenge_statement_summary"
+              value={this.state.summaryValue}
+              onChange={this.handleSummaryValueChange}
+              maxLength={SUMMARY_MAX_LENGTH.toString()}
+            />
+          </FormInputGroup>
+        </SectionFormOuter>
+
         <CopyLarge>
-          State reasons why you are challenging this Newsroom. If possible,{" "}
+          State reasons why you are challenging this Newsroom. Please include as much detail as possible, and{" "}
           <a href={this.props.constitutionURI} target="_blank">
             provide evidence
           </a>{" "}

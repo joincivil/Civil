@@ -151,6 +151,7 @@ export const HeaderInput = styled(TextInput)`
 
 export interface TextareaProps {
   height?: string;
+  maxLength?: string;
 }
 
 export const TextareaInput: React.StatelessComponent<TextareaProps & InputProps> = props => {
