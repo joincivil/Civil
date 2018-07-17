@@ -1,2 +1,2 @@
 export * from "./GreenCheckMark";
-export * from "./NorthWestArrow";
+export * from "./NorthEastArrow";

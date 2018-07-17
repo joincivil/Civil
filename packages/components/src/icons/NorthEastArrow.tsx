@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const NorthWestArrow = (): JSX.Element => {
+export const NorthEastArrow = (): JSX.Element => {
   return (
     <svg height="11" viewBox="0 0 11 11" width="11" xmlns="http://www.w3.org/2000/svg">
       <path

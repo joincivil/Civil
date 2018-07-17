@@ -2,7 +2,7 @@ import * as React from "react";
 import { TxHash } from "@joincivil/core";
 import styled from "styled-components";
 import { colors, fonts } from "./styleConstants";
-import { NorthWestArrow } from "./icons";
+import { NorthEastArrow } from "./icons";
 
 export interface ViewTransactionLinkProps {
   txHash: TxHash;
@@ -29,7 +29,7 @@ export const ViewTransactionLink = (props: ViewTransactionLinkProps): JSX.Elemen
   const baseUrl = props.network === "rinkeby" ? "https://rinkeby.etherscan.io/tx/" : "https://etherscan.io/tx/";
   return (
     <StyledLink target="_blank" href={`${baseUrl}${props.txHash}`}>
-      view transaction <NorthWestArrow />
+      view transaction <NorthEastArrow />
     </StyledLink>
   );
 };
