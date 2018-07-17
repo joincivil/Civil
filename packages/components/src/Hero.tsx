@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Button, buttonSizes } from "./Button";
+import { Button } from "./Button";
 
 import { colors, fonts } from "./styleConstants";
 
@@ -73,14 +73,11 @@ export interface HeroProps {
 }
 
 export class Hero extends React.Component<HeroProps> {
-
   public render(): JSX.Element {
     return (
       <HeroOuter>
-        <HeroInner>
-          {this.props.children}
-        </HeroInner>
+        <HeroInner>{this.props.children}</HeroInner>
       </HeroOuter>
     );
   }
-};
+}
