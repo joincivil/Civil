@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { TransactionButton, Transaction, TransactionButtonModalContentComponentsProps, TransactionButtonNoModal } from "./TransactionButton";
+import { TransactionButton, Transaction, TransactionButtonNoModal } from "./TransactionButton";
 import { Civil } from "@joincivil/core";
 import { buttonSizes } from "./Button";
 import { fonts, colors } from "./styleConstants";

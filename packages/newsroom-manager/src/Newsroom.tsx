@@ -2,10 +2,6 @@ import * as React from "react";
 import {
   FormHeading,
   StepProcess,
-  Modal,
-  ModalContent,
-  Button,
-  buttonSizes,
   colors,
   ButtonTheme,
 } from "@joincivil/components";

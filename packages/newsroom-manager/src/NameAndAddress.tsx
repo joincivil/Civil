@@ -51,10 +51,6 @@ const PendingWrapper = styled.div`
   flex-direction: column;
 `;
 
-const CheckboxWrapper = styled.div`
-  width: 25px;
-`;
-
 const CollapsableWrapper = styled.div`
   width: 600px;
 `;
