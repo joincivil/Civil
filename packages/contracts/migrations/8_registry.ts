@@ -8,7 +8,7 @@ const DLL = artifacts.require("DLL");
 const AttributeStore = artifacts.require("AttributeStore");
 
 const CivilTCR = artifacts.require("CivilTCR");
-const Parameterizer = artifacts.require("Parameterizer");
+const Parameterizer = artifacts.require("CivilParameterizer");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Government = artifacts.require("Government");
 

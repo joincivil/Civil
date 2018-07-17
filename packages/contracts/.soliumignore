@@ -1,2 +1,3 @@
 node_modules/
 contracts/installed_contracts/PLCRVoting.sol
+contracts/installed_contracts/Parameterizer.sol
