@@ -83,7 +83,7 @@ export interface ChallengeDetailProps {
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
-  user?: EthAddress;
+  user: EthAddress;
   balance?: BigNumber;
 }
 
