@@ -223,9 +223,9 @@ class CompleteYourProfileComponent extends React.Component<
               </FormDescription>
             </FormTitleSection>
             <Section>
-              {this.props.owners.map(item => (
-                <NewsroomUser key={item.address} address={item.address} name={item.name} />
-              ))}
+              {this.props.owners.map(item => {
+                return <NewsroomUser key={item.address} address={item.address} name={item.name} />;
+              })}
             </Section>
             {this.renderAddOwnerForm()}
           </FormSection>

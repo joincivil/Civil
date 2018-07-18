@@ -21,9 +21,6 @@ export * from "./ListingDetailHeader";
 export * from "./ListingDetailPhaseCard";
 export * from "./SubmitChallengeModal";
 export * from "./QuestionToolTip";
-<<<<<<< HEAD
 export * from "./ListingHistoryEvent";
-=======
 export * from "./ViewTransactionLink";
 export * from "./icons";
->>>>>>> update newsroom ui

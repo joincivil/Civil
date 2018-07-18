@@ -1,19 +1,14 @@
 import * as React from "react";
-import {
-  FormHeading,
-  StepProcess,
-  colors,
-  ButtonTheme,
-} from "@joincivil/components";
+import { FormHeading, StepProcess, colors, ButtonTheme } from "@joincivil/components";
 import { NameAndAddress } from "./NameAndAddress";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { connect, DispatchProp } from "react-redux";
 import { StateWithNewsroom } from "./reducers";
 import { addNewsroom, getNewsroom, getEditors, addGetNameForAddress } from "./actionCreators";
 import { EthAddress, Civil, TxHash } from "@joincivil/core";
-import { SignConstitution } from "./SignConstitution";
-import { CreateCharter } from "./CreateCharter";
-import { ApplyToTCR } from "./ApplyToTCR";
+// import { SignConstitution } from "./SignConstitution";
+// import { CreateCharter } from "./CreateCharter";
+// import { ApplyToTCR } from "./ApplyToTCR";
 import { CivilContext } from "./CivilContext";
 import styled, { ThemeProvider, StyledComponentClass } from "styled-components";
 
