@@ -126,7 +126,12 @@ export class DetailTransactionButton extends React.Component<
       <Wrapper>
         {this.renderDetails()}
         <ButtonWrapper>
-          <TransactionButtonComponent preExecuteTransactions={this.props.preExecuteTransactions} size={this.props.size || buttonSizes.SMALL} disabled={this.isDisabled()} transactions={this.props.transactions}>
+          <TransactionButtonComponent
+            preExecuteTransactions={this.props.preExecuteTransactions}
+            size={this.props.size || buttonSizes.SMALL}
+            disabled={this.isDisabled()}
+            transactions={this.props.transactions}
+          >
             {this.props.children}
           </TransactionButtonComponent>
           <PopUpWarning>This will open a pop-up to confirm your transaction.</PopUpWarning>
@@ -147,7 +152,7 @@ export class DetailTransactionButton extends React.Component<
         <SmallHeader>Set up your MetaMask wallet</SmallHeader>
         <SmallText>Download the MetaMask browser plugin and follow the instructions to set up your wallet.</SmallText>
         <Link href="https://metamask.io/" target="_blank">
-          Get MetaMask >
+          Get MetaMask
         </Link>
       </DetailSection>
     );
@@ -188,7 +193,19 @@ export class DetailTransactionButton extends React.Component<
     return (
       <DetailSection>
         <SmallHeader>Wallet Connected</SmallHeader>
-        <SmallText>Estimated Cost <QuestionToolTip explainerText={<>Current Prices based on <ToolTipLink href="https://ethgasstation.info/" target="_blank">https://ethgasstation.info/</ToolTipLink></>}/></SmallText>
+        <SmallText>
+          Estimated Cost{" "}
+          <QuestionToolTip
+            explainerText={
+              <>
+                Current Prices based on{" "}
+                <ToolTipLink href="https://ethgasstation.info/" target="_blank">
+                  {"https://ethgasstation.info/"}
+                </ToolTipLink>
+              </>
+            }
+          />
+        </SmallText>
         {this.renderCostsEstimates()}
       </DetailSection>
     );
