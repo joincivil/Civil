@@ -48,7 +48,7 @@ export interface TransactionButtonModalContentComponentsProps {
 
 export interface TransactionButtonModalProps {
   modalComponent?: JSX.Element;
-  modalContentComponents?: any;
+  modalContentComponents?: TransactionButtonModalContentComponentsProps;
 }
 
 export interface TransitionButtonModalState {
@@ -99,8 +99,8 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
           disabled={this.state.disableButton}
           size={this.props.size || buttonSizes.MEDIUM}
         >
-          {this.state.step === 1 && "Waiting for Transaction..."}
-          {this.state.step === 2 && "Transaction Processing..."}
+          {this.state.step === 1 && "Waiting for confirmation..."}
+          {this.state.step === 2 && "Processing..."}
           {this.state.step === 0 && this.props.children}
         </StyledButton>
       </>
