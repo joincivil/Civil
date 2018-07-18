@@ -1,5 +1,5 @@
 import * as React from "react";
-import { buttonSizes } from "../Button";
+import { buttonSizes, DarkButton } from "../Button";
 import { InputGroup } from "../input/";
 import { CommitVoteProps } from "./types";
 import { TransactionDarkButton } from "../TransactionButton";
@@ -14,6 +14,7 @@ import {
 import { SaltField } from "./SaltField";
 
 export interface CommitVoteState {
+  voteOption?: number;
   numTokensError?: string;
   saltError?: string;
 }
@@ -22,13 +23,13 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   constructor(props: CommitVoteProps) {
     super(props);
     this.state = {
+      voteOption: undefined,
       numTokensError: undefined,
       saltError: undefined,
     };
   }
 
   public render(): JSX.Element {
-    const disableButtons = !!this.state.numTokensError || !!this.state.saltError;
     return (
       <>
         {this.renderFormHeader()}
@@ -42,31 +43,37 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         {this.renderSaltInput()}
 
         <VoteOptionsContainer>
-          <div onMouseEnter={this.setVoteToRemain}>
-            <TransactionDarkButton
-              size={buttonSizes.MEDIUM}
-              transactions={this.props.transactions}
-              modalContentComponents={this.props.modalContentComponents}
-              disabled={disableButtons}
-            >
-              ✔ Remain
-            </TransactionDarkButton>
-          </div>
+          <div onMouseEnter={this.setVoteToRemain}>{this.renderVoteButton({ voteOption: 0 })}</div>
           <StyledOrText>or</StyledOrText>
-          <div onMouseEnter={this.setVoteToRemove}>
-            <TransactionDarkButton
-              size={buttonSizes.MEDIUM}
-              transactions={this.props.transactions}
-              modalContentComponents={this.props.modalContentComponents}
-              disabled={disableButtons}
-            >
-              ✖ Remove
-            </TransactionDarkButton>
-          </div>
+          <div onMouseEnter={this.setVoteToRemove}>{this.renderVoteButton({ voteOption: 1 })}</div>
         </VoteOptionsContainer>
       </>
     );
   }
+
+  private renderVoteButton = (options: any): JSX.Element => {
+    const disableButtons = !!this.state.numTokensError || !!this.state.saltError;
+    let buttonText;
+    if (options.voteOption === 0) {
+      buttonText = "✔ Remain";
+    } else if (options.voteOption === 1) {
+      buttonText = "✖ Remove";
+    }
+    if (this.state.voteOption === options.voteOption) {
+      return (
+        <TransactionDarkButton
+          size={buttonSizes.MEDIUM}
+          transactions={this.props.transactions}
+          modalContentComponents={this.props.modalContentComponents}
+          disabled={disableButtons}
+        >
+          {buttonText}
+        </TransactionDarkButton>
+      );
+    }
+
+    return <DarkButton size={buttonSizes.MEDIUM}>{buttonText}</DarkButton>;
+  };
 
   private renderFormHeader = (): JSX.Element => {
     if (this.props.userHasCommittedVote) {
@@ -122,12 +129,14 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     // A "remain" vote is a vote that doesn't support the
     // challenge, so `voteOption === 0`
     this.props.onInputChange({ voteOption: "0" });
+    this.setState(() => ({ voteOption: 0 }));
   };
 
   private setVoteToRemove = (): void => {
     // A "remove" vote is a vote that supports the
     // challenge, so `voteOption === 1`
     this.props.onInputChange({ voteOption: "1" });
+    this.setState(() => ({ voteOption: 1 }));
   };
 
   private validateSalt = (): boolean => {
