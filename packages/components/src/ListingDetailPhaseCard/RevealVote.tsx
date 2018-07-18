@@ -7,6 +7,8 @@ import { VoteOptionsContainer, StyledOrText, FormHeader, FormCopy } from "./styl
 
 export class RevealVote extends React.Component<RevealVoteProps> {
   public render(): JSX.Element {
+    const { salt } = this.props;
+
     return (
       <>
         <FormHeader>Verify Your Votes and Make Them Count!</FormHeader>
@@ -16,7 +18,7 @@ export class RevealVote extends React.Component<RevealVoteProps> {
           voted for this challenge.
         </FormCopy>
 
-        <SaltInput label="Enter your salt" name="salt" onChange={this.onChange} />
+        <SaltInput salt={this.props.salt} label="Enter your salt" name="salt" onChange={this.onChange} />
 
         <VoteOptionsContainer>
           <div onMouseEnter={this.setVoteToRemain}>
