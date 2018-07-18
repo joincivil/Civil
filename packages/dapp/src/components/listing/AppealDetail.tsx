@@ -42,7 +42,7 @@ export interface AppealDetailProps {
   challengeState: any;
   govtParameters: any;
   tokenBalance: number;
-  user: any; // TODO(jorge): What type is user?
+  user: EthAddress;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {

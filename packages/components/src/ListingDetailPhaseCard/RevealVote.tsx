@@ -7,8 +7,6 @@ import { VoteOptionsContainer, StyledOrText, FormHeader, FormCopy } from "./styl
 
 export class RevealVote extends React.Component<RevealVoteProps> {
   public render(): JSX.Element {
-    const { salt } = this.props;
-
     return (
       <>
         <FormHeader>Verify Your Votes and Make Them Count!</FormHeader>
