@@ -148,9 +148,9 @@ contract AddressRegistry {
     require(amount <= listing.unstakedDeposit);
     require(listing.unstakedDeposit - amount >= parameterizer.get("minDeposit"));
 
-    require(token.transfer(msg.sender, amount));
-
     listing.unstakedDeposit -= amount;
+
+    require(token.transfer(msg.sender, amount));
 
     emit _Withdrawal(listingAddress, amount, listing.unstakedDeposit, msg.sender);
   }
