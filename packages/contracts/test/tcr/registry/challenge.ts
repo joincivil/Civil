@@ -4,7 +4,7 @@ import { REVERTED } from "../../utils/constants";
 import BN from "bignumber.js";
 import * as utils from "../../utils/contractutils";
 
-const Parameterizer = artifacts.require("Parameterizer");
+const Parameterizer = artifacts.require("CivilParameterizer");
 const Token = artifacts.require("EIP20");
 
 configureChai(chai);

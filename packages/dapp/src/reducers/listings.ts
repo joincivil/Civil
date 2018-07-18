@@ -60,7 +60,7 @@ export function histories(
         action.data.address,
         list
           .push(action.data.event)
-          .sort((a, b) => a.blockNumber! - b.blockNumber!)
+          .sort((a, b) => b.blockNumber! - a.blockNumber!)
           .toList(),
       );
     default:

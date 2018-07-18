@@ -13,3 +13,4 @@ export * from "./AppealChallengeRevealVoteCard";
 export * from "./AppealChallengeResolveCard";
 export * from "./WhitelistedCard";
 export * from "./RejectedCard";
+export * from "./types";
