@@ -4,7 +4,7 @@ import { configureChai } from "@joincivil/dev-utils";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Token = artifacts.require("EIP20.sol");
 
 configureChai(chai);
