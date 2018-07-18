@@ -88,7 +88,6 @@ contract CivilTCR is RestrictedAddressRegistry {
   4) appeal requester transfers appealFee to TCR
   --------
   Initializes `Appeal` struct in `appeals` mapping for active challenge on listing at given address.
-  Sets value in `appealRequested` mapping for challenge to true.
   --------
   Emits `_AppealRequested` if successful
   @param listingAddress address of listing that has challenged result that the user wants to appeal
