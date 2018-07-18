@@ -1,11 +1,13 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import { Button } from "./Button";
 
 import { colors, fonts } from "./styleConstants";
 
 const HeroOuter = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_1};
+  background-repeat: no-repeat;
+  background-size: cover;
   padding: 70px 15px;
 `;
 
@@ -50,6 +52,7 @@ export const HeroBlockTextLink = styled.a`
   text-decoration: none;
   transition: border-bottom 500ms;
   &:hover {
+    color: ${colors.basic.WHITE};
     border-bottom: 1px solid ${colors.accent.CIVIL_BLUE};
   }
 `;
@@ -68,8 +71,6 @@ export const HeroButton = Button.extend`
 
 export interface HeroProps {
   backgroundImg?: string;
-  backgroundColor?: string;
-  textColor?: string;
 }
 
 export class Hero extends React.Component<HeroProps> {

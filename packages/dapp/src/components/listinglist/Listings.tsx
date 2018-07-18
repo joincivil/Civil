@@ -2,6 +2,15 @@ import * as React from "react";
 import { Set } from "immutable";
 import { Tabs } from "../tabs/Tabs";
 import { Tab } from "../tabs/Tab";
+import {
+  Hero,
+  HeroLabel,
+  HeroHeading,
+  HeroBlockTextLink,
+  HeroSmall,
+  HeroButton,
+  buttonSizes,
+} from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -19,20 +28,34 @@ export interface ListingProps {
 class Listings extends React.Component<ListingProps> {
   public render(): JSX.Element {
     return (
-      <Tabs>
-        <Tab tabText={"WHITELISTED NEWSROOMS"}>
-          <ListingList listings={this.props.whitelistedListings} />
-        </Tab>
-        <Tab tabText={"NEWSROOMS UNDER CONSIDERATION"}>
-          <ListingsInProgress />
-        </Tab>
-        <Tab tabText={"REJECTED NEWSROOMS"}>
-          <ListingList listings={this.props.rejectedListings} />
-        </Tab>
-        <Tab tabText={"MY ACTIVITY"}>
-          <MyActivity />
-        </Tab>
-      </Tabs>
+      <div>
+        <Hero>
+          <HeroLabel>Civil Registry</HeroLabel>
+          <HeroHeading>
+            The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.
+          </HeroHeading>
+          <HeroBlockTextLink href="/">Learn how to participate in our governance</HeroBlockTextLink>
+          <HeroButton size={buttonSizes.MEDIUM} to="/">
+            APPLY TO JOIN REGISTRY
+          </HeroButton>
+          <HeroSmall>1,000 CVL required to apply</HeroSmall>
+        </Hero>
+
+        <Tabs>
+          <Tab tabText={"WHITELISTED NEWSROOMS"}>
+            <ListingList listings={this.props.whitelistedListings} />
+          </Tab>
+          <Tab tabText={"NEWSROOMS UNDER CONSIDERATION"}>
+            <ListingsInProgress />
+          </Tab>
+          <Tab tabText={"REJECTED NEWSROOMS"}>
+            <ListingList listings={this.props.rejectedListings} />
+          </Tab>
+          <Tab tabText={"MY ACTIVITY"}>
+            <MyActivity />
+          </Tab>
+        </Tabs>
+      </div>
     );
   }
 }
