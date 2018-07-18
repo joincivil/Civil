@@ -17,18 +17,14 @@ const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
 
 export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<void> {
-  console.log("asdasd");
   const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
-  console.debug(tcr);
-  console.log("Current: ", current);
   Observable.merge(
     tcr.whitelistedListings(0),
     tcr.listingsInApplicationStage(),
     tcr.allEventsExceptWhitelistFromBlock(current),
   ).subscribe(async (listing: ListingWrapper) => {
-    console.debug(listing);
     await getNewsroom(dispatch, listing.address);
     setupListingCallback(listing, dispatch);
     dispatch(addListing(listing));
@@ -72,9 +68,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
 
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
   const civil = getCivil();
-  console.debug("user");
   const user = await civil.accountStream.first().toPromise();
-  console.debug(user);
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
   dispatch(addNewsroom({ wrapper, address: wrapper.address, newsroom }));

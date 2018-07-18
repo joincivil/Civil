@@ -1,13 +1,12 @@
+import { EthApi, EthereumUnits, requireAccount, toWei } from "@joincivil/ethapi";
+import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-
-import { MultisigTransaction } from "./multisigtransaction";
-import { BaseWrapper } from "../basewrapper";
-import { MultiSigWalletContract, MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
-import { EthApi, requireAccount, toWei } from "@joincivil/ethapi";
 import { EthAddress, TwoStepEthTransaction } from "../../types";
-import { createTwoStepTransaction, createTwoStepSimple, isDecodedLog } from "../utils/contracts";
-import { CivilErrors } from "@joincivil/utils";
+import { BaseWrapper } from "../basewrapper";
+import { MultiSigWallet, MultiSigWalletContract } from "../generated/wrappers/multi_sig_wallet";
+import { createTwoStepSimple, createTwoStepTransaction, isDecodedLog } from "../utils/contracts";
+import { MultisigTransaction } from "./multisigtransaction";
 
 export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   public static atUntrusted(ethApi: EthApi, address: EthAddress): Multisig {
@@ -44,7 +43,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * @param address If null, checks your account, othwerise checks the provided address
    */
   public async isOwner(address?: EthAddress): Promise<boolean> {
-    const who = address || await requireAccount(this.ethApi).toPromise();
+    const who = address || (await requireAccount(this.ethApi).toPromise());
     return this.instance.isOwner.callAsync(who);
   }
 
@@ -117,7 +116,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * @param ethers How many ethers to send
    */
   public async transferEther(ethers: BigNumber): Promise<TwoStepEthTransaction> {
-    const wei = toWei(ethers, "ether");
+    const wei = toWei(ethers, EthereumUnits.ether);
     return createTwoStepSimple(this.ethApi, await this.ethApi.sendTransaction({ to: this.address, value: wei }));
   }
 
@@ -214,7 +213,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   }
 
   private async requireOwner(who?: EthAddress): Promise<void> {
-    const owner = who || await requireAccount(this.ethApi).toPromise();
+    const owner = who || (await requireAccount(this.ethApi).toPromise());
     if (!(await this.isOwner(owner))) {
       throw new Error(CivilErrors.NoPrivileges);
     }

@@ -21,9 +21,10 @@ public static deployTrusted = {
       ethApi: EthApi,
       {{> typed_inputs inputs=ctor.inputs }}
       txData?: TxData): Promise<string> {
-    const clazz = ethApi.getContractClass(artifacts.{{contractName}}.abi);
-    const options: TxData = { data: artifacts.{{contractName}}.bytecode };
-    Object.assign(options, txData);
+    const options: TxData = {
+      data: artifacts.{{contractName}}.bytecode,
+      ...txData
+    };
     if (!options.gas) {
       options.gas = await {{contractName}}Contract.deployTrusted
         .estimateGasAsync(
@@ -31,12 +32,13 @@ public static deployTrusted = {
           {{> params inputs=ctor.inputs }}
           options);
     }
+
     const txhash = await new Promise<string>((resolve, reject) => {
+      const clazz = ethApi.getContractClass(artifacts.{{contractName}}.abi);
       /* There's a bug in Metamask, this callback should be called twice, first when the transaction
        * gets into mempool, and second when it's mined. But it's called only once, so we have to resolve
        * the contract on our own
        */
-      console.log(options);
       clazz.new(
         {{> params inputs=ctor.inputs}}
         options,
@@ -53,10 +55,14 @@ public static deployTrusted = {
       ethApi: EthApi,
       {{> typed_inputs inputs=ctor.inputs }}
       txData?: TxData): Promise<number> {
+    const options: TxData = {
+      ...txData,
+      data: artifacts.{{contractName}}.bytecode
+    }
     const clazz = ethApi.getContractClass(artifacts.{{contractName}}.abi);
     const contractData = ((clazz.new) as any).getData(
       {{> params inputs=ctor.inputs}}
-      txData);
+      options);
     return ethApi.estimateGas({data: contractData});
   },
 };

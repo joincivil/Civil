@@ -26,10 +26,12 @@ const web3 = new EthApi(
     "",
     data,
   );
+
   const receipt = await web3.awaitReceipt(deployTxHash);
   const newsroom = NewsroomContract.atUntrusted(web3, receipt.contractAddress!);
   console.log("Contract at: ", newsroom.address);
   console.log(account);
+  console.log("Name: ", await newsroom.name.callAsync());
   console.log("Am I owner: ", await newsroom.isOwner.callAsync(account));
 
   const subscription = newsroom.RevisionUpdatedStream().subscribe(async event => {
@@ -41,7 +43,6 @@ const web3 = new EthApi(
 
   console.log("Publishing a revision");
   const proposeOptions = await newsroom.publishContent.getRaw("http://someuirhere.com", "hash", "", "", data);
-  console.log("Propose options:", proposeOptions);
   const proposeTxHash = await web3.sendTransaction(proposeOptions);
   await web3.awaitReceipt(proposeTxHash);
 })().catch(err => {

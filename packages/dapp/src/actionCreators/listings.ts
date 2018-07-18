@@ -120,7 +120,6 @@ export const fetchAndAddListingData = (listingID: string): any => {
 export const setupListingHistorySubscription = async (listingID: string): Promise<any> => {
   const tcr = await getTCR();
   return (dispatch: Dispatch<any>, getState: any): any => {
-    console.log(tcr);
     const { histories, listingHistorySubscriptions } = getState().networkDependent;
     if (!listingHistorySubscriptions.get(listingID)) {
       const listingHistory = histories.get(listingID) || List();

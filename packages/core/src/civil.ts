@@ -1,4 +1,4 @@
-import { currentNetwork, EthApi, ProviderBackport, Web310Provider } from "@joincivil/ethapi";
+import { currentNetwork, detectProvider, EthApi, ProviderBackport, Web310Provider } from "@joincivil/ethapi";
 import { EthSignedMessage, TxHash, Uri } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
@@ -55,7 +55,7 @@ export class Civil {
         provider = opts.web3Provider as Web3.Provider;
       }
     } else {
-      provider = EthApi.detectProvider();
+      provider = detectProvider();
     }
     this.ethApi = new EthApi(provider, Object.values<Artifact>(artifacts).map(a => a.abi));
 

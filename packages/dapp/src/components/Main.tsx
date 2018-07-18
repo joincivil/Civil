@@ -33,7 +33,6 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
   }
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
-    console.log("Updating network");
     this.props.dispatch!(setNetwork(network.toString()));
 
     await civil.accountStream.first().forEach(this.onAccountUpdated.bind(this, civil));
@@ -51,11 +50,9 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
         console.error("Unsupported network, unlock Metamask and switch to Rinkeby");
       }
     }
-    console.log("Network updated");
   };
 
   public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
-    console.log("Updating account");
     if (account) {
       try {
         const tcr = await civil.tcrSingletonTrusted();
@@ -78,7 +75,6 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       console.log("No account found");
       this.props.dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
     }
-    console.log("Account updated");
   };
 
   public render(): JSX.Element {
