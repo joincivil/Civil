@@ -1,6 +1,5 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
-import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
@@ -22,11 +21,8 @@ contract("Registry With Appeals", accounts => {
       newsroomAddress = testNewsroom.address;
     });
 
-    it("should fail if challenge doesn't exist", async () => {
-      await expect(registry.challengeCanBeResolved(newsroomAddress)).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should fail if a challenge doesn't exist",
-      );
+    it("should return false if challenge doesn't exist", async () => {
+      await expect(registry.challengeCanBeResolved(newsroomAddress)).to.eventually.be.false();
     });
 
     it(
