@@ -29,10 +29,6 @@ export class ChallengeRequestAppealCard extends React.Component<
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
           <ChallengeResults
             totalVotes={this.props.totalVotes}
             votesFor={this.props.votesFor}

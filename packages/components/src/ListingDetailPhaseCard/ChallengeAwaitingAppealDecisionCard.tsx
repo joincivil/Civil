@@ -27,10 +27,6 @@ export class AppealAwaitingDecisionCard extends React.Component<
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
           <CTACopy>
             Check back on August 24, 2018 for Civil Council’s decision to reject or grant the appeal. Read more for
             details of this appeal.
