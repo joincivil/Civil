@@ -45,6 +45,9 @@ import {
   findEvents,
 } from "./utils/contracts";
 import { TransactionReceipt } from "web3";
+import * as Debug from "debug";
+
+const debug = Debug("civil:newsroom");
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -327,13 +330,18 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * text needed for display
    * @param header Metadata you get from Ethereum
    */
-  public async resolveContent(header: EthContentHeader): Promise<NewsroomContent> {
+  public async resolveContent(header: EthContentHeader): Promise<NewsroomContent | undefined> {
     // TODO(ritave): Choose ContentProvider based on schema
-    const content = await this.contentProvider.get(header);
-    return {
-      ...header,
-      content,
-    };
+    try {
+      const content = await this.contentProvider.get(header);
+      return {
+        ...header,
+        content,
+      };
+    } catch (e) {
+      debug(`Resolving Content failed for EthContentHeader: ${header}`, e);
+      return;
+    }
   }
 
   /**

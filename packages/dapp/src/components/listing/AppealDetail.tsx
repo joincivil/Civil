@@ -56,7 +56,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
-        {!hasAppealChallenge && this.renderAwaitingAppealDecision()}
+        {!hasAppealChallenge && !canAppealBeResolved && this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
         {appeal.appealChallenge && (
           <AppealChallengeDetail

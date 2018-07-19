@@ -86,7 +86,9 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
-            <BreakdownBarPercentageLabel>{this.props.percentAgainst}%</BreakdownBarPercentageLabel>
+            <BreakdownBarPercentageLabel>
+              {this.props.percentAgainst.indexOf("NaN") < 0 ? this.props.percentAgainst : "0"}%
+            </BreakdownBarPercentageLabel>
             <BreakdownBarTotal>
               <BreakdownBarPercentage vote="remain" percentage={this.props.percentAgainst} />
             </BreakdownBarTotal>
@@ -102,7 +104,9 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
-            <BreakdownBarPercentageLabel>{this.props.percentFor}%</BreakdownBarPercentageLabel>
+            <BreakdownBarPercentageLabel>
+              {this.props.percentFor.indexOf("NaN") < 0 ? this.props.percentFor : "0"}%
+            </BreakdownBarPercentageLabel>
             <BreakdownBarTotal>
               <BreakdownBarPercentage vote="remove" percentage={this.props.percentFor} />
             </BreakdownBarTotal>
