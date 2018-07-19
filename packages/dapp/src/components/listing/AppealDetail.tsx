@@ -42,6 +42,7 @@ export interface AppealDetailProps {
   challengeState: any;
   govtParameters: any;
   tokenBalance: number;
+  user: EthAddress;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -55,7 +56,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
-        {!hasAppealChallenge && this.renderAwaitingAppealDecision()}
+        {!hasAppealChallenge && !canAppealBeResolved && this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
         {appeal.appealChallenge && (
           <AppealChallengeDetail
@@ -66,6 +67,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
             appealChallenge={appeal.appealChallenge}
             govtParameters={this.props.govtParameters}
             tokenBalance={this.props.tokenBalance}
+            user={this.props.user}
           />
         )}
         {canAppealBeResolved && this.renderCanResolve()}

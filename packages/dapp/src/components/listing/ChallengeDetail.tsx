@@ -83,7 +83,7 @@ export interface ChallengeDetailProps {
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
-  user?: EthAddress;
+  user: EthAddress;
   balance?: BigNumber;
 }
 
@@ -142,6 +142,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeState={this.props.challengeState}
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
+        user={this.props.user}
       />
     );
   }
@@ -319,7 +320,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         <LoadingIndicator height={100} />
         <ModalHeading>Transaction in progress</ModalHeading>
         <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving Challenge</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Approving for Request Appeal</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.FADED}>Requesting Appeal</ModalListItem>
         </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>

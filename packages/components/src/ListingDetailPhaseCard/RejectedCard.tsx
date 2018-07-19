@@ -19,10 +19,6 @@ export class RejectedCard extends React.Component<ListingDetailPhaseCardComponen
           <MetaItemLabel>Rejected date</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
           <ChallengeResults
             totalVotes={this.props.totalVotes}
             votesFor={this.props.votesFor}
