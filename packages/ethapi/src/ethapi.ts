@@ -41,13 +41,13 @@ export class EthApi {
     // FYI for dev: shareReplay doesn't unsubscribe properly
     const lazyPoll = <T extends any>(method: string, map: (result: Web3.JSONRPCResponsePayload) => T): Observable<T> =>
       Observable.timer(0, POLL_MILLISECONDS)
-        .exhaustMap(_ => this.rpc(method)) // Waits for the last rpc request to finish before sending a new one
+        .exhaustMap(async _ => this.rpc(method)) // Waits for the last rpc request to finish before sending a new one
         .map(map)
         .multicast(() => new ReplaySubject(1, POLL_MILLISECONDS)) // Do only one rpc call for everyone wanting updates, cache the last output
         .refCount() // Stop polling if everybody unsubscribes
         .distinctUntilChanged();
 
-    this.networkObservable = lazyPoll("net_version", res => Number.parseInt(res.result));
+    this.networkObservable = lazyPoll("net_version", res => Number.parseInt(res.result, 10));
     this.accountObservable = lazyPoll("eth_accounts", res => {
       const accounts = res.result as EthAddress[];
       const account = accounts.length > 0 ? accounts[0] : undefined;
@@ -74,23 +74,23 @@ export class EthApi {
   }
 
   public async getGasPrice(): Promise<BigNumber> {
-    const gp = promisify<BigNumber>(this.web3.eth.getGasPrice);
+    const gp = promisify<BigNumber>(this.web3.eth.getGasPrice.bind(this.web3.eth));
     return gp();
   }
 
   public async getBlock(blockNumber: number | "latest" | "pending"): Promise<Web3.BlockWithoutTransactionData> {
     // tslint:disable-next-line:no-unbound-method
-    const getBlockAsync = promisify<Web3.BlockWithoutTransactionData>(this.web3.eth.getBlock, this.web3.eth);
+    const getBlockAsync = promisify<Web3.BlockWithoutTransactionData>(this.web3.eth.getBlock.bind(this.web3.eth));
     return getBlockAsync(blockNumber);
   }
 
   public async getLatestBlockNumber(): Promise<number> {
-    const blockNumberPromise = promisify<number>(this.web3.eth.getBlockNumber);
+    const blockNumberPromise = promisify<number>(this.web3.eth.getBlockNumber.bind(this.web3.eth.getBlockNumber));
     return blockNumberPromise();
   }
 
   public async getCode(address: EthAddress): Promise<string> {
-    const getCodeAsync = promisify<string>(this.web3.eth.getCode, this.web3.eth);
+    const getCodeAsync = promisify<string>(this.web3.eth.getCode.bind(this.web3.eth));
     return getCodeAsync(address);
   }
 
@@ -229,7 +229,7 @@ export class EthApi {
     return this.web3.eth.contract(abi);
   }
 
-  public estimateGas(options: TxDataAll): Promise<number> {
+  public async estimateGas(options: TxDataAll): Promise<number> {
     // tslint:disable-next-line:no-unbound-method
     const promisifed = promisify<number>(this.web3.eth.estimateGas, this.web3.eth);
     return promisifed(options);
