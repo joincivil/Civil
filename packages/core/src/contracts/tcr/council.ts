@@ -25,63 +25,33 @@ export class Council {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
     const appellateAddr = await govt.getAppellate.callAsync();
-    let multisig;
-    if (await isAddressMultisigWallet(ethApi, appellateAddr)) {
-      multisig = Multisig.atUntrusted(ethApi, appellateAddr);
-    }
-    return new Council(ethApi, govt, tcr, appellateAddr, multisig);
+    const multisig = Multisig.atUntrusted(ethApi, appellateAddr);
+    return new Council(ethApi, govt, tcr, multisig);
   }
 
   private govtInstance: GovernmentContract;
   private civilInstance: CivilTCRContract;
   private ethApi: EthApi;
-  private multisig?: Multisig;
-  private appellateAddr: EthAddress;
+  private multisig: Multisig;
 
-  private constructor(
-    api: EthApi,
-    govt: GovernmentContract,
-    tcr: CivilTCRContract,
-    addr: EthAddress,
-    multi?: Multisig,
-  ) {
+  private constructor(api: EthApi, govt: GovernmentContract, tcr: CivilTCRContract, multi: Multisig) {
     this.ethApi = api;
     this.govtInstance = govt;
     this.civilInstance = tcr;
     this.multisig = multi;
-    this.appellateAddr = addr;
   }
 
   public async grantAppeal(listingAddress: EthAddress): Promise<TwoStepEthTransaction<any>> {
-    if (this.multisig) {
-      console.log("grantAppeal - multisig");
-      const data = await this.civilInstance.grantAppeal.getRaw(listingAddress);
-      return this.multisig.submitTransaction(this.civilInstance.address, new BigNumber(0), data.data!);
-    } else {
-      console.log("grantAppeal - no multisig.");
-      return createTwoStepSimple(
-        this.ethApi,
-        await this.civilInstance.grantAppeal.sendTransactionAsync(listingAddress),
-      );
-    }
+    const data = await this.civilInstance.grantAppeal.getRaw(listingAddress, { gas: 0 });
+    return this.multisig.submitTransaction(this.civilInstance.address, new BigNumber(0), data.data!);
   }
 
   public async transferAppellate(newAppellate: EthAddress): Promise<TwoStepEthTransaction<any>> {
-    if (this.multisig) {
-      console.log("transferAppeallate - multisig");
-      const data = await this.govtInstance.setAppellate.getRaw(newAppellate);
-      return this.multisig.submitTransaction(this.govtInstance.address, new BigNumber(0), data.data!);
-    } else {
-      console.log("transferAppellate - no multisig.");
-      return createTwoStepSimple(this.ethApi, await this.govtInstance.setAppellate.sendTransactionAsync(newAppellate));
-    }
+    const data = await this.govtInstance.setAppellate.getRaw(newAppellate);
+    return this.multisig.submitTransaction(this.govtInstance.address, new BigNumber(0), data.data!);
   }
 
   public async getAppellateMembers(): Promise<string[]> {
-    if (this.multisig) {
-      return this.multisig.owners();
-    } else {
-      return [this.appellateAddr];
-    }
+    return this.multisig.owners();
   }
 }
