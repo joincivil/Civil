@@ -4,7 +4,8 @@ import * as Web3 from "web3";
 import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 import { Contract } from "../interfaces/contract";
 import { OwnableContract } from "../interfaces/ownable";
-
+import { artifacts } from "../generated/artifacts";
+import { isDeployedBytecodeEqual } from "@joincivil/utils";
 import { EthAddress, TxDataBase, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "../../types";
 import { EthApi } from "../../utils/ethapi";
 
@@ -108,4 +109,10 @@ export function createTwoStepSimple(ethApi: EthApi, txHash: TxHash): TwoStepEthT
 
 export function isEthAddress(what: any): what is EthAddress {
   return typeof what === "string";
+}
+
+export async function isAddressMultisigWallet(ethApi: EthApi, address: EthAddress): Promise<boolean> {
+  const code = await ethApi.getCode(address);
+  // TODO(ritave): Have backwards compatibillity for older Multisig wallets and bytecodes
+  return isDeployedBytecodeEqual(artifacts.MultiSigWallet.deployedBytecode, code);
 }

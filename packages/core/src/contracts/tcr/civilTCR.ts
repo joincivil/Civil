@@ -1,7 +1,6 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import * as Debug from "debug";
-import "@joincivil/utils";
 
 import { Voting } from "./voting";
 import { Parameterizer } from "./parameterizer";
@@ -36,6 +35,7 @@ import {
 } from "../../utils/listingDataHelpers/listingHelper";
 import { Government } from "./government";
 import { Challenge } from "./challenge";
+import { Council } from "./council";
 
 const debug = Debug("civil:tcr");
 
@@ -117,6 +117,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public async getGovernment(): Promise<Government> {
     return Government.singleton(this.ethApi);
+  }
+
+  public async getCouncil(): Promise<Council> {
+    return Council.singleton(this.ethApi);
   }
 
   /**

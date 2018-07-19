@@ -9,6 +9,7 @@ import Editor from "./Editor";
 import NewsroomManagement from "./newsroom/NewsroomManagementV2";
 import NewsroomManagementV1 from "./newsroom/NewsroomManagement";
 import Parameterizer from "./Parameterizer";
+import Government from "./council/Government";
 import ParameterizerProposal from "./parameterizer/Proposal";
 import CreateNewsroom from "./CreateNewsroom";
 import Article from "./Article";
@@ -77,6 +78,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
         <Route path="/parameterizer" component={Parameterizer} />
         <Route path="/createNewsroom" component={CreateNewsroom} />
         <Route path="/article/:newsroomAddress/:articleId" component={Article} />
+        <Route path="/government" component={Government} />
       </Switch>
     );
   }
