@@ -1,26 +1,26 @@
-import * as React from "react";
 import {
+  AddressWithCopyButton,
+  Button,
+  buttonSizes,
+  Collapsable,
+  DetailTransactionButton,
+  fonts,
+  GreenCheckMark,
+  LoadingIndicator,
+  Modal,
+  StepDescription,
   StepHeader,
   StepProps,
   StepStyled,
   TextInput,
-  DetailTransactionButton,
-  Collapsable,
-  fonts,
-  AddressWithCopyButton,
-  StepDescription,
-  buttonSizes,
-  Modal,
-  Button,
-  LoadingIndicator,
   ViewTransactionLink,
-  GreenCheckMark,
 } from "@joincivil/components";
-import { TwoStepEthTransaction, Civil, TxHash, EthAddress } from "@joincivil/core";
+import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
-import styled, { StyledComponentClass } from "styled-components";
+import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { updateNewsroom, changeName } from "./actionCreators";
+import styled, { StyledComponentClass } from "styled-components";
+import { changeName, updateNewsroom } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
 
@@ -131,7 +131,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               ]}
               civil={value.civil}
               estimateFunctions={[value.civil!.estimateNewsroomDeployTrusted.bind(value.civil, this.props.name)]}
-              requiredNetwork={value.network}
+              requiredNetwork={value.requiredNetwork}
               size={buttonSizes.MEDIUM_WIDE}
               noModal={true}
               preExecuteTransactions={() => this.setState({ modalOpen: true })}
@@ -159,7 +159,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <DetailTransactionButton
               transactions={[{ transaction: this.changeName, postTransaction: this.onNameChange }]}
               civil={value.civil}
-              requiredNetwork={value.network}
+              requiredNetwork={value.requiredNetwork}
               size={buttonSizes.MEDIUM_WIDE}
             >
               Change Name
@@ -187,7 +187,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <h3>Transaction Processing</h3>
             <p>
               Right now computers around the world are learning about your newsroom contract.<br />
-              <ViewTransactionLink txHash={this.props.txHash!} network={value.network} />
+              <ViewTransactionLink txHash={this.props.txHash!} network={value.requiredNetwork} />
             </p>
           </PendingWrapper>
         )}

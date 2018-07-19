@@ -34,7 +34,7 @@ export async function initializeGovernmentParamSubscription(dispatch: Dispatch<a
 }
 
 export async function initializeConstitution(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = getTCR();
+  const tcr = await getTCR();
   const govt = await tcr.getGovernment();
   const council = await tcr.getCouncil();
   const uri = await govt.getConstitutionURI();

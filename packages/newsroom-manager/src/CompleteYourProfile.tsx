@@ -1,25 +1,25 @@
-import * as React from "react";
 import {
+  AddressInput,
+  BorderlessButton,
+  buttonSizes,
+  Collapsable,
+  colors,
+  DetailTransactionButton,
+  fonts,
+  QuestionToolTip,
+  StepDescription,
   StepHeader,
   StepProps,
   StepStyled,
-  Collapsable,
-  BorderlessButton,
-  colors,
-  fonts,
-  AddressInput,
-  DetailTransactionButton,
-  StepDescription,
-  QuestionToolTip,
-  buttonSizes,
 } from "@joincivil/components";
-import styled from "styled-components";
-import { connect, DispatchProp } from "react-redux";
 import { EthAddress, NewsroomRoles } from "@joincivil/core";
-import { CivilContext, CivilContextValue } from "./CivilContext";
-import { StateWithNewsroom } from "./reducers";
+import * as React from "react";
+import { connect, DispatchProp } from "react-redux";
+import styled from "styled-components";
 import { fetchNewsroom, uiActions } from "./actionCreators";
+import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser } from "./NewsroomUser";
+import { StateWithNewsroom } from "./reducers";
 
 export interface CompleteYourProfileComponentExternalProps extends StepProps {
   address?: EthAddress;
@@ -146,7 +146,7 @@ class CompleteYourProfileComponent extends React.Component<
                 ]}
                 size={buttonSizes.MEDIUM_WIDE}
                 civil={value.civil}
-                requiredNetwork={value.network}
+                requiredNetwork={value.requiredNetwork}
               >
                 Add Editor
               </DetailTransactionButton>
@@ -182,7 +182,7 @@ class CompleteYourProfileComponent extends React.Component<
                 ]}
                 civil={value.civil}
                 size={buttonSizes.MEDIUM_WIDE}
-                requiredNetwork={value.network}
+                requiredNetwork={value.requiredNetwork}
               >
                 Add Officer
               </DetailTransactionButton>

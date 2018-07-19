@@ -1,11 +1,18 @@
-import * as React from "react";
 import { Civil } from "@joincivil/core";
+import * as React from "react";
 
 export interface CivilContextValue {
   civil: Civil | undefined;
-  network: string;
+  account?: string;
+  requiredNetwork: string;
+  currentNetwork?: string;
 }
 
-const defaultContext: CivilContextValue = { civil: undefined, network: "rinkeby" };
+const defaultContext: CivilContextValue = {
+  civil: undefined,
+  account: undefined,
+  currentNetwork: undefined,
+  requiredNetwork: "rinkeby",
+};
 
 export const CivilContext = React.createContext(defaultContext);

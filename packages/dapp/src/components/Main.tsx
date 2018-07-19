@@ -39,7 +39,6 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     try {
       await initializeParameterizer(this.props.dispatch!);
       await initializeGovernment(this.props.dispatch!);
-      await initializeConstitution(this.props.dispatch!);
       await initializeProposalsSubscriptions(this.props.dispatch!);
       await initializeGovernmentParamSubscription(this.props.dispatch!);
       await initializeSubscriptions(this.props.dispatch!);

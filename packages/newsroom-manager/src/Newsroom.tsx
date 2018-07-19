@@ -1,19 +1,20 @@
+import { ButtonTheme, colors, FormHeading, StepProcess } from "@joincivil/components";
+import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
-import { FormHeading, StepProcess, colors, ButtonTheme } from "@joincivil/components";
-import { NameAndAddress } from "./NameAndAddress";
-import { CompleteYourProfile } from "./CompleteYourProfile";
 import { connect, DispatchProp } from "react-redux";
-import { StateWithNewsroom } from "./reducers";
-import { addNewsroom, getNewsroom, getEditors, addGetNameForAddress } from "./actionCreators";
-import { EthAddress, Civil, TxHash } from "@joincivil/core";
+import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
+import { addGetNameForAddress, addNewsroom, getEditors, getNewsroom } from "./actionCreators";
 // import { SignConstitution } from "./SignConstitution";
 // import { CreateCharter } from "./CreateCharter";
 // import { ApplyToTCR } from "./ApplyToTCR";
 import { CivilContext } from "./CivilContext";
-import styled, { ThemeProvider, StyledComponentClass } from "styled-components";
+import { CompleteYourProfile } from "./CompleteYourProfile";
+import { NameAndAddress } from "./NameAndAddress";
+import { StateWithNewsroom } from "./reducers";
 
 export interface NewsroomComponentState {
   currentStep: number;
+  subscription?: any;
 }
 
 export interface NewsroomProps {
@@ -21,7 +22,9 @@ export interface NewsroomProps {
   txHash?: TxHash;
   name?: string;
   disabled?: boolean;
-  network?: string;
+  account?: string;
+  currentNetwork?: string;
+  requiredNetwork?: string;
   civil?: Civil;
   theme?: ButtonTheme;
   renderUserSearch?(onSetAddress: any): JSX.Element;
@@ -57,6 +60,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   }
 
+  public async componentWillUnmount(): Promise<void> {}
+
   public async componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): Promise<void> {
     if (newProps.address && !this.props.address) {
       await this.hydrateNewsroom(newProps.address);
@@ -76,7 +81,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             Note: Each step will involve a transaction from your wallet, which will open in a new pop-up window in
             MetaMask. You'll need to confirm the transaction
           </NoteSection>
-          <CivilContext.Provider value={{ civil: this.props.civil, network: this.props.network || "rinkeby" }}>
+          <CivilContext.Provider
+            value={{
+              civil: this.props.civil,
+              currentNetwork: this.props.currentNetwork,
+              requiredNetwork: this.props.requiredNetwork || "rinkeby",
+              account: this.props.account,
+            }}
+          >
             <StepProcess disabled={this.isDisabled()} stepIsDisabled={this.isStepDisabled}>
               <NameAndAddress
                 active={this.state.currentStep}
@@ -127,8 +139,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       this.props.disabled ||
       !this.props.civil ||
-      this.props.network !== this.props.civil.networkName ||
-      !this.props.civil.userAccount
+      this.props.currentNetwork !== this.props.requiredNetwork ||
+      !this.props.account
     );
   };
 
