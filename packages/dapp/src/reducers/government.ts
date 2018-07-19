@@ -33,3 +33,30 @@ export function constitution(
       return state;
   }
 }
+
+export function appellate(state: string = "", action: AnyAction): string {
+  switch (action.type) {
+    case governmentActions.SET_APPELLATE:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function controller(state: string = "", action: AnyAction): string {
+  switch (action.type) {
+    case governmentActions.SET_CONTROLLER:
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function appellateMembers(state: string[] = [""], action: AnyAction): string[] {
+  switch (action.type) {
+    case governmentActions.SET_APPELLATE_MEMBERS:
+      return action.data;
+    default:
+      return state;
+  }
+}

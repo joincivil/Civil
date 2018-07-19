@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
-import "@joincivil/utils";
 import { Observable } from "rxjs";
 
 import { EthAddress, TwoStepEthTransaction, Param } from "../../types";
@@ -85,5 +84,13 @@ export class Government extends BaseWrapper<GovernmentContract> {
    */
   public async getConstitutionHash(): Promise<string> {
     return this.instance.constitutionHash.callAsync();
+  }
+
+  public async getAppellate(): Promise<EthAddress> {
+    return this.instance.getAppellate.callAsync();
+  }
+
+  public async getController(): Promise<EthAddress> {
+    return this.instance.getGovernmentController.callAsync();
   }
 }

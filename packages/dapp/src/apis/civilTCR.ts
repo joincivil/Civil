@@ -179,6 +179,12 @@ export async function getApplicationMaximumLengthInBlocks(): Promise<BigNumber> 
     .dividedBy(25); // divided by a pessimistic guess about blocktime
 }
 
+export async function setAppellate(address: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const council = await civil.councilSingletonTrusted();
+  return council.transferAppellate(address);
+}
+
 export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = civil.tcrSingletonTrusted();
