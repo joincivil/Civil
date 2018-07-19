@@ -20,6 +20,7 @@ import { fetchNewsroom, uiActions } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser } from "./NewsroomUser";
 import { StateWithNewsroom } from "./reducers";
+import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface CompleteYourProfileComponentExternalProps extends StepProps {
   address?: EthAddress;
@@ -144,7 +145,7 @@ class CompleteYourProfileComponent extends React.Component<
                     },
                   },
                 ]}
-                size={buttonSizes.MEDIUM_WIDE}
+                Button={TransactionButtonInner}
                 civil={value.civil}
                 requiredNetwork={value.requiredNetwork}
               >
@@ -181,7 +182,7 @@ class CompleteYourProfileComponent extends React.Component<
                   },
                 ]}
                 civil={value.civil}
-                size={buttonSizes.MEDIUM_WIDE}
+                Button={TransactionButtonInner}
                 requiredNetwork={value.requiredNetwork}
               >
                 Add Officer

@@ -4,18 +4,22 @@ import { debounce } from "lodash";
 import * as React from "react";
 import { Subscription } from "rxjs/Subscription";
 import styled from "styled-components";
-import { buttonSizes } from "./Button";
+import {
+  TransactionButton,
+  Transaction,
+  TransactionButtonNoModal,
+  TransactionButtonInnerProps,
+} from "./TransactionButton";
+import { fonts, colors } from "./styleConstants";
 import { QuestionToolTip } from "./QuestionToolTip";
-import { colors, fonts } from "./styleConstants";
-import { Transaction, TransactionButton, TransactionButtonNoModal } from "./TransactionButton";
 
 export interface DetailTransactionButtonProps {
   civil?: Civil;
   transactions: Transaction[];
   estimateFunctions?: Array<() => Promise<number>>;
   requiredNetwork: string;
+  Button?: React.StatelessComponent<TransactionButtonInnerProps>;
   noModal?: boolean;
-  size?: buttonSizes;
   preExecuteTransactions?(): any;
 }
 
@@ -167,9 +171,9 @@ export class DetailTransactionButton extends React.Component<
         <ButtonWrapper>
           <TransactionButtonComponent
             preExecuteTransactions={this.props.preExecuteTransactions}
-            size={this.props.size || buttonSizes.SMALL}
             disabled={this.isDisabled()}
             transactions={this.props.transactions}
+            Button={this.props.Button}
           >
             {this.props.children}
           </TransactionButtonComponent>
