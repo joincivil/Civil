@@ -14,8 +14,12 @@ export interface StepDescriptionProps {
 export const StepStyled = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 23px 4px 37px 50px;
-  width: 600px;
+  width: 645px;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
   &:after{
     content: "${(props: StepStyledProps) => props.index + 1}";
     color: ${(props: StepStyledProps) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
@@ -24,7 +28,7 @@ export const StepStyled = styled.div`
     top: 20px;
     height: 10px;
     font-family: ${fonts.SANS_SERIF};
-    font-size: 16px;
+    font-size: 25px;
     font-weight: 400;
   }
 `;
@@ -48,5 +52,7 @@ export const StepStyledFluid = StepStyled.extend`
 `;
 
 export const StepDescription = styled<StepDescriptionProps, "p">("p")`
-  color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
+  color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.accent.CIVIL_GRAY_2)};
+  margin-bottom: 23px;
+  margin-top: 0;
 `;

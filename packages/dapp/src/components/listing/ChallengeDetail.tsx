@@ -83,7 +83,7 @@ export interface ChallengeDetailProps {
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
-  user?: EthAddress;
+  user: EthAddress;
   balance?: BigNumber;
 }
 
@@ -142,6 +142,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeState={this.props.challengeState}
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
+        user={this.props.user}
       />
     );
   }
