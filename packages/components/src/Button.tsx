@@ -7,6 +7,7 @@ import { colors, fonts } from "./styleConstants";
 export enum buttonSizes {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
+  MEDIUM_WIDE = "MEDIUM_WIDE",
   LARGE = "LARGE",
 }
 
@@ -28,6 +29,7 @@ export interface ButtonTheme {
   primaryButtonHoverBackground?: string;
   primaryButtonDisabledBackground?: string;
   primaryButtonDisabledColor?: string;
+  primaryButtonTextTransform?: string;
   invertedButtonBackground?: string;
   invertedButtonColor?: string;
   secondaryButtonBackground?: string;
@@ -38,23 +40,28 @@ export interface ButtonTheme {
   darkButtonBackground?: string;
   darkButtonColor?: string;
   darkButtonHoverBackground?: string;
+  borderlessButtonColor?: string;
+  borderlessButtonHoverColor?: string;
 }
 
 const sizesObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "8px 12px",
   [buttonSizes.MEDIUM]: "10px 25px",
+  [buttonSizes.MEDIUM_WIDE]: "9px 30px",
   [buttonSizes.LARGE]: "20px 50px",
 };
 
 const spacingObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "0.5px",
   [buttonSizes.MEDIUM]: "1px",
+  [buttonSizes.MEDIUM_WIDE]: "0.8px",
   [buttonSizes.LARGE]: "3px",
 };
 
 const fontObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "12px",
   [buttonSizes.MEDIUM]: "18px",
+  [buttonSizes.MEDIUM_WIDE]: "14px",
   [buttonSizes.LARGE]: "24px",
 };
 
@@ -94,7 +101,7 @@ const BaseButton = styled(ButtonComponent)`
 export const Button = BaseButton.extend`
   background-color: ${props => props.theme.primaryButtonBackground};
   color: ${props => props.theme.primaryButtonColor};
-  text-transform: uppercase;
+  text-transform: ${props => props.theme.primaryButtonTextTransform};
   &:hover {
     background-color: ${props => props.theme.primaryButtonHoverBackground};
   }
@@ -111,6 +118,7 @@ Button.defaultProps = {
     primaryButtonHoverBackground: colors.accent.CIVIL_BLUE_FADED,
     primaryButtonDisabledBackground: colors.accent.CIVIL_BLUE_VERY_FADED,
     primaryButtonDisabledColor: colors.basic.WHITE,
+    primaryButtonTextTransform: "uppercase",
   },
 };
 
@@ -184,7 +192,7 @@ export const CancelButton = SecondaryButton.extend`
 export const BorderlessButton = Button.extend`
   border: none;
   font-family: ${fonts.SANS_SERIF};
-  color: ${colors.primary.CIVIL_BLUE_1};
+  color: ${props => props.theme.borderlessButtonColor};
   font-weight: 700;
   margin-left: 8px;
   letter-spacing: 0.7px;
@@ -193,6 +201,13 @@ export const BorderlessButton = Button.extend`
   background-color: transparent;
   &:hover {
     background-color: transparent;
-    color: ${colors.accent.CIVIL_BLUE_FADED};
+    color: ${props => props.theme.borderlessButtonHoverColor};
   }
 `;
+
+BorderlessButton.defaultProps = {
+  theme: {
+    borderlessButtonColor: colors.primary.CIVIL_BLUE_1,
+    borderlessButtonHoverColor: colors.accent.CIVIL_BLUE_FADED,
+  },
+};
