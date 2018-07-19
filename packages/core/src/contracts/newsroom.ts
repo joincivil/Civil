@@ -26,6 +26,7 @@ import {
   TwoStepEthTransaction,
   TxData,
   Uri,
+  TxHash,
 } from "../types";
 import { CivilErrors, requireAccount } from "../utils/errors";
 import { EthApi } from "../utils/ethapi";
@@ -462,6 +463,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     }
   }
 
+  public async contentIdFromTxHash(txHash: TxHash): Promise<number> {
+    const publishReceipt = await this.ethApi.awaitReceipt(txHash);
+    const findContentId = (receipt: CivilTransactionReceipt) =>
+      findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
+
+    return findContentId(publishReceipt);
+  }
+
   /**
    * Allows editor to publish content on the ethereum storage and record it in the
    * Blockchain Newsroom.
@@ -538,6 +547,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         findRevisionId,
       );
     }
+  }
+
+  public async revisionFromTxHash(txHash: TxHash): Promise<RevisionId> {
+    const revisionReceipt = await this.ethApi.awaitReceipt(txHash);
+    const findRevisionId = (receipt: CivilTransactionReceipt) =>
+      findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
+    return findRevisionId(revisionReceipt);
   }
 
   /**
