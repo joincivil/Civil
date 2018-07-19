@@ -1,11 +1,9 @@
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
-import { Observable } from "rxjs";
 
-import { EthAddress, TwoStepEthTransaction, Param } from "../../types";
+import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { CivilErrors } from "../../utils/errors";
 import { EthApi } from "../../utils/ethapi";
-import { BaseWrapper } from "../basewrapper";
 import { GovernmentContract } from "../generated/wrappers/government";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Multisig } from "../multisig/multisig";
@@ -26,16 +24,14 @@ export class Council {
     }
     const appellateAddr = await govt.getAppellate.callAsync();
     const multisig = Multisig.atUntrusted(ethApi, appellateAddr);
-    return new Council(ethApi, govt, tcr, multisig);
+    return new Council(govt, tcr, multisig);
   }
 
   private govtInstance: GovernmentContract;
   private civilInstance: CivilTCRContract;
-  private ethApi: EthApi;
   private multisig: Multisig;
 
-  private constructor(api: EthApi, govt: GovernmentContract, tcr: CivilTCRContract, multi: Multisig) {
-    this.ethApi = api;
+  private constructor(govt: GovernmentContract, tcr: CivilTCRContract, multi: Multisig) {
     this.govtInstance = govt;
     this.civilInstance = tcr;
     this.multisig = multi;
