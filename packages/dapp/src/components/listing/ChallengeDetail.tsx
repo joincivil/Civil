@@ -72,6 +72,7 @@ export interface ChallengeContainerReduxProps {
   balance: BigNumber;
   parameters: any;
   govtParameters: any;
+  isMemberOfAppellate: boolean;
 }
 
 export interface ChallengeDetailProps {
@@ -85,6 +86,7 @@ export interface ChallengeDetailProps {
   userAppealChallengeData?: UserChallengeData;
   user: EthAddress;
   balance?: BigNumber;
+  isMemberOfAppellate: boolean;
 }
 
 export interface ChallengeVoteState {
@@ -143,6 +145,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
         user={this.props.user}
+        isMemberOfCouncil={this.props.isMemberOfAppellate}
       />
     );
   }
@@ -447,6 +450,7 @@ class ChallengeContainer extends React.Component<
         user={this.props.user}
         parameters={this.props.parameters}
         govtParameters={this.props.govtParameters}
+        isMemberOfAppellate={this.props.isMemberOfAppellate}
       />
     );
   }
@@ -471,6 +475,7 @@ const makeMapStateToProps = () => {
       user,
       parameters,
       govtParameters,
+      appellateMembers,
     } = state.networkDependent;
     let listingAddress = ownProps.listingAddress;
     let challengeData;
@@ -508,6 +513,7 @@ const makeMapStateToProps = () => {
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
+    const isMemberOfAppellate = appellateMembers.includes(userAcct.account);
     return {
       challengeData,
       userChallengeData,
@@ -518,6 +524,7 @@ const makeMapStateToProps = () => {
       balance: user.account.balance,
       parameters,
       govtParameters,
+      isMemberOfAppellate,
       ...ownProps,
     };
   };
