@@ -4,8 +4,6 @@ import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
