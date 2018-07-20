@@ -67,10 +67,12 @@ contract CivilTCR is RestrictedAddressRegistry {
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
-    address govtAddr
+    IGovernment govt
   ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
   {
-    government = IGovernment(govtAddr);
+    require(govt != 0);
+    require(govt.getGovernmentController() != 0);
+    government = govt;
   }
 
   // --------------------
@@ -145,9 +147,10 @@ contract CivilTCR is RestrictedAddressRegistry {
   --------
   Emits `_GovernmentTransfered` if successful.
   */
-  function transferGovernment(address newAddress) external onlyGovernmentController {
-    government = IGovernment(newAddress);
-    emit _GovernmentTransfered(newAddress);
+  function transferGovernment(IGovernment newGovernment) external onlyGovernmentController {
+    require(newGovernment != 0);
+    government = newGovernment;
+    emit _GovernmentTransfered(newGovernment);
   }
 
   // --------
