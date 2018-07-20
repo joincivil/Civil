@@ -1,4 +1,6 @@
+import { currentAccount, EthApi, requireAccount } from "@joincivil/ethapi";
 import {
+  CivilErrors,
   hashContent,
   hashPersonalMessage,
   is0x0Address,
@@ -6,10 +8,11 @@ import {
   prepareNewsroomMessage,
   prepareUserFriendlyNewsroomMessage,
   recoverSigner,
-  CivilErrors
 } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
+import * as Debug from "debug";
 import { Observable } from "rxjs";
+import { TransactionReceipt } from "web3";
 import { ContentProvider } from "../content/contentprovider";
 import {
   ApprovedRevision,
@@ -26,10 +29,9 @@ import {
   StorageHeader,
   TwoStepEthTransaction,
   TxData,
-  Uri,
   TxHash,
+  Uri,
 } from "../types";
-import { EthApi, requireAccount, currentAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";
@@ -45,8 +47,6 @@ import {
   findEventOrThrow,
   findEvents,
 } from "./utils/contracts";
-import { TransactionReceipt } from "web3";
-import * as Debug from "debug";
 
 const debug = Debug("civil:newsroom");
 
@@ -474,7 +474,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   public async contentIdFromTxHash(txHash: TxHash): Promise<number> {
-    const publishReceipt = await this.ethApi.awaitReceipt(txHash);
+    const publishReceipt = await this.ethApi.awaitReceipt<CivilTransactionReceipt>(txHash);
     const findContentId = (receipt: CivilTransactionReceipt) =>
       findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
 
@@ -560,7 +560,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   public async revisionFromTxHash(txHash: TxHash): Promise<RevisionId> {
-    const revisionReceipt = await this.ethApi.awaitReceipt(txHash);
+    const revisionReceipt = await this.ethApi.awaitReceipt<CivilTransactionReceipt>(txHash);
     const findRevisionId = (receipt: CivilTransactionReceipt) =>
       findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
     return findRevisionId(revisionReceipt);

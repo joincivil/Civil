@@ -2,18 +2,38 @@ import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
-
-import { Voting } from "./voting";
-import { Parameterizer } from "./parameterizer";
+import { Observable } from "rxjs/Observable";
+import {
+  canBeWhitelisted,
+  canChallengeBeResolved,
+  canListingAppealBeResolved,
+  isAwaitingAppealRequest,
+  isInAppealChallengeCommitPhase,
+  isInAppealChallengeRevealPhase,
+  isInChallengedCommitVotePhase,
+  isInChallengedRevealVotePhase,
+  isListingAwaitingAppealChallenge,
+  isListingAwaitingAppealJudgment,
+} from "../../";
+import { ContentProvider } from "../../content/contentprovider";
+import {
+  EthAddress,
+  ListingWrapper,
+  TwoStepEthTransaction,
+  UserChallengeData,
+  WrappedChallengeData,
+} from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 import { Challenge } from "./challenge";
+import { Council } from "./council";
 import { EIP20 } from "./eip20";
 import { Government } from "./government";
-import { Challenge } from "./challenge";
-import { Council } from "./council";
+import { Listing } from "./listing";
+import { Parameterizer } from "./parameterizer";
+import { Voting } from "./voting";
 
 const debug = Debug("civil:tcr");
 

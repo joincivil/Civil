@@ -1,11 +1,11 @@
 import { currentNetwork, detectProvider, EthApi, ProviderBackport, Web310Provider } from "@joincivil/ethapi";
-import { EthSignedMessage, TxHash, Uri } from "@joincivil/typescript-types";
+import { EthAddress, EthSignedMessage, TxHash, Uri } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
-import { FallbackProvider } from ".";
+import { CivilTransactionReceipt, FallbackProvider, TwoStepEthTransaction } from ".";
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
 import { IPFSProvider } from "./content/ipfsprovider";
 import { Artifact, artifacts } from "./contracts/generated/artifacts";
