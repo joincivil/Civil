@@ -1,9 +1,9 @@
 import * as React from "react";
-import { RevealVoteProps } from "./types";
 import { buttonSizes, DarkButton } from "../Button";
-import { TransactionDarkButton } from "../TransactionButton";
 import { SaltInput } from "../input/";
-import { VoteOptionsContainer, StyledOrText, FormHeader, FormCopy } from "./styledComponents";
+import { TransactionDarkButton } from "../TransactionButton";
+import { FormCopy, FormHeader, StyledOrText, VoteOptionsContainer } from "./styledComponents";
+import { RevealVoteProps } from "./types";
 
 export interface RevealVoteState {
   voteOption?: number;

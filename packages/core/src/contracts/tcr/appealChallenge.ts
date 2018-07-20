@@ -1,14 +1,13 @@
-import "@joincivil/utils";
+import { EthApi } from "@joincivil/ethapi";
 import BigNumber from "bignumber.js";
-import { Voting } from "./voting";
-import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
-import { EthApi } from "../../utils/ethapi";
 import { AppealChallengeData } from "../../types";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
+import { Voting } from "./voting";
 
 export class AppealChallenge {
   private tcrInstance: CivilTCRContract;
   private challengeId: BigNumber;
-  private voting: Voting;
+  private voting: Promise<Voting>;
 
   constructor(ethApi: EthApi, instance: CivilTCRContract, challengeId: BigNumber) {
     this.tcrInstance = instance;
@@ -17,10 +16,11 @@ export class AppealChallenge {
   }
 
   public async getAppealChallengeData(): Promise<AppealChallengeData> {
+    const resolvedVoting = await this.voting;
     const [rewardPool, challenger, resolved, stake, totalTokens] = await this.tcrInstance.challenges.callAsync(
       this.challengeId,
     );
-    const poll = await this.voting.getPoll(this.challengeId);
+    const poll = await resolvedVoting.getPoll(this.challengeId);
 
     return {
       rewardPool,

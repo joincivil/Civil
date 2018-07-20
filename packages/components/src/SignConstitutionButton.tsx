@@ -1,12 +1,13 @@
+import { EthAddress } from "@joincivil/core";
 import * as React from "react";
 import styled from "styled-components";
-import { Civil } from "@joincivil/core";
 import { Button } from "./Button";
-import { fonts, colors } from "./styleConstants";
 import { DetailsButtonComponent } from "./DetailsButtonComponent";
+import { colors, fonts } from "./styleConstants";
 
 export interface SignConstitutionButtonProps {
-  civil?: Civil;
+  currentNetwork?: string;
+  currentAccount?: EthAddress;
   requiredNetwork: string;
   isNewsroomOwner: boolean | undefined;
   signConstitution(): Promise<void>;
@@ -46,9 +47,8 @@ export class SignConstitutionButton extends React.Component<SignConstitutionButt
 
   public isDisabled(): boolean {
     return (
-      !this.props.civil ||
-      !this.props.civil.userAccount ||
-      this.props.requiredNetwork !== this.props.civil.networkName ||
+      !this.props.currentAccount ||
+      this.props.requiredNetwork !== this.props.currentNetwork ||
       !this.props.isNewsroomOwner
     );
   }
@@ -105,11 +105,11 @@ export class SignConstitutionButton extends React.Component<SignConstitutionButt
   }
 
   public renderDetails(): JSX.Element {
-    if (!this.props.civil) {
+    if (!this.props.currentNetwork) {
       return this.renderNoMetaMask();
-    } else if (!this.props.civil.userAccount) {
+    } else if (!this.props.currentAccount) {
       return this.renderMetaMaskLocked();
-    } else if (this.props.requiredNetwork !== this.props.civil.networkName) {
+    } else if (this.props.requiredNetwork !== this.props.currentNetwork) {
       return this.renderWrongNetwork();
     } else if (!this.props.isNewsroomOwner) {
       return this.renderIsNotOwner();

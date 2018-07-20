@@ -1,3 +1,4 @@
+import { Param } from "@joincivil/core";
 import { Dispatch } from "react-redux";
 import {
   multiSetGovtParameters,
@@ -8,8 +9,7 @@ import {
   setAppellateMembers,
 } from "../actionCreators/government";
 import { getGovernmentParameters } from "../apis/civilTCR";
-import { getTCR, getCivil } from "./civilInstance";
-import { Param } from "@joincivil/core";
+import { getCivil, getTCR } from "./civilInstance";
 
 export async function initializeGovernment(dispatch: Dispatch<any>): Promise<void> {
   const paramKeys = ["requestAppealLen", "judgeAppealLen", "appealFee", "appealVotePercentage"];
@@ -24,7 +24,7 @@ export async function initializeGovernment(dispatch: Dispatch<any>): Promise<voi
 }
 
 export async function initializeGovernmentParamSubscription(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = getTCR();
+  const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
   const govt = await tcr.getGovernment();
@@ -34,7 +34,7 @@ export async function initializeGovernmentParamSubscription(dispatch: Dispatch<a
 }
 
 export async function initializeConstitution(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = getTCR();
+  const tcr = await getTCR();
   const govt = await tcr.getGovernment();
   const council = await tcr.getCouncil();
   const uri = await govt.getConstitutionURI();

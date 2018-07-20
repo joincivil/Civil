@@ -12,9 +12,7 @@ import { isUndefined, padStart, startsWith } from "lodash";
 import * as Web3 from "web3";
 // TODO(ritave): Use ethereumjs-abi
 import * as SolidityCoder from "web3/lib/solidity/coder";
-
-import { AbiType, SolidityTypes } from "../types";
-import { CivilLogs } from "../contracts/generated/events";
+import { AbiType, DecodedLogEntry, SolidityTypes } from "../../typescript-types/build";
 
 const HEX_START = "0x";
 const ADDRESS_LENGTH_CHAR = 40;
@@ -38,7 +36,9 @@ export class AbiDecoder {
     abiArrays.forEach(this.addABI.bind(this));
   }
 
-  public tryToDecodeLogOrNoop<LogType extends CivilLogs = CivilLogs>(log: Web3.LogEntry): LogType | Web3.LogEntry {
+  public tryToDecodeLogOrNoop<LogType extends DecodedLogEntry = DecodedLogEntry>(
+    log: Web3.LogEntry,
+  ): LogType | Web3.LogEntry {
     const methodId = log.topics[0];
     const event = this.methodIds[methodId];
     if (isUndefined(event)) {

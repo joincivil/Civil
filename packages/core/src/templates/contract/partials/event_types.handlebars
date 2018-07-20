@@ -39,5 +39,8 @@ export namespace {{contractName}} {
       LogEvents.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
     {{/each}}
   }
+
+  export type Receipt = DecodedTransactionReceipt<Logs.All>;
+  export type EventReceipt = DecodedTransactionReceipt<LogEvents.All>;
 }
 // tslint:enable:no-namespace

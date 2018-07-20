@@ -1,4 +1,4 @@
-import { words } from "../src/bip39.english";
+import { words } from "./bip39.english";
 import { BigNumber } from "bignumber.js";
 
 export { words };
