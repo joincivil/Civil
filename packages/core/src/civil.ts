@@ -12,6 +12,7 @@ import { IPFSProvider } from "./content/ipfsprovider";
 import { promisify, networkNames } from "@joincivil/utils";
 import { FallbackProvider } from ".";
 import { BigNumber } from "bignumber.js";
+import { Council } from "./contracts/tcr/council";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -183,6 +184,10 @@ export class Civil {
    */
   public tcrSingletonTrusted(): CivilTCR {
     return CivilTCR.singleton(this.ethApi, this.contentProvider);
+  }
+
+  public async councilSingletonTrusted(): Promise<Council> {
+    return Council.singleton(this.ethApi);
   }
 
   /**

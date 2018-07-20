@@ -43,6 +43,7 @@ export interface AppealDetailProps {
   govtParameters: any;
   tokenBalance: number;
   user: EthAddress;
+  isMemberOfCouncil: boolean;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -94,12 +95,12 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       .mul(100)
       .toFixed(0);
 
-    const { isAppealAwaitingJudgment } = this.props.challengeState;
+    const { isAwaitingAppealJudgment } = this.props.challengeState;
 
     // @TODO(jon): Check if user is in Civil Council multi-sig
     let transactions;
     let modalContentComponents;
-    if (isAppealAwaitingJudgment) {
+    if (isAwaitingAppealJudgment && this.props.isMemberOfCouncil) {
       const grantAppealProgressModal = this.renderGrantAppealProgressModal();
       modalContentComponents = {
         [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,
