@@ -1,13 +1,12 @@
+import { EthApi } from "@joincivil/ethapi";
+import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
-
 import { EthAddress, TwoStepEthTransaction } from "../../types";
-import { CivilErrors } from "../../utils/errors";
-import { EthApi } from "../../utils/ethapi";
-import { GovernmentContract } from "../generated/wrappers/government";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
+import { GovernmentContract } from "../generated/wrappers/government";
 import { Multisig } from "../multisig/multisig";
-import { createTwoStepSimple, isAddressMultisigWallet } from "../utils/contracts";
+
 const debug = Debug("civil:tcr");
 
 /**
@@ -16,8 +15,8 @@ const debug = Debug("civil:tcr");
  */
 export class Council {
   public static async singleton(ethApi: EthApi): Promise<Council> {
-    const govt = GovernmentContract.singletonTrusted(ethApi);
-    const tcr = CivilTCRContract.singletonTrusted(ethApi);
+    const govt = await GovernmentContract.singletonTrusted(ethApi);
+    const tcr = await CivilTCRContract.singletonTrusted(ethApi);
     if (!govt || !tcr) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);

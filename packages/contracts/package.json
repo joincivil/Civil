@@ -53,7 +53,7 @@
     "rimraf": "^2.6.2",
     "solium": "github:duaraghav8/Solium#develop",
     "solium-plugin-security": "^0.1.1",
-    "truffle": "^4.1.7",
+    "truffle": "~4.1.7",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
     "web3": "^0.20.3"

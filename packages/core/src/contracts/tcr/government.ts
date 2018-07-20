@@ -1,10 +1,9 @@
+import { EthApi } from "@joincivil/ethapi";
+import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs";
-
-import { EthAddress, TwoStepEthTransaction, Param } from "../../types";
-import { CivilErrors } from "../../utils/errors";
-import { EthApi } from "../../utils/ethapi";
+import { EthAddress, Param, TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { GovernmentContract } from "../generated/wrappers/government";
 import { createTwoStepSimple } from "../utils/contracts";
@@ -23,8 +22,8 @@ export const enum GovtParameters {
  * the controlling entities can update them and update the controlling entities as well
  */
 export class Government extends BaseWrapper<GovernmentContract> {
-  public static singleton(ethApi: EthApi): Government {
-    const instance = GovernmentContract.singletonTrusted(ethApi);
+  public static async singleton(ethApi: EthApi): Promise<Government> {
+    const instance = await GovernmentContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);

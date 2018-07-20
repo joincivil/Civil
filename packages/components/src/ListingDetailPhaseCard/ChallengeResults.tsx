@@ -1,8 +1,6 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors } from "../styleConstants";
-import { buttonSizes, DarkButton } from "../Button";
-import { InputGroup, TextInput } from "../input/";
 import { FormHeader } from "./styledComponents";
 import { ChallengeResultsProps } from "./types";
 

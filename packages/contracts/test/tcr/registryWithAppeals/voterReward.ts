@@ -1,6 +1,5 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
-import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
@@ -45,9 +44,9 @@ contract("Registry", accounts => {
 
       await registry.updateStatus(newsroomAddress);
 
-      await expect(registry.voterReward(voterAlice, pollID, "42")).to.be.rejectedWith(
-        REVERTED,
-        "should have reverted since voter commit hash does not match winning hash for salt",
+      expect(await registry.voterReward(voterAlice, pollID, "42")).to.be.bignumber.equal(
+        0,
+        "should have returned false since voter commit hash does not match winning hash for salt",
       );
     });
 
@@ -106,8 +105,8 @@ contract("Registry", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       // Claim reward
-      await expect(registry.voterReward(voterBob, pollID, "32")).to.eventually.be.rejectedWith(
-        REVERTED,
+      expect(registry.voterReward(voterBob, pollID, "32")).to.eventually.be.bignumber.equal(
+        0,
         "minority voter should not have any reward since appeal not granted",
       );
 

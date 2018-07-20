@@ -1,7 +1,8 @@
 import "./rxjs";
-export * from "./language";
 export * from "./civilHelpers";
 export * from "./contracts";
-export * from "./viewHelpers";
 export * from "./crypto";
+export * from "./errors";
+export * from "./language";
 export * from "./salt";
+export * from "./viewHelpers";

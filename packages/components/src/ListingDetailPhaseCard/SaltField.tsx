@@ -1,7 +1,6 @@
-import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
-import { TextInput } from "../input/";
 import { saltToWords } from "@joincivil/utils";
+import * as React from "react";
+import { TextInput } from "../input/";
 
 export interface SaltFieldProps {
   salt?: string;

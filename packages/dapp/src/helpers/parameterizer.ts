@@ -1,8 +1,8 @@
 import { Dispatch } from "react-redux";
+import { Observable } from "rxjs";
 import { addOrUpdateProposal, multiSetParameters } from "../actionCreators/parameterizer";
 import { getParameterValues } from "../apis/civilTCR";
 import { getTCR } from "./civilInstance";
-import { Observable } from "rxjs";
 
 export async function initializeParameterizer(dispatch: Dispatch<any>): Promise<void> {
   const paramKeys = [
@@ -34,7 +34,7 @@ export async function initializeParameterizer(dispatch: Dispatch<any>): Promise<
 }
 
 export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = getTCR();
+  const tcr = await getTCR();
   const parameterizer = await tcr.getParameterizer();
   await Observable.merge(
     parameterizer.propIDsInApplicationPhase(),

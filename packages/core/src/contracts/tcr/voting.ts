@@ -1,11 +1,9 @@
+import { EthApi, requireAccount } from "@joincivil/ethapi";
+import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
-import { Observable } from "rxjs";
 import * as Debug from "debug";
-import "@joincivil/utils";
-
+import { Observable } from "rxjs";
 import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../types";
-import { CivilErrors, requireAccount } from "../../utils/errors";
-import { EthApi } from "../../utils/ethapi";
 import { BaseWrapper } from "../basewrapper";
 import { PLCRVotingContract } from "../generated/wrappers/p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contracts";
@@ -17,8 +15,8 @@ const debug = Debug("civil:tcr");
  * Parameterizer or the Registry
  */
 export class Voting extends BaseWrapper<PLCRVotingContract> {
-  public static singleton(ethApi: EthApi): Voting {
-    const instance = PLCRVotingContract.singletonTrusted(ethApi);
+  public static async singleton(ethApi: EthApi): Promise<Voting> {
+    const instance = await PLCRVotingContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Voting returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
@@ -143,7 +141,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
     console.log("numTokens: " + numTokens);
     console.log("prevPollID: " + prevPollID);
     console.log("commitPeriodAction: " + commitPeriodActive);
-    const tokenBalance = await this.instance.voteTokenBalance.callAsync(this.ethApi.account!);
+    const tokenBalance = await this.instance.voteTokenBalance.callAsync(await requireAccount(this.ethApi).toPromise());
     console.log("tokenBalance: " + tokenBalance);
     return createTwoStepSimple(
       this.ethApi,
@@ -201,7 +199,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async getNumVotingRights(tokenOwner?: EthAddress): Promise<BigNumber> {
     let who = tokenOwner;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.voteTokenBalance.callAsync(who);
   }
@@ -214,7 +212,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async hasVoteBeenRevealed(pollID: BigNumber, voter?: EthAddress): Promise<boolean> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.didRevealVote(who, pollID);
   }
@@ -268,7 +266,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async getNumPassingTokens(pollID: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.getNumTokens.callAsync(who, pollID);
   }
@@ -290,7 +288,7 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   public async getPrevPollID(tokens: BigNumber, pollID: BigNumber, account?: EthAddress): Promise<BigNumber> {
     let who = account;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.getInsertPointForNumTokens.callAsync(who, tokens, pollID);
   }
