@@ -4,7 +4,7 @@ import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
-import { setNetwork } from "../actionCreators/network";
+import { setNetwork, setNetworkName } from "../actionCreators/network";
 import { addUser } from "../actionCreators/userAccount";
 import { getCivil } from "../helpers/civilInstance";
 import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
@@ -29,6 +29,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
   public async componentDidMount(): Promise<void> {
     const civil = getCivil();
     civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
+    civil.networkNameStream.subscribe(this.onNetworkNameUpdated);
     civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
   }
 
@@ -49,6 +50,10 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
         console.error("Unsupported network, unlock Metamask and switch to Rinkeby");
       }
     }
+  };
+
+  public onNetworkNameUpdated = async (networkName: string): Promise<void> => {
+    this.props.dispatch!(setNetworkName(networkName));
   };
 
   public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
