@@ -100,7 +100,6 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public async componentWillReceiveProps(nextProps: DetailTransactionButtonProps): Promise<void> {
-    this.createEthereumSubscription(nextProps.civil);
     await this.divinePrice(nextProps.estimateFunctions);
   }
 
@@ -141,14 +140,9 @@ export class DetailTransactionButton extends React.Component<
     let subscription: Subscription | undefined;
     if (civil) {
       subscription = civil.accountStream
-        .subscribe(currentAccount =>
-          this.setState({
-            currentAccount,
-          }),
-        )
+        .subscribe(currentAccount => this.setState({ currentAccount }))
         .add(
-          civil.networkStream
-            .map(id => networkNames[id] || "unknown")
+          civil.networkNameStream
             .subscribe(currentNetwork => this.setState({ currentNetwork })),
         );
     }
