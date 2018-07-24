@@ -210,7 +210,6 @@ export class SubmitChallengeModal extends React.Component<
             </CancelButtonWithMargin>
 
             <TransactionButton
-              size={buttonSizes.MEDIUM}
               modalContentComponents={this.props.modalContentComponents}
               transactions={this.props.transactions}
               postExecuteTransactions={this.props.postExecuteTransactions}

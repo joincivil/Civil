@@ -82,6 +82,10 @@ export class Civil {
     return this.ethApi.networkStream;
   }
 
+  public get networkNameStream(): Observable<string> {
+    return this.ethApi.networkStream.map((item: number): string => networkNames[item] || "unknown");
+  }
+
   /**
    * Returns the current provider that is used by all things Civil in the Core
    */
