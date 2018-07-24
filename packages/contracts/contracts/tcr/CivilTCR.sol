@@ -61,7 +61,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param tokenAddr Address of the TCR's intrinsic ERC20 token
   @param plcrAddr Address of a PLCR voting contract for the provided token
   @param paramsAddr Address of a Parameterizer contract
-  @param govtAddr Address of a IGovernment contract
+  @param govt IGovernment contract
   */
   function CivilTCR(
     address tokenAddr,
@@ -70,7 +70,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     IGovernment govt
   ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
   {
-    require(govt != 0);
+    require(address(govt) != 0);
     require(govt.getGovernmentController() != 0);
     government = govt;
   }
@@ -148,7 +148,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   Emits `_GovernmentTransfered` if successful.
   */
   function transferGovernment(IGovernment newGovernment) external onlyGovernmentController {
-    require(newGovernment != 0);
+    require(address(newGovernment) != 0);
     government = newGovernment;
     emit _GovernmentTransfered(newGovernment);
   }
