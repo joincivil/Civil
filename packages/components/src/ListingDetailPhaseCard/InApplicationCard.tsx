@@ -46,9 +46,7 @@ export class InApplicationCard extends React.Component<
     }
 
     return (
-      <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
-        Submit a Challenge
-      </TransactionInvertedButton>
+      <TransactionInvertedButton transactions={this.props.transactions!}>Submit a Challenge</TransactionInvertedButton>
     );
   };
 }
