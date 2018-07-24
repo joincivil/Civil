@@ -1,10 +1,10 @@
 import * as React from "react";
-import { EthAddress, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
-import { approve, depositTokens, exitListing, withdrawTokens } from "../../apis/civilTCR";
-import { InputElement, StyledFormContainer, FormGroup, FormValidationMessage } from "../utility/FormElements";
-import { TransactionButton } from "@joincivil/components";
 import BigNumber from "bignumber.js";
-import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
+import { EthAddress, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
+import { buttonSizes, TransactionButton, InputGroup } from "@joincivil/components";
+import { approve, depositTokens, exitListing, withdrawTokens } from "../../apis/civilTCR";
+import { StyledFormContainer, FormGroup } from "../utility/FormElements";
+import { ViewModuleHeader } from "../utility/ViewModules";
 
 export interface ListingOwnerActionsProps {
   listing: ListingWrapper;
@@ -31,26 +31,26 @@ class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokens
 
   public render(): JSX.Element {
     return (
-      <ViewModule>
+      <>
         <ViewModuleHeader>Deposit Additional Tokens</ViewModuleHeader>
         <FormGroup>
-          <label>
-            Number of Tokens
-            <InputElement
-              type="text"
-              name="numTokens"
-              // validate={this.validateVoteCommittedTokens}
-              onChange={this.updateViewState}
-            />
-          </label>
+          <InputGroup
+            name="numTokens"
+            prepend="CVL"
+            label="Amount of tokens to Deposit"
+            onChange={this.updateViewState}
+          />
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton transactions={[{ transaction: this.approveDeposit }, { transaction: this.deposit }]}>
+          <TransactionButton
+            size={buttonSizes.SMALL}
+            transactions={[{ transaction: this.approveDeposit }, { transaction: this.deposit }]}
+          >
             Deposit
           </TransactionButton>
         </FormGroup>
-      </ViewModule>
+      </>
     );
   }
 
@@ -87,33 +87,33 @@ class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawToke
       <StyledFormContainer>
         <h3>Withdraw Unstaked Tokens</h3>
         <FormGroup>
-          <label>
-            Number of Tokens
-            {!this.state.isWithdrawalAmountValid && (
-              <FormValidationMessage children="Please enter a valid withdrawal amount" />
-            )}
-            <InputElement
-              type="text"
-              name="numTokens"
-              validate={this.validateWithdrawalAmount}
-              onChange={this.updateViewState}
-            />
-          </label>
+          <InputGroup
+            name="numTokens"
+            prepend="CVL"
+            label="Amount of tokens to withdraw"
+            onChange={this.updateViewState}
+          />
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton transactions={[{ transaction: this.withdraw }]}>Withdraw</TransactionButton>
+          <TransactionButton size={buttonSizes.SMALL} transactions={[{ transaction: this.withdraw }]}>
+            Withdraw
+          </TransactionButton>
         </FormGroup>
       </StyledFormContainer>
     );
   }
 
-  private validateWithdrawalAmount = (event: any): void => {
-    const val: number = parseInt(event.target.value, 10);
-    const isWithdrawalAmountValid: boolean =
-      !!Number.isInteger(val) && val > 0 && val <= this.props.listing.data.unstakedDeposit.toNumber();
-    this.setState({ isWithdrawalAmountValid });
-  };
+  // @TODO(jon): Add this validation check back in
+  // {!this.state.isWithdrawalAmountValid && (
+  //   <FormValidationMessage children="Please enter a valid withdrawal amount" />
+  // )}
+  // private validateWithdrawalAmount = (event: any): void => {
+  //   const val: number = parseInt(event.target.value, 10);
+  //   const isWithdrawalAmountValid: boolean =
+  //     !!Number.isInteger(val) && val > 0 && val <= this.props.listing.data.unstakedDeposit.toNumber();
+  //   this.setState({ isWithdrawalAmountValid });
+  // };
 
   private withdraw = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
@@ -149,12 +149,13 @@ export default class ListingOwnerActions extends React.Component<ListingOwnerAct
   public render(): JSX.Element {
     const canExitListing = this.props.listing.data.isWhitelisted && !this.props.listing.data.challenge;
     return (
-      <ViewModule>
+      <>
         <ViewModuleHeader>Owner Actions</ViewModuleHeader>
+        <p>As an Owner of this listing, you can manage your balance and listing here</p>
         <DepositTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
         <WithdrawTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
         {canExitListing && <ExitListing listingAddress={this.props.listing.address} listing={this.props.listing} />}
-      </ViewModule>
+      </>
     );
   }
 }

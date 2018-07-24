@@ -33,4 +33,4 @@ class ListingHeader extends React.Component<ListingHeaderProps> {
   }
 }
 
-export default ListingDetail;
+export default ListingHeader;

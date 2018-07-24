@@ -86,15 +86,16 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                   <ListingHistory listing={this.props.listingAddress} />
                 </ListingTabContent>
               </Tab>
-            </Tabs>
 
-            {this.props.isUserNewsroomOwner && (
-              <Tab tabText="Owner Actions">
-                <ListingTabContent>
-                  <ListingOwnerActions listing={this.props.listing!} />
-                </ListingTabContent>
-              </Tab>
-            )}
+              {(this.props.isUserNewsroomOwner &&
+                this.props.listing && (
+                  <Tab tabText="Owner Actions">
+                    <ListingTabContent>
+                      <ListingOwnerActions listing={this.props.listing} />
+                    </ListingTabContent>
+                  </Tab>
+                )) || <></>}
+            </Tabs>
           </LeftShark>
 
           <RightShark>
