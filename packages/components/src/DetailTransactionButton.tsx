@@ -1,5 +1,4 @@
 import { Civil, EthAddress } from "@joincivil/core";
-import { networkNames } from "@joincivil/utils";
 import { debounce } from "lodash";
 import * as React from "react";
 import { Subscription } from "rxjs/Subscription";
@@ -141,10 +140,7 @@ export class DetailTransactionButton extends React.Component<
     if (civil) {
       subscription = civil.accountStream
         .subscribe(currentAccount => this.setState({ currentAccount }))
-        .add(
-          civil.networkNameStream
-            .subscribe(currentNetwork => this.setState({ currentNetwork })),
-        );
+        .add(civil.networkNameStream.subscribe(currentNetwork => this.setState({ currentNetwork })));
     }
     this.setState({
       ethereumUpdates: subscription,
