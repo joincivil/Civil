@@ -11,12 +11,14 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-                key: node-modules-{{ checksum "package.json" }}
+                name: Restore yarn cache
+                key: node-modules-{{ .Branch }}-{{ checksum "yarn.lock" }}
             - run:
                 name: Install modules
                 command: yarn --frozen-lockfile install
             - save_cache:
-                key: node-modules-{{ checksum "package.json" }}
+                name: Save yarn cache
+                key: node-modules--{{ .Branch }}-{{ checksum "yarn.lock" }}
                 paths:
                     - node_modules
             - run:

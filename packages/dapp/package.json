@@ -57,6 +57,6 @@
     "@types/react-dom": "^16.0.4",
     "@types/react-router-dom": "^4.2.5",
     "gh-pages": "^1.1.0",
-    "typescript": "^2.7.2"
+    "typescript": "<2.9.0"
   }
 }
