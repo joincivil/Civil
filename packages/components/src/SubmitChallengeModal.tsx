@@ -161,31 +161,33 @@ export class SubmitChallengeModal extends React.Component<
   private renderChallengeReason = (): JSX.Element => {
     return (
       <StepStyledFluid index={this.props.index || 0}>
-        <ModalSectionHeader>State reasons for your challenge</ModalSectionHeader>
-        <CopyLarge>Enter a summary of the reasons for your challenge (Max 120 characters)</CopyLarge>
-        <SectionFormOuter>
-          <FormInputGroup>
-            <TextareaInput
-              name="challenge_statement_summary"
-              value={this.state.summaryValue}
-              onChange={this.handleSummaryValueChange}
-              maxLength={SUMMARY_MAX_LENGTH.toString()}
-            />
-          </FormInputGroup>
-        </SectionFormOuter>
+        <div>
+          <ModalSectionHeader>State reasons for your challenge</ModalSectionHeader>
+          <CopyLarge>Enter a summary of the reasons for your challenge (Max 120 characters)</CopyLarge>
+          <SectionFormOuter>
+            <FormInputGroup>
+              <TextareaInput
+                name="challenge_statement_summary"
+                value={this.state.summaryValue}
+                onChange={this.handleSummaryValueChange}
+                maxLength={SUMMARY_MAX_LENGTH.toString()}
+              />
+            </FormInputGroup>
+          </SectionFormOuter>
 
-        <CopyLarge>
-          State reasons why you are challenging this Newsroom. Please include as much detail as possible, and{" "}
-          <a href={this.props.constitutionURI} target="_blank">
-            provide evidence
-          </a>{" "}
-          to support your statements.
-        </CopyLarge>
-        <SectionFormOuter>
-          <FormInputGroup>
-            <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
-          </FormInputGroup>
-        </SectionFormOuter>
+          <CopyLarge>
+            State reasons why you are challenging this Newsroom. Please include as much detail as possible, and{" "}
+            <a href={this.props.constitutionURI} target="_blank">
+              provide evidence
+            </a>{" "}
+            to support your statements.
+          </CopyLarge>
+          <SectionFormOuter>
+            <FormInputGroup>
+              <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
+            </FormInputGroup>
+          </SectionFormOuter>
+        </div>
       </StepStyledFluid>
     );
   };
@@ -194,27 +196,29 @@ export class SubmitChallengeModal extends React.Component<
     // TODO(jon): Add DetailTransactionButton with estimate functon
     return (
       <StepStyledFluid index={this.props.index || 0}>
-        <ModalSectionHeader>Deposit CVL tokens for your challenge</ModalSectionHeader>
-        <CopyLarge>
-          This challenge requires a deposit of 1,000 CVL tokens. If you don’t have enough CVL tokens,{" "}
-          <a href="#">buy more here</a>.
-        </CopyLarge>
-        <InputGroup name="challenge_deposit" prepend="CVL" readOnly={true} value={this.props.minDeposit} />
-        <CopyHelper>Your percentage reward if successful is {this.props.dispensationPct}</CopyHelper>
-        <PullRight>
-          <CancelButtonWithMargin size={buttonSizes.MEDIUM} onClick={this.closeModal}>
-            Cancel
-          </CancelButtonWithMargin>
+        <div>
+          <ModalSectionHeader>Deposit CVL tokens for your challenge</ModalSectionHeader>
+          <CopyLarge>
+            This challenge requires a deposit of 1,000 CVL tokens. If you don’t have enough CVL tokens,{" "}
+            <a href="#">buy more here</a>.
+          </CopyLarge>
+          <InputGroup name="challenge_deposit" prepend="CVL" readOnly={true} value={this.props.minDeposit} />
+          <CopyHelper>Your percentage reward if successful is {this.props.dispensationPct}</CopyHelper>
+          <PullRight>
+            <CancelButtonWithMargin size={buttonSizes.MEDIUM} onClick={this.closeModal}>
+              Cancel
+            </CancelButtonWithMargin>
 
-          <TransactionButton
-            size={buttonSizes.MEDIUM}
-            modalContentComponents={this.props.modalContentComponents}
-            transactions={this.props.transactions}
-            postExecuteTransactions={this.props.postExecuteTransactions}
-          >
-            Submit Challenge
-          </TransactionButton>
-        </PullRight>
+            <TransactionButton
+              size={buttonSizes.MEDIUM}
+              modalContentComponents={this.props.modalContentComponents}
+              transactions={this.props.transactions}
+              postExecuteTransactions={this.props.postExecuteTransactions}
+            >
+              Submit Challenge
+            </TransactionButton>
+          </PullRight>
+        </div>
       </StepStyledFluid>
     );
   };
