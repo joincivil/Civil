@@ -3,21 +3,20 @@ import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/compon
 import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
-export interface ListingDetailProps {
+export interface ListingHeaderProps {
   newsroom: NewsroomWrapper;
   listing: ListingWrapper;
   userAccount?: EthAddress;
   listingPhaseState: any;
 }
 
-class ListingDetail extends React.Component<ListingDetailProps> {
+class ListingHeader extends React.Component<ListingHeaderProps> {
   constructor(props: any) {
     super(props);
   }
 
   public render(): JSX.Element {
-    let newsroomDescription =
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id.";
+    let newsroomDescription = "";
     if (this.props.newsroom.data.charter) {
       newsroomDescription = JSON.parse(this.props.newsroom.data.charter.content.toString()).desc;
     }

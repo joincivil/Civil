@@ -6,12 +6,17 @@ import { NewsroomState } from "@joincivil/newsroom-manager";
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
-import ListingDetail from "./ListingDetail";
+import ListingHeader from "./ListingHeader";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
-import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry, makeGetIsUserNewsroomOwner } from "../../selectors";
+import {
+  makeGetListingPhaseState,
+  makeGetListing,
+  makeGetListingExpiry,
+  makeGetIsUserNewsroomOwner,
+} from "../../selectors";
 import { Tabs } from "../tabs/Tabs";
 import { Tab } from "../tabs/Tab";
 import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
@@ -51,7 +56,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     return (
       <>
         {listingExistsAsNewsroom && (
-          <ListingDetail
+          <ListingHeader
             userAccount={this.props.userAccount}
             listing={listing!}
             newsroom={newsroom!.wrapper}
@@ -62,12 +67,6 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
         <GridRow>
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
-<<<<<<< HEAD
-            <ListingHistory listing={this.props.listingAddress} />
-            <ListingDiscourse />
-            {listingExistsAsNewsroom &&
-              this.props.isUserNewsroomOwner && <ListingOwnerActions listing={this.props.listing!} />}
-=======
 
             <Tabs>
               <Tab tabText="Discuss">
@@ -88,7 +87,14 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                 </ListingTabContent>
               </Tab>
             </Tabs>
->>>>>>> origin/master
+
+            {this.props.isUserNewsroomOwner && (
+              <Tab tabText="Owner Actions">
+                <ListingTabContent>
+                  <ListingOwnerActions listing={this.props.listing!} />
+                </ListingTabContent>
+              </Tab>
+            )}
           </LeftShark>
 
           <RightShark>
