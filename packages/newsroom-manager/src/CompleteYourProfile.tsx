@@ -1,26 +1,29 @@
-import * as React from "react";
 import {
+  AddressInput,
+  BorderlessButton,
+  buttonSizes,
+  Collapsable,
+  colors,
+  DetailTransactionButton,
+  fonts,
+  QuestionToolTip,
+  StepDescription,
   StepHeader,
   StepProps,
   StepStyled,
-  Collapsable,
-  BorderlessButton,
-  colors,
-  fonts,
-  AddressInput,
-  DetailTransactionButton,
-  StepDescription,
 } from "@joincivil/components";
-import styled from "styled-components";
+import { EthAddress, NewsroomRoles } from "@joincivil/core";
+import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { EthAddress, NewsroomRoles, Civil } from "@joincivil/core";
-import { CivilContext } from "./CivilContext";
-import { StateWithNewsroom } from "./reducers";
+import styled from "styled-components";
 import { fetchNewsroom, uiActions } from "./actionCreators";
+import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser } from "./NewsroomUser";
+import { StateWithNewsroom } from "./reducers";
 
 export interface CompleteYourProfileComponentExternalProps extends StepProps {
   address?: EthAddress;
+  renderUserSearch?(onSetAddress: any): JSX.Element;
 }
 
 export interface CompleteYourProfileComponentProps extends StepProps {
@@ -40,6 +43,7 @@ export interface CompleteYourProfileComponentState {
 const FormSection = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding-top: 10px;
+  padding-bottom: 40px;
 `;
 
 const FormTitle = styled.h4`
@@ -52,15 +56,26 @@ const FormTitle = styled.h4`
 const Section = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 20px;
+`;
+
+const FormTitleSection = Section.extend`
+  flex-direction: row;
+  justify-content: flex-start;
 `;
 
 const FormDescription = styled.p`
   font-family: ${fonts.SANS_SERIF};
   color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 15px;
+  width: 430px;
+  margin-left: 50px;
+`;
+
+const AddButton = BorderlessButton.extend`
+  padding-left: 0px;
 `;
 
 const makeUserObject = (state: StateWithNewsroom, item: EthAddress): { address: EthAddress; name?: string } => {
@@ -75,7 +90,7 @@ const makeUserObject = (state: StateWithNewsroom, item: EthAddress): { address: 
 };
 
 class CompleteYourProfileComponent extends React.Component<
-  CompleteYourProfileComponentProps & DispatchProp<any>,
+  CompleteYourProfileComponentProps & CompleteYourProfileComponentExternalProps & DispatchProp<any>,
   CompleteYourProfileComponentState
 > {
   constructor(props: CompleteYourProfileComponentProps & DispatchProp<any>) {
@@ -88,18 +103,38 @@ class CompleteYourProfileComponent extends React.Component<
     };
   }
 
+  public renderEditorInputs(): JSX.Element {
+    return this.props.renderUserSearch ? (
+      this.props.renderUserSearch((address: string) => this.setState({ newEditor: address }))
+    ) : (
+      <AddressInput
+        address={this.state.newEditor}
+        onChange={(name: any, val: any) => this.setState({ newEditor: val })}
+      />
+    );
+  }
+
+  public renderOwnerInputs(): JSX.Element {
+    return this.props.renderUserSearch ? (
+      this.props.renderUserSearch((address: string) => this.setState({ newOwner: address }))
+    ) : (
+      <AddressInput address={this.state.newOwner} onChange={(name, val) => this.setState({ newOwner: val })} />
+    );
+  }
+
   public renderAddEditorForm(): JSX.Element {
     if (!this.state.addEditor) {
-      return <BorderlessButton onClick={() => this.setState({ addEditor: true })}>ADD EDITORS +</BorderlessButton>;
+      return (
+        <AddButton size={buttonSizes.SMALL} onClick={() => this.setState({ addEditor: true })}>
+          + Add Additional Editor
+        </AddButton>
+      );
     } else {
       return (
         <CivilContext.Consumer>
-          {(civil: Civil) => (
+          {(value: CivilContextValue) => (
             <>
-              <AddressInput
-                address={this.state.newEditor}
-                onChange={(name: any, val: any) => this.setState({ newEditor: val })}
-              />
+              {this.renderEditorInputs()}
               <DetailTransactionButton
                 transactions={[
                   {
@@ -109,8 +144,9 @@ class CompleteYourProfileComponent extends React.Component<
                     },
                   },
                 ]}
-                civil={civil}
-                requiredNetwork="rinkeby"
+                size={buttonSizes.MEDIUM_WIDE}
+                civil={value.civil}
+                requiredNetwork={value.requiredNetwork}
               >
                 Add Editor
               </DetailTransactionButton>
@@ -123,13 +159,17 @@ class CompleteYourProfileComponent extends React.Component<
 
   public renderAddOwnerForm(): JSX.Element {
     if (!this.state.addOwner) {
-      return <BorderlessButton onClick={() => this.setState({ addOwner: true })}>ADD OWNER +</BorderlessButton>;
+      return (
+        <AddButton size={buttonSizes.SMALL} onClick={() => this.setState({ addOwner: true })}>
+          + Add Additional Officer
+        </AddButton>
+      );
     } else {
       return (
         <CivilContext.Consumer>
-          {(civil: Civil) => (
+          {(value: CivilContextValue) => (
             <>
-              <AddressInput address={this.state.newOwner} onChange={(name, val) => this.setState({ newOwner: val })} />
+              {this.renderOwnerInputs()}
               <DetailTransactionButton
                 transactions={[
                   {
@@ -140,10 +180,11 @@ class CompleteYourProfileComponent extends React.Component<
                     },
                   },
                 ]}
-                civil={civil}
-                requiredNetwork="rinkeby"
+                civil={value.civil}
+                size={buttonSizes.MEDIUM_WIDE}
+                requiredNetwork={value.requiredNetwork}
               >
-                Add Owner
+                Add Officer
               </DetailTransactionButton>
             </>
           )}
@@ -158,34 +199,44 @@ class CompleteYourProfileComponent extends React.Component<
         <Collapsable
           header={
             <>
-              <StepHeader disabled={this.props.disabled}>Add other users</StepHeader>
+              <StepHeader disabled={this.props.disabled}>Add accounts to your newsroom contract</StepHeader>
               <StepDescription disabled={this.props.disabled}>
-                Add owners and editors to your newsroom contract.
+                Add additional officers and editors to your newsroom contract. You will need their wallet addresses.
+                This step is optional, but recommended.
+                <QuestionToolTip
+                  disabled={this.props.disabled}
+                  explainerText={
+                    "Think of officers as admins of your newsroom.  You can skip adding an additional officer but if not have one, you will not be able to access you newsroom contract if you lose your private key."
+                  }
+                />
               </StepDescription>
             </>
           }
-          open={!!this.props.address}
+          open={!!this.props.address && !this.props.disabled}
           disabled={this.props.disabled}
         >
           <FormSection>
-            <Section>
-              <FormTitle>Owners</FormTitle>
+            <FormTitleSection>
+              <FormTitle>Officer</FormTitle>
               <FormDescription>
-                Owners can add members to the newsroom contract (including you, if you lose your private key).
+                Officers can add members to the newsroom contract, sign and index posts.
               </FormDescription>
-            </Section>
+            </FormTitleSection>
             <Section>
-              {this.props.owners.map(item => (
-                <NewsroomUser key={item.address} address={item.address} name={item.name} />
-              ))}
+              {this.props.owners.map(item => {
+                return <NewsroomUser key={item.address} address={item.address} name={item.name} />;
+              })}
             </Section>
             {this.renderAddOwnerForm()}
           </FormSection>
           <FormSection>
-            <Section>
-              <FormTitle>Editors</FormTitle>
-              <FormDescription>Editors can publish articles to the blockchain.</FormDescription>
-            </Section>
+            <FormTitleSection>
+              <FormTitle>Editor</FormTitle>
+              <FormDescription>
+                Editors have permission to index and sign posts on the blockchain. They cannot add officers to a
+                newsroom contract.
+              </FormDescription>
+            </FormTitleSection>
             <Section>
               {this.props.editors.map(item => (
                 <NewsroomUser key={item.address} address={item.address} name={item.name} />
@@ -209,7 +260,7 @@ class CompleteYourProfileComponent extends React.Component<
 const mapStateToProps = (
   state: StateWithNewsroom,
   ownProps: CompleteYourProfileComponentExternalProps,
-): CompleteYourProfileComponentProps => {
+): CompleteYourProfileComponentProps & CompleteYourProfileComponentExternalProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   const owners: Array<{ address: EthAddress; name?: string }> = (newsroom.wrapper.data.owners || []).map(

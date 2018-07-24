@@ -1,25 +1,29 @@
 import * as React from "react";
 import { TextInput } from "../input/";
-import { wordsToSalt } from "@joincivil/utils";
+import { wordsToSalt, saltToWords } from "@joincivil/utils";
 
 export interface SaltInputProps {
   name: string;
   label?: string;
   placeholder?: string;
+  salt?: string;
   onChange(name: string, value: string): void;
 }
 
 export interface SaltInputState {
   isValid: boolean;
-  value: string;
+  value?: string;
 }
 
 export class SaltInput extends React.Component<SaltInputProps, SaltInputState> {
   constructor(props: SaltInputProps) {
     super(props);
+
+    const { salt } = this.props;
+
     this.state = {
       isValid: false,
-      value: "",
+      value: salt ? saltToWords(salt).join(" ") : "",
     };
   }
 

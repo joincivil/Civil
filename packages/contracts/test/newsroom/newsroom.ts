@@ -2,7 +2,7 @@ import { configureChai } from "@joincivil/dev-utils";
 import { is0x0Address, prepareNewsroomMessage, promisify } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as chai from "chai";
-import { NEWSROOM_ROLE_EDITOR, REVERTED, events } from "../utils/constants";
+import { events, NEWSROOM_ROLE_EDITOR, REVERTED } from "../utils/constants";
 import { findEvent } from "../utils/contractutils";
 
 const Newsroom = artifacts.require("Newsroom");
@@ -281,7 +281,7 @@ contract("Newsroom", (accounts: string[]) => {
       it("allows unsigned revisions", async () => {
         expect(await newsroom.isContentSigned(contentId)).to.be.true();
 
-        await expect(newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, ""));
+        await newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, "");
 
         expect(await newsroom.isContentSigned(contentId)).to.be.false();
         expect(await newsroom.isRevisionSigned(contentId, 0)).to.be.true();
@@ -357,8 +357,13 @@ contract("Newsroom", (accounts: string[]) => {
       expect(signature).to.be.equal(SIGNATURE);
     });
 
-    it("fails on on non-existing content", async () => {
-      await expect(newsroom.getContent(999)).to.eventually.be.rejectedWith(REVERTED);
+    it("returns zeros on on non-existing content", async () => {
+      const [hash, uri, timestamp, retAuthor, signature] = await newsroom.getContent(999);
+      expect(is0x0Address(hash)).to.be.ok();
+      expect(uri).to.be.empty();
+      expect(timestamp).to.be.bignumber.equal(0);
+      expect(retAuthor).to.be.equal("0x");
+      expect(signature).to.be.equal("0x");
     });
 
     it("returns latest revision", async () => {
@@ -393,8 +398,13 @@ contract("Newsroom", (accounts: string[]) => {
       expect(timestamp).to.be.bignumber.equal(block.timestamp);
     });
 
-    it("fails on on non-existing content", async () => {
-      await expect(newsroom.getRevision(999, 0)).to.eventually.be.rejectedWith(REVERTED);
+    it("returns zeros on non-existing content", async () => {
+      const [hash, uri, timestamp, retAuthor, signature] = await newsroom.getRevision(999, 0);
+      expect(is0x0Address(hash)).to.be.ok();
+      expect(uri).to.be.empty();
+      expect(timestamp).to.be.bignumber.equal(0);
+      expect(retAuthor).to.be.equal("0x");
+      expect(signature).to.be.equal("0x");
     });
 
     it("returns latest revision", async () => {
@@ -432,12 +442,17 @@ contract("Newsroom", (accounts: string[]) => {
       expect(timestamp).to.be.bignumber.equal(block.timestamp);
     });
 
-    it("fails on non-existing revision", async () => {
+    it("returns zeros on non-existing revision", async () => {
       const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, "", "");
 
       const contentId = idFromEvent(receipt);
 
-      await expect(newsroom.getRevision(contentId, 999)).to.eventually.be.rejectedWith(REVERTED);
+      const [hash, uri, timestamp, retAuthor, signature] = await newsroom.getRevision(contentId, 999);
+      expect(is0x0Address(hash)).to.be.ok();
+      expect(uri).to.be.empty();
+      expect(timestamp).to.be.bignumber.equal(0);
+      expect(retAuthor).to.be.equal("0x");
+      expect(signature).to.be.equal("0x");
     });
   });
 

@@ -6,17 +6,16 @@
 // tslint:disable:no-unused-variable
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-import { DecodedLogEntryEvent, DecodedLogEntry } from "@joincivil/typescript-types";
+import { DecodedLogEntryEvent, DecodedLogEntry, DecodedTransactionReceipt } from "@joincivil/typescript-types";
 // tslint:enable:no-unused-variable
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
-import { bindNestedAll, promisify, isDefined } from "@joincivil/utils";
+import { bindNestedAll, promisify, isDefined, CivilErrors } from "@joincivil/utils";
 import * as Debug from "debug";
 
 import { EthAddress, TxData, TxDataAll, TxHash } from "../../../types";
 import { streamifyEvent } from "../../../contracts/utils/contracts";
-import { CivilErrors } from "../../../utils/errors";
-import { EthApi} from "../../../utils/ethapi";
+import { EthApi, currentNetwork } from "@joincivil/ethapi";
 import { BaseContract } from "../../basecontract";
 import { artifacts } from "../artifacts";
 

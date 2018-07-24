@@ -4,9 +4,8 @@ import { Observable } from "rxjs";
 
 import { BaseWrapper } from "../basewrapper";
 import { EIP20Contract } from "../generated/wrappers/eip20";
-import { EthApi } from "../../utils/ethapi";
+import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { EthAddress } from "../../types";
-import { requireAccount } from "../../utils/errors";
 import { EIP20MultisigProxy } from "../generated/multisig/eip20";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 
@@ -98,7 +97,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
       who = await this.multisigProxy.getMultisigAddress();
     }
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return who;
   }

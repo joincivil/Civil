@@ -4,8 +4,6 @@ import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
 import { buttonSizes } from "../Button";
@@ -27,10 +25,6 @@ export class ChallengeRequestAppealCard extends React.Component<
             displayLabel="Accepting Appeal Requests"
             flavorText="under challenge"
           />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <ChallengeResults

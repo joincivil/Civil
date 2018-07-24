@@ -1,9 +1,8 @@
-import * as React from "react";
-import { PageView, ViewModule } from "./utility/ViewModules";
-import { Modal, FormHeading, ModalContent, Button, buttonSizes } from "@joincivil/components";
-import { Newsroom } from "@joincivil/newsroom-manager";
 import { EthAddress } from "@joincivil/core";
+import { Newsroom } from "@joincivil/newsroom-manager";
+import * as React from "react";
 import { getCivil } from "../helpers/civilInstance";
+import { PageView, ViewModule } from "./utility/ViewModules";
 
 export interface CreateNewsroomState {
   error: string;

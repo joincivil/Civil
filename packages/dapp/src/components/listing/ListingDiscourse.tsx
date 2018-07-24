@@ -1,8 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { ViewModule } from "../utility/ViewModules";
-
 class ListingDiscourse extends React.Component {
   constructor(props: {}) {
     super(props);
@@ -27,7 +25,7 @@ class ListingDiscourse extends React.Component {
   }
 
   public render(): JSX.Element {
-    return <ViewModule />;
+    return <div />;
   }
 }
 

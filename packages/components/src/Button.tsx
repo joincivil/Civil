@@ -7,6 +7,7 @@ import { colors, fonts } from "./styleConstants";
 export enum buttonSizes {
   SMALL = "SMALL",
   MEDIUM = "MEDIUM",
+  MEDIUM_WIDE = "MEDIUM_WIDE",
   LARGE = "LARGE",
 }
 
@@ -22,21 +23,45 @@ export interface ButtonProps {
   onClick?(ev: any): void;
 }
 
+export interface ButtonTheme {
+  primaryButtonBackground?: string;
+  primaryButtonColor?: string;
+  primaryButtonHoverBackground?: string;
+  primaryButtonDisabledBackground?: string;
+  primaryButtonDisabledColor?: string;
+  primaryButtonTextTransform?: string;
+  invertedButtonBackground?: string;
+  invertedButtonColor?: string;
+  secondaryButtonBackground?: string;
+  secondaryButtonColor?: string;
+  secondaryButtonBorder?: string;
+  secondaryButtonHoverBackground?: string;
+  secondaryButtonHoverColor?: string;
+  darkButtonBackground?: string;
+  darkButtonColor?: string;
+  darkButtonHoverBackground?: string;
+  borderlessButtonColor?: string;
+  borderlessButtonHoverColor?: string;
+}
+
 const sizesObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "8px 12px",
   [buttonSizes.MEDIUM]: "10px 25px",
+  [buttonSizes.MEDIUM_WIDE]: "9px 30px",
   [buttonSizes.LARGE]: "20px 50px",
 };
 
 const spacingObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "0.5px",
   [buttonSizes.MEDIUM]: "1px",
+  [buttonSizes.MEDIUM_WIDE]: "0.8px",
   [buttonSizes.LARGE]: "3px",
 };
 
 const fontObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "12px",
   [buttonSizes.MEDIUM]: "18px",
+  [buttonSizes.MEDIUM_WIDE]: "14px",
   [buttonSizes.LARGE]: "24px",
 };
 
@@ -74,60 +99,85 @@ const BaseButton = styled(ButtonComponent)`
 `;
 
 export const Button = BaseButton.extend`
-  background-color: ${colors.accent.CIVIL_BLUE};
-  color: ${colors.basic.WHITE};
-  text-transform: uppercase;
+  background-color: ${props => props.theme.primaryButtonBackground};
+  color: ${props => props.theme.primaryButtonColor};
+  text-transform: ${props => props.theme.primaryButtonTextTransform};
   &:hover {
-    background-color: ${colors.accent.CIVIL_BLUE_FADED};
-    color: ${colors.basic.WHITE};
+    background-color: ${props => props.theme.primaryButtonHoverBackground};
   }
   :disabled {
-    background-color: ${colors.accent.CIVIL_BLUE_VERY_FADED};
+    background-color: ${props => props.theme.primaryButtonHoverBackground};
+    color: ${props => props.theme.primaryButtonDisabledColor};
   }
 `;
+
+Button.defaultProps = {
+  theme: {
+    primaryButtonBackground: colors.accent.CIVIL_BLUE,
+    primaryButtonColor: colors.basic.WHITE,
+    primaryButtonHoverBackground: colors.accent.CIVIL_BLUE_FADED,
+    primaryButtonDisabledBackground: colors.accent.CIVIL_BLUE_VERY_FADED,
+    primaryButtonDisabledColor: colors.basic.WHITE,
+    primaryButtonTextTransform: "uppercase",
+  },
+};
 
 export const InvertedButton = BaseButton.extend`
   text-transform: uppercase;
-  background-color: ${colors.basic.WHITE};
-  color: ${colors.accent.CIVIL_BLUE};
-  border: 2px solid ${colors.accent.CIVIL_BLUE};
+  background-color: ${props => props.theme.invertedButtonBackground};
+  color: ${props => props.theme.invertedButtonColor};
+  border: 2px solid ${props => props.theme.invertedButtonColor};
   &:hover {
-    background-color: ${colors.accent.CIVIL_BLUE};
-    color: ${colors.basic.WHITE};
+    background-color: ${props => props.theme.invertedButtonColor};
+    color: ${props => props.theme.invertedButtonBackground};
   }
 `;
+
+InvertedButton.defaultProps = {
+  theme: {
+    invertedButtonBackground: colors.basic.WHITE,
+    invertedButtonColor: colors.accent.CIVIL_BLUE,
+  },
+};
 
 export const SecondaryButton = BaseButton.extend`
-  background-color: ${colors.basic.WHITE};
-  color: ${colors.accent.CIVIL_GRAY_2};
-  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
-  &:hover {
-    background-color: ${colors.accent.CIVIL_BLUE};
-    border: 1px solid ${colors.accent.CIVIL_BLUE};
-    color: ${colors.basic.WHITE};
-  }
+  background-color: ${props => props.theme.secondaryButtonBackground};
+  color: ${props => props.theme.secondaryButtonColor};
+  border: 1px solid ${props => props.theme.secondaryButtonBorder};
+  &:hover,
   &.active {
-    background-color: ${colors.accent.CIVIL_BLUE};
-    border: 1px solid ${colors.accent.CIVIL_BLUE};
-    color: ${colors.basic.WHITE};
+    background-color: ${props => props.theme.secondaryButtonHoverBackground};
+    border: 1px solid ${props => props.theme.secondaryButtonHoverBackground};
+    color: ${props => props.theme.secondaryButtonHoverColor};
   }
 `;
 
+SecondaryButton.defaultProps = {
+  theme: {
+    secondaryButtonBackground: colors.basic.WHITE,
+    secondaryButtonColor: colors.accent.CIVIL_GRAY_2,
+    secondaryButtonBorder: colors.accent.CIVIL_GRAY_3,
+    secondaryButtonHoverBackground: colors.accent.CIVIL_BLUE,
+    secondaryButtonHoverColor: colors.basic.WHITE,
+  },
+};
+
 export const DarkButton = BaseButton.extend`
-  background-color: ${colors.primary.BLACK};
-  color: ${colors.basic.WHITE};
-  border: 1px solid ${colors.primary.BLACK};
-  &:hover {
-    background-color: ${colors.accent.CIVIL_GRAY_1};
-    border: 1px solid ${colors.accent.CIVIL_GRAY_1};
-    color: ${colors.basic.WHITE};
-  }
+  background-color: ${props => props.theme.darkButtonBackground};
+  color: ${props => props.theme.darkButtonColor};
+  &:hover,
   &.active {
-    background-color: ${colors.accent.CIVIL_GRAY_1};
-    border: 1px solid ${colors.accent.CIVIL_GRAY_1};
-    color: ${colors.basic.WHITE};
+    background-color: ${props => props.theme.darkButtonHoverBackground};
   }
 `;
+
+DarkButton.defaultProps = {
+  theme: {
+    darkButtonBackground: colors.primary.BLACK,
+    darkButtonColor: colors.basic.WHITE,
+    darkButtonHoverBackground: colors.accent.CIVIL_GRAY_1,
+  },
+};
 
 export const CancelButton = SecondaryButton.extend`
   color: ${colors.accent.CIVIL_BLUE};
@@ -142,7 +192,7 @@ export const CancelButton = SecondaryButton.extend`
 export const BorderlessButton = Button.extend`
   border: none;
   font-family: ${fonts.SANS_SERIF};
-  color: ${colors.primary.CIVIL_BLUE_1};
+  color: ${props => props.theme.borderlessButtonColor};
   font-weight: 700;
   margin-left: 8px;
   letter-spacing: 0.7px;
@@ -151,6 +201,13 @@ export const BorderlessButton = Button.extend`
   background-color: transparent;
   &:hover {
     background-color: transparent;
-    color: ${colors.accent.CIVIL_BLUE_FADED};
+    color: ${props => props.theme.borderlessButtonHoverColor};
   }
 `;
+
+BorderlessButton.defaultProps = {
+  theme: {
+    borderlessButtonColor: colors.primary.CIVIL_BLUE_1,
+    borderlessButtonHoverColor: colors.accent.CIVIL_BLUE_FADED,
+  },
+};

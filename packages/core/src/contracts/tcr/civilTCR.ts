@@ -1,41 +1,39 @@
+import { EthApi, requireAccount } from "@joincivil/ethapi";
+import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
-import { Observable } from "rxjs";
 import * as Debug from "debug";
-import "@joincivil/utils";
-
-import { Voting } from "./voting";
-import { Parameterizer } from "./parameterizer";
-import { BaseWrapper } from "../basewrapper";
-import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
-import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
-import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
-import { EthApi } from "../../utils/ethapi";
-import { ContentProvider } from "../../content/contentprovider";
-import { CivilErrors, requireAccount } from "../../utils/errors";
-import {
-  EthAddress,
-  TwoStepEthTransaction,
-  ListingWrapper,
-  ChallengeData,
-  WrappedChallengeData,
-  UserChallengeData,
-} from "../../types";
-import { EIP20 } from "./eip20";
-import { Listing } from "./listing";
+import { Observable } from "rxjs/Observable";
 import {
   canBeWhitelisted,
-  isInChallengedCommitVotePhase,
-  isInChallengedRevealVotePhase,
-  isAwaitingAppealRequest,
   canChallengeBeResolved,
-  isAwaitingAppealJudgment,
-  isListingAwaitingAppealChallenge,
+  canListingAppealBeResolved,
+  isAwaitingAppealRequest,
   isInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase,
-  canListingAppealBeResolved,
-} from "../../utils/listingDataHelpers/listingHelper";
-import { Government } from "./government";
+  isInChallengedCommitVotePhase,
+  isInChallengedRevealVotePhase,
+  isListingAwaitingAppealChallenge,
+  isListingAwaitingAppealJudgment,
+} from "../../";
+import { ContentProvider } from "../../content/contentprovider";
+import {
+  EthAddress,
+  ListingWrapper,
+  TwoStepEthTransaction,
+  UserChallengeData,
+  WrappedChallengeData,
+} from "../../types";
+import { BaseWrapper } from "../basewrapper";
+import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
+import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 import { Challenge } from "./challenge";
+import { Council } from "./council";
+import { EIP20 } from "./eip20";
+import { Government } from "./government";
+import { Listing } from "./listing";
+import { Parameterizer } from "./parameterizer";
+import { Voting } from "./voting";
 
 const debug = Debug("civil:tcr");
 
@@ -52,15 +50,15 @@ const debug = Debug("civil:tcr");
  * NOTE: If instantiated with a multisig wallet, *all* transactions are proxied through multisig.
  */
 export class CivilTCR extends BaseWrapper<CivilTCRContract> {
-  public static singleton(ethApi: EthApi, contentProvider: ContentProvider): CivilTCR {
-    const instance = CivilTCRContract.singletonTrusted(ethApi);
+  public static async singleton(ethApi: EthApi, contentProvider: ContentProvider): Promise<CivilTCR> {
+    const instance = await CivilTCRContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
     // We create this dummy proxy so that `this.multisigProxy` is always available and can be used without knowing if this is a multisig instance or not - the proxy handles non-multisig instances as well.
     const multisigProxyDummy = CivilTCRMultisigProxy.createNonMultisig(ethApi, instance);
-    return new CivilTCR(ethApi, contentProvider, instance, multisigProxyDummy);
+    return new CivilTCR(ethApi, contentProvider, instance, multisigProxyDummy, await Voting.singleton(ethApi));
   }
 
   public static async singletonMultisigProxy(
@@ -68,13 +66,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     contentProvider: ContentProvider,
     multisigAddress?: EthAddress,
   ): Promise<CivilTCR> {
-    const instance = CivilTCRContract.singletonTrusted(ethApi);
+    const instance = await CivilTCRContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for TCR returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
     const multisigProxy = await CivilTCRMultisigProxy.create(ethApi, instance, multisigAddress);
-    return new CivilTCR(ethApi, contentProvider, instance, multisigProxy);
+    return new CivilTCR(ethApi, contentProvider, instance, multisigProxy, await Voting.singleton(ethApi));
   }
 
   private contentProvider: ContentProvider;
@@ -87,11 +85,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     contentProvider: ContentProvider,
     instance: CivilTCRContract,
     multisigProxy: CivilTCRMultisigProxy,
+    voting: Voting,
   ) {
     super(ethApi, instance);
     this.contentProvider = contentProvider;
     this.multisigProxy = multisigProxy;
-    this.voting = Voting.singleton(this.ethApi);
+    this.voting = voting;
   }
 
   /**
@@ -117,6 +116,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public async getGovernment(): Promise<Government> {
     return Government.singleton(this.ethApi);
+  }
+
+  public async getCouncil(): Promise<Council> {
+    return Council.singleton(this.ethApi);
   }
 
   /**
@@ -159,67 +162,67 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return Observable.merge(
       this.instance
         ._AppealRequestedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._AppealGrantedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._FailedChallengeOverturnedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._SuccessfulChallengeOverturnedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._GrantedAppealChallengedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._GrantedAppealOverturnedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._GrantedAppealConfirmedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._ChallengeStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._DepositStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._WithdrawalStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._ApplicationRemovedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._ListingRemovedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._ListingWithdrawnStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._TouchAndRemovedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._ChallengeFailedStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
         ._ChallengeSucceededStream({}, { fromBlock })
-        .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress)),
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
     ).concatMap(async l => l.getListingWrapper());
   }
 
@@ -232,7 +235,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public whitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationWhitelistedStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper());
   }
 
@@ -245,7 +248,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsInApplicationStage(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper());
   }
 
@@ -258,7 +261,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public readyToBeWhitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => canBeWhitelisted(l.data));
   }
@@ -272,7 +275,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public currentChallengedCommitVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isInChallengedCommitVotePhase(l.data));
   }
@@ -286,7 +289,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public currentChallengedRevealVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isInChallengedRevealVotePhase(l.data));
   }
@@ -300,7 +303,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsAwaitingAppealRequest(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isAwaitingAppealRequest(l.data));
   }
@@ -308,7 +311,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsWithChallengeToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => canChallengeBeResolved(l.data));
   }
@@ -322,9 +325,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsAwaitingAppealJudgment(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isAwaitingAppealJudgment(l.data));
+      .concatFilter(l => isListingAwaitingAppealJudgment(l.data));
   }
 
   /**
@@ -336,7 +339,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsAwaitingAppealChallenge(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isListingAwaitingAppealChallenge(l.data));
   }
@@ -350,7 +353,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsInAppealChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isInAppealChallengeCommitPhase(l.data));
   }
@@ -364,7 +367,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsInAppealChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isInAppealChallengeRevealPhase(l.data));
   }
@@ -378,7 +381,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public listingsWithAppealToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => canListingAppealBeResolved(l.data));
   }
@@ -392,7 +395,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public rejectedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationStream({}, { fromBlock })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => l.data.appExpiry.isZero());
   }
@@ -400,7 +403,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public allApplicationsEver(): Observable<ListingWrapper> {
     return this.instance
       ._ApplicationStream({}, { fromBlock: 0 })
-      .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
+      .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper());
   }
 
@@ -411,7 +414,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   //#endregion
 
   public getListing(listingAddress: EthAddress): Listing {
-    return new Listing(this.ethApi, this.instance, listingAddress);
+    return new Listing(this.ethApi, this.instance, this.contentProvider, listingAddress);
   }
 
   /*
@@ -439,7 +442,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   public async getChallengeData(challengeID: BigNumber): Promise<WrappedChallengeData> {
-    const challenge = new Challenge(this.ethApi, this.instance, challengeID);
+    const challenge = new Challenge(this.ethApi, this.instance, this.contentProvider, challengeID);
     const listingAddress = await challenge.getListingIdForChallenge();
     const challengeData = await challenge.getChallengeData();
     return {
@@ -507,7 +510,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.voterReward.callAsync(who, challengeID, salt);
   }
@@ -528,7 +531,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async hasClaimedTokens(challengeID: BigNumber, voter?: EthAddress): Promise<boolean> {
     let who = voter;
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.hasClaimedTokens.callAsync(challengeID, who);
   }

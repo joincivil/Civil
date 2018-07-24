@@ -1,8 +1,6 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors } from "../styleConstants";
-import { buttonSizes, DarkButton } from "../Button";
-import { InputGroup, TextInput } from "../input/";
 import { FormHeader } from "./styledComponents";
 import { ChallengeResultsProps } from "./types";
 
@@ -75,7 +73,7 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
   public render(): JSX.Element {
     return (
       <>
-        <FormHeader>Challenge Results</FormHeader>
+        <FormHeader>{this.props.headerText || "Challenge Results"}</FormHeader>
 
         <VoteTypeSummary>
           <VotesPerTokenContainer>
@@ -86,7 +84,9 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
-            <BreakdownBarPercentageLabel>{this.props.percentAgainst}%</BreakdownBarPercentageLabel>
+            <BreakdownBarPercentageLabel>
+              {this.props.percentAgainst.indexOf("NaN") < 0 ? this.props.percentAgainst : "0"}%
+            </BreakdownBarPercentageLabel>
             <BreakdownBarTotal>
               <BreakdownBarPercentage vote="remain" percentage={this.props.percentAgainst} />
             </BreakdownBarTotal>
@@ -102,7 +102,9 @@ export class ChallengeResults extends React.Component<ChallengeResultsProps> {
           </VotesPerTokenContainer>
 
           <BreakdownBarContainer>
-            <BreakdownBarPercentageLabel>{this.props.percentFor}%</BreakdownBarPercentageLabel>
+            <BreakdownBarPercentageLabel>
+              {this.props.percentFor.indexOf("NaN") < 0 ? this.props.percentFor : "0"}%
+            </BreakdownBarPercentageLabel>
             <BreakdownBarTotal>
               <BreakdownBarPercentage vote="remove" percentage={this.props.percentFor} />
             </BreakdownBarTotal>

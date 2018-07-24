@@ -1,23 +1,23 @@
+import { currentNetwork, detectProvider, EthApi, ProviderBackport, Web310Provider } from "@joincivil/ethapi";
+import { EthAddress, EthSignedMessage, TxHash, Uri } from "@joincivil/typescript-types";
+import { CivilErrors, networkNames } from "@joincivil/utils";
+import BigNumber from "bignumber.js";
 import * as Debug from "debug";
+import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
-
+import { CivilTransactionReceipt, FallbackProvider, TwoStepEthTransaction } from ".";
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
-import { Newsroom } from "./contracts/newsroom";
-import { EthAddress, TxHash, CivilTransactionReceipt, TwoStepEthTransaction, Uri } from "./types";
-import { EthSignedMessage } from "@joincivil/typescript-types";
-import { CivilTCR } from "./contracts/tcr/civilTCR";
-import { EthApi } from "./utils/ethapi";
-import { CivilErrors } from "./utils/errors";
 import { IPFSProvider } from "./content/ipfsprovider";
-import { promisify, networkNames } from "@joincivil/utils";
-import { FallbackProvider } from ".";
-import { BigNumber } from "bignumber.js";
+import { Artifact, artifacts } from "./contracts/generated/artifacts";
+import { Newsroom } from "./contracts/newsroom";
+import { CivilTCR } from "./contracts/tcr/civilTCR";
+import { Council } from "./contracts/tcr/council";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
 
 export interface CivilOptions {
-  web3Provider?: Web3.Provider;
+  web3Provider?: Web3.Provider | Web310Provider;
   ContentProvider?: ContentProviderCreator;
   debug?: true;
 }
@@ -47,11 +47,17 @@ export class Civil {
       debug('Enabled debug for "civil:*" namespace');
     }
 
+    let provider: Web3.Provider;
     if (opts.web3Provider) {
-      this.ethApi = new EthApi(opts.web3Provider);
+      if (!(opts.web3Provider as any).sendAsync) {
+        provider = new ProviderBackport(opts.web3Provider as Web310Provider);
+      } else {
+        provider = opts.web3Provider as Web3.Provider;
+      }
     } else {
-      this.ethApi = EthApi.detectProvider();
+      provider = detectProvider();
     }
+    this.ethApi = new EthApi(provider, Object.values<Artifact>(artifacts).map(a => a.abi));
 
     const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider]);
     this.contentProvider = new providerConstructor({ ethApi: this.ethApi });
@@ -68,12 +74,12 @@ export class Civil {
   /**
    * @returns Currently default user account used, undefined if none unlocked/found
    */
-  public get userAccount(): string | undefined {
-    return this.ethApi.account;
+  public get accountStream(): Observable<EthAddress | undefined> {
+    return this.ethApi.accountStream;
   }
 
-  public get network(): string {
-    return this.ethApi.networkId;
+  public get networkStream(): Observable<number> {
+    return this.ethApi.networkStream;
   }
 
   /**
@@ -91,18 +97,6 @@ export class Civil {
    */
   public set currentProvider(web3Provider: Web3.Provider) {
     this.ethApi.currentProvider = web3Provider;
-  }
-
-  public addCallbackToSetAccountEmitter(callback: () => any): void {
-    this.ethApi.on("accountSet", callback);
-  }
-
-  public addCallbackToSetNetworkEmitter(callback: () => any): void {
-    this.ethApi.on("networkSet", callback);
-  }
-
-  public removeCallbackFromSetNetworkEmitter(callback: () => any): void {
-    this.ethApi.removeListener("networkSet", callback);
   }
 
   /**
@@ -181,8 +175,12 @@ export class Civil {
    * @returns A singleton instance of TCR living on the current network
    * @throws {CivilErrors.UnsupportedNetwork} In case we're trying to get a non-deployed singleton
    */
-  public tcrSingletonTrusted(): CivilTCR {
+  public async tcrSingletonTrusted(): Promise<CivilTCR> {
     return CivilTCR.singleton(this.ethApi, this.contentProvider);
+  }
+
+  public async councilSingletonTrusted(): Promise<Council> {
+    return Council.singleton(this.ethApi);
   }
 
   /**
@@ -205,7 +203,7 @@ export class Civil {
    * @param blockConfirmations How man blocks after the block with transaction should wait before confirming
    */
   public async awaitReceipt(transactionHash: TxHash, blockConfirmations?: number): Promise<CivilTransactionReceipt> {
-    return this.ethApi.awaitReceipt(transactionHash, blockConfirmations);
+    return this.ethApi.awaitReceipt<CivilTransactionReceipt>(transactionHash, blockConfirmations);
   }
 
   /**
@@ -219,12 +217,11 @@ export class Civil {
   }
 
   public async currentBlock(): Promise<number> {
-    const blockNumberPromise = promisify<number>(this.ethApi.web3.eth.getBlockNumber);
-    return blockNumberPromise();
+    return this.ethApi.getLatestBlockNumber();
   }
 
-  public get networkName(): string {
-    return networkNames[this.ethApi.networkId] || "unknown network";
+  public async networkName(): Promise<string> {
+    return networkNames[await currentNetwork(this.ethApi)] || "unknown network";
   }
 
   public async getGasPrice(): Promise<BigNumber> {

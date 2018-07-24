@@ -1,12 +1,12 @@
-import { isUndefined } from "lodash";
+import { EthApi } from "@joincivil/ethapi";
+import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
+import { isDefined, isDeployedBytecodeEqual } from "@joincivil/utils";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
-import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
+import { CivilTransactionReceipt, EthAddress, TwoStepEthTransaction, TxDataBase, TxHash } from "../../types";
+import { artifacts } from "../generated/artifacts";
 import { Contract } from "../interfaces/contract";
 import { OwnableContract } from "../interfaces/ownable";
-
-import { EthAddress, TxDataBase, TxHash, CivilTransactionReceipt, TwoStepEthTransaction } from "../../types";
-import { EthApi } from "../../utils/ethapi";
 
 export function findEvent<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T | undefined {
   return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as T | undefined;
@@ -33,7 +33,7 @@ export function isOwnableContract(contract: Contract | OwnableContract): contrac
 }
 
 export function isDecodedLog(what: Web3.LogEntry | DecodedLogEntry): what is DecodedLogEntry {
-  return typeof (what as any).event === "string" && !isUndefined((what as any).args);
+  return typeof (what as any).event === "string" && isDefined((what as any).args);
 }
 
 export type TypedEventFilter<T> = { [P in keyof T]?: T[P] | Array<T[P]> };
@@ -95,7 +95,7 @@ export function createTwoStepTransaction<T>(
   return {
     txHash,
     awaitReceipt: async (blockConfirmations?: number) =>
-      ethApi.awaitReceipt(txHash, blockConfirmations).then(transform),
+      ethApi.awaitReceipt<CivilTransactionReceipt>(txHash, blockConfirmations).then(transform),
   };
 }
 
@@ -108,4 +108,10 @@ export function createTwoStepSimple(ethApi: EthApi, txHash: TxHash): TwoStepEthT
 
 export function isEthAddress(what: any): what is EthAddress {
   return typeof what === "string";
+}
+
+export async function isAddressMultisigWallet(ethApi: EthApi, address: EthAddress): Promise<boolean> {
+  const code = await ethApi.getCode(address);
+  // TODO(ritave): Have backwards compatibillity for older Multisig wallets and bytecodes
+  return isDeployedBytecodeEqual(artifacts.MultiSigWallet.deployedBytecode, code);
 }

@@ -1,10 +1,10 @@
-import * as React from "react";
 import { List } from "immutable";
-import { State } from "../../reducers";
-import ListingEvent from "./ListingEvent";
-import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
+import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { setupListingHistorySubscription } from "../../actionCreators/listings";
+import { State } from "../../reducers";
+import ListingEvent from "./ListingEvent";
+import { ListingTabHeading } from "./styledComponents";
 
 export interface ListingHistoryProps {
   listing: string;
@@ -28,17 +28,17 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
   }
 
   public async componentDidMount(): Promise<void> {
-    this.props.dispatch!(setupListingHistorySubscription(this.props.listing));
+    this.props.dispatch!(await setupListingHistorySubscription(this.props.listing));
   }
 
   public render(): JSX.Element {
     return (
-      <ViewModule>
-        <ViewModuleHeader>Listing History</ViewModuleHeader>
+      <>
+        <ListingTabHeading>Listing History</ListingTabHeading>
         {this.props.listingHistory.map((e, i) => {
           return <ListingEvent key={i} event={e} listing={this.props.listing} />;
         })}
-      </ViewModule>
+      </>
     );
   }
 }

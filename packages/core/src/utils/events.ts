@@ -1,5 +1,5 @@
 import { DecodedLogEntryEvent } from "@joincivil/typescript-types";
-import { EthApi } from "./ethapi";
+import { EthApi } from "@joincivil/ethapi";
 import { TimestampedEvent } from "../types";
 
 export function createTimestampedEvent<T extends DecodedLogEntryEvent>(ethApi: EthApi, event: T): TimestampedEvent<T> {

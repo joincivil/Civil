@@ -1,10 +1,28 @@
-import { DecodedLogEntry, DecodedLogEntryEvent, EthAddress, Hex } from "@joincivil/typescript-types";
+import {
+  Bytes32,
+  DecodedLogEntryEvent,
+  DecodedTransactionReceipt,
+  EthAddress,
+  Hex,
+  TxHash,
+} from "@joincivil/typescript-types";
 import BigNumber from "bignumber.js";
-import * as Web3 from "web3";
 import { CivilLogs } from "./contracts/generated/events";
 
 // For backwards compatibillity
-export { EthAddress, Hex } from "@joincivil/typescript-types";
+export {
+  Bytes32,
+  DecodedTransactionReceipt,
+  EthAddress,
+  Hex,
+  TxData,
+  TxDataAll,
+  TxDataBase,
+  TxDataPayable,
+  TxHash,
+  Uri,
+} from "@joincivil/typescript-types";
+export { ContentProvider, ContentProviderCreator, ContentProviderOptions } from "./content/contentprovider";
 
 export type ContentData = string | object;
 export type ContentId = number;
@@ -48,70 +66,7 @@ export interface MapObject<T = any> {
   [index: string]: T;
 }
 
-export interface TxDataBase {
-  gas?: number | string | BigNumber;
-  gasPrice?: number | string | BigNumber;
-  nonce?: number;
-  data?: string;
-}
-
-export interface TxData extends TxDataBase {
-  from?: EthAddress;
-}
-
-export interface TxDataPayable extends TxData {
-  value: number | string | BigNumber;
-}
-
-export interface TxDataAll extends Partial<TxDataPayable> {
-  to?: EthAddress;
-}
-
-export interface TransactionObject extends TxDataBase {
-  from: EthAddress;
-  value?: number | string | BigNumber;
-  to?: EthAddress;
-  data?: string;
-}
-
-export type Bytes32 = string;
-export type TxHash = string;
-export type Uri = string;
-
-export enum SolidityTypes {
-  Address = "address",
-  Uint256 = "uint256",
-  Uint8 = "uint8",
-  Uint = "uint",
-}
-
-// There is one in web3 typing, but it's not existent during runtimes
-// we force it to exist by creating one with the same name
-export enum AbiType {
-  Function = "function",
-  Constructor = "constructor",
-  Event = "event",
-  Fallback = "fallback",
-}
-
-export interface DecodedTransactionReceipt<L extends DecodedLogEntry> {
-  blockHash: string;
-  blockNumber: number;
-  transactionHash: string;
-  transactionIndex: number;
-  from: string;
-  to: string;
-  status: null | string | 0 | 1;
-  cumulativeGasUsed: number;
-  gasUsed: number;
-  contractAddress: string | null;
-  logs: Array<L | Web3.LogEntry>;
-}
-
 export type CivilTransactionReceipt = DecodedTransactionReceipt<CivilLogs>;
-
-export { ContentProvider, ContentProviderCreator, ContentProviderOptions } from "./content/contentprovider";
-export { EthApi } from "./utils/ethapi";
 
 export interface TwoStepEthTransaction<T = CivilTransactionReceipt> {
   txHash: TxHash;
@@ -164,6 +119,7 @@ export interface WrappedChallengeData {
  * The data associated with a Challenge
  */
 export interface ChallengeData {
+  statement?: ContentData;
   rewardPool: BigNumber;
   challenger: EthAddress;
   resolved: boolean;

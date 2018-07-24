@@ -1,19 +1,34 @@
 import * as React from "react";
-import styled from "styled-components";
+import { compose } from "redux";
 import { CivilTCR } from "@joincivil/core";
-import { Link } from "react-router-dom";
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%
-  color: black;
-`;
+import {
+  ApplicationEvent,
+  ChallengeEvent,
+  ChallengeCompletedEventProps,
+  ChallengeFailedEvent as ChallengeFailedEventComponent,
+  ChallengeSucceededEvent as ChallengeSucceededEventComponent,
+  ListingHistoryEvent as ListingHistoryEventComponent,
+  ListingHistoryEventTimestampProps,
+  RejectedEvent,
+  WhitelistedEvent,
+} from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
 
 export interface ListingEventProps {
   event: any;
   listing: string;
 }
+
+const challengeCompletedEventContainer = (WrappedComponent: React.StatelessComponent<ChallengeCompletedEventProps>) => {
+  const wrappedChallengeResults = (props: ChallengeCompletedEventProps) => {
+    return <WrappedComponent {...props} />;
+  };
+
+  return compose(connectChallengeResults)(wrappedChallengeResults) as React.ComponentClass<
+    ListingHistoryEventTimestampProps & ChallengeContainerProps
+  >;
+};
 
 class ListingEvent extends React.Component<ListingEventProps> {
   constructor(props: any) {
@@ -24,46 +39,75 @@ class ListingEvent extends React.Component<ListingEventProps> {
     const wrappedEvent = this.props.event as
       | CivilTCR.LogEvents._Application
       | CivilTCR.LogEvents._ApplicationWhitelisted
-      | CivilTCR.LogEvents._Challenge;
-    let argsData: JSX.Element | null = null;
+      | CivilTCR.LogEvents._Challenge
+      | CivilTCR.LogEvents._ChallengeFailed
+      | CivilTCR.LogEvents._ChallengeSucceeded
+      | CivilTCR.LogEvents._ListingRemoved;
+
     switch (wrappedEvent.event) {
       case CivilTCR.Events._Application:
-        argsData = this.renderApplicationEvent(wrappedEvent.args);
-        break;
+        return this.renderApplicationEvent(wrappedEvent);
+
       case CivilTCR.Events._ApplicationWhitelisted:
-        argsData = this.renderNewListingWhitelistedEvent(wrappedEvent.args as CivilTCR.Args._ApplicationWhitelisted);
-        break;
+        return <WhitelistedEvent timestamp={(wrappedEvent as any).timestamp} />;
+
+      case CivilTCR.Events._ListingRemoved:
+        return <RejectedEvent timestamp={(wrappedEvent as any).timestamp} />;
+
       case CivilTCR.Events._Challenge:
-        argsData = this.renderChallengeEvent(wrappedEvent.args as CivilTCR.Args._Challenge);
-        break;
+        return this.renderChallengeEvent(wrappedEvent);
+
+      case CivilTCR.Events._ChallengeFailed:
+        return this.renderChallengeFailedEvent(wrappedEvent);
+
+      case CivilTCR.Events._ChallengeSucceeded:
+        return this.renderChallengeSucceededEvent(wrappedEvent);
+
       default:
-        argsData = this.renderUnsupportedEvent(wrappedEvent);
+        return this.renderUnsupportedEvent(wrappedEvent);
     }
+  }
 
+  private renderApplicationEvent(wrappedEvent: CivilTCR.LogEvents._Application): JSX.Element {
+    const { deposit } = wrappedEvent.args;
+    const formattedDeposit = getFormattedTokenBalance(deposit);
+    return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
+  }
+
+  private renderChallengeEvent(wrappedEvent: CivilTCR.LogEvents._Challenge): JSX.Element {
+    const { challengeID, challenger } = wrappedEvent.args;
+    const challengeURI = `/listing/${this.props.listing}/challenge/${challengeID.toString()}`;
     return (
-      <StyledDiv>
-        {new Date((wrappedEvent as any).timestamp * 1000).toUTCString()} - {argsData}
-      </StyledDiv>
+      <ChallengeEvent
+        timestamp={(wrappedEvent as any).timestamp}
+        challengeURI={challengeURI}
+        challenger={challenger}
+        challengeID={challengeID.toString()}
+      />
     );
   }
 
-  private renderUnsupportedEvent(event: any): JSX.Element {
-    return <>{event.event}</>;
+  private renderChallengeFailedEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeFailed): JSX.Element {
+    const { challengeID } = wrappedEvent.args;
+    const ChallengeFailedComponent = challengeCompletedEventContainer(ChallengeFailedEventComponent);
+
+    return <ChallengeFailedComponent timestamp={(wrappedEvent as any).timestamp} challengeID={challengeID} />;
   }
 
-  private renderChallengeEvent(args: CivilTCR.Args._Challenge): JSX.Element {
-    return (
-      <Link to={"/listing/" + this.props.listing + "/challenge/" + args.challengeID.toString()}>
-        Challenge --- ID: {args.challengeID.toString()}
-      </Link>
-    );
+  private renderChallengeSucceededEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeSucceeded): JSX.Element {
+    const { challengeID } = wrappedEvent.args;
+    const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
+
+    return <ChallengeSucceededComponent timestamp={(wrappedEvent as any).timestamp} challengeID={challengeID} />;
   }
 
-  private renderApplicationEvent(args: CivilTCR.Args._Application): JSX.Element {
-    return <>Application --- Deposit: {args.deposit.toString()}</>;
-  }
-  private renderNewListingWhitelistedEvent(args: CivilTCR.Args._ApplicationWhitelisted): JSX.Element {
-    return <>Whitelisted!</>;
+  private renderUnsupportedEvent(wrappedEvent: any): JSX.Element {
+    const props = {
+      timestamp: wrappedEvent.timestamp,
+      title: wrappedEvent.event,
+    };
+
+    return <ListingHistoryEventComponent {...props} />;
   }
 }
 

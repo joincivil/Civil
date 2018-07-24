@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 
 import { EthAddress, TwoStepEthTransaction } from "../../types";
-import { EthApi } from "../../utils/ethapi";
+import { EthApi } from "@joincivil/ethapi";
 import { MultiSigWalletContract } from "../generated/wrappers/multi_sig_wallet";
 import { createTwoStepTransaction } from "../utils/contracts";
 

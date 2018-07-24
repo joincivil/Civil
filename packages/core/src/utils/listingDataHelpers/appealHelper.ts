@@ -39,3 +39,12 @@ export function isAwaitingAppealChallenge(appealData: AppealData): boolean {
     return appealOpenToChallengeExpiryDate > new Date();
   }
 }
+
+export function isAppealAwaitingJudgment(appealData: AppealData): boolean {
+  if (appealData.appealGranted) {
+    return false;
+  } else {
+    const appealExpiryDate = new Date(appealData.appealPhaseExpiry.toNumber() * 1000);
+    return appealExpiryDate > new Date();
+  }
+}

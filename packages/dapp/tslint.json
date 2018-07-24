@@ -2,6 +2,7 @@
   "extends": ["@joincivil/tslint-rules"],
   "rules": {
     "variable-name": [true, "ban-keywords", "allow-leading-underscore"],
-    "no-var-requires": false
+    "no-var-requires": false,
+    "no-unused-variable": [true, { "ignore-pattern": "^React|styled|StyledComponentClass" }]
   }
 }
