@@ -25,3 +25,6 @@ export * from "./QuestionToolTip";
 export * from "./ListingHistoryEvent";
 export * from "./ViewTransactionLink";
 export * from "./icons";
+export * from "./theme";
+export * from "./Tab";
+export * from "./Tabs";

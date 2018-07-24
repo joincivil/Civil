@@ -11,6 +11,14 @@ export interface TabsState {
   activeIndex: number;
 }
 
+const StyledUl = styled.ul`
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid #d8d8d8;
+`;
+
 export class Tabs extends React.Component<TabsProps, TabsState> {
   constructor(props: TabsProps) {
     super(props);
@@ -38,17 +46,14 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
   }
 
   public render(): JSX.Element {
-    return <div>
-      <ul>
-        {this.renderTabs()}
-      </ul>
+    return (
       <div>
-        {this.renderContent()}
+        <StyledUl>{this.renderTabs()}</StyledUl>
+        <div>{this.renderContent()}</div>
       </div>
-    </div>;
-
+    );
   }
   private handleClick = (index: number) => {
-    this.setState({activeIndex: index});
-  }
+    this.setState({ activeIndex: index });
+  };
 }
