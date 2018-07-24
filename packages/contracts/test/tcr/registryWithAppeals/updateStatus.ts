@@ -40,7 +40,7 @@ contract("Registry With Appeals", accounts => {
       );
 
       const [, , , , challengeID] = await registry.listings(newsroomAddress);
-      await expect(challengeID).to.be.equal(0, "challengeID should be 0 after successfully updating status");
+      await expect(challengeID.isZero()).to.be.true("challengeID should be 0 after successfully updating status");
     });
 
     it("should fail if request appeal is over and one is requested", async () => {
@@ -68,7 +68,7 @@ contract("Registry With Appeals", accounts => {
       );
 
       const [, , , , challengeID] = await registry.listings(newsroomAddress);
-      await expect(challengeID).to.be.equal(0, "challengeID should be 0 after successfully updating status");
+      await expect(challengeID.isZero()).to.be.true("challengeID should be 0 after successfully updating status");
     });
 
     it("should succeed if appealChallenge is over", async () => {
@@ -90,7 +90,7 @@ contract("Registry With Appeals", accounts => {
       );
 
       const [, , , , challengeID] = await registry.listings(newsroomAddress);
-      await expect(challengeID).to.be.equal(0, "challengeID should be 0 after successfully updating status");
+      await expect(challengeID.isZero()).to.be.true("challengeID should be 0 after successfully updating status");
     });
 
     it("should fail if appealChallenge is still in progress", async () => {

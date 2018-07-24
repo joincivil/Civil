@@ -66,7 +66,7 @@ contract("Registry", accounts => {
       expect(isWhitelisted).to.be.false("Listing should not have been whitelisted");
 
       const [, , , , challengeID] = await registry.listings(listing24);
-      await expect(challengeID).to.be.equal(0, "challengeID should be 0 after successfully updating status");
+      await expect(challengeID.isZero()).to.be.true("challengeID should be 0 after successfully updating status");
     });
 
     it("should not be possible to add a listing to the whitelist just by calling updateStatus", async () => {
