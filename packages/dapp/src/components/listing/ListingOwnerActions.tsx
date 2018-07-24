@@ -1,7 +1,7 @@
 import * as React from "react";
 import BigNumber from "bignumber.js";
 import { EthAddress, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
-import { buttonSizes, TransactionButton, InputGroup } from "@joincivil/components";
+import { TransactionButton, InputGroup } from "@joincivil/components";
 import { approve, depositTokens, exitListing, withdrawTokens } from "../../apis/civilTCR";
 import { StyledFormContainer, FormGroup } from "../utility/FormElements";
 import { ViewModuleHeader } from "../utility/ViewModules";
@@ -44,7 +44,6 @@ class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokens
 
         <FormGroup>
           <TransactionButton
-            size={buttonSizes.SMALL}
             transactions={[{ transaction: this.approveDeposit }, { transaction: this.deposit }]}
           >
             Deposit
@@ -96,7 +95,7 @@ class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawToke
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton size={buttonSizes.SMALL} transactions={[{ transaction: this.withdraw }]}>
+          <TransactionButton transactions={[{ transaction: this.withdraw }]}>
             Withdraw
           </TransactionButton>
         </FormGroup>
