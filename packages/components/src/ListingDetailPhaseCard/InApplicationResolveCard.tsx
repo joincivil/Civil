@@ -6,7 +6,6 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
-import { buttonSizes } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 
 export class InApplicationResolveCard extends React.Component<ListingDetailPhaseCardComponentProps> {
@@ -19,7 +18,6 @@ export class InApplicationResolveCard extends React.Component<ListingDetailPhase
         <StyledListingDetailPhaseCardSection>
           <CTACopy>This listing has passed the application process</CTACopy>
           <TransactionInvertedButton
-            size={buttonSizes.MEDIUM}
             transactions={this.props.transactions!}
             modalContentComponents={this.props.modalContentComponents}
           >

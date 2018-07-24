@@ -23,6 +23,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { changeName, updateNewsroom } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
+import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface NameAndAddressProps extends StepProps {
   address?: EthAddress;
@@ -132,7 +133,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               civil={value.civil}
               estimateFunctions={[value.civil!.estimateNewsroomDeployTrusted.bind(value.civil, this.props.name)]}
               requiredNetwork={value.requiredNetwork}
-              size={buttonSizes.MEDIUM_WIDE}
+              Button={TransactionButtonInner}
               noModal={true}
               preExecuteTransactions={() => this.setState({ modalOpen: true })}
             >
@@ -160,7 +161,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               transactions={[{ transaction: this.changeName, postTransaction: this.onNameChange }]}
               civil={value.civil}
               requiredNetwork={value.requiredNetwork}
-              size={buttonSizes.MEDIUM_WIDE}
+              Button={TransactionButtonInner}
             >
               Change Name
             </DetailTransactionButton>
