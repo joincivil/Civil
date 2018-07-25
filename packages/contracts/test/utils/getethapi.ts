@@ -15,13 +15,13 @@ function prependSubprovider(engine: ProviderEngine, provider: Subprovider): void
   }
 }
 
-async function addNode(ethApi: EthApi): Promise<void> {
+function addNode(ethApi: EthApi): void {
   // TODO(ritave): Add ganache in process provider
   const rpcProvider = new RPCSubprovider(DEFAULT_HTTP_NODE, 10000);
   prependSubprovider(ethApi.currentProvider as ProviderEngine, rpcProvider);
 }
 
-async function addCoverage(ethApi: EthApi): Promise<void> {
+function addCoverage(ethApi: EthApi): void {
   if (inCoverage()) {
     console.log("Enabling coverage");
     prependSubprovider(ethApi.currentProvider as ProviderEngine, coverageProviderSingleton());

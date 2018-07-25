@@ -2,7 +2,7 @@ import { configureChai } from "@joincivil/dev-utils";
 import { DecodedLogEntry } from "@joincivil/typescript-types";
 import { isDeployedBytecodeEqual } from "@joincivil/utils";
 import * as chai from "chai";
-import * as Web3 from "web3";
+import { bufferToHex, sha3 } from "ethereumjs-util";
 import { REVERTED } from "../utils/constants";
 import { configureProviders } from "../utils/contractutils";
 import ethApi from "../utils/getethapi";
@@ -19,9 +19,9 @@ const expect = chai.expect;
 const CONTRACT_EVENT = "ContractInstantiation";
 const NEWSROOM_NAME = "Newsroom name";
 const SOME_URI = "http://someuri.com";
-const SOME_HASH = web3.sha3();
+const SOME_HASH = bufferToHex(sha3(""));
 
-function createdContract(factory: any, txReceipt: Web3.TransactionReceipt): string {
+function createdContract(factory: any, txReceipt: any): string {
   const myLog = txReceipt.logs.find((log: any) => log.event === CONTRACT_EVENT && log.address === factory.address) as
     | DecodedLogEntry
     | undefined;
