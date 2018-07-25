@@ -1,10 +1,11 @@
 import * as React from "react";
-import styled from "styled-components";
-import { TabProps } from "./Tab";
+import styled, {StyledComponentClass} from "styled-components";
+import { TabProps, TabComponentProps } from "./Tab";
 
 export interface TabsProps {
   activeIndex?: number;
   children: Array<React.ReactElement<TabProps>>;
+  TabComponent?: any;
 }
 
 export interface TabsState {
@@ -33,6 +34,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
         index,
         isActive: this.state.activeIndex === index,
         onClick: this.handleClick,
+        TabComponent: this.props.TabComponent,
       });
     });
   }
