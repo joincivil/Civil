@@ -3,6 +3,7 @@ import { Subscription } from "rxjs";
 
 export enum networkActions {
   SET_NETWORK = "SET_NETWORK",
+  SET_NETWORK_NAME = "SET_NETWORK_NAME",
 }
 
 const internalSetNetwork = (network: string): AnyAction => {
@@ -20,5 +21,12 @@ export const setNetwork = (network: string): any => {
     });
 
     return dispatch(internalSetNetwork(network));
+  };
+};
+
+export const setNetworkName = (networkName: string): AnyAction => {
+  return {
+    type: networkActions.SET_NETWORK_NAME,
+    data: networkName,
   };
 };
