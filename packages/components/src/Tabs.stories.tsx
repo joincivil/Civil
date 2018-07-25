@@ -104,7 +104,7 @@ const ListingTab = styled.li`
   }
 `;
 
-storiesOf("tabs", module)
+storiesOf("Tabs", module)
   .add("Default Tabs", () => {
     return (
       <Tabs>

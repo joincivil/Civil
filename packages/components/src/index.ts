@@ -20,8 +20,6 @@ export * from "./ListingSummary";
 export * from "./ListingSummaryList";
 export * from "./ListingDetailHeader";
 export * from "./ListingDetailPhaseCard";
-export * from "./Tab";
-export * from "./Tabs";
 export * from "./SubmitChallengeModal";
 export * from "./QuestionToolTip";
 export * from "./ListingHistoryEvent";
