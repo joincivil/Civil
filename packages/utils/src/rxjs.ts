@@ -36,14 +36,26 @@ export function flatFilter<T>(
   }).filter(x => x !== EMPTY) as Observable<T>;
 }
 
+export function definedOrThrow<T>(this: Observable<T | undefined>): Observable<T> {
+  return this.map(value => {
+    // tslint:disable-next-line:triple-equals
+    if (value == undefined) {
+      throw new Error("Expected not-null value in the stream");
+    }
+    return value;
+  });
+}
+
 Observable.prototype.concatFilter = concatFilter;
 Observable.prototype.flatFilter = flatFilter;
+Observable.prototype.definedOrThrow = definedOrThrow;
 
 declare module "rxjs/Observable" {
   // tslint:disable:no-shadowed-variable
   interface Observable<T> {
     concatFilter: typeof concatFilter;
     flatFilter: typeof flatFilter;
+    definedOrThrow: typeof definedOrThrow;
   }
   // tslint:enable:no-shadowed-variable
 }
