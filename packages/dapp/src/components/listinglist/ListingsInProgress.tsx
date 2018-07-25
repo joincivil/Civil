@@ -1,36 +1,11 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs, Tab, TabComponentProps, colors, fonts } from "@joincivil/components";
-import styled from "styled-components";
+import { Tabs, Tab } from "@joincivil/components";
+import { ListingsInProgressTabNav, ListingsInProgressTab } from "./styledComponents";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
-
-const StyledTabNav = styled.div`
-  margin: 30px auto 50px;
-  width: 100%;
-`;
-
-const StyledTab = styled.li`
-  background-color: ${(props: TabComponentProps) => (props.isActive ? "#e9eeff" : "transparent")};
-  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  border-right: none;
-  color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.primary.BLACK)};
-  cursor: pointer;
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 17px;
-  padding: 20px 44px;
-  &:last-of-type {
-    border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  }
-  &:hover {
-    color: ${colors.accent.CIVIL_BLUE};
-    background-color: #e9eeff;
-  }
-`;
 
 export interface ListingProps {
   applications: Set<string>;
@@ -62,7 +37,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.resolveChallengeListings)
       .merge(this.props.resolveAppealListings);
     return (
-      <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTab}>
+      <Tabs TabsNavComponent={ListingsInProgressTabNav} TabComponent={ListingsInProgressTab}>
         <Tab title={"New Applications"} tabCount={" (" + applications.count() + ")"}>
           <ListingList listings={applications} />
         </Tab>

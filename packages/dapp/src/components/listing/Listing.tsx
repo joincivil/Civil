@@ -11,32 +11,8 @@ import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
-import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
-import { Tabs, Tab, TabComponentProps, colors, fonts } from "@joincivil/components";
-
-import styled from "styled-components";
-
-const StyledTabNav = styled.div`
-  margin: 0 auto 50px;
-  max-width: 1200px;
-  width: 100%;
-`;
-const StyledTab = styled.li`
-  background-color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_GRAY_4 : "transparent")};
-  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  border-radius: 23px;
-  color: ${colors.primary.BLACK};
-  cursor: pointer;
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  letter-spacing: -0.12px;
-  list-style: none;
-  margin-right: 10px;
-  padding: 8px 15px;
-  &:hover {
-    background-color: ${colors.accent.CIVIL_GRAY_4};
-  }
-`;
+import { GridRow, LeftShark, RightShark, ListingTabContent, ListingTab } from "./styledComponents";
+import { Tabs, Tab } from "@joincivil/components";
 
 export interface ListingPageProps {
   match: any;
@@ -84,7 +60,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
-            <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTab}>
+            <Tabs TabComponent={ListingTab}>
               <Tab title="Discussions">
                 <ListingTabContent>
                   <ListingChallengeStatement listing={this.props.listingAddress} />
