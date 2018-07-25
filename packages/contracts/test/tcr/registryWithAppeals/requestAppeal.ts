@@ -7,6 +7,7 @@ configureChai(chai);
 const expect = chai.expect;
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(PLCRVoting);
 
 contract("Registry With Appeals", accounts => {
   describe("Function: requestAppeal", () => {

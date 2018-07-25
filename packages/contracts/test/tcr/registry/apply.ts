@@ -1,12 +1,13 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 import BN from "bignumber.js";
+import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
 const expect = chai.expect;
 const Parameterizer = artifacts.require("CivilParameterizer");
+utils.configureProviders(Parameterizer);
 
 contract("AddressRegistry", accounts => {
   describe("Function: apply", () => {

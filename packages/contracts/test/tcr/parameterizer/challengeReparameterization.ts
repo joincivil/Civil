@@ -1,11 +1,11 @@
+import { configureChai } from "@joincivil/dev-utils";
 import BN from "bignumber.js";
 import * as chai from "chai";
-import { configureChai } from "@joincivil/dev-utils";
-
 import * as utils from "../../utils/contractutils";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Token = artifacts.require("EIP20.sol");
+utils.configureProviders(PLCRVoting, Token);
 
 configureChai(chai);
 const expect = chai.expect;
