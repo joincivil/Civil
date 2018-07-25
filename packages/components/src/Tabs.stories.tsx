@@ -16,24 +16,28 @@ const StyledLi = styled.li`
   border-bottom: ${(props: TabComponentProps) => (props.isActive ? "3px solid red" : "none")};
 `;
 
-storiesOf("tabs", module).add("tabs", () => {
-  return (
-    <Tabs>
-      <Tab title="Index">
-        <p>Some Content</p>
-      </Tab>
-      <Tab title="Sign">
-        <p>Some other Content</p>
-      </Tab>
-    </Tabs>
-  );
-}).add("with costum tab comonent", () => {
-  return (<Tabs TabComponent={StyledLi}>
-    <Tab title="Index">
-      <p>Some Content</p>
-    </Tab>
-    <Tab title="Sign">
-      <p>Some other Content</p>
-    </Tab>
-  </Tabs>);
-});
+storiesOf("tabs", module)
+  .add("tabs", () => {
+    return (
+      <Tabs>
+        <Tab title="Index">
+          <p>Some Content</p>
+        </Tab>
+        <Tab title="Sign">
+          <p>Some other Content</p>
+        </Tab>
+      </Tabs>
+    );
+  })
+  .add("with costum tab comonent", () => {
+    return (
+      <Tabs TabComponent={StyledLi}>
+        <Tab title="Index">
+          <p>Some Content</p>
+        </Tab>
+        <Tab title="Sign">
+          <p>Some other Content</p>
+        </Tab>
+      </Tabs>
+    );
+  });
