@@ -60,6 +60,10 @@ jobs:
             - attach_workspace:
                 at: ../
             - run:
+                name: Starting Ganache
+                command: yarn ganache:raw
+                background: true
+            - run:
                 name: Calculating coverage
                 command: yarn coverage
             - run:
