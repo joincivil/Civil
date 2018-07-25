@@ -6,7 +6,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-const Parameterizer = artifacts.require("Parameterizer");
+const Parameterizer = artifacts.require("CivilParameterizer");
 const Token = artifacts.require("EIP20");
 
 contract("Registry With Appeals", accounts => {

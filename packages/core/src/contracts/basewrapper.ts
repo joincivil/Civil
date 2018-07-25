@@ -1,5 +1,5 @@
 import { EthAddress } from "../types";
-import { EthApi } from "../utils/ethapi";
+import { EthApi } from "@joincivil/ethapi";
 import { BaseContract } from "./basecontract";
 
 export class BaseWrapper<InstanceType extends BaseContract> {

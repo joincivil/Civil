@@ -1,9 +1,7 @@
 pragma solidity ^0.4.19;
 
-import "./installed_contracts/tokens/contracts/eip20/EIP20Interface.sol";
-import "../zeppelin-solidity/SafeMath.sol";
-import "./Parameterizer.sol";
-import "./PLCRVoting.sol";
+import "../installed_contracts/Parameterizer.sol";
+import "./CivilPLCRVoting.sol";
 
 /**
 @title AddressRegistry - A Token Curated Registry using Ethereum Addresses as keys for listings
@@ -55,7 +53,7 @@ contract AddressRegistry {
 
   // Global Variables
   EIP20Interface public token;
-  PLCRVoting public voting;
+  CivilPLCRVoting public voting;
   Parameterizer public parameterizer;
 
   // ------------
@@ -74,7 +72,7 @@ contract AddressRegistry {
     address paramsAddr) public
   {
     token = EIP20Interface(tokenAddr);
-    voting = PLCRVoting(plcrAddr);
+    voting = CivilPLCRVoting(plcrAddr);
     parameterizer = Parameterizer(paramsAddr);
   }
 
@@ -150,9 +148,9 @@ contract AddressRegistry {
     require(amount <= listing.unstakedDeposit);
     require(listing.unstakedDeposit - amount >= parameterizer.get("minDeposit"));
 
-    require(token.transfer(msg.sender, amount));
-
     listing.unstakedDeposit -= amount;
+
+    require(token.transfer(msg.sender, amount));
 
     emit _Withdrawal(listingAddress, amount, listing.unstakedDeposit, msg.sender);
   }
@@ -206,7 +204,7 @@ contract AddressRegistry {
     uint deposit = parameterizer.get("minDeposit");
 
     // Listing must be in apply stage or already on the whitelist
-    require(appWasMade(listingAddress));
+    require(appWasMade(listingAddress) || listing.isWhitelisted);
     // Prevent multiple challenges
     require(listing.challengeID == 0);
 
@@ -224,9 +222,10 @@ contract AddressRegistry {
       parameterizer.get("revealStageLen")
     );
 
+    uint oneHundred = 100; // Kludge that we need to use SafeMath
     challenges[pollID] = Challenge({
       challenger: msg.sender,
-      rewardPool: ((100 - parameterizer.get("dispensationPct")) * deposit) / 100,
+      rewardPool: ((oneHundred.sub(parameterizer.get("dispensationPct"))).mul(deposit)).div(100),
       stake: deposit,
       resolved: false,
       totalTokens: 0

@@ -7,7 +7,7 @@ const Token = artifacts.require("EIP20");
 const DLL = artifacts.require("DLL");
 const AttributeStore = artifacts.require("AttributeStore");
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
@@ -20,7 +20,9 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     } else {
       tokenAddress = Token.address;
     }
-    await deployer.deploy(PLCRVoting, tokenAddress);
+    await deployer.deploy(PLCRVoting);
+    const plcr = await PLCRVoting.at(PLCRVoting.address);
+    await plcr.init(tokenAddress);
 
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), PLCRVoting.address);

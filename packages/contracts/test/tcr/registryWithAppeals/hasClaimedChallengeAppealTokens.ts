@@ -2,7 +2,7 @@ import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 configureChai(chai);
 const expect = chai.expect;

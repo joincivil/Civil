@@ -5,6 +5,9 @@ export enum governmentActions {
   MULTI_SET_GOVT_PARAMETERS = "MULTI_SET_GOVT_PARAMETERS",
   ADD_GOVERNMENT_DATA = "ADD_GOVERNMENT_DATA",
   SET_CONSTITUTION_DATA = "SET_CONSTITUTION_DATA",
+  SET_APPELLATE = "SET_APPELLATE",
+  SET_CONTROLLER = "SET_CONTROLLER",
+  SET_APPELLATE_MEMBERS = "SET_APPELLATE_MEMBERS",
 }
 
 export const setGovernmentParameter = (paramName: string, paramValue: any): AnyAction => {
@@ -39,5 +42,25 @@ export const setConstitutionData = (constitutionDataKey: string, constitutionDat
       key: constitutionDataKey,
       value: constitutionDataValue,
     },
+  };
+};
+
+export const setAppellate = (appellate: string): AnyAction => {
+  return {
+    type: governmentActions.SET_APPELLATE,
+    data: appellate,
+  };
+};
+
+export const setController = (controller: string): AnyAction => {
+  return {
+    type: governmentActions.SET_CONTROLLER,
+    data: controller,
+  };
+};
+export const setAppellateMembers = (members: string[]): AnyAction => {
+  return {
+    type: governmentActions.SET_APPELLATE_MEMBERS,
+    data: members,
   };
 };

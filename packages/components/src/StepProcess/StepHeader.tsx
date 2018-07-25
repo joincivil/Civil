@@ -10,7 +10,9 @@ export interface ComponentProps {
 export const SectionHeader = styled<ComponentProps, "h4">("h4")`
   font-family: ${fonts.SANS_SERIF};
   font-weight: 600;
-  margin-top: 20px;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 15px;
   color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
 `;
 

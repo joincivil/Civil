@@ -36,9 +36,9 @@ import {
   challengesStartedByUser,
   challengeUserData,
 } from "./challenges";
-import { government, govtParameters, constitution } from "./government";
+import { government, govtParameters, constitution, appellate, controller, appellateMembers } from "./government";
 import { user } from "./userAccount";
-import { network } from "./network";
+import { network, networkName } from "./network";
 import { ui } from "./ui";
 import { Set, List, Map } from "immutable";
 import { TimestampedEvent, WrappedChallengeData, UserChallengeData, EthAddress } from "@joincivil/core";
@@ -50,6 +50,7 @@ import { Subscription } from "rxjs";
 export interface State {
   networkDependent: NetworkDependentState;
   network: string;
+  networkName: string;
   ui: Map<string, any>;
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
@@ -91,6 +92,9 @@ export interface NetworkDependentState {
   appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
   constitution: Map<string, string>;
+  appellate: string;
+  controller: string;
+  appellateMembers: string[];
   listingHistorySubscriptions: Map<string, Subscription>;
 }
 
@@ -129,6 +133,9 @@ const networkDependentReducers = combineReducers({
   appealChallengeUserData,
   government,
   constitution,
+  appellate,
+  controller,
+  appellateMembers,
   listingHistorySubscriptions,
 });
 
@@ -145,5 +152,6 @@ export default combineReducers({
   newsroomUsers,
   networkDependent,
   network,
+  networkName,
   ui,
 });

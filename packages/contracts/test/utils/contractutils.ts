@@ -14,8 +14,8 @@ export { advanceEvmTime } from "@joincivil/dev-utils";
 
 const Token = artifacts.require("tokens/eip20/EIP20");
 
-const PLCRVoting = artifacts.require("PLCRVoting");
-const Parameterizer = artifacts.require("Parameterizer");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
+const CivilParameterizer = artifacts.require("CivilParameterizer");
 const AddressRegistry = artifacts.require("AddressRegistry");
 const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
@@ -279,7 +279,8 @@ async function createTestPLCRInstance(token: any, accounts: string[]): Promise<a
     return approvePLCRFor(addresses.slice(1));
   }
 
-  const plcr = await PLCRVoting.new(token.address);
+  const plcr = await PLCRVoting.new();
+  await plcr.init(token.address);
   await approvePLCRFor(accounts);
 
   return plcr;
@@ -297,7 +298,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
   }
   const parameterizerConfig = config.paramDefaults;
 
-  const parameterizer = await Parameterizer.new(token.address, plcr.address, [
+  const params = [
     parameterizerConfig.minDeposit,
     parameterizerConfig.pMinDeposit,
     parameterizerConfig.applyStageLength,
@@ -310,11 +311,12 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
     parameterizerConfig.pDispensationPct,
     parameterizerConfig.voteQuorum,
     parameterizerConfig.pVoteQuorum,
-    parameterizerConfig.pProcessBy,
     parameterizerConfig.challengeAppealLength,
     parameterizerConfig.appealChallengeCommitStageLength,
     parameterizerConfig.appealChallengeRevealStageLength,
-  ]);
+  ];
+  const parameterizer = await CivilParameterizer.new();
+  await parameterizer.init(token.address, plcr.address, params);
 
   await approveParameterizerFor(accounts);
   return parameterizer;

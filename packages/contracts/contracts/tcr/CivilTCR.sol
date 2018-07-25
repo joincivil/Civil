@@ -88,7 +88,6 @@ contract CivilTCR is RestrictedAddressRegistry {
   4) appeal requester transfers appealFee to TCR
   --------
   Initializes `Appeal` struct in `appeals` mapping for active challenge on listing at given address.
-  Sets value in `appealRequested` mapping for challenge to true.
   --------
   Emits `_AppealRequested` if successful
   @param listingAddress address of listing that has challenged result that the user wants to appeal
@@ -343,13 +342,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     Appeal appeal = appeals[challengeID];
     uint totalTokens = challenge.totalTokens;
     uint rewardPool = challenge.rewardPool;
-    bool overturnOriginalResult = appeal.appealGranted && !appeal.overturned;
-    uint voterTokens = 0;
-    if (overturnOriginalResult) {
-      voterTokens = voting.getNumLosingTokens(voter, challengeID, salt);
-    } else {
-      voterTokens = voting.getNumPassingTokens(voter, challengeID, salt);
-    }
+    uint voterTokens = getNumChallengeTokens(voter, challengeID, salt);
     return (voterTokens * rewardPool) / totalTokens;
   }
 

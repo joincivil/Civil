@@ -35,6 +35,7 @@ export interface InputBaseProps {
   type?: string;
   min?: string;
   step?: string;
+  onKeyPress?(ev: any): void;
   onChange?(name: string, value: string | null): void;
 }
 
@@ -122,6 +123,7 @@ export interface InputProps {
   errorMessage?: string;
   noLabel?: boolean;
   readOnly?: boolean;
+  onKeyPress?(ev: any): void;
   onChange?(name: string, value: string): any;
 }
 

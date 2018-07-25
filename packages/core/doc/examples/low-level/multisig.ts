@@ -1,19 +1,20 @@
+import { currentAccount, EthApi } from "@joincivil/ethapi";
+import BigNumber from "bignumber.js";
+import * as process from "process";
 import "rxjs/add/operator/distinctUntilChanged";
 import * as Web3 from "web3";
-import * as process from "process";
-import BigNumber from "bignumber.js";
-
-import { EthApi } from "../../../src/utils/ethapi";
+import { Artifact, artifacts } from "../../../src/contracts/generated/artifacts";
 import { MultiSigWalletContract } from "../../../src/contracts/generated/wrappers/multi_sig_wallet";
 import { Multisig } from "../../../src/contracts/multisig/multisig";
 
-const web3 = new EthApi(new Web3.providers.HttpProvider("http://localhost:8545"));
-web3.cancelAccountPing();
-web3.cancelNetworkPing();
-// tslint:disable-next-line:no-non-null-assertion
-const account = web3.account!;
+const web3 = new EthApi(
+  new Web3.providers.HttpProvider("http://localhost:8545"),
+  Object.values<Artifact>(artifacts).map(a => a.abi),
+);
 
 (async () => {
+  // tslint:disable-next-line:no-non-null-assertion
+  const account = (await currentAccount(web3))!;
   console.log("Deploying multisig");
   console.log("account: ", account);
   const deployTxHash = await MultiSigWalletContract.deployTrusted.sendTransactionAsync(

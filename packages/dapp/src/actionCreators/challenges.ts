@@ -1,8 +1,8 @@
-import { AnyAction } from "redux";
+import { EthAddress, UserChallengeData, WrappedChallengeData } from "@joincivil/core";
 import { Dispatch } from "react-redux";
-import { getTCR } from "../helpers/civilInstance";
+import { AnyAction } from "redux";
 import { ensureWeb3BigNumber } from "../apis/civilTCR";
-import { WrappedChallengeData, UserChallengeData, EthAddress } from "@joincivil/core";
+import { getTCR } from "../helpers/civilInstance";
 
 export enum challengeActions {
   ADD_OR_UPDATE_CHALLENGE = "ADD_OR_UPDATE_CHALLENGE",
@@ -86,7 +86,7 @@ export const fetchAndAddChallengeData = (challengeID: string): any => {
     if (challengeRequest === undefined) {
       dispatch(fetchChallenge(challengeID));
 
-      const tcr = getTCR();
+      const tcr = await getTCR();
       const challengeIDBN = ensureWeb3BigNumber(parseInt(challengeID, 10));
       const wrappedChallenge = await tcr.getChallengeData(challengeIDBN);
       dispatch(addChallenge(wrappedChallenge));

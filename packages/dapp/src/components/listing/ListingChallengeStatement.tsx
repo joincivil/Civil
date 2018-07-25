@@ -1,7 +1,13 @@
 import * as React from "react";
-import { State } from "../../reducers";
 import { connect } from "react-redux";
 import * as sanitizeHtml from "sanitize-html";
+import styled from "styled-components";
+import { State } from "../../reducers";
+import { ListingTabHeading } from "./styledComponents";
+
+const StyledChallengeStatementComponent = styled.div`
+  margin: 0 0 56px;
+`;
 
 export interface ListingChallengeStatementProps {
   listing: string;
@@ -24,7 +30,17 @@ class ListingChallengeStatement extends React.Component<
       const cleanStatement = sanitizeHtml(parsed.statement, {
         allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
       });
-      return <div dangerouslySetInnerHTML={{ __html: cleanStatement }} />;
+      return (
+        <StyledChallengeStatementComponent>
+          <ListingTabHeading>Newsroom listing is under challenge</ListingTabHeading>
+          <p>
+            Should this newsroom stay on the Civil Registry? Read the challenger’s statement below and vote with your
+            CVL tokens.
+          </p>
+          <ListingTabHeading>Challenge Statement</ListingTabHeading>
+          <div dangerouslySetInnerHTML={{ __html: cleanStatement }} />
+        </StyledChallengeStatementComponent>
+      );
     } else {
       return <div />;
     }

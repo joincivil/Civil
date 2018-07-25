@@ -1,11 +1,13 @@
-import { ContentProvider, ContentProviderOptions } from "./contentprovider";
-import { EventStorageContract, EventStorage } from "../contracts/generated/wrappers/event_storage";
+import { EthApi } from "@joincivil/ethapi";
+import { CivilErrors } from "@joincivil/utils";
+import { EventStorage, EventStorageContract } from "../contracts/generated/wrappers/event_storage";
 import { findEventOrThrow } from "../contracts/utils/contracts";
-import { EthApi, StorageHeader, ContentData } from "../types";
-import { CivilErrors } from "../utils/errors";
+import { ContentData, StorageHeader } from "../types";
+import { ContentProvider, ContentProviderOptions } from "./contentprovider";
 
 export class EventStorageProvider implements ContentProvider {
   private ethApi: EthApi;
+  private instance?: EventStorageContract;
 
   constructor(options: ContentProviderOptions) {
     this.ethApi = options.ethApi;
@@ -18,7 +20,7 @@ export class EventStorageProvider implements ContentProvider {
   public async get(what: StorageHeader): Promise<ContentData> {
     // TODO(ritave): If the hash doesn't exist, this will never finish
     //               Add web3.filter.get to abi-gen, not only watch
-    return this.eventStorage
+    return (await this.eventStorage())
       .StringStoredStream({ dataHash: what.contentHash }, { fromBlock: 0 })
       .first() // Closes the stream on first event
       .map(event => event.args.data)
@@ -26,7 +28,7 @@ export class EventStorageProvider implements ContentProvider {
   }
 
   public async put(content: string): Promise<StorageHeader> {
-    const txHash = await this.eventStorage.store.sendTransactionAsync(content);
+    const txHash = await (await this.eventStorage()).store.sendTransactionAsync(content);
     const receipt = await this.ethApi.awaitReceipt(txHash);
     const event = findEventOrThrow<EventStorage.Logs.StringStored>(receipt, EventStorage.Events.StringStored);
 
@@ -34,11 +36,13 @@ export class EventStorageProvider implements ContentProvider {
     return { uri, contentHash: event.args.dataHash };
   }
 
-  private get eventStorage(): EventStorageContract {
-    const instance = EventStorageContract.singletonTrusted(this.ethApi);
-    if (!instance) {
-      throw new Error(CivilErrors.UnsupportedNetwork);
+  private async eventStorage(): Promise<EventStorageContract> {
+    if (!this.instance) {
+      this.instance = await EventStorageContract.singletonTrusted(this.ethApi);
+      if (!this.instance) {
+        throw new Error(CivilErrors.UnsupportedNetwork);
+      }
     }
-    return instance;
+    return this.instance;
   }
 }

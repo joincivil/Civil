@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Menu, Header, Divider, Message } from "semantic-ui-react";
-import Methods from "./methods";
-import Source from "./source";
+import { Divider, Header, Menu, Message } from "semantic-ui-react";
 import Abi from "./abi";
 import Bytecode from "./bytecode";
+import Methods from "./methods";
 import ShortAddressLink from "./shortAddressLink";
+import Source from "./source";
 
 const tabs = [
   {

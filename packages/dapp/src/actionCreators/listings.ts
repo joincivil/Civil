@@ -1,11 +1,11 @@
-import { AnyAction } from "redux";
-import { Dispatch } from "react-redux";
 import { ListingWrapper, TimestampedEvent } from "@joincivil/core";
+import { List } from "immutable";
+import { Dispatch } from "react-redux";
+import { AnyAction } from "redux";
+import { Subscription } from "rxjs";
 import { getTCR } from "../helpers/civilInstance";
 import { getNewsroom } from "../helpers/listingEvents";
 import { addChallenge } from "./challenges";
-import { List } from "immutable";
-import { Subscription } from "rxjs";
 
 export enum listingActions {
   ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
@@ -96,10 +96,10 @@ export const fetchAndAddListingData = (listingID: string): any => {
     if (challengeRequest === undefined) {
       dispatch(fetchListing(listingID));
 
-      const tcr = getTCR();
+      const tcr = await getTCR();
       const listing = tcr.getListing(listingID);
       const wrappedListing = await listing.getListingWrapper();
-      dispatch(setupListingHistorySubscription(listingID));
+      dispatch(await setupListingHistorySubscription(listingID));
       await getNewsroom(dispatch, listingID);
       dispatch(addListing(wrappedListing));
 
@@ -117,12 +117,12 @@ export const fetchAndAddListingData = (listingID: string): any => {
   };
 };
 
-export const setupListingHistorySubscription = (listingID: string): any => {
+export const setupListingHistorySubscription = async (listingID: string): Promise<any> => {
+  const tcr = await getTCR();
   return (dispatch: Dispatch<any>, getState: any): any => {
     const { histories, listingHistorySubscriptions } = getState().networkDependent;
     if (!listingHistorySubscriptions.get(listingID)) {
       const listingHistory = histories.get(listingID) || List();
-      const tcr = getTCR();
       const listing = tcr.getListing(listingID);
       const lastBlock = listingHistory.size ? listingHistory.last().blockNumber : 0;
       const subscription = listing
