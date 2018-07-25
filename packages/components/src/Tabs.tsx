@@ -1,117 +1,70 @@
 import * as React from "react";
-import styled from "styled-components";
-import { colors } from "./styleConstants";
-
-const TabContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 1200px;
-`;
-
-export const TabNav = styled.div`
-  margin: 0 auto 50px;
-  width: 100%;
-`;
-
-export const ListingsNavTabs = TabNav.extend`
-  background-color: ${colors.accent.CIVIL_GRAY_4};
-  height: 76px;
-`;
-
-export const ListingsSubnavTabs = TabNav.extend`
-  max-width: 1200px;
-`;
-
-export const ListingNavTabs = TabNav.extend`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin-top: 30px;
-  width: 100%;
-  & > div {
-    justify-content: left;
-  }
-`;
+import styled, { StyledComponentClass } from "styled-components";
+import { TabProps } from "./Tab";
 
 export interface TabsProps {
-  tabNameComponent?: string;
+  activeIndex?: number;
+  children: Array<React.ReactElement<TabProps>>;
+  TabComponent?: any;
+  TabsNavComponent?: any;
 }
 
 export interface TabsState {
-  activeTabIndex: number;
+  activeIndex: number;
 }
 
-export interface RenderActiveTabContentProps {
-  [index: string]: JSX.Element | undefined;
-}
+const StyledNav = styled.nav`
+  border-bottom: 1px solid #d8d8d8;
+`;
+
+const TabContainer = styled.ul`
+  display: flex;
+  list-style: none;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0;
+  width: 100%;
+`;
 
 export class Tabs extends React.Component<TabsProps, TabsState> {
-  constructor(props: {}, context: any) {
-    super(props, context);
+  constructor(props: TabsProps) {
+    super(props);
     this.state = {
-      activeTabIndex: 0,
+      activeIndex: props.activeIndex || 0,
     };
   }
 
-  public handleTabClick = (tabIndex: number): any => {
-    this.setState({
-      activeTabIndex: tabIndex === this.state.activeTabIndex ? 0 : tabIndex,
-    });
-    this.render();
-  };
-
-  // Encapsulate <Tabs/> component API as props for <Tab/> children
-  public renderChildrenWithTabsApiAsProps = (): any => {
-    return React.Children.map(this.props.children, (child, index) => {
-      return React.cloneElement(child as JSX.Element, {
-        onClick: this.handleTabClick,
-        tabIndex: index,
-        isActive: index === this.state.activeTabIndex,
+  public renderTabs(): Array<React.ReactElement<TabProps>> {
+    return React.Children.map(this.props.children, (child: React.ReactChild, index) => {
+      return React.cloneElement(child as React.ReactElement<TabProps>, {
+        index,
+        isActive: this.state.activeIndex === index,
+        onClick: this.handleClick,
+        TabComponent: this.props.TabComponent,
       });
     });
-  };
+  }
 
-  // Render current active tab content
-  public renderActiveTabContent = (): JSX.Element => {
-    const { children } = this.props;
-    const { activeTabIndex } = this.state;
-
-    if (children![activeTabIndex]) {
-      return children![activeTabIndex].props.children;
+  public renderContent(): React.ReactNode | undefined {
+    const children = this.props.children;
+    const { activeIndex } = this.state;
+    if (children[activeIndex]) {
+      return children[activeIndex].props.children;
     }
-    return <></>;
-  };
-
-  // Render custom tab nav
-  public renderTabNav = (): JSX.Element => {
-    let CustomTabNav;
-
-    switch (this.props.tabNameComponent) {
-      case "listingsNavTabs":
-        CustomTabNav = ListingsNavTabs;
-        break;
-      case "listingsSubnavTabs":
-        CustomTabNav = ListingsSubnavTabs;
-        break;
-      case "listingNavTabs":
-        CustomTabNav = ListingNavTabs;
-        break;
-      default:
-        CustomTabNav = TabNav;
-    }
-
-    return (
-      <CustomTabNav>
-        <TabContainer>{this.renderChildrenWithTabsApiAsProps()}</TabContainer>
-      </CustomTabNav>
-    );
-  };
+  }
 
   public render(): JSX.Element {
+    const TabsNavComponent = this.props.TabsNavComponent || StyledNav;
     return (
       <div>
-        {this.renderTabNav()}
-        <div>{this.renderActiveTabContent()}</div>
+        <TabsNavComponent>
+          <TabContainer>{this.renderTabs()}</TabContainer>
+        </TabsNavComponent>
+        <div>{this.renderContent()}</div>
       </div>
     );
   }
+  private handleClick = (index: number) => {
+    this.setState({ activeIndex: index });
+  };
 }

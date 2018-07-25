@@ -11,8 +11,7 @@ import { connect, DispatchProp } from "react-redux";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
-import { Tabs } from "../utility/Tabs";
-import { BasicTab } from "@joincivil/components";
+import { Tabs, Tab, TabComponentProps, colors, fonts } from "@joincivil/components";
 
 import styled from "styled-components";
 import { ViewModule } from "../utility/ViewModules";
@@ -28,6 +27,27 @@ const LeftShark = styled.div`
 const RightShark = styled.div`
   margin: -100px 0 0 15px;
   width: 485px;
+`;
+const StyledTabNav = styled.div`
+  margin: 0 auto 50px;
+  max-width: 1200px;
+  width: 100%;
+`;
+const StyledTab = styled.li`
+  background-color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_GRAY_4 : "transparent")};
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 23px;
+  color: ${colors.primary.BLACK};
+  cursor: pointer;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  letter-spacing: -0.12px;
+  list-style: none;
+  margin-right: 10px;
+  padding: 8px 15px;
+  &:hover {
+    background-color: ${colors.accent.CIVIL_GRAY_4};
+  }
 `;
 
 export interface ListingPageProps {
@@ -76,17 +96,17 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
-            <Tabs tabNameComponent={"listingNavTabs"}>
-              <BasicTab tabText="Discussions">
+            <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTab}>
+              <Tab title="Discussions">
                 <ViewModule>
                   <ListingChallengeStatement listing={this.props.listingAddress} />
                   <ListingDiscourse />
                 </ViewModule>
-              </BasicTab>
+              </Tab>
 
-              <BasicTab tabText="History">
+              <Tab title="History">
                 <ListingHistory listing={this.props.listingAddress} />
-              </BasicTab>
+              </Tab>
             </Tabs>
           </LeftShark>
 

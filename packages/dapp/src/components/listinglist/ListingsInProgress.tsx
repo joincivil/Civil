@@ -1,11 +1,36 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs } from "../utility/Tabs";
-import { BoxTab } from "@joincivil/components";
+import { Tabs, Tab, TabComponentProps, colors, fonts } from "@joincivil/components";
+import styled from "styled-components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
+
+const StyledTabNav = styled.div`
+  margin: 30px auto 50px;
+  width: 100%;
+`;
+
+const StyledTab = styled.li`
+  background-color: ${(props: TabComponentProps) => (props.isActive ? "#e9eeff" : "transparent")};
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-right: none;
+  color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.primary.BLACK)};
+  cursor: pointer;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  padding: 20px 44px;
+  &:last-of-type {
+    border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  }
+  &:hover {
+    color: ${colors.accent.CIVIL_BLUE};
+    background-color: #e9eeff;
+  }
+`;
 
 export interface ListingProps {
   applications: Set<string>;
@@ -37,22 +62,22 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.resolveChallengeListings)
       .merge(this.props.resolveAppealListings);
     return (
-      <Tabs tabNameComponent={"listingsSubnavTabs"}>
-        <BoxTab tabText={"New Applications"} tabCount={" (" + applications.count() + ")"}>
+      <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTab}>
+        <Tab title={"New Applications"} tabCount={" (" + applications.count() + ")"}>
           <ListingList listings={applications} />
-        </BoxTab>
-        <BoxTab tabText={"Under Challenged"} tabCount={" (" + beingChallenged.count() + ")"}>
+        </Tab>
+        <Tab title={"Under Challenged"} tabCount={" (" + beingChallenged.count() + ")"}>
           <ListingList listings={beingChallenged} />
-        </BoxTab>
-        <BoxTab tabText={"Appeal to Council"} tabCount={" (" + consideringAppeal.count() + ")"}>
+        </Tab>
+        <Tab title={"Appeal to Council"} tabCount={" (" + consideringAppeal.count() + ")"}>
           <ListingList listings={consideringAppeal} />
-        </BoxTab>
-        <BoxTab tabText={"Challenge Council Appeal"} tabCount={" (" + appealChallenge.count() + ")"}>
+        </Tab>
+        <Tab title={"Challenge Council Appeal"} tabCount={" (" + appealChallenge.count() + ")"}>
           <ListingList listings={appealChallenge} />
-        </BoxTab>
-        <BoxTab tabText={"Ready to Update"} tabCount={" (" + readyToUpdate.count() + ")"}>
+        </Tab>
+        <Tab title={"Ready to Update"} tabCount={" (" + readyToUpdate.count() + ")"}>
           <ListingList listings={readyToUpdate} />
-        </BoxTab>
+        </Tab>
       </Tabs>
     );
   }
