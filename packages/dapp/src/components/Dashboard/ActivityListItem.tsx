@@ -50,12 +50,6 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
         listingDetailURL = `/listing/${address}/challenge/${this.props.challenge.challengeID}`;
       }
       const buttonTextTuple = this.getButtonText();
-      // const listingData = listing.data;
-      // const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-      // const pollData = listingData.challenge && listingData.challenge.poll;
-      // const commitEndDate = pollData && pollData.commitEndDate.toNumber();
-      // const revealEndDate = pollData && pollData.revealEndDate.toNumber();
-
       const props = {
         newsroomName: newsroomData.name,
         listingDetailURL,
@@ -72,15 +66,6 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
   private renderActivityDetails = (): JSX.Element => {
     const { listingPhaseState, challengeState } = this.props;
     const { isWhitelisted, isInApplication, canResolveChallenge, inChallengePhase, inRevealPhase } = listingPhaseState;
-
-    /*
-    console.log(
-      this.props.challenge && `Challenge ID: ${this.props.challenge.challengeID}`,
-      listingPhaseState,
-      challengeState,
-      userChallengeData,
-    );
-    */
 
     if (!this.props.challenge) {
       if (isInApplication) {
@@ -145,7 +130,6 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
 
   private getButtonText = (): [string, string | JSX.Element | undefined] => {
     const { listingAddress, listingPhaseState, userChallengeData } = this.props;
-    console.log(listingAddress, userChallengeData);
     if (userChallengeData) {
       const {
         didUserCommit,
