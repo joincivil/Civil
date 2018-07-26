@@ -82,7 +82,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
 
               {(this.props.isUserNewsroomOwner &&
                 this.props.listing && (
-                  <Tab tabText="Owner Actions">
+                  <Tab title="Owner Actions">
                     <ListingTabContent>
                       <ListingOwnerActions listing={this.props.listing} />
                     </ListingTabContent>
