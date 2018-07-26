@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
+import { Tabs, Tab, MyActivityTabNav, MyActivityTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -19,14 +18,14 @@ class MyActivity extends React.Component<MyActivityProps> {
     const currentUserChallengesVotedOn = this.props.currentUserChallengesVotedOn;
     const currentUserChallengesStarted = this.props.currentUserChallengesStarted;
     return (
-      <Tabs>
-        <Tab tabText={"My Newsrooms (" + currentUserNewsrooms.count() + ")"}>
+      <Tabs TabsNavComponent={MyActivityTabNav} TabComponent={MyActivityTab}>
+        <Tab title={"My Newsrooms (" + currentUserNewsrooms.count() + ")"}>
           <ListingList listings={currentUserNewsrooms} />
         </Tab>
-        <Tab tabText={"Challenges I've Voted On (" + currentUserChallengesVotedOn.count() + ")"}>
+        <Tab title={"Challenges I've Voted On (" + currentUserChallengesVotedOn.count() + ")"}>
           <ListingList challenges={currentUserChallengesVotedOn} />
         </Tab>
-        <Tab tabText={"Challenges I've Started (" + currentUserChallengesStarted.count() + ")"}>
+        <Tab title={"Challenges I've Started (" + currentUserChallengesStarted.count() + ")"}>
           <ListingList challenges={currentUserChallengesStarted} />
         </Tab>
       </Tabs>

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
+import { Tabs, Tab, ListingsTabNav, ListingsTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -19,17 +18,17 @@ export interface ListingProps {
 class Listings extends React.Component<ListingProps> {
   public render(): JSX.Element {
     return (
-      <Tabs>
-        <Tab tabText={"WHITELISTED NEWSROOMS"}>
+      <Tabs TabsNavComponent={ListingsTabNav} TabComponent={ListingsTab}>
+        <Tab title={"Whitelisted Newsrooms"}>
           <ListingList listings={this.props.whitelistedListings} />
         </Tab>
-        <Tab tabText={"NEWSROOMS UNDER CONSIDERATION"}>
+        <Tab title={"Newsrooms Under Consideration"}>
           <ListingsInProgress />
         </Tab>
-        <Tab tabText={"REJECTED NEWSROOMS"}>
+        <Tab title={"Rejected Newsrooms"}>
           <ListingList listings={this.props.rejectedListings} />
         </Tab>
-        <Tab tabText={"MY ACTIVITY"}>
+        <Tab title={"My Activity"}>
           <MyActivity />
         </Tab>
       </Tabs>

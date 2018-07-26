@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
+import { Tabs, Tab, ListingsInProgressTabNav, ListingsInProgressTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -37,20 +36,20 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.resolveChallengeListings)
       .merge(this.props.resolveAppealListings);
     return (
-      <Tabs>
-        <Tab tabText={"Applications (" + applications.count() + ")"}>
+      <Tabs TabsNavComponent={ListingsInProgressTabNav} TabComponent={ListingsInProgressTab}>
+        <Tab title={"New Applications (" + applications.count() + ")"}>
           <ListingList listings={applications} />
         </Tab>
-        <Tab tabText={"Being Challenged (" + beingChallenged.count() + ")"}>
+        <Tab title={"Under Challenged (" + beingChallenged.count() + ")"}>
           <ListingList listings={beingChallenged} />
         </Tab>
-        <Tab tabText={"Appeal Being Considered (" + consideringAppeal.count() + ")"}>
+        <Tab title={"Appeal to Council (" + consideringAppeal.count() + ")"}>
           <ListingList listings={consideringAppeal} />
         </Tab>
-        <Tab tabText={"Appeal Being Challenged (" + appealChallenge.count() + ")"}>
+        <Tab title={"Challenge Council Appeal (" + appealChallenge.count() + ")"}>
           <ListingList listings={appealChallenge} />
         </Tab>
-        <Tab tabText={"Ready to Update (" + readyToUpdate.count() + ")"}>
+        <Tab title={"Ready to Update (" + readyToUpdate.count() + ")"}>
           <ListingList listings={readyToUpdate} />
         </Tab>
       </Tabs>

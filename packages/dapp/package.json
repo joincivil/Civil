@@ -42,8 +42,8 @@
     "styled-components": "3.2.5"
   },
   "scripts": {
-    "start": "react-scripts-ts start",
-    "build": "react-scripts-ts build",
+    "start": "react-scripts-ts --max_old_space_size=4096 start",
+    "build": "react-scripts-ts --max_old_space_size=4096 build",
     "test": "echo \"no tests\"",
     "eject": "react-scripts-ts eject",
     "lint": "tslint --project ./",

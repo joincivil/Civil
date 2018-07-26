@@ -19,6 +19,7 @@ export interface Transaction {
   progressEventName?: string;
   transaction(): Promise<TwoStepEthTransaction<any> | void>;
   preTransaction?(): any;
+  requireBeforeTransaction?(): Promise<any>;
   postTransaction?(result: any): any;
   handleTransactionError?(err: any): any;
   handleTransactionHash?(txhash: TxHash): void;
@@ -148,6 +149,9 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
       }
 
       try {
+        if (currTransaction.requireBeforeTransaction) {
+          await currTransaction.requireBeforeTransaction();
+        }
         this.setState({ step: 1, disableButton: true });
         const pending = await currTransaction.transaction();
         this.setState({ step: 2 });
