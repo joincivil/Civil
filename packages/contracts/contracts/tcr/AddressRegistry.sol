@@ -459,18 +459,18 @@ contract AddressRegistry {
     // Stores the total tokens used for voting by the winning side for reward purposes
     challenge.totalTokens = voting.getTotalNumberOfTokensForWinningOption(challengeID);
 
-    if (voting.isPassed(challengeID)) { // Case: challenge succeeded, listing to be removed
-      resetListing(listingAddress);
-      // Transfer the reward to the challenger
-      require(token.transfer(challenge.challenger, reward));
-      emit _ChallengeSucceeded(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
-    } else { // Case: challenge failed, listing to be whitelisted
+    if (voting.isPassed(challengeID)) { // Case: challenge failed, listing to be whitelisted
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
 
       listing.challengeID = 0;
       emit _ChallengeFailed(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
+     } else { // Case: challenge succeeded, listing to be removed
+      resetListing(listingAddress);
+      // Transfer the reward to the challenger
+      require(token.transfer(challenge.challenger, reward));
+      emit _ChallengeSucceeded(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     }
   }
 

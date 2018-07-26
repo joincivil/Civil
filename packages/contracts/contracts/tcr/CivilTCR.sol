@@ -298,15 +298,15 @@ contract CivilTCR is RestrictedAddressRegistry {
     // Stores the total tokens used for voting by the winning side for reward purposes
     appealChallenge.totalTokens = voting.getTotalNumberOfTokensForWinningOption(challengeID);
 
-    if (voting.isPassed(appealChallengeID)) { // Case: appeal challenge succeeded, overturn appeal
+    if (voting.isPassed(appealChallengeID)) { // Case: vote succeeded, appeal challenge failed, don't overturn appeal
+      resolveOverturnedChallenge(listingAddress);
+      require(token.transfer(appeal.requester, reward));
+      emit _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
+    } else { // Case: vote failed, appeal challenge succeeded, overturn appeal
       super.resolveChallenge(listingAddress);
       appeal.overturned = true;
       require(token.transfer(appealChallenge.challenger, reward));
       emit _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
-    } else { // Case: appeal challenge failed, don't overturn appeal
-      resolveOverturnedChallenge(listingAddress);
-      require(token.transfer(appeal.requester, reward));
-      emit _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     }
   }
 
@@ -373,18 +373,18 @@ contract CivilTCR is RestrictedAddressRegistry {
     challenge.totalTokens = voting.getTotalNumberOfTokensForLosingOption(challengeID);
 
     // challenge is overturned, behavior here is opposite resolveChallenge
-    if (voting.isPassed(challengeID)) { // original vote passed (challenge success), this should whitelist listing
-      whitelistApplication(listingAddress);
-      // Unlock stake so that it can be retrieved by the applicant
-      listing.unstakedDeposit += reward;
-
-      emit _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
-    } else { // original vote failed (challenge failed), this should de-list listing
+    if (voting.isPassed(challengeID)) { // original vote passed (challenge failed), this should de-list listing
       resetListing(listingAddress);
       // Transfer the reward to the challenger
       require(token.transfer(challenge.challenger, reward));
 
       emit _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
+    } else { // original vote failed (challenge success), this should whitelist listing
+      whitelistApplication(listingAddress);
+      // Unlock stake so that it can be retrieved by the applicant
+      listing.unstakedDeposit += reward;
+
+      emit _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     }
   }
 
