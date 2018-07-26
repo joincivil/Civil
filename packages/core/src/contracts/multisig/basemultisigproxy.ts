@@ -1,6 +1,6 @@
 import { isDefined, isDeployedBytecodeEqual } from "@joincivil/utils";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "../../types";
-import { EthApi } from "../../utils/ethapi";
+import { EthApi } from "@joincivil/ethapi";
 import { artifacts } from "../generated/artifacts";
 import { MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
 import { Contract } from "../interfaces/contract";

@@ -42,6 +42,8 @@ export interface AppealDetailProps {
   challengeState: any;
   govtParameters: any;
   tokenBalance: number;
+  user: EthAddress;
+  isMemberOfCouncil: boolean;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -55,7 +57,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
-        {!hasAppealChallenge && this.renderAwaitingAppealDecision()}
+        {!hasAppealChallenge && !canAppealBeResolved && this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
         {appeal.appealChallenge && (
           <AppealChallengeDetail
@@ -66,6 +68,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
             appealChallenge={appeal.appealChallenge}
             govtParameters={this.props.govtParameters}
             tokenBalance={this.props.tokenBalance}
+            user={this.props.user}
           />
         )}
         {canAppealBeResolved && this.renderCanResolve()}
@@ -92,12 +95,12 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       .mul(100)
       .toFixed(0);
 
-    const { isAppealAwaitingJudgment } = this.props.challengeState;
+    const { isAwaitingAppealJudgment } = this.props.challengeState;
 
     // @TODO(jon): Check if user is in Civil Council multi-sig
     let transactions;
     let modalContentComponents;
-    if (isAppealAwaitingJudgment) {
+    if (isAwaitingAppealJudgment && this.props.isMemberOfCouncil) {
       const grantAppealProgressModal = this.renderGrantAppealProgressModal();
       modalContentComponents = {
         [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,

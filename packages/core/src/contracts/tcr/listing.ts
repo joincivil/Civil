@@ -1,7 +1,7 @@
 import { Observable, Subscription } from "rxjs";
 import "@joincivil/utils";
 import { CivilTCRContract, CivilTCR } from "../generated/wrappers/civil_t_c_r";
-import { EthApi } from "../../utils/ethapi";
+import { EthApi } from "@joincivil/ethapi";
 import { EthAddress, ListingWrapper, ListingData, TimestampedEvent } from "../../types";
 import { createTimestampedEvent } from "../../utils/events";
 import { Challenge } from "./challenge";

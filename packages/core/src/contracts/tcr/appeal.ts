@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import "@joincivil/utils";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
-import { EthApi } from "../../utils/ethapi";
+import { EthApi } from "@joincivil/ethapi";
 import { AppealData } from "../../types";
 import { AppealChallenge } from "./appealChallenge";
 

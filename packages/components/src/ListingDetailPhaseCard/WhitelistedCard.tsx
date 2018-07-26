@@ -21,10 +21,6 @@ export class WhitelistedCard extends React.Component<ListingDetailPhaseCardCompo
           <MetaItemLabel>Approved date</MetaItemLabel>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>1,000 CVL</MetaItemValue>
-          <MetaItemLabel>Amount of tokens deposited</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
           <CTACopy>
             If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
             <a href="#">submit a challenge</a>.
@@ -45,9 +41,7 @@ export class WhitelistedCard extends React.Component<ListingDetailPhaseCardCompo
     }
 
     return (
-      <TransactionInvertedButton size={buttonSizes.MEDIUM} transactions={this.props.transactions!}>
-        Submit a Challenge
-      </TransactionInvertedButton>
+      <TransactionInvertedButton transactions={this.props.transactions!}>Submit a Challenge</TransactionInvertedButton>
     );
   };
 }

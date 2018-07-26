@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
+<<<<<<< HEAD
 import { Tabs } from "../tabs/Tabs";
 import { Tab } from "../tabs/Tab";
 import {
@@ -11,6 +12,9 @@ import {
   HeroButton,
   buttonSizes,
 } from "@joincivil/components";
+=======
+import { Tabs, Tab, ListingsTabNav, ListingsTab } from "@joincivil/components";
+>>>>>>> master
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -41,17 +45,17 @@ class Listings extends React.Component<ListingProps> {
           <HeroSmall>1,000 CVL required to apply</HeroSmall>
         </Hero>
 
-        <Tabs>
-          <Tab tabText={"WHITELISTED NEWSROOMS"}>
+        <Tabs TabsNavComponent={ListingsTabNav} TabComponent={ListingsTab}>
+          <Tab title={"Whitelisted Newsrooms"}>
             <ListingList listings={this.props.whitelistedListings} />
           </Tab>
-          <Tab tabText={"NEWSROOMS UNDER CONSIDERATION"}>
+          <Tab title={"Newsrooms Under Consideration"}>
             <ListingsInProgress />
           </Tab>
-          <Tab tabText={"REJECTED NEWSROOMS"}>
+          <Tab title={"Rejected Newsrooms"}>
             <ListingList listings={this.props.rejectedListings} />
           </Tab>
-          <Tab tabText={"MY ACTIVITY"}>
+          <Tab title={"My Activity"}>
             <MyActivity />
           </Tab>
         </Tabs>

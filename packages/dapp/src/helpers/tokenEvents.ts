@@ -1,8 +1,8 @@
+import { EthAddress } from "@joincivil/core";
 import { Dispatch } from "react-redux";
-import { getTCR } from "./civilInstance";
 import { Subscription } from "rxjs";
 import { updateUserTokenBalance, updateUserVotingBalance } from "../actionCreators/userAccount";
-import { EthAddress } from "@joincivil/core";
+import { getTCR } from "./civilInstance";
 
 let tokenBalanceSubscriptions: Subscription;
 let votingBalanceSubscriptions: Subscription;
@@ -14,7 +14,7 @@ export async function initializeTokenSubscriptions(dispatch: Dispatch<any>, user
     votingBalanceSubscriptions.unsubscribe();
   }
 
-  const tcr = getTCR();
+  const tcr = await getTCR();
   const token = await tcr.getToken();
   tokenBalanceSubscriptions = token.balanceUpdate("latest", user).subscribe(balance => {
     dispatch(updateUserTokenBalance(user, balance));

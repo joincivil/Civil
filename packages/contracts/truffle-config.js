@@ -3,6 +3,12 @@ module.exports = {
   // to customize your Truffle configuration!
   migrations_directory: "build/migrations",
   test_directory: "build/test",
+  solc: {
+    optimizer: {
+      enabled: true,
+      runs: 200,
+    },
+  },
   networks: {
     develop: {
       host: "localhost",

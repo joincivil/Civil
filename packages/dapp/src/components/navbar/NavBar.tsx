@@ -1,19 +1,18 @@
-import * as React from "react";
-import styled from "styled-components";
-import { Civil, CivilErrors } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import * as React from "react";
+import { connect } from "react-redux";
+import styled from "styled-components";
+import { State } from "../../reducers";
 import NavBarItem from "./NavBarItem";
 import NavBarLink from "./NavBarLink";
 import NavBarSpan from "./NavBarSpan";
-import { connect } from "react-redux";
-import { State } from "../../reducers";
 
 const StyledUL = styled.ul`
   display: flex;
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  margin-top: 0;
+  margin: 0;
   padding: 0;
   height: 50px;
   background-color: black;

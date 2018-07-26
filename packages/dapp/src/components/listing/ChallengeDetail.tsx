@@ -72,6 +72,7 @@ export interface ChallengeContainerReduxProps {
   balance: BigNumber;
   parameters: any;
   govtParameters: any;
+  isMemberOfAppellate: boolean;
 }
 
 export interface ChallengeDetailProps {
@@ -83,8 +84,9 @@ export interface ChallengeDetailProps {
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
-  user?: EthAddress;
+  user: EthAddress;
   balance?: BigNumber;
+  isMemberOfAppellate: boolean;
 }
 
 export interface ChallengeVoteState {
@@ -142,6 +144,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeState={this.props.challengeState}
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
+        user={this.props.user}
+        isMemberOfCouncil={this.props.isMemberOfAppellate}
       />
     );
   }
@@ -225,6 +229,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const endTime = this.props.challenge.poll.revealEndDate.toNumber();
     const phaseLength = this.props.parameters.revealStageLen;
     const challenge = this.props.challenge;
+    const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
     const revealVoteProgressModal = this.renderRevealVoteProgressModal();
     const modalContentComponents = {
       [ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE]: revealVoteProgressModal,
@@ -246,6 +251,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         stake={getFormattedTokenBalance(challenge!.stake)}
         salt={this.state.salt}
         onInputChange={this.updateCommitVoteState}
+        userHasRevealedVote={userHasRevealedVote}
         modalContentComponents={modalContentComponents}
         transactions={transactions}
       />
@@ -319,7 +325,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         <LoadingIndicator height={100} />
         <ModalHeading>Transaction in progress</ModalHeading>
         <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving Challenge</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Approving for Request Appeal</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.FADED}>Requesting Appeal</ModalListItem>
         </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
@@ -446,6 +453,7 @@ class ChallengeContainer extends React.Component<
         user={this.props.user}
         parameters={this.props.parameters}
         govtParameters={this.props.govtParameters}
+        isMemberOfAppellate={this.props.isMemberOfAppellate}
       />
     );
   }
@@ -470,6 +478,7 @@ const makeMapStateToProps = () => {
       user,
       parameters,
       govtParameters,
+      appellateMembers,
     } = state.networkDependent;
     let listingAddress = ownProps.listingAddress;
     let challengeData;
@@ -507,6 +516,7 @@ const makeMapStateToProps = () => {
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
+    const isMemberOfAppellate = appellateMembers.includes(userAcct.account);
     return {
       challengeData,
       userChallengeData,
@@ -517,6 +527,7 @@ const makeMapStateToProps = () => {
       balance: user.account.balance,
       parameters,
       govtParameters,
+      isMemberOfAppellate,
       ...ownProps,
     };
   };

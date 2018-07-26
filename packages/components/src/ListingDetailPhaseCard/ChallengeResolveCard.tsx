@@ -7,7 +7,6 @@ import {
   MetaItemValue,
   MetaItemLabel,
 } from "./styledComponents";
-import { buttonSizes } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ChallengeResults } from "./ChallengeResults";
 
@@ -43,7 +42,6 @@ export class ChallengeResolveCard extends React.Component<
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <TransactionInvertedButton
-            size={buttonSizes.MEDIUM}
             transactions={this.props.transactions!}
             modalContentComponents={this.props.modalContentComponents}
           >

@@ -61,16 +61,18 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param tokenAddr Address of the TCR's intrinsic ERC20 token
   @param plcrAddr Address of a PLCR voting contract for the provided token
   @param paramsAddr Address of a Parameterizer contract
-  @param govtAddr Address of a IGovernment contract
+  @param govt IGovernment contract
   */
   function CivilTCR(
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
-    address govtAddr
+    IGovernment govt
   ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
   {
-    government = IGovernment(govtAddr);
+    require(address(govt) != 0);
+    require(govt.getGovernmentController() != 0);
+    government = govt;
   }
 
   // --------------------
@@ -88,7 +90,6 @@ contract CivilTCR is RestrictedAddressRegistry {
   4) appeal requester transfers appealFee to TCR
   --------
   Initializes `Appeal` struct in `appeals` mapping for active challenge on listing at given address.
-  Sets value in `appealRequested` mapping for challenge to true.
   --------
   Emits `_AppealRequested` if successful
   @param listingAddress address of listing that has challenged result that the user wants to appeal
@@ -146,9 +147,10 @@ contract CivilTCR is RestrictedAddressRegistry {
   --------
   Emits `_GovernmentTransfered` if successful.
   */
-  function transferGovernment(address newAddress) external onlyGovernmentController {
-    government = IGovernment(newAddress);
-    emit _GovernmentTransfered(newAddress);
+  function transferGovernment(IGovernment newGovernment) external onlyGovernmentController {
+    require(address(newGovernment) != 0);
+    government = newGovernment;
+    emit _GovernmentTransfered(newGovernment);
   }
 
   // --------
@@ -343,13 +345,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     Appeal appeal = appeals[challengeID];
     uint totalTokens = challenge.totalTokens;
     uint rewardPool = challenge.rewardPool;
-    bool overturnOriginalResult = appeal.appealGranted && !appeal.overturned;
-    uint voterTokens = 0;
-    if (overturnOriginalResult) {
-      voterTokens = voting.getNumLosingTokens(voter, challengeID, salt);
-    } else {
-      voterTokens = voting.getNumPassingTokens(voter, challengeID, salt);
-    }
+    uint voterTokens = getNumChallengeTokens(voter, challengeID, salt);
     return (voterTokens * rewardPool) / totalTokens;
   }
 

@@ -1,34 +1,18 @@
 import * as React from "react";
+import { connect, DispatchProp } from "react-redux";
+import { EthAddress, ListingWrapper } from "@joincivil/core";
+import { NewsroomState } from "@joincivil/newsroom-manager";
 
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
 import ListingDetail from "./ListingDetail";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
-import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { State } from "../../reducers";
-import { connect, DispatchProp } from "react-redux";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
-import { NewsroomState } from "@joincivil/newsroom-manager";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
-
-import styled from "styled-components";
-import { ViewModule } from "../utility/ViewModules";
-const GridRow = styled.div`
-  display: flex;
-  margin: 0 auto;
-  padding: 0 0 200px;
-  width: 1200px;
-`;
-const LeftShark = styled.div`
-  width: 695px;
-`;
-const RightShark = styled.div`
-  margin: -100px 0 0 15px;
-  width: 485px;
-`;
+import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
+import { Tabs, Tab, ListingTab } from "@joincivil/components";
 
 export interface ListingPageProps {
   match: any;
@@ -76,16 +60,22 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
-            <Tabs>
-              <Tab tabText="Discuss">
-                <ViewModule>
+            <Tabs TabComponent={ListingTab}>
+              <Tab title="Discussions">
+                <ListingTabContent>
                   <ListingChallengeStatement listing={this.props.listingAddress} />
-                  <ListingDiscourse />
-                </ViewModule>
-              </Tab>
 
-              <Tab tabText="History">
-                <ListingHistory listing={this.props.listingAddress} />
+                  <p>
+                    Use this space to discuss, ask questions, or cheer on the newsmakers. If you have questions, check
+                    out our help page.
+                  </p>
+                  <ListingDiscourse />
+                </ListingTabContent>
+              </Tab>
+              <Tab title="History">
+                <ListingTabContent>
+                  <ListingHistory listing={this.props.listingAddress} />
+                </ListingTabContent>
               </Tab>
             </Tabs>
           </LeftShark>
