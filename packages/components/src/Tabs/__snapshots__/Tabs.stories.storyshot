@@ -12,7 +12,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-bMvGRv kjEbhD",
+              "class": "sc-bMvGRv ccEBn",
             },
             "children": Array [
               Object {
@@ -212,7 +212,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-bMvGRv kjEbhD",
+                "class": "sc-bMvGRv ccEBn",
               },
               "children": Array [
                 Object {
@@ -384,7 +384,7 @@ initialize {
 }
 `;
 
-exports[`Storyshots Tabs Listing Nav Tabs 1`] = `
+exports[`Storyshots Tabs Listing Tabs 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {},
@@ -396,12 +396,12 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-bMvGRv kjEbhD",
+              "class": "sc-bMvGRv ccEBn",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-itybZL cvJsKg",
+                  "class": "sc-itybZL fzBMHe",
                 },
                 "children": Array [
                   Object {
@@ -416,7 +416,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-itybZL cvJsKg",
+                    "class": "sc-itybZL lboSjg",
                   },
                   "children": Array [
                     Object {
@@ -431,7 +431,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-itybZL cvJsKg",
+                      "class": "sc-itybZL lboSjg",
                     },
                     "children": Array [
                       Object {
@@ -477,7 +477,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-itybZL cvJsKg",
+                  "class": "sc-itybZL lboSjg",
                 },
                 "children": Array [
                   Object {
@@ -492,7 +492,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-itybZL cvJsKg",
+                    "class": "sc-itybZL lboSjg",
                   },
                   "children": Array [
                     Object {
@@ -519,7 +519,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-itybZL cvJsKg",
+                    "class": "sc-itybZL fzBMHe",
                   },
                   "children": Array [
                     Object {
@@ -553,7 +553,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-itybZL cvJsKg",
+                  "class": "sc-itybZL lboSjg",
                 },
                 "children": Array [
                   Object {
@@ -570,7 +570,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-itybZL cvJsKg",
+                    "class": "sc-itybZL lboSjg",
                   },
                   "children": Array [
                     Object {
@@ -587,7 +587,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-itybZL cvJsKg",
+                      "class": "sc-itybZL fzBMHe",
                     },
                     "children": Array [
                       Object {
@@ -722,12 +722,12 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-bMvGRv kjEbhD",
+                "class": "sc-bMvGRv ccEBn",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-itybZL cvJsKg",
+                    "class": "sc-itybZL fzBMHe",
                   },
                   "children": Array [
                     Object {
@@ -742,7 +742,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-itybZL cvJsKg",
+                      "class": "sc-itybZL lboSjg",
                     },
                     "children": Array [
                       Object {
@@ -757,7 +757,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-itybZL cvJsKg",
+                        "class": "sc-itybZL lboSjg",
                       },
                       "children": Array [
                         Object {
@@ -803,7 +803,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-itybZL cvJsKg",
+                    "class": "sc-itybZL lboSjg",
                   },
                   "children": Array [
                     Object {
@@ -818,7 +818,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-itybZL cvJsKg",
+                      "class": "sc-itybZL lboSjg",
                     },
                     "children": Array [
                       Object {
@@ -845,7 +845,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-itybZL cvJsKg",
+                      "class": "sc-itybZL fzBMHe",
                     },
                     "children": Array [
                       Object {
@@ -879,7 +879,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-itybZL cvJsKg",
+                    "class": "sc-itybZL lboSjg",
                   },
                   "children": Array [
                     Object {
@@ -896,7 +896,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-itybZL cvJsKg",
+                      "class": "sc-itybZL lboSjg",
                     },
                     "children": Array [
                       Object {
@@ -913,7 +913,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-itybZL cvJsKg",
+                        "class": "sc-itybZL fzBMHe",
                       },
                       "children": Array [
                         Object {
@@ -1020,7 +1020,995 @@ initialize {
 }
 `;
 
-exports[`Storyshots Tabs Listings Nav Tabs 1`] = `
+exports[`Storyshots Tabs Listings In Progress Tab 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {},
+    "children": Array [
+      Object {
+        "attribs": Object {
+          "class": "sc-TFwJa ezAaQ",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-bMvGRv ccEBn",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "class": "sc-bHwgHz jRfWgK",
+                },
+                "children": Array [
+                  Object {
+                    "data": "New Applications",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "li",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jNKBjE",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Under Challenge",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jNKBjE",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Appeal to Council",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-bHwgHz jNKBjE",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Challenge Council Appeal",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "li",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              Object {
+                "attribs": Object {
+                  "class": "sc-bHwgHz jNKBjE",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Under Challenge",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "li",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jNKBjE",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Appeal to Council",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jNKBjE",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Challenge Council Appeal",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jRfWgK",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "New Applications",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              Object {
+                "attribs": Object {
+                  "class": "sc-bHwgHz jNKBjE",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Appeal to Council",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "li",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jNKBjE",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Challenge Council Appeal",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jNKBjE",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Under Challenge",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jRfWgK",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "New Applications",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              Object {
+                "attribs": Object {
+                  "class": "sc-bHwgHz jNKBjE",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Challenge Council Appeal",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "li",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jNKBjE",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Appeal to Council",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jNKBjE",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Under Challenge",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-bHwgHz jRfWgK",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "New Applications",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "li",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+            ],
+            "name": "ul",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "Some Content",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "Some Content",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "p",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": Object {
+          "attribs": Object {
+            "class": "sc-TFwJa ezAaQ",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-bMvGRv ccEBn",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jRfWgK",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "New Applications",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jNKBjE",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Under Challenge",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-bHwgHz jNKBjE",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Appeal to Council",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "li",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "attribs": Object {
+                          "class": "sc-bHwgHz jNKBjE",
+                        },
+                        "children": Array [
+                          Object {
+                            "data": "Challenge Council Appeal",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                        ],
+                        "name": "li",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jNKBjE",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Under Challenge",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jNKBjE",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Appeal to Council",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-bHwgHz jNKBjE",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Challenge Council Appeal",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "li",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jRfWgK",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "New Applications",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jNKBjE",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Appeal to Council",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jNKBjE",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Challenge Council Appeal",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jNKBjE",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Under Challenge",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-bHwgHz jRfWgK",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "New Applications",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "li",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-bHwgHz jNKBjE",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Challenge Council Appeal",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "li",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-bHwgHz jNKBjE",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Appeal to Council",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "li",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-bHwgHz jNKBjE",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Under Challenge",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "li",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "class": "sc-bHwgHz jRfWgK",
+                        },
+                        "children": Array [
+                          Object {
+                            "data": "New Applications",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                        ],
+                        "name": "li",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "ul",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {},
+    "x-attribsPrefix": Object {},
+  },
+  "_root": [Circular],
+  "length": 1,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;
+
+exports[`Storyshots Tabs Listings Tabs 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {},
@@ -1032,7 +2020,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-bMvGRv kjEbhD",
+              "class": "sc-bMvGRv ccEBn",
             },
             "children": Array [
               Object {
@@ -1358,7 +2346,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-bMvGRv kjEbhD",
+                "class": "sc-bMvGRv ccEBn",
               },
               "children": Array [
                 Object {
@@ -1656,7 +2644,7 @@ initialize {
 }
 `;
 
-exports[`Storyshots Tabs Listings Pill Tabs 1`] = `
+exports[`Storyshots Tabs My Activity Tabs 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {},
@@ -1668,7 +2656,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-bMvGRv kjEbhD",
+              "class": "sc-bMvGRv ccEBn",
             },
             "children": Array [
               Object {
@@ -2396,7 +3384,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-bMvGRv kjEbhD",
+                "class": "sc-bMvGRv ccEBn",
               },
               "children": Array [
                 Object {
@@ -2997,994 +3985,6 @@ initialize {
                             "class": undefined,
                           },
                         },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                        },
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-              ],
-              "name": "ul",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-          ],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "type": "tag",
-        "x-attribsNamespace": Object {},
-        "x-attribsPrefix": Object {},
-      },
-    ],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {},
-    "x-attribsPrefix": Object {},
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
-`;
-
-exports[`Storyshots Tabs Listings Subnav Tabs 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {},
-    "children": Array [
-      Object {
-        "attribs": Object {
-          "class": "sc-TFwJa bxxxdN",
-        },
-        "children": Array [
-          Object {
-            "attribs": Object {
-              "class": "sc-bMvGRv kjEbhD",
-            },
-            "children": Array [
-              Object {
-                "attribs": Object {
-                  "class": "sc-bHwgHz jUpyVb",
-                },
-                "children": Array [
-                  Object {
-                    "data": "New Applications",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "li",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz ktGWyx",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Under Challenge",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz ktGWyx",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Appeal to Council",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {
-                        "class": "sc-bHwgHz ktGWyx",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Challenge Council Appeal",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "li",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              Object {
-                "attribs": Object {
-                  "class": "sc-bHwgHz ktGWyx",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Under Challenge",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "li",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz ktGWyx",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Appeal to Council",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz ktGWyx",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Challenge Council Appeal",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz jUpyVb",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "New Applications",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              Object {
-                "attribs": Object {
-                  "class": "sc-bHwgHz ktGWyx",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Appeal to Council",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "li",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz ktGWyx",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Challenge Council Appeal",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz ktGWyx",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Under Challenge",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz jUpyVb",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "New Applications",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              Object {
-                "attribs": Object {
-                  "class": "sc-bHwgHz ktGWyx",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Challenge Council Appeal",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "li",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz ktGWyx",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Appeal to Council",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz ktGWyx",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Under Challenge",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-bHwgHz jUpyVb",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "New Applications",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "li",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-            ],
-            "name": "ul",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {},
-          "children": Array [
-            Object {
-              "attribs": Object {},
-              "children": Array [
-                Object {
-                  "data": "Some Content",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-              ],
-              "name": "p",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {},
-              "x-attribsPrefix": Object {},
-            },
-          ],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": null,
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {},
-          "x-attribsPrefix": Object {},
-        },
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-      Object {
-        "attribs": Object {},
-        "children": Array [
-          Object {
-            "attribs": Object {},
-            "children": Array [
-              Object {
-                "data": "Some Content",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-            ],
-            "name": "p",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {},
-            "x-attribsPrefix": Object {},
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
-            "class": "sc-TFwJa bxxxdN",
-          },
-          "children": Array [
-            Object {
-              "attribs": Object {
-                "class": "sc-bMvGRv kjEbhD",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz jUpyVb",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "New Applications",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz ktGWyx",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Under Challenge",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {
-                        "class": "sc-bHwgHz ktGWyx",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Appeal to Council",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "li",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "attribs": Object {
-                          "class": "sc-bHwgHz ktGWyx",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Challenge Council Appeal",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "li",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz ktGWyx",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Under Challenge",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz ktGWyx",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Appeal to Council",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {
-                        "class": "sc-bHwgHz ktGWyx",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Challenge Council Appeal",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "li",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz jUpyVb",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "New Applications",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz ktGWyx",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Appeal to Council",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz ktGWyx",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Challenge Council Appeal",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz ktGWyx",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Under Challenge",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-bHwgHz jUpyVb",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "New Applications",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "li",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                Object {
-                  "attribs": Object {
-                    "class": "sc-bHwgHz ktGWyx",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Challenge Council Appeal",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "li",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-bHwgHz ktGWyx",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Appeal to Council",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "li",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-bHwgHz ktGWyx",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Under Challenge",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "li",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "class": "sc-bHwgHz jUpyVb",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "New Applications",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "li",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
                         "type": "tag",
                         "x-attribsNamespace": Object {
                           "class": undefined,

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { fonts } from "./styleConstants";
+import { fonts } from "../styleConstants";
 
 export interface TabProps {
   title: string | JSX.Element;

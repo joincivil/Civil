@@ -11,8 +11,8 @@ import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
-import { GridRow, LeftShark, RightShark, ListingTabContent, ListingTab } from "./styledComponents";
-import { Tabs, Tab } from "@joincivil/components";
+import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
+import { Tabs, Tab, ListingTab } from "@joincivil/components";
 
 export interface ListingPageProps {
   match: any;

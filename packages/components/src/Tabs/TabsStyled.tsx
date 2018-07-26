@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts, TabComponentProps } from "@joincivil/components";
+import { TabComponentProps } from "./Tab";
+import { colors, fonts } from "../styleConstants";
 
 export const ListingsTabNav = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
@@ -32,12 +33,15 @@ export const ListingsTab = styled.li`
 `;
 
 export const ListingsInProgressTabNav = styled.div`
+  display: flex;
+  justify-content: center;
   margin: 30px auto 50px;
   width: 100%;
 `;
 
 export const ListingsInProgressTab = styled.li`
-  background-color: ${(props: TabComponentProps) => (props.isActive ? "#e9eeff" : "transparent")};
+  background-color: ${(props: TabComponentProps) =>
+    props.isActive ? colors.accent.CIVIL_BLUE_VERY_FADED : "transparent"};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-right: none;
   color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.primary.BLACK)};
@@ -52,7 +56,7 @@ export const ListingsInProgressTab = styled.li`
   }
   &:hover {
     color: ${colors.accent.CIVIL_BLUE};
-    background-color: #e9eeff;
+    background-color: ${colors.accent.CIVIL_BLUE_VERY_FADED};
   }
 `;
 
@@ -76,5 +80,28 @@ export const MyActivityTab = styled.li`
   padding: 8px 15px;
   &:hover {
     background-color: ${colors.accent.CIVIL_GRAY_4};
+  }
+`;
+
+export const ListingTab = styled.li`
+  border-bottom: ${(props: TabComponentProps) =>
+    props.isActive ? "2px solid " + colors.accent.CIVIL_BLUE : "2px solid transparent"};
+  color: ${(props: TabComponentProps) => (props.isActive ? colors.primary.BLACK : colors.accent.CIVIL_GRAY_2)};
+  cursor: pointer;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  letter-spacing: -0.12px;
+  margin-right: 30px;
+  padding: 25px 0 15px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 500ms, border 500ms, color 500ms;
+  &:hover {
+    border-bottom: 2px solid ${colors.accent.CIVIL_BLUE};
+    color: ${colors.primary.BLACK};
+  }
+  &.active {
+    border-bottom: ;
+    color: ${colors.primary.BLACK};
   }
 `;

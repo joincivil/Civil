@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs, Tab } from "@joincivil/components";
-import { MyActivityTabNav, MyActivityTab } from "./styledComponents";
+import { Tabs, Tab, MyActivityTabNav, MyActivityTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";

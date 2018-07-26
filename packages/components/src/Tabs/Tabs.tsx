@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { TabProps } from "./Tab";
-import { colors } from "./styleConstants";
+import { colors } from "../styleConstants";
 
 export interface TabsProps {
   activeIndex?: number;
@@ -23,7 +23,6 @@ const TabContainer = styled.ul`
   list-style: none;
   margin: 0 auto;
   padding: 0;
-  width: 100%;
 `;
 
 export class Tabs extends React.Component<TabsProps, TabsState> {
