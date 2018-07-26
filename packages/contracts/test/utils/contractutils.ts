@@ -7,6 +7,7 @@ import { promisify } from "util";
 // We're just using types from web3
 // tslint:disable-next-line:no-implicit-dependencies
 import * as Web3 from "web3";
+import { coverageProviderSingleton, inCoverage } from "./coverage";
 import ethApi from "./getethapi";
 
 // advanceEvmTime was moved to dev-utils
