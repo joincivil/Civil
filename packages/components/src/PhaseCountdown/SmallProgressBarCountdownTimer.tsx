@@ -6,7 +6,6 @@ import {
   ProgressBarDisplayLabel,
   ProgressBarCountdownTotal,
   ProgressBarCountdownProgress,
-  ProgressBarCopy,
 } from "./styledComponents";
 
 export class SmallProgressBarCountdownTimerComponent extends React.Component<

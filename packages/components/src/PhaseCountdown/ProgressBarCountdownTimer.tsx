@@ -1,6 +1,6 @@
 import * as React from "react";
 import { getLocalDateTimeStrings, getReadableDuration } from "@joincivil/utils";
-import { CountdownTimerProps, InjectedCountdownTimerProps, ProgressBarCountdownProps } from "./types";
+import { InjectedCountdownTimerProps, ProgressBarCountdownProps } from "./types";
 import {
   StyledProgressBarCountdownTimer,
   ProgressBarCountdownContainer,

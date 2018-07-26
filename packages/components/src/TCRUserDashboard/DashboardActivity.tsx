@@ -22,7 +22,7 @@ const StyledUserActivityContent = styled.h3`
 export const DashboardActivity: React.StatelessComponent = props => {
   return (
     <StyledUserActivity>
-      <StyledUserActivityHeader>My Tasks</StyledUserActivityHeader>
+      <StyledUserActivityHeader>My Activity</StyledUserActivityHeader>
       <StyledUserActivityContent>{props.children}</StyledUserActivityContent>
     </StyledUserActivity>
   );

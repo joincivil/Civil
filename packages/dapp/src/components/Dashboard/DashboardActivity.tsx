@@ -1,10 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { DashboardActivity as DashboardActivityComponent } from "@joincivil/components";
-
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
+import styled from "styled-components";
+import { Tabs, Tab, ListingTab, DashboardActivity as DashboardActivityComponent } from "@joincivil/components";
 import { State } from "../../reducers";
 import ActivityList from "./ActivityList";
 
@@ -14,6 +12,11 @@ export interface DashboardActivityProps {
   currentUserChallengesStarted: Set<string>;
 }
 
+const StyledTabsComponent = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 class DashboardActivity extends React.Component<DashboardActivityProps> {
   public render(): JSX.Element {
     const currentUserNewsrooms = this.props.currentUserNewsrooms;
@@ -21,14 +24,14 @@ class DashboardActivity extends React.Component<DashboardActivityProps> {
     const currentUserChallengesStarted = this.props.currentUserChallengesStarted;
     return (
       <DashboardActivityComponent>
-        <Tabs>
-          <Tab tabText={"Newsrooms owned (" + currentUserNewsrooms.count() + ")"}>
+        <Tabs TabComponent={ListingTab} TabsNavComponent={StyledTabsComponent}>
+          <Tab title={"Newsrooms owned (" + currentUserNewsrooms.count() + ")"}>
             <ActivityList listings={currentUserNewsrooms} />
           </Tab>
-          <Tab tabText={"Challenges voted on (" + currentUserChallengesVotedOn.count() + ")"}>
+          <Tab title={"Challenges voted on (" + currentUserChallengesVotedOn.count() + ")"}>
             <ActivityList challenges={currentUserChallengesVotedOn} />
           </Tab>
-          <Tab tabText={"Challenges started (" + currentUserChallengesStarted.count() + ")"}>
+          <Tab title={"Challenges started (" + currentUserChallengesStarted.count() + ")"}>
             <ActivityList challenges={currentUserChallengesStarted} />
           </Tab>
         </Tabs>
