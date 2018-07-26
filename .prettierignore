@@ -6,3 +6,4 @@ generated/
 doxity/
 docs/asset-manifest.json
 /packages/dapp/src/components/docs/json/
+/packages/contracts/ext/
