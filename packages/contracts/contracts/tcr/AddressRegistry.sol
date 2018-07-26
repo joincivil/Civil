@@ -206,7 +206,7 @@ contract AddressRegistry {
     // Listing must be in apply stage or already on the whitelist
     require(appWasMade(listingAddress) || listing.isWhitelisted);
     // Prevent multiple challenges
-    require(listing.challengeID == 0);
+    require(listing.challengeID == 0 || challenges[listing.challengeID].resolved);
 
     if (listing.unstakedDeposit < deposit) {
       // Not enough tokens, listing auto-delisted
