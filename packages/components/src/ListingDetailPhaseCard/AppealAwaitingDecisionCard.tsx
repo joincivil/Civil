@@ -11,7 +11,6 @@ import {
 } from "./styledComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
-import { buttonSizes } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 
 export interface AppealProps {
@@ -66,7 +65,6 @@ export class AppealAwaitingDecisionCard extends React.Component<
   private renderGrantAppealButton = (): JSX.Element => {
     return (
       <TransactionInvertedButton
-        size={buttonSizes.MEDIUM}
         transactions={this.props.transactions!}
         modalContentComponents={this.props.modalContentComponents}
       >

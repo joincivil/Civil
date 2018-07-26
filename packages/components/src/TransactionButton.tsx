@@ -19,6 +19,7 @@ export interface Transaction {
   progressEventName?: string;
   transaction(): Promise<TwoStepEthTransaction<any> | void>;
   preTransaction?(): any;
+  requireBeforeTransaction?(): Promise<any>;
   postTransaction?(result: any): any;
   handleTransactionError?(err: any): any;
   handleTransactionHash?(txhash: TxHash): void;
@@ -27,8 +28,7 @@ export interface Transaction {
 export interface TransactionButtonProps {
   transactions: Transaction[];
   disabled?: boolean;
-  size?: buttonSizes;
-  style?: string;
+  Button?: React.StatelessComponent<TransactionButtonInnerProps>;
   preExecuteTransactions?(): any;
   postExecuteTransactions?(): any;
 }
@@ -62,6 +62,49 @@ const DEFAULT_MODAL_COMPONENTS: TransactionButtonModalContentComponentsProps = {
   [progressModalStates.ERROR]: <ProgressModalContentError />,
 };
 
+export interface TransactionButtonInnerProps {
+  disabled: boolean;
+  step: number;
+  children?: React.ReactNode | React.ReactNode[];
+  onClick(event: any): void;
+}
+
+export const PrimaryTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+  props: TransactionButtonInnerProps,
+): JSX.Element => {
+  return (
+    <Button onClick={props.onClick} disabled={props.disabled} size={buttonSizes.MEDIUM}>
+      {props.step === 1 && "Waiting for confirmation..."}
+      {props.step === 2 && "Processing..."}
+      {props.step === 0 && props.children}
+    </Button>
+  );
+};
+
+export const InvertedTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+  props: TransactionButtonInnerProps,
+): JSX.Element => {
+  return (
+    <InvertedButton onClick={props.onClick} disabled={props.disabled} size={buttonSizes.MEDIUM}>
+      {props.step === 1 && "Waiting for confirmation..."}
+      {props.step === 2 && "Processing..."}
+      {props.step === 0 && props.children}
+    </InvertedButton>
+  );
+};
+
+export const DarkTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+  props: TransactionButtonInnerProps,
+): JSX.Element => {
+  return (
+    <DarkButton onClick={props.onClick} disabled={props.disabled} size={buttonSizes.MEDIUM}>
+      {props.step === 1 && "Waiting for confirmation..."}
+      {props.step === 2 && "Processing..."}
+      {props.step === 0 && props.children}
+    </DarkButton>
+  );
+};
+
 export class TransactionButtonNoModal extends React.Component<TransactionButtonProps, TransactionButtonState> {
   constructor(props: TransactionButtonProps) {
     super(props);
@@ -80,29 +123,13 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
   }
 
   public render(): JSX.Element {
-    let StyledButton;
-    switch (this.props.style) {
-      case "inverted":
-        StyledButton = InvertedButton;
-        break;
-      case "dark":
-        StyledButton = DarkButton;
-        break;
-      default:
-        StyledButton = Button;
-    }
+    const ButtonComponent = this.props.Button || PrimaryTransactionButton;
     return (
       <>
         {this.state.error}
-        <StyledButton
-          onClick={this.onClick}
-          disabled={this.state.disableButton}
-          size={this.props.size || buttonSizes.MEDIUM}
-        >
-          {this.state.step === 1 && "Waiting for confirmation..."}
-          {this.state.step === 2 && "Processing..."}
-          {this.state.step === 0 && this.props.children}
-        </StyledButton>
+        <ButtonComponent step={this.state.step} onClick={this.onClick} disabled={this.state.disableButton}>
+          {this.props.children}
+        </ButtonComponent>
       </>
     );
   }
@@ -122,6 +149,9 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
       }
 
       try {
+        if (currTransaction.requireBeforeTransaction) {
+          await currTransaction.requireBeforeTransaction();
+        }
         this.setState({ step: 1, disableButton: true });
         const pending = await currTransaction.transaction();
         this.setState({ step: 2 });
@@ -276,8 +306,7 @@ export class TransactionDarkButton extends React.Component<
   TransitionButtonModalState
 > {
   public render(): JSX.Element {
-    const style = "dark";
-    return <TransactionButton style={style} {...this.props} />;
+    return <TransactionButton Button={DarkTransactionButton} {...this.props} />;
   }
 }
 
@@ -286,7 +315,6 @@ export class TransactionInvertedButton extends React.Component<
   TransitionButtonModalState
 > {
   public render(): JSX.Element {
-    const style = "inverted";
-    return <TransactionButton style={style} {...this.props} />;
+    return <TransactionButton Button={InvertedTransactionButton} {...this.props} />;
   }
 }

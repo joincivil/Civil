@@ -43,6 +43,8 @@ contract Government is IGovernment {
     string constURI
   ) public
   {
+    require(appellateAddr != 0);
+    require(governmentControllerAddr != 0);
     appellate = appellateAddr;
     governmentController = governmentControllerAddr;
     internalSet("requestAppealLen", requestAppealLength);
@@ -104,6 +106,7 @@ contract Government is IGovernment {
   @param newAppellate address of entity that will be made the Appellate
   */
   function setAppellate(address newAppellate) external onlyGovernmentController {
+    require(newAppellate != 0);
     appellate = newAppellate;
     emit AppellateSet(newAppellate);
   }

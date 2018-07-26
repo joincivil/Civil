@@ -40,7 +40,6 @@ export class AppealResolveCard extends React.Component<
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <TransactionInvertedButton
-            size={buttonSizes.MEDIUM}
             transactions={this.props.transactions!}
             modalContentComponents={this.props.modalContentComponents}
           >

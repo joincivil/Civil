@@ -229,6 +229,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const endTime = this.props.challenge.poll.revealEndDate.toNumber();
     const phaseLength = this.props.parameters.revealStageLen;
     const challenge = this.props.challenge;
+    const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
     const revealVoteProgressModal = this.renderRevealVoteProgressModal();
     const modalContentComponents = {
       [ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE]: revealVoteProgressModal,
@@ -250,6 +251,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         stake={getFormattedTokenBalance(challenge!.stake)}
         salt={this.state.salt}
         onInputChange={this.updateCommitVoteState}
+        userHasRevealedVote={userHasRevealedVote}
         modalContentComponents={modalContentComponents}
         transactions={transactions}
       />

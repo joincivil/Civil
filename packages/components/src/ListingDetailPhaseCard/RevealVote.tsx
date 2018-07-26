@@ -48,7 +48,6 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
     if (this.state.voteOption === options.voteOption) {
       return (
         <TransactionDarkButton
-          size={buttonSizes.MEDIUM}
           transactions={this.props.transactions}
           modalContentComponents={this.props.modalContentComponents}
           disabled={disableButtons}

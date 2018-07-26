@@ -28,3 +28,7 @@ export * from "./ViewTransactionLink";
 export * from "./TCRUserDashboard";
 export * from "./ChallengeResultsChart";
 export * from "./icons";
+export * from "./theme";
+export * from "./Tabs/Tabs";
+export * from "./Tabs/Tab";
+export * from "./Tabs/TabsStyled";

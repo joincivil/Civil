@@ -11,9 +11,8 @@ import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
 import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
+import { Tabs, Tab, ListingTab } from "@joincivil/components";
 
 export interface ListingPageProps {
   match: any;
@@ -61,8 +60,8 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
-            <Tabs>
-              <Tab tabText="Discuss">
+            <Tabs TabComponent={ListingTab}>
+              <Tab title="Discussions">
                 <ListingTabContent>
                   <ListingChallengeStatement listing={this.props.listingAddress} />
 
@@ -73,8 +72,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                   <ListingDiscourse />
                 </ListingTabContent>
               </Tab>
-
-              <Tab tabText="History">
+              <Tab title="History">
                 <ListingTabContent>
                   <ListingHistory listing={this.props.listingAddress} />
                 </ListingTabContent>

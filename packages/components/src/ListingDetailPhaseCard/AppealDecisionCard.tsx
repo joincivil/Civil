@@ -51,7 +51,6 @@ export class AppealDecisionCard extends React.Component<
             decision.
           </CTACopy>
           <TransactionInvertedButton
-            size={buttonSizes.MEDIUM}
             transactions={this.props.transactions!}
             modalContentComponents={this.props.modalContentComponents}
           >
