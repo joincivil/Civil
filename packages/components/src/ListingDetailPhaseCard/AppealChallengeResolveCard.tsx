@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, ChallengeResultsProps, AppealDecisionProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, AppealDecisionProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -9,7 +9,7 @@ import {
 } from "./styledComponents";
 import { buttonSizes, Button } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
-import { ChallengeResults } from "./ChallengeResults";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 
 export interface AppealChallengeResultsProps {
   appealChallengeTotalVotes: string;

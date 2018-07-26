@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, AppealDecisionProps, ChallengeResultsProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, AppealDecisionProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -9,7 +9,7 @@ import {
 } from "./styledComponents";
 import { buttonSizes, Button } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
-import { ChallengeResults } from "./ChallengeResults";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 
 export class AppealResolveCard extends React.Component<
   ListingDetailPhaseCardComponentProps & AppealDecisionProps & ChallengeResultsProps

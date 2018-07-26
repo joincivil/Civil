@@ -1,10 +1,5 @@
 import * as React from "react";
-import {
-  AppealDecisionProps,
-  ListingDetailPhaseCardComponentProps,
-  PhaseWithExpiryProps,
-  ChallengeResultsProps,
-} from "./types";
+import { AppealDecisionProps, ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -15,7 +10,7 @@ import {
 import { buttonSizes, Button } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { TransactionInvertedButton } from "../TransactionButton";
-import { ChallengeResults } from "./ChallengeResults";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 
 export class AppealDecisionCard extends React.Component<
   ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & AppealDecisionProps & ChallengeResultsProps
