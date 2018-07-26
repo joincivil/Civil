@@ -10,3 +10,9 @@ export interface InjectedCountdownTimerProps {
 export interface CountdownTimerState {
   secondsRemaining: number;
 }
+
+export interface ProgressBarCountdownProps extends CountdownTimerProps {
+  displayLabel: string;
+  totalSeconds: number;
+  flavorText?: string;
+}
