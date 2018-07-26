@@ -15,6 +15,7 @@ import Article from "./Article";
 import ContractPage from "./ContractPage";
 import Contracts from "./Contracts";
 import CreateNewsroom from "./CreateNewsroom";
+import { Dashboard } from "./Dashboard";
 import Editor from "./Editor";
 import ChallengePage from "./listing/Challenge";
 import Listing from "./listing/Listing";
@@ -92,6 +93,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
         <Route path="/createNewsroom" component={CreateNewsroom} />
         <Route path="/article/:newsroomAddress/:articleId" component={Article} />
         <Route path="/government" component={Government} />
+        <Route path="/dashboard" component={Dashboard} />
       </Switch>
     );
   }
