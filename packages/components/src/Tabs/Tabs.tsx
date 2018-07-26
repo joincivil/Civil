@@ -1,23 +1,28 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { TabProps } from "./Tab";
+import { colors } from "../styleConstants";
 
 export interface TabsProps {
   activeIndex?: number;
   children: Array<React.ReactElement<TabProps>>;
   TabComponent?: any;
+  TabsNavComponent?: any;
 }
 
 export interface TabsState {
   activeIndex: number;
 }
 
-const StyledUl = styled.ul`
-  list-style: none;
-  padding: 0;
+const StyledNav = styled.nav`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
+`;
+
+const TabContainer = styled.ul`
   display: flex;
-  justify-content: flex-start;
-  border-bottom: 1px solid #d8d8d8;
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
 `;
 
 export class Tabs extends React.Component<TabsProps, TabsState> {
@@ -48,9 +53,12 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
   }
 
   public render(): JSX.Element {
+    const TabsNavComponent = this.props.TabsNavComponent || StyledNav;
     return (
       <div>
-        <StyledUl>{this.renderTabs()}</StyledUl>
+        <TabsNavComponent>
+          <TabContainer>{this.renderTabs()}</TabContainer>
+        </TabsNavComponent>
         <div>{this.renderContent()}</div>
       </div>
     );
