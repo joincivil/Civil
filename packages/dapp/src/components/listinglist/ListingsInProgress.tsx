@@ -38,19 +38,19 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.resolveAppealListings);
     return (
       <Tabs TabsNavComponent={ListingsInProgressTabNav} TabComponent={ListingsInProgressTab}>
-        <Tab title={"New Applications"} tabCount={" (" + applications.count() + ")"}>
+        <Tab title={"New Applications (" + applications.count() + ")"}>
           <ListingList listings={applications} />
         </Tab>
-        <Tab title={"Under Challenged"} tabCount={" (" + beingChallenged.count() + ")"}>
+        <Tab title={"Under Challenged (" + beingChallenged.count() + ")"}>
           <ListingList listings={beingChallenged} />
         </Tab>
-        <Tab title={"Appeal to Council"} tabCount={" (" + consideringAppeal.count() + ")"}>
+        <Tab title={"Appeal to Council (" + consideringAppeal.count() + ")"}>
           <ListingList listings={consideringAppeal} />
         </Tab>
-        <Tab title={"Challenge Council Appeal"} tabCount={" (" + appealChallenge.count() + ")"}>
+        <Tab title={"Challenge Council Appeal (" + appealChallenge.count() + ")"}>
           <ListingList listings={appealChallenge} />
         </Tab>
-        <Tab title={"Ready to Update"} tabCount={" (" + readyToUpdate.count() + ")"}>
+        <Tab title={"Ready to Update (" + readyToUpdate.count() + ")"}>
           <ListingList listings={readyToUpdate} />
         </Tab>
       </Tabs>

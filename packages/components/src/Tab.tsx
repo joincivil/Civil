@@ -3,11 +3,10 @@ import styled, { StyledComponentClass } from "styled-components";
 import { fonts } from "./styleConstants";
 
 export interface TabProps {
-  title: string;
+  title: string | JSX.Element;
   isActive?: boolean;
   index?: number;
   children: React.ReactChild;
-  tabCount?: string;
   TabComponent?: any;
   onClick?(index: number): void;
 }
@@ -41,12 +40,10 @@ export const Count = styled.span`
 export class Tab extends React.Component<TabProps> {
   public render(): JSX.Element {
     const TabComponent = this.props.TabComponent || StyledLi;
-    const hasCount = this.props.tabCount ? <Count>{this.props.tabCount}</Count> : "";
 
     return (
       <TabComponent isActive={this.props.isActive} onClick={this.onClick}>
         {this.props.title}
-        {hasCount}
       </TabComponent>
     );
   }

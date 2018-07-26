@@ -40,7 +40,8 @@ const ListingsSubnavTabs = styled.div`
 `;
 
 const ListingsSubnavTab = styled.li`
-  background-color: ${(props: TabComponentProps) => (props.isActive ? "#e9eeff" : "transparent")};
+  background-color: ${(props: TabComponentProps) =>
+    props.isActive ? colors.accent.CIVIL_BLUE_VERY_FADED : "transparent"};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-right: none;
   color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.primary.BLACK)};
@@ -54,8 +55,8 @@ const ListingsSubnavTab = styled.li`
     border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
   }
   &:hover {
+    background-color: ${colors.accent.CIVIL_BLUE_VERY_FADED};
     color: ${colors.accent.CIVIL_BLUE};
-    background-color: #e9eeff;
   }
 `;
 
@@ -120,7 +121,7 @@ storiesOf("Tabs", module)
   .add("Listings Nav Tabs", () => {
     return (
       <Tabs TabsNavComponent={ListingsNavTabs} TabComponent={ListingsNavTab}>
-        <Tab title="Approved Newsrooms">
+        <Tab title={"Approved Newsrooms"}>
           <p>Some Content</p>
         </Tab>
         <Tab title="Applicaitons In Progress">
@@ -135,16 +136,16 @@ storiesOf("Tabs", module)
   .add("Listings Subnav Tabs", () => {
     return (
       <Tabs TabsNavComponent={ListingsSubnavTabs} TabComponent={ListingsSubnavTab}>
-        <Tab title="New Applications" tabCount=" (0)">
+        <Tab title="New Applications">
           <p>Some Content</p>
         </Tab>
-        <Tab title="Under Challenge" tabCount=" (5)">
+        <Tab title="Under Challenge">
           <p>Some other Content</p>
         </Tab>
-        <Tab title="Appeal to Council" tabCount=" (7)">
+        <Tab title="Appeal to Council">
           <p>Some other Content</p>
         </Tab>
-        <Tab title="Challenge Council Appeal" tabCount=" (10)">
+        <Tab title="Challenge Council Appeal">
           <p>Some other Content</p>
         </Tab>
       </Tabs>
@@ -153,19 +154,19 @@ storiesOf("Tabs", module)
   .add("Listings Pill Tabs", () => {
     return (
       <Tabs TabsNavComponent={ListingsPillTabs} TabComponent={ListingsPillTab}>
-        <Tab title="All" tabCount=" (0)">
+        <Tab title="All">
           <p>Some Content</p>
         </Tab>
-        <Tab title="Accepting Votes" tabCount=" (0)">
+        <Tab title="Accepting Votes">
           <p>Some other Content</p>
         </Tab>
-        <Tab title="Verifying Votes" tabCount=" (7)">
+        <Tab title="Verifying Votes">
           <p>Some other Content</p>
         </Tab>
-        <Tab title="Request Appeal" tabCount=" (10)">
+        <Tab title="Request Appeal">
           <p>Some other Content</p>
         </Tab>
-        <Tab title="Ready to Complete" tabCount=" (10)">
+        <Tab title="Ready to Complete">
           <p>Some other Content</p>
         </Tab>
       </Tabs>

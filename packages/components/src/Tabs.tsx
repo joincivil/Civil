@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { TabProps } from "./Tab";
+import { colors } from "./styleConstants";
 
 export interface TabsProps {
   activeIndex?: number;
@@ -14,14 +15,13 @@ export interface TabsState {
 }
 
 const StyledNav = styled.nav`
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
 `;
 
 const TabContainer = styled.ul`
   display: flex;
   list-style: none;
   margin: 0 auto;
-  max-width: 1200px;
   padding: 0;
   width: 100%;
 `;

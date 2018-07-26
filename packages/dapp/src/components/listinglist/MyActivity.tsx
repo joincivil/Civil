@@ -20,13 +20,13 @@ class MyActivity extends React.Component<MyActivityProps> {
     const currentUserChallengesStarted = this.props.currentUserChallengesStarted;
     return (
       <Tabs TabsNavComponent={MyActivityTabNav} TabComponent={MyActivityTab}>
-        <Tab title={"My Newsrooms"} tabCount={" (" + currentUserNewsrooms.count() + ")"}>
+        <Tab title={"My Newsrooms (" + currentUserNewsrooms.count() + ")"}>
           <ListingList listings={currentUserNewsrooms} />
         </Tab>
-        <Tab title={"Challenges I've Voted On"} tabCount={" (" + currentUserChallengesVotedOn.count() + ")"}>
+        <Tab title={"Challenges I've Voted On (" + currentUserChallengesVotedOn.count() + ")"}>
           <ListingList challenges={currentUserChallengesVotedOn} />
         </Tab>
-        <Tab title={"Challenges I've Started"} tabCount={" (" + currentUserChallengesStarted.count() + ")"}>
+        <Tab title={"Challenges I've Started (" + currentUserChallengesStarted.count() + ")"}>
           <ListingList challenges={currentUserChallengesStarted} />
         </Tab>
       </Tabs>
