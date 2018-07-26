@@ -14,6 +14,7 @@ import {
   isAwaitingAppealChallenge as getIsAwaitingAppealChallenge,
   isAppealAwaitingJudgment,
   ListingWrapper,
+  UserChallengeData,
   WrappedChallengeData,
 } from "@joincivil/core";
 import BigNumber from "bignumber.js";
@@ -63,6 +64,31 @@ export const getChallenge = (state: State, props: ChallengeContainerProps) => {
   return challenge;
 };
 
+export const getUser = (state: State) => state.networkDependent.user;
+
+export const getChallengeUserDataMap = (state: State, props: ChallengeContainerProps) => {
+  const { challengeUserData } = state.networkDependent;
+  let { challengeID } = props;
+  if (!challengeID) {
+    return;
+  }
+  if (typeof challengeID !== "string") {
+    challengeID = challengeID.toString();
+  }
+  const challengeUserDataMap = challengeUserData.get(challengeID);
+  return challengeUserDataMap;
+};
+
+export const makeGetUserChallengeData = () => {
+  return createSelector([getChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
+    if (challengeUserDataMap && user.account) {
+      const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
+      return userChallengeData;
+    }
+    return;
+  });
+};
+
 export const makeGetListingAddressByChallengeID = () => {
   return createSelector([getChallenge, getListings], (challenge, listings) => {
     let listingAddress;
@@ -84,6 +110,7 @@ export const makeGetListingExpiry = () => {
 export const makeGetChallengeState = () => {
   return createSelector([getChallenge], challengeData => {
     const challenge = challengeData && challengeData.challenge;
+    const isResolved = challenge && challenge.resolved;
     const inChallengePhase = challenge && isChallengeInCommitStage(challenge);
     const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
     const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
@@ -92,6 +119,7 @@ export const makeGetChallengeState = () => {
     const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
 
     return {
+      isResolved,
       inChallengePhase,
       inRevealPhase,
       canResolveChallenge,
