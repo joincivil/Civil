@@ -10,6 +10,8 @@ import {
   ChallengeResultsProps,
   ListingHistoryEventTimestampProps,
   ProgressBarCountdownProps,
+  PHASE_TYPE_NAMES,
+  PHASE_TYPE_LABEL,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
@@ -41,18 +43,6 @@ export interface PhaseCountdownTimerProps {
 export interface PhaseCountdownReduxProps {
   parameters: any;
   govtParameters: any;
-}
-
-export enum PHASE_TYPE_NAMES {
-  IN_APPLICATION = "IN_APPLICATION",
-  CHALLENGE_COMMIT_VOTE = "CHALLENGE_COMMIT_VOTE",
-  CHALLENGE_REVEAL_VOTE = "CHALLENGE_REVEAL_VOTE",
-}
-
-enum PHASE_TYPE_LABEL {
-  IN_APPLICATION = "Awaiting Approval",
-  CHALLENGE_COMMIT_VOTE = "Under Challenge",
-  CHALLENGE_REVEAL_VOTE = "Under Challenge",
 }
 
 /**

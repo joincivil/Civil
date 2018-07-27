@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-import { DashboardActivityItem } from "@joincivil/components";
+import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../reducers";
 import {
@@ -16,7 +16,6 @@ import {
 } from "../../selectors";
 import { WinningChallengeResults } from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
-import { PHASE_TYPE_NAMES } from "../utility/HigherOrderComponents";
 
 export interface ActivityListItemOwnProps {
   listingAddress?: string;
