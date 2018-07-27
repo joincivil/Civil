@@ -1,20 +1,18 @@
 import * as React from "react";
 import { Set } from "immutable";
-<<<<<<< HEAD
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
 import {
   Hero,
   HeroLabel,
   HeroHeading,
   HeroBlockTextLink,
-  HeroSmall,
-  HeroButton,
+  HeroSmallText,
+  Button,
   buttonSizes,
+  Tabs,
+  Tab,
+  ListingsTabNav,
+  ListingsTab,
 } from "@joincivil/components";
-=======
-import { Tabs, Tab, ListingsTabNav, ListingsTab } from "@joincivil/components";
->>>>>>> master
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -39,10 +37,10 @@ class Listings extends React.Component<ListingProps> {
             The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.
           </HeroHeading>
           <HeroBlockTextLink href="/">Learn how to participate in our governance</HeroBlockTextLink>
-          <HeroButton size={buttonSizes.MEDIUM} to="/">
+          <Button size={buttonSizes.MEDIUM} to="/">
             APPLY TO JOIN REGISTRY
-          </HeroButton>
-          <HeroSmall>1,000 CVL required to apply</HeroSmall>
+          </Button>
+          <HeroSmallText>1,000 CVL required to apply</HeroSmallText>
         </Hero>
 
         <Tabs TabsNavComponent={ListingsTabNav} TabComponent={ListingsTab}>

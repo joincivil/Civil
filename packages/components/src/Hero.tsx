@@ -1,15 +1,22 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { Button } from "./Button";
 
 import { colors, fonts } from "./styleConstants";
 
-const HeroOuter = styled.div`
-  background-color: ${colors.accent.CIVIL_GRAY_1};
+export const HeroOuter = styled.div`
+  background-color: ${props => props.theme.backgroundColor};
+  background-image: ${props => props.theme.backgroundImage};
   background-repeat: no-repeat;
   background-size: cover;
   padding: 70px 15px;
 `;
+
+HeroOuter.defaultProps = {
+  theme: {
+    backgroundColor: colors.primary.BLACK,
+    backgroundImage: "none",
+  },
+};
 
 const HeroInner = styled.div`
   align-items: center;
@@ -22,58 +29,78 @@ const HeroInner = styled.div`
 `;
 
 export const HeroLabel = styled.span`
-  color: ${colors.basic.WHITE};
+  color: ${props => props.theme.color};
   display: block;
-  font-family: ${fonts.SANS_SERIF};
-  font-weight: 800;
+  font-family: ${props => props.theme.fontFamily};
   font-size: 20px;
+  font-weight: 800;
   letter-spacing: -0.27px;
   margin-bottom: 30px;
 `;
 
+HeroLabel.defaultProps = {
+  theme: {
+    color: colors.basic.WHITE,
+    fontFamily: fonts.SANS_SERIF,
+  },
+};
+
 export const HeroHeading = styled.h2`
-  color: ${colors.basic.WHITE};
-  font-family: ${fonts.SERIF};
-  font-weight: 200;
+  color: ${props => props.theme.color};
+  font-family: ${props => props.theme.fontFamily};
   font-size: 38px;
+  font-weight: 200;
   letter-spacing: -1px;
   line-height: 40px;
-  margin: 0 0 20px;
+  margin: 20px auto;
 `;
 
+HeroHeading.defaultProps = {
+  theme: {
+    color: colors.basic.WHITE,
+    fontFamily: fonts.SERIF,
+  },
+};
+
 export const HeroBlockTextLink = styled.a`
-  background-color: transparent;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
-  color: ${colors.basic.WHITE};
-  font-family: ${fonts.SANS_SERIF};
+  color: ${props => props.theme.color};
+  font-family: ${props => props.theme.fontFamily};
   font-size: 20px;
-  margin-bottom: 40px;
+  margin: 40px auto;
   padding-bottom: 5px;
   text-decoration: none;
   transition: border-bottom 500ms;
   &:hover {
-    color: ${colors.basic.WHITE};
     border-bottom: 1px solid ${colors.accent.CIVIL_BLUE};
+    color: ${props => props.theme.color};
   }
 `;
 
-export const HeroSmall = styled.small`
-  color: ${colors.basic.WHITE};
+HeroBlockTextLink.defaultProps = {
+  theme: {
+    color: colors.basic.WHITE,
+    fontFamily: fonts.SERIF,
+  },
+};
+
+export const HeroSmallText = styled.small`
+  color: ${props => props.theme.color};
   display: block;
-  font-family: ${fonts.SANS_SERIF};
+  font-family: ${props => props.theme.fontFamily};
   font-size: 14px;
   line-height: 17px;
+  margin: 20px auto;
 `;
 
-export const HeroButton = Button.extend`
-  margin-bottom: 15px;
-`;
+HeroSmallText.defaultProps = {
+  theme: {
+    color: colors.basic.WHITE,
+    fontFamily: fonts.SANS_SERIF,
+  },
+};
 
-export interface HeroProps {
-  backgroundImg?: string;
-}
-
-export class Hero extends React.Component<HeroProps> {
+export class Hero extends React.Component {
   public render(): JSX.Element {
     return (
       <HeroOuter>
