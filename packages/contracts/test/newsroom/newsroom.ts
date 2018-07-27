@@ -221,7 +221,7 @@ contract("Newsroom", (accounts: string[]) => {
         contentId = event!.args.contentId;
       });
 
-      it("can't be the charter if you're not an owner", async () => {
+      it("can't update the charter if you're not an owner", async () => {
         await expect(
           newsroom.updateRevision(0, SECOND_URI, SECOND_HASH, "", { from: editor }),
         ).to.eventually.be.rejectedWith(REVERTED);
