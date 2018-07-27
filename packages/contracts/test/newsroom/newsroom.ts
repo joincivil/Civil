@@ -221,6 +221,18 @@ contract("Newsroom", (accounts: string[]) => {
         contentId = event!.args.contentId;
       });
 
+      it("can't be the charter if you're not an owner", async () => {
+        await expect(
+          newsroom.updateRevision(0, SECOND_URI, SECOND_HASH, "", { from: editor }),
+        ).to.eventually.be.rejectedWith(REVERTED);
+      });
+
+      it("works for charter if you're the owner", async () => {
+        await expect(
+          newsroom.updateRevision(0, SECOND_URI, SECOND_HASH, "", { from: defaultAccount }),
+        ).to.eventually.be.fulfilled();
+      });
+
       it("can't update non-existing content", async () => {
         await expect(
           newsroom.updateRevision(999, SECOND_URI, SECOND_HASH, "", { from: editor }),
