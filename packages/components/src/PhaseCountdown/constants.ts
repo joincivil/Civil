@@ -9,4 +9,3 @@ export enum PHASE_TYPE_LABEL {
   CHALLENGE_COMMIT_VOTE = "Under Challenge",
   CHALLENGE_REVEAL_VOTE = "Under Challenge",
 }
-
