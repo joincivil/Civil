@@ -1,6 +1,6 @@
 import { EthAddress } from "@joincivil/core";
 import { Newsroom } from "@joincivil/newsroom-manager";
-import { DEFAULT_BUTTON_THEME } from "@joincivil/components"
+import { DEFAULT_BUTTON_THEME } from "@joincivil/components";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
