@@ -1,68 +1,20 @@
 import * as React from "react";
 import { getLocalDateTimeStrings, getReadableDuration } from "@joincivil/utils";
-import { colors, fonts } from "../styleConstants";
-import styled, { StyledComponentClass } from "styled-components";
-import { CountdownTimerProps, InjectedCountdownTimerProps } from "./types";
-
-const ProgressBarCountdownContainer = styled.div`
-  margin: 0 0 24px;
-`;
-const ProgressBarDisplayLabel = styled.h4`
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 19px;
-  margin: 0 0 7px;
-`;
-const ProgressBarBase = styled.div`
-  height: 12px;
-  border-radius: 7.5px;
-`;
-const ProgressBarCountdownTotal = ProgressBarBase.extend`
-  background-color: ${colors.accent.CIVIL_GRAY_4};
-  box-sizing: border-box;
-  position: relative;
-  width: 100%;
-`;
-const ProgressBarCountdownProgress = ProgressBarBase.extend`
-  display: inline-block;
-  background-color: ${colors.accent.CIVIL_BLUE};
-  left: 0;
-  top: 0;
-  position: absolute;
-  transition: width 500ms ease;
-`;
-const StyledProgressBarCountdownTimer = styled.div`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-family: ${fonts.SANS_SERIF};
-  text-align: left;
-`;
-const MetaItem = styled.div`
-  margin: 0 0 16px;
-`;
-const MetaItemValue = styled.div`
-  font-size: 24px;
-  line-height: 29px;
-`;
-const MetaItemValueAccent = MetaItemValue.extend`
-  color: ${colors.primary.CIVIL_BLUE_1};
-`;
-const MetaItemLabel = styled.div`
-  font-size: 14px;
-  line-height: 17px;
-`;
-const ProgressBarCopy = styled.div`
-  font-size: 16px;
-  line-height: 26px;
-`;
-
-export interface ProgressBarCountdownProps {
-  displayLabel: string;
-  flavorText: string;
-  totalSeconds: number;
-}
+import { InjectedCountdownTimerProps, ProgressBarCountdownProps } from "./types";
+import {
+  StyledProgressBarCountdownTimer,
+  ProgressBarCountdownContainer,
+  ProgressBarDisplayLabel,
+  ProgressBarCountdownTotal,
+  ProgressBarCountdownProgress,
+  ProgressBarCopy,
+  MetaItem,
+  MetaItemValueAccent,
+  MetaItemLabel,
+} from "./styledComponents";
 
 export class ProgressBarCountdownTimerComponent extends React.Component<
-  CountdownTimerProps & InjectedCountdownTimerProps & ProgressBarCountdownProps
+  ProgressBarCountdownProps & InjectedCountdownTimerProps
 > {
   public render(): JSX.Element {
     const progress = this.getProgress();

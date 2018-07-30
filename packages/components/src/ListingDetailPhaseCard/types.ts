@@ -24,15 +24,6 @@ export interface ChallengePhaseProps {
   userHasRevealedVote?: boolean;
 }
 
-export interface ChallengeResultsProps {
-  totalVotes: string;
-  votesFor: string;
-  votesAgainst: string;
-  percentFor: string;
-  percentAgainst: string;
-  headerText?: string;
-}
-
 export interface CommitVoteProps {
   tokenBalance: number;
   salt?: string;

@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { State } from "../../reducers";
 import NavBarItem from "./NavBarItem";
 import NavBarLink from "./NavBarLink";
-import NavBarSpan from "./NavBarSpan";
 
 const StyledUL = styled.ul`
   display: flex;
@@ -14,8 +13,15 @@ const StyledUL = styled.ul`
   width: 100%;
   margin: 0;
   padding: 0;
-  height: 50px;
+  height: 68px;
   background-color: black;
+`;
+
+const StyledNavBarRule = styled.span`
+  color: white;
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
 `;
 
 const StyledErrorBar = styled.div`
@@ -70,7 +76,11 @@ class NavBar extends React.Component<NavBarProps> {
             <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
           </NavBarItem>
           <NavBarItem right={true}>
-            <NavBarSpan>{"Your Balance: " + this.props.balance + " + " + this.props.votingBalance}</NavBarSpan>
+            <NavBarLink to="/dashboard">My Dashboard</NavBarLink>
+            <StyledNavBarRule>|</StyledNavBarRule>
+            <NavBarLink to="/dashboard">
+              {"Balance: " + this.props.balance + " + " + this.props.votingBalance}
+            </NavBarLink>
           </NavBarItem>
         </StyledUL>
         {shouldRenderErrorBar && <StyledErrorBar>PLEASE SWITCH TO RINKEBY TESTNET</StyledErrorBar>}
