@@ -1,18 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
-import {
-  Hero,
-  HeroLabel,
-  HeroHeading,
-  HeroBlockTextLink,
-  HeroSmallText,
-  Button,
-  buttonSizes,
-  Tabs,
-  Tab,
-  ListingsTabNav,
-  ListingsTab,
-} from "@joincivil/components";
+import { HomepageHero, Tabs, Tab, ListingsTabNav, ListingsTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -31,17 +19,7 @@ class Listings extends React.Component<ListingProps> {
   public render(): JSX.Element {
     return (
       <div>
-        <Hero>
-          <HeroLabel>Civil Registry</HeroLabel>
-          <HeroHeading>
-            The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.
-          </HeroHeading>
-          <HeroBlockTextLink href="/">Learn how to participate in our governance</HeroBlockTextLink>
-          <Button size={buttonSizes.MEDIUM} to="/">
-            APPLY TO JOIN REGISTRY
-          </Button>
-          <HeroSmallText>1,000 CVL required to apply</HeroSmallText>
-        </Hero>
+        <HomepageHero />
 
         <Tabs TabsNavComponent={ListingsTabNav} TabComponent={ListingsTab}>
           <Tab title={"Whitelisted Newsrooms"}>
