@@ -22,6 +22,7 @@ export * from "./ListingDetailHeader";
 export * from "./ListingDetailPhaseCard";
 export * from "./SubmitChallengeModal";
 export * from "./QuestionToolTip";
+export * from "./ToolTip";
 export * from "./ListingHistoryEvent";
 export * from "./ViewTransactionLink";
 export * from "./icons";
