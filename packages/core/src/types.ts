@@ -60,6 +60,7 @@ export interface ApprovedRevision {
   contentHash: Hex;
   signature: Hex;
   newsroomAddress: EthAddress;
+  date: string;
 }
 
 export interface MapObject<T = any> {
