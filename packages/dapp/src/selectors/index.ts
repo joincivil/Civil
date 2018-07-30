@@ -87,8 +87,6 @@ export const getChallenge = (state: State, props: ChallengeContainerProps) => {
   return challenge;
 };
 
-export const getUser = (state: State) => state.networkDependent.user;
-
 export const getChallengeUserDataMap = (state: State, props: ChallengeContainerProps) => {
   const { challengeUserData } = state.networkDependent;
   let { challengeID } = props;
