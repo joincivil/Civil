@@ -123,6 +123,11 @@ export class EthApi {
     return sendTransactionAsync(txData);
   }
 
+  public async getTransaction(txHash: TxHash): Promise<any> {
+    const getTransactionAsync = promisify<any>(this.web3.eth.getTransaction, this.web3.eth);
+    return getTransactionAsync(txHash);
+  }
+
   public async signMessage(message: string, account?: EthAddress): Promise<EthSignedMessage> {
     const messageHex = fromUtf8(message);
 
