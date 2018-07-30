@@ -44,6 +44,47 @@ export interface ButtonTheme {
   borderlessButtonHoverColor?: string;
 }
 
+const PRIMARY_BUTTON_DEFAULT_THEME = {
+  primaryButtonBackground: colors.accent.CIVIL_BLUE,
+  primaryButtonColor: colors.basic.WHITE,
+  primaryButtonHoverBackground: colors.accent.CIVIL_BLUE_FADED,
+  primaryButtonDisabledBackground: colors.accent.CIVIL_BLUE_VERY_FADED,
+  primaryButtonDisabledColor: colors.basic.WHITE,
+  primaryButtonTextTransform: "uppercase",
+};
+
+const INVERTED_BUTTON_DEFAULT_THEME = {
+  invertedButtonBackground: colors.basic.WHITE,
+  invertedButtonColor: colors.accent.CIVIL_BLUE,
+};
+
+const SECONDARY_BUTTON_DEFAULT_THEME = {
+  secondaryButtonBackground: colors.basic.WHITE,
+  secondaryButtonColor: colors.accent.CIVIL_GRAY_2,
+  secondaryButtonBorder: colors.accent.CIVIL_GRAY_3,
+  secondaryButtonHoverBackground: colors.accent.CIVIL_BLUE,
+  secondaryButtonHoverColor: colors.basic.WHITE,
+};
+
+const DARK_BUTTON_DEFAULT_THEME = {
+  darkButtonBackground: colors.primary.BLACK,
+  darkButtonColor: colors.basic.WHITE,
+  darkButtonHoverBackground: colors.accent.CIVIL_GRAY_1,
+};
+
+const BORDERLESS_BUTTON_DEFAULT_THEME = {
+  borderlessButtonColor: colors.primary.CIVIL_BLUE_1,
+  borderlessButtonHoverColor: colors.accent.CIVIL_BLUE_FADED,
+};
+
+export const DEFAULT_BUTTON_THEME = {
+  ...PRIMARY_BUTTON_DEFAULT_THEME,
+  ...INVERTED_BUTTON_DEFAULT_THEME,
+  ...SECONDARY_BUTTON_DEFAULT_THEME,
+  ...DARK_BUTTON_DEFAULT_THEME,
+  ...BORDERLESS_BUTTON_DEFAULT_THEME,
+};
+
 const sizesObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "8px 12px",
   [buttonSizes.MEDIUM]: "10px 25px",
@@ -112,14 +153,7 @@ export const Button = BaseButton.extend`
 `;
 
 Button.defaultProps = {
-  theme: {
-    primaryButtonBackground: colors.accent.CIVIL_BLUE,
-    primaryButtonColor: colors.basic.WHITE,
-    primaryButtonHoverBackground: colors.accent.CIVIL_BLUE_FADED,
-    primaryButtonDisabledBackground: colors.accent.CIVIL_BLUE_VERY_FADED,
-    primaryButtonDisabledColor: colors.basic.WHITE,
-    primaryButtonTextTransform: "uppercase",
-  },
+  theme: PRIMARY_BUTTON_DEFAULT_THEME,
 };
 
 export const InvertedButton = BaseButton.extend`
@@ -134,10 +168,7 @@ export const InvertedButton = BaseButton.extend`
 `;
 
 InvertedButton.defaultProps = {
-  theme: {
-    invertedButtonBackground: colors.basic.WHITE,
-    invertedButtonColor: colors.accent.CIVIL_BLUE,
-  },
+  theme: INVERTED_BUTTON_DEFAULT_THEME,
 };
 
 export const SecondaryButton = BaseButton.extend`
@@ -153,13 +184,7 @@ export const SecondaryButton = BaseButton.extend`
 `;
 
 SecondaryButton.defaultProps = {
-  theme: {
-    secondaryButtonBackground: colors.basic.WHITE,
-    secondaryButtonColor: colors.accent.CIVIL_GRAY_2,
-    secondaryButtonBorder: colors.accent.CIVIL_GRAY_3,
-    secondaryButtonHoverBackground: colors.accent.CIVIL_BLUE,
-    secondaryButtonHoverColor: colors.basic.WHITE,
-  },
+  theme: SECONDARY_BUTTON_DEFAULT_THEME,
 };
 
 export const DarkButton = BaseButton.extend`
@@ -172,11 +197,7 @@ export const DarkButton = BaseButton.extend`
 `;
 
 DarkButton.defaultProps = {
-  theme: {
-    darkButtonBackground: colors.primary.BLACK,
-    darkButtonColor: colors.basic.WHITE,
-    darkButtonHoverBackground: colors.accent.CIVIL_GRAY_1,
-  },
+  theme: DARK_BUTTON_DEFAULT_THEME,
 };
 
 export const CancelButton = SecondaryButton.extend`
@@ -206,8 +227,5 @@ export const BorderlessButton = Button.extend`
 `;
 
 BorderlessButton.defaultProps = {
-  theme: {
-    borderlessButtonColor: colors.primary.CIVIL_BLUE_1,
-    borderlessButtonHoverColor: colors.accent.CIVIL_BLUE_FADED,
-  },
+  theme: BORDERLESS_BUTTON_DEFAULT_THEME,
 };

@@ -1,5 +1,6 @@
 import { EthAddress } from "@joincivil/core";
 import { Newsroom } from "@joincivil/newsroom-manager";
+import { DEFAULT_BUTTON_THEME } from "@joincivil/components"
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
@@ -40,7 +41,7 @@ class CreateNewsroom extends React.Component<
             account={this.props.userAccount}
             currentNetwork={this.props.networkName}
             requiredNetwork="rinkeby"
-            theme={{}}
+            theme={DEFAULT_BUTTON_THEME}
           />
         </ViewModule>
       </PageView>
