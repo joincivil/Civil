@@ -3,14 +3,20 @@ import { connect, DispatchProp } from "react-redux";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 
+import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
-import ListingDetail from "./ListingDetail";
+import ListingHeader from "./ListingHeader";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
-import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry } from "../../selectors";
+import {
+  makeGetListingPhaseState,
+  makeGetListing,
+  makeGetListingExpiry,
+  makeGetIsUserNewsroomOwner,
+} from "../../selectors";
 import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
 import { Tabs, Tab, ListingTab } from "@joincivil/components";
 
@@ -27,6 +33,7 @@ export interface ListingReduxProps {
   listing: ListingWrapper | undefined;
   expiry?: number;
   userAccount?: EthAddress;
+  isUserNewsroomOwner?: boolean;
   listingDataRequestStatus?: any;
   listingPhaseState?: any;
   parameters: any;
@@ -48,7 +55,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     return (
       <>
         {listingExistsAsNewsroom && (
-          <ListingDetail
+          <ListingHeader
             userAccount={this.props.userAccount}
             listing={listing!}
             newsroom={newsroom!.wrapper}
@@ -77,6 +84,15 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                   <ListingHistory listing={this.props.listingAddress} />
                 </ListingTabContent>
               </Tab>
+
+              {(this.props.isUserNewsroomOwner &&
+                this.props.listing && (
+                  <Tab title="Owner Actions">
+                    <ListingTabContent>
+                      <ListingOwnerActions listing={this.props.listing} />
+                    </ListingTabContent>
+                  </Tab>
+                )) || <></>}
             </Tabs>
           </LeftShark>
 
@@ -106,6 +122,7 @@ const makeMapStateToProps = () => {
   const getListingPhaseState = makeGetListingPhaseState();
   const getListing = makeGetListing();
   const getListingExpiry = makeGetListingExpiry();
+  const getIsUserNewsroomOwner = makeGetIsUserNewsroomOwner();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
     const { newsrooms } = state;
     const { listingsFetching, user, parameters, govtParameters, constitution } = state.networkDependent;
@@ -122,6 +139,7 @@ const makeMapStateToProps = () => {
       expiry: getListingExpiry(state, ownProps),
       listingDataRequestStatus,
       listingPhaseState: getListingPhaseState(state, ownProps),
+      isUserNewsroomOwner: getIsUserNewsroomOwner(state, ownProps),
       userAccount: user.account,
       parameters,
       govtParameters,
