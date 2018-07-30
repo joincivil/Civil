@@ -19,17 +19,21 @@ export interface TabComponentProps {
 const StyledLi = styled.li`
   border-bottom: ${(props: TabComponentProps) => (props.isActive ? "3px solid #01a0d2" : "none")};
   box-sizing: border-box;
-  font-family: ${props => props.theme.sanserifFont};
+  font-family: ${props => props.theme.sanSerifFont};
   font-weight: 600;
   margin-bottom: 0;
   padding: 3px 0 18px;
   text-align: center;
   width: 75px;
+
+  & a {
+    color: inherit;
+  }
 `;
 
 StyledLi.defaultProps = {
   theme: {
-    sanserifFont: fonts.SANS_SERIF,
+    sanSerifFont: fonts.SANS_SERIF,
   },
 };
 

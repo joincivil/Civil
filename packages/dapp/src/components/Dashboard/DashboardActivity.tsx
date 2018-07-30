@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
 import styled from "styled-components";
-import { Tabs, Tab, ListingTab, DashboardActivity as DashboardActivityComponent } from "@joincivil/components";
+import { Tabs, Tab, StyledTab, DashboardActivity as DashboardActivityComponent } from "@joincivil/components";
 import { State } from "../../reducers";
 import ActivityList from "./ActivityList";
 
@@ -24,7 +24,7 @@ class DashboardActivity extends React.Component<DashboardActivityProps> {
     const currentUserChallengesStarted = this.props.currentUserChallengesStarted;
     return (
       <DashboardActivityComponent>
-        <Tabs TabComponent={ListingTab} TabsNavComponent={StyledTabsComponent}>
+        <Tabs TabComponent={StyledTab} TabsNavComponent={StyledTabsComponent}>
           <Tab title={"Newsrooms owned (" + currentUserNewsrooms.count() + ")"}>
             <ActivityList listings={currentUserNewsrooms} />
           </Tab>

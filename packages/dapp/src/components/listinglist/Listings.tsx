@@ -1,24 +1,24 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs, Tab, ListingsTabNav, ListingsTab } from "@joincivil/components";
+import { Link } from "react-router-dom";
+import { Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
 import ListingsInProgress from "./ListingsInProgress";
-import MyActivity from "./MyActivity";
 
 export interface ListingProps {
   whitelistedListings: Set<string>;
   rejectedListings: Set<string>;
-  currentUserNewsrooms: Set<string>;
   error: undefined | string;
 }
 
 class Listings extends React.Component<ListingProps> {
   public render(): JSX.Element {
+    const myActivity = <Link to="/dashboard">My Activity</Link>;
     return (
-      <Tabs TabsNavComponent={ListingsTabNav} TabComponent={ListingsTab}>
+      <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTabLarge}>
         <Tab title={"Whitelisted Newsrooms"}>
           <ListingList listings={this.props.whitelistedListings} />
         </Tab>
@@ -28,8 +28,8 @@ class Listings extends React.Component<ListingProps> {
         <Tab title={"Rejected Newsrooms"}>
           <ListingList listings={this.props.rejectedListings} />
         </Tab>
-        <Tab title={"My Activity"}>
-          <MyActivity />
+        <Tab title={myActivity}>
+          <></>
         </Tab>
       </Tabs>
     );
@@ -37,12 +37,11 @@ class Listings extends React.Component<ListingProps> {
 }
 
 const mapStateToProps = (state: State): ListingProps => {
-  const { whitelistedListings, rejectedListings, currentUserNewsrooms } = state.networkDependent;
+  const { whitelistedListings, rejectedListings } = state.networkDependent;
 
   return {
     whitelistedListings,
     rejectedListings,
-    currentUserNewsrooms,
     error: undefined,
   };
 };

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { Tabs, Tab, ListingsInProgressTabNav, ListingsInProgressTab } from "@joincivil/components";
+import { Tabs, Tab, StyledSquarePillTabNav, StyledSquarePillTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { connect } from "react-redux";
@@ -36,7 +36,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.resolveChallengeListings)
       .merge(this.props.resolveAppealListings);
     return (
-      <Tabs TabsNavComponent={ListingsInProgressTabNav} TabComponent={ListingsInProgressTab}>
+      <Tabs TabsNavComponent={StyledSquarePillTabNav} TabComponent={StyledSquarePillTab}>
         <Tab title={"New Applications (" + applications.count() + ")"}>
           <ListingList listings={applications} />
         </Tab>
