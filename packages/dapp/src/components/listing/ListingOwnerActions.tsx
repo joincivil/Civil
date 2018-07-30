@@ -43,9 +43,7 @@ class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokens
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton
-            transactions={[{ transaction: this.approveDeposit }, { transaction: this.deposit }]}
-          >
+          <TransactionButton transactions={[{ transaction: this.approveDeposit }, { transaction: this.deposit }]}>
             Deposit
           </TransactionButton>
         </FormGroup>
@@ -95,9 +93,7 @@ class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawToke
         </FormGroup>
 
         <FormGroup>
-          <TransactionButton transactions={[{ transaction: this.withdraw }]}>
-            Withdraw
-          </TransactionButton>
+          <TransactionButton transactions={[{ transaction: this.withdraw }]}>Withdraw</TransactionButton>
         </FormGroup>
       </StyledFormContainer>
     );

@@ -11,7 +11,12 @@ import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
 import { fetchAndAddListingData } from "../../actionCreators/listings";
-import { makeGetListingPhaseState, makeGetListing, makeGetListingExpiry, makeGetIsUserNewsroomOwner } from "../../selectors";
+import {
+  makeGetListingPhaseState,
+  makeGetListing,
+  makeGetListingExpiry,
+  makeGetIsUserNewsroomOwner,
+} from "../../selectors";
 import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
 import { Tabs, Tab, ListingTab } from "@joincivil/components";
 
