@@ -25,7 +25,7 @@ const defaultProps = {
 
 const StyledLink = styled.a`
   text-decoration: none;
-  font-family: ${props => props.theme.sanserifFont};
+  font-family: ${props => props.theme.sansSerifFont};
   color: ${props => props.theme.linkColor};
   &:hover {
     color: ${props => props.theme.linkColorHover};
