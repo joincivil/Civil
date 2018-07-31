@@ -23,6 +23,7 @@ export * from "./ListingDetailPhaseCard";
 export * from "./PhaseCountdown";
 export * from "./SubmitChallengeModal";
 export * from "./QuestionToolTip";
+export * from "./ToolTip";
 export * from "./ListingHistoryEvent";
 export * from "./ViewTransactionLink";
 export * from "./TCRUserDashboard";
