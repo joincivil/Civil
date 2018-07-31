@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Link } from "react-router-dom";
 import { Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
 
 import ListingList from "./ListingList";
@@ -25,7 +24,6 @@ export interface ListingReduxProps {
 class Listings extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
     const { listingType } = this.props.match.params;
-    const myActivity = <Link to="/dashboard">My Activity</Link>;
     let activeIndex = 0;
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
@@ -59,9 +57,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             </StyledListingCopy>
             <ListingList listings={this.props.rejectedListings} />
           </StyledPageContent>
-        </Tab>
-        <Tab title={myActivity}>
-          <></>
         </Tab>
       </Tabs>
     );

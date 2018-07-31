@@ -76,7 +76,7 @@ class NavBar extends React.Component<NavBarProps> {
             <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
           </NavBarItem>
           <NavBarItem right={true}>
-            <NavBarLink to="/dashboard">My Dashboard</NavBarLink>
+            <NavBarLink to="/dashboard">My Activity</NavBarLink>
             <StyledNavBarRule>|</StyledNavBarRule>
             <NavBarLink to="/dashboard">
               {"Balance: " + this.props.balance + " + " + this.props.votingBalance}

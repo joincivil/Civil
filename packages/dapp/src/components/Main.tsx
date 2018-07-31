@@ -87,6 +87,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       <Switch>
         <Route exact path="/" component={Listings} />
         <Route path="/registry/:listingType" component={Listings} />
+        <Route path="/registry" component={Listings} />
         <Route path="/contracts" component={Contracts} />
         <Route path="/contract/:contract" component={ContractPage} />
         <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
