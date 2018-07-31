@@ -6,6 +6,7 @@ import { StyledListingSummaryList } from "@joincivil/components";
 export interface ListingListOwnProps {
   listings?: Set<string>;
   challenges?: Set<string>;
+  typeRejected?: boolean;
 }
 
 class ListingList extends React.Component<ListingListOwnProps> {
@@ -20,7 +21,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
         {this.props.listings &&
           this.props.listings.map(l => {
             index++;
-            return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
+            return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} rejected={this.props.typeRejected} />;
           })}
         {this.props.challenges &&
           this.props.challenges.map(c => {

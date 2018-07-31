@@ -3,12 +3,19 @@ import * as React from "react";
 import styled from "styled-components";
 import StoryRouter from "storybook-react-router";
 import { ListingSummaryComponent, ListingSummaryComponentProps } from "./ListingSummary";
+import { ListingSummaryRejectedComponent } from "./ListingSummaryRejected";
 import { ListingSummaryList } from "./ListingSummaryList";
 
 const StyledDiv = styled.div`
   display: flex;
   width: 600px;
 `;
+
+const totalVotes = "100000";
+const votesFor = "73000";
+const votesAgainst = "27000";
+const percentFor = "73";
+const percentAgainst = "27";
 
 const newsroomData: ListingSummaryComponentProps[] = [
   {
@@ -74,6 +81,24 @@ storiesOf("Listing Summary", module)
     return (
       <Container>
         <ListingSummaryComponent {...newsroom} />
+      </Container>
+    );
+  })
+  .add("Card Rejected", () => {
+    const newsroom = newsrooms[0];
+
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <ListingSummaryRejectedComponent
+            {...newsroom}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+          />
+        )}
       </Container>
     );
   })

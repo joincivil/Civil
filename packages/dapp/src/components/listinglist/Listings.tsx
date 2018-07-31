@@ -26,7 +26,7 @@ class Listings extends React.Component<ListingProps> {
           <ListingsInProgress />
         </Tab>
         <Tab title={"Rejected Newsrooms"}>
-          <ListingList listings={this.props.rejectedListings} />
+          <ListingList listings={this.props.rejectedListings} typeRejected={true} />
         </Tab>
         <Tab title={"My Activity"}>
           <MyActivity />

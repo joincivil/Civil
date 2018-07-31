@@ -4,12 +4,13 @@ import { State } from "../../reducers";
 import { makeGetListingPhaseState, makeGetListing, makeGetListingAddressByChallengeID } from "../../selectors";
 import { ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-import { ListingSummaryComponent } from "@joincivil/components";
+import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
   even: boolean;
   user?: string;
+  rejected?: boolean;
 }
 
 export interface ChallengeListingListItemOwnProps {
@@ -26,7 +27,7 @@ export interface ListingListItemReduxProps {
 
 class ListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
   public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
+    const { listingAddress: address, listing, newsroom, listingPhaseState, rejected } = this.props;
     if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
       const listingData = listing.data;
@@ -52,7 +53,13 @@ class ListingListItemComponent extends React.Component<ListingListItemOwnProps &
         revealEndDate,
       };
 
-      return <ListingSummaryComponent {...listingViewProps} />;
+      if (rejected) {
+        return <ListingSummaryRejectedComponent {...listingViewProps} />;
+
+      } else {
+        return <ListingSummaryComponent {...listingViewProps} />;
+      }
+
     } else {
       return <></>;
     }
