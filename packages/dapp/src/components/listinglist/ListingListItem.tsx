@@ -27,32 +27,44 @@ export interface ListingListItemReduxProps {
 class ListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
   public render(): JSX.Element {
     const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
+
     if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
-      const listingData = listing.data;
-      let description = "";
-      if (newsroom.wrapper.data.charter) {
-        description = JSON.parse(newsroom.wrapper.data.charter.content.toString()).desc;
-      }
       const listingDetailURL = `/listing/${address}`;
-      const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-      const pollData = listingData.challenge && listingData.challenge.poll;
-      const commitEndDate = pollData && pollData.commitEndDate.toNumber();
-      const revealEndDate = pollData && pollData.revealEndDate.toNumber();
 
-      const listingViewProps = {
-        ...newsroomData,
-        address,
-        description,
-        listingDetailURL,
-        ...listingPhaseState,
-        appExpiry,
-        commitEndDate,
-        revealEndDate,
-      };
+      if (listingPhaseState.isRejected) {
+        const listingViewProps = {
+          ...newsroomData,
+          address,
+          listingDetailURL,
+          ...listingPhaseState,
+        };
 
-      return <ListingSummaryComponent {...listingViewProps} />;
+        return <ListingSummaryRejectedComponent {...listingViewProps} />;
+      } else {
+        const listingData = listing.data;
+        let description = "";
+        if (newsroom.wrapper.data.charter) {
+          description = JSON.parse(newsroom.wrapper.data.charter.content.toString()).desc;
+        }
+        const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
+        const pollData = listingData.challenge && listingData.challenge.poll;
+        const commitEndDate = pollData && pollData.commitEndDate.toNumber();
+        const revealEndDate = pollData && pollData.revealEndDate.toNumber();
 
+        const listingViewProps = {
+          ...newsroomData,
+          address,
+          description,
+          listingDetailURL,
+          ...listingPhaseState,
+          appExpiry,
+          commitEndDate,
+          revealEndDate,
+        };
+
+        return <ListingSummaryComponent {...listingViewProps} />;
+      }
     } else {
       return <></>;
     }
@@ -89,30 +101,3 @@ const makeMapStateToProps = () => {
 };
 
 export const ListingListItem = connect(makeMapStateToProps)(ListingListItemComponent);
-
-/**
- * Container that renders a rejected listing
- */
-class RejectedListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
-  public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
-    if (listing && listing.data && newsroom && listingPhaseState) {
-      const newsroomData = newsroom.wrapper.data;
-      const listingDetailURL = `/listing/${address}`;
-
-      const listingViewProps = {
-        ...newsroomData,
-        address,
-        listingDetailURL,
-        ...listingPhaseState,
-      };
-
-      return <ListingSummaryRejectedComponent {...listingViewProps} />;
-
-    } else {
-      return <></>;
-    }
-  }
-}
-
-export const RejectedListingListItem = connect(makeMapStateToProps)(RejectedListingListItemComponent);

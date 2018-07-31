@@ -57,7 +57,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
               Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil Constitution.
               Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.
             </StyledListingCopy>
-            <ListingList rejectedListings={this.props.rejectedListings} />
+            <ListingList listings={this.props.rejectedListings} />
           </StyledPageContent>
         </Tab>
         <Tab title={myActivity}>
