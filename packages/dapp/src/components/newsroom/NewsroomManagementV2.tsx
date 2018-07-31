@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Newsroom } from "@joincivil/newsroom-manager";
+import { DEFAULT_BUTTON_THEME } from "@joincivil/components";
 import { getCivil } from "../../helpers/civilInstance";
 
 export interface NewsroomManagementProps {
@@ -9,6 +10,6 @@ export interface NewsroomManagementProps {
 export default class NewsroomManagement extends React.Component<NewsroomManagementProps> {
   public render(): JSX.Element {
     const civil = getCivil();
-    return <Newsroom civil={civil} address={this.props.match.params.newsroomAddress} />;
+    return <Newsroom civil={civil} address={this.props.match.params.newsroomAddress} theme={DEFAULT_BUTTON_THEME} />;
   }
 }

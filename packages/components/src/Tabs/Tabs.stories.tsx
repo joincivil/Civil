@@ -3,13 +3,13 @@ import * as React from "react";
 import { Tabs } from "./Tabs";
 import { Tab } from "./Tab";
 import {
-  ListingsTabNav,
-  ListingsTab,
-  ListingsInProgressTabNav,
-  ListingsInProgressTab,
-  MyActivityTabNav,
-  MyActivityTab,
-  ListingTab,
+  StyledTabNav,
+  StyledTabLarge,
+  StyledSquarePillTabNav,
+  StyledSquarePillTab,
+  StyledRoundPillTabNav,
+  StyledRoundPillTab,
+  StyledTab,
 } from "./TabsStyled";
 
 storiesOf("Tabs", module)
@@ -25,9 +25,9 @@ storiesOf("Tabs", module)
       </Tabs>
     );
   })
-  .add("Listings Tabs", () => {
+  .add("Styled Large Tab", () => {
     return (
-      <Tabs TabsNavComponent={ListingsTabNav} TabComponent={ListingsTab}>
+      <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTabLarge}>
         <Tab title={"Approved Newsrooms"}>
           <p>Some Content</p>
         </Tab>
@@ -40,9 +40,9 @@ storiesOf("Tabs", module)
       </Tabs>
     );
   })
-  .add("Listings In Progress Tab", () => {
+  .add("Square Pill Tab", () => {
     return (
-      <Tabs TabsNavComponent={ListingsInProgressTabNav} TabComponent={ListingsInProgressTab}>
+      <Tabs TabsNavComponent={StyledSquarePillTabNav} TabComponent={StyledSquarePillTab}>
         <Tab title="New Applications">
           <p>Some Content</p>
         </Tab>
@@ -58,9 +58,9 @@ storiesOf("Tabs", module)
       </Tabs>
     );
   })
-  .add("My Activity Tabs", () => {
+  .add("Round Pill Tab", () => {
     return (
-      <Tabs TabsNavComponent={MyActivityTabNav} TabComponent={MyActivityTab}>
+      <Tabs TabsNavComponent={StyledRoundPillTabNav} TabComponent={StyledRoundPillTab}>
         <Tab title="All">
           <p>Some Content</p>
         </Tab>
@@ -79,9 +79,9 @@ storiesOf("Tabs", module)
       </Tabs>
     );
   })
-  .add("Listing Tabs", () => {
+  .add("Styled Tab", () => {
     return (
-      <Tabs TabComponent={ListingTab}>
+      <Tabs TabComponent={StyledTab}>
         <Tab title="About">
           <p>Some Content</p>
         </Tab>

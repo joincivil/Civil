@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, ChallengeResultsProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -7,7 +7,7 @@ import {
   CTACopy,
 } from "./styledComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
-import { ChallengeResults } from "./ChallengeResults";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 
 export class AppealAwaitingDecisionCard extends React.Component<
   ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengeResultsProps

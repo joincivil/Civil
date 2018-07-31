@@ -11,6 +11,11 @@ export interface RevealVoteState {
 }
 
 export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState> {
+  constructor(props: RevealVoteProps) {
+    super(props);
+    this.state = {};
+  }
+
   public render(): JSX.Element {
     return (
       <>

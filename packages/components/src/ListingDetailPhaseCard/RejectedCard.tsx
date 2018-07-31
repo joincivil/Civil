@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, ChallengeResultsProps } from "./types";
+import { ListingDetailPhaseCardComponentProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -7,7 +7,7 @@ import {
   MetaItemValue,
   MetaItemLabel,
 } from "./styledComponents";
-import { ChallengeResults } from "./ChallengeResults";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 
 export class RejectedCard extends React.Component<ListingDetailPhaseCardComponentProps & ChallengeResultsProps> {
   public render(): JSX.Element {

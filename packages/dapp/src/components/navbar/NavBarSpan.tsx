@@ -10,8 +10,10 @@ const StyledSpan = styled<StyledSpanProps, "span">("span")`
   padding-left: 18px;
   color: white;
   font-family: "Libre Franklin", sans-serif;
-  font-weight: 600;
+  font-weight: ${(props: StyledSpanProps): string => (props.big ? "400" : "600")};
   font-size: ${(props: StyledSpanProps): string => (props.big ? "20pt" : "12pt")};
+  white-space: ${(props: StyledSpanProps): string => (props.big ? "no-wrap" : "normal")};
+  letter-spacing: ${(props: StyledSpanProps): string => (props.big ? "-0.35px" : "normal")};
 `;
 
 export interface NavBarSpanProps {
