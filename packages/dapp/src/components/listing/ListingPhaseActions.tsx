@@ -107,7 +107,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderSubmitChallengeModal(): JSX.Element {
-    if (!this.props.parameters || !this.props.constitutionURI) {
+    if (!this.props.parameters) {
       return <></>;
     }
 
@@ -128,7 +128,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
         progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
       },
     ];
-    const constitutionURI = this.props.constitutionURI;
+    const constitutionURI = this.props.constitutionURI || "#";
     const minDeposit = getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit), true);
     const dispensationPct = `${this.props.parameters.dispensationPct}%`;
     const props: SubmitChallengeModalProps = {

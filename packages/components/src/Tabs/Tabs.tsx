@@ -8,6 +8,7 @@ export interface TabsProps {
   children: Array<React.ReactElement<TabProps>>;
   TabComponent?: any;
   TabsNavComponent?: any;
+  onActiveTabChange?(activeIndex: number): void;
 }
 
 export interface TabsState {
@@ -65,5 +66,8 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
   }
   private handleClick = (index: number) => {
     this.setState({ activeIndex: index });
+    if (this.props.onActiveTabChange) {
+      this.props.onActiveTabChange(index);
+    }
   };
 }

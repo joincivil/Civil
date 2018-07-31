@@ -24,8 +24,8 @@ storiesOf("Listing Details Header", module)
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       isInApplication: false,
-      inChallengePhase: false,
-      inRevealPhase: false,
+      inChallengeCommitVotePhase: false,
+      inChallengeRevealPhase: false,
     };
     return (
       <Container>
@@ -40,8 +40,8 @@ storiesOf("Listing Details Header", module)
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       isInApplication: true,
-      inChallengePhase: false,
-      inRevealPhase: false,
+      inChallengeCommitVotePhase: false,
+      inChallengeRevealPhase: false,
     };
     return (
       <Container>
@@ -56,8 +56,8 @@ storiesOf("Listing Details Header", module)
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       isInApplication: false,
-      inChallengePhase: true,
-      inRevealPhase: false,
+      inChallengeCommitVotePhase: true,
+      inChallengeRevealPhase: false,
     };
     return (
       <Container>
@@ -72,8 +72,8 @@ storiesOf("Listing Details Header", module)
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       isInApplication: false,
-      inChallengePhase: false,
-      inRevealPhase: true,
+      inChallengeCommitVotePhase: false,
+      inChallengeRevealPhase: true,
     };
     return (
       <Container>

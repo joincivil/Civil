@@ -55,12 +55,14 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     return (
       <>
         {listingExistsAsNewsroom && (
-          <ListingHeader
-            userAccount={this.props.userAccount}
-            listing={listing!}
-            newsroom={newsroom!.wrapper}
-            listingPhaseState={this.props.listingPhaseState}
-          />
+          <>
+            <ListingHeader
+              userAccount={this.props.userAccount}
+              listing={listing!}
+              newsroom={newsroom!.wrapper}
+              listingPhaseState={this.props.listingPhaseState}
+            />
+          </>
         )}
 
         <GridRow>

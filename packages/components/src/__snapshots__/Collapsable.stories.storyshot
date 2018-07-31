@@ -4,7 +4,7 @@ exports[`Storyshots Collapsable closed 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cSHVUG iXHKcm",
+      "class": "sc-chPdSV fShmXI",
     },
     "children": Array [
       Object {
@@ -12,7 +12,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-jzJRlG byHcWR",
+              "class": "sc-kAzzGY ebaOMy",
             },
             "children": Array [
               Object {
@@ -32,7 +32,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-fjdhpX bUhhpH",
+                      "class": "sc-cSHVUG dfOahT",
                     },
                     "children": Array [],
                     "name": "div",
@@ -62,7 +62,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-fjdhpX bUhhpH",
+                    "class": "sc-cSHVUG dfOahT",
                   },
                   "children": Array [],
                   "name": "div",
@@ -103,7 +103,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-fjdhpX bUhhpH",
+                  "class": "sc-cSHVUG dfOahT",
                 },
                 "children": Array [],
                 "name": "div",
@@ -149,7 +149,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jTzLTM fXKMVJ",
+                "class": "sc-jzJRlG gepzkd",
               },
               "children": Array [
                 Object {
@@ -198,7 +198,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-jTzLTM fXKMVJ",
+              "class": "sc-jzJRlG gepzkd",
             },
             "children": Array [
               Object {
@@ -228,7 +228,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jzJRlG byHcWR",
+                "class": "sc-kAzzGY ebaOMy",
               },
               "children": Array [
                 Object {
@@ -248,7 +248,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-fjdhpX bUhhpH",
+                        "class": "sc-cSHVUG dfOahT",
                       },
                       "children": Array [],
                       "name": "div",
@@ -278,7 +278,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-fjdhpX bUhhpH",
+                      "class": "sc-cSHVUG dfOahT",
                     },
                     "children": Array [],
                     "name": "div",
@@ -319,7 +319,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-fjdhpX bUhhpH",
+                    "class": "sc-cSHVUG dfOahT",
                   },
                   "children": Array [],
                   "name": "div",
@@ -435,7 +435,7 @@ exports[`Storyshots Collapsable disabled 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cSHVUG iXHKcm",
+      "class": "sc-chPdSV fShmXI",
     },
     "children": Array [
       Object {
@@ -443,7 +443,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-jzJRlG byHcWR",
+              "class": "sc-kAzzGY ebaOMy",
             },
             "children": Array [
               Object {
@@ -463,7 +463,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-fjdhpX dweClx",
+                      "class": "sc-cSHVUG dELqYW",
                       "disabled": "",
                     },
                     "children": Array [],
@@ -496,7 +496,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-fjdhpX dweClx",
+                    "class": "sc-cSHVUG dELqYW",
                     "disabled": "",
                   },
                   "children": Array [],
@@ -540,7 +540,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-fjdhpX dweClx",
+                  "class": "sc-cSHVUG dELqYW",
                   "disabled": "",
                 },
                 "children": Array [],
@@ -589,7 +589,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jTzLTM fXKMVJ",
+                "class": "sc-jzJRlG gepzkd",
               },
               "children": Array [
                 Object {
@@ -638,7 +638,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-jTzLTM fXKMVJ",
+              "class": "sc-jzJRlG gepzkd",
             },
             "children": Array [
               Object {
@@ -668,7 +668,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jzJRlG byHcWR",
+                "class": "sc-kAzzGY ebaOMy",
               },
               "children": Array [
                 Object {
@@ -688,7 +688,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-fjdhpX dweClx",
+                        "class": "sc-cSHVUG dELqYW",
                         "disabled": "",
                       },
                       "children": Array [],
@@ -721,7 +721,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-fjdhpX dweClx",
+                      "class": "sc-cSHVUG dELqYW",
                       "disabled": "",
                     },
                     "children": Array [],
@@ -765,7 +765,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-fjdhpX dweClx",
+                    "class": "sc-cSHVUG dELqYW",
                     "disabled": "",
                   },
                   "children": Array [],
@@ -884,7 +884,7 @@ exports[`Storyshots Collapsable open 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cSHVUG iXHKcm",
+      "class": "sc-chPdSV fShmXI",
     },
     "children": Array [
       Object {
@@ -892,7 +892,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-jzJRlG byHcWR",
+              "class": "sc-kAzzGY ebaOMy",
             },
             "children": Array [
               Object {
@@ -912,7 +912,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-fjdhpX hvrSwp",
+                      "class": "sc-cSHVUG eUlXsl",
                       "open": "",
                     },
                     "children": Array [],
@@ -945,7 +945,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-fjdhpX hvrSwp",
+                    "class": "sc-cSHVUG eUlXsl",
                     "open": "",
                   },
                   "children": Array [],
@@ -989,7 +989,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-fjdhpX hvrSwp",
+                  "class": "sc-cSHVUG eUlXsl",
                   "open": "",
                 },
                 "children": Array [],
@@ -1038,7 +1038,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jTzLTM faAclg",
+                "class": "sc-jzJRlG dlWWQd",
                 "open": "",
               },
               "children": Array [
@@ -1090,7 +1090,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-jTzLTM faAclg",
+              "class": "sc-jzJRlG dlWWQd",
               "open": "",
             },
             "children": Array [
@@ -1121,7 +1121,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jzJRlG byHcWR",
+                "class": "sc-kAzzGY ebaOMy",
               },
               "children": Array [
                 Object {
@@ -1141,7 +1141,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-fjdhpX hvrSwp",
+                        "class": "sc-cSHVUG eUlXsl",
                         "open": "",
                       },
                       "children": Array [],
@@ -1174,7 +1174,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-fjdhpX hvrSwp",
+                      "class": "sc-cSHVUG eUlXsl",
                       "open": "",
                     },
                     "children": Array [],
@@ -1218,7 +1218,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-fjdhpX hvrSwp",
+                    "class": "sc-cSHVUG eUlXsl",
                     "open": "",
                   },
                   "children": Array [],
