@@ -25,6 +25,7 @@ class ListingHeader extends React.Component<ListingHeaderProps> {
       newsroomName: this.props.newsroom.data.name,
       newsroomDescription,
       owner: this.props.listing.data.owner,
+      registryURL: "/registry",
       unstakedDeposit: getFormattedTokenBalance(this.props.listing.data.unstakedDeposit),
       ...this.props.listingPhaseState,
     };

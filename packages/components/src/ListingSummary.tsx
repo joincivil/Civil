@@ -9,6 +9,9 @@ import {
   AwaitingApprovalStatusLabel,
   CommitVoteStatusLabel,
   RevealVoteStatusLabel,
+  ReadyToCompleteStatusLabel,
+  AwaitingDecisionStatusLabel,
+  AwaitingAppealChallengeStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
 
 const StyledListingSummaryContainer = styled.div`
@@ -51,37 +54,25 @@ const NewsroomIcon = styled.figure`
   min-width: 80px;
 `;
 
-const MetaItem = styled.div`
-  margin: 0 0 16px;
-`;
-const MetaLabel = styled.div`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font: normal 16px/16px ${fonts.SANS_SERIF};
-  margin: 0 0 6px;
-`;
-const MetaValue = styled.abbr`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  display: block;
-  font: normal 14px/17px ${fonts.SANS_SERIF};
-  max-width: 65%;
-  overflow-y: hidden;
-  text-decoration: none;
-  text-overflow: ellipsis;
-`;
-
 export interface ListingSummaryComponentProps {
   address?: EthAddress;
   name?: string;
-  owners?: EthAddress[];
   description?: string;
   listingDetailURL?: string;
-  isInApplication?: boolean | undefined;
-  canBeChallenged?: boolean | undefined;
-  inChallengePhase?: boolean | undefined;
-  inRevealPhase?: boolean | undefined;
-  appExpiry?: number | undefined;
-  commitEndDate?: number | undefined;
-  revealEndDate?: number | undefined;
+  isInApplication?: boolean;
+  canBeChallenged?: boolean;
+  canBeWhitelisted?: boolean;
+  inChallengeCommitVotePhase?: boolean;
+  inChallengeRevealPhase?: boolean;
+  canResolveChallenge?: boolean;
+  isAwaitingAppealJudgement?: boolean;
+  isAwaitingAppealChallenge?: boolean;
+  isInAppealChallengeCommitPhase?: boolean;
+  isInAppealChallengeRevealPhase?: boolean;
+  canListingAppealChallengeBeResolved?: boolean;
+  appExpiry?: number;
+  commitEndDate?: number;
+  revealEndDate?: number;
 }
 
 export class ListingSummaryComponent extends React.Component<ListingSummaryComponentProps> {
@@ -92,10 +83,6 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
           <NewsroomIcon />
           <StyledListingSummaryHedContent>
             <StyledListingSummaryNewsroomName>{this.props.name}</StyledListingSummaryNewsroomName>
-            <MetaItem>
-              <MetaLabel>Owner</MetaLabel>
-              <MetaValue title={this.props.owners![0]}>{this.props.owners![0]}</MetaValue>
-            </MetaItem>
 
             {this.renderPhaseLabel()}
 
@@ -114,10 +101,20 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
   private renderPhaseLabel = (): JSX.Element | undefined => {
     if (this.props.isInApplication) {
       return <AwaitingApprovalStatusLabel />;
-    } else if (this.props.inChallengePhase) {
+    } else if (this.props.inChallengeCommitVotePhase || this.props.isInAppealChallengeCommitPhase) {
       return <CommitVoteStatusLabel />;
-    } else if (this.props.inRevealPhase) {
+    } else if (this.props.inChallengeRevealPhase || this.props.isInAppealChallengeRevealPhase) {
       return <RevealVoteStatusLabel />;
+    } else if (
+      this.props.canBeWhitelisted ||
+      this.props.canResolveChallenge ||
+      this.props.canListingAppealChallengeBeResolved
+    ) {
+      return <ReadyToCompleteStatusLabel />;
+    } else if (this.props.isAwaitingAppealJudgement) {
+      return <AwaitingDecisionStatusLabel />;
+    } else if (this.props.isAwaitingAppealChallenge) {
+      return <AwaitingAppealChallengeStatusLabel />;
     }
     return;
   };
@@ -126,13 +123,13 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     let expiry: number | undefined;
     if (this.props.isInApplication) {
       expiry = this.props.appExpiry;
-    } else if (this.props.inChallengePhase) {
+    } else if (this.props.inChallengeCommitVotePhase) {
       expiry = this.props.commitEndDate;
-    } else if (this.props.inRevealPhase) {
+    } else if (this.props.inChallengeRevealPhase) {
       expiry = this.props.revealEndDate;
     }
 
-    const warn = this.props.inChallengePhase || this.props.inRevealPhase;
+    const warn = this.props.inChallengeCommitVotePhase || this.props.inChallengeRevealPhase;
 
     if (expiry) {
       return <TextCountdownTimer endTime={expiry!} warn={warn} />;

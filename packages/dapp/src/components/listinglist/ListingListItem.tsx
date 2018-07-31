@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
-import { makeGetListingPhaseState, makeGetListing, makeGetListingAddressByChallengeID } from "../../selectors";
+import { makeGetListingPhaseState, makeGetListing } from "../../selectors";
 import { ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
@@ -30,8 +30,7 @@ class ListingListItemComponent extends React.Component<ListingListItemOwnProps &
     if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
       const listingData = listing.data;
-      let description =
-        "This will be a great description someday, but until then The Dude Abides. um i to you you call duder or so thats the dude thats what i am brevity thing um i let me duder or";
+      let description = "";
       if (newsroom.wrapper.data.charter) {
         description = JSON.parse(newsroom.wrapper.data.charter.content.toString()).desc;
       }
@@ -91,23 +90,6 @@ const makeMapStateToProps = () => {
 
 export const ListingListItem = connect(makeMapStateToProps)(ListingListItemComponent);
 
-const makeChallengeMapStateToProps = () => {
-  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
-
-  const mapStateToProps = (state: State, ownProps: ChallengeListingListItemOwnProps): ListingListItemOwnProps => {
-    const listingAddress = getListingAddressByChallengeID(state, ownProps);
-    const { even, user } = ownProps;
-
-    return {
-      listingAddress,
-      even,
-      user,
-    };
-  };
-
-  return mapStateToProps;
-};
-
 /**
  * Container that renders a rejected listing
  */
@@ -134,16 +116,3 @@ class RejectedListingListItemComponent extends React.Component<ListingListItemOw
 }
 
 export const RejectedListingListItem = connect(makeMapStateToProps)(RejectedListingListItemComponent);
-
-/**
- * Container that renders a listing associated with the specified `ChallengeID`
- */
-export class ChallengeListingItemComponent extends React.Component<
-  ChallengeListingListItemOwnProps & ListingListItemOwnProps
-> {
-  public render(): JSX.Element {
-    return <ListingListItem {...this.props} />;
-  }
-}
-
-export const ChallengeListingListItem = connect(makeChallengeMapStateToProps)(ChallengeListingItemComponent);

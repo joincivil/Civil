@@ -13,35 +13,50 @@ const StyledBaseStatus = styled.div`
   text-transform: uppercase;
 `;
 
+const StyledAwaitingStatuslabel = StyledBaseStatus.extend`
+  background-color: ${colors.accent.CIVIL_GRAY_4};
+  color: ${colors.primary.BLACK};
+`;
+
 const StyledCommitVoteStatus = StyledBaseStatus.extend`
   background-color: ${colors.accent.CIVIL_YELLOW};
   color: ${colors.primary.BLACK};
 `;
+
 const StyledRevealVoteStatus = StyledBaseStatus.extend`
   background-color: ${colors.accent.CIVIL_TEAL_FADED};
   color: ${colors.primary.BLACK};
 `;
 
-export class AwaitingApprovalStatusLabel extends React.Component {
-  public render(): JSX.Element {
-    return <StyledBaseStatus>Awaiting Approval</StyledBaseStatus>;
-  }
-}
+const StyledReadyToCompleteStatus = StyledBaseStatus.extend`
+  background-color: ${colors.accent.CIVIL_BLUE};
+  color: ${colors.basic.WHITE};
+`;
 
-export class CommitVoteStatusLabel extends React.Component {
-  public render(): JSX.Element {
-    return <StyledCommitVoteStatus>Accepting Votes</StyledCommitVoteStatus>;
-  }
-}
+export const AwaitingApprovalStatusLabel: React.SFC = props => {
+  return <StyledAwaitingStatuslabel>Awaiting Approval</StyledAwaitingStatuslabel>;
+};
 
-export class RevealVoteStatusLabel extends React.Component {
-  public render(): JSX.Element {
-    return <StyledRevealVoteStatus>Revealing Votes</StyledRevealVoteStatus>;
-  }
-}
+export const AwaitingDecisionStatusLabel: React.SFC = props => {
+  return <StyledAwaitingStatuslabel>Awaiting Decision</StyledAwaitingStatuslabel>;
+};
 
-export class RequestingAppealStatusLabel extends React.Component {
-  public render(): JSX.Element {
-    return <StyledBaseStatus>Requesting Appeal</StyledBaseStatus>;
-  }
-}
+export const AwaitingAppealChallengeStatusLabel: React.SFC = props => {
+  return <StyledAwaitingStatuslabel>Awaiting Appeal Challenge</StyledAwaitingStatuslabel>;
+};
+
+export const CommitVoteStatusLabel: React.SFC = props => {
+  return <StyledCommitVoteStatus>Accepting Votes</StyledCommitVoteStatus>;
+};
+
+export const RevealVoteStatusLabel: React.SFC = props => {
+  return <StyledRevealVoteStatus>Revealing Votes</StyledRevealVoteStatus>;
+};
+
+export const RequestingAppealStatusLabel: React.SFC = props => {
+  return <StyledBaseStatus>Requesting Appeal</StyledBaseStatus>;
+};
+
+export const ReadyToCompleteStatusLabel: React.SFC = props => {
+  return <StyledReadyToCompleteStatus>Ready To Complete</StyledReadyToCompleteStatus>;
+};

@@ -18,7 +18,7 @@ import {
   makeGetIsUserNewsroomOwner,
 } from "../../selectors";
 import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
-import { Tabs, Tab, ListingTab } from "@joincivil/components";
+import { Tabs, Tab, StyledTab } from "@joincivil/components";
 
 export interface ListingPageProps {
   match: any;
@@ -55,19 +55,21 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     return (
       <>
         {listingExistsAsNewsroom && (
-          <ListingHeader
-            userAccount={this.props.userAccount}
-            listing={listing!}
-            newsroom={newsroom!.wrapper}
-            listingPhaseState={this.props.listingPhaseState}
-          />
+          <>
+            <ListingHeader
+              userAccount={this.props.userAccount}
+              listing={listing!}
+              newsroom={newsroom!.wrapper}
+              listingPhaseState={this.props.listingPhaseState}
+            />
+          </>
         )}
 
         <GridRow>
           <LeftShark>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
-            <Tabs TabComponent={ListingTab}>
+            <Tabs TabComponent={StyledTab}>
               <Tab title="Discussions">
                 <ListingTabContent>
                   <ListingChallengeStatement listing={this.props.listingAddress} />

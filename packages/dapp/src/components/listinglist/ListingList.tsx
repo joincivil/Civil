@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { ChallengeListingListItem, ListingListItem, RejectedListingListItem } from "./ListingListItem";
+import { ListingListItem, RejectedListingListItem } from "./ListingListItem";
 import { StyledListingSummaryList } from "@joincivil/components";
 
 export interface ListingListOwnProps {
@@ -22,11 +22,6 @@ class ListingList extends React.Component<ListingListOwnProps> {
           this.props.listings.map(l => {
             index++;
             return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
-          })}
-        {this.props.challenges &&
-          this.props.challenges.map(c => {
-            index++;
-            return <ChallengeListingListItem key={c} challengeID={c!} even={index % 2 === 0} />;
           })}
         {this.props.rejectedListings &&
           this.props.rejectedListings.map(r => {

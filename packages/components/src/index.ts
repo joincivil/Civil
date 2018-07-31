@@ -34,3 +34,4 @@ export * from "./theme";
 export * from "./Tabs/Tabs";
 export * from "./Tabs/Tab";
 export * from "./Tabs/TabsStyled";
+export * from "./ClipLoader";
