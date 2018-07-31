@@ -1,6 +1,6 @@
 import * as React from "react";
-import { TransactionButton, ClaimRewards } from "@joincivil/components";
-import { InputElement, StyledFormContainer, FormGroup } from "../utility/FormElements";
+import { ClaimRewards, RescueTokens } from "@joincivil/components";
+import { StyledFormContainer, FormGroup } from "../utility/FormElements";
 import {
   EthAddress,
   TwoStepEthTransaction,
@@ -81,6 +81,7 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
 
         {isClaimRewardsVisible && (
           <ClaimRewards
+            challengeID={this.props.challengeID.toString()}
             salt={this.state.salt!}
             transactions={[{ transaction: this.claimRewards }]}
             onInputChange={this.updateSalt}
@@ -88,28 +89,7 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
         )}
 
         {isRescueTokensVisible && (
-          <>
-            <h3>Rescue Tokens</h3>
-
-            <FormGroup>
-              It seems like you didn't reveal your vote for this challenge. You can rescue your tokens using the below
-              form.
-            </FormGroup>
-
-            {/* @TODO(jon): We can remove this at some point in the near future
-              since the value still get stored in React and the user will never see it.
-              This is just here for debug purposes. */}
-            <FormGroup>
-              <label>
-                Poll ID
-                <InputElement type="text" name="" value={this.props.challengeID.toString()} readOnly={true} />
-              </label>
-            </FormGroup>
-
-            <FormGroup>
-              <TransactionButton transactions={[{ transaction: this.rescueTokens }]}>Rescue Tokens</TransactionButton>
-            </FormGroup>
-          </>
+          <RescueTokens challengeID={this.props.challengeID.toString()} transactions={[{ transaction: this.rescueTokens }]} />
         )}
       </StyledFormContainer>
     );
@@ -122,14 +102,6 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
       this.setState({ ...data });
     }
   }
-
-  private updateChallengeRewardsParam = (event: any): void => {
-    const paramName = event.target.getAttribute("name");
-    const val = event.target.value;
-    const newState = {};
-    newState[paramName] = val;
-    this.setState(newState);
-  };
 
   private claimRewards = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const salt: BigNumber = new BigNumber(this.state.salt as string);

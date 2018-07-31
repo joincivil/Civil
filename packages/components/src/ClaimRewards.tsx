@@ -1,10 +1,11 @@
 import * as React from "react";
 import { buttonSizes } from "./Button";
-import { SaltInput } from "./input/";
+import { SaltInput, TextInput } from "./input/";
 import { TransactionButton } from "./TransactionButton";
-import { FormCopy, FormHeader, StyledOrText, VoteOptionsContainer } from "./ListingDetailPhaseCard/styledComponents";
+import { FormCopy, FormHeader } from "./ListingDetailPhaseCard/styledComponents";
 
 export interface ClaimRewardsProps {
+  challengeID: string,
   salt: string;
   transactions: any[],
   modalContentComponents?: any;
@@ -25,10 +26,12 @@ export class ClaimRewards extends React.Component<ClaimRewardsProps, ClaimReward
     return (
       <>
         <FormHeader>Claim Your Rewards</FormHeader>
-        <FormCopy>Congratulatoins, you have a reward available!</FormCopy>
+        <FormCopy>Congratulations, you have a reward available!</FormCopy>
         <FormCopy>
           Please use your pass phrase to claim your reward below. Your pass phrase was created at the time when you voted for this challenge.
         </FormCopy>
+
+        <TextInput name="challengeID" readOnly={true} value={this.props.challengeID} label="Challenge ID" />
 
         <SaltInput salt={this.props.salt} label="Enter your salt" name="salt" onChange={this.onChange} />
 
@@ -38,7 +41,6 @@ export class ClaimRewards extends React.Component<ClaimRewardsProps, ClaimReward
         >
           Claim Rewards
         </TransactionButton>
-      );
       </>
     );
   }
