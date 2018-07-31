@@ -3,7 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { TabComponentProps } from "./Tab";
 import { colors, fonts } from "../styleConstants";
 
-export const ListingsTabNav = styled.div`
+export const StyledTabNav = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   height: 76px;
   margin: 0 auto 50px;
@@ -13,7 +13,7 @@ export const ListingsTabNav = styled.div`
   }
 `;
 
-export const ListingsTab = styled.li`
+export const StyledTabLarge = styled.li`
   border-bottom: ${(props: TabComponentProps) =>
     props.isActive ? "8px solid " + colors.accent.CIVIL_BLUE : "8px solid transparent"};
   color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2)};
@@ -30,16 +30,19 @@ export const ListingsTab = styled.li`
     border-bottom: ${(props: TabComponentProps) =>
       props.isActive ? "8px solid " + colors.accent.CIVIL_BLUE : "8px solid " + colors.accent.CIVIL_GRAY_2};
   }
+  & a {
+    color: inherit;
+  }
 `;
 
-export const ListingsInProgressTabNav = styled.div`
+export const StyledSquarePillTabNav = styled.div`
   display: flex;
   justify-content: center;
   margin: 30px auto 50px;
   width: 100%;
 `;
 
-export const ListingsInProgressTab = styled.li`
+export const StyledSquarePillTab = styled.li`
   background-color: ${(props: TabComponentProps) =>
     props.isActive ? colors.accent.CIVIL_BLUE_VERY_FADED : "transparent"};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -60,13 +63,13 @@ export const ListingsInProgressTab = styled.li`
   }
 `;
 
-export const MyActivityTabNav = styled.div`
+export const StyledRoundPillTabNav = styled.div`
   margin: 0 auto 50px;
   max-width: 1200px;
   width: 100%;
 `;
 
-export const MyActivityTab = styled.li`
+export const StyledRoundPillTab = styled.li`
   background-color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_GRAY_4 : "transparent")};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-radius: 23px;
@@ -83,7 +86,7 @@ export const MyActivityTab = styled.li`
   }
 `;
 
-export const ListingTab = styled.li`
+export const StyledTab = styled.li`
   border-bottom: ${(props: TabComponentProps) =>
     props.isActive ? "2px solid " + colors.accent.CIVIL_BLUE : "2px solid transparent"};
   color: ${(props: TabComponentProps) => (props.isActive ? colors.primary.BLACK : colors.accent.CIVIL_GRAY_2)};
