@@ -27,7 +27,7 @@ const TipContainer = styled<TipProps, "div">("div")`
 const Tip = styled.div`
   position: absolute;
   bottom: 10px;
-  left: 0;
+  left: 50%;
   margin-left: -90px;
   width: 180px;
   color: ${colors.basic.WHITE};
@@ -36,6 +36,7 @@ const Tip = styled.div`
   border-radius: 3px;
   padding: 13px;
   font-size: 12px;
+  z-index: 100001;
   &:after {
     content: "";
     position: absolute;
@@ -48,6 +49,7 @@ const Tip = styled.div`
     border-top: 10px solid rgba(21, 21, 21, 0.9);
   }
 `;
+// z-index to compete with wp
 
 const Wrapper = styled.div`
   width: 18px;
