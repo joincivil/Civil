@@ -2,10 +2,11 @@ import * as React from "react";
 import { EthAddress } from "@joincivil/core";
 import {
   StyledListingSummaryContainer,
-  StyledListingSummaryHed,
+  StyledListingSummaryTop,
+  StyledListingSummarySection,
   StyledListingSummaryNewsroomName,
+  StyledListingSummaryDescription,
   NewsroomIcon,
-  StyledListingSummaryDek,
 } from "./styledComponents";
 import { buttonSizes, InvertedButton } from "../Button";
 import { TextCountdownTimer } from "../PhaseCountdown/";
@@ -43,7 +44,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
   public render(): JSX.Element {
     return (
       <StyledListingSummaryContainer>
-        <StyledListingSummaryHed>
+        <StyledListingSummaryTop>
           <NewsroomIcon />
           <div>
             <StyledListingSummaryNewsroomName>{this.props.name}</StyledListingSummaryNewsroomName>
@@ -56,8 +57,10 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
               View Details
             </InvertedButton>
           </div>
-        </StyledListingSummaryHed>
-        <StyledListingSummaryDek>{this.props.description}</StyledListingSummaryDek>
+        </StyledListingSummaryTop>
+        <StyledListingSummarySection>
+          <StyledListingSummaryDescription>{this.props.description}</StyledListingSummaryDescription>
+        </StyledListingSummarySection>
       </StyledListingSummaryContainer>
     );
   }

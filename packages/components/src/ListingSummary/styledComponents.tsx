@@ -16,57 +16,35 @@ export const StyledListingSummaryContainer = styled.div`
   }
 `;
 
+export const StyledListingSummaryTop = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  display: flex;
+  padding: 25px 22px;
+`;
+
+export const StyledListingSummarySection = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-family: ${fonts.SANS_SERIF};
+  padding: 25px 22px;
+`;
+
 export const StyledListingSummaryNewsroomName = SectionHeading.extend`
   margin: 0 0 16px;
 `;
 
-export const StyledListingSummaryHed = styled.div`
-  display: flex;
-  padding: 27px 23px 30px;
+export const StyledListingSummaryDescription = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font: 400 18px/33px ${fonts.SANS_SERIF};
+  letter-spacing: -0.12px;
 `;
 
-export const StyledListingSummaryDek = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font: normal 18px/33px ${fonts.SANS_SERIF};
-  padding: 27px 23px 30px;
+export const ChallengeResultsContain = styled.div`
+  margin: 0 0 20px;
 `;
 
 export const NewsroomIcon = styled.figure`
   background: ${colors.accent.CIVIL_GRAY_4};
-  margin: 0 17px 0 0;
   height: 80px;
+  margin: 0 17px 0 0;
   min-width: 80px;
-`;
-
-export const MetaItem = styled.div`
-  margin: 0 0 16px;
-`;
-
-export const MetaLabel = styled.div`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font: normal 16px/16px ${fonts.SANS_SERIF};
-  margin: 0 0 6px;
-`;
-
-export const MetaValue = styled.abbr`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  display: block;
-  font: normal 14px/17px ${fonts.SANS_SERIF};
-  max-width: 65%;
-  overflow-y: hidden;
-  text-decoration: none;
-  text-overflow: ellipsis;
-`;
-
-export const StyledListingCardSection = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-family: ${fonts.SANS_SERIF};
-  padding: 23px 20px 26px;
-  text-align: left;
-
-  &:nth-child(1) {
-    border-top: 0;
-  }
 `;

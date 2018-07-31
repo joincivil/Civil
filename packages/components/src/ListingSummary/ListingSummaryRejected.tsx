@@ -4,13 +4,11 @@ import { buttonSizes, InvertedButton } from "../Button";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import {
   StyledListingSummaryContainer,
-  StyledListingSummaryHed,
-  NewsroomIcon,
+  StyledListingSummaryTop,
+  StyledListingSummarySection,
   StyledListingSummaryNewsroomName,
-  MetaItem,
-  MetaLabel,
-  MetaValue,
-  StyledListingCardSection,
+  ChallengeResultsContain,
+  NewsroomIcon,
 } from "./styledComponents";
 
 export interface ListingSummaryRejectedComponentProps {
@@ -27,32 +25,27 @@ export class ListingSummaryRejectedComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <StyledListingSummaryContainer>
-        <StyledListingSummaryHed>
+        <StyledListingSummaryTop>
           <NewsroomIcon />
           <div>
             <StyledListingSummaryNewsroomName>{this.props.name}</StyledListingSummaryNewsroomName>
-            <MetaItem>
-              <MetaLabel>Owner</MetaLabel>
-              <MetaValue title={this.props.owners![0]}>{this.props.owners![0]}</MetaValue>
-            </MetaItem>
           </div>
-        </StyledListingSummaryHed>
+        </StyledListingSummaryTop>
 
-        <StyledListingCardSection>
-          <ChallengeResults
-            totalVotes={"100000"}
-            votesFor={"73000"}
-            votesAgainst={"27000"}
-            percentFor={"73"}
-            percentAgainst={"27"}
-          />
-        </StyledListingCardSection>
-
-        <StyledListingCardSection>
+        <StyledListingSummarySection>
+          <ChallengeResultsContain>
+            <ChallengeResults
+              totalVotes={"100000"}
+              votesFor={"73000"}
+              votesAgainst={"27000"}
+              percentFor={"73"}
+              percentAgainst={"27"}
+            />
+          </ChallengeResultsContain>
           <InvertedButton size={buttonSizes.SMALL} to={this.props.listingDetailURL}>
             View Details
           </InvertedButton>
-        </StyledListingCardSection>
+        </StyledListingSummarySection>
       </StyledListingSummaryContainer>
     );
   }
