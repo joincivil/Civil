@@ -14,8 +14,6 @@ import {
 export interface ListingSummaryRejectedComponentProps {
   address?: EthAddress;
   name?: string;
-  owners?: EthAddress[];
-  description?: string;
   listingDetailURL?: string;
 }
 
