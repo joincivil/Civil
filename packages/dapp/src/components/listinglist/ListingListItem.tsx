@@ -10,7 +10,6 @@ export interface ListingListItemOwnProps {
   listingAddress?: string;
   even: boolean;
   user?: string;
-  rejected?: boolean;
 }
 
 export interface ChallengeListingListItemOwnProps {
@@ -27,7 +26,7 @@ export interface ListingListItemReduxProps {
 
 class ListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
   public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom, listingPhaseState, rejected } = this.props;
+    const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
     if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
       const listingData = listing.data;
@@ -53,12 +52,7 @@ class ListingListItemComponent extends React.Component<ListingListItemOwnProps &
         revealEndDate,
       };
 
-      if (rejected) {
-        return <ListingSummaryRejectedComponent {...listingViewProps} />;
-
-      } else {
-        return <ListingSummaryComponent {...listingViewProps} />;
-      }
+      return <ListingSummaryComponent {...listingViewProps} />;
 
     } else {
       return <></>;
@@ -113,6 +107,33 @@ const makeChallengeMapStateToProps = () => {
 
   return mapStateToProps;
 };
+
+/**
+ * Container that renders a rejected listing
+ */
+class RejectedListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
+  public render(): JSX.Element {
+    const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
+    if (listing && listing.data && newsroom && listingPhaseState) {
+      const newsroomData = newsroom.wrapper.data;
+      const listingDetailURL = `/listing/${address}`;
+
+      const listingViewProps = {
+        ...newsroomData,
+        address,
+        listingDetailURL,
+        ...listingPhaseState,
+      };
+
+      return <ListingSummaryRejectedComponent {...listingViewProps} />;
+
+    } else {
+      return <></>;
+    }
+  }
+}
+
+export const RejectedListingListItem = connect(makeMapStateToProps)(RejectedListingListItemComponent);
 
 /**
  * Container that renders a listing associated with the specified `ChallengeID`

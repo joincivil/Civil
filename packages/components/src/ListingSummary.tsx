@@ -33,6 +33,10 @@ const StyledListingSummaryHed = styled.div`
   padding: 27px 23px 30px;
 `;
 
+const StyledListingSummaryHedContent = styled.div`
+  max-width: calc(100% - 97px);
+`
+
 const StyledListingSummaryDek = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   color: ${colors.primary.CIVIL_GRAY_1};
@@ -86,7 +90,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
       <StyledListingSummaryContainer>
         <StyledListingSummaryHed>
           <NewsroomIcon />
-          <div>
+          <StyledListingSummaryHedContent>
             <StyledListingSummaryNewsroomName>{this.props.name}</StyledListingSummaryNewsroomName>
             <MetaItem>
               <MetaLabel>Owner</MetaLabel>
@@ -100,7 +104,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
             <InvertedButton size={buttonSizes.SMALL} to={this.props.listingDetailURL}>
               View Details
             </InvertedButton>
-          </div>
+          </StyledListingSummaryHedContent>
         </StyledListingSummaryHed>
         <StyledListingSummaryDek>{this.props.description}</StyledListingSummaryDek>
       </StyledListingSummaryContainer>
