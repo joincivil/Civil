@@ -36,6 +36,7 @@ const Tip = styled.div`
   border-radius: 3px;
   padding: 13px;
   font-size: 12px;
+  z-index: 100001;
   &:after {
     content: "";
     position: absolute;
@@ -48,14 +49,10 @@ const Tip = styled.div`
     border-top: 10px solid rgba(21, 21, 21, 0.9);
   }
 `;
+// z-index to compete with wp
 
 const Wrapper = styled.div`
-  width: 18px;
-  height: 18px;
   position: relative;
-  display: inline-block;
-  margin-left: 5px;
-  margin-top: -1px;
 `;
 
 const HitBox = styled.div`
@@ -116,7 +113,7 @@ export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {
 
   private getLeft = (): number => {
     const box = this.divEl!.getBoundingClientRect();
-    return box.left - box.width / 4;
+    return box.left - 5 + box.width / 2;
   };
 
   private getTop = (): number => {

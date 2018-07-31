@@ -1,12 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Tabs, Tab, ListingsTabNav, ListingsTab } from "@joincivil/components";
+import { Link } from "react-router-dom";
+import { Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { State } from "../../reducers";
 import ListingsInProgress from "./ListingsInProgress";
-import MyActivity from "./MyActivity";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
 
 const TABS: string[] = ["whitelisted", "under-challenge", "rejected"];
@@ -19,13 +19,13 @@ export interface ListingProps {
 export interface ListingReduxProps {
   whitelistedListings: Set<string>;
   rejectedListings: Set<string>;
-  currentUserNewsrooms: Set<string>;
   error: undefined | string;
 }
 
 class Listings extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
     const { listingType } = this.props.match.params;
+    const myActivity = <Link to="/dashboard">My Activity</Link>;
     let activeIndex = 0;
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
@@ -33,8 +33,8 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     return (
       <Tabs
         activeIndex={activeIndex}
-        TabsNavComponent={ListingsTabNav}
-        TabComponent={ListingsTab}
+        TabsNavComponent={StyledTabNav}
+        TabComponent={StyledTabLarge}
         onActiveTabChange={this.onTabChange}
       >
         <Tab title={"Whitelisted Newsrooms"}>
@@ -60,10 +60,8 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             <ListingList listings={this.props.rejectedListings} />
           </StyledPageContent>
         </Tab>
-        <Tab title={"My Activity"}>
-          <StyledPageContent>
-            <MyActivity />
-          </StyledPageContent>
+        <Tab title={myActivity}>
+          <></>
         </Tab>
       </Tabs>
     );
@@ -76,13 +74,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { whitelistedListings, rejectedListings, currentUserNewsrooms } = state.networkDependent;
+  const { whitelistedListings, rejectedListings } = state.networkDependent;
 
   return {
     ...ownProps,
     whitelistedListings,
     rejectedListings,
-    currentUserNewsrooms,
     error: undefined,
   };
 };

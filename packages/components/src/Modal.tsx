@@ -21,21 +21,27 @@ const ModalOuter = styled<ToggleDisplayEl & TextAlignProps, "div">("div")`
   justify-content: center;
   align-items: center;
   text-align: ${props => props.textAlign || "left"};
-  z-index: 50;
+  z-index: 100001;
 `;
 // z-index to beat wp tools
 
+interface ModalInnerProps {
+  width?: number;
+  padding?: string;
+}
+
 const ModalInner = styled.div`
   box-shadow: 0px 0px 20px 5px rgba(100, 100, 100, 0.4);
-  max-width: 400px;
-  padding: 35px;
-  padding-bottom: 50px;
+  max-width: ${(props: ModalInnerProps) => props.width || 400}px;
+  padding: ${(props: ModalInnerProps) => props.padding || "35px 35px 50px 35px"};
   background: #fff;
 `;
 
 export interface ModalPropsAndState {
   visible?: boolean;
   textAlign?: string;
+  width?: number;
+  padding?: string;
 }
 
 export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndState> {
@@ -50,7 +56,7 @@ export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndStat
 
   public bucket: HTMLDivElement = document.createElement("div");
 
-  public constructor(props: any) {
+  public constructor(props: ModalPropsAndState) {
     super(props);
 
     this.state = {
@@ -69,7 +75,9 @@ export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndStat
   public render(): React.ReactPortal {
     return ReactDOM.createPortal(
       <ModalOuter visible={this.state.visible!} textAlign={this.props.textAlign}>
-        <ModalInner>{this.props.children}</ModalInner>
+        <ModalInner width={this.props.width} padding={this.props.padding}>
+          {this.props.children}
+        </ModalInner>
       </ModalOuter>,
       this.bucket,
     );

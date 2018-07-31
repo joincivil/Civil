@@ -672,6 +672,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       author,
       contentHash,
       signature,
+      date: new Date().toISOString(),
       newsroomAddress: this.address,
     };
   }
@@ -680,10 +681,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const author = await requireAccount(this.ethApi).toPromise();
     const message = prepareUserFriendlyNewsroomMessage(this.address, contentHash);
     const { signature } = await this.ethApi.signMessage(message, author);
+    const date = new Date().toISOString();
     return {
       author,
       contentHash,
       signature,
+      date,
       newsroomAddress: this.address,
     };
   }

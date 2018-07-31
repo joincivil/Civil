@@ -1,8 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import styled from "styled-components";
-import { Tabs, Tab, ListingsInProgressTabNav, ListingsInProgressTab } from "@joincivil/components";
+import { Tabs, Tab, StyledSquarePillTabNav, StyledSquarePillTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { State } from "../../reducers";
@@ -38,7 +37,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.resolveChallengeListings)
       .merge(this.props.resolveAppealListings);
     return (
-      <Tabs TabsNavComponent={ListingsInProgressTabNav} TabComponent={ListingsInProgressTab}>
+      <Tabs TabsNavComponent={StyledSquarePillTabNav} TabComponent={StyledSquarePillTab}>
         <Tab title={"New Applications (" + applications.count() + ")"}>
           <>
             <StyledListingCopy>
