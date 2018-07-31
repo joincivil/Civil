@@ -51,7 +51,7 @@ class NavBar extends React.Component<NavBarProps> {
         <StyledUL>
           <NavBarItem>
             <NavBarLink to="/" big={true}>
-              C I V I L
+              CIVIL
             </NavBarLink>
           </NavBarItem>
           <NavBarItem>

@@ -1,10 +1,12 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Set } from "immutable";
+import styled from "styled-components";
 import { Tabs, Tab, ListingsInProgressTabNav, ListingsInProgressTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
-import { connect } from "react-redux";
 import { State } from "../../reducers";
+import { StyledListingCopy } from "../utility/styledComponents";
 
 export interface ListingProps {
   applications: Set<string>;
@@ -38,19 +40,49 @@ class ListingsInProgress extends React.Component<ListingProps> {
     return (
       <Tabs TabsNavComponent={ListingsInProgressTabNav} TabComponent={ListingsInProgressTab}>
         <Tab title={"New Applications (" + applications.count() + ")"}>
-          <ListingList listings={applications} />
+          <>
+            <StyledListingCopy>
+              New applications are subject to Civil community review for alignment with the Civil Constitution. By
+              participating in our governance, you can help curate high-quality, trustworthy journalism.
+            </StyledListingCopy>
+            <ListingList listings={applications} />
+          </>
         </Tab>
-        <Tab title={"Under Challenged (" + beingChallenged.count() + ")"}>
-          <ListingList listings={beingChallenged} />
+        <Tab title={"Under Challenge (" + beingChallenged.count() + ")"}>
+          <>
+            <StyledListingCopy>
+              Applications “under challenge” require the Civil community vote to remain on the Registry due to a
+              potential breach of the Civil Constitution. Help us curate high quality, trustworthy journalism, and earn
+              CVL tokens when you vote.
+            </StyledListingCopy>
+            <ListingList listings={beingChallenged} />
+          </>
         </Tab>
         <Tab title={"Appeal to Council (" + consideringAppeal.count() + ")"}>
-          <ListingList listings={consideringAppeal} />
+          <>
+            <StyledListingCopy>
+              Appeal to the Civil Council has been granted to these Newsrooms. The Civil Council will review whether
+              these Newsrooms breached the Civil Constitution, and a decision will be announced X days after the appeal
+              is granted.
+            </StyledListingCopy>
+            <ListingList listings={consideringAppeal} />
+          </>
         </Tab>
         <Tab title={"Challenge Council Appeal (" + appealChallenge.count() + ")"}>
-          <ListingList listings={appealChallenge} />
+          <>
+            <StyledListingCopy>
+              Newsrooms under “Challenge Council Appeal” require the Civil community vote to veto the Council decision
+              in order to remain on the Registry. Help us curate high quality, trustworthy journalism, and earn CVL
+              tokens when you vote.
+            </StyledListingCopy>
+            <ListingList listings={appealChallenge} />
+          </>
         </Tab>
         <Tab title={"Ready to Update (" + readyToUpdate.count() + ")"}>
-          <ListingList listings={readyToUpdate} />
+          <>
+            <StyledListingCopy>Step 1: Resolve these challenges. Step 2: ???. Step 3: Profit!!!</StyledListingCopy>
+            <ListingList listings={readyToUpdate} />
+          </>
         </Tab>
       </Tabs>
     );

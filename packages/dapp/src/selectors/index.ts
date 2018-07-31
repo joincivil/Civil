@@ -11,7 +11,11 @@ import {
   isChallengeInCommitStage,
   isChallengeInRevealStage,
   isListingAwaitingAppealJudgment as getIsListingAwaitingAppealJudgement,
+  isListingAwaitingAppealChallenge as getIsListingAwaitingAppealChallenge,
   isAwaitingAppealChallenge as getIsAwaitingAppealChallenge,
+  isInAppealChallengeCommitPhase as getIsInAppealChallengeCommitPhase,
+  isInAppealChallengeRevealPhase as getIsInAppealChallengeRevealPhase,
+  canListingAppealChallengeBeResolved as getCanListingAppealChallengeBeResolved,
   isAppealAwaitingJudgment,
   ListingWrapper,
   UserChallengeData,
@@ -158,24 +162,38 @@ export const makeGetListingPhaseState = () => {
     }
 
     const listingData = listing.listing.data;
+
     const isInApplication = isInApplicationPhase(listingData);
     const canBeChallenged = canListingBeChallenged(listingData);
     const canBeWhitelisted = getCanBeWhitelisted(listingData);
-    const inChallengePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
-    const inRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
-    const isWhitelisted = listingData.isWhitelisted;
+
+    const inChallengeCommitVotePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
+    const inChallengeRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
     const canResolveChallenge = listingData.challenge && getCanResolveChallenge(listingData.challenge);
+
     const isAwaitingAppealJudgment = getIsListingAwaitingAppealJudgement(listingData);
+    const isAwaitingAppealChallenge = getIsListingAwaitingAppealChallenge(listingData);
+    const isInAppealChallengeCommitPhase = getIsInAppealChallengeCommitPhase(listingData);
+    const isInAppealChallengeRevealPhase = getIsInAppealChallengeRevealPhase(listingData);
+    const canListingAppealChallengeBeResolved = getCanListingAppealChallengeBeResolved(listingData);
+
+    const isWhitelisted = listingData.isWhitelisted;
+    const isRejected = !isWhitelisted && !listingData.challenge;
 
     return {
       isInApplication,
       canBeChallenged,
       canBeWhitelisted,
       canResolveChallenge,
-      inChallengePhase,
-      inRevealPhase,
+      inChallengeCommitVotePhase,
+      inChallengeRevealPhase,
       isWhitelisted,
+      isRejected,
       isAwaitingAppealJudgment,
+      isAwaitingAppealChallenge,
+      isInAppealChallengeCommitPhase,
+      isInAppealChallengeRevealPhase,
+      canListingAppealChallengeBeResolved,
     };
   });
 };
