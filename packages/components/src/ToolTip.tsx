@@ -27,7 +27,7 @@ const TipContainer = styled<TipProps, "div">("div")`
 const Tip = styled.div`
   position: absolute;
   bottom: 10px;
-  left: 50%;
+  left: 0;
   margin-left: -90px;
   width: 180px;
   color: ${colors.basic.WHITE};
@@ -52,12 +52,7 @@ const Tip = styled.div`
 // z-index to compete with wp
 
 const Wrapper = styled.div`
-  width: 18px;
-  height: 18px;
   position: relative;
-  display: inline-block;
-  margin-left: 5px;
-  margin-top: -1px;
 `;
 
 const HitBox = styled.div`
@@ -118,7 +113,7 @@ export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {
 
   private getLeft = (): number => {
     const box = this.divEl!.getBoundingClientRect();
-    return box.left - box.width / 4;
+    return box.left - 5 + box.width / 2;
   };
 
   private getTop = (): number => {
