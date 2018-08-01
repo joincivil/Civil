@@ -1,32 +1,17 @@
-// @ts-ignore
-import LedgerWalletFactory from "ledger-wallet-provider";
-// @ts-ignore
-import TrezorWalletFactory from "trezor-wallet-provider";
-// @ts-ignore
 import Web3 from "web3"; // tslint:disable-line
-// @ts-ignore
 import ProviderEngine from "web3-provider-engine"; // tslint:disable-line
-// @ts-ignore
 import RpcSubprovider from "web3-provider-engine/subproviders/rpc"; // tslint:disable-line
 
-export async function getLedgerWeb3(): Web3.provider {
-  const networkId = 4; // for rinkeby testnet
-  const ledgerWalletFactory = await LedgerWalletFactory(
-    () => networkId,
-    `44'/60'/0'/0`
-  );
-
-  if (!ledgerWalletFactory.isSupported) {
-    throw new Error("Ledger not supported");
-  }
-
-  return getHardwareWeb3(ledgerWalletFactory);
-}
-
-export async function getTrezorWeb3(): Web3.provider {
-  const trezorWallet = await TrezorWalletFactory();
-
-  return getHardwareWeb3(trezorWallet);
+export enum ProviderType {
+  METAMASK = "Metamask",
+  TRUST = "Trust",
+  TOSHI = "Toshi",
+  CIPHER = "Cipher",
+  MIST = "Mist",
+  PARITY = "Parity",
+  INFURA = "Infura",
+  TREZOR = "Trezor",
+  LEDGER = "Ledger",
 }
 
 async function getHardwareWeb3(providerFactory: any): Web3.provider {
@@ -37,8 +22,8 @@ async function getHardwareWeb3(providerFactory: any): Web3.provider {
 
   engine.addProvider(
     new RpcSubprovider({
-      rpcUrl: "https://mainnet.infura.io"
-    })
+      rpcUrl: "https://mainnet.infura.io",
+    }),
   );
 
   engine.start();
@@ -56,18 +41,6 @@ export function getBrowserWeb3(): Web3.web3 {
   const web3 = new Web3(globalWeb3.currentProvider);
 
   return web3;
-}
-
-export enum ProviderType {
-  METAMASK = "Metamask",
-  TRUST = "Trust",
-  TOSHI = "Toshi",
-  CIPHER = "Cipher",
-  MIST = "Mist",
-  PARITY = "Parity",
-  INFURA = "Infura",
-  TREZOR = "Trezor",
-  LEDGER = "Ledger"
 }
 
 export function getBrowserProviderType(): ProviderType | undefined {
@@ -104,10 +77,7 @@ export function getBrowserProviderType(): ProviderType | undefined {
     return ProviderType.PARITY;
   }
 
-  if (
-    globalWeb3.currentProvider.host &&
-    globalWeb3.currentProvider.host.indexOf("infura") !== -1
-  ) {
+  if (globalWeb3.currentProvider.host && globalWeb3.currentProvider.host.indexOf("infura") !== -1) {
     return ProviderType.INFURA;
   }
 
