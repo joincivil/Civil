@@ -1,4 +1,5 @@
-import LedgerWalletFactory from "ledger-wallet-provider";
+// @ts-ignore
+import LedgerWalletFactory from "ledger-wallet-provider"; // TODO(jorgelo): Figure out how to avoid this ignore.
 import * as Web3 from "web3";
 import { getHardwareWeb3 } from "./index";
 
