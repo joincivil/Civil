@@ -4,8 +4,8 @@ import { TransactionButton } from "./TransactionButton";
 import { FormCopy, FormHeader } from "./ListingDetailPhaseCard/styledComponents";
 
 export interface RescueTokensProps {
-  challengeID: string,
-  transactions: any[],
+  challengeID: string;
+  transactions: any[];
   modalContentComponents?: any;
 }
 

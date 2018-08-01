@@ -4,9 +4,9 @@ import { TransactionButton } from "./TransactionButton";
 import { FormCopy, FormHeader } from "./ListingDetailPhaseCard/styledComponents";
 
 export interface ClaimRewardsProps {
-  challengeID: string,
+  challengeID: string;
   salt: string;
-  transactions: any[],
+  transactions: any[];
   modalContentComponents?: any;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
 }
@@ -27,7 +27,8 @@ export class ClaimRewards extends React.Component<ClaimRewardsProps, ClaimReward
         <FormHeader>Claim Your Rewards</FormHeader>
         <FormCopy>Congratulations, you have a reward available!</FormCopy>
         <FormCopy>
-          Please use your pass phrase to claim your reward below. Your pass phrase was created at the time when you voted for this challenge.
+          Please use your pass phrase to claim your reward below. Your pass phrase was created at the time when you
+          voted for this challenge.
         </FormCopy>
 
         <TextInput name="challengeID" readOnly={true} value={this.props.challengeID} label="Challenge ID" />

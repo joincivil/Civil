@@ -89,7 +89,10 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
         )}
 
         {isRescueTokensVisible && (
-          <RescueTokens challengeID={this.props.challengeID.toString()} transactions={[{ transaction: this.rescueTokens }]} />
+          <RescueTokens
+            challengeID={this.props.challengeID.toString()}
+            transactions={[{ transaction: this.rescueTokens }]}
+          />
         )}
       </StyledFormContainer>
     );
@@ -101,7 +104,7 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
     } else {
       this.setState({ ...data });
     }
-  }
+  };
 
   private claimRewards = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const salt: BigNumber = new BigNumber(this.state.salt as string);
