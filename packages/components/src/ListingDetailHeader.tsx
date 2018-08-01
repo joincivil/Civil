@@ -107,7 +107,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
   }
 
   private renderRegistryLink(): JSX.Element {
-    let urlArg;
+    let urlArg = "";
     let label = "Registry";
     if (this.props.registryURL) {
       if (this.props.isWhitelisted) {
@@ -116,12 +116,12 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
       } else if (
         this.props.inChallengeCommitVotePhase ||
         this.props.isInAppealChallengeCommitPhase ||
+        this.props.inChallengeRevealPhase ||
+        this.props.isAwaitingAppealChallenge ||
+        this.props.isInAppealChallengeRevealPhase ||
         this.props.canBeWhitelisted ||
         this.props.canResolveChallenge ||
-        this.props.inChallengeRevealPhase ||
-        this.props.isInAppealChallengeRevealPhase ||
-        this.props.canListingAppealChallengeBeResolved ||
-        this.props.isAwaitingAppealChallenge
+        this.props.canListingAppealChallengeBeResolved
       ) {
         urlArg = "under-challenge";
         label = "Newsrooms Under Challenge";
