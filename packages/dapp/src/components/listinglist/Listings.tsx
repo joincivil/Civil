@@ -27,12 +27,16 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     const { listingType } = this.props.match.params;
     const myActivity = <Link to="/dashboard">My Activity</Link>;
     let activeIndex = 0;
+    let hero;
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
+    if (activeIndex === 0) {
+      hero = <HomepageHero />;
+    }
     return (
       <>
-        <HomepageHero />
+        {hero}
         <Tabs
           activeIndex={activeIndex}
           TabsNavComponent={StyledTabNav}

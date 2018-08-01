@@ -46,7 +46,7 @@ const HeroHeading = styled.h2`
 const HeroBlockTextLink = styled.a`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
   color: ${colors.basic.WHITE};
-  font-family: ${fonts.SERIF};
+  font-family: ${fonts.SANS_SERIF};
   font-size: 20px;
   margin-bottom: 40px;
   padding-bottom: 5px;
@@ -64,7 +64,7 @@ const HeroSmallText = styled.small`
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 17px;
-  margin-top: 20px;
+  margin-top: 15px;
 `;
 
 export class HomepageHero extends React.Component {
