@@ -11,22 +11,6 @@ contract ContractAddressRegistry is AddressRegistry {
     _;
   }
 
-  /**
-  @notice Contructor Sets the addresses for token, voting, and parameterizer
-  @dev passes tokenAddr, plcrAddr, paramsAddr up to AddressRegistry constructor
-  @param tokenAddr Address of the TCR's intrinsic ERC20 token
-  @param plcrAddr Address of a PLCR voting contract for the provided token
-  @param paramsAddr Address of a Parameterizer contract
-  */
-  function ContractAddressRegistry(
-    address tokenAddr,
-    address plcrAddr,
-    address paramsAddr)
-    public AddressRegistry(tokenAddr, plcrAddr, paramsAddr)
-  {
-
-  }
-
   // --------------------
   // PUBLISHER INTERFACE:
   // --------------------
