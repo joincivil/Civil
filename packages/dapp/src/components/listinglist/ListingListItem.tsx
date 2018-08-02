@@ -1,7 +1,10 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
-import { setupListingHistorySubscription } from "../../actionCreators/listings";
+import {
+  setupListingHistorySubscription,
+  setupRejectedListingLatestChallengeSubscription,
+} from "../../actionCreators/listings";
 import { State } from "../../reducers";
 import { makeGetListingPhaseState, makeGetListing } from "../../selectors";
 import { ListingWrapper } from "@joincivil/core";
@@ -27,7 +30,9 @@ export interface ListingListItemReduxProps {
   listingPhaseState?: any;
 }
 
-class ListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
+class ListingListItemComponent extends React.Component<
+  ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>
+> {
   public render(): JSX.Element {
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
@@ -67,13 +72,13 @@ class ListingListItemComponent extends React.Component<ListingListItemOwnProps &
     };
 
     return <ListingSummaryComponent {...listingViewProps} />;
-
-  }
+  };
 }
 
 class RejectedListing extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
   public async componentDidMount(): Promise<void> {
     this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress!));
+    this.props.dispatch!(await setupRejectedListingLatestChallengeSubscription(this.props.listingAddress!));
   }
 
   public render(): JSX.Element {
@@ -88,14 +93,11 @@ class RejectedListing extends React.Component<ListingListItemOwnProps & ListingL
       ...listingPhaseState,
     };
 
-    const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(connectLatestChallengeSucceededResults)(ListingSummaryRejectedComponent);
+    const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
+      connectLatestChallengeSucceededResults,
+    )(ListingSummaryRejectedComponent);
 
-    return (
-      <ListingSummaryRejected
-        {...listingViewProps}
-        listingAddress={address}
-      />
-    );
+    return <ListingSummaryRejected {...listingViewProps} listingAddress={address} />;
   }
 }
 

@@ -1,4 +1,4 @@
-import { ListingWrapper, TimestampedEvent } from "@joincivil/core";
+import { CivilTCR, ListingWrapper, TimestampedEvent } from "@joincivil/core";
 import { List } from "immutable";
 import { Dispatch } from "react-redux";
 import { AnyAction } from "redux";
@@ -6,11 +6,14 @@ import { Subscription } from "rxjs";
 import { getTCR } from "../helpers/civilInstance";
 import { getNewsroom } from "../helpers/listingEvents";
 import { addChallenge } from "./challenges";
+import BigNumber from "bignumber.js";
 
 export enum listingActions {
   ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
+  ADD_OR_UPDATE_LISTING_EXTENDED_METADATA = "ADD_OR_UPDATE_LISTING_EXTENDED_METADATA",
   ADD_HISTORY_EVENT = "ADD_HISTORY_EVENT",
   ADD_HISTORY_SUBSCRIPTION = "ADD_HISTORY_SUBSCRIPTION",
+  ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION = "ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION",
   FETCH_LISTING_DATA = "FETCH_LISTING_DATA",
   FETCH_LISTING_DATA_COMPLETE = "FETCH_LISTING_DATA_COMPLETE",
   FETCH_LISTING_DATA_IN_PROGRESS = "FETCH_LISTING_DATA_IN_PROGRESS",
@@ -37,6 +40,16 @@ const addListingBasic = (listing: ListingWrapper): AnyAction => {
   };
 };
 
+const addOrUpdateListingLatestChallenge = (listingAddress: string, challengeID: BigNumber): AnyAction => {
+  return {
+    type: listingActions.ADD_OR_UPDATE_LISTING_EXTENDED_METADATA,
+    data: {
+      address: listingAddress,
+      latestChallengeID: challengeID,
+    },
+  };
+};
+
 export const addHistoryEvent = (address: string, event: TimestampedEvent<any>): AnyAction => {
   return {
     type: listingActions.ADD_HISTORY_EVENT,
@@ -50,6 +63,19 @@ export const addHistoryEvent = (address: string, event: TimestampedEvent<any>): 
 export const addHistorySubscription = (address: string, subscription: Subscription): AnyAction => {
   return {
     type: listingActions.ADD_HISTORY_SUBSCRIPTION,
+    data: {
+      address,
+      subscription,
+    },
+  };
+};
+
+export const addRejectedListingLatestChallengeSubscription = (
+  address: string,
+  subscription: Subscription,
+): AnyAction => {
+  return {
+    type: listingActions.ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION,
     data: {
       address,
       subscription,
@@ -132,6 +158,25 @@ export const setupListingHistorySubscription = async (listingID: string): Promis
           dispatch(addHistoryEvent(listingID, { ...event, timestamp }));
         });
       dispatch(addHistorySubscription(listingID, subscription));
+    }
+  };
+};
+
+export const setupRejectedListingLatestChallengeSubscription = async (listingID: string): Promise<any> => {
+  const tcr = await getTCR();
+  return (dispatch: Dispatch<any>, getState: any): any => {
+    const { rejectedListingLatestChallengeSubscriptions } = getState().networkDependent;
+    if (!rejectedListingLatestChallengeSubscriptions.get(listingID)) {
+      const listing = tcr.getListing(listingID);
+      const subscription = listing
+        .getLatestChallengeSucceeded()
+        .subscribe(async (event: TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined) => {
+          if (!!event) {
+            const challengeID = (event as any).args.challengeID;
+            dispatch(addOrUpdateListingLatestChallenge(listingID, challengeID));
+          }
+        });
+      dispatch(addRejectedListingLatestChallengeSubscription(listingID, subscription));
     }
   };
 };

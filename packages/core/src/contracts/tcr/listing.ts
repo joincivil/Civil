@@ -1,4 +1,4 @@
-import { Observable, Subscription } from "rxjs";
+import { Observable, Subscription, BehaviorSubject } from "rxjs";
 import "@joincivil/utils";
 import { CivilTCRContract, CivilTCR } from "../generated/wrappers/civil_t_c_r";
 import { EthApi } from "@joincivil/ethapi";
@@ -45,6 +45,16 @@ export class Listing {
       challengeID,
       challenge,
     };
+  }
+
+  public getLatestChallengeSucceeded(): BehaviorSubject<
+    TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined
+  > {
+    const subject = new BehaviorSubject<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined>(
+      undefined,
+    );
+    this.successfulChallenges().subscribe(subject);
+    return subject;
   }
 
   //#region EventStreams

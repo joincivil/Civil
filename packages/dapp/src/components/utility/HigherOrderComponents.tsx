@@ -17,7 +17,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
-import { getChallenge, makeGetLatestChallengeSucceeded } from "../../selectors";
+import { getChallenge, makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
 import { State } from "../../reducers";
 
 const StyledPartialChallengeResultsHeader = styled.p`
@@ -353,23 +353,24 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
   const makeMapStateToProps = () => {
-    const getLatestChallengeSucceeded = makeGetLatestChallengeSucceeded();
+    const getLatestChallengeSucceededChallengeID = makeGetLatestChallengeSucceededChallengeID();
 
     const mapStateToProps = (
       state: State,
-      ownProps: TOriginalProps,
+      ownProps: TOriginalProps & ChallengeContainerProps,
     ): TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps => {
-      const challengeData = getLatestChallengeSucceeded(state, ownProps);
-      let challengeID;
-
-      if (challengeData) {
-        challengeID = challengeData.challengeID;
+      const { challenges, challengesFetching } = state.networkDependent;
+      const challengeID = getLatestChallengeSucceededChallengeID(state, ownProps);
+      let challengeData;
+      let challengeDataRequestStatus;
+      if (challengeID) {
+        challengeData = challenges.get(challengeID.toString());
+        challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
       }
-
       // Can't use spread here b/c of TS issue with spread and generics
       // https://github.com/Microsoft/TypeScript/pull/13288
       // tslint:disable-next-line:prefer-object-spread
-      return Object.assign({}, { challengeData, challengeID }, ownProps);
+      return Object.assign({}, { challengeData, challengeID, challengeDataRequestStatus }, ownProps);
     };
 
     return mapStateToProps;
@@ -378,6 +379,14 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
   class HOChallengeResultsContainer extends React.Component<
     TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
   > {
+    public componentDidMount(): void {
+      this.ensureHasChallengeData();
+    }
+
+    public componentDidUpdate(): void {
+      this.ensureHasChallengeData();
+    }
+
     public render(): JSX.Element | null {
       let totalVotes = "";
       let votesFor = "";
@@ -414,6 +423,17 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
         </>
       );
     }
+
+    private ensureHasChallengeData = (): void => {
+      if (
+        this.props.challengeID &&
+        !this.props.challengeData &&
+        !this.props.challengeDataRequestStatus &&
+        !this.props.challengeDataRequestStatus
+      ) {
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+      }
+    };
   }
 
   return connect(makeMapStateToProps)(HOChallengeResultsContainer);

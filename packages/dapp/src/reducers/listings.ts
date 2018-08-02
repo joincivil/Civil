@@ -19,10 +19,15 @@ import {
 } from "@joincivil/core";
 import { listingActions } from "../actionCreators/listings";
 import { Subscription } from "rxjs";
+import BigNumber from "bignumber.js";
 
 export interface ListingWrapperWithExpiry {
   listing: ListingWrapper;
   expiry: number;
+}
+
+export interface ListingExtendedMetadata {
+  latestChallengeID?: BigNumber;
 }
 
 export function listings(
@@ -33,6 +38,19 @@ export function listings(
     case listingActions.ADD_OR_UPDATE_LISTING:
       const getNextExpiry = getNextTimerExpiry(action.data.data);
       return state.set(action.data.address, { listing: action.data, expiry: getNextExpiry });
+    default:
+      return state;
+  }
+}
+
+export function listingsExtendedMetadata(
+  state: Map<string, ListingExtendedMetadata> = Map<string, ListingExtendedMetadata>(),
+  action: AnyAction,
+): Map<string, ListingExtendedMetadata> {
+  switch (action.type) {
+    case listingActions.ADD_OR_UPDATE_LISTING_EXTENDED_METADATA:
+      const prevExtendedMetadata = state.get(action.data.address) || {};
+      return state.set(action.data.address, { ...prevExtendedMetadata, ...action.data });
     default:
       return state;
   }
@@ -74,6 +92,18 @@ export function listingHistorySubscriptions(
 ): Map<string, Subscription> {
   switch (action.type) {
     case listingActions.ADD_HISTORY_SUBSCRIPTION:
+      return state.set(action.data.address, action.data.subscription);
+    default:
+      return state;
+  }
+}
+
+export function rejectedListingLatestChallengeSubscriptions(
+  state: Map<string, Subscription> = Map<string, Subscription>(),
+  action: AnyAction,
+): Map<string, Subscription> {
+  switch (action.type) {
+    case listingActions.ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION:
       return state.set(action.data.address, action.data.subscription);
     default:
       return state;

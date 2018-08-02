@@ -2,7 +2,6 @@ import BigNumber from "bignumber.js";
 import { createSelector } from "reselect";
 import { Map, List } from "immutable";
 import {
-  CivilTCR,
   canListingBeChallenged,
   EthAddress,
   canAppealBeResolved as getCanAppealBeResolved,
@@ -27,7 +26,7 @@ import { NewsroomState } from "@joincivil/newsroom-manager";
 import { State } from "../reducers";
 
 // @TODO(jon): Export this in reducers?
-import { ListingWrapperWithExpiry } from "../reducers/listings";
+import { ListingWrapperWithExpiry, ListingExtendedMetadata } from "../reducers/listings";
 
 export interface ListingContainerProps {
   listingAddress?: EthAddress;
@@ -93,6 +92,12 @@ export const getChallenge = (state: State, props: ChallengeContainerProps) => {
   const challenges = state.networkDependent.challenges;
   const challenge: WrappedChallengeData = challenges.get(challengeID);
   return challenge;
+};
+
+export const makeGetChallenge = () => {
+  return createSelector([getChallenge], challenge => {
+    return challenge;
+  });
 };
 
 export const getChallengeUserDataMap = (state: State, props: ChallengeContainerProps) => {
@@ -211,20 +216,19 @@ export const getListingHistory = (state: State, props: ListingContainerProps) =>
   return listingHistory || List();
 };
 
-export const makeGetLatestChallengeSucceeded = () => {
-  return createSelector([getChallenges, getListingHistory], (challenges, listingHistory) => {
-    let challenge: WrappedChallengeData | undefined;
-    const challengeSucceededEvents = listingHistory.filter(listingHistoryEvent => {
-      return !!listingHistoryEvent && listingHistoryEvent.event === CivilTCR.Events._ChallengeSucceeded;
-    }) as List<TimestampedEvent<any>>;
-    if (challengeSucceededEvents.size) {
-      const latestChallengeSucceededEvent = challengeSucceededEvents.first();
-      let { challengeID } = latestChallengeSucceededEvent.args;
-      if (typeof challengeID !== "string") {
-        challengeID = challengeID.toString();
-      }
-      challenge = challenges.get(challengeID);
+export const getListingExtendedMetadata = (state: State, props: ListingContainerProps) => {
+  const listingExtendedMetadata:
+    | ListingExtendedMetadata
+    | undefined = state.networkDependent.listingsExtendedMetadata.get(props.listingAddress!);
+  return listingExtendedMetadata;
+};
+
+export const makeGetLatestChallengeSucceededChallengeID = () => {
+  return createSelector([getListingExtendedMetadata], listingExtendedMetadata => {
+    if (listingExtendedMetadata && listingExtendedMetadata.latestChallengeID) {
+      const { latestChallengeID } = listingExtendedMetadata;
+      return latestChallengeID;
     }
-    return challenge;
+    return;
   });
 };
