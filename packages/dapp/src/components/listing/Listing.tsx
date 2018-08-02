@@ -10,7 +10,7 @@ import ListingHeader from "./ListingHeader";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
-import { fetchAndAddListingData } from "../../actionCreators/listings";
+import { fetchAndAddListingData, setupListingHistorySubscription } from "../../actionCreators/listings";
 import {
   makeGetListingPhaseState,
   makeGetListing,
@@ -48,6 +48,10 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     }
   }
 
+  public async componentDidMount(): Promise<void> {
+    this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress));
+  }
+
   public render(): JSX.Element {
     const listing = this.props.listing;
     const newsroom = this.props.newsroom;
@@ -83,7 +87,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
               </Tab>
               <Tab title="History">
                 <ListingTabContent>
-                  <ListingHistory listing={this.props.listingAddress} />
+                  <ListingHistory listingAddress={this.props.listingAddress} />
                 </ListingTabContent>
               </Tab>
 

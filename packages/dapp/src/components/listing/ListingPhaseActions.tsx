@@ -1,12 +1,14 @@
 import * as React from "react";
+import { compose } from "redux";
 import { approveForChallenge, challengeListing, updateStatus } from "../../apis/civilTCR";
 import { ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
-import ChallengeDetailContainer, { ChallengeResolve } from "./ChallengeDetail";
+import ChallengeDetailContainer from "./ChallengeDetail";
+import { ChallengeResolve } from "./ChallengeResolve";
 import {
   InApplicationCard,
   InApplicationResolveCard,
   WhitelistedCard,
-  RejectedCard,
+  RejectedCard as RejectedCardComponent,
   LoadingIndicator,
   ModalHeading,
   ModalContent,
@@ -18,6 +20,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
+import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
@@ -50,16 +53,22 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
 
   public render(): JSX.Element {
     const listing = this.props.listing;
-    const { isInApplication, isWhitelisted, canWhitelist, canResolveChallenge } = this.props.listingPhaseState;
+    const {
+      isInApplication,
+      isWhitelisted,
+      isRejected,
+      canBeWhitelisted,
+      canResolveChallenge,
+    } = this.props.listingPhaseState;
     const challenge = this.props.listing.data.challenge;
     return (
       <>
         {isWhitelisted && !challenge && this.renderApplicationWhitelisted()}
-        {!isWhitelisted && !isInApplication && !challenge && this.renderRejected()}
+        {isRejected && this.renderRejected()}
         {isInApplication && this.renderApplicationPhase()}
         {listing.data && (
           <>
-            {canWhitelist && this.renderCanWhitelist()}
+            {canBeWhitelisted && this.renderCanWhitelist()}
             {canResolveChallenge && this.renderCanResolve()}
 
             {listing.data.challenge && (
@@ -147,21 +156,11 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderRejected(): JSX.Element {
-    // @TODO(jon): Get the Rejected DateTime and Challenge Results for the challenge
-    // that resulted in the listing being rejected to display for this card. We should
-    // probably create a Container component that fetches that data and stores it in Redux,
-    // and then the container should render this RejectedCard.
-    // For now, these are hard-coded values so the card renders in the UI when the listing
-    // state is Rejected
-    return (
-      <RejectedCard
-        totalVotes={"100000"}
-        votesFor={"73000"}
-        votesAgainst={"27000"}
-        percentFor={"73"}
-        percentAgainst={"27"}
-      />
-    );
+    const RejectedCard = compose<React.ComponentClass<ListingContainerProps & {}>>(
+      connectLatestChallengeSucceededResults,
+    )(RejectedCardComponent);
+
+    return <RejectedCard listingAddress={this.props.listing.address} />;
   }
 
   private renderApproveForChallengeProgressModal(): JSX.Element {

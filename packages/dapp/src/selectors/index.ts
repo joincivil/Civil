@@ -1,7 +1,8 @@
 import BigNumber from "bignumber.js";
 import { createSelector } from "reselect";
-import { Map } from "immutable";
+import { Map, List } from "immutable";
 import {
+  CivilTCR,
   canListingBeChallenged,
   EthAddress,
   canAppealBeResolved as getCanAppealBeResolved,
@@ -20,6 +21,7 @@ import {
   ListingWrapper,
   UserChallengeData,
   WrappedChallengeData,
+  TimestampedEvent,
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { State } from "../reducers";
@@ -77,6 +79,8 @@ export const makeGetListing = () => {
     return listing;
   });
 };
+
+export const getChallenges = (state: State) => state.networkDependent.challenges;
 
 export const getChallenge = (state: State, props: ChallengeContainerProps) => {
   let { challengeID } = props;
@@ -178,7 +182,7 @@ export const makeGetListingPhaseState = () => {
     const canListingAppealChallengeBeResolved = getCanListingAppealChallengeBeResolved(listingData);
 
     const isWhitelisted = listingData.isWhitelisted;
-    const isRejected = !isWhitelisted && !listingData.challenge;
+    const isRejected = !isWhitelisted && !isInApplication && !canBeWhitelisted && !listingData.challenge;
 
     return {
       isInApplication,
@@ -195,5 +199,32 @@ export const makeGetListingPhaseState = () => {
       isInAppealChallengeRevealPhase,
       canListingAppealChallengeBeResolved,
     };
+  });
+};
+
+export const getHistories = (state: State) => state.networkDependent.histories;
+
+export const getListingHistory = (state: State, props: ListingContainerProps) => {
+  const listingHistory: List<TimestampedEvent<any>> | undefined = state.networkDependent.histories.get(
+    props.listingAddress!,
+  );
+  return listingHistory || List();
+};
+
+export const makeGetLatestChallengeSucceeded = () => {
+  return createSelector([getChallenges, getListingHistory], (challenges, listingHistory) => {
+    let challenge: WrappedChallengeData | undefined;
+    const challengeSucceededEvents = listingHistory.filter(listingHistoryEvent => {
+      return !!listingHistoryEvent && listingHistoryEvent.event === CivilTCR.Events._ChallengeSucceeded;
+    }) as List<TimestampedEvent<any>>;
+    if (challengeSucceededEvents.size) {
+      const latestChallengeSucceededEvent = challengeSucceededEvents.first();
+      let { challengeID } = latestChallengeSucceededEvent.args;
+      if (typeof challengeID !== "string") {
+        challengeID = challengeID.toString();
+      }
+      challenge = challenges.get(challengeID);
+    }
+    return challenge;
   });
 };
