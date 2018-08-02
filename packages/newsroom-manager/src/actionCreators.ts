@@ -26,7 +26,7 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
   const newsroom = await civil.newsroomAtUntrusted(address);
   await newsroom.editors().forEach(async val => {
     const getNameForAddress = state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS);
-    if (getNameForAddress) {
+    if (getNameForAddress && !state.newsroomUsers.get(val)) {
       const name = await getNameForAddress(val);
       dispatch(addUser(val, name));
     }
@@ -44,8 +44,10 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
   const getNameForAddress = state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS);
   if (getNameForAddress) {
     wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
-      const name = await getNameForAddress(userAddress);
-      dispatch(addUser(userAddress, name));
+      if (!state.newsroomUsers.get(userAddress)) {
+        const name = await getNameForAddress(userAddress);
+        dispatch(addUser(userAddress, name));
+      }
     });
   }
   return dispatch(addNewsroom({ wrapper, newsroom, address }));
