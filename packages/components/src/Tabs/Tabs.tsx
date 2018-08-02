@@ -27,6 +27,12 @@ const TabContainer = styled.ul`
 `;
 
 export class Tabs extends React.Component<TabsProps, TabsState> {
+  public static getDerivedStateFromProps(nextProps: TabsProps, prevState: TabsState): TabsState {
+    return {
+      activeIndex: typeof nextProps.activeIndex === "number" ? nextProps.activeIndex : prevState.activeIndex,
+    };
+  }
+
   constructor(props: TabsProps) {
     super(props);
     this.state = {
