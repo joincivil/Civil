@@ -19,37 +19,37 @@ const percentAgainst = "27";
 
 const newsroomData: ListingSummaryComponentProps[] = [
   {
-    address: "0x0a",
+    listingAddress: "0x0a",
     name: "Block Club Chicago",
     description:
       "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
   },
   {
-    address: "0x0b",
+    listingAddress: "0x0b",
     name: "Cannabis Wire",
     description:
       "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
   },
   {
-    address: "0x0c",
+    listingAddress: "0x0c",
     name: "Documented",
     description:
       "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
   },
   {
-    address: "0x0d",
+    listingAddress: "0x0d",
     name: "Block Club Chicago",
     description:
       "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
   },
   {
-    address: "0x0e",
+    listingAddress: "0x0e",
     name: "Cannabis Wire",
     description:
       "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
   },
   {
-    address: "0x0f",
+    listingAddress: "0x0f",
     name: "Documented",
     description:
       "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
@@ -57,7 +57,7 @@ const newsroomData: ListingSummaryComponentProps[] = [
 ];
 
 const newsrooms = newsroomData.map((newsroom: ListingSummaryComponentProps) => {
-  const listingDetailURL = `/listing/${newsroom.address}`;
+  const listingDetailURL = `/listing/${newsroom.listingAddress}`;
   return { ...newsroom, listingDetailURL };
 });
 
