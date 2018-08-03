@@ -123,9 +123,9 @@ contract("Registry With Appeals", accounts => {
       // 1st time
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.commitVote(voting, pollID, "1", "500", "420", voter);
+      await utils.commitVote(voting, pollID, "0", "500", "420", voter);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-      await voting.revealVote(pollID, "1", "420", { from: voter });
+      await voting.revealVote(pollID, "0", "420", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.requestAppeal(newsroomAddress, { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1); // hack. should be getting value from registry contract
@@ -145,9 +145,9 @@ contract("Registry With Appeals", accounts => {
       // 1st time
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
-      await utils.commitVote(voting, pollID, "1", "500", "420", voter);
+      await utils.commitVote(voting, pollID, "0", "500", "420", voter);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-      await voting.revealVote(pollID, "1", "420", { from: voter });
+      await voting.revealVote(pollID, "0", "420", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1); // hack. should be getting value from registry contract
       await registry.updateStatus(newsroomAddress);

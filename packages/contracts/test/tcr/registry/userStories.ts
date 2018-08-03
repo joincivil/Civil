@@ -46,7 +46,7 @@ contract("Registry", accounts => {
       // Virgin commit
       const tokensArg = "10";
       const salt = "420";
-      const voteOption = "0";
+      const voteOption = "1";
       await utils.commitVote(voting, pollID, voteOption, tokensArg, salt, voter);
 
       const numTokens = await voting.getNumTokens(voter, pollID);
@@ -70,7 +70,7 @@ contract("Registry", accounts => {
 
       // updateStatus
       const pollResult = await voting.isPassed.call(pollID);
-      expect(pollResult).to.be.false("Poll should have failed");
+      expect(pollResult).to.be.true("Poll should have failed");
 
       // Add to whitelist
       await registry.updateStatus(listing28);
@@ -84,8 +84,8 @@ contract("Registry", accounts => {
       // Challenge and get back the pollID
       const pollID = await utils.challengeAndGetPollID(listing28, challenger, registry);
 
-      await utils.commitVote(voting, pollID, "1", "10", "420", voter);
-      await utils.commitVote(voting, pollID, "0", "15", "123", voter);
+      await utils.commitVote(voting, pollID, "0", "10", "420", voter);
+      await utils.commitVote(voting, pollID, "1", "15", "123", voter);
 
       const numTokens = await voting.getNumTokens(voter, pollID);
       expect(numTokens).to.be.bignumber.equal("15", "Should have committed the correct number of tokens");
@@ -99,7 +99,7 @@ contract("Registry", accounts => {
       let rpa = await voting.revealPeriodActive.call(pollID);
       expect(rpa).to.be.true("Reveal period should be active");
 
-      await voting.revealVote(pollID, "0", "123", { from: voter });
+      await voting.revealVote(pollID, "1", "123", { from: voter });
 
       // End reveal period
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
@@ -108,7 +108,7 @@ contract("Registry", accounts => {
 
       // updateStatus
       const pollResult = await voting.isPassed.call(pollID);
-      expect(pollResult).to.be.false("Poll should have failed");
+      expect(pollResult).to.be.true("Poll should have succeeded");
 
       // Add to whitelist
       await registry.updateStatus(listing28);
