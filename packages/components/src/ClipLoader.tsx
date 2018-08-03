@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass, keyframes, ThemedStyledProps } from "styled-components";
+import styled, { StyledComponentClass, keyframes } from "styled-components";
 import { colors } from "./styleConstants";
 
 export interface ClipLoaderProps {
