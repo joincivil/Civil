@@ -13,7 +13,7 @@ const clip = keyframes`
 100% {transform: rotate(360deg) scale(1)}
 `;
 
-export const ClipLoader = styled<ClipLoaderProps, "div">("div")`
+export const ClipLoader: StyledComponentClass<ClipLoaderProps, "div"> = styled<ClipLoaderProps, "div">("div")`
   background: transparent;
   width: ${props => props.size}px;
   height: ${props => props.size}px;
