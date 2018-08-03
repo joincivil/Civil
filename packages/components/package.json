@@ -32,6 +32,7 @@
     "test": "NODE_ENV=test jest"
   },
   "devDependencies": {
+    "@joincivil/typescript-types": "^1.0.2",
     "@storybook/addon-storyshots": "^3.3.14",
     "@storybook/react": "^3.3.14",
     "@types/enzyme": "^3.1.9",
@@ -78,6 +79,7 @@
     "react-router-dom": "^4.2.2",
     "react-rte": "^0.16.1",
     "rxjs": "^5.5.6",
-    "styled-components": "^3.2.3"
+    "styled-components": "^3.2.3",
+    "web3": "^1.0.0-beta.35"
   }
 }

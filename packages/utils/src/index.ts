@@ -6,3 +6,4 @@ export * from "./errors";
 export * from "./language";
 export * from "./salt";
 export * from "./viewHelpers";
+export * from "./web3";
