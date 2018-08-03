@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
-import { setupListingHistorySubscription } from "../../actionCreators/listings";
 import { State } from "../../reducers";
 import { makeGetListingPhaseState, makeGetListing } from "../../selectors";
 import { ListingWrapper } from "@joincivil/core";
@@ -72,30 +71,24 @@ class ListingListItemComponent extends React.Component<
   };
 }
 
-class RejectedListing extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
-  public async componentDidMount(): Promise<void> {
-    this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress!));
-  }
+const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
+  const { listingAddress, newsroom, listingPhaseState } = props;
+  const newsroomData = newsroom!.wrapper.data;
+  const listingDetailURL = `/listing/${listingAddress}`;
 
-  public render(): JSX.Element {
-    const { listingAddress, newsroom, listingPhaseState } = this.props;
-    const newsroomData = newsroom!.wrapper.data;
-    const listingDetailURL = `/listing/${listingAddress}`;
+  const listingViewProps = {
+    ...newsroomData,
+    listingAddress,
+    listingDetailURL,
+    ...listingPhaseState,
+  };
 
-    const listingViewProps = {
-      ...newsroomData,
-      listingAddress,
-      listingDetailURL,
-      ...listingPhaseState,
-    };
+  const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
+    connectLatestChallengeSucceededResults,
+  )(ListingSummaryRejectedComponent);
 
-    const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
-      connectLatestChallengeSucceededResults,
-    )(ListingSummaryRejectedComponent);
-
-    return <ListingSummaryRejected {...listingViewProps} />;
-  }
-}
+  return <ListingSummaryRejected {...listingViewProps} />;
+};
 
 const makeMapStateToProps = () => {
   const getListingPhaseState = makeGetListingPhaseState();
