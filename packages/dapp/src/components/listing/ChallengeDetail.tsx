@@ -37,11 +37,7 @@ import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import styled from "styled-components";
 import { fetchSalt } from "../../helpers/salt";
-import {
-  ChallengeContainerProps,
-  connectChallengeResults,
-  // connectChallengePhase,
-} from "../utility/HigherOrderComponents";
+import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
