@@ -57,9 +57,9 @@ contract("Registry", accounts => {
     it("should not whitelist a listing that failed a challenge", async () => {
       await registry.apply(listing24, minDeposit, "", { from: applicant });
       const pollID = await utils.challengeAndGetPollID(listing24, challenger, registry);
-      await utils.commitVote(voting, pollID, "1", "100", "123", voter);
+      await utils.commitVote(voting, pollID, "0", "100", "123", voter);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-      await voting.revealVote(pollID, "1", "123", { from: voter });
+      await voting.revealVote(pollID, "0", "123", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing24);
       const [, isWhitelisted] = await registry.listings(listing24);

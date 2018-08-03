@@ -100,9 +100,9 @@ contract("Registry With Appeals", accounts => {
       it("should allow a listing to re-apply after losing challenge (challenge vote successful), not being granted appeal, updating status", async () => {
         await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
         const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
-        await utils.commitVote(voting, pollID, "1", "100", "1234", voter);
+        await utils.commitVote(voting, pollID, "0", "100", "1234", voter);
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-        await voting.revealVote(pollID, "1", "1234", { from: voter });
+        await voting.revealVote(pollID, "0", "1234", { from: voter });
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
         await registry.requestAppeal(newsroomAddress, { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
