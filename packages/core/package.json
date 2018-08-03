@@ -33,7 +33,7 @@
   "homepage": "https://github.com/joincivil/Civil",
   "license": "LGPL-2.1",
   "devDependencies": {
-    "@0xproject/abi-gen": "^0.2.7",
+    "@0xproject/abi-gen": "^1.0.4",
     "@joincivil/dev-utils": "^1.2.4",
     "@joincivil/tslint-rules": "^2.6.3",
     "@joincivil/typescript-types": "^1.0.2",
