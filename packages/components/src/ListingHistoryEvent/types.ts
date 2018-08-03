@@ -1,4 +1,4 @@
-import { ChallengeResultsProps } from "../ListingDetailPhaseCard/types";
+import { ChallengeResultsProps } from "../ChallengeResultsChart";
 
 export interface ListingHistoryEventTimestampProps {
   timestamp: number;

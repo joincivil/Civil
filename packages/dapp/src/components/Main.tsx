@@ -15,6 +15,7 @@ import Article from "./Article";
 import ContractPage from "./ContractPage";
 import Contracts from "./Contracts";
 import CreateNewsroom from "./CreateNewsroom";
+import { Dashboard } from "./Dashboard";
 import Editor from "./Editor";
 import ChallengePage from "./listing/Challenge";
 import Listing from "./listing/Listing";
@@ -85,6 +86,8 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     return (
       <Switch>
         <Route exact path="/" component={Listings} />
+        <Route path="/registry/:listingType" component={Listings} />
+        <Route path="/registry" component={Listings} />
         <Route path="/contracts" component={Contracts} />
         <Route path="/contract/:contract" component={ContractPage} />
         <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
@@ -97,6 +100,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
         <Route path="/createNewsroom" component={CreateNewsroom} />
         <Route path="/article/:newsroomAddress/:articleId" component={Article} />
         <Route path="/government" component={Government} />
+        <Route path="/dashboard" component={Dashboard} />
       </Switch>
     );
   }

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors, fonts } from "./styleConstants";
 import { Button, buttonSizes } from "./Button";
@@ -6,6 +7,9 @@ import {
   AwaitingApprovalStatusLabel,
   CommitVoteStatusLabel,
   RevealVoteStatusLabel,
+  ReadyToCompleteStatusLabel,
+  AwaitingDecisionStatusLabel,
+  AwaitingAppealChallengeStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
 
 const ListingDetailOuter = styled.div`
@@ -17,7 +21,7 @@ const ListingDetailOuter = styled.div`
 const StyledListingDetailHeader = styled.div`
   color: ${colors.basic.WHITE};
   font-family: ${fonts.SANS_SERIF};
-  padding: 78px 0 62px;
+  padding: 24px 0 62px;
 `;
 
 const ListingDetailNewsroomName = styled.h1`
@@ -43,14 +47,33 @@ const RightShark = styled.div`
   width: 485px;
 `;
 
+const StyledRegistryLinkContainer = styled.div`
+  padding: 0 0 43px;
+
+  & a {
+    color: ${colors.basic.WHITE}B3;
+  }
+`;
+
 export interface ListingDetailHeaderProps {
   newsroomName: string;
   newsroomDescription: string;
+  registryURL?: string;
   owner: string;
   unstakedDeposit: string;
+  isWhitelisted?: boolean;
+  isRejected?: boolean;
   isInApplication?: boolean;
-  inChallengePhase?: boolean;
-  inRevealPhase?: boolean;
+  canBeChallenged?: boolean;
+  canBeWhitelisted?: boolean;
+  inChallengeCommitVotePhase?: boolean;
+  inChallengeRevealPhase?: boolean;
+  canResolveChallenge?: boolean;
+  isAwaitingAppealJudgement?: boolean;
+  isAwaitingAppealChallenge?: boolean;
+  isInAppealChallengeCommitPhase?: boolean;
+  isInAppealChallengeRevealPhase?: boolean;
+  canListingAppealChallengeBeResolved?: boolean;
 }
 
 export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps> {
@@ -60,6 +83,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
         <StyledListingDetailHeader>
           <GridRow>
             <LeftShark>
+              {this.renderRegistryLink()}
               {this.renderPhaseLabel()}
 
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
@@ -82,13 +106,57 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
     );
   }
 
+  private renderRegistryLink(): JSX.Element {
+    let urlArg = "";
+    let label = "Registry";
+    if (this.props.registryURL) {
+      if (this.props.isWhitelisted) {
+        urlArg = "whitelisted";
+        label = "Whitelisted Newsrooms";
+      } else if (
+        this.props.inChallengeCommitVotePhase ||
+        this.props.isInAppealChallengeCommitPhase ||
+        this.props.inChallengeRevealPhase ||
+        this.props.isAwaitingAppealChallenge ||
+        this.props.isInAppealChallengeRevealPhase ||
+        this.props.canBeWhitelisted ||
+        this.props.canResolveChallenge ||
+        this.props.canListingAppealChallengeBeResolved
+      ) {
+        urlArg = "under-challenge";
+        label = "Newsrooms Under Challenge";
+      } else if (this.props.isRejected) {
+        urlArg = "rejected";
+        label = "Rejected Newsrooms";
+      }
+
+      const url = `${this.props.registryURL}/${urlArg}`;
+      return (
+        <StyledRegistryLinkContainer>
+          <Link to={url}>&lt; Back to {label}</Link>
+        </StyledRegistryLinkContainer>
+      );
+    }
+    return <></>;
+  }
+
   private renderPhaseLabel = (): JSX.Element | undefined => {
     if (this.props.isInApplication) {
       return <AwaitingApprovalStatusLabel />;
-    } else if (this.props.inChallengePhase) {
+    } else if (this.props.inChallengeCommitVotePhase || this.props.isInAppealChallengeCommitPhase) {
       return <CommitVoteStatusLabel />;
-    } else if (this.props.inRevealPhase) {
+    } else if (this.props.inChallengeRevealPhase || this.props.isInAppealChallengeRevealPhase) {
       return <RevealVoteStatusLabel />;
+    } else if (
+      this.props.canBeWhitelisted ||
+      this.props.canResolveChallenge ||
+      this.props.canListingAppealChallengeBeResolved
+    ) {
+      return <ReadyToCompleteStatusLabel />;
+    } else if (this.props.isAwaitingAppealJudgement) {
+      return <AwaitingDecisionStatusLabel />;
+    } else if (this.props.isAwaitingAppealChallenge) {
+      return <AwaitingAppealChallengeStatusLabel />;
     }
     return;
   };

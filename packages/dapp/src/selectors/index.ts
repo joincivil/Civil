@@ -1,5 +1,5 @@
+import BigNumber from "bignumber.js";
 import { createSelector } from "reselect";
-import { State } from "../reducers";
 import { Map } from "immutable";
 import {
   canListingBeChallenged,
@@ -11,12 +11,18 @@ import {
   isChallengeInCommitStage,
   isChallengeInRevealStage,
   isListingAwaitingAppealJudgment as getIsListingAwaitingAppealJudgement,
+  isListingAwaitingAppealChallenge as getIsListingAwaitingAppealChallenge,
   isAwaitingAppealChallenge as getIsAwaitingAppealChallenge,
+  isInAppealChallengeCommitPhase as getIsInAppealChallengeCommitPhase,
+  isInAppealChallengeRevealPhase as getIsInAppealChallengeRevealPhase,
+  canListingAppealChallengeBeResolved as getCanListingAppealChallengeBeResolved,
   isAppealAwaitingJudgment,
   ListingWrapper,
+  UserChallengeData,
   WrappedChallengeData,
 } from "@joincivil/core";
-import BigNumber from "bignumber.js";
+import { NewsroomState } from "@joincivil/newsroom-manager";
+import { State } from "../reducers";
 
 // @TODO(jon): Export this in reducers?
 import { ListingWrapperWithExpiry } from "../reducers/listings";
@@ -28,6 +34,28 @@ export interface ListingContainerProps {
 export interface ChallengeContainerProps {
   challengeID?: string | BigNumber;
 }
+
+export const getUser = (state: State) => {
+  return state.networkDependent.user;
+};
+
+export const getNewsroom = (state: State, props: ListingContainerProps): NewsroomState | undefined => {
+  if (!props.listingAddress) {
+    return;
+  }
+  return state.newsrooms.get(props.listingAddress);
+};
+
+export const makeGetIsUserNewsroomOwner = () => {
+  return createSelector([getNewsroom, getUser], (newsroom, user) => {
+    if (!newsroom || !user) {
+      return;
+    }
+    const newsroomWrapper = newsroom.wrapper;
+    const userAccount = user.account && user.account.account;
+    return newsroomWrapper.data.owners.includes(userAccount);
+  });
+};
 
 export const getListings = (state: State) => state.networkDependent.listings;
 
@@ -63,6 +91,29 @@ export const getChallenge = (state: State, props: ChallengeContainerProps) => {
   return challenge;
 };
 
+export const getChallengeUserDataMap = (state: State, props: ChallengeContainerProps) => {
+  const { challengeUserData } = state.networkDependent;
+  let { challengeID } = props;
+  if (!challengeID) {
+    return;
+  }
+  if (typeof challengeID !== "string") {
+    challengeID = challengeID.toString();
+  }
+  const challengeUserDataMap = challengeUserData.get(challengeID);
+  return challengeUserDataMap;
+};
+
+export const makeGetUserChallengeData = () => {
+  return createSelector([getChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
+    if (challengeUserDataMap && user.account) {
+      const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
+      return userChallengeData;
+    }
+    return;
+  });
+};
+
 export const makeGetListingAddressByChallengeID = () => {
   return createSelector([getChallenge, getListings], (challenge, listings) => {
     let listingAddress;
@@ -84,6 +135,7 @@ export const makeGetListingExpiry = () => {
 export const makeGetChallengeState = () => {
   return createSelector([getChallenge], challengeData => {
     const challenge = challengeData && challengeData.challenge;
+    const isResolved = challenge && challenge.resolved;
     const inChallengePhase = challenge && isChallengeInCommitStage(challenge);
     const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
     const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
@@ -92,6 +144,7 @@ export const makeGetChallengeState = () => {
     const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
 
     return {
+      isResolved,
       inChallengePhase,
       inRevealPhase,
       canResolveChallenge,
@@ -109,24 +162,38 @@ export const makeGetListingPhaseState = () => {
     }
 
     const listingData = listing.listing.data;
+
     const isInApplication = isInApplicationPhase(listingData);
     const canBeChallenged = canListingBeChallenged(listingData);
     const canBeWhitelisted = getCanBeWhitelisted(listingData);
-    const inChallengePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
-    const inRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
-    const isWhitelisted = listingData.isWhitelisted;
+
+    const inChallengeCommitVotePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
+    const inChallengeRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
     const canResolveChallenge = listingData.challenge && getCanResolveChallenge(listingData.challenge);
+
     const isAwaitingAppealJudgment = getIsListingAwaitingAppealJudgement(listingData);
+    const isAwaitingAppealChallenge = getIsListingAwaitingAppealChallenge(listingData);
+    const isInAppealChallengeCommitPhase = getIsInAppealChallengeCommitPhase(listingData);
+    const isInAppealChallengeRevealPhase = getIsInAppealChallengeRevealPhase(listingData);
+    const canListingAppealChallengeBeResolved = getCanListingAppealChallengeBeResolved(listingData);
+
+    const isWhitelisted = listingData.isWhitelisted;
+    const isRejected = !isWhitelisted && !listingData.challenge;
 
     return {
       isInApplication,
       canBeChallenged,
       canBeWhitelisted,
       canResolveChallenge,
-      inChallengePhase,
-      inRevealPhase,
+      inChallengeCommitVotePhase,
+      inChallengeRevealPhase,
       isWhitelisted,
+      isRejected,
       isAwaitingAppealJudgment,
+      isAwaitingAppealChallenge,
+      isInAppealChallengeCommitPhase,
+      isInAppealChallengeRevealPhase,
+      canListingAppealChallengeBeResolved,
     };
   });
 };

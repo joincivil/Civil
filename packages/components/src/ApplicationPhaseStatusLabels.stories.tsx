@@ -3,9 +3,12 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   AwaitingApprovalStatusLabel,
+  AwaitingDecisionStatusLabel,
+  AwaitingAppealChallengeStatusLabel,
   CommitVoteStatusLabel,
   RevealVoteStatusLabel,
   RequestingAppealStatusLabel,
+  ReadyToCompleteStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
 
 const StyledDiv = styled.div`
@@ -22,12 +25,17 @@ storiesOf("Application Status Labels", module).add("Labels", () => {
     <Container>
       <AwaitingApprovalStatusLabel />
       <br />
+      <AwaitingDecisionStatusLabel />
+      <br />
+      <AwaitingAppealChallengeStatusLabel />
+      <br />
       <CommitVoteStatusLabel />
       <br />
       <RevealVoteStatusLabel />
       <br />
       <RequestingAppealStatusLabel />
       <br />
+      <ReadyToCompleteStatusLabel />
     </Container>
   );
 });

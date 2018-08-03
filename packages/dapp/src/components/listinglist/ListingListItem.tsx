@@ -1,10 +1,10 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "../../reducers";
-import { makeGetListingPhaseState, makeGetListing, makeGetListingAddressByChallengeID } from "../../selectors";
+import { makeGetListingPhaseState, makeGetListing } from "../../selectors";
 import { ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-import { ListingSummaryComponent } from "@joincivil/components";
+import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -27,32 +27,44 @@ export interface ListingListItemReduxProps {
 class ListingListItemComponent extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
   public render(): JSX.Element {
     const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
+
     if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
-      const listingData = listing.data;
-      let description =
-        "This will be a great description someday, but until then The Dude Abides. um i to you you call duder or so thats the dude thats what i am brevity thing um i let me duder or";
-      if (newsroom.wrapper.data.charter) {
-        description = JSON.parse(newsroom.wrapper.data.charter.content.toString()).desc;
-      }
       const listingDetailURL = `/listing/${address}`;
-      const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-      const pollData = listingData.challenge && listingData.challenge.poll;
-      const commitEndDate = pollData && pollData.commitEndDate.toNumber();
-      const revealEndDate = pollData && pollData.revealEndDate.toNumber();
 
-      const listingViewProps = {
-        ...newsroomData,
-        address,
-        description,
-        listingDetailURL,
-        ...listingPhaseState,
-        appExpiry,
-        commitEndDate,
-        revealEndDate,
-      };
+      if (listingPhaseState.isRejected) {
+        const listingViewProps = {
+          ...newsroomData,
+          address,
+          listingDetailURL,
+          ...listingPhaseState,
+        };
 
-      return <ListingSummaryComponent {...listingViewProps} />;
+        return <ListingSummaryRejectedComponent {...listingViewProps} />;
+      } else {
+        const listingData = listing.data;
+        let description = "";
+        if (newsroom.wrapper.data.charter) {
+          description = JSON.parse(newsroom.wrapper.data.charter.content.toString()).desc;
+        }
+        const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
+        const pollData = listingData.challenge && listingData.challenge.poll;
+        const commitEndDate = pollData && pollData.commitEndDate.toNumber();
+        const revealEndDate = pollData && pollData.revealEndDate.toNumber();
+
+        const listingViewProps = {
+          ...newsroomData,
+          address,
+          description,
+          listingDetailURL,
+          ...listingPhaseState,
+          appExpiry,
+          commitEndDate,
+          revealEndDate,
+        };
+
+        return <ListingSummaryComponent {...listingViewProps} />;
+      }
     } else {
       return <></>;
     }
@@ -89,33 +101,3 @@ const makeMapStateToProps = () => {
 };
 
 export const ListingListItem = connect(makeMapStateToProps)(ListingListItemComponent);
-
-const makeChallengeMapStateToProps = () => {
-  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
-
-  const mapStateToProps = (state: State, ownProps: ChallengeListingListItemOwnProps): ListingListItemOwnProps => {
-    const listingAddress = getListingAddressByChallengeID(state, ownProps);
-    const { even, user } = ownProps;
-
-    return {
-      listingAddress,
-      even,
-      user,
-    };
-  };
-
-  return mapStateToProps;
-};
-
-/**
- * Container that renders a listing associated with the specified `ChallengeID`
- */
-export class ChallengeListingItemComponent extends React.Component<
-  ChallengeListingListItemOwnProps & ListingListItemOwnProps
-> {
-  public render(): JSX.Element {
-    return <ListingListItem {...this.props} />;
-  }
-}
-
-export const ChallengeListingListItem = connect(makeChallengeMapStateToProps)(ChallengeListingItemComponent);

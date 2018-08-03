@@ -1,11 +1,11 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Tabs } from "../tabs/Tabs";
-import { Tab } from "../tabs/Tab";
+import { Tabs, Tab, StyledSquarePillTabNav, StyledSquarePillTab } from "@joincivil/components";
 
 import ListingList from "./ListingList";
-import { connect } from "react-redux";
 import { State } from "../../reducers";
+import { StyledListingCopy } from "../utility/styledComponents";
 
 export interface ListingProps {
   applications: Set<string>;
@@ -37,21 +37,51 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.resolveChallengeListings)
       .merge(this.props.resolveAppealListings);
     return (
-      <Tabs>
-        <Tab tabText={"Applications (" + applications.count() + ")"}>
-          <ListingList listings={applications} />
+      <Tabs TabsNavComponent={StyledSquarePillTabNav} TabComponent={StyledSquarePillTab}>
+        <Tab title={"New Applications (" + applications.count() + ")"}>
+          <>
+            <StyledListingCopy>
+              New applications are subject to Civil community review for alignment with the Civil Constitution. By
+              participating in our governance, you can help curate high-quality, trustworthy journalism.
+            </StyledListingCopy>
+            <ListingList listings={applications} />
+          </>
         </Tab>
-        <Tab tabText={"Being Challenged (" + beingChallenged.count() + ")"}>
-          <ListingList listings={beingChallenged} />
+        <Tab title={"Under Challenge (" + beingChallenged.count() + ")"}>
+          <>
+            <StyledListingCopy>
+              Applications “under challenge” require the Civil community vote to remain on the Registry due to a
+              potential breach of the Civil Constitution. Help us curate high quality, trustworthy journalism, and earn
+              CVL tokens when you vote.
+            </StyledListingCopy>
+            <ListingList listings={beingChallenged} />
+          </>
         </Tab>
-        <Tab tabText={"Appeal Being Considered (" + consideringAppeal.count() + ")"}>
-          <ListingList listings={consideringAppeal} />
+        <Tab title={"Appeal to Council (" + consideringAppeal.count() + ")"}>
+          <>
+            <StyledListingCopy>
+              Appeal to the Civil Council has been granted to these Newsrooms. The Civil Council will review whether
+              these Newsrooms breached the Civil Constitution, and a decision will be announced X days after the appeal
+              is granted.
+            </StyledListingCopy>
+            <ListingList listings={consideringAppeal} />
+          </>
         </Tab>
-        <Tab tabText={"Appeal Being Challenged (" + appealChallenge.count() + ")"}>
-          <ListingList listings={appealChallenge} />
+        <Tab title={"Challenge Council Appeal (" + appealChallenge.count() + ")"}>
+          <>
+            <StyledListingCopy>
+              Newsrooms under “Challenge Council Appeal” require the Civil community vote to veto the Council decision
+              in order to remain on the Registry. Help us curate high quality, trustworthy journalism, and earn CVL
+              tokens when you vote.
+            </StyledListingCopy>
+            <ListingList listings={appealChallenge} />
+          </>
         </Tab>
-        <Tab tabText={"Ready to Update (" + readyToUpdate.count() + ")"}>
-          <ListingList listings={readyToUpdate} />
+        <Tab title={"Ready to Update (" + readyToUpdate.count() + ")"}>
+          <>
+            <StyledListingCopy>Step 1: Resolve these challenges. Step 2: ???. Step 3: Profit!!!</StyledListingCopy>
+            <ListingList listings={readyToUpdate} />
+          </>
         </Tab>
       </Tabs>
     );

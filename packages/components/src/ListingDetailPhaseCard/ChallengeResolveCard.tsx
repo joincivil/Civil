@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, ChallengePhaseProps, ChallengeResultsProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, ChallengePhaseProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -8,7 +8,7 @@ import {
   MetaItemLabel,
 } from "./styledComponents";
 import { TransactionInvertedButton } from "../TransactionButton";
-import { ChallengeResults } from "./ChallengeResults";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 
 export class ChallengeResolveCard extends React.Component<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeResultsProps

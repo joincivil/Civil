@@ -294,11 +294,25 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
   /**
    * Checks if the user can assign roles and approve/deny content
-   * Also returns true if user has director super powers
    * @param address Address for the role check, leave empty for current user
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
   public async isEditor(address?: EthAddress): Promise<boolean> {
+    let who = address;
+
+    if (!who) {
+      who = await requireAccount(this.ethApi).toPromise();
+    }
+    return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
+  }
+
+  /**
+   * Checks if the user can assign roles and approve/deny content
+   * Also returns true if user has director super powers
+   * @param address Address for the role check, leave empty for current user
+   * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
+   */
+  public async hasEditorCapabilities(address?: EthAddress): Promise<boolean> {
     if (await this.isOwner(address)) {
       return true;
     }
@@ -457,7 +471,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const findContentId = (receipt: CivilTransactionReceipt) =>
       findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
 
-    if (this.isOwner()) {
+    if (!(await this.isEditor()) && (await this.isOwner())) {
       return this.twoStepOrMulti(
         await this.multisigProxy.publishContent.sendTransactionAsync(uri, hash, author, signature),
         findContentId,
@@ -533,7 +547,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const findRevisionId = (receipt: CivilTransactionReceipt) =>
       findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
 
-    if (this.isOwner()) {
+    if (!(await this.isEditor()) && (await this.isOwner())) {
       return this.twoStepOrMulti(
         await this.multisigProxy.updateRevision.sendTransactionAsync(
           this.ethApi.toBigNumber(contentId),
@@ -672,6 +686,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       author,
       contentHash,
       signature,
+      date: new Date().toISOString(),
       newsroomAddress: this.address,
     };
   }
@@ -680,10 +695,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const author = await requireAccount(this.ethApi).toPromise();
     const message = prepareUserFriendlyNewsroomMessage(this.address, contentHash);
     const { signature } = await this.ethApi.signMessage(message, author);
+    const date = new Date().toISOString();
     return {
       author,
       contentHash,
       signature,
+      date,
       newsroomAddress: this.address,
     };
   }
