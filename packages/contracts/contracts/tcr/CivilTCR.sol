@@ -74,7 +74,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   {
     init(tokenAddr, plcrAddr, paramsAddr, "CivilTCR");
     civilVoting = CivilPLCRVoting(plcrAddr);
-    require(address(govt) != 0);
+    require(address(govt) != 0 && address(government) == 0);
     require(govt.getGovernmentController() != 0);
     government = govt;
   }
@@ -408,8 +408,6 @@ contract CivilTCR is RestrictedAddressRegistry {
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
-
-      listing.challengeID = 0;
 
       emit _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     } else { // original vote succeded (challenge failed), this should de-list listing
