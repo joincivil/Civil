@@ -8,8 +8,6 @@ import {
   VoteTypeSummaryRowProps as PartialChallengeResultsProps,
   CHALLENGE_RESULTS_VOTE_TYPES,
   ChallengeResultsProps,
-  // ListingHistoryEventTimestampProps,
-  // ListingDetailPhaseCardComponentProps,
   ChallengePhaseProps,
   ProgressBarCountdownProps,
   PHASE_TYPE_NAMES,
