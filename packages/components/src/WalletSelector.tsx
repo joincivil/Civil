@@ -5,7 +5,8 @@ import {
   getBrowserProviderType,
   getBrowserWeb3,
   getLedgerWeb3,
-  hasLedger,
+  getHasLedger,
+  getHardwareWeb3,
   // getTrezorWeb3,  // TODO(jorgelo): Add this back.
   ProviderType,
   getAccountsPromise,
@@ -13,11 +14,11 @@ import {
 
 export interface IWalletSelectorProps {
   network: number;
-  onProviderChange?(web3: Web3, providerType: ProviderType | undefined, account: EthAddress): void;
+  onProviderChange?(web3: Web3, providerType: ProviderType | undefined, account?: EthAddress): void;
 }
 
 export interface IWalletSelectorState {
-  providerType?: ProviderType;
+  browserPoviderType?: ProviderType;
   hasLoaded: boolean;
   isHTTPS: boolean;
   hasLedger: boolean;
@@ -33,7 +34,7 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
   constructor(props: any) {
     super(props);
     this.state = {
-      providerType: undefined,
+      browserPoviderType: undefined,
       hasLoaded: false,
       isHTTPS: false,
       hasLedger: false,
@@ -41,10 +42,10 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
   }
   public async componentDidMount(): Promise<void> {
     this.setState({
-      providerType: getBrowserProviderType(),
+      browserPoviderType: getBrowserProviderType(),
       hasLoaded: true,
       isHTTPS: getIsHTTPS(),
-      hasLedger: await hasLedger(),
+      hasLedger: await getHasLedger(),
     });
   }
   public handleSelectBrowser = () => {
@@ -79,22 +80,69 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
       onProviderChange(web3, ProviderType.LEDGER, account);
     }
   };
+
+  public handleSelectReadOnly = async () => {
+    const { onProviderChange } = this.props;
+    if (onProviderChange) {
+      onProviderChange(getHardwareWeb3(), ProviderType.LEDGER);
+    }
+  };
+
+  public renderBrowserSelector(): JSX.Element {
+    const { browserPoviderType } = this.state;
+
+    if (!browserPoviderType) {
+      return <li>Maybe you should get metamask?</li>;
+    }
+
+    return (
+      <li>
+        {browserPoviderType && <button onClick={this.handleSelectBrowser}>Browser / {browserPoviderType}</button>}
+      </li>
+    );
+  }
+
+  public renderLedgerSelector(): JSX.Element {
+    const { hasLedger, isHTTPS } = this.state;
+
+    if (!hasLedger) {
+      return <li>Maybe you should get a ledger?</li>;
+    }
+
+    return (
+      <>
+        <li>
+          <button onClick={this.handleSelectLedger}>Ledger</button>
+        </li>
+        <i>ENABLE BROWSER SUPPORT ON YOUR LEDGER IF YOU KNOW WHATS GOOD FOR YOU</i>
+        {!isHTTPS && <div>For Ledger support, you need https</div>}
+      </>
+    );
+  }
+
+  public renderReadOnly(): JSX.Element {
+    return (
+      <>
+        <li>
+          <button onClick={this.handleSelectReadOnly}>Continue with read only.</button>
+        </li>
+      </>
+    );
+  }
+
   public render(): JSX.Element {
-    const { isHTTPS, providerType } = this.state;
+    const { isHTTPS } = this.state;
 
     return (
       <div>
         <ul>
-          <li>{providerType && <button onClick={this.handleSelectBrowser}>Browser / {providerType}</button>}</li>
-          <li>
-            <button onClick={this.handleSelectLedger}>Ledger</button>
-          </li>
+          {this.renderBrowserSelector()}
+          {this.renderLedgerSelector()}
           {/* <li>
             <button onClick={this.handleSelectTrezor}>Trezor</button>
           </li> */}
+          {this.renderReadOnly()}
         </ul>
-        <i>ENABLE BROWSER SUPPORT ON YOUR LEDGER IF YOU KNOW WHATS GOOD FOR YOU</i>
-        {!isHTTPS && <div>For Ledger support, you need https</div>}
       </div>
     );
   }

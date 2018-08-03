@@ -1,13 +1,13 @@
 import * as React from "react";
 import { WalletSelector } from "./WalletSelector";
-import { FullscreenModal } from "./FullscreenModal";
+import { FullScreenModal } from "./FullscreenModal";
 
 export class WalletSelectorModal extends React.Component {
   public render(): JSX.Element {
     return (
-      <FullscreenModal>
+      <FullScreenModal open={true}>
         <WalletSelector network={4} />
-      </FullscreenModal>
+      </FullScreenModal>
     );
   }
 }

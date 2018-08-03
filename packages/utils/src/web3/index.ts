@@ -29,18 +29,20 @@ export function getAccountsPromise(web3: Web3): Promise<[any]> {
   });
 }
 
-export function getHardwareWeb3(providerFactory: any): Web3 {
+export function getHardwareWeb3(providerFactory?: any): Web3 {
   const engine = new ProviderEngine();
   const web3 = new Web3(engine);
 
-  engine.addProvider(providerFactory);
+  if (providerFactory) {
+    engine.addProvider(providerFactory);
+  }
 
-  // engine.addProvider(
-  //   new RpcSubprovider({
-  //     // rpcUrl: "https://mainnet.infura.io",
-  //     rpcUrl: "https://rinkeby.infura.io",
-  //   }),
-  // );
+  engine.addProvider(
+    new RpcSubprovider({
+      // rpcUrl: "https://mainnet.infura.io",
+      rpcUrl: "https://rinkeby.infura.io",
+    }),
+  );
 
   engine.start();
 
