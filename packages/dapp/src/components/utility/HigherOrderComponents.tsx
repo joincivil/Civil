@@ -16,6 +16,7 @@ import {
   PHASE_TYPE_LABEL,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { setupRejectedListingLatestChallengeSubscription } from "../../actionCreators/listings";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getChallenge, makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
 import { State } from "../../reducers";
@@ -379,12 +380,14 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
   class HOChallengeResultsContainer extends React.Component<
     TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
   > {
-    public componentDidMount(): void {
+    public async componentDidMount(): Promise<void> {
       this.ensureHasChallengeData();
+      await this.setupChallengeSubscription();
     }
 
-    public componentDidUpdate(): void {
+    public async componentDidUpdate(): Promise<void> {
       this.ensureHasChallengeData();
+      await this.setupChallengeSubscription();
     }
 
     public render(): JSX.Element | null {
@@ -433,6 +436,10 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       ) {
         this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
       }
+    };
+
+    private setupChallengeSubscription = async (): Promise<void> => {
+      this.props.dispatch!(await setupRejectedListingLatestChallengeSubscription(this.props.listingAddress!));
     };
   }
 

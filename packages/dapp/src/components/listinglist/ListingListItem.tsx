@@ -1,10 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
-import {
-  setupListingHistorySubscription,
-  setupRejectedListingLatestChallengeSubscription,
-} from "../../actionCreators/listings";
+import { setupListingHistorySubscription } from "../../actionCreators/listings";
 import { State } from "../../reducers";
 import { makeGetListingPhaseState, makeGetListing } from "../../selectors";
 import { ListingWrapper } from "@joincivil/core";
@@ -78,7 +75,6 @@ class ListingListItemComponent extends React.Component<
 class RejectedListing extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
   public async componentDidMount(): Promise<void> {
     this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress!));
-    this.props.dispatch!(await setupRejectedListingLatestChallengeSubscription(this.props.listingAddress!));
   }
 
   public render(): JSX.Element {
