@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@0xproject/abi-gen@1.0.4":
+"@0xproject/abi-gen@^1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@0xproject/abi-gen/-/abi-gen-1.0.4.tgz#9367591f14a230f25dac21065286964183371ea9"
   dependencies:
@@ -525,7 +525,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.4.7":
+"@types/react@*", "@types/react@^16.0.39", "@types/react@^16.0.40":
   version "16.4.7"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.7.tgz#f33f6d759a7e1833befa15224d68942d178a5a3f"
   dependencies:
@@ -541,9 +541,9 @@
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/@types/sanitize-html/-/sanitize-html-1.14.0.tgz#9a03ec58306e24feaa3fbdb8ab593934d53ecb05"
 
-"@types/storejs@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@types/storejs/-/storejs-2.0.2.tgz#e1f6ab3a7e933ee10dd0614eeb522ab95fae8046"
+"@types/storejs@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@types/storejs/-/storejs-2.0.3.tgz#1b66b98e01cc8d05e769731c59668b938f85ba26"
 
 "@types/storybook__react@^3.0.7":
   version "3.0.8"
@@ -12316,16 +12316,6 @@ ts-jest@^22.4.0:
     source-map-support "^0.5.5"
     yargs "^11.0.0"
 
-ts-loader@4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-4.4.2.tgz#778d4464b24436873c78f7f9e914d88194c2a248"
-  dependencies:
-    chalk "^2.3.0"
-    enhanced-resolve "^4.0.0"
-    loader-utils "^1.0.2"
-    micromatch "^3.1.4"
-    semver "^5.0.1"
-
 ts-loader@^2.3.7:
   version "2.3.7"
   resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-2.3.7.tgz#a9028ced473bee12f28a75f9c5b139979d33f2fc"
@@ -12333,6 +12323,16 @@ ts-loader@^2.3.7:
     chalk "^2.0.1"
     enhanced-resolve "^3.0.0"
     loader-utils "^1.0.2"
+    semver "^5.0.1"
+
+ts-loader@^4:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-4.4.2.tgz#778d4464b24436873c78f7f9e914d88194c2a248"
+  dependencies:
+    chalk "^2.3.0"
+    enhanced-resolve "^4.0.0"
+    loader-utils "^1.0.2"
+    micromatch "^3.1.4"
     semver "^5.0.1"
 
 tsconfig-paths-webpack-plugin@^2.0.0:
