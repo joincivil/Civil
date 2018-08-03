@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass, keyframes } from "styled-components";
+import styled, { StyledComponentClass, keyframes, ThemedStyledProps } from "styled-components";
 import { colors } from "./styleConstants";
 
 export interface ClipLoaderProps {
@@ -15,8 +15,8 @@ const clip = keyframes`
 
 export const ClipLoader: StyledComponentClass<ClipLoaderProps, "div"> = styled<ClipLoaderProps, "div">("div")`
   background: transparent;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
+  width: ${(props: any) => props.size}px;
+  height: ${(props: any) => props.size}px;
   border-radius: 100%;
   border: 2px solid;
   border-color: ${props => props.theme.clipLoaderColor};
