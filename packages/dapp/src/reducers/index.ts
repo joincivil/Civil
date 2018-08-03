@@ -1,6 +1,7 @@
 import { combineReducers, AnyAction } from "redux";
 import {
   listings,
+  listingsExtendedMetadata,
   listingsFetching,
   histories,
   applications,
@@ -17,7 +18,9 @@ import {
   resolveAppealListings,
   rejectedListings,
   ListingWrapperWithExpiry,
+  ListingExtendedMetadata,
   listingHistorySubscriptions,
+  rejectedListingLatestChallengeSubscriptions,
 } from "./listings";
 import {
   parameters,
@@ -60,6 +63,7 @@ export interface State {
 export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   listings: Map<string, ListingWrapperWithExpiry>;
+  listingsExtendedMetadata: Map<string, ListingExtendedMetadata>;
   listingsFetching: Map<string, any>;
   histories: Map<string, List<TimestampedEvent<any>>>;
   applications: Set<string>;
@@ -96,11 +100,13 @@ export interface NetworkDependentState {
   controller: string;
   appellateMembers: string[];
   listingHistorySubscriptions: Map<string, Subscription>;
+  rejectedListingLatestChallengeSubscriptions: Map<string, Subscription>;
 }
 
 const networkDependentReducers = combineReducers({
   currentUserNewsrooms,
   listings,
+  listingsExtendedMetadata,
   listingsFetching,
   histories,
   applications,
@@ -137,6 +143,7 @@ const networkDependentReducers = combineReducers({
   controller,
   appellateMembers,
   listingHistorySubscriptions,
+  rejectedListingLatestChallengeSubscriptions,
 });
 
 const networkDependent = (state: any, action: AnyAction) => {

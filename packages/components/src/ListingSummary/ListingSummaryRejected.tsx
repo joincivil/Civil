@@ -12,7 +12,7 @@ import {
 } from "./styledComponents";
 
 export interface ListingSummaryRejectedComponentProps {
-  address?: EthAddress;
+  listingAddress?: EthAddress;
   name?: string;
   listingDetailURL?: string;
 }
@@ -33,11 +33,11 @@ export class ListingSummaryRejectedComponent extends React.Component<
         <StyledListingSummarySection>
           <ChallengeResultsContain>
             <ChallengeResults
-              totalVotes={"100000"}
-              votesFor={"73000"}
-              votesAgainst={"27000"}
-              percentFor={"73"}
-              percentAgainst={"27"}
+              totalVotes={this.props.totalVotes}
+              votesFor={this.props.votesFor}
+              votesAgainst={this.props.votesAgainst}
+              percentFor={this.props.percentFor}
+              percentAgainst={this.props.percentAgainst}
             />
           </ChallengeResultsContain>
           <InvertedButton size={buttonSizes.SMALL} to={this.props.listingDetailURL}>

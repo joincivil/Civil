@@ -1,18 +1,17 @@
 import { List } from "immutable";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { setupListingHistorySubscription } from "../../actionCreators/listings";
 import { State } from "../../reducers";
+import { getListingHistory } from "../../selectors";
 import ListingEvent from "./ListingEvent";
 import { ListingTabHeading } from "./styledComponents";
 
 export interface ListingHistoryProps {
-  listing: string;
+  listingAddress: string;
 }
 
-export interface ListingHistoryReduxProps {
+export interface ListingHistoryReduxProps extends ListingHistoryProps {
   listingHistory: List<any>;
-  listing: string;
 }
 
 export interface ListingHistoryState {
@@ -27,16 +26,12 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
     };
   }
 
-  public async componentDidMount(): Promise<void> {
-    this.props.dispatch!(await setupListingHistorySubscription(this.props.listing));
-  }
-
   public render(): JSX.Element {
     return (
       <>
         <ListingTabHeading>Listing History</ListingTabHeading>
         {this.props.listingHistory.map((e, i) => {
-          return <ListingEvent key={i} event={e} listing={this.props.listing} />;
+          return <ListingEvent key={i} event={e} listing={this.props.listingAddress} />;
         })}
       </>
     );
@@ -44,10 +39,9 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
 }
 
 const mapToStateToProps = (state: State, ownProps: ListingHistoryProps): ListingHistoryReduxProps => {
-  const { histories } = state.networkDependent;
   return {
     ...ownProps,
-    listingHistory: histories.get(ownProps.listing) || List(),
+    listingHistory: getListingHistory(state, ownProps),
   };
 };
 
