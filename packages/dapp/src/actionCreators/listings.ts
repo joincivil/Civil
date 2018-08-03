@@ -169,7 +169,7 @@ export const setupRejectedListingLatestChallengeSubscription = async (listingID:
     if (!rejectedListingLatestChallengeSubscriptions.get(listingID)) {
       const listing = tcr.getListing(listingID);
       const subscription = listing
-        .getLatestChallengeSucceeded()
+        .latestChallengeSucceeded()
         .subscribe(async (event: TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined) => {
           if (!!event) {
             const challengeID = (event as any).args.challengeID;

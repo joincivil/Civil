@@ -12,7 +12,7 @@ import {
 } from "./styledComponents";
 
 export interface ListingSummaryRejectedComponentProps {
-  address?: EthAddress;
+  listingAddress?: EthAddress;
   name?: string;
   listingDetailURL?: string;
 }

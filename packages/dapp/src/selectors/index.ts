@@ -94,12 +94,6 @@ export const getChallenge = (state: State, props: ChallengeContainerProps) => {
   return challenge;
 };
 
-export const makeGetChallenge = () => {
-  return createSelector([getChallenge], challenge => {
-    return challenge;
-  });
-};
-
 export const getChallengeUserDataMap = (state: State, props: ChallengeContainerProps) => {
   const { challengeUserData } = state.networkDependent;
   let { challengeID } = props;

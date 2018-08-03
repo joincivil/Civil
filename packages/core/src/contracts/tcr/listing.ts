@@ -47,16 +47,6 @@ export class Listing {
     };
   }
 
-  public getLatestChallengeSucceeded(): BehaviorSubject<
-    TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined
-  > {
-    const subject = new BehaviorSubject<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined>(
-      undefined,
-    );
-    this.successfulChallenges().subscribe(subject);
-    return subject;
-  }
-
   //#region EventStreams
 
   public applications(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Application>> {
@@ -144,6 +134,16 @@ export class Listing {
   }
   public compositeEventsSubscription(start: number = 0): Subscription {
     return this.compositeObservables(start).subscribe();
+  }
+
+  public latestChallengeSucceeded(): BehaviorSubject<
+    TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined
+  > {
+    const subject = new BehaviorSubject<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined>(
+      undefined,
+    );
+    this.successfulChallenges().subscribe(subject);
+    return subject;
   }
 
   //#endregion

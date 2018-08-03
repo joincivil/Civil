@@ -43,7 +43,7 @@ class ListingListItemComponent extends React.Component<
   }
 
   private renderListing = (): JSX.Element => {
-    const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
+    const { listingAddress, listing, newsroom, listingPhaseState } = this.props;
     const listingData = listing!.data;
     let description = "";
     if (newsroom!.wrapper.data.charter) {
@@ -55,11 +55,11 @@ class ListingListItemComponent extends React.Component<
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
 
     const newsroomData = newsroom!.wrapper.data;
-    const listingDetailURL = `/listing/${address}`;
+    const listingDetailURL = `/listing/${listingAddress}`;
 
     const listingViewProps = {
       ...newsroomData,
-      address,
+      listingAddress,
       description,
       listingDetailURL,
       ...listingPhaseState,
@@ -78,13 +78,13 @@ class RejectedListing extends React.Component<ListingListItemOwnProps & ListingL
   }
 
   public render(): JSX.Element {
-    const { listingAddress: address, newsroom, listingPhaseState } = this.props;
+    const { listingAddress, newsroom, listingPhaseState } = this.props;
     const newsroomData = newsroom!.wrapper.data;
-    const listingDetailURL = `/listing/${address}`;
+    const listingDetailURL = `/listing/${listingAddress}`;
 
     const listingViewProps = {
       ...newsroomData,
-      address,
+      listingAddress,
       listingDetailURL,
       ...listingPhaseState,
     };
@@ -93,7 +93,7 @@ class RejectedListing extends React.Component<ListingListItemOwnProps & ListingL
       connectLatestChallengeSucceededResults,
     )(ListingSummaryRejectedComponent);
 
-    return <ListingSummaryRejected {...listingViewProps} listingAddress={address} />;
+    return <ListingSummaryRejected {...listingViewProps} />;
   }
 }
 

@@ -18,7 +18,7 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { setupRejectedListingLatestChallengeSubscription } from "../../actionCreators/listings";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
-import { getChallenge, makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
+import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
 import { State } from "../../reducers";
 
 const StyledPartialChallengeResultsHeader = styled.p`
@@ -53,63 +53,37 @@ export interface PhaseCountdownReduxProps {
   govtParameters: any;
 }
 
-export const mapStateToChallegeResultsProps = <TOriginalProps extends {}>(
-  state: State,
-  ownProps: TOriginalProps & ChallengeContainerProps,
-): TOriginalProps & ChallengeContainerProps & ChallengeResultsProps => {
-  const challengeData = getChallenge(state, ownProps);
-  let challengeResultsData: ChallengeResultsProps = {
-    totalVotes: "",
-    votesFor: "",
-    votesAgainst: "",
-    percentFor: "",
-    percentAgainst: "",
-  };
+const getChallengeResultsProps = (challengeData: WrappedChallengeData): ChallengeResultsProps => {
+  let totalVotes = "";
+  let votesFor = "";
+  let votesAgainst = "";
+  let percentFor = "";
+  let percentAgainst = "";
+
   if (challengeData) {
     const challenge = challengeData.challenge;
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor
-      .div(totalVotes)
+    const totalVotesBN = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    totalVotes = getFormattedTokenBalance(totalVotesBN);
+    votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    percentFor = challenge.poll.votesFor
+      .div(totalVotesBN)
       .mul(100)
       .toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotes)
+    percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotesBN)
       .mul(100)
       .toFixed(0);
-
-    challengeResultsData = {
-      totalVotes: getFormattedTokenBalance(totalVotes),
-      votesFor,
-      votesAgainst,
-      percentFor,
-      percentAgainst,
-    };
   }
 
-  // Can't use spread here b/c of TS issue with spread and generics
-  // https://github.com/Microsoft/TypeScript/pull/13288
-  // tslint:disable-next-line:prefer-object-spread
-  return Object.assign({}, challengeResultsData, ownProps);
-};
-
-/*
-export const withChallengeResults = <TOriginalProps extends {}>(PresentationComponent: React.ComponentClass<TOriginalProps & ChallengeResultsProps>) => {
-  const HOComponent: React.StatelessComponent<TOriginalProps & ChallengeContainerProps & ChallengeResultsProps & DispatchProp<any>> = props => {
-    return <PresentationComponent
-      totalVotes={getFormattedTokenBalance(totalVotes)}
-      votesFor={votesFor.toString()}
-      votesAgainst={votesAgainst.toString()}
-      percentFor={percentFor.toString()}
-      percentAgainst={percentAgainst.toString()}
-      {...this.props}
-    />
+  return {
+    totalVotes,
+    votesFor,
+    votesAgainst,
+    percentFor,
+    percentAgainst,
   };
-}
-*/
-
-// export const withChallengeResultsProps = <TOriginalProps extends {}>(PresentationComponent: ToriginalProps & ChallengeResultsProps>
+};
 
 /**
  * Generates a HO-Component Container for Challenge Succeeded/Failed Event
@@ -155,29 +129,11 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
         return null;
       }
 
-      const challenge = this.props.challengeData.challenge;
-      const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-      const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-      const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-      const percentFor = challenge.poll.votesFor
-        .div(totalVotes)
-        .mul(100)
-        .toFixed(0);
-      const percentAgainst = challenge.poll.votesAgainst
-        .div(totalVotes)
-        .mul(100)
-        .toFixed(0);
+      const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
 
       return (
         <>
-          <PresentationComponent
-            totalVotes={getFormattedTokenBalance(totalVotes)}
-            votesFor={votesFor.toString()}
-            votesAgainst={votesAgainst.toString()}
-            percentFor={percentFor.toString()}
-            percentAgainst={percentAgainst.toString()}
-            {...this.props}
-          />
+          <PresentationComponent {...challengeResultsProps} {...this.props} />
         </>
       );
     }
@@ -348,6 +304,11 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
   return connect(mapStateToProps)(HOContainer);
 };
 
+/**
+ * Generates a HO-Component Container for that gets the results latest Challenge Succeeded
+ * and passes those results to a Presentation Component -- most likely a component that
+ * displays a Rejected listing
+ */
 export const connectLatestChallengeSucceededResults = <TOriginalProps extends ListingContainerProps>(
   PresentationComponent:
     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
@@ -391,38 +352,11 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     }
 
     public render(): JSX.Element | null {
-      let totalVotes = "";
-      let votesFor = "";
-      let votesAgainst = "";
-      let percentFor = "";
-      let percentAgainst = "";
-
-      if (this.props.challengeData) {
-        const challenge = this.props.challengeData.challenge;
-        const totalVotesBN = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-        totalVotes = getFormattedTokenBalance(totalVotesBN);
-        votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-        votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-        percentFor = challenge.poll.votesFor
-          .div(totalVotesBN)
-          .mul(100)
-          .toFixed(0);
-        percentAgainst = challenge.poll.votesAgainst
-          .div(totalVotesBN)
-          .mul(100)
-          .toFixed(0);
-      }
+      const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
 
       return (
         <>
-          <PresentationComponent
-            totalVotes={totalVotes}
-            votesFor={votesFor}
-            votesAgainst={votesAgainst}
-            percentFor={percentFor}
-            percentAgainst={percentAgainst}
-            {...this.props}
-          />
+          <PresentationComponent {...challengeResultsProps} {...this.props} />
         </>
       );
     }
@@ -446,6 +380,11 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
   return connect(makeMapStateToProps)(HOChallengeResultsContainer);
 };
 
+/**
+ * Generates a HO-Component Container for that gets the Challenge data
+ * (challenger, reward pool, etc) * and passes those results to a
+ * Presentation Component
+ */
 export const connectChallengePhase = <TChallengeContainerProps extends ChallengeContainerProps>(
   PhaseCardComponent:
     | React.ComponentClass<TChallengeContainerProps & ChallengePhaseProps>
