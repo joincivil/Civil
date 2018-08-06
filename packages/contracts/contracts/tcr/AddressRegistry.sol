@@ -1,3 +1,4 @@
+// solium-disable
 pragma solidity ^0.4.11;
 
 import "../installed_contracts/EIP20Interface.sol";

@@ -314,32 +314,32 @@ contract CivilTCR is RestrictedAddressRegistry {
     }
   }
 
-    /**
-    @dev                Called by a voter to claim their reward for each completed vote. Someone
-                        must call updateStatus() before this can be called.
-    @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
-    @param _salt        The salt of a voter's commit hash in the given poll
-    */
-    function claimReward(uint _challengeID, uint _salt) public {
-      // Ensures the voter has not already claimed tokens and challenge results have been processed
-      require(challenges[_challengeID].tokenClaims[msg.sender] == false);
-      require(challenges[_challengeID].resolved == true);
+  /**
+  @dev                Called by a voter to claim their reward for each completed vote. Someone
+                      must call updateStatus() before this can be called.
+  @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
+  @param _salt        The salt of a voter's commit hash in the given poll
+  */
+  function claimReward(uint _challengeID, uint _salt) public {
+    // Ensures the voter has not already claimed tokens and challenge results have been processed
+    require(challenges[_challengeID].tokenClaims[msg.sender] == false);
+    require(challenges[_challengeID].resolved == true);
 
-      uint voterTokens = getNumChallengeTokens(msg.sender, _challengeID, _salt);
-      uint reward = voterReward(msg.sender, _challengeID, _salt);
+    uint voterTokens = getNumChallengeTokens(msg.sender, _challengeID, _salt);
+    uint reward = voterReward(msg.sender, _challengeID, _salt);
 
-      // Subtracts the voter's information to preserve the participation ratios
-      // of other voters compared to the remaining pool of rewards
-      challenges[_challengeID].totalTokens -= voterTokens;
-      challenges[_challengeID].rewardPool -= reward;
+    // Subtracts the voter's information to preserve the participation ratios
+    // of other voters compared to the remaining pool of rewards
+    challenges[_challengeID].totalTokens -= voterTokens;
+    challenges[_challengeID].rewardPool -= reward;
 
-      // Ensures a voter cannot claim tokens again
-      challenges[_challengeID].tokenClaims[msg.sender] = true;
+    // Ensures a voter cannot claim tokens again
+    challenges[_challengeID].tokenClaims[msg.sender] = true;
 
-      require(token.transfer(msg.sender, reward));
+    require(token.transfer(msg.sender, reward));
 
-      emit _RewardClaimed(_challengeID, reward, msg.sender);
-    }
+    emit _RewardClaimed(_challengeID, reward, msg.sender);
+  }
 
   /**
   @notice gets the number of tokens the voter staked on the winning side of the challenge,
