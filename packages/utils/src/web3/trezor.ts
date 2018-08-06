@@ -39,34 +39,39 @@ export function getTrezorWeb3(network: string, path: string = "m/44'/60'/0'/0/0"
     approveTransaction(_: any, cb: (err: any, res?: any) => any): void {
       cb(null, true);
     },
-    signTransaction(txData: any, cb: (err: any, res?: any) => any): void {
-      TrezorConnect.ethereumSignTx(
-        path, // address path - either array or string, see example
-        toTrezorHex(txData.nonce), // nonce - hexadecimal string
-        toTrezorHex(txData.gasPrice), // gas price - hexadecimal string
-        toTrezorHex(txData.gas), // gas limit - hexadecimal string
-        txData.to ? toTrezorHex(txData.to) : null, // address
-        toTrezorHex(txData.value), // value in wei, hexadecimal string
-        txData.data ? toTrezorHex(txData.data) : null, // data, hexadecimal string OR null for no data
-        parseInt(network, 16), // chain id for EIP-155 - is only used in fw 1.4.2 and newer, older will ignore it
-        (response: any) => {
-          if (response.success) {
-            txData.value = txData.value || "0x00";
-            txData.data = addHexPrefix(txData.data);
-            txData.gasPrice = parseInt(txData.gasPrice, 16);
-            txData.nonce = parseInt(txData.nonce, 16);
-            txData.gasLimit = txData.gas;
-            txData.v = response.v;
-            txData.s = "0x" + response.s;
-            txData.r = "0x" + response.r;
-            // Sign transaction
-            const tx = new EthereumTx(txData);
-            cb(null, "0x" + tx.serialize().toString("hex"));
-          } else {
-            cb(response.error);
-          }
-        },
-      );
+    async signTransaction(txData: any, cb: (err: any, res?: any) => any): Promise<void> {
+      const transaction = {
+        to: toTrezorHex(txData.to),
+        value: toTrezorHex(txData.value),
+        data: toTrezorHex(txData.data),
+        chainId: parseInt(network, 16),
+        gasLimit: toTrezorHex(txData.gas),
+        gasPrice: toTrezorHex(txData.gasPrice),
+      };
+
+      try {
+        const { v, s, r } = await TrezorConnect.signTransaction({
+          path,
+          transaction,
+        });
+
+        const res = {
+          value: txData.value || "0x00",
+          data: addHexPrefix(txData.data),
+          gasPrice: parseInt(txData.gasPrice, 16),
+          nonce: parseInt(txData.nonce, 16),
+          gasLimit: txData.gas,
+          v,
+          s: "0x" + s,
+          r: "0x" + r,
+        };
+
+        const tx = new EthereumTx(res);
+        cb(null, "0x" + tx.serialize().toString("hex"));
+      } catch (err) {
+        cb(err);
+        return;
+      }
     },
   });
 }

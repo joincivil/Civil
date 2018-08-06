@@ -14,5 +14,5 @@ storiesOf("WalletSelector", module).add("selector", () => {
   const handleProviderChange = (web3: Web3, providerType: ProviderType, account: EthAddress) => {
     console.log({ web3, providerType, account });
   };
-  return <WalletSelector network={4} onProviderChange={handleProviderChange} />;
+  return <WalletSelector network={"4"} onProviderChange={handleProviderChange} />;
 });
