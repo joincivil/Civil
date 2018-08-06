@@ -6,7 +6,7 @@ export class WalletSelectorModal extends React.Component {
   public render(): JSX.Element {
     return (
       <FullScreenModal open={true}>
-        <WalletSelector network={4} />
+        <WalletSelector network={"4"} />
       </FullScreenModal>
     );
   }

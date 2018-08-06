@@ -1,5 +1,7 @@
+// @ts-ignore
 import HookedWalletSubprovider = require("web3-provider-engine/subproviders/hooked-wallet");
-import * as TrezorConnect from "trezor-connect";
+// @ts-ignore
+import TrezorConnect from "trezor-connect";
 import * as Web3 from "web3";
 import { addHexPrefix } from "ethereumjs-util";
 import EthereumTx = require("ethereumjs-tx");
@@ -23,7 +25,7 @@ function toTrezorHex(hex: string): string | undefined {
 }
 // Inspired by github.com/gnosis/MultiSigWallet/blob/6f1f8fc37fd53a7c87548997cc603755b5d2cca1/dapp/services/Web3Service.js#L349-L408
 
-export function getTrezorWeb3(networkId: string = "4", path: string = "m/44'/60'/0'/0/0"): Web3 {
+export function getTrezorWeb3(network: string, path: string = "m/44'/60'/0'/0/0"): Web3 {
   return new HookedWalletSubprovider({
     getAccounts(cb: (err: any, res?: any) => any): void {
       TrezorConnect.ethereumGetAddress(path, (response: any) => {
@@ -46,7 +48,7 @@ export function getTrezorWeb3(networkId: string = "4", path: string = "m/44'/60'
         txData.to ? toTrezorHex(txData.to) : null, // address
         toTrezorHex(txData.value), // value in wei, hexadecimal string
         txData.data ? toTrezorHex(txData.data) : null, // data, hexadecimal string OR null for no data
-        parseInt(networkId, 16), // chain id for EIP-155 - is only used in fw 1.4.2 and newer, older will ignore it
+        parseInt(network, 16), // chain id for EIP-155 - is only used in fw 1.4.2 and newer, older will ignore it
         (response: any) => {
           if (response.success) {
             txData.value = txData.value || "0x00";

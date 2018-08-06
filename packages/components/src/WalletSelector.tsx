@@ -13,7 +13,7 @@ import {
 } from "@joincivil/utils";
 
 export interface IWalletSelectorProps {
-  networkId: string;
+  network: string;
   onProviderChange?(web3: Web3, providerType: ProviderType | undefined, account?: EthAddress): void;
 }
 
@@ -22,6 +22,7 @@ export interface IWalletSelectorState {
   hasLoaded: boolean;
   isHTTPS: boolean;
   hasLedger: boolean;
+  hasTrezor: boolean;
 }
 
 function getIsHTTPS(): boolean {
@@ -38,6 +39,7 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
       hasLoaded: false,
       isHTTPS: false,
       hasLedger: false,
+      hasTrezor: false,
     };
   }
   public async componentDidMount(): Promise<void> {
@@ -60,8 +62,8 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
     }
   };
   public handleSelectTrezor = async () => {
-    const { onProviderChange } = this.props;
-    const web3 = await getTrezorWeb3();
+    const { onProviderChange, network } = this.props;
+    const web3 = await getTrezorWeb3(network);
     const accounts = await getAccountsPromise(web3);
 
     const account = accounts[0];
@@ -71,8 +73,8 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
     }
   };
   public handleSelectLedger = async () => {
-    const { onProviderChange } = this.props;
-    const web3 = await getLedgerWeb3();
+    const { onProviderChange, network } = this.props;
+    const web3 = await getLedgerWeb3(network);
     const accounts = await getAccountsPromise(web3);
 
     const account = accounts[0];
@@ -120,6 +122,22 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
     );
   }
 
+  public renderTrezorSelector(): JSX.Element {
+    const { hasTrezor } = this.state;
+
+    if (!hasTrezor) {
+      return <li>Maybe you should get a Trezor?</li>;
+    }
+
+    return (
+      <>
+        <li>
+          <button onClick={this.handleSelectLedger}>Trezor</button>
+        </li>
+      </>
+    );
+  }
+
   public renderReadOnly(): JSX.Element {
     return (
       <>
@@ -138,9 +156,7 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
         <ul>
           {this.renderBrowserSelector()}
           {this.renderLedgerSelector()}
-          {/* <li>
-            <button onClick={this.handleSelectTrezor}>Trezor</button>
-          </li> */}
+          {this.renderTrezorSelector()}
           {this.renderReadOnly()}
         </ul>
       </div>
