@@ -146,5 +146,23 @@ export class Listing {
     return subject;
   }
 
+  public latestWhitelisted(): BehaviorSubject<
+    TimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted> | undefined
+  > {
+    const subject = new BehaviorSubject<TimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted> | undefined>(
+      undefined,
+    );
+    this.whitelisteds().subscribe(subject);
+    return subject;
+  }
+
+  public latestListingRemoved(): BehaviorSubject<TimestampedEvent<CivilTCR.LogEvents._ListingRemoved> | undefined> {
+    const subject = new BehaviorSubject<TimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved> | undefined>(
+      undefined,
+    );
+    this.listingRemoveds().subscribe(subject);
+    return subject;
+  }
+
   //#endregion
 }

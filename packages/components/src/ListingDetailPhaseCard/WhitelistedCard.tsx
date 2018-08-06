@@ -1,4 +1,5 @@
 import * as React from "react";
+import { getLocalDateTimeStrings } from "@joincivil/utils";
 import { ListingDetailPhaseCardComponentProps, SubmitChallengeProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
@@ -11,37 +12,48 @@ import {
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 
-export class WhitelistedCard extends React.Component<ListingDetailPhaseCardComponentProps & SubmitChallengeProps> {
-  public render(): JSX.Element {
+export interface WhitelistedCardProps {
+  whitelistedTimestamp?: number;
+}
+
+export const WhitelistedCard: React.StatelessComponent<
+  ListingDetailPhaseCardComponentProps & SubmitChallengeProps & WhitelistedCardProps
+> = props => {
+  let displayDateTime;
+
+  if (props.whitelistedTimestamp) {
+    const listingRemovedDateTime = getLocalDateTimeStrings(props.whitelistedTimestamp);
+    displayDateTime = `${listingRemovedDateTime[0]} ${listingRemovedDateTime[1]}`;
+  }
+
+  return (
+    <StyledListingDetailPhaseCardContainer>
+      <StyledListingDetailPhaseCardSection>
+        <StyledPhaseDisplayName>Approved Newsroom</StyledPhaseDisplayName>
+        <MetaItemValue>{displayDateTime}</MetaItemValue>
+        <MetaItemLabel>Approved date</MetaItemLabel>
+      </StyledListingDetailPhaseCardSection>
+      <StyledListingDetailPhaseCardSection>
+        <CTACopy>
+          If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
+          <a href="#">submit a challenge</a>.
+        </CTACopy>
+        {renderSubmitChallengeButton(props)}
+      </StyledListingDetailPhaseCardSection>
+    </StyledListingDetailPhaseCardContainer>
+  );
+};
+
+const renderSubmitChallengeButton: React.StatelessComponent<
+  ListingDetailPhaseCardComponentProps & SubmitChallengeProps & WhitelistedCardProps
+> = props => {
+  if (props.handleSubmitChallenge) {
     return (
-      <StyledListingDetailPhaseCardContainer>
-        <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>Approved Newsroom</StyledPhaseDisplayName>
-          <MetaItemValue>May 5, 2018, 8:30 GMT-0400</MetaItemValue>
-          <MetaItemLabel>Approved date</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <CTACopy>
-            If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
-            <a href="#">submit a challenge</a>.
-          </CTACopy>
-          {this.renderSubmitChallengeButton()}
-        </StyledListingDetailPhaseCardSection>
-      </StyledListingDetailPhaseCardContainer>
+      <InvertedButton size={buttonSizes.MEDIUM} onClick={props.handleSubmitChallenge}>
+        Submit a Challenge
+      </InvertedButton>
     );
   }
 
-  private renderSubmitChallengeButton = (): JSX.Element => {
-    if (this.props.handleSubmitChallenge) {
-      return (
-        <InvertedButton size={buttonSizes.MEDIUM} onClick={this.props.handleSubmitChallenge}>
-          Submit a Challenge
-        </InvertedButton>
-      );
-    }
-
-    return (
-      <TransactionInvertedButton transactions={this.props.transactions!}>Submit a Challenge</TransactionInvertedButton>
-    );
-  };
-}
+  return <TransactionInvertedButton transactions={props.transactions!}>Submit a Challenge</TransactionInvertedButton>;
+};

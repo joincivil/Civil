@@ -21,6 +21,8 @@ import {
   ListingExtendedMetadata,
   listingHistorySubscriptions,
   rejectedListingLatestChallengeSubscriptions,
+  whitelistedSubscriptions,
+  rejectedListingRemovedSubscriptions,
 } from "./listings";
 import {
   parameters,
@@ -100,7 +102,9 @@ export interface NetworkDependentState {
   controller: string;
   appellateMembers: string[];
   listingHistorySubscriptions: Map<string, Subscription>;
+  rejectedListingRemovedSubscriptions: Map<string, Subscription>;
   rejectedListingLatestChallengeSubscriptions: Map<string, Subscription>;
+  whitelistedSubscriptions: Map<string, Subscription>;
 }
 
 const networkDependentReducers = combineReducers({
@@ -143,7 +147,9 @@ const networkDependentReducers = combineReducers({
   controller,
   appellateMembers,
   listingHistorySubscriptions,
+  rejectedListingRemovedSubscriptions,
   rejectedListingLatestChallengeSubscriptions,
+  whitelistedSubscriptions,
 });
 
 const networkDependent = (state: any, action: AnyAction) => {

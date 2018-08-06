@@ -226,3 +226,23 @@ export const makeGetLatestChallengeSucceededChallengeID = () => {
     return;
   });
 };
+
+export const makeGetLatestListingRemovedTimestamp = () => {
+  return createSelector([getListingExtendedMetadata], listingExtendedMetadata => {
+    if (listingExtendedMetadata && listingExtendedMetadata.listingRemovedTimestamp) {
+      const { listingRemovedTimestamp } = listingExtendedMetadata;
+      return listingRemovedTimestamp;
+    }
+    return;
+  });
+};
+
+export const makeGetLatestWhitelistedTimestamp = () => {
+  return createSelector([getListingExtendedMetadata], listingExtendedMetadata => {
+    if (listingExtendedMetadata && listingExtendedMetadata.whitelistedTimestamp) {
+      const { whitelistedTimestamp } = listingExtendedMetadata;
+      return whitelistedTimestamp;
+    }
+    return;
+  });
+};
