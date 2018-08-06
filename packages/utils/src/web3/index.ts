@@ -4,6 +4,7 @@ import ProviderEngine = require("web3-provider-engine");
 import RpcSubprovider = require("web3-provider-engine/subproviders/rpc");
 
 export * from "./ledger";
+export * from "./trezor";
 
 export enum ProviderType {
   METAMASK = "Metamask",

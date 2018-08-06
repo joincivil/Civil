@@ -7,13 +7,13 @@ import {
   getLedgerWeb3,
   getHasLedger,
   getHardwareWeb3,
-  // getTrezorWeb3,  // TODO(jorgelo): Add this back.
+  getTrezorWeb3,
   ProviderType,
   getAccountsPromise,
 } from "@joincivil/utils";
 
 export interface IWalletSelectorProps {
-  network: number;
+  networkId: string;
   onProviderChange?(web3: Web3, providerType: ProviderType | undefined, account?: EthAddress): void;
 }
 
@@ -59,17 +59,17 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
       onProviderChange(web3, providerType, account);
     }
   };
-  // public handleSelectTrezor = async () => {
-  //   const { onProviderChange } = this.props;
-  //   const web3 = await getTrezorWeb3();
-  //   const accounts = await getAccountsPromise(web3);
+  public handleSelectTrezor = async () => {
+    const { onProviderChange } = this.props;
+    const web3 = await getTrezorWeb3();
+    const accounts = await getAccountsPromise(web3);
 
-  //   const account = accounts[0];
+    const account = accounts[0];
 
-  //   if (onProviderChange) {
-  //     onProviderChange(web3, ProviderType.TREZOR, account);
-  //   }
-  // };
+    if (onProviderChange) {
+      onProviderChange(web3, ProviderType.TREZOR, account);
+    }
+  };
   public handleSelectLedger = async () => {
     const { onProviderChange } = this.props;
     const web3 = await getLedgerWeb3();

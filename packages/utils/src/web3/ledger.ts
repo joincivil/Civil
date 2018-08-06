@@ -10,7 +10,7 @@ export async function getHasLedger(): Promise<boolean> {
   return !!ledgerWalletFactory.isSupported;
 }
 
-export async function getLedgerWeb3(networkId: number = 4, path: string = `44'/60'/0'/0`): Promise<Web3> {
+export async function getLedgerWeb3(networkId: string = "4", path: string = `44'/60'/0'/0`): Promise<Web3> {
   const ledgerWalletFactory = await LedgerWalletFactory(() => networkId, path);
 
   // if (!ledgerWalletFactory.isSupported) {
