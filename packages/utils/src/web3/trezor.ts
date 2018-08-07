@@ -5,6 +5,7 @@ import TrezorConnect from "trezor-connect";
 import * as Web3 from "web3";
 import { addHexPrefix } from "ethereumjs-util";
 import EthereumTx = require("ethereumjs-tx");
+import { getHardwareWeb3 } from "./index";
 
 function toTrezorHex(hex: string): string | undefined {
   let trezorHex;
@@ -26,7 +27,7 @@ function toTrezorHex(hex: string): string | undefined {
 // Inspired by github.com/gnosis/MultiSigWallet/blob/6f1f8fc37fd53a7c87548997cc603755b5d2cca1/dapp/services/Web3Service.js#L349-L408
 
 export function getTrezorWeb3(network: string, path: string = "m/44'/60'/0'/0/0"): Web3 {
-  return new HookedWalletSubprovider({
+  const trezorProvider = new HookedWalletSubprovider({
     getAccounts(cb: (err: any, res?: any) => any): void {
       TrezorConnect.ethereumGetAddress(path, (response: any) => {
         if (response.success) {
@@ -39,6 +40,17 @@ export function getTrezorWeb3(network: string, path: string = "m/44'/60'/0'/0/0"
     approveTransaction(_: any, cb: (err: any, res?: any) => any): void {
       cb(null, true);
     },
+    signMessage(data: string, account: any, cb: (err: any, res?: any) => any) {
+      TrezorConnect.ethereumSignMessage(path, data, (result: any) => {
+        const { payload, success } = result;
+
+        if (!success) {
+          cb(payload.error);
+          return;
+        }
+        cb(undefined, payload.signature);
+      });
+    },
     async signTransaction(txData: any, cb: (err: any, res?: any) => any): Promise<void> {
       const transaction = {
         to: toTrezorHex(txData.to),
@@ -50,7 +62,7 @@ export function getTrezorWeb3(network: string, path: string = "m/44'/60'/0'/0/0"
       };
 
       try {
-        const { v, s, r } = await TrezorConnect.signTransaction({
+        const { v, s, r } = await TrezorConnect.ethereumSignTransaction({
           path,
           transaction,
         });
@@ -74,4 +86,6 @@ export function getTrezorWeb3(network: string, path: string = "m/44'/60'/0'/0/0"
       }
     },
   });
+
+  return getHardwareWeb3(trezorProvider);
 }

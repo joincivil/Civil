@@ -39,7 +39,7 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
       hasLoaded: false,
       isHTTPS: false,
       hasLedger: false,
-      hasTrezor: false,
+      hasTrezor: true,
     };
   }
   public async componentDidMount(): Promise<void> {
@@ -64,8 +64,11 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
   public handleSelectTrezor = async () => {
     const { onProviderChange, network } = this.props;
     const web3 = await getTrezorWeb3(network);
-    const accounts = await getAccountsPromise(web3);
 
+    console.log({ web3 });
+
+    const accounts = await getAccountsPromise(web3);
+    console.log({ accounts });
     const account = accounts[0];
 
     if (onProviderChange) {
@@ -132,7 +135,7 @@ export class WalletSelector extends React.Component<IWalletSelectorProps, IWalle
     return (
       <>
         <li>
-          <button onClick={this.handleSelectLedger}>Trezor</button>
+          <button onClick={this.handleSelectTrezor}>Trezor</button>
         </li>
       </>
     );
