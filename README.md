@@ -14,6 +14,12 @@ We hope that those tools will be useful for creation of interesting applications
 [![Gitter chat](https://badges.gitter.im/joincivil/Lobby.png)](https://gitter.im/joincivil/Lobby)
 [![Telegram chat](https://img.shields.io/badge/chat-telegram-blue.svg)](https://t.me/join_civil)
 
+Most of the packages require additional typings for external dependencies. You can include those by prepending @joincivil/typescript-typings package to your typeRoots config.
+
+```json
+"typeRoots": ["node_modules/@joincivil/typescript-typings/types", "node_modules/@types"],
+```
+
 ### Published packages
 
 | Package                                                         | NPM                                                                                                                                       | Description                                                            |
