@@ -427,7 +427,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/handlebars@4.0.39":
+"@types/handlebars@^4.0.36":
   version "4.0.39"
   resolved "https://registry.yarnpkg.com/@types/handlebars/-/handlebars-4.0.39.tgz#961fb54db68030890942e6aeffe9f93a957807bd"
 
@@ -450,9 +450,9 @@
     csstype "^2.0.0"
     indefinite-observable "^1.0.1"
 
-"@types/lodash@^4.14.99":
-  version "4.14.112"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.112.tgz#4a8d8e5716b97a1ac01fe1931ad1e4cba719de5a"
+"@types/lodash@4.14.116":
+  version "4.14.116"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.116.tgz#5ccf215653e3e8c786a58390751033a9adca0eb9"
 
 "@types/minimatch@*":
   version "3.0.3"
