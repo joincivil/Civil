@@ -288,13 +288,18 @@ storiesOf("Listing Details Phase Card", module)
     );
   })
   .add("Whitelisted", () => {
-    return <Container>{process.env.NODE_ENV !== "test" && <WhitelistedCard transactions={[]} />}</Container>;
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && <WhitelistedCard whitelistedTimestamp={now} transactions={[]} />}
+      </Container>
+    );
   })
   .add("Rejected", () => {
     return (
       <Container>
         {process.env.NODE_ENV !== "test" && (
           <RejectedCard
+            listingRemovedTimestamp={now}
             totalVotes={totalVotes}
             votesFor={votesFor}
             votesAgainst={votesAgainst}
