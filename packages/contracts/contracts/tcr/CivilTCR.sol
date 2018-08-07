@@ -65,16 +65,15 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param paramsAddr Address of a Parameterizer contract
   @param govt IGovernment contract
   */
-  function initTCR(
+  constructor(
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
     IGovernment govt
-  ) public
+  ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr, "CivilTCR")
   {
-    init(tokenAddr, plcrAddr, paramsAddr, "CivilTCR");
     civilVoting = CivilPLCRVoting(plcrAddr);
-    require(address(govt) != 0 && address(government) == 0);
+    require(address(govt) != 0);
     require(govt.getGovernmentController() != 0);
     government = govt;
   }

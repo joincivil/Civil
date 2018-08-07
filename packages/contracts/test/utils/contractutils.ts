@@ -221,8 +221,7 @@ async function createTestRegistryInstance(registryContract: any, parameterizer: 
   const parameterizerAddress = await parameterizer.address;
   const token = await Token.at(tokenAddress);
 
-  const registry = await registryContract.new();
-  await registry.init(tokenAddress, plcrAddress, parameterizerAddress, "registry");
+  const registry = await registryContract.new(tokenAddress, plcrAddress, parameterizerAddress, "registry");
 
   await approveRegistryFor(accounts.slice(0, 8));
   return registry;
@@ -258,8 +257,7 @@ async function createTestCivilTCRInstance(
     "http://madeupURL.com",
   );
 
-  const registry = await CivilTCR.new();
-  await registry.initTCR(tokenAddress, plcrAddress, parameterizerAddress, government.address);
+  const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);
 
   await approveRegistryFor(accounts.slice(0, 8));
   return registry;

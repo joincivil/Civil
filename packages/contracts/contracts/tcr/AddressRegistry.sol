@@ -60,10 +60,10 @@ contract AddressRegistry {
     @dev Initializer. Can only be called once.
     @param _token The address where the ERC20 token contract is deployed
     */
-    function init(address _token, address _voting, address _parameterizer, string _name) public {
-        require(_token != 0 && address(token) == 0);
-        require(_voting != 0 && address(voting) == 0);
-        require(_parameterizer != 0 && address(parameterizer) == 0);
+    constructor(address _token, address _voting, address _parameterizer, string _name) public {
+        require(_token != 0);
+        require(_voting != 0);
+        require(_parameterizer != 0);
 
         token = EIP20Interface(_token);
         voting = PLCRVoting(_voting);

@@ -12,6 +12,9 @@ contract RestrictedAddressRegistry is ContractAddressRegistry {
     _;
   }
 
+  constructor(address _token, address _voting, address _parameterizer, string _name) public ContractAddressRegistry(_token, _voting, _parameterizer, _name) {
+  }
+
   // --------------------
   // PUBLISHER INTERFACE:
   // --------------------
