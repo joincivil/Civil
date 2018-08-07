@@ -88,7 +88,7 @@ contract("Registry with Appeals", accounts => {
         .mul(new BigNumber(utils.paramConfig.appealFeeAmount))
         .div(new BigNumber(100));
       const expectedEndingBalance = balanceBeforeClaiming.add(reward);
-      expect(balanceBeforeClaiming.add(reward)).to.be.bignumber.equal(balanceAfterClaiming);
+      expect(expectedEndingBalance).to.be.bignumber.equal(balanceAfterClaiming);
     });
 
     it("should transfer the correct number of tokens once an appeal challenge has been resolved with different amount of votes in each challenge and 2 voters each", async () => {
@@ -128,7 +128,7 @@ contract("Registry with Appeals", accounts => {
         .div(new BigNumber(100))
         .mul(new BigNumber(50).div(new BigNumber(500)));
       const expectedEndingBalance = balanceBeforeClaiming.add(reward);
-      expect(balanceBeforeClaiming.add(reward)).to.be.bignumber.equal(balanceAfterClaiming);
+      expect(expectedEndingBalance).to.be.bignumber.equal(balanceAfterClaiming);
     });
 
     it("should revert if appeal challenge does not exist", async () => {
