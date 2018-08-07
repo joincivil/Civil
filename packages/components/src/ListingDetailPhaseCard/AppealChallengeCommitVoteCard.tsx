@@ -15,7 +15,7 @@ import {
   FormCopy,
 } from "./styledComponents";
 import { buttonSizes, Button } from "../Button";
-import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
+import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
 
 export class AppealChallengeCommitVoteCard extends React.Component<
@@ -26,11 +26,13 @@ export class AppealChallengeCommitVoteCard extends React.Component<
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>Challenge Appeal Decision</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
+          <TwoPhaseProgressBarCountdownTimer
             endTime={this.props.endTime}
             totalSeconds={this.props.phaseLength}
             displayLabel="Accepting votes"
+            secondaryDisplayLabel="Revealing Votes"
             flavorText="under challenge"
+            activePhaseIndex={0}
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>

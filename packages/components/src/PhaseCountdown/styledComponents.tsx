@@ -3,7 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 
 export const ProgressBarCountdownContainer = styled.div`
-  margin: 0 0 24px;
+  margin-bottom: 24px;
 `;
 export const ProgressBarDisplayLabel = styled.h4`
   font-size: 16px;
@@ -34,6 +34,27 @@ export const StyledProgressBarCountdownTimer = styled.div`
   font-family: ${fonts.SANS_SERIF};
   text-align: left;
 `;
+
+export const TwoPhaseProgressBarContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  ${ProgressBarCountdownContainer}${ProgressBarCountdownContainer} {
+    width: 46%;
+    margin-left: 4%;
+  }
+  ${ProgressBarCountdownContainer}${ProgressBarCountdownContainer}:first-of-type {
+    border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    margin-left: 0;
+    padding-right: 4%;
+  }
+
+  ${ProgressBarDisplayLabel} {
+    font-size: 12px;
+    line-height: 15px;
+  }
+`;
+
 export const MetaItem = styled.div`
   margin: 0 0 16px;
 `;

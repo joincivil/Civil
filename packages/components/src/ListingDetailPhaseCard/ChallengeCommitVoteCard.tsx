@@ -12,7 +12,7 @@ import {
   MetaItemValue,
   MetaItemLabel,
 } from "./styledComponents";
-import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
+import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
 
 export class ChallengeCommitVoteCard extends React.Component<
@@ -23,11 +23,13 @@ export class ChallengeCommitVoteCard extends React.Component<
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
+          <TwoPhaseProgressBarCountdownTimer
             endTime={this.props.endTime}
             totalSeconds={this.props.phaseLength}
             displayLabel="Accepting votes"
+            secondaryDisplayLabel="Confirming Votes"
             flavorText="under challenge"
+            activePhaseIndex={0}
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>

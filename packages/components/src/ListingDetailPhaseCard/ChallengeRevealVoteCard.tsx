@@ -14,7 +14,7 @@ import {
   FormHeader,
   FormCopy,
 } from "./styledComponents";
-import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
+import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { RevealVote } from "./RevealVote";
 
 export class ChallengeRevealVoteCard extends React.Component<
@@ -25,11 +25,13 @@ export class ChallengeRevealVoteCard extends React.Component<
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
+          <TwoPhaseProgressBarCountdownTimer
             endTime={this.props.endTime}
             totalSeconds={this.props.phaseLength}
             displayLabel="Revealing votes"
+            secondaryDisplayLabel="Accepting Votes"
             flavorText="under challenge"
+            activePhaseIndex={1}
           />
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>

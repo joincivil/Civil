@@ -16,3 +16,8 @@ export interface ProgressBarCountdownProps extends CountdownTimerProps {
   totalSeconds: number;
   flavorText?: string;
 }
+
+export interface TwoPhaseProgressBarCountdownProps extends ProgressBarCountdownProps {
+  activePhaseIndex: number;
+  secondaryDisplayLabel: string;
+}
