@@ -20,7 +20,7 @@ import {
 } from "../ApplicationPhaseStatusLabels";
 
 export interface ListingSummaryComponentProps {
-  address?: EthAddress;
+  listingAddress?: EthAddress;
   name?: string;
   description?: string;
   listingDetailURL?: string;

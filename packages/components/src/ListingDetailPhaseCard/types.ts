@@ -3,6 +3,7 @@ import { EthAddress } from "@joincivil/core";
 export interface ListingDetailPhaseCardComponentProps {
   challenge?: any;
   listing?: any;
+  listingAddress?: EthAddress;
   transactions?: any[];
   modalContentComponents?: any;
 }

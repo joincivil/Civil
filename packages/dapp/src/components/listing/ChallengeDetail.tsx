@@ -1,4 +1,5 @@
 import * as React from "react";
+import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import {
   canRequestAppeal,
@@ -15,25 +16,20 @@ import {
   ChallengeCommitVoteCard,
   ChallengeRevealVoteCard,
   ChallengeRequestAppealCard,
-  ChallengeResolveCard,
-  ChallengeResults,
+  ChallengeResults as ChallengeResultsComponent,
   LoadingIndicator,
   ModalHeading,
   ModalContent,
   ModalOrderedList,
   ModalListItem,
   ModalListItemTypes,
+  ListingDetailPhaseCardComponentProps,
+  PhaseWithExpiryProps,
+  ChallengeResultsProps,
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import {
-  appealChallenge,
-  approveForAppeal,
-  commitVote,
-  requestVotingRights,
-  revealVote,
-  updateStatus,
-} from "../../apis/civilTCR";
+import { appealChallenge, approveForAppeal, commitVote, requestVotingRights, revealVote } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { makeGetChallengeState } from "../../selectors";
@@ -41,6 +37,17 @@ import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import styled from "styled-components";
 import { fetchSalt } from "../../helpers/salt";
+import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
+
+const withChallengeResults = (
+  WrappedComponent: React.ComponentType<
+    ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengeResultsProps
+  >,
+) => {
+  return compose<
+    React.ComponentType<ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengeContainerProps>
+  >(connectChallengeResults)(WrappedComponent);
+};
 
 enum ModalContentEventNames {
   IN_PROGRESS_REQUEST_VOTING_RIGHTS = "IN_PROGRESS:REQUEST_VOTING_RIGHTS",
@@ -55,7 +62,7 @@ const StyledChallengeResults = styled.div`
   width: 460px;
 `;
 
-export interface ChallengeContainerProps {
+export interface ChallengeDetailContainerProps {
   listingAddress: EthAddress;
   challengeID: BigNumber;
   showNotFoundMessage?: boolean;
@@ -274,19 +281,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
   private renderRequestAppealStage(): JSX.Element {
     const challenge = this.props.challenge;
-    const endTime = this.props.challenge.requestAppealExpiry.toNumber();
+    const endTime = challenge.requestAppealExpiry.toNumber();
     const phaseLength = this.props.govtParameters.requestAppealLen;
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
     const approveForAppealProgressModal = this.renderApproveForAppealProgressModal();
     const requestAppealProgressModal = this.renderRequestAppealProgressModal();
     const modalContentComponents = {
@@ -304,15 +300,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       },
     ];
 
+    const ChallengeRequestAppeal = withChallengeResults(ChallengeRequestAppealCard);
+
     return (
-      <ChallengeRequestAppealCard
+      <ChallengeRequestAppeal
+        challengeID={this.props.challengeID}
         endTime={endTime}
         phaseLength={phaseLength}
-        totalVotes={getFormattedTokenBalance(totalVotes)}
-        votesFor={votesFor}
-        votesAgainst={votesAgainst}
-        percentFor={percentFor}
-        percentAgainst={percentAgainst}
         modalContentComponents={modalContentComponents}
         transactions={transactions}
       />
@@ -350,27 +344,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   }
 
   private renderVoteResult(): JSX.Element {
-    const challenge = this.props.challenge;
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+    const ChallengeResults = compose<React.ComponentType<ChallengeContainerProps>>(connectChallengeResults)(
+      ChallengeResultsComponent,
+    );
+
     return (
       <StyledChallengeResults>
-        <ChallengeResults
-          totalVotes={getFormattedTokenBalance(totalVotes)}
-          votesFor={votesFor.toString()}
-          votesAgainst={votesAgainst.toString()}
-          percentFor={percentFor.toString()}
-          percentAgainst={percentAgainst.toString()}
-        />
+        <ChallengeResults challengeID={this.props.challengeID} />
       </StyledChallengeResults>
     );
   }
@@ -427,7 +407,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 }
 
 class ChallengeContainer extends React.Component<
-  ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
+  ChallengeDetailContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
 > {
   public componentDidUpdate(): void {
     if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
@@ -468,8 +448,8 @@ const makeMapStateToProps = () => {
 
   const mapStateToProps = (
     state: State,
-    ownProps: ChallengeContainerProps,
-  ): ChallengeContainerReduxProps & ChallengeContainerProps => {
+    ownProps: ChallengeDetailContainerProps,
+  ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
     const {
       challenges,
       challengesFetching,
@@ -534,78 +514,5 @@ const makeMapStateToProps = () => {
 
   return mapStateToProps;
 };
-
-// A container for the Challenge Resolve Card component
-class ChallengeResolveContainer extends React.Component<
-  ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
-> {
-  public componentDidUpdate(nextProps: any): void {
-    if (!this.props.challengeData && !nextProps.challengeData && !this.props.challengeDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
-    }
-  }
-
-  public render(): JSX.Element | null {
-    const challenge = this.props.challengeData && this.props.challengeData.challenge;
-
-    if (!challenge) {
-      return null;
-    }
-
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const resolveChallengeProgressModal = this.renderResolveChallengeProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_RESOLVE_CHALLENGE]: resolveChallengeProgressModal,
-    };
-    const transactions = [
-      { transaction: this.resolve, progressEventName: ModalContentEventNames.IN_PROGRESS_RESOLVE_CHALLENGE },
-    ];
-
-    return (
-      <ChallengeResolveCard
-        challenger={challenge!.challenger.toString()}
-        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-        stake={getFormattedTokenBalance(challenge!.stake)}
-        totalVotes={getFormattedTokenBalance(totalVotes)}
-        votesFor={votesFor.toString()}
-        votesAgainst={votesAgainst.toString()}
-        percentFor={percentFor.toString()}
-        percentAgainst={percentAgainst.toString()}
-        modalContentComponents={modalContentComponents}
-        transactions={transactions}
-      />
-    );
-  }
-
-  private renderResolveChallengeProgressModal(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving Challenge</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
-  }
-
-  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateStatus(this.props.listingAddress);
-  };
-}
-
-export const ChallengeResolve = connect(makeMapStateToProps)(ChallengeResolveContainer);
 
 export default connect(makeMapStateToProps)(ChallengeContainer);

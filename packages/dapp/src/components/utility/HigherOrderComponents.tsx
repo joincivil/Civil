@@ -2,19 +2,21 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
-import { ListingWrapper, WrappedChallengeData } from "@joincivil/core";
+import { EthAddress, ListingWrapper, WrappedChallengeData } from "@joincivil/core";
 import {
   colors,
   VoteTypeSummaryRowProps as PartialChallengeResultsProps,
   CHALLENGE_RESULTS_VOTE_TYPES,
   ChallengeResultsProps,
-  ListingHistoryEventTimestampProps,
+  ChallengePhaseProps,
   ProgressBarCountdownProps,
   PHASE_TYPE_NAMES,
   PHASE_TYPE_LABEL,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { setupRejectedListingLatestChallengeSubscription } from "../../actionCreators/listings";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
+import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
 import { State } from "../../reducers";
 
 const StyledPartialChallengeResultsHeader = styled.p`
@@ -25,8 +27,12 @@ const StyledPartialChallengeResultsHeader = styled.p`
   }
 `;
 
+export interface ListingContainerProps {
+  listingAddress: EthAddress;
+}
+
 export interface ChallengeContainerProps {
-  challengeID: BigNumber;
+  challengeID?: BigNumber;
 }
 
 export interface ChallengeContainerReduxProps {
@@ -45,23 +51,50 @@ export interface PhaseCountdownReduxProps {
   govtParameters: any;
 }
 
+const getChallengeResultsProps = (challengeData: WrappedChallengeData): ChallengeResultsProps => {
+  let totalVotes = "";
+  let votesFor = "";
+  let votesAgainst = "";
+  let percentFor = "";
+  let percentAgainst = "";
+
+  if (challengeData) {
+    const challenge = challengeData.challenge;
+    const totalVotesBN = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    totalVotes = getFormattedTokenBalance(totalVotesBN);
+    votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    percentFor = challenge.poll.votesFor
+      .div(totalVotesBN)
+      .mul(100)
+      .toFixed(0);
+    percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotesBN)
+      .mul(100)
+      .toFixed(0);
+  }
+
+  return {
+    totalVotes,
+    votesFor,
+    votesAgainst,
+    percentFor,
+    percentAgainst,
+  };
+};
+
 /**
  * Generates a HO-Component Container for Challenge Succeeded/Failed Event
  * presentation components.
  * Given a `challengeID`, this container fetches the challenge data from the Redux store
  * then extracts and passes props for rendering a Challenge Results component
  */
-export const connectChallengeResults = <
-  TOriginalProps extends ListingHistoryEventTimestampProps & ChallengeContainerProps
->(
-  PhaseCardComponent:
+export const connectChallengeResults = <TOriginalProps extends ChallengeContainerProps>(
+  PresentationComponent:
     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
     | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
-  const mapStateToProps = (
-    state: State,
-    ownProps: ListingHistoryEventTimestampProps & ChallengeContainerProps,
-  ): ListingHistoryEventTimestampProps & ChallengeContainerReduxProps & ChallengeContainerProps => {
+  const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
     const { challenges, challengesFetching } = state.networkDependent;
     let challengeData;
     const challengeID = ownProps.challengeID;
@@ -72,11 +105,10 @@ export const connectChallengeResults = <
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
-    return {
-      challengeData,
-      challengeDataRequestStatus,
-      ...ownProps,
-    };
+    // Can't use spread here b/c of TS issue with spread and generics
+    // https://github.com/Microsoft/TypeScript/pull/13288
+    // tslint:disable-next-line:prefer-object-spread
+    return Object.assign({}, { challengeData }, { challengeDataRequestStatus }, ownProps);
   };
 
   class HOChallengeResultsContainer extends React.Component<
@@ -95,34 +127,17 @@ export const connectChallengeResults = <
         return null;
       }
 
-      const challenge = this.props.challengeData.challenge;
-      const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-      const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-      const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-      const percentFor = challenge.poll.votesFor
-        .div(totalVotes)
-        .mul(100)
-        .toFixed(0);
-      const percentAgainst = challenge.poll.votesAgainst
-        .div(totalVotes)
-        .mul(100)
-        .toFixed(0);
+      const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+
       return (
         <>
-          <PhaseCardComponent
-            totalVotes={getFormattedTokenBalance(totalVotes)}
-            votesFor={votesFor.toString()}
-            votesAgainst={votesAgainst.toString()}
-            percentFor={percentFor.toString()}
-            percentAgainst={percentAgainst.toString()}
-            {...this.props}
-          />
+          <PresentationComponent {...challengeResultsProps} {...this.props} />
         </>
       );
     }
 
     private ensureHasChallengeData = (): void => {
-      if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
+      if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
         this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
       }
     };
@@ -139,9 +154,7 @@ export const connectChallengeResults = <
  * shows only the summary for the winning vote
  */
 export const connectWinningChallengeResults = <TOriginalProps extends ChallengeContainerProps>(
-  PresentationComponent:
-    | React.ComponentClass<PartialChallengeResultsProps>
-    | React.StatelessComponent<PartialChallengeResultsProps>,
+  PresentationComponent: React.ComponentType<PartialChallengeResultsProps>,
 ) => {
   const mapStateToProps = (
     state: State,
@@ -228,7 +241,7 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
     }
 
     private ensureHasChallengeData = (): void => {
-      if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
+      if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
         this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
       }
     };
@@ -245,9 +258,7 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
  * bar to the presentation component
  */
 export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeContainerProps>(
-  PresentationComponent:
-    | React.ComponentClass<ProgressBarCountdownProps>
-    | React.StatelessComponent<ProgressBarCountdownProps>,
+  PresentationComponent: React.ComponentType<ProgressBarCountdownProps>,
 ) => {
   const mapStateToProps = (
     state: State,
@@ -289,4 +300,140 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
   }
 
   return connect(mapStateToProps)(HOContainer);
+};
+
+/**
+ * Generates a HO-Component Container for that gets the results latest Challenge Succeeded
+ * and passes those results to a Presentation Component -- most likely a component that
+ * displays a Rejected listing
+ */
+export const connectLatestChallengeSucceededResults = <TOriginalProps extends ListingContainerProps>(
+  PresentationComponent:
+    | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
+    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
+) => {
+  const makeMapStateToProps = () => {
+    const getLatestChallengeSucceededChallengeID = makeGetLatestChallengeSucceededChallengeID();
+
+    const mapStateToProps = (
+      state: State,
+      ownProps: TOriginalProps & ChallengeContainerProps,
+    ): TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps => {
+      const { challenges, challengesFetching } = state.networkDependent;
+      const challengeID = getLatestChallengeSucceededChallengeID(state, ownProps);
+      let challengeData;
+      let challengeDataRequestStatus;
+      if (challengeID) {
+        challengeData = challenges.get(challengeID.toString());
+        challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
+      }
+      // Can't use spread here b/c of TS issue with spread and generics
+      // https://github.com/Microsoft/TypeScript/pull/13288
+      // tslint:disable-next-line:prefer-object-spread
+      return Object.assign({}, { challengeData, challengeID, challengeDataRequestStatus }, ownProps);
+    };
+
+    return mapStateToProps;
+  };
+
+  class HOChallengeResultsContainer extends React.Component<
+    TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
+  > {
+    public async componentDidMount(): Promise<void> {
+      this.ensureHasChallengeData();
+      await this.setupChallengeSubscription();
+    }
+
+    public async componentDidUpdate(): Promise<void> {
+      this.ensureHasChallengeData();
+      await this.setupChallengeSubscription();
+    }
+
+    public render(): JSX.Element | null {
+      const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+
+      return (
+        <>
+          <PresentationComponent {...challengeResultsProps} {...this.props} />
+        </>
+      );
+    }
+
+    private ensureHasChallengeData = (): void => {
+      if (
+        this.props.challengeID &&
+        !this.props.challengeData &&
+        !this.props.challengeDataRequestStatus &&
+        !this.props.challengeDataRequestStatus
+      ) {
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+      }
+    };
+
+    private setupChallengeSubscription = async (): Promise<void> => {
+      this.props.dispatch!(await setupRejectedListingLatestChallengeSubscription(this.props.listingAddress!));
+    };
+  }
+
+  return connect(makeMapStateToProps)(HOChallengeResultsContainer);
+};
+
+/**
+ * Generates a HO-Component Container for that gets the Challenge data
+ * (challenger, reward pool, etc) * and passes those results to a
+ * Presentation Component
+ */
+export const connectChallengePhase = <TChallengeContainerProps extends ChallengeContainerProps>(
+  PhaseCardComponent:
+    | React.ComponentClass<TChallengeContainerProps & ChallengePhaseProps>
+    | React.StatelessComponent<TChallengeContainerProps & ChallengePhaseProps>,
+) => {
+  const mapStateToProps = (
+    state: State,
+    ownProps: ChallengeContainerProps,
+  ): ChallengeContainerReduxProps & ChallengeContainerProps => {
+    const { challenges, challengesFetching } = state.networkDependent;
+    let challengeData;
+    const challengeID = ownProps.challengeID;
+    if (challengeID) {
+      challengeData = challenges.get(challengeID.toString());
+    }
+    let challengeDataRequestStatus;
+    if (challengeID) {
+      challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
+    }
+    return {
+      challengeData,
+      challengeDataRequestStatus,
+      ...ownProps,
+    };
+  };
+
+  class HOChallengePhaseContainer extends React.Component<
+    TChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
+  > {
+    public componentDidUpdate(): void {
+      if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+      }
+    }
+
+    public render(): JSX.Element | undefined {
+      if (!this.props.challengeData) {
+        return;
+      }
+
+      const challenge = this.props.challengeData.challenge;
+      return (
+        <PhaseCardComponent
+          challenger={challenge!.challenger.toString()}
+          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+          stake={getFormattedTokenBalance(challenge!.stake)}
+          {...this.props}
+        />
+      );
+    }
+  }
+
+  return connect(mapStateToProps)(HOChallengePhaseContainer);
 };

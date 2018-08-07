@@ -21,13 +21,9 @@ export interface ListingEventProps {
 }
 
 const challengeCompletedEventContainer = (WrappedComponent: React.StatelessComponent<ChallengeCompletedEventProps>) => {
-  const wrappedChallengeResults = (props: ChallengeCompletedEventProps) => {
-    return <WrappedComponent {...props} />;
-  };
-
-  return compose(connectChallengeResults)(wrappedChallengeResults) as React.ComponentClass<
-    ListingHistoryEventTimestampProps & ChallengeContainerProps
-  >;
+  return compose<React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>>(
+    connectChallengeResults,
+  )(WrappedComponent);
 };
 
 class ListingEvent extends React.Component<ListingEventProps> {
@@ -89,7 +85,9 @@ class ListingEvent extends React.Component<ListingEventProps> {
 
   private renderChallengeFailedEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeFailed): JSX.Element {
     const { challengeID } = wrappedEvent.args;
-    const ChallengeFailedComponent = challengeCompletedEventContainer(ChallengeFailedEventComponent);
+    const ChallengeFailedComponent = challengeCompletedEventContainer(
+      ChallengeFailedEventComponent,
+    ) as React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>;
 
     return <ChallengeFailedComponent timestamp={(wrappedEvent as any).timestamp} challengeID={challengeID} />;
   }
