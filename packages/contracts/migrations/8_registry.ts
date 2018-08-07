@@ -27,13 +27,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     // const estimate = web3.eth.estimateGas({ data: CivilTCR.bytecode });
     // console.log("CivilTCR gas cost estimate: " + estimate);
 
-    const tcr = await deployer.deploy(
-      CivilTCR,
-      tokenAddress,
-      PLCRVoting.address,
-      Parameterizer.address,
-      Government.address,
-    );
+    await deployer.deploy(CivilTCR, tokenAddress, PLCRVoting.address, Parameterizer.address, Government.address);
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), CivilTCR.address);
     }
