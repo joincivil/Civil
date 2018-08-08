@@ -20,12 +20,16 @@ export interface ButtonProps {
   inputRef?: any;
   name?: string;
   size?: buttonSizes;
+  href?: string;
+  target?: string;
+  fullWidth?: boolean;
   onClick?(ev: any): void;
 }
 
 export interface ButtonTheme {
   primaryButtonBackground?: string;
   primaryButtonColor?: string;
+  primaryButtonFontWeight?: string;
   primaryButtonHoverBackground?: string;
   primaryButtonDisabledBackground?: string;
   primaryButtonDisabledColor?: string;
@@ -47,6 +51,7 @@ export interface ButtonTheme {
 const PRIMARY_BUTTON_DEFAULT_THEME = {
   primaryButtonBackground: colors.accent.CIVIL_BLUE,
   primaryButtonColor: colors.basic.WHITE,
+  primaryButtonFontWeight: "normal",
   primaryButtonHoverBackground: colors.accent.CIVIL_BLUE_FADED,
   primaryButtonDisabledBackground: colors.accent.CIVIL_BLUE_VERY_FADED,
   primaryButtonDisabledColor: colors.basic.WHITE,
@@ -95,7 +100,7 @@ const sizesObject: { [index: string]: string } = {
 const spacingObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "0.5px",
   [buttonSizes.MEDIUM]: "1px",
-  [buttonSizes.MEDIUM_WIDE]: "0.8px",
+  [buttonSizes.MEDIUM_WIDE]: "0.2px",
   [buttonSizes.LARGE]: "3px",
 };
 
@@ -108,13 +113,21 @@ const fontObject: { [index: string]: string } = {
 
 export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
   const activeClass = props.active ? " active" : "";
-  const { children, className, onClick, disabled, to } = props;
+  const { children, className, onClick, disabled, to, href, target } = props;
 
   if (to) {
     return (
       <Link className={className + activeClass} to={to}>
         {children}
       </Link>
+    );
+  }
+
+  if (href) {
+    return (
+      <a className={className + activeClass} href={href} target={target}>
+        {children}
+      </a>
     );
   }
 
@@ -137,14 +150,19 @@ const BaseButton = styled(ButtonComponent)`
   transition: background-color 500ms;
   outline: none;
   display: inline-block;
+  ${props => props.fullWidth ? "width: 100%;" : ""};
 `;
 
 export const Button = BaseButton.extend`
   background-color: ${props => props.theme.primaryButtonBackground};
   color: ${props => props.theme.primaryButtonColor};
+  font-weight: ${props => props.theme.primaryButtonFontWeight};
   text-transform: ${props => props.theme.primaryButtonTextTransform};
+  &:focus,
+  &:active,
   &:hover {
     background-color: ${props => props.theme.primaryButtonHoverBackground};
+    color: ${props => props.theme.primaryButtonColor};
   }
   :disabled {
     background-color: ${props => props.theme.primaryButtonHoverBackground};
@@ -161,6 +179,8 @@ export const InvertedButton = BaseButton.extend`
   background-color: ${props => props.theme.invertedButtonBackground};
   color: ${props => props.theme.invertedButtonColor};
   border: 2px solid ${props => props.theme.invertedButtonColor};
+  &:focus,
+  &:active,
   &:hover {
     background-color: ${props => props.theme.invertedButtonColor};
     color: ${props => props.theme.invertedButtonBackground};
@@ -175,6 +195,7 @@ export const SecondaryButton = BaseButton.extend`
   background-color: ${props => props.theme.secondaryButtonBackground};
   color: ${props => props.theme.secondaryButtonColor};
   border: 1px solid ${props => props.theme.secondaryButtonBorder};
+  &:focus,
   &:hover,
   &.active {
     background-color: ${props => props.theme.secondaryButtonHoverBackground};
@@ -190,6 +211,7 @@ SecondaryButton.defaultProps = {
 export const DarkButton = BaseButton.extend`
   background-color: ${props => props.theme.darkButtonBackground};
   color: ${props => props.theme.darkButtonColor};
+  &:focus,
   &:hover,
   &.active {
     background-color: ${props => props.theme.darkButtonHoverBackground};
@@ -203,6 +225,8 @@ DarkButton.defaultProps = {
 export const CancelButton = SecondaryButton.extend`
   color: ${colors.accent.CIVIL_BLUE};
   border: none;
+  &:focus,
+  &:active,
   &:hover {
     background-color: ${colors.accent.CIVIL_RED_VERY_FADED};
     border: none;
@@ -220,6 +244,8 @@ export const BorderlessButton = Button.extend`
   padding: ${sizesObject[buttonSizes.SMALL]};
   font-size: 15px;
   background-color: transparent;
+  &:focus,
+  &:active,
   &:hover {
     background-color: transparent;
     color: ${props => props.theme.borderlessButtonHoverColor};
