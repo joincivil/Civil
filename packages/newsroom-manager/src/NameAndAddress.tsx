@@ -158,7 +158,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <DetailTransactionButton
               transactions={[
                 {
-                  requireBeforeTransaction: () => {
+                  requireBeforeTransaction: async () => {
                     return new Promise((res, rej) => {
                       this.setState({
                         startTransaction: res,
