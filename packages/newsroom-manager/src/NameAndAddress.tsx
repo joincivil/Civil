@@ -14,6 +14,8 @@ import {
   StepStyled,
   TextInput,
   ViewTransactionLink,
+  MetaMaskModal,
+  ModalHeading,
 } from "@joincivil/components";
 import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
@@ -37,6 +39,10 @@ export interface NameAndAddressProps extends StepProps {
 export interface NameAndAddressState {
   name?: string;
   modalOpen: boolean;
+  isPreTransactionModalOpen: boolean;
+  isWaitingTransactionModalOpen?: boolean;
+  startTransaction?(): any;
+  cancelTransaction?(): any;
 }
 
 const Label: StyledComponentClass<any, "div"> = styled.div`
@@ -66,6 +72,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     this.state = {
       name: this.props.name,
       modalOpen: false,
+      isPreTransactionModalOpen: false,
     };
   }
 
@@ -89,13 +96,11 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       <Modal textAlign="left">
         <h2>Your newsroom is being created</h2>
         <p>
-          You will also need to authorize this transaction in your wallet. MetaMask should open a new window, if you
-          don't see it, please click the icon in the browser bar.
+          You have confirmed the transaction in your MetaMask wallet.
         </p>
         <p>
           Note, that this could take a while depending on network traffic. You can close out of this while you wait.
         </p>
-        <p>You will not be able to continue setting up your newsroom contract until this transaction is completed.</p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           Close
         </Button>
@@ -108,6 +113,36 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       return null;
     }
     return <GreenCheckMark />;
+  }
+
+  public renderPreMetamaskCreatModal(): JSX.Element | null {
+    if (!this.state.isPreTransactionModalOpen) {
+      return null;
+    }
+    return (
+      <MetaMaskModal
+        waiting={false}
+        cancelTransaction={() => this.cancelTransaction() }
+        startTransaction={() => this.startTransaction() }
+      >
+        <ModalHeading>Open MetaMask to confirm and create a newsroom smart contract</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  public renderAwaitingTransactionModal(): JSX.Element | null {
+    if (!this.state.isWaitingTransactionModalOpen) {
+      return null;
+    }
+    return (
+      <MetaMaskModal
+        waiting={true}
+        cancelTransaction={() => this.cancelTransaction() }
+        startTransaction={() => this.startTransaction() }
+      >
+        <ModalHeading>Waiting to Confirm in MetaMask</ModalHeading>
+      </MetaMaskModal>
+    );
   }
 
   public renderNoContract(): JSX.Element {
@@ -125,9 +160,26 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <DetailTransactionButton
               transactions={[
                 {
+                  requireBeforeTransaction: () => {
+                    return new Promise((res, rej) => {
+                      this.setState({
+                        startTransaction: res,
+                        cancelTransaction: rej,
+                        isPreTransactionModalOpen: true,
+                      });
+                    });
+                  },
                   transaction: this.createNewsroom.bind(this, value.civil),
                   postTransaction: this.postTransaction,
-                  handleTransactionHash: this.props.onContractDeployStarted,
+                  handleTransactionHash: (txHash: TxHash) => {
+                    if (this.props.onContractDeployStarted) {
+                      this.props.onContractDeployStarted(txHash);
+                    }
+                    this.setState({
+                      modalOpen: true,
+                      isWaitingTransactionModalOpen: false,
+                    });
+                  },
                 },
               ]}
               civil={value.civil}
@@ -135,7 +187,6 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               requiredNetwork={value.requiredNetwork}
               Button={TransactionButtonInner}
               noModal={true}
-              preExecuteTransactions={() => this.setState({ modalOpen: true })}
             >
               Create Newsroom
             </DetailTransactionButton>
@@ -223,6 +274,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <CollapsableInner>{body}</CollapsableInner>
           </Collapsable>
         </CollapsableWrapper>
+        {this.renderPreMetamaskCreatModal()}
+        {this.renderAwaitingTransactionModal()}
         {this.progressModal()}
         {this.renderCheckMark()}
       </StepStyled>
@@ -247,6 +300,29 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
   private createNewsroom = async (civil: Civil): Promise<TwoStepEthTransaction<any>> => {
     return civil.newsroomDeployTrusted(this.props.name!);
   };
+
+  private cancelTransaction = () => {
+    if (this.state.cancelTransaction) {
+      this.state.cancelTransaction();
+    }
+    this.setState({
+      cancelTransaction: undefined,
+      startTransaction: undefined,
+      isPreTransactionModalOpen: false,
+    })
+  }
+
+  private startTransaction = () => {
+    if (this.state.startTransaction) {
+      this.state.startTransaction();
+    }
+    this.setState({
+      cancelTransaction: undefined,
+      startTransaction: undefined,
+      isPreTransactionModalOpen: false,
+      isWaitingTransactionModalOpen: true,
+    })
+  }
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NameAndAddressProps): NameAndAddressProps => {
