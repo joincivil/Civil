@@ -15,6 +15,7 @@ export interface ButtonProps {
   className?: string;
   icon?: any;
   to?: string;
+  href?: string;
   active?: boolean;
   disabled?: boolean;
   inputRef?: any;
@@ -108,7 +109,15 @@ const fontObject: { [index: string]: string } = {
 
 export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
   const activeClass = props.active ? " active" : "";
-  const { children, className, onClick, disabled, to } = props;
+  const { children, className, onClick, disabled, to, href } = props;
+
+  if (href) {
+    return (
+      <a className={className + activeClass} href={href}>
+        {children}
+      </a>
+    );
+  }
 
   if (to) {
     return (
