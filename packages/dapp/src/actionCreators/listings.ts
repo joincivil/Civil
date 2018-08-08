@@ -14,6 +14,8 @@ export enum listingActions {
   ADD_HISTORY_EVENT = "ADD_HISTORY_EVENT",
   ADD_HISTORY_SUBSCRIPTION = "ADD_HISTORY_SUBSCRIPTION",
   ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION = "ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION",
+  ADD_REJECTED_LISTING_LISTING_REMOVED_SUBSCRIPTION = "ADD_REJECTED_LISTING_LISTING_REMOVED_SUBSCRIPTION",
+  ADD_LISTING_WHITELISTED_SUBSCRIPTION = "ADD_LISTING_WHITELISTED_SUBSCRIPTION ",
   FETCH_LISTING_DATA = "FETCH_LISTING_DATA",
   FETCH_LISTING_DATA_COMPLETE = "FETCH_LISTING_DATA_COMPLETE",
   FETCH_LISTING_DATA_IN_PROGRESS = "FETCH_LISTING_DATA_IN_PROGRESS",
@@ -50,6 +52,26 @@ const addOrUpdateListingLatestChallenge = (listingAddress: string, challengeID: 
   };
 };
 
+const addOrUpdateListingRemovedTimestamp = (listingAddress: string, timestamp: number): AnyAction => {
+  return {
+    type: listingActions.ADD_OR_UPDATE_LISTING_EXTENDED_METADATA,
+    data: {
+      address: listingAddress,
+      listingRemovedTimestamp: timestamp,
+    },
+  };
+};
+
+const addOrUpdateListingWhitelistedTimestamp = (listingAddress: string, timestamp: number): AnyAction => {
+  return {
+    type: listingActions.ADD_OR_UPDATE_LISTING_EXTENDED_METADATA,
+    data: {
+      address: listingAddress,
+      whitelistedTimestamp: timestamp,
+    },
+  };
+};
+
 export const addHistoryEvent = (address: string, event: TimestampedEvent<any>): AnyAction => {
   return {
     type: listingActions.ADD_HISTORY_EVENT,
@@ -76,6 +98,26 @@ export const addRejectedListingLatestChallengeSubscription = (
 ): AnyAction => {
   return {
     type: listingActions.ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION,
+    data: {
+      address,
+      subscription,
+    },
+  };
+};
+
+export const addRejectedListingRemovedSubscription = (address: string, subscription: Subscription): AnyAction => {
+  return {
+    type: listingActions.ADD_REJECTED_LISTING_LISTING_REMOVED_SUBSCRIPTION,
+    data: {
+      address,
+      subscription,
+    },
+  };
+};
+
+export const addWhitelistedSubscription = (address: string, subscription: Subscription): AnyAction => {
+  return {
+    type: listingActions.ADD_LISTING_WHITELISTED_SUBSCRIPTION,
     data: {
       address,
       subscription,
@@ -177,6 +219,44 @@ export const setupRejectedListingLatestChallengeSubscription = async (listingID:
           }
         });
       dispatch(addRejectedListingLatestChallengeSubscription(listingID, subscription));
+    }
+  };
+};
+
+export const setupRejectedListingRemovedSubscription = async (listingID: string): Promise<any> => {
+  const tcr = await getTCR();
+  return (dispatch: Dispatch<any>, getState: any): any => {
+    const { rejectedListingRemovedSubscriptions } = getState().networkDependent;
+    if (!rejectedListingRemovedSubscriptions.get(listingID)) {
+      const listing = tcr.getListing(listingID);
+      const subscription = listing
+        .latestListingRemoved()
+        .subscribe(async (event: TimestampedEvent<CivilTCR.LogEvents._ListingRemoved> | undefined) => {
+          if (!!event) {
+            const timestamp = await (event as any).timestamp();
+            dispatch(addOrUpdateListingRemovedTimestamp(listingID, timestamp));
+          }
+        });
+      dispatch(addRejectedListingRemovedSubscription(listingID, subscription));
+    }
+  };
+};
+
+export const setupListingWhitelistedSubscription = async (listingID: string): Promise<any> => {
+  const tcr = await getTCR();
+  return (dispatch: Dispatch<any>, getState: any): any => {
+    const { whitelistedSubscriptions } = getState().networkDependent;
+    if (!whitelistedSubscriptions.get(listingID)) {
+      const listing = tcr.getListing(listingID);
+      const subscription = listing
+        .latestWhitelisted()
+        .subscribe(async (event: TimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted> | undefined) => {
+          if (!!event) {
+            const timestamp = await (event as any).timestamp();
+            dispatch(addOrUpdateListingWhitelistedTimestamp(listingID, timestamp));
+          }
+        });
+      dispatch(addWhitelistedSubscription(listingID, subscription));
     }
   };
 };

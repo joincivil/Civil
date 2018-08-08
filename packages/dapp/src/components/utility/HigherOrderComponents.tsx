@@ -14,9 +14,12 @@ import {
   PHASE_TYPE_LABEL,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { setupRejectedListingLatestChallengeSubscription } from "../../actionCreators/listings";
+import {
+  setupRejectedListingLatestChallengeSubscription,
+  setupRejectedListingRemovedSubscription,
+} from "../../actionCreators/listings";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
-import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
+import { makeGetLatestChallengeSucceededChallengeID, makeGetLatestListingRemovedTimestamp } from "../../selectors";
 import { State } from "../../reducers";
 
 const StyledPartialChallengeResultsHeader = styled.p`
@@ -35,9 +38,14 @@ export interface ChallengeContainerProps {
   challengeID?: BigNumber;
 }
 
+export interface ListingRemovedProps {
+  listingRemovedTimestamp?: number;
+}
+
 export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData;
   challengeDataRequestStatus?: any;
+  listingRemovedTimestamp?: number;
 }
 
 export interface PhaseCountdownTimerProps {
@@ -309,11 +317,12 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
  */
 export const connectLatestChallengeSucceededResults = <TOriginalProps extends ListingContainerProps>(
   PresentationComponent:
-    | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
-    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
+    | React.ComponentClass<TOriginalProps & ChallengeResultsProps & ListingRemovedProps>
+    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps & ListingRemovedProps>,
 ) => {
   const makeMapStateToProps = () => {
     const getLatestChallengeSucceededChallengeID = makeGetLatestChallengeSucceededChallengeID();
+    const getLatestListingRemovedTimestamp = makeGetLatestListingRemovedTimestamp();
 
     const mapStateToProps = (
       state: State,
@@ -321,6 +330,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     ): TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps => {
       const { challenges, challengesFetching } = state.networkDependent;
       const challengeID = getLatestChallengeSucceededChallengeID(state, ownProps);
+      const listingRemovedTimestamp = getLatestListingRemovedTimestamp(state, ownProps);
       let challengeData;
       let challengeDataRequestStatus;
       if (challengeID) {
@@ -330,7 +340,11 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       // Can't use spread here b/c of TS issue with spread and generics
       // https://github.com/Microsoft/TypeScript/pull/13288
       // tslint:disable-next-line:prefer-object-spread
-      return Object.assign({}, { challengeData, challengeID, challengeDataRequestStatus }, ownProps);
+      return Object.assign(
+        {},
+        { challengeData, challengeID, challengeDataRequestStatus, listingRemovedTimestamp },
+        ownProps,
+      );
     };
 
     return mapStateToProps;
@@ -351,10 +365,15 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 
     public render(): JSX.Element | null {
       const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+      const { listingRemovedTimestamp } = this.props;
 
       return (
         <>
-          <PresentationComponent {...challengeResultsProps} {...this.props} />
+          <PresentationComponent
+            {...challengeResultsProps}
+            listingRemovedTimestamp={listingRemovedTimestamp}
+            {...this.props}
+          />
         </>
       );
     }
@@ -371,6 +390,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     };
 
     private setupChallengeSubscription = async (): Promise<void> => {
+      this.props.dispatch!(await setupRejectedListingRemovedSubscription(this.props.listingAddress!));
       this.props.dispatch!(await setupRejectedListingLatestChallengeSubscription(this.props.listingAddress!));
     };
   }
