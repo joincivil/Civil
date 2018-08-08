@@ -150,7 +150,7 @@ const BaseButton = styled(ButtonComponent)`
   transition: background-color 500ms;
   outline: none;
   display: inline-block;
-  ${props => props.fullWidth ? "width: 100%;" : ""};
+  ${props => (props.fullWidth ? "width: 100%;" : "")};
 `;
 
 export const Button = BaseButton.extend`
