@@ -95,9 +95,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     return (
       <Modal textAlign="left">
         <h2>Your newsroom is being created</h2>
-        <p>
-          You have confirmed the transaction in your MetaMask wallet.
-        </p>
+        <p>You have confirmed the transaction in your MetaMask wallet.</p>
         <p>
           Note, that this could take a while depending on network traffic. You can close out of this while you wait.
         </p>
@@ -122,8 +120,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     return (
       <MetaMaskModal
         waiting={false}
-        cancelTransaction={() => this.cancelTransaction() }
-        startTransaction={() => this.startTransaction() }
+        cancelTransaction={() => this.cancelTransaction()}
+        startTransaction={() => this.startTransaction()}
       >
         <ModalHeading>Open MetaMask to confirm and create a newsroom smart contract</ModalHeading>
       </MetaMaskModal>
@@ -137,8 +135,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     return (
       <MetaMaskModal
         waiting={true}
-        cancelTransaction={() => this.cancelTransaction() }
-        startTransaction={() => this.startTransaction() }
+        cancelTransaction={() => this.cancelTransaction()}
+        startTransaction={() => this.startTransaction()}
       >
         <ModalHeading>Waiting to Confirm in MetaMask</ModalHeading>
       </MetaMaskModal>
@@ -309,8 +307,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       cancelTransaction: undefined,
       startTransaction: undefined,
       isPreTransactionModalOpen: false,
-    })
-  }
+    });
+  };
 
   private startTransaction = () => {
     if (this.state.startTransaction) {
@@ -321,8 +319,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       startTransaction: undefined,
       isPreTransactionModalOpen: false,
       isWaitingTransactionModalOpen: true,
-    })
-  }
+    });
+  };
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NameAndAddressProps): NameAndAddressProps => {
