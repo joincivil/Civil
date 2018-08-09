@@ -1,6 +1,15 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Modal, BorderlessButton, Button, buttonSizes, ClipLoader, TransactionButtonNoModal, Transaction, TransactionButtonInnerProps } from ".";
+import {
+  Modal,
+  BorderlessButton,
+  Button,
+  buttonSizes,
+  ClipLoader,
+  TransactionButtonNoModal,
+  Transaction,
+  TransactionButtonInnerProps,
+} from ".";
 import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm.png";
 import * as metamaskLogoUrl from "./images/img-metamask-small@2x.png";
 import * as confirmButton from "./images/img-metamask-confirm@2x.png";
@@ -27,7 +36,7 @@ export interface ContentSectionWrapperProps {
 
 const ContentSectionWrapper = styled.div`
   display: flex;
-  flex-direction: ${ (props: ContentSectionWrapperProps) => props.row ? "row" : "column"};
+  flex-direction: ${(props: ContentSectionWrapperProps) => (props.row ? "row" : "column")};
   justify-content: space-between;
 `;
 
@@ -103,25 +112,28 @@ export interface MetaMaskModalProps {
 }
 
 const PrimaryButton = (props: TransactionButtonInnerProps): JSX.Element => {
-  return (<B onClick={props.onClick} size={buttonSizes.MEDIUM_WIDE}>
-    <ImgWrapper>
-    <Img src={metamaskLogoUrl} />
-    </ImgWrapper>
-    {props.children}
-  </B>);
-}
+  return (
+    <B onClick={props.onClick} size={buttonSizes.MEDIUM_WIDE}>
+      <ImgWrapper>
+        <Img src={metamaskLogoUrl} />
+      </ImgWrapper>
+      {props.children}
+    </B>
+  );
+};
 
 export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props => {
   const buttonSection = !props.waiting ? (
     <ButtonContainer>
       <IB onClick={props.cancelTransaction}>Cancel</IB>
-      {props.denied ?
-        (<TransactionButtonNoModal
-          transactions={props.denialRestartTransactions!}
-          Button={PrimaryButton}
-        > Try Again </TransactionButtonNoModal>) :
-        (<PrimaryButton onClick={props.startTransaction!}>Open MetaMask</PrimaryButton>)
-      }
+      {props.denied ? (
+        <TransactionButtonNoModal transactions={props.denialRestartTransactions!} Button={PrimaryButton}>
+          {" "}
+          Try Again{" "}
+        </TransactionButtonNoModal>
+      ) : (
+        <PrimaryButton onClick={props.startTransaction!}>Open MetaMask</PrimaryButton>
+      )}
     </ButtonContainer>
   ) : (
     <ButtonContainer>
@@ -146,15 +158,15 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
   );
 
   if (props.denied) {
-    paragraph = (<HalfPWrapper>
-      <ModalP>
-        You have canceled this transaction in your wallet.
-      </ModalP>
-      {!!props.denialText && <ModalP>{props.denialText}</ModalP>}
-    </HalfPWrapper>);
+    paragraph = (
+      <HalfPWrapper>
+        <ModalP>You have canceled this transaction in your wallet.</ModalP>
+        {!!props.denialText && <ModalP>{props.denialText}</ModalP>}
+      </HalfPWrapper>
+    );
   }
 
-  const image = props.denied ? <MainImg src={confirmButton}/> : <img src={metaMaskModalUrl}/>;
+  const image = props.denied ? <MainImg src={confirmButton} /> : <img src={metaMaskModalUrl} />;
 
   return (
     <Modal width={560} padding={"32px 26px 0 26px"}>
