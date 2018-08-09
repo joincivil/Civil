@@ -19,16 +19,15 @@ contract("Government", accounts => {
     });
 
     it("should be possible for JAB to set judgeAppealLen value", async () => {
-      await expect(government.set("judgeAppealLen", 100, { from: JAB })).to.eventually.be.fulfilled(
-        "Should have allowed JAB to update judgeAppealLen",
-      );
+      await expect(
+        government.proposeReparameterization("judgeAppealLen", 100, { from: JAB }),
+      ).to.eventually.be.fulfilled("Should have allowed JAB to update judgeAppealLen");
     });
 
     it("should not be possible for troll to set judgeAppealLen value", async () => {
-      await expect(government.set("judgeAppealLen", 100, { from: troll })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "Should not have allowed troll to update judgeAppealLen",
-      );
+      await expect(
+        government.proposeReparameterization("judgeAppealLen", 100, { from: troll }),
+      ).to.eventually.be.rejectedWith(REVERTED, "Should not have allowed troll to update judgeAppealLen");
     });
   });
 });

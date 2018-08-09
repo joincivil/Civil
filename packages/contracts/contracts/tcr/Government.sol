@@ -68,6 +68,8 @@ contract Government is IGovernment {
     uint judgeAppealLength,
     uint appealSupermajorityPercentage,
     uint pDeposit,
+    uint pCommitStageLength,
+    uint pRevealStageLength,
     bytes32 constHash,
     string constURI
   ) public
@@ -82,7 +84,9 @@ contract Government is IGovernment {
     set("judgeAppealLen", judgeAppealLength);
     set("appealFee", appealFeeAmount);
     set("appealVotePercentage", appealSupermajorityPercentage);
-    set("pDeposit", pDeposit);
+    set("govtPDeposit", pDeposit);
+    set("govtPCommitStageLength", pCommitStageLength);
+    set("govtPRevealStageLength", pRevealStageLength);
     constitutionHash = constHash;
     constitutionURI = constURI;
   }
@@ -117,7 +121,7 @@ contract Government is IGovernment {
   @param _value the proposed value to set the param to be set
   */
   function proposeReparameterization(string _name, uint _value) public onlyAppellate returns (bytes32) {
-    uint deposit = get("pMinDeposit");
+    uint deposit = get("govtPDeposit");
     bytes32 propID = keccak256(_name, _value);
 
     if (keccak256(_name) == keccak256("appealVotePercentage")) {
@@ -130,15 +134,15 @@ contract Government is IGovernment {
     //start poll
     uint pollID = voting.startPoll(
         get("appealVotePercentage"),
-        get("pCommitStageLen"),
-        get("pRevealStageLen")
+        get("govtPCommitStageLen"),
+        get("govtPRevealStageLen")
     );
     // attach name and value to pollID
     proposals[propID] = GovtParamProposal({
         pollID: pollID,
         name: _name,
-        processBy: now.add(get("pCommitStageLen"))
-          .add(get("pRevealStageLen"))
+        processBy: now.add(get("govtPCommitStageLen"))
+          .add(get("govtPRevealStageLen"))
           .add(PROCESSBY),
         value: _value,
         rewardPool: deposit,

@@ -27,8 +27,12 @@ contract("Government", accounts => {
       );
     });
 
-    it("should not be possible for troll to set judgeAppealLen value", async () => {
-      await government.set("judgeAppealLen", 100, { from: JAB });
+    it("judgeAppealLength should be new value after processing proposal", async () => {
+      const propId = await government.proposeReparameterization("judgeAppealLen", 100, { from: JAB });
+      await utils.advanceEvmTime(
+        utils.paramConfig.govtPCommitStageLength + utils.paramConfig.govtPRevealStageLength + 1,
+      );
+      await government.processProposal(propId);
       const judgeAppealLength = await government.get("judgeAppealLen");
       expect(judgeAppealLength).to.be.bignumber.equal(
         new BigNumber(100),
