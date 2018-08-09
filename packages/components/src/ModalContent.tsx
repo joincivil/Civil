@@ -7,6 +7,7 @@ export const ModalHeading = styled.h2`
   font-family: ${fonts.SANS_SERIF};
   font-weight: 400;
   font-size: 24px;
+  line-height: 30px;
 `;
 
 export const ModalContent = styled.p`
