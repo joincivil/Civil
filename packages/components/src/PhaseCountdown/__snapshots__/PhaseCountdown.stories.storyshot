@@ -4,7 +4,7 @@ exports[`Storyshots Application Phase Countdown Timer Progress Bar Timers 1`] = 
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hgHYgh fpCUMM",
+      "class": "sc-drMfKT gLIbQO",
     },
     "children": Array [],
     "name": "div",
@@ -49,7 +49,52 @@ exports[`Storyshots Application Phase Countdown Timer Text Timers 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hgHYgh fpCUMM",
+      "class": "sc-drMfKT gLIbQO",
+    },
+    "children": Array [],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 1,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;
+
+exports[`Storyshots Application Phase Countdown Timer Two Phase Progress Bar Timers 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "class": "sc-drMfKT gLIbQO",
     },
     "children": Array [],
     "name": "div",
