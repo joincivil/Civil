@@ -38,3 +38,4 @@ export * from "./Hero/HomepageHero";
 export * from "./ClipLoader";
 export * from "./ClaimRewards";
 export * from "./RescueTokens";
+export * from "./MetaMaskModal";

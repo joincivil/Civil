@@ -7,7 +7,6 @@ import { ChallengeResolve } from "./ChallengeResolve";
 import {
   InApplicationCard,
   InApplicationResolveCard,
-  WhitelistedCard,
   RejectedCard as RejectedCardComponent,
   LoadingIndicator,
   ModalHeading,
@@ -21,6 +20,7 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
+import WhitelistedDetail from "./WhitelistedDetail";
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
@@ -105,11 +105,12 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderApplicationWhitelisted(): JSX.Element {
-    // @TODO(jon): Get the Whitelisted event for this listing and display that event's date
-    // in the card
     return (
       <>
-        <WhitelistedCard handleSubmitChallenge={this.handleSubmitChallenge} />
+        <WhitelistedDetail
+          listingAddress={this.props.listing.address}
+          handleSubmitChallenge={this.handleSubmitChallenge}
+        />
         {this.renderSubmitChallengeModal()}
       </>
     );

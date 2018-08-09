@@ -296,7 +296,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appealChallenge.resolved = true;
 
     // Stores the total tokens used for voting by the winning side for reward purposes
-    appealChallenge.totalTokens = voting.getTotalNumberOfTokensForWinningOption(challengeID);
+    appealChallenge.totalTokens = voting.getTotalNumberOfTokensForWinningOption(appealChallengeID);
 
     if (voting.isPassed(appealChallengeID)) { // Case: vote succeeded, appeal challenge failed, don't overturn appeal
       resolveOverturnedChallenge(listingAddress);

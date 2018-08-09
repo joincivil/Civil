@@ -28,6 +28,8 @@ export interface ListingWrapperWithExpiry {
 
 export interface ListingExtendedMetadata {
   latestChallengeID?: BigNumber;
+  listingRemovedTimestamp?: number;
+  whitelistedTimestamp?: number;
 }
 
 export function listings(
@@ -104,6 +106,30 @@ export function rejectedListingLatestChallengeSubscriptions(
 ): Map<string, Subscription> {
   switch (action.type) {
     case listingActions.ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION:
+      return state.set(action.data.address, action.data.subscription);
+    default:
+      return state;
+  }
+}
+
+export function rejectedListingRemovedSubscriptions(
+  state: Map<string, Subscription> = Map<string, Subscription>(),
+  action: AnyAction,
+): Map<string, Subscription> {
+  switch (action.type) {
+    case listingActions.ADD_REJECTED_LISTING_LISTING_REMOVED_SUBSCRIPTION:
+      return state.set(action.data.address, action.data.subscription);
+    default:
+      return state;
+  }
+}
+
+export function whitelistedSubscriptions(
+  state: Map<string, Subscription> = Map<string, Subscription>(),
+  action: AnyAction,
+): Map<string, Subscription> {
+  switch (action.type) {
+    case listingActions.ADD_LISTING_WHITELISTED_SUBSCRIPTION:
       return state.set(action.data.address, action.data.subscription);
     default:
       return state;

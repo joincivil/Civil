@@ -7,6 +7,7 @@ import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
 import ListingHeader from "./ListingHeader";
+import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
@@ -74,6 +75,14 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
             <Tabs TabComponent={StyledTab}>
+              {(listingExistsAsNewsroom && (
+                <Tab title="About">
+                  <ListingTabContent>
+                    <ListingCharter listing={this.props.listing!} newsroom={this.props.newsroom!.wrapper} />
+                  </ListingTabContent>
+                </Tab>
+              )) || <></>}
+
               <Tab title="Discussions">
                 <ListingTabContent>
                   <ListingChallengeStatement listing={this.props.listingAddress} />
@@ -85,6 +94,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                   <ListingDiscourse />
                 </ListingTabContent>
               </Tab>
+
               <Tab title="History">
                 <ListingTabContent>
                   <ListingHistory listingAddress={this.props.listingAddress} />
