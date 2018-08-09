@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { HomepageHero, Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
+import { Hero, HomepageHero, Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
 import * as heroImgUrl from "../images/img-hero-listings.png";
 
 import ListingList from "./ListingList";
@@ -31,7 +31,11 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
     if (activeIndex === 0) {
-      hero = <HomepageHero backgroundImage={heroImgUrl} />;
+      hero = (
+        <Hero backgroundImage={heroImgUrl}>
+          <HomepageHero />
+        </Hero>
+      );
     }
     return (
       <>
