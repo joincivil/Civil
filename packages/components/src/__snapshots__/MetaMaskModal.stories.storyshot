@@ -1,12 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Application Phase Countdown Timer Progress Bar Timers 1`] = `
+exports[`Storyshots MetaMaskModal preMetaMaskModal 1`] = `
 initialize {
   "0": Object {
-    "attribs": Object {
-      "class": "sc-hgHYgh fpCUMM",
-    },
-    "children": Array [],
+    "attribs": Object {},
+    "children": Array [
+      Object {
+        "data": " test ",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "text",
+      },
+    ],
     "name": "div",
     "namespace": "http://www.w3.org/1999/xhtml",
     "next": null,
@@ -27,12 +33,8 @@ initialize {
       "x-attribsPrefix": Object {},
     },
     "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-    },
+    "x-attribsNamespace": Object {},
+    "x-attribsPrefix": Object {},
   },
   "_root": [Circular],
   "length": 1,
@@ -45,13 +47,19 @@ initialize {
 }
 `;
 
-exports[`Storyshots Application Phase Countdown Timer Text Timers 1`] = `
+exports[`Storyshots MetaMaskModal waitingMetaMaskModal 1`] = `
 initialize {
   "0": Object {
-    "attribs": Object {
-      "class": "sc-hgHYgh fpCUMM",
-    },
-    "children": Array [],
+    "attribs": Object {},
+    "children": Array [
+      Object {
+        "data": " test ",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "text",
+      },
+    ],
     "name": "div",
     "namespace": "http://www.w3.org/1999/xhtml",
     "next": null,
@@ -72,12 +80,8 @@ initialize {
       "x-attribsPrefix": Object {},
     },
     "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-    },
+    "x-attribsNamespace": Object {},
+    "x-attribsPrefix": Object {},
   },
   "_root": [Circular],
   "length": 1,

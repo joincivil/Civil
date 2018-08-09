@@ -1,0 +1,29 @@
+import { storiesOf } from "@storybook/react";
+import * as React from "react";
+import { MetaMaskModal } from "./MetaMaskModal";
+import { ModalHeading } from ".";
+import styled from "styled-components";
+
+const func = () => {
+  return;
+};
+
+storiesOf("MetaMaskModal", module)
+  .add("preMetaMaskModal", () => {
+    return process.env.NODE_ENV !== "test" ? (
+      <MetaMaskModal cancelTransaction={func} startTransaction={func} waiting={false}>
+        <ModalHeading>test</ModalHeading>
+      </MetaMaskModal>
+    ) : (
+      <div> test </div>
+    );
+  })
+  .add("waitingMetaMaskModal", () => {
+    return process.env.NODE_ENV !== "test" ? (
+      <MetaMaskModal cancelTransaction={func} startTransaction={func} waiting={true}>
+        <ModalHeading>test</ModalHeading>
+      </MetaMaskModal>
+    ) : (
+      <div> test </div>
+    );
+  });

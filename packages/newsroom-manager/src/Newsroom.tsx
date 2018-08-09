@@ -60,8 +60,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   }
 
-  public async componentWillUnmount(): Promise<void> {}
-
   public async componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): Promise<void> {
     if (newProps.address && !this.props.address) {
       await this.hydrateNewsroom(newProps.address);
