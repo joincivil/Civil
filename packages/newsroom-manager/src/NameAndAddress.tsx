@@ -39,6 +39,7 @@ export interface NameAndAddressProps extends StepProps {
 export interface NameAndAddressState {
   name?: string;
   modalOpen: boolean;
+  collapsableOpen: boolean;
   isPreTransactionModalOpen: boolean;
   isWaitingTransactionModalOpen?: boolean;
   startTransaction?(): any;
@@ -72,6 +73,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     this.state = {
       name: this.props.name,
       modalOpen: false,
+      collapsableOpen: true,
       isPreTransactionModalOpen: false,
     };
   }
@@ -258,7 +260,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
         <CollapsableWrapper>
           <Collapsable
-            open={!this.props.disabled}
+            open={!this.props.disabled && this.state.collapsableOpen}
             disabled={this.props.disabled}
             header={
               <>
@@ -284,7 +286,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     if (this.props.onNewsroomCreated) {
       this.props.onNewsroomCreated(result);
     }
-    this.setState({ modalOpen: false });
+    this.setState({ modalOpen: false, collapsableOpen: false });
   };
 
   private changeName = async (): Promise<TwoStepEthTransaction<any>> => {
