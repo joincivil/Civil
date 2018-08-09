@@ -26,4 +26,12 @@ storiesOf("MetaMaskModal", module)
     ) : (
       <div> test </div>
     );
+  }).add("deniedMetaMaskModal", () => {
+    return process.env.NODE_ENV !== "test" ? (
+      <MetaMaskModal denialText={"something something something"} cancelTransaction={func} startTransaction={func} waiting={false} denied={true}>
+        <ModalHeading>test</ModalHeading>
+      </MetaMaskModal>
+    ) : (
+      <div> test </div>
+    );
   });
