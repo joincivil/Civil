@@ -59,8 +59,8 @@ export const MetaItem = styled.div`
   margin: 0 0 16px;
 `;
 export const MetaItemValue = styled.div`
-  font-size: 24px;
-  line-height: 29px;
+  font-size: 22px;
+  line-height: 27px;
 `;
 export const MetaItemValueAccent = MetaItemValue.extend`
   color: ${colors.primary.CIVIL_BLUE_1};
@@ -70,6 +70,8 @@ export const MetaItemLabel = styled.div`
   line-height: 17px;
 `;
 export const ProgressBarCopy = styled.div`
-  font-size: 16px;
-  line-height: 26px;
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 14px;
+  letter-spacing: 0.68px;
+  line-height: 20px;
 `;

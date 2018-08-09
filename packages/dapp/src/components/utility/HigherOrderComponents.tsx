@@ -35,7 +35,7 @@ export interface ListingContainerProps {
 }
 
 export interface ChallengeContainerProps {
-  challengeID?: BigNumber;
+  challengeID?: BigNumber | string;
 }
 
 export interface ListingRemovedProps {
@@ -105,18 +105,19 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
   const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
     const { challenges, challengesFetching } = state.networkDependent;
     let challengeData;
-    const challengeID = ownProps.challengeID;
+    let challengeID = ownProps.challengeID;
     if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
+      challengeID = challengeID.toString();
+      challengeData = challenges.get(challengeID);
     }
     let challengeDataRequestStatus;
     if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
+      challengeDataRequestStatus = challengesFetching.get(challengeID);
     }
     // Can't use spread here b/c of TS issue with spread and generics
     // https://github.com/Microsoft/TypeScript/pull/13288
     // tslint:disable-next-line:prefer-object-spread
-    return Object.assign({}, { challengeData }, { challengeDataRequestStatus }, ownProps);
+    return Object.assign({}, challengeID, { challengeData }, { challengeDataRequestStatus }, ownProps);
   };
 
   class HOChallengeResultsContainer extends React.Component<
@@ -146,7 +147,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
 
     private ensureHasChallengeData = (): void => {
       if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
       }
     };
   }
@@ -414,15 +415,17 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
   ): ChallengeContainerReduxProps & ChallengeContainerProps => {
     const { challenges, challengesFetching } = state.networkDependent;
     let challengeData;
-    const challengeID = ownProps.challengeID;
+    let challengeID = ownProps.challengeID;
     if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
+      challengeID = challengeID.toString();
+      challengeData = challenges.get(challengeID);
     }
     let challengeDataRequestStatus;
     if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
+      challengeDataRequestStatus = challengesFetching.get(challengeID);
     }
     return {
+      challengeID,
       challengeData,
       challengeDataRequestStatus,
       ...ownProps,
@@ -434,7 +437,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
   > {
     public componentDidUpdate(): void {
       if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID as string));
       }
     }
 

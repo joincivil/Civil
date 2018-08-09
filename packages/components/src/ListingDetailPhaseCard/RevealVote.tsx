@@ -2,7 +2,7 @@ import * as React from "react";
 import { buttonSizes, DarkButton } from "../Button";
 import { SaltInput } from "../input/";
 import { TransactionDarkButton } from "../TransactionButton";
-import { FormCopy, FormHeader, StyledOrText, VoteOptionsContainer } from "./styledComponents";
+import { FormQuestion, StyledOrText, VoteOptionsContainer } from "./styledComponents";
 import { RevealVoteProps } from "./types";
 
 export interface RevealVoteState {
@@ -19,12 +19,9 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
   public render(): JSX.Element {
     return (
       <>
-        <FormHeader>Verify Your Votes and Make Them Count!</FormHeader>
-        <FormCopy>Votes are counted when you verify yours.</FormCopy>
-        <FormCopy>
-          Please use your pass phrase to verify your votes below. Your pass phrase was created at the time when you
-          voted for this challenge.
-        </FormCopy>
+        <FormQuestion>
+          Should {this.props.newsroomName || "this newsroom"} remain or be removed from the Civil Registry?
+        </FormQuestion>
 
         <SaltInput salt={this.props.salt} label="Enter your salt" name="salt" onChange={this.onChange} />
 

@@ -8,51 +8,104 @@ import {
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
+  StyledPhaseKicker,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
+  StyledCardStage,
+  StyledCard,
+  StyledCardClose,
+  StyledCardFront,
+  StyledCardBack,
   FormHeader,
   FormCopy,
+  FullWidthButton,
 } from "./styledComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
+import { buttonSizes } from "../Button";
+import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
+import { NeedHelp } from "./NeedHelp";
 import { RevealVote } from "./RevealVote";
 
+export type ChallengeRevealVoteCardProps = ListingDetailPhaseCardComponentProps &
+  PhaseWithExpiryProps &
+  ChallengePhaseProps &
+  RevealVoteProps;
+
+export interface ChallengeRevealVoteCardState {
+  flipped: boolean;
+}
+
 export class ChallengeRevealVoteCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & RevealVoteProps
+  ChallengeRevealVoteCardProps,
+  ChallengeRevealVoteCardState
 > {
+  constructor(props: ChallengeRevealVoteCardProps) {
+    super(props);
+    this.state = { flipped: false };
+  }
+
   public render(): JSX.Element {
     return (
-      <StyledListingDetailPhaseCardContainer>
-        <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
-          <TwoPhaseProgressBarCountdownTimer
-            endTime={this.props.endTime}
-            totalSeconds={this.props.phaseLength}
-            displayLabel="Revealing votes"
-            secondaryDisplayLabel="Accepting Votes"
-            flavorText="under challenge"
-            activePhaseIndex={1}
-          />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.challenger}</MetaItemValue>
-          <MetaItemLabel>Challenger</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.rewardPool}</MetaItemValue>
-          <MetaItemLabel>Reward Pool</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.stake}</MetaItemValue>
-          <MetaItemLabel>Stake</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>{this.renderRevealVote()}</StyledListingDetailPhaseCardSection>
-      </StyledListingDetailPhaseCardContainer>
+      <StyledCardStage height="768" width="485">
+        <StyledCard flipped={this.state.flipped}>
+          <StyledCardFront>
+            <StyledListingDetailPhaseCardContainer>
+              <StyledListingDetailPhaseCardSection>
+                <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
+                <TwoPhaseProgressBarCountdownTimer
+                  endTime={this.props.endTime}
+                  totalSeconds={this.props.phaseLength}
+                  displayLabel="Revealing votes"
+                  secondaryDisplayLabel="Accepting Votes"
+                  flavorText="under challenge"
+                  activePhaseIndex={1}
+                />
+              </StyledListingDetailPhaseCardSection>
+
+              <ChallengePhaseDetail
+                challengeID={this.props.challengeID}
+                challenger={this.props.challenger}
+                rewardPool={this.props.rewardPool}
+                stake={this.props.stake}
+              />
+
+              <StyledListingDetailPhaseCardSection bgAccentColor="REVEAL_VOTE">
+                {this.renderRevealVote()}
+              </StyledListingDetailPhaseCardSection>
+
+              <NeedHelp />
+            </StyledListingDetailPhaseCardContainer>
+          </StyledCardFront>
+
+          <StyledCardBack>
+            <StyledListingDetailPhaseCardContainer>
+              <StyledListingDetailPhaseCardSection bgAccentColor="REVEAL_VOTE">
+                <StyledCardClose>
+                  <span onClick={this.swapFlipped}>✖</span>
+                </StyledCardClose>
+                <FormHeader>Confirm Your Votes. Make Them Count!</FormHeader>
+                <FormCopy>
+                  Confirm with your secret phrase and earn CVL tokens should the challenge results end in your favor.
+                </FormCopy>
+              </StyledListingDetailPhaseCardSection>
+
+              <StyledListingDetailPhaseCardSection>
+                <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
+                <RevealVote
+                  salt={this.props.salt}
+                  onInputChange={this.props.onInputChange}
+                  transactions={this.props.transactions}
+                  modalContentComponents={this.props.modalContentComponents}
+                />
+              </StyledListingDetailPhaseCardSection>
+            </StyledListingDetailPhaseCardContainer>
+          </StyledCardBack>
+        </StyledCard>
+      </StyledCardStage>
     );
   }
 
   private renderRevealVote = (): JSX.Element => {
-    if (!!this.props.userHasCommittedVote) {
+    if (!this.props.userHasCommittedVote) {
       return (
         <>
           <FormHeader>You did not participate in this challenge</FormHeader>
@@ -70,13 +123,20 @@ export class ChallengeRevealVoteCard extends React.Component<
       );
     } else {
       return (
-        <RevealVote
-          salt={this.props.salt}
-          onInputChange={this.props.onInputChange}
-          transactions={this.props.transactions}
-          modalContentComponents={this.props.modalContentComponents}
-        />
+        <>
+          <FormHeader>Confirm Your Votes. Make Them Count!</FormHeader>
+          <FormCopy>
+            Confirm with your secret phrase and earn CVL tokens should the challenge results end in your favor.
+          </FormCopy>
+          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+            Reveal My Vote
+          </FullWidthButton>
+        </>
       );
     }
+  };
+
+  private swapFlipped = (): void => {
+    this.setState(() => ({ flipped: !this.state.flipped }));
   };
 }

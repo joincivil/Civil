@@ -25,6 +25,7 @@ import {
   ModalListItemTypes,
   ListingDetailPhaseCardComponentProps,
   PhaseWithExpiryProps,
+  ChallengePhaseProps,
   ChallengeResultsProps,
 } from "@joincivil/components";
 import AppealDetail from "./AppealDetail";
@@ -41,7 +42,7 @@ import { ChallengeContainerProps, connectChallengeResults } from "../utility/Hig
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
-    ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengeResultsProps
+    ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps
   >,
 ) => {
   return compose<
@@ -147,6 +148,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       <AppealDetail
         listingAddress={this.props.listingAddress}
         appeal={challenge.appeal!}
+        challengeID={this.props.challengeID}
         challenge={challenge}
         challengeState={this.props.challengeState}
         govtParameters={this.props.govtParameters}
@@ -189,6 +191,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         endTime={endTime}
         phaseLength={phaseLength}
         challenger={challenge!.challenger.toString()}
+        challengeID={this.props.challengeID.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
         userHasCommittedVote={userHasCommittedVote}
@@ -251,6 +254,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
     return (
       <ChallengeRevealVoteCard
+        challengeID={this.props.challengeID.toString()}
         endTime={endTime}
         phaseLength={phaseLength}
         challenger={challenge!.challenger.toString()}

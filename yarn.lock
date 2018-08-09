@@ -541,7 +541,7 @@
   version "1.14.0"
   resolved "https://registry.yarnpkg.com/@types/sanitize-html/-/sanitize-html-1.14.0.tgz#9a03ec58306e24feaa3fbdb8ab593934d53ecb05"
 
-"@types/storejs@2.0.3":
+"@types/storejs@^2.0.2":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/storejs/-/storejs-2.0.3.tgz#1b66b98e01cc8d05e769731c59668b938f85ba26"
 

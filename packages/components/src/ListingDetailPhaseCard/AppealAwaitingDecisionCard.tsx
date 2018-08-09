@@ -1,75 +1,99 @@
 import * as React from "react";
 import { getLocalDateTimeStrings } from "@joincivil/utils";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, ChallengePhaseProps, PhaseWithExpiryProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
+  StyledPhaseKicker,
+  CTACopy,
+  MetaRow,
+  MetaItem,
   MetaItemValue,
   MetaItemLabel,
-  CTACopy,
 } from "./styledComponents";
+import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
+import { NeedHelp } from "./NeedHelp";
 
 export interface AppealProps {
   requester: string;
   appealFeePaid: string;
 }
 
-export class AppealAwaitingDecisionCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & AppealProps & ChallengeResultsProps
-> {
-  public render(): JSX.Element {
-    const localDateTime = getLocalDateTimeStrings(this.props.endTime);
-    return (
-      <StyledListingDetailPhaseCardContainer>
-        <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
-            endTime={this.props.endTime}
-            totalSeconds={this.props.phaseLength}
-            displayLabel="Waiting for Council's decision"
-            flavorText="under Appeal to Council"
-          />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.requester}</MetaItemValue>
-          <MetaItemLabel>Requester</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.appealFeePaid}</MetaItemValue>
-          <MetaItemLabel>Appeal Fee Paid</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <CTACopy>
-            Check back on {localDateTime[0]} for the Civil Council’s decision to reject or grant the appeal. Read more
-            for details of this appeal.
-          </CTACopy>
-          {this.props.transactions && this.renderGrantAppealButton()}
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <ChallengeResults
-            totalVotes={this.props.totalVotes}
-            votesFor={this.props.votesFor}
-            votesAgainst={this.props.votesAgainst}
-            percentFor={this.props.percentFor}
-            percentAgainst={this.props.percentAgainst}
-          />
-        </StyledListingDetailPhaseCardSection>
-      </StyledListingDetailPhaseCardContainer>
-    );
-  }
+export type AppealAwaitingDecisionCardProps = ListingDetailPhaseCardComponentProps &
+  PhaseWithExpiryProps &
+  ChallengePhaseProps &
+  ChallengeResultsProps &
+  AppealProps;
 
-  private renderGrantAppealButton = (): JSX.Element => {
-    return (
-      <TransactionInvertedButton
-        transactions={this.props.transactions!}
-        modalContentComponents={this.props.modalContentComponents}
-      >
-        Grant Appeal
-      </TransactionInvertedButton>
-    );
-  };
-}
+const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
+  return (
+    <TransactionInvertedButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
+      Grant Appeal
+    </TransactionInvertedButton>
+  );
+};
+
+export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
+  const localDateTime = getLocalDateTimeStrings(props.endTime);
+  return (
+    <StyledListingDetailPhaseCardContainer>
+      <StyledListingDetailPhaseCardSection>
+        <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
+        <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
+        <ProgressBarCountdownTimer
+          endTime={props.endTime}
+          totalSeconds={props.phaseLength}
+          displayLabel="Waiting for Council's decision"
+          flavorText="under Appeal to Council"
+        />
+      </StyledListingDetailPhaseCardSection>
+
+      <ChallengePhaseDetail
+        challengeID={props.challengeID}
+        challenger={props.challenger}
+        rewardPool={props.rewardPool}
+        stake={props.stake}
+      />
+
+      <StyledListingDetailPhaseCardSection>
+        <ChallengeResults
+          totalVotes={props.totalVotes}
+          votesFor={props.votesFor}
+          votesAgainst={props.votesAgainst}
+          percentFor={props.percentFor}
+          percentAgainst={props.percentAgainst}
+        />
+      </StyledListingDetailPhaseCardSection>
+
+      <StyledListingDetailPhaseCardSection>
+        <MetaRow>
+          <MetaItem>
+            <MetaItemLabel>Requester</MetaItemLabel>
+            <MetaItemValue>{props.requester}</MetaItemValue>
+          </MetaItem>
+        </MetaRow>
+        <MetaRow>
+          <MetaItem>
+            <MetaItemLabel>Appeal Fee Paid</MetaItemLabel>
+            <MetaItemValue>{props.appealFeePaid}</MetaItemValue>
+          </MetaItem>
+        </MetaRow>
+      </StyledListingDetailPhaseCardSection>
+
+      <StyledListingDetailPhaseCardSection>
+        <CTACopy>
+          Check back on {localDateTime[0]} for Civil Council’s decision to reject or grant the appeal. Read more for
+          details of this appeal.
+        </CTACopy>
+
+        {props.transactions && <GrantAppealButton {...props} />}
+      </StyledListingDetailPhaseCardSection>
+
+      <NeedHelp />
+    </StyledListingDetailPhaseCardContainer>
+  );
+};

@@ -18,6 +18,7 @@ export interface SubmitChallengeProps {
 }
 
 export interface ChallengePhaseProps {
+  challengeID?: string;
   challenger: EthAddress;
   rewardPool: string;
   stake: string;
@@ -26,6 +27,7 @@ export interface ChallengePhaseProps {
 }
 
 export interface CommitVoteProps {
+  newsroomName?: string;
   tokenBalance: number;
   salt?: string;
   numTokens?: string;
@@ -37,6 +39,7 @@ export interface CommitVoteProps {
 }
 
 export interface RevealVoteProps {
+  newsroomName?: string;
   salt: string | undefined;
   transactions: any[];
   modalContentComponents?: any;
@@ -45,4 +48,8 @@ export interface RevealVoteProps {
 
 export interface AppealDecisionProps {
   appealGranted: boolean;
+}
+
+export interface AppealChallengePhaseProps {
+  appealChallengeID: string;
 }

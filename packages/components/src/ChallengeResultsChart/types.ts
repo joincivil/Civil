@@ -7,7 +7,9 @@ export interface ChallengeResultsProps {
   percentFor: string;
   percentAgainst: string;
   headerText?: string;
+  noHeader?: boolean;
   styledHeaderComponent?: React.StatelessComponent;
+  collapsable?: boolean;
 }
 
 export interface BreakdownBarPercentageProps {

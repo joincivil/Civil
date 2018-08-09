@@ -11,12 +11,13 @@ import {
 } from "./styledComponents";
 import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
 import { VoteTypeSummaryRow } from "./VoteTypeSummaryRow";
+import { Collapsable } from "../Collapsable";
 
-export const ChallengeResults: React.StatelessComponent<ChallengeResultsProps> = props => {
+const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = props => {
   const Header = props.styledHeaderComponent || FormHeader;
   return (
     <>
-      <Header>{props.headerText || "Challenge Results"}</Header>
+      {!props.noHeader && <Header>{props.headerText || "Challenge Results"}</Header>}
 
       <VoteTypeSummaryContainer>
         <VoteTypeSummaryRow
@@ -48,4 +49,19 @@ export const ChallengeResults: React.StatelessComponent<ChallengeResultsProps> =
       </VoteTypeSummaryContainer>
     </>
   );
+};
+
+export const ChallengeResults: React.StatelessComponent<ChallengeResultsProps> = props => {
+  if (props.collapsable) {
+    const Header = props.styledHeaderComponent || FormHeader;
+    const headerElement = <Header>{props.headerText || "Challenge Results"}</Header>;
+
+    return (
+      <Collapsable header={headerElement} open={true}>
+        <ChallengeResultsInner noHeader={true} headerText="" {...props} />
+      </Collapsable>
+    );
+  }
+
+  return <ChallengeResultsInner {...props} />;
 };
