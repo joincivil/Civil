@@ -480,7 +480,7 @@
   version "9.6.23"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.23.tgz#fc429962c1b75f32bd66214a3997f660e8434f0d"
 
-"@types/prop-types@15.5.4":
+"@types/prop-types@^15.5.2":
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.4.tgz#9e6199bad131786e24c2baa2a82705a02139fbf8"
   dependencies:
@@ -11257,9 +11257,9 @@ slate-react@^0.12.0:
     slate-plain-serializer "^0.5.17"
     slate-prop-types "^0.4.34"
 
-slate-schema-violations@^0.1.12, slate-schema-violations@^0.1.4:
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.18.tgz#bc760e17dab85a613cd9a5399b98cbf867db0eb7"
+slate-schema-violations@0.1.27, slate-schema-violations@^0.1.12, slate-schema-violations@^0.1.4:
+  version "0.1.27"
+  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.27.tgz#1f84638b8563e050ef756547c61f6ea170abf52c"
 
 slate@^0.33.0:
   version "0.33.8"
