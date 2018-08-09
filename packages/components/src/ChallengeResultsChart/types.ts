@@ -10,6 +10,7 @@ export interface ChallengeResultsProps {
   noHeader?: boolean;
   styledHeaderComponent?: React.StatelessComponent;
   collapsable?: boolean;
+  open?: boolean;
 }
 
 export interface BreakdownBarPercentageProps {

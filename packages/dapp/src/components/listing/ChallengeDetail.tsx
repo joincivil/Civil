@@ -71,9 +71,9 @@ export interface ChallengeDetailContainerProps {
 }
 
 export interface ChallengeContainerReduxProps {
-  challengeData?: WrappedChallengeData | undefined;
-  userChallengeData?: UserChallengeData | undefined;
-  userAppealChallengeData?: UserChallengeData | undefined;
+  challengeData?: WrappedChallengeData;
+  userChallengeData?: UserChallengeData;
+  userAppealChallengeData?: UserChallengeData;
   challengeDataRequestStatus?: any;
   challengeState: any;
   user: EthAddress;
@@ -117,10 +117,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   }
 
   public render(): JSX.Element {
-    const challenge = this.props.challenge;
+    const { challenge, userChallengeData, userAppealChallengeData } = this.props;
     const { inChallengePhase, inRevealPhase } = this.props.challengeState;
-    const userChallengeData = this.props.userChallengeData;
-    const userAppealChallengeData = this.props.userAppealChallengeData;
     const appealExists = doesChallengeHaveAppeal(challenge);
     const canShowResult = challenge.resolved;
 
@@ -240,6 +238,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const phaseLength = this.props.parameters.revealStageLen;
     const challenge = this.props.challenge;
     const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
+    const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
     const revealVoteProgressModal = this.renderRevealVoteProgressModal();
     const modalContentComponents = {
       [ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE]: revealVoteProgressModal,
@@ -263,6 +262,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         salt={this.state.salt}
         onInputChange={this.updateCommitVoteState}
         userHasRevealedVote={userHasRevealedVote}
+        userHasCommittedVote={userHasCommittedVote}
         modalContentComponents={modalContentComponents}
         transactions={transactions}
       />

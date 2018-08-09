@@ -1,5 +1,6 @@
 import * as React from "react";
-import { FormHeader } from "../ListingDetailPhaseCard/styledComponents";
+import styled from "styled-components";
+import { StyledListingDetailPhaseCardSectionHeader } from "../ListingDetailPhaseCard/styledComponents";
 import { ChallengeResultsProps } from "./types";
 import {
   VoteTypeSummary,
@@ -13,11 +14,22 @@ import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
 import { VoteTypeSummaryRow } from "./VoteTypeSummaryRow";
 import { Collapsable } from "../Collapsable";
 
+const DefaultHeader = StyledListingDetailPhaseCardSectionHeader.extend`
+  & + ${VoteTypeSummaryContainer} {
+    margin-top: 14px;
+  }
+`;
+
+const StyledInner = styled.div`
+  padding-top: 14px;
+`;
+
 const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = props => {
-  const Header = props.styledHeaderComponent || FormHeader;
+  const Header = props.styledHeaderComponent || DefaultHeader;
   return (
     <>
       {!props.noHeader && <Header>{props.headerText || "Challenge Results"}</Header>}
+      {props.noHeader && <StyledInner />}
 
       <VoteTypeSummaryContainer>
         <VoteTypeSummaryRow
@@ -53,11 +65,12 @@ const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = p
 
 export const ChallengeResults: React.StatelessComponent<ChallengeResultsProps> = props => {
   if (props.collapsable) {
-    const Header = props.styledHeaderComponent || FormHeader;
+    const Header = props.styledHeaderComponent || DefaultHeader;
     const headerElement = <Header>{props.headerText || "Challenge Results"}</Header>;
+    const open = props.open !== undefined ? props.open : true;
 
     return (
-      <Collapsable header={headerElement} open={true}>
+      <Collapsable header={headerElement} open={open}>
         <ChallengeResultsInner noHeader={true} headerText="" {...props} />
       </Collapsable>
     );

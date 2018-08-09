@@ -38,6 +38,14 @@ export const StyledListingDetailPhaseCardSection: StyledComponentClass<
   }
 `;
 
+export const StyledListingDetailPhaseCardSectionHeader = styled.h4`
+  color: ${colors.accent.CIVIL_BLUE};
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21px;
+  margin: 0;
+`;
+
 export const StyledPhaseKicker = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1}
   font-size: 12px;
@@ -177,7 +185,7 @@ export const StyledCardClose = styled.div`
   }
 `;
 
-export const StyledCardFace = styled.div`
+export const StyledCardFace: StyledComponentClass<StyledCardProps, "div"> = styled<StyledCardProps, "div">("div")`
   background-color: ${colors.basic.WHITE};
   backface-visibility: hidden;
   height: 100%;
@@ -189,10 +197,13 @@ export const StyledCardFace = styled.div`
   }
 `;
 
-export const StyledCardFront = StyledCardFace.extend``;
+export const StyledCardFront = StyledCardFace.extend`
+  z-index: ${props => (!!props.flipped ? "1" : "-1")};
+`;
 
 export const StyledCardBack = StyledCardFace.extend`
   transform: rotateY(180deg);
+  z-index: ${props => (!!props.flipped ? "-1" : "1")};
 
   ${StyledListingDetailPhaseCardContainer} {
     padding-top: 0;

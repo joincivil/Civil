@@ -5,7 +5,9 @@ import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
 import { BreakdownBarPercentageProps, VotesPerTokenVoteProps } from "./types";
 
 export const VoteTypeSummaryContainer = styled.div`
-  box-shadow: inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_4}, inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_4};
+  box-shadow: inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_4};
+  font-size: 14px;
+  line-height: 17px;
   padding: 14px 0;
 `;
 
@@ -19,9 +21,7 @@ export const BreakdownBarContainer = styled.div`
 `;
 
 export const BreakdownBarPercentageLabel = styled.div`
-  font-size: 14px;
   font-weight: bold;
-  line-height: 17px;
   width: 50px;
 `;
 
@@ -52,11 +52,13 @@ export const VotesPerTokenContainer = styled.div`
 `;
 
 export const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
+  font-weight: bold;
   width: 95px;
 
   & > span {
     color: ${props =>
       props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED};
+    margin-right: 4px;
   ]
 `;
 

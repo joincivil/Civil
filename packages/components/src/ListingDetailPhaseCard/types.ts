@@ -19,6 +19,7 @@ export interface SubmitChallengeProps {
 
 export interface ChallengePhaseProps {
   challengeID?: string;
+  isViewingUserChallenger?: boolean;
   challenger: EthAddress;
   rewardPool: string;
   stake: string;

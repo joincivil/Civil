@@ -18,7 +18,7 @@ export const ChallengeResolveCard: React.StatelessComponent<
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
-        <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
+        <StyledPhaseKicker>Challenge ID {(props.challengeID as any).toString && (props.challengeID as any).toString() || props.challengeID}</StyledPhaseKicker>
         <StyledPhaseDisplayName>Ready to Complete</StyledPhaseDisplayName>
       </StyledListingDetailPhaseCardSection>
 
