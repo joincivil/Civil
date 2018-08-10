@@ -184,6 +184,7 @@ contract Government is IGovernment {
     else { // The challenge succeeded or nobody voted
       emit _ProposalFailed(_propID, prop.pollID);
     }
+    delete proposals[_propID];
   }
 
   /**
