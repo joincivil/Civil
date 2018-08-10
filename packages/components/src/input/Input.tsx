@@ -22,7 +22,7 @@ export const ErrorMessage = styled.small`
 export interface InputBaseProps {
   className?: string;
   icon?: JSX.Element;
-  label?: string;
+  label?: string | JSX.Element;
   noLabel?: boolean;
   inputRef?: string;
   invalid?: boolean;
@@ -116,7 +116,7 @@ export interface InputProps {
   name: string;
   value?: string;
   placeholder?: string;
-  label?: string;
+  label?: string | JSX.Element;
   className?: string;
   invalid?: boolean;
   disabled?: boolean;

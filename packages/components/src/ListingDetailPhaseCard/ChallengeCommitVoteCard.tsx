@@ -69,15 +69,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                 stake={this.props.stake}
               />
 
-              <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
-                <FormHeader>Submit Your Votes!</FormHeader>
-                <FormCopy>
-                  Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.
-                </FormCopy>
-                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-                  Submit My Vote
-                </FullWidthButton>
-              </StyledListingDetailPhaseCardSection>
+              {this.renderCommitVoteCallout()}
 
               <NeedHelp />
             </StyledListingDetailPhaseCardContainer>
@@ -101,9 +93,8 @@ export class ChallengeCommitVoteCard extends React.Component<
                   salt={this.props.salt}
                   numTokens={this.props.numTokens}
                   onInputChange={this.props.onInputChange}
-                  transactions={this.props.transactions}
                   userHasCommittedVote={this.props.userHasCommittedVote}
-                  modalContentComponents={this.props.modalContentComponents}
+                  onReviewVote={this.props.onReviewVote}
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
@@ -115,5 +106,32 @@ export class ChallengeCommitVoteCard extends React.Component<
 
   private swapFlipped = (): void => {
     this.setState(() => ({ flipped: !this.state.flipped }));
+  };
+
+  private renderCommitVoteCallout = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return (
+        <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+          <FormHeader>Thanks for participating in this challenge!</FormHeader>
+          <FormCopy>
+            You have committed a vote in this challenge. Thanks for that. You can change your vote until the deadline.
+          </FormCopy>
+          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+            Submit My Vote
+          </FullWidthButton>
+        </StyledListingDetailPhaseCardSection>
+      );
+    }
+    return (
+      <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+        <FormHeader>Submit Your Votes!</FormHeader>
+        <FormCopy>
+          Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.
+        </FormCopy>
+        <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+          Submit My Vote
+        </FullWidthButton>
+      </StyledListingDetailPhaseCardSection>
+    );
   };
 }

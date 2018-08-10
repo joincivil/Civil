@@ -122,9 +122,8 @@ export class AppealChallengeCommitVoteCard extends React.Component<
                   salt={this.props.salt}
                   numTokens={this.props.numTokens}
                   onInputChange={this.props.onInputChange}
-                  transactions={this.props.transactions}
                   userHasCommittedVote={this.props.userHasCommittedVote}
-                  modalContentComponents={this.props.modalContentComponents}
+                  onReviewVote={this.props.onReviewVote}
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>

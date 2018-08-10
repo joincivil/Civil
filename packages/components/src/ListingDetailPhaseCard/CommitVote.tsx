@@ -1,10 +1,25 @@
 import * as React from "react";
-import { buttonSizes, DarkButton } from "../Button";
+import { buttonSizes, Button, DarkButton } from "../Button";
 import { InputGroup } from "../input/";
 import { CommitVoteProps } from "./types";
 import { TransactionDarkButton } from "../TransactionButton";
-import { FormHeader, FormCopy, FormQuestion, VoteOptionsContainer, StyledOrText } from "./styledComponents";
+import {
+  FormHeader,
+  FormCopy,
+  FormQuestion,
+  VoteOptionsContainer,
+  StyledOrText,
+  buttonTheme,
+} from "./styledComponents";
 import { SaltField } from "./SaltField";
+
+import {
+  CommitVoteReviewButtonText,
+  WhitelistActionText,
+  RemoveActionText,
+  VoteCallToActionText,
+  CommitVoteNumTokensLabelText,
+} from "./textComponents";
 
 export interface CommitVoteState {
   voteOption?: number;
@@ -23,23 +38,29 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   }
 
   public render(): JSX.Element {
+    const canReview =
+      this.state.voteOption !== undefined &&
+      this.props.numTokens &&
+      typeof parseInt(this.props.numTokens, 10) === "number";
     return (
       <>
         <FormQuestion>
-          Should {this.props.newsroomName || "this newsroom"} remain or be removed from the Civil Registry?
+          <VoteCallToActionText newsroomName={this.props.newsroomName} />
         </FormQuestion>
 
-        {this.renderFormHeader()}
+        <VoteOptionsContainer>
+          {this.renderVoteButton({ voteOption: 0 })}
+          <StyledOrText>or</StyledOrText>
+          {this.renderVoteButton({ voteOption: 1 })}
+        </VoteOptionsContainer>
 
         {this.renderNumTokensInput()}
 
         {this.renderSaltInput()}
 
-        <VoteOptionsContainer>
-          <div onMouseEnter={this.setVoteToRemain}>{this.renderVoteButton({ voteOption: 0 })}</div>
-          <StyledOrText>or</StyledOrText>
-          <div onMouseEnter={this.setVoteToRemove}>{this.renderVoteButton({ voteOption: 1 })}</div>
-        </VoteOptionsContainer>
+        <Button disabled={!canReview} size={buttonSizes.MEDIUM} theme={buttonTheme} onClick={this.props.onReviewVote}>
+          <CommitVoteReviewButtonText />
+        </Button>
       </>
     );
   }
@@ -47,42 +68,39 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   private renderVoteButton = (options: any): JSX.Element => {
     const disableButtons = !!this.state.numTokensError || !!this.state.saltError;
     let buttonText;
+    let onClick;
     if (options.voteOption === 0) {
-      buttonText = "✔ Remain";
+      buttonText = (
+        <>
+          ✔ <WhitelistActionText />
+        </>
+      );
+      onClick = this.setVoteToRemain;
     } else if (options.voteOption === 1) {
-      buttonText = "✖ Remove";
+      buttonText = (
+        <>
+          ✖ <RemoveActionText />
+        </>
+      );
+      onClick = this.setVoteToRemove;
     }
     if (this.state.voteOption === options.voteOption) {
       return (
-        <TransactionDarkButton
-          transactions={this.props.transactions}
-          modalContentComponents={this.props.modalContentComponents}
-          disabled={disableButtons}
-        >
+        <Button onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
           {buttonText}
-        </TransactionDarkButton>
+        </Button>
       );
     }
 
-    return <DarkButton size={buttonSizes.MEDIUM}>{buttonText}</DarkButton>;
-  };
-
-  private renderFormHeader = (): JSX.Element => {
-    if (this.props.userHasCommittedVote) {
-      return (
-        <>
-          <FormHeader>Thanks for participating in this challenge!</FormHeader>
-          <FormCopy>
-            You have committed a vote in this challenge. Thanks for that. You can change your vote until the deadline.
-          </FormCopy>
-        </>
-      );
-    }
-    return <FormHeader>You’re invited to vote!</FormHeader>;
+    return (
+      <DarkButton onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
+        {buttonText}
+      </DarkButton>
+    );
   };
 
   private renderNumTokensInput = (): JSX.Element => {
-    let label = "Enter amount of tokens to vote. 1 vote equals 1 token";
+    let label: string | JSX.Element = <CommitVoteNumTokensLabelText />;
     let className;
 
     if (this.state.numTokensError) {
