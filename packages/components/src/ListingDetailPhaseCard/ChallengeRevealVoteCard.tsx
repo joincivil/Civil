@@ -50,6 +50,7 @@ export class ChallengeRevealVoteCard extends React.Component<
           <StyledCardFront>
             <StyledListingDetailPhaseCardContainer>
               <StyledListingDetailPhaseCardSection>
+                <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
