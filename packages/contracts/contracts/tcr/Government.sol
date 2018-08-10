@@ -14,7 +14,7 @@ cost of deployment (specifically to minimize the size of the IGovernment interfa
 contract Government is IGovernment {
   event AppellateSet(address newAppellate);
   event ParameterSet(string name, uint value);
-  event _GovtReparameterizationProposal(string name, uint value, bytes32 propId, uint deposit, uint pollID);
+  event _GovtReparameterizationProposal(string name, uint value, bytes32 propID, uint deposit, uint pollID);
   event _ProposalPassed(bytes32 propId, uint pollID, uint rewardPool, uint winningTokens);
   event _ProposalFailed(bytes32 propId, uint pollID, uint rewardPool, uint winningTokens);
   
