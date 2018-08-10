@@ -55,7 +55,13 @@ export class Civil {
         provider = opts.web3Provider as Web3.Provider;
       }
     } else {
-      provider = detectProvider();
+      const detectedProvider = detectProvider();
+      if (detectedProvider) {
+        provider = detectedProvider;
+      } else {
+        provider = new Web3.providers.HttpProvider("http://localhost:8545");
+        debug("No web3 provider provided or found injected, defaulting to localhost RPC");
+      }
     }
     this.ethApi = new EthApi(provider, Object.values<Artifact>(artifacts).map(a => a.abi));
 

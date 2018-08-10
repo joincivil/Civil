@@ -1,12 +1,19 @@
 import { Civil } from "@joincivil/core";
 import { CivilTCR } from "../../../core/build/src/contracts/tcr/civilTCR";
+import { detectProvider, INFURA_WEBSOCKET_HOSTS } from "@joincivil/ethapi";
+import * as WSProvider from "web3-providers-ws";
 
 let civil: Civil;
 let tcr: CivilTCR;
 
 export const setCivil = () => {
   if (!civil) {
-    civil = new Civil();
+    let provider = detectProvider();
+    if (!provider) {
+      provider = new WSProvider(INFURA_WEBSOCKET_HOSTS.RINKEBY);
+      console.warn("No injected provider found, using infura for read only dapp");
+    }
+    civil = new Civil({ web3Provider: provider });
   }
 };
 

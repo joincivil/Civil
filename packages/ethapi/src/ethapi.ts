@@ -26,7 +26,7 @@ export class EthApi {
   private abiDecoder: AbiDecoder;
   private accountObservable: Observable<EthAddress | undefined>;
   private networkObservable: Observable<number>;
-  private rpcId: number = 0; // Decreasing ids to not collide with web3
+  private rpcId: number = 10000; // HACK(ritave): Ids that shouldn't collide with web3, get rid of web3
 
   // TODO(ritave): Use abi decoding seperatly in just the generated smart-contracts
   constructor(provider: Web3.Provider, abis: Web3.AbiDefinition[][]) {
@@ -95,7 +95,7 @@ export class EthApi {
   }
 
   public async rpc(method: string, ...params: any[]): Promise<Web3.JSONRPCResponsePayload> {
-    this.rpcId--;
+    this.rpcId++;
     return new Promise<Web3.JSONRPCResponsePayload>((resolve, reject) => {
       this.currentProvider.sendAsync(
         {
