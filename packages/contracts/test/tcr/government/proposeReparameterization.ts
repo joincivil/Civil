@@ -9,7 +9,7 @@ configureChai(chai);
 const expect = chai.expect;
 
 contract("Government", accounts => {
-  describe("Function: set", () => {
+  describe("Function: proposeReparameterization", () => {
     const [JAB, troll] = accounts;
     let registry: any;
     let government: any;
@@ -18,16 +18,16 @@ contract("Government", accounts => {
       government = await Government.at(await registry.government());
     });
 
-    it("should be possible for JAB to set judgeAppealLen value", async () => {
+    it("should be possible for JAB to propose new judgeAppealLen value", async () => {
       await expect(
         government.proposeReparameterization("judgeAppealLen", 100, { from: JAB }),
-      ).to.eventually.be.fulfilled("Should have allowed JAB to update judgeAppealLen");
+      ).to.eventually.be.fulfilled("Should have allowed JAB to propose new judgeAppealLen");
     });
 
-    it("should not be possible for troll to set judgeAppealLen value", async () => {
+    it("should not be possible for troll to propose new judgeAppealLen value", async () => {
       await expect(
         government.proposeReparameterization("judgeAppealLen", 100, { from: troll }),
-      ).to.eventually.be.rejectedWith(REVERTED, "Should not have allowed troll to update judgeAppealLen");
+      ).to.eventually.be.rejectedWith(REVERTED, "Should not have allowed troll to propose new judgeAppealLen");
     });
   });
 });
