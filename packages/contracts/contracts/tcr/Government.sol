@@ -84,7 +84,6 @@ contract Government is IGovernment {
     set("judgeAppealLen", judgeAppealLength);
     set("appealFee", appealFeeAmount);
     set("appealVotePercentage", appealSupermajorityPercentage);
-    set("govtPDeposit", pDeposit);
     set("govtPCommitStageLength", pCommitStageLength);
     set("govtPRevealStageLength", pRevealStageLength);
     constitutionHash = constHash;
@@ -121,7 +120,6 @@ contract Government is IGovernment {
   @param _value the proposed value to set the param to be set
   */
   function proposeReparameterization(string _name, uint _value) public onlyAppellate returns (bytes32) {
-    uint deposit = get("govtPDeposit");
     bytes32 propID = keccak256(_name, _value);
 
     if (keccak256(_name) == keccak256("appealVotePercentage")) {
@@ -145,12 +143,8 @@ contract Government is IGovernment {
           .add(get("govtPRevealStageLen"))
           .add(PROCESSBY),
         value: _value,
-        rewardPool: deposit,
-        resolved: false,
-        winningTokens: 0
+        resolved: false
     });
-
-    require(token.transferFrom(msg.sender, this, deposit)); // escrow tokens (deposit amt)
 
     emit _GovtReparameterizationProposal(_name, _value, propID, deposit, pollID);
     return propID;
@@ -183,7 +177,6 @@ contract Government is IGovernment {
   function resolveProposal(bytes32 _propID) private {
     GovtParamProposal storage prop = proposals[_propID];
 
-    prop.winningTokens = voting.getTotalNumberOfTokensForWinningOption(prop.pollID);
     prop.resolved = true;
 
     if (voting.isPassed(prop.pollID)) { // The challenge failed
