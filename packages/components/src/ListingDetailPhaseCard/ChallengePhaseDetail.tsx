@@ -5,6 +5,7 @@ import {
   MetaRow,
   MetaItem,
   MetaItemValue,
+  MetaItemValueLong,
   MetaItemLabel,
 } from "./styledComponents";
 import { QuestionToolTip } from "../QuestionToolTip";
@@ -15,7 +16,7 @@ export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps>
       <MetaRow>
         <MetaItem>
           <MetaItemLabel>{props.isViewingUserChallenger ? "You are the challenger" : "Challenger"}</MetaItemLabel>
-          <MetaItemValue>{props.challenger}</MetaItemValue>
+          <MetaItemValueLong>{props.challenger}</MetaItemValueLong>
         </MetaItem>
       </MetaRow>
       <MetaRow>

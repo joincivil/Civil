@@ -92,6 +92,10 @@ export const MetaItemValue = styled.div`
   text-overflow: ellipsis;
 `;
 
+export const MetaItemValueLong = MetaItemValue.extend`
+  font-size: 16px;
+`;
+
 export const MetaItemValueAccent = MetaItemValue.extend`
   color: ${colors.primary.CIVIL_BLUE_1};
 `;

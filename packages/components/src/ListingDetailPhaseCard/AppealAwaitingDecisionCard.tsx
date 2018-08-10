@@ -10,6 +10,7 @@ import {
   MetaRow,
   MetaItem,
   MetaItemValue,
+  MetaItemValueLong,
   MetaItemLabel,
 } from "./styledComponents";
 import { TransactionInvertedButton } from "../TransactionButton";
@@ -61,6 +62,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
 
       <StyledListingDetailPhaseCardSection>
         <ChallengeResults
+          collapsable={true}
           totalVotes={props.totalVotes}
           votesFor={props.votesFor}
           votesAgainst={props.votesAgainst}
@@ -73,7 +75,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
         <MetaRow>
           <MetaItem>
             <MetaItemLabel>Requester</MetaItemLabel>
-            <MetaItemValue>{props.requester}</MetaItemValue>
+            <MetaItemValueLong>{props.requester}</MetaItemValueLong>
           </MetaItem>
         </MetaRow>
         <MetaRow>
