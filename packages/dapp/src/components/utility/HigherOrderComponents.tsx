@@ -97,18 +97,19 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
   const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
     const { challenges, challengesFetching } = state.networkDependent;
     let challengeData;
-    const challengeID = ownProps.challengeID;
+    let challengeID = ownProps.challengeID;
     if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
+      challengeID = (challengeID.toString && challengeID.toString()) || challengeID;
+      challengeData = challenges.get(challengeID as string);
     }
     let challengeDataRequestStatus;
     if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
+      challengeDataRequestStatus = challengesFetching.get(challengeID as string);
     }
     // Can't use spread here b/c of TS issue with spread and generics
     // https://github.com/Microsoft/TypeScript/pull/13288
     // tslint:disable-next-line:prefer-object-spread
-    return Object.assign({}, { challengeData }, { challengeDataRequestStatus }, ownProps);
+    return Object.assign({}, ownProps, { challengeID, challengeData, challengeDataRequestStatus });
   };
 
   class HOChallengeResultsContainer extends React.Component<
@@ -138,7 +139,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
 
     private ensureHasChallengeData = (): void => {
       if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
       }
     };
   }

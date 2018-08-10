@@ -15,10 +15,11 @@ import { NeedHelp } from "./NeedHelp";
 export const ChallengeResolveCard: React.StatelessComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeResultsProps
 > = props => {
+  console.log("rendering component");
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
-        <StyledPhaseKicker>Challenge ID {(props.challengeID as any).toString && (props.challengeID as any).toString() || props.challengeID}</StyledPhaseKicker>
+        <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
         <StyledPhaseDisplayName>Ready to Complete</StyledPhaseDisplayName>
       </StyledListingDetailPhaseCardSection>
 
