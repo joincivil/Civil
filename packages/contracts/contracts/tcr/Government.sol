@@ -14,9 +14,9 @@ cost of deployment (specifically to minimize the size of the IGovernment interfa
 contract Government is IGovernment {
   event AppellateSet(address newAppellate);
   event ParameterSet(string name, uint value);
-  event _GovtReparameterizationProposal(string name, uint value, bytes32 propID, uint deposit, uint pollID);
-  event _ProposalPassed(bytes32 propId, uint pollID, uint rewardPool, uint winningTokens);
-  event _ProposalFailed(bytes32 propId, uint pollID, uint rewardPool, uint winningTokens);
+  event _GovtReparameterizationProposal(string name, uint value, bytes32 propID, uint pollID);
+  event _ProposalPassed(bytes32 propId, uint pollID);
+  event _ProposalFailed(bytes32 propId, uint pollID);
   
   modifier onlyGovernmentController {
     require(msg.sender == governmentController);
@@ -35,11 +35,7 @@ contract Government is IGovernment {
     string name;
     uint processBy;
     uint value;
-
-    uint rewardPool;        // (remaining) pool of tokens distributed amongst winning voters
     bool resolved;
-    uint winningTokens;     // (remaining) amount of tokens used for voting by the winning side
-    mapping(address => bool) tokenClaims;
   }
 
   address public appellate;
@@ -84,8 +80,8 @@ contract Government is IGovernment {
     set("judgeAppealLen", judgeAppealLength);
     set("appealFee", appealFeeAmount);
     set("appealVotePercentage", appealSupermajorityPercentage);
-    set("govtPCommitStageLength", pCommitStageLength);
-    set("govtPRevealStageLength", pRevealStageLength);
+    set("govtPCommitStageLen", pCommitStageLength);
+    set("govtPRevealStageLen", pRevealStageLength);
     constitutionHash = constHash;
     constitutionURI = constURI;
   }
@@ -146,7 +142,7 @@ contract Government is IGovernment {
         resolved: false
     });
 
-    emit _GovtReparameterizationProposal(_name, _value, propID, deposit, pollID);
+    emit _GovtReparameterizationProposal(_name, _value, propID, pollID);
     return propID;
   }
 
@@ -183,10 +179,10 @@ contract Government is IGovernment {
       if(prop.processBy > now) {
         set(prop.name, prop.value);
       }
-      emit _ProposalPassed(_propID, prop.pollID, prop.rewardPool, prop.winningTokens);
+      emit _ProposalPassed(_propID, prop.pollID);
     }
     else { // The challenge succeeded or nobody voted
-      emit _ProposalFailed(_propID, prop.pollID, prop.rewardPool, prop.winningTokens);
+      emit _ProposalFailed(_propID, prop.pollID);
     }
   }
 
