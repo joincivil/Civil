@@ -52,7 +52,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <StyledCardStage height="1300" width="485">
+      <StyledCardStage width="485">
         <StyledCard flipped={this.state.flipped}>
           <StyledCardFront>
             <StyledListingDetailPhaseCardContainer>

@@ -45,7 +45,7 @@ export class ChallengeRevealVoteCard extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <StyledCardStage height="768" width="485">
+      <StyledCardStage width="485">
         <StyledCard flipped={this.state.flipped}>
           <StyledCardFront>
             <StyledListingDetailPhaseCardContainer>

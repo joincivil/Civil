@@ -148,8 +148,7 @@ export const FormQuestion = styled.p`
 `;
 
 export interface StyledCardStageProps {
-  height: string;
-  width: string;
+  width?: string;
 }
 
 export interface StyledCardProps {
@@ -159,7 +158,6 @@ export interface StyledCardProps {
 export const StyledCardStage: StyledComponentClass<StyledCardStageProps, "div"> = styled<StyledCardStageProps, "div">(
   "div",
 )`
-  height: ${props => (props.height ? props.height + "px" : "")};
   perspective: 800px;
   width: ${props => (props.width ? props.width + "px" : "")};
 `;
@@ -191,10 +189,6 @@ export const StyledCardFace: StyledComponentClass<StyledCardProps, "div"> = styl
   height: 100%;
   position: absolute;
   width: 100%;
-
-  ${StyledListingDetailPhaseCardContainer} {
-    height: 100%;
-  }
 `;
 
 export const StyledCardFront = StyledCardFace.extend`
