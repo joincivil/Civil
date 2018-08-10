@@ -46,7 +46,9 @@ const withChallengeResults = (
   >,
 ) => {
   return compose<
-    React.ComponentType<ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengeContainerProps>
+    React.ComponentType<
+      ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeContainerProps
+    >
   >(connectChallengeResults)(WrappedComponent);
 };
 
@@ -308,9 +310,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
     return (
       <ChallengeRequestAppeal
-        challengeID={this.props.challengeID}
+        challengeID={this.props.challengeID.toString()}
         endTime={endTime}
         phaseLength={phaseLength}
+        challenger={challenge!.challenger.toString()}
+        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+        stake={getFormattedTokenBalance(challenge!.stake)}
         modalContentComponents={modalContentComponents}
         transactions={transactions}
       />

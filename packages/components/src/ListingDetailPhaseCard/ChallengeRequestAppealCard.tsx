@@ -7,6 +7,7 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
+import { buttonSizes } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
@@ -51,6 +52,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
         <TransactionInvertedButton
           transactions={props.transactions!}
           modalContentComponents={props.modalContentComponents}
+          size={buttonSizes.MEDIUM_WIDE}
         >
           Request Appeal from Civil Council
         </TransactionInvertedButton>
