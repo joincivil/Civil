@@ -48,6 +48,7 @@ contract Government is IGovernment {
   // Global Variables
   EIP20Interface public token;
   PLCRVoting public voting;
+  // solium-disable-next-line
   uint public PROCESSBY = 604800; // 7 days
 
   /**
@@ -119,7 +120,7 @@ contract Government is IGovernment {
     bytes32 propID = keccak256(_name, _value);
 
     if (keccak256(_name) == keccak256("appealVotePercentage")) {
-        require(_value <= 100);
+      require(_value <= 100);
     }
 
     require(!propExists(propID)); // Forbid duplicate proposals
@@ -127,19 +128,19 @@ contract Government is IGovernment {
 
     //start poll
     uint pollID = voting.startPoll(
-        get("appealVotePercentage"),
-        get("govtPCommitStageLen"),
-        get("govtPRevealStageLen")
+      get("appealVotePercentage"),
+      get("govtPCommitStageLen"),
+      get("govtPRevealStageLen")
     );
     // attach name and value to pollID
     proposals[propID] = GovtParamProposal({
-        pollID: pollID,
-        name: _name,
-        processBy: now.add(get("govtPCommitStageLen"))
-          .add(get("govtPRevealStageLen"))
-          .add(PROCESSBY),
-        value: _value,
-        resolved: false
+      pollID: pollID,
+      name: _name,
+      processBy: now.add(get("govtPCommitStageLen"))
+        .add(get("govtPRevealStageLen"))
+        .add(PROCESSBY),
+      value: _value,
+      resolved: false
     });
 
     emit _GovtReparameterizationProposal(_name, _value, propID, pollID);
@@ -163,7 +164,7 @@ contract Government is IGovernment {
   @param _propID The proposal ID whose existance is to be determined
   */
   function propExists(bytes32 _propID) view public returns (bool) {
-      return proposals[_propID].processBy > 0;
+    return proposals[_propID].processBy > 0;
   }
 
   /**
@@ -176,12 +177,11 @@ contract Government is IGovernment {
     prop.resolved = true;
 
     if (voting.isPassed(prop.pollID)) { // The challenge failed
-      if(prop.processBy > now) {
+      if (prop.processBy > now) {
         set(prop.name, prop.value);
       }
       emit _ProposalPassed(_propID, prop.pollID);
-    }
-    else { // The challenge succeeded or nobody voted
+    } else { // The challenge succeeded or nobody voted
       emit _ProposalFailed(_propID, prop.pollID);
     }
     delete proposals[_propID];
