@@ -20,7 +20,6 @@
     "appealChallengeCommitStageLength": 16000,
     "appealChallengeRevealStageLength": 16000,
     "appealSupermajorityPercentage": 66,
-    "govtPDeposit": 1000,
     "govtPCommitStageLength": 1800,
     "govtPRevealStageLength": 1800
   },
