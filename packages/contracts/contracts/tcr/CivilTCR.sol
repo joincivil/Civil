@@ -2,6 +2,7 @@ pragma solidity ^0.4.19;
 
 import "./RestrictedAddressRegistry.sol";
 import "../interfaces/IGovernment.sol";
+import "./CivilPLCRVoting.sol";
 
 /**
 @title CivilTCR - Token Curated Registry with Appeallate Functionality and Restrictions on Application
@@ -36,6 +37,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     _;
   }
 
+  CivilPLCRVoting public civilVoting;
   IGovernment public government;
 
   /*
@@ -56,20 +58,21 @@ contract CivilTCR is RestrictedAddressRegistry {
   mapping(uint => Appeal) public appeals; // map challengeID to appeal
 
   /**
-  @notice Contructor Sets the addresses for token, voting, parameterizer, appellate, and fee recipient
+  @notice Init function calls AddressRegistry init then sets IGovernment
   @dev passes tokenAddr, plcrAddr, paramsAddr up to RestrictedAddressRegistry constructor
   @param tokenAddr Address of the TCR's intrinsic ERC20 token
   @param plcrAddr Address of a PLCR voting contract for the provided token
   @param paramsAddr Address of a Parameterizer contract
   @param govt IGovernment contract
   */
-  function CivilTCR(
+  constructor(
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
     IGovernment govt
-  ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr)
+  ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr, "CivilTCR")
   {
+    civilVoting = CivilPLCRVoting(plcrAddr);
     require(address(govt) != 0);
     require(govt.getGovernmentController() != 0);
     government = govt;
@@ -311,6 +314,33 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
+  @dev                Called by a voter to claim their reward for each completed vote. Someone
+                      must call updateStatus() before this can be called.
+  @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
+  @param _salt        The salt of a voter's commit hash in the given poll
+  */
+  function claimReward(uint _challengeID, uint _salt) public {
+    // Ensures the voter has not already claimed tokens and challenge results have been processed
+    require(challenges[_challengeID].tokenClaims[msg.sender] == false);
+    require(challenges[_challengeID].resolved == true);
+
+    uint voterTokens = getNumChallengeTokens(msg.sender, _challengeID, _salt);
+    uint reward = voterReward(msg.sender, _challengeID, _salt);
+
+    // Subtracts the voter's information to preserve the participation ratios
+    // of other voters compared to the remaining pool of rewards
+    challenges[_challengeID].totalTokens -= voterTokens;
+    challenges[_challengeID].rewardPool -= reward;
+
+    // Ensures a voter cannot claim tokens again
+    challenges[_challengeID].tokenClaims[msg.sender] = true;
+
+    require(token.transfer(msg.sender, reward));
+
+    emit _RewardClaimed(_challengeID, reward, msg.sender);
+  }
+
+  /**
   @notice gets the number of tokens the voter staked on the winning side of the challenge,
   or the losing side if the challenge has been overturned
   @param voter The Voter to check
@@ -320,7 +350,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   function getNumChallengeTokens(address voter, uint challengeID, uint salt) internal view returns (uint) {
     bool overturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
     if (overturned) {
-      return voting.getNumLosingTokens(voter, challengeID, salt);
+      return civilVoting.getNumLosingTokens(voter, challengeID, salt);
     } else {
       return voting.getNumPassingTokens(voter, challengeID, salt);
     }
@@ -370,22 +400,22 @@ contract CivilTCR is RestrictedAddressRegistry {
 
     challenge.resolved = true;
     // Stores the total tokens used for voting by the losing side for reward purposes
-    challenge.totalTokens = voting.getTotalNumberOfTokensForLosingOption(challengeID);
+    challenge.totalTokens = civilVoting.getTotalNumberOfTokensForLosingOption(challengeID);
 
     // challenge is overturned, behavior here is opposite resolveChallenge
-    if (voting.isPassed(challengeID)) { // original vote passed (challenge failed), this should de-list listing
-      resetListing(listingAddress);
-      // Transfer the reward to the challenger
-      require(token.transfer(challenge.challenger, reward));
-
-      emit _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
-    } else { // original vote failed (challenge success), this should whitelist listing
+    if (!voting.isPassed(challengeID)) { // original vote failed (challenge succeded), this should whitelist listing
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
       listing.unstakedDeposit += reward;
 
       emit _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
-    }
+    } else { // original vote succeded (challenge failed), this should de-list listing
+      resetListing(listingAddress);
+      // Transfer the reward to the challenger
+      require(token.transfer(challenge.challenger, reward));
+
+      emit _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
+    } 
   }
 
   /**

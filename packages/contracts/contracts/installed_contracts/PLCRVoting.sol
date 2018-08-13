@@ -15,7 +15,7 @@ contract PLCRVoting {
     // ============
 
     event _VoteCommitted(uint indexed pollID, uint numTokens, address indexed voter);
-    event _VoteRevealed(uint indexed pollID, uint numTokens, uint votesFor, uint votesAgainst, uint indexed choice, address indexed voter);
+    event _VoteRevealed(uint indexed pollID, uint numTokens, uint votesFor, uint votesAgainst, uint indexed choice, address indexed voter, uint salt);
     event _PollCreated(uint voteQuorum, uint commitEndDate, uint revealEndDate, uint indexed pollID, address indexed creator);
     event _VotingRightsGranted(uint numTokens, address indexed voter);
     event _VotingRightsWithdrawn(uint numTokens, address indexed voter);
@@ -224,7 +224,7 @@ contract PLCRVoting {
         dllMap[msg.sender].remove(_pollID); // remove the node referring to this vote upon reveal
         pollMap[_pollID].didReveal[msg.sender] = true;
 
-        emit _VoteRevealed(_pollID, numTokens, pollMap[_pollID].votesFor, pollMap[_pollID].votesAgainst, _voteOption, msg.sender);
+        emit _VoteRevealed(_pollID, numTokens, pollMap[_pollID].votesFor, pollMap[_pollID].votesAgainst, _voteOption, msg.sender, _salt);
     }
 
     /**
