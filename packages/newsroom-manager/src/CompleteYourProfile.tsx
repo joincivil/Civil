@@ -11,6 +11,11 @@ import {
   StepHeader,
   StepProps,
   StepStyled,
+  Transaction,
+  MetaMaskModal,
+  ModalHeading,
+  Modal,
+  Button,
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles } from "@joincivil/core";
 import * as React from "react";
@@ -39,6 +44,13 @@ export interface CompleteYourProfileComponentState {
   addEditor: boolean;
   newOwner: EthAddress;
   newEditor: EthAddress;
+  modalOpen?: boolean;
+  isPreTransactionModalOpen?: boolean;
+  isWaitingTransactionModalOpen?: boolean;
+  metaMaskRejectionModal?: boolean;
+  completeModalOpen?: boolean;
+  startTransaction?(): any;
+  cancelTransaction?(): any;
 }
 
 const FormSection = styled.div`
@@ -101,7 +113,111 @@ class CompleteYourProfileComponent extends React.Component<
       addEditor: false,
       newOwner: "",
       newEditor: "",
+      modalOpen: false,
     };
+  }
+
+  public renderPreMetamMask(): JSX.Element | null {
+    if (!this.state.isPreTransactionModalOpen) {
+      return null;
+    }
+    const message = this.state.addEditor ? "Open MetaMask to add Civil Member" : "Open MetaMask to add Civil Admin";
+    return (
+      <MetaMaskModal
+        waiting={false}
+        cancelTransaction={() => this.cancelTransaction()}
+        startTransaction={() => this.startTransaction()}
+      >
+        <ModalHeading>{message}</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  public renderMetaMaskRejectionModal(): JSX.Element | null {
+    if (!this.state.metaMaskRejectionModal) {
+      return null;
+    }
+    const message = this.state.addEditor ? "Your new Civil Member was not added" : "Your new Civil Admin was not added";
+
+    const denailMessage = this.state.addEditor
+      ? "To add a new Civil Member, you need to confirm the transaction in your MetaMask wallet."
+      : "To add a new Civil Admin, you need to confirm the transaction in your MetaMask wallet.";
+
+    return (
+      <CivilContext.Consumer>
+        {(value: CivilContextValue) => (
+          <MetaMaskModal
+            waiting={false}
+            denied={true}
+            denialText={denailMessage}
+            cancelTransaction={() => this.cancelTransaction()}
+            denialRestartTransactions={this.getTransaction(true)}
+          >
+            <ModalHeading>{message}</ModalHeading>
+          </MetaMaskModal>
+        )}
+      </CivilContext.Consumer>
+    );
+  }
+
+  public renderAwaitingTransactionModal(): JSX.Element | null {
+    if (!this.state.isWaitingTransactionModalOpen) {
+      return null;
+    }
+    return (
+      <MetaMaskModal
+        waiting={true}
+        cancelTransaction={() => this.cancelTransaction()}
+        startTransaction={() => this.startTransaction()}
+      >
+        <ModalHeading>Waiting to Confirm in MetaMask</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  public renderProgressModal(): JSX.Element | null {
+    if (!this.state.modalOpen) {
+      return null;
+    }
+    const message = this.state.addEditor
+      ? "A Civil Member is being added to your newsroom smart contract"
+      : "A Civil Admin is being added to your newsroom smart contract";
+    return (
+      <Modal textAlign="left">
+        <h2>{message}</h2>
+        <p>You have confirmed the transaction in your MetaMask wallet and it is currently processing</p>
+        <p>
+          Note, that this could take a while depending on network traffic. You can close out of this while you wait.
+        </p>
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
+          Close
+        </Button>
+      </Modal>
+    );
+  }
+
+  public renderCompleteModal(): JSX.Element | null {
+    if (!this.state.completeModalOpen) {
+      return null;
+    }
+    const message = this.state.addEditor
+      ? "A Civil Member has been added to the newsroom smart contract!"
+      : "A Civil Admin has been added to the newsroom smart contract!";
+    return (
+      <Modal textAlign="left">
+        <h2>{message}</h2>
+        <p>
+          The transaction has completed and the {this.state.addEditor ? "member" : "admin"} was added. You can keep
+          adding additional members and admins or continue.
+        </p>
+        <Button
+          size={buttonSizes.MEDIUM_WIDE}
+          onClick={() => this.setState({ completeModalOpen: false, addEditor: false, addOwner: false })}
+        >
+          Close
+        </Button>
+      </Modal>
+    );
   }
 
   public renderEditorInputs(): JSX.Element {
@@ -137,17 +253,11 @@ class CompleteYourProfileComponent extends React.Component<
             <>
               {this.renderEditorInputs()}
               <DetailTransactionButton
-                transactions={[
-                  {
-                    transaction: this.addEditor,
-                    postTransaction: (result: any) => {
-                      this.setState({ addEditor: false, newEditor: "" });
-                    },
-                  },
-                ]}
+                transactions={this.getTransaction()}
                 Button={TransactionButtonInner}
                 civil={value.civil}
                 requiredNetwork={value.requiredNetwork}
+                noModal={true}
               >
                 Add Editor
               </DetailTransactionButton>
@@ -172,18 +282,11 @@ class CompleteYourProfileComponent extends React.Component<
             <>
               {this.renderOwnerInputs()}
               <DetailTransactionButton
-                transactions={[
-                  {
-                    transaction: this.addOwner,
-                    postTransaction: result => {
-                      this.props.dispatch!(fetchNewsroom(this.props.address!));
-                      this.setState({ addOwner: false, newOwner: "" });
-                    },
-                  },
-                ]}
+                transactions={this.getTransaction()}
                 civil={value.civil}
                 Button={TransactionButtonInner}
                 requiredNetwork={value.requiredNetwork}
+                noModal={true}
               >
                 Add Officer
               </DetailTransactionButton>
@@ -245,14 +348,91 @@ class CompleteYourProfileComponent extends React.Component<
             </Section>
             {this.renderAddEditorForm()}
           </FormSection>
+          {this.renderPreMetamMask()}
+          {this.renderAwaitingTransactionModal()}
+          {this.renderMetaMaskRejectionModal()}
+          {this.renderCompleteModal()}
+          {this.renderProgressModal()}
         </Collapsable>
       </StepStyled>
     );
   }
 
+  private getTransaction = (noPreModal?: true): Transaction[] => {
+    return [
+      {
+        requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,
+        transaction: async (): Promise<void> => {
+          this.setState({
+            metaMaskRejectionModal: false,
+            isWaitingTransactionModalOpen: true,
+            isPreTransactionModalOpen: false,
+          });
+          return this.state.addEditor ? this.addEditor() : this.addOwner();
+        },
+        postTransaction: result => {
+          this.props.dispatch!(fetchNewsroom(this.props.address!));
+          this.setState({
+            modalOpen: false,
+            completeModalOpen: true,
+            newOwner: "",
+            newEditor: "",
+          });
+        },
+        handleTransactionHash: txhash => {
+          this.setState({
+            modalOpen: true,
+            isWaitingTransactionModalOpen: false,
+          });
+        },
+        handleTransactionError: (err: Error) => {
+          this.setState({ isWaitingTransactionModalOpen: false });
+          if (err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
+            this.setState({ metaMaskRejectionModal: true });
+          }
+        },
+      },
+    ];
+  };
+
+  private requireBeforeTransaction = async () => {
+    return new Promise((res, rej) => {
+      this.setState({
+        startTransaction: res,
+        cancelTransaction: rej,
+        isPreTransactionModalOpen: true,
+      });
+    });
+  };
+
+  private cancelTransaction = () => {
+    if (this.state.cancelTransaction) {
+      this.state.cancelTransaction();
+    }
+    this.setState({
+      cancelTransaction: undefined,
+      startTransaction: undefined,
+      isPreTransactionModalOpen: false,
+      metaMaskRejectionModal: false,
+    });
+  };
+
+  private startTransaction = () => {
+    if (this.state.startTransaction) {
+      this.state.startTransaction();
+    }
+    this.setState({
+      cancelTransaction: undefined,
+      startTransaction: undefined,
+      isPreTransactionModalOpen: false,
+      isWaitingTransactionModalOpen: true,
+    });
+  };
+
   private addOwner = async (): Promise<void> => {
     return this.props.newsroom.addOwner(this.state.newOwner);
   };
+
   private addEditor = async (): Promise<void> => {
     return this.props.newsroom.addRole(this.state.newEditor, NewsroomRoles.Editor);
   };
