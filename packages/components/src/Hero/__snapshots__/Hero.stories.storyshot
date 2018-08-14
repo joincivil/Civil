@@ -45,7 +45,7 @@ initialize {
               "next": Object {
                 "attribs": Object {
                   "class": "sc-dVhcbM dxulxc",
-                  "href": "/home",
+                  "href": "{this.props.textUrl}",
                 },
                 "children": Array [
                   Object {
@@ -61,7 +61,7 @@ initialize {
                 "next": Object {
                   "attribs": Object {
                     "class": "sc-gzVnrw eyyMOg",
-                    "href": "/home",
+                    "href": "/{this.props.buttonUrl}",
                   },
                   "children": Array [
                     Object {
@@ -168,7 +168,7 @@ initialize {
             "next": Object {
               "attribs": Object {
                 "class": "sc-dVhcbM dxulxc",
-                "href": "/home",
+                "href": "{this.props.textUrl}",
               },
               "children": Array [
                 Object {
@@ -184,7 +184,7 @@ initialize {
               "next": Object {
                 "attribs": Object {
                   "class": "sc-gzVnrw eyyMOg",
-                  "href": "/home",
+                  "href": "/{this.props.buttonUrl}",
                 },
                 "children": Array [
                   Object {
@@ -291,7 +291,7 @@ initialize {
           Object {
             "attribs": Object {
               "class": "sc-dVhcbM dxulxc",
-              "href": "/home",
+              "href": "{this.props.textUrl}",
             },
             "children": Array [
               Object {
@@ -307,7 +307,7 @@ initialize {
             "next": Object {
               "attribs": Object {
                 "class": "sc-gzVnrw eyyMOg",
-                "href": "/home",
+                "href": "/{this.props.buttonUrl}",
               },
               "children": Array [
                 Object {
@@ -429,7 +429,7 @@ initialize {
           Object {
             "attribs": Object {
               "class": "sc-gzVnrw eyyMOg",
-              "href": "/home",
+              "href": "/{this.props.buttonUrl}",
             },
             "children": Array [
               Object {
@@ -478,7 +478,7 @@ initialize {
             "prev": Object {
               "attribs": Object {
                 "class": "sc-dVhcbM dxulxc",
-                "href": "/home",
+                "href": "{this.props.textUrl}",
               },
               "children": Array [
                 Object {
@@ -590,7 +590,7 @@ initialize {
             "prev": Object {
               "attribs": Object {
                 "class": "sc-gzVnrw eyyMOg",
-                "href": "/home",
+                "href": "/{this.props.buttonUrl}",
               },
               "children": Array [
                 Object {
@@ -608,7 +608,7 @@ initialize {
               "prev": Object {
                 "attribs": Object {
                   "class": "sc-dVhcbM dxulxc",
-                  "href": "/home",
+                  "href": "{this.props.textUrl}",
                 },
                 "children": Array [
                   Object {
@@ -726,7 +726,7 @@ initialize {
               "prev": Object {
                 "attribs": Object {
                   "class": "sc-gzVnrw eyyMOg",
-                  "href": "/home",
+                  "href": "/{this.props.buttonUrl}",
                 },
                 "children": Array [
                   Object {
@@ -744,7 +744,7 @@ initialize {
                 "prev": Object {
                   "attribs": Object {
                     "class": "sc-dVhcbM dxulxc",
-                    "href": "/home",
+                    "href": "{this.props.textUrl}",
                   },
                   "children": Array [
                     Object {

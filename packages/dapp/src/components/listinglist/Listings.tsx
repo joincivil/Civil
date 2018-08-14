@@ -33,7 +33,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     if (activeIndex === 0) {
       hero = (
         <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero />
+          <HomepageHero textUrl="#" buttonUrl="#" />
         </Hero>
       );
     }

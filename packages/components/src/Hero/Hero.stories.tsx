@@ -10,7 +10,7 @@ storiesOf("Hero", module)
   .add("Homepage", () => {
     return (
       <Hero backgroundImage={heroImgUrl}>
-        <HomepageHero />;
+        <HomepageHero textUrl="#" buttonUrl="#" />;
       </Hero>
     );
   });

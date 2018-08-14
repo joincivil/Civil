@@ -2,7 +2,12 @@ import * as React from "react";
 import { Button, buttonSizes } from "../Button";
 import { HeroLabel, HeroHeading, HeroBlockTextLink, HeroSmallText } from "./styledComponents";
 
-export class HomepageHero extends React.Component {
+export interface HomepageHeroProps {
+  textUrl: string;
+  buttonUrl: string;
+}
+
+export class HomepageHero extends React.Component<HomepageHeroProps> {
   public render(): JSX.Element {
     return (
       <>
@@ -10,8 +15,8 @@ export class HomepageHero extends React.Component {
         <HeroHeading>
           The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.
         </HeroHeading>
-        <HeroBlockTextLink href="/home">Learn how to participate in our governance</HeroBlockTextLink>
-        <Button size={buttonSizes.MEDIUM} to="/home">
+        <HeroBlockTextLink href="{this.props.textUrl}">Learn how to participate in our governance</HeroBlockTextLink>
+        <Button size={buttonSizes.MEDIUM} to="{this.props.buttonUrl}">
           APPLY TO JOIN REGISTRY
         </Button>
         <HeroSmallText>1,000 CVL required to apply</HeroSmallText>
