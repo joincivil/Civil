@@ -40,22 +40,3 @@ export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props 
 export const CommitVoteNumTokensLabelText: React.SFC = props => {
   return <>Enter amount of tokens to vote. 1 vote equals 1 token </>;
 };
-
-// Review Vote modal
-export const ReviewVoteHeaderTitleText: React.SFC = props => {
-  return <>Review Voting Information</>;
-};
-
-export const ReviewVoteHeaderCopyText: React.SFC = props => {
-  return <>Save this information to reveal and confirm your votes in the “Confirm Vote” phase.</>;
-};
-
-export const ReviewVoteCopyText: React.SFC = props => {
-  return (
-    <>
-      Your votes are concealed with a given secret phrase until the end of the commit voting period. This is to prevent
-      decision bias, and to minimize the risk of “groupthink” affecting voter rationale when assessing the merits of the
-      challenge. You will need the secret phrase to reveal your votes in the “Confirm Vote” phase, so keep it safe.
-    </>
-  );
-};

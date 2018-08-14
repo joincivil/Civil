@@ -2,10 +2,7 @@ import * as React from "react";
 import { buttonSizes, Button, DarkButton } from "../Button";
 import { InputGroup } from "../input/";
 import { CommitVoteProps } from "./types";
-import { TransactionDarkButton } from "../TransactionButton";
 import {
-  FormHeader,
-  FormCopy,
   FormQuestion,
   VoteOptionsContainer,
   StyledOrText,
@@ -66,7 +63,6 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   }
 
   private renderVoteButton = (options: any): JSX.Element => {
-    const disableButtons = !!this.state.numTokensError || !!this.state.saltError;
     let buttonText;
     let onClick;
     if (options.voteOption === 0) {

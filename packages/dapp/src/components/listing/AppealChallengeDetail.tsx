@@ -126,6 +126,9 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
         tokenBalance={this.props.tokenBalance}
         salt={this.state.salt}
         numTokens={this.state.numTokens}
+        onReviewVote={(): void => {
+          console.log("duh");
+        }}
         transactions={transactions}
         modalContentComponents={modalContentComponents}
         appealChallengeID={this.props.appealChallengeID.toString()}

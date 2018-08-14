@@ -129,6 +129,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const canShowAppealChallengeRewardsFrom =
       didUserCommit(userAppealChallengeData) && challenge.appeal!.appealChallenge!.resolved;
 
+    console.log(challenge.poll.commitEndDate.toNumber(), challenge.poll.revealEndDate.toNumber());
+
     return (
       <>
         {inChallengePhase && this.renderCommitStage()}
@@ -196,6 +198,9 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         stake={getFormattedTokenBalance(challenge!.stake)}
         userHasCommittedVote={userHasCommittedVote}
         onInputChange={this.updateCommitVoteState}
+        onReviewVote={(): void => {
+          console.log("duh");
+        }}
         tokenBalance={tokenBalance}
         salt={this.state.salt}
         numTokens={this.state.numTokens}

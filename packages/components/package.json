@@ -79,6 +79,7 @@
     "classnames": "^2.2.5",
     "lodash": "^4.17.10",
     "react-add-to-calendar": "^0.1.5",
+    "react-addons-text-content": "^0.0.4",
     "react-router-dom": "^4.2.2",
     "react-rte": "^0.16.1",
     "rxjs": "^5.5.6",
