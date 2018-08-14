@@ -3,9 +3,11 @@ import {
   InjectedCountdownTimerProps,
   CountdownTimerState,
   ProgressBarCountdownProps,
+  TwoPhaseProgressBarCountdownProps,
 } from "./types";
 import { TextCountdownTimerComponent } from "./TextCountdownTimer";
 import { ProgressBarCountdownTimerComponent } from "./ProgressBarCountdownTimer";
+import { TwoPhaseProgressBarCountdownTimerComponent } from "./TwoPhaseProgressBarCountdownTimer";
 import { SmallProgressBarCountdownTimerComponent } from "./SmallProgressBarCountdownTimer";
 import * as React from "react";
 
@@ -66,6 +68,10 @@ export const ProgressBarCountdownTimer: React.ComponentClass<ProgressBarCountdow
 export const SmallProgressBarCountdownTimer: React.ComponentClass<ProgressBarCountdownProps> = connectCountdownTimer()(
   SmallProgressBarCountdownTimerComponent,
 );
+
+export const TwoPhaseProgressBarCountdownTimer: React.ComponentClass<
+  TwoPhaseProgressBarCountdownProps
+> = connectCountdownTimer()(TwoPhaseProgressBarCountdownTimerComponent);
 
 export * from "./types";
 export * from "./constants";

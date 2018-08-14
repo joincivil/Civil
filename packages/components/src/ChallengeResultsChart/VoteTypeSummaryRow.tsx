@@ -15,13 +15,13 @@ import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
 const voteTypeLabel: VoteTypeLabelProps = {
   [CHALLENGE_RESULTS_VOTE_TYPES.REMAIN]: (
     <>
-      <span>✔</span> Remain
+      <span>✓</span> Remain
     </>
   ),
 
   [CHALLENGE_RESULTS_VOTE_TYPES.REMOVE]: (
     <>
-      <span>✖</span> Remove
+      <span>✕</span> Remove
     </>
   ),
 };

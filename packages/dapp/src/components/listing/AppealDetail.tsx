@@ -1,13 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import { AppealData, ChallengeData, EthAddress, TwoStepEthTransaction } from "@joincivil/core";
-import {
-  approveForChallengeGrantedAppeal,
-  challengeGrantedAppeal,
-  grantAppeal,
-  updateStatus,
-} from "../../apis/civilTCR";
-import AppealChallengeDetail from "./AppealChallengeDetail";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
   AppealAwaitingDecisionCard,
@@ -20,6 +13,14 @@ import {
   ModalListItem,
   ModalListItemTypes,
 } from "@joincivil/components";
+import BigNumber from "bignumber.js";
+import {
+  approveForChallengeGrantedAppeal,
+  challengeGrantedAppeal,
+  grantAppeal,
+  updateStatus,
+} from "../../apis/civilTCR";
+import AppealChallengeDetail from "./AppealChallengeDetail";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -38,6 +39,7 @@ enum ModalContentEventNames {
 export interface AppealDetailProps {
   listingAddress: EthAddress;
   appeal: AppealData;
+  challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
   govtParameters: any;
@@ -62,6 +64,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         {appeal.appealChallenge && (
           <AppealChallengeDetail
             listingAddress={this.props.listingAddress}
+            challengeID={this.props.challengeID}
             challenge={this.props.challenge}
             appeal={this.props.appeal}
             appealChallengeID={appeal.appealChallengeID}
@@ -117,6 +120,10 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       <AppealAwaitingDecisionCard
         endTime={endTime}
         phaseLength={phaseLength}
+        challengeID={this.props.challengeID.toString()}
+        challenger={challenge!.challenger.toString()}
+        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+        stake={getFormattedTokenBalance(challenge!.stake)}
         requester={requester}
         appealFeePaid={appealFeePaid}
         totalVotes={getFormattedTokenBalance(totalVotes)}
@@ -156,6 +163,10 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       .toFixed(0);
     return (
       <AppealResolveCard
+        challengeID={this.props.challengeID.toString()}
+        challenger={challenge!.challenger.toString()}
+        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+        stake={getFormattedTokenBalance(challenge!.stake)}
         totalVotes={getFormattedTokenBalance(totalVotes)}
         votesFor={votesFor}
         votesAgainst={votesAgainst}
@@ -201,6 +212,10 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     return (
       <AppealDecisionCard
         endTime={endTime}
+        challengeID={this.props.challengeID.toString()}
+        challenger={challenge!.challenger.toString()}
+        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+        stake={getFormattedTokenBalance(challenge!.stake)}
         phaseLength={phaseLength}
         totalVotes={getFormattedTokenBalance(totalVotes)}
         votesFor={votesFor}
