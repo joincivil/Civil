@@ -51,14 +51,14 @@ contract("Registry", accounts => {
 
       await registry.updateStatus(newsroomAddress);
 
-      const hasClaimedBefore = await registry.hasClaimedTokens(appealChallengePollID, voterBob);
-      expect(hasClaimedBefore).to.be.false("hasClaimedTokens should have been false for unclaimed reward 2");
+      const hasClaimedBefore = await registry.tokenClaims(appealChallengePollID, voterBob);
+      expect(hasClaimedBefore).to.be.false("tokenClaims should have been false for unclaimed reward 2");
 
       await registry.claimReward(appealChallengePollID, "1337", { from: voterBob });
 
-      const hasClaimedAfter = await registry.hasClaimedTokens(appealChallengePollID, voterBob);
+      const hasClaimedAfter = await registry.tokenClaims(appealChallengePollID, voterBob);
       expect(hasClaimedAfter).to.be.true(
-        "hasClaimedTokens should have been true for voter than has claimed challenge reward",
+        "tokenClaims should have been true for voter than has claimed challenge reward",
       );
     });
   });

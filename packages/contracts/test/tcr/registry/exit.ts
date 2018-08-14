@@ -25,7 +25,7 @@ contract("Registry", accounts => {
 
     it("should not allow a listing to exit if listing is not whitelisted", async () => {
       await registry.apply(listing17, utils.paramConfig.minDeposit, "", { from: applicant });
-      await expect(registry.exitListing(listing17, { from: applicant })).to.eventually.be.rejectedWith(
+      await expect(registry.exit(listing17, { from: applicant })).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have allowed listing in application stage to exit",
       );
@@ -39,7 +39,7 @@ contract("Registry", accounts => {
       const [, isWhitelisted] = await registry.listings(listing17);
       expect(isWhitelisted).to.be.true("the listing was not added to the registry");
 
-      await registry.exitListing(listing17, { from: applicant });
+      await registry.exit(listing17, { from: applicant });
 
       const [, isWhitelistedAfterExit] = await registry.listings(listing17);
       expect(isWhitelistedAfterExit).to.be.false("the listing was not removed on exit");
@@ -60,7 +60,7 @@ contract("Registry", accounts => {
       expect(isWhitelisted).to.be.true("the listing was not added to the registry");
 
       await registry.challenge(listing18, "", { from: challenger });
-      await expect(registry.exitListing(listing18, { from: applicant })).to.eventually.be.rejectedWith(
+      await expect(registry.exit(listing18, { from: applicant })).to.eventually.be.rejectedWith(
         REVERTED,
         "exit succeeded when it should have failed",
       );
@@ -81,7 +81,7 @@ contract("Registry", accounts => {
     it("should not allow a listing to be exited by someone who doesn't own it", async () => {
       await utils.addToWhitelist(listing18, utils.paramConfig.minDeposit, applicant, registry);
 
-      await expect(registry.exitListing(listing18, { from: voter })).to.eventually.be.rejectedWith(
+      await expect(registry.exit(listing18, { from: voter })).to.eventually.be.rejectedWith(
         REVERTED,
         "exit succeeded when it should have failed",
       );

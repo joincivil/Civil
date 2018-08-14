@@ -3,14 +3,7 @@ import { buttonSizes, DarkButton } from "../Button";
 import { InputGroup } from "../input/";
 import { CommitVoteProps } from "./types";
 import { TransactionDarkButton } from "../TransactionButton";
-import {
-  FormHeader,
-  FormCopy,
-  AccentHRule,
-  FormQuestion,
-  VoteOptionsContainer,
-  StyledOrText,
-} from "./styledComponents";
+import { FormHeader, FormCopy, FormQuestion, VoteOptionsContainer, StyledOrText } from "./styledComponents";
 import { SaltField } from "./SaltField";
 
 export interface CommitVoteState {
@@ -32,11 +25,11 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   public render(): JSX.Element {
     return (
       <>
-        {this.renderFormHeader()}
-        <FormCopy>Vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.</FormCopy>
-        <AccentHRule />
+        <FormQuestion>
+          Should {this.props.newsroomName || "this newsroom"} remain or be removed from the Civil Registry?
+        </FormQuestion>
 
-        <FormQuestion>Should this newsroom remain or be removed from the Civil Registry?</FormQuestion>
+        {this.renderFormHeader()}
 
         {this.renderNumTokensInput()}
 
@@ -89,7 +82,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private renderNumTokensInput = (): JSX.Element => {
-    let label = "Enter amount of tokens to vote";
+    let label = "Enter amount of tokens to vote. 1 vote equals 1 token";
     let className;
 
     if (this.state.numTokensError) {

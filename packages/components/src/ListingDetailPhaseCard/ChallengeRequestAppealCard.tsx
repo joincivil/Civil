@@ -1,49 +1,62 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
+import { ListingDetailPhaseCardComponentProps, ChallengePhaseProps, PhaseWithExpiryProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
+  StyledPhaseKicker,
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
+import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
+import { NeedHelp } from "./NeedHelp";
 
-export class ChallengeRequestAppealCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengeResultsProps
-> {
-  public render(): JSX.Element {
-    return (
-      <StyledListingDetailPhaseCardContainer>
-        <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
-            endTime={this.props.endTime}
-            totalSeconds={this.props.phaseLength}
-            displayLabel="Accepting Appeal Requests"
-            flavorText="under challenge"
-          />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <ChallengeResults
-            totalVotes={this.props.totalVotes}
-            votesFor={this.props.votesFor}
-            votesAgainst={this.props.votesAgainst}
-            percentFor={this.props.percentFor}
-            percentAgainst={this.props.percentAgainst}
-          />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <CTACopy>If you disagree with the community, you may request an appeal to the Civil Council.</CTACopy>
-          <TransactionInvertedButton
-            transactions={this.props.transactions!}
-            modalContentComponents={this.props.modalContentComponents}
-          >
-            Request Appeal from Civil Council
-          </TransactionInvertedButton>
-        </StyledListingDetailPhaseCardSection>
-      </StyledListingDetailPhaseCardContainer>
-    );
-  }
-}
+export const ChallengeRequestAppealCard: React.StatelessComponent<
+  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps
+> = props => {
+  return (
+    <StyledListingDetailPhaseCardContainer>
+      <StyledListingDetailPhaseCardSection>
+        <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
+        <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
+        <ProgressBarCountdownTimer
+          endTime={props.endTime}
+          totalSeconds={props.phaseLength}
+          displayLabel="Accepting Appeal Requests"
+          flavorText="under challenge"
+        />
+      </StyledListingDetailPhaseCardSection>
+
+      <ChallengePhaseDetail
+        challengeID={props.challengeID}
+        challenger={props.challenger}
+        rewardPool={props.rewardPool}
+        stake={props.stake}
+      />
+
+      <StyledListingDetailPhaseCardSection>
+        <ChallengeResults
+          collapsable={true}
+          totalVotes={props.totalVotes}
+          votesFor={props.votesFor}
+          votesAgainst={props.votesAgainst}
+          percentFor={props.percentFor}
+          percentAgainst={props.percentAgainst}
+        />
+      </StyledListingDetailPhaseCardSection>
+      <StyledListingDetailPhaseCardSection>
+        <CTACopy>If you disagree with the community, you may request an appeal to the Civil Council.</CTACopy>
+        <TransactionInvertedButton
+          transactions={props.transactions!}
+          modalContentComponents={props.modalContentComponents}
+        >
+          Request Appeal from Civil Council
+        </TransactionInvertedButton>
+      </StyledListingDetailPhaseCardSection>
+
+      <NeedHelp />
+    </StyledListingDetailPhaseCardContainer>
+  );
+};

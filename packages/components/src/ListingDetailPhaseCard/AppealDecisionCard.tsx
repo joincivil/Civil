@@ -1,63 +1,78 @@
 import * as React from "react";
-import { AppealDecisionProps, ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps } from "./types";
+import {
+  AppealDecisionProps,
+  ListingDetailPhaseCardComponentProps,
+  ChallengePhaseProps,
+  PhaseWithExpiryProps,
+} from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
+  StyledPhaseKicker,
   StyledPhaseDisplayName,
   CTACopy,
-  FormCopy,
 } from "./styledComponents";
-import { buttonSizes, Button } from "../Button";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { TransactionInvertedButton } from "../TransactionButton";
+import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
+import { NeedHelp } from "./NeedHelp";
+import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
-export class AppealDecisionCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & AppealDecisionProps & ChallengeResultsProps
-> {
-  public render(): JSX.Element {
-    const decisionText = this.props.appealGranted ? "grant" : "dismiss";
-    return (
-      <StyledListingDetailPhaseCardContainer>
-        <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
-            endTime={this.props.endTime}
-            totalSeconds={this.props.phaseLength}
-            displayLabel="Request to challenge Council's decision"
-            flavorText="under Appeal to Council"
-          />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <ChallengeResults
-            totalVotes={this.props.totalVotes}
-            votesFor={this.props.votesFor}
-            votesAgainst={this.props.votesAgainst}
-            percentFor={this.props.percentFor}
-            percentAgainst={this.props.percentAgainst}
-          />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <CTACopy>Civil Council Decision</CTACopy>
-          <FormCopy>
-            The Civil Council has decided to {decisionText} the appeal. Read more about their methodology and how
-            they’ve come to this decision.
-          </FormCopy>
-          <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <CTACopy>
-            If you believe this newsroom does not align with the Civil Constitution, you may challenge the Council’s
-            decision.
-          </CTACopy>
-          <TransactionInvertedButton
-            transactions={this.props.transactions!}
-            modalContentComponents={this.props.modalContentComponents}
-          >
-            Submit a Challenge
-          </TransactionInvertedButton>
-        </StyledListingDetailPhaseCardSection>
-      </StyledListingDetailPhaseCardContainer>
-    );
-  }
-}
+export const AppealDecisionCard: React.SFC<
+  ListingDetailPhaseCardComponentProps &
+    PhaseWithExpiryProps &
+    ChallengePhaseProps &
+    AppealDecisionProps &
+    ChallengeResultsProps
+> = props => {
+  return (
+    <StyledListingDetailPhaseCardContainer>
+      <StyledListingDetailPhaseCardSection>
+        <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
+        <StyledPhaseDisplayName>Appeal to Council</StyledPhaseDisplayName>
+        <ProgressBarCountdownTimer
+          endTime={props.endTime}
+          totalSeconds={props.phaseLength}
+          displayLabel="Request to challenge Council's decision"
+          flavorText="under Appeal to Council"
+        />
+      </StyledListingDetailPhaseCardSection>
+
+      <ChallengePhaseDetail
+        challengeID={props.challengeID}
+        challenger={props.challenger}
+        rewardPool={props.rewardPool}
+        stake={props.stake}
+      />
+
+      <StyledListingDetailPhaseCardSection>
+        <ChallengeResults
+          collapsable={true}
+          totalVotes={props.totalVotes}
+          votesFor={props.votesFor}
+          votesAgainst={props.votesAgainst}
+          percentFor={props.percentFor}
+          percentAgainst={props.percentAgainst}
+        />
+      </StyledListingDetailPhaseCardSection>
+
+      <AppealDecisionDetail appealGranted={props.appealGranted} />
+
+      <StyledListingDetailPhaseCardSection>
+        <CTACopy>
+          If you believe this newsroom does not align with the Civil Constitution, you may challenge the Council’s
+          decision.
+        </CTACopy>
+        <TransactionInvertedButton
+          transactions={props.transactions!}
+          modalContentComponents={props.modalContentComponents}
+        >
+          Submit a Challenge
+        </TransactionInvertedButton>
+      </StyledListingDetailPhaseCardSection>
+
+      <NeedHelp />
+    </StyledListingDetailPhaseCardContainer>
+  );
+};

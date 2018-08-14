@@ -39,7 +39,7 @@ contract("AddressRegistry", accounts => {
       expect(resultThree).to.be.true("should have returned true because its whitelisted");
 
       // Exit
-      await registry.exitListing(listing2, { from: applicant });
+      await registry.exit(listing2, { from: applicant });
       const resultFour = await registry.appWasMade(listing2);
       expect(resultFour).to.be.false("should have returned false because exit");
     });

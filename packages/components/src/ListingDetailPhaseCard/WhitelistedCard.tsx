@@ -30,8 +30,8 @@ export const WhitelistedCard: React.StatelessComponent<
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseDisplayName>Approved Newsroom</StyledPhaseDisplayName>
-        <MetaItemValue>{displayDateTime}</MetaItemValue>
         <MetaItemLabel>Approved date</MetaItemLabel>
+        <MetaItemValue>{displayDateTime}</MetaItemValue>
       </StyledListingDetailPhaseCardSection>
       <StyledListingDetailPhaseCardSection>
         <CTACopy>

@@ -1,13 +1,43 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Modal, BorderlessButton, Button, buttonSizes, ClipLoader } from ".";
+import {
+  Modal,
+  BorderlessButton,
+  Button,
+  buttonSizes,
+  ClipLoader,
+  TransactionButtonNoModal,
+  Transaction,
+  TransactionButtonInnerProps,
+} from ".";
 import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm.png";
 import * as metamaskLogoUrl from "./images/img-metamask-small@2x.png";
+import * as confirmButton from "./images/img-metamask-confirm@2x.png";
 
 const ModalP = styled.p`
   font-size: 18px;
   color: #5f5f5f;
   line-height: 26px;
+`;
+
+const HalfPWrapper = styled.div`
+  width: 55%;
+`;
+
+const MainImg = styled.img`
+  width: 40%;
+  height: 240px;
+  object-fit: cover;
+`;
+
+export interface ContentSectionWrapperProps {
+  row?: boolean;
+}
+
+const ContentSectionWrapper = styled.div`
+  display: flex;
+  flex-direction: ${(props: ContentSectionWrapperProps) => (props.row ? "row" : "column")};
+  justify-content: space-between;
 `;
 
 const B = Button.extend`
@@ -52,6 +82,9 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   padding: 19px 24px;
+  margin: 0 -25px;
+  border-top: 1px solid #dddddd;
+  margin-top: -1px;
 `;
 
 const WaitingButton = styled.div`
@@ -71,20 +104,36 @@ const SpanWithMargin = styled.span`
 
 export interface MetaMaskModalProps {
   waiting: boolean;
-  cancelTransaction(): void;
-  startTransaction(): void;
+  denied?: boolean;
+  denialText?: string;
+  denialRestartTransactions?: Transaction[];
+  cancelTransaction?(): void;
+  startTransaction?(): void;
 }
+
+const PrimaryButton = (props: TransactionButtonInnerProps): JSX.Element => {
+  return (
+    <B onClick={props.onClick} size={buttonSizes.MEDIUM_WIDE}>
+      <ImgWrapper>
+        <Img src={metamaskLogoUrl} />
+      </ImgWrapper>
+      {props.children}
+    </B>
+  );
+};
 
 export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props => {
   const buttonSection = !props.waiting ? (
     <ButtonContainer>
       <IB onClick={props.cancelTransaction}>Cancel</IB>
-      <B onClick={props.startTransaction} size={buttonSizes.MEDIUM_WIDE}>
-        <ImgWrapper>
-          <Img src={metamaskLogoUrl} />
-        </ImgWrapper>
-        Open MetaMask
-      </B>
+      {props.denied ? (
+        <TransactionButtonNoModal transactions={props.denialRestartTransactions!} Button={PrimaryButton}>
+          {" "}
+          Try Again{" "}
+        </TransactionButtonNoModal>
+      ) : (
+        <PrimaryButton onClick={props.startTransaction!}>Open MetaMask</PrimaryButton>
+      )}
     </ButtonContainer>
   ) : (
     <ButtonContainer>
@@ -95,7 +144,7 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
     </ButtonContainer>
   );
 
-  const paragraph = !props.waiting ? (
+  let paragraph = !props.waiting ? (
     <ModalP> MetaMask will open a new window for you to confirm this transaction with your wallet.</ModalP>
   ) : (
     <ModalP>
@@ -108,11 +157,24 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
     </ModalP>
   );
 
+  if (props.denied) {
+    paragraph = (
+      <HalfPWrapper>
+        <ModalP>You have canceled this transaction in your wallet.</ModalP>
+        {!!props.denialText && <ModalP>{props.denialText}</ModalP>}
+      </HalfPWrapper>
+    );
+  }
+
+  const image = props.denied ? <MainImg src={confirmButton} /> : <img src={metaMaskModalUrl} />;
+
   return (
-    <Modal width={500} padding={"32px 26px 0 26px"}>
+    <Modal width={560} padding={"32px 26px 0 26px"}>
       {props.children}
-      {paragraph}
-      <img src={metaMaskModalUrl} />
+      <ContentSectionWrapper row={props.denied}>
+        {paragraph}
+        {image}
+      </ContentSectionWrapper>
       {buttonSection}
     </Modal>
   );

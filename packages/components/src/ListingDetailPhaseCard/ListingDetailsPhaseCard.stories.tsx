@@ -35,12 +35,15 @@ const oneDay = 86400;
 const endTime = now + oneDay * 4.25;
 const phaseLength = oneDay * 7;
 
+const challengeID = "420";
 const challenger = "0x0";
 const rewardPool = "1000000";
 const stake = "100000";
 
 const requester = "0x01";
 const appealFeePaid = "10.00 CVL";
+
+const appealChallengeID = "1420";
 
 const totalVotes = "100000";
 const votesFor = "73000";
@@ -83,6 +86,7 @@ storiesOf("Listing Details Phase Card", module)
           <ChallengeCommitVoteCard
             endTime={endTime}
             phaseLength={phaseLength}
+            challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
@@ -96,19 +100,62 @@ storiesOf("Listing Details Phase Card", module)
       </Container>
     );
   })
-  .add("Under Challenge: Reveal Vote", () => {
+  .add("Under Challenge: Reveal Vote - User Did Not Commit", () => {
     return (
       <Container>
         {process.env.NODE_ENV !== "test" && (
           <ChallengeRevealVoteCard
             endTime={endTime}
             phaseLength={phaseLength}
+            challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}
+            userHasCommittedVote={false}
+          />
+        )}
+      </Container>
+    );
+  })
+  .add("Under Challenge: Reveal Vote - User Already Revealed", () => {
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <ChallengeRevealVoteCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
+            salt={commitVoteState.salt}
+            onInputChange={commitVoteChange}
+            transactions={[]}
+            userHasCommittedVote={true}
+            userHasRevealedVote={true}
+          />
+        )}
+      </Container>
+    );
+  })
+  .add("Under Challenge: Reveal Vote - User committed and has not revealed", () => {
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <ChallengeRevealVoteCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
+            salt={commitVoteState.salt}
+            onInputChange={commitVoteChange}
+            transactions={[]}
+            userHasCommittedVote={true}
           />
         )}
       </Container>
@@ -119,8 +166,12 @@ storiesOf("Listing Details Phase Card", module)
       <Container>
         {process.env.NODE_ENV !== "test" && (
           <ChallengeRequestAppealCard
+            challengeID={challengeID}
             endTime={endTime}
             phaseLength={phaseLength}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
             totalVotes={totalVotes}
             votesFor={votesFor}
             votesAgainst={votesAgainst}
@@ -137,6 +188,7 @@ storiesOf("Listing Details Phase Card", module)
       <Container>
         {process.env.NODE_ENV !== "test" && (
           <ChallengeResolveCard
+            challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
@@ -158,6 +210,10 @@ storiesOf("Listing Details Phase Card", module)
           <AppealAwaitingDecisionCard
             endTime={endTime}
             phaseLength={phaseLength}
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
             requester={requester}
             appealFeePaid={appealFeePaid}
             totalVotes={totalVotes}
@@ -165,7 +221,6 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
-            transactions={[]}
           />
         )}
       </Container>
@@ -178,6 +233,10 @@ storiesOf("Listing Details Phase Card", module)
           <AppealAwaitingDecisionCard
             endTime={endTime}
             phaseLength={phaseLength}
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
             requester={requester}
             appealFeePaid={appealFeePaid}
             totalVotes={totalVotes}
@@ -198,6 +257,10 @@ storiesOf("Listing Details Phase Card", module)
           <AppealDecisionCard
             endTime={endTime}
             phaseLength={phaseLength}
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
             totalVotes={totalVotes}
             votesFor={votesFor}
             votesAgainst={votesAgainst}
@@ -215,6 +278,10 @@ storiesOf("Listing Details Phase Card", module)
       <Container>
         {process.env.NODE_ENV !== "test" && (
           <AppealResolveCard
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
             appealGranted={true}
             totalVotes={totalVotes}
             votesFor={votesFor}
@@ -236,30 +303,102 @@ storiesOf("Listing Details Phase Card", module)
             phaseLength={phaseLength}
             tokenBalance={tokenBalance}
             salt={commitVoteState.salt}
+            challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
             numTokens={commitVoteState.numTokens}
             onInputChange={commitVoteChange}
             transactions={[]}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            appealChallengeID={appealChallengeID}
+            appealGranted={true}
           />
         )}
       </Container>
     );
   })
-  .add("Appeal Challenge: Reveal Vote", () => {
+  .add("Appeal Challenge: Reveal Vote - User Did Not Commit", () => {
     return (
       <Container>
         {process.env.NODE_ENV !== "test" && (
           <AppealChallengeRevealVoteCard
             endTime={endTime}
             phaseLength={phaseLength}
+            challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            appealChallengeID={appealChallengeID}
+            appealGranted={true}
+          />
+        )}
+      </Container>
+    );
+  })
+  .add("Appeal Challenge: Reveal Vote - User Already Revealed", () => {
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <AppealChallengeRevealVoteCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
+            salt={commitVoteState.salt}
+            onInputChange={commitVoteChange}
+            transactions={[]}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            appealChallengeID={appealChallengeID}
+            appealGranted={true}
+            userHasCommittedVote={true}
+            userHasRevealedVote={true}
+          />
+        )}
+      </Container>
+    );
+  })
+  .add("Appeal Challenge: Reveal Vote - User committed and has not revealed", () => {
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <AppealChallengeRevealVoteCard
+            endTime={endTime}
+            phaseLength={phaseLength}
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
+            salt={commitVoteState.salt}
+            onInputChange={commitVoteChange}
+            transactions={[]}
+            totalVotes={totalVotes}
+            votesFor={votesFor}
+            votesAgainst={votesAgainst}
+            percentFor={percentFor}
+            percentAgainst={percentAgainst}
+            appealChallengeID={appealChallengeID}
+            appealGranted={true}
+            userHasCommittedVote={true}
+            userHasRevealedVote={false}
           />
         )}
       </Container>
@@ -271,6 +410,10 @@ storiesOf("Listing Details Phase Card", module)
         {process.env.NODE_ENV !== "test" && (
           <AppealChallengeResolveCard
             appealGranted={true}
+            challengeID={challengeID}
+            challenger={challenger}
+            rewardPool={rewardPool}
+            stake={stake}
             totalVotes={totalVotes}
             votesFor={votesFor}
             votesAgainst={votesAgainst}
@@ -282,6 +425,7 @@ storiesOf("Listing Details Phase Card", module)
             appealChallengePercentFor={percentFor}
             appealChallengePercentAgainst={percentAgainst}
             transactions={[]}
+            appealChallengeID={appealChallengeID}
           />
         )}
       </Container>

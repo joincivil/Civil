@@ -28,8 +28,8 @@ export const RejectedCard: React.StatelessComponent<
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseDisplayName>Rejected Newsroom</StyledPhaseDisplayName>
-        <MetaItemValue>{displayDateTime}</MetaItemValue>
         <MetaItemLabel>Rejected date</MetaItemLabel>
+        <MetaItemValue>{displayDateTime}</MetaItemValue>
       </StyledListingDetailPhaseCardSection>
       <StyledListingDetailPhaseCardSection>
         <ChallengeResults

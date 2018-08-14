@@ -63,10 +63,10 @@ const DEFAULT_MODAL_COMPONENTS: TransactionButtonModalContentComponentsProps = {
 };
 
 export interface TransactionButtonInnerProps {
-  disabled: boolean;
-  step: number;
+  disabled?: boolean;
+  step?: number;
   children?: React.ReactNode | React.ReactNode[];
-  onClick(event: any): void;
+  onClick(event?: any): void;
 }
 
 export const PrimaryTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (

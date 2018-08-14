@@ -14,12 +14,9 @@ import {
   PHASE_TYPE_LABEL,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import {
-  setupRejectedListingLatestChallengeSubscription,
-  setupRejectedListingRemovedSubscription,
-} from "../../actionCreators/listings";
+import { setupRejectedListingLatestChallengeSubscription } from "../../actionCreators/listings";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
-import { makeGetLatestChallengeSucceededChallengeID, makeGetLatestListingRemovedTimestamp } from "../../selectors";
+import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
 import { State } from "../../reducers";
 
 const StyledPartialChallengeResultsHeader = styled.p`
@@ -35,17 +32,12 @@ export interface ListingContainerProps {
 }
 
 export interface ChallengeContainerProps {
-  challengeID?: BigNumber;
-}
-
-export interface ListingRemovedProps {
-  listingRemovedTimestamp?: number;
+  challengeID?: BigNumber | string;
 }
 
 export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData;
   challengeDataRequestStatus?: any;
-  listingRemovedTimestamp?: number;
 }
 
 export interface PhaseCountdownTimerProps {
@@ -105,18 +97,19 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
   const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
     const { challenges, challengesFetching } = state.networkDependent;
     let challengeData;
-    const challengeID = ownProps.challengeID;
+    let challengeID = ownProps.challengeID;
     if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
+      challengeID = (challengeID.toString && challengeID.toString()) || challengeID;
+      challengeData = challenges.get(challengeID as string);
     }
     let challengeDataRequestStatus;
     if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
+      challengeDataRequestStatus = challengesFetching.get(challengeID as string);
     }
     // Can't use spread here b/c of TS issue with spread and generics
     // https://github.com/Microsoft/TypeScript/pull/13288
     // tslint:disable-next-line:prefer-object-spread
-    return Object.assign({}, { challengeData }, { challengeDataRequestStatus }, ownProps);
+    return Object.assign({}, ownProps, { challengeID, challengeData, challengeDataRequestStatus });
   };
 
   class HOChallengeResultsContainer extends React.Component<
@@ -146,7 +139,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
 
     private ensureHasChallengeData = (): void => {
       if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
       }
     };
   }
@@ -317,12 +310,11 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
  */
 export const connectLatestChallengeSucceededResults = <TOriginalProps extends ListingContainerProps>(
   PresentationComponent:
-    | React.ComponentClass<TOriginalProps & ChallengeResultsProps & ListingRemovedProps>
-    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps & ListingRemovedProps>,
+    | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
+    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
   const makeMapStateToProps = () => {
     const getLatestChallengeSucceededChallengeID = makeGetLatestChallengeSucceededChallengeID();
-    const getLatestListingRemovedTimestamp = makeGetLatestListingRemovedTimestamp();
 
     const mapStateToProps = (
       state: State,
@@ -330,7 +322,6 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     ): TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps => {
       const { challenges, challengesFetching } = state.networkDependent;
       const challengeID = getLatestChallengeSucceededChallengeID(state, ownProps);
-      const listingRemovedTimestamp = getLatestListingRemovedTimestamp(state, ownProps);
       let challengeData;
       let challengeDataRequestStatus;
       if (challengeID) {
@@ -340,11 +331,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       // Can't use spread here b/c of TS issue with spread and generics
       // https://github.com/Microsoft/TypeScript/pull/13288
       // tslint:disable-next-line:prefer-object-spread
-      return Object.assign(
-        {},
-        { challengeData, challengeID, challengeDataRequestStatus, listingRemovedTimestamp },
-        ownProps,
-      );
+      return Object.assign({}, { challengeData, challengeID, challengeDataRequestStatus }, ownProps);
     };
 
     return mapStateToProps;
@@ -365,15 +352,10 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 
     public render(): JSX.Element | null {
       const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
-      const { listingRemovedTimestamp } = this.props;
 
       return (
         <>
-          <PresentationComponent
-            {...challengeResultsProps}
-            listingRemovedTimestamp={listingRemovedTimestamp}
-            {...this.props}
-          />
+          <PresentationComponent {...challengeResultsProps} {...this.props} />
         </>
       );
     }
@@ -390,7 +372,6 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     };
 
     private setupChallengeSubscription = async (): Promise<void> => {
-      this.props.dispatch!(await setupRejectedListingRemovedSubscription(this.props.listingAddress!));
       this.props.dispatch!(await setupRejectedListingLatestChallengeSubscription(this.props.listingAddress!));
     };
   }
@@ -423,6 +404,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
     return {
+      challengeID: challengeID!.toString(),
       challengeData,
       challengeDataRequestStatus,
       ...ownProps,

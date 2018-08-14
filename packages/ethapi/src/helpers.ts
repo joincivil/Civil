@@ -1,28 +1,21 @@
+import { EthAddress } from "@joincivil/typescript-types";
+import { CivilErrors, isDefined } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
-import { EthAddress } from "../../typescript-types/build";
-import { CivilErrors, isDefined } from "../../utils/build/src";
 import { EthApi } from "./ethapi";
 
 const debug = Debug("civil:ethapi:helpers");
 
-const DEFAULT_HTTP_NODE = "http://localhost:8545";
-
-export function detectProvider(): Web3.Provider {
-  let provider: Web3.Provider;
+export function detectProvider(): Web3.Provider | undefined {
   // Try to use the window's injected provider
   if (hasInjectedProvider()) {
-    const injectedWeb3: Web3 = (window as any).web3;
-    provider = injectedWeb3.currentProvider;
     debug("Using injected web3 provider");
-  } else {
-    // TODO(ritave): Research using Infura
-    provider = new Web3.providers.HttpProvider(DEFAULT_HTTP_NODE);
-    debug("No web3 provider provided or found injected, defaulting to HttpProvider");
+    const injectedWeb3: Web3 = (window as any).web3;
+    return injectedWeb3.currentProvider;
   }
-  return provider;
+  return undefined;
 }
 
 export function hasInjectedProvider(): boolean {

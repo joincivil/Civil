@@ -221,7 +221,7 @@ async function createTestRegistryInstance(registryContract: any, parameterizer: 
   const parameterizerAddress = await parameterizer.address;
   const token = await Token.at(tokenAddress);
 
-  const registry = await registryContract.new(tokenAddress, plcrAddress, parameterizerAddress);
+  const registry = await registryContract.new(tokenAddress, plcrAddress, parameterizerAddress, "registry");
 
   await approveRegistryFor(accounts.slice(0, 8));
   return registry;
