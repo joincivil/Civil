@@ -3,7 +3,6 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 
 export const HeroLabel = styled.span`
-  color: ${colors.basic.WHITE};
   display: block;
   font-family: ${fonts.SANS_SERIF};
   font-size: 20px;
@@ -13,7 +12,6 @@ export const HeroLabel = styled.span`
 `;
 
 export const HeroHeading = styled.h2`
-  color: ${colors.basic.WHITE};
   font-family: ${fonts.SERIF};
   font-size: 38px;
   font-weight: 200;
@@ -38,7 +36,6 @@ export const HeroBlockTextLink = styled.a`
 `;
 
 export const HeroSmallText = styled.span`
-  color: ${colors.basic.WHITE};
   display: block;
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;

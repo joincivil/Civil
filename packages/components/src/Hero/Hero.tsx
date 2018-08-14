@@ -16,6 +16,7 @@ const HeroOuter = styled.div`
 
 const HeroInner = styled.div`
   align-items: center;
+  color: ${colors.basic.WHITE};
   display: flex;
   flex-direction: column;
   margin: 0 auto;
