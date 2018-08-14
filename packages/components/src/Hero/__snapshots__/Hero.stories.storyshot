@@ -80,7 +80,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "1,000 CVL required to apply",
+                        "data": "1000 CVL required to apply",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -203,7 +203,7 @@ initialize {
                   },
                   "children": Array [
                     Object {
-                      "data": "1,000 CVL required to apply",
+                      "data": "1000 CVL required to apply",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -326,7 +326,7 @@ initialize {
                 },
                 "children": Array [
                   Object {
-                    "data": "1,000 CVL required to apply",
+                    "data": "1000 CVL required to apply",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -448,7 +448,7 @@ initialize {
               },
               "children": Array [
                 Object {
-                  "data": "1,000 CVL required to apply",
+                  "data": "1000 CVL required to apply",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -570,7 +570,7 @@ initialize {
             },
             "children": Array [
               Object {
-                "data": "1,000 CVL required to apply",
+                "data": "1000 CVL required to apply",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
@@ -712,7 +712,7 @@ initialize {
               },
               "children": Array [
                 Object {
-                  "data": "1,000 CVL required to apply",
+                  "data": "1000 CVL required to apply",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
