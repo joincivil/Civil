@@ -84,7 +84,7 @@ contract("Registry", accounts => {
         const [, resultOne] = await registry.listings(listing26);
         expect(resultOne).to.be.true("Listing should have been whitelisted");
 
-        await registry.exitListing(listing26, { from: applicant });
+        await registry.exit(listing26, { from: applicant });
         const [, resultTwo] = await registry.listings(listing26);
         expect(resultTwo).to.be.false("Listing should not be in the whitelist");
 
