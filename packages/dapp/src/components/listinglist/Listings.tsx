@@ -19,6 +19,7 @@ export interface ListingProps {
 export interface ListingReduxProps {
   whitelistedListings: Set<string>;
   rejectedListings: Set<string>;
+  parameters: any;
   error: undefined | string;
 }
 
@@ -33,7 +34,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     if (activeIndex === 0) {
       hero = (
         <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero textUrl="#" buttonUrl="#" />
+          <HomepageHero textUrl="#" buttonUrl="#" minDeposit={this.props.parameters.minDeposit} />
         </Hero>
       );
     }
@@ -81,12 +82,13 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { whitelistedListings, rejectedListings } = state.networkDependent;
+  const { whitelistedListings, rejectedListings, parameters } = state.networkDependent;
 
   return {
     ...ownProps,
     whitelistedListings,
     rejectedListings,
+    parameters,
     error: undefined,
   };
 };

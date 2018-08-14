@@ -5,12 +5,14 @@ import { Hero } from "./Hero";
 import { HomepageHero } from "./HomepageHero";
 import * as heroImgUrl from "./img-hero-listings.png";
 
+const minDeposit = "1000";
+
 storiesOf("Hero", module)
   .addDecorator(StoryRouter())
   .add("Homepage", () => {
     return (
       <Hero backgroundImage={heroImgUrl}>
-        <HomepageHero textUrl="{#}" buttonUrl="{#}" />;
+        <HomepageHero textUrl="#" buttonUrl="#" minDeposit={minDeposit} />;
       </Hero>
     );
   });

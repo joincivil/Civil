@@ -6,6 +6,7 @@ import { homepageHeroText } from "./constants";
 export interface HomepageHeroProps {
   textUrl: string;
   buttonUrl: string;
+  minDeposit: string;
 }
 
 export class HomepageHero extends React.Component<HomepageHeroProps> {
@@ -18,7 +19,10 @@ export class HomepageHero extends React.Component<HomepageHeroProps> {
         <Button size={buttonSizes.MEDIUM} to="{this.props.buttonUrl}">
           {homepageHeroText.BUTTON}
         </Button>
-        <HeroSmallText>{homepageHeroText.SMALL}</HeroSmallText>
+        <HeroSmallText>
+          {this.props.minDeposit}
+          {homepageHeroText.SMALL}
+        </HeroSmallText>
       </>
     );
   }
