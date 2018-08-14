@@ -12,17 +12,17 @@ contract AddressRegistry {
     // EVENTS
     // ------
 
-    event _Application(address indexed listingHash, uint deposit, uint appEndDate, string data, address indexed applicant);
-    event _Challenge(address indexed listingHash, uint challengeID, string data, uint commitEndDate, uint revealEndDate, address indexed challenger);
-    event _Deposit(address indexed listingHash, uint added, uint newTotal, address indexed owner);
-    event _Withdrawal(address indexed listingHash, uint withdrew, uint newTotal, address indexed owner);
-    event _ApplicationWhitelisted(address indexed listingHash);
-    event _ApplicationRemoved(address indexed listingHash);
-    event _ListingRemoved(address indexed listingHash);
-    event _ListingWithdrawn(address indexed listingHash);
-    event _TouchAndRemoved(address indexed listingHash);
-    event _ChallengeFailed(address indexed listingHash, uint indexed challengeID, uint rewardPool, uint totalTokens);
-    event _ChallengeSucceeded(address indexed listingHash, uint indexed challengeID, uint rewardPool, uint totalTokens);
+    event _Application(address indexed listingAddress, uint deposit, uint appEndDate, string data, address indexed applicant);
+    event _Challenge(address indexed listingAddress, uint challengeID, string data, uint commitEndDate, uint revealEndDate, address indexed challenger);
+    event _Deposit(address indexed listingAddress, uint added, uint newTotal, address indexed owner);
+    event _Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal, address indexed owner);
+    event _ApplicationWhitelisted(address indexed listingAddress);
+    event _ApplicationRemoved(address indexed listingAddress);
+    event _ListingRemoved(address indexed listingAddress);
+    event _ListingWithdrawn(address indexed listingAddress);
+    event _TouchAndRemoved(address indexed listingAddress);
+    event _ChallengeFailed(address indexed listingAddress, uint indexed challengeID, uint rewardPool, uint totalTokens);
+    event _ChallengeSucceeded(address indexed listingAddress, uint indexed challengeID, uint rewardPool, uint totalTokens);
     event _RewardClaimed(uint indexed challengeID, uint reward, address indexed voter);
 
     using SafeMath for uint;

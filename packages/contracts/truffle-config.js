@@ -1,3 +1,6 @@
+var HDWalletProvider = require("truffle-hdwallet-provider");
+var mnemonic = process.env.MNEMONIC;
+var infura_key = process.env.INFURA_KEY;
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -21,8 +24,9 @@ module.exports = {
       network_id: "50",
     },
     rinkeby: {
-      host: "localhost",
-      port: 8545,
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/" + infura_key);
+      },
       network_id: 4,
       gasPrice: "20000000000",
     },
