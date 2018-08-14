@@ -35,12 +35,12 @@ contract("Registry", accounts => {
 
       await registry.updateStatus(listing8, { from: applicant });
 
-      const hasClaimedBefore = await registry.hasClaimedTokens(pollID, voterAlice);
-      expect(hasClaimedBefore).to.be.false("hasClaimedTokens should have been false before tokens claimed");
+      const hasClaimedBefore = await registry.tokenClaims(pollID, voterAlice);
+      expect(hasClaimedBefore).to.be.false("tokenClaims should have been false before tokens claimed");
       await registry.claimReward(pollID, "420", { from: voterAlice });
 
-      const hasClaimedAfter = await registry.hasClaimedTokens(pollID, voterAlice);
-      expect(hasClaimedAfter).to.be.true("hasClaimedTokens should have been true after tokens claimed");
+      const hasClaimedAfter = await registry.tokenClaims(pollID, voterAlice);
+      expect(hasClaimedAfter).to.be.true("tokenClaims should have been true after tokens claimed");
     });
   });
 });
