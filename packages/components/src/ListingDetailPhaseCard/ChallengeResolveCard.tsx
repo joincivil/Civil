@@ -1,54 +1,60 @@
 import * as React from "react";
 import { ListingDetailPhaseCardComponentProps, ChallengePhaseProps } from "./types";
 import {
+  CTACopy,
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
+  StyledPhaseKicker,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
 } from "./styledComponents";
 import { TransactionInvertedButton } from "../TransactionButton";
+import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
+import { NeedHelp } from "./NeedHelp";
 
-export class ChallengeResolveCard extends React.Component<
+export const ChallengeResolveCard: React.StatelessComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeResultsProps
-> {
-  public render(): JSX.Element {
-    return (
-      <StyledListingDetailPhaseCardContainer>
-        <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.challenger}</MetaItemValue>
-          <MetaItemLabel>Challenger</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.rewardPool}</MetaItemValue>
-          <MetaItemLabel>Reward Pool</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.stake}</MetaItemValue>
-          <MetaItemLabel>Stake</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <ChallengeResults
-            totalVotes={this.props.totalVotes}
-            votesFor={this.props.votesFor}
-            votesAgainst={this.props.votesAgainst}
-            percentFor={this.props.percentFor}
-            percentAgainst={this.props.percentAgainst}
-          />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <TransactionInvertedButton
-            transactions={this.props.transactions!}
-            modalContentComponents={this.props.modalContentComponents}
-          >
-            Resolve Challenge
-          </TransactionInvertedButton>
-        </StyledListingDetailPhaseCardSection>
-      </StyledListingDetailPhaseCardContainer>
-    );
-  }
-}
+> = props => {
+  console.log("rendering component");
+  return (
+    <StyledListingDetailPhaseCardContainer>
+      <StyledListingDetailPhaseCardSection>
+        <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
+        <StyledPhaseDisplayName>Ready to Complete</StyledPhaseDisplayName>
+      </StyledListingDetailPhaseCardSection>
+
+      <ChallengePhaseDetail
+        challengeID={props.challengeID}
+        challenger={props.challenger}
+        rewardPool={props.rewardPool}
+        stake={props.stake}
+      />
+
+      <StyledListingDetailPhaseCardSection>
+        <ChallengeResults
+          collapsable={true}
+          totalVotes={props.totalVotes}
+          votesFor={props.votesFor}
+          votesAgainst={props.votesAgainst}
+          percentFor={props.percentFor}
+          percentAgainst={props.percentAgainst}
+        />
+      </StyledListingDetailPhaseCardSection>
+
+      <StyledListingDetailPhaseCardSection>
+        <CTACopy>
+          This challenge is complete. To update this Newsroom's status on the Civil Registry, please{" "}
+          <a href="#">resolve this challenge</a>.
+        </CTACopy>
+        <TransactionInvertedButton
+          transactions={props.transactions!}
+          modalContentComponents={props.modalContentComponents}
+        >
+          Resolve Challenge
+        </TransactionInvertedButton>
+      </StyledListingDetailPhaseCardSection>
+
+      <NeedHelp />
+    </StyledListingDetailPhaseCardContainer>
+  );
+};

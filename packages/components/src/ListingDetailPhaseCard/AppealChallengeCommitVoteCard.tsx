@@ -4,66 +4,137 @@ import {
   PhaseWithExpiryProps,
   ChallengePhaseProps,
   CommitVoteProps,
+  AppealDecisionProps,
+  AppealChallengePhaseProps,
 } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
+  StyledPhaseKicker,
   StyledPhaseDisplayName,
-  MetaItemValue,
-  MetaItemLabel,
-  CTACopy,
+  StyledCardStage,
+  StyledCard,
+  StyledCardClose,
+  StyledCardFront,
+  StyledCardBack,
+  FormHeader,
   FormCopy,
+  FullWidthButton,
 } from "./styledComponents";
-import { buttonSizes, Button } from "../Button";
-import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
+import { buttonSizes } from "../Button";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
+import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
+import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
+import { AppealDecisionDetail } from "./AppealDecisionDetail";
+import { NeedHelp } from "./NeedHelp";
+
+export type AppealChallengeCommitVoteCardProps = ListingDetailPhaseCardComponentProps &
+  PhaseWithExpiryProps &
+  ChallengePhaseProps &
+  ChallengeResultsProps &
+  CommitVoteProps &
+  AppealDecisionProps &
+  AppealChallengePhaseProps;
+
+export interface AppealChallengeCommitVoteCardState {
+  flipped: boolean;
+}
 
 export class AppealChallengeCommitVoteCard extends React.Component<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & CommitVoteProps
+  AppealChallengeCommitVoteCardProps,
+  AppealChallengeCommitVoteCardState
 > {
+  constructor(props: AppealChallengeCommitVoteCardProps) {
+    super(props);
+    this.state = { flipped: false };
+  }
+
   public render(): JSX.Element {
     return (
-      <StyledListingDetailPhaseCardContainer>
-        <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>Challenge Appeal Decision</StyledPhaseDisplayName>
-          <ProgressBarCountdownTimer
-            endTime={this.props.endTime}
-            totalSeconds={this.props.phaseLength}
-            displayLabel="Accepting votes"
-            flavorText="under challenge"
-          />
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <CTACopy>Civil Council Decision</CTACopy>
-          <FormCopy>
-            The Civil Council has decided to grant the appeal. Read more about their methodology and how they’ve come to
-            this decision.
-          </FormCopy>
-          <Button size={buttonSizes.MEDIUM}>Read about this decision</Button>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.challenger}</MetaItemValue>
-          <MetaItemLabel>Challenger</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.rewardPool}</MetaItemValue>
-          <MetaItemLabel>Reward Pool</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <MetaItemValue>{this.props.stake}</MetaItemValue>
-          <MetaItemLabel>Stake</MetaItemLabel>
-        </StyledListingDetailPhaseCardSection>
-        <StyledListingDetailPhaseCardSection>
-          <CommitVote
-            tokenBalance={this.props.tokenBalance}
-            salt={this.props.salt}
-            numTokens={this.props.numTokens}
-            onInputChange={this.props.onInputChange}
-            transactions={this.props.transactions}
-            modalContentComponents={this.props.modalContentComponents}
-          />
-        </StyledListingDetailPhaseCardSection>
-      </StyledListingDetailPhaseCardContainer>
+      <StyledCardStage width="485">
+        <StyledCard flipped={this.state.flipped}>
+          <StyledCardFront>
+            <StyledListingDetailPhaseCardContainer>
+              <StyledListingDetailPhaseCardSection>
+                <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
+                <StyledPhaseKicker>Appeal Challenge ID {this.props.appealChallengeID}</StyledPhaseKicker>
+                <StyledPhaseDisplayName>Challenge Appeal Decision</StyledPhaseDisplayName>
+                <TwoPhaseProgressBarCountdownTimer
+                  endTime={this.props.endTime}
+                  totalSeconds={this.props.phaseLength}
+                  displayLabel="Accepting votes"
+                  secondaryDisplayLabel="Revealing Votes"
+                  flavorText="under challenge"
+                  activePhaseIndex={0}
+                />
+              </StyledListingDetailPhaseCardSection>
+
+              <ChallengePhaseDetail
+                challengeID={this.props.challengeID}
+                challenger={this.props.challenger}
+                rewardPool={this.props.rewardPool}
+                stake={this.props.stake}
+              />
+
+              <StyledListingDetailPhaseCardSection>
+                <ChallengeResults
+                  collapsable={true}
+                  totalVotes={this.props.totalVotes}
+                  votesFor={this.props.votesFor}
+                  votesAgainst={this.props.votesAgainst}
+                  percentFor={this.props.percentFor}
+                  percentAgainst={this.props.percentAgainst}
+                />
+              </StyledListingDetailPhaseCardSection>
+
+              <AppealDecisionDetail appealGranted={this.props.appealGranted} />
+
+              <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+                <FormHeader>Submit Your Votes!</FormHeader>
+                <FormCopy>
+                  Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.
+                </FormCopy>
+                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+                  Submit My Vote
+                </FullWidthButton>
+              </StyledListingDetailPhaseCardSection>
+
+              <NeedHelp />
+            </StyledListingDetailPhaseCardContainer>
+          </StyledCardFront>
+
+          <StyledCardBack>
+            <StyledListingDetailPhaseCardContainer>
+              <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+                <StyledCardClose>
+                  <span onClick={this.swapFlipped}>✖</span>
+                </StyledCardClose>
+                <FormHeader>Submit Your Votes!</FormHeader>
+                <FormCopy>
+                  Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.
+                </FormCopy>
+              </StyledListingDetailPhaseCardSection>
+              <StyledListingDetailPhaseCardSection>
+                <StyledPhaseKicker>Appeal Challenge ID {this.props.appealChallengeID}</StyledPhaseKicker>
+                <CommitVote
+                  tokenBalance={this.props.tokenBalance}
+                  salt={this.props.salt}
+                  numTokens={this.props.numTokens}
+                  onInputChange={this.props.onInputChange}
+                  transactions={this.props.transactions}
+                  userHasCommittedVote={this.props.userHasCommittedVote}
+                  modalContentComponents={this.props.modalContentComponents}
+                />
+              </StyledListingDetailPhaseCardSection>
+            </StyledListingDetailPhaseCardContainer>
+          </StyledCardBack>
+        </StyledCard>
+      </StyledCardStage>
     );
   }
+
+  private swapFlipped = (): void => {
+    this.setState(() => ({ flipped: !this.state.flipped }));
+  };
 }

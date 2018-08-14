@@ -52,6 +52,7 @@ const Tip = styled.div`
 // z-index to compete with wp
 
 const Wrapper = styled.div`
+  display: inline-block;
   position: relative;
 `;
 

@@ -33,6 +33,7 @@ export enum ModalContentEventNames {
 
 export interface AppealChallengeDetailProps {
   listingAddress: EthAddress;
+  challengeID: BigNumber;
   challenge: ChallengeData;
   appealChallengeID: BigNumber;
   appealChallenge: AppealChallengeData;
@@ -96,20 +97,39 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
         progressEventName: ModalContentEventNames.COMMIT_VOTE,
       },
     ];
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
 
     return (
       <AppealChallengeCommitVoteCard
         endTime={endTime}
         phaseLength={phaseLength}
+        challengeID={this.props.challengeID.toString()}
         challenger={challenger}
         rewardPool={rewardPool}
         stake={stake}
+        totalVotes={getFormattedTokenBalance(totalVotes)}
+        votesFor={votesFor}
+        votesAgainst={votesAgainst}
+        percentFor={percentFor.toString()}
+        percentAgainst={percentAgainst.toString()}
         onInputChange={this.updateCommitVoteState}
         tokenBalance={this.props.tokenBalance}
         salt={this.state.salt}
         numTokens={this.state.numTokens}
         transactions={transactions}
         modalContentComponents={modalContentComponents}
+        appealChallengeID={this.props.appealChallengeID.toString()}
+        appealGranted={this.props.appeal.appealGranted}
       />
     );
   }
@@ -134,18 +154,37 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
         progressEventName: ModalContentEventNames.REVEAL_VOTE,
       },
     ];
+    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    const percentFor = challenge.poll.votesFor
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
+    const percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotes)
+      .mul(100)
+      .toFixed(0);
 
     return (
       <AppealChallengeRevealVoteCard
         endTime={endTime}
         phaseLength={phaseLength}
+        challengeID={this.props.challengeID.toString()}
         challenger={challenger}
         rewardPool={rewardPool}
         stake={stake}
         salt={this.state.salt}
+        totalVotes={getFormattedTokenBalance(totalVotes)}
+        votesFor={votesFor}
+        votesAgainst={votesAgainst}
+        percentFor={percentFor.toString()}
+        percentAgainst={percentAgainst.toString()}
         onInputChange={this.updateCommitVoteState}
         modalContentComponents={modalContentComponents}
         transactions={transactions}
+        appealChallengeID={this.props.appealChallengeID.toString()}
+        appealGranted={this.props.appeal.appealGranted}
       />
     );
   }
@@ -178,6 +217,9 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
       .div(appealChallengeTotalVotes)
       .mul(100)
       .toFixed(0);
+    const challenger = challenge.challenger.toString();
+    const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
+    const stake = getFormattedTokenBalance(challenge.stake);
 
     const resolveProgressModal = this.getResolveProgressModal();
     const modalContentComponents = {
@@ -193,6 +235,11 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
 
     return (
       <AppealChallengeResolveCard
+        challengeID={this.props.challengeID.toString()}
+        challenger={challenger}
+        rewardPool={rewardPool}
+        stake={stake}
+        appealChallengeID={this.props.appealChallengeID.toString()}
         appealGranted={appealGranted}
         modalContentComponents={modalContentComponents}
         transactions={transactions}

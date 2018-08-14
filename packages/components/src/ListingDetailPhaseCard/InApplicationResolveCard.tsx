@@ -13,10 +13,13 @@ export class InApplicationResolveCard extends React.Component<ListingDetailPhase
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>New Application</StyledPhaseDisplayName>
+          <StyledPhaseDisplayName>Application Accepted</StyledPhaseDisplayName>
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
-          <CTACopy>This listing has passed the application process</CTACopy>
+          <CTACopy>
+            This application is complete. To update this Newsroom's status on the Civil Registry, please{" "}
+            <a href="#">add to registry</a>.
+          </CTACopy>
           <TransactionInvertedButton
             transactions={this.props.transactions!}
             modalContentComponents={this.props.modalContentComponents}
