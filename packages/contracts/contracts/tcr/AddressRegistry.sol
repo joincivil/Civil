@@ -13,7 +13,7 @@ contract AddressRegistry {
     // ------
 
     event _Application(address indexed listingAddress, uint deposit, uint appEndDate, string data, address indexed applicant);
-    event _Challenge(address indexed listingAddress, uint challengeID, string data, uint commitEndDate, uint revealEndDate, address indexed challenger);
+    event _Challenge(address indexed listingAddress, uint indexed challengeID, string data, uint commitEndDate, uint revealEndDate, address indexed challenger);
     event _Deposit(address indexed listingAddress, uint added, uint newTotal, address indexed owner);
     event _Withdrawal(address indexed listingAddress, uint withdrew, uint newTotal, address indexed owner);
     event _ApplicationWhitelisted(address indexed listingAddress);

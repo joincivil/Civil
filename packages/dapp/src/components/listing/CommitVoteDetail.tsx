@@ -2,7 +2,7 @@ import * as React from "react";
 import { TransactionButton } from "@joincivil/components";
 import { InputElement, StyledFormContainer, FormValidationMessage, FormGroup } from "../utility/FormElements";
 import { TwoStepEthTransaction } from "@joincivil/core";
-import { commitVote, requestVotingRights } from "../../apis/civilTCR";
+import { commitVote, approveVotingRights } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 
 export interface CommitVoteDetailProps {
@@ -68,7 +68,7 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
 
         <FormGroup>
           <TransactionButton
-            transactions={[{ transaction: this.requestVotingRights }, { transaction: this.commitVoteOnChallenge }]}
+            transactions={[{ transaction: this.approveVotingRights }, { transaction: this.commitVoteOnChallenge }]}
           >
             Commit Vote
           </TransactionButton>
@@ -93,9 +93,9 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
     this.setState({ isVoteTokenAmtValid: isValidTokenAmt });
   };
 
-  private requestVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
+  private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return requestVotingRights(numTokens);
+    return approveVotingRights(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
