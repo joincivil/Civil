@@ -1,5 +1,5 @@
 import * as React from "react";
-import NavBar from "./components/navbar/NavBar";
+import { NavBar } from "@joincivil/components";
 import Main from "./components/Main";
 import { BrowserRouter as Router } from "react-router-dom";
 
