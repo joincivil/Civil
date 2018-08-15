@@ -34,14 +34,15 @@ export const SaltLabelText: React.SFC = props => {
 
 export interface ReviewVoteDecisionTextProps {
   newsroomName: string;
-  voteOption: number;
+  voteOption?: string;
 }
 
 export const ReviewVoteDecisionText: React.SFC<ReviewVoteDecisionTextProps> = props => {
-  const voteText = props.voteOption === 0 ? <RemoveActionText /> : <WhitelistActionText />;
+  if (!props.voteOption) { return <></>; };
+  const voteText = props.voteOption === "0" ? <RemoveActionText /> : <WhitelistActionText />;
   return (
     <>
-      I voted for {props.newsroomName} to be <b>{voteText}</b> {props.voteOption === 0 ? "from" : "in"} the Civil
+      I voted for {props.newsroomName} to be <b>{voteText}</b> {props.voteOption === "0" ? "from" : "in"} the Civil
       Registry
     </>
   );

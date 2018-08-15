@@ -36,6 +36,7 @@ import {
   MetaItemLabel,
   MetaItemLabelSalt,
   MetaItemValue,
+  MetaItemValueUser,
   MetaItemValueSalt,
   StyledReviewVoteDatesHeader,
   StyledReviewVoteDatesRange,
@@ -48,15 +49,16 @@ export interface ReviewVoteProps extends FullScreenModalProps {
   newsroomName: string;
   listingDetailURL: string;
   challengeID: string;
-  numTokens: string;
-  voteOption: number;
-  salt: string;
+  numTokens?: string;
+  voteOption?: string;
+  salt?: string;
   userAccount: EthAddress;
   commitEndDate: number;
   revealEndDate: number;
   transactions: any[];
   modalContentComponents?: any;
   handleClose(): void;
+  postExecuteTransactions?(): void;
 }
 
 function printThis(): void {
@@ -93,14 +95,16 @@ function getCalendarEventDateTime(seconds: number | Date): string {
 }
 
 const AddRevealPhaseToCalendar: React.SFC<ReviewVoteProps> = props => {
+  // @TODO(jon): `textComponents` don't work here b/c these fields are plaintext. Let's
+  // revisit converting JSX.Components to strings via textContent before this goes to mainnet
   const title = `Reveal My Vote for ${props.newsroomName} on The Civil Registry`;
   const description = `
     ${props.listingDetailURL}\n\n
-    ${<SaltLabelText />}\n
+    My Secret Phrase\n
     ${getSaltyWords(props.salt)}\n\n
     Challenge ID ${props.challengeID}\n
     I voted for ${props.newsroomName} to be ${
-    props.voteOption === 0 ? "rejected from" : "accepted to"
+    props.voteOption === "0" ? "rejected from" : "accepted to"
   } the Civil Registry\n\n
     My Deposited CVL\n
     ${props.numTokens}
@@ -170,7 +174,7 @@ export const ReviewVote: React.StatelessComponent<ReviewVoteProps> = props => {
                     <ReviewVoteMyAddressLabelText />
                   </MetaItemLabel>
 
-                  <MetaItemValue>{getFormattedEthAddress(props.userAccount)}</MetaItemValue>
+                  <MetaItemValueUser>{getFormattedEthAddress(props.userAccount)}</MetaItemValueUser>
                 </MetaRow>
               </StyledReviewVoteDetails>
 
@@ -215,6 +219,7 @@ export const ReviewVote: React.StatelessComponent<ReviewVoteProps> = props => {
               <TransactionButton
                 transactions={props.transactions}
                 modalContentComponents={props.modalContentComponents}
+                postExecuteTransactions={props.postExecuteTransactions}
               >
                 <TransactionButtonText />
               </TransactionButton>

@@ -106,8 +106,13 @@ export const MetaItemValue = styled.div`
   line-height: 33px;
 `;
 
+export const MetaItemValueUser  = MetaItemValue.extend`
+  font-family: ${fonts.MONOSPACE};
+`;
+
 export const MetaItemValueSalt = styled.div`
   background: ${colors.accent.CIVIL_TEAL_FADED};
+  font-family: ${fonts.MONOSPACE};
   font-size: 20px;
   line-height: 35px;
   padding: 10px 0;

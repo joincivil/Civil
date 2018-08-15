@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
-import { ReviewVote, ReviewVoteProps } from "./ReviewVote";
+import { ReviewVote, ReviewVoteProps } from "./ReviewVoteModal";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ storiesOf("Review Vote", module).add("Review Vote Modal", () => {
     challengeID: "420",
     open: true,
     numTokens: "1000",
-    voteOption: 1,
+    voteOption: "1",
     salt: "9635457449074",
     userAccount: "0xa441d0e2b078f13e8c45e221b81f6aa103c48a45",
     commitEndDate: 1533916728,
