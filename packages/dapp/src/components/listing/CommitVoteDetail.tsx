@@ -43,8 +43,8 @@ class CommitVoteDetail extends React.Component<CommitVoteDetailProps, CommitVote
         <FormGroup>
           <label>
             Support This Challenge (Vote Option)
-            <InputElement type="radio" value="1" name="voteOption" onChange={this.updateCommitVoteParam} /> Yes
-            <InputElement type="radio" value="0" name="voteOption" onChange={this.updateCommitVoteParam} /> No
+            <InputElement type="radio" value="0" name="voteOption" onChange={this.updateCommitVoteParam} /> Yes
+            <InputElement type="radio" value="1" name="voteOption" onChange={this.updateCommitVoteParam} /> No
           </label>
         </FormGroup>
 

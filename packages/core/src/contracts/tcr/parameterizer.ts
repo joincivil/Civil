@@ -6,7 +6,7 @@ import { CivilErrors } from "@joincivil/utils";
 import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamProp, PollID } from "../../types";
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "../basewrapper";
-import { ParameterizerContract } from "../generated/wrappers/parameterizer";
+import { CivilParameterizerContract } from "../generated/wrappers/civil_parameterizer";
 import { createTwoStepSimple } from "../utils/contracts";
 import { Voting } from "./voting";
 
@@ -32,9 +32,9 @@ export const enum Parameters {
  * needed for logic of the Registry.
  * Users can propose new values for parameters, as well as challenge and then vote on those proposals
  */
-export class Parameterizer extends BaseWrapper<ParameterizerContract> {
+export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
   public static async singleton(ethApi: EthApi): Promise<Parameterizer> {
-    const instance = await ParameterizerContract.singletonTrusted(ethApi);
+    const instance = await CivilParameterizerContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
@@ -43,11 +43,11 @@ export class Parameterizer extends BaseWrapper<ParameterizerContract> {
   }
 
   public static atUntrusted(web3wrapper: EthApi, address: EthAddress): Parameterizer {
-    const instance = ParameterizerContract.atUntrusted(web3wrapper, address);
+    const instance = CivilParameterizerContract.atUntrusted(web3wrapper, address);
     return new Parameterizer(web3wrapper, instance);
   }
 
-  private constructor(ethApi: EthApi, instance: ParameterizerContract) {
+  private constructor(ethApi: EthApi, instance: CivilParameterizerContract) {
     super(ethApi, instance);
   }
 

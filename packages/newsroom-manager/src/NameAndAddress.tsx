@@ -16,6 +16,7 @@ import {
   ViewTransactionLink,
   MetaMaskModal,
   ModalHeading,
+  Transaction,
 } from "@joincivil/components";
 import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
@@ -39,8 +40,10 @@ export interface NameAndAddressProps extends StepProps {
 export interface NameAndAddressState {
   name?: string;
   modalOpen: boolean;
+  collapsableOpen: boolean;
   isPreTransactionModalOpen: boolean;
   isWaitingTransactionModalOpen?: boolean;
+  metaMaskRejectionModal?: boolean;
   startTransaction?(): any;
   cancelTransaction?(): any;
 }
@@ -72,6 +75,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     this.state = {
       name: this.props.name,
       modalOpen: false,
+      collapsableOpen: true,
       isPreTransactionModalOpen: false,
     };
   }
@@ -92,9 +96,10 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     if (!this.state.modalOpen) {
       return null;
     }
+    const message = this.props.address ? "Your name change is being completed" : "Your newsroom is being created";
     return (
       <Modal textAlign="left">
-        <h2>Your newsroom is being created</h2>
+        <h2>{message}</h2>
         <p>You have confirmed the transaction in your MetaMask wallet.</p>
         <p>
           Note, that this could take a while depending on network traffic. You can close out of this while you wait.
@@ -113,18 +118,50 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     return <GreenCheckMark />;
   }
 
-  public renderPreMetamaskCreatModal(): JSX.Element | null {
+  public renderPreMetamaskCreateModal(): JSX.Element | null {
     if (!this.state.isPreTransactionModalOpen) {
       return null;
     }
+    const message = this.props.address
+      ? "Open MetaMask to confirm your name change"
+      : "Open MetaMask to confirm and create a newsroom smart contract";
     return (
       <MetaMaskModal
         waiting={false}
         cancelTransaction={() => this.cancelTransaction()}
         startTransaction={() => this.startTransaction()}
       >
-        <ModalHeading>Open MetaMask to confirm and create a newsroom smart contract</ModalHeading>
+        <ModalHeading>{message}</ModalHeading>
       </MetaMaskModal>
+    );
+  }
+
+  public renderMetaMaskRejectionModal(): JSX.Element | null {
+    if (!this.state.metaMaskRejectionModal) {
+      return null;
+    }
+    const message = this.props.address
+      ? "Your name change did not complete"
+      : "Your newsroom smart contract did not complete";
+
+    const denailMessage = this.props.address
+      ? "To change your newsroom's name, you need to confirm the transaction in your MetaMask wallet."
+      : "To create your newsroom smart contract, you need to confirm the transaction in your MetaMask wallet. You will not be able to proceed without creating a newsroom smart contract.";
+
+    return (
+      <CivilContext.Consumer>
+        {(value: CivilContextValue) => (
+          <MetaMaskModal
+            waiting={false}
+            denied={true}
+            denialText={denailMessage}
+            cancelTransaction={() => this.cancelTransaction()}
+            denialRestartTransactions={this.getTransactions(value.civil!, true)}
+          >
+            <ModalHeading>{message}</ModalHeading>
+          </MetaMaskModal>
+        )}
+      </CivilContext.Consumer>
     );
   }
 
@@ -156,30 +193,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               onChange={(name, val) => this.onChange(name, val)}
             />
             <DetailTransactionButton
-              transactions={[
-                {
-                  requireBeforeTransaction: async () => {
-                    return new Promise((res, rej) => {
-                      this.setState({
-                        startTransaction: res,
-                        cancelTransaction: rej,
-                        isPreTransactionModalOpen: true,
-                      });
-                    });
-                  },
-                  transaction: this.createNewsroom.bind(this, value.civil),
-                  postTransaction: this.postTransaction,
-                  handleTransactionHash: (txHash: TxHash) => {
-                    if (this.props.onContractDeployStarted) {
-                      this.props.onContractDeployStarted(txHash);
-                    }
-                    this.setState({
-                      modalOpen: true,
-                      isWaitingTransactionModalOpen: false,
-                    });
-                  },
-                },
-              ]}
+              transactions={this.getTransactions(value.civil!)}
               civil={value.civil}
               estimateFunctions={[value.civil!.estimateNewsroomDeployTrusted.bind(value.civil, this.props.name)]}
               requiredNetwork={value.requiredNetwork}
@@ -207,10 +221,11 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               onChange={(name, val) => this.onContractChange(name, val)}
             />
             <DetailTransactionButton
-              transactions={[{ transaction: this.changeName, postTransaction: this.onNameChange }]}
+              transactions={this.getTransactions(value.civil!)}
               civil={value.civil}
               requiredNetwork={value.requiredNetwork}
               Button={TransactionButtonInner}
+              noModal={true}
             >
               Change Name
             </DetailTransactionButton>
@@ -258,7 +273,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
         <CollapsableWrapper>
           <Collapsable
-            open={!this.props.disabled}
+            open={!this.props.disabled && this.state.collapsableOpen}
             disabled={this.props.disabled}
             header={
               <>
@@ -272,19 +287,71 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <CollapsableInner>{body}</CollapsableInner>
           </Collapsable>
         </CollapsableWrapper>
-        {this.renderPreMetamaskCreatModal()}
+        {this.renderPreMetamaskCreateModal()}
         {this.renderAwaitingTransactionModal()}
+        {this.renderMetaMaskRejectionModal()}
         {this.progressModal()}
         {this.renderCheckMark()}
       </StepStyled>
     );
   }
 
+  private getTransactions = (civil: Civil, noPreModal?: boolean): Transaction[] => {
+    if (!this.props.address) {
+      return [
+        {
+          requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,
+          transaction: async () => {
+            this.setState({
+              metaMaskRejectionModal: false,
+              isWaitingTransactionModalOpen: true,
+              isPreTransactionModalOpen: false,
+            });
+            return this.createNewsroom(civil);
+          },
+          postTransaction: this.postTransaction,
+          handleTransactionHash: (txHash: TxHash) => {
+            if (this.props.onContractDeployStarted) {
+              this.props.onContractDeployStarted(txHash);
+            }
+            this.setState({
+              modalOpen: true,
+              isWaitingTransactionModalOpen: false,
+            });
+          },
+          handleTransactionError: this.handleTransactionError,
+        },
+      ];
+    } else {
+      return [
+        {
+          requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,
+          transaction: async () => {
+            this.setState({
+              metaMaskRejectionModal: false,
+              isWaitingTransactionModalOpen: true,
+              isPreTransactionModalOpen: false,
+            });
+            return this.changeName();
+          },
+          postTransaction: this.onNameChange,
+          handleTransactionHash: txhash => {
+            this.setState({
+              modalOpen: true,
+              isWaitingTransactionModalOpen: false,
+            });
+          },
+          handleTransactionError: this.handleTransactionError,
+        },
+      ];
+    }
+  };
+
   private postTransaction = (result: any): void => {
     if (this.props.onNewsroomCreated) {
       this.props.onNewsroomCreated(result);
     }
-    this.setState({ modalOpen: false });
+    this.setState({ modalOpen: false, collapsableOpen: false });
   };
 
   private changeName = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -293,10 +360,28 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
 
   private onNameChange = (result: any): void => {
     this.props.dispatch!(changeName(this.props.address!, this.state.name!));
+    this.setState({ modalOpen: false });
   };
 
   private createNewsroom = async (civil: Civil): Promise<TwoStepEthTransaction<any>> => {
     return civil.newsroomDeployTrusted(this.props.name!);
+  };
+
+  private handleTransactionError = (err: Error) => {
+    this.setState({ isWaitingTransactionModalOpen: false });
+    if (err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
+      this.setState({ metaMaskRejectionModal: true });
+    }
+  };
+
+  private requireBeforeTransaction = async () => {
+    return new Promise((res, rej) => {
+      this.setState({
+        startTransaction: res,
+        cancelTransaction: rej,
+        isPreTransactionModalOpen: true,
+      });
+    });
   };
 
   private cancelTransaction = () => {
@@ -307,6 +392,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       cancelTransaction: undefined,
       startTransaction: undefined,
       isPreTransactionModalOpen: false,
+      metaMaskRejectionModal: false,
     });
   };
 

@@ -18,6 +18,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     const user = addresses[0];
     let allocation;
     allocation = totalSupply.div(new BN(originalCount, BASE_10));
+    console.log("give " + allocation + " tokens to: " + user);
     await token.transfer(user, allocation);
 
     if (addresses.length === 1) {

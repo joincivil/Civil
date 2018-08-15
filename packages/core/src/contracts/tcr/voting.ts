@@ -5,7 +5,7 @@ import * as Debug from "debug";
 import { Observable } from "rxjs";
 import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
-import { PLCRVotingContract } from "../generated/wrappers/p_l_c_r_voting";
+import { CivilPLCRVotingContract } from "../generated/wrappers/civil_p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contracts";
 
 const debug = Debug("civil:tcr");
@@ -14,9 +14,9 @@ const debug = Debug("civil:tcr");
  * Voting allows user to interface with polls, either from the
  * Parameterizer or the Registry
  */
-export class Voting extends BaseWrapper<PLCRVotingContract> {
+export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   public static async singleton(ethApi: EthApi): Promise<Voting> {
-    const instance = await PLCRVotingContract.singletonTrusted(ethApi);
+    const instance = await CivilPLCRVotingContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Voting returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
@@ -25,11 +25,11 @@ export class Voting extends BaseWrapper<PLCRVotingContract> {
   }
 
   public static atUntrusted(web3wrapper: EthApi, address: EthAddress): Voting {
-    const instance = PLCRVotingContract.atUntrusted(web3wrapper, address);
+    const instance = CivilPLCRVotingContract.atUntrusted(web3wrapper, address);
     return new Voting(web3wrapper, instance);
   }
 
-  private constructor(ethApi: EthApi, instance: PLCRVotingContract) {
+  private constructor(ethApi: EthApi, instance: CivilPLCRVotingContract) {
     super(ethApi, instance);
   }
 

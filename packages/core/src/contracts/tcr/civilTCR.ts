@@ -466,7 +466,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
         didUserReveal = await this.voting.didRevealVote(user, challengeID);
         if (resolved) {
           if (didUserReveal) {
-            didUserCollect = await this.instance.hasClaimedTokens.callAsync(challengeID, user);
+            didUserCollect = await this.instance.tokenClaims.callAsync(challengeID, user);
           } else {
             didUserRescue = !(await this.voting.canRescueTokens(user, challengeID));
           }
@@ -533,7 +533,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     if (!who) {
       who = await requireAccount(this.ethApi).toPromise();
     }
-    return this.instance.hasClaimedTokens.callAsync(challengeID, who);
+    return this.instance.tokenClaims.callAsync(challengeID, who);
   }
 
   /**
@@ -593,7 +593,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param address Address of listing to exit
    */
   public async exitListing(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.exitListing.sendTransactionAsync(listingAddress);
+    return this.multisigProxy.exit.sendTransactionAsync(listingAddress);
   }
 
   /**
