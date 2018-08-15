@@ -30,8 +30,8 @@ export interface ListingPageComponentProps {
 }
 
 export interface ListingReduxProps {
-  newsroom: NewsroomState | undefined;
-  listing: ListingWrapper | undefined;
+  newsroom?: NewsroomState;
+  listing?: ListingWrapper;
   expiry?: number;
   userAccount?: EthAddress;
   isUserNewsroomOwner?: boolean;

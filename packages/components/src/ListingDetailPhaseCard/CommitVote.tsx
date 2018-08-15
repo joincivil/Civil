@@ -41,9 +41,9 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         </FormQuestion>
 
         <VoteOptionsContainer>
-          {this.renderVoteButton({ voteOption: 0 })}
-          <StyledOrText>or</StyledOrText>
           {this.renderVoteButton({ voteOption: 1 })}
+          <StyledOrText>or</StyledOrText>
+          {this.renderVoteButton({ voteOption: 0 })}
         </VoteOptionsContainer>
 
         {this.renderNumTokensInput()}
@@ -60,14 +60,14 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   private renderVoteButton = (options: any): JSX.Element => {
     let buttonText;
     let onClick;
-    if (options.voteOption === 0) {
+    if (options.voteOption === 1) {
       buttonText = (
         <>
           ✔ <WhitelistActionText />
         </>
       );
       onClick = this.setVoteToRemain;
-    } else if (options.voteOption === 1) {
+    } else if (options.voteOption === 0) {
       buttonText = (
         <>
           ✖ <RemoveActionText />
@@ -128,16 +128,16 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
 
   private setVoteToRemain = (): void => {
     // A "remain" vote is a vote that doesn't support the
-    // challenge, so `voteOption === 0`
-    this.props.onInputChange({ voteOption: "0" });
-    this.setState(() => ({ voteOption: 0 }));
+    // challenge, so `voteOption === 1`
+    this.props.onInputChange({ voteOption: "1" });
+    this.setState(() => ({ voteOption: 1 }));
   };
 
   private setVoteToRemove = (): void => {
     // A "remove" vote is a vote that supports the
-    // challenge, so `voteOption === 1`
-    this.props.onInputChange({ voteOption: "1" });
-    this.setState(() => ({ voteOption: 1 }));
+    // challenge, so `voteOption === 0`
+    this.props.onInputChange({ voteOption: "0" });
+    this.setState(() => ({ voteOption: 0 }));
   };
 
   private validateSalt = (): boolean => {

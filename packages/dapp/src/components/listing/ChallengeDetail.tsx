@@ -84,6 +84,7 @@ export interface ChallengeContainerReduxProps {
   challengeState: any;
   user: EthAddress;
   balance: BigNumber;
+  votingBalance: BigNumber;
   parameters: any;
   govtParameters: any;
   isMemberOfAppellate: boolean;
@@ -100,6 +101,7 @@ export interface ChallengeDetailProps {
   userAppealChallengeData?: UserChallengeData;
   user: EthAddress;
   balance?: BigNumber;
+  votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
   newsroom: NewsroomWrapper;
 }
@@ -125,6 +127,18 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     };
   }
 
+  public componentDidMount(): void {
+    if (!this.state.numTokens && this.props.balance && this.props.votingBalance) {
+      this.setInitNumTokens();
+    }
+  }
+
+  public componentDidUpdate(prevProps: ChallengeDetailProps): void {
+    if (!this.state.numTokens && (this.props.balance && this.props.votingBalance)) {
+      this.setInitNumTokens();
+    }
+  }
+
   public render(): JSX.Element {
     const { challenge, userChallengeData, userAppealChallengeData } = this.props;
     const { inChallengePhase, inRevealPhase } = this.props.challengeState;
@@ -146,6 +160,11 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail()}
       </>
     );
+  }
+
+  private setInitNumTokens(): void {
+    const initNumTokens = getFormattedTokenBalance(this.props.balance!.add(this.props.votingBalance!), true);
+    this.setState(() => ({ numTokens: initNumTokens }));
   }
 
   private renderAppeal(): JSX.Element {
@@ -434,14 +453,14 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   };
 
   private requestVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
     return requestVotingRights(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };
 
@@ -487,6 +506,8 @@ class ChallengeContainer extends React.Component<
         challengeState={this.props.challengeState}
         user={this.props.user}
         parameters={this.props.parameters}
+        balance={this.props.balance}
+        votingBalance={this.props.votingBalance}
         govtParameters={this.props.govtParameters}
         isMemberOfAppellate={this.props.isMemberOfAppellate}
       />
@@ -567,6 +588,7 @@ const makeMapStateToProps = () => {
       challengeDataRequestStatus,
       user: userAcct.account,
       balance: user.account.balance,
+      votingBalance: user.account.votingBalance,
       parameters,
       govtParameters,
       isMemberOfAppellate,

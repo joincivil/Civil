@@ -1,8 +1,9 @@
 import * as React from "react";
-import { buttonSizes, DarkButton } from "../Button";
+import { buttonSizes, Button, DarkButton } from "../Button";
 import { SaltInput } from "../input/";
 import { TransactionDarkButton } from "../TransactionButton";
-import { FormQuestion, StyledOrText, VoteOptionsContainer } from "./styledComponents";
+import { FormQuestion, StyledOrText, VoteOptionsContainer, buttonTheme } from "./styledComponents";
+import { WhitelistActionText, RemoveActionText, VoteCallToActionText, RevealVoteButtonText } from "./textComponents";
 import { RevealVoteProps } from "./types";
 
 export interface RevealVoteState {
@@ -17,58 +18,77 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
   }
 
   public render(): JSX.Element {
+    const canReveal = this.state.voteOption !== undefined && !!this.state.saltError;
     return (
       <>
         <FormQuestion>
-          Should {this.props.newsroomName || "this newsroom"} remain or be removed from the Civil Registry?
+          <VoteCallToActionText newsroomName={this.props.newsroomName} />
         </FormQuestion>
+
+        <VoteOptionsContainer>
+          {this.renderVoteButton({ voteOption: 1 })}
+          <StyledOrText>or</StyledOrText>
+          {this.renderVoteButton({ voteOption: 0 })}
+        </VoteOptionsContainer>
 
         <SaltInput salt={this.props.salt} label="Enter your salt" name="salt" onChange={this.onChange} />
 
-        <VoteOptionsContainer>
-          <div onMouseEnter={this.setVoteToRemain}>{this.renderVoteButton({ voteOption: 0 })}</div>
-          <StyledOrText>or</StyledOrText>
-          <div onMouseEnter={this.setVoteToRemove}>{this.renderVoteButton({ voteOption: 1 })}</div>
-        </VoteOptionsContainer>
+        <TransactionDarkButton
+          transactions={this.props.transactions}
+          modalContentComponents={this.props.modalContentComponents}
+          disabled={!canReveal}
+        >
+          <RevealVoteButtonText />
+        </TransactionDarkButton>
       </>
     );
   }
 
   private renderVoteButton = (options: any): JSX.Element => {
-    const disableButtons = !!this.state.saltError;
     let buttonText;
-    if (options.voteOption === 0) {
-      buttonText = "✔ Remain";
-    } else if (options.voteOption === 1) {
-      buttonText = "✖ Remove";
+    let onClick;
+    if (options.voteOption === 1) {
+      buttonText = (
+        <>
+          ✔ <WhitelistActionText />
+        </>
+      );
+      onClick = this.setVoteToRemain;
+    } else if (options.voteOption === 0) {
+      buttonText = (
+        <>
+          ✖ <RemoveActionText />
+        </>
+      );
+      onClick = this.setVoteToRemove;
     }
     if (this.state.voteOption === options.voteOption) {
       return (
-        <TransactionDarkButton
-          transactions={this.props.transactions}
-          modalContentComponents={this.props.modalContentComponents}
-          disabled={disableButtons}
-        >
+        <Button onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
           {buttonText}
-        </TransactionDarkButton>
+        </Button>
       );
     }
 
-    return <DarkButton size={buttonSizes.MEDIUM}>{buttonText}</DarkButton>;
+    return (
+      <DarkButton onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
+        {buttonText}
+      </DarkButton>
+    );
   };
 
   private setVoteToRemain = (): void => {
     // A "remain" vote is a vote that doesn't support the
-    // challenge, so `voteOption === 0`
-    this.props.onInputChange({ voteOption: "0" });
-    this.setState(() => ({ voteOption: 0 }));
+    // challenge, so `voteOption === 1`
+    this.props.onInputChange({ voteOption: "1" });
+    this.setState(() => ({ voteOption: 1 }));
   };
 
   private setVoteToRemove = (): void => {
     // A "remove" vote is a vote that supports the
-    // challenge, so `voteOption === 1`
-    this.props.onInputChange({ voteOption: "1" });
-    this.setState(() => ({ voteOption: 1 }));
+    // challenge, so `voteOption === 0`
+    this.props.onInputChange({ voteOption: "0" });
+    this.setState(() => ({ voteOption: 0 }));
   };
 
   private validateSalt = (): boolean => {

@@ -40,3 +40,36 @@ export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props 
 export const CommitVoteNumTokensLabelText: React.SFC = props => {
   return <>Enter amount of tokens to vote. 1 vote equals 1 token </>;
 };
+
+// Commit Vote callouts
+export const CommitVoteCalloutHeaderText: React.SFC = props => {
+  return <>Submit Your Votes!</>;
+};
+
+export const CommitVoteCalloutCopyText: React.SFC = props => {
+  return <>Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.</>;
+};
+
+export const CommitVoteAlreadyVotedHeaderText: React.SFC = props => {
+  return <>Thanks for participating in this challenge!</>;
+};
+
+export const CommitVoteAlreadyVotedCopyText: React.SFC = props => {
+  return (
+    <>You have committed a vote in this challenge. Thanks for that. You can change your vote until the deadline.</>
+  );
+};
+
+export const CommitVoteCalloutButtonText: React.SFC = props => {
+  return <>Submit My Vote</>;
+};
+
+// Reveal Vote
+export const RevealVoteButtonText: React.SFC = props => {
+  return <>Reveal My Vote</>;
+};
+
+// Phase Card Display Names
+export const UnderChallengePhaseDisplayNameText: React.SFC = props => {
+  return <>Under Challenge</>;
+};
