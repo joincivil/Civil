@@ -2,7 +2,6 @@
 
 import BN from "bignumber.js";
 
-import { config } from "./utils";
 import { MAIN_NETWORK, RINKEBY } from "./utils/consts";
 
 const Token = artifacts.require("EIP20");
