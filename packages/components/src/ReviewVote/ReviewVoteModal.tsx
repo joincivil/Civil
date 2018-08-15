@@ -174,7 +174,7 @@ export const ReviewVote: React.StatelessComponent<ReviewVoteProps> = props => {
                     <ReviewVoteMyAddressLabelText />
                   </MetaItemLabel>
 
-                  <MetaItemValueUser>{getFormattedEthAddress(props.userAccount)}</MetaItemValueUser>
+                  <MetaItemValueUser>{props.userAccount && getFormattedEthAddress(props.userAccount)}</MetaItemValueUser>
                 </MetaRow>
               </StyledReviewVoteDetails>
 
