@@ -458,7 +458,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private closeReviewVoteModal = () => {
     this.setState({ isReviewVoteModalOpen: false });
   };
-
 }
 
 class ChallengeContainer extends React.Component<

@@ -106,7 +106,7 @@ export const MetaItemValue = styled.div`
   line-height: 33px;
 `;
 
-export const MetaItemValueUser  = MetaItemValue.extend`
+export const MetaItemValueUser = MetaItemValue.extend`
   font-family: ${fonts.MONOSPACE};
 `;
 

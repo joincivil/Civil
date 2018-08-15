@@ -38,7 +38,9 @@ export interface ReviewVoteDecisionTextProps {
 }
 
 export const ReviewVoteDecisionText: React.SFC<ReviewVoteDecisionTextProps> = props => {
-  if (!props.voteOption) { return <></>; };
+  if (!props.voteOption) {
+    return <></>;
+  }
   const voteText = props.voteOption === "0" ? <RemoveActionText /> : <WhitelistActionText />;
   return (
     <>

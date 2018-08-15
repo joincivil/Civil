@@ -2,12 +2,7 @@ import * as React from "react";
 import { buttonSizes, Button, DarkButton } from "../Button";
 import { InputGroup } from "../input/";
 import { CommitVoteProps } from "./types";
-import {
-  FormQuestion,
-  VoteOptionsContainer,
-  StyledOrText,
-  buttonTheme,
-} from "./styledComponents";
+import { FormQuestion, VoteOptionsContainer, StyledOrText, buttonTheme } from "./styledComponents";
 import { SaltField } from "./SaltField";
 
 import {
