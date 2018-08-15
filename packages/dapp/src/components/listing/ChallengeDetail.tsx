@@ -566,7 +566,7 @@ const makeMapStateToProps = () => {
       userAppealChallengeData,
       challengeState: getChallengeState(state, ownProps),
       challengeDataRequestStatus,
-      user: userAcct,
+      user: userAcct.account,
       balance: user.account.balance,
       parameters,
       govtParameters,
