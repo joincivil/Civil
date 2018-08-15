@@ -5,8 +5,9 @@ import * as Debug from "debug";
 import { Observable } from "rxjs";
 import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
-import { CivilPLCRVotingContract } from "../generated/wrappers/civil_p_l_c_r_voting";
+import { CivilPLCRVotingContract, CivilPLCRVoting } from "../generated/wrappers/civil_p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contracts";
+import { DecodedLogEntryEvent } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:tcr");
 
@@ -173,6 +174,22 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
       }
     }
     return false;
+  }
+
+  public async getRevealedVoteEvent(
+    pollID: BigNumber,
+    voter: EthAddress,
+  ): Promise<
+    DecodedLogEntryEvent<CivilPLCRVoting.Args._VoteRevealed, CivilPLCRVoting.Events._VoteRevealed> | undefined
+  > {
+    if (await this.didRevealVote(voter, pollID)) {
+      const reveal = await this.instance
+        ._VoteRevealedStream({ pollID }, { fromBlock: 0 })
+        .first()
+        .toPromise();
+      return reveal;
+    }
+    return undefined;
   }
 
   /**
