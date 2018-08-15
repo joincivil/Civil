@@ -9,6 +9,9 @@ const Token = artifacts.require("EIP20");
 
 const BASE_10 = 10;
 
+const teammates = process.env.TEAMMATES;
+const teammatesSplit = teammates!.split(",");
+
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   const totalSupply = new BN("1000000000000000000000000", BASE_10);
   const decimals = "18";
@@ -27,12 +30,11 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     return giveTokensTo(addresses.slice(1), originalCount);
   }
   deployer.then(async () => {
-    if (network !== MAIN_NETWORK && network !== RINKEBY) {
+    if (network === RINKEBY) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      if (network in config.nets) {
-        const updatedAccounts = [...accounts, ...config.nets[network].tokenHolders];
-        return giveTokensTo(updatedAccounts, updatedAccounts.length);
-      }
+      return giveTokensTo(teammatesSplit, teammatesSplit.length);
+    } else if (network !== MAIN_NETWORK) {
+      await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
       return giveTokensTo(accounts, accounts.length);
     }
   });

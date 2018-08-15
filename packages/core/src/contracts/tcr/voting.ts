@@ -72,17 +72,6 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    */
 
   /**
-   * Transfer tokens to voting contract (thus getting voting rights)
-   * @param numTokens number of tokens to transfer into voting contract
-   */
-  public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | undefined> {
-    const currentVotingRights = await this.getNumVotingRights();
-    if (currentVotingRights.lessThan(numTokens)) {
-      return createTwoStepSimple(this.ethApi, await this.instance.requestVotingRights.sendTransactionAsync(numTokens));
-    }
-  }
-
-  /**
    * Withdraw tokens from voting contract (thus withdrawing voting rights)
    * @param numTokens number of tokens to withdraw from voting contract
    */
