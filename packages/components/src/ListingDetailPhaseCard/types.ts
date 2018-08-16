@@ -32,11 +32,10 @@ export interface CommitVoteProps {
   tokenBalance: number;
   salt?: string;
   numTokens?: string;
-  transactions: any[];
-  modalContentComponents?: any;
   userHasCommittedVote?: boolean;
   userHasRevealedVote?: boolean;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
+  onReviewVote(): void;
 }
 
 export interface RevealVoteProps {

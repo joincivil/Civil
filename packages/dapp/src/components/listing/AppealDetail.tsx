@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { AppealData, ChallengeData, EthAddress, TwoStepEthTransaction } from "@joincivil/core";
+import { AppealData, ChallengeData, EthAddress, TwoStepEthTransaction, NewsroomWrapper } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
   AppealAwaitingDecisionCard,
@@ -38,6 +38,7 @@ enum ModalContentEventNames {
 
 export interface AppealDetailProps {
   listingAddress: EthAddress;
+  newsroom?: NewsroomWrapper;
   appeal: AppealData;
   challengeID: BigNumber;
   challenge: ChallengeData;
@@ -64,6 +65,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         {appeal.appealChallenge && (
           <AppealChallengeDetail
             listingAddress={this.props.listingAddress}
+            newsroom={this.props.newsroom}
             challengeID={this.props.challengeID}
             challenge={this.props.challenge}
             appeal={this.props.appeal}

@@ -42,3 +42,4 @@ export * from "./RescueTokens";
 export * from "./MetaMaskModal";
 export * from "./NavBar/NavBar";
 export * from "./NavBar/NavErrorBar";
+export * from "./ReviewVote";

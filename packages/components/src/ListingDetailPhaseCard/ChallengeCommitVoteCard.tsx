@@ -19,6 +19,14 @@ import {
   FormCopy,
   FullWidthButton,
 } from "./styledComponents";
+import {
+  UnderChallengePhaseDisplayNameText,
+  CommitVoteCalloutHeaderText,
+  CommitVoteCalloutCopyText,
+  CommitVoteAlreadyVotedHeaderText,
+  CommitVoteAlreadyVotedCopyText,
+  CommitVoteCalloutButtonText,
+} from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { NeedHelp } from "./NeedHelp";
@@ -51,7 +59,9 @@ export class ChallengeCommitVoteCard extends React.Component<
             <StyledListingDetailPhaseCardContainer>
               <StyledListingDetailPhaseCardSection>
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
-                <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
+                <StyledPhaseDisplayName>
+                  <UnderChallengePhaseDisplayNameText />
+                </StyledPhaseDisplayName>
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
@@ -69,15 +79,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                 stake={this.props.stake}
               />
 
-              <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
-                <FormHeader>Submit Your Votes!</FormHeader>
-                <FormCopy>
-                  Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.
-                </FormCopy>
-                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-                  Submit My Vote
-                </FullWidthButton>
-              </StyledListingDetailPhaseCardSection>
+              {this.renderCommitVoteCallout()}
 
               <NeedHelp />
             </StyledListingDetailPhaseCardContainer>
@@ -89,9 +91,11 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledCardClose>
                   <span onClick={this.swapFlipped}>✖</span>
                 </StyledCardClose>
-                <FormHeader>Submit Your Votes!</FormHeader>
+                <FormHeader>
+                  <CommitVoteCalloutHeaderText />
+                </FormHeader>
                 <FormCopy>
-                  Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.
+                  <CommitVoteCalloutCopyText />
                 </FormCopy>
               </StyledListingDetailPhaseCardSection>
               <StyledListingDetailPhaseCardSection>
@@ -101,9 +105,8 @@ export class ChallengeCommitVoteCard extends React.Component<
                   salt={this.props.salt}
                   numTokens={this.props.numTokens}
                   onInputChange={this.props.onInputChange}
-                  transactions={this.props.transactions}
                   userHasCommittedVote={this.props.userHasCommittedVote}
-                  modalContentComponents={this.props.modalContentComponents}
+                  onReviewVote={this.props.onReviewVote}
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
@@ -115,5 +118,36 @@ export class ChallengeCommitVoteCard extends React.Component<
 
   private swapFlipped = (): void => {
     this.setState(() => ({ flipped: !this.state.flipped }));
+  };
+
+  private renderCommitVoteCallout = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return (
+        <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+          <FormHeader>
+            <CommitVoteAlreadyVotedHeaderText />
+          </FormHeader>
+          <FormCopy>
+            <CommitVoteAlreadyVotedCopyText />
+          </FormCopy>
+          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+            Submit My Vote
+          </FullWidthButton>
+        </StyledListingDetailPhaseCardSection>
+      );
+    }
+    return (
+      <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+        <FormHeader>
+          <CommitVoteCalloutHeaderText />
+        </FormHeader>
+        <FormCopy>
+          <CommitVoteCalloutCopyText />
+        </FormCopy>
+        <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+          <CommitVoteCalloutButtonText />
+        </FullWidthButton>
+      </StyledListingDetailPhaseCardSection>
+    );
   };
 }

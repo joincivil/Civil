@@ -22,7 +22,7 @@ export const ErrorMessage = styled.small`
 export interface InputBaseProps {
   className?: string;
   icon?: JSX.Element;
-  label?: string;
+  label?: string | JSX.Element;
   noLabel?: boolean;
   inputRef?: string;
   invalid?: boolean;
@@ -116,7 +116,8 @@ export interface InputProps {
   name: string;
   value?: string;
   placeholder?: string;
-  label?: string;
+  label?: string | JSX.Element;
+  icon?: JSX.Element;
   className?: string;
   invalid?: boolean;
   disabled?: boolean;
@@ -139,7 +140,8 @@ export interface CurrencyProps extends InputProps {
   currency: string;
 }
 export const CurrencyInput: React.StatelessComponent<InputProps> = props => {
-  return <InputBase type="number" min="0.01" step="0.01" {...props} icon={<span>USD</span>} />;
+  const icon = props.icon || <span>USD</span>;
+  return <InputBase type="number" min="0.01" step="0.01" {...props} icon={icon} />;
 };
 
 export interface TextProps extends InputProps {

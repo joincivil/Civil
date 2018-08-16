@@ -15,7 +15,6 @@ import { NeedHelp } from "./NeedHelp";
 export const ChallengeResolveCard: React.StatelessComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeResultsProps
 > = props => {
-  console.log("rendering component");
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>

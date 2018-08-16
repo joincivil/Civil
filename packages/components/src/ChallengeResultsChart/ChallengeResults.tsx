@@ -34,16 +34,16 @@ const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = p
       <VoteTypeSummaryContainer>
         <VoteTypeSummaryRow
           voteType={CHALLENGE_RESULTS_VOTE_TYPES.REMAIN}
-          votesCount={props.votesAgainst}
-          votesPercent={props.percentAgainst}
+          votesCount={props.votesFor}
+          votesPercent={props.percentFor}
         />
       </VoteTypeSummaryContainer>
 
       <VoteTypeSummaryContainer>
         <VoteTypeSummaryRow
           voteType={CHALLENGE_RESULTS_VOTE_TYPES.REMOVE}
-          votesCount={props.votesFor}
-          votesPercent={props.percentFor}
+          votesCount={props.votesAgainst}
+          votesPercent={props.percentAgainst}
         />
       </VoteTypeSummaryContainer>
 

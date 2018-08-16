@@ -199,8 +199,8 @@ export class SubmitChallengeModal extends React.Component<
         <div>
           <ModalSectionHeader>Deposit CVL tokens for your challenge</ModalSectionHeader>
           <CopyLarge>
-            This challenge requires a deposit of 1,000 CVL tokens. If you don’t have enough CVL tokens,{" "}
-            <a href="#">buy more here</a>.
+            This challenge requires a deposit of {this.props.minDeposit} CVL tokens. If you don’t have enough CVL
+            tokens, <a href="#">buy more here</a>.
           </CopyLarge>
           <InputGroup name="challenge_deposit" prepend="CVL" readOnly={true} value={this.props.minDeposit} />
           <CopyHelper>Your percentage reward if successful is {this.props.dispensationPct}</CopyHelper>

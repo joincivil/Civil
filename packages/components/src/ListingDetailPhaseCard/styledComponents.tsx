@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
-import { Button, ButtonProps } from "../Button";
+import { Button, ButtonProps, ButtonTheme, DEFAULT_BUTTON_THEME } from "../Button";
 
 const BACKGROUND_ACCENT_COLORS: any = {
   COMMIT_VOTE: colors.accent.CIVIL_YELLOW,
@@ -126,7 +126,7 @@ export const FormCopy = styled.p`
 
 export const VoteOptionsContainer = styled.div`
   display: flex;
-  margin: 20px 0 0;
+  margin: 20px 0;
 `;
 export const StyledOrText = styled.div`
   font: italic normal 20px/30px ${fonts.SERIF};
@@ -146,8 +146,8 @@ export const AccentHRule = styled.div`
   width: 45px;
 `;
 export const FormQuestion = styled.p`
-  font-size: 24px;
-  line-height: 36px;
+  font-size: 21px;
+  line-height: 34px;
   margin: 0 0 24px;
 `;
 
@@ -212,3 +212,10 @@ export const FullWidthButton: StyledComponentClass<ButtonProps, "button"> = Butt
   margin: 14px 0 0;
   width: 100%;
 `;
+
+export const buttonTheme: ButtonTheme = {
+  ...DEFAULT_BUTTON_THEME,
+  primaryButtonDisabledBackground: colors.accent.CIVIL_GRAY_4,
+  primaryButtonDisabledColor: colors.accent.CIVIL_GRAY_3,
+  darkButtonTextTransform: "uppercase",
+};
