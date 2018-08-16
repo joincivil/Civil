@@ -17,10 +17,6 @@ const ErrorBar = styled.div`
 
 export class NavErrorBar extends React.Component {
   public render(): JSX.Element {
-    return (
-      <ErrorBar>
-        Please Switch To Rinkeby Testnet
-      </ErrorBar>
-    );
+    return <ErrorBar>Please Switch To Rinkeby Testnet</ErrorBar>;
   }
 }

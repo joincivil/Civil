@@ -25,8 +25,7 @@ const NavDropDownLinks = styled.div`
   background-color: ${colors.primary.BLACK};
   display: none;
   left: 0;
-  min-width: 150px;
-  padding: 21px 16px 16px;
+  padding: 16px 16px 11px;
   position: absolute;
   top: 25px;
   & > a {

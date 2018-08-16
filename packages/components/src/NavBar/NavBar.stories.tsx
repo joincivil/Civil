@@ -13,7 +13,5 @@ storiesOf("Nav Bar", module)
     return <NavBar balance={balance} votingBalance={votingBalance} />;
   })
   .add("Nav Error Bar", () => {
-    return (
-      <NavErrorBar />
-    );
+    return <NavErrorBar />;
   });
