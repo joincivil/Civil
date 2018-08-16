@@ -190,22 +190,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
-    const approveVotingRightsProgressModal = this.renderApproveVotingRightsProgress();
-    const commitVoteProgressModal = this.renderCommitVoteProgress();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS]: approveVotingRightsProgressModal,
-      [ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE]: commitVoteProgressModal,
-    };
-    const transactions = [
-      {
-        transaction: this.approveVotingRights,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS,
-      },
-      {
-        transaction: this.commitVoteOnChallenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE,
-      },
-    ];
 
     if (!challenge) {
       return null;
@@ -417,16 +401,16 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     }
 
     const { challenge } = this.props;
-    const requestVotingRightsProgressModal = this.renderRequestVotingRightsProgress();
+    const requestVotingRightsProgressModal = this.renderApproveVotingRightsProgress();
     const commitVoteProgressModal = this.renderCommitVoteProgress();
     const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_REQUEST_VOTING_RIGHTS]: requestVotingRightsProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS]: requestVotingRightsProgressModal,
       [ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE]: commitVoteProgressModal,
     };
     const transactions = [
       {
-        transaction: this.requestVotingRights,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_VOTING_RIGHTS,
+        transaction: this.approveVotingRights,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS,
       },
       {
         transaction: this.commitVoteOnChallenge,
