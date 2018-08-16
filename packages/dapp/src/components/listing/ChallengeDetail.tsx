@@ -163,8 +163,17 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   }
 
   private setInitNumTokens(): void {
-    const initNumTokens = getFormattedTokenBalance(this.props.balance!.add(this.props.votingBalance!), true);
-    this.setState(() => ({ numTokens: initNumTokens }));
+    let initNumTokens: BigNumber;
+    if (!this.props.votingBalance!.isZero()) {
+      initNumTokens = this.props.votingBalance!;
+    } else {
+      initNumTokens = this.props.balance!.add(this.props.votingBalance!);
+    }
+    const initNumTokensString = initNumTokens
+      .div(1e18)
+      .toFixed(2)
+      .toString();
+    this.setState(() => ({ numTokens: initNumTokensString }));
   }
 
   private renderAppeal(): JSX.Element {
@@ -454,14 +463,14 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return approveVotingRights(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
-    const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };
 

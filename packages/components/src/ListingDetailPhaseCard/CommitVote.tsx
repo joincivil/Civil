@@ -1,6 +1,6 @@
 import * as React from "react";
 import { buttonSizes, Button, DarkButton } from "../Button";
-import { InputGroup } from "../input/";
+import { InputGroup, CurrencyInput } from "../input/";
 import { CommitVoteProps } from "./types";
 import { FormQuestion, VoteOptionsContainer, StyledOrText, buttonTheme } from "./styledComponents";
 import { SaltField } from "./SaltField";
@@ -107,6 +107,8 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         name="numTokens"
         value={!this.props.numTokens ? "" : this.props.numTokens.toString()}
         onChange={this.onChange}
+        input={CurrencyInput}
+        icon={<></>}
       />
     );
   };
