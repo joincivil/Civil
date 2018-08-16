@@ -65,6 +65,10 @@ function commitVoteChange(data: any, callback?: () => any): void {
   }
 }
 
+const noop = () => {
+  console.log("noop");
+};
+
 storiesOf("Listing Details Phase Card", module)
   .addDecorator(StoryRouter())
   .add("In Application", () => {
@@ -94,6 +98,7 @@ storiesOf("Listing Details Phase Card", module)
             salt={commitVoteState.salt}
             numTokens={commitVoteState.numTokens}
             onInputChange={commitVoteChange}
+            onReviewVote={noop}
             transactions={[]}
           />
         )}
@@ -317,6 +322,7 @@ storiesOf("Listing Details Phase Card", module)
             percentAgainst={percentAgainst}
             appealChallengeID={appealChallengeID}
             appealGranted={true}
+            onReviewVote={noop}
           />
         )}
       </Container>

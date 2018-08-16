@@ -51,6 +51,7 @@ export function didChallengeSucceed(challengeData: ChallengeData): boolean {
 export function canResolveChallenge(challengeData: ChallengeData): boolean {
   return (
     challengeData &&
+    !challengeData.resolved &&
     !isChallengeInCommitStage(challengeData) &&
     !isChallengeInRevealStage(challengeData) &&
     !canRequestAppeal(challengeData) &&

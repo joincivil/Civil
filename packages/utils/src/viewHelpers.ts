@@ -1,3 +1,4 @@
+import { EthAddress } from "@joincivil/typescript-types";
 import { BigNumber } from "bignumber.js";
 
 // A collection of helper methods for user-facing views
@@ -18,6 +19,15 @@ export function getReadableDuration(seconds: number): string {
     }
     return out;
   }, "");
+}
+
+export function getFormattedEthAddress(ethAddress: EthAddress): string {
+  const out: [string, string[]] = [ethAddress.substring(0, 2), ethAddress.substring(2).split("")];
+  const lenRest = out[1].length;
+  for (let i = 3; i < lenRest; i = i + 4) {
+    out[1][i] = out[1][i] + " ";
+  }
+  return `${out[0]} ${out[1].join("")}`;
 }
 
 // accepts token balance in lowest-level form (no decimals). Converts to readable format (18 decimal places; cut off at 2)

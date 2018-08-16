@@ -203,7 +203,7 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
       let votesCount;
       let votesPercent;
 
-      if (challenge.poll.votesFor.greaterThan(challenge.poll.votesAgainst)) {
+      if (challenge.poll.votesAgainst.greaterThan(challenge.poll.votesFor)) {
         label = (
           <>
             Challenge Succeeded: Newsroom removed from Registry<br />

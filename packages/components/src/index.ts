@@ -40,3 +40,4 @@ export * from "./ClipLoader";
 export * from "./ClaimRewards";
 export * from "./RescueTokens";
 export * from "./MetaMaskModal";
+export * from "./ReviewVote";

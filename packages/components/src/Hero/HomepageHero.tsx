@@ -15,8 +15,8 @@ export class HomepageHero extends React.Component<HomepageHeroProps> {
       <>
         <HeroLabel>{homepageHeroText.LABEL}</HeroLabel>
         <HeroHeading>{homepageHeroText.HEADING}</HeroHeading>
-        <HeroBlockTextLink href="{this.props.textUrl}">{homepageHeroText.BLOCK_TEXT_LINK}</HeroBlockTextLink>
-        <Button size={buttonSizes.MEDIUM} to="{this.props.buttonUrl}">
+        <HeroBlockTextLink href={this.props.textUrl}>{homepageHeroText.BLOCK_TEXT_LINK}</HeroBlockTextLink>
+        <Button size={buttonSizes.MEDIUM} to={this.props.buttonUrl}>
           {homepageHeroText.BUTTON}
         </Button>
         <HeroSmallText>
