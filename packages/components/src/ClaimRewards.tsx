@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SaltInput, TextInput } from "./input/";
+import { TextInput } from "./input/";
 import { TransactionButton } from "./TransactionButton";
 import { FormCopy, FormHeader } from "./ListingDetailPhaseCard/styledComponents";
 
