@@ -20,15 +20,33 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
   const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
-  Observable.merge(
-    tcr.whitelistedListings(0),
-    tcr.listingsInApplicationStage(),
-    tcr.allEventsExceptWhitelistFromBlock(current),
-  ).subscribe(async (listing: ListingWrapper) => {
-    await getNewsroom(dispatch, listing.address);
-    setupListingCallback(listing, dispatch);
-    dispatch(addListing(listing));
+
+  console.log("START SUBSCRIPTION. current: " + current);
+  const whitelisteds = tcr.whitelistedListings(0, current);
+  whitelisteds.finally(() => {
+    console.log("on complete");
   });
+  whitelisteds.subscribe(
+    async (listing: ListingWrapper) => {
+      await getNewsroom(dispatch, listing.address);
+      setupListingCallback(listing, dispatch);
+      dispatch(addListing(listing));
+    },
+    err => {
+      console.log("error");
+    },
+    () => {
+      console.log("ON COMPLETE");
+    },
+  );
+
+  Observable.merge(tcr.listingsInApplicationStage(), tcr.allEventsExceptWhitelistFromBlock(current)).subscribe(
+    async (listing: ListingWrapper) => {
+      await getNewsroom(dispatch, listing.address);
+      setupListingCallback(listing, dispatch);
+      dispatch(addListing(listing));
+    },
+  );
 }
 
 let challengeSubscription: Subscription;

@@ -232,9 +232,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently whitelisted addresses
    */
-  public whitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public whitelistedListings(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
     return this.instance
-      ._ApplicationWhitelistedStream({}, { fromBlock })
+      ._ApplicationWhitelistedStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper());
   }
