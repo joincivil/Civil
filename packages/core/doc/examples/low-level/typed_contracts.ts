@@ -41,10 +41,25 @@ const web3 = new EthApi(
     subscription.unsubscribe();
   });
 
-  console.log("Publishing a revision");
-  const proposeOptions = await newsroom.publishContent.getRaw("http://someuirhere.com", "hash", "", "", data);
-  const proposeTxHash = await web3.sendTransaction(proposeOptions);
-  await web3.awaitReceipt(proposeTxHash);
+  for (let i = 0; i < 3; i++) {
+    console.log("Publishing content");
+    const proposeOptions = await newsroom.publishContent.getRaw("http://someuirhere.com", "hash", "", "", data);
+    const proposeTxHash = await web3.sendTransaction(proposeOptions);
+    await web3.awaitReceipt(proposeTxHash);
+  }
+
+  console.log("Historic events about published articles");
+  newsroom.ContentPublishedStream(undefined, { fromBlock: 0, toBlock: "latest" }).subscribe(event => {
+    console.log("\tContent id:", event.args.contentId.toString());
+  });
+
+  newsroom
+    .ContentPublishedStream(undefined, { fromBlock: 0, toBlock: "latest" })
+    .last()
+    .subscribe(event => {
+      console.log("Only last publish");
+      console.log("\tContent id:", event.args.contentId.toString());
+    });
 })().catch(err => {
   console.error(err);
   process.exit(1);
