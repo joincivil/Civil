@@ -107,7 +107,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         name="numTokens"
         value={!this.props.numTokens ? "" : this.props.numTokens.toString()}
         onChange={this.onChange}
-        input={CurrencyInput}
+        inputComponent={CurrencyInput}
         icon={<></>}
       />
     );

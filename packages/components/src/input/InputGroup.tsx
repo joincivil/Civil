@@ -51,12 +51,12 @@ export const InputGroupPrepend: React.StatelessComponent = props => {
 
 export interface InputGroupProps {
   prepend?: string;
-  input?: React.ComponentClass<any> | React.SFC<any>;
+  inputComponent?: React.ComponentClass<any> | React.SFC<any>;
 }
 
 export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> = (props: any) => {
   const { label, prepend, placeholder, ...inputProps } = props;
-  const Input = props.input || TextInput;
+  const Input = props.inputComponent || TextInput;
 
   return (
     <StyledInputGroupContainer>
