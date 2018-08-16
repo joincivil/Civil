@@ -34,6 +34,8 @@ export * from "./theme";
 export * from "./Tabs/Tabs";
 export * from "./Tabs/Tab";
 export * from "./Tabs/TabsStyled";
+export * from "./Hero/Hero";
+export * from "./Hero/HomepageHero";
 export * from "./ClipLoader";
 export * from "./ClaimRewards";
 export * from "./RescueTokens";

@@ -24,6 +24,7 @@
   "nets": {
     "mainnet": {},
     "rinkeby": {
+      "TokenAddress": "0x242ac20e7134ba2e7b7db2756b208fdf7765cdfa",
       "AppellateAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
       "GovernmentControllerAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
       "tokenHolders": []

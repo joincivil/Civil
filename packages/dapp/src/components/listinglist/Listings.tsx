@@ -1,7 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
+import { Hero, HomepageHero, Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
+import * as heroImgUrl from "../images/img-hero-listings.png";
 
 import ListingList from "./ListingList";
 import { State } from "../../reducers";
@@ -18,6 +19,7 @@ export interface ListingProps {
 export interface ListingReduxProps {
   whitelistedListings: Set<string>;
   rejectedListings: Set<string>;
+  parameters: any;
   error: undefined | string;
 }
 
@@ -25,40 +27,51 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
     const { listingType } = this.props.match.params;
     let activeIndex = 0;
+    let hero;
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
+    if (activeIndex === 0) {
+      hero = (
+        <Hero backgroundImage={heroImgUrl}>
+          <HomepageHero textUrl="#" buttonUrl="#" minDeposit={this.props.parameters.minDeposit} />
+        </Hero>
+      );
+    }
     return (
-      <Tabs
-        activeIndex={activeIndex}
-        TabsNavComponent={StyledTabNav}
-        TabComponent={StyledTabLarge}
-        onActiveTabChange={this.onTabChange}
-      >
-        <Tab title={"Whitelisted Newsrooms"}>
-          <StyledPageContent>
-            <StyledListingCopy>
-              All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
-              review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
-            </StyledListingCopy>
-            <ListingList listings={this.props.whitelistedListings} />
-          </StyledPageContent>
-        </Tab>
-        <Tab title={"Newsrooms Under Consideration"}>
-          <StyledPageContent>
-            <ListingsInProgress />
-          </StyledPageContent>
-        </Tab>
-        <Tab title={"Rejected Newsrooms"}>
-          <StyledPageContent>
-            <StyledListingCopy>
-              Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil Constitution.
-              Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.
-            </StyledListingCopy>
-            <ListingList listings={this.props.rejectedListings} />
-          </StyledPageContent>
-        </Tab>
-      </Tabs>
+      <>
+        {hero}
+        <Tabs
+          activeIndex={activeIndex}
+          TabsNavComponent={StyledTabNav}
+          TabComponent={StyledTabLarge}
+          onActiveTabChange={this.onTabChange}
+        >
+          <Tab title={"Whitelisted Newsrooms"}>
+            <StyledPageContent>
+              <StyledListingCopy>
+                All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
+                review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
+              </StyledListingCopy>
+              <ListingList listings={this.props.whitelistedListings} />
+            </StyledPageContent>
+          </Tab>
+          <Tab title={"Newsrooms Under Consideration"}>
+            <StyledPageContent>
+              <ListingsInProgress />
+            </StyledPageContent>
+          </Tab>
+          <Tab title={"Rejected Newsrooms"}>
+            <StyledPageContent>
+              <StyledListingCopy>
+                Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil Constitution.
+                Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.
+              </StyledListingCopy>
+              <ListingList listings={this.props.rejectedListings} />
+            </StyledPageContent>
+          </Tab>
+        </Tabs>
+      </>
     );
   }
 
@@ -69,12 +82,13 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { whitelistedListings, rejectedListings } = state.networkDependent;
+  const { whitelistedListings, rejectedListings, parameters } = state.networkDependent;
 
   return {
     ...ownProps,
     whitelistedListings,
     rejectedListings,
+    parameters,
     error: undefined,
   };
 };
