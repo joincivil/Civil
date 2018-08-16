@@ -40,16 +40,14 @@ const DropDownLinks = styled.div`
   }
 `;
 
-export class NavDropDown extends React.Component<NavDropDownProps> {
-  public render(): JSX.Element {
-    return (
-      <DropDownContain>
-        <DropDownLabel>
-          {this.props.label}
-          <ExpandDownArrow />
-        </DropDownLabel>
-        <DropDownLinks>{this.props.children}</DropDownLinks>
-      </DropDownContain>
-    );
-  }
-}
+export const NavDropDown: React.StatelessComponent<NavDropDownProps> = props => {
+  return (
+    <DropDownContain>
+      <DropDownLabel>
+        {props.label}
+        <ExpandDownArrow />
+      </DropDownLabel>
+      <DropDownLinks>{props.children}</DropDownLinks>
+    </DropDownContain>
+  );
+};

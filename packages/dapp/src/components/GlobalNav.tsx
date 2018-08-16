@@ -10,21 +10,15 @@ export interface NavBarProps {
   network: string;
 }
 
-class GlobalNavComponent extends React.Component<NavBarProps> {
-  constructor(props: NavBarProps) {
-    super(props);
-  }
-
-  public render(): JSX.Element {
-    const shouldRenderErrorBar = this.props.network !== "4";
-    return (
-      <>
-        <NavBar balance={this.props.balance} votingBalance={this.props.votingBalance} />
-        {shouldRenderErrorBar && <NavErrorBar />}
-      </>
-    );
-  }
-}
+const GlobalNavComponent: React.SFC<NavBarProps> = props => {
+  const shouldRenderErrorBar = props.network !== "4";
+  return (
+    <>
+      <NavBar balance={props.balance} votingBalance={props.votingBalance} />
+      {shouldRenderErrorBar && <NavErrorBar />}
+    </>
+  );
+};
 const mapStateToProps = (state: State): NavBarProps => {
   const { networkDependent, network } = state;
 

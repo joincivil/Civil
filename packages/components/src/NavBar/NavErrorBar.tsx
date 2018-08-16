@@ -15,8 +15,6 @@ const ErrorBar = styled.div`
   width: 100%;
 `;
 
-export class NavErrorBar extends React.Component {
-  public render(): JSX.Element {
-    return <ErrorBar>Please Switch To Rinkeby Testnet</ErrorBar>;
-  }
-}
+export const NavErrorBar: React.SFC = props => {
+  return <ErrorBar>Please Switch To Rinkeby Testnet</ErrorBar>;
+};

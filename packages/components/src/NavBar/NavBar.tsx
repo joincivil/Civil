@@ -98,52 +98,46 @@ export interface NavProps {
   votingBalance: string;
 }
 
-export class NavBar extends React.Component<NavProps> {
-  constructor(props: NavProps) {
-    super(props);
-  }
-
-  public render(): JSX.Element {
-    return (
-      <NavOuter>
-        <NavLogo>
-          <NavLink to="/">
-            <CivilLogo color={colors.basic.WHITE} />
+export const NavBar: React.StatelessComponent<NavProps> = props => {
+  return (
+    <NavOuter>
+      <NavLogo>
+        <NavLink to="/">
+          <CivilLogo color={colors.basic.WHITE} />
+        </NavLink>
+      </NavLogo>
+      <NavInner>
+        <NavLink to="/registry">Registry</NavLink>
+        <NavLink to="/parameterizer">Parameterizer</NavLink>
+        <NavLink to="/createNewsroom">Create Newsroom</NavLink>
+        <NavDropDown label="How Civil works">
+          <NavLink href="https://civil.co/constitution/" target="_blank">
+            Constitution
           </NavLink>
-        </NavLogo>
-        <NavInner>
-          <NavLink to="/registry">Registry</NavLink>
-          <NavLink to="/parameterizer">Parameterizer</NavLink>
-          <NavLink to="/createNewsroom">Create Newsroom</NavLink>
-          <NavDropDown label="How Civil works">
-            <NavLink href="https://civil.co/constitution/" target="_blank">
-              Constitution
-            </NavLink>
-            <NavLink href="https://civil.co/about/" target="_blank">
-              About
-            </NavLink>
-            <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
-              How to launch a newsroom
-            </NavLink>
-            <NavLink href="https://civil.co/white-paper/" target="_blank">
-              White Paper
-            </NavLink>
-          </NavDropDown>
-          <NavUser>
-            <CvlContainer>
-              <CvlToken />
-              <span>
-                <UserCvlBalance>{this.props.balance}</UserCvlBalance>
-                <UserCvlVotingBalance>{"+" + this.props.votingBalance}</UserCvlVotingBalance>
-              </span>
-            </CvlContainer>
-            <AvatarContainer>
-              <UserAvatar />
-              <ExpandDownArrow />
-            </AvatarContainer>
-          </NavUser>
-        </NavInner>
-      </NavOuter>
-    );
-  }
-}
+          <NavLink href="https://civil.co/about/" target="_blank">
+            About
+          </NavLink>
+          <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
+            How to launch a newsroom
+          </NavLink>
+          <NavLink href="https://civil.co/white-paper/" target="_blank">
+            White Paper
+          </NavLink>
+        </NavDropDown>
+        <NavUser>
+          <CvlContainer>
+            <CvlToken />
+            <span>
+              <UserCvlBalance>{props.balance}</UserCvlBalance>
+              <UserCvlVotingBalance>{"+" + props.votingBalance}</UserCvlVotingBalance>
+            </span>
+          </CvlContainer>
+          <AvatarContainer>
+            <UserAvatar />
+            <ExpandDownArrow />
+          </AvatarContainer>
+        </NavUser>
+      </NavInner>
+    </NavOuter>
+  );
+};
