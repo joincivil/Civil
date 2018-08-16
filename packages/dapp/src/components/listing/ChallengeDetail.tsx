@@ -172,6 +172,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <AppealDetail
         listingAddress={this.props.listingAddress}
+        newsroom={this.props.newsroom}
         appeal={challenge.appeal!}
         challengeID={this.props.challengeID}
         challenge={challenge}

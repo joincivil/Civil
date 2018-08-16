@@ -7,6 +7,7 @@ import {
   ChallengeData,
   TwoStepEthTransaction,
   EthAddress,
+  NewsroomWrapper,
 } from "@joincivil/core";
 import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
@@ -20,6 +21,8 @@ import {
   ModalOrderedList,
   ModalListItem,
   ModalListItemTypes,
+  ReviewVote,
+  ReviewVoteProps,
 } from "@joincivil/components";
 import { commitVote, approveVotingRights, revealVote, updateStatus } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
@@ -33,6 +36,7 @@ export enum ModalContentEventNames {
 
 export interface AppealChallengeDetailProps {
   listingAddress: EthAddress;
+  newsroom?: NewsroomWrapper;
   challengeID: BigNumber;
   challenge: ChallengeData;
   appealChallengeID: BigNumber;
@@ -47,6 +51,7 @@ export interface ChallengeVoteState {
   voteOption?: string;
   salt?: string;
   numTokens?: string;
+  isReviewVoteModalOpen: boolean;
 }
 
 class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, ChallengeVoteState> {
@@ -55,6 +60,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
 
     this.state = {
       salt: fetchSalt(this.props.appealChallengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
+      isReviewVoteModalOpen: false,
     };
   }
 
@@ -81,22 +87,6 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
     const stake = getFormattedTokenBalance(challenge.stake);
 
-    const approveVotingRightsProgressModal = this.getApproveVotingRightsProgressModal();
-    const commitVoteProgressModal = this.getCommitVoteProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.APPROVE_VOTING_RIGHTS]: approveVotingRightsProgressModal,
-      [ModalContentEventNames.COMMIT_VOTE]: commitVoteProgressModal,
-    };
-    const transactions = [
-      {
-        transaction: this.approveVotingRights,
-        progressEventName: ModalContentEventNames.APPROVE_VOTING_RIGHTS,
-      },
-      {
-        transaction: this.commitVoteOnChallenge,
-        progressEventName: ModalContentEventNames.COMMIT_VOTE,
-      },
-    ];
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
     const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
     const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
@@ -110,30 +100,29 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
       .toFixed(0);
 
     return (
-      <AppealChallengeCommitVoteCard
-        endTime={endTime}
-        phaseLength={phaseLength}
-        challengeID={this.props.challengeID.toString()}
-        challenger={challenger}
-        rewardPool={rewardPool}
-        stake={stake}
-        totalVotes={getFormattedTokenBalance(totalVotes)}
-        votesFor={votesFor}
-        votesAgainst={votesAgainst}
-        percentFor={percentFor.toString()}
-        percentAgainst={percentAgainst.toString()}
-        onInputChange={this.updateCommitVoteState}
-        tokenBalance={this.props.tokenBalance}
-        salt={this.state.salt}
-        numTokens={this.state.numTokens}
-        onReviewVote={(): void => {
-          console.log("duh");
-        }}
-        transactions={transactions}
-        modalContentComponents={modalContentComponents}
-        appealChallengeID={this.props.appealChallengeID.toString()}
-        appealGranted={this.props.appeal.appealGranted}
-      />
+      <>
+        <AppealChallengeCommitVoteCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          challengeID={this.props.challengeID.toString()}
+          challenger={challenger}
+          rewardPool={rewardPool}
+          stake={stake}
+          totalVotes={getFormattedTokenBalance(totalVotes)}
+          votesFor={votesFor}
+          votesAgainst={votesAgainst}
+          percentFor={percentFor.toString()}
+          percentAgainst={percentAgainst.toString()}
+          onInputChange={this.updateCommitVoteState}
+          tokenBalance={this.props.tokenBalance}
+          salt={this.state.salt}
+          numTokens={this.state.numTokens}
+          onReviewVote={this.handleReviewVote}
+          appealChallengeID={this.props.appealChallengeID.toString()}
+          appealGranted={this.props.appeal.appealGranted}
+        />
+        {this.renderReviewVoteModal()}
+      </>
     );
   }
 
@@ -260,6 +249,47 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     );
   }
 
+  private renderReviewVoteModal(): JSX.Element {
+    const { challenge } = this.props;
+    const approveVotingRightsProgressModal = this.getApproveVotingRightsProgressModal();
+    const commitVoteProgressModal = this.getCommitVoteProgressModal();
+    const modalContentComponents = {
+      [ModalContentEventNames.APPROVE_VOTING_RIGHTS]: approveVotingRightsProgressModal,
+      [ModalContentEventNames.COMMIT_VOTE]: commitVoteProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: this.approveVotingRights,
+        progressEventName: ModalContentEventNames.APPROVE_VOTING_RIGHTS,
+      },
+      {
+        transaction: this.commitVoteOnChallenge,
+        progressEventName: ModalContentEventNames.COMMIT_VOTE,
+      },
+    ];
+
+    const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
+
+    const props: ReviewVoteProps = {
+      newsroomName: (this.props.newsroom && this.props.newsroom.data.name) || "this newsroom",
+      listingDetailURL,
+      challengeID: this.props.appealChallengeID.toString(),
+      open: this.state.isReviewVoteModalOpen,
+      salt: this.state.salt,
+      numTokens: this.state.numTokens,
+      voteOption: this.state.voteOption,
+      userAccount: this.props.user,
+      commitEndDate: challenge.poll.commitEndDate.toNumber(),
+      revealEndDate: challenge.poll.revealEndDate.toNumber(),
+      transactions,
+      modalContentComponents,
+      postExecuteTransactions: this.closeReviewVoteModal,
+      handleClose: this.closeReviewVoteModal,
+    };
+
+    return <ReviewVote {...props} />;
+  }
+
   private getApproveVotingRightsProgressModal = (): JSX.Element => {
     return (
       <>
@@ -324,14 +354,14 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
     return approveVotingRights(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
     return commitVote(this.props.appealChallengeID, voteOption, salt, numTokens);
   };
 
@@ -343,6 +373,14 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
 
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateStatus(this.props.listingAddress);
+  };
+
+  private handleReviewVote = () => {
+    this.setState({ isReviewVoteModalOpen: true });
+  };
+
+  private closeReviewVoteModal = () => {
+    this.setState({ isReviewVoteModalOpen: false });
   };
 }
 
