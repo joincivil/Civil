@@ -1,18 +1,8 @@
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import * as React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { State } from "../reducers";
-import { NavBar } from "@joincivil/components";
-
-const StyledErrorBar = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-top: 0;
-  height: 30px;
-  background-color: red;
-`;
+import { NavBar, NavErrorBar } from "@joincivil/components";
 
 export interface NavBarProps {
   balance: string;
@@ -30,7 +20,7 @@ class NavBarComponent extends React.Component<NavBarProps> {
     return (
       <>
         <NavBar balance={this.props.balance} votingBalance={this.props.votingBalance} />
-        {shouldRenderErrorBar && <StyledErrorBar>PLEASE SWITCH TO RINKEBY TESTNET</StyledErrorBar>}
+        {shouldRenderErrorBar && <NavErrorBar />}
       </>
     );
   }
