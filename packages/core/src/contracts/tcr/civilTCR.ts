@@ -657,4 +657,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<MultisigProxyTransaction> {
     return this.multisigProxy.claimReward.sendTransactionAsync(challengeID, salt);
   }
+
+  /**
+   * Claims multiple rewards associated with challenges
+   * @param challengeIDs IDs of challenges to claim rewards of
+   * @param salts Salts for user's votes on specified challenges
+   */
+  public async multiClaimReward(challengeIDs: BigNumber[], salts: BigNumber[]): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.claimRewards.sendTransactionAsync(challengeIDs, salts);
+  }
 }

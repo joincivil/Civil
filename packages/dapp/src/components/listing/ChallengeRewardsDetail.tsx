@@ -17,7 +17,6 @@ import {
 import { claimRewards, rescueTokens } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { fetchSalt } from "../../helpers/salt";
 
 export interface ChallengeRewardsDetailProps {
   challengeID: BigNumber;
@@ -27,19 +26,7 @@ export interface ChallengeRewardsDetailProps {
   userChallengeData?: UserChallengeData;
 }
 
-export interface ChallengeRewardsDetailState {
-  salt?: string;
-}
-
-class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps, ChallengeRewardsDetailState> {
-  constructor(props: ChallengeRewardsDetailProps) {
-    super(props);
-
-    this.state = {
-      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
-    };
-  }
-
+class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps> {
   public render(): JSX.Element {
     const userChallengeData = this.props.userChallengeData;
     let isWinner;
@@ -82,9 +69,7 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
         {isClaimRewardsVisible && (
           <ClaimRewards
             challengeID={this.props.challengeID.toString()}
-            salt={this.state.salt!}
             transactions={[{ transaction: this.claimRewards }]}
-            onInputChange={this.updateSalt}
           />
         )}
 
@@ -98,17 +83,8 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
     );
   }
 
-  private updateSalt = (data: any, callback?: () => void) => {
-    if (callback) {
-      this.setState({ ...data }, callback);
-    } else {
-      this.setState({ ...data });
-    }
-  };
-
   private claimRewards = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
-    return claimRewards(this.props.challengeID, salt);
+    return claimRewards(this.props.challengeID, this.props.userChallengeData!.salt!);
   };
 
   private rescueTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
