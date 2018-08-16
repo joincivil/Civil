@@ -2,24 +2,28 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { CivilLogo } from "../CivilLogo";
-import { NavBarLink } from "./NavBarLink";
-import { NavBarDropDownComponent } from "./NavBarDropDown";
-import { NavBarDrawerComponent } from "./NavBarDrawer";
+import { NavLink } from "./NavLink";
+import { CvlToken } from "../icons/CvlToken";
+import { NavDropDownComponent } from "./NavDropDown";
+import { ExpandDownArrow } from "../icons/ExpandDownArrow";
 
-const NavBarOuter = styled.div`
+const NavOuter = styled.div`
   align-items: center;
   background-color: ${colors.primary.BLACK};
   display: flex;
   justify-content: space-between;
   padding: 15px 30px;
+  * {
+    box-sizing: border-box;
+  }
 `;
 
-const NavBarLogo = styled.div`
+const NavLogo = styled.div`
   height: 21px;
   width: 72px;
 `;
 
-const NavBarInner = styled.div`
+const NavInner = styled.div`
   align-items: center;
   color: ${colors.basic.WHITE};
   display: flex;
@@ -41,30 +45,64 @@ const NavBarInner = styled.div`
   }
 `;
 
-export class NavBar extends React.Component {
+const NavUser = styled.div`
+  align-items: center;
+  border-left: 1px solid ${colors.accent.CIVIL_GRAY_1};
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  margin-left: 15px;
+  padding-left: 15px
+  width: 250px;
+`;
+
+const UserAdvatar = styled.img`
+  border: 2px solid ${colors.basic.WHITE};
+  border-radius: 50%;
+`;
+
+export interface NavProps {
+  balance: string;
+  votingBalance: string;
+}
+
+export class NavBar extends React.Component<NavProps> {
+  constructor(props: NavProps) {
+    super(props);
+  }
+
   public render(): JSX.Element {
     return (
-      <NavBarOuter>
-        <NavBarLogo>
-          <NavBarLink to="/home">
+      <NavOuter>
+        <NavLogo>
+          <NavLink to="/">
             <CivilLogo color={colors.basic.WHITE} />
-          </NavBarLink>
-        </NavBarLogo>
-        <NavBarInner>
-          <NavBarLink to="/registry">Registry</NavBarLink>
-          <NavBarLink to="/parameterizer">Parameterizer</NavBarLink>
-          <NavBarLink to="/createNewsroom">Create Newsroom</NavBarLink>
-          <NavBarDropDownComponent label="How Civil works">
-            <NavBarLink href="https://civil.co/constitution/" target="_blank">
+          </NavLink>
+        </NavLogo>
+        <NavInner>
+          <NavLink to="/registry">Registry</NavLink>
+          <NavLink to="/parameterizer">Parameterizer</NavLink>
+          <NavLink to="/createNewsroom">Create Newsroom</NavLink>
+          <NavDropDownComponent label="How Civil works">
+            <NavLink href="https://civil.co/constitution/" target="_blank">
               Constitution
-            </NavBarLink>
-            <NavBarLink href="https://civil.co/about/" target="_blank">
+            </NavLink>
+            <NavLink href="https://civil.co/about/" target="_blank">
               About
-            </NavBarLink>
-          </NavBarDropDownComponent>
-          <NavBarDrawerComponent />
-        </NavBarInner>
-      </NavBarOuter>
+            </NavLink>
+          </NavDropDownComponent>
+          <NavUser>
+            <div>
+              <CvlToken />
+              <span>{this.props.balance}</span>
+              <span>{" + " + this.props.votingBalance}</span>
+            </div>
+
+            <UserAdvatar src="http://placehold.it/36" />
+            <ExpandDownArrow />
+          </NavUser>
+        </NavInner>
+      </NavOuter>
     );
   }
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const DownArrow = (): JSX.Element => {
+export const ExpandDownArrow = (): JSX.Element => {
   return (
     <svg width="12" height="8" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg">
       <polygon

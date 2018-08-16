@@ -1,13 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
 import { colors } from "../styleConstants";
-import { DownArrow } from "../icons/DownArrow";
+import { ExpandDownArrow } from "../icons/ExpandDownArrow";
 
-export interface NavBarDropDownProps {
+export interface NavDropDownProps {
   label: string;
 }
 
-const NavBarDropDown = styled.div`
+const NavDropDown = styled.div`
   padding: 6px 12px;
   position: relative;
   &:hover > div {
@@ -15,13 +15,13 @@ const NavBarDropDown = styled.div`
   }
 `;
 
-const NavBarDropDownLabel = styled.span`
+const NavDropDownLabel = styled.span`
   & > svg {
     margin-left: 10px;
   }
 `;
 
-const NavBarDropDownLinks = styled.div`
+const NavDropDownLinks = styled.div`
   background-color: ${colors.primary.BLACK};
   display: none;
   left: 0;
@@ -41,16 +41,16 @@ const NavBarDropDownLinks = styled.div`
   }
 `;
 
-export class NavBarDropDownComponent extends React.Component<NavBarDropDownProps> {
+export class NavDropDownComponent extends React.Component<NavDropDownProps> {
   public render(): JSX.Element {
     return (
-      <NavBarDropDown>
-        <NavBarDropDownLabel>
+      <NavDropDown>
+        <NavDropDownLabel>
           {this.props.label}
-          <DownArrow />
-        </NavBarDropDownLabel>
-        <NavBarDropDownLinks>{this.props.children}</NavBarDropDownLinks>
-      </NavBarDropDown>
+          <ExpandDownArrow />
+        </NavDropDownLabel>
+        <NavDropDownLinks>{this.props.children}</NavDropDownLinks>
+      </NavDropDown>
     );
   }
 }

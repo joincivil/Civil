@@ -1,13 +1,13 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-export interface NavBarLinkProps {
+export interface NavLinkProps {
   to?: string;
   href?: string;
   target?: string;
 }
 
-export class NavBarLink extends React.Component<NavBarLinkProps> {
+export class NavLink extends React.Component<NavLinkProps> {
   public render(): JSX.Element {
     let LinkType;
 
