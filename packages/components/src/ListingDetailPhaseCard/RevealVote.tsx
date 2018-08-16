@@ -18,7 +18,7 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
   }
 
   public render(): JSX.Element {
-    const canReveal = this.state.voteOption !== undefined && !!this.state.saltError;
+    const canReveal = this.state.voteOption !== undefined && !this.state.saltError;
     return (
       <>
         <FormQuestion>

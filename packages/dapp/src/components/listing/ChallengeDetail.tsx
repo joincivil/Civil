@@ -418,7 +418,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       },
     ];
 
-    const listingDetailURL = `/listing/${this.props.listingAddress}`;
+    const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
 
     const props: ReviewVoteProps = {
       newsroomName: this.props.newsroom && this.props.newsroom.data.name,
