@@ -1002,6 +1002,7 @@ async-eventemitter@^0.2.2:
 
 async-eventemitter@ahultgren/async-eventemitter#fa06e39e56786ba541c180061dbf2c0a5bbf951c:
   version "0.2.3"
+  uid fa06e39e56786ba541c180061dbf2c0a5bbf951c
   resolved "https://codeload.github.com/ahultgren/async-eventemitter/tar.gz/fa06e39e56786ba541c180061dbf2c0a5bbf951c"
   dependencies:
     async "^2.4.0"
@@ -11892,9 +11893,9 @@ slate-react@^0.12.0:
     slate-plain-serializer "^0.5.17"
     slate-prop-types "^0.4.34"
 
-slate-schema-violations@^0.1.12, slate-schema-violations@^0.1.4:
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.18.tgz#bc760e17dab85a613cd9a5399b98cbf867db0eb7"
+slate-schema-violations@0.1.28, slate-schema-violations@^0.1.12, slate-schema-violations@^0.1.4:
+  version "0.1.28"
+  resolved "https://registry.yarnpkg.com/slate-schema-violations/-/slate-schema-violations-0.1.28.tgz#58cd64c3c54680f5e88dc0ca75e93d3a7e41581e"
 
 slate@^0.33.0:
   version "0.33.8"
