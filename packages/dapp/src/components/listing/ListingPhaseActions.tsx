@@ -63,20 +63,22 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     const challenge = this.props.listing.data.challenge;
     return (
       <>
-        {isWhitelisted && !challenge && this.renderApplicationWhitelisted()}
-        {isRejected && this.renderRejected()}
+        {isWhitelisted && (!challenge || challenge.resolved) && this.renderApplicationWhitelisted()}
+        {isRejected && (!challenge || challenge.resolved) && this.renderRejected()}
         {isInApplication && this.renderApplicationPhase()}
         {listing.data && (
           <>
             {canBeWhitelisted && this.renderCanWhitelist()}
             {canResolveChallenge && this.renderCanResolve()}
 
-            {listing.data.challenge && (
-              <ChallengeDetailContainer
-                challengeID={this.props.listing.data.challengeID}
-                listingAddress={this.props.listing.address}
-              />
-            )}
+            {listing.data.challenge &&
+              !listing.data.challenge.resolved &&
+              !canResolveChallenge && (
+                <ChallengeDetailContainer
+                  challengeID={this.props.listing.data.challengeID}
+                  listingAddress={this.props.listing.address}
+                />
+              )}
           </>
         )}
       </>
