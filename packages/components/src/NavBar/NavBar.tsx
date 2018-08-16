@@ -1,10 +1,10 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
-import { CivilLogo } from "../CivilLogo";
 import { NavLink } from "./NavLink";
+import { NavDropDown } from "./NavDropDown";
+import { CivilLogo } from "../CivilLogo";
 import { CvlToken } from "../icons/CvlToken";
-import { NavDropDownComponent } from "./NavDropDown";
 import { ExpandDownArrow } from "../icons/ExpandDownArrow";
 
 const NavOuter = styled.div`
@@ -12,7 +12,7 @@ const NavOuter = styled.div`
   background-color: ${colors.primary.BLACK};
   display: flex;
   justify-content: space-between;
-  padding: 15px 30px;
+  padding: 15px 25px;
   * {
     box-sizing: border-box;
   }
@@ -57,7 +57,7 @@ const NavUser = styled.div`
   width: 250px;
 `;
 
-const NavContainer = styled.div`
+const CvlContainer = styled.div`
   align-items: center;
   display: flex;
 `;
@@ -78,12 +78,18 @@ const UserCvlVotingBalance = styled.span`
   margin-left: 10px;
 `;
 
-const UserAdvatar = styled.figure`
+const AvatarContainer = styled.div`
+  align-items: center;
+  display: flex;
+  width: 60px;
+`;
+
+const UserAvatar = styled.figure`
   background-color: ${colors.accent.CIVIL_TEAL};
   border: 2px solid ${colors.basic.WHITE};
   border-radius: 50%;
   height: 36px;
-  margin-right: 8px;
+  margin: 0 8px 0 0;
   width: 36px;
 `;
 
@@ -109,7 +115,7 @@ export class NavBar extends React.Component<NavProps> {
           <NavLink to="/registry">Registry</NavLink>
           <NavLink to="/parameterizer">Parameterizer</NavLink>
           <NavLink to="/createNewsroom">Create Newsroom</NavLink>
-          <NavDropDownComponent label="How Civil works">
+          <NavDropDown label="How Civil works">
             <NavLink href="https://civil.co/constitution/" target="_blank">
               Constitution
             </NavLink>
@@ -122,19 +128,19 @@ export class NavBar extends React.Component<NavProps> {
             <NavLink href="https://civil.co/white-paper/" target="_blank">
               White Paper
             </NavLink>
-          </NavDropDownComponent>
+          </NavDropDown>
           <NavUser>
-            <NavContainer>
+            <CvlContainer>
               <CvlToken />
               <span>
                 <UserCvlBalance>{this.props.balance}</UserCvlBalance>
                 <UserCvlVotingBalance>{"+" + this.props.votingBalance}</UserCvlVotingBalance>
               </span>
-            </NavContainer>
-            <NavContainer>
-              <UserAdvatar />
+            </CvlContainer>
+            <AvatarContainer>
+              <UserAvatar />
               <ExpandDownArrow />
-            </NavContainer>
+            </AvatarContainer>
           </NavUser>
         </NavInner>
       </NavOuter>

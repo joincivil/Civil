@@ -7,7 +7,7 @@ export interface NavDropDownProps {
   label: string;
 }
 
-const NavDropDown = styled.div`
+const DropDownContain = styled.div`
   padding: 6px 12px;
   position: relative;
   &:hover > div {
@@ -15,13 +15,13 @@ const NavDropDown = styled.div`
   }
 `;
 
-const NavDropDownLabel = styled.span`
+const DropDownLabel = styled.span`
   & > svg {
     margin-left: 10px;
   }
 `;
 
-const NavDropDownLinks = styled.div`
+const DropDownLinks = styled.div`
   background-color: ${colors.primary.BLACK};
   display: none;
   left: 0;
@@ -40,16 +40,16 @@ const NavDropDownLinks = styled.div`
   }
 `;
 
-export class NavDropDownComponent extends React.Component<NavDropDownProps> {
+export class NavDropDown extends React.Component<NavDropDownProps> {
   public render(): JSX.Element {
     return (
-      <NavDropDown>
-        <NavDropDownLabel>
+      <DropDownContain>
+        <DropDownLabel>
           {this.props.label}
           <ExpandDownArrow />
-        </NavDropDownLabel>
-        <NavDropDownLinks>{this.props.children}</NavDropDownLinks>
-      </NavDropDown>
+        </DropDownLabel>
+        <DropDownLinks>{this.props.children}</DropDownLinks>
+      </DropDownContain>
     );
   }
 }
