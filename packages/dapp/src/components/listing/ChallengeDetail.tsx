@@ -35,7 +35,7 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import { appealChallenge, approveForAppeal, commitVote, requestVotingRights, revealVote } from "../../apis/civilTCR";
+import { appealChallenge, approveForAppeal, commitVote, approveVotingRights, revealVote } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import { makeGetChallengeState, getNewsroom } from "../../selectors";
@@ -56,7 +56,7 @@ const withChallengeResults = (
 };
 
 enum ModalContentEventNames {
-  IN_PROGRESS_REQUEST_VOTING_RIGHTS = "IN_PROGRESS:REQUEST_VOTING_RIGHTS",
+  IN_PROGRESS_APPROVE_VOTING_RIGHTS = "IN_PROGRESS:APPROVE_VOTING_RIGHTS",
   IN_PROGRESS_COMMIT_VOTE = "IN_PROGRESS:COMMIT_VOTE",
   IN_PROGRESS_REVEAL_VOTE = "IN_PROGRESS:REVEAL_VOTE",
   IN_PROGRESS_RESOLVE_CHALLENGE = "IN_PROGRESS:RESOLVE_CHALLENGE",
@@ -190,6 +190,22 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
+    const approveVotingRightsProgressModal = this.renderApproveVotingRightsProgress();
+    const commitVoteProgressModal = this.renderCommitVoteProgress();
+    const modalContentComponents = {
+      [ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS]: approveVotingRightsProgressModal,
+      [ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE]: commitVoteProgressModal,
+    };
+    const transactions = [
+      {
+        transaction: this.approveVotingRights,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS,
+      },
+      {
+        transaction: this.commitVoteOnChallenge,
+        progressEventName: ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE,
+      },
+    ];
 
     if (!challenge) {
       return null;
@@ -216,13 +232,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     );
   }
 
-  private renderRequestVotingRightsProgress(): JSX.Element {
+  private renderApproveVotingRightsProgress(): JSX.Element {
     return (
       <>
         <LoadingIndicator height={100} />
         <ModalHeading>Transactions in progress</ModalHeading>
         <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Requesting Voting Rights</ModalListItem>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Approving Voting Rights</ModalListItem>
           <ModalListItem type={ModalListItemTypes.FADED}>Committing Vote</ModalListItem>
         </ModalOrderedList>
         <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
@@ -452,9 +468,9 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return appealChallenge(this.props.listingAddress);
   };
 
-  private requestVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
+  private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
-    return requestVotingRights(numTokens);
+    return approveVotingRights(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
