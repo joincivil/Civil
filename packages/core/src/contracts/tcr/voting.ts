@@ -44,9 +44,9 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @returns currently active polls (by id)
    */
-  public activePolls(fromBlock: number | "latest" = 0): Observable<BigNumber> {
+  public activePolls(fromBlock: number | "latest" = 0, toBlock?: number): Observable<BigNumber> {
     return this.instance
-      ._PollCreatedStream({}, { fromBlock })
+      ._PollCreatedStream({}, { fromBlock, toBlock })
       .map(e => e.args.pollID)
       .concatFilter(async pollID => this.instance.pollExists.callAsync(pollID));
   }
@@ -57,8 +57,8 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @param user pollIDs of polls the user has committed votes for
    */
-  public votesCommitted(fromBlock: number | "latest" = 0, user?: EthAddress): Observable<BigNumber> {
-    return this.instance._VoteCommittedStream({ voter: user }, { fromBlock }).map(e => e.args.pollID);
+  public votesCommitted(fromBlock: number | "latest" = 0, user?: EthAddress, toBlock?: number): Observable<BigNumber> {
+    return this.instance._VoteCommittedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
   }
 
   public balanceUpdate(fromBlock: number | "latest" = 0, user: EthAddress): Observable<BigNumber> {
@@ -187,6 +187,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
         ._VoteRevealedStream({ pollID }, { fromBlock: 0 })
         .first()
         .toPromise();
+
       return reveal;
     }
     return undefined;
