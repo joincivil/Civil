@@ -2,6 +2,8 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
 import { Hero, HomepageHero, Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getCivil } from "../../helpers/civilInstance";
 import * as heroImgUrl from "../images/img-hero-listings.png";
 
 import ListingList from "./ListingList";
@@ -28,13 +30,19 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     const { listingType } = this.props.match.params;
     let activeIndex = 0;
     let hero;
+    const civil = getCivil();
+    const minDeposit =
+      (this.props.parameters &&
+        this.props.parameters.minDeposit &&
+        getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit), true)) ||
+      "";
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
     if (activeIndex === 0) {
       hero = (
         <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero textUrl="#" buttonUrl="#" minDeposit={this.props.parameters.minDeposit} />
+          <HomepageHero textUrl="https://civil.co" buttonUrl="/createNewsroom" minDeposit={minDeposit} />
         </Hero>
       );
     }
