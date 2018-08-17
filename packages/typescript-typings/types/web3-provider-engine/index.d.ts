@@ -19,6 +19,7 @@ declare module "web3-provider-engine" {
     // stop block polling
     public stop(): void;
   }
+  export = Web3ProviderEngine;
 }
 
 declare module "web3-provider-engine/subproviders/nonce-tracker";

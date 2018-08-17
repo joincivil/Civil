@@ -1,8 +1,7 @@
 import { CoverageSubprovider, TruffleArtifactAdapter } from "@0xproject/sol-cov";
 import * as process from "process";
 
-const SOLC_VERSION = "0.4.23";
-const SOURCES_FOLDER = "contracts/";
+const SOLC_VERSION = "0.4.24";
 // Default ganache account from root package.json mnemonic
 const DEFAULT_ACCOUNT = "0xaa28645c500e644ab3195b58820adc437268e4c3";
 
@@ -15,7 +14,7 @@ export function inCoverage(): boolean {
 
 export function coverageProviderSingleton(): CoverageSubprovider {
   if (!coverageProvider) {
-    const truffleAdapter = new TruffleArtifactAdapter(SOURCES_FOLDER, SOLC_VERSION);
+    const truffleAdapter = new TruffleArtifactAdapter("./", SOLC_VERSION);
     coverageProvider = new CoverageSubprovider(truffleAdapter, DEFAULT_ACCOUNT, true);
   }
   return coverageProvider;
