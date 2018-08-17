@@ -32,7 +32,7 @@
   "author": "The Civil Media Company",
   "license": "LGPL-2.1",
   "devDependencies": {
-    "@0xproject/sol-cov": "file:ext/sol-cov",
+    "@0xproject/sol-cov": "^2.0.0",
     "@0xproject/subproviders": "^1.0.0",
     "@joincivil/dev-utils": "^1.2.4",
     "@joincivil/doxity": "^0.0.1",
@@ -61,10 +61,10 @@
     "solium": "github:duaraghav8/Solium#develop",
     "solium-plugin-security": "^0.1.1",
     "truffle": "~4.1.7",
+    "truffle-hdwallet-provider": "^0.0.6",
     "tslint": "^5.9.1",
     "typescript": "<2.9.0",
     "web3": "^0.20.3",
-    "truffle-hdwallet-provider": "^0.0.6",
     "web3-provider-engine": "^14.0.6"
   }
 }

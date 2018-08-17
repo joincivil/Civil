@@ -1,7 +1,7 @@
 import { CoverageSubprovider, TruffleArtifactAdapter } from "@0xproject/sol-cov";
 import * as process from "process";
 
-const SOLC_VERSION = "0.4.24";
+const SOLC_VERSION = "0.4.23";
 const SOURCES_FOLDER = "contracts/";
 // Default ganache account from root package.json mnemonic
 const DEFAULT_ACCOUNT = "0xaa28645c500e644ab3195b58820adc437268e4c3";
