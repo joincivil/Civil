@@ -2,8 +2,8 @@ version: 2
 
 # What is this - http://yaml.org/type/merge.html
 defaults: &defaults
-  docker:
-    - image: circleci/node:9.3
+    docker:
+        - image: circleci/node:9.3
 
 jobs:
     build:
@@ -11,64 +11,64 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-                name: Restore yarn cache
-                key: node-modules-{{ .Branch }}-{{ checksum "yarn.lock" }}
+                  name: Restore yarn cache
+                  key: node-modules-{{ .Branch }}-{{ checksum "yarn.lock" }}
             - run:
-                name: Install modules
-                command: yarn --frozen-lockfile install
+                  name: Install modules
+                  command: yarn --frozen-lockfile install
             - save_cache:
-                name: Save yarn cache
-                key: node-modules--{{ .Branch }}-{{ checksum "yarn.lock" }}
-                paths:
-                    - node_modules
+                  name: Save yarn cache
+                  key: node-modules--{{ .Branch }}-{{ checksum "yarn.lock" }}
+                  paths:
+                      - node_modules
             - run:
-                name: Building
-                command: yarn build
+                  name: Building
+                  command: yarn build
             - persist_to_workspace:
-                root: ../
-                paths:
-                    - project/
+                  root: ../
+                  paths:
+                      - project/
     lint:
         <<: *defaults
         steps:
             - attach_workspace:
-                at: ../
+                  at: ../
             - run:
-                name: Ensuring prettified
-                command: yarn prettier
+                  name: Ensuring prettified
+                  command: yarn prettier
             - run:
-                name: Linting
-                command: yarn lint
+                  name: Linting
+                  command: yarn lint
     test:
         <<: *defaults
         steps:
             - attach_workspace:
-                at: ../
+                  at: ../
             - run:
-                name: Starting Ganache
-                command: yarn ganache:raw
-                background: true
+                  name: Starting Ganache
+                  command: yarn ganache:raw
+                  background: true
             - run:
-                name: Running migrations
-                command: yarn lerna run --scope=@joincivil/contracts migrate:ganache
+                  name: Running migrations
+                  command: yarn lerna run --scope=@joincivil/contracts migrate:ganache
             - run:
-                name: Running tests
-                command: yarn test
+                  name: Running tests
+                  command: yarn test
     coverage:
         <<: *defaults
         steps:
             - attach_workspace:
-                at: ../
+                  at: ../
             - run:
-                name: Starting Ganache
-                command: yarn ganache:raw
-                background: true
+                  name: Starting Ganache
+                  command: yarn ganache:raw
+                  background: true
             - run:
-                name: Calculating coverage
-                command: yarn coverage
+                  name: Calculating coverage
+                  command: yarn coverage
             - run:
-                name: Submitting coverage
-                command: yarn coverage:submit
+                  name: Submitting coverage
+                  command: yarn coverage:submit
 
     # Docker steps
     # These steps have a different workspace roots and so will behave a bit differently
@@ -80,23 +80,23 @@ jobs:
             - image: civilmedia/gcloud-node:latest
         steps:
             - run:
-                name: Dump Google Cloud Credentials to file
-                command: |
-                    echo ${GOOGLE_AUTH} | base64 -d > ${HOME}/gcp-key.json
-                    gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
-                    gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
-                    gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
-                    gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
-                    gcloud docker --authorize-only
+                  name: Dump Google Cloud Credentials to file
+                  command: |
+                      echo ${GOOGLE_AUTH} | base64 -d > ${HOME}/gcp-key.json
+                      gcloud auth activate-service-account --key-file ${HOME}/gcp-key.json
+                      gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+                      gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+                      gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+                      gcloud docker --authorize-only
             - persist_to_workspace:
-                root: /root
-                paths:
-                    - gcp-key.json
-                    - .config/gcloud
-                    - .docker
-                    - .dockercfg
-                    - .kubernetes_ns
-                    - .kube
+                  root: /root
+                  paths:
+                      - gcp-key.json
+                      - .config/gcloud
+                      - .docker
+                      - .dockercfg
+                      - .kubernetes_ns
+                      - .kube
 
     push-containers:
         <<: *defaults
@@ -104,21 +104,21 @@ jobs:
             - image: civilmedia/gcloud-node:latest
         steps:
             - attach_workspace:
-                at: /root
+                  at: /root
             - setup_remote_docker
             - run:
-                name: Build Container
-                command: |
-                    TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
-                    docker build -f Dockerfile-dapp . \
-                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG \
-                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1
+                  name: Build Container
+                  command: |
+                      TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
+                      docker build -f Dockerfile-dapp . \
+                      -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG \
+                      -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1
             - deploy:
-                name: Push Containers to Registry
-                command: |
-                    gcloud config list
-                    echo "pushing $GOOGLE_PROJECT_ID"
-                    docker push gcr.io/$GOOGLE_PROJECT_ID/dapp
+                  name: Push Containers to Registry
+                  command: |
+                      gcloud config list
+                      echo "pushing $GOOGLE_PROJECT_ID"
+                      docker push gcr.io/$GOOGLE_PROJECT_ID/dapp
 
     deploy-staging:
         <<: *defaults
@@ -126,11 +126,11 @@ jobs:
             - image: civilmedia/gcloud-node:latest
         steps:
             - attach_workspace:
-                at: /root
+                  at: /root
             - deploy:
-                name: Update Kubernetes Deployment on STAGING
-                command: |
-                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:master-$CIRCLE_SHA1 --namespace staging
+                  name: Update Kubernetes Deployment on STAGING
+                  command: |
+                      kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:master-$CIRCLE_SHA1 --namespace staging
 
 workflows:
     version: 2
@@ -138,35 +138,35 @@ workflows:
         jobs:
             - build
             - test:
-                requires:
-                    - build
-            #- coverage:
-            #    requires:
-            #        - build
+                  requires:
+                      - build
+            - coverage:
+                  requires:
+                      - build
             - lint:
-                requires:
-                    - build
+                  requires:
+                      - build
             - setup-gcp:
-                context: gcp-common
-                filters:
-                    branches:
-                        only:
-                            - master
+                  context: gcp-common
+                  filters:
+                      branches:
+                          only:
+                              - master
             - push-containers:
-                context: gcp-common
-                requires:
-                    - test
-                    - lint
-                    - setup-gcp
-                filters:
-                    branches:
-                        only:
-                            - master
+                  context: gcp-common
+                  requires:
+                      - test
+                      - lint
+                      - setup-gcp
+                  filters:
+                      branches:
+                          only:
+                              - master
             - deploy-staging:
-                context: gcp-common
-                requires:
-                    - push-containers
-                filters:
-                    branches:
-                        only:
-                            - master
+                  context: gcp-common
+                  requires:
+                      - push-containers
+                  filters:
+                      branches:
+                          only:
+                              - master
