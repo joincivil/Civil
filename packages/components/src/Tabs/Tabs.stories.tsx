@@ -11,6 +11,7 @@ import {
   StyledRoundPillTab,
   StyledTab,
 } from "./TabsStyled";
+import { ApprovedNewsroomsTabText, ApplicaitonsInProgressTabText, RejectedNewsroomsTabText } from "./textComponents";
 
 storiesOf("Tabs", module)
   .add("Default Tabs", () => {
@@ -28,13 +29,13 @@ storiesOf("Tabs", module)
   .add("Styled Large Tab", () => {
     return (
       <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTabLarge}>
-        <Tab title={"Approved Newsrooms"}>
+        <Tab title={<ApprovedNewsroomsTabText />}>
           <p>Some Content</p>
         </Tab>
-        <Tab title="Applicaitons In Progress">
+        <Tab title={<ApplicaitonsInProgressTabText />}>
           <p>Some other Content</p>
         </Tab>
-        <Tab title="Rejected Newsrooms">
+        <Tab title={<RejectedNewsroomsTabText />}>
           <p>Some other Content</p>
         </Tab>
       </Tabs>
