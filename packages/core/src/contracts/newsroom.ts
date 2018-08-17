@@ -210,7 +210,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const myContentId = contentId ? this.ethApi.toBigNumber(contentId) : undefined;
     return this.instance
       .RevisionUpdatedStream({ contentId: myContentId }, { fromBlock })
-      .concatMap(async e => this.loadContentHeader(e.args.contentId, e.args.revisionId));
+      .concatMap(async e => {
+        const contentHeader = await this.loadContentHeader(e.args.contentId, e.args.revisionId);
+        return {
+          blockNumber: e.blockNumber,
+          transactionHash: e.transactionHash,
+          ...contentHeader,
+        }
+      });
   }
 
   /**
@@ -379,18 +386,20 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     let timestamp: BigNumber;
     let author: EthAddress;
     let signature: string;
+    let myRevisionId: BigNumber | undefined;
     if (revision) {
-      const myRevisionId = this.ethApi.toBigNumber(revision);
+      myRevisionId = this.ethApi.toBigNumber(revision);
       [contentHash, uri, timestamp, author, signature] = await this.instance.getRevision.callAsync(
         myContentId,
-        myRevisionId,
+        myRevisionId!,
       );
     } else {
       [contentHash, uri, timestamp, author, signature] = await this.instance.getContent.callAsync(myContentId);
     }
     return {
       contentId: myContentId.toNumber(),
-      timestamp: new Date(timestamp.toNumber()),
+      revisionId: myRevisionId ? myRevisionId.toNumber() : 0,
+      timestamp: new Date(timestamp.toNumber() * 1000),
       uri,
       contentHash,
       author,
