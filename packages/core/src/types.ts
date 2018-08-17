@@ -141,6 +141,9 @@ export interface UserChallengeData {
   didUserRescue?: boolean;
   didCollectAmount?: BigNumber;
   isVoterWinner?: boolean;
+  salt?: BigNumber;
+  numTokens?: BigNumber;
+  choice?: BigNumber;
 }
 
 /**
