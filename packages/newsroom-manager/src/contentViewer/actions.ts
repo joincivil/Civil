@@ -7,7 +7,7 @@ export const ADD_REVISION_JSON = "ADD_REVISION_JSON";
 const fetchRevision = async (uri: string) => {
   return new Promise((resolve, reject) => {
     fetch(uri)
-      .then(res => res.json())
+      .then(async res => res.json())
       .then(json => {
         resolve(json);
       })

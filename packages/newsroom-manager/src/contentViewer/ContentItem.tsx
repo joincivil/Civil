@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Map } from "immutable";
-import { EthContentHeader } from "@joincivil/core";
 import { RevisionAndJson } from "./reducers";
 import { Revision } from "./Revision";
 
