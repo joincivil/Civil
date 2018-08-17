@@ -155,7 +155,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   public async getRevealedVote(pollID: BigNumber, voter: EthAddress): Promise<BigNumber | undefined> {
     if (await this.didRevealVote(voter, pollID)) {
       const reveal = await this.instance
-        ._VoteRevealedStream({ pollID }, { fromBlock: 0 })
+        ._VoteRevealedStream({ pollID, voter }, { fromBlock: 0 })
         .first()
         .toPromise();
       return reveal.args.choice;
