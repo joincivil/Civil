@@ -44,11 +44,14 @@ export interface SignedContentHeader {
 
 export interface BaseContentHeader extends StorageHeader {
   contentId: ContentId;
-  revisionid?: RevisionId;
+  revisionId?: RevisionId;
   timestamp: Date;
 }
 
-export interface EthContentHeader extends BaseContentHeader, SignedContentHeader {}
+export interface EthContentHeader extends BaseContentHeader, SignedContentHeader {
+  blockNumber?: number | null;
+  transactionHash?: TxHash | null;
+}
 
 // TODO(ritave, dankins): Decide on content schema and update this type
 export interface NewsroomContent extends EthContentHeader {
