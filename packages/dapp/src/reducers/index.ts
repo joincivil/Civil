@@ -23,6 +23,7 @@ import {
   rejectedListingLatestChallengeSubscriptions,
   whitelistedSubscriptions,
   rejectedListingRemovedSubscriptions,
+  loadingFinished,
 } from "./listings";
 import {
   parameters,
@@ -81,6 +82,7 @@ export interface NetworkDependentState {
   resolveChallengeListings: Set<string>;
   resolveAppealListings: Set<string>;
   rejectedListings: Set<string>;
+  loadingFinished: boolean;
   user: { account: any };
   parameters: object;
   proposals: Map<string, object>;
@@ -126,6 +128,7 @@ const networkDependentReducers = combineReducers({
   resolveChallengeListings,
   resolveAppealListings,
   rejectedListings,
+  loadingFinished,
   user,
   parameters,
   proposals,

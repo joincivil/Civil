@@ -9,7 +9,7 @@ import {
   addUserChallengeData,
   addUserChallengeStarted,
 } from "../actionCreators/challenges";
-import { addListing } from "../actionCreators/listings";
+import { addListing, setLoadingFinished } from "../actionCreators/listings";
 import { addUserNewsroom } from "../actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
 
@@ -37,6 +37,7 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
     },
     () => {
       console.log("ON COMPLETE. start new subscription.");
+      dispatch(setLoadingFinished());
       tcr.allEventsExceptWhitelistFromBlock(current).subscribe(async (listing: ListingWrapper) => {
         await getNewsroom(dispatch, listing.address);
         setupListingCallback(listing, dispatch);
