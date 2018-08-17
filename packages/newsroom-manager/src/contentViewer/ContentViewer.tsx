@@ -15,23 +15,27 @@ export interface ContentViewerProps {
 class ContentViewerComponent extends React.Component<ContentViewerProps & DispatchProp<any>> {
   public componentDidMount(): void {
     this.props.newsroom.revisions().subscribe((item: EthContentHeader) => {
-      this.props.dispatch!(addRevision(item))
+      this.props.dispatch!(addRevision(item));
     });
   }
   public render(): JSX.Element {
     const content = this.props.content.toArray();
-    return <div>
-      <h2> Content </h2>
-      {content.map((item: Map<number, RevisionAndJson>, index: number): JSX.Element => <ContentItem key={index} content={item}/>)}
-    </div>;
+    return (
+      <div>
+        <h2> Content </h2>
+        {content.map((item: Map<number, RevisionAndJson>, index: number): JSX.Element => (
+          <ContentItem key={index} content={item} />
+        ))}
+      </div>
+    );
   }
-};
+}
 
 const mapStateToProps = (state: ContentViewerReduxState, ownProps: ContentViewerProps): ContentViewerProps => {
   return {
     content: state.newsroomContent,
     ...ownProps,
   };
-}
+};
 
 export const ContentViewer = connect(mapStateToProps)(ContentViewerComponent);

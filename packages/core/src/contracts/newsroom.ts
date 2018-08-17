@@ -208,16 +208,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     fromBlock: number | "latest" = 0,
   ): Observable<EthContentHeader> {
     const myContentId = contentId ? this.ethApi.toBigNumber(contentId) : undefined;
-    return this.instance
-      .RevisionUpdatedStream({ contentId: myContentId }, { fromBlock })
-      .concatMap(async e => {
-        const contentHeader = await this.loadContentHeader(e.args.contentId, e.args.revisionId);
-        return {
-          blockNumber: e.blockNumber,
-          transactionHash: e.transactionHash,
-          ...contentHeader,
-        }
-      });
+    return this.instance.RevisionUpdatedStream({ contentId: myContentId }, { fromBlock }).concatMap(async e => {
+      const contentHeader = await this.loadContentHeader(e.args.contentId, e.args.revisionId);
+      return {
+        blockNumber: e.blockNumber,
+        transactionHash: e.transactionHash,
+        ...contentHeader,
+      };
+    });
   }
 
   /**

@@ -6,22 +6,27 @@ export const ADD_REVISION_JSON = "ADD_REVISION_JSON";
 
 const fetchRevision = async (uri: string) => {
   return new Promise((resolve, reject) => {
-    fetch(uri).then(res => res.json()).then(json => {
-      resolve(json);
-    }).catch(e => {
-      reject(e);
-    });
+    fetch(uri)
+      .then(res => res.json())
+      .then(json => {
+        resolve(json);
+      })
+      .catch(e => {
+        reject(e);
+      });
   });
 };
 
 export const addRevision = (revision: EthContentHeader): AnyAction => {
   return {
     type: ADD_REVISION,
-    data: revision
+    data: revision,
   };
 };
 
-export const fetchRevisionJson = (uri: string, contentId: number, revisionId: number): any => async (dispatch: any): Promise<AnyAction> => {
+export const fetchRevisionJson = (uri: string, contentId: number, revisionId: number): any => async (
+  dispatch: any,
+): Promise<AnyAction> => {
   const json = await fetchRevision(uri);
   return dispatch({
     type: ADD_REVISION_JSON,
@@ -31,4 +36,4 @@ export const fetchRevisionJson = (uri: string, contentId: number, revisionId: nu
       json,
     },
   });
-}
+};
