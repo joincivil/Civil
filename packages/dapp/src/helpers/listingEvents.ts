@@ -21,7 +21,6 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
   const civil = getCivil();
   const current = await civil.currentBlock();
 
-  console.log("START SUBSCRIPTION. current: " + current);
   const initialLoadObservable = Observable.merge(
     tcr.listingsInApplicationStage(0, current),
     tcr.whitelistedListings(0, current),
@@ -33,10 +32,9 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
       dispatch(addListing(listing));
     },
     err => {
-      console.log("error");
+      console.log("error: ", err);
     },
     () => {
-      console.log("ON COMPLETE. start new subscription.");
       dispatch(setLoadingFinished());
       tcr.allEventsExceptWhitelistFromBlock(current).subscribe(async (listing: ListingWrapper) => {
         await getNewsroom(dispatch, listing.address);
