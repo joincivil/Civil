@@ -5,15 +5,27 @@ import { RejectedNewsroomsIcon } from "../icons/RejectedNewsroomsIcon";
 
 // Text for listings approved newsrooms tab
 export const ApprovedNewsroomsTabText: React.SFC = props => {
-  return <><ApprovedNewsroomsIcon /> Approved Newsrooms</>;
+  return (
+    <>
+      <ApprovedNewsroomsIcon /> Approved Newsrooms
+    </>
+  );
 };
 
 // Text for listings applicaitons in progress tab
 export const ApplicaitonsInProgressTabText: React.SFC = props => {
-  return <><ApplicationInProgressIcon /> Applicaitons In Progress</>;
+  return (
+    <>
+      <ApplicationInProgressIcon /> Applicaitons In Progress
+    </>
+  );
 };
 
 // Text for listings rejected newsrooms tab
 export const RejectedNewsroomsTabText: React.SFC = props => {
-  return <><RejectedNewsroomsIcon /> Rejected Newsrooms</>;
+  return (
+    <>
+      <RejectedNewsroomsIcon /> Rejected Newsrooms
+    </>
+  );
 };

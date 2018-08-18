@@ -35,6 +35,15 @@ export const StyledTabLarge = styled.li`
   & a {
     color: inherit;
   }
+  & svg {
+    margin-right: 5px;
+    & circle {
+      stroke: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2)};
+    }
+    & path {
+      fill: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2)};
+    }
+  }
 `;
 
 export const StyledSquarePillTabNav = styled.div`

@@ -10,6 +10,7 @@ import { ExpandDownArrow } from "../icons/ExpandDownArrow";
 const NavOuter = styled.div`
   align-items: center;
   background-color: ${colors.primary.BLACK};
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_1};
   display: flex;
   justify-content: space-between;
   padding: 15px 25px;
