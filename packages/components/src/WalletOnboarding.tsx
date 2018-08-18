@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EthAddress } from "@joincivil/core";
-import { NorthEastArrow, Button, buttonSizes } from "@joincivil/components";
+import { NorthEastArrow, Button, buttonSizes } from "./";
 import styled from "styled-components";
 
 export interface WalletOnboardingProps {
