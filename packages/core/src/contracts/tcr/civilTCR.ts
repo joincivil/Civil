@@ -459,6 +459,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let didUserRescue;
     let didCollectAmount;
     let isVoterWinner;
+    let salt;
+    let numTokens;
+    let choice;
     const resolved = (await this.instance.challenges.callAsync(challengeID))[2];
     if (user) {
       didUserCommit = await this.voting.didCommitVote(user, challengeID);
@@ -466,6 +469,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
         didUserReveal = await this.voting.didRevealVote(user, challengeID);
         if (resolved) {
           if (didUserReveal) {
+            const reveal = await this.voting.getRevealedVoteEvent(challengeID, user);
+            salt = reveal!.args.salt;
+            numTokens = reveal!.args.numTokens;
+            choice = reveal!.args.choice;
             didUserCollect = await this.instance.tokenClaims.callAsync(challengeID, user);
           } else {
             didUserRescue = !(await this.voting.canRescueTokens(user, challengeID));
@@ -486,6 +493,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       didUserRescue,
       didCollectAmount,
       isVoterWinner,
+      salt,
+      numTokens,
+      choice,
     };
   }
 
@@ -646,5 +656,14 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<MultisigProxyTransaction> {
     return this.multisigProxy.claimReward.sendTransactionAsync(challengeID, salt);
+  }
+
+  /**
+   * Claims multiple rewards associated with challenges
+   * @param challengeIDs IDs of challenges to claim rewards of
+   * @param salts Salts for user's votes on specified challenges
+   */
+  public async multiClaimReward(challengeIDs: BigNumber[], salts: BigNumber[]): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.claimRewards.sendTransactionAsync(challengeIDs, salts);
   }
 }

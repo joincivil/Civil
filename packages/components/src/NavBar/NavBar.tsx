@@ -125,6 +125,7 @@ export const NavBar: React.StatelessComponent<NavProps> = props => {
             White Paper
           </NavLink>
         </NavDropDown>
+        <NavLink to="/dashboard">My Activity</NavLink>
         <NavUser>
           <CvlContainer>
             <CvlToken />
