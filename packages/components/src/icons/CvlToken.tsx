@@ -11,8 +11,7 @@ export const CvlToken = (): JSX.Element => {
         />
         <text font-family="LibreFranklin-Bold, Libre Franklin" font-size="9" fill="#fff">
           <tspan x="8" y="18">
-            {" "}
-            CVL{" "}
+            CVL
           </tspan>
         </text>
         <g fill="#fff" fill-rule="nonzero">
