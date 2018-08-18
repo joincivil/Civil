@@ -158,7 +158,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently listings as new events get triggered
    */
-  public allEventsExceptWhitelistFromBlock(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
+  public allEventsExceptWhitelistFromBlock(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return Observable.merge(
       this.instance
         ._AppealRequestedStream({}, { fromBlock, toBlock })
@@ -272,7 +275,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in commit vote phase
    */
-  public currentChallengedCommitVotePhaseListings(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
+  public currentChallengedCommitVotePhaseListings(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
@@ -286,7 +292,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in reveal vote phase
    */
-  public currentChallengedRevealVotePhaseListings(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
+  public currentChallengedRevealVotePhaseListings(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
@@ -308,7 +317,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       .concatFilter(l => isAwaitingAppealRequest(l.data));
   }
 
-  public listingsWithChallengeToResolve(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
+  public listingsWithChallengeToResolve(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
@@ -322,7 +334,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsAwaitingAppealJudgment(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
+  public listingsAwaitingAppealJudgment(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
@@ -336,7 +351,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsAwaitingAppealChallenge(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
+  public listingsAwaitingAppealChallenge(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
@@ -350,7 +368,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsInAppealChallengeCommitPhase(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
+  public listingsInAppealChallengeCommitPhase(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
@@ -364,7 +385,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsInAppealChallengeRevealPhase(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
+  public listingsInAppealChallengeRevealPhase(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
