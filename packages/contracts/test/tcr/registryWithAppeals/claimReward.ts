@@ -5,6 +5,7 @@ import * as utils from "../../utils/contractutils";
 
 const Token = artifacts.require("EIP20");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(Token, PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;

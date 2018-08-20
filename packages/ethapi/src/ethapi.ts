@@ -18,6 +18,7 @@ import { requireAccount } from "./helpers";
 
 const debug = Debug("civil:ethapi");
 
+export const DEFAULT_HTTP_NODE = "http://127.0.0.1:8545";
 const POLL_MILLISECONDS = 1000;
 
 export class EthApi {

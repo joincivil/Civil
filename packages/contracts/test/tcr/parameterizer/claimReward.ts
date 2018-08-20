@@ -1,11 +1,11 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Token = artifacts.require("EIP20.sol");
+utils.configureProviders(PLCRVoting, Token);
 
 configureChai(chai);
 const expect = chai.expect;

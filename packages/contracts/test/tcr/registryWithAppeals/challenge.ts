@@ -8,6 +8,7 @@ const expect = chai.expect;
 
 const Parameterizer = artifacts.require("CivilParameterizer");
 const Token = artifacts.require("EIP20");
+utils.configureProviders(Parameterizer, Token);
 
 contract("Registry With Appeals", accounts => {
   describe("Function: apply", () => {

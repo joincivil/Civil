@@ -3,9 +3,10 @@ import { is0x0Address, prepareNewsroomMessage, promisify } from "@joincivil/util
 import BigNumber from "bignumber.js";
 import * as chai from "chai";
 import { events, NEWSROOM_ROLE_EDITOR, REVERTED } from "../utils/constants";
-import { findEvent } from "../utils/contractutils";
+import { findEvent, configureProviders } from "../utils/contractutils";
 
 const Newsroom = artifacts.require("Newsroom");
+configureProviders(Newsroom);
 
 configureChai(chai);
 const expect = chai.expect;

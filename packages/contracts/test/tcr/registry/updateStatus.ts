@@ -1,12 +1,12 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
 const expect = chai.expect;
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(PLCRVoting);
 
 contract("Registry", accounts => {
   describe("Function: updateStatus", () => {

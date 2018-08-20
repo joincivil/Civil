@@ -1,9 +1,11 @@
-import * as chai from "chai";
-import BigNumber from "bignumber.js";
-import { promisify } from "@joincivil/utils";
 import { configureChai, getParamFromTxEvent } from "@joincivil/dev-utils";
+import { promisify } from "@joincivil/utils";
+import BigNumber from "bignumber.js";
+import * as chai from "chai";
+import { configureProviders } from "../utils/contractutils";
 
 const MultiSigWallet = artifacts.require("MultiSigWallet");
+configureProviders(MultiSigWallet);
 
 configureChai(chai);
 const expect = chai.expect;

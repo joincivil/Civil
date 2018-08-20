@@ -1,9 +1,11 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
-import * as utils from "../../utils/contractutils";
 import { BigNumber } from "bignumber.js";
+import * as chai from "chai";
+import * as utils from "../../utils/contractutils";
+
 const Government = artifacts.require("Government");
+utils.configureProviders(Government);
+
 configureChai(chai);
 const expect = chai.expect;
 

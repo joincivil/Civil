@@ -7,6 +7,7 @@ configureChai(chai);
 const expect = chai.expect;
 
 const AddressRegistry = artifacts.require("AddressRegistry");
+utils.configureProviders(AddressRegistry);
 
 contract("ContractAddressRegistry", accounts => {
   describe("Function: apply", () => {

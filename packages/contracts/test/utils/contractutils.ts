@@ -7,6 +7,7 @@ import { promisify } from "util";
 // We're just using types from web3
 // tslint:disable-next-line:no-implicit-dependencies
 import * as Web3 from "web3";
+import ethApi from "./getethapi";
 
 // advanceEvmTime was moved to dev-utils
 // We would need to update ALL the tests, this is a workaround
@@ -22,6 +23,16 @@ const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
 const Newsroom = artifacts.require("Newsroom");
+configureProviders(
+  PLCRVoting,
+  CivilParameterizer,
+  AddressRegistry,
+  RestrictedAddressRegistry,
+  ContractAddressRegistry,
+  CivilTCR,
+  Government,
+  Newsroom,
+);
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -350,4 +361,9 @@ export async function createAllCivilTCRInstance(accounts: string[], appellateEnt
 
 export async function createDummyNewsrom(from?: string): Promise<any> {
   return Newsroom.new("Fake newsroom name", "http://fakenewsroomcharter.com", web3.sha3(), { from });
+}
+
+export function configureProviders(...contracts: any[]): void {
+  // TODO(ritave): Use our own contracts
+  contracts.forEach(contract => contract.setProvider(ethApi.currentProvider));
 }

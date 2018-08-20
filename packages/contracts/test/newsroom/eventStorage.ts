@@ -1,11 +1,11 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 import { keccak256String } from "@joincivil/utils";
-
+import * as chai from "chai";
 import { events } from "../utils/constants";
-import { findEvent } from "../utils/contractutils";
+import { configureProviders, findEvent } from "../utils/contractutils";
 
 const EventStorage = artifacts.require("EventStorage");
+configureProviders(EventStorage);
 
 configureChai(chai);
 const expect = chai.expect;

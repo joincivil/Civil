@@ -9,6 +9,7 @@ const expect = chai.expect;
 const AddressRegistry = artifacts.require("AddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(AddressRegistry, ContractAddressRegistry, PLCRVoting);
 
 contract("Registry With Appeals", accounts => {
   describe("Function: apply", () => {
