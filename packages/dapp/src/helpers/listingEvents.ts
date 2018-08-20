@@ -9,7 +9,7 @@ import {
   addUserChallengeData,
   addUserChallengeStarted,
 } from "../actionCreators/challenges";
-import { addListing } from "../actionCreators/listings";
+import { addListing, setLoadingFinished } from "../actionCreators/listings";
 import { addUserNewsroom } from "../actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
 
@@ -20,15 +20,29 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
   const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
-  Observable.merge(
-    tcr.whitelistedListings(0),
-    tcr.listingsInApplicationStage(),
-    tcr.allEventsExceptWhitelistFromBlock(current),
-  ).subscribe(async (listing: ListingWrapper) => {
-    await getNewsroom(dispatch, listing.address);
-    setupListingCallback(listing, dispatch);
-    dispatch(addListing(listing));
-  });
+
+  const initialLoadObservable = Observable.merge(
+    tcr.listingsInApplicationStage(0, current),
+    tcr.whitelistedListings(0, current),
+  );
+  initialLoadObservable.subscribe(
+    async (listing: ListingWrapper) => {
+      await getNewsroom(dispatch, listing.address);
+      setupListingCallback(listing, dispatch);
+      dispatch(addListing(listing));
+    },
+    err => {
+      console.log("error: ", err);
+    },
+    () => {
+      dispatch(setLoadingFinished());
+      tcr.allEventsExceptWhitelistFromBlock(current).subscribe(async (listing: ListingWrapper) => {
+        await getNewsroom(dispatch, listing.address);
+        setupListingCallback(listing, dispatch);
+        dispatch(addListing(listing));
+      });
+    },
+  );
 }
 
 let challengeSubscription: Subscription;

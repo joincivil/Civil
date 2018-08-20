@@ -158,70 +158,73 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently listings as new events get triggered
    */
-  public allEventsExceptWhitelistFromBlock(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public allEventsExceptWhitelistFromBlock(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return Observable.merge(
       this.instance
-        ._AppealRequestedStream({}, { fromBlock })
+        ._AppealRequestedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._AppealGrantedStream({}, { fromBlock })
+        ._AppealGrantedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._FailedChallengeOverturnedStream({}, { fromBlock })
+        ._FailedChallengeOverturnedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._SuccessfulChallengeOverturnedStream({}, { fromBlock })
+        ._SuccessfulChallengeOverturnedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._GrantedAppealChallengedStream({}, { fromBlock })
+        ._GrantedAppealChallengedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._GrantedAppealOverturnedStream({}, { fromBlock })
+        ._GrantedAppealOverturnedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._GrantedAppealConfirmedStream({}, { fromBlock })
+        ._GrantedAppealConfirmedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._ChallengeStream({}, { fromBlock })
+        ._ChallengeStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._DepositStream({}, { fromBlock })
+        ._DepositStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._WithdrawalStream({}, { fromBlock })
+        ._WithdrawalStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._ApplicationRemovedStream({}, { fromBlock })
+        ._ApplicationRemovedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._ListingRemovedStream({}, { fromBlock })
+        ._ListingRemovedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._ListingWithdrawnStream({}, { fromBlock })
+        ._ListingWithdrawnStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._TouchAndRemovedStream({}, { fromBlock })
+        ._TouchAndRemovedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._ChallengeFailedStream({}, { fromBlock })
+        ._ChallengeFailedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
       this.instance
-        ._ChallengeSucceededStream({}, { fromBlock })
+        ._ChallengeSucceededStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
     ).concatMap(async l => l.getListingWrapper());
   }
@@ -232,9 +235,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently whitelisted addresses
    */
-  public whitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public whitelistedListings(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
     return this.instance
-      ._ApplicationWhitelistedStream({}, { fromBlock })
+      ._ApplicationWhitelistedStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper());
   }
@@ -245,9 +248,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns listings currently in application stage
    */
-  public listingsInApplicationStage(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public listingsInApplicationStage(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
     return this.instance
-      ._ApplicationStream({}, { fromBlock })
+      ._ApplicationStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper());
   }
@@ -258,9 +261,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns addresses ready to be whitelisted
    */
-  public readyToBeWhitelistedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public readyToBeWhitelistedListings(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
     return this.instance
-      ._ApplicationStream({}, { fromBlock })
+      ._ApplicationStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => canBeWhitelisted(l.data));
@@ -272,9 +275,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in commit vote phase
    */
-  public currentChallengedCommitVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public currentChallengedCommitVotePhaseListings(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isInChallengedCommitVotePhase(l.data));
@@ -286,9 +292,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in reveal vote phase
    */
-  public currentChallengedRevealVotePhaseListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public currentChallengedRevealVotePhaseListings(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isInChallengedRevealVotePhase(l.data));
@@ -300,17 +309,20 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in request appeal phase
    */
-  public listingsAwaitingAppealRequest(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public listingsAwaitingAppealRequest(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isAwaitingAppealRequest(l.data));
   }
 
-  public listingsWithChallengeToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public listingsWithChallengeToResolve(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => canChallengeBeResolved(l.data));
@@ -322,9 +334,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsAwaitingAppealJudgment(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public listingsAwaitingAppealJudgment(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isListingAwaitingAppealJudgment(l.data));
@@ -336,9 +351,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsAwaitingAppealChallenge(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public listingsAwaitingAppealChallenge(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isListingAwaitingAppealChallenge(l.data));
@@ -350,9 +368,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsInAppealChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public listingsInAppealChallengeCommitPhase(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isInAppealChallengeCommitPhase(l.data));
@@ -364,9 +385,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsInAppealChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public listingsInAppealChallengeRevealPhase(
+    fromBlock: number | "latest" = 0,
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => isInAppealChallengeRevealPhase(l.data));
@@ -378,9 +402,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public listingsWithAppealToResolve(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public listingsWithAppealToResolve(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
     return this.instance
-      ._ChallengeStream({}, { fromBlock })
+      ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => canListingAppealBeResolved(l.data));
@@ -392,9 +416,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    *                  Set to "latest" for only new events
    * @returns currently challenged addresses in appeal phase
    */
-  public rejectedListings(fromBlock: number | "latest" = 0): Observable<ListingWrapper> {
+  public rejectedListings(fromBlock: number | "latest" = 0, toBlock?: number): Observable<ListingWrapper> {
     return this.instance
-      ._ApplicationStream({}, { fromBlock })
+      ._ApplicationStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper())
       .concatFilter(l => l.data.appExpiry.isZero());
