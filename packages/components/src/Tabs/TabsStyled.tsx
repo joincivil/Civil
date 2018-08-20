@@ -14,10 +14,12 @@ export const StyledTabNav = styled.div`
 `;
 
 export const StyledTabLarge = styled.li`
+  align-items: center;
   border-bottom: ${(props: TabComponentProps) =>
     props.isActive ? "8px solid " + colors.accent.CIVIL_BLUE : "8px solid transparent"};
   color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2)};
   cursor: pointer;
+  display: flex;
   font-family: ${fonts.SANS_SERIF};
   font-size: 19px;
   font-weight: 800;
@@ -32,6 +34,15 @@ export const StyledTabLarge = styled.li`
   }
   & a {
     color: inherit;
+  }
+  & svg {
+    margin-right: 5px;
+    & circle {
+      stroke: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2)};
+    }
+    & path {
+      fill: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2)};
+    }
   }
 `;
 

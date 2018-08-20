@@ -1,7 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Hero, HomepageHero, Tabs, Tab, StyledTabNav, StyledTabLarge } from "@joincivil/components";
+import {
+  Hero,
+  HomepageHero,
+  Tabs,
+  Tab,
+  StyledTabNav,
+  StyledTabLarge,
+  ApprovedNewsroomsTabText,
+  ApplicationsInProgressTabText,
+  RejectedNewsroomsTabText,
+} from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import * as heroImgUrl from "../images/img-hero-listings.png";
@@ -58,7 +68,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             TabComponent={StyledTabLarge}
             onActiveTabChange={this.onTabChange}
           >
-            <Tab title={"Whitelisted Newsrooms"}>
+            <Tab title={<ApprovedNewsroomsTabText />}>
               <StyledPageContent>
                 <StyledListingCopy>
                   All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
@@ -67,12 +77,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                 <ListingList listings={this.props.whitelistedListings} />
               </StyledPageContent>
             </Tab>
-            <Tab title={"Newsrooms Under Consideration"}>
+            <Tab title={<ApplicationsInProgressTabText />}>
               <StyledPageContent>
                 <ListingsInProgress />
               </StyledPageContent>
             </Tab>
-            <Tab title={"Rejected Newsrooms"}>
+            <Tab title={<RejectedNewsroomsTabText />}>
               <StyledPageContent>
                 <StyledListingCopy>
                   Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil
