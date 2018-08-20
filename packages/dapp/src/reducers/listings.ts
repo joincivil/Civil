@@ -304,3 +304,12 @@ export function rejectedListings(state: Set<string> = Set<string>(), action: Any
       return state;
   }
 }
+
+export function loadingFinished(state: boolean = false, action: AnyAction): boolean {
+  switch (action.type) {
+    case listingActions.SET_LOADING_FINISHED:
+      return true;
+    default:
+      return state;
+  }
+}
