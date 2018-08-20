@@ -1,4 +1,5 @@
-import { ButtonTheme, colors, FormHeading, StepProcess } from "@joincivil/components";
+import { ButtonTheme, colors, FormHeading, StepProcess, WalletOnboarding } from "@joincivil/components";
+import { hasInjectedProvider } from "@joincivil/ethapi";
 import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -25,8 +26,11 @@ export interface NewsroomProps {
   account?: string;
   currentNetwork?: string;
   requiredNetwork?: string;
+  requiredNetworkNiceName?: string;
   civil?: Civil;
   theme?: ButtonTheme;
+  profileWalletAddress?: EthAddress;
+  saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
@@ -55,7 +59,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addGetNameForAddress(this.props.getNameForAddress));
     }
 
-    if (this.props.address) {
+    if (this.props.address && this.props.civil) {
       await this.hydrateNewsroom(this.props.address);
     }
   }
@@ -67,45 +71,61 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public render(): JSX.Element {
+    const manager = this.props.civil ? (
+      <>
+        <FormHeading>Newsroom Smart Contract</FormHeading>
+        <p>
+          Here are the steps to set up your newsroom smart contract. You'll be able to use Civil's blockchain features
+          such as indexing and signing posts.
+        </p>
+        <NoteSection>
+          Note: Each step will involve a transaction from your wallet, which will open in a new pop-up window in
+          MetaMask. You'll need to confirm the transaction
+        </NoteSection>
+        <CivilContext.Provider
+          value={{
+            civil: this.props.civil,
+            currentNetwork: this.props.currentNetwork,
+            requiredNetwork: this.props.requiredNetwork || "rinkeby",
+            account: this.props.account,
+          }}
+        >
+          <StepProcess disabled={this.isDisabled()} stepIsDisabled={this.isStepDisabled}>
+            <NameAndAddress
+              active={this.state.currentStep}
+              onNewsroomCreated={this.onNewsroomCreated}
+              name={this.props.name}
+              address={this.props.address}
+              txHash={this.props.txHash}
+              onContractDeployStarted={this.props.onContractDeployStarted}
+            />
+            <CompleteYourProfile
+              active={this.state.currentStep}
+              address={this.props.address}
+              renderUserSearch={this.props.renderUserSearch}
+            />
+            {/* <CreateCharter /> */}
+            {/* <SignConstitution address={this.props.address} active={this.state.currentStep} /> */}
+            {/* <ApplyToTCR /> */}
+          </StepProcess>
+        </CivilContext.Provider>
+      </>
+    ) : null;
+
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
-          <FormHeading>Newsroom Smart Contract</FormHeading>
-          <p>
-            Here are the steps to set up your newsroom smart contract. You'll be able to use Civil's blockchain features
-            such as indexing and signing posts.
-          </p>
-          <NoteSection>
-            Note: Each step will involve a transaction from your wallet, which will open in a new pop-up window in
-            MetaMask. You'll need to confirm the transaction
-          </NoteSection>
-          <CivilContext.Provider
-            value={{
-              civil: this.props.civil,
-              currentNetwork: this.props.currentNetwork,
-              requiredNetwork: this.props.requiredNetwork || "rinkeby",
-              account: this.props.account,
-            }}
-          >
-            <StepProcess disabled={this.isDisabled()} stepIsDisabled={this.isStepDisabled}>
-              <NameAndAddress
-                active={this.state.currentStep}
-                onNewsroomCreated={this.onNewsroomCreated}
-                name={this.props.name}
-                address={this.props.address}
-                txHash={this.props.txHash}
-                onContractDeployStarted={this.props.onContractDeployStarted}
-              />
-              <CompleteYourProfile
-                active={this.state.currentStep}
-                address={this.props.address}
-                renderUserSearch={this.props.renderUserSearch}
-              />
-              {/* <CreateCharter /> */}
-              {/* <SignConstitution address={this.props.address} active={this.state.currentStep} /> */}
-              {/* <ApplyToTCR /> */}
-            </StepProcess>
-          </CivilContext.Provider>
+          <WalletOnboarding
+            noProvider={!hasInjectedProvider()}
+            walletLocked={this.props.civil && !this.props.account}
+            wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
+            requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
+            metamaskWalletAddress={this.props.account}
+            profileWalletAddress={this.props.profileWalletAddress}
+            saveAddressToProfile={this.props.saveAddressToProfile}
+          />
+
+          {manager}
         </Wrapper>
       </ThemeProvider>
     );
