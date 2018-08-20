@@ -9,7 +9,7 @@ import {
   StyledTabNav,
   StyledTabLarge,
   ApprovedNewsroomsTabText,
-  ApplicaitonsInProgressTabText,
+  ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
@@ -74,7 +74,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
               <ListingList listings={this.props.whitelistedListings} />
             </StyledPageContent>
           </Tab>
-          <Tab title={<ApplicaitonsInProgressTabText />}>
+          <Tab title={<ApplicationsInProgressTabText />}>
             <StyledPageContent>
               <ListingsInProgress />
             </StyledPageContent>

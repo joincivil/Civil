@@ -13,10 +13,10 @@ export const ApprovedNewsroomsTabText: React.SFC = props => {
 };
 
 // Text for listings applicaitons in progress tab
-export const ApplicaitonsInProgressTabText: React.SFC = props => {
+export const ApplicationsInProgressTabText: React.SFC = props => {
   return (
     <>
-      <ApplicationInProgressIcon /> Applicaitons In Progress
+      <ApplicationInProgressIcon /> Applications In Progress
     </>
   );
 };
