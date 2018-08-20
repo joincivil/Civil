@@ -3,6 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { NavLink } from "./NavLink";
 import { NavDropDown } from "./NavDropDown";
+import { NavDrawerComponent } from "./NavDrawer";
 import { CivilLogo } from "../CivilLogo";
 import { CvlToken } from "../icons/CvlToken";
 import { ExpandDownArrow } from "../icons/ExpandDownArrow";
@@ -14,6 +15,7 @@ const NavOuter = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 15px 25px;
+  position: relative;
   * {
     box-sizing: border-box;
   }
@@ -97,6 +99,11 @@ const UserAvatar = styled.figure`
 export interface NavProps {
   balance: string;
   votingBalance: string;
+  userAccount?: string;
+  userChallengesVotedOnCount?: string;
+  userChallengesStartedCount?: string;
+  ethConversion?: string;
+  buyCvlUrl?: string;
 }
 
 export const NavBar: React.StatelessComponent<NavProps> = props => {
@@ -131,7 +138,7 @@ export const NavBar: React.StatelessComponent<NavProps> = props => {
             <CvlToken />
             <span>
               <UserCvlBalance>{props.balance}</UserCvlBalance>
-              <UserCvlVotingBalance>{"+" + props.votingBalance}</UserCvlVotingBalance>
+              <UserCvlVotingBalance>{props.votingBalance}</UserCvlVotingBalance>
             </span>
           </CvlContainer>
           <AvatarContainer>
@@ -140,6 +147,15 @@ export const NavBar: React.StatelessComponent<NavProps> = props => {
           </AvatarContainer>
         </NavUser>
       </NavInner>
+      <NavDrawerComponent
+        balance={props.balance}
+        votingBalance={props.votingBalance}
+        userAccount={props.userAccount}
+        userChallengesVotedOnCount={props.userChallengesVotedOnCount}
+        userChallengesStartedCount={props.userChallengesStartedCount}
+        ethConversion={props.ethConversion}
+        buyCvlUrl={props.buyCvlUrl}
+      />
     </NavOuter>
   );
 };
