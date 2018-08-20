@@ -19,6 +19,7 @@ export enum listingActions {
   FETCH_LISTING_DATA = "FETCH_LISTING_DATA",
   FETCH_LISTING_DATA_COMPLETE = "FETCH_LISTING_DATA_COMPLETE",
   FETCH_LISTING_DATA_IN_PROGRESS = "FETCH_LISTING_DATA_IN_PROGRESS",
+  SET_LOADING_FINISHED = "SET_LOADING_FINISHED",
 }
 
 export const addListing = (listing: ListingWrapper): any => {
@@ -258,5 +259,11 @@ export const setupListingWhitelistedSubscription = async (listingID: string): Pr
         });
       dispatch(addWhitelistedSubscription(listingID, subscription));
     }
+  };
+};
+
+export const setLoadingFinished = (): AnyAction => {
+  return {
+    type: listingActions.SET_LOADING_FINISHED,
   };
 };
