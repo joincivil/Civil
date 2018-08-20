@@ -7,10 +7,10 @@ export interface WalletOnboardingProps {
   noProvider?: boolean;
   walletLocked?: boolean;
   wrongNetwork?: boolean;
-  networkName: string;
+  requiredNetworkNiceName?: string;
   metamaskWalletAddress?: EthAddress;
   profileWalletAddress?: EthAddress;
-  saveAddressToProfile(): Promise<void>;
+  saveAddressToProfile?(): Promise<void>;
 }
 
 const Wrapper = styled.div`
@@ -130,7 +130,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
         <Wrapper>
           <h2>Change your network</h2>
           <p>
-            Looks like you’re using an unsupported Ethereum network. Make sure you're using the {this.props.networkName}.{" "}
+            Looks like you’re using an unsupported Ethereum network. Make sure you're using the {this.props.requiredNetworkNiceName}.{" "}
             <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
               Help?
             </a>
@@ -152,7 +152,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             Your Wallet Address is
             <WalletAddress>{this.props.metamaskWalletAddress}</WalletAddress>
           </p>
-          {this.props.profileWalletAddress !== this.props.metamaskWalletAddress && (
+          {this.props.profileWalletAddress !== this.props.metamaskWalletAddress && this.props.saveAddressToProfile && (
             <>
               <p>
                 Your MetaMask wallet address does not match your WordPress profile's wallet address, which is{" "}

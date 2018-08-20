@@ -26,11 +26,11 @@ export interface NewsroomProps {
   account?: string;
   currentNetwork?: string;
   requiredNetwork?: string;
-  requiredNetworkNiceName: string;
+  requiredNetworkNiceName?: string;
   civil?: Civil;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
-  saveAddressToProfile(): Promise<void>;
+  saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
@@ -119,7 +119,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             noProvider={!hasInjectedProvider()}
             walletLocked={this.props.civil && !this.props.account}
             wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
-            networkName={this.props.requiredNetworkNiceName}
+            requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
             metamaskWalletAddress={this.props.account}
             profileWalletAddress={this.props.profileWalletAddress}
             saveAddressToProfile={this.props.saveAddressToProfile}
