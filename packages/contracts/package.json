@@ -21,7 +21,7 @@
     "migrate:ganache": "run-s 'migrate --reset --network=ganache' build:stripArtifacts",
     "migrate:rinkeby": "run-s 'migrate --network=rinkeby' build:stripArtifacts",
     "test": "truffle test --network ganache",
-    "clean": "rimraf build/ coverage/",
+    "clean": "rimraf build/ coverage/ .0x-artifacts/",
     "prepare": "truffle install",
     "truffle": "truffle",
     "tsc": "tsc",
