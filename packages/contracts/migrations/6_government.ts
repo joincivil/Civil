@@ -1,5 +1,7 @@
 import { config } from "./utils";
 const Government = artifacts.require("Government");
+const Token = artifacts.require("EIP20");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
@@ -24,10 +26,15 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       Government,
       appellate,
       govtController,
+      Token.address,
+      PLCRVoting.address,
       parameterizerConfig.appealFeeAmount,
       parameterizerConfig.requestAppealPhaseLength,
       parameterizerConfig.judgeAppealPhaseLength,
       parameterizerConfig.appealSupermajorityPercentage,
+      parameterizerConfig.govtPDeposit,
+      parameterizerConfig.govtPCommitStageLength,
+      parameterizerConfig.govtPRevealStageLength,
       web3.sha3("Constitution: Be Bad."),
       "http://madeupURL.com",
     );
