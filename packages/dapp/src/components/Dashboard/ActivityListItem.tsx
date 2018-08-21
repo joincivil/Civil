@@ -129,7 +129,16 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
 
   private getButtonText = (): [string, string | JSX.Element | undefined] => {
     const { listingAddress, listingPhaseState, userChallengeData } = this.props;
-    if (userChallengeData) {
+
+    if (listingPhaseState && listingPhaseState.inRevealPhase && userChallengeData && userChallengeData.didUserCommit) {
+      return ["Reveal Vote", undefined];
+    }
+
+    if (listingPhaseState && listingPhaseState.canResolveChallenge) {
+      return ["Resolve Challenge", undefined];
+    }
+
+    if (listingPhaseState && !listingPhaseState.isUnderChallenge && userChallengeData) {
       const {
         didUserCommit,
         didUserReveal,
@@ -151,14 +160,6 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
         const reward = getFormattedTokenBalance(didCollectAmount!);
         return ["View Results", `You collected ${reward}`];
       }
-    }
-
-    if (listingPhaseState && listingPhaseState.inRevealPhase && userChallengeData && userChallengeData.didUserCommit) {
-      return ["Reveal Vote", undefined];
-    }
-
-    if (listingPhaseState && listingPhaseState.canResolveChallenge) {
-      return ["Resolve Challenge", undefined];
     }
 
     // This is a listing
