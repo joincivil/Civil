@@ -146,7 +146,11 @@ workflows:
                     - build
     pull-request:
         jobs:
-            - build
+            - build:
+                filters:
+                    branches:
+                        ignore:
+                            - master
             - test:
                 filters:
                     branches:
