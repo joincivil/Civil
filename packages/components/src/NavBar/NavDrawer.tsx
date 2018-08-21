@@ -118,7 +118,7 @@ export const NavDrawerComponent: React.StatelessComponent<NavDrawerProps> = prop
           <NavDrawerRowLabel>Total Balance</NavDrawerRowLabel>
           <NavDrawerRowInfo>
             <NavDrawerCvlBalance>{props.balance}</NavDrawerCvlBalance>
-            <NavDrawerEthConversion>{props.ethConversion}</NavDrawerEthConversion>
+            <NavDrawerEthConversion>{props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
           </NavDrawerRowInfo>
         </NavDrawerRow>
         <NavDrawerRow>
@@ -136,11 +136,11 @@ export const NavDrawerComponent: React.StatelessComponent<NavDrawerProps> = prop
         <NavDrawerSectionHeader>Dashboard</NavDrawerSectionHeader>
         <NavDrawerRow>
           <NavDrawerRowLabel>Submitted Challenges</NavDrawerRowLabel>
-          <NavDrawerPill>{props.userChallengesStartedCount || 0}</NavDrawerPill>
+          <NavDrawerPill>{props.userChallengesStartedCount || "0"}</NavDrawerPill>
         </NavDrawerRow>
         <NavDrawerRow>
           <NavDrawerRowLabel>Challenges Voted On</NavDrawerRowLabel>
-          <NavDrawerPill>{props.userChallengesVotedOnCount || 0}</NavDrawerPill>
+          <NavDrawerPill>{props.userChallengesVotedOnCount || "0"}</NavDrawerPill>
         </NavDrawerRow>
       </NavDrawerSection>
     </NavDrawer>
