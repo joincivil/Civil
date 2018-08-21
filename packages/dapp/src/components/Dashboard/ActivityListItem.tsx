@@ -64,7 +64,15 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
 
   private renderActivityDetails = (): JSX.Element => {
     const { listingPhaseState, challengeState } = this.props;
-    const { isWhitelisted, isInApplication, isRejected, isUnderChallenge, canResolveChallenge, inChallengeCommitVotePhase, inChallengeRevealPhase } = listingPhaseState;
+    const {
+      isWhitelisted,
+      isInApplication,
+      isRejected,
+      isUnderChallenge,
+      canResolveChallenge,
+      inChallengeCommitVotePhase,
+      inChallengeRevealPhase,
+    } = listingPhaseState;
 
     if (!this.props.challenge) {
       if (isInApplication) {
@@ -150,11 +158,23 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
         didUserRescue,
       } = userChallengeData;
 
-      if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && isVoterWinner && !didUserCollect) {
+      if (
+        listingPhaseState &&
+        !listingPhaseState.isUnderChallenge &&
+        didUserReveal &&
+        isVoterWinner &&
+        !didUserCollect
+      ) {
         return ["Claim Rewards", "You voted for the winner"];
       } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && !isVoterWinner) {
         return ["Claim Rewards", "You did not vote for the winner"];
-      } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserCommit && !didUserReveal && !didUserRescue) {
+      } else if (
+        listingPhaseState &&
+        !listingPhaseState.isUnderChallenge &&
+        didUserCommit &&
+        !didUserReveal &&
+        !didUserRescue
+      ) {
         return ["Rescue Tokens", "You did not reveal your vote"];
       } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserRescue) {
         return ["View Results", "You rescued your tokens"];

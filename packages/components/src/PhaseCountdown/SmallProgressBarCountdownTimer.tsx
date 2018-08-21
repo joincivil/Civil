@@ -21,7 +21,9 @@ export class SmallProgressBarCountdownTimerComponent extends React.Component<
     return (
       <StyledProgressBarCountdownTimer>
         <ProgressBarCountdownContainer>
-          <CompactProgressBarDisplayLabel><DisplayLabel /></CompactProgressBarDisplayLabel>
+          <CompactProgressBarDisplayLabel>
+            <DisplayLabel />
+          </CompactProgressBarDisplayLabel>
           {this.renderReadableTimeRemaining()}
           <ProgressBarCountdownTotal>
             <ProgressBarCountdownProgress style={style} />
@@ -43,7 +45,9 @@ export class SmallProgressBarCountdownTimerComponent extends React.Component<
     if (this.props.secondsRemaining! > 0) {
       return (
         <MetaItem>
-          <CompactMetaItemValueAccent>{getReadableDuration(this.props.secondsRemaining!)} <FlavorText /></CompactMetaItemValueAccent>
+          <CompactMetaItemValueAccent>
+            {getReadableDuration(this.props.secondsRemaining!)} <FlavorText />
+          </CompactMetaItemValueAccent>
         </MetaItem>
       );
     }
