@@ -48,3 +48,32 @@ export const NewsroomIcon = styled.figure`
   margin: 0 17px 0 0;
   min-width: 80px;
 `;
+
+export const MetaRow = styled.div`
+  margin: 16px 0;
+`;
+
+export const TimestampLabel = styled.div`
+  font-size: 16px;
+  line-height: 16px;
+`;
+
+export const TimestampValue = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 4px;
+`;
+
+export const MetaItemValue = styled.div`
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 22px;
+  margin-bottom: 4px;
+`;
+
+export const MetaItemLabel = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 14px;
+  line-height: 17px;
+`;

@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@joincivil/components": "^1.2.1",
-    "@joincivil/core": "^4.2.1"
+    "@joincivil/core": "^4.2.1",
+    "@joincivil/ethapi": "^0.0.1"
   },
   "devDependencies": {
     "@types/redux-thunk": "^2.1.0",

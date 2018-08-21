@@ -247,6 +247,7 @@ async function createTestCivilTCRInstance(
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
     await token.approve(registry.address, balanceOfUser, { from: user });
+    await token.approve(government.address, balanceOfUser, { from: user });
     if (addresses.length === 1) {
       return true;
     }
@@ -260,10 +261,15 @@ async function createTestCivilTCRInstance(
   const government = await Government.new(
     appellateEntity,
     appellateEntity,
+    tokenAddress,
+    plcrAddress,
     parameterizerConfig.appealFeeAmount,
     parameterizerConfig.requestAppealPhaseLength,
     parameterizerConfig.judgeAppealPhaseLength,
     parameterizerConfig.appealSupermajorityPercentage,
+    parameterizerConfig.govtPDeposit,
+    parameterizerConfig.govtPCommitStageLength,
+    parameterizerConfig.govtPRevealStageLength,
     web3.sha3("Constitution: Be Bad."),
     "http://madeupURL.com",
   );

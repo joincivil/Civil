@@ -2,11 +2,11 @@
   "paramDefaults": {
     "minDeposit": 10,
     "pMinDeposit": 100,
-    "applyStageLength": 18000,
+    "applyStageLength": 1800,
     "pApplyStageLength": 120,
-    "commitStageLength": 18000,
+    "commitStageLength": 1800,
     "pCommitStageLength": 120,
-    "revealStageLength": 18000,
+    "revealStageLength": 1800,
     "pRevealStageLength": 120,
     "dispensationPct": 50,
     "pDispensationPct": 50,
@@ -19,7 +19,9 @@
     "judgeAppealPhaseLength": 36000,
     "appealChallengeCommitStageLength": 16000,
     "appealChallengeRevealStageLength": 16000,
-    "appealSupermajorityPercentage": 66
+    "appealSupermajorityPercentage": 66,
+    "govtPCommitStageLength": 1800,
+    "govtPRevealStageLength": 1800
   },
   "nets": {
     "mainnet": {},
