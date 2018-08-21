@@ -15,6 +15,8 @@ export const enum GovtParameters {
   judgeAppealLen = "judgeAppealLen",
   appealFee = "appealFee",
   appealVotePercentage = "appealVotePercentage",
+  govtPCommitStageLen = "govtPCommitStageLen",
+  govtPRevealStageLen = "govtPRevealStageLen",
 }
 
 /**
@@ -69,7 +71,10 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param newValue value you want parameter to be changed to
    */
   public async set(paramName: GovtParameters | string, newValue: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.set.sendTransactionAsync(paramName, newValue));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue),
+    );
   }
   /**
    * Get the URI of the Civil Constitution
