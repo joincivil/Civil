@@ -46,6 +46,13 @@ const NavInner = styled.div`
   }
 `;
 
+const NavAccent = styled.span`
+  &,
+  & a {
+    color: ${colors.accent.CIVIL_TEAL};
+  }
+`;
+
 const NavUser = styled.div`
   align-items: center;
   border-left: 1px solid ${colors.accent.CIVIL_GRAY_1};
@@ -125,7 +132,9 @@ export const NavBar: React.StatelessComponent<NavProps> = props => {
             White Paper
           </NavLink>
         </NavDropDown>
-        <NavLink to="/dashboard">My Activity</NavLink>
+        <NavAccent>
+          <NavLink to="/dashboard">My Activity</NavLink>
+        </NavAccent>
         <NavUser>
           <CvlContainer>
             <CvlToken />
