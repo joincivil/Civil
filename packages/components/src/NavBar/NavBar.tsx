@@ -6,7 +6,25 @@ import { NavDropDown } from "./NavDropDown";
 import { NavDrawerComponent } from "./NavDrawer";
 import { CivilLogo } from "../CivilLogo";
 import { CvlToken } from "../icons/CvlToken";
-import { ExpandDownArrow } from "../icons/ExpandDownArrow";
+
+export interface NavProps {
+  balance: string;
+  votingBalance: string;
+  userAccount?: string;
+  userChallengesVotedOnCount?: string;
+  userChallengesStartedCount?: string;
+  ethConversion?: string;
+  buyCvlUrl?: string;
+}
+
+export interface NavState {
+  isOpen: boolean;
+}
+
+export interface NavStateProps {
+  isOpen?: boolean;
+  onClick?(e: any): void;
+}
 
 const NavOuter = styled.div`
   align-items: center;
@@ -51,6 +69,7 @@ const NavInner = styled.div`
 const NavUser = styled.div`
   align-items: center;
   border-left: 1px solid ${colors.accent.CIVIL_GRAY_1};
+  cursor: pointer;
   display: flex;
   font-family: ${fonts.SERIF};
   height: 30px;
@@ -96,66 +115,85 @@ const UserAvatar = styled.figure`
   width: 36px;
 `;
 
-export interface NavProps {
-  balance: string;
-  votingBalance: string;
-  userAccount?: string;
-  userChallengesVotedOnCount?: string;
-  userChallengesStartedCount?: string;
-  ethConversion?: string;
-  buyCvlUrl?: string;
+export interface NavArrowProps {
+  isOpen?: boolean;
 }
 
-export const NavBar: React.StatelessComponent<NavProps> = props => {
-  return (
-    <NavOuter>
-      <NavLogo>
-        <NavLink to="/">
-          <CivilLogo color={colors.basic.WHITE} />
-        </NavLink>
-      </NavLogo>
-      <NavInner>
-        <NavLink to="/registry">Registry</NavLink>
-        <NavLink to="/parameterizer">Parameterizer</NavLink>
-        <NavLink to="/createNewsroom">Create Newsroom</NavLink>
-        <NavDropDown label="How Civil works">
-          <NavLink href="https://civil.co/constitution/" target="_blank">
-            Constitution
+const Arrow: StyledComponentClass<NavArrowProps, "div"> = styled<NavArrowProps, "div">("div")`
+  border-bottom: 2px solid ${colors.basic.WHITE};
+  border-left: 2px solid ${colors.basic.WHITE};
+  height: 8px;
+  transform: ${props => (props.isOpen ? "rotate(135deg)" : "rotate(-45deg)")};
+  transition: transform 0.25s;
+  width: 8px;
+`;
+
+export class NavBar extends React.Component<NavProps, NavState> {
+  constructor(props: NavProps) {
+    super(props);
+
+    this.state = { isOpen: false };
+
+    this.toggle = this.toggle.bind(this);
+  }
+
+  public render(): JSX.Element {
+    return (
+      <NavOuter>
+        <NavLogo>
+          <NavLink to="/">
+            <CivilLogo color={colors.basic.WHITE} />
           </NavLink>
-          <NavLink href="https://civil.co/about/" target="_blank">
-            About
-          </NavLink>
-          <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
-            How to launch a newsroom
-          </NavLink>
-          <NavLink href="https://civil.co/white-paper/" target="_blank">
-            White Paper
-          </NavLink>
-        </NavDropDown>
-        <NavLink to="/dashboard">My Activity</NavLink>
-        <NavUser>
-          <CvlContainer>
-            <CvlToken />
-            <span>
-              <UserCvlBalance>{props.balance}</UserCvlBalance>
-              <UserCvlVotingBalance>{props.votingBalance}</UserCvlVotingBalance>
-            </span>
-          </CvlContainer>
-          <AvatarContainer>
-            <UserAvatar />
-            <ExpandDownArrow />
-          </AvatarContainer>
-        </NavUser>
-      </NavInner>
-      <NavDrawerComponent
-        balance={props.balance}
-        votingBalance={props.votingBalance}
-        userAccount={props.userAccount}
-        userChallengesVotedOnCount={props.userChallengesVotedOnCount}
-        userChallengesStartedCount={props.userChallengesStartedCount}
-        ethConversion={props.ethConversion}
-        buyCvlUrl={props.buyCvlUrl}
-      />
-    </NavOuter>
-  );
-};
+        </NavLogo>
+        <NavInner>
+          <NavLink to="/registry">Registry</NavLink>
+          <NavLink to="/parameterizer">Parameterizer</NavLink>
+          <NavLink to="/createNewsroom">Create Newsroom</NavLink>
+          <NavDropDown label="How Civil works">
+            <NavLink href="https://civil.co/constitution/" target="_blank">
+              Constitution
+            </NavLink>
+            <NavLink href="https://civil.co/about/" target="_blank">
+              About
+            </NavLink>
+            <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
+              How to launch a newsroom
+            </NavLink>
+            <NavLink href="https://civil.co/white-paper/" target="_blank">
+              White Paper
+            </NavLink>
+          </NavDropDown>
+          <NavLink to="/dashboard">My Activity</NavLink>
+          <NavUser onClick={ev => this.toggle()}>
+            <CvlContainer>
+              <CvlToken />
+              <span>
+                <UserCvlBalance>{this.props.balance}</UserCvlBalance>
+                <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
+              </span>
+            </CvlContainer>
+            <AvatarContainer>
+              <UserAvatar />
+              <Arrow isOpen={this.state.isOpen} />
+            </AvatarContainer>
+          </NavUser>
+        </NavInner>
+        {this.state.isOpen ? (
+          <NavDrawerComponent
+            balance={this.props.balance}
+            votingBalance={this.props.votingBalance}
+            userAccount={this.props.userAccount}
+            userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
+            userChallengesStartedCount={this.props.userChallengesStartedCount}
+            ethConversion={this.props.ethConversion}
+            buyCvlUrl={this.props.buyCvlUrl}
+          />
+        ) : null}
+      </NavOuter>
+    );
+  }
+
+  private toggle(): void {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+}
