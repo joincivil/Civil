@@ -99,6 +99,7 @@ jobs:
         docker:
             - image: civilmedia/gcloud-node:latest
         steps:
+            - checkout
             - attach_workspace:
                 at: /root
             - setup_remote_docker
