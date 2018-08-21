@@ -49,7 +49,7 @@ class CreateNewsroom extends React.Component<
   }
 
   private onCreated = (address: EthAddress) => {
-    this.props.history.push("/mgmt/" + address);
+    this.props.history.push("/mgmt-v1/" + address);
   };
 }
 

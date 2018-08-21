@@ -33,6 +33,13 @@ contract Newsroom is ACL {
   string private constant ROLE_EDITOR = "editor";
 
   mapping(uint => Content) private contents;
+  /*
+  Maps the revision hash to original contentId where it was first used.
+  This is used to prevent replay attacks in which a bad actor reuses an already used signature to sign a new revision of new content.
+  New revisions with the same contentID can reuse signatures by design -> this is to allow the Editors to change the canonical URL (eg, website change).
+  The end-client of those smart-contracts MUST (RFC-Like) verify the content to it's hash and the the hash to the signature.
+  */
+  mapping(bytes32 => UsedSignature) private usedSignatures;
 
   /**
   @notice The number of different contents in this Newsroom, indexed in <0, contentCount) (exclusive) range
@@ -184,27 +191,44 @@ contract Newsroom is ACL {
     require(content.author == 0x0 || content.author == author);
     require(content.revisions.length > revisionId);
 
+    if (contentId == 0) {
+      require(isOwner(msg.sender));
+    }
+
     content.author = author;
 
     Revision storage revision = content.revisions[revisionId];
     revision.signature = signature;
 
-    require(verifyRevisionSignature(author, revision));
+    require(verifyRevisionSignature(author, contentId, revision));
 
     emit RevisionSigned(contentId, revisionId, author);
   }
 
-  function verifyRevisionSignature(address author, Revision storage revision) view internal returns (bool isSigned) {
+  function verifyRevisionSignature(address author, uint contentId, Revision storage revision) internal returns (bool isSigned) {
     if (author == 0x0 || revision.signature.length == 0) {
       require(revision.signature.length == 0);
       return false;
     } else {
+      // The url is is not used in the cryptography by design,
+      // the rationale is that the Author can approve the content and the Editor might need to set the url
+      // after the fact, or things like DNS change, meaning there would be a question of canonical url for that article
+      //
+      // The end-client of this smart-contract MUST (RFC-like) compare the authenticity of the content behind the URL with the hash of the revision
       bytes32 hashedMessage = keccak256(
         address(this),
         revision.contentHash
       ).toEthSignedMessageHash();
 
       require(hashedMessage.recover(revision.signature) == author);
+
+      // Prevent replay attacks
+      UsedSignature storage lastUsed = usedSignatures[hashedMessage];
+      require(lastUsed.wasUsed == false || lastUsed.contentId == contentId);
+
+      lastUsed.wasUsed = true;
+      lastUsed.contentId = contentId;
+
       return true;
     }
   }
@@ -227,7 +251,7 @@ contract Newsroom is ACL {
       signature
     ));
 
-    if (verifyRevisionSignature(content.author, content.revisions[revisionId])) {
+    if (verifyRevisionSignature(content.author, contentId, content.revisions[revisionId])) {
       emit RevisionSigned(contentId, revisionId, content.author);
     }
 
@@ -244,5 +268,11 @@ contract Newsroom is ACL {
     string uri;
     uint timestamp;
     bytes signature;
+  }
+
+  // Since all uints are 0x0 by default, we require additional bool to confirm that the contentID is not equal to content with actualy ID 0x0
+  struct UsedSignature {
+    bool wasUsed;
+    uint contentId;
   }
 }
