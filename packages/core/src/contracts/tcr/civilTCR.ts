@@ -585,9 +585,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     deposit: BigNumber,
     applicationContent: string,
   ): Promise<MultisigProxyTransaction> {
-    const { uri } = await this.contentProvider.put(applicationContent);
+    // const { uri } = await this.contentProvider.put(applicationContent);
 
-    return this.applyWithURI(listingAddress, deposit, uri);
+    return this.applyWithURI(listingAddress, deposit, "");
   }
 
   /**
