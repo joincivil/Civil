@@ -89,10 +89,19 @@ const UserAddress = styled.span`
 `;
 
 const NavDrawerBuyCvlBtn = Button.extend`
+  font-weight: 600;
   margin-top: 20px;
   padding: 15px;
   text-align: center;
   width: 100%;
+`;
+
+const CopyButton = Button.extend`
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  padding: 5px;
 `;
 
 export interface NavDrawerProps {
@@ -105,44 +114,59 @@ export interface NavDrawerProps {
   buyCvlUrl?: string;
 }
 
-export const NavDrawerComponent: React.StatelessComponent<NavDrawerProps> = props => {
-  return (
-    <NavDrawer>
-      <NavDrawerSection>
-        <NavDrawerSectionHeader>Your Public Address</NavDrawerSectionHeader>
-        <UserAddress>{props.userAccount}</UserAddress>
-      </NavDrawerSection>
-      <NavDrawerSection>
-        <NavDrawerSectionHeader>Balance</NavDrawerSectionHeader>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>Total Balance</NavDrawerRowLabel>
-          <NavDrawerRowInfo>
-            <NavDrawerCvlBalance>{props.balance}</NavDrawerCvlBalance>
-            <NavDrawerEthConversion>{props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
-          </NavDrawerRowInfo>
-        </NavDrawerRow>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>Voting Balance</NavDrawerRowLabel>
-          <NavDrawerRowInfo>
-            <NavDrawerCvlVBalance>{props.votingBalance}</NavDrawerCvlVBalance>
-            <NavDrawerEthConversion>{props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
-          </NavDrawerRowInfo>
-        </NavDrawerRow>
-        <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} href={props.buyCvlUrl}>
-          Buy CVL Tokens
-        </NavDrawerBuyCvlBtn>
-      </NavDrawerSection>
-      <NavDrawerSection>
-        <NavDrawerSectionHeader>Dashboard</NavDrawerSectionHeader>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>Submitted Challenges</NavDrawerRowLabel>
-          <NavDrawerPill>{props.userChallengesStartedCount || "0"}</NavDrawerPill>
-        </NavDrawerRow>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>Challenges Voted On</NavDrawerRowLabel>
-          <NavDrawerPill>{props.userChallengesVotedOnCount || "0"}</NavDrawerPill>
-        </NavDrawerRow>
-      </NavDrawerSection>
-    </NavDrawer>
-  );
-};
+export class NavDrawerComponent extends React.Component<NavDrawerProps> {
+  public render(): JSX.Element {
+    return (
+      <NavDrawer>
+        <NavDrawerSection>
+          <NavDrawerSectionHeader>Your Public Address</NavDrawerSectionHeader>
+          <UserAddress>{this.props.userAccount}</UserAddress>
+          <CopyButton size={buttonSizes.SMALL} onClick={ev => this.copyToClipBoard()}>
+            Copy
+          </CopyButton>
+        </NavDrawerSection>
+        <NavDrawerSection>
+          <NavDrawerSectionHeader>Balance</NavDrawerSectionHeader>
+          <NavDrawerRow>
+            <NavDrawerRowLabel>Total Balance</NavDrawerRowLabel>
+            <NavDrawerRowInfo>
+              <NavDrawerCvlBalance>{this.props.balance}</NavDrawerCvlBalance>
+              <NavDrawerEthConversion>{this.props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
+            </NavDrawerRowInfo>
+          </NavDrawerRow>
+          <NavDrawerRow>
+            <NavDrawerRowLabel>Voting Balance</NavDrawerRowLabel>
+            <NavDrawerRowInfo>
+              <NavDrawerCvlVBalance>{this.props.votingBalance}</NavDrawerCvlVBalance>
+              <NavDrawerEthConversion>{this.props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
+            </NavDrawerRowInfo>
+          </NavDrawerRow>
+          <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} href={this.props.buyCvlUrl}>
+            Buy CVL Tokens
+          </NavDrawerBuyCvlBtn>
+        </NavDrawerSection>
+        <NavDrawerSection>
+          <NavDrawerSectionHeader>Dashboard</NavDrawerSectionHeader>
+          <NavDrawerRow>
+            <NavDrawerRowLabel>Submitted Challenges</NavDrawerRowLabel>
+            <NavDrawerPill>{this.props.userChallengesStartedCount || "0"}</NavDrawerPill>
+          </NavDrawerRow>
+          <NavDrawerRow>
+            <NavDrawerRowLabel>Challenges Voted On</NavDrawerRowLabel>
+            <NavDrawerPill>{this.props.userChallengesVotedOnCount || "0"}</NavDrawerPill>
+          </NavDrawerRow>
+        </NavDrawerSection>
+      </NavDrawer>
+    );
+  }
+
+  private copyToClipBoard = () => {
+    const textArea = document.createElement("textarea");
+    const userAccount = this.props.userAccount || "";
+    textArea.innerText = userAccount;
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    textArea.remove();
+  };
+}
