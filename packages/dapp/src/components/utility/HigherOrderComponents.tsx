@@ -12,6 +12,7 @@ import {
   ProgressBarCountdownProps,
   PHASE_TYPE_NAMES,
   PHASE_TYPE_LABEL,
+  PHASE_TYPE_FLAVOR_TEXT,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { setupRejectedListingLatestChallengeSubscription } from "../../actionCreators/listings";
@@ -276,22 +277,33 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
 
   class HOContainer extends React.Component<PhaseCountdownTimerProps & PhaseCountdownReduxProps & DispatchProp<any>> {
     public render(): JSX.Element | null {
-      let displayLabel = "";
+      let displayLabel: string | React.SFC = "";
+      let flavorText;
       let endTime = 0;
       let totalSeconds = 0;
 
       switch (this.props.phaseType) {
         case PHASE_TYPE_NAMES.CHALLENGE_COMMIT_VOTE:
           displayLabel = PHASE_TYPE_LABEL[this.props.phaseType];
+          flavorText = PHASE_TYPE_FLAVOR_TEXT[this.props.phaseType];
           if (this.props.challenge) {
             endTime = this.props.challenge.challenge.poll.commitEndDate.toNumber();
           }
           totalSeconds = this.props.parameters.commitStageLen;
           break;
+        case PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE:
+          displayLabel = PHASE_TYPE_LABEL[this.props.phaseType];
+          flavorText = PHASE_TYPE_FLAVOR_TEXT[this.props.phaseType];
+          if (this.props.challenge) {
+            endTime = this.props.challenge.challenge.poll.revealEndDate.toNumber();
+          }
+          totalSeconds = this.props.parameters.revealStageLen;
+          break;
       }
 
       const props = {
         displayLabel,
+        flavorText,
         endTime,
         totalSeconds,
       };

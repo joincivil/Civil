@@ -64,7 +64,7 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
 
   private renderActivityDetails = (): JSX.Element => {
     const { listingPhaseState, challengeState } = this.props;
-    const { isWhitelisted, isInApplication, canResolveChallenge, inChallengePhase, inRevealPhase } = listingPhaseState;
+    const { isWhitelisted, isInApplication, isRejected, isUnderChallenge, canResolveChallenge, inChallengeCommitVotePhase, inChallengeRevealPhase } = listingPhaseState;
 
     if (!this.props.challenge) {
       if (isInApplication) {
@@ -73,24 +73,28 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
             <p>Awaiting Approval</p>
           </>
         );
-      } else if (!isWhitelisted && !inChallengePhase && !isInApplication) {
+      } else if (isWhitelisted && !isUnderChallenge) {
+        return (
+          <>
+            <p>Accepted into Registry</p>
+          </>
+        );
+      } else if (!isRejected && !isInApplication && !isUnderChallenge) {
         return (
           <>
             <p>Rejected from Registry</p>
           </>
         );
-      } else if (inChallengePhase) {
+      } else if (inChallengeCommitVotePhase) {
         return (
           <>
             <p>Under Challenge > Accepting Votes</p>
-            <p>{this.props.challenge!.challengeID}</p>
           </>
         );
-      } else if (inRevealPhase) {
+      } else if (inChallengeRevealPhase) {
         return (
           <>
             <p>Under Challenge > Revealing Votes</p>
-            <p>{this.props.challenge!.challengeID}</p>
           </>
         );
       } else if (canResolveChallenge) {
@@ -100,27 +104,25 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
           </>
         );
       }
-    } else {
-      if (this.props.challengeState) {
-        if (listingPhaseState && listingPhaseState.inCommitPhase) {
-          return (
-            <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE} challenge={this.props.challenge} />
-          );
-        }
+    } else if (this.props.challengeState) {
+      if (listingPhaseState && inChallengeCommitVotePhase) {
+        return (
+          <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_COMMIT_VOTE} challenge={this.props.challenge} />
+        );
+      }
 
-        if (listingPhaseState && listingPhaseState.inRevealPhase) {
-          return (
-            <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE} challenge={this.props.challenge} />
-          );
-        }
+      if (listingPhaseState && inChallengeRevealPhase) {
+        return (
+          <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE} challenge={this.props.challenge} />
+        );
+      }
 
-        if (challengeState.isResolved) {
-          return (
-            <>
-              <WinningChallengeResults challengeID={this.props.challenge.challengeID} />
-            </>
-          );
-        }
+      if (challengeState.isResolved) {
+        return (
+          <>
+            <WinningChallengeResults challengeID={this.props.challenge.challengeID} />
+          </>
+        );
       }
     }
 
@@ -138,7 +140,7 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
       return ["Resolve Challenge", undefined];
     }
 
-    if (listingPhaseState && !listingPhaseState.isUnderChallenge && userChallengeData) {
+    if (userChallengeData) {
       const {
         didUserCommit,
         didUserReveal,
@@ -148,13 +150,13 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
         didUserRescue,
       } = userChallengeData;
 
-      if (didUserReveal && isVoterWinner && !didUserCollect) {
+      if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && isVoterWinner && !didUserCollect) {
         return ["Claim Rewards", "You voted for the winner"];
-      } else if (didUserReveal && !isVoterWinner) {
+      } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && !isVoterWinner) {
         return ["Claim Rewards", "You did not vote for the winner"];
-      } else if (didUserCommit && !didUserReveal && !didUserRescue) {
+      } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserCommit && !didUserReveal && !didUserRescue) {
         return ["Rescue Tokens", "You did not reveal your vote"];
-      } else if (didUserRescue) {
+      } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserRescue) {
         return ["View Results", "You rescued your tokens"];
       } else if (didUserCollect) {
         const reward = getFormattedTokenBalance(didCollectAmount!);
