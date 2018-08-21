@@ -6,6 +6,16 @@ import { NavDropDown } from "./NavDropDown";
 import { NavDrawerComponent } from "./NavDrawer";
 import { CivilLogo } from "../CivilLogo";
 import { CvlToken } from "../icons/CvlToken";
+import {
+  NavLinkRegistryText,
+  NavLinkParameterizerText,
+  NavLinkCreateNewsroomText,
+  NavLinkConstitutionText,
+  NavLinkAboutText,
+  NavLinkLaunchNewsroomText,
+  NavLinkWhitePaperText,
+  NavLinkDashboardText,
+} from "./textComponents";
 
 export interface NavProps {
   balance: string;
@@ -21,9 +31,8 @@ export interface NavState {
   isOpen: boolean;
 }
 
-export interface NavStateProps {
+export interface NavArrowProps {
   isOpen?: boolean;
-  onClick?(e: any): void;
 }
 
 const NavOuter = styled.div`
@@ -115,10 +124,6 @@ const UserAvatar = styled.figure`
   width: 36px;
 `;
 
-export interface NavArrowProps {
-  isOpen?: boolean;
-}
-
 const Arrow: StyledComponentClass<NavArrowProps, "div"> = styled<NavArrowProps, "div">("div")`
   border-bottom: 2px solid ${colors.basic.WHITE};
   border-left: 2px solid ${colors.basic.WHITE};
@@ -146,24 +151,32 @@ export class NavBar extends React.Component<NavProps, NavState> {
           </NavLink>
         </NavLogo>
         <NavInner>
-          <NavLink to="/registry">Registry</NavLink>
-          <NavLink to="/parameterizer">Parameterizer</NavLink>
-          <NavLink to="/createNewsroom">Create Newsroom</NavLink>
+          <NavLink to="/registry">
+            <NavLinkRegistryText />
+          </NavLink>
+          <NavLink to="/parameterizer">
+            <NavLinkParameterizerText />
+          </NavLink>
+          <NavLink to="/createNewsroom">
+            <NavLinkCreateNewsroomText />
+          </NavLink>
           <NavDropDown label="How Civil works">
             <NavLink href="https://civil.co/constitution/" target="_blank">
-              Constitution
+              <NavLinkConstitutionText />
             </NavLink>
             <NavLink href="https://civil.co/about/" target="_blank">
-              About
+              <NavLinkAboutText />
             </NavLink>
             <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
-              How to launch a newsroom
+              <NavLinkLaunchNewsroomText />
             </NavLink>
             <NavLink href="https://civil.co/white-paper/" target="_blank">
-              White Paper
+              <NavLinkWhitePaperText />
             </NavLink>
           </NavDropDown>
-          <NavLink to="/dashboard">My Activity</NavLink>
+          <NavLink to="/dashboard">
+            <NavLinkDashboardText />
+          </NavLink>
           <NavUser onClick={ev => this.toggle()}>
             <CvlContainer>
               <CvlToken />

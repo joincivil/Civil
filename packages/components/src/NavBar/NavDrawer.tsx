@@ -2,6 +2,16 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { Button, buttonSizes } from "../Button";
+import {
+  NavDrawerBalanceText,
+  NavDrawerTotalBalanceText,
+  NavDrawerVotingBalanceText,
+  NavDrawerCopyBtnText,
+  NavDrawerBuyCvlBtnText,
+  NavDrawerDashboardText,
+  NavDrawerSubmittedChallengesText,
+  NavDrawerVotedChallengesText,
+} from "./textComponents";
 
 const NavDrawer = styled.div`
   background-color: ${colors.primary.BLACK};
@@ -122,37 +132,49 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <NavDrawerSectionHeader>Your Public Address</NavDrawerSectionHeader>
           <UserAddress>{this.props.userAccount}</UserAddress>
           <CopyButton size={buttonSizes.SMALL} onClick={ev => this.copyToClipBoard()}>
-            Copy
+            <NavDrawerCopyBtnText />
           </CopyButton>
         </NavDrawerSection>
         <NavDrawerSection>
-          <NavDrawerSectionHeader>Balance</NavDrawerSectionHeader>
+          <NavDrawerSectionHeader>
+            <NavDrawerBalanceText />
+          </NavDrawerSectionHeader>
           <NavDrawerRow>
-            <NavDrawerRowLabel>Total Balance</NavDrawerRowLabel>
+            <NavDrawerRowLabel>
+              <NavDrawerTotalBalanceText />
+            </NavDrawerRowLabel>
             <NavDrawerRowInfo>
               <NavDrawerCvlBalance>{this.props.balance}</NavDrawerCvlBalance>
               <NavDrawerEthConversion>{this.props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
             </NavDrawerRowInfo>
           </NavDrawerRow>
           <NavDrawerRow>
-            <NavDrawerRowLabel>Voting Balance</NavDrawerRowLabel>
+            <NavDrawerRowLabel>
+              <NavDrawerVotingBalanceText />
+            </NavDrawerRowLabel>
             <NavDrawerRowInfo>
               <NavDrawerCvlVBalance>{this.props.votingBalance}</NavDrawerCvlVBalance>
               <NavDrawerEthConversion>{this.props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
             </NavDrawerRowInfo>
           </NavDrawerRow>
           <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} href={this.props.buyCvlUrl}>
-            Buy CVL Tokens
+            <NavDrawerBuyCvlBtnText />
           </NavDrawerBuyCvlBtn>
         </NavDrawerSection>
         <NavDrawerSection>
-          <NavDrawerSectionHeader>Dashboard</NavDrawerSectionHeader>
+          <NavDrawerSectionHeader>
+            <NavDrawerDashboardText />
+          </NavDrawerSectionHeader>
           <NavDrawerRow>
-            <NavDrawerRowLabel>Submitted Challenges</NavDrawerRowLabel>
+            <NavDrawerRowLabel>
+              <NavDrawerSubmittedChallengesText />
+            </NavDrawerRowLabel>
             <NavDrawerPill>{this.props.userChallengesStartedCount || "0"}</NavDrawerPill>
           </NavDrawerRow>
           <NavDrawerRow>
-            <NavDrawerRowLabel>Challenges Voted On</NavDrawerRowLabel>
+            <NavDrawerRowLabel>
+              <NavDrawerVotedChallengesText />
+            </NavDrawerRowLabel>
             <NavDrawerPill>{this.props.userChallengesVotedOnCount || "0"}</NavDrawerPill>
           </NavDrawerRow>
         </NavDrawerSection>

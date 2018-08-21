@@ -23,7 +23,7 @@ const Arrow = styled.div`
   border-bottom: 2px solid ${colors.basic.WHITE};
   border-left: 2px solid ${colors.basic.WHITE};
   height: 8px;
-  margin: 1px 0 0 5px;
+  margin: 0 0 3px 5px;
   transform: rotate(-45deg);
   width: 8px;
 `;
