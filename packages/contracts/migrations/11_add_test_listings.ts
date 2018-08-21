@@ -21,7 +21,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       const newsroom2 = await Newsroom.new("The Ultra News 2000", "https://fakecharter.com", web3.sha3(), {
         from: accounts[5],
       });
-      await civilTCR.apply(newsroom2.address, config.paramDefaults.minDeposit, "", { from: accounts[6] });
+      await civilTCR.apply(newsroom2.address, config.paramDefaults.minDeposit, "", { from: accounts[5] });
       await civilTCR.challenge(newsroom2.address, "", { from: accounts[5] });
     }
   });
