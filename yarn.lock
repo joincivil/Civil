@@ -6722,9 +6722,9 @@ ipaddr.js@1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.8.0.tgz#eaa33d6ddd7ace8f7f6fe0c9ca0440e706738b1e"
 
-ipfs-api@24.0.0:
-  version "24.0.0"
-  resolved "https://registry.yarnpkg.com/ipfs-api/-/ipfs-api-24.0.0.tgz#376a02bd7cb2a7ecbd194948a818fd02d095b69b"
+ipfs-api@^24.0.0:
+  version "24.0.1"
+  resolved "https://registry.yarnpkg.com/ipfs-api/-/ipfs-api-24.0.1.tgz#887a870cdf55550b93028181cd808adba20aa49b"
   dependencies:
     async "^2.6.1"
     big.js "^5.1.2"
