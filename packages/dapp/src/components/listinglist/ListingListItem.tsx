@@ -6,16 +6,12 @@ import { makeGetListingPhaseState, makeGetListing } from "../../selectors";
 import { ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
+import WhitelistedListingItem from "./WhitelistedListingItem";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
-  even: boolean;
-  user?: string;
-}
-
-export interface ChallengeListingListItemOwnProps {
-  challengeID: string;
   even: boolean;
   user?: string;
 }
@@ -32,10 +28,12 @@ class ListingListItemComponent extends React.Component<
   public render(): JSX.Element {
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
+    const isWhitelisted = listingExists && listingPhaseState.isWhitelisted && !listingPhaseState.isUnderChallenge;
 
     return (
       <>
-        {listingExists && !listingPhaseState.isRejected && this.renderListing()}
+        {isWhitelisted && <WhitelistedListingItem {...this.props} />}
+        {listingExists && !isWhitelisted && !listingPhaseState.isRejected && this.renderListing()}
         {listingExists && listingPhaseState.isRejected && <RejectedListing {...this.props} />}
       </>
     );
@@ -52,6 +50,8 @@ class ListingListItemComponent extends React.Component<
     const pollData = listingData.challenge && listingData.challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
+    const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
+    const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
     const newsroomData = newsroom!.wrapper.data;
     const listingDetailURL = `/listing/${listingAddress}`;
@@ -65,6 +65,8 @@ class ListingListItemComponent extends React.Component<
       appExpiry,
       commitEndDate,
       revealEndDate,
+      unstakedDeposit,
+      challengeStake,
     };
 
     return <ListingSummaryComponent {...listingViewProps} />;
@@ -99,14 +101,8 @@ const makeMapStateToProps = () => {
     ownProps: ListingListItemOwnProps,
   ): ListingListItemReduxProps & ListingListItemOwnProps => {
     const { newsrooms } = state;
-    const { user } = state.networkDependent;
     const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
     const listing = getListing(state, ownProps);
-
-    let userAcct = ownProps.user;
-    if (!userAcct) {
-      userAcct = user.account.account;
-    }
 
     return {
       newsroom,
