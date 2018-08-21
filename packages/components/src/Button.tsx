@@ -47,6 +47,7 @@ export interface ButtonTheme {
   darkButtonTextTransform?: string;
   borderlessButtonColor?: string;
   borderlessButtonHoverColor?: string;
+  sansSerifFont?: string;
 }
 
 const PRIMARY_BUTTON_DEFAULT_THEME = {
@@ -57,6 +58,7 @@ const PRIMARY_BUTTON_DEFAULT_THEME = {
   primaryButtonDisabledBackground: colors.accent.CIVIL_BLUE_VERY_FADED,
   primaryButtonDisabledColor: colors.basic.WHITE,
   primaryButtonTextTransform: "uppercase",
+  sansSerifFont: fonts.SANS_SERIF,
 };
 
 const INVERTED_BUTTON_DEFAULT_THEME = {
@@ -144,7 +146,7 @@ const BaseButton = styled(ButtonComponent)`
   text-decoration: none;
   border-radius: 2px;
   padding: ${props => sizesObject[props.size || buttonSizes.LARGE]};
-  font-family: ${fonts.SANS_SERIF};
+  font-family: ${props => props.theme.sansSerifFont};
   cursor: pointer;
   border: none;
   letter-spacing: ${props => spacingObject[props.size || buttonSizes.LARGE]};
@@ -239,7 +241,7 @@ export const CancelButton = SecondaryButton.extend`
 
 export const BorderlessButton = Button.extend`
   border: none;
-  font-family: ${fonts.SANS_SERIF};
+  font-family: ${props => props.theme.sansSerifFont};
   color: ${props => props.theme.borderlessButtonColor};
   font-weight: 700;
   margin-left: 8px;
