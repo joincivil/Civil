@@ -21,30 +21,25 @@ contract("AddressRegistry", accounts => {
 
     it("should return true if applicationExpiry was previously initialized", async () => {
       // Apply
-      console.log("111");
       await registry.apply(listing2, minDeposit, "", { from: applicant });
       const result = await registry.appWasMade(listing2);
       expect(result).to.be.true("should have returned true for the applied listing");
 
-      console.log("222");
       // Commit stage complete
       await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
       const resultTwo = await registry.appWasMade(listing2);
       expect(resultTwo).to.be.true("should have returned true because app is still not expired");
 
-      console.log("333");
       await registry.updateStatus(listing2, { from: applicant });
       const [, isWhitelisted] = await registry.listings(listing2);
       expect(isWhitelisted).to.be.true("should have been whitelisted");
       const resultThree = await registry.appWasMade(listing2);
       expect(resultThree).to.be.true("should have returned true because its whitelisted");
 
-      console.log("444");
       // Exit
       await registry.exit(listing2, { from: applicant });
       const resultFour = await registry.appWasMade(listing2);
       expect(resultFour).to.be.false("should have returned false because exit");
-      console.log("555");
     });
 
     it("should return false if applicationExpiry was uninitialized", async () => {
