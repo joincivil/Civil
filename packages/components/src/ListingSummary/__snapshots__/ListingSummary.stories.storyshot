@@ -4,7 +4,7 @@ exports[`Storyshots Listing Summary Card 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bMvGRv dvdKYI",
+      "class": "sc-TFwJa fFggYu",
     },
     "children": Array [
       Object {
@@ -310,7 +310,7 @@ initialize {
                       },
                       "children": Array [
                         Object {
-                          "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                          "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -365,7 +365,7 @@ initialize {
                     },
                     "children": Array [
                       Object {
-                        "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                        "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -760,7 +760,7 @@ exports[`Storyshots Listing Summary Card Grid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bMvGRv dvdKYI",
+      "class": "sc-TFwJa fFggYu",
     },
     "children": Array [
       Object {
@@ -768,7 +768,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-rBLzX fuTJWw",
+              "class": "sc-fjmCvl HNqTg",
             },
             "children": Array [
               Object {
@@ -1071,7 +1071,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -1126,7 +1126,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                            "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -1757,7 +1757,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -1812,7 +1812,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -2443,7 +2443,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -2498,7 +2498,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -3129,7 +3129,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -3184,7 +3184,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -3815,7 +3815,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                      "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -3870,7 +3870,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -4501,7 +4501,7 @@ initialize {
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                        "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -4556,7 +4556,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                      "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -5248,7 +5248,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -5303,7 +5303,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                            "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -5934,7 +5934,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -5989,7 +5989,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -6620,7 +6620,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -6675,7 +6675,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -7306,7 +7306,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -7361,7 +7361,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -7992,7 +7992,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                      "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -8047,7 +8047,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -8720,7 +8720,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -8775,7 +8775,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -9425,7 +9425,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -9480,7 +9480,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                            "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -10111,7 +10111,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -10166,7 +10166,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -10797,7 +10797,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -10852,7 +10852,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -11483,7 +11483,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -11538,7 +11538,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -12201,7 +12201,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -12256,7 +12256,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -12889,7 +12889,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -12944,7 +12944,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -13602,7 +13602,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -13657,7 +13657,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                            "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -14288,7 +14288,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -14343,7 +14343,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -14974,7 +14974,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -15029,7 +15029,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -15682,7 +15682,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -15737,7 +15737,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -16370,7 +16370,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -16425,7 +16425,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -17058,7 +17058,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -17113,7 +17113,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -17779,7 +17779,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -17834,7 +17834,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                            "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -18465,7 +18465,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -18520,7 +18520,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -19163,7 +19163,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -19218,7 +19218,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -19851,7 +19851,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -19906,7 +19906,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -20539,7 +20539,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -20594,7 +20594,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -21227,7 +21227,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                      "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -21282,7 +21282,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -21956,7 +21956,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -22011,7 +22011,7 @@ initialize {
                         },
                         "children": Array [
                           Object {
-                            "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                            "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -22644,7 +22644,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -22699,7 +22699,7 @@ initialize {
                           },
                           "children": Array [
                             Object {
-                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -23332,7 +23332,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -23387,7 +23387,7 @@ initialize {
                             },
                             "children": Array [
                               Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -24020,7 +24020,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -24075,7 +24075,7 @@ initialize {
                               },
                               "children": Array [
                                 Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -24708,7 +24708,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                      "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -24763,7 +24763,7 @@ initialize {
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -25396,7 +25396,7 @@ initialize {
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                        "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -25451,7 +25451,7 @@ initialize {
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+                                      "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -25900,7 +25900,7 @@ exports[`Storyshots Listing Summary Card Rejected 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bMvGRv dvdKYI",
+      "class": "sc-TFwJa fFggYu",
     },
     "children": Array [
       Object {

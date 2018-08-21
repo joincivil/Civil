@@ -180,6 +180,7 @@ export const makeGetListingPhaseState = () => {
     const isInAppealChallengeRevealPhase = getIsInAppealChallengeRevealPhase(listingData);
     const canListingAppealChallengeBeResolved = getCanListingAppealChallengeBeResolved(listingData);
 
+    const isUnderChallenge = listingData.challenge && !listingData.challenge.resolved;
     const isWhitelisted = listingData.isWhitelisted;
     const isRejected = !isWhitelisted && !isInApplication && !canBeWhitelisted && !listingData.challenge;
 
@@ -191,6 +192,7 @@ export const makeGetListingPhaseState = () => {
       inChallengeCommitVotePhase,
       inChallengeRevealPhase,
       isWhitelisted,
+      isUnderChallenge,
       isRejected,
       isAwaitingAppealJudgment,
       isAwaitingAppealChallenge,
