@@ -1,3 +1,5 @@
+import * as React from "react";
+
 export interface CountdownTimerProps {
   warn?: boolean | undefined;
   endTime: number;
@@ -12,12 +14,12 @@ export interface CountdownTimerState {
 }
 
 export interface ProgressBarCountdownProps extends CountdownTimerProps {
-  displayLabel: string;
+  displayLabel: string | React.SFC | React.ComponentClass;
   totalSeconds: number;
-  flavorText?: string;
+  flavorText?: string | React.SFC | React.ComponentClass;
 }
 
 export interface TwoPhaseProgressBarCountdownProps extends ProgressBarCountdownProps {
   activePhaseIndex: number;
-  secondaryDisplayLabel: string;
+  secondaryDisplayLabel: string | React.SFC | React.ComponentClass;
 }

@@ -4,7 +4,7 @@ exports[`Storyshots Messages Info Message 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-itybZL jeXGSq",
+      "class": "sc-fzsDOv fjYEgv",
     },
     "children": Array [
       Object {
@@ -12,7 +12,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-dTdPqK iLbmyK",
+              "class": "sc-eMigcr ebTlev",
             },
             "children": Array [
               Object {

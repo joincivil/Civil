@@ -104,7 +104,7 @@ const AddRevealPhaseToCalendar: React.SFC<ReviewVoteProps> = props => {
     ${getSaltyWords(props.salt)}\n\n
     Challenge ID ${props.challengeID}\n
     I voted for ${props.newsroomName} to be ${
-    props.voteOption === "1" ? "rejected from" : "accepted to"
+    props.voteOption === "0" ? "rejected from" : "accepted to"
   } the Civil Registry\n\n
     My Deposited CVL\n
     ${props.numTokens}

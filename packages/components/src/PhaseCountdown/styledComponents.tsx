@@ -75,3 +75,16 @@ export const ProgressBarCopy = styled.div`
   letter-spacing: 0.68px;
   line-height: 20px;
 `;
+
+export const CompactProgressBarDisplayLabel = styled.h4`
+  font-size: 12px;
+  line-height: 15px;
+  margin: 0 0 7px;
+  text-transform: uppercase;
+`;
+
+export const CompactMetaItemValueAccent = styled.div`
+  color: ${colors.accent.CIVIL_RED};
+  font-size: 14px;
+  line-height: 17px;
+`;
