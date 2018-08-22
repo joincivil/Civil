@@ -75,7 +75,6 @@ export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInf
         <StyledUserInfoSectionLabel>Voting balance</StyledUserInfoSectionLabel>
         <StyledUserInfoSectionValue>
           <strong>{props.votingBalance}</strong>
-          xxx USD xxx ETH
         </StyledUserInfoSectionValue>
       </StyledUserInfoSection>
 
