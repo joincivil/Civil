@@ -86,7 +86,7 @@ const NavDrawerCvlVBalance = styled.div`
 
 const UserAddress = styled.span`
   color: ${colors.basic.WHITE};
-  font-family: ${fonts.COURIER};
+  font-family: ${fonts.MONOSPACE};
   font-size: 16px;
   font-weight: 800;
   line-height: 26px;

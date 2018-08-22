@@ -145,8 +145,6 @@ export class NavBar extends React.Component<NavProps, NavState> {
     super(props);
 
     this.state = { isOpen: false };
-
-    this.toggle = this.toggle.bind(this);
   }
 
   public render(): JSX.Element {
@@ -214,7 +212,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
     );
   }
 
-  private toggle(): void {
+  private toggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
-  }
+  };
 }
