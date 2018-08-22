@@ -84,11 +84,6 @@ const NavDrawerCvlVBalance = styled.div`
   line-height: 19px;
 `;
 
-const NavDrawerEthConversion = styled.div`
-  font-size: 12px;
-  font-weight: 600;
-`;
-
 const UserAddress = styled.span`
   color: ${colors.basic.WHITE};
   font-family: ${fonts.COURIER};
@@ -120,7 +115,6 @@ export interface NavDrawerProps {
   userAccount?: string;
   userChallengesVotedOnCount?: string;
   userChallengesStartedCount?: string;
-  ethConversion?: string;
   buyCvlUrl?: string;
 }
 
@@ -145,7 +139,6 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
               <NavDrawerCvlBalance>{this.props.balance}</NavDrawerCvlBalance>
-              <NavDrawerEthConversion>{this.props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
             </NavDrawerRowInfo>
           </NavDrawerRow>
           <NavDrawerRow>
@@ -154,7 +147,6 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
               <NavDrawerCvlVBalance>{this.props.votingBalance}</NavDrawerCvlVBalance>
-              <NavDrawerEthConversion>{this.props.ethConversion || "xxx USD to xxx ETH"}</NavDrawerEthConversion>
             </NavDrawerRowInfo>
           </NavDrawerRow>
           <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} href={this.props.buyCvlUrl}>

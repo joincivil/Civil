@@ -23,7 +23,6 @@ export interface NavProps {
   userAccount?: string;
   userChallengesVotedOnCount?: string;
   userChallengesStartedCount?: string;
-  ethConversion?: string;
   buyCvlUrl?: string;
 }
 
@@ -207,7 +206,6 @@ export class NavBar extends React.Component<NavProps, NavState> {
             userAccount={this.props.userAccount}
             userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
             userChallengesStartedCount={this.props.userChallengesStartedCount}
-            ethConversion={this.props.ethConversion}
             buyCvlUrl={this.props.buyCvlUrl}
           />
         ) : null}
