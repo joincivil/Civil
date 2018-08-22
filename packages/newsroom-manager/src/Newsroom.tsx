@@ -1,5 +1,5 @@
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ButtonTheme, colors, fonts, FormHeading, StepProcess, WalletOnboarding } from "@joincivil/components";
+import { ButtonTheme, colors, fonts, StepProcess, WalletOnboarding } from "@joincivil/components";
 import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -38,7 +38,7 @@ export interface NewsroomProps {
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
-  color: ${(props: {disabled: boolean}) => props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3};
+  color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
 `;
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
@@ -46,14 +46,14 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
 `;
 
 const P = styled.p`
-  color: ${(props: {disabled: boolean}) => props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK};
+  color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
 const Heading = styled.h3`
   font-family: ${props => props.theme.sansSerifFont};
   font-size: 18px;
   font-weight: bold;
-  color: ${(props: {disabled: boolean}) => props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK};
+  color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
 Heading.defaultProps = {
@@ -115,10 +115,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               txHash={this.props.txHash}
               onContractDeployStarted={this.props.onContractDeployStarted}
             />
-            <CompleteYourProfile
-              address={this.props.address}
-              renderUserSearch={this.props.renderUserSearch}
-            />
+            <CompleteYourProfile address={this.props.address} renderUserSearch={this.props.renderUserSearch} />
             {/* <CreateCharter /> */}
             {/* <SignConstitution address={this.props.address} active={this.state.currentStep} /> */}
             {/* <ApplyToTCR /> */}

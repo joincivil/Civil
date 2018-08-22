@@ -37,7 +37,7 @@ StepStyled.defaultProps = {
   theme: {
     sansSerifFont: fonts.SANS_SERIF,
   },
-}
+};
 
 export const StepStyledFluid = StepStyled.extend`
   padding-left: 0;

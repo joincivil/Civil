@@ -10,7 +10,7 @@ export interface ComponentProps {
 
 export const SectionHeader = styled<ComponentProps, "h4">("h4")`
   font-family: ${props => props.theme.sansSerifFont};
-  font-weight: ${props => props.active ? props.theme.stepHeaderWeightHeavy : props.theme.stepHeaderWeightLight};
+  font-weight: ${props => (props.active ? props.theme.stepHeaderWeightHeavy : props.theme.stepHeaderWeightLight)};
   font-size: 18px;
   margin-top: 0;
   margin-bottom: 15px;
@@ -27,7 +27,7 @@ SectionHeader.defaultProps = {
 
 export interface StepHeaderTheme {
   stepHeaderWeight: number;
-  stepHeaderWeightHeavy: number,
+  stepHeaderWeightHeavy: number;
 }
 
 export interface StepHeaderProps {

@@ -126,7 +126,11 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     if (!this.props.address) {
       return null;
     }
-    return <Success><GreenCheckMark/></Success>;
+    return (
+      <Success>
+        <GreenCheckMark />
+      </Success>
+    );
   }
 
   public renderPreMetamaskCreateModal(): JSX.Element | null {
@@ -289,7 +293,9 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             disabled={this.props.disabled}
             header={
               <>
-                <StepHeader active={this.props.active} disabled={this.props.disabled}>Set up a newsroom</StepHeader>
+                <StepHeader active={this.props.active} disabled={this.props.disabled}>
+                  Set up a newsroom
+                </StepHeader>
                 <Description disabled={this.props.disabled}>
                   Enter your newsroom name to create your newsroom smart contract.
                 </Description>
