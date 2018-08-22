@@ -141,7 +141,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
   public render(): JSX.Element {
     const { challenge, userChallengeData, userAppealChallengeData } = this.props;
-    const { inChallengePhase, inRevealPhase } = this.props.challengeState;
+    const { inCommitPhase, inRevealPhase } = this.props.challengeState;
     const appealExists = doesChallengeHaveAppeal(challenge);
     const canShowResult = challenge.resolved;
 
@@ -151,12 +151,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       didUserCommit(userAppealChallengeData) && challenge.appeal!.appealChallenge!.resolved;
     return (
       <>
-        {inChallengePhase && this.renderCommitStage()}
+        {inCommitPhase && this.renderCommitStage()}
         {inRevealPhase && this.renderRevealStage()}
         {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
         {canShowResult && this.renderVoteResult()}
         {appealExists && this.renderAppeal()}
-        {canShowRewardsForm && !inChallengePhase && !inRevealPhase && this.renderRewardsDetail()}
+        {canShowRewardsForm && !inCommitPhase && !inRevealPhase && this.renderRewardsDetail()}
         {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail()}
       </>
     );
