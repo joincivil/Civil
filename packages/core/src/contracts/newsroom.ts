@@ -8,11 +8,13 @@ import {
   prepareNewsroomMessage,
   prepareUserFriendlyNewsroomMessage,
   recoverSigner,
+  promisify,
+  estimateRawHex,
 } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs";
-import { TransactionReceipt } from "web3";
+import { TransactionReceipt, Transaction } from "web3";
 import { ContentProvider } from "../content/contentprovider";
 import {
   ApprovedRevision,
@@ -29,6 +31,7 @@ import {
   StorageHeader,
   TwoStepEthTransaction,
   TxData,
+  TxDataAll,
   TxHash,
   Uri,
 } from "../types";
@@ -47,6 +50,9 @@ import {
   findEventOrThrow,
   findEvents,
 } from "./utils/contracts";
+import * as zlib from "zlib";
+import { bufferToHex, toBuffer, setLengthLeft, addHexPrefix } from "ethereumjs-util";
+import { ETXTBSY } from "constants";
 
 const debug = Debug("civil:newsroom");
 
@@ -469,6 +475,57 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.multisigProxy.setName.sendTransactionAsync(newName);
   }
 
+  public async publishWithArchive(
+    content: any,
+    hash: string,
+    author: string = "",
+    signature: string = "",
+  ): Promise<any> {
+    const findContentId = (receipt: CivilTransactionReceipt) =>
+      findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
+
+    const revision = typeof content === "string" ? content : JSON.stringify(content);
+    const baseGas = await this.instance.publishContent.estimateGasAsync("self-tx:1.0", "", author, signature, {});
+    const txData = await this.instance.publishContent.getRaw("self-tx:1.0", hash, author, signature, { gas: baseGas });
+    const deflate = promisify<Buffer>(zlib.deflate);
+    const buffer = await deflate(revision);
+    const hex = bufferToHex(buffer);
+    const length = bufferToHex(setLengthLeft(toBuffer(txData.data!.length), 8));
+    const extra = hex.substr(2) + length.substr(2);
+    const additionalGas = estimateRawHex(extra);
+
+    txData.data = txData.data + extra;
+    txData.gas = baseGas + additionalGas;
+    return createTwoStepTransaction(
+      this.ethApi,
+      await this.ethApi.sendTransaction(txData),
+      findContentId
+    );
+  }
+
+  public async recoverArchiveTx(tx: Transaction): Promise<string> {
+    const inflate = promisify<string>(zlib.inflate);
+    const txDataLength = parseInt(
+      addHexPrefix(
+        tx.input.substr(tx.input.length - 16)
+      ),
+      16
+    );
+    const content = addHexPrefix(tx.input.substr(txDataLength, tx.input.length - 16));
+    return (await inflate(toBuffer(content))).toString();
+  }
+
+  public txArchiveForContentId(contentId: number, revisionId: number): Observable<any> {
+    const myContentId = this.ethApi.toBigNumber(contentId);
+    const myRevisionId = this.ethApi.toBigNumber(revisionId);
+    return this.instance
+      .RevisionUpdatedStream({ contentId: myContentId, revisionId: myRevisionId }, { fromBlock: 0 })
+      .concatMap(async (item) => {
+        const transaction = await this.ethApi.getTransaction(item.transactionHash);
+        return this.recoverArchiveTx(transaction);
+      });
+  }
+
   public async publishURIAndHash(
     uri: string,
     hash: string,
@@ -485,7 +542,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       );
     } else {
       await this.requireEditor();
-
+      console.log("here");
       return createTwoStepTransaction(
         this.ethApi,
         await this.instance.publishContent.sendTransactionAsync(uri, hash, author, signature),

@@ -124,7 +124,7 @@ export class EthApi {
     return sendTransactionAsync(txData);
   }
 
-  public async getTransaction(txHash: TxHash): Promise<any> {
+  public async getTransaction(txHash: TxHash): Promise<Web3.Transaction> {
     const getTransactionAsync = promisify<any>(this.web3.eth.getTransaction, this.web3.eth);
     return getTransactionAsync(txHash);
   }

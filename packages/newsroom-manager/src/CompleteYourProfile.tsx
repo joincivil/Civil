@@ -311,16 +311,13 @@ class CompleteYourProfileComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    console.log(this.props.active);
     return (
       <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
         <CollapsableWrapper>
           <Collapsable
             header={
               <>
-                <StepHeader active={this.props.active} disabled={this.props.disabled}>
-                  Add accounts to your newsroom contract
-                </StepHeader>
+                <StepHeader active={this.props.active} disabled={this.props.disabled}>Add accounts to your newsroom contract</StepHeader>
                 <Description disabled={this.props.disabled}>
                   Add additional officers and editors to your newsroom contract. You will need their wallet addresses.
                   This step is optional, but recommended.
