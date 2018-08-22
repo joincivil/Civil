@@ -12,11 +12,14 @@ cost of deployment (specifically to minimize the size of the IGovernment interfa
 @author Nick Reynolds - nick@joincivil.com
 */
 contract Government is IGovernment {
-  event AppellateSet(address newAppellate);
-  event ParameterSet(string name, uint value);
+  event _AppellateSet(address newAppellate);
+  event _ParameterSet(string name, uint value);
   event _GovtReparameterizationProposal(string name, uint value, bytes32 propID, uint pollID);
   event _ProposalPassed(bytes32 propId, uint pollID);
   event _ProposalFailed(bytes32 propId, uint pollID);
+  event _NewConstProposal(bytes32 proposedHash, string proposedURI, uint pollID);
+  event _NewConstProposalPassed(bytes32 constHash, string constURI);
+  event _NewConstProposalFailed(bytes32 constHash, string constURI);
   
   modifier onlyGovernmentController {
     require(msg.sender == governmentController);
@@ -35,7 +38,13 @@ contract Government is IGovernment {
     string name;
     uint processBy;
     uint value;
-    bool resolved;
+  }
+
+  struct NewConstProposal {
+    uint pollID;
+    bytes32 newConstHash;
+    string newConstURI;
+    uint processBy;
   }
 
   address public appellate;
@@ -44,6 +53,7 @@ contract Government is IGovernment {
   string public constitutionURI;
   mapping(bytes32 => uint) public params;
   mapping(bytes32 => GovtParamProposal) public proposals;
+  NewConstProposal activeConstProp;
 
   // Global Variables
   EIP20Interface public token;
@@ -139,21 +149,57 @@ contract Government is IGovernment {
       processBy: now.add(get("govtPCommitStageLen"))
         .add(get("govtPRevealStageLen"))
         .add(PROCESSBY),
-      value: _value,
-      resolved: false
+      value: _value
     });
 
     emit _GovtReparameterizationProposal(_name, _value, propID, pollID);
     return propID;
   }
 
+    /**
+  @notice propose a new constitution to be voted on.
+  @param _newConstHash the hash of the proposed constitution
+  @param _newConstURI the URI of the proposed constitution
+  */
+  function proposeNewConstitution(bytes32 _newConstHash, string _newConstURI) public onlyAppellate {
+    require(activeConstProp.processBy == 0); // no active proposal
+    //start poll
+    uint pollID = voting.startPoll(
+      get("appealVotePercentage"),
+      get("govtPCommitStageLen"),
+      get("govtPRevealStageLen")
+    );
+    // attach name and value to pollID
+    activeConstProp = NewConstProposal({
+      pollID: pollID,
+      newConstHash: _newConstHash,
+      newConstURI: _newConstURI,
+      processBy: now.add(get("govtPCommitStageLen"))
+        .add(get("govtPRevealStageLen"))
+        .add(PROCESSBY)
+    });
+
+    emit _NewConstProposal(_newConstHash, _newConstURI, pollID);
+  }
+
   /**
-  @notice             for the provided proposal ID, set it, resolve its challenge, or delete it depending on whether it can be set, has a challenge which can be resolved, or if its "process by" date has passed
-  @param _propID      the proposal ID to make a determination and state transition for
+  @notice for the provided proposal ID, set it, resolve its vote, or delete it depending on whether it can be set, has a vote which can be resolved, or if its "process by" date has passed
+  @param _propID the proposal ID to make a determination and state transition for
   */
   function processProposal(bytes32 _propID) public {
     if (propCanBeResolved(_propID)) {
       resolveProposal(_propID);
+    } else {
+      revert();
+    }
+  }
+
+  /**
+  @notice try to process a constitution change proposal
+  */
+  function processConstChangeProp() public {
+    if (constChangePropCanBeResolved()) {
+      resolveConstChangeProp();
     } else {
       revert();
     }
@@ -168,13 +214,11 @@ contract Government is IGovernment {
   }
 
   /**
-  @dev resolves a challenge for the provided _propID. It must be checked in advance whether the _propID has a challenge on it
-  @param _propID the proposal ID whose challenge is to be resolved.
+  @dev resolves a proposal for the provided _propID.
+  @param _propID the proposal ID that is to be resolved.
   */
   function resolveProposal(bytes32 _propID) private {
     GovtParamProposal storage prop = proposals[_propID];
-
-    prop.resolved = true;
 
     if (voting.isPassed(prop.pollID)) { // The challenge failed
       if (prop.processBy > now) {
@@ -187,6 +231,23 @@ contract Government is IGovernment {
     delete proposals[_propID];
   }
 
+
+  /**
+  @dev resolves a vote for a proposed constitution change
+  */
+  function resolveConstChangeProp() private {
+    if (voting.isPassed(activeConstProp.pollID)) { // The challenge failed
+      if (activeConstProp.processBy > now) {
+        constitutionHash = activeConstProp.newConstHash;
+        constitutionURI = activeConstProp.newConstURI;
+      }
+      emit _NewConstProposalPassed(activeConstProp.newConstHash, activeConstProp.newConstURI);
+    } else { // The challenge succeeded or nobody voted
+      emit _NewConstProposalFailed(activeConstProp.newConstHash, activeConstProp.newConstURI);
+    }
+    delete activeConstProp;
+  }
+
   /**
   @notice Determines whether the provided proposal ID can be resolved
   @param _propID The ID of proposal to inspect
@@ -194,7 +255,11 @@ contract Government is IGovernment {
   function propCanBeResolved(bytes32 _propID) view public returns (bool) {
     GovtParamProposal memory prop = proposals[_propID];
 
-    return (prop.pollID > 0 && prop.resolved == false && voting.pollEnded(prop.pollID));
+    return (prop.pollID > 0 && voting.pollEnded(prop.pollID));
+  }
+
+  function constChangePropCanBeResolved() view public returns (bool) {
+    return (activeConstProp.pollID > 0 && voting.pollEnded(activeConstProp.pollID));
   }
 
   /**
@@ -206,7 +271,7 @@ contract Government is IGovernment {
   */
   function set(string name, uint value) internal {
     params[keccak256(name)] = value;
-    emit ParameterSet(name, value);
+    emit _ParameterSet(name, value);
   }
 
   /**
@@ -216,6 +281,6 @@ contract Government is IGovernment {
   function setAppellate(address newAppellate) external onlyGovernmentController {
     require(newAppellate != 0);
     appellate = newAppellate;
-    emit AppellateSet(newAppellate);
+    emit _AppellateSet(newAppellate);
   }
 }
