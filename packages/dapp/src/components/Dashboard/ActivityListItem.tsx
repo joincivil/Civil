@@ -139,9 +139,14 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
 
   private getButtonText = (): [string, string | JSX.Element | undefined] => {
     const { listingAddress, listingPhaseState, userChallengeData } = this.props;
+    console.log(this.props);
 
-    if (listingPhaseState && listingPhaseState.inRevealPhase && userChallengeData && userChallengeData.didUserCommit) {
-      return ["Reveal Vote", undefined];
+    if (listingPhaseState && listingPhaseState.inChallengeRevealPhase && userChallengeData) {
+      if (userChallengeData.didUserCommit && !userChallengeData.didUserReveal) {
+        return ["Reveal Vote", undefined];
+      } else {
+        return ["View", "You revealed your vote"];
+      }
     }
 
     if (listingPhaseState && listingPhaseState.canResolveChallenge) {
