@@ -21,7 +21,9 @@
     "appealChallengeRevealStageLength": 16000,
     "appealSupermajorityPercentage": 66,
     "govtPCommitStageLength": 1800,
-    "govtPRevealStageLength": 1800
+    "govtPRevealStageLength": 1800,
+    "constitutionURI": "http://madeupURL.com",
+    "constitutionHash": "0x3595a4bac2650127ce23cf4cbb67c6bd3cf311de5dc84d4bfc35efb5f99505d2"
   },
   "nets": {
     "mainnet": {},
