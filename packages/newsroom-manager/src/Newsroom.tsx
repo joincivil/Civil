@@ -1,5 +1,5 @@
-import { ButtonTheme, colors, FormHeading, StepProcess, WalletOnboarding } from "@joincivil/components";
 import { hasInjectedProvider } from "@joincivil/ethapi";
+import { ButtonTheme, colors, fonts, StepProcess, WalletOnboarding } from "@joincivil/components";
 import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -38,13 +38,29 @@ export interface NewsroomProps {
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
-  font-style: italic;
-  color: ${colors.accent.CIVIL_GRAY_2};
+  color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
 `;
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   max-width: 750px;
 `;
+
+const P = styled.p`
+  color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
+`;
+
+const Heading = styled.h3`
+  font-family: ${props => props.theme.sansSerifFont};
+  font-size: 18px;
+  font-weight: bold;
+  color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
+`;
+
+Heading.defaultProps = {
+  theme: {
+    sansSerifFont: fonts.SANS_SERIF,
+  },
+};
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
   constructor(props: NewsroomProps) {
@@ -71,14 +87,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public render(): JSX.Element {
-    const manager = this.props.civil ? (
+    const disabled = this.isDisabled();
+    const manager = (
       <>
-        <FormHeading>Newsroom Smart Contract</FormHeading>
-        <p>
+        <Heading disabled={disabled}>Newsroom Smart Contract</Heading>
+        <P disabled={disabled}>
           Here are the steps to set up your newsroom smart contract. You'll be able to use Civil's blockchain features
           such as indexing and signing posts.
-        </p>
-        <NoteSection>
+        </P>
+        <NoteSection disabled={disabled}>
           Note: Each step will involve a transaction from your wallet, which will open in a new pop-up window in
           MetaMask. You'll need to confirm the transaction
         </NoteSection>
@@ -90,27 +107,22 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-          <StepProcess disabled={this.isDisabled()} stepIsDisabled={this.isStepDisabled}>
+          <StepProcess disabled={disabled} activeIndex={this.state.currentStep} stepIsDisabled={this.isStepDisabled}>
             <NameAndAddress
-              active={this.state.currentStep}
               onNewsroomCreated={this.onNewsroomCreated}
               name={this.props.name}
               address={this.props.address}
               txHash={this.props.txHash}
               onContractDeployStarted={this.props.onContractDeployStarted}
             />
-            <CompleteYourProfile
-              active={this.state.currentStep}
-              address={this.props.address}
-              renderUserSearch={this.props.renderUserSearch}
-            />
+            <CompleteYourProfile address={this.props.address} renderUserSearch={this.props.renderUserSearch} />
             {/* <CreateCharter /> */}
             {/* <SignConstitution address={this.props.address} active={this.state.currentStep} /> */}
             {/* <ApplyToTCR /> */}
           </StepProcess>
         </CivilContext.Provider>
       </>
-    ) : null;
+    );
 
     return (
       <ThemeProvider theme={this.props.theme}>
