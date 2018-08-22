@@ -3,36 +3,54 @@ import styled, { StyledComponentClass } from "styled-components";
 
 import { fonts } from "./styleConstants";
 
+const headingDefaultProps = {
+  theme: {
+    sansSerifFont: fonts.SANS_SERIF,
+    serifFont: fonts.SERIF,
+  },
+};
+
 export const Heading = styled.h1`
-  font-family: ${fonts.SERIF};
+  font-family: ${props => props.theme.serifFont};
   font-size: 24px;
   font-weight: 300;
   margin: 5px 0;
 `;
+
+Heading.defaultProps = headingDefaultProps;
+
 export const SectionHeading = styled.h1`
-  font-family: ${fonts.SERIF};
+  font-family: ${props => props.theme.serifFont};
   font-size: 22px;
   font-weight: 700;
   margin: 15px 0;
 `;
 
+SectionHeading.defaultProps = headingDefaultProps;
+
 export const SubHeading = styled.h2`
-  font-family: ${fonts.SERIF};
+  font-family: ${props => props.theme.serifFont};
   font-weight: 200;
   font-size: 20px;
   margin: 0;
 `;
 
+SubHeading.defaultProps = headingDefaultProps;
+
 export const BlockHeading = styled.h3`
-  font-family: ${fonts.SANS_SERIF};
+  font-family: ${props => props.theme.sansSerifFont};
   font-weight: 600;
   font-size: 15px;
   text-transform: uppercase;
   margin: 0;
 `;
 
+BlockHeading.defaultProps = headingDefaultProps;
+
 export const FormHeading = styled.h3`
-  font-family: ${fonts.SANS_SERIF};
+  font-family: ${props => props.theme.sansSerifFont};
   font-weight: 400;
   font-size: 24px;
 `;
+
+FormHeading.defaultProps = headingDefaultProps;

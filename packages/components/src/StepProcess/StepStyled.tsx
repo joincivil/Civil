@@ -13,7 +13,7 @@ export interface StepDescriptionProps {
 
 export const StepStyled = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding: 23px 4px 37px 50px;
+  padding: 23px 4px 37px 75px;
   width: 645px;
   position: relative;
   display: flex;
@@ -25,13 +25,19 @@ export const StepStyled = styled.div`
     color: ${(props: StepStyledProps) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};
     position: absolute;
     left: 3px;
-    top: 20px;
+    top: 23px;
     height: 10px;
-    font-family: ${fonts.SANS_SERIF};
-    font-size: 25px;
-    font-weight: 400;
+    font-family: ${props => props.theme.sansSerifFont};
+    font-size: 20px;
+    font-weight: 600;
   }
 `;
+
+StepStyled.defaultProps = {
+  theme: {
+    sansSerifFont: fonts.SANS_SERIF,
+  },
+};
 
 export const StepStyledFluid = StepStyled.extend`
   padding-left: 0;

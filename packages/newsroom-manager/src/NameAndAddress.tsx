@@ -33,6 +33,7 @@ export interface NameAndAddressProps extends StepProps {
   txHash?: TxHash;
   name?: string;
   newsroom?: Newsroom;
+  active?: boolean;
   onNewsroomCreated?(result: any): void;
   onContractDeployStarted?(txHash: TxHash): void;
 }
@@ -67,6 +68,16 @@ const CollapsableWrapper = styled.div`
 
 const CollapsableInner = styled.div`
   width: 500px;
+`;
+
+const Description = StepDescription.extend`
+  font-size: 14px;
+`;
+
+const Success = styled.div`
+  position: absolute;
+  left: 25px;
+  top: 20px;
 `;
 
 class NameAndAddressComponent extends React.Component<NameAndAddressProps & DispatchProp<any>, NameAndAddressState> {
@@ -115,7 +126,11 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     if (!this.props.address) {
       return null;
     }
-    return <GreenCheckMark />;
+    return (
+      <Success>
+        <GreenCheckMark />
+      </Success>
+    );
   }
 
   public renderPreMetamaskCreateModal(): JSX.Element | null {
@@ -271,16 +286,19 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     }
     return (
       <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
+        {this.renderCheckMark()}
         <CollapsableWrapper>
           <Collapsable
             open={!this.props.disabled && this.state.collapsableOpen}
             disabled={this.props.disabled}
             header={
               <>
-                <StepHeader disabled={this.props.disabled}>Set up a newsroom</StepHeader>
-                <StepDescription disabled={this.props.disabled}>
+                <StepHeader active={this.props.active} disabled={this.props.disabled}>
+                  Set up a newsroom
+                </StepHeader>
+                <Description disabled={this.props.disabled}>
                   Enter your newsroom name to create your newsroom smart contract.
-                </StepDescription>
+                </Description>
               </>
             }
           >
@@ -291,7 +309,6 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
         {this.renderAwaitingTransactionModal()}
         {this.renderMetaMaskRejectionModal()}
         {this.progressModal()}
-        {this.renderCheckMark()}
       </StepStyled>
     );
   }

@@ -37,6 +37,7 @@ export interface CompleteYourProfileComponentProps extends StepProps {
   editors: Array<{ address: EthAddress; name?: string }>;
   address?: EthAddress;
   newsroom: any;
+  active?: boolean;
 }
 
 export interface CompleteYourProfileComponentState {
@@ -89,6 +90,18 @@ const FormDescription = styled.p`
 
 const AddButton = BorderlessButton.extend`
   padding-left: 0px;
+`;
+
+const CollapsableWrapper = styled.div`
+  width: 600px;
+`;
+
+const CollapsableInner = styled.div`
+  width: 500px;
+`;
+
+const Description = StepDescription.extend`
+  font-size: 14px;
 `;
 
 const makeUserObject = (state: StateWithNewsroom, item: EthAddress): { address: EthAddress; name?: string } => {
@@ -298,62 +311,69 @@ class CompleteYourProfileComponent extends React.Component<
   }
 
   public render(): JSX.Element {
+    console.log(this.props.active);
     return (
       <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
-        <Collapsable
-          header={
-            <>
-              <StepHeader disabled={this.props.disabled}>Add accounts to your newsroom contract</StepHeader>
-              <StepDescription disabled={this.props.disabled}>
-                Add additional officers and editors to your newsroom contract. You will need their wallet addresses.
-                This step is optional, but recommended.
-                <QuestionToolTip
-                  disabled={this.props.disabled}
-                  explainerText={
-                    "Think of officers as admins of your newsroom.  You can skip adding an additional officer but if not have one, you will not be able to access you newsroom contract if you lose your private key."
-                  }
-                />
-              </StepDescription>
-            </>
-          }
-          open={!!this.props.address && !this.props.disabled}
-          disabled={this.props.disabled}
-        >
-          <FormSection>
-            <FormTitleSection>
-              <FormTitle>Officer</FormTitle>
-              <FormDescription>
-                Officers can add members to the newsroom contract, sign and index posts.
-              </FormDescription>
-            </FormTitleSection>
-            <Section>
-              {this.props.owners.map(item => {
-                return <NewsroomUser key={item.address} address={item.address} name={item.name} />;
-              })}
-            </Section>
-            {this.renderAddOwnerForm()}
-          </FormSection>
-          <FormSection>
-            <FormTitleSection>
-              <FormTitle>Editor</FormTitle>
-              <FormDescription>
-                Editors have permission to index and sign posts on the blockchain. They cannot add officers to a
-                newsroom contract.
-              </FormDescription>
-            </FormTitleSection>
-            <Section>
-              {this.props.editors.map(item => (
-                <NewsroomUser key={item.address} address={item.address} name={item.name} />
-              ))}
-            </Section>
-            {this.renderAddEditorForm()}
-          </FormSection>
-          {this.renderPreMetamMask()}
-          {this.renderAwaitingTransactionModal()}
-          {this.renderMetaMaskRejectionModal()}
-          {this.renderCompleteModal()}
-          {this.renderProgressModal()}
-        </Collapsable>
+        <CollapsableWrapper>
+          <Collapsable
+            header={
+              <>
+                <StepHeader active={this.props.active} disabled={this.props.disabled}>
+                  Add accounts to your newsroom contract
+                </StepHeader>
+                <Description disabled={this.props.disabled}>
+                  Add additional officers and editors to your newsroom contract. You will need their wallet addresses.
+                  This step is optional, but recommended.
+                  <QuestionToolTip
+                    disabled={this.props.disabled}
+                    explainerText={
+                      "Think of officers as admins of your newsroom.  You can skip adding an additional officer but if not have one, you will not be able to access you newsroom contract if you lose your private key."
+                    }
+                  />
+                </Description>
+              </>
+            }
+            open={!!this.props.address && !this.props.disabled}
+            disabled={this.props.disabled}
+          >
+            <CollapsableInner>
+              <FormSection>
+                <FormTitleSection>
+                  <FormTitle>Officer</FormTitle>
+                  <FormDescription>
+                    Officers can add members to the newsroom contract, sign and index posts.
+                  </FormDescription>
+                </FormTitleSection>
+                <Section>
+                  {this.props.owners.map(item => {
+                    return <NewsroomUser key={item.address} address={item.address} name={item.name} />;
+                  })}
+                </Section>
+                {this.renderAddOwnerForm()}
+              </FormSection>
+              <FormSection>
+                <FormTitleSection>
+                  <FormTitle>Editor</FormTitle>
+                  <FormDescription>
+                    Editors have permission to index and sign posts on the blockchain. They cannot add officers to a
+                    newsroom contract.
+                  </FormDescription>
+                </FormTitleSection>
+                <Section>
+                  {this.props.editors.map(item => (
+                    <NewsroomUser key={item.address} address={item.address} name={item.name} />
+                  ))}
+                </Section>
+                {this.renderAddEditorForm()}
+              </FormSection>
+              {this.renderPreMetamMask()}
+              {this.renderAwaitingTransactionModal()}
+              {this.renderMetaMaskRejectionModal()}
+              {this.renderCompleteModal()}
+              {this.renderProgressModal()}
+            </CollapsableInner>
+          </Collapsable>
+        </CollapsableWrapper>
       </StepStyled>
     );
   }
