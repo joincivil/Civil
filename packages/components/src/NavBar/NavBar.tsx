@@ -3,9 +3,36 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { NavLink } from "./NavLink";
 import { NavDropDown } from "./NavDropDown";
+import { NavDrawerComponent } from "./NavDrawer";
 import { CivilLogo } from "../CivilLogo";
 import { CvlToken } from "../icons/CvlToken";
-import { ExpandDownArrow } from "../icons/ExpandDownArrow";
+import {
+  NavLinkRegistryText,
+  NavLinkParameterizerText,
+  NavLinkCreateNewsroomText,
+  NavLinkConstitutionText,
+  NavLinkAboutText,
+  NavLinkLaunchNewsroomText,
+  NavLinkWhitePaperText,
+  NavLinkDashboardText,
+} from "./textComponents";
+
+export interface NavProps {
+  balance: string;
+  votingBalance: string;
+  userAccount?: string;
+  userChallengesVotedOnCount?: string;
+  userChallengesStartedCount?: string;
+  buyCvlUrl?: string;
+}
+
+export interface NavState {
+  isOpen: boolean;
+}
+
+export interface NavArrowProps {
+  isOpen?: boolean;
+}
 
 const NavOuter = styled.div`
   align-items: center;
@@ -14,6 +41,7 @@ const NavOuter = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 15px 25px;
+  position: relative;
   * {
     box-sizing: border-box;
   }
@@ -47,6 +75,7 @@ const NavInner = styled.div`
 `;
 
 const NavAccent = styled.span`
+  margin: 0 15px;
   &,
   & a {
     color: ${colors.accent.CIVIL_TEAL};
@@ -56,6 +85,7 @@ const NavAccent = styled.span`
 const NavUser = styled.div`
   align-items: center;
   border-left: 1px solid ${colors.accent.CIVIL_GRAY_1};
+  cursor: pointer;
   display: flex;
   font-family: ${fonts.SERIF};
   height: 30px;
@@ -101,54 +131,88 @@ const UserAvatar = styled.figure`
   width: 36px;
 `;
 
-export interface NavProps {
-  balance: string;
-  votingBalance: string;
-}
+const Arrow: StyledComponentClass<NavArrowProps, "div"> = styled<NavArrowProps, "div">("div")`
+  border-bottom: 2px solid ${colors.basic.WHITE};
+  border-left: 2px solid ${colors.basic.WHITE};
+  height: 8px;
+  transform: ${props => (props.isOpen ? "rotate(135deg)" : "rotate(-45deg)")};
+  transition: transform 0.25s;
+  width: 8px;
+`;
 
-export const NavBar: React.StatelessComponent<NavProps> = props => {
-  return (
-    <NavOuter>
-      <NavLogo>
-        <NavLink to="/">
-          <CivilLogo color={colors.basic.WHITE} />
-        </NavLink>
-      </NavLogo>
-      <NavInner>
-        <NavLink to="/registry">Registry</NavLink>
-        <NavLink to="/parameterizer">Parameterizer</NavLink>
-        <NavLink to="/createNewsroom">Create Newsroom</NavLink>
-        <NavDropDown label="How Civil works">
-          <NavLink href="https://civil.co/constitution/" target="_blank">
-            Constitution
+export class NavBar extends React.Component<NavProps, NavState> {
+  constructor(props: NavProps) {
+    super(props);
+
+    this.state = { isOpen: false };
+  }
+
+  public render(): JSX.Element {
+    return (
+      <NavOuter>
+        <NavLogo>
+          <NavLink to="/">
+            <CivilLogo color={colors.basic.WHITE} />
           </NavLink>
-          <NavLink href="https://civil.co/about/" target="_blank">
-            About
+        </NavLogo>
+        <NavInner>
+          <NavLink to="/registry">
+            <NavLinkRegistryText />
           </NavLink>
-          <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
-            How to launch a newsroom
+          <NavLink to="/parameterizer">
+            <NavLinkParameterizerText />
           </NavLink>
-          <NavLink href="https://civil.co/white-paper/" target="_blank">
-            White Paper
+          <NavLink to="/createNewsroom">
+            <NavLinkCreateNewsroomText />
           </NavLink>
-        </NavDropDown>
-        <NavAccent>
-          <NavLink to="/dashboard">My Activity</NavLink>
-        </NavAccent>
-        <NavUser>
-          <CvlContainer>
-            <CvlToken />
-            <span>
-              <UserCvlBalance>{props.balance}</UserCvlBalance>
-              <UserCvlVotingBalance>{"+" + props.votingBalance}</UserCvlVotingBalance>
-            </span>
-          </CvlContainer>
-          <AvatarContainer>
-            <UserAvatar />
-            <ExpandDownArrow />
-          </AvatarContainer>
-        </NavUser>
-      </NavInner>
-    </NavOuter>
-  );
-};
+          <NavDropDown label="How Civil works">
+            <NavLink href="https://civil.co/constitution/" target="_blank">
+              <NavLinkConstitutionText />
+            </NavLink>
+            <NavLink href="https://civil.co/about/" target="_blank">
+              <NavLinkAboutText />
+            </NavLink>
+            <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
+              <NavLinkLaunchNewsroomText />
+            </NavLink>
+            <NavLink href="https://civil.co/white-paper/" target="_blank">
+              <NavLinkWhitePaperText />
+            </NavLink>
+          </NavDropDown>
+          <NavAccent>
+            <NavLink to="/dashboard">
+              <NavLinkDashboardText />
+            </NavLink>
+          </NavAccent>
+          <NavUser onClick={ev => this.toggle()}>
+            <CvlContainer>
+              <CvlToken />
+              <span>
+                <UserCvlBalance>{this.props.balance}</UserCvlBalance>
+                <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
+              </span>
+            </CvlContainer>
+            <AvatarContainer>
+              <UserAvatar />
+              <Arrow isOpen={this.state.isOpen} />
+            </AvatarContainer>
+          </NavUser>
+        </NavInner>
+        {this.state.isOpen ? (
+          <NavDrawerComponent
+            balance={this.props.balance}
+            votingBalance={this.props.votingBalance}
+            userAccount={this.props.userAccount}
+            userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
+            userChallengesStartedCount={this.props.userChallengesStartedCount}
+            buyCvlUrl={this.props.buyCvlUrl}
+          />
+        ) : null}
+      </NavOuter>
+    );
+  }
+
+  private toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
+}
