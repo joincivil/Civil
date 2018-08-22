@@ -75,6 +75,7 @@ const NavInner = styled.div`
 `;
 
 const NavAccent = styled.span`
+  margin: 0 15px;
   &,
   & a {
     color: ${colors.accent.CIVIL_TEAL};
