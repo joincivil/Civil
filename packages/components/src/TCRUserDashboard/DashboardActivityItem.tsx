@@ -52,13 +52,16 @@ export interface DashboardActivityItemProps {
   listingDetailURL: string;
   buttonText: string;
   buttonHelperText?: string | JSX.Element;
+  challengeID?: string;
+  toggleSelect?(challengeID: string, isSelected: boolean): void;
 }
 
-export const DashboardActivityItem: React.StatelessComponent<DashboardActivityItemProps> = props => {
+export const DashboardActivityItem: React.SFC<DashboardActivityItemProps> = props => {
   return (
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>
-        <IconPlaceHolder />
+        {props.toggleSelect && ItemCheckbox(props)}
+        {!props.toggleSelect && <IconPlaceHolder />}
       </StyledDashboardActivityItemIcon>
 
       <StyledDashboardActivityItemDetails>
@@ -74,4 +77,11 @@ export const DashboardActivityItem: React.StatelessComponent<DashboardActivityIt
       </StyledDashboardActivityItemAction>
     </StyledDashboardActivityItem>
   );
+};
+
+const ItemCheckbox: React.SFC<DashboardActivityItemProps> = props => {
+  const handleChange = (event: any) => {
+    props.toggleSelect!(props.challengeID!, event.target.checked);
+  };
+  return <input type="checkbox" onChange={handleChange} />;
 };
