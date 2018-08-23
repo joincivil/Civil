@@ -99,8 +99,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <a href="https://metamask.io/" target="_blank">
               MetaMask
             </a>{" "}
-            <MetaMaskSideIcon />{" "}
-            to set up and fund your wallet.{" "}
+            <MetaMaskSideIcon /> to set up and fund your wallet.{" "}
             <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
               Read this FAQ
             </a>.
@@ -137,7 +136,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             </p>
           </div>
           <div style={{ display: "inline-block", float: "right", maxWidth: "240px" }}>
-            <p style={{ color: "#23282d", marginBottom: "-10px", }}>Already have a wallet?</p>
+            <p style={{ color: "#23282d", marginBottom: "-10px" }}>Already have a wallet?</p>
             <p style={{ color: "#72777c" }}>
               Make sure you have unlocked it and are connected to the {this.props.requiredNetworkNiceName}, and then{" "}
               <a href="javascript:void(0)" onClick={() => window.location.reload()}>
@@ -154,7 +153,8 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <MetaMaskMockImage src={metaMaskLoginUrl} />
           <h2>Not logged in to wallet</h2>
           <p>
-            Please open the MetaMask extension and follow the instructions to log in to your wallet. After you are logged in, you can continue with your newsroom smart contract.{" "}
+            Please open the MetaMask extension and follow the instructions to log in to your wallet. After you are
+            logged in, you can continue with your newsroom smart contract.{" "}
             <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
               Need help?
             </a>
@@ -195,9 +195,15 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <h2>Wallet Connected</h2>
             <p>Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.</p>
             <WalletLabel>Your wallet address</WalletLabel>
-            <WalletAddress><MetaMaskSideIcon /> {this.props.metamaskWalletAddress}</WalletAddress>{" "}
+            <WalletAddress>
+              <MetaMaskSideIcon /> {this.props.metamaskWalletAddress}
+            </WalletAddress>{" "}
             <WalletAction>
-              <Button size={buttonSizes.MEDIUM_WIDE} onClick={this.props.saveAddressToProfile} disabled={this.props.profileAddressSaving}>
+              <Button
+                size={buttonSizes.MEDIUM_WIDE}
+                onClick={this.props.saveAddressToProfile}
+                disabled={this.props.profileAddressSaving}
+              >
                 Save to Your Profile
               </Button>
             </WalletAction>
@@ -207,13 +213,21 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
         return (
           <Wrapper>
             <h2>Wallet Connected</h2>
-            <p style={{ color: "#f2524a" }}>Your WordPress user profile wallet address does not match your MetaMask wallet address</p>
+            <p style={{ color: "#f2524a" }}>
+              Your WordPress user profile wallet address does not match your MetaMask wallet address
+            </p>
             <WalletLabel>Profile wallet address</WalletLabel>
             <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
             <WalletLabel>Connected wallet address</WalletLabel>
-            <WalletAddress><MetaMaskSideIcon /> {this.props.metamaskWalletAddress}</WalletAddress>{" "}
+            <WalletAddress>
+              <MetaMaskSideIcon /> {this.props.metamaskWalletAddress}
+            </WalletAddress>{" "}
             <WalletAction>
-              <Button size={buttonSizes.MEDIUM_WIDE} onClick={this.props.saveAddressToProfile} disabled={this.props.profileAddressSaving}>
+              <Button
+                size={buttonSizes.MEDIUM_WIDE}
+                onClick={this.props.saveAddressToProfile}
+                disabled={this.props.profileAddressSaving}
+              >
                 Update Profile Address
               </Button>
             </WalletAction>
@@ -224,7 +238,9 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <Wrapper>
             <h2>Wallet Connected</h2>
             <WalletLabel>Your wallet address</WalletLabel>
-            <WalletAddress><MetaMaskSideIcon /> {this.props.metamaskWalletAddress}</WalletAddress>{" "}
+            <WalletAddress>
+              <MetaMaskSideIcon /> {this.props.metamaskWalletAddress}
+            </WalletAddress>{" "}
             <WalletAction>
               <a href={this.props.profileUrl}>Open Profile</a>
             </WalletAction>
