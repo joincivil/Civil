@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { FormHeading, MetaMaskSideIcon } from "@joincivil/components";
+import { ManagerHeading, MetaMaskSideIcon } from "@joincivil/components";
 
 export interface WelcomeProps {
   helpUrl: string;
@@ -23,7 +23,7 @@ export class Welcome extends React.Component<WelcomeProps> {
   public render(): JSX.Element {
     return (
       <>
-        <FormHeading>Welcome</FormHeading>
+        <ManagerHeading>Welcome</ManagerHeading>
 
         <p>Before getting started, here are the steps to set up your newsroom contract.</p>
 

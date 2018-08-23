@@ -1,5 +1,5 @@
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ButtonTheme, colors, fonts, StepProcess, WalletOnboarding } from "@joincivil/components";
+import { ButtonTheme, colors, fonts, StepProcess, ManagerHeading, WalletOnboarding } from "@joincivil/components";
 import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -60,18 +60,9 @@ const P = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
-const Heading = styled.h3`
-  font-family: ${props => props.theme.sansSerifFont};
-  font-size: 18px;
-  font-weight: bold;
+const Heading = ManagerHeading.extend`
   color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
-
-Heading.defaultProps = {
-  theme: {
-    sansSerifFont: fonts.SANS_SERIF,
-  },
-};
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
   constructor(props: NewsroomProps) {
