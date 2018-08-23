@@ -30,6 +30,8 @@ export interface NewsroomProps {
   civil?: Civil;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
+  profileUrl?: string;
+  profileAddressSaving?: boolean;
   saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
@@ -121,6 +123,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
             requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
             metamaskWalletAddress={this.props.account}
+            profileUrl={this.props.profileUrl}
+            profileAddressSaving={this.props.profileAddressSaving}
             profileWalletAddress={this.props.profileWalletAddress}
             saveAddressToProfile={this.props.saveAddressToProfile}
           />

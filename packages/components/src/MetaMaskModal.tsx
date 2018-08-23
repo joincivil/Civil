@@ -9,9 +9,9 @@ import {
   TransactionButtonNoModal,
   Transaction,
   TransactionButtonInnerProps,
+  MetaMaskSideIcon,
 } from ".";
 import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm.png";
-import * as metamaskLogoUrl from "./images/img-metamask-small@2x.png";
 import * as confirmButton from "./images/img-metamask-confirm@2x.png";
 
 const ModalP = styled.p`
@@ -73,11 +73,6 @@ const ImgWrapperSmall = styled.span`
   vertical-align: middle;
 `;
 
-const Img = styled.img`
-  width: 16px;
-  height: 16px;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -115,7 +110,7 @@ const PrimaryButton = (props: TransactionButtonInnerProps): JSX.Element => {
   return (
     <B onClick={props.onClick} size={buttonSizes.MEDIUM_WIDE}>
       <ImgWrapper>
-        <Img src={metamaskLogoUrl} />
+        <MetaMaskSideIcon />
       </ImgWrapper>
       {props.children}
     </B>
@@ -151,7 +146,7 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
       You need to confirm this transaction in your wallet. MetaMask will open a new window to confirm. If you don't see
       it, please click the icon{" "}
       <ImgWrapperSmall>
-        <Img src={metamaskLogoUrl} />
+        <MetaMaskSideIcon />
       </ImgWrapperSmall>{" "}
       in the browser bar.
     </ModalP>
