@@ -55,7 +55,6 @@ export const ManagerHeading = styled.h3`
 
 ManagerHeading.defaultProps = headingDefaultProps;
 
-// @TODO weight 500 for semi-bold works with our font stack on Mac but not on Linux, should check Windows cause this heading looks dumb in 400 weight which browser uses if semi-bold not available.
 export const ManagerSectionHeading = styled.h4`
   font-family: ${props => props.theme.sansSerifFont};
   font-weight: 500;
