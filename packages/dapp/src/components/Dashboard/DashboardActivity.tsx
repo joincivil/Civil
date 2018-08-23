@@ -60,10 +60,22 @@ class DashboardActivity extends React.Component<DashboardActivityProps> {
           <ActivityList challenges={userChallengesWithUnrevealedVotes} />
         </Tab>
         <Tab title={"Claim Rewards (" + userChallengesWithUnclaimedRewards!.count() + ")"}>
-          <ActivityList challenges={userChallengesWithUnclaimedRewards} />
+          <ActivityList
+            challenges={userChallengesWithUnclaimedRewards}
+            resolvedChallenges={true}
+            toggleChallengeSelect={(challengeID: string, isSelected: boolean) => {
+              console.log(challengeID, isSelected);
+            }}
+          />
         </Tab>
         <Tab title={"Rescue Tokens (" + userChallengesWithRescueTokens!.count() + ")"}>
-          <ActivityList challenges={userChallengesWithRescueTokens} />
+          <ActivityList
+            challenges={userChallengesWithRescueTokens}
+            resolvedChallenges={true}
+            toggleChallengeSelect={(challengeID: string, isSelected: boolean) => {
+              console.log(challengeID, isSelected);
+            }}
+          />
         </Tab>
       </Tabs>
     );
