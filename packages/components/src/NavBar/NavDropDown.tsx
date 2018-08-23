@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import { colors } from "../styleConstants";
-import { ExpandDownArrow } from "../icons/ExpandDownArrow";
 
 export interface NavDropDownProps {
   label: string;
@@ -16,9 +15,17 @@ const DropDownContain = styled.div`
 `;
 
 const DropDownLabel = styled.span`
-  & > svg {
-    margin-left: 10px;
-  }
+  align-items: center;
+  display: flex;
+`;
+
+const Arrow = styled.div`
+  border-bottom: 2px solid ${colors.basic.WHITE};
+  border-left: 2px solid ${colors.basic.WHITE};
+  height: 8px;
+  margin: 0 0 3px 5px;
+  transform: rotate(-45deg);
+  width: 8px;
 `;
 
 const DropDownLinks = styled.div`
@@ -45,7 +52,7 @@ export const NavDropDown: React.StatelessComponent<NavDropDownProps> = props => 
     <DropDownContain>
       <DropDownLabel>
         {props.label}
-        <ExpandDownArrow />
+        <Arrow />
       </DropDownLabel>
       <DropDownLinks>{props.children}</DropDownLinks>
     </DropDownContain>

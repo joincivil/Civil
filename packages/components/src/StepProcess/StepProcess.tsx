@@ -3,12 +3,13 @@ import styled, { StyledComponentClass } from "styled-components";
 
 export interface StepProcessProps {
   disabled?: boolean;
+  activeIndex?: number;
   stepIsDisabled?(index: number): boolean;
 }
 
 export interface StepProps {
   index?: number;
-  active?: number;
+  active?: boolean;
   disabled?: boolean;
 }
 
@@ -27,6 +28,7 @@ export class StepProcess extends React.Component<StepProcessProps> {
       }
       return React.cloneElement(child as JSX.Element, {
         index,
+        active: this.props.activeIndex === index,
         disabled,
       });
     });

@@ -139,7 +139,7 @@ export const makeGetChallengeState = () => {
   return createSelector([getChallenge], challengeData => {
     const challenge = challengeData && challengeData.challenge;
     const isResolved = challenge && challenge.resolved;
-    const inChallengePhase = challenge && isChallengeInCommitStage(challenge);
+    const inCommitPhase = challenge && isChallengeInCommitStage(challenge);
     const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
     const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
     const isAwaitingAppealJudgment = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
@@ -148,7 +148,7 @@ export const makeGetChallengeState = () => {
 
     return {
       isResolved,
-      inChallengePhase,
+      inCommitPhase,
       inRevealPhase,
       canResolveChallenge,
       isAwaitingAppealJudgment,
