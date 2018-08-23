@@ -26,6 +26,7 @@ import {
   AwaitingApprovalStatusLabel,
   CommitVoteStatusLabel,
   RevealVoteStatusLabel,
+  AwaitingAppealRequestLabel,
   ReadyToCompleteStatusLabel,
   AwaitingDecisionStatusLabel,
   AwaitingAppealChallengeStatusLabel,
@@ -41,6 +42,7 @@ export interface ListingSummaryComponentProps {
   canBeWhitelisted?: boolean;
   inChallengeCommitVotePhase?: boolean;
   inChallengeRevealPhase?: boolean;
+  isAwaitingAppealRequest?: boolean;
   canResolveChallenge?: boolean;
   canResolveAppealChallenge?: boolean;
   isAwaitingAppealJudgement?: boolean;
@@ -53,6 +55,7 @@ export interface ListingSummaryComponentProps {
   appExpiry?: number;
   commitEndDate?: number;
   revealEndDate?: number;
+  requestAppealExpiry?: number;
   whitelistedTimestamp?: number;
   unstakedDeposit?: string;
   challengeStake?: string;
@@ -93,21 +96,32 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
   }
 
   private renderPhaseLabel = (): JSX.Element | undefined => {
-    if (this.props.isInApplication) {
+    const {
+      isInApplication,
+      inChallengeCommitVotePhase,
+      isInAppealChallengeCommitPhase,
+      inChallengeRevealPhase,
+      isInAppealChallengeRevealPhase,
+      isAwaitingAppealRequest,
+      canBeWhitelisted,
+      canResolveChallenge,
+      canListingAppealChallengeBeResolved,
+      isAwaitingAppealJudgement,
+      isAwaitingAppealChallenge,
+    } = this.props;
+    if (isInApplication) {
       return <AwaitingApprovalStatusLabel />;
-    } else if (this.props.inChallengeCommitVotePhase || this.props.isInAppealChallengeCommitPhase) {
+    } else if (inChallengeCommitVotePhase || isInAppealChallengeCommitPhase) {
       return <CommitVoteStatusLabel />;
-    } else if (this.props.inChallengeRevealPhase || this.props.isInAppealChallengeRevealPhase) {
+    } else if (inChallengeRevealPhase || isInAppealChallengeRevealPhase) {
       return <RevealVoteStatusLabel />;
-    } else if (
-      this.props.canBeWhitelisted ||
-      this.props.canResolveChallenge ||
-      this.props.canListingAppealChallengeBeResolved
-    ) {
+    } else if (isAwaitingAppealRequest) {
+      return <AwaitingAppealRequestLabel />;
+    } else if (canBeWhitelisted || canResolveChallenge || canListingAppealChallengeBeResolved) {
       return <ReadyToCompleteStatusLabel />;
-    } else if (this.props.isAwaitingAppealJudgement) {
+    } else if (isAwaitingAppealJudgement) {
       return <AwaitingDecisionStatusLabel />;
-    } else if (this.props.isAwaitingAppealChallenge) {
+    } else if (isAwaitingAppealChallenge) {
       return <AwaitingAppealChallengeStatusLabel />;
     }
     return;
@@ -115,12 +129,15 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
 
   private renderPhaseCountdown = (): JSX.Element | undefined => {
     let expiry: number | undefined;
-    if (this.props.isInApplication) {
+    const { isInApplication, inChallengeCommitVotePhase, inChallengeRevealPhase, isAwaitingAppealRequest } = this.props;
+    if (isInApplication) {
       expiry = this.props.appExpiry;
-    } else if (this.props.inChallengeCommitVotePhase) {
+    } else if (inChallengeCommitVotePhase) {
       expiry = this.props.commitEndDate;
-    } else if (this.props.inChallengeRevealPhase) {
+    } else if (inChallengeRevealPhase) {
       expiry = this.props.revealEndDate;
+    } else if (isAwaitingAppealRequest) {
+      expiry = this.props.requestAppealExpiry;
     }
 
     const warn = this.props.inChallengeCommitVotePhase || this.props.inChallengeRevealPhase;
@@ -175,10 +192,12 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
   };
 
   private renderPhaseCountdownOrTimestamp = (): JSX.Element | undefined => {
-    if (this.props.isInApplication || this.props.inChallengeCommitVotePhase || this.props.inChallengeRevealPhase) {
+    const { isInApplication, inChallengeCommitVotePhase, inChallengeRevealPhase, isAwaitingAppealRequest } = this.props;
+    if (isInApplication || inChallengeCommitVotePhase || inChallengeRevealPhase || isAwaitingAppealRequest) {
       return this.renderPhaseCountdown();
+    } else {
+      return this.renderTimestamp();
     }
-    return this.renderTimestamp();
   };
 
   private renderUnstakedDeposit = (): JSX.Element | undefined => {

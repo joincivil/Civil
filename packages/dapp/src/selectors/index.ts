@@ -10,6 +10,7 @@ import {
   isInApplicationPhase,
   isChallengeInCommitStage,
   isChallengeInRevealStage,
+  isAwaitingAppealRequest as getIsAwaitingAppealRequest,
   isListingAwaitingAppealJudgment as getIsListingAwaitingAppealJudgement,
   isListingAwaitingAppealChallenge as getIsListingAwaitingAppealChallenge,
   isAwaitingAppealChallenge as getIsAwaitingAppealChallenge,
@@ -225,6 +226,7 @@ export const makeGetListingPhaseState = () => {
 
     const inChallengeCommitVotePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
     const inChallengeRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
+    const isAwaitingAppealRequest = getIsAwaitingAppealRequest(listingData);
     const canResolveChallenge = listingData.challenge && getCanResolveChallenge(listingData.challenge);
 
     const isAwaitingAppealJudgment = getIsListingAwaitingAppealJudgement(listingData);
@@ -244,6 +246,7 @@ export const makeGetListingPhaseState = () => {
       canResolveChallenge,
       inChallengeCommitVotePhase,
       inChallengeRevealPhase,
+      isAwaitingAppealRequest,
       isWhitelisted,
       isUnderChallenge,
       isRejected,

@@ -35,8 +35,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.govtPDeposit,
       parameterizerConfig.govtPCommitStageLength,
       parameterizerConfig.govtPRevealStageLength,
-      web3.sha3("Constitution: Be Bad."),
-      "http://madeupURL.com",
+      parameterizerConfig.constitutionHash,
+      parameterizerConfig.constitutionURI,
     );
   });
 };
