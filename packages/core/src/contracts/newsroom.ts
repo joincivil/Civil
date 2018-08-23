@@ -531,7 +531,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       );
     } else {
       await this.requireEditor();
-      console.log("here");
+
       return createTwoStepTransaction(
         this.ethApi,
         await this.instance.publishContent.sendTransactionAsync(uri, hash, author, signature),
