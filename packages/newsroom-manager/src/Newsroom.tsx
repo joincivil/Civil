@@ -1,5 +1,5 @@
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ButtonTheme, colors, fonts, StepProcess, ManagerHeading, WalletOnboarding } from "@joincivil/components";
+import { ButtonTheme, colors, StepProcess, ManagerHeading, WalletOnboarding } from "@joincivil/components";
 import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
