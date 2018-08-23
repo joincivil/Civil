@@ -11,6 +11,7 @@ export const StyledUserActivityContent = styled.h3`
   background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-top: none;
+  min-height: 400px;
 `;
 
 export const StyledDashboardTab = styled.li`
