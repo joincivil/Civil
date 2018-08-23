@@ -31,6 +31,7 @@ export interface NewsroomProps {
   civil?: Civil;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
+  showWalletOnboarding?: boolean;
   showWelcome?: boolean;
   helpUrl?: string;
   profileUrl?: string;
@@ -138,17 +139,19 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
           {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} />}
-          <WalletOnboarding
-            noProvider={!hasInjectedProvider()}
-            walletLocked={this.props.civil && !this.props.account}
-            wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
-            requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
-            metamaskWalletAddress={this.props.account}
-            profileUrl={this.props.profileUrl}
-            profileAddressSaving={this.props.profileAddressSaving}
-            profileWalletAddress={this.props.profileWalletAddress}
-            saveAddressToProfile={this.props.saveAddressToProfile}
-          />
+          {this.props.showWalletOnboarding && (
+            <WalletOnboarding
+              noProvider={!hasInjectedProvider()}
+              walletLocked={this.props.civil && !this.props.account}
+              wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
+              requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
+              metamaskWalletAddress={this.props.account}
+              profileUrl={this.props.profileUrl}
+              profileAddressSaving={this.props.profileAddressSaving}
+              profileWalletAddress={this.props.profileWalletAddress}
+              saveAddressToProfile={this.props.saveAddressToProfile}
+            />
+          )}
 
           {manager}
         </Wrapper>
