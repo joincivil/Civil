@@ -37,6 +37,10 @@ export const AwaitingApprovalStatusLabel: React.SFC = props => {
   return <StyledAwaitingStatuslabel>Awaiting Approval</StyledAwaitingStatuslabel>;
 };
 
+export const AwaitingAppealRequestLabel: React.SFC = props => {
+  return <StyledAwaitingStatuslabel>Awaiting Appeal Request</StyledAwaitingStatuslabel>;
+};
+
 export const AwaitingDecisionStatusLabel: React.SFC = props => {
   return <StyledAwaitingStatuslabel>Awaiting Decision</StyledAwaitingStatuslabel>;
 };
