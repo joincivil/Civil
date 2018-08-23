@@ -31,7 +31,6 @@ import {
   StorageHeader,
   TwoStepEthTransaction,
   TxData,
-  TxDataAll,
   TxHash,
   Uri,
 } from "../types";
@@ -52,7 +51,6 @@ import {
 } from "./utils/contracts";
 import * as zlib from "zlib";
 import { bufferToHex, toBuffer, setLengthLeft, addHexPrefix } from "ethereumjs-util";
-import { ETXTBSY } from "constants";
 
 const debug = Debug("civil:newsroom");
 
@@ -496,21 +494,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
     txData.data = txData.data + extra;
     txData.gas = baseGas + additionalGas;
-    return createTwoStepTransaction(
-      this.ethApi,
-      await this.ethApi.sendTransaction(txData),
-      findContentId
-    );
+    return createTwoStepTransaction(this.ethApi, await this.ethApi.sendTransaction(txData), findContentId);
   }
 
   public async recoverArchiveTx(tx: Transaction): Promise<string> {
     const inflate = promisify<string>(zlib.inflate);
-    const txDataLength = parseInt(
-      addHexPrefix(
-        tx.input.substr(tx.input.length - 16)
-      ),
-      16
-    );
+    const txDataLength = parseInt(addHexPrefix(tx.input.substr(tx.input.length - 16)), 16);
     const content = addHexPrefix(tx.input.substr(txDataLength, tx.input.length - 16));
     return (await inflate(toBuffer(content))).toString();
   }
@@ -520,7 +509,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const myRevisionId = this.ethApi.toBigNumber(revisionId);
     return this.instance
       .RevisionUpdatedStream({ contentId: myContentId, revisionId: myRevisionId }, { fromBlock: 0 })
-      .concatMap(async (item) => {
+      .concatMap(async item => {
         const transaction = await this.ethApi.getTransaction(item.transactionHash);
         return this.recoverArchiveTx(transaction);
       });

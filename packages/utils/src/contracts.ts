@@ -38,5 +38,5 @@ export function estimateRawHex(hex: string): number {
     } else {
       return acc + 68;
     }
-  }, 0)
+  }, 0);
 }
