@@ -270,8 +270,8 @@ async function createTestCivilTCRInstance(
     parameterizerConfig.govtPDeposit,
     parameterizerConfig.govtPCommitStageLength,
     parameterizerConfig.govtPRevealStageLength,
-    web3.sha3("Constitution: Be Bad."),
-    "http://madeupURL.com",
+    parameterizerConfig.constitutionHash,
+    parameterizerConfig.constitutionURI,
   );
 
   const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);

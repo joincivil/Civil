@@ -85,7 +85,7 @@ contract("Government", accounts => {
       ).to.eventually.be.fulfilled("Should have allowed JAB to propose new judgeAppealLen");
     });
 
-    it("should be possible for JAB to propose judgeAppealLen same as current value again after processing first proposal", async () => {
+    it("should not be possible for JAB to propose judgeAppealLen same as current value again after processing first proposal", async () => {
       await expect(
         government.proposeReparameterization("judgeAppealLen", utils.paramConfig.judgeAppealPhaseLength, { from: JAB }),
       ).to.eventually.be.rejectedWith(
