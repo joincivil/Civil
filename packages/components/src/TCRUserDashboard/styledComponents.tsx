@@ -35,6 +35,7 @@ export const StyledDashboardSubTab = StyledTab.extend`
   white-space: nowrap;
 
   & ${StyledSubTabCount} {
-    background-color: ${(props: TabComponentProps) => props.isActive ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_GRAY_3};
+    background-color: ${(props: TabComponentProps) =>
+      props.isActive ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_GRAY_3};
   }
 `;

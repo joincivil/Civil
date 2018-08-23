@@ -2,7 +2,16 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
 import styled from "styled-components";
-import { Tabs, Tab, DashboardActivity as DashboardActivityComponent, AllChallengesDashboardTabTitle, RevealVoteDashboardTabTitle, ClaimRewardsDashboardTabTitle, RescueTokensDashboardTabTitle, StyledDashboardSubTab  } from "@joincivil/components";
+import {
+  Tabs,
+  Tab,
+  DashboardActivity as DashboardActivityComponent,
+  AllChallengesDashboardTabTitle,
+  RevealVoteDashboardTabTitle,
+  ClaimRewardsDashboardTabTitle,
+  RescueTokensDashboardTabTitle,
+  StyledDashboardSubTab,
+} from "@joincivil/components";
 import { State } from "../../reducers";
 import {
   makeGetUserChallengesWithUnclaimedRewards,
