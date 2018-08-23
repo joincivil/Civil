@@ -30,11 +30,7 @@ const Wrapper = styled.div`
     clear: both;
   }
 
-  &,
-  & p {
-    font-size: 14px;
-  }
-  h2 {
+  h3 {
     font-size: 17px;
   }
 `;
@@ -52,11 +48,13 @@ const WalletAddress = styled.span`
   font-family: ${fonts.MONOSPACE};
   display: inline-block;
   margin-bottom: 24px;
-  padding: 5px 10px;
+  padding: 8px 12px 4px 8px;
   border: 1px solid #dddddd;
 
   img {
-    margin-right: 8px;
+    position: relative;
+    top: -1px;
+    margin-right: 12px;
   }
 `;
 const ProfileWalletAddress = styled.span`
@@ -93,7 +91,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
     if (this.props.noProvider) {
       return (
         <Wrapper>
-          <h2>It looks like you aren’t logged in to your wallet</h2>
+          <h3>It looks like you aren’t logged in to your wallet</h3>
           <p>
             New to this, or don't have a wallet? Having a wallet is mandatory and we recommend{" "}
             <a href="https://metamask.io/" target="_blank">
@@ -118,7 +116,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           </p>
 
           <div style={{ display: "inline-block" }}>
-            <h2>MetaMask Wallet</h2>
+            <h3>MetaMask Wallet</h3>
             <p>
               <LargeishLinkButton size={buttonSizes.MEDIUM_WIDE} href="https://metamask.io/" target="_blank">
                 Open MetaMask.io{" "}
@@ -151,7 +149,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
       return (
         <Wrapper>
           <MetaMaskMockImage src={metaMaskLoginUrl} />
-          <h2>Not logged in to wallet</h2>
+          <h3>Not logged in to wallet</h3>
           <p>
             Please open the MetaMask extension and follow the instructions to log in to your wallet. After you are
             logged in, you can continue with your newsroom smart contract.{" "}
@@ -171,7 +169,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
       return (
         <Wrapper>
           <MetaMaskMockImage src={metaMaskNetworkSwitchUrl} />
-          <h2>Change your network</h2>
+          <h3>Change your network</h3>
           <p>
             Looks like you’re using an unsupported Ethereum network. Make sure you're using the{" "}
             {this.props.requiredNetworkNiceName}.{" "}
@@ -192,11 +190,11 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
       if (!this.props.profileWalletAddress) {
         return (
           <Wrapper>
-            <h2>Wallet Connected</h2>
+            <h3>Wallet Connected</h3>
             <p>Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.</p>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon /> {this.props.metamaskWalletAddress}
+              <MetaMaskSideIcon />{this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
               <Button
@@ -212,7 +210,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
       } else if (this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
         return (
           <Wrapper>
-            <h2>Wallet Connected</h2>
+            <h3>Wallet Connected</h3>
             <p style={{ color: "#f2524a" }}>
               Your WordPress user profile wallet address does not match your MetaMask wallet address
             </p>
@@ -220,7 +218,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
             <WalletLabel>Connected wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon /> {this.props.metamaskWalletAddress}
+              <MetaMaskSideIcon />{this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
               <Button
@@ -236,10 +234,10 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
       } else {
         return (
           <Wrapper>
-            <h2>Wallet Connected</h2>
+            <h3>Wallet Connected</h3>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon /> {this.props.metamaskWalletAddress}
+              <MetaMaskSideIcon />{this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
               <a href={this.props.profileUrl}>Open Profile</a>

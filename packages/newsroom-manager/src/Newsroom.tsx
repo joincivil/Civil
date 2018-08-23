@@ -46,6 +46,11 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   max-width: 750px;
+
+  &,
+  & p {
+    font-size: 14px;
+  }
 `;
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
