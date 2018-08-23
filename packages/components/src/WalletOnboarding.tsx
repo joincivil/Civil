@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EthAddress } from "@joincivil/core";
-import { NorthEastArrow, Button, buttonSizes, MetaMaskSideIcon, fonts, ManagerSectionHeading } from "./";
+import { NorthEastArrow, Button, buttonSizes, MetaMaskSideIcon, MetaMaskFrontIcon, fonts, ManagerSectionHeading } from "./";
 import styled from "styled-components";
 import * as metaMaskNetworkSwitchUrl from "./images/img-metamask-networkswitch@2x.png";
 import * as metaMaskLoginUrl from "./images/img-metamask-login@2x.png";
@@ -190,7 +190,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <p>Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.</p>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon />
+              <MetaMaskFrontIcon />
               {this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
@@ -215,7 +215,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
             <WalletLabel>Connected wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon />
+              <MetaMaskFrontIcon />
               {this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
@@ -235,7 +235,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon />
+              <MetaMaskFrontIcon />
               {this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
