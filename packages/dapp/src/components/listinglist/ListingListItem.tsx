@@ -50,6 +50,7 @@ class ListingListItemComponent extends React.Component<
     const pollData = listingData.challenge && listingData.challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
+    const requestAppealExpiry = listingData.challenge && listingData.challenge.requestAppealExpiry.toNumber();
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
@@ -65,6 +66,7 @@ class ListingListItemComponent extends React.Component<
       appExpiry,
       commitEndDate,
       revealEndDate,
+      requestAppealExpiry,
       unstakedDeposit,
       challengeStake,
     };

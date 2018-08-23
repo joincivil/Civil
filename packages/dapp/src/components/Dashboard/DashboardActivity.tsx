@@ -2,7 +2,16 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
 import styled from "styled-components";
-import { Tabs, Tab, StyledTab, DashboardActivity as DashboardActivityComponent } from "@joincivil/components";
+import {
+  Tabs,
+  Tab,
+  DashboardActivity as DashboardActivityComponent,
+  AllChallengesDashboardTabTitle,
+  RevealVoteDashboardTabTitle,
+  ClaimRewardsDashboardTabTitle,
+  RescueTokensDashboardTabTitle,
+  StyledDashboardSubTab,
+} from "@joincivil/components";
 import { State } from "../../reducers";
 import {
   makeGetUserChallengesWithUnclaimedRewards,
@@ -21,8 +30,7 @@ export interface DashboardActivityProps {
 }
 
 const StyledTabsComponent = styled.div`
-  display: flex;
-  justify-content: center;
+  margin-left: 26px;
 `;
 
 class DashboardActivity extends React.Component<DashboardActivityProps> {
@@ -51,15 +59,19 @@ class DashboardActivity extends React.Component<DashboardActivityProps> {
       userChallengesWithUnrevealedVotes,
       userChallengesWithRescueTokens,
     } = this.props;
+    const allVotesTabTitle = <AllChallengesDashboardTabTitle count={currentUserChallengesVotedOn.count()} />;
+    const revealVoteTabTitle = <RevealVoteDashboardTabTitle count={userChallengesWithUnrevealedVotes!.count()} />;
+    const claimRewardsTabTitle = <ClaimRewardsDashboardTabTitle count={userChallengesWithUnclaimedRewards!.count()} />;
+    const rescueTokensTabTitle = <RescueTokensDashboardTabTitle count={userChallengesWithRescueTokens!.count()} />;
     return (
-      <Tabs TabComponent={StyledTab} TabsNavComponent={StyledTabsComponent}>
-        <Tab title={"Challenges voted on (" + currentUserChallengesVotedOn.count() + ")"}>
+      <Tabs TabComponent={StyledDashboardSubTab} TabsNavComponent={StyledTabsComponent}>
+        <Tab title={allVotesTabTitle}>
           <ActivityList challenges={currentUserChallengesVotedOn} />
         </Tab>
-        <Tab title={"Reveal Vote (" + userChallengesWithUnrevealedVotes!.count() + ")"}>
+        <Tab title={revealVoteTabTitle}>
           <ActivityList challenges={userChallengesWithUnrevealedVotes} />
         </Tab>
-        <Tab title={"Claim Rewards (" + userChallengesWithUnclaimedRewards!.count() + ")"}>
+        <Tab title={claimRewardsTabTitle}>
           <ActivityList
             challenges={userChallengesWithUnclaimedRewards}
             resolvedChallenges={true}
@@ -68,7 +80,7 @@ class DashboardActivity extends React.Component<DashboardActivityProps> {
             }}
           />
         </Tab>
-        <Tab title={"Rescue Tokens (" + userChallengesWithRescueTokens!.count() + ")"}>
+        <Tab title={rescueTokensTabTitle}>
           <ActivityList
             challenges={userChallengesWithRescueTokens}
             resolvedChallenges={true}
