@@ -194,7 +194,8 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <p>Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.</p>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon />{this.props.metamaskWalletAddress}
+              <MetaMaskSideIcon />
+              {this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
               <Button
@@ -218,7 +219,8 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
             <WalletLabel>Connected wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon />{this.props.metamaskWalletAddress}
+              <MetaMaskSideIcon />
+              {this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
               <Button
@@ -237,7 +239,8 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <h3>Wallet Connected</h3>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress>
-              <MetaMaskSideIcon />{this.props.metamaskWalletAddress}
+              <MetaMaskSideIcon />
+              {this.props.metamaskWalletAddress}
             </WalletAddress>{" "}
             <WalletAction>
               <a href={this.props.profileUrl}>Open Profile</a>

@@ -8,6 +8,7 @@ import { addGetNameForAddress, addNewsroom, getEditors, getNewsroom } from "./ac
 // import { SignConstitution } from "./SignConstitution";
 // import { CreateCharter } from "./CreateCharter";
 // import { ApplyToTCR } from "./ApplyToTCR";
+import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
@@ -30,6 +31,8 @@ export interface NewsroomProps {
   civil?: Civil;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
+  showWelcome?: boolean;
+  helpUrl?: string;
   profileUrl?: string;
   profileAddressSaving?: boolean;
   saveAddressToProfile?(): Promise<void>;
@@ -122,6 +125,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
+          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} />}
           <WalletOnboarding
             noProvider={!hasInjectedProvider()}
             walletLocked={this.props.civil && !this.props.account}

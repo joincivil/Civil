@@ -33,6 +33,6 @@ export const BlockHeading = styled.h3`
 
 export const FormHeading = styled.h3`
   font-family: ${fonts.SANS_SERIF};
-  font-weight: 400;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 18px;
 `;
