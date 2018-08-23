@@ -32,6 +32,10 @@ export interface ChallengeActivityListItemOwnProps {
   user?: string;
 }
 
+export interface ResolvedChallengeActivityListItemProps {
+  toggleSelect(challengeID: string, isSelected: boolean): void;
+}
+
 export interface ActivityListItemReduxProps {
   newsroom?: NewsroomState;
   listing?: ListingWrapper;
@@ -140,8 +144,12 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
   private getButtonText = (): [string, string | JSX.Element | undefined] => {
     const { listingAddress, listingPhaseState, userChallengeData } = this.props;
 
-    if (listingPhaseState && listingPhaseState.inRevealPhase && userChallengeData && userChallengeData.didUserCommit) {
-      return ["Reveal Vote", undefined];
+    if (listingPhaseState && listingPhaseState.inChallengeRevealPhase && userChallengeData) {
+      if (userChallengeData.didUserCommit && !userChallengeData.didUserReveal) {
+        return ["Reveal Vote", undefined];
+      } else {
+        return ["View", "You revealed your vote"];
+      }
     }
 
     if (listingPhaseState && listingPhaseState.canResolveChallenge) {
@@ -262,3 +270,18 @@ export class ChallengeListingItemComponent extends React.Component<
 }
 
 export const ChallengeActivityListItem = connect(makeChallengeMapStateToProps)(ChallengeListingItemComponent);
+
+/**
+ * Container that renders a listing associated with the specified `ChallengeID`
+ */
+export class ResolvedChallengeListingItemComponent extends React.Component<
+  ChallengeActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemOwnProps
+> {
+  public render(): JSX.Element {
+    return <ActivityListItem {...this.props} />;
+  }
+}
+
+export const ResolvedChallengeActivityListItem = connect(makeChallengeMapStateToProps)(
+  ResolvedChallengeListingItemComponent,
+);

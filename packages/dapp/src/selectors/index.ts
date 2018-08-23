@@ -94,24 +94,77 @@ export const getChallenge = (state: State, props: ChallengeContainerProps) => {
   return challenge;
 };
 
-export const getChallengeUserDataMap = (state: State, props: ChallengeContainerProps) => {
-  const { challengeUserData } = state.networkDependent;
-  let { challengeID } = props;
-  if (!challengeID) {
-    return;
-  }
-  if (typeof challengeID !== "string") {
-    challengeID = challengeID.toString();
-  }
-  const challengeUserDataMap = challengeUserData.get(challengeID);
-  return challengeUserDataMap;
-};
+export const getChallengeUserData = (state: State) => state.networkDependent.challengeUserData;
+
+export const getChallengeUserDataMap = createSelector(
+  [getChallengeUserData, (state: State, props: ChallengeContainerProps) => props],
+  (challengeUserData, props: ChallengeContainerProps) => {
+    let { challengeID } = props;
+    if (!challengeID) {
+      return;
+    }
+    if (typeof challengeID !== "string") {
+      challengeID = challengeID.toString();
+    }
+    const challengeUserDataMap = challengeUserData.get(challengeID);
+    return challengeUserDataMap;
+  },
+);
 
 export const makeGetUserChallengeData = () => {
   return createSelector([getChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
     if (challengeUserDataMap && user.account) {
       const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
       return userChallengeData;
+    }
+    return;
+  });
+};
+
+export const makeGetUserChallengesWithUnclaimedRewards = () => {
+  return createSelector([getChallengeUserData, getUser], (challengeUserData, user) => {
+    if (challengeUserData && user.account) {
+      return challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          const { didUserReveal, didUserCollect, isVoterWinner } = challengeData!.get(user.account.account);
+          return !!didUserReveal && !!isVoterWinner && !didUserCollect;
+        })
+        .keySeq()
+        .toSet();
+    }
+    return;
+  });
+};
+
+export const makeGetUserChallengesWithUnrevealedVotes = () => {
+  return createSelector([getChallenges, getChallengeUserData, getUser], (challenges, challengeUserData, user) => {
+    if (challengeUserData && user.account) {
+      return challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
+          const challenge = challenges.get(challengeID!);
+          const inRevealPhase = challenge && isChallengeInRevealStage(challenge.challenge);
+          return !!didUserCommit && !didUserReveal && inRevealPhase;
+        })
+        .keySeq()
+        .toSet();
+    }
+    return;
+  });
+};
+
+export const makeGetUserChallengesWithRescueTokens = () => {
+  return createSelector([getChallenges, getChallengeUserData, getUser], (challenges, challengeUserData, user) => {
+    if (challengeUserData && user.account) {
+      return challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
+          const challenge = challenges.get(challengeID!);
+          const isResolved = challenge && challenge.challenge.resolved;
+          return !!didUserCommit && !didUserReveal && isResolved;
+        })
+        .keySeq()
+        .toSet();
     }
     return;
   });

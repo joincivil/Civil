@@ -68,7 +68,6 @@ export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInf
         <StyledUserInfoSectionLabel>Balance</StyledUserInfoSectionLabel>
         <StyledUserInfoSectionValue>
           <strong>{props.balance}</strong>
-          xxx USD xxx ETH
         </StyledUserInfoSectionValue>
       </StyledUserInfoSection>
 
@@ -76,7 +75,6 @@ export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInf
         <StyledUserInfoSectionLabel>Voting balance</StyledUserInfoSectionLabel>
         <StyledUserInfoSectionValue>
           <strong>{props.votingBalance}</strong>
-          xxx USD xxx ETH
         </StyledUserInfoSectionValue>
       </StyledUserInfoSection>
 
@@ -84,13 +82,12 @@ export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInf
         <StyledUserInfoSectionLabel>Rewards earned</StyledUserInfoSectionLabel>
         <StyledUserInfoSectionValue>
           <strong>{props.rewardsEarned}</strong>
-          xxx USD xxx ETH
         </StyledUserInfoSectionValue>
       </StyledUserInfoSection>
 
       <StyledUserInfoSection>
         <StyledUserInfoSectionValue>
-          <a href={props.buyCVLURL} target="blank">
+          <a href={props.buyCVLURL} target="_blank">
             Buy CVL
           </a>
         </StyledUserInfoSectionValue>
