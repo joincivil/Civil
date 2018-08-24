@@ -74,6 +74,7 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
       isRejected,
       isUnderChallenge,
       canResolveChallenge,
+      isAwaitingAppealRequest,
       inChallengeCommitVotePhase,
       inChallengeRevealPhase,
     } = listingPhaseState;
@@ -109,6 +110,12 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
             <p>Under Challenge > Revealing Votes</p>
           </>
         );
+      } else if (isAwaitingAppealRequest) {
+        return (
+          <>
+            <p>Under Challenge > Awaiting Appeal Request</p>
+          </>
+        );
       } else if (canResolveChallenge) {
         return (
           <>
@@ -126,6 +133,15 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
       if (listingPhaseState && inChallengeRevealPhase) {
         return (
           <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE} challenge={this.props.challenge} />
+        );
+      }
+
+      if (listingPhaseState && isAwaitingAppealRequest) {
+        return (
+          <PhaseCountdownTimer
+            phaseType={PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_REQUEST}
+            challenge={this.props.challenge}
+          />
         );
       }
 
@@ -175,7 +191,7 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
       ) {
         return ["Claim Rewards", "You voted for the winner"];
       } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && !isVoterWinner) {
-        return ["Claim Rewards", "You did not vote for the winner"];
+        return ["View Results", "You did not vote for the winner"];
       } else if (
         listingPhaseState &&
         !listingPhaseState.isUnderChallenge &&

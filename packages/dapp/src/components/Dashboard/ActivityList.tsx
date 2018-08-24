@@ -36,7 +36,8 @@ class ActivityList extends React.Component<ActivityListOwnProps> {
               />
             );
           })}
-        {this.props.challenges &&
+        {!this.props.resolvedChallenges &&
+          this.props.challenges &&
           this.props.challenges.map(c => {
             index++;
             return <ChallengeActivityListItem key={c} challengeID={c!} even={index % 2 === 0} />;
