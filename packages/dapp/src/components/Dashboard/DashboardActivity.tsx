@@ -138,7 +138,6 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
   private multiClaim = async (): Promise<TwoStepEthTransaction | void> => {
     const challengeIDs = this.getChallengesToProcess(this.state.challengesToClaim);
     const salts = this.getSalts(this.state.challengesToClaim);
-    console.log(challengeIDs, salts);
     return multiClaimRewards(challengeIDs, salts);
   };
 
