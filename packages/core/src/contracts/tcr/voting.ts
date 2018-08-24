@@ -184,7 +184,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   > {
     if (await this.didRevealVote(voter, pollID)) {
       const reveal = await this.instance
-        ._VoteRevealedStream({ pollID }, { fromBlock: 0 })
+        ._VoteRevealedStream({ pollID, voter }, { fromBlock: 0 })
         .first()
         .toPromise();
 
@@ -263,19 +263,22 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
     return this.instance.getTotalNumberOfTokensForWinningOption.callAsync(pollID);
   }
 
-  // TODO(nickreynolds): Refactor getNumPassingTokens to not require user to input whether challenge was overturned
   /**
    * Returns number of tokens this user committed & revealed for given poll
    * @param voterAddress address of voter to check
    * @param pollID ID of poll to check
    * @param salt Salt used by voter for this poll
    */
-  public async getNumPassingTokens(pollID: BigNumber, voter?: EthAddress): Promise<BigNumber> {
-    let who = voter;
-    if (!who) {
-      who = await requireAccount(this.ethApi).toPromise();
-    }
-    return this.instance.getNumTokens.callAsync(who, pollID);
+  public async getNumPassingTokens(pollID: BigNumber, salt: BigNumber, voter: EthAddress): Promise<BigNumber> {
+    return this.instance.getNumPassingTokens.callAsync(voter, pollID, salt);
+  }
+
+  public async getNumLosingTokens(pollID: BigNumber, salt: BigNumber, voter: EthAddress): Promise<BigNumber> {
+    return this.instance.getNumLosingTokens.callAsync(voter, pollID, salt);
+  }
+
+  public async getNumTokens(pollID: BigNumber, voter: EthAddress): Promise<BigNumber> {
+    return this.instance.getNumTokens.callAsync(voter, pollID);
   }
 
   /**
