@@ -191,7 +191,7 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
       ) {
         return ["Claim Rewards", "You voted for the winner"];
       } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && !isVoterWinner) {
-        return ["Claim Rewards", "You did not vote for the winner"];
+        return ["View Results", "You did not vote for the winner"];
       } else if (
         listingPhaseState &&
         !listingPhaseState.isUnderChallenge &&
