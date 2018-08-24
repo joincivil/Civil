@@ -25,3 +25,18 @@ export function is0x0Address(address: string): boolean {
 export function is0x0Hash(hash: string): boolean {
   return hash === "0x0" || hash === "0x0000000000000000000000000000000000000000000000000000000000000000";
 }
+
+export function estimateRawHex(hex: string): number {
+  let h = hex;
+  if (hex.substr(0, 2) === "0x") {
+    h = hex.substr(2);
+  }
+  const bytes = h.match(/.{2}/g) || [];
+  return bytes.reduce((acc, item) => {
+    if (item === "00") {
+      return acc + 4;
+    } else {
+      return acc + 68;
+    }
+  }, 0);
+}
