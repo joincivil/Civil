@@ -141,6 +141,11 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
     return multiClaimRewards(challengeIDs, salts);
   };
 
+  // We're storing which challenges to multi-claim in the state of this component, because
+  // the user can select which rewards to batch
+  // @TODO(jon: Clean this up. Maybe this gets put into redux, or we create a more
+  // explicit type that describes this object that gets checked and that type has a field
+  // called something like `isSelected` so this code is a bit clearer
   private getChallengesToProcess = (challengeObj: ChallengesToProcess): BigNumber[] => {
     const challengesToCheck = Object.entries(challengeObj);
     const challengesToProcess: BigNumber[] = challengesToCheck
