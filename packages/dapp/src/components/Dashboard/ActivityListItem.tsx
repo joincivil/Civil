@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import BigNumber from "bignumber.js";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
@@ -23,6 +24,7 @@ export interface ActivityListItemOwnProps {
   challenge?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
   challengeState?: any;
+  challengeID?: string;
   user?: string;
 }
 
@@ -33,7 +35,7 @@ export interface ChallengeActivityListItemOwnProps {
 }
 
 export interface ResolvedChallengeActivityListItemProps {
-  toggleSelect(challengeID: string, isSelected: boolean): void;
+  toggleSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
 }
 
 export interface ActivityListItemReduxProps {
@@ -43,7 +45,9 @@ export interface ActivityListItemReduxProps {
   challengeState?: any;
 }
 
-class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps & ActivityListItemReduxProps> {
+class ActivityListItemComponent extends React.Component<
+  ActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemReduxProps
+> {
   public render(): JSX.Element {
     const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
     if (listing && listing.data && newsroom && listingPhaseState) {
@@ -58,6 +62,9 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
         listingDetailURL,
         buttonText: buttonTextTuple[0],
         buttonHelperText: buttonTextTuple[1],
+        challengeID: this.props.challengeID,
+        salt: this.props.userChallengeData && this.props.userChallengeData.salt,
+        toggleSelect: this.props.toggleSelect,
       };
 
       return <DashboardActivityItem {...props}>{this.renderActivityDetails()}</DashboardActivityItem>;

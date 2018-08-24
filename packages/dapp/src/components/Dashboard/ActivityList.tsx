@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Set } from "immutable";
+import BigNumber from "bignumber.js";
 import { ChallengeActivityListItem, ActivityListItem, ResolvedChallengeActivityListItem } from "./ActivityListItem";
 
 export interface ActivityListOwnProps {
   listings?: Set<string>;
   challenges?: Set<string>;
   resolvedChallenges?: boolean;
-  toggleChallengeSelect?(challengeID: string, isSelected: boolean): void;
+  toggleChallengeSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
 }
 
 class ActivityList extends React.Component<ActivityListOwnProps> {

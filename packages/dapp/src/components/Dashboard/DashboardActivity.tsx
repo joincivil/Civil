@@ -2,6 +2,8 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
 import styled from "styled-components";
+import BigNumber from "bignumber.js";
+import { EthAddress, TwoStepEthTransaction } from "@joincivil/core";
 import {
   Tabs,
   Tab,
@@ -11,7 +13,9 @@ import {
   ClaimRewardsDashboardTabTitle,
   RescueTokensDashboardTabTitle,
   StyledDashboardSubTab,
+  TransactionButton,
 } from "@joincivil/components";
+import { multiClaimRewards } from "../../apis/civilTCR";
 import { State } from "../../reducers";
 import {
   makeGetUserChallengesWithUnclaimedRewards,
@@ -27,13 +31,36 @@ export interface DashboardActivityProps {
   userChallengesWithUnclaimedRewards?: Set<string>;
   userChallengesWithUnrevealedVotes?: Set<string>;
   userChallengesWithRescueTokens?: Set<string>;
+  userAccount: EthAddress;
+}
+
+export interface ChallengesToProcess {
+  [index: string]: [boolean, BigNumber];
+}
+
+export interface DashboardActivityState {
+  challengesToClaim: ChallengesToProcess;
 }
 
 const StyledTabsComponent = styled.div`
   margin-left: 26px;
 `;
 
-class DashboardActivity extends React.Component<DashboardActivityProps> {
+const StyledBatchButtonContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 36px;
+`;
+
+class DashboardActivity extends React.Component<DashboardActivityProps, DashboardActivityState> {
+  constructor(props: DashboardActivityProps) {
+    super(props);
+    this.state = {
+      challengesToClaim: {},
+    };
+  }
+
   public render(): JSX.Element {
     return (
       <DashboardActivityComponent
@@ -64,7 +91,11 @@ class DashboardActivity extends React.Component<DashboardActivityProps> {
     const claimRewardsTabTitle = <ClaimRewardsDashboardTabTitle count={userChallengesWithUnclaimedRewards!.count()} />;
     const rescueTokensTabTitle = <RescueTokensDashboardTabTitle count={userChallengesWithRescueTokens!.count()} />;
     return (
-      <Tabs TabComponent={StyledDashboardSubTab} TabsNavComponent={StyledTabsComponent}>
+      <Tabs
+        TabComponent={StyledDashboardSubTab}
+        TabsNavComponent={StyledTabsComponent}
+        onActiveTabChange={this.onTabChange}
+      >
         <Tab title={allVotesTabTitle}>
           <ActivityList challenges={currentUserChallengesVotedOn} />
         </Tab>
@@ -72,25 +103,73 @@ class DashboardActivity extends React.Component<DashboardActivityProps> {
           <ActivityList challenges={userChallengesWithUnrevealedVotes} />
         </Tab>
         <Tab title={claimRewardsTabTitle}>
-          <ActivityList
-            challenges={userChallengesWithUnclaimedRewards}
-            resolvedChallenges={true}
-            toggleChallengeSelect={(challengeID: string, isSelected: boolean) => {
-              console.log(challengeID, isSelected);
-            }}
-          />
+          <>
+            <ActivityList
+              challenges={userChallengesWithUnclaimedRewards}
+              resolvedChallenges={true}
+              toggleChallengeSelect={this.setChallengesToMultiClaim}
+            />
+            <StyledBatchButtonContainer>
+              <TransactionButton transactions={[{ transaction: this.multiClaim }]}>Claim Rewards</TransactionButton>
+            </StyledBatchButtonContainer>
+          </>
         </Tab>
         <Tab title={rescueTokensTabTitle}>
-          <ActivityList
-            challenges={userChallengesWithRescueTokens}
-            resolvedChallenges={true}
-            toggleChallengeSelect={(challengeID: string, isSelected: boolean) => {
-              console.log(challengeID, isSelected);
-            }}
-          />
+          <ActivityList challenges={userChallengesWithRescueTokens} />
         </Tab>
       </Tabs>
     );
+  };
+
+  private onTabChange = (activeIndex: number = 0): void => {
+    this.resetMultiClaimRescue();
+  };
+
+  private setChallengesToMultiClaim = (challengeID: string, isSelected: boolean, salt: BigNumber): void => {
+    this.setState(() => ({
+      challengesToClaim: { ...this.state.challengesToClaim, [challengeID]: [isSelected, salt] },
+    }));
+  };
+
+  private resetMultiClaimRescue = (): void => {
+    this.setState(() => ({ challengesToClaim: {} }));
+  };
+
+  private multiClaim = async (): Promise<TwoStepEthTransaction | void> => {
+    const challengeIDs = this.getChallengesToProcess(this.state.challengesToClaim);
+    const salts = this.getSalts(this.state.challengesToClaim);
+    return multiClaimRewards(challengeIDs, salts);
+  };
+
+  // We're storing which challenges to multi-claim in the state of this component, because
+  // the user can select which rewards to batch
+  // @TODO(jon: Clean this up. Maybe this gets put into redux, or we create a more
+  // explicit type that describes this object that gets checked and that type has a field
+  // called something like `isSelected` so this code is a bit clearer
+  private getChallengesToProcess = (challengeObj: ChallengesToProcess): BigNumber[] => {
+    const challengesToCheck = Object.entries(challengeObj);
+    const challengesToProcess: BigNumber[] = challengesToCheck
+      .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
+        if (challengeToProcess[1][0]) {
+          return new BigNumber(challengeToProcess[0]);
+        }
+        return;
+      })
+      .filter(item => !!item) as BigNumber[];
+    return challengesToProcess;
+  };
+
+  private getSalts = (challengeObj: ChallengesToProcess): BigNumber[] => {
+    const challengesToCheck = Object.entries(challengeObj);
+    const challengesToProcess: BigNumber[] = challengesToCheck
+      .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
+        if (challengeToProcess[1][0]) {
+          return challengeToProcess[1][1];
+        }
+        return;
+      })
+      .filter(item => !!item) as BigNumber[];
+    return challengesToProcess;
   };
 }
 
@@ -121,6 +200,7 @@ const makeMapStateToProps = () => {
       userChallengesWithUnclaimedRewards,
       userChallengesWithUnrevealedVotes,
       userChallengesWithRescueTokens,
+      userAccount: user.account.account,
     };
   };
 
