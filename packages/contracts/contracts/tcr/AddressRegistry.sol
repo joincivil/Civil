@@ -4,7 +4,7 @@ pragma solidity ^0.4.11;
 import "../installed_contracts/EIP20Interface.sol";
 import "../installed_contracts/Parameterizer.sol";
 import "../installed_contracts/PLCRVoting.sol";
-import "../zeppelin-solidity/SafeMath.sol";
+import "../zeppelin-solidity/math/SafeMath.sol";
 
 contract AddressRegistry {
 
@@ -459,7 +459,7 @@ contract AddressRegistry {
         address owner = listing.owner;
         uint unstakedDeposit = listing.unstakedDeposit;
         delete listings[listingAddress];
-        
+
         // Transfers any remaining balance back to the owner
         if (unstakedDeposit > 0){
             require(token.transfer(owner, unstakedDeposit));

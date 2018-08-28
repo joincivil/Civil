@@ -2,7 +2,7 @@ pragma solidity ^0.4.19;
 import "../interfaces/IGovernment.sol";
 import "../installed_contracts/PLCRVoting.sol";
 import "../installed_contracts/EIP20Interface.sol";
-import "../zeppelin-solidity/SafeMath.sol";
+import "../zeppelin-solidity/math/SafeMath.sol";
 
 /**
 @title Government
@@ -20,7 +20,7 @@ contract Government is IGovernment {
   event _NewConstProposal(bytes32 proposedHash, string proposedURI, uint pollID);
   event _NewConstProposalPassed(bytes32 constHash, string constURI);
   event _NewConstProposalFailed(bytes32 constHash, string constURI);
-  
+
   modifier onlyGovernmentController {
     require(msg.sender == governmentController);
     _;
@@ -67,7 +67,7 @@ contract Government is IGovernment {
   */
   function Government(
     address appellateAddr,
-    address governmentControllerAddr,        
+    address governmentControllerAddr,
     address tokenAddr,
     address plcrAddr,
     uint appealFeeAmount,

@@ -2,7 +2,7 @@ pragma solidity^0.4.11;
 
 import "./PLCRVoting.sol";
 import "./EIP20Interface.sol";
-import "../zeppelin-solidity/SafeMath.sol";
+import "../zeppelin-solidity/math/SafeMath.sol";
 
 contract Parameterizer {
 
@@ -80,7 +80,7 @@ contract Parameterizer {
 
         // minimum deposit for listing to be whitelisted
         set("minDeposit", _parameters[0]);
-        
+
         // minimum deposit to propose a reparameterization
         set("pMinDeposit", _parameters[1]);
 
@@ -92,10 +92,10 @@ contract Parameterizer {
 
         // length of commit period for voting
         set("commitStageLen", _parameters[4]);
-        
+
         // length of commit period for voting in parameterizer
         set("pCommitStageLen", _parameters[5]);
-        
+
         // length of reveal period for voting
         set("revealStageLen", _parameters[6]);
 
@@ -201,7 +201,7 @@ contract Parameterizer {
         address propOwner = prop.owner;
         uint propDeposit = prop.deposit;
 
-        
+
         // Before any token transfers, deleting the proposal will ensure that if reentrancy occurs the
         // prop.owner and prop.deposit will be 0, thereby preventing theft
         if (canBeSet(_propID)) {

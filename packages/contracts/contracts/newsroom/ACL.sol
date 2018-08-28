@@ -1,5 +1,5 @@
 pragma solidity ^0.4.19;
-import "../zeppelin-solidity/Ownable.sol";
+import "../zeppelin-solidity/ownership/Ownable.sol";
 
 /**
 @title String-based Access Control List

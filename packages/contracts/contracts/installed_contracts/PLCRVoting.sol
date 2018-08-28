@@ -2,7 +2,7 @@ pragma solidity ^0.4.8;
 import "./EIP20Interface.sol";
 import "./DLL.sol";
 import "./AttributeStore.sol";
-import "../zeppelin-solidity/SafeMath.sol";
+import "../zeppelin-solidity/math/SafeMath.sol";
 
 /**
 @title Partial-Lock-Commit-Reveal Voting scheme with ERC20 tokens
@@ -455,7 +455,7 @@ contract PLCRVoting {
             nodeID = dllMap[_voter].getPrev(nodeID);
           }
           // Return the insert point
-          return nodeID; 
+          return nodeID;
         }
         // We did not find the insert point. Continue iterating backwards through the list
         nodeID = dllMap[_voter].getPrev(nodeID);
