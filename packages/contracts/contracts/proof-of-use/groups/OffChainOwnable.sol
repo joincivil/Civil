@@ -19,10 +19,7 @@ contract OffChainOwnable {
   }
 
   function isValidSignature(bytes signature, bytes32 hashedAction) internal view returns (bool) {
-    address recovered = keccak256(abi.encodePacked(
-        address(this),
-        hashedAction)
-      )
+    address recovered = keccak256(abi.encodePacked(address(this), hashedAction))
       .toEthSignedMessageHash()
       .recover(signature);
 

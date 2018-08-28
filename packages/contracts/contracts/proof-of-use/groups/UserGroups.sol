@@ -31,11 +31,8 @@ contract UserGroups is OffChainOwnable {
   function setMaxGroupSize(uint groupSize, bytes signature) external
     requireSignature(
       signature,
-      keccak256(abi.encodePacked(
-        changeGroupSizeNonce,
-        groupSize
-      ))
-  ) {
+      keccak256(abi.encodePacked(changeGroupSizeNonce, groupSize)))
+  {
     changeGroupSizeNonce++;
     maxGroupSize = groupSize;
   }

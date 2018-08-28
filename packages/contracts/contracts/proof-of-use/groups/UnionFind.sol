@@ -27,12 +27,12 @@ library UnionFind {
     external
     returns (bytes32 originalAGroup, bytes32 originalBGroup, bytes32 newGroup)
   {
-    Group storage A = findStruct(self, groupA);
-    Group storage B = findStruct(self, groupB);
+    Group storage a = findStruct(self, groupA);
+    Group storage b = findStruct(self, groupB);
 
-    originalAGroup = A.parent;
-    originalBGroup = B.parent;
-    newGroup = unionStruct(self, A, B).parent;
+    originalAGroup = a.parent;
+    originalBGroup = b.parent;
+    newGroup = unionStruct(self, a, b).parent;
   }
 
   /**
