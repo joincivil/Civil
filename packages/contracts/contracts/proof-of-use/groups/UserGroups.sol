@@ -2,6 +2,7 @@ pragma solidity ^0.4.23;
 
 import "./UnionFind.sol";
 import "./OffChainOwnable.sol";
+import "../../zeppelin-solidity/access/Whitelist.sol";
 
 contract UserGroups is OffChainOwnable {
   // Free to transfer to anyone and accept from anyone
@@ -16,6 +17,10 @@ contract UserGroups is OffChainOwnable {
   uint public changeGroupSizeNonce = 0;
 
   UnionFind.Data internal groups;
+
+  constructor(Whitelist whitelist) OffChainOwnable(whitelist) public
+  {
+  }
 
   function find(address a) external view returns (address root, uint size) {
     bytes32 root32;

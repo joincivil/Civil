@@ -1,8 +1,10 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
-import { POU_GLOBAL_GROUP, POU_SUPER_GROUP, REVERTED } from "../utils/constants";
+import { configureProviders } from "../utils/contractutils";
 
 const UserGroups = artifacts.require("UserGroups");
+const Whitelist = artifacts.require("Whitelist");
+configureProviders(UserGroups, Whitelist);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -10,11 +12,15 @@ const expect = chai.expect;
 contract("UserGroups", accounts => {
   const [owner] = accounts;
   let userGroups: any;
+  let whitelist: any;
 
   beforeEach(async () => {
-    userGroups = await UserGroups.new();
+    whitelist = await Whitelist.new();
+    userGroups = await UserGroups.new(whitelist.address);
   });
 
+  // TODO(ritave): Add support for OffChainOwnable
+  /*
   describe("forceUnion", () => {
     it("owner can force union", async () => {
       await userGroups.forceUnion(accounts[1], accounts[2]);
@@ -116,4 +122,5 @@ contract("UserGroups", accounts => {
       expect(root1).to.be.equal(root2);
     });
   });
+  */
 });
