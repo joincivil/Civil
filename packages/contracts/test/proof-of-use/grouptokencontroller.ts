@@ -11,7 +11,6 @@ configureChai(chai);
 const expect = chai.expect;
 
 contract("GroupTokenController", accounts => {
-  const [owner] = accounts;
   const group1 = accounts.slice(1, 5);
   const group2 = accounts.slice(5, 9);
   const restAccounts = accounts.slice(9);
