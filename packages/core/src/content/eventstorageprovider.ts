@@ -1,5 +1,5 @@
 import { EthApi } from "@joincivil/ethapi";
-import { CivilErrors } from "@joincivil/utils";
+import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
 import { EventStorage, EventStorageContract } from "../contracts/generated/wrappers/event_storage";
 import { findEventOrThrow } from "../contracts/utils/contracts";
 import { ContentData, StorageHeader } from "../types";
@@ -21,7 +21,7 @@ export class EventStorageProvider implements ContentProvider {
     // TODO(ritave): If the hash doesn't exist, this will never finish
     //               Add web3.filter.get to abi-gen, not only watch
     return (await this.eventStorage())
-      .StringStoredStream({ dataHash: what.contentHash }, { fromBlock: 0 })
+      .StringStoredStream({ dataHash: what.contentHash }, { fromBlock: getDefaultFromBlock() })
       .first() // Closes the stream on first event
       .map(event => event.args.data)
       .toPromise();
