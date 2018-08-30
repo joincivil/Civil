@@ -301,6 +301,13 @@ export async function rescueTokensInMultiplePolls(pollIDs: BigNumber[]): Promise
   return voting.rescueTokensInMultiplePolls(pollIDs);
 }
 
+export async function withdrawVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
+  const tcr = await getTCR();
+  const voting = tcr.getVoting();
+  const numTokensBN = ensureWeb3BigNumber(numTokens);
+  return voting.withdrawVotingRights(numTokensBN);
+}
+
 export async function signMessage(message: string): Promise<EthSignedMessage> {
   const civil = getCivil();
   return civil.signMessage(message);

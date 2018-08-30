@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-  StyledDashboardActivityDescription,
   StyledUserInfo,
   StyledUserInfoSection,
   StyledUserInfoSectionLabel,
@@ -14,8 +13,6 @@ import {
   ChallengesWonLabelText,
   RewardsClaimedLabelText,
 } from "./textComponents";
-import { EthAddress } from "@joincivil/core";
-import { colors } from "../styleConstants";
 import { Button } from "../Button";
 
 export interface DashboardUserInfoSummaryProps {

@@ -14,6 +14,7 @@ import {
   RescueTokensDashboardTabTitle,
   StyledDashboardSubTab,
   StyledDashboardActivityDescription,
+  SubTabReclaimTokensText,
   ClaimRewardsDescriptionText,
   RescueTokensDescriptionText,
   TransactionButton,
@@ -28,6 +29,7 @@ import {
   getChallengesVotedOnByUser,
 } from "../../selectors";
 import ActivityList from "./ActivityList";
+import ReclaimTokens from "./ReclaimTokens";
 
 export interface DashboardActivityProps {
   currentUserNewsrooms: Set<string>;
@@ -137,6 +139,11 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
             <StyledBatchButtonContainer>
               <TransactionButton transactions={[{ transaction: this.multiRescue }]}>Claim Rewards</TransactionButton>
             </StyledBatchButtonContainer>
+          </>
+        </Tab>
+        <Tab title={<SubTabReclaimTokensText />}>
+          <>
+            <ReclaimTokens />
           </>
         </Tab>
       </Tabs>

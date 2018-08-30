@@ -8,7 +8,9 @@ export const SubTabClaimRewardsText: React.SFC = props => <>Claim Rewards</>;
 
 export const SubTabRescueTokensText: React.SFC = props => <>Rescue Tokens</>;
 
-export const MyVotingTabText: React.SFC = props => <>My Tasks</>;
+export const SubTabReclaimTokensText: React.SFC = props => <>Transfer Voting Tokens</>;
+
+export const MyVotingTabText: React.SFC = props => <>My Voting</>;
 
 export const MyNewsroomsTabText: React.SFC = props => <>My Newsrooms</>;
 
