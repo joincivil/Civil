@@ -1,5 +1,5 @@
 import { Observable, Subscription, BehaviorSubject } from "rxjs";
-import "@joincivil/utils";
+import { getDefaultFromBlock } from "@joincivil/utils";
 import { CivilTCRContract, CivilTCR } from "../generated/wrappers/civil_t_c_r";
 import { EthApi } from "@joincivil/ethapi";
 import { EthAddress, ListingWrapper, ListingData, TimestampedEvent } from "../../types";
@@ -49,31 +49,41 @@ export class Listing {
 
   //#region EventStreams
 
-  public applications(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Application>> {
+  public applications(
+    fromBlock: number = getDefaultFromBlock(),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._Application>> {
     return this.tcrInstance._ApplicationStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Application>(this.ethApi, e);
     });
   }
 
-  public challenges(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Challenge>> {
+  public challenges(
+    fromBlock: number = getDefaultFromBlock(),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._Challenge>> {
     return this.tcrInstance._ChallengeStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Challenge>(this.ethApi, e);
     });
   }
 
-  public deposits(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Deposit>> {
+  public deposits(
+    fromBlock: number = getDefaultFromBlock(),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._Deposit>> {
     return this.tcrInstance._DepositStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Deposit>(this.ethApi, e);
     });
   }
 
-  public withdrawls(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._Withdrawal>> {
+  public withdrawls(
+    fromBlock: number = getDefaultFromBlock(),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._Withdrawal>> {
     return this.tcrInstance._WithdrawalStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Withdrawal>(this.ethApi, e);
     });
   }
 
-  public whitelisteds(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted>> {
+  public whitelisteds(
+    fromBlock: number = getDefaultFromBlock(),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted>> {
     return this.tcrInstance
       ._ApplicationWhitelistedStream({ listingAddress: this.listingAddress }, { fromBlock })
       .map(e => {
@@ -82,27 +92,31 @@ export class Listing {
   }
 
   public applicationRemoveds(
-    fromBlock: number = 0,
+    fromBlock: number = getDefaultFromBlock(),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>> {
     return this.tcrInstance._ApplicationRemovedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>(this.ethApi, e);
     });
   }
 
-  public listingRemoveds(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._ListingRemoved>> {
+  public listingRemoveds(
+    fromBlock: number = getDefaultFromBlock(),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._ListingRemoved>> {
     return this.tcrInstance._ListingRemovedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ListingRemoved>(this.ethApi, e);
     });
   }
 
-  public failedChallenges(fromBlock: number = 0): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>> {
+  public failedChallenges(
+    fromBlock: number = getDefaultFromBlock(),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>> {
     return this.tcrInstance._ChallengeFailedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>(this.ethApi, e);
     });
   }
 
   public successfulChallenges(
-    fromBlock: number = 0,
+    fromBlock: number = getDefaultFromBlock(),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>> {
     return this.tcrInstance._ChallengeSucceededStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>(this.ethApi, e);

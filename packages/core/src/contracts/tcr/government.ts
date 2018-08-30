@@ -1,5 +1,5 @@
 import { EthApi } from "@joincivil/ethapi";
-import { CivilErrors } from "@joincivil/utils";
+import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs";
@@ -45,7 +45,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
   /**
    * Gets an unending stream of parameters being set
    */
-  public getParameterSet(fromBlock: number | "latest" = 0): Observable<Param> {
+  public getParameterSet(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<Param> {
     return this.instance.ParameterSetStream({}, { fromBlock }).map(e => {
       return {
         paramName: e.args.name,
