@@ -13,14 +13,19 @@ import {
   ClaimRewardsDashboardTabTitle,
   RescueTokensDashboardTabTitle,
   StyledDashboardSubTab,
+  StyledDashboardActivityDescription,
+  ClaimRewardsDescriptionText,
+  RescueTokensDescriptionText,
   TransactionButton,
 } from "@joincivil/components";
-import { multiClaimRewards } from "../../apis/civilTCR";
+import { multiClaimRewards, rescueTokensInMultiplePolls } from "../../apis/civilTCR";
 import { State } from "../../reducers";
 import {
-  makeGetUserChallengesWithUnclaimedRewards,
-  makeGetUserChallengesWithUnrevealedVotes,
-  makeGetUserChallengesWithRescueTokens,
+  getUserChallengesWithUnclaimedRewards,
+  getUserChallengesWithUnrevealedVotes,
+  getUserChallengesWithRescueTokens,
+  getChallengesStartedByUser,
+  getChallengesVotedOnByUser,
 } from "../../selectors";
 import ActivityList from "./ActivityList";
 
@@ -40,6 +45,7 @@ export interface ChallengesToProcess {
 
 export interface DashboardActivityState {
   challengesToClaim: ChallengesToProcess;
+  challengesToRescue: ChallengesToProcess;
 }
 
 const StyledTabsComponent = styled.div`
@@ -58,6 +64,7 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
     super(props);
     this.state = {
       challengesToClaim: {},
+      challengesToRescue: {},
     };
   }
 
@@ -104,6 +111,9 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
         </Tab>
         <Tab title={claimRewardsTabTitle}>
           <>
+            <StyledDashboardActivityDescription>
+              <ClaimRewardsDescriptionText />
+            </StyledDashboardActivityDescription>
             <ActivityList
               challenges={userChallengesWithUnclaimedRewards}
               resolvedChallenges={true}
@@ -115,7 +125,19 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
           </>
         </Tab>
         <Tab title={rescueTokensTabTitle}>
-          <ActivityList challenges={userChallengesWithRescueTokens} />
+          <>
+            <StyledDashboardActivityDescription>
+              <RescueTokensDescriptionText />
+            </StyledDashboardActivityDescription>
+            <ActivityList
+              challenges={userChallengesWithRescueTokens}
+              resolvedChallenges={true}
+              toggleChallengeSelect={this.setChallengesToMultiRescue}
+            />
+            <StyledBatchButtonContainer>
+              <TransactionButton transactions={[{ transaction: this.multiRescue }]}>Claim Rewards</TransactionButton>
+            </StyledBatchButtonContainer>
+          </>
         </Tab>
       </Tabs>
     );
@@ -131,14 +153,25 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
     }));
   };
 
+  private setChallengesToMultiRescue = (challengeID: string, isSelected: boolean, salt: BigNumber): void => {
+    this.setState(() => ({
+      challengesToRescue: { ...this.state.challengesToRescue, [challengeID]: [isSelected, salt] },
+    }));
+  };
+
   private resetMultiClaimRescue = (): void => {
-    this.setState(() => ({ challengesToClaim: {} }));
+    this.setState(() => ({ challengesToClaim: {}, challengesToRescue: {} }));
   };
 
   private multiClaim = async (): Promise<TwoStepEthTransaction | void> => {
     const challengeIDs = this.getChallengesToProcess(this.state.challengesToClaim);
     const salts = this.getSalts(this.state.challengesToClaim);
     return multiClaimRewards(challengeIDs, salts);
+  };
+
+  private multiRescue = async (): Promise<TwoStepEthTransaction | void> => {
+    const challengeIDs = this.getChallengesToProcess(this.state.challengesToClaim);
+    return rescueTokensInMultiplePolls(challengeIDs);
   };
 
   // We're storing which challenges to multi-claim in the state of this component, because
@@ -173,38 +206,23 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
   };
 }
 
-const makeMapStateToProps = () => {
-  const getUserChallengesWithUnclaimedRewards = makeGetUserChallengesWithUnclaimedRewards();
-  const getUserChallengesWithUnrevealedVotes = makeGetUserChallengesWithUnrevealedVotes();
-  const getUserChallengesWithRescueTokens = makeGetUserChallengesWithRescueTokens();
+const mapStateToProps = (state: State): DashboardActivityProps => {
+  const { currentUserNewsrooms, user } = state.networkDependent;
+  const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
+  const currentUserChallengesStarted = getChallengesStartedByUser(state);
+  const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
+  const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
+  const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state);
 
-  const mapStateToProps = (state: State): DashboardActivityProps => {
-    const { currentUserNewsrooms, challengesVotedOnByUser, challengesStartedByUser, user } = state.networkDependent;
-    let currentUserChallengesVotedOn = Set<string>();
-    if (user.account && challengesVotedOnByUser.has(user.account.account)) {
-      currentUserChallengesVotedOn = challengesVotedOnByUser.get(user.account.account);
-    }
-    let currentUserChallengesStarted = Set<string>();
-    if (user.account && challengesStartedByUser.has(user.account.account)) {
-      currentUserChallengesStarted = challengesStartedByUser.get(user.account.account);
-    }
-
-    const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
-    const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
-    const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state);
-
-    return {
-      currentUserNewsrooms,
-      currentUserChallengesVotedOn,
-      currentUserChallengesStarted,
-      userChallengesWithUnclaimedRewards,
-      userChallengesWithUnrevealedVotes,
-      userChallengesWithRescueTokens,
-      userAccount: user.account.account,
-    };
+  return {
+    currentUserNewsrooms,
+    currentUserChallengesVotedOn,
+    currentUserChallengesStarted,
+    userChallengesWithUnclaimedRewards,
+    userChallengesWithUnrevealedVotes,
+    userChallengesWithRescueTokens,
+    userAccount: user.account.account,
   };
-
-  return mapStateToProps;
 };
 
-export default connect(makeMapStateToProps)(DashboardActivity);
+export default connect(mapStateToProps)(DashboardActivity);

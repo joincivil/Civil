@@ -4,3 +4,4 @@ export * from "./DashboardActivity";
 export * from "./DashboardActivityItem";
 export * from "./DashboardActivityTabTitle";
 export * from "./styledComponents";
+export * from "./textComponents";
