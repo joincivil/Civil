@@ -1,14 +1,18 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import BigNumber from "bignumber.js";
 import {
   DashboardUserInfoSummary as DashboardUserInfoSummaryComponent,
   DashboardUserInfoSummaryProps,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../reducers";
+import { getUserTotalClaimedRewards, getChallengesWonTotalCvl } from "../../selectors";
 
 const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
   const { user } = state.networkDependent;
+  const userTotalClaimedRewards = getUserTotalClaimedRewards(state) as BigNumber;
+  const challengesWonTotalCvl = getChallengesWonTotalCvl(state) as BigNumber;
 
   let balance = "";
   if (user.account && user.account.balance) {
@@ -20,11 +24,17 @@ const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
     votingBalance = getFormattedTokenBalance(user.account.votingBalance);
   }
 
+  let userAccount = "";
+  if (user && user.account.account) {
+    userAccount = getFormattedEthAddress(user.account.account);
+  }
+
   return {
-    userAccount: user.account.account,
+    userAccount,
     balance,
     votingBalance,
-    rewardsEarned: "0.00 CVL",
+    challengesWonTotalCvl: getFormattedTokenBalance(challengesWonTotalCvl),
+    rewardsEarned: getFormattedTokenBalance(userTotalClaimedRewards),
     buyCVLURL: "https://civil.co/cvl/",
   };
 };

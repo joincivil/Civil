@@ -14,6 +14,7 @@ import {
   makeGetListingAddressByChallengeID,
   makeGetChallengeState,
   makeGetUserChallengeData,
+  makeGetUnclaimedRewardAmount,
 } from "../../selectors";
 import { WinningChallengeResults } from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
@@ -23,6 +24,7 @@ export interface ActivityListItemOwnProps {
   even: boolean;
   challenge?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
+  unclaimedRewardAmount?: string;
   challengeState?: any;
   challengeID?: string;
   user?: string;
@@ -130,7 +132,7 @@ class ActivityListItemComponent extends React.Component<
           </>
         );
       }
-    } else if (this.props.challengeState) {
+    } else if (challengeState) {
       if (listingPhaseState && inChallengeCommitVotePhase) {
         return (
           <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_COMMIT_VOTE} challenge={this.props.challenge} />
@@ -196,7 +198,7 @@ class ActivityListItemComponent extends React.Component<
         isVoterWinner &&
         !didUserCollect
       ) {
-        return ["Claim Rewards", "You voted for the winner"];
+        return ["Claim Rewards", `~${this.props.unclaimedRewardAmount} available`];
       } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && !isVoterWinner) {
         return ["View Results", "You did not vote for the winner"];
       } else if (
@@ -260,19 +262,27 @@ const makeChallengeMapStateToProps = () => {
   const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
   const getChallengeState = makeGetChallengeState();
   const getUserChallengeData = makeGetUserChallengeData();
+  const getUnclaimedRewardAmount = makeGetUnclaimedRewardAmount();
 
   const mapStateToProps = (state: State, ownProps: ChallengeActivityListItemOwnProps): ActivityListItemOwnProps => {
     const listingAddress = getListingAddressByChallengeID(state, ownProps);
     const challenge = getChallenge(state, ownProps);
     const userChallengeData = getUserChallengeData(state, ownProps);
+    const unclaimedRewardAmountBN = getUnclaimedRewardAmount(state, ownProps);
     const challengeState = getChallengeState(state, ownProps);
     const { even, user } = ownProps;
+
+    let unclaimedRewardAmount = "";
+    if (unclaimedRewardAmountBN) {
+      unclaimedRewardAmount = getFormattedTokenBalance(unclaimedRewardAmountBN);
+    }
 
     return {
       listingAddress,
       challenge,
       challengeState,
       userChallengeData,
+      unclaimedRewardAmount,
       even,
       user,
     };

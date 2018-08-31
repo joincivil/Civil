@@ -116,6 +116,18 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   }
 
   /**
+   * Unlocks tokens from unrevealed vote from multiple polls that have ended
+   * @param pollIDs List of IDs of polls to unlock unrevealed vote of
+   */
+  public async rescueTokensInMultiplePolls(pollIDs: BigNumber[]): Promise<TwoStepEthTransaction> {
+    const pollIDsBN = pollIDs.map((pollID, index) => this.ethApi.toBigNumber(pollID));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.rescueTokensInMultiplePolls.sendTransactionAsync(pollIDsBN),
+    );
+  }
+
+  /**
    * Commits user's votes for poll
    * @param pollID ID of poll to commit votes to
    * @param secretHash keccak256 hash of voter's choice and salt (tightly packed in this order)
