@@ -57,7 +57,7 @@ export const StyledUserInfo = styled.div`
 export const StyledUserInfoSection = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 15px 0;
+  margin: 24px 0;
 
   & a {
     color: ${colors.basic.WHITE};
