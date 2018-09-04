@@ -26,3 +26,29 @@ export function getDefaultFromBlock(network: number = 4): number {
   };
   return defaultFromBlocks[network.toString()];
 }
+
+export enum Parameters {
+  minDeposit = "minDeposit",
+  pMinDeposit = "pMinDeposit",
+  applyStageLen = "applyStageLen",
+  pApplyStageLen = "pApplyStageLen",
+  commitStageLen = "commitStageLen",
+  pCommitStageLen = "pCommitStageLen",
+  revealStageLen = "revealStageLen",
+  pRevealStageLen = "pRevealStageLen",
+  dispensationPct = "dispensationPct",
+  pDispensationPct = "pDispensationPct",
+  voteQuorum = "voteQuorum",
+  pVoteQuorum = "pVoteQuorum",
+  pProcessBy = "pProcessBy",
+  challengeAppealLen = "challengeAppealLen",
+  challengeAppealCommitLen = "challengeAppealCommitLen",
+  challengeAppealRevealLen = "challengeAppealRevealLen",
+}
+
+export enum GovernmentParameters {
+  requestAppealLen = "requestAppealLen",
+  judgeAppealLen = "judgeAppealLen",
+  appealFee = "appealFee",
+  appealVotePercentage = "appealVotePercentage",
+}

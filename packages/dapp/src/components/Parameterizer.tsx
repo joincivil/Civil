@@ -7,7 +7,7 @@ import { PageView, ViewModule, ViewModuleHeader } from "./utility/ViewModules";
 import { ProposeReparameterization } from "./parameterizer/proposeReparameterization";
 import { GovernmentReparameterization } from "./parameterizer/GovernmentReparameterization";
 import Proposals from "./parameterizer/Proposals";
-import { getFormattedTokenBalance, getReadableDuration } from "@joincivil/utils";
+import { getFormattedTokenBalance, getReadableDuration, Parameters, GovernmentParameters } from "@joincivil/utils";
 import { getCivil } from "../helpers/civilInstance";
 
 const StyledSpan = styled.span`
@@ -16,29 +16,29 @@ const StyledSpan = styled.span`
 `;
 
 export interface ParameterizerProps {
-  minDeposit: BigNumber;
-  pMinDeposit: BigNumber;
-  applyStageLen: BigNumber;
-  pApplyStageLen: BigNumber;
-  commitStageLen: BigNumber;
-  pCommitStageLen: BigNumber;
-  revealStageLen: BigNumber;
-  pRevealStageLen: BigNumber;
-  dispensationPct: BigNumber;
-  pDispensationPct: BigNumber;
-  voteQuorum: BigNumber;
-  pVoteQuorum: BigNumber;
-  pProcessBy: BigNumber;
-  challengeAppealLen: BigNumber;
-  challengeAppealCommitLen: BigNumber;
-  challengeAppealRevealLen: BigNumber;
+  [Parameters.minDeposit]: BigNumber;
+  [Parameters.pMinDeposit]: BigNumber;
+  [Parameters.applyStageLen]: BigNumber;
+  [Parameters.pApplyStageLen]: BigNumber;
+  [Parameters.commitStageLen]: BigNumber;
+  [Parameters.pCommitStageLen]: BigNumber;
+  [Parameters.revealStageLen]: BigNumber;
+  [Parameters.pRevealStageLen]: BigNumber;
+  [Parameters.dispensationPct]: BigNumber;
+  [Parameters.pDispensationPct]: BigNumber;
+  [Parameters.voteQuorum]: BigNumber;
+  [Parameters.pVoteQuorum]: BigNumber;
+  [Parameters.pProcessBy]: BigNumber;
+  [Parameters.challengeAppealLen]: BigNumber;
+  [Parameters.challengeAppealCommitLen]: BigNumber;
+  [Parameters.challengeAppealRevealLen]: BigNumber;
 }
 
 export interface GovernmentParameterProps {
-  requestAppealLen: BigNumber;
-  judgeAppealLen: BigNumber;
-  appealFee: BigNumber;
-  appealVotePercentage: BigNumber;
+  [GovernmentParameters.requestAppealLen]: BigNumber;
+  [GovernmentParameters.judgeAppealLen]: BigNumber;
+  [GovernmentParameters.appealFee]: BigNumber;
+  [GovernmentParameters.appealVotePercentage]: BigNumber;
 }
 
 export interface ParameterizerPageProps {
