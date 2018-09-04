@@ -107,7 +107,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     Appeal storage appeal = appeals[listing.challengeID];
     appeal.requester = msg.sender;
     appeal.appealFeePaid = appealFee;
-    appeal.appealPhaseExpiry = now + government.get("judgeAppealLen");
+    appeal.appealPhaseExpiry = now.add(government.get("judgeAppealLen"));
 
     require(token.transferFrom(msg.sender, this, appealFee));
     emit _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender);
@@ -139,7 +139,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     require(!appeal.appealGranted); // don't grant twice
 
     appeal.appealGranted = true;
-    appeal.appealOpenToChallengeExpiry = now + parameterizer.get("challengeAppealLen");
+    appeal.appealOpenToChallengeExpiry = now.add(parameterizer.get("challengeAppealLen"));
     emit _AppealGranted(listingAddress, listing.challengeID);
   }
 
@@ -196,9 +196,9 @@ contract CivilTCR is RestrictedAddressRegistry {
     } else {
       // appeal fee is split between original winning voters and challenger
       Challenge storage challenge = challenges[listing.challengeID];
-      uint extraReward = appeal.appealFeePaid / 2;
-      challenge.rewardPool += extraReward;
-      challenge.stake += appeal.appealFeePaid - extraReward;
+      uint extraReward = appeal.appealFeePaid.div(2);
+      challenge.rewardPool = challenge.rewardPool.add(extraReward);
+      challenge.stake = challenge.stake.add(appeal.appealFeePaid.sub(extraReward));
       // appeal not granted, confirm original decision of voters.
       super.resolveChallenge(listingAddress);
     }
@@ -221,8 +221,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   function challenge(address listingAddress, string data) public returns (uint challengeID) {
     uint id = super.challenge(listingAddress, data);
     if (id > 0) {
-      uint challengeLength = parameterizer.get("commitStageLen") + parameterizer.get("revealStageLen") + government.get("requestAppealLen");
-      challengeRequestAppealExpiries[id] = now + challengeLength;
+      uint challengeLength = parameterizer.get("commitStageLen").add(parameterizer.get("revealStageLen")).add(government.get("requestAppealLen"));
+      challengeRequestAppealExpiries[id] = now.add(challengeLength);
     }
     return id;
   }
@@ -260,9 +260,11 @@ contract CivilTCR is RestrictedAddressRegistry {
       parameterizer.get("challengeAppealRevealLen")
     );
 
+    uint oneHundred = 100;
+    uint reward = (oneHundred.sub(pct)).mul(appeal.appealFeePaid).div(oneHundred);
     challenges[pollID] = Challenge({
       challenger: msg.sender,
-      rewardPool: ((100 - pct) * appeal.appealFeePaid) / 100,
+      rewardPool: reward,
       stake: appeal.appealFeePaid,
       resolved: false,
       totalTokens: 0
@@ -329,8 +331,8 @@ contract CivilTCR is RestrictedAddressRegistry {
 
     // Subtracts the voter's information to preserve the participation ratios
     // of other voters compared to the remaining pool of rewards
-    challenges[_challengeID].totalTokens -= voterTokens;
-    challenges[_challengeID].rewardPool -= reward;
+    challenges[_challengeID].totalTokens = challenges[_challengeID].totalTokens.sub(voterTokens);
+    challenges[_challengeID].rewardPool = challenges[_challengeID].rewardPool.sub(reward);
 
     // Ensures a voter cannot claim tokens again
     challenges[_challengeID].tokenClaims[msg.sender] = true;
@@ -376,7 +378,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     uint totalTokens = challenge.totalTokens;
     uint rewardPool = challenge.rewardPool;
     uint voterTokens = getNumChallengeTokens(voter, challengeID, salt);
-    return (voterTokens * rewardPool) / totalTokens;
+    return (voterTokens.mul(rewardPool)).div(totalTokens);
   }
 
   /**
@@ -406,7 +408,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     if (!voting.isPassed(challengeID)) { // original vote failed (challenge succeded), this should whitelist listing
       whitelistApplication(listingAddress);
       // Unlock stake so that it can be retrieved by the applicant
-      listing.unstakedDeposit += reward;
+      listing.unstakedDeposit = listing.unstakedDeposit.add(reward);
 
       emit _SuccessfulChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     } else { // original vote succeded (challenge failed), this should de-list listing
