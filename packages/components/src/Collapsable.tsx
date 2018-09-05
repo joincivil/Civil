@@ -8,7 +8,6 @@ export interface OpenBool {
 
 export interface ArrowProps extends OpenBool {
   disabled?: boolean;
-  arrowLeftAlign?: boolean;
 }
 
 export interface CollapsableProps extends OpenBool {
