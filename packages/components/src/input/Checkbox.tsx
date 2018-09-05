@@ -10,7 +10,7 @@ interface ContainerProps {
 
 const Box = styled.span`
   position: absolute;
-  cursor: ${(props: ContainerProps) => props.locked ? "default" : "pointer"};
+  cursor: ${(props: ContainerProps) => (props.locked ? "default" : "pointer")};
   top: 0;
   left: 0;
   bottom: 0;
@@ -45,9 +45,9 @@ const Container = styled<ContainerProps, "label">("label")`
   }
   input:checked + ${Box} {
     color: ${colors.basic.WHITE};
-    border: 2px solid ${(props) => props.theme.checkboxActiveColor};
-    background-color: ${(props) => props.theme.checkboxActiveColor};
-    opacity: ${(props: ContainerProps) => props.locked ? 0.7 : 1};
+    border: 2px solid ${props => props.theme.checkboxActiveColor};
+    background-color: ${props => props.theme.checkboxActiveColor};
+    opacity: ${(props: ContainerProps) => (props.locked ? 0.7 : 1)};
   }
   input:checked + ${Box}:after {
     display: block;
@@ -58,8 +58,8 @@ Container.defaultProps = {
   theme: {
     checkboxInactiveColor: colors.accent.CIVIL_GRAY_2,
     checkboxActiveColor: colors.accent.CIVIL_BLUE,
-  }
-}
+  },
+};
 
 export interface CheckboxProps {
   checked: boolean;
@@ -68,8 +68,10 @@ export interface CheckboxProps {
 }
 
 export const Checkbox = (props: CheckboxProps) => {
-  return (<Container locked={props.locked}>
-    <input onClick={props.onClick} checked={props.checked} type="checkbox"/>
-    <Box locked={props.locked}/>
-  </Container>);
+  return (
+    <Container locked={props.locked}>
+      <input onClick={props.onClick} checked={props.checked} type="checkbox" />
+      <Box locked={props.locked} />
+    </Container>
+  );
 };

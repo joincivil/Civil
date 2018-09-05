@@ -25,7 +25,7 @@ export interface CollapseAreaProps extends OpenBool {
 export const CollapseArea: StyledComponentClass<CollapseAreaProps, "div"> = styled<CollapseAreaProps, "div">("div")`
   height: ${props => (props.open ? `${props.height ? `${props.height}px` : "auto"}` : "0px")};
   transition: height 1s;
-  overflow: ${props => props.open ? "visible" : "hidden"};
+  overflow: ${props => (props.open ? "visible" : "hidden")};
 `;
 
 export const Arrow: StyledComponentClass<ArrowProps, "div"> = styled<ArrowProps, "div">("div")`
@@ -77,7 +77,12 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
     return (
       <div>
         <HeaderWrapper onClick={this.open}>
-          {header} {this.props.ArrowComponent ? <this.props.ArrowComponent disabled={this.props.disabled} open={this.state.open} /> : <Arrow disabled={this.props.disabled} open={this.state.open} />}
+          {header}{" "}
+          {this.props.ArrowComponent ? (
+            <this.props.ArrowComponent disabled={this.props.disabled} open={this.state.open} />
+          ) : (
+            <Arrow disabled={this.props.disabled} open={this.state.open} />
+          )}
         </HeaderWrapper>
         <CollapseArea innerRef={el => (this.collapseArea = el)} height={this.state.height} open={this.state.open}>
           {this.props.children}

@@ -53,7 +53,6 @@ import {
 } from "./utils/contracts";
 import * as zlib from "zlib";
 import { bufferToHex, toBuffer, setLengthLeft, addHexPrefix } from "ethereumjs-util";
-import { arch } from "os";
 
 const deflate = promisify<Buffer>(zlib.deflate);
 
@@ -510,7 +509,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     archive?: boolean,
   ): Promise<number> {
     const uriForEstimate = archive ? "self-tx:1.0" : uriOrContent;
-    const data = await this.instance.publishContent.getRaw(uriForEstimate, hash, author, signature, {gas: 0});
+    const data = await this.instance.publishContent.getRaw(uriForEstimate, hash, author, signature, { gas: 0 });
     if (!(await this.isEditor()) && (await this.isOwner())) {
       if (archive) {
         return this.estimateFromDataMultiSig(data, uriOrContent);
@@ -532,10 +531,16 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     uriOrContent: any,
     hash: string,
     signature: string = "",
-    archive?: boolean
+    archive?: boolean,
   ): Promise<number> {
     const uriForEstimate = archive ? "self-tx:1.0" : uriOrContent;
-    const data = await this.instance.updateRevision.getRaw(this.ethApi.toBigNumber(contentId), uriForEstimate, hash, signature, {gas: 0});
+    const data = await this.instance.updateRevision.getRaw(
+      this.ethApi.toBigNumber(contentId),
+      uriForEstimate,
+      hash,
+      signature,
+      { gas: 0 },
+    );
     if (!(await this.isEditor()) && (await this.isOwner())) {
       if (archive) {
         return this.estimateFromDataMultiSig(data, uriOrContent);
@@ -543,7 +548,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         return this.estimateFromDataMultiSig(data);
       }
     } else {
-      const baseGas = await this.instance.updateRevision.estimateGasAsync(this.ethApi.toBigNumber(contentId), uriForEstimate, hash, signature, {});
+      const baseGas = await this.instance.updateRevision.estimateGasAsync(
+        this.ethApi.toBigNumber(contentId),
+        uriForEstimate,
+        hash,
+        signature,
+        {},
+      );
       let additionalGas = 0;
       if (archive) {
         additionalGas = await this.estimateFromContent(uriOrContent, data.data!.length);
@@ -564,10 +575,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return baseGas + additionalGas;
   }
 
-  public async estimateFromContent(
-    content: any,
-    dataLength: number,
-  ): Promise<number> {
+  public async estimateFromContent(content: any, dataLength: number): Promise<number> {
     const revision = typeof content === "string" ? content : JSON.stringify(content);
     const buffer = await deflate(revision);
     const hex = bufferToHex(buffer);
@@ -649,7 +657,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   ): Promise<TwoStepEthTransaction<MultisigTransaction | ContentId>> {
     const revision = typeof content === "string" ? content : JSON.stringify(content);
     const gas = await this.estimatePublishURIAndHash(content, hash, author, signature, true);
-    const data = await this.instance.publishContent.getRaw("self-tx:1.0", hash, author, signature, {gas});
+    const data = await this.instance.publishContent.getRaw("self-tx:1.0", hash, author, signature, { gas });
     const buffer = await deflate(revision);
     const hex = bufferToHex(buffer);
     if (!(await this.isEditor()) && (await this.isOwner())) {
@@ -674,7 +682,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
     const revision = typeof content === "string" ? content : JSON.stringify(content);
     const gas = await this.estimateUpdateURIAndHash(contentId, content, hash, signature, true);
-    const data = await this.instance.updateRevision.getRaw(this.ethApi.toBigNumber(contentId),  "self-tx:1.0", hash, signature, {gas});
+    const data = await this.instance.updateRevision.getRaw(
+      this.ethApi.toBigNumber(contentId),
+      "self-tx:1.0",
+      hash,
+      signature,
+      { gas },
+    );
     const buffer = await deflate(revision);
     const hex = bufferToHex(buffer);
     if (!(await this.isEditor()) && (await this.isOwner())) {
@@ -682,7 +696,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       return createTwoStepTransaction(this.ethApi, await this.ethApi.sendTransaction(multiSigData), findRevisionId);
     } else {
       await this.requireEditor();
-      const txData = await this.instance.updateRevision.getRaw(this.ethApi.toBigNumber(contentId), "self-tx:1.0", hash, signature, { gas });
+      const txData = await this.instance.updateRevision.getRaw(
+        this.ethApi.toBigNumber(contentId),
+        "self-tx:1.0",
+        hash,
+        signature,
+        { gas },
+      );
       const length = bufferToHex(setLengthLeft(toBuffer(txData.data!.length), 8));
       const extra = hex.substr(2) + length.substr(2);
       txData.data = txData.data + extra;
@@ -690,8 +710,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       return createTwoStepTransaction(this.ethApi, await this.ethApi.sendTransaction(txData), findRevisionId);
     }
   }
-
-
 
   public async contentIdFromTxHash(txHash: TxHash): Promise<number> {
     const publishReceipt = await this.ethApi.awaitReceipt<CivilTransactionReceipt>(txHash);

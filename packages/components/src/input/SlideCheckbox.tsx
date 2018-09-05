@@ -15,7 +15,7 @@ const Slider = styled.span`
   bottom: 0;
   right: 0;
   border-radius: 34px;
-  tansition: .4s;
+  tansition: 0.4s;
   &:before {
     position: absolute;
     content: "";
@@ -23,7 +23,7 @@ const Slider = styled.span`
     width: 10px;
     left: 1.7px;
     top: 1.7px;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 50%;
   }
 `;
@@ -33,7 +33,7 @@ Slider.defaultProps = {
     checkboxInactiveColor: colors.accent.CIVIL_GRAY_2,
     checkboxActiveColor: colors.accent.CIVIL_BLUE,
   },
-}
+};
 
 const Switch = styled.label`
   position: relative;
@@ -55,7 +55,7 @@ const Switch = styled.label`
     background-color: ${props => props.theme.checkboxActiveColor};
   }
   input:focus + ${Slider} {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #2196f3;
   }
   input:checked + ${Slider}:before {
     background-color: ${colors.basic.WHITE};
@@ -68,7 +68,7 @@ Switch.defaultProps = {
     checkboxInactiveColor: colors.accent.CIVIL_GRAY_2,
     checkboxActiveColor: colors.accent.CIVIL_BLUE,
   },
-}
+};
 
 export interface SlideCheckboxProps {
   checked: boolean;
@@ -76,8 +76,10 @@ export interface SlideCheckboxProps {
 }
 
 export const SlideCheckbox = (props: SlideCheckboxProps) => {
-  return (<Switch>
-    <input onClick={props.onClick} checked={props.checked} type="checkbox"/>
-    <Slider/>
-  </Switch>);
+  return (
+    <Switch>
+      <input onClick={props.onClick} checked={props.checked} type="checkbox" />
+      <Slider />
+    </Switch>
+  );
 };

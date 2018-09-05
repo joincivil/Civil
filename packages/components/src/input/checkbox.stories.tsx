@@ -15,11 +15,11 @@ class TestSlideComponent extends React.Component<any, TestComponentState> {
     };
   }
   public render(): JSX.Element {
-    return <SlideCheckbox onClick={this.onClick} checked={this.state.checked}/>;
+    return <SlideCheckbox onClick={this.onClick} checked={this.state.checked} />;
   }
   private onClick = (): void => {
-    this.setState({checked: !this.state.checked});
-  }
+    this.setState({ checked: !this.state.checked });
+  };
 }
 
 class TestComponent extends React.Component<any, TestComponentState> {
@@ -30,19 +30,17 @@ class TestComponent extends React.Component<any, TestComponentState> {
     };
   }
   public render(): JSX.Element {
-    return <Checkbox onClick={this.onClick} checked={this.state.checked}/>;
+    return <Checkbox onClick={this.onClick} checked={this.state.checked} />;
   }
   private onClick = (): void => {
-    this.setState({checked: !this.state.checked});
-  }
+    this.setState({ checked: !this.state.checked });
+  };
 }
 
-storiesOf("check box", module).add("slide check box", () => {
-  return (
-    <TestSlideComponent/>
-  );
-}).add("checkbox", () => {
-  return (
-    <TestComponent/>
-  );
-});
+storiesOf("check box", module)
+  .add("slide check box", () => {
+    return <TestSlideComponent />;
+  })
+  .add("checkbox", () => {
+    return <TestComponent />;
+  });

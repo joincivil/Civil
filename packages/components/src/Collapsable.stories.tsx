@@ -37,7 +37,7 @@ storiesOf("Collapsable", module)
     );
   })
   .add("with custom arrow", () => {
-    const Arrow = styled<{open: boolean}, "div">("div")`
+    const Arrow = styled<{ open: boolean }, "div">("div")`
       width: 8px;
       height: 8px;
       border-left: 3px solid blue;
