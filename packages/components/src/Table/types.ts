@@ -8,4 +8,5 @@ export interface TableCellProps {
   borderWidth?: string;
   colSpan?: number;
   rowSpan?: number;
+  width?: string;
 }

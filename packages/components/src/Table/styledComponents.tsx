@@ -31,9 +31,23 @@ export const StyledTableCell = styled.td`
   text-align: ${(props: TableCellProps) => props.align || "left"};
 `;
 
+export interface StyledTabAccentTextProps {
+  strong?: boolean;
+}
+
+export const StyledTableAccentText = styled.span`
+  color: ${colors.accent.CIVIL_BLUE};
+  cursor: pointer;
+  font-weight: ${(props: StyledTabAccentTextProps) => (props.strong ? "bold" : "normal")};
+`;
+
 export const StyledTableRow = styled.tr`
   &:hover ${StyledTableCell} {
     background-color: ${colors.accent.CIVIL_BLUE};
+    color: ${colors.basic.WHITE};
+  }
+
+  &:hover ${StyledTableAccentText} {
     color: ${colors.basic.WHITE};
   }
 `;

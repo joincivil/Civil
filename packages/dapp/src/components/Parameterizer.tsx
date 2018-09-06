@@ -2,15 +2,15 @@ import * as React from "react";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "bignumber.js";
+import { TwoStepEthTransaction } from "@joincivil/core";
 import {
-  Button,
-  buttonSizes,
   colors,
   fonts,
   Table,
   Tr,
   Td,
   Th,
+  StyledTableAccentText,
   Tabs,
   Tab,
   StyledDashboardSubTab,
@@ -34,14 +34,15 @@ import {
   JudgeAppealLenLabelText,
   AppealFeeLabelText,
   AppealVotePercentageLabelText,
+  StyledParameterizerContainer,
+  CreateProposal,
 } from "@joincivil/components";
-import { State } from "../reducers";
-import { ProposeReparameterization } from "./parameterizer/proposeReparameterization";
-import { GovernmentReparameterization } from "./parameterizer/GovernmentReparameterization";
-import Proposals from "./parameterizer/Proposals";
 import { getFormattedTokenBalance, getReadableDuration, Parameters, GovernmentParameters } from "@joincivil/utils";
+import { State } from "../reducers";
+import Proposals from "./parameterizer/Proposals";
 import ListingDiscourse from "./listing/ListingDiscourse";
 import { getCivil } from "../helpers/civilInstance";
+import { approveForProposeReparameterization, proposeReparameterization } from "../apis/civilTCR";
 
 const GridRow = styled.div`
   display: flex;
@@ -120,7 +121,47 @@ export interface ParameterizerPageProps {
   govtParameters: GovernmentParameterProps;
 }
 
-class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any>> {
+export interface ParameterizerPageState {
+  isCreateProposalVisible: boolean;
+  createProposalParameterName?: string;
+  createProposalParameterCurrentValue?: string;
+  createProposalNewValue?: string;
+}
+
+const amountParams: string[] = [Parameters.minDeposit, Parameters.pMinDeposit, GovernmentParameters.appealFee];
+
+const durationParams: string[] = [
+  Parameters.applyStageLen,
+  Parameters.pApplyStageLen,
+  Parameters.commitStageLen,
+  Parameters.pCommitStageLen,
+  Parameters.revealStageLen,
+  Parameters.pRevealStageLen,
+  Parameters.pProcessBy,
+  Parameters.challengeAppealLen,
+  Parameters.challengeAppealCommitLen,
+  Parameters.challengeAppealRevealLen,
+  GovernmentParameters.requestAppealLen,
+  GovernmentParameters.judgeAppealLen,
+];
+
+const percentParams: string[] = [
+  Parameters.dispensationPct,
+  Parameters.pDispensationPct,
+  Parameters.voteQuorum,
+  Parameters.pVoteQuorum,
+  GovernmentParameters.appealVotePercentage,
+];
+
+class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any>, ParameterizerPageState> {
+  constructor(props: ParameterizerPageProps & DispatchProp<any>) {
+    super(props);
+
+    this.state = {
+      isCreateProposalVisible: false,
+    };
+  }
+
   public render(): JSX.Element {
     const civil = getCivil();
 
@@ -154,37 +195,37 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                   </b>.
                 </StyledP>
 
-                <Table width="100%">
-                  <thead>
-                    <Tr>
-                      <Th>Current Parameter</Th>
-                      <Th>Current Value</Th>
-                      <Th colSpan={3} accent>
-                        Proposal for New Value
-                      </Th>
-                    </Tr>
-                  </thead>
-                  <tbody>
-                    {Object.keys(this.props.parameters).map(key => {
-                      if (!this.props.parameters[key]) {
-                        return <></>;
-                      }
-                      return (
-                        <Parameter
-                          key={key}
-                          parameterName={key}
-                          parameterDisplayName={this.getParameterDisplayName(key)}
-                          parameterValue={this.props.parameters[key]}
-                        />
-                      );
-                    })}
-                  </tbody>
-                </Table>
+                <StyledParameterizerContainer>
+                  <Table width="100%">
+                    <thead>
+                      <Tr>
+                        <Th width="300">Current Parameter</Th>
+                        <Th>Current Value</Th>
+                        <Th colSpan={3} accent>
+                          Proposal for New Value
+                        </Th>
+                      </Tr>
+                    </thead>
+                    <tbody>
+                      {Object.keys(this.props.parameters).map(key => {
+                        if (!this.props.parameters[key]) {
+                          return <></>;
+                        }
+                        return (
+                          <Parameter
+                            key={key}
+                            parameterName={key}
+                            parameterDisplayName={this.getParameterDisplayName(key)}
+                            parameterValue={this.props.parameters[key]}
+                            handleCreateProposal={this.showCreateProposal}
+                          />
+                        );
+                      })}
+                    </tbody>
+                  </Table>
 
-                <ProposeReparameterization
-                  paramKeys={Object.keys(this.props.parameters)}
-                  pMinDeposit={this.props.parameters.pMinDeposit && this.props.parameters.pMinDeposit.toString()}
-                />
+                  {this.state.isCreateProposalVisible && this.renderCreateProposal()}
+                </StyledParameterizerContainer>
               </StyledTabContainer>
             </Tab>
 
@@ -211,12 +252,12 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                           parameterName={key}
                           parameterDisplayName={this.getParameterDisplayName(key)}
                           parameterValue={this.props.govtParameters[key]}
+                          handleCreateProposal={this.showCreateProposal}
                         />
                       );
                     })}
                   </tbody>
                 </Table>
-                <GovernmentReparameterization paramKeys={Object.keys(this.props.govtParameters)} />
               </StyledTabContainer>
             </Tab>
           </Tabs>
@@ -232,6 +273,50 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       </>
     );
   }
+
+  private renderCreateProposal = (): JSX.Element => {
+    const civil = getCivil();
+    const proposalMinDeposit =
+      this.props.parameters[Parameters.pMinDeposit] &&
+      getFormattedTokenBalance(civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()));
+
+    return (
+      <CreateProposal
+        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
+        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
+        parameterDisplayUnits={this.getParameterDisplayUnits(this.state.createProposalParameterName!)}
+        parameterProposalValue={this.state.createProposalNewValue!}
+        proposalDeposit={proposalMinDeposit}
+        transactions={[
+          { transaction: approveForProposeReparameterization },
+          { transaction: this.proposeReparameterization },
+        ]}
+        handleClose={this.hideCreateProposal}
+        handleUpdateProposalValue={this.updateProposalNewValue}
+      />
+    );
+  };
+
+  private updateProposalNewValue = (name: string, value: string) => {
+    this.setState(
+      () => ({ createProposalNewValue: value }),
+      () => {
+        console.log(this.state);
+      },
+    );
+  };
+
+  private showCreateProposal = (parameterName: string, currentValue: string): void => {
+    this.setState(() => ({
+      createProposalParameterName: parameterName,
+      createProposalParameterCurrentValue: currentValue,
+    }));
+    this.setState(() => ({ isCreateProposalVisible: true }));
+  };
+
+  private hideCreateProposal = (): void => {
+    this.setState(() => ({ isCreateProposalVisible: false }));
+  };
 
   private getParameterDisplayName = (parameterName: string): JSX.Element => {
     const parameterDisplayNameMap = {
@@ -266,12 +351,33 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
     return <DisplayName />;
   };
+
+  private getParameterDisplayUnits = (parameterName: string): string => {
+    let label = "";
+
+    if (amountParams.includes(parameterName)) {
+      label = "CVL";
+    } else if (durationParams.includes(parameterName)) {
+      label = "Seconds";
+    } else if (percentParams.includes(parameterName)) {
+      label = "%";
+    }
+
+    return label;
+  };
+
+  // @TODO(jon): This would probably be a nice place for a confirm dialog
+  private proposeReparameterization = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    const newValue: BigNumber = new BigNumber(this.state.createProposalNewValue!);
+    return proposeReparameterization(this.state.createProposalParameterName!, newValue);
+  };
 }
 
 interface ParameterProps {
   parameterName: string;
   parameterDisplayName: string | JSX.Element;
   parameterValue: BigNumber;
+  handleCreateProposal(paramName: string, currentValue: string): void;
 }
 
 class Parameter extends React.Component<ParameterProps> {
@@ -281,40 +387,20 @@ class Parameter extends React.Component<ParameterProps> {
         <Td>{this.props.parameterDisplayName}</Td>
         <Td>{this.getFormattedValue()}</Td>
         <Td accent align="right" colSpan={3}>
-          <Button size={buttonSizes.SMALL}>Propose New Value</Button>
+          <StyledTableAccentText>
+            <span onClick={this.onClick}>Propose New Value</span>
+          </StyledTableAccentText>
         </Td>
       </Tr>
     );
   }
 
+  private onClick = (event: any) => {
+    this.props.handleCreateProposal(this.props.parameterName, this.getFormattedValue());
+  };
+
   private getFormattedValue = (): string => {
     const civil = getCivil();
-
-    const amountParams: string[] = [Parameters.minDeposit, Parameters.pMinDeposit, GovernmentParameters.appealFee];
-
-    const durationParams: string[] = [
-      Parameters.applyStageLen,
-      Parameters.pApplyStageLen,
-      Parameters.commitStageLen,
-      Parameters.pCommitStageLen,
-      Parameters.revealStageLen,
-      Parameters.pRevealStageLen,
-      Parameters.pProcessBy,
-      Parameters.challengeAppealLen,
-      Parameters.challengeAppealCommitLen,
-      Parameters.challengeAppealRevealLen,
-      GovernmentParameters.requestAppealLen,
-      GovernmentParameters.judgeAppealLen,
-    ];
-
-    const percentParams: string[] = [
-      Parameters.dispensationPct,
-      Parameters.pDispensationPct,
-      Parameters.voteQuorum,
-      Parameters.pVoteQuorum,
-      GovernmentParameters.appealVotePercentage,
-    ];
-
     let value = "";
 
     if (amountParams.includes(this.props.parameterName)) {

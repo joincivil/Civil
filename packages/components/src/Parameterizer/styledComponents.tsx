@@ -6,11 +6,6 @@ export const StyledParameterizerContainer = styled.div`
   position: relative;
 `;
 
-export const StyledCreateProposalOuter = styled.div`
-  background: ${colors.basic.WHITE}9a; // 9a is hex for 60^
-  position: relative;
-`;
-
 export const StyledCreateProposalContainer = styled.div`
   background: ${colors.accent.CIVIL_GRAY_4};
   bottom: 0;
@@ -19,6 +14,20 @@ export const StyledCreateProposalContainer = styled.div`
   right: 0;
   top: 0;
   width: 634px;
+`;
+
+export const StyledCreateProposalOuter = styled.div`
+  background: ${colors.basic.WHITE}9a; // 9a is hex for 60^
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  bottom 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  & ${StyledCreateProposalContainer} {
+    position: absolute;
+  }
 `;
 
 export const StyledCreateProposalHeader = styled.div`
