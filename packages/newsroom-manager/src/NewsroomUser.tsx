@@ -10,7 +10,7 @@ import {
   MetaMaskModal,
   ModalHeading,
   TransactionButtonInnerProps,
-  ClipLoader
+  ClipLoader,
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
 import styled, { StyledComponentClass } from "styled-components";
@@ -48,7 +48,8 @@ const RemoveButton = Button.extend`
   border: solid 1px #cccccc;
   color: #555555;
   margin: 1em 0;
-  &:active,&:hover{
+  &:active,
+  &:hover {
     border-radius: 3px;
     background-color: #f7f7f7;
     border: solid 1px #cccccc;
@@ -103,7 +104,7 @@ const TransactionButtonInner = (props: TransactionButtonInnerProps): JSX.Element
     case 2:
       buttonComponent = (
         <DisabledTransactionProcessingButton>
-          <ClipLoader size={10}/>
+          <ClipLoader size={10} />
         </DisabledTransactionProcessingButton>
       );
       break;
@@ -111,7 +112,10 @@ const TransactionButtonInner = (props: TransactionButtonInnerProps): JSX.Element
   return buttonComponent;
 };
 
-export class NewsroomUserComponent extends React.Component<NewsroomUserProps & DispatchProp<any>, TransactionButtonModalFlowState> {
+export class NewsroomUserComponent extends React.Component<
+  NewsroomUserProps & DispatchProp<any>,
+  TransactionButtonModalFlowState
+> {
   constructor(props: NewsroomUserProps & DispatchProp<any>) {
     super(props);
     this.state = {};
@@ -120,7 +124,10 @@ export class NewsroomUserComponent extends React.Component<NewsroomUserProps & D
     if (!this.state.isPreTransactionModalOpen) {
       return null;
     }
-    const message = this.props.type === UserTypes.EDITOR ? "Open MetaMask to remove a Civil Member" : "Open MetaMask to remove a Civil Admin";
+    const message =
+      this.props.type === UserTypes.EDITOR
+        ? "Open MetaMask to remove a Civil Member"
+        : "Open MetaMask to remove a Civil Admin";
     return (
       <MetaMaskModal
         waiting={false}
@@ -136,11 +143,13 @@ export class NewsroomUserComponent extends React.Component<NewsroomUserProps & D
     if (!this.state.metaMaskRejectionModal) {
       return null;
     }
-    const message = this.props.type === UserTypes.EDITOR ? "Civil Member was not removed" : "Civil Admin was not removed";
+    const message =
+      this.props.type === UserTypes.EDITOR ? "Civil Member was not removed" : "Civil Admin was not removed";
 
-    const denailMessage = this.props.type === UserTypes.EDITOR
-      ? "To remove a Civil Member, you need to confirm the transaction in your MetaMask wallet."
-      : "To remove a Civil Admin, you need to confirm the transaction in your MetaMask wallet.";
+    const denailMessage =
+      this.props.type === UserTypes.EDITOR
+        ? "To remove a Civil Member, you need to confirm the transaction in your MetaMask wallet."
+        : "To remove a Civil Admin, you need to confirm the transaction in your MetaMask wallet.";
 
     return (
       <CivilContext.Consumer>
@@ -178,9 +187,10 @@ export class NewsroomUserComponent extends React.Component<NewsroomUserProps & D
     if (!this.state.modalOpen) {
       return null;
     }
-    const message = this.props.type === UserTypes.EDITOR
-      ? "A Civil Member is being removed from the newsroom smart contract!"
-      : "A Civil Admin is being removed from the newsroom smart contract!";
+    const message =
+      this.props.type === UserTypes.EDITOR
+        ? "A Civil Member is being removed from the newsroom smart contract!"
+        : "A Civil Admin is being removed from the newsroom smart contract!";
 
     return (
       <Modal textAlign="left">
@@ -201,19 +211,17 @@ export class NewsroomUserComponent extends React.Component<NewsroomUserProps & D
       return null;
     }
 
-    const message = this.props.type === UserTypes.EDITOR
-      ? "A Civil Member has been removed from the newsroom smart contract!"
-      : "A Civil Admin has been removed from the newsroom smart contract!";
+    const message =
+      this.props.type === UserTypes.EDITOR
+        ? "A Civil Member has been removed from the newsroom smart contract!"
+        : "A Civil Admin has been removed from the newsroom smart contract!";
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
         <p>
           The transaction has completed and the {this.props.type === UserTypes.EDITOR ? "member" : "admin"} was removed.
         </p>
-        <Button
-          size={buttonSizes.MEDIUM_WIDE}
-          onClick={() => this.setState({ completeModalOpen: false })}
-        >
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ completeModalOpen: false })}>
           Close
         </Button>
       </Modal>
@@ -233,14 +241,10 @@ export class NewsroomUserComponent extends React.Component<NewsroomUserProps & D
             <p>{this.props.address}</p>
           </div>
           <ButtonWrapper>
-          {
-            this.props.address !== this.props.profileWalletAddress &&
-              <TransactionButtonNoModal
-                transactions={this.getTransaction()}
-                Button={TransactionButtonInner}
-              />
-          }
-        </ButtonWrapper>
+            {this.props.address !== this.props.profileWalletAddress && (
+              <TransactionButtonNoModal transactions={this.getTransaction()} Button={TransactionButtonInner} />
+            )}
+          </ButtonWrapper>
         </Wrapper>
         {this.renderProgressModal()}
         {this.renderPreMetamMask()}
@@ -255,13 +259,15 @@ export class NewsroomUserComponent extends React.Component<NewsroomUserProps & D
     return [
       {
         requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,
-        transaction: () => {
+        transaction: async () => {
           this.setState({
             metaMaskRejectionModal: false,
             isWaitingTransactionModalOpen: true,
             isPreTransactionModalOpen: false,
           });
-          return this.props.type === UserTypes.OWNER ? this.removeOwner(this.props.address) : this.removeEditor(this.props.address);
+          return this.props.type === UserTypes.OWNER
+            ? this.removeOwner(this.props.address)
+            : this.removeEditor(this.props.address);
         },
         postTransaction: () => {
           if (this.props.type === UserTypes.EDITOR) {
@@ -277,9 +283,9 @@ export class NewsroomUserComponent extends React.Component<NewsroomUserProps & D
         },
         handleTransactionError: this.handleTransactionError,
         handleTransactionHash: this.handleTransactionHash,
-      }
+      },
     ];
-  }
+  };
 
   private requireBeforeTransaction = async () => {
     return new Promise((res, rej) => {
@@ -320,22 +326,22 @@ export class NewsroomUserComponent extends React.Component<NewsroomUserProps & D
       modalOpen: true,
       isWaitingTransactionModalOpen: false,
     });
-  }
+  };
 
   private handleTransactionError = (err: Error): void => {
     this.setState({ isWaitingTransactionModalOpen: false });
     if (err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
       this.setState({ metaMaskRejectionModal: true });
     }
-  }
+  };
 
   private removeEditor = async (address: EthAddress) => {
     return this.props.newsroom.removeRole(address, NewsroomRoles.Editor);
-  }
+  };
 
-  private removeOwner = async  (address: EthAddress) => {
+  private removeOwner = async (address: EthAddress) => {
     return this.props.newsroom.removeOwner(address);
-  }
+  };
 }
 
 const mapStateToProps = (
@@ -346,8 +352,8 @@ const mapStateToProps = (
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
   return {
     ...ownProps,
-    newsroom: newsroom.newsroom
+    newsroom: newsroom.newsroom,
   };
-}
+};
 
 export const NewsroomUser = connect(mapStateToProps)(NewsroomUserComponent);

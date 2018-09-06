@@ -18,7 +18,7 @@ import {
   Modal,
   Button,
 } from "@joincivil/components";
-import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
+import { EthAddress, NewsroomRoles } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
@@ -340,14 +340,16 @@ class CompleteYourProfileComponent extends React.Component<
                 </FormTitleSection>
                 <Section>
                   {this.props.owners.map(item => {
-                    return <NewsroomUser
-                      newsroomAddress={this.props.address}
-                      type={UserTypes.OWNER}
-                      profileWalletAddress={this.props.profileWalletAddress}
-                      key={item.address}
-                      address={item.address}
-                      name={item.name}
-                    />;
+                    return (
+                      <NewsroomUser
+                        newsroomAddress={this.props.address}
+                        type={UserTypes.OWNER}
+                        profileWalletAddress={this.props.profileWalletAddress}
+                        key={item.address}
+                        address={item.address}
+                        name={item.name}
+                      />
+                    );
                   })}
                 </Section>
                 {this.renderAddOwnerForm()}
