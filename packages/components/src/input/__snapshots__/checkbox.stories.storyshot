@@ -132,7 +132,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-iujRgT kndTFL",
+            "class": "sc-iujRgT jEldlb",
           },
           "children": Array [],
           "name": "span",
@@ -160,7 +160,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-iujRgT kndTFL",
+          "class": "sc-iujRgT jEldlb",
         },
         "children": Array [],
         "name": "span",

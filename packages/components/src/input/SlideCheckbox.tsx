@@ -15,7 +15,7 @@ const Slider = styled.span`
   bottom: 0;
   right: 0;
   border-radius: 34px;
-  tansition: 0.4s;
+  transition: 0.4s;
   &:before {
     position: absolute;
     content: "";
