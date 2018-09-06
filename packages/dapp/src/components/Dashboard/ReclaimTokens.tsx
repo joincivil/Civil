@@ -68,7 +68,7 @@ class ReclaimTokensComponent extends React.Component<ReclaimTokenReduxProps, Rec
   }
 
   private reclaimTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return withdrawVotingRights(numTokens);
   };
 

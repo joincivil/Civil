@@ -137,7 +137,7 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
               toggleChallengeSelect={this.setChallengesToMultiRescue}
             />
             <StyledBatchButtonContainer>
-              <TransactionButton transactions={[{ transaction: this.multiRescue }]}>Claim Rewards</TransactionButton>
+              <TransactionButton transactions={[{ transaction: this.multiRescue }]}>Rescue Tokens</TransactionButton>
             </StyledBatchButtonContainer>
           </>
         </Tab>
@@ -177,7 +177,7 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
   };
 
   private multiRescue = async (): Promise<TwoStepEthTransaction | void> => {
-    const challengeIDs = this.getChallengesToProcess(this.state.challengesToClaim);
+    const challengeIDs = this.getChallengesToProcess(this.state.challengesToRescue);
     return rescueTokensInMultiplePolls(challengeIDs);
   };
 
