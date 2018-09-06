@@ -12,23 +12,25 @@ import {
   StepProps,
   StepStyled,
   Transaction,
+  TransactionButtonModalFlowState,
   MetaMaskModal,
   ModalHeading,
   Modal,
   Button,
 } from "@joincivil/components";
-import { EthAddress, NewsroomRoles } from "@joincivil/core";
+import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
 import { fetchNewsroom, uiActions } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
-import { NewsroomUser } from "./NewsroomUser";
+import { NewsroomUser, UserTypes } from "./NewsroomUser";
 import { StateWithNewsroom } from "./reducers";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface CompleteYourProfileComponentExternalProps extends StepProps {
   address?: EthAddress;
+  profileWalletAddress?: EthAddress;
   renderUserSearch?(onSetAddress: any): JSX.Element;
 }
 
@@ -40,18 +42,11 @@ export interface CompleteYourProfileComponentProps extends StepProps {
   active?: boolean;
 }
 
-export interface CompleteYourProfileComponentState {
+export interface CompleteYourProfileComponentState extends TransactionButtonModalFlowState {
   addOwner: boolean;
   addEditor: boolean;
   newOwner: EthAddress;
   newEditor: EthAddress;
-  modalOpen?: boolean;
-  isPreTransactionModalOpen?: boolean;
-  isWaitingTransactionModalOpen?: boolean;
-  metaMaskRejectionModal?: boolean;
-  completeModalOpen?: boolean;
-  startTransaction?(): any;
-  cancelTransaction?(): any;
 }
 
 const FormSection = styled.div`
@@ -97,7 +92,7 @@ const CollapsableWrapper = styled.div`
 `;
 
 const CollapsableInner = styled.div`
-  width: 500px;
+  width: 618px;
 `;
 
 const Description = StepDescription.extend`
@@ -345,7 +340,14 @@ class CompleteYourProfileComponent extends React.Component<
                 </FormTitleSection>
                 <Section>
                   {this.props.owners.map(item => {
-                    return <NewsroomUser key={item.address} address={item.address} name={item.name} />;
+                    return <NewsroomUser
+                      newsroomAddress={this.props.address}
+                      type={UserTypes.OWNER}
+                      profileWalletAddress={this.props.profileWalletAddress}
+                      key={item.address}
+                      address={item.address}
+                      name={item.name}
+                    />;
                   })}
                 </Section>
                 {this.renderAddOwnerForm()}
@@ -360,7 +362,14 @@ class CompleteYourProfileComponent extends React.Component<
                 </FormTitleSection>
                 <Section>
                   {this.props.editors.map(item => (
-                    <NewsroomUser key={item.address} address={item.address} name={item.name} />
+                    <NewsroomUser
+                      newsroomAddress={this.props.address}
+                      type={UserTypes.EDITOR}
+                      profileWalletAddress={this.props.profileWalletAddress}
+                      key={item.address}
+                      address={item.address}
+                      name={item.name}
+                    />
                   ))}
                 </Section>
                 {this.renderAddEditorForm()}
@@ -377,7 +386,7 @@ class CompleteYourProfileComponent extends React.Component<
     );
   }
 
-  private getTransaction = (noPreModal?: true): Transaction[] => {
+  private getTransaction = (noPreModal?: boolean): Transaction[] => {
     return [
       {
         requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,

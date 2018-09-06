@@ -470,6 +470,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepSimple(this.ethApi, await this.instance.removeRole.sendTransactionAsync(actor, role));
   }
 
+  public async removeOwner(actor: EthAddress): Promise<TwoStepEthTransaction<MultisigTransaction>> {
+    await this.requireOwner();
+    const address = await this.getMultisigAddress();
+    const contract = await Multisig.atUntrusted(this.ethApi, address!);
+    return contract.removeOwner(actor);
+  }
+
   /**
    * Changes the name of the Newsroom.
    * The name can be any string, but when applying to a TCR, it must be unique in that TCR
