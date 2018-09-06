@@ -1,36 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Review Vote Review Vote Modal 1`] = `
+exports[`Storyshots Parameterizer Create Proposal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-gacfCG dfgpbn",
+      "class": "sc-drlKqa dUfAzj",
     },
     "children": Array [
       Object {
         "attribs": Object {},
-        "children": Array [
-          Object {
-            "attribs": Object {},
-            "children": Array [
-              Object {
-                "data": "Some good stuff was already on the page which is pretty exciting",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-            ],
-            "name": "p",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {},
-            "x-attribsPrefix": Object {},
-          },
-        ],
+        "children": Array [],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
