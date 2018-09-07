@@ -17,6 +17,7 @@ import {
   MetaMaskModal,
   ModalHeading,
   Transaction,
+  TransactionButtonModalFlowState,
 } from "@joincivil/components";
 import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
@@ -38,15 +39,9 @@ export interface NameAndAddressProps extends StepProps {
   onContractDeployStarted?(txHash: TxHash): void;
 }
 
-export interface NameAndAddressState {
+export interface NameAndAddressState extends TransactionButtonModalFlowState {
   name?: string;
-  modalOpen: boolean;
   collapsableOpen: boolean;
-  isPreTransactionModalOpen: boolean;
-  isWaitingTransactionModalOpen?: boolean;
-  metaMaskRejectionModal?: boolean;
-  startTransaction?(): any;
-  cancelTransaction?(): any;
 }
 
 const Label: StyledComponentClass<any, "div"> = styled.div`

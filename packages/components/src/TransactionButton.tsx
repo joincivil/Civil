@@ -15,6 +15,16 @@ export interface TransactionButtonState {
   disableButton: boolean;
 }
 
+export interface TransactionButtonModalFlowState {
+  modalOpen?: boolean;
+  isPreTransactionModalOpen?: boolean;
+  isWaitingTransactionModalOpen?: boolean;
+  metaMaskRejectionModal?: boolean;
+  completeModalOpen?: boolean;
+  startTransaction?(): any;
+  cancelTransaction?(): any;
+}
+
 export interface Transaction {
   progressEventName?: string;
   transaction(): Promise<TwoStepEthTransaction<any> | void>;

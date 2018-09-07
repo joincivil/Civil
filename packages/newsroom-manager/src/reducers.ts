@@ -21,6 +21,7 @@ export function newsrooms(
   action: AnyAction,
 ): Map<string, NewsroomState> {
   let newsroom;
+  let editors;
   switch (action.type) {
     case newsroomActions.ADD_NEWSROOM:
       return state.set(action.data.address, action.data);
@@ -36,10 +37,19 @@ export function newsrooms(
       return state.set(action.data.address, newsroom);
     case newsroomActions.ADD_EDITOR:
       newsroom = state.get(action.data.address);
-      const editors = newsroom.editors || [];
+      editors = newsroom.editors || [];
       return state.set(action.data.address, {
         ...state.get(action.data.address),
         editors: editors.concat([action.data.editor]),
+      });
+    case newsroomActions.REMOVE_EDITOR:
+      newsroom = state.get(action.data.address);
+      editors = newsroom.editors || [];
+      const index = editors.indexOf(action.data.editor);
+      editors.splice(index, 1);
+      return state.set(action.data.address, {
+        ...state.get(action.data.address),
+        editors,
       });
     default:
       return state;
