@@ -24,7 +24,7 @@ import NewsroomManagementV1 from "./newsroom/NewsroomManagement";
 import NewsroomManagement from "./newsroom/NewsroomManagementV2";
 import Parameterizer from "./Parameterizer";
 import Government from "./council/Government";
-import ParameterizerProposal from "./parameterizer/Proposal";
+import ParameterizerProposal from "./Parameterizer/Proposal";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {

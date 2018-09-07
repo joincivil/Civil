@@ -38,6 +38,10 @@ export interface ChallengeContainerProps {
   challengeID?: string | BigNumber;
 }
 
+export interface ProposalParameterProps {
+  parameterName: string;
+}
+
 // Simple selectors from State. These don't look at component props or
 // return any derived props from state
 export const getUser = (state: State) => state.networkDependent.user;
@@ -55,6 +59,8 @@ export const getChallengesStartedByAllUsers = (state: State) => state.networkDep
 export const getHistories = (state: State) => state.networkDependent.histories;
 
 export const getParameters = (state: State) => state.networkDependent.parameters;
+
+export const getParameterProposals = (state: State) => state.networkDependent.proposals;
 
 // end simple selectors
 
@@ -441,5 +447,25 @@ export const makeGetLatestWhitelistedTimestamp = () => {
     }
     return;
   });
+};
+
+export const getProposalParameterName = (state: State, props: ProposalParameterProps) => {
+  const { parameterName } = props;
+  return parameterName;
+};
+
+export const makeGetProposalsByParameterName = () => {
+  return createSelector(
+    [getParameterProposals, getProposalParameterName],
+    (parameterProposals: Map<string, any>, parameterName) => {
+      const proposalsForParameterName = parameterProposals
+        .filter((proposal, proposalID, iter): boolean => {
+          const { paramName: proposalParamName } = proposal;
+          return proposalParamName === parameterName;
+        })
+        .toSet() as Set<any>;
+      return proposalsForParameterName;
+    },
+  );
 };
 // end memoized selectors

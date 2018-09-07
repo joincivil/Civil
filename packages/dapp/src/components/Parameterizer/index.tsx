@@ -8,9 +8,7 @@ import {
   fonts,
   Table,
   Tr,
-  Td,
   Th,
-  StyledTableAccentText,
   Tabs,
   Tab,
   StyledDashboardSubTab,
@@ -37,12 +35,13 @@ import {
   StyledParameterizerContainer,
   CreateProposal,
 } from "@joincivil/components";
-import { getFormattedTokenBalance, getReadableDuration, Parameters, GovernmentParameters } from "@joincivil/utils";
-import { State } from "../reducers";
-import Proposals from "./parameterizer/Proposals";
-import ListingDiscourse from "./listing/ListingDiscourse";
-import { getCivil } from "../helpers/civilInstance";
-import { approveForProposeReparameterization, proposeReparameterization } from "../apis/civilTCR";
+import { getFormattedTokenBalance, Parameters, GovernmentParameters } from "@joincivil/utils";
+import { State } from "../../reducers";
+import ListingDiscourse from "../listing/ListingDiscourse";
+import { getCivil } from "../../helpers/civilInstance";
+import { approveForProposeReparameterization, proposeReparameterization } from "../../apis/civilTCR";
+import { amountParams, durationParams, percentParams } from "./constants";
+import { Parameter } from "./Parameter";
 
 const GridRow = styled.div`
   display: flex;
@@ -126,32 +125,8 @@ export interface ParameterizerPageState {
   createProposalParameterName?: string;
   createProposalParameterCurrentValue?: string;
   createProposalNewValue?: string;
+  isProposalActionVisible: boolean;
 }
-
-const amountParams: string[] = [Parameters.minDeposit, Parameters.pMinDeposit, GovernmentParameters.appealFee];
-
-const durationParams: string[] = [
-  Parameters.applyStageLen,
-  Parameters.pApplyStageLen,
-  Parameters.commitStageLen,
-  Parameters.pCommitStageLen,
-  Parameters.revealStageLen,
-  Parameters.pRevealStageLen,
-  Parameters.pProcessBy,
-  Parameters.challengeAppealLen,
-  Parameters.challengeAppealCommitLen,
-  Parameters.challengeAppealRevealLen,
-  GovernmentParameters.requestAppealLen,
-  GovernmentParameters.judgeAppealLen,
-];
-
-const percentParams: string[] = [
-  Parameters.dispensationPct,
-  Parameters.pDispensationPct,
-  Parameters.voteQuorum,
-  Parameters.pVoteQuorum,
-  GovernmentParameters.appealVotePercentage,
-];
 
 class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any>, ParameterizerPageState> {
   constructor(props: ParameterizerPageProps & DispatchProp<any>) {
@@ -159,6 +134,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
     this.state = {
       isCreateProposalVisible: false,
+      isProposalActionVisible: false,
     };
   }
 
@@ -218,6 +194,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                             parameterDisplayName={this.getParameterDisplayName(key)}
                             parameterValue={this.props.parameters[key]}
                             handleCreateProposal={this.showCreateProposal}
+                            handleProposalAction={this.showProposalAction}
                           />
                         );
                       })}
@@ -225,6 +202,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                   </Table>
 
                   {this.state.isCreateProposalVisible && this.renderCreateProposal()}
+                  {this.state.isProposalActionVisible && this.renderProposalAction()}
                 </StyledParameterizerContainer>
               </StyledTabContainer>
             </Tab>
@@ -253,6 +231,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                           parameterDisplayName={this.getParameterDisplayName(key)}
                           parameterValue={this.props.govtParameters[key]}
                           handleCreateProposal={this.showCreateProposal}
+                          handleProposalAction={this.showProposalAction}
                         />
                       );
                     })}
@@ -263,10 +242,6 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
           </Tabs>
         </GridRow>
 
-        <GridRow>
-          <Proposals />
-        </GridRow>
-
         <GridRowStatic>
           <ListingDiscourse />
         </GridRowStatic>
@@ -275,6 +250,29 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   }
 
   private renderCreateProposal = (): JSX.Element => {
+    const civil = getCivil();
+    const proposalMinDeposit =
+      this.props.parameters[Parameters.pMinDeposit] &&
+      getFormattedTokenBalance(civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()));
+
+    return (
+      <CreateProposal
+        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
+        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
+        parameterDisplayUnits={this.getParameterDisplayUnits(this.state.createProposalParameterName!)}
+        parameterProposalValue={this.state.createProposalNewValue!}
+        proposalDeposit={proposalMinDeposit}
+        transactions={[
+          { transaction: approveForProposeReparameterization },
+          { transaction: this.proposeReparameterization },
+        ]}
+        handleClose={this.hideCreateProposal}
+        handleUpdateProposalValue={this.updateProposalNewValue}
+      />
+    );
+  };
+
+  private renderProposalAction = (): JSX.Element => {
     const civil = getCivil();
     const proposalMinDeposit =
       this.props.parameters[Parameters.pMinDeposit] &&
@@ -312,6 +310,14 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       createProposalParameterCurrentValue: currentValue,
     }));
     this.setState(() => ({ isCreateProposalVisible: true }));
+  };
+
+  private showProposalAction = (parameterName: string, currentValue: string, propsoal: any): void => {
+    this.setState(() => ({
+      createProposalParameterName: parameterName,
+      createProposalParameterCurrentValue: currentValue,
+    }));
+    this.setState(() => ({ isProposalActionVisible: true }));
   };
 
   private hideCreateProposal = (): void => {
@@ -366,52 +372,9 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     return label;
   };
 
-  // @TODO(jon): This would probably be a nice place for a confirm dialog
   private proposeReparameterization = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const newValue: BigNumber = new BigNumber(this.state.createProposalNewValue!);
     return proposeReparameterization(this.state.createProposalParameterName!, newValue);
-  };
-}
-
-interface ParameterProps {
-  parameterName: string;
-  parameterDisplayName: string | JSX.Element;
-  parameterValue: BigNumber;
-  handleCreateProposal(paramName: string, currentValue: string): void;
-}
-
-class Parameter extends React.Component<ParameterProps> {
-  public render(): JSX.Element {
-    return (
-      <Tr>
-        <Td>{this.props.parameterDisplayName}</Td>
-        <Td>{this.getFormattedValue()}</Td>
-        <Td accent align="right" colSpan={3}>
-          <StyledTableAccentText>
-            <span onClick={this.onClick}>Propose New Value</span>
-          </StyledTableAccentText>
-        </Td>
-      </Tr>
-    );
-  }
-
-  private onClick = (event: any) => {
-    this.props.handleCreateProposal(this.props.parameterName, this.getFormattedValue());
-  };
-
-  private getFormattedValue = (): string => {
-    const civil = getCivil();
-    let value = "";
-
-    if (amountParams.includes(this.props.parameterName)) {
-      value = getFormattedTokenBalance(civil.toBigNumber(this.props.parameterValue.toString()));
-    } else if (durationParams.includes(this.props.parameterName)) {
-      value = getReadableDuration(civil.toBigNumber(this.props.parameterValue.toString()));
-    } else if (percentParams.includes(this.props.parameterName)) {
-      value = `${this.props.parameterValue.toString()}%`;
-    }
-
-    return value;
   };
 }
 
