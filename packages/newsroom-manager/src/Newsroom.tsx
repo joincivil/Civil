@@ -117,7 +117,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               txHash={this.props.txHash}
               onContractDeployStarted={this.props.onContractDeployStarted}
             />
-            <CompleteYourProfile address={this.props.address} renderUserSearch={this.props.renderUserSearch} />
+            <CompleteYourProfile
+              address={this.props.address}
+              renderUserSearch={this.props.renderUserSearch}
+              profileWalletAddress={this.props.profileWalletAddress}
+            />
             {/* <CreateCharter /> */}
             {/* <SignConstitution address={this.props.address} active={this.state.currentStep} /> */}
             {/* <ApplyToTCR /> */}
