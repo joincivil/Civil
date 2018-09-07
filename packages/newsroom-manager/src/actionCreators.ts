@@ -7,6 +7,7 @@ export enum newsroomActions {
   UPDATE_NEWSROOM = "UPDATE_NEWSROOM",
   CHANGE_NAME = "CHANGE_NAME",
   ADD_EDITOR = "ADD_EDITOR",
+  REMOVE_EDITOR = "REMOVE_EDITOR",
 }
 
 export enum uiActions {
@@ -73,6 +74,16 @@ export const updateNewsroom = (address: EthAddress, data: any): AnyAction => {
 export const addEditor = (address: EthAddress, editor: EthAddress): AnyAction => {
   return {
     type: newsroomActions.ADD_EDITOR,
+    data: {
+      address,
+      editor,
+    },
+  };
+};
+
+export const removeEditor = (address: EthAddress, editor: EthAddress) => {
+  return {
+    type: newsroomActions.REMOVE_EDITOR,
     data: {
       address,
       editor,
