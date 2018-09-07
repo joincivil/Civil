@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import BigNumber from "bignumber.js";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
@@ -13,6 +14,7 @@ import {
   makeGetListingAddressByChallengeID,
   makeGetChallengeState,
   makeGetUserChallengeData,
+  makeGetUnclaimedRewardAmount,
 } from "../../selectors";
 import { WinningChallengeResults } from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
@@ -22,7 +24,9 @@ export interface ActivityListItemOwnProps {
   even: boolean;
   challenge?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
+  unclaimedRewardAmount?: string;
   challengeState?: any;
+  challengeID?: string;
   user?: string;
 }
 
@@ -33,7 +37,7 @@ export interface ChallengeActivityListItemOwnProps {
 }
 
 export interface ResolvedChallengeActivityListItemProps {
-  toggleSelect(challengeID: string, isSelected: boolean): void;
+  toggleSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
 }
 
 export interface ActivityListItemReduxProps {
@@ -43,7 +47,9 @@ export interface ActivityListItemReduxProps {
   challengeState?: any;
 }
 
-class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps & ActivityListItemReduxProps> {
+class ActivityListItemComponent extends React.Component<
+  ActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemReduxProps
+> {
   public render(): JSX.Element {
     const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
     if (listing && listing.data && newsroom && listingPhaseState) {
@@ -58,6 +64,9 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
         listingDetailURL,
         buttonText: buttonTextTuple[0],
         buttonHelperText: buttonTextTuple[1],
+        challengeID: this.props.challengeID,
+        salt: this.props.userChallengeData && this.props.userChallengeData.salt,
+        toggleSelect: this.props.toggleSelect,
       };
 
       return <DashboardActivityItem {...props}>{this.renderActivityDetails()}</DashboardActivityItem>;
@@ -74,6 +83,7 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
       isRejected,
       isUnderChallenge,
       canResolveChallenge,
+      isAwaitingAppealRequest,
       inChallengeCommitVotePhase,
       inChallengeRevealPhase,
     } = listingPhaseState;
@@ -109,6 +119,12 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
             <p>Under Challenge > Revealing Votes</p>
           </>
         );
+      } else if (isAwaitingAppealRequest) {
+        return (
+          <>
+            <p>Under Challenge > Awaiting Appeal Request</p>
+          </>
+        );
       } else if (canResolveChallenge) {
         return (
           <>
@@ -116,7 +132,7 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
           </>
         );
       }
-    } else if (this.props.challengeState) {
+    } else if (challengeState) {
       if (listingPhaseState && inChallengeCommitVotePhase) {
         return (
           <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_COMMIT_VOTE} challenge={this.props.challenge} />
@@ -126,6 +142,15 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
       if (listingPhaseState && inChallengeRevealPhase) {
         return (
           <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE} challenge={this.props.challenge} />
+        );
+      }
+
+      if (listingPhaseState && isAwaitingAppealRequest) {
+        return (
+          <PhaseCountdownTimer
+            phaseType={PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_REQUEST}
+            challenge={this.props.challenge}
+          />
         );
       }
 
@@ -173,9 +198,9 @@ class ActivityListItemComponent extends React.Component<ActivityListItemOwnProps
         isVoterWinner &&
         !didUserCollect
       ) {
-        return ["Claim Rewards", "You voted for the winner"];
+        return ["Claim Rewards", `~${this.props.unclaimedRewardAmount} available`];
       } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && !isVoterWinner) {
-        return ["Claim Rewards", "You did not vote for the winner"];
+        return ["View Results", "You did not vote for the winner"];
       } else if (
         listingPhaseState &&
         !listingPhaseState.isUnderChallenge &&
@@ -237,19 +262,27 @@ const makeChallengeMapStateToProps = () => {
   const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
   const getChallengeState = makeGetChallengeState();
   const getUserChallengeData = makeGetUserChallengeData();
+  const getUnclaimedRewardAmount = makeGetUnclaimedRewardAmount();
 
   const mapStateToProps = (state: State, ownProps: ChallengeActivityListItemOwnProps): ActivityListItemOwnProps => {
     const listingAddress = getListingAddressByChallengeID(state, ownProps);
     const challenge = getChallenge(state, ownProps);
     const userChallengeData = getUserChallengeData(state, ownProps);
+    const unclaimedRewardAmountBN = getUnclaimedRewardAmount(state, ownProps);
     const challengeState = getChallengeState(state, ownProps);
     const { even, user } = ownProps;
+
+    let unclaimedRewardAmount = "";
+    if (unclaimedRewardAmountBN) {
+      unclaimedRewardAmount = getFormattedTokenBalance(unclaimedRewardAmountBN);
+    }
 
     return {
       listingAddress,
       challenge,
       challengeState,
       userChallengeData,
+      unclaimedRewardAmount,
       even,
       user,
     };

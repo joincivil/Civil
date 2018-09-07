@@ -53,7 +53,8 @@ export interface DashboardActivityItemProps {
   buttonText: string;
   buttonHelperText?: string | JSX.Element;
   challengeID?: string;
-  toggleSelect?(challengeID: string, isSelected: boolean): void;
+  salt?: any;
+  toggleSelect?(challengeID: string, isSelected: boolean, salt: any): void;
 }
 
 export const DashboardActivityItem: React.SFC<DashboardActivityItemProps> = props => {
@@ -81,7 +82,7 @@ export const DashboardActivityItem: React.SFC<DashboardActivityItemProps> = prop
 
 const ItemCheckbox: React.SFC<DashboardActivityItemProps> = props => {
   const handleChange = (event: any) => {
-    props.toggleSelect!(props.challengeID!, event.target.checked);
+    props.toggleSelect!(props.challengeID!, event.target.checked, props.salt);
   };
   return <input type="checkbox" onChange={handleChange} />;
 };

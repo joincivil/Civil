@@ -1,5 +1,5 @@
 import { EthApi } from "@joincivil/ethapi";
-import "@joincivil/utils";
+import { getDefaultFromBlock } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { ContentProvider } from "../../content/contentprovider";
@@ -53,7 +53,7 @@ export class Challenge {
 
   public async getListingIdForChallenge(): Promise<EthAddress> {
     const challengeEvent = await this.tcrInstance
-      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 })
+      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: getDefaultFromBlock() })
       .first()
       .toPromise();
     return challengeEvent.args.listingAddress;
@@ -61,7 +61,7 @@ export class Challenge {
 
   private async getChallengeURI(): Promise<EthAddress> {
     const challengeEvent = await this.tcrInstance
-      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: 0 })
+      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: getDefaultFromBlock() })
       .first()
       .toPromise();
     return challengeEvent.args.data;

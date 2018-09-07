@@ -311,7 +311,6 @@ class CompleteYourProfileComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    console.log(this.props.active);
     return (
       <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
         <CollapsableWrapper>

@@ -1,5 +1,5 @@
 import { EthApi, requireAccount } from "@joincivil/ethapi";
-import { CivilErrors } from "@joincivil/utils";
+import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs";
@@ -44,7 +44,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @returns currently active polls (by id)
    */
-  public activePolls(fromBlock: number | "latest" = 0, toBlock?: number): Observable<BigNumber> {
+  public activePolls(fromBlock: number | "latest" = getDefaultFromBlock(), toBlock?: number): Observable<BigNumber> {
     return this.instance
       ._PollCreatedStream({}, { fromBlock, toBlock })
       .map(e => e.args.pollID)
@@ -57,11 +57,15 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @param user pollIDs of polls the user has committed votes for
    */
-  public votesCommitted(fromBlock: number | "latest" = 0, user?: EthAddress, toBlock?: number): Observable<BigNumber> {
+  public votesCommitted(
+    fromBlock: number | "latest" = getDefaultFromBlock(),
+    user?: EthAddress,
+    toBlock?: number,
+  ): Observable<BigNumber> {
     return this.instance._VoteCommittedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
   }
 
-  public balanceUpdate(fromBlock: number | "latest" = 0, user: EthAddress): Observable<BigNumber> {
+  public balanceUpdate(fromBlock: number | "latest" = getDefaultFromBlock(), user: EthAddress): Observable<BigNumber> {
     return this.instance
       ._VotingRightsGrantedStream({ voter: user }, { fromBlock })
       .merge(this.instance._VotingRightsWithdrawnStream({ voter: user }, { fromBlock }))
@@ -112,6 +116,18 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   }
 
   /**
+   * Unlocks tokens from unrevealed vote from multiple polls that have ended
+   * @param pollIDs List of IDs of polls to unlock unrevealed vote of
+   */
+  public async rescueTokensInMultiplePolls(pollIDs: BigNumber[]): Promise<TwoStepEthTransaction> {
+    const pollIDsBN = pollIDs.map((pollID, index) => this.ethApi.toBigNumber(pollID));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.rescueTokensInMultiplePolls.sendTransactionAsync(pollIDsBN),
+    );
+  }
+
+  /**
    * Commits user's votes for poll
    * @param pollID ID of poll to commit votes to
    * @param secretHash keccak256 hash of voter's choice and salt (tightly packed in this order)
@@ -155,7 +171,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   public async getRevealedVote(pollID: BigNumber, voter: EthAddress): Promise<BigNumber | undefined> {
     if (await this.didRevealVote(voter, pollID)) {
       const reveal = await this.instance
-        ._VoteRevealedStream({ pollID, voter }, { fromBlock: 0 })
+        ._VoteRevealedStream({ pollID, voter }, { fromBlock: getDefaultFromBlock() })
         .first()
         .toPromise();
       return reveal.args.choice;
@@ -184,7 +200,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   > {
     if (await this.didRevealVote(voter, pollID)) {
       const reveal = await this.instance
-        ._VoteRevealedStream({ pollID }, { fromBlock: 0 })
+        ._VoteRevealedStream({ pollID, voter }, { fromBlock: getDefaultFromBlock() })
         .first()
         .toPromise();
 
@@ -263,19 +279,22 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
     return this.instance.getTotalNumberOfTokensForWinningOption.callAsync(pollID);
   }
 
-  // TODO(nickreynolds): Refactor getNumPassingTokens to not require user to input whether challenge was overturned
   /**
    * Returns number of tokens this user committed & revealed for given poll
    * @param voterAddress address of voter to check
    * @param pollID ID of poll to check
    * @param salt Salt used by voter for this poll
    */
-  public async getNumPassingTokens(pollID: BigNumber, voter?: EthAddress): Promise<BigNumber> {
-    let who = voter;
-    if (!who) {
-      who = await requireAccount(this.ethApi).toPromise();
-    }
-    return this.instance.getNumTokens.callAsync(who, pollID);
+  public async getNumPassingTokens(pollID: BigNumber, salt: BigNumber, voter: EthAddress): Promise<BigNumber> {
+    return this.instance.getNumPassingTokens.callAsync(voter, pollID, salt);
+  }
+
+  public async getNumLosingTokens(pollID: BigNumber, salt: BigNumber, voter: EthAddress): Promise<BigNumber> {
+    return this.instance.getNumLosingTokens.callAsync(voter, pollID, salt);
+  }
+
+  public async getNumTokens(pollID: BigNumber, voter: EthAddress): Promise<BigNumber> {
+    return this.instance.getNumTokens.callAsync(voter, pollID);
   }
 
   /**

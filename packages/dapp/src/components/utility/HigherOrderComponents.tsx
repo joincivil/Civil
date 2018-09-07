@@ -212,8 +212,8 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
           </>
         );
         voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
-        votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
-        votesPercent = challenge.poll.votesFor
+        votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
+        votesPercent = challenge.poll.votesAgainst
           .div(totalVotes)
           .mul(100)
           .toFixed(0);
@@ -225,8 +225,8 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
           </>
         );
         voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
-        votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
-        votesPercent = challenge.poll.votesAgainst
+        votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
+        votesPercent = challenge.poll.votesFor
           .div(totalVotes)
           .mul(100)
           .toFixed(0);
@@ -296,6 +296,14 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
           flavorText = PHASE_TYPE_FLAVOR_TEXT[this.props.phaseType];
           if (this.props.challenge) {
             endTime = this.props.challenge.challenge.poll.revealEndDate.toNumber();
+          }
+          totalSeconds = this.props.parameters.revealStageLen;
+          break;
+        case PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_REQUEST:
+          displayLabel = PHASE_TYPE_LABEL[this.props.phaseType];
+          flavorText = PHASE_TYPE_FLAVOR_TEXT[this.props.phaseType];
+          if (this.props.challenge) {
+            endTime = this.props.challenge.challenge.requestAppealExpiry.toNumber();
           }
           totalSeconds = this.props.parameters.revealStageLen;
           break;

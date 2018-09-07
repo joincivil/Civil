@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import "@joincivil/utils";
+import { getDefaultFromBlock } from "@joincivil/utils";
 import { Observable } from "rxjs";
 
 import { BaseWrapper } from "../basewrapper";
@@ -46,7 +46,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
     return this.multisigProxy.approve.sendTransactionAsync(spender, numTokens);
   }
 
-  public balanceUpdate(fromBlock: number | "latest" = 0, user: EthAddress): Observable<BigNumber> {
+  public balanceUpdate(fromBlock: number | "latest" = getDefaultFromBlock(), user: EthAddress): Observable<BigNumber> {
     return this.instance
       .TransferStream({ _from: user }, { fromBlock })
       .merge(this.instance.TransferStream({ _to: user }, { fromBlock }))

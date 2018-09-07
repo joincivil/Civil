@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
 import * as Debug from "debug";
-import { CivilErrors } from "@joincivil/utils";
+import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
 
 import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamProp, PollID } from "../../types";
 import { EthApi, requireAccount } from "@joincivil/ethapi";
@@ -92,7 +92,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals propIDs
    */
-  public propIDsInApplicationPhase(fromBlock: number | "latest" = 0): Observable<string> {
+  public propIDsInApplicationPhase(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<string> {
     return this.instance
       ._ReparameterizationProposalStream({}, { fromBlock })
       .map(e => e.args.propID)
@@ -105,7 +105,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals in Challenge Commit Phase propIDs
    */
-  public propIDsInChallengeCommitPhase(fromBlock: number | "latest" = 0): Observable<string> {
+  public propIDsInChallengeCommitPhase(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<string> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
@@ -118,7 +118,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns currently active proposals in Challenge Reveal Phase propIDs
    */
-  public propIDsInChallengeRevealPhase(fromBlock: number | "latest" = 0): Observable<string> {
+  public propIDsInChallengeRevealPhase(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<string> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
@@ -132,7 +132,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that can be updated
    */
-  public propIDsToProcess(fromBlock: number | "latest" = 0): Observable<string> {
+  public propIDsToProcess(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<string> {
     const applicationsToProcess = this.instance
       ._ReparameterizationProposalStream({}, { fromBlock })
       .map(e => e.args.propID)
@@ -152,7 +152,10 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns pollIDs for proposals that have been challenged and resolved
    */
-  public pollIDsForResolvedChallenges(propID: string, fromBlock: number | "latest" = 0): Observable<PollID> {
+  public pollIDsForResolvedChallenges(
+    propID: string,
+    fromBlock: number | "latest" = getDefaultFromBlock(),
+  ): Observable<PollID> {
     return this.instance
       ._NewChallengeStream({ propID }, { fromBlock })
       .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
@@ -165,7 +168,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that have been challenged and resolved
    */
-  public propIDsForResolvedChallenges(fromBlock: number | "latest" = 0): Observable<EthAddress> {
+  public propIDsForResolvedChallenges(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<EthAddress> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
       .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
