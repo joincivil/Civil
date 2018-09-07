@@ -221,10 +221,10 @@ export const getUserChallengesWithRescueTokens = createSelector(
     }
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
-        const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
+        const { didUserCommit, didUserReveal, didUserRescue } = challengeData!.get(user.account.account);
         const challenge = challenges.get(challengeID!);
         const isResolved = challenge && challenge.challenge.resolved;
-        return !!didUserCommit && !didUserReveal && isResolved;
+        return !!didUserCommit && !didUserReveal && isResolved && !didUserRescue;
       })
       .keySeq()
       .toSet() as Set<string>;
