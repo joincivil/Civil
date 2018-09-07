@@ -2,7 +2,7 @@ import { EthApi, EthereumUnits, requireAccount, toWei } from "@joincivil/ethapi"
 import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import { Observable } from "rxjs";
-import { EthAddress, TwoStepEthTransaction } from "../../types";
+import { EthAddress, TwoStepEthTransaction, TxDataAll } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { MultiSigWallet, MultiSigWalletContract } from "../generated/wrappers/multi_sig_wallet";
 import { createTwoStepSimple, createTwoStepTransaction, isDecodedLog } from "../utils/contracts";
@@ -167,7 +167,11 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   }
 
   public async estimateTransaction(address: EthAddress, weiToSend: BigNumber, payload: string): Promise<number> {
-    return this.instance.submitTransaction.estimateGasAsync(address, weiToSend, payload);
+    return this.instance.submitTransaction.estimateGasAsync(address, weiToSend, payload, {});
+  }
+
+  public async getRawTransaction(address: EthAddress, weiToSend: BigNumber, payload: string): Promise<TxDataAll> {
+    return this.instance.submitTransaction.getRaw(address, weiToSend, payload, { gas: 0 });
   }
 
   /**
