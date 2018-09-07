@@ -70,7 +70,7 @@ contract("Registry with Appeals", accounts => {
 
       await registry.requestAppeal(newsroomAddress, { from: voterBob });
       await registry.grantAppeal(newsroomAddress, { from: JAB });
-      const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger2, registry);
+      await utils.challengeAppealAndGetPollID(newsroomAddress, challenger2, registry);
 
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
