@@ -1,5 +1,5 @@
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ButtonTheme, colors, fonts, StepProcess, WalletOnboarding } from "@joincivil/components";
+import { ButtonTheme, colors, StepProcess, ManagerHeading, WalletOnboarding } from "@joincivil/components";
 import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -8,6 +8,7 @@ import { addGetNameForAddress, addNewsroom, getEditors, getNewsroom } from "./ac
 // import { SignConstitution } from "./SignConstitution";
 // import { CreateCharter } from "./CreateCharter";
 // import { ApplyToTCR } from "./ApplyToTCR";
+import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
@@ -30,6 +31,11 @@ export interface NewsroomProps {
   civil?: Civil;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
+  showWalletOnboarding?: boolean;
+  showWelcome?: boolean;
+  helpUrl?: string;
+  profileUrl?: string;
+  profileAddressSaving?: boolean;
   saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
@@ -43,24 +49,20 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   max-width: 750px;
+
+  &,
+  & p {
+    font-size: 14px;
+  }
 `;
 
 const P = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
-const Heading = styled.h3`
-  font-family: ${props => props.theme.sansSerifFont};
-  font-size: 18px;
-  font-weight: bold;
+const Heading = ManagerHeading.extend`
   color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
-
-Heading.defaultProps = {
-  theme: {
-    sansSerifFont: fonts.SANS_SERIF,
-  },
-};
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
   constructor(props: NewsroomProps) {
@@ -131,15 +133,20 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
-          <WalletOnboarding
-            noProvider={!hasInjectedProvider()}
-            walletLocked={this.props.civil && !this.props.account}
-            wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
-            requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
-            metamaskWalletAddress={this.props.account}
-            profileWalletAddress={this.props.profileWalletAddress}
-            saveAddressToProfile={this.props.saveAddressToProfile}
-          />
+          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} />}
+          {this.props.showWalletOnboarding && (
+            <WalletOnboarding
+              noProvider={!hasInjectedProvider()}
+              walletLocked={this.props.civil && !this.props.account}
+              wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
+              requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
+              metamaskWalletAddress={this.props.account}
+              profileUrl={this.props.profileUrl}
+              profileAddressSaving={this.props.profileAddressSaving}
+              profileWalletAddress={this.props.profileWalletAddress}
+              saveAddressToProfile={this.props.saveAddressToProfile}
+            />
+          )}
 
           {manager}
         </Wrapper>

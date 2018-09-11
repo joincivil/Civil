@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 
-import "./GroupsI.sol";
+import "../groups/GroupsI.sol";
 import "./TokenControllerI.sol";
 
 contract GroupTokenController is TokenControllerI {

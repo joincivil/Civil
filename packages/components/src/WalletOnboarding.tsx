@@ -1,7 +1,17 @@
 import * as React from "react";
 import { EthAddress } from "@joincivil/core";
-import { NorthEastArrow, Button, buttonSizes } from "./";
+import {
+  NorthEastArrow,
+  Button,
+  buttonSizes,
+  MetaMaskSideIcon,
+  MetaMaskFrontIcon,
+  fonts,
+  ManagerSectionHeading,
+} from "./";
 import styled from "styled-components";
+import * as metaMaskNetworkSwitchUrl from "./images/img-metamask-networkswitch@2x.png";
+import * as metaMaskLoginUrl from "./images/img-metamask-login@2x.png";
 
 export interface WalletOnboardingProps {
   noProvider?: boolean;
@@ -10,12 +20,14 @@ export interface WalletOnboardingProps {
   requiredNetworkNiceName?: string;
   metamaskWalletAddress?: EthAddress;
   profileWalletAddress?: EthAddress;
+  profileUrl?: string;
+  profileAddressSaving?: boolean;
   saveAddressToProfile?(): Promise<void>;
 }
 
 const Wrapper = styled.div`
   margin: 32px 0;
-  padding: 8px 24px 0;
+  padding: 6px 24px 12px;
   background: white;
   border: solid 1px #e5e5e5;
   color: #5f5f5f;
@@ -37,10 +49,20 @@ const LargeishLinkButton = LargeishButton.extend`
 `;
 
 const WalletAddress = styled.span`
+  font-family: ${fonts.MONOSPACE};
   display: inline-block;
-  margin: 0 0 10px 10px;
-  padding: 5px 10px;
+  margin-bottom: 24px;
+  padding: 8px 12px 4px 8px;
   border: 1px solid #dddddd;
+
+  img {
+    position: relative;
+    top: -1px;
+    margin-right: 12px;
+  }
+`;
+const ProfileWalletAddress = styled.span`
+  font-family: ${fonts.MONOSPACE};
 `;
 
 const ArrowWrap = styled.span`
@@ -50,18 +72,36 @@ const ArrowWrap = styled.span`
   }
 `;
 
+const WalletAction = styled.div`
+  display: inline-block;
+  margin-left: 12px;
+  padding-left: 15px;
+  border-left: 1px solid #dddddd;
+`;
+
+const WalletLabel = styled.p`
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+const MetaMaskMockImage = styled.img`
+  float: right;
+  max-width: 255px;
+  margin-bottom: -12px;
+`;
+
 export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
   public render(): JSX.Element | null {
     if (this.props.noProvider) {
       return (
         <Wrapper>
-          <h2>It looks like you aren’t logged in to your wallet</h2>
+          <ManagerSectionHeading>It looks like you aren’t logged in to your wallet</ManagerSectionHeading>
           <p>
             New to this, or don't have a wallet? Having a wallet is mandatory and we recommend{" "}
             <a href="https://metamask.io/" target="_blank">
               MetaMask
             </a>{" "}
-            to set up and fund your wallet.{" "}
+            <MetaMaskSideIcon /> to set up and fund your wallet.{" "}
             <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
               Read this FAQ
             </a>.
@@ -79,8 +119,8 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             from MetaMask in a safe place.
           </p>
 
-          <h2>Set up MetaMask wallet</h2>
           <div style={{ display: "inline-block" }}>
+            <ManagerSectionHeading>MetaMask Wallet</ManagerSectionHeading>
             <p>
               <LargeishLinkButton size={buttonSizes.MEDIUM_WIDE} href="https://metamask.io/" target="_blank">
                 Open MetaMask.io{" "}
@@ -90,31 +130,35 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
               </LargeishLinkButton>
             </p>
             <p>
-              Once done,{" "}
+              Once the extension is installed,{" "}
               <a href="javascript:void(0)" onClick={() => window.location.reload()}>
                 refresh this page
               </a>
+              .
             </p>
           </div>
-          <div style={{ display: "inline-block", float: "right", textAlign: "center", maxWidth: "240px" }}>
-            <p>Already have a wallet?</p>
+          <div style={{ display: "inline-block", float: "right", maxWidth: "240px" }}>
+            <p style={{ color: "#23282d", marginBottom: "-10px" }}>Already have a wallet?</p>
             <p style={{ color: "#72777c" }}>
-              Make sure you are logged in to your wallet on the Rinkeby Test Network, and then{" "}
+              Make sure you have unlocked it and are connected to the {this.props.requiredNetworkNiceName}, and then{" "}
               <a href="javascript:void(0)" onClick={() => window.location.reload()}>
                 refresh this page
               </a>
-            </p>.
+              .
+            </p>
           </div>
         </Wrapper>
       );
     } else if (this.props.walletLocked) {
       return (
         <Wrapper>
-          <h2>Not logged in to wallet</h2>
+          <MetaMaskMockImage src={metaMaskLoginUrl} />
+          <ManagerSectionHeading>Not logged in to wallet</ManagerSectionHeading>
           <p>
-            Please log in to your wallet to continue setting up your newsroom contract.{" "}
+            Please open the MetaMask extension and follow the instructions to log in to your wallet. After you are
+            logged in, you can continue with your newsroom smart contract.{" "}
             <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
-              Help?
+              Need help?
             </a>
           </p>
           <p>Once you are on logged in, refresh this page.</p>
@@ -128,13 +172,15 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
     } else if (this.props.wrongNetwork) {
       return (
         <Wrapper>
-          <h2>Change your network</h2>
+          <MetaMaskMockImage src={metaMaskNetworkSwitchUrl} />
+          <ManagerSectionHeading>Change your network</ManagerSectionHeading>
           <p>
             Looks like you’re using an unsupported Ethereum network. Make sure you're using the{" "}
             {this.props.requiredNetworkNiceName}.{" "}
             <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
-              Help?
-            </a>
+              Read this tutorial
+            </a>{" "}
+            to switch networks in MetaMask <MetaMaskSideIcon />
           </p>
           <p>Once you are on the correct network, refresh this page.</p>
           <p>
@@ -145,31 +191,67 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
         </Wrapper>
       );
     } else if (this.props.metamaskWalletAddress) {
-      return (
-        <Wrapper>
-          <h2>Wallet Connected</h2>
-          <p>Your wallet is connected. Now it’s time to set up your smart contract.</p>
-          <p>
-            Your Wallet Address is
-            <WalletAddress>{this.props.metamaskWalletAddress}</WalletAddress>
-          </p>
-          {this.props.profileWalletAddress !== this.props.metamaskWalletAddress &&
-            this.props.saveAddressToProfile && (
-              <>
-                <p>
-                  Your MetaMask wallet address does not match your WordPress profile's wallet address, which is{" "}
-                  {this.props.profileWalletAddress || "not set"}.
-                </p>
-                {/*TODO loading state + success/error state?*/}
-                <p>
-                  <Button size={buttonSizes.MEDIUM_WIDE} onClick={this.props.saveAddressToProfile}>
-                    Save MetaMask address to my profile
-                  </Button>
-                </p>
-              </>
-            )}
-        </Wrapper>
-      );
+      if (!this.props.profileWalletAddress) {
+        return (
+          <Wrapper>
+            <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
+            <p>Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.</p>
+            <WalletLabel>Your wallet address</WalletLabel>
+            <WalletAddress>
+              <MetaMaskFrontIcon />
+              {this.props.metamaskWalletAddress}
+            </WalletAddress>{" "}
+            <WalletAction>
+              <Button
+                size={buttonSizes.MEDIUM_WIDE}
+                onClick={this.props.saveAddressToProfile}
+                disabled={this.props.profileAddressSaving}
+              >
+                Save to Your Profile
+              </Button>
+            </WalletAction>
+          </Wrapper>
+        );
+      } else if (this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
+        return (
+          <Wrapper>
+            <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
+            <p style={{ color: "#f2524a" }}>
+              Your WordPress user profile wallet address does not match your MetaMask wallet address
+            </p>
+            <WalletLabel>Profile wallet address</WalletLabel>
+            <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
+            <WalletLabel>Connected wallet address</WalletLabel>
+            <WalletAddress>
+              <MetaMaskFrontIcon />
+              {this.props.metamaskWalletAddress}
+            </WalletAddress>{" "}
+            <WalletAction>
+              <Button
+                size={buttonSizes.MEDIUM_WIDE}
+                onClick={this.props.saveAddressToProfile}
+                disabled={this.props.profileAddressSaving}
+              >
+                Update Profile Address
+              </Button>
+            </WalletAction>
+          </Wrapper>
+        );
+      } else {
+        return (
+          <Wrapper>
+            <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
+            <WalletLabel>Your wallet address</WalletLabel>
+            <WalletAddress>
+              <MetaMaskFrontIcon />
+              {this.props.metamaskWalletAddress}
+            </WalletAddress>{" "}
+            <WalletAction>
+              <a href={this.props.profileUrl}>Open Profile</a>
+            </WalletAction>
+          </Wrapper>
+        );
+      }
     } else {
       return null;
     }

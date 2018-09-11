@@ -9,5 +9,6 @@ export * from "./ExpandDownArrow";
 export * from "./GreenCheckMark";
 export * from "./HollowGreenCheck";
 export * from "./HollowRedNoGood";
+export * from "./MetaMaskIcons";
 export * from "./NorthEastArrow";
 export * from "./RejectedNewsroomsIcon";
