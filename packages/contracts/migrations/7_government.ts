@@ -5,6 +5,7 @@ const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
+    console.log("government");
     let appellate = accounts[0];
     let govtController = accounts[0];
 

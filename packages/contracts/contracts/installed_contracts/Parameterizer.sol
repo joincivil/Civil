@@ -62,19 +62,15 @@ contract Parameterizer {
     uint public PROCESSBY = 604800; // 7 days
 
     /**
-    @dev Initializer        Can only be called once
     @param _token           The address where the ERC20 token contract is deployed
     @param _plcr            address of a PLCR voting contract for the provided token
     @notice _parameters     array of canonical parameters
     */
-    function init(
+    constructor(
         address _token,
         address _plcr,
         uint[] _parameters
     ) public {
-        require(_token != 0 && address(token) == 0);
-        require(_plcr != 0 && address(voting) == 0);
-
         token = EIP20Interface(_token);
         voting = PLCRVoting(_plcr);
 

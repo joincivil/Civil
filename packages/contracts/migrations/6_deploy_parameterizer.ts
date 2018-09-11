@@ -12,6 +12,7 @@ const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
+    console.log("parameterizer");
     await deployer.link(DLL, Parameterizer);
     await deployer.link(AttributeStore, Parameterizer);
 
@@ -25,9 +26,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
 
     // const estimate = web3.eth.estimateGas({ data: Parameterizer.bytecode });
     // console.log("Parameterizer gas cost estimate: " + estimate);
-    await deployer.deploy(Parameterizer);
-    const parameterizer = await Parameterizer.at(Parameterizer.address);
-    await parameterizer.init(tokenAddress, PLCRVoting.address, [
+    await deployer.deploy(Parameterizer, Parameterizer.addresstokenAddress, PLCRVoting.address, [
       parameterizerConfig.minDeposit,
       parameterizerConfig.pMinDeposit,
       parameterizerConfig.applyStageLength,
