@@ -3,6 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { Button, buttonSizes } from "../Button";
 import {
+  NavDrawerUserAddessText,
   NavDrawerBalanceText,
   NavDrawerTotalBalanceText,
   NavDrawerVotingBalanceText,
@@ -77,13 +78,6 @@ const NavDrawerCvlBalance = styled.div`
   line-height: 19px;
 `;
 
-const NavDrawerCvlVBalance = styled.div`
-  color: ${colors.accent.CIVIL_TEAL};
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 19px;
-`;
-
 const UserAddress = styled.span`
   color: ${colors.basic.WHITE};
   font-family: ${fonts.MONOSPACE};
@@ -123,7 +117,7 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
     return (
       <NavDrawer>
         <NavDrawerSection>
-          <NavDrawerSectionHeader>Your Public Address</NavDrawerSectionHeader>
+          <NavDrawerSectionHeader><NavDrawerUserAddessText /></NavDrawerSectionHeader>
           <UserAddress>{this.props.userAccount}</UserAddress>
           <CopyButton size={buttonSizes.SMALL} onClick={ev => this.copyToClipBoard()}>
             <NavDrawerCopyBtnText />
@@ -146,7 +140,7 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
               <NavDrawerVotingBalanceText />
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
-              <NavDrawerCvlVBalance>{this.props.votingBalance}</NavDrawerCvlVBalance>
+              <NavDrawerCvlBalance>{this.props.votingBalance}</NavDrawerCvlBalance>
             </NavDrawerRowInfo>
           </NavDrawerRow>
           <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} href={this.props.buyCvlUrl}>

@@ -110,7 +110,6 @@ const UserCvlBalance = styled.span`
 
 const UserCvlVotingBalance = styled.span`
   display: block;
-  color: ${colors.accent.CIVIL_TEAL};
   font-size: 12px;
   font-weight: 500;
   margin-left: 10px;

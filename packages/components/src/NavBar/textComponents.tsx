@@ -18,11 +18,13 @@ export const NavLinkWhitePaperText: React.SFC = props => <>White Paper</>;
 export const NavLinkDashboardText: React.SFC = props => <>My Activity</>;
 
 // Nav Drawer
+export const NavDrawerUserAddessText: React.SFC = props => <>Your Public Address</>;
+
 export const NavDrawerBalanceText: React.SFC = props => <>Balance</>;
 
 export const NavDrawerTotalBalanceText: React.SFC = props => <>Total Balance</>;
 
-export const NavDrawerVotingBalanceText: React.SFC = props => <>Voting Balance</>;
+export const NavDrawerVotingBalanceText: React.SFC = props => <>Voting Tokens</>;
 
 export const NavDrawerBuyCvlBtnText: React.SFC = props => <>Buy CVL Tokens</>;
 
