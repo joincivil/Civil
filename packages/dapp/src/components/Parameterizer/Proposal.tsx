@@ -1,59 +1,30 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { State } from "../../reducers";
-import { PageView, ViewModule, ViewModuleHeader } from "../utility/ViewModules";
-import { Link } from "react-router-dom";
-import { ParamProposalState, TwoStepEthTransaction } from "@joincivil/core";
-import { TransactionButton } from "@joincivil/components";
-import CountdownTimer from "../utility/CountdownTimer";
-import {
-  approveForProposalChallenge,
-  challengeReparameterization,
-  updateReparameterizationProp,
-  resolveReparameterizationChallenge,
-} from "../../apis/civilTCR";
-import { StyledFormContainer, FormGroup } from "../utility/FormElements";
-import CommitVoteDetail from "../listing/CommitVoteDetail";
-import RevealVoteDetail from "../listing/RevealVoteDetail";
+import { BigNumber } from "bignumber.js";
+import { ParamProposalState } from "@joincivil/core";
+import { getFormattedParameterValue } from "@joincivil/utils";
+import { Tr, Td, StyledTableAccentText, TextCountdownTimer } from "@joincivil/components";
+import { getCivil } from "../../helpers/civilInstance";
 
-export interface ProposalPageProps {
-  match: any;
-}
-
-export interface ProposalReduxProps {
+export interface ProposalProps {
   proposal: any;
-  error: any;
+  parameterName: string;
+  parameterValue: BigNumber;
+  handleProposalAction(paramName: string, currentValue: string, newValue: string, proposal: any): void;
 }
 
-class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
+export class Proposal extends React.Component<ProposalProps> {
   public render(): JSX.Element {
     return (
-      <PageView>
-        <ViewModule>
-          <Link to="/parameterizer">&laquo; Back to Parameterizer</Link>
-          <ViewModuleHeader>Parameterizer Proposal</ViewModuleHeader>
-          {this.props.proposal && (
-            <dl>
-              <dt>Parameter Name</dt>
-              <dd>{this.props.proposal.paramName}</dd>
-              <dt>New Value</dt>
-              <dd>{this.props.proposal.propValue.toString()}</dd>
-            </dl>
-          )}
-
-          {this.props.proposal && this.renderProposalActions()}
-
-          {!this.props.proposal && this.renderProposalNotFound()}
-        </ViewModule>
-      </PageView>
+      <Tr>
+        <Td>
+          <StyledTableAccentText>{this.getFormattedValue(this.props.proposal.propValue)}</StyledTableAccentText>
+        </Td>
+        {this.renderProposalStageActions()}
+      </Tr>
     );
   }
 
-  private renderProposalNotFound = (): JSX.Element => {
-    return <>Proposal Not Found</>;
-  };
-
-  private renderProposalActions = (): JSX.Element => {
+  private renderProposalStageActions = (): JSX.Element => {
     const propState = this.props.proposal.state;
     switch (propState) {
       case ParamProposalState.APPLYING:
@@ -66,7 +37,6 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
         return this.renderUpdateParam();
       case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
         return this.renderResolveChallenge();
-      // return <></>;
       default:
         return <></>;
     }
@@ -74,52 +44,60 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
 
   private renderCanBeChallenged = (): JSX.Element => {
     return (
-      <StyledFormContainer>
-        Proposal Application Phase ends in{" "}
-        <CountdownTimer endTime={this.props.proposal.applicationExpiry.valueOf() / 1000} />
-        <FormGroup>
-          <TransactionButton
-            transactions={[{ transaction: approveForProposalChallenge }, { transaction: this.challengeProposal }]}
-          >
-            Challenge Proposal
-          </TransactionButton>
-        </FormGroup>
-      </StyledFormContainer>
+      <>
+        <Td>
+          <TextCountdownTimer endTime={this.props.proposal.applicationExpiry.valueOf() / 1000} />
+        </Td>
+        <Td align="right">
+          <StyledTableAccentText strong>
+            <span onClick={this.onProposalAction}>Challenge Proposal</span>
+          </StyledTableAccentText>
+        </Td>
+      </>
     );
   };
 
   private renderUpdateParam = (): JSX.Element => {
     return (
-      <StyledFormContainer>
-        Parameter Update Phase ends in{" "}
-        <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
-        <FormGroup>
-          <TransactionButton transactions={[{ transaction: this.updateProposal }]}>Update Parameter</TransactionButton>
-        </FormGroup>
-      </StyledFormContainer>
+      <>
+        <Td>
+          <TextCountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
+        </Td>
+        <Td align="right">
+          <StyledTableAccentText strong>
+            <span onClick={this.onProposalAction}>Update Parameter</span>
+          </StyledTableAccentText>
+        </Td>
+      </>
     );
   };
 
   private renderResolveChallenge = (): JSX.Element => {
     return (
-      <StyledFormContainer>
-        Resolve Challenge Phase ends in{" "}
-        <CountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
-        <FormGroup>
-          <TransactionButton transactions={[{ transaction: this.resolveChallenge }]}>
-            Resolve Challenge
-          </TransactionButton>
-        </FormGroup>
-      </StyledFormContainer>
+      <>
+        <Td>
+          <TextCountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
+        </Td>
+        <Td align="right">
+          <StyledTableAccentText strong>
+            <span onClick={this.onProposalAction}>Resolve Challenge</span>
+          </StyledTableAccentText>
+        </Td>
+      </>
     );
   };
 
   private renderCommitState = (): JSX.Element => {
     return (
       <>
-        Commit Vote Phase ends in{" "}
-        <CountdownTimer endTime={this.props.proposal.challenge.challengeCommitExpiry.valueOf() / 1000} />
-        <CommitVoteDetail challengeID={this.props.proposal.challenge.id} />
+        <Td>
+          <TextCountdownTimer endTime={this.props.proposal.challenge.challengeCommitExpiry.valueOf() / 1000} />
+        </Td>
+        <Td align="right">
+          <StyledTableAccentText strong>
+            <span onClick={this.onProposalAction}>Commit Vote</span>
+          </StyledTableAccentText>
+        </Td>
       </>
     );
   };
@@ -127,33 +105,29 @@ class Proposal extends React.Component<ProposalPageProps & ProposalReduxProps> {
   private renderRevealState = (): JSX.Element => {
     return (
       <>
-        Reveal Vote Phase ends in{" "}
-        <CountdownTimer endTime={this.props.proposal.challenge.challengeRevealExpiry.valueOf() / 1000} />
-        <RevealVoteDetail challengeID={this.props.proposal.challenge.id} />
+        <Td>
+          <TextCountdownTimer endTime={this.props.proposal.challenge.challengeRevealExpiry.valueOf() / 1000} />
+        </Td>
+        <Td align="right">
+          <StyledTableAccentText strong>
+            <span onClick={this.onProposalAction}>Reveal Vote</span>
+          </StyledTableAccentText>
+        </Td>
       </>
     );
   };
 
-  private challengeProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return challengeReparameterization(this.props.proposal.id);
+  private onProposalAction = (event: any) => {
+    this.props.handleProposalAction(
+      this.props.parameterName,
+      this.getFormattedValue(this.props.parameterValue),
+      this.getFormattedValue(this.props.proposal!.propValue),
+      this.props.proposal,
+    );
   };
 
-  private updateProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return updateReparameterizationProp(this.props.proposal.id);
-  };
-
-  private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return resolveReparameterizationChallenge(this.props.proposal.id);
+  private getFormattedValue = (parameterValue: BigNumber): string => {
+    const civil = getCivil();
+    return getFormattedParameterValue(this.props.parameterName, civil.toBigNumber(parameterValue.toString()));
   };
 }
-
-const mapStateToProps = (state: State, ownProps: ProposalPageProps): ProposalReduxProps => {
-  const { proposals } = state.networkDependent;
-
-  return {
-    proposal: proposals.get(ownProps.match.params.propId),
-    error: undefined,
-  };
-};
-
-export default connect(mapStateToProps)(Proposal);

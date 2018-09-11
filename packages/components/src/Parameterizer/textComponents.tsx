@@ -67,3 +67,16 @@ export const CreateProposalParamNameLabelText: React.SFC = props => <>Parameter 
 export const CreateProposalParamCurrentValueLabelText: React.SFC = props => <>Current Value</>;
 
 export const CreateProposalTokenDepositText: React.SFC = props => <>Total token deposit</>;
+
+// Challenge Proposal
+export const ChallengeProposalHeaderText: React.SFC = props => <>Challenge Proposal</>;
+
+export const ChallengeProposalDescriptionText: React.SFC = props => <>Challenge this proposal.</>;
+
+export const ChallengeProposalNewValueLabelText: React.SFC = props => <>Proposed Value</>;
+
+export const ResolveChallengeProposalDescriptionText: React.SFC = props => <>Resolve this Proposal Challenge</>;
+
+export const ProcessProposalDescriptionText: React.SFC = props => (
+  <>Process this proposal and update the Registry Parameters with the new value</>
+);

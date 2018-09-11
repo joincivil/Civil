@@ -18,6 +18,9 @@ import {
   isInAppealChallengeCommitPhase as getIsInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase as getIsInAppealChallengeRevealPhase,
   canListingAppealChallengeBeResolved as getCanListingAppealChallengeBeResolved,
+  isInCommitStage as isPollInCommitStage,
+  isInRevealStage as isPollInRevealStage,
+  isVotePassed as isPollVotePassed,
   isAppealAwaitingJudgment,
   ListingWrapper,
   UserChallengeData,
@@ -61,6 +64,8 @@ export const getHistories = (state: State) => state.networkDependent.histories;
 export const getParameters = (state: State) => state.networkDependent.parameters;
 
 export const getParameterProposals = (state: State) => state.networkDependent.proposals;
+
+export const getParameterProposalChallenges = (state: State) => state.networkDependent.parameterProposalChallenges;
 
 // end simple selectors
 
@@ -356,6 +361,26 @@ export const makeGetChallengeState = () => {
       didChallengeSucceed,
     };
   });
+};
+
+export const makeGetParameterProposalChallengeState = () => {
+  return createSelector(
+    [getParameterProposalChallenges, getChallengeID],
+    (parameterProposalChallenges, challengeID) => {
+      const challenge = parameterProposalChallenges.get(challengeID!);
+      const isResolved = challenge && challenge.resolved;
+      const inCommitPhase = challenge && isPollInCommitStage(challenge.poll);
+      const inRevealPhase = challenge && isPollInRevealStage(challenge.poll);
+      const didChallengeSucceed = challenge && isPollVotePassed(challenge.poll);
+
+      return {
+        isResolved,
+        inCommitPhase,
+        inRevealPhase,
+        didChallengeSucceed,
+      };
+    },
+  );
 };
 
 export const makeGetListingPhaseState = () => {

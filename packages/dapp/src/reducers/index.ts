@@ -28,11 +28,8 @@ import {
 import {
   parameters,
   proposals,
-  proposalApplications,
-  challengedCommitProposals,
-  challengedRevealProposals,
-  updateableProposals,
-  resolvableChallengedProposals,
+  parameterProposalChallenges,
+  parameterProposalChallengesFetching,
 } from "./parameterizer";
 import {
   appealChallengeUserData,
@@ -47,7 +44,13 @@ import { user } from "./userAccount";
 import { network, networkName } from "./network";
 import { ui } from "./ui";
 import { Set, List, Map } from "immutable";
-import { TimestampedEvent, WrappedChallengeData, UserChallengeData, EthAddress } from "@joincivil/core";
+import {
+  TimestampedEvent,
+  WrappedChallengeData,
+  UserChallengeData,
+  EthAddress,
+  ParamPropChallengeData,
+} from "@joincivil/core";
 import { currentUserNewsrooms } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
 import { networkActions } from "../actionCreators/network";
@@ -86,11 +89,8 @@ export interface NetworkDependentState {
   user: { account: any };
   parameters: object;
   proposals: Map<string, object>;
-  proposalApplications: Set<object>;
-  challengedCommitProposals: Set<object>;
-  challengedRevealProposals: Set<object>;
-  updateableProposals: Set<object>;
-  resolvableChallengedProposals: Set<object>;
+  parameterProposalChallenges: Map<string, ParamPropChallengeData>;
+  parameterProposalChallengesFetching: Map<string, any>;
   govtParameters: object;
   challenges: Map<string, WrappedChallengeData>;
   challengesFetching: Map<string, any>;
@@ -132,11 +132,8 @@ const networkDependentReducers = combineReducers({
   user,
   parameters,
   proposals,
-  proposalApplications,
-  challengedCommitProposals,
-  challengedRevealProposals,
-  updateableProposals,
-  resolvableChallengedProposals,
+  parameterProposalChallenges,
+  parameterProposalChallengesFetching,
   govtParameters,
   challenges,
   challengesFetching,

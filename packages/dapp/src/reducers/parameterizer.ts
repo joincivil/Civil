@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { parameterizerActions } from "../actionCreators/parameterizer";
-import { ParamProposalState } from "@joincivil/core";
-import { Map, Set } from "immutable";
+import { ParamPropChallengeData } from "@joincivil/core";
+import { Map } from "immutable";
 
 export function parameters(state: object = {}, action: AnyAction): object {
   switch (action.type) {
@@ -23,66 +23,27 @@ export function proposals(state: Map<string, object> = Map<string, object>(), ac
   }
 }
 
-export function proposalApplications(state: Set<object> = Set<object>(), action: AnyAction): Set<object> {
+export function parameterProposalChallenges(
+  state: Map<string, ParamPropChallengeData> = Map<string, ParamPropChallengeData>(),
+  action: AnyAction,
+): Map<string, ParamPropChallengeData> {
   switch (action.type) {
-    case parameterizerActions.ADD_OR_UPDATE_PROPOSAL:
-      if (action.proposal.state === ParamProposalState.APPLYING) {
-        return state.add(action.proposal);
-      } else {
-        return state.remove(action.proposal);
-      }
+    case parameterizerActions.ADD_OR_UPDATE_CHALLENGE:
+      return state.set(action.data.challengeID, action.data);
     default:
       return state;
   }
 }
 
-export function challengedCommitProposals(state: Set<object> = Set<object>(), action: AnyAction): Set<object> {
+export function parameterProposalChallengesFetching(
+  state: Map<string, any> = Map<string, any>(),
+  action: AnyAction,
+): Map<string, any> {
   switch (action.type) {
-    case parameterizerActions.ADD_OR_UPDATE_PROPOSAL:
-      if (action.proposal.state === ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE) {
-        return state.add(action.proposal);
-      } else {
-        return state.remove(action.proposal);
-      }
-    default:
-      return state;
-  }
-}
-
-export function challengedRevealProposals(state: Set<object> = Set<object>(), action: AnyAction): Set<object> {
-  switch (action.type) {
-    case parameterizerActions.ADD_OR_UPDATE_PROPOSAL:
-      if (action.proposal.state === ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE) {
-        return state.add(action.proposal);
-      } else {
-        return state.remove(action.proposal);
-      }
-    default:
-      return state;
-  }
-}
-
-export function updateableProposals(state: Set<object> = Set<object>(), action: AnyAction): Set<object> {
-  switch (action.type) {
-    case parameterizerActions.ADD_OR_UPDATE_PROPOSAL:
-      if (action.proposal.state === ParamProposalState.READY_TO_PROCESS) {
-        return state.add(action.proposal);
-      } else {
-        return state.remove(action.proposal);
-      }
-    default:
-      return state;
-  }
-}
-
-export function resolvableChallengedProposals(state: Set<object> = Set<object>(), action: AnyAction): Set<object> {
-  switch (action.type) {
-    case parameterizerActions.ADD_OR_UPDATE_PROPOSAL:
-      if (action.proposal.state === ParamProposalState.READY_TO_RESOLVE_CHALLENGE) {
-        return state.add(action.proposal);
-      } else {
-        return state.remove(action.proposal);
-      }
+    case parameterizerActions.FETCH_CHALLENGE_DATA:
+    case parameterizerActions.FETCH_CHALLENGE_DATA_COMPLETE:
+    case parameterizerActions.FETCH_CHALLENGE_DATA_IN_PROGRESS:
+      return state.set(action.data.challengeID, action.data);
     default:
       return state;
   }

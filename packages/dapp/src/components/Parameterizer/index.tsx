@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "bignumber.js";
-import { TwoStepEthTransaction } from "@joincivil/core";
+import { TwoStepEthTransaction, ParamProposalState } from "@joincivil/core";
 import {
   colors,
   fonts,
@@ -34,14 +34,25 @@ import {
   AppealVotePercentageLabelText,
   StyledParameterizerContainer,
   CreateProposal,
+  ChallengeProposal,
+  ResolveChallengeProposal,
+  ProcessProposal,
 } from "@joincivil/components";
 import { getFormattedTokenBalance, Parameters, GovernmentParameters } from "@joincivil/utils";
 import { State } from "../../reducers";
 import ListingDiscourse from "../listing/ListingDiscourse";
 import { getCivil } from "../../helpers/civilInstance";
-import { approveForProposeReparameterization, proposeReparameterization } from "../../apis/civilTCR";
+import {
+  approveForProposeReparameterization,
+  approveForProposalChallenge,
+  challengeReparameterization,
+  proposeReparameterization,
+  updateReparameterizationProp,
+  resolveReparameterizationChallenge,
+} from "../../apis/civilTCR";
 import { amountParams, durationParams, percentParams } from "./constants";
 import { Parameter } from "./Parameter";
+import ChallengeContainer from "./ChallengeProposalDetail";
 
 const GridRow = styled.div`
   display: flex;
@@ -126,6 +137,9 @@ export interface ParameterizerPageState {
   createProposalParameterCurrentValue?: string;
   createProposalNewValue?: string;
   isProposalActionVisible: boolean;
+  challengeProposalID?: number;
+  challengeProposalNewValue?: string;
+  proposal?: any;
 }
 
 class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any>, ParameterizerPageState> {
@@ -177,9 +191,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                       <Tr>
                         <Th width="300">Current Parameter</Th>
                         <Th>Current Value</Th>
-                        <Th colSpan={3} accent>
-                          Proposal for New Value
-                        </Th>
+                        <Th accent>Proposal for New Value</Th>
                       </Tr>
                     </thead>
                     <tbody>
@@ -264,7 +276,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         proposalDeposit={proposalMinDeposit}
         transactions={[
           { transaction: approveForProposeReparameterization },
-          { transaction: this.proposeReparameterization },
+          { transaction: this.proposeReparameterization, postExecuteTransactions: this.hideCreateProposal },
         ]}
         handleClose={this.hideCreateProposal}
         handleUpdateProposalValue={this.updateProposalNewValue}
@@ -273,35 +285,85 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   };
 
   private renderProposalAction = (): JSX.Element => {
+    const propState = this.state.proposal!.state;
+    switch (propState) {
+      case ParamProposalState.APPLYING:
+        return this.renderChallengeProposal();
+      case ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
+      case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
+        return this.renderChallengeDetail();
+      case ParamProposalState.READY_TO_PROCESS:
+        return this.renderUpdateParam();
+      case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
+        return this.renderResolveChallenge();
+      default:
+        return <></>;
+    }
+  };
+
+  private renderUpdateParam = (): JSX.Element => {
+    return (
+      <ProcessProposal
+        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
+        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
+        parameterProposalValue={this.state.createProposalNewValue!}
+        parameterNewValue={this.state.challengeProposalNewValue!}
+        transactions={[{ transaction: this.resolveChallenge, postExecuteTransactions: this.hideProposalAction }]}
+        handleClose={this.hideProposalAction}
+      />
+    );
+  };
+
+  private renderResolveChallenge = (): JSX.Element => {
+    return (
+      <ResolveChallengeProposal
+        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
+        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
+        parameterProposalValue={this.state.createProposalNewValue!}
+        parameterNewValue={this.state.challengeProposalNewValue!}
+        transactions={[{ transaction: this.updateProposal, postExecuteTransactions: this.hideProposalAction }]}
+        handleClose={this.hideProposalAction}
+      />
+    );
+  };
+
+  private renderChallengeProposal = (): JSX.Element => {
     const civil = getCivil();
     const proposalMinDeposit =
       this.props.parameters[Parameters.pMinDeposit] &&
       getFormattedTokenBalance(civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()));
 
     return (
-      <CreateProposal
+      <ChallengeProposal
         parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
         parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
-        parameterDisplayUnits={this.getParameterDisplayUnits(this.state.createProposalParameterName!)}
         parameterProposalValue={this.state.createProposalNewValue!}
+        parameterNewValue={this.state.challengeProposalNewValue!}
         proposalDeposit={proposalMinDeposit}
         transactions={[
-          { transaction: approveForProposeReparameterization },
-          { transaction: this.proposeReparameterization },
+          { transaction: approveForProposalChallenge },
+          { transaction: this.challengeProposal, postExecuteTransactions: this.hideProposalAction },
         ]}
-        handleClose={this.hideCreateProposal}
-        handleUpdateProposalValue={this.updateProposalNewValue}
+        handleClose={this.hideProposalAction}
+      />
+    );
+  };
+
+  private renderChallengeDetail = (): JSX.Element => {
+    return (
+      <ChallengeContainer
+        propID={this.state.challengeProposalID!}
+        challengeID={this.state.proposal!.challenge.id}
+        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
+        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
+        parameterProposalValue={this.state.createProposalNewValue!}
+        handleClose={this.hideProposalAction}
       />
     );
   };
 
   private updateProposalNewValue = (name: string, value: string) => {
-    this.setState(
-      () => ({ createProposalNewValue: value }),
-      () => {
-        console.log(this.state);
-      },
-    );
+    this.setState(() => ({ createProposalNewValue: value }));
   };
 
   private showCreateProposal = (parameterName: string, currentValue: string): void => {
@@ -312,16 +374,23 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     this.setState(() => ({ isCreateProposalVisible: true }));
   };
 
-  private showProposalAction = (parameterName: string, currentValue: string, propsoal: any): void => {
+  private showProposalAction = (parameterName: string, currentValue: string, newValue: string, proposal: any): void => {
     this.setState(() => ({
       createProposalParameterName: parameterName,
       createProposalParameterCurrentValue: currentValue,
+      challengeProposalID: proposal.id,
+      challengeProposalNewValue: newValue,
+      proposal,
     }));
     this.setState(() => ({ isProposalActionVisible: true }));
   };
 
   private hideCreateProposal = (): void => {
     this.setState(() => ({ isCreateProposalVisible: false }));
+  };
+
+  private hideProposalAction = (): void => {
+    this.setState(() => ({ isProposalActionVisible: false }));
   };
 
   private getParameterDisplayName = (parameterName: string): JSX.Element => {
@@ -373,8 +442,26 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   };
 
   private proposeReparameterization = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const newValue: BigNumber = new BigNumber(this.state.createProposalNewValue!);
+    let newValue: BigNumber = new BigNumber(this.state.createProposalNewValue!);
+    if (amountParams.includes(this.state.createProposalParameterName!)) {
+      newValue = newValue.mul(1e18);
+    }
     return proposeReparameterization(this.state.createProposalParameterName!, newValue);
+  };
+
+  private challengeProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    const civil = getCivil();
+    return challengeReparameterization(civil.toBigNumber(this.state.challengeProposalID!));
+  };
+
+  private updateProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    const civil = getCivil();
+    return updateReparameterizationProp(civil.toBigNumber(this.state.challengeProposalID!));
+  };
+
+  private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    const civil = getCivil();
+    return resolveReparameterizationChallenge(civil.toBigNumber(this.state.challengeProposalID!));
   };
 }
 

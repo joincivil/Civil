@@ -22,7 +22,7 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
     return (
       <>
         <FormQuestion>
-          <VoteCallToActionText newsroomName={this.props.newsroomName} />
+          {this.props.children || <VoteCallToActionText newsroomName={this.props.newsroomName} />}
         </FormQuestion>
 
         <VoteOptionsContainer>

@@ -1,5 +1,6 @@
 import { EthAddress } from "@joincivil/typescript-types";
 import { BigNumber } from "bignumber.js";
+import { Parameters, GovernmentParameters } from "./civilHelpers";
 
 // A collection of helper methods for user-facing views
 
@@ -76,4 +77,43 @@ export function getNumberStringWithCommaDelimeters(
     out[i] = out[i] + ",";
   }
   return out.reverse().join("");
+}
+
+export const amountParams: string[] = [Parameters.minDeposit, Parameters.pMinDeposit, GovernmentParameters.appealFee];
+
+export const durationParams: string[] = [
+  Parameters.applyStageLen,
+  Parameters.pApplyStageLen,
+  Parameters.commitStageLen,
+  Parameters.pCommitStageLen,
+  Parameters.revealStageLen,
+  Parameters.pRevealStageLen,
+  Parameters.pProcessBy,
+  Parameters.challengeAppealLen,
+  Parameters.challengeAppealCommitLen,
+  Parameters.challengeAppealRevealLen,
+  GovernmentParameters.requestAppealLen,
+  GovernmentParameters.judgeAppealLen,
+];
+
+export const percentParams: string[] = [
+  Parameters.dispensationPct,
+  Parameters.pDispensationPct,
+  Parameters.voteQuorum,
+  Parameters.pVoteQuorum,
+  GovernmentParameters.appealVotePercentage,
+];
+
+export function getFormattedParameterValue(parameterName: string, parameterValue: BigNumber): string {
+  let value = "";
+
+  if (amountParams.includes(parameterName)) {
+    value = getFormattedTokenBalance(parameterValue);
+  } else if (durationParams.includes(parameterName)) {
+    value = getReadableDuration(parameterValue.toNumber());
+  } else if (percentParams.includes(parameterName)) {
+    value = `${parameterValue.toString()}%`;
+  }
+
+  return value;
 }

@@ -16,6 +16,16 @@ export const StyledCreateProposalContainer = styled.div`
   width: 634px;
 `;
 
+export const StyledChallengeProposalContainer = styled.div`
+  background: ${colors.basic.WHITE};
+  bottom: 0;
+  border: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  font-family: ${fonts.SANS_SERIF};
+  right: 0;
+  top: 0;
+  width: 634px;
+`;
+
 export const StyledCreateProposalOuter = styled.div`
   background: ${colors.basic.WHITE}9a; // 9a is hex for 60^
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -25,7 +35,8 @@ export const StyledCreateProposalOuter = styled.div`
   right: 0;
   top: 0;
 
-  & ${StyledCreateProposalContainer} {
+  & ${StyledCreateProposalContainer},
+  & ${StyledChallengeProposalContainer} {
     position: absolute;
   }
 `;

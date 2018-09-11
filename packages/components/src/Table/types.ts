@@ -1,4 +1,5 @@
 export interface TableProps {
+  borderWidth?: string;
   width?: string;
 }
 
@@ -7,6 +8,7 @@ export interface TableCellProps {
   align?: string;
   borderWidth?: string;
   colSpan?: number;
+  padding?: number;
   rowSpan?: number;
   width?: string;
 }
