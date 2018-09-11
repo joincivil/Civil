@@ -3,6 +3,8 @@ pragma solidity ^0.4.23;
 library UnionFind {
   struct Group {
     bytes32 parent;
+    uint totalTokens;
+    uint usedTokens;
     uint size;
   }
   struct Data {
@@ -47,10 +49,14 @@ library UnionFind {
 
     if (a.size >= b.size) { // A is bigger, and so is new root
       b.parent = a.parent;
+      a.totalTokens += b.totalTokens;
+      a.usedTokens += b.usedTokens;
       a.size += b.size;
       return a;
     } else { // B is bigger, and so is new root
       a.parent = b.parent;
+      b.usedTokens += a.usedTokens;
+      b.totalTokens += a.usedTokens;
       b.size += a.size;
       return b;
     }
@@ -77,6 +83,8 @@ library UnionFind {
     if (group.parent == 0x0) {
       group.parent = element;
       group.size = 1;
+      // TODO(ritave): Get the token count from Token Sale contract
+      group.totalTokens = 0;
     }
     return group;
   }

@@ -2,14 +2,23 @@ pragma solidity ^0.4.23;
 
 import "./UnionFind.sol";
 import "./OffChainOwnable.sol";
+import "../telemetry/TokenTelemetryI.sol";
 import "../../zeppelin-solidity/access/Whitelist.sol";
+import "../../zeppelin-solidity/math/SafeMath.sol";
 
-contract UserGroups is OffChainOwnable {
+contract UserGroups is OffChainOwnable, TokenTelemetryI {
+  using SafeMath for uint;
+
   // Free to transfer to anyone and accept from anyone
   address constant SUPER_GROUP = 0x1;
   // After a group proves token use, they can add themselves to GLOBAL_GROUP,
   // allowing to exchange tokens with everyone who already proven too
   address constant GLOBAL_GROUP = 0x2;
+
+  uint constant PERCENT_PROOF_OF_USE_ABOVE_10K = 25;
+  uint constant PERCENT_PROOF_OF_USE_BELOW_10K = 50;
+
+  uint public howManyTokensAreIn10k;
 
   // The maximum amount of addresses inside one group before being added to global
   uint public maxGroupSize = 4;
@@ -18,8 +27,9 @@ contract UserGroups is OffChainOwnable {
 
   UnionFind.Data internal groups;
 
-  constructor(Whitelist whitelist) OffChainOwnable(whitelist) public
+  constructor(uint tokensIn10k, Whitelist whitelist) OffChainOwnable(whitelist) public
   {
+    howManyTokensAreIn10k = tokensIn10k;
   }
 
   function find(address a) external view returns (address root, uint size) {
@@ -35,6 +45,16 @@ contract UserGroups is OffChainOwnable {
   {
     changeGroupSizeNonce++;
     maxGroupSize = groupSize;
+  }
+
+  function onTokensUsed(address user, uint tokenAmount) external {
+    UnionFind.Group storage superGroup = UnionFind.findStruct(groups, bytes32(SUPER_GROUP));
+    UnionFind.Group storage senderGroup = UnionFind.findStruct(groups, bytes32(msg.sender));
+
+    require(superGroup.parent == senderGroup.parent);
+
+    UnionFind.Group storage userGroup = UnionFind.findStruct(groups, bytes32(msg.sender));
+    userGroup.usedTokens += tokenAmount;
   }
 
   // The action is idempotent, no need for replay attack security
@@ -71,15 +91,20 @@ contract UserGroups is OffChainOwnable {
 
     require(group.parent != globalGroup.parent && group.parent != superGroup.parent, "Address a is reserved");
     require(
-      isUseProven(address(group.parent)),
+      isUseProven(group.usedTokens, group.totalTokens),
       "The use hasn't been proven yet"
     );
 
     UnionFind.union(groups, globalGroup.parent, group.parent);
   }
 
-  function isUseProven(address root) internal view returns (bool) {
-    // TODO(ritave): Connect with TCR
-    return true;
+  function isUseProven(uint usedTokens, uint totalTokens) internal pure returns (bool) {
+    bool isAbove10K = (totalTokens / howManyTokensAreIn10k) > 0;
+    uint percentUsed = usedTokens * 10 / totalTokens;
+    if (isAbove10K) {
+      return percentUsed > PERCENT_PROOF_OF_USE_ABOVE_10K;
+    } else {
+      return percentUsed > PERCENT_PROOF_OF_USE_BELOW_10K;
+    }
   }
 }
