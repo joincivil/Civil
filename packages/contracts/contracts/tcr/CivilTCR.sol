@@ -379,17 +379,17 @@ contract CivilTCR is RestrictedAddressRegistry {
     return (voterTokens * rewardPool) / totalTokens;
   }
 
-    /**
-    @dev                Called by updateStatus() if the applicationExpiry date passed without a
-                        challenge being made. Called by resolveChallenge() if an
-                        application/listing beat a challenge. Differs from base implementation in that
-                        it also clears out challengeID
-    @param listingAddress The listingHash of an application/listingHash to be whitelisted
-    */
-    function whitelistApplication(address listingAddress) internal {
-      super.whitelistApplication(listingAddress);
-      listings[listingAddress].challengeID = 0;
-    }
+  /**
+  @dev                Called by updateStatus() if the applicationExpiry date passed without a
+                      challenge being made. Called by resolveChallenge() if an
+                      application/listing beat a challenge. Differs from base implementation in that
+                      it also clears out challengeID
+  @param listingAddress The listingHash of an application/listingHash to be whitelisted
+  */
+  function whitelistApplication(address listingAddress) internal {
+    super.whitelistApplication(listingAddress);
+    listings[listingAddress].challengeID = 0;
+  }
 
   /**
   @notice Updates the state of a listing after a challenge was overtuned via appeal (and no appeal
