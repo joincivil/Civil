@@ -1,7 +1,7 @@
 {
   "name": "@joincivil/contracts",
   "private": true,
-  "version": "4.3.0",
+  "version": "4.4.0",
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
     "build": "run-s compile build:stripArtifacts",
@@ -33,7 +33,7 @@
     "@joincivil/doxity": "^0.0.1",
     "@joincivil/tslint-rules": "^2.6.3",
     "@joincivil/typescript-types": "^1.0.2",
-    "@joincivil/utils": "^1.4.0",
+    "@joincivil/utils": "^1.5.0",
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
     "@types/glob": "^5.0.34",
