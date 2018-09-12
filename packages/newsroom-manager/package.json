@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/newsroom-manager",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "ui for managing a newsroom contract",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -15,14 +15,9 @@
     "test": "echo \"add tests please\""
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@joincivil/components": "^1.2.1",
-    "@joincivil/core": "^4.2.1",
+    "@joincivil/components": "^1.3.0",
+    "@joincivil/core": "^4.3.0",
     "@joincivil/ethapi": "^0.0.1"
-=======
-    "@joincivil/components": "^1.2.2",
-    "@joincivil/core": "^4.2.2"
->>>>>>> Publish
   },
   "devDependencies": {
     "@types/redux-thunk": "^2.1.0",
