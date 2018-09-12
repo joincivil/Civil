@@ -280,8 +280,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   @notice Determines the winner in an appeal challenge. Rewards the winner tokens and
   either whitelists or delists the listing at the given address. Also resolves the underlying
   challenge that was originally appealed.
-  Emits `_GrantedAppealConfirmed` if appeal challenge unsuccessful.
-  Emits `_GrantedAppealOverturned` if appeal challenge successful.
+  Emits `_GrantedAppealConfirmed` if appeal challenge unsuccessful (vote not passed).
+  Emits `_GrantedAppealOverturned` if appeal challenge successful (vote passed).
   @param listingAddress The address of a listing with an appeal challenge that is to be resolved
   */
   function resolveAppealChallenge(address listingAddress) internal {
@@ -301,15 +301,15 @@ contract CivilTCR is RestrictedAddressRegistry {
     // Stores the total tokens used for voting by the winning side for reward purposes
     appealChallenge.totalTokens = voting.getTotalNumberOfTokensForWinningOption(appealChallengeID);
 
-    if (voting.isPassed(appealChallengeID)) { // Case: vote succeeded, appeal challenge failed, don't overturn appeal
-      resolveOverturnedChallenge(listingAddress);
-      require(token.transfer(appeal.requester, reward));
-      emit _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
-    } else { // Case: vote failed, appeal challenge succeeded, overturn appeal
+    if (voting.isPassed(appealChallengeID)) { // Case: vote passed, appeal challenge succeeded, overturn appeal
       super.resolveChallenge(listingAddress);
       appeal.overturned = true;
       require(token.transfer(appealChallenge.challenger, reward));
       emit _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
+    } else { // Case: vote not passed, appeal challenge failed, confirm appeal
+      resolveOverturnedChallenge(listingAddress);
+      require(token.transfer(appeal.requester, reward));
+      emit _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     }
   }
 
@@ -378,6 +378,18 @@ contract CivilTCR is RestrictedAddressRegistry {
     uint voterTokens = getNumChallengeTokens(voter, challengeID, salt);
     return (voterTokens * rewardPool) / totalTokens;
   }
+
+    /**
+    @dev                Called by updateStatus() if the applicationExpiry date passed without a
+                        challenge being made. Called by resolveChallenge() if an
+                        application/listing beat a challenge. Differs from base implementation in that
+                        it also clears out challengeID
+    @param listingAddress The listingHash of an application/listingHash to be whitelisted
+    */
+    function whitelistApplication(address listingAddress) internal {
+      super.whitelistApplication(listingAddress);
+      listings[listingAddress].challengeID = 0;
+    }
 
   /**
   @notice Updates the state of a listing after a challenge was overtuned via appeal (and no appeal
