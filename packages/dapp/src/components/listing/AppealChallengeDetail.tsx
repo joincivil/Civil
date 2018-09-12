@@ -1,25 +1,29 @@
 import * as React from "react";
-import styled from "styled-components";
-import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage, AppealChallengeData } from "@joincivil/core";
-import CommitVoteDetail from "./CommitVoteDetail";
-import RevealVoteDetail from "./RevealVoteDetail";
+import {
+  isAppealChallengeInCommitStage,
+  isAppealChallengeInRevealStage,
+  AppealChallengeData,
+  TwoStepEthTransaction,
+} from "@joincivil/core";
 import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import CountdownTimer from "../utility/CountdownTimer";
-
-const StyledDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%
-  color: black;
-`;
+import { AppealChallengeCommitVoteCard, AppealChallengeRevealVoteCard } from "@joincivil/components";
+import { commitVote, requestVotingRights, revealVote } from "../../apis/civilTCR";
 
 export interface AppealChallengeDetailProps {
   appealChallengeID: BigNumber;
   appealChallenge: AppealChallengeData;
+  govtParameters: any;
+  tokenBalance: number;
 }
 
-class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> {
+export interface ChallengeVoteState {
+  voteOption?: string;
+  salt?: string;
+  numTokens?: string;
+}
+
+class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, ChallengeVoteState> {
   constructor(props: AppealChallengeDetailProps) {
     super(props);
   }
@@ -30,22 +34,12 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
       !isAppealChallengeInCommitStage(challenge) && !isAppealChallengeInRevealStage(challenge) && !challenge.resolved;
     const canShowResult = this.props.appealChallenge.resolved;
     return (
-      <StyledDiv>
-        <dl>
-          <dt>Appeal Challenger</dt>
-          <dd>{challenge.challenger.toString()}</dd>
-
-          <dt>Appeal Reward Pool</dt>
-          <dd>{getFormattedTokenBalance(challenge.rewardPool)}</dd>
-
-          <dt>Appeal Stake</dt>
-          <dd>{getFormattedTokenBalance(challenge.stake)}</dd>
-        </dl>
+      <>
         {isAppealChallengeInCommitStage(challenge) && this.renderCommitStage()}
         {isAppealChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canResolveChallenge && this.renderResolveAppealChallenge()}
         {canShowResult && this.renderVoteResult()}
-      </StyledDiv>
+      </>
     );
   }
 
@@ -65,26 +59,84 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
   }
 
   private renderCommitStage(): JSX.Element {
+    const challenge = this.props.appealChallenge;
+
+    const endTime = challenge.poll.commitEndDate.toNumber();
+    const phaseLength = this.props.govtParameters.challengeAppealCommitLen;
+
+    const challenger = challenge.challenger.toString();
+    const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
+    const stake = getFormattedTokenBalance(challenge.stake);
+
+    const transactions = [{ transaction: this.requestVotingRights }, { transaction: this.commitVoteOnChallenge }];
+
     return (
-      <>
-        Commit Vote Phase ends in <CountdownTimer endTime={this.props.appealChallenge.poll.commitEndDate.toNumber()} />
-        <br />
-        <CommitVoteDetail challengeID={this.props.appealChallengeID} />
-      </>
+      <AppealChallengeCommitVoteCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        challenger={challenger}
+        rewardPool={rewardPool}
+        stake={stake}
+        onInputChange={this.updateCommitVoteState}
+        tokenBalance={this.props.tokenBalance}
+        salt={this.state.salt}
+        numTokens={this.state.numTokens}
+        transactions={transactions}
+      />
     );
   }
+
   private renderRevealStage(): JSX.Element {
+    const challenge = this.props.appealChallenge;
+
+    const endTime = challenge.poll.commitEndDate.toNumber();
+    const phaseLength = this.props.govtParameters.challengeAppealCommitLen;
+
+    const challenger = challenge.challenger.toString();
+    const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
+    const stake = getFormattedTokenBalance(challenge.stake);
+
+    const transactions = [{ transaction: this.revealVoteOnChallenge }];
+
     return (
-      <>
-        Reveal Vote Phase ends in <CountdownTimer endTime={this.props.appealChallenge.poll.revealEndDate.toNumber()} />
-        <br />
-        <RevealVoteDetail challengeID={this.props.appealChallengeID} />
-      </>
+      <AppealChallengeRevealVoteCard
+        endTime={endTime}
+        phaseLength={phaseLength}
+        challenger={challenger}
+        rewardPool={rewardPool}
+        stake={stake}
+        salt={this.state.salt}
+        onInputChange={this.updateCommitVoteState}
+        transactions={transactions}
+      />
     );
   }
+
   private renderResolveAppealChallenge(): JSX.Element {
     return <>RESOLVE APPEAL CHALLENGE</>;
   }
+
+  private updateCommitVoteState = (data: any): void => {
+    this.setState({ ...data });
+  };
+
+  private requestVotingRights = async (): Promise<TwoStepEthTransaction<any>> => {
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    return requestVotingRights(numTokens);
+  };
+
+  private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
+    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
+    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    return commitVote(this.props.appealChallengeID, voteOption, salt, numTokens);
+  };
+
+  private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
+    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
+    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    return revealVote(this.props.appealChallengeID, voteOption, salt);
+  };
 }
 
 export default AppealChallengeDetail;

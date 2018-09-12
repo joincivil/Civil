@@ -4,7 +4,7 @@ exports[`Storyshots Loading Indicator Default Size (32px x 32px) 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cHGsZl bUdzPT",
+      "class": "sc-kfGgVZ eBMwOn",
     },
     "children": Array [
       Object {
@@ -691,7 +691,7 @@ exports[`Storyshots Loading Indicator Prop-defined size (100px x 100px) 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cHGsZl bUdzPT",
+      "class": "sc-kfGgVZ eBMwOn",
     },
     "children": Array [
       Object {

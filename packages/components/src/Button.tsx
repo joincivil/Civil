@@ -101,7 +101,7 @@ export const SecondaryButton = BaseButton.extend`
   background-color: ${colors.basic.WHITE};
   color: ${colors.accent.CIVIL_GRAY_2};
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
-  &.active {
+  &:hover {
     background-color: ${colors.accent.CIVIL_BLUE};
     border: 1px solid ${colors.accent.CIVIL_BLUE};
     color: ${colors.basic.WHITE};
@@ -109,6 +109,22 @@ export const SecondaryButton = BaseButton.extend`
   &.active {
     background-color: ${colors.accent.CIVIL_BLUE};
     border: 1px solid ${colors.accent.CIVIL_BLUE};
+    color: ${colors.basic.WHITE};
+  }
+`;
+
+export const DarkButton = BaseButton.extend`
+  background-color: ${colors.primary.BLACK};
+  color: ${colors.basic.WHITE};
+  border: 1px solid ${colors.primary.BLACK};
+  &:hover {
+    background-color: ${colors.accent.CIVIL_GRAY_1};
+    border: 1px solid ${colors.accent.CIVIL_GRAY_1};
+    color: ${colors.basic.WHITE};
+  }
+  &.active {
+    background-color: ${colors.accent.CIVIL_GRAY_1};
+    border: 1px solid ${colors.accent.CIVIL_GRAY_1};
     color: ${colors.basic.WHITE};
   }
 `;

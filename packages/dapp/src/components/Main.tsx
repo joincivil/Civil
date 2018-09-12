@@ -17,27 +17,40 @@ import { initializeSubscriptions, initializeChallengeSubscriptions } from "../he
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
 import { addUser } from "../actionCreators/userAccount";
+import { setNetwork } from "../actionCreators/network";
 import { connect, DispatchProp } from "react-redux";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
     const civil = getCivil();
+    civil.addCallbackToSetNetworkEmitter(this.onNetworkUpdated);
     civil.addCallbackToSetAccountEmitter(this.onAccountUpdated);
-    await this.onAccountUpdated();
-    await initializeParameterizer(this.props.dispatch!);
-    await initializeGovernment(this.props.dispatch!);
-    await initializeProposalsSubscriptions(this.props.dispatch!);
-    await initializeGovernmentParamSubscription(this.props.dispatch!);
-    await initializeSubscriptions(this.props.dispatch!);
+    await this.onNetworkUpdated();
   }
+
+  public onNetworkUpdated = async (): Promise<void> => {
+    const civil = getCivil();
+    if (civil.network) {
+      this.props.dispatch!(setNetwork(civil.network));
+
+      await this.onAccountUpdated();
+      await initializeParameterizer(this.props.dispatch!);
+      await initializeGovernment(this.props.dispatch!);
+      await initializeProposalsSubscriptions(this.props.dispatch!);
+      await initializeGovernmentParamSubscription(this.props.dispatch!);
+      await initializeSubscriptions(this.props.dispatch!);
+    }
+  };
 
   public onAccountUpdated = async (): Promise<void> => {
     const civil = getCivil();
     if (civil.userAccount) {
       const tcr = civil.tcrSingletonTrusted();
       const token = await tcr.getToken();
+      const voting = await tcr.getVoting();
       const balance = await token.getBalance(civil.userAccount);
-      this.props.dispatch!(addUser(civil.userAccount, balance));
+      const votingBalance = await voting.getVotingBalance(civil.userAccount);
+      this.props.dispatch!(addUser(civil.userAccount, balance, votingBalance));
       await initializeChallengeSubscriptions(this.props.dispatch!, civil.userAccount);
     }
   };

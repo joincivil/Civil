@@ -16,3 +16,4 @@ export * from "./Collapsable";
 export * from "./AddressWithCopyButton";
 export * from "./ListingSummary";
 export * from "./ListingSummaryList";
+export * from "./ListingDetailPhaseCard";
