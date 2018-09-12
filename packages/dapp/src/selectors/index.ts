@@ -26,6 +26,7 @@ import {
   UserChallengeData,
   WrappedChallengeData,
   TimestampedEvent,
+  ParamPropChallengeData,
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { State } from "../reducers";
@@ -67,6 +68,11 @@ export const getParameterProposals = (state: State) => state.networkDependent.pr
 
 export const getParameterProposalChallenges = (state: State) => state.networkDependent.parameterProposalChallenges;
 
+export const getParameterProposalChallengesFetching = (state: State) =>
+  state.networkDependent.parameterProposalChallengesFetching;
+
+export const getAppellateMembers = (state: State) => state.networkDependent.appellateMembers;
+
 // end simple selectors
 
 // Memo-ized selectors. These selectors either return derived state and are
@@ -89,6 +95,13 @@ export const makeGetIsUserNewsroomOwner = () => {
     return newsroomWrapper.data.owners.includes(userAccount);
   });
 };
+
+export const getIsMemberOfAppellate = createSelector([getAppellateMembers, getUser], (appellateMembers, user) => {
+  if (!appellateMembers || !user) {
+    return false;
+  }
+  return appellateMembers.includes(user.account.account);
+});
 
 export const getListingWrapper = (state: State, props: ListingContainerProps) => {
   if (!props.listingAddress) {
@@ -492,5 +505,25 @@ export const makeGetProposalsByParameterName = () => {
       return proposalsForParameterName;
     },
   );
+};
+
+export const makeGetParameterProposalChallenge = () => {
+  return createSelector([getParameterProposalChallenges, getChallengeID], (challenges, challengeID) => {
+    if (!challengeID) {
+      return;
+    }
+    const challenge: ParamPropChallengeData = challenges.get(challengeID);
+    return challenge;
+  });
+};
+
+export const makeGetParameterProposalChallengeRequestStatus = () => {
+  return createSelector([getParameterProposalChallengesFetching, getChallengeID], (challengesFetching, challengeID) => {
+    if (!challengeID) {
+      return;
+    }
+    const requestStatus: any = challengesFetching.get(challengeID);
+    return requestStatus;
+  });
 };
 // end memoized selectors

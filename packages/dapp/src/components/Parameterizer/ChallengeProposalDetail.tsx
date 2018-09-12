@@ -13,11 +13,16 @@ import {
   ChallengeProposalReviewVote,
   ChallengeProposalReviewVoteProps,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
 import { commitVote, approveVotingRights, revealVote } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
-import { makeGetParameterProposalChallengeState } from "../../selectors";
+import {
+  makeGetParameterProposalChallengeState,
+  makeGetParameterProposalChallenge,
+  makeGetParameterProposalChallengeRequestStatus,
+  getIsMemberOfAppellate,
+} from "../../selectors";
 import { fetchAndAddParameterProposalChallengeData } from "../../actionCreators/parameterizer";
 import { fetchSalt } from "../../helpers/salt";
 
@@ -131,7 +136,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
   private renderCommitStage(): JSX.Element | null {
     const endTime = this.props.challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.parameters.commitStageLen;
+    const phaseLength = this.props.parameters[Parameters.pCommitStageLen];
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
@@ -197,7 +202,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
   private renderRevealStage(): JSX.Element | null {
     const endTime = this.props.challenge.poll.revealEndDate.toNumber();
-    const phaseLength = this.props.parameters.revealStageLen;
+    const phaseLength = this.props.parameters[Parameters.pRevealStageLen];
     const challenge = this.props.challenge;
     const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
@@ -345,6 +350,7 @@ class ChallengeContainer extends React.Component<
   }
 
   public render(): JSX.Element | null {
+    console.log(this.props);
     const challenge = this.props.challengeData;
     if (!challenge && this.props.showNotFoundMessage) {
       return this.renderNoChallengeFound();
@@ -379,28 +385,20 @@ class ChallengeContainer extends React.Component<
 
 const makeMapStateToProps = () => {
   const getParameterProposalChallengeState = makeGetParameterProposalChallengeState();
+  const getParameterProposalChallenge = makeGetParameterProposalChallenge();
+  const getParameterProposalChallengeRequestStatus = makeGetParameterProposalChallengeRequestStatus();
 
   const mapStateToProps = (
     state: State,
     ownProps: ChallengeDetailContainerProps,
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
-    const {
-      parameterProposalChallenges,
-      parameterProposalChallengesFetching,
-      challengeUserData,
-      appealChallengeUserData,
-      user,
-      parameters,
-      govtParameters,
-      appellateMembers,
-    } = state.networkDependent;
-    let challengeData;
+    const { challengeUserData, appealChallengeUserData, user, parameters, govtParameters } = state.networkDependent;
     let userChallengeData;
     const challengeID = ownProps.challengeID;
-    if (challengeID) {
-      challengeData = parameterProposalChallenges.get(challengeID.toString());
-    }
+    const challengeData = getParameterProposalChallenge(state, ownProps);
+    const challengeDataRequestStatus = getParameterProposalChallengeRequestStatus(state, ownProps);
     const userAcct = user.account;
+    const isMemberOfAppellate = getIsMemberOfAppellate(state);
 
     if (challengeID && userAcct) {
       let challengeUserDataMap = challengeUserData.get(challengeID!.toString());
@@ -411,11 +409,7 @@ const makeMapStateToProps = () => {
         userChallengeData = challengeUserDataMap.get(userAcct.account);
       }
     }
-    let challengeDataRequestStatus;
-    if (challengeID) {
-      challengeDataRequestStatus = parameterProposalChallengesFetching.get(challengeID.toString());
-    }
-    const isMemberOfAppellate = appellateMembers.includes(userAcct.account);
+
     return {
       challengeData,
       userChallengeData,

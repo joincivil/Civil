@@ -29,8 +29,10 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
         <Td>{this.getFormattedValue(this.props.parameterValue)}</Td>
         <Td accent padding={0}>
           <Table borderWidth="0" width="100%">
-            {this.renderCreateProposalAction()}
-            {!!this.props.parameterProposals.count() && this.renderProposals()}
+            <tbody>
+              {this.renderCreateProposalAction()}
+              {!!this.props.parameterProposals.count() && this.renderProposals()}
+            </tbody>
           </Table>
         </Td>
       </Tr>
@@ -53,6 +55,7 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
     const { parameterProposals } = this.props;
     const out = parameterProposals.map((proposal, key, iter) => (
       <Proposal
+        key={key}
         proposal={proposal}
         handleProposalAction={this.props.handleProposalAction}
         parameterName={this.props.parameterName}

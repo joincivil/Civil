@@ -1,9 +1,17 @@
 import { Dispatch } from "react-redux";
 import { Observable } from "rxjs";
+import { ParamProposalState } from "@joincivil/core";
 import { Parameters } from "@joincivil/utils";
-import { addOrUpdateProposal, multiSetParameters } from "../actionCreators/parameterizer";
+import {
+  addOrUpdateProposal,
+  checkAndUpdateParameterProposalState,
+  multiSetParameters,
+} from "../actionCreators/parameterizer";
 import { getParameterValues } from "../apis/civilTCR";
 import { getTCR } from "./civilInstance";
+
+const paramProposalTimeouts = new Map<string, number>();
+const setTimeoutTimeouts = new Map<string, number>();
 
 export async function initializeParameterizer(dispatch: Dispatch<any>): Promise<void> {
   const paramKeys: string[] = Object.values(Parameters);
@@ -27,6 +35,9 @@ export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>):
     parameterizer.propIDsForResolvedChallenges(),
   ).subscribe(async (propID: string) => {
     const paramName = await parameterizer.getPropName(propID);
+    if (!paramName || !paramName.length) {
+      return;
+    }
     const propValue = await parameterizer.getPropValue(propID);
     const propState = await parameterizer.getPropState(propID);
     const challengeID = await parameterizer.getChallengeID(propID);
@@ -38,20 +49,72 @@ export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>):
       ? await parameterizer.getPropChallengeRevealExpiry(propID)
       : undefined;
     const propProcessByExpiry = await parameterizer.getPropProcessBy(propID);
-    dispatch(
-      addOrUpdateProposal({
-        id: propID,
-        paramName,
-        propValue,
-        state: propState,
-        applicationExpiry,
-        propProcessByExpiry,
-        challenge: {
-          id: challengeID,
-          challengeCommitExpiry,
-          challengeRevealExpiry,
-        },
-      }),
-    );
+    const paramProposal = {
+      id: propID,
+      paramName,
+      propValue,
+      state: propState,
+      applicationExpiry,
+      propProcessByExpiry,
+      challenge: {
+        id: challengeID,
+        challengeCommitExpiry,
+        challengeRevealExpiry,
+      },
+    };
+    await setupParamProposalCallback(paramProposal, true, dispatch);
+    dispatch(addOrUpdateProposal(paramProposal));
   });
+}
+
+async function getNextTimerExpiry(paramProposal: any, dispatch: Dispatch<any>): Promise<number> {
+  let nextExpiry;
+
+  switch (paramProposal.state) {
+    case ParamProposalState.APPLYING:
+      nextExpiry = paramProposal.applicationExpiry.valueOf() / 1000;
+      break;
+    case ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
+      nextExpiry = paramProposal.challenge.challengeCommitExpiry.valueOf() / 1000;
+      break;
+    case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
+      nextExpiry = paramProposal.challenge.challengeRevealExpiry.valueOf() / 1000;
+      break;
+    case ParamProposalState.READY_TO_PROCESS:
+      nextExpiry = paramProposal.propProcessByExpiry.valueOf() / 1000;
+      break;
+    case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
+      nextExpiry = paramProposal.propProcessByExpiry.valueOf() / 1000;
+      break;
+    default:
+      nextExpiry = 0;
+  }
+
+  return nextExpiry;
+}
+
+async function setupParamProposalCallback(paramProposal: any, isInit: boolean, dispatch: Dispatch<any>): Promise<void> {
+  if (paramProposalTimeouts.get(paramProposal.id)) {
+    clearTimeout(paramProposalTimeouts.get(paramProposal.id));
+    paramProposalTimeouts.delete(paramProposal.id);
+  }
+
+  if (setTimeoutTimeouts.get(paramProposal.id)) {
+    clearTimeout(setTimeoutTimeouts.get(paramProposal.id));
+    setTimeoutTimeouts.delete(paramProposal.id);
+  }
+
+  const nowSeconds = Date.now() / 1000;
+  const nextExpiry = await getNextTimerExpiry(paramProposal, dispatch);
+  if (nextExpiry > 0) {
+    const delaySeconds = nextExpiry - nowSeconds;
+    paramProposalTimeouts.set(
+      paramProposal.id,
+      setTimeout(dispatch, delaySeconds * 1000, checkAndUpdateParameterProposalState(paramProposal.id)),
+    ); // convert to milliseconds
+    setTimeoutTimeouts.set(
+      paramProposal.id,
+      setTimeout(setupParamProposalCallback, delaySeconds * 1000, paramProposal, false, dispatch),
+    );
+  }
 }

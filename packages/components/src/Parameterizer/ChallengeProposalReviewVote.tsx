@@ -103,7 +103,7 @@ const AddRevealPhaseToCalendar: React.SFC<ChallengeProposalReviewVoteProps> = pr
     ${getSaltyWords(props.salt)}\n\n
     Challenge ID ${props.challengeID}\n
     I voted for ${props.parameterName} to ${
-    props.voteOption === "0" ? "changed" : "remain the same"
+    props.voteOption === "0" ? "remain the same" : "change"
   } on the Civil Registry\n\n
     My Deposited CVL\n
     ${props.numTokens}
@@ -157,7 +157,7 @@ export const ChallengeProposalReviewVote: React.StatelessComponent<ChallengeProp
                   <MetaItemLabel>Challenge ID {props.challengeID}</MetaItemLabel>
 
                   <MetaItemValue>
-                    I voted for ${props.parameterName} to {props.voteOption === "0" ? "changed" : "remain the same"} on
+                    I voted for {props.parameterName} to {props.voteOption === "0" ? "remain the same" : "change"} on
                     the Civil Registry\n\n
                   </MetaItemValue>
                 </MetaRow>

@@ -17,7 +17,8 @@ export function parameters(state: object = {}, action: AnyAction): object {
 export function proposals(state: Map<string, object> = Map<string, object>(), action: AnyAction): Map<string, object> {
   switch (action.type) {
     case parameterizerActions.ADD_OR_UPDATE_PROPOSAL:
-      return state.set(action.proposal.id, action.proposal);
+      const newState = state.set(action.proposal.id, action.proposal);
+      return newState;
     default:
       return state;
   }

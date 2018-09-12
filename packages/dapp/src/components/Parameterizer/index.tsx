@@ -308,7 +308,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
         parameterProposalValue={this.state.createProposalNewValue!}
         parameterNewValue={this.state.challengeProposalNewValue!}
-        transactions={[{ transaction: this.resolveChallenge, postExecuteTransactions: this.hideProposalAction }]}
+        transactions={[{ transaction: this.updateProposal, postExecuteTransactions: this.hideProposalAction }]}
         handleClose={this.hideProposalAction}
       />
     );
@@ -321,7 +321,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
         parameterProposalValue={this.state.createProposalNewValue!}
         parameterNewValue={this.state.challengeProposalNewValue!}
-        transactions={[{ transaction: this.updateProposal, postExecuteTransactions: this.hideProposalAction }]}
+        transactions={[{ transaction: this.resolveChallenge, postExecuteTransactions: this.hideProposalAction }]}
         handleClose={this.hideProposalAction}
       />
     );
@@ -356,7 +356,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         challengeID={this.state.proposal!.challenge.id}
         parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
         parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
-        parameterProposalValue={this.state.createProposalNewValue!}
+        parameterProposalValue={this.state.challengeProposalNewValue!}
         handleClose={this.hideProposalAction}
       />
     );
@@ -450,18 +450,15 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   };
 
   private challengeProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const civil = getCivil();
-    return challengeReparameterization(civil.toBigNumber(this.state.challengeProposalID!));
+    return challengeReparameterization(this.state.challengeProposalID!.toString());
   };
 
   private updateProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const civil = getCivil();
-    return updateReparameterizationProp(civil.toBigNumber(this.state.challengeProposalID!));
+    return updateReparameterizationProp(this.state.challengeProposalID!.toString());
   };
 
   private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const civil = getCivil();
-    return resolveReparameterizationChallenge(civil.toBigNumber(this.state.challengeProposalID!));
+    return resolveReparameterizationChallenge(this.state.challengeProposalID!.toString());
   };
 }
 

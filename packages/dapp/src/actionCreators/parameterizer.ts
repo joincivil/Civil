@@ -6,6 +6,7 @@ import { ensureWeb3BigNumber } from "../apis/civilTCR";
 
 export enum parameterizerActions {
   ADD_OR_UPDATE_PROPOSAL = "ADD_OR_UPDATE_PROPOSAL",
+  UPDATE_PROPOSAL = "UPDATE_PROPOSAL",
   SET_PARAMETER = "SET_PARAMETER",
   MULTI_SET_PARAMETERS = "MULTI_SET_PARAMETERS",
   ADD_OR_UPDATE_CHALLENGE = "PARAMETERIZER_ADD_OR_UPDATE_CHALLENGE",
@@ -89,9 +90,7 @@ export const fetchAndAddParameterProposalChallengeData = (challengeID: string): 
       const tcr = await getTCR();
       const parameterizer = await tcr.getParameterizer();
       const challengeIDBN = ensureWeb3BigNumber(parseInt(challengeID, 10));
-      console.log("fetching challenge data", challengeID);
       const challengeData = await parameterizer.getChallengeData(challengeIDBN);
-      console.log(challengeData);
       dispatch(addParameterProposalChallenge(challengeID, challengeData));
 
       return dispatch(fetchParameterProposalChallengeComplete(challengeID));
@@ -105,5 +104,24 @@ export const fetchAndAddParameterProposalChallengeData = (challengeID: string): 
     } else {
       return dispatch(fetchParameterProposalChallengeComplete(challengeID));
     }
+  };
+};
+
+export const checkAndUpdateParameterProposalState = (paramPropID: string): any => {
+  return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction | undefined> => {
+    const { proposals } = getState().networkDependent;
+    const paramProposal = proposals.get(paramPropID);
+    if (!paramProposal) {
+      return;
+    }
+    const tcr = await getTCR();
+    const parameterizer = await tcr.getParameterizer();
+    const paramProposalState = await parameterizer.getPropState(paramPropID);
+
+    if (paramProposalState !== paramProposal.state) {
+      return dispatch(addOrUpdateProposal({ ...paramProposal, state: paramProposalState }));
+    }
+
+    return;
   };
 };
