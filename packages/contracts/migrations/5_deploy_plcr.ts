@@ -12,7 +12,6 @@ const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
-    console.log("plcr");
     await deployer.link(DLL, PLCRVoting);
     await deployer.link(AttributeStore, PLCRVoting);
 
