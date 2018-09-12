@@ -1,11 +1,9 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
-import { configureProviders } from "../utils/contractutils";
+import { configureProviders, setUpUserGroups } from "../utils/contractutils";
 
-const UserGroups = artifacts.require("UserGroups");
 const GroupTokenController = artifacts.require("GroupTokenController");
-const Whitelist = artifacts.require("Whitelist");
-configureProviders(UserGroups, GroupTokenController, Whitelist);
+configureProviders(GroupTokenController);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -20,8 +18,7 @@ contract("GroupTokenController", accounts => {
   let controller: any;
 
   beforeEach(async () => {
-    whitelist = await Whitelist.new();
-    userGroups = await UserGroups.new(whitelist.address);
+    ({ whitelist, userGroups } = await setUpUserGroups(1));
     controller = await GroupTokenController.new(userGroups.address);
   });
 

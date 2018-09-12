@@ -24,6 +24,9 @@ const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
 const Newsroom = artifacts.require("Newsroom");
 const TokenTelemetry = artifacts.require("TokenTelemetry");
+const Whitelist = artifacts.require("Whitelist");
+const UserGroups = artifacts.require("UserGroups");
+const DummyTokenSale = artifacts.require("DummyTokenSale");
 configureProviders(
   PLCRVoting,
   CivilParameterizer,
@@ -33,6 +36,10 @@ configureProviders(
   CivilTCR,
   Government,
   Newsroom,
+  Whitelist,
+  UserGroups,
+  DummyTokenSale,
+  TokenTelemetry
 );
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
@@ -380,4 +387,13 @@ export async function createDummyNewsrom(from?: string): Promise<any> {
 export function configureProviders(...contracts: any[]): void {
   // TODO(ritave): Use our own contracts
   contracts.forEach(contract => contract.setProvider(ethApi.currentProvider));
+}
+
+export async function setUpUserGroups(
+  tokensPerUsd: number,
+): Promise<{ whitelist: any; userGroups: any; tokenSale: any }> {
+  const tokenSale = await DummyTokenSale.new(tokensPerUsd);
+  const whitelist = await Whitelist.new();
+  const userGroups = await UserGroups.new(whitelist.address, tokenSale.address);
+  return { whitelist, userGroups, tokenSale };
 }
