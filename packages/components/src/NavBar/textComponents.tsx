@@ -18,11 +18,13 @@ export const NavLinkWhitePaperText: React.SFC = props => <>White Paper</>;
 export const NavLinkDashboardText: React.SFC = props => <>My Activity</>;
 
 // Nav Drawer
+export const NavDrawerUserAddessText: React.SFC = props => <>Your Public Address</>;
+
 export const NavDrawerBalanceText: React.SFC = props => <>Balance</>;
 
 export const NavDrawerTotalBalanceText: React.SFC = props => <>Total Balance</>;
 
-export const NavDrawerVotingBalanceText: React.SFC = props => <>Voting Balance</>;
+export const NavDrawerVotingBalanceText: React.SFC = props => <>Voting Tokens</>;
 
 export const NavDrawerVotingBalanceTollTipText: React.SFC = props => (
   <>This deposit is set aside for the duration of the challenge process.</>
@@ -33,6 +35,10 @@ export const NavDrawerBuyCvlBtnText: React.SFC = props => <>Buy CVL Tokens</>;
 export const NavDrawerCopyBtnText: React.SFC = props => <>Copy</>;
 
 export const NavDrawerDashboardText: React.SFC = props => <>Dashboard</>;
+
+export const NavDrawerClaimRewardsText: React.SFC = props => <>Claim Rewards</>;
+
+export const NavDrawerRevealVotesText: React.SFC = props => <>Reveal Votes</>;
 
 export const NavDrawerSubmittedChallengesText: React.SFC = props => <>Submitted Challenges</>;
 

@@ -3,6 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { Button, buttonSizes } from "../Button";
 import {
+  NavDrawerUserAddessText,
   NavDrawerBalanceText,
   NavDrawerTotalBalanceText,
   NavDrawerVotingBalanceText,
@@ -10,6 +11,8 @@ import {
   NavDrawerCopyBtnText,
   NavDrawerBuyCvlBtnText,
   NavDrawerDashboardText,
+  NavDrawerRevealVotesText,
+  NavDrawerClaimRewardsText,
   NavDrawerSubmittedChallengesText,
   NavDrawerVotedChallengesText,
 } from "./textComponents";
@@ -81,13 +84,6 @@ const NavDrawerCvlBalance = styled.div`
   line-height: 19px;
 `;
 
-const NavDrawerCvlVBalance = styled.div`
-  color: ${colors.accent.CIVIL_TEAL};
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 19px;
-`;
-
 const UserAddress = styled.span`
   color: ${colors.basic.WHITE};
   font-family: ${fonts.MONOSPACE};
@@ -114,11 +110,13 @@ const CopyButton = Button.extend`
 `;
 
 export interface NavDrawerProps {
-  balance?: string;
-  votingBalance?: string;
-  userAccount?: string;
-  userChallengesVotedOnCount?: string;
-  userChallengesStartedCount?: string;
+  balance: string;
+  votingBalance: string;
+  userAccount: string;
+  userRevealVotesCount?: number;
+  userChallengesVotedOnCount?: number;
+  userChallengesStartedCount?: number;
+  userClaimRewardsCount?: number;
   buyCvlUrl?: string;
 }
 
@@ -127,7 +125,9 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
     return (
       <NavDrawer>
         <NavDrawerSection>
-          <NavDrawerSectionHeader>Your Public Address</NavDrawerSectionHeader>
+          <NavDrawerSectionHeader>
+            <NavDrawerUserAddessText />
+          </NavDrawerSectionHeader>
           <UserAddress>{this.props.userAccount}</UserAddress>
           <CopyButton size={buttonSizes.SMALL} onClick={ev => this.copyToClipBoard()}>
             <NavDrawerCopyBtnText />
@@ -151,7 +151,7 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
               <QuestionToolTip explainerText={<NavDrawerVotingBalanceTollTipText />} strokeColor="#fff" />
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
-              <NavDrawerCvlVBalance>{this.props.votingBalance}</NavDrawerCvlVBalance>
+              <NavDrawerCvlBalance>{this.props.votingBalance}</NavDrawerCvlBalance>
             </NavDrawerRowInfo>
           </NavDrawerRow>
           <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} href={this.props.buyCvlUrl}>
@@ -164,15 +164,27 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           </NavDrawerSectionHeader>
           <NavDrawerRow>
             <NavDrawerRowLabel>
+              <NavDrawerRevealVotesText />
+            </NavDrawerRowLabel>
+            <NavDrawerPill>{this.props.userRevealVotesCount || 0}</NavDrawerPill>
+          </NavDrawerRow>
+          <NavDrawerRow>
+            <NavDrawerRowLabel>
+              <NavDrawerClaimRewardsText />
+            </NavDrawerRowLabel>
+            <NavDrawerPill>{this.props.userClaimRewardsCount || 0}</NavDrawerPill>
+          </NavDrawerRow>
+          <NavDrawerRow>
+            <NavDrawerRowLabel>
               <NavDrawerSubmittedChallengesText />
             </NavDrawerRowLabel>
-            <NavDrawerPill>{this.props.userChallengesStartedCount || "0"}</NavDrawerPill>
+            <NavDrawerPill>{this.props.userChallengesStartedCount || 0}</NavDrawerPill>
           </NavDrawerRow>
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerVotedChallengesText />
             </NavDrawerRowLabel>
-            <NavDrawerPill>{this.props.userChallengesVotedOnCount || "0"}</NavDrawerPill>
+            <NavDrawerPill>{this.props.userChallengesVotedOnCount || 0}</NavDrawerPill>
           </NavDrawerRow>
         </NavDrawerSection>
       </NavDrawer>
