@@ -1,10 +1,6 @@
 import * as React from "react";
 import { PhaseWithExpiryProps, ChallengePhaseProps, RevealVoteProps } from "../ListingDetailPhaseCard/types";
-import {
-  StyledListingDetailPhaseCardSection,
-  StyledPhaseKicker,
-  StyledPhaseDisplayName,
-} from "../ListingDetailPhaseCard/styledComponents";
+import { StyledPhaseKicker, StyledPhaseDisplayName } from "../ListingDetailPhaseCard/styledComponents";
 import { ChallengePhaseDetail } from "../ListingDetailPhaseCard/ChallengePhaseDetail";
 import { RevealVote } from "../ListingDetailPhaseCard/RevealVote";
 import { UnderChallengePhaseDisplayNameText } from "../ListingDetailPhaseCard/textComponents";
@@ -17,6 +13,7 @@ import {
   StyledSection,
   StyledMetaName,
   StyledMetaValue,
+  SECTION_PADDING,
 } from "./styledComponents";
 import {
   CreateProposalParamNameLabelText,
@@ -45,7 +42,7 @@ export const ChallengeProposalRevealVote: React.SFC<TChallengeProposalRevealVote
         <StyledCreateProposalHeaderClose onClick={props.handleClose}>✖</StyledCreateProposalHeaderClose>
 
         <StyledCreateProposalContent>
-          <StyledListingDetailPhaseCardSection>
+          <StyledSection>
             <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
             <StyledPhaseDisplayName>
               <UnderChallengePhaseDisplayNameText />
@@ -58,7 +55,7 @@ export const ChallengeProposalRevealVote: React.SFC<TChallengeProposalRevealVote
               flavorText="under challenge"
               activePhaseIndex={0}
             />
-          </StyledListingDetailPhaseCardSection>
+          </StyledSection>
 
           <StyledSection>
             <StyledMetaName>
@@ -86,9 +83,10 @@ export const ChallengeProposalRevealVote: React.SFC<TChallengeProposalRevealVote
             challenger={props.challenger}
             rewardPool={props.rewardPool}
             stake={props.stake}
+            padding={SECTION_PADDING}
           />
 
-          <StyledListingDetailPhaseCardSection>
+          <StyledSection>
             <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
             <RevealVote
               salt={props.salt}
@@ -98,7 +96,7 @@ export const ChallengeProposalRevealVote: React.SFC<TChallengeProposalRevealVote
             >
               Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
             </RevealVote>
-          </StyledListingDetailPhaseCardSection>
+          </StyledSection>
         </StyledCreateProposalContent>
       </StyledChallengeProposalContainer>
     </StyledCreateProposalOuter>

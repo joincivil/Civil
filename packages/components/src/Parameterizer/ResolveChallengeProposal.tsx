@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TransactionButton } from "../TransactionButton";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import {
   StyledCreateProposalOuter,
   StyledChallengeProposalContainer,
@@ -20,13 +21,12 @@ export interface ResolveChallengeProposalProps {
   parameterDisplayName: string | JSX.Element;
   parameterCurrentValue: string;
   parameterNewValue: string;
-  parameterProposalValue: string;
   transactions?: any[];
   modalContentComponents?: any;
   handleClose(): void;
 }
 
-export const ResolveChallengeProposal: React.SFC<ResolveChallengeProposalProps> = props => {
+export const ResolveChallengeProposal: React.SFC<ResolveChallengeProposalProps & ChallengeResultsProps> = props => {
   return (
     <StyledCreateProposalOuter>
       <StyledChallengeProposalContainer>
@@ -56,6 +56,17 @@ export const ResolveChallengeProposal: React.SFC<ResolveChallengeProposalProps> 
               <ChallengeProposalNewValueLabelText />
             </StyledMetaName>
             <StyledMetaValue>{props.parameterNewValue}</StyledMetaValue>
+          </StyledSection>
+
+          <StyledSection>
+            <ChallengeResults
+              collapsable={true}
+              totalVotes={props.totalVotes}
+              votesFor={props.votesFor}
+              votesAgainst={props.votesAgainst}
+              percentFor={props.percentFor}
+              percentAgainst={props.percentAgainst}
+            />
           </StyledSection>
 
           <StyledSection>

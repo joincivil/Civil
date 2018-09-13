@@ -25,6 +25,7 @@ export interface ChallengePhaseProps {
   stake: string;
   userHasCommittedVote?: boolean;
   userHasRevealedVote?: boolean;
+  padding?: string;
 }
 
 export interface CommitVoteProps {

@@ -12,7 +12,7 @@ import { QuestionToolTip } from "../QuestionToolTip";
 
 export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps> = props => {
   return (
-    <StyledListingDetailPhaseCardSection>
+    <StyledListingDetailPhaseCardSection padding={this.props.padding}>
       <MetaRow>
         <MetaItem>
           <MetaItemLabel>{props.isViewingUserChallenger ? "You are the challenger" : "Challenger"}</MetaItemLabel>

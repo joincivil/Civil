@@ -35,7 +35,6 @@ import {
   StyledParameterizerContainer,
   CreateProposal,
   ChallengeProposal,
-  ResolveChallengeProposal,
   ProcessProposal,
 } from "@joincivil/components";
 import { getFormattedTokenBalance, Parameters, GovernmentParameters } from "@joincivil/utils";
@@ -48,7 +47,6 @@ import {
   challengeReparameterization,
   proposeReparameterization,
   updateReparameterizationProp,
-  resolveReparameterizationChallenge,
 } from "../../apis/civilTCR";
 import { amountParams, durationParams, percentParams } from "./constants";
 import { Parameter } from "./Parameter";
@@ -291,11 +289,10 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         return this.renderChallengeProposal();
       case ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
       case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
+      case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
         return this.renderChallengeDetail();
       case ParamProposalState.READY_TO_PROCESS:
         return this.renderUpdateParam();
-      case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
-        return this.renderResolveChallenge();
       default:
         return <></>;
     }
@@ -309,19 +306,6 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         parameterProposalValue={this.state.createProposalNewValue!}
         parameterNewValue={this.state.challengeProposalNewValue!}
         transactions={[{ transaction: this.updateProposal, postExecuteTransactions: this.hideProposalAction }]}
-        handleClose={this.hideProposalAction}
-      />
-    );
-  };
-
-  private renderResolveChallenge = (): JSX.Element => {
-    return (
-      <ResolveChallengeProposal
-        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
-        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
-        parameterProposalValue={this.state.createProposalNewValue!}
-        parameterNewValue={this.state.challengeProposalNewValue!}
-        transactions={[{ transaction: this.resolveChallenge, postExecuteTransactions: this.hideProposalAction }]}
         handleClose={this.hideProposalAction}
       />
     );
@@ -455,10 +439,6 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
   private updateProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
     return updateReparameterizationProp(this.state.challengeProposalID!.toString());
-  };
-
-  private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return resolveReparameterizationChallenge(this.state.challengeProposalID!.toString());
   };
 }
 

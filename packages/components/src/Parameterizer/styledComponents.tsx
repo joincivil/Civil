@@ -69,6 +69,8 @@ export const StyledCreateProposalContent = styled.div`
   padding: 24px 40px 40px;
 `;
 
+export const SECTION_PADDING = "0px";
+
 export const StyledSection = styled.div`
   margin: 0 0 19px;
 `;

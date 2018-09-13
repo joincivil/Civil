@@ -12,9 +12,10 @@ import {
   ModalListItemTypes,
   ChallengeProposalReviewVote,
   ChallengeProposalReviewVoteProps,
+  ResolveChallengeProposal,
 } from "@joincivil/components";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
-import { commitVote, approveVotingRights, revealVote } from "../../apis/civilTCR";
+import { commitVote, approveVotingRights, revealVote, resolveReparameterizationChallenge } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import {
@@ -110,12 +111,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   }
 
   public render(): JSX.Element {
-    console.log(this.props);
     const { inCommitPhase, inRevealPhase } = this.props.challengeState;
     return (
       <>
         {inCommitPhase && this.renderCommitStage()}
         {inRevealPhase && this.renderRevealStage()}
+        {!inCommitPhase && !inRevealPhase && this.renderResolveStage()}
       </>
     );
   }
@@ -299,6 +300,43 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return <ChallengeProposalReviewVote {...props} />;
   }
 
+  private renderResolveStage = (): JSX.Element => {
+    let totalVotes = "";
+    let votesFor = "";
+    let votesAgainst = "";
+    let percentFor = "";
+    let percentAgainst = "";
+
+    const challenge = this.props.challenge;
+    const totalVotesBN = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+    totalVotes = getFormattedTokenBalance(totalVotesBN);
+    votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
+    votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
+    percentFor = challenge.poll.votesFor
+      .div(totalVotesBN)
+      .mul(100)
+      .toFixed(0);
+    percentAgainst = challenge.poll.votesAgainst
+      .div(totalVotesBN)
+      .mul(100)
+      .toFixed(0);
+
+    return (
+      <ResolveChallengeProposal
+        parameterDisplayName={this.props.parameterDisplayName}
+        parameterCurrentValue={this.props.parameterCurrentValue}
+        parameterNewValue={this.props.parameterProposalValue}
+        totalVotes={totalVotes}
+        votesFor={votesFor}
+        votesAgainst={votesAgainst}
+        percentFor={percentFor}
+        percentAgainst={percentAgainst}
+        transactions={[{ transaction: this.resolveChallenge, postExecuteTransactions: this.props.handleClose }]}
+        handleClose={this.props.handleClose}
+      />
+    );
+  };
+
   private updateCommitVoteState = (data: any, callback?: () => void): void => {
     if (callback) {
       this.setState({ ...data }, callback);
@@ -323,6 +361,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
     return revealVote(this.props.challengeID, voteOption, salt);
+  };
+
+  private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    return resolveReparameterizationChallenge(this.props.propID!.toString());
   };
 
   private handleReviewVote = () => {
