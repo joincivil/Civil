@@ -21,8 +21,8 @@ export interface NavProps {
   balance: string;
   votingBalance: string;
   userAccount?: string;
-  userChallengesVotedOnCount?: string;
-  userChallengesStartedCount?: string;
+  userChallengesVotedOnCount?: number;
+  userChallengesStartedCount?: number;
   buyCvlUrl?: string;
 }
 

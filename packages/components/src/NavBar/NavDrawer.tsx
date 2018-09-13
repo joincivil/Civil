@@ -107,8 +107,8 @@ export interface NavDrawerProps {
   balance?: string;
   votingBalance?: string;
   userAccount?: string;
-  userChallengesVotedOnCount?: string;
-  userChallengesStartedCount?: string;
+  userChallengesVotedOnCount?: number;
+  userChallengesStartedCount?: number;
   buyCvlUrl?: string;
 }
 
@@ -117,7 +117,9 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
     return (
       <NavDrawer>
         <NavDrawerSection>
-          <NavDrawerSectionHeader><NavDrawerUserAddessText /></NavDrawerSectionHeader>
+          <NavDrawerSectionHeader>
+            <NavDrawerUserAddessText />
+          </NavDrawerSectionHeader>
           <UserAddress>{this.props.userAccount}</UserAddress>
           <CopyButton size={buttonSizes.SMALL} onClick={ev => this.copyToClipBoard()}>
             <NavDrawerCopyBtnText />
@@ -155,13 +157,13 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
             <NavDrawerRowLabel>
               <NavDrawerSubmittedChallengesText />
             </NavDrawerRowLabel>
-            <NavDrawerPill>{this.props.userChallengesStartedCount || "0"}</NavDrawerPill>
+            <NavDrawerPill>{this.props.userChallengesStartedCount || 0}</NavDrawerPill>
           </NavDrawerRow>
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerVotedChallengesText />
             </NavDrawerRowLabel>
-            <NavDrawerPill>{this.props.userChallengesVotedOnCount || "0"}</NavDrawerPill>
+            <NavDrawerPill>{this.props.userChallengesVotedOnCount || 0}</NavDrawerPill>
           </NavDrawerRow>
         </NavDrawerSection>
       </NavDrawer>
