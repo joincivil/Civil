@@ -6,8 +6,6 @@ import { colors, fonts } from "./styleConstants";
 export interface ToolTipProps {
   explainerText: React.ReactNode;
   disabled?: boolean;
-  bgColor?: string;
-  strokeColor?: string;
 }
 
 export interface ToolTipState {

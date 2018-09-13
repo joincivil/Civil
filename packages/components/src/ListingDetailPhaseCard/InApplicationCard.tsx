@@ -21,7 +21,7 @@ export class InApplicationCard extends React.Component<
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>
             <NewApplicationDisplayNameText />
-            <QuestionToolTip explainerText={<NewApplicationToolTipText />} strokeColor="#000" />
+            <QuestionToolTip explainerText={<NewApplicationToolTipText />} />
           </StyledPhaseDisplayName>
           <ProgressBarCountdownTimer
             endTime={this.props.endTime}

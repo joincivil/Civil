@@ -2,19 +2,13 @@ import * as React from "react";
 import { ToolTipHdr, ToolTipItalic } from "./styledComponents";
 
 // Text for reviewing a vote to commit
-export const CommitVoteReviewButtonText: React.SFC = props => {
-  return <>Review My Vote</>;
-};
+export const CommitVoteReviewButtonText: React.SFC = props => <>Review My Vote</>;
 
 // Text for whitelisting action. Used in buttons and calls to action
-export const WhitelistActionText: React.SFC = props => {
-  return <>accepted</>;
-};
+export const WhitelistActionText: React.SFC = props => <>accepted</>;
 
 // Text for removing action. Used in buttons and calls to action
-export const RemoveActionText: React.SFC = props => {
-  return <>removed</>;
-};
+export const RemoveActionText: React.SFC = props => <>removed</>;
 
 // Call to action text. Used on Commit Vote form
 export interface VoteCallToActionTextProps {
@@ -61,35 +55,21 @@ export const CommitVoteAlreadyVotedCopyText: React.SFC = props => {
   );
 };
 
-export const CommitVoteCalloutButtonText: React.SFC = props => {
-  return <>Submit My Vote</>;
-};
+export const CommitVoteCalloutButtonText: React.SFC = props => <>Submit My Vote</>;
 
 // Reveal Vote
-export const RevealVoteButtonText: React.SFC = props => {
-  return <>Reveal My Vote</>;
-};
+export const RevealVoteButtonText: React.SFC = props => <>Reveal My Vote</>;
 
 // Phase Card Display Names
-export const UnderChallengePhaseDisplayNameText: React.SFC = props => {
-  return <>Under Challenge</>;
-};
+export const UnderChallengePhaseDisplayNameText: React.SFC = props => <>Under Challenge</>;
 
-export const ReadyToCompletePhaseDisplayNameText: React.SFC = props => {
-  return <>Ready to Complete</>;
-};
+export const ReadyToCompletePhaseDisplayNameText: React.SFC = props => <>Ready to Complete</>;
 
-export const NewApplicationDisplayNameText: React.SFC = props => {
-  return <>New Application</>;
-};
+export const NewApplicationDisplayNameText: React.SFC = props => <>New Application</>;
 
-export const RejectedNewroomDisplayNameText: React.SFC = props => {
-  return <>Rejected Newroom</>;
-};
+export const RejectedNewroomDisplayNameText: React.SFC = props => <>Rejected Newroom</>;
 
-export const WhitelistedNewroomsDisplayNameText: React.SFC = props => {
-  return <>Approved Newroom</>;
-};
+export const WhitelistedNewroomsDisplayNameText: React.SFC = props => <>Approved Newroom</>;
 
 // Tooltips
 export const NewApplicationToolTipText: React.SFC = props => {

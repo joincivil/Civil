@@ -31,7 +31,7 @@ export const RejectedCard: React.StatelessComponent<
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseDisplayName>
           <RejectedNewroomDisplayNameText />
-          <QuestionToolTip explainerText={<RejectedNewsroomsToolTipText />} strokeColor="#000" />
+          <QuestionToolTip explainerText={<RejectedNewsroomsToolTipText />} />
         </StyledPhaseDisplayName>
         <MetaItemLabel>Rejected date</MetaItemLabel>
         <MetaItemValue>{displayDateTime}</MetaItemValue>

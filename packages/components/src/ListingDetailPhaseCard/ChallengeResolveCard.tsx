@@ -23,7 +23,7 @@ export const ChallengeResolveCard: React.StatelessComponent<
         <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
         <StyledPhaseDisplayName>
           <ReadyToCompletePhaseDisplayNameText />
-          <QuestionToolTip explainerText={<ResolveChallengeToolTipText />} strokeColor="#000" />
+          <QuestionToolTip explainerText={<ResolveChallengeToolTipText />} />
         </StyledPhaseDisplayName>
       </StyledListingDetailPhaseCardSection>
 

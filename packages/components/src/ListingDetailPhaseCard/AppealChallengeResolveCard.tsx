@@ -43,7 +43,7 @@ export const AppealChallengeResolveCard: React.SFC<
         <StyledPhaseKicker>Appeal Challenge ID {props.appealChallengeID}</StyledPhaseKicker>
         <StyledPhaseDisplayName>
           <ReadyToCompletePhaseDisplayNameText />
-          <QuestionToolTip explainerText={<ResolveChallengeToolTipText />} strokeColor="#000" />
+          <QuestionToolTip explainerText={<ResolveChallengeToolTipText />} />
         </StyledPhaseDisplayName>
       </StyledListingDetailPhaseCardSection>
 

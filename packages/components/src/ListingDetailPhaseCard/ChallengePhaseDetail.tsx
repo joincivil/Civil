@@ -24,14 +24,14 @@ export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps>
         <MetaItem>
           <MetaItemLabel>
             Reward Pool
-            <QuestionToolTip explainerText={<RewardPoolToolTipText />} strokeColor="#000" />
+            <QuestionToolTip explainerText={<RewardPoolToolTipText />} />
           </MetaItemLabel>
           <MetaItemValue>{props.rewardPool}</MetaItemValue>
         </MetaItem>
         <MetaItem>
           <MetaItemLabel>
             Stake
-            <QuestionToolTip explainerText={<DepositsToolTipText />} strokeColor="#000" />
+            <QuestionToolTip explainerText={<DepositsToolTipText />} />
           </MetaItemLabel>
           <MetaItemValue>{props.stake}</MetaItemValue>
         </MetaItem>

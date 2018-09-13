@@ -24,7 +24,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
         <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
         <StyledPhaseDisplayName>
           <UnderChallengePhaseDisplayNameText />
-          <QuestionToolTip explainerText={<UnderChallengeToolTipText />} strokeColor="#000" />
+          <QuestionToolTip explainerText={<UnderChallengeToolTipText />} />
         </StyledPhaseDisplayName>
         <ProgressBarCountdownTimer
           endTime={props.endTime}
