@@ -5,6 +5,8 @@ import { fonts } from "../../styleConstants";
 export interface StepProps {
   title: string | JSX.Element;
   isActive?: boolean;
+  isCurrent?: boolean;
+  startPosition?: number;
   complete?: boolean;
   index?: number;
   children: React.ReactChild;
@@ -12,11 +14,23 @@ export interface StepProps {
   setStartPosition?(position: number): void;
 }
 
-export interface DotProps {
-  isActive?: boolean;
+export interface StepState {
+  dotPosition?: number;
 }
 
-const StyledLi = styled.li`
+export interface DotProps {
+  isActive?: boolean;
+  isCurrent?: boolean;
+  tailLength?: number;
+}
+
+export interface StyledLiProps {
+  isActive?: boolean;
+  isCurrent?: boolean;
+}
+
+const StyledLi = styled<StyledLiProps, "li">("li")`
+  cursor: pointer;
   box-sizing: border-box;
   font-family: ${props => props.theme.sansSerifFont};
   font-weight: 600;
@@ -24,32 +38,59 @@ const StyledLi = styled.li`
   padding: 3px 0 18px;
   text-align: center;
   width: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: ${props => {
+    if (props.isCurrent) {
+      return props.theme.stepProccessTopNavCurrentColor;
+    } else if (props.isActive) {
+      return props.theme.stepProccessTopNavActiveColor;
+    } else {
+      return props.theme.stepProccessTopNavFutureColor;
+    }
+  }};
 `;
 
 const Dot = styled<DotProps, "div">("div")`
-  position: relative;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${(props): string => props.isActive ? "blue" : "#ddd"};
-  margin: auto;
+  background-color: ${(props): string =>
+    props.isActive ? props.theme.stepProcessDotActiveColor : props.theme.stepProcessDotFutureColor};
+  margin: 0;
   margin-bottom: 10px;
+  box-sizing: border-box;
+  ${(props): string =>
+    props.isCurrent
+      ? `margin-left: -${props.tailLength}px;
+     width: ${props.tailLength! + 10 || 10}px;
+     border-radius: 10px;
+     `
+      : ""};
 `;
 
 const CompleteDot = Dot.extend`
-  width: 15px;
-  height: 15px;
-  background-color: "blue";
+  position: relative;
+  width: 21px;
+  height: 21px;
+  z-index: 10;
+  margin-top: -5px;
+  margin-left: -2px;
   margin-bottom: 5px;
-  &:after {
+  background-color: ${props => props.theme.stepProcessDotActiveColor};
+  border: 2px solid ${props => props.theme.stepProccessCompleteDotBorderColor};
+  ${(props): string =>
+    props.isCurrent ? `margin-left: ${props.tailLength ? props.tailLength! - 2 : -2}px;` : ""} &:after {
     content: "";
     position: absolute;
-    left: 4px;
-    top: 1.5px;
-    width: 4px;
-    height: 8px;
+    left: 6px;
+    top: 2.5px;
+    width: 3px;
+    height: 7px;
     border: solid white;
-    border-width: 0 2px 2px 0;
+    border-width: 0 1.5px 1.5px 0;
     transform: rotate(45deg);
   }
 `;
@@ -57,11 +98,59 @@ const CompleteDot = Dot.extend`
 StyledLi.defaultProps = {
   theme: {
     sansSerifFont: fonts.SANS_SERIF,
+    stepProccessTopNavCurrentColor: "blue",
+    stepProccessTopNavActiveColor: "#404040",
+    stepProccessTopNavFutureColor: "#bbb",
   },
 };
 
-export class Step extends React.Component<StepProps> {
+Dot.defaultProps = {
+  theme: {
+    stepProcessDotActiveColor: "blue",
+    stepProcessDotFutureColor: "#ddd",
+  },
+};
+
+CompleteDot.defaultProps = {
+  theme: {
+    stepProccessCompleteDotBorderColor: "#fff",
+    stepProcessDotActiveColor: "blue",
+  },
+};
+
+export class Step extends React.Component<StepProps, StepState> {
+  public dot?: HTMLDivElement;
+
+  constructor(props: StepProps) {
+    super(props);
+    this.state = {};
+  }
+
+  public componentDidMount(): void {
+    if (this.props.setStartPosition) {
+      this.props.setStartPosition(this.dot!.offsetLeft);
+    }
+    this.setState({ dotPosition: this.dot!.offsetLeft });
+  }
+
   public render(): JSX.Element {
-    return <StyledLi>{this.props.complete ? <CompleteDot isActive={this.props.isActive} /> : <Dot isActive={this.props.isActive}/>} {this.props.title}</StyledLi>;
+    const tailLength = this.state.dotPosition! - this.props.startPosition!;
+    return (
+      <StyledLi
+        onClick={() => this.props.onClick!(this.props.index!)}
+        isActive={this.props.isActive}
+        isCurrent={this.props.isCurrent}
+      >
+        <Dot
+          innerRef={(el: HTMLDivElement) => (this.dot = el)}
+          isActive={this.props.isActive}
+          isCurrent={this.props.isCurrent}
+          tailLength={tailLength}
+        >
+          {this.props.complete && <CompleteDot isCurrent={this.props.isCurrent} tailLength={tailLength} />}
+        </Dot>{" "}
+        {this.props.title}
+      </StyledLi>
+    );
   }
 }
