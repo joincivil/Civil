@@ -1,11 +1,13 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import styled from "styled-components";
-import { colors } from "./styleConstants";
+import { colors, fonts } from "./styleConstants";
 
 export interface ToolTipProps {
   explainerText: React.ReactNode;
   disabled?: boolean;
+  bgColor?: string;
+  strokeColor?: string;
 }
 
 export interface ToolTipState {
@@ -32,10 +34,11 @@ const Tip = styled.div`
   width: 180px;
   color: ${colors.basic.WHITE};
   background: rgba(21, 21, 21, 0.9);
-  text-align: center;
   border-radius: 3px;
   padding: 13px;
+  font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
+  line-height: 15px;
   z-index: 100001;
   &:after {
     content: "";
