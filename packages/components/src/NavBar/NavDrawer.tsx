@@ -148,7 +148,7 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerVotingBalanceText />
-              <QuestionToolTip explainerText={<NavDrawerVotingBalanceTollTipText />} strokeColor="#fff" />
+              <QuestionToolTip explainerText={<NavDrawerVotingBalanceTollTipText />} />
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
               <NavDrawerCvlBalance>{this.props.votingBalance}</NavDrawerCvlBalance>
