@@ -12,11 +12,13 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
+import { ReadyToCompletePhaseDisplayNameText, ResolveChallengeToolTipText } from "./textComponents";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { NeedHelp } from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export interface AppealChallengeResultsProps {
   appealChallengeTotalVotes: string;
@@ -39,7 +41,10 @@ export const AppealChallengeResolveCard: React.SFC<
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
         <StyledPhaseKicker>Appeal Challenge ID {props.appealChallengeID}</StyledPhaseKicker>
-        <StyledPhaseDisplayName>Ready to Complete</StyledPhaseDisplayName>
+        <StyledPhaseDisplayName>
+          <ReadyToCompletePhaseDisplayNameText />
+          <QuestionToolTip explainerText={<ResolveChallengeToolTipText />} strokeColor="#000" />
+        </StyledPhaseDisplayName>
       </StyledListingDetailPhaseCardSection>
 
       <ChallengePhaseDetail

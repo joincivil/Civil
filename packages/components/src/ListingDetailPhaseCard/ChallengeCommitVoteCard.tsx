@@ -26,12 +26,14 @@ import {
   CommitVoteAlreadyVotedHeaderText,
   CommitVoteAlreadyVotedCopyText,
   CommitVoteCalloutButtonText,
+  UnderChallengeToolTipText,
 } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { NeedHelp } from "./NeedHelp";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { CommitVote } from "./CommitVote";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export type ChallengeCommitVoteCardProps = ListingDetailPhaseCardComponentProps &
   PhaseWithExpiryProps &
@@ -61,6 +63,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <StyledPhaseDisplayName>
                   <UnderChallengePhaseDisplayNameText />
+                  <QuestionToolTip explainerText={<UnderChallengeToolTipText />} strokeColor="#000" />
                 </StyledPhaseDisplayName>
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}

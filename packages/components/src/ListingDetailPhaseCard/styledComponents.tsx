@@ -219,3 +219,15 @@ export const buttonTheme: ButtonTheme = {
   primaryButtonDisabledColor: colors.accent.CIVIL_GRAY_3,
   darkButtonTextTransform: "uppercase",
 };
+
+export const ToolTipHdr = styled.p`
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  margin: 0 0 12px;
+`;
+
+export const ToolTipItalic = styled.p`
+  font-style: italic;
+  margin: 0 0 12px;
+`;

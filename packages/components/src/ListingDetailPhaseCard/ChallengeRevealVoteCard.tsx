@@ -19,11 +19,13 @@ import {
   FormCopy,
   FullWidthButton,
 } from "./styledComponents";
+import { UnderChallengePhaseDisplayNameText, UnderChallengeToolTipText } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { NeedHelp } from "./NeedHelp";
 import { RevealVote } from "./RevealVote";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export type ChallengeRevealVoteCardProps = ListingDetailPhaseCardComponentProps &
   PhaseWithExpiryProps &
@@ -51,7 +53,10 @@ export class ChallengeRevealVoteCard extends React.Component<
             <StyledListingDetailPhaseCardContainer>
               <StyledListingDetailPhaseCardSection>
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
-                <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
+                <StyledPhaseDisplayName>
+                  <UnderChallengePhaseDisplayNameText />
+                  <QuestionToolTip explainerText={<UnderChallengeToolTipText />} strokeColor="#000" />
+                </StyledPhaseDisplayName>
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}

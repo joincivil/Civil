@@ -31,11 +31,11 @@ const Tip = styled.div`
   bottom: 10px;
   left: 0;
   margin-left: -90px;
-  width: 180px;
+  width: 260px;
   color: ${colors.basic.WHITE};
   background: rgba(21, 21, 21, 0.9);
   border-radius: 3px;
-  padding: 13px;
+  padding: 15px;
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
   line-height: 15px;
@@ -61,7 +61,7 @@ const Wrapper = styled.div`
 
 const HitBox = styled.div`
   position: absolute;
-  width: 180px;
+  width: 260px;
   height: 50px;
   bottom: 0;
   left: -81px;
