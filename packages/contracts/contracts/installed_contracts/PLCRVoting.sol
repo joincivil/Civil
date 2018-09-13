@@ -55,11 +55,10 @@ contract PLCRVoting {
     EIP20Interface public token;
 
     /**
-    @dev Initializer. Can only be called once.
     @param _token The address where the ERC20 token contract is deployed
     */
-    function init(address _token) public {
-        require(_token != 0 && address(token) == 0);
+    constructor(address _token) public {
+        require(_token != 0);
 
         token = EIP20Interface(_token);
         pollNonce = INITIAL_POLL_NONCE;
