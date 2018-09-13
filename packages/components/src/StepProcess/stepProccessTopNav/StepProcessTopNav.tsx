@@ -41,7 +41,6 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
   }
 
   public componentDidUpdate(prevProps: StepsProps, prevState: StepProcessTopNavState): void {
-    console.log({ prevProps, prevState, props: this.props, state: this.state });
     if (typeof this.props.activeIndex === "undefined") {
       return;
     }
