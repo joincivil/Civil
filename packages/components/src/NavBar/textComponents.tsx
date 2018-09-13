@@ -32,6 +32,10 @@ export const NavDrawerCopyBtnText: React.SFC = props => <>Copy</>;
 
 export const NavDrawerDashboardText: React.SFC = props => <>Dashboard</>;
 
+export const NavDrawerClaimRewardsText: React.SFC = props => <>Claim Rewards</>;
+
+export const NavDrawerRevealVotesText: React.SFC = props => <>Reveal Votes</>;
+
 export const NavDrawerSubmittedChallengesText: React.SFC = props => <>Submitted Challenges</>;
 
 export const NavDrawerVotedChallengesText: React.SFC = props => <>Challenges Voted On</>;

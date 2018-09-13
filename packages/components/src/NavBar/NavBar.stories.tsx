@@ -7,8 +7,10 @@ import { NavErrorBar } from "./NavErrorBar";
 const balance = "100,203";
 const votingBalance = "1,200";
 const userAccount = "0xd26114cd6ee289accf82350c8d8487fedb8a0c07";
-const userChallengesVotedOnCount = 15;
+const userRevealVotesCount = 10;
+const userClaimRewardsCount = 4;
 const userChallengesStartedCount = 2;
+const userChallengesVotedOnCount = 15;
 
 storiesOf("Nav Bar", module)
   .addDecorator(StoryRouter())
@@ -18,8 +20,10 @@ storiesOf("Nav Bar", module)
         balance={balance}
         votingBalance={votingBalance}
         userAccount={userAccount}
-        userChallengesVotedOnCount={userChallengesVotedOnCount}
+        userRevealVotesCount={userRevealVotesCount}
+        userClaimRewardsCount={userClaimRewardsCount}
         userChallengesStartedCount={userChallengesStartedCount}
+        userChallengesVotedOnCount={userChallengesVotedOnCount}
         buyCvlUrl="https://civil.co/cvl/"
       />
     );

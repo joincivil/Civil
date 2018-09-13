@@ -4,7 +4,12 @@ import { State } from "../reducers";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
-import { getChallengesStartedByUser, getChallengesVotedOnByUser } from "../selectors";
+import {
+  getChallengesStartedByUser,
+  getChallengesVotedOnByUser,
+  getUserChallengesWithUnrevealedVotes,
+  getUserChallengesWithUnclaimedRewards,
+} from "../selectors";
 import { NavBar, NavErrorBar } from "@joincivil/components";
 
 export interface NavBarProps {
@@ -12,8 +17,10 @@ export interface NavBarProps {
   votingBalance: string;
   network: string;
   userAccount: EthAddress;
-  currentUserChallengesVotedOn: Set<string>;
   currentUserChallengesStarted: Set<string>;
+  currentUserChallengesVotedOn: Set<string>;
+  userChallengesWithUnrevealedVotes?: Set<string>;
+  userChallengesWithUnclaimedRewards?: Set<string>;
 }
 
 const GlobalNavComponent: React.SFC<NavBarProps> = props => {
@@ -25,8 +32,10 @@ const GlobalNavComponent: React.SFC<NavBarProps> = props => {
         votingBalance={props.votingBalance}
         userAccount={props.userAccount}
         buyCvlUrl="https://civil.co/cvl/"
-        userChallengesVotedOnCount={props.currentUserChallengesVotedOn.count()}
+        userRevealVotesCount={props.userChallengesWithUnrevealedVotes!.count()}
+        userClaimRewardsCount={props.userChallengesWithUnclaimedRewards!.count()}
         userChallengesStartedCount={props.currentUserChallengesStarted.count()}
+        userChallengesVotedOnCount={props.currentUserChallengesVotedOn.count()}
       />
       {shouldRenderErrorBar && <NavErrorBar />}
     </>
@@ -36,8 +45,10 @@ const GlobalNavComponent: React.SFC<NavBarProps> = props => {
 const mapStateToProps = (state: State): NavBarProps => {
   const { network } = state;
   const { user } = state.networkDependent;
-  const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
+  const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
+  const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
+  const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
 
   let balance = "loading...";
   if (user.account && user.account.balance) {
@@ -59,8 +70,10 @@ const mapStateToProps = (state: State): NavBarProps => {
     balance,
     votingBalance,
     userAccount,
-    currentUserChallengesVotedOn,
     currentUserChallengesStarted,
+    currentUserChallengesVotedOn,
+    userChallengesWithUnrevealedVotes,
+    userChallengesWithUnclaimedRewards,
   };
 };
 

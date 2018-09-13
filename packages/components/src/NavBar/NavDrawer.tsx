@@ -10,6 +10,8 @@ import {
   NavDrawerCopyBtnText,
   NavDrawerBuyCvlBtnText,
   NavDrawerDashboardText,
+  NavDrawerRevealVotesText,
+  NavDrawerClaimRewardsText,
   NavDrawerSubmittedChallengesText,
   NavDrawerVotedChallengesText,
 } from "./textComponents";
@@ -104,11 +106,13 @@ const CopyButton = Button.extend`
 `;
 
 export interface NavDrawerProps {
-  balance?: string;
-  votingBalance?: string;
-  userAccount?: string;
+  balance: string;
+  votingBalance: string;
+  userAccount: string;
+  userRevealVotesCount?: number;
   userChallengesVotedOnCount?: number;
   userChallengesStartedCount?: number;
+  userClaimRewardsCount?: number;
   buyCvlUrl?: string;
 }
 
@@ -153,6 +157,18 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <NavDrawerSectionHeader>
             <NavDrawerDashboardText />
           </NavDrawerSectionHeader>
+          <NavDrawerRow>
+            <NavDrawerRowLabel>
+              <NavDrawerRevealVotesText />
+            </NavDrawerRowLabel>
+            <NavDrawerPill>{this.props.userRevealVotesCount || 0}</NavDrawerPill>
+          </NavDrawerRow>
+          <NavDrawerRow>
+            <NavDrawerRowLabel>
+              <NavDrawerClaimRewardsText />
+            </NavDrawerRowLabel>
+            <NavDrawerPill>{this.props.userClaimRewardsCount || 0}</NavDrawerPill>
+          </NavDrawerRow>
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerSubmittedChallengesText />
