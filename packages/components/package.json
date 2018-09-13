@@ -73,7 +73,7 @@
   "dependencies": {
     "@joincivil/core": "^4.4.0",
     "@joincivil/utils": "^1.5.0",
-    "@material-ui/core": "^1.5.0",
+    "@material-ui/core": "1.5.0",
     "@material-ui/icons": "^1.1.0",
     "@types/classnames": "^2.2.3",
     "classnames": "^2.2.5",
