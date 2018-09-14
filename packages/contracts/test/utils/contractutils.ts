@@ -23,6 +23,7 @@ const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
 const Newsroom = artifacts.require("Newsroom");
+const TokenTelemetry = artifacts.require("TokenTelemetry");
 configureProviders(
   PLCRVoting,
   CivilParameterizer,
@@ -128,9 +129,9 @@ export async function simpleSuccessfulAppealChallenge(
   const votingAddress = await registry.voting();
   const voting = PLCRVoting.at(votingAddress);
   const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
-  await commitVote(voting, pollID, "0", "100", "123", voter);
+  await commitVote(voting, pollID, "1", "100", "123", voter);
   await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
-  await voting.revealVote(pollID, "0", "123", { from: voter });
+  await voting.revealVote(pollID, "1", "123", { from: voter });
   await advanceEvmTime(paramConfig.appealChallengeRevealStageLength + 1);
 }
 
@@ -143,9 +144,9 @@ export async function simpleUnsuccessfulAppealChallenge(
   const votingAddress = await registry.voting();
   const voting = PLCRVoting.at(votingAddress);
   const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
-  await commitVote(voting, pollID, "1", "100", "420", voter);
+  await commitVote(voting, pollID, "0", "100", "420", voter);
   await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
-  await voting.revealVote(pollID, "1", "420", { from: voter });
+  await voting.revealVote(pollID, "0", "420", { from: voter });
   await advanceEvmTime(paramConfig.appealChallengeRevealStageLength + 1);
 }
 
@@ -295,9 +296,8 @@ async function createTestPLCRInstance(token: any, accounts: string[]): Promise<a
     }
     return approvePLCRFor(addresses.slice(1));
   }
-
-  const plcr = await PLCRVoting.new();
-  await plcr.init(token.address);
+  const telemetry = await TokenTelemetry.new();
+  const plcr = await PLCRVoting.new(token.address, telemetry.address);
   await approvePLCRFor(accounts);
 
   return plcr;
@@ -332,8 +332,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
     parameterizerConfig.appealChallengeCommitStageLength,
     parameterizerConfig.appealChallengeRevealStageLength,
   ];
-  const parameterizer = await CivilParameterizer.new();
-  await parameterizer.init(token.address, plcr.address, params);
+  const parameterizer = await CivilParameterizer.new(token.address, plcr.address, params);
 
   await approveParameterizerFor(accounts);
   return parameterizer;

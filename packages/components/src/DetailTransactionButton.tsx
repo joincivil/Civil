@@ -223,7 +223,6 @@ export class DetailTransactionButton extends React.Component<
   public renderTransactionDetails(): JSX.Element {
     return (
       <DetailSection>
-        <SmallHeader>Wallet Connected</SmallHeader>
         <SmallText>
           Estimated Cost{" "}
           <QuestionToolTip

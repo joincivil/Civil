@@ -20,9 +20,11 @@ import {
 export interface NavProps {
   balance: string;
   votingBalance: string;
-  userAccount?: string;
-  userChallengesVotedOnCount?: string;
-  userChallengesStartedCount?: string;
+  userAccount: string;
+  userRevealVotesCount?: number;
+  userClaimRewardsCount?: number;
+  userChallengesStartedCount?: number;
+  userChallengesVotedOnCount?: number;
   buyCvlUrl?: string;
 }
 
@@ -110,7 +112,6 @@ const UserCvlBalance = styled.span`
 
 const UserCvlVotingBalance = styled.span`
   display: block;
-  color: ${colors.accent.CIVIL_TEAL};
   font-size: 12px;
   font-weight: 500;
   margin-left: 10px;
@@ -203,8 +204,10 @@ export class NavBar extends React.Component<NavProps, NavState> {
             balance={this.props.balance}
             votingBalance={this.props.votingBalance}
             userAccount={this.props.userAccount}
-            userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
+            userRevealVotesCount={this.props.userRevealVotesCount}
+            userClaimRewardsCount={this.props.userClaimRewardsCount}
             userChallengesStartedCount={this.props.userChallengesStartedCount}
+            userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
             buyCvlUrl={this.props.buyCvlUrl}
           />
         ) : null}
