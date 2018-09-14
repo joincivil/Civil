@@ -99,6 +99,10 @@ const Description = StepDescription.extend`
   font-size: 14px;
 `;
 
+const QuestionToolTipWrapper = styled.span`
+  padding-top: 5px;
+`;
+
 const makeUserObject = (state: StateWithNewsroom, item: EthAddress): { address: EthAddress; name?: string } => {
   let name;
   if (state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS)) {
@@ -313,17 +317,19 @@ class CompleteYourProfileComponent extends React.Component<
             header={
               <>
                 <StepHeader active={this.props.active} disabled={this.props.disabled}>
-                  Add accounts to your newsroom contract
+                  Add accounts to your newsroom smart contract
                 </StepHeader>
                 <Description disabled={this.props.disabled}>
-                  Add additional officers and editors to your newsroom contract. You will need their wallet addresses.
-                  This step is optional, but recommended.
-                  <QuestionToolTip
-                    disabled={this.props.disabled}
-                    explainerText={
-                      "Think of officers as admins of your newsroom.  You can skip adding an additional officer but if not have one, you will not be able to access you newsroom contract if you lose your private key."
-                    }
-                  />
+                  Add additional officers and members to your newsroom smart contract. You will need their public wallet
+                  addresses. This step is optional, but recommended.
+                  <QuestionToolTipWrapper>
+                    <QuestionToolTip
+                      disabled={this.props.disabled}
+                      explainerText={
+                        "Think of officers as admins of your newsroom.  You can skip adding an additional officer but if not have one, you will not be able to access you newsroom contract if you lose your private key."
+                      }
+                    />
+                  </QuestionToolTipWrapper>
                 </Description>
               </>
             }
@@ -333,9 +339,11 @@ class CompleteYourProfileComponent extends React.Component<
             <CollapsableInner>
               <FormSection>
                 <FormTitleSection>
-                  <FormTitle>Officer</FormTitle>
+                  <FormTitle>Civil Officer</FormTitle>
                   <FormDescription>
-                    Officers can add members to the newsroom contract, sign and index posts.
+                    An Officer is an admin role that has all possible capabilities in the newsroom smart contract. They
+                    can add additional officers and members and have access to your newsrooms funds and Civil Registry
+                    application.
                   </FormDescription>
                 </FormTitleSection>
                 <Section>
@@ -356,10 +364,10 @@ class CompleteYourProfileComponent extends React.Component<
               </FormSection>
               <FormSection>
                 <FormTitleSection>
-                  <FormTitle>Editor</FormTitle>
+                  <FormTitle>Civil Member</FormTitle>
                   <FormDescription>
-                    Editors have permission to index and sign posts on the blockchain. They cannot add officers to a
-                    newsroom contract.
+                    A Member is the standard role in the newsroom smart contract. They have permission to index and sign
+                    posts on the blockchain. They cannot add Civil Officers to a newsroom smart contract.
                   </FormDescription>
                 </FormTitleSection>
                 <Section>
