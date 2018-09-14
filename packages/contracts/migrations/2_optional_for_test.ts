@@ -14,7 +14,6 @@ if (teammates) {
   teammatesSplit = teammates!.split(",");
 }
 module.exports = (deployer: any, network: string, accounts: string[]) => {
-  teammatesSplit = teammatesSplit.concat(config.nets[network].tokenHolders);
   const totalSupply = new BN("1000000000000000000000000", BASE_10);
   const decimals = "18";
 
@@ -37,12 +36,13 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
     if (network === RINKEBY) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
+      const allAccounts = teammatesSplit.concat(config.nets[network].tokenHolders);
       if (teammatesSplit) {
-        return giveTokensTo(teammatesSplit, teammatesSplit.length);
+        return giveTokensTo(allAccounts, allAccounts.length);
       }
     } else if (network !== MAIN_NETWORK) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      const allAccounts = accounts.concat(teammatesSplit);
+      const allAccounts = accounts.concat(config.nets[network].tokenHolders);
       return giveTokensTo(allAccounts, allAccounts.length);
     }
   });
