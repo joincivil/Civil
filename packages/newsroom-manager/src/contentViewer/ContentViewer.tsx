@@ -9,10 +9,12 @@ import { ContentItem } from "./ContentItem";
 
 export interface ContentViewerProps {
   newsroom: Newsroom;
+}
+export interface ContentInternalViewerProps extends ContentViewerProps {
   content: Map<number, Map<number, RevisionAndJson>>;
 }
 
-class ContentViewerComponent extends React.Component<ContentViewerProps & DispatchProp<any>> {
+class ContentViewerComponent extends React.Component<ContentInternalViewerProps & DispatchProp<any>> {
   public componentDidMount(): void {
     this.props.newsroom.revisions().subscribe((item: EthContentHeader) => {
       this.props.dispatch!(addRevision(item));
@@ -31,7 +33,7 @@ class ContentViewerComponent extends React.Component<ContentViewerProps & Dispat
   }
 }
 
-const mapStateToProps = (state: ContentViewerReduxState, ownProps: ContentViewerProps): ContentViewerProps => {
+const mapStateToProps = (state: ContentViewerReduxState, ownProps: ContentViewerProps): ContentInternalViewerProps => {
   return {
     content: state.newsroomContent,
     ...ownProps,
