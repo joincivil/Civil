@@ -3,7 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 
 export const StyledParameterizerContainer = styled.div`
-  position: relative;
+  margin: 40px 0 0;
 `;
 
 export const StyledCreateProposalContainer = styled.div`
@@ -31,7 +31,7 @@ export const StyledCreateProposalOuter = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   bottom 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
 
@@ -68,8 +68,6 @@ export const StyledCreateProposalContent = styled.div`
   line-height: 20px;
   padding: 24px 40px 40px;
 `;
-
-export const SECTION_PADDING = "0px";
 
 export const StyledSection = styled.div`
   margin: 0 0 19px;

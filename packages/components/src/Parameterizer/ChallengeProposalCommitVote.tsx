@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { PhaseWithExpiryProps, ChallengePhaseProps, CommitVoteProps } from "../ListingDetailPhaseCard/types";
 import { StyledPhaseKicker, StyledPhaseDisplayName } from "../ListingDetailPhaseCard/styledComponents";
 import { ChallengePhaseDetail } from "../ListingDetailPhaseCard/ChallengePhaseDetail";
@@ -13,7 +14,6 @@ import {
   StyledSection,
   StyledMetaName,
   StyledMetaValue,
-  SECTION_PADDING,
 } from "./styledComponents";
 import {
   CreateProposalParamNameLabelText,
@@ -35,72 +35,86 @@ export type TChallengeProposalCommitVoteProps = ChallengeProposalCommitVoteProps
   ChallengePhaseProps &
   CommitVoteProps;
 
-export const ChallengeProposalCommitVote: React.SFC<TChallengeProposalCommitVoteProps> = props => {
-  return (
-    <StyledCreateProposalOuter>
-      <StyledChallengeProposalContainer>
-        <StyledCreateProposalHeaderClose onClick={props.handleClose}>✖</StyledCreateProposalHeaderClose>
+export class ChallengeProposalCommitVote extends React.Component<TChallengeProposalCommitVoteProps> {
+  public bucket: HTMLDivElement = document.createElement("div");
 
-        <StyledCreateProposalContent>
-          <StyledSection>
-            <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
-            <StyledPhaseDisplayName>
-              <UnderChallengePhaseDisplayNameText />
-            </StyledPhaseDisplayName>
-            <TwoPhaseProgressBarCountdownTimer
-              endTime={props.endTime}
-              totalSeconds={props.phaseLength}
-              displayLabel="Accepting votes"
-              secondaryDisplayLabel="Confirming Votes"
-              flavorText="under challenge"
-              activePhaseIndex={0}
-            />
-          </StyledSection>
+  public componentDidMount(): void {
+    document.body.appendChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamNameLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterDisplayName}</StyledMetaValue>
-          </StyledSection>
+  public componentWillUnmount(): void {
+    document.body.removeChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamCurrentValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterCurrentValue}</StyledMetaValue>
-          </StyledSection>
+  public render(): React.ReactPortal {
+    return ReactDOM.createPortal(
+      <StyledCreateProposalOuter>
+        <StyledChallengeProposalContainer>
+          <StyledCreateProposalHeaderClose onClick={this.props.handleClose}>✖</StyledCreateProposalHeaderClose>
 
-          <StyledSection>
-            <StyledMetaName>
-              <ChallengeProposalNewValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterProposalValue}</StyledMetaValue>
-          </StyledSection>
+          <StyledCreateProposalContent>
+            <StyledSection>
+              <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
+              <StyledPhaseDisplayName>
+                <UnderChallengePhaseDisplayNameText />
+              </StyledPhaseDisplayName>
+              <TwoPhaseProgressBarCountdownTimer
+                endTime={this.props.endTime}
+                totalSeconds={this.props.phaseLength}
+                displayLabel="Accepting votes"
+                secondaryDisplayLabel="Confirming Votes"
+                flavorText="under challenge"
+                activePhaseIndex={0}
+              />
+            </StyledSection>
 
-          <ChallengePhaseDetail
-            challengeID={props.challengeID}
-            challenger={props.challenger}
-            rewardPool={props.rewardPool}
-            stake={props.stake}
-            padding={SECTION_PADDING}
-          />
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamNameLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterDisplayName}</StyledMetaValue>
+            </StyledSection>
 
-          <StyledSection>
-            <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
-            <CommitVote
-              tokenBalance={props.tokenBalance}
-              salt={props.salt}
-              numTokens={props.numTokens}
-              onInputChange={props.onInputChange}
-              userHasCommittedVote={props.userHasCommittedVote}
-              onReviewVote={props.onReviewVote}
-            >
-              Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
-            </CommitVote>
-          </StyledSection>
-        </StyledCreateProposalContent>
-      </StyledChallengeProposalContainer>
-    </StyledCreateProposalOuter>
-  );
-};
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamCurrentValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterCurrentValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <StyledMetaName>
+                <ChallengeProposalNewValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterProposalValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <ChallengePhaseDetail
+                challengeID={this.props.challengeID}
+                challenger={this.props.challenger}
+                rewardPool={this.props.rewardPool}
+                stake={this.props.stake}
+              />
+            </StyledSection>
+
+            <StyledSection>
+              <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
+              <CommitVote
+                tokenBalance={this.props.tokenBalance}
+                salt={this.props.salt}
+                numTokens={this.props.numTokens}
+                onInputChange={this.props.onInputChange}
+                userHasCommittedVote={this.props.userHasCommittedVote}
+                onReviewVote={this.props.onReviewVote}
+              >
+                Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
+              </CommitVote>
+            </StyledSection>
+          </StyledCreateProposalContent>
+        </StyledChallengeProposalContainer>
+      </StyledCreateProposalOuter>,
+      this.bucket,
+    );
+  }
+}

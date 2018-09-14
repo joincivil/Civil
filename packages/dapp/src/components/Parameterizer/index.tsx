@@ -11,6 +11,7 @@ import {
   Th,
   Tabs,
   Tab,
+  StyledParameterizerContainer,
   StyledDashboardSubTab,
   MinDepositLabelText,
   ParamMinDepositLabelText,
@@ -32,15 +33,14 @@ import {
   JudgeAppealLenLabelText,
   AppealFeeLabelText,
   AppealVotePercentageLabelText,
-  StyledParameterizerContainer,
   CreateProposal,
   ChallengeProposal,
   ProcessProposal,
 } from "@joincivil/components";
-import { getFormattedTokenBalance, Parameters, GovernmentParameters } from "@joincivil/utils";
+import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
+import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../reducers";
 import ListingDiscourse from "../listing/ListingDiscourse";
-import { getCivil } from "../../helpers/civilInstance";
 import {
   approveForProposeReparameterization,
   approveForProposalChallenge,
@@ -48,6 +48,7 @@ import {
   proposeReparameterization,
   updateReparameterizationProp,
 } from "../../apis/civilTCR";
+import { getIsMemberOfAppellate } from "../../selectors";
 import { amountParams, durationParams, percentParams } from "./constants";
 import { Parameter } from "./Parameter";
 import ChallengeContainer from "./ChallengeProposalDetail";
@@ -70,6 +71,11 @@ const GridRowStatic = styled.div`
 
 const StyledTabContainer = styled.div`
   padding: 30px 0 50px;
+`;
+
+const StyledTabComponent = styled(StyledDashboardSubTab)`
+  font-size: 18px;
+  line-height: 21px;
 `;
 
 const StyledTitle = styled.div`
@@ -96,6 +102,7 @@ const StyledP = styled.p`
   font-size: 16px;
   line-height: 20px;
   letter-spacing: -0.11px;
+  max-width: 730px;
 `;
 
 export interface ParameterizerProps {
@@ -127,6 +134,7 @@ export interface GovernmentParameterProps {
 export interface ParameterizerPageProps {
   parameters: ParameterizerProps;
   govtParameters: GovernmentParameterProps;
+  isMemberOfAppellate: boolean;
 }
 
 export interface ParameterizerPageState {
@@ -152,6 +160,12 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
   public render(): JSX.Element {
     const civil = getCivil();
+    const proposalMinDeposit =
+      this.props.parameters[Parameters.pMinDeposit] &&
+      getFormattedParameterValue(
+        Parameters.pMinDeposit,
+        civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
+      );
 
     return (
       <>
@@ -165,7 +179,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
           </StyledDescriptionP>
         </GridRow>
         <GridRow>
-          <Tabs TabComponent={StyledDashboardSubTab}>
+          <Tabs TabComponent={StyledTabComponent}>
             <Tab title="Current Parameters">
               <StyledTabContainer>
                 <StyledP>
@@ -173,14 +187,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                   three phases: proposal, challenge, and vote.
                 </StyledP>
                 <StyledP>
-                  Proposing new values and challenging a proposal{" "}
-                  <b>
-                    requires a deposit of{" "}
-                    {this.props.parameters[Parameters.pMinDeposit] &&
-                      getFormattedTokenBalance(
-                        civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
-                      )}
-                  </b>.
+                  Proposing new values and challenging a proposal <b>requires a deposit of {proposalMinDeposit}</b>.
                 </StyledP>
 
                 <StyledParameterizerContainer>
@@ -205,48 +212,56 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                             parameterValue={this.props.parameters[key]}
                             handleCreateProposal={this.showCreateProposal}
                             handleProposalAction={this.showProposalAction}
+                            canShowCreateProposal={true}
                           />
                         );
                       })}
                     </tbody>
                   </Table>
-
-                  {this.state.isCreateProposalVisible && this.renderCreateProposal()}
-                  {this.state.isProposalActionVisible && this.renderProposalAction()}
                 </StyledParameterizerContainer>
               </StyledTabContainer>
             </Tab>
 
             <Tab title="Government Parameters">
               <StyledTabContainer>
-                <Table width="100%">
-                  <thead>
-                    <Tr>
-                      <Th>Current Parameter</Th>
-                      <Th>Current Value</Th>
-                      <Th colSpan={3} accent>
-                        Proposal for New Value
-                      </Th>
-                    </Tr>
-                  </thead>
-                  <tbody>
-                    {Object.keys(this.props.govtParameters).map(key => {
-                      if (!this.props.govtParameters[key]) {
-                        return <></>;
-                      }
-                      return (
-                        <Parameter
-                          key={key}
-                          parameterName={key}
-                          parameterDisplayName={this.getParameterDisplayName(key)}
-                          parameterValue={this.props.govtParameters[key]}
-                          handleCreateProposal={this.showCreateProposal}
-                          handleProposalAction={this.showProposalAction}
-                        />
-                      );
-                    })}
-                  </tbody>
-                </Table>
+                <StyledP>
+                  Civil Council members may propose a change to the current Council Parameters. The CVL token holder
+                  community approve the proposed values through a voting process.
+                </StyledP>
+                <StyledP>
+                  Challenging a Council Parameter proposal <b>requires a deposit of {proposalMinDeposit}</b>.
+                </StyledP>
+                <StyledParameterizerContainer>
+                  <Table width="100%">
+                    <thead>
+                      <Tr>
+                        <Th>Current Parameter</Th>
+                        <Th>Current Value</Th>
+                        <Th colSpan={3} accent>
+                          Proposal for New Value
+                        </Th>
+                      </Tr>
+                    </thead>
+                    <tbody>
+                      {Object.keys(this.props.govtParameters).map(key => {
+                        if (!this.props.govtParameters[key]) {
+                          return <></>;
+                        }
+                        return (
+                          <Parameter
+                            key={key}
+                            parameterName={key}
+                            parameterDisplayName={this.getParameterDisplayName(key)}
+                            parameterValue={this.props.govtParameters[key]}
+                            handleCreateProposal={this.showCreateProposal}
+                            handleProposalAction={this.showProposalAction}
+                            canShowCreateProposal={this.props.isMemberOfAppellate}
+                          />
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                </StyledParameterizerContainer>
               </StyledTabContainer>
             </Tab>
           </Tabs>
@@ -255,6 +270,9 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         <GridRowStatic>
           <ListingDiscourse />
         </GridRowStatic>
+
+        {this.state.isCreateProposalVisible && this.renderCreateProposal()}
+        {this.state.isProposalActionVisible && this.renderProposalAction()}
       </>
     );
   }
@@ -263,10 +281,20 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     const civil = getCivil();
     const proposalMinDeposit =
       this.props.parameters[Parameters.pMinDeposit] &&
-      getFormattedTokenBalance(civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()));
+      getFormattedParameterValue(
+        Parameters.pMinDeposit,
+        civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
+      );
+    const pApplyLenText =
+      this.props.parameters[Parameters.pApplyStageLen] &&
+      getFormattedParameterValue(
+        Parameters.pApplyStageLen,
+        civil.toBigNumber(this.props.parameters[Parameters.pApplyStageLen].toString()),
+      );
 
     return (
       <CreateProposal
+        pApplyLenText={pApplyLenText}
         parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
         parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
         parameterDisplayUnits={this.getParameterDisplayUnits(this.state.createProposalParameterName!)}
@@ -278,6 +306,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         ]}
         handleClose={this.hideCreateProposal}
         handleUpdateProposalValue={this.updateProposalNewValue}
+        postExecuteTransactions={this.hideProposalAction}
       />
     );
   };
@@ -307,6 +336,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         parameterNewValue={this.state.challengeProposalNewValue!}
         transactions={[{ transaction: this.updateProposal, postExecuteTransactions: this.hideProposalAction }]}
         handleClose={this.hideProposalAction}
+        postExecuteTransactions={this.hideProposalAction}
       />
     );
   };
@@ -315,7 +345,10 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     const civil = getCivil();
     const proposalMinDeposit =
       this.props.parameters[Parameters.pMinDeposit] &&
-      getFormattedTokenBalance(civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()));
+      getFormattedParameterValue(
+        Parameters.pMinDeposit,
+        civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
+      );
 
     return (
       <ChallengeProposal
@@ -324,11 +357,9 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         parameterProposalValue={this.state.createProposalNewValue!}
         parameterNewValue={this.state.challengeProposalNewValue!}
         proposalDeposit={proposalMinDeposit}
-        transactions={[
-          { transaction: approveForProposalChallenge },
-          { transaction: this.challengeProposal, postExecuteTransactions: this.hideProposalAction },
-        ]}
+        transactions={[{ transaction: approveForProposalChallenge }, { transaction: this.challengeProposal }]}
         handleClose={this.hideProposalAction}
+        postExecuteTransactions={this.hideProposalAction}
       />
     );
   };
@@ -445,7 +476,13 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 const mapToStateToProps = (state: State): ParameterizerPageProps => {
   const parameters: ParameterizerProps = state.networkDependent.parameters as ParameterizerProps;
   const govtParameters: GovernmentParameterProps = state.networkDependent.govtParameters as GovernmentParameterProps;
-  return { parameters, govtParameters };
+  const isMemberOfAppellate = getIsMemberOfAppellate(state);
+
+  return {
+    parameters,
+    govtParameters,
+    isMemberOfAppellate,
+  };
 };
 
 export default connect(mapToStateToProps)(Parameterizer);

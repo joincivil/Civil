@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { TransactionButton } from "../TransactionButton";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import {
@@ -24,58 +25,76 @@ export interface ResolveChallengeProposalProps {
   transactions?: any[];
   modalContentComponents?: any;
   handleClose(): void;
+  postExecuteTransactions?(): any;
 }
 
-export const ResolveChallengeProposal: React.SFC<ResolveChallengeProposalProps & ChallengeResultsProps> = props => {
-  return (
-    <StyledCreateProposalOuter>
-      <StyledChallengeProposalContainer>
-        <StyledCreateProposalHeaderClose onClick={props.handleClose}>✖</StyledCreateProposalHeaderClose>
+export class ResolveChallengeProposal extends React.Component<ResolveChallengeProposalProps & ChallengeResultsProps> {
+  public bucket: HTMLDivElement = document.createElement("div");
 
-        <StyledCreateProposalContent>
-          <StyledSection>
-            <ResolveChallengeProposalDescriptionText />
-          </StyledSection>
+  public componentDidMount(): void {
+    document.body.appendChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamNameLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterDisplayName}</StyledMetaValue>
-          </StyledSection>
+  public componentWillUnmount(): void {
+    document.body.removeChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamCurrentValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterCurrentValue}</StyledMetaValue>
-          </StyledSection>
+  public render(): React.ReactPortal {
+    return ReactDOM.createPortal(
+      <StyledCreateProposalOuter>
+        <StyledChallengeProposalContainer>
+          <StyledCreateProposalHeaderClose onClick={this.props.handleClose}>✖</StyledCreateProposalHeaderClose>
 
-          <StyledSection>
-            <StyledMetaName>
-              <ChallengeProposalNewValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterNewValue}</StyledMetaValue>
-          </StyledSection>
+          <StyledCreateProposalContent>
+            <StyledSection>
+              <ResolveChallengeProposalDescriptionText />
+            </StyledSection>
 
-          <StyledSection>
-            <ChallengeResults
-              collapsable={true}
-              totalVotes={props.totalVotes}
-              votesFor={props.votesFor}
-              votesAgainst={props.votesAgainst}
-              percentFor={props.percentFor}
-              percentAgainst={props.percentAgainst}
-            />
-          </StyledSection>
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamNameLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterDisplayName}</StyledMetaValue>
+            </StyledSection>
 
-          <StyledSection>
-            <TransactionButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
-              Confirm With Metamask
-            </TransactionButton>
-          </StyledSection>
-        </StyledCreateProposalContent>
-      </StyledChallengeProposalContainer>
-    </StyledCreateProposalOuter>
-  );
-};
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamCurrentValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterCurrentValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <StyledMetaName>
+                <ChallengeProposalNewValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterNewValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <ChallengeResults
+                collapsable={true}
+                totalVotes={this.props.totalVotes}
+                votesFor={this.props.votesFor}
+                votesAgainst={this.props.votesAgainst}
+                percentFor={this.props.percentFor}
+                percentAgainst={this.props.percentAgainst}
+              />
+            </StyledSection>
+
+            <StyledSection>
+              <TransactionButton
+                transactions={this.props.transactions!}
+                modalContentComponents={this.props.modalContentComponents}
+                postExecuteTransactions={this.props.postExecuteTransactions}
+              >
+                Confirm With Metamask
+              </TransactionButton>
+            </StyledSection>
+          </StyledCreateProposalContent>
+        </StyledChallengeProposalContainer>
+      </StyledCreateProposalOuter>,
+      this.bucket,
+    );
+  }
+}

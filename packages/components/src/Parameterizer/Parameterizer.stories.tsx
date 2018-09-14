@@ -25,6 +25,7 @@ storiesOf("Parameterizer", module).add("Create Proposal", () => {
       {process.env.NODE_ENV !== "test" && (
         <StyledParameterizerContainer>
           <CreateProposal
+            pApplyLenText="14 days"
             parameterDisplayName="Application Deposit"
             parameterCurrentValue="100.00 CVL"
             parameterDisplayUnits="CVL"

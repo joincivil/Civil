@@ -237,6 +237,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         userHasCommittedVote={userHasCommittedVote}
         modalContentComponents={modalContentComponents}
         transactions={transactions}
+        postExecuteTransactions={this.props.handleClose}
       />
     );
   }
@@ -293,7 +294,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       revealEndDate: challenge.poll.revealEndDate.toNumber(),
       transactions,
       modalContentComponents,
-      postExecuteTransactions: this.closeReviewVoteModal,
+      postExecuteTransactions: this.closeReviewModalAndChallengeDrawer,
       handleClose: this.closeReviewVoteModal,
     };
 
@@ -331,8 +332,9 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         votesAgainst={votesAgainst}
         percentFor={percentFor}
         percentAgainst={percentAgainst}
-        transactions={[{ transaction: this.resolveChallenge, postExecuteTransactions: this.props.handleClose }]}
+        transactions={[{ transaction: this.resolveChallenge }]}
         handleClose={this.props.handleClose}
+        postExecuteTransactions={this.props.handleClose}
       />
     );
   };
@@ -374,6 +376,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private closeReviewVoteModal = () => {
     this.setState({ isReviewVoteModalOpen: false });
   };
+
+  private closeReviewModalAndChallengeDrawer = () => {
+    this.setState({ isReviewVoteModalOpen: false }, () => {
+      this.props.handleClose();
+    });
+  };
 }
 
 class ChallengeContainer extends React.Component<
@@ -392,7 +400,6 @@ class ChallengeContainer extends React.Component<
   }
 
   public render(): JSX.Element | null {
-    console.log(this.props);
     const challenge = this.props.challengeData;
     if (!challenge && this.props.showNotFoundMessage) {
       return this.renderNoChallengeFound();

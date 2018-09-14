@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { TransactionButton } from "../TransactionButton";
 import {
   StyledCreateProposalOuter,
@@ -24,47 +25,65 @@ export interface ProcessProposalProps {
   transactions?: any[];
   modalContentComponents?: any;
   handleClose(): void;
+  postExecuteTransactions?(): any;
 }
 
-export const ProcessProposal: React.SFC<ProcessProposalProps> = props => {
-  return (
-    <StyledCreateProposalOuter>
-      <StyledChallengeProposalContainer>
-        <StyledCreateProposalHeaderClose onClick={props.handleClose}>✖</StyledCreateProposalHeaderClose>
+export class ProcessProposal extends React.Component<ProcessProposalProps> {
+  public bucket: HTMLDivElement = document.createElement("div");
 
-        <StyledCreateProposalContent>
-          <StyledSection>
-            <ProcessProposalDescriptionText />
-          </StyledSection>
+  public componentDidMount(): void {
+    document.body.appendChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamNameLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterDisplayName}</StyledMetaValue>
-          </StyledSection>
+  public componentWillUnmount(): void {
+    document.body.removeChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamCurrentValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterCurrentValue}</StyledMetaValue>
-          </StyledSection>
+  public render(): React.ReactPortal {
+    return ReactDOM.createPortal(
+      <StyledCreateProposalOuter>
+        <StyledChallengeProposalContainer>
+          <StyledCreateProposalHeaderClose onClick={this.props.handleClose}>✖</StyledCreateProposalHeaderClose>
 
-          <StyledSection>
-            <StyledMetaName>
-              <ChallengeProposalNewValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterNewValue}</StyledMetaValue>
-          </StyledSection>
+          <StyledCreateProposalContent>
+            <StyledSection>
+              <ProcessProposalDescriptionText />
+            </StyledSection>
 
-          <StyledSection>
-            <TransactionButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
-              Confirm With Metamask
-            </TransactionButton>
-          </StyledSection>
-        </StyledCreateProposalContent>
-      </StyledChallengeProposalContainer>
-    </StyledCreateProposalOuter>
-  );
-};
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamNameLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterDisplayName}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamCurrentValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterCurrentValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <StyledMetaName>
+                <ChallengeProposalNewValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterNewValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <TransactionButton
+                transactions={this.props.transactions!}
+                modalContentComponents={this.props.modalContentComponents}
+                postExecuteTransactions={this.props.postExecuteTransactions}
+              >
+                Confirm With Metamask
+              </TransactionButton>
+            </StyledSection>
+          </StyledCreateProposalContent>
+        </StyledChallengeProposalContainer>
+      </StyledCreateProposalOuter>,
+      this.bucket,
+    );
+  }
+}

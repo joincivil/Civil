@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { InputGroup } from "../input";
 import { TransactionButton } from "../TransactionButton";
 import {
@@ -21,6 +22,7 @@ import {
 } from "./textComponents";
 
 export interface CreateProposalProps {
+  pApplyLenText: string | JSX.Element;
   parameterDisplayName: string | JSX.Element;
   parameterCurrentValue: string;
   parameterDisplayUnits: string;
@@ -30,61 +32,79 @@ export interface CreateProposalProps {
   modalContentComponents?: any;
   handleClose(): void;
   handleUpdateProposalValue(name: string, value: string): void;
+  postExecuteTransactions?(): any;
 }
 
-export const CreateProposal: React.SFC<CreateProposalProps> = props => {
-  return (
-    <StyledCreateProposalOuter>
-      <StyledCreateProposalContainer>
-        <StyledCreateProposalHeader>
-          <CreateProposalHeaderText />
-          <StyledCreateProposalHeaderClose onClick={props.handleClose}>✖</StyledCreateProposalHeaderClose>
-        </StyledCreateProposalHeader>
+export class CreateProposal extends React.Component<CreateProposalProps> {
+  public bucket: HTMLDivElement = document.createElement("div");
 
-        <StyledCreateProposalContent>
-          <StyledSection>
-            <CreateProposalDescriptionText />
-          </StyledSection>
+  public componentDidMount(): void {
+    document.body.appendChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamNameLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterDisplayName}</StyledMetaValue>
-          </StyledSection>
+  public componentWillUnmount(): void {
+    document.body.removeChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamCurrentValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterCurrentValue}</StyledMetaValue>
-          </StyledSection>
+  public render(): React.ReactPortal {
+    return ReactDOM.createPortal(
+      <StyledCreateProposalOuter>
+        <StyledCreateProposalContainer>
+          <StyledCreateProposalHeader>
+            <CreateProposalHeaderText />
+            <StyledCreateProposalHeaderClose onClick={this.props.handleClose}>✖</StyledCreateProposalHeaderClose>
+          </StyledCreateProposalHeader>
 
-          <StyledSection>
-            <InputGroup
-              append={props.parameterDisplayUnits}
-              label="Enter proposed value"
-              placeholder="Enter a proposed value"
-              name="proposalValue"
-              value={props.parameterProposalValue}
-              onChange={props.handleUpdateProposalValue}
-              icon={<></>}
-            />
-          </StyledSection>
+          <StyledCreateProposalContent>
+            <StyledSection>
+              <CreateProposalDescriptionText applicationLenText={this.props.pApplyLenText} />
+            </StyledSection>
 
-          <StyledSection>
-            <MetaSingleLine>
+            <StyledSection>
               <StyledMetaName>
-                <CreateProposalTokenDepositText />
+                <CreateProposalParamNameLabelText />
               </StyledMetaName>
-              <StyledMetaValue>{props.proposalDeposit}</StyledMetaValue>
-            </MetaSingleLine>
-            <TransactionButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
-              Confirm With Metamask
-            </TransactionButton>
-          </StyledSection>
-        </StyledCreateProposalContent>
-      </StyledCreateProposalContainer>
-    </StyledCreateProposalOuter>
-  );
-};
+              <StyledMetaValue>{this.props.parameterDisplayName}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamCurrentValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterCurrentValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <InputGroup
+                append={this.props.parameterDisplayUnits}
+                label="Enter proposed value"
+                placeholder="Enter a proposed value"
+                name="proposalValue"
+                value={this.props.parameterProposalValue}
+                onChange={this.props.handleUpdateProposalValue}
+                icon={<></>}
+              />
+            </StyledSection>
+
+            <StyledSection>
+              <MetaSingleLine>
+                <StyledMetaName>
+                  <CreateProposalTokenDepositText />
+                </StyledMetaName>
+                <StyledMetaValue>{this.props.proposalDeposit}</StyledMetaValue>
+              </MetaSingleLine>
+              <TransactionButton
+                transactions={this.props.transactions!}
+                modalContentComponents={this.props.modalContentComponents}
+                postExecuteTransactions={this.props.postExecuteTransactions}
+              >
+                Confirm With Metamask
+              </TransactionButton>
+            </StyledSection>
+          </StyledCreateProposalContent>
+        </StyledCreateProposalContainer>
+      </StyledCreateProposalOuter>,
+      this.bucket,
+    );
+  }
+}

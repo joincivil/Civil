@@ -55,10 +55,15 @@ export const AppealVotePercentageLabelText: React.SFC = props => (
 // Create Proposal
 export const CreateProposalHeaderText: React.SFC = props => <>Propose New Value</>;
 
-export const CreateProposalDescriptionText: React.SFC = props => (
+export interface CreateProposalDescriptionTextProps {
+  applicationLenText: string | JSX.Element;
+}
+
+export const CreateProposalDescriptionText: React.SFC<CreateProposalDescriptionTextProps> = props => (
   <>
-    Create a new proposal to change a parameter value on The Civil Registry. The CVL token holder community will have 14
-    days to challenge the proposal. If there are no challenges, the new value will be automatically approved.
+    Create a new proposal to change a parameter value on The Civil Registry. The CVL token holder community will have{" "}
+    {props.applicationLenText} to challenge the proposal. If there are no challenges, the new value will be
+    automatically approved.
   </>
 );
 

@@ -20,7 +20,6 @@ export const StyledListingDetailPhaseCardContainer = styled.div`
 
 export interface StyledListingDetailPhaseCardSectionProps {
   bgAccentColor?: string;
-  padding?: string;
 }
 
 export const StyledListingDetailPhaseCardSection: StyledComponentClass<
@@ -31,7 +30,7 @@ export const StyledListingDetailPhaseCardSection: StyledComponentClass<
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   color: ${colors.primary.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
-  padding: ${props => (props.padding ? props.padding : "23px 40px 26px")};
+  padding: 23px 40px 26px;
   text-align: left;
 
   &:nth-child(1) {

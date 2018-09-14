@@ -223,14 +223,14 @@ export class TransactionButton extends React.Component<
 
     if (!!preExecuteTransactions) {
       extendedPreExecuteTransactions = (): void => {
-        preExecuteTransactions();
         this.showProgressModal();
+        preExecuteTransactions();
       };
     }
     if (!!postExecuteTransactions) {
       extendedPostExecuteTransactions = (): void => {
-        postExecuteTransactions();
         this.showProgressModalSuccess();
+        postExecuteTransactions();
       };
     }
 

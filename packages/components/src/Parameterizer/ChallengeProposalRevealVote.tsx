@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { PhaseWithExpiryProps, ChallengePhaseProps, RevealVoteProps } from "../ListingDetailPhaseCard/types";
 import { StyledPhaseKicker, StyledPhaseDisplayName } from "../ListingDetailPhaseCard/styledComponents";
 import { ChallengePhaseDetail } from "../ListingDetailPhaseCard/ChallengePhaseDetail";
@@ -13,7 +14,6 @@ import {
   StyledSection,
   StyledMetaName,
   StyledMetaValue,
-  SECTION_PADDING,
 } from "./styledComponents";
 import {
   CreateProposalParamNameLabelText,
@@ -28,6 +28,7 @@ export interface ChallengeProposalRevealVoteProps {
   transactions?: any[];
   modalContentComponents?: any;
   handleClose(): void;
+  postExecuteTransactions?(): any;
 }
 
 export type TChallengeProposalRevealVoteProps = ChallengeProposalRevealVoteProps &
@@ -35,70 +36,85 @@ export type TChallengeProposalRevealVoteProps = ChallengeProposalRevealVoteProps
   ChallengePhaseProps &
   RevealVoteProps;
 
-export const ChallengeProposalRevealVote: React.SFC<TChallengeProposalRevealVoteProps> = props => {
-  return (
-    <StyledCreateProposalOuter>
-      <StyledChallengeProposalContainer>
-        <StyledCreateProposalHeaderClose onClick={props.handleClose}>✖</StyledCreateProposalHeaderClose>
+export class ChallengeProposalRevealVote extends React.Component<TChallengeProposalRevealVoteProps> {
+  public bucket: HTMLDivElement = document.createElement("div");
 
-        <StyledCreateProposalContent>
-          <StyledSection>
-            <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
-            <StyledPhaseDisplayName>
-              <UnderChallengePhaseDisplayNameText />
-            </StyledPhaseDisplayName>
-            <TwoPhaseProgressBarCountdownTimer
-              endTime={props.endTime}
-              totalSeconds={props.phaseLength}
-              displayLabel="Accepting votes"
-              secondaryDisplayLabel="Confirming Votes"
-              flavorText="under challenge"
-              activePhaseIndex={0}
-            />
-          </StyledSection>
+  public componentDidMount(): void {
+    document.body.appendChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamNameLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterDisplayName}</StyledMetaValue>
-          </StyledSection>
+  public componentWillUnmount(): void {
+    document.body.removeChild(this.bucket);
+  }
 
-          <StyledSection>
-            <StyledMetaName>
-              <CreateProposalParamCurrentValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterCurrentValue}</StyledMetaValue>
-          </StyledSection>
+  public render(): React.ReactPortal {
+    return ReactDOM.createPortal(
+      <StyledCreateProposalOuter>
+        <StyledChallengeProposalContainer>
+          <StyledCreateProposalHeaderClose onClick={this.props.handleClose}>✖</StyledCreateProposalHeaderClose>
 
-          <StyledSection>
-            <StyledMetaName>
-              <ChallengeProposalNewValueLabelText />
-            </StyledMetaName>
-            <StyledMetaValue>{props.parameterProposalValue}</StyledMetaValue>
-          </StyledSection>
+          <StyledCreateProposalContent>
+            <StyledSection>
+              <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
+              <StyledPhaseDisplayName>
+                <UnderChallengePhaseDisplayNameText />
+              </StyledPhaseDisplayName>
+              <TwoPhaseProgressBarCountdownTimer
+                endTime={this.props.endTime}
+                totalSeconds={this.props.phaseLength}
+                displayLabel="Accepting votes"
+                secondaryDisplayLabel="Confirming Votes"
+                flavorText="under challenge"
+                activePhaseIndex={0}
+              />
+            </StyledSection>
 
-          <ChallengePhaseDetail
-            challengeID={props.challengeID}
-            challenger={props.challenger}
-            rewardPool={props.rewardPool}
-            stake={props.stake}
-            padding={SECTION_PADDING}
-          />
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamNameLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterDisplayName}</StyledMetaValue>
+            </StyledSection>
 
-          <StyledSection>
-            <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
-            <RevealVote
-              salt={props.salt}
-              onInputChange={props.onInputChange}
-              transactions={props.transactions}
-              modalContentComponents={props.modalContentComponents}
-            >
-              Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
-            </RevealVote>
-          </StyledSection>
-        </StyledCreateProposalContent>
-      </StyledChallengeProposalContainer>
-    </StyledCreateProposalOuter>
-  );
-};
+            <StyledSection>
+              <StyledMetaName>
+                <CreateProposalParamCurrentValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterCurrentValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <StyledMetaName>
+                <ChallengeProposalNewValueLabelText />
+              </StyledMetaName>
+              <StyledMetaValue>{this.props.parameterProposalValue}</StyledMetaValue>
+            </StyledSection>
+
+            <StyledSection>
+              <ChallengePhaseDetail
+                challengeID={this.props.challengeID}
+                challenger={this.props.challenger}
+                rewardPool={this.props.rewardPool}
+                stake={this.props.stake}
+              />
+            </StyledSection>
+
+            <StyledSection>
+              <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
+              <RevealVote
+                salt={this.props.salt}
+                onInputChange={this.props.onInputChange}
+                transactions={this.props.transactions}
+                modalContentComponents={this.props.modalContentComponents}
+                postExecuteTransactions={this.props.postExecuteTransactions}
+              >
+                Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
+              </RevealVote>
+            </StyledSection>
+          </StyledCreateProposalContent>
+        </StyledChallengeProposalContainer>
+      </StyledCreateProposalOuter>,
+      this.bucket,
+    );
+  }
+}

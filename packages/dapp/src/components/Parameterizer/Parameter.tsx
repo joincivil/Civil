@@ -13,6 +13,7 @@ export interface ParameterProps {
   parameterName: string;
   parameterDisplayName: string | JSX.Element;
   parameterValue: BigNumber;
+  canShowCreateProposal: boolean;
   handleCreateProposal(paramName: string, currentValue: string): void;
   handleProposalAction(paramName: string, currentValue: string, newValue: string, proposal: any): void;
 }
@@ -30,7 +31,7 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
         <Td accent padding={0}>
           <Table borderWidth="0" width="100%">
             <tbody>
-              {this.renderCreateProposalAction()}
+              {this.props.canShowCreateProposal && this.renderCreateProposalAction()}
               {!!this.props.parameterProposals.count() && this.renderProposals()}
             </tbody>
           </Table>
