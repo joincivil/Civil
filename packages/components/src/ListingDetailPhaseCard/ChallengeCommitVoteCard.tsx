@@ -27,6 +27,8 @@ import {
   CommitVoteAlreadyVotedCopyText,
   CommitVoteCalloutButtonText,
   UnderChallengeToolTipText,
+  CommitVoteToolTipText,
+  ConfirmVoteToolTipText
 } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
@@ -69,7 +71,9 @@ export class ChallengeCommitVoteCard extends React.Component<
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Accepting votes"
+                  toolTipText={<CommitVoteToolTipText />}
                   secondaryDisplayLabel="Confirming Votes"
+                  secondaryToolTipText={<ConfirmVoteToolTipText />}
                   flavorText="under challenge"
                   activePhaseIndex={0}
                 />

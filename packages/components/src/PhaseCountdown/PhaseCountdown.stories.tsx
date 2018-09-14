@@ -80,7 +80,9 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={shortTotalSeconds}
               flavorText={flavorText}
               displayLabel="Committing Votes"
+              toolTipText="Tool Tip text for Committing Votes"
               secondaryDisplayLabel="Revealing Votes"
+              secondaryToolTipText="Tool Tip text for Revealing Votes"
               activePhaseIndex={0}
             />
 
@@ -90,7 +92,9 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={shortTotalSeconds}
               flavorText={flavorText}
               displayLabel="Revealing Votes"
+              toolTipText="Tool Tip text for Revealing Votes"
               secondaryDisplayLabel="Committing Votes"
+              secondaryToolTipText="Tool Tip text for Committing Votes"
               activePhaseIndex={1}
             />
           </>

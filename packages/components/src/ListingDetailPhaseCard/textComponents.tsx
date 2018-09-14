@@ -108,35 +108,6 @@ export const UnderChallengeToolTipText: React.SFC = props => {
   );
 };
 
-export const CommitVoteToolTipText: React.SFC = props => {
-  return (
-    <>
-      <ToolTipHdr>Commit tokens to cast a secret vote</ToolTipHdr>
-      <ToolTipItalic>Time duration: 10 days</ToolTipItalic>
-      <p>
-        Decide how many tokens you would like to put towards this vote. Note that the more tokens you include, the more
-        power your vote carries. You can never lose your vote, but you will not be able to withdraw them until the end
-        of the voting process. All votes will be hidden, using a secret phrase, until the end of the voting period. You
-        have to come back and confirm your vote for it to count.
-      </p>
-    </>
-  );
-};
-
-export const ConfirmVoteToolTipText: React.SFC = props => {
-  return (
-    <>
-      <ToolTipHdr>Finalize vote using secret phrase</ToolTipHdr>
-      <ToolTipItalic>Time duration: 7 days</ToolTipItalic>
-      <p>
-        Voters must enter the secret phrase they received during the commit vote stage of the process in order to
-        confirm their vote. Votes can not be counted and rewards can not be claimed unless voters confirm their earlier
-        vote.
-      </p>
-    </>
-  );
-};
-
 export const WhitelistedNewroomsToolTipText: React.SFC = props => {
   return (
     <>
@@ -173,6 +144,47 @@ export const ResolveChallengeToolTipText: React.SFC = props => {
         Challenge results are in, and any CVL token holder may resolve this challenge. When this is resolved, Newsroom
         will be listed or delisted from The Civil Registry. Please note that this requires paying some Ethereum gas to
         complete.
+      </p>
+    </>
+  );
+};
+
+export const CommitVoteToolTipText: React.SFC = props => {
+  return (
+    <>
+      <ToolTipHdr>Commit tokens to cast a secret vote</ToolTipHdr>
+      <ToolTipItalic>Time duration: 10 days</ToolTipItalic>
+      <p>
+        Decide how many tokens you would like to put towards this vote. Note that the more tokens you include, the more
+        power your vote carries. You can never lose your vote, but you will not be able to withdraw them until the end
+        of the voting process. All votes will be hidden, using a secret phrase, until the end of the voting period. You
+        have to come back and confirm your vote for it to count.
+      </p>
+    </>
+  );
+};
+
+export const ConfirmVoteToolTipText: React.SFC = props => {
+  return (
+    <>
+      <ToolTipHdr>Finalize vote using secret phrase</ToolTipHdr>
+      <ToolTipItalic>Time duration: 7 days</ToolTipItalic>
+      <p>
+        Voters must enter the secret phrase they received during the commit vote stage of the process in order to
+        confirm their vote. Votes can not be counted and rewards can not be claimed unless voters confirm their earlier
+        vote.
+      </p>
+    </>
+  );
+};
+
+export const RevealVoteToolTipText: React.SFC = props => {
+  return (
+    <>
+      <ToolTipHdr>Reveal Vote</ToolTipHdr>
+      <ToolTipItalic>Time duration: </ToolTipItalic>
+      <p>
+        TKTK
       </p>
     </>
   );

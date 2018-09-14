@@ -21,6 +21,7 @@ import {
   FormCopy,
   FullWidthButton,
 } from "./styledComponents";
+import { CommitVoteToolTipText, RevealVoteToolTipText } from "./textComponents";
 import { buttonSizes } from "../Button";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
@@ -64,7 +65,9 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Revealing votes"
+                  toolTipText={<RevealVoteToolTipText />}
                   secondaryDisplayLabel="Accepting votes"
+                  secondaryToolTipText={<CommitVoteToolTipText />}
                   flavorText="under challenge"
                   activePhaseIndex={1}
                 />

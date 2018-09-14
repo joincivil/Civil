@@ -50,8 +50,12 @@ export const TwoPhaseProgressBarContainer = styled.div`
   }
 
   ${ProgressBarDisplayLabel} {
+    color: ${colors.primary.CIVIL_GRAY_2};
     font-size: 12px;
+    font-weight: 700;
     line-height: 15px;
+    margin: 0 0 7px;
+    text-transform: uppercase;
   }
 `;
 
