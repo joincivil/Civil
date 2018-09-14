@@ -12,7 +12,7 @@
     "@joincivil/typescript-types": "^1.0.2",
     "@joincivil/utils": "^1.5.0",
     "@types/highlight.js": "^9.12.2",
-    "@types/react-redux": "^5.0.19",
+    "@types/react-redux": "^6.0.8",
     "@types/redux": "^3.6.0",
     "@types/sanitize-html": "^1.14.0",
     "@types/storejs": "^2.0.2",
