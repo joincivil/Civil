@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/editor",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Editor for civil formatted articles",
   "main": "build/index.js",
   "license": "Apache-2.0",
