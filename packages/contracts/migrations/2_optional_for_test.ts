@@ -1,7 +1,7 @@
 /* global artifacts */
 
 import BN from "bignumber.js";
-
+import { config } from "./utils";
 import { MAIN_NETWORK, RINKEBY } from "./utils/consts";
 
 const Token = artifacts.require("EIP20");
@@ -14,6 +14,7 @@ if (teammates) {
   teammatesSplit = teammates!.split(",");
 }
 module.exports = (deployer: any, network: string, accounts: string[]) => {
+  teammatesSplit = teammatesSplit.concat(config.nets[network].tokenHolders);
   const totalSupply = new BN("1000000000000000000000000", BASE_10);
   const decimals = "18";
 
