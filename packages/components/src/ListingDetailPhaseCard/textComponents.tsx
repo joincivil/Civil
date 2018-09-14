@@ -207,3 +207,49 @@ export const DepositsToolTipText: React.SFC = props => {
     </>
   );
 };
+
+export const WaitingApprovalToolTipText: React.SFC = props => {
+  return (
+    <>
+      <ToolTipItalic>Time duration: </ToolTipItalic>
+      <p>
+        TKTK
+      </p>
+    </>
+  );
+};
+
+export const RequestAppealToolTipText: React.SFC = props => {
+  return (
+    <>
+      <ToolTipItalic>Time duration: 5 days</ToolTipItalic>
+      <p>
+        CVL token holders, (including newsrooms or challengers) can appeal a vote outcome if they believe it is not in keeping with the Civil Constitution. This system of checks and balances ensures that all voices and perspectives have an opportunity to be heard in the Civil community.
+      </p>
+    </>
+  );
+};
+
+export const WaitingCouncilDecisionToolTipText: React.SFC = props => {
+  return (
+    <>
+      <ToolTipItalic>Time duration: 14 days</ToolTipItalic>
+      <p>
+        After The Civil Council reaches a decision on the appeal, they will publish a document explaining their choice and citing the section of the Civil Constitution they used to reach their decision. This system of checks and balances ensures that all voices and views have an opportunity to be heard in the Civil community.
+      </p>
+    </>
+  );
+};
+
+export const ChallangeCouncilToolTipText: React.SFC = props => {
+  return (
+    <>
+      <ToolTipItalic>Time duration: 7 days</ToolTipItalic>
+      <p>
+        The challenger must submit a statement with evidence to make their case, and deposit CVL tokens equal to the amount of the Newsroom's deposit. The CVL token deposit for the challenge is set aside for the duration of the challenge process, like an escrow account.  
+      </p>
+    </>
+  );
+};
+
+

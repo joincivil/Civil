@@ -6,7 +6,7 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
-import { NewApplicationDisplayNameText, NewApplicationToolTipText } from "./textComponents";
+import { NewApplicationDisplayNameText, NewApplicationToolTipText, WaitingApprovalToolTipText } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
@@ -27,6 +27,7 @@ export class InApplicationCard extends React.Component<
             endTime={this.props.endTime}
             totalSeconds={this.props.phaseLength}
             displayLabel="Waiting for approval"
+            toolTipText={<WaitingApprovalToolTipText />}
             flavorText="under community review"
           />
         </StyledListingDetailPhaseCardSection>

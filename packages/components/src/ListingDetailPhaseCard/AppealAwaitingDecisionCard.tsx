@@ -13,6 +13,7 @@ import {
   MetaItemValueLong,
   MetaItemLabel,
 } from "./styledComponents";
+import { WaitingCouncilDecisionToolTipText } from "./textComponents";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
@@ -49,6 +50,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Waiting for Council's decision"
+          toolTipText={<WaitingCouncilDecisionToolTipText />}
           flavorText="under Appeal to Council"
         />
       </StyledListingDetailPhaseCardSection>

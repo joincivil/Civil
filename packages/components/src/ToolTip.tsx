@@ -41,13 +41,13 @@ const Tip = styled.div`
   &:after {
     content: "";
     position: absolute;
-    left: calc(50% - 5px);
+    left: calc(50% - 3px);
     top: 100%;
     width: 0;
     height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 10px solid rgba(21, 21, 21, 0.9);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid rgba(21, 21, 21, 0.9);
   }
 `;
 // z-index to compete with wp
@@ -62,7 +62,7 @@ const HitBox = styled.div`
   width: 260px;
   height: 50px;
   bottom: 0;
-  left: -81px;
+  left: -130px;
   border-radius: 50%;
   background-color: transparent;
 `;

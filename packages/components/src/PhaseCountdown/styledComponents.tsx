@@ -6,10 +6,12 @@ export const ProgressBarCountdownContainer = styled.div`
   margin-bottom: 24px;
 `;
 export const ProgressBarDisplayLabel = styled.h4`
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 19px;
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
   margin: 0 0 7px;
+  text-transform: uppercase;
 `;
 export const ProgressBarBase = styled.div`
   height: 12px;
@@ -47,15 +49,6 @@ export const TwoPhaseProgressBarContainer = styled.div`
     border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
     margin-left: 0;
     padding-right: 4%;
-  }
-
-  ${ProgressBarDisplayLabel} {
-    color: ${colors.primary.CIVIL_GRAY_2};
-    font-size: 12px;
-    font-weight: 700;
-    line-height: 15px;
-    margin: 0 0 7px;
-    text-transform: uppercase;
   }
 `;
 

@@ -7,7 +7,7 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
-import { UnderChallengePhaseDisplayNameText, UnderChallengeToolTipText } from "./textComponents";
+import { UnderChallengePhaseDisplayNameText, UnderChallengeToolTipText, RequestAppealToolTipText } from "./textComponents";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
@@ -30,6 +30,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Accepting Appeal Requests"
+          toolTipText={<RequestAppealToolTipText />}
           flavorText="under challenge"
         />
       </StyledListingDetailPhaseCardSection>

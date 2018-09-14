@@ -52,6 +52,7 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={shortTotalSeconds}
               flavorText={flavorText}
               displayLabel="Waiting for approval"
+              toolTipText="Tool Tip for label"
             />
 
             <h3>A Long Phase</h3>
@@ -60,6 +61,7 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={totalSeconds}
               flavorText={flavorText}
               displayLabel="Waiting for approval"
+              toolTipText="Tool Tip for label"
             />
           </>
         )}
