@@ -174,7 +174,9 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public isDisabled(): boolean {
-    return !this.props.civil || !this.state.currentAccount || this.props.requiredNetwork !== this.state.currentNetwork;
+    return (
+      !this.props.civil || !this.state.currentAccount || !this.props.requiredNetwork.includes(this.state.currentNetwork)
+    );
   }
 
   public renderNoMetaMask(): JSX.Element {

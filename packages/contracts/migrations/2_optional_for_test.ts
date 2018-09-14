@@ -23,7 +23,10 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     let allocation;
     allocation = totalSupply.div(new BN(originalCount, BASE_10));
     console.log("give " + allocation + " tokens to: " + user);
-    await token.transfer(user, allocation);
+    token.transfer(user, allocation);
+    if (!accounts.includes(user)) {
+      web3.eth.sendTransaction({ from: accounts[0], to: user, value: web3.toWei(1, "ether") });
+    }
 
     if (addresses.length === 1) {
       return true;
@@ -38,7 +41,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       }
     } else if (network !== MAIN_NETWORK) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      return giveTokensTo(accounts, accounts.length);
+      const allAccounts = accounts.concat(teammatesSplit);
+      return giveTokensTo(allAccounts, allAccounts.length);
     }
   });
 };
