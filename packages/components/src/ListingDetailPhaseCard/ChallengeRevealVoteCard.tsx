@@ -19,7 +19,12 @@ import {
   FormCopy,
   FullWidthButton,
 } from "./styledComponents";
-import { UnderChallengePhaseDisplayNameText, UnderChallengeToolTipText, CommitVoteToolTipText, RevealVoteToolTipText } from "./textComponents";
+import {
+  UnderChallengePhaseDisplayNameText,
+  UnderChallengeToolTipText,
+  CommitVoteToolTipText,
+  RevealVoteToolTipText,
+} from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";

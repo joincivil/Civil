@@ -7,7 +7,7 @@ import {
   NavDrawerBalanceText,
   NavDrawerTotalBalanceText,
   NavDrawerVotingBalanceText,
-  NavDrawerVotingBalanceTollTipText,
+  NavDrawerVotingBalanceToolTipText,
   NavDrawerCopyBtnText,
   NavDrawerBuyCvlBtnText,
   NavDrawerDashboardText,
@@ -148,7 +148,7 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerVotingBalanceText />
-              <QuestionToolTip explainerText={<NavDrawerVotingBalanceTollTipText />} />
+              <QuestionToolTip explainerText={<NavDrawerVotingBalanceToolTipText />} />
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
               <NavDrawerCvlBalance>{this.props.votingBalance}</NavDrawerCvlBalance>

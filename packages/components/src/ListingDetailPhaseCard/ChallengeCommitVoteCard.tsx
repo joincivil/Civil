@@ -28,7 +28,7 @@ import {
   CommitVoteCalloutButtonText,
   UnderChallengeToolTipText,
   CommitVoteToolTipText,
-  ConfirmVoteToolTipText
+  ConfirmVoteToolTipText,
 } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
