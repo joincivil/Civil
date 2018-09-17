@@ -91,8 +91,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   @dev                Allows a user to start an application. Takes tokens from user and sets
                       apply stage end time.
   @param listingAddress The hash of a potential listing a user is applying to add to the registry
-  @param _amount      The number of ERC20 tokens a user is willing to potentially stake
-  @param _data        Extra data relevant to the application. Think IPFS hashes.
+  @param amount      The number of ERC20 tokens a user is willing to potentially stake
+  @param data        Extra data relevant to the application. Think IPFS hashes.
   */
   function apply(address listingAddress, uint amount, string data) public {
     super.apply(listingAddress, amount, data);
