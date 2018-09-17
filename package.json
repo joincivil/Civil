@@ -8,6 +8,7 @@
     "build": "lerna run build --sort",
     "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint --parallel",
+    "build:core": "lerna run --scope @joincivil/core build",
     "coverage": "lerna run coverage --parallel",
     "coverage:submit": "lcov-result-merger 'packages/*/coverage/lcov.info' | coveralls",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
@@ -17,8 +18,11 @@
     "prepare": "lerna run prepare --no-sort",
     "ganache": "run-p ganache:raw 'lerna:run --scope @joincivil/contracts migrate:ganache'",
     "ganache:raw": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
+    "migrate": "lerna run --scope @joincivil/contracts migrate:ganache",
     "serve:dapp": "cd ./packages/dapp && serve -s build",
-    "publish:docs": "ncp ./packages/dapp/build/ ./docs/"
+    "publish:docs": "ncp ./packages/dapp/build/ ./docs/",
+    "publish:artifacts": "ncp ./packages/contracts/build/artifacts/CivilTCR.json ./packages/core/src/artifacts/CivilTCR.json && ncp ./packages/contracts/build/artifacts/CivilPLCRVoting.json ./packages/core/src/artifacts/CivilPLCRVoting.json && ncp ./packages/contracts/build/artifacts/CivilParameterizer.json ./packages/core/src/artifacts/CivilParameterizer.json && ncp ./packages/contracts/build/artifacts/EIP20.json ./packages/core/src/artifacts/EIP20.json && ncp ./packages/contracts/build/artifacts/EventStorage.json ./packages/core/src/artifacts/EventStorage.json && ncp ./packages/contracts/build/artifacts/Government.json ./packages/core/src/artifacts/Government.json && ncp ./packages/contracts/build/artifacts/MultiSigWallet.json ./packages/core/src/artifacts/MultiSigWallet.json && ncp ./packages/contracts/build/artifacts/Newsroom.json ./packages/core/src/artifacts/Newsroom.json && ncp ./packages/contracts/build/artifacts/NewsroomFactory.json ./packages/core/src/artifacts/NewsroomFactory.json",
+    "preparelocally": "run-s migrate publish:artifacts build:core"
   },
   "config": {
     "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"

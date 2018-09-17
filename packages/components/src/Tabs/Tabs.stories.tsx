@@ -94,4 +94,18 @@ storiesOf("Tabs", module)
         </Tab>
       </Tabs>
     );
+  })
+  .add("Tabs with before/after elements in nav", () => {
+    const before = <span>before!</span>;
+    const after = <span>after!</span>;
+    return (
+      <Tabs TabsNavBefore={before} TabsNavAfter={after}>
+        <Tab title="Index">
+          <p>Some Content</p>
+        </Tab>
+        <Tab title="Sign">
+          <p>Some other Content</p>
+        </Tab>
+      </Tabs>
+    );
   });
