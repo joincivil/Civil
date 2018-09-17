@@ -7,7 +7,6 @@ const Wrapper = styled.div`
   width: 18px;
   height: 18px;
   position: relative;
-  display: inline-block;
   margin-left: 5px;
   margin-top: -1px;
 `;

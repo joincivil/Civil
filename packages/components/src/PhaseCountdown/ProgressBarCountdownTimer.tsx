@@ -25,7 +25,7 @@ export class ProgressBarCountdownTimerComponent extends React.Component<
         <ProgressBarCountdownContainer>
           <ProgressBarDisplayLabel>
             {this.props.displayLabel}
-            <QuestionToolTip explainerText={this.props.toolTipText} />
+            <QuestionToolTip explainerText={this.props.toolTipText} positionBottom={true} />
           </ProgressBarDisplayLabel>
           <ProgressBarCountdownTotal>
             <ProgressBarCountdownProgress style={style} />

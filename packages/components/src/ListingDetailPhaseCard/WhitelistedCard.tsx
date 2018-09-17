@@ -33,7 +33,7 @@ export const WhitelistedCard: React.StatelessComponent<
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseDisplayName>
           <WhitelistedNewroomsDisplayNameText />
-          <QuestionToolTip explainerText={<WhitelistedNewroomsToolTipText />} />
+          <QuestionToolTip explainerText={<WhitelistedNewroomsToolTipText />} positionBottom={true} />
         </StyledPhaseDisplayName>
         <MetaItemLabel>Approved date</MetaItemLabel>
         <MetaItemValue>{displayDateTime}</MetaItemValue>

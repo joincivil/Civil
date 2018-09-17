@@ -49,7 +49,7 @@ export class TwoPhaseProgressBarCountdownTimerComponent extends React.Component<
       <ProgressBarCountdownContainer>
         <ProgressBarDisplayLabel>
           {this.props.displayLabel}
-          <QuestionToolTip explainerText={this.props.toolTipText} />
+          <QuestionToolTip explainerText={this.props.toolTipText} positionBottom={true} />
         </ProgressBarDisplayLabel>
         <ProgressBarCountdownTotal>
           <ProgressBarCountdownProgress style={style} />
@@ -65,7 +65,7 @@ export class TwoPhaseProgressBarCountdownTimerComponent extends React.Component<
       <ProgressBarCountdownContainer>
         <ProgressBarDisplayLabel>
           {this.props.secondaryDisplayLabel}
-          <QuestionToolTip explainerText={this.props.secondaryToolTipText} />
+          <QuestionToolTip explainerText={this.props.secondaryToolTipText} positionBottom={true} />
         </ProgressBarDisplayLabel>
         <ProgressBarCountdownTotal>
           <ProgressBarCountdownProgress style={style} />

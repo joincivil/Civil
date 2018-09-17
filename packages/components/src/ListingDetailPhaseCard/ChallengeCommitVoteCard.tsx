@@ -65,7 +65,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <StyledPhaseDisplayName>
                   <UnderChallengePhaseDisplayNameText />
-                  <QuestionToolTip explainerText={<UnderChallengeToolTipText />} />
+                  <QuestionToolTip explainerText={<UnderChallengeToolTipText />} positionBottom={true} />
                 </StyledPhaseDisplayName>
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
