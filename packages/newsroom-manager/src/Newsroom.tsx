@@ -180,7 +180,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       this.props.disabled ||
       !this.props.civil ||
-      this.props.currentNetwork !== this.props.requiredNetwork ||
+      !this.props.requiredNetwork!.includes(this.props.currentNetwork!) ||
       !this.props.account
     );
   };

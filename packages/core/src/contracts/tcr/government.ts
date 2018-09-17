@@ -46,7 +46,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * Gets an unending stream of parameters being set
    */
   public getParameterSet(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<Param> {
-    return this.instance.ParameterSetStream({}, { fromBlock }).map(e => {
+    return this.instance._ParameterSetStream({}, { fromBlock }).map(e => {
       return {
         paramName: e.args.name,
         value: e.args.value,

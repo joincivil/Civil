@@ -40,7 +40,7 @@ class CreateNewsroom extends React.Component<
             onNewsroomCreated={this.onCreated}
             account={this.props.userAccount}
             currentNetwork={this.props.networkName}
-            requiredNetwork="rinkeby"
+            requiredNetwork="rinkeby|ganache"
             theme={DEFAULT_BUTTON_THEME}
           />
         </ViewModule>
