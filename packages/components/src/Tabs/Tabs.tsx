@@ -8,6 +8,8 @@ export interface TabsProps {
   children: Array<React.ReactElement<TabProps>>;
   TabComponent?: any;
   TabsNavComponent?: any;
+  TabsNavBefore?: React.ReactElement<any>;
+  TabsNavAfter?: React.ReactElement<any>;
   onActiveTabChange?(activeIndex: number): void;
 }
 
@@ -16,7 +18,7 @@ export interface TabsState {
 }
 
 const StyledNav = styled.nav`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_3};
 `;
 
 const TabContainer = styled.ul`
@@ -61,10 +63,18 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
 
   public render(): JSX.Element {
     const TabsNavComponent = this.props.TabsNavComponent || StyledNav;
+    const TabComponentOrnamental = styled(this.props.TabComponent || "span")`
+      cursor: default;
+    `;
+
     return (
       <div>
         <TabsNavComponent>
-          <TabContainer>{this.renderTabs()}</TabContainer>
+          <TabContainer>
+            {this.props.TabsNavBefore && <TabComponentOrnamental>{this.props.TabsNavBefore}</TabComponentOrnamental>}
+            {this.renderTabs()}
+            {this.props.TabsNavAfter && <TabComponentOrnamental>{this.props.TabsNavAfter}</TabComponentOrnamental>}
+          </TabContainer>
         </TabsNavComponent>
         <div>{this.renderContent()}</div>
       </div>
