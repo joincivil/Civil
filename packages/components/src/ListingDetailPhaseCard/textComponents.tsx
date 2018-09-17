@@ -206,15 +206,6 @@ export const DepositsToolTipText: React.SFC = props => {
   );
 };
 
-export const WaitingApprovalToolTipText: React.SFC = props => {
-  return (
-    <>
-      <ToolTipItalic>Time duration: </ToolTipItalic>
-      <p>TKTK</p>
-    </>
-  );
-};
-
 export const RequestAppealToolTipText: React.SFC = props => {
   return (
     <>
