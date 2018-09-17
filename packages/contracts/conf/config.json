@@ -28,18 +28,14 @@
   "nets": {
     "mainnet": {},
     "rinkeby": {
-      "TokenAddress": "0x242ac20e7134ba2e7b7db2756b208fdf7765cdfa",
       "AppellateAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
       "GovernmentControllerAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
       "tokenHolders": []
     },
     "ganache": {
-      "tokenHolders": [
-        "0xcec56f1d4dc439e298d5f8b6ff3aa6be58cd6fdf",
-        "0xE562D05067edEd7a722Ed73b9EbFAAedc60970a1",
-        "0x5385A3a9a1468b7D900A93E6f21E903E30928764",
-        "0x8c722b8ac728add7780a66017e8dadba530ee261"
-      ]
+      "tokenHolders": ["0xcec56f1d4dc439e298d5f8b6ff3aa6be58cd6fdf", "0xbf9059ddf9e1954e0956f41bc757c411be602560"],
+      "AppellateAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
+      "GovernmentControllerAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf"
     }
   }
 }

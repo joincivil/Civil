@@ -1,7 +1,7 @@
 /* global artifacts */
 
 import BN from "bignumber.js";
-
+import { config } from "./utils";
 import { MAIN_NETWORK, RINKEBY } from "./utils/consts";
 
 const Token = artifacts.require("EIP20");
@@ -23,7 +23,10 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     let allocation;
     allocation = totalSupply.div(new BN(originalCount, BASE_10));
     console.log("give " + allocation + " tokens to: " + user);
-    await token.transfer(user, allocation);
+    token.transfer(user, allocation);
+    if (!accounts.includes(user)) {
+      web3.eth.sendTransaction({ from: accounts[0], to: user, value: web3.toWei(1, "ether") });
+    }
 
     if (addresses.length === 1) {
       return true;
@@ -33,12 +36,14 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
     if (network === RINKEBY) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
+      const allAccounts = teammatesSplit.concat(config.nets[network].tokenHolders);
       if (teammatesSplit) {
-        return giveTokensTo(teammatesSplit, teammatesSplit.length);
+        return giveTokensTo(allAccounts, allAccounts.length);
       }
     } else if (network !== MAIN_NETWORK) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      return giveTokensTo(accounts, accounts.length);
+      const allAccounts = accounts.concat(config.nets[network].tokenHolders);
+      return giveTokensTo(allAccounts, allAccounts.length);
     }
   });
 };
