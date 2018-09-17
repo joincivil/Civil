@@ -23,8 +23,8 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     let allocation;
     allocation = totalSupply.div(new BN(originalCount, BASE_10));
     console.log("give " + allocation + " tokens to: " + user);
-    token.transfer(user, allocation);
-    if (!accounts.includes(user)) {
+    await token.transfer(user, allocation);
+    if (network === "ganache" && !accounts.includes(user)) {
       web3.eth.sendTransaction({ from: accounts[0], to: user, value: web3.toWei(1, "ether") });
     }
 
