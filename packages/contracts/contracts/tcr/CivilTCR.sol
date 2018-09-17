@@ -94,8 +94,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param _amount      The number of ERC20 tokens a user is willing to potentially stake
   @param _data        Extra data relevant to the application. Think IPFS hashes.
   */
-  function apply(address listingAddress, uint _amount, string _data) public {
-    super.apply(listingAddress, _amount, _data);
+  function apply(address listingAddress, uint amount, string data) public {
+    super.apply(listingAddress, amount, data);
     telemetry.onTokensUsed(msg.sender, parameterizer.get("minDeposit"));
   }
 
