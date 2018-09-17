@@ -26,7 +26,7 @@ const TipContainer = styled.div`
 
 const Tip = styled.div`
   position: absolute;
-  ${(props: TipProps) => (props.positionBottom ? 'top: 30px' : 'bottom: 10px')};
+  ${(props: TipProps) => (props.positionBottom ? "top: 30px" : "bottom: 10px")};
   left: 0;
   width: 260px;
   color: ${colors.basic.WHITE};
@@ -43,13 +43,13 @@ const Tip = styled.div`
     content: "";
     position: absolute;
     left: calc(50% - 3px);
-    top: ${(props: TipProps) => (props.positionBottom ? '-6px' : '100%')};
+    top: ${(props: TipProps) => (props.positionBottom ? "-6px" : "100%")};
     width: 0;
     height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 6px solid rgba(21, 21, 21, 0.9);
-    transform: ${(props: TipProps) => (props.positionBottom ? 'rotate(180deg)' : 'rotate(0)')};
+    transform: ${(props: TipProps) => (props.positionBottom ? "rotate(180deg)" : "rotate(0)")};
   }
 `;
 // z-index to compete with wp
@@ -82,19 +82,16 @@ export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {
     let tip = null;
     let hitBox = null;
     if (this.state.open) {
-      tip = 
+      tip = (
         <TipContainer>
           <Tip positionBottom={this.props.positionBottom}>{this.props.explainerText}</Tip>
         </TipContainer>
-      ;
+      );
       hitBox = <HitBox />;
     }
 
     return (
-      <Wrapper
-        onMouseLeave={this.onMouseLeave}
-        onMouseEnter={this.onMouseEnter}
-      >
+      <Wrapper onMouseLeave={this.onMouseLeave} onMouseEnter={this.onMouseEnter}>
         {tip}
         {hitBox}
         {this.props.children}
