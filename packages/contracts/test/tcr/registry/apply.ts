@@ -44,9 +44,11 @@ contract("AddressRegistry", accounts => {
     });
 
     it("should fail if deposit is less than minimum required", async () => {
-      await expect(
-        registry.apply(listing1, utils.paramConfig.minDeposit - 1, "", { from: applicant }),
-      ).to.eventually.be.rejectedWith(REVERTED, "should not have allowed application with deposit less than minimum");
+      const deposit = new BN(utils.paramConfig.minDeposit).sub(1);
+      await expect(registry.apply(listing1, deposit.toString(), "", { from: applicant })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "should not have allowed application with deposit less than minimum",
+      );
     });
 
     it("should not allow a listing to apply which has a pending application", async () => {
