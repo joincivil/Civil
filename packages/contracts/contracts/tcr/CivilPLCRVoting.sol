@@ -13,12 +13,12 @@ contract CivilPLCRVoting is PLCRVoting {
 
   /**
   @dev Initializer. Can only be called once.
-  @param _token The address where the ERC20 token contract is deployed
-  @param _telemetry The address where the TokenTelemetry contract is deployed
+  @param tokenAddr The address where the ERC20 token contract is deployed
+  @param telemetryAddr The address where the TokenTelemetry contract is deployed
   */
-  constructor(address _token, address _telemetry) public PLCRVoting(_token) {
-    require(_telemetry != 0);
-    telemetry = TokenTelemetryI(_telemetry);
+  constructor(address tokenAddr, address telemetryAddr) public PLCRVoting(tokenAddr) {
+    require(telemetryAddr != 0);
+    telemetry = TokenTelemetryI(telemetryAddr);
   }
 
   /**

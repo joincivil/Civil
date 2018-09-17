@@ -5,19 +5,19 @@ import "../installed_contracts/Parameterizer.sol";
 contract CivilParameterizer is Parameterizer {
 
   /**
-  @param _token           The address where the ERC20 token contract is deployed
-  @param _plcr            address of a PLCR voting contract for the provided token
-  @notice _parameters     array of canonical parameters
+  @param tokenAddr           The address where the ERC20 token contract is deployed
+  @param plcrAddr            address of a PLCR voting contract for the provided token
+  @notice parameters     array of canonical parameters
   */
   constructor(
-    address _token,
-    address _plcr,
-    uint[] _parameters
-  ) public Parameterizer(_token, _plcr, _parameters)
+    address tokenAddr,
+    address plcrAddr,
+    uint[] parameters
+  ) public Parameterizer(tokenAddr, plcrAddr, parameters)
   {
-    set("challengeAppealLen", _parameters[12]);
-    set("challengeAppealCommitLen", _parameters[13]);
-    set("challengeAppealRevealLen", _parameters[14]);
+    set("challengeAppealLen", parameters[12]);
+    set("challengeAppealCommitLen", parameters[13]);
+    set("challengeAppealRevealLen", parameters[14]);
   }
 }
 

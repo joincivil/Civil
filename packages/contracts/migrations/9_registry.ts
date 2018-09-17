@@ -1,7 +1,7 @@
 /* global artifacts */
 
 import { approveEverything, config, inTesting } from "./utils";
-import { RINKEBY } from "./utils/consts";
+import { MAIN_NETWORK } from "./utils/consts";
 
 const Token = artifacts.require("EIP20");
 const DLL = artifacts.require("DLL");
@@ -18,7 +18,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(AttributeStore, CivilTCR);
 
     let tokenAddress;
-    if (network === RINKEBY) {
+    if (network === MAIN_NETWORK) {
       tokenAddress = config.nets[network].TokenAddress;
     } else {
       tokenAddress = Token.address;
