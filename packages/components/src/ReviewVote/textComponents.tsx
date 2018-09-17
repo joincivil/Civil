@@ -82,7 +82,10 @@ export const SaltPhraseToolTipText: React.SFC = props => {
   return (
     <>
       <p>You were given a four-letter secret phrase when you committed your vote earlier. Please reenter it here.</p>
-      <p>Note that  you may have saved your secret phrase in your calendar event or written down for safekeeping. If you lose your secret phrase, your vote is lost. Unfortunately, we can not recover it for you.</p>
+      <p>
+        Note that you may have saved your secret phrase in your calendar event or written down for safekeeping. If you
+        lose your secret phrase, your vote is lost. Unfortunately, we can not recover it for you.
+      </p>
     </>
   );
 };

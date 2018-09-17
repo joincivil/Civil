@@ -23,7 +23,7 @@ import {
   UnderChallengePhaseDisplayNameText,
   UnderChallengeToolTipText,
   CommitVoteToolTipText,
-  RevealVoteToolTipText,
+  ConfirmVoteToolTipText,
 } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
@@ -66,7 +66,7 @@ export class ChallengeRevealVoteCard extends React.Component<
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Revealing votes"
-                  toolTipText={<RevealVoteToolTipText />}
+                  toolTipText={<ConfirmVoteToolTipText />}
                   secondaryDisplayLabel="Accepting Votes"
                   secondaryToolTipText={<CommitVoteToolTipText />}
                   flavorText="under challenge"

@@ -178,16 +178,6 @@ export const ConfirmVoteToolTipText: React.SFC = props => {
   );
 };
 
-export const RevealVoteToolTipText: React.SFC = props => {
-  return (
-    <>
-      <ToolTipHdr>Reveal Vote</ToolTipHdr>
-      <ToolTipItalic>Time duration: </ToolTipItalic>
-      <p>TKTK</p>
-    </>
-  );
-};
-
 export const RewardPoolToolTipText: React.SFC = props => {
   return (
     <>
