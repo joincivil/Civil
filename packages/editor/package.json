@@ -55,7 +55,7 @@
     "ts-jest": "^22.4.0",
     "ts-loader": "^4",
     "typescript": "<2.9.0",
-    "webpack": "^3",
+    "webpack": "^4",
     "webpack-hot-middleware": "^2.21.1"
   },
   "peerDependencies": {
