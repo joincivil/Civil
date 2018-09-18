@@ -354,17 +354,17 @@ export async function createAllTestParameterizerInstance(accounts: string[]): Pr
 }
 
 export async function createAllTestAddressRegistryInstance(accounts: string[]): Promise<any> {
-  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  const [parameterizer] = await createAllTestParameterizerInstance(accounts);
   return createTestRegistryInstance(AddressRegistry, parameterizer, accounts);
 }
 
 export async function createAllTestRestrictedAddressRegistryInstance(accounts: string[]): Promise<any> {
-  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  const [parameterizer] = await createAllTestParameterizerInstance(accounts);
   return createTestRegistryInstance(RestrictedAddressRegistry, parameterizer, accounts);
 }
 
 export async function createAllTestContractAddressRegistryInstance(accounts: string[]): Promise<any> {
-  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  const [parameterizer] = await createAllTestParameterizerInstance(accounts);
   return createTestRegistryInstance(ContractAddressRegistry, parameterizer, accounts);
 }
 
