@@ -60,22 +60,24 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
-        {!hasAppealChallenge && !canAppealBeResolved && this.renderAwaitingAppealDecision()}
+        {!hasAppealChallenge && !canAppealBeResolved && !appeal.appealChallenge && !isAwaitingAppealChallenge && this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
-        {appeal.appealChallenge && (
-          <AppealChallengeDetail
-            listingAddress={this.props.listingAddress}
-            newsroom={this.props.newsroom}
-            challengeID={this.props.challengeID}
-            challenge={this.props.challenge}
-            appeal={this.props.appeal}
-            appealChallengeID={appeal.appealChallengeID}
-            appealChallenge={appeal.appealChallenge}
-            govtParameters={this.props.govtParameters}
-            tokenBalance={this.props.tokenBalance}
-            user={this.props.user}
-          />
-        )}
+        {appeal.appealChallenge &&
+          !appeal.appealChallenge.resolved &&
+          !canAppealBeResolved && (
+            <AppealChallengeDetail
+              listingAddress={this.props.listingAddress}
+              newsroom={this.props.newsroom}
+              challengeID={this.props.challengeID}
+              challenge={this.props.challenge}
+              appeal={this.props.appeal}
+              appealChallengeID={appeal.appealChallengeID}
+              appealChallenge={appeal.appealChallenge}
+              govtParameters={this.props.govtParameters}
+              tokenBalance={this.props.tokenBalance}
+              user={this.props.user}
+            />
+          )}
         {canAppealBeResolved && this.renderCanResolve()}
       </StyledDiv>
     );
