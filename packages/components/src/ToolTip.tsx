@@ -61,13 +61,13 @@ const Wrapper = styled.div`
 `;
 
 const HitBox = styled.div`
+  background-color: transparent;
   position: absolute;
   width: 260px;
   height: 50px;
-  bottom: 0;
+  bottom: -15px;
   left: -130px;
-  border-radius: 50%;
-  background-color: transparent;
+  z-index: 100001;
 `;
 
 export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {

@@ -72,7 +72,11 @@ export const RejectedNewroomDisplayNameText: React.SFC = props => <>Rejected New
 export const WhitelistedNewroomsDisplayNameText: React.SFC = props => <>Approved Newroom</>;
 
 // Tooltips
-export const NewApplicationToolTipText: React.SFC = props => {
+export interface ToolTipTextProps {
+  reviewDuration?: string;
+}
+
+export const NewApplicationToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipHdr>Under review by the community</ToolTipHdr>
