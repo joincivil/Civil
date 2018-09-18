@@ -18,11 +18,15 @@ import {
   isInAppealChallengeCommitPhase as getIsInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase as getIsInAppealChallengeRevealPhase,
   canListingAppealChallengeBeResolved as getCanListingAppealChallengeBeResolved,
+  isInCommitStage as isPollInCommitStage,
+  isInRevealStage as isPollInRevealStage,
+  isVotePassed as isPollVotePassed,
   isAppealAwaitingJudgment,
   ListingWrapper,
   UserChallengeData,
   WrappedChallengeData,
   TimestampedEvent,
+  ParamPropChallengeData,
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { State } from "../reducers";
@@ -36,6 +40,10 @@ export interface ListingContainerProps {
 
 export interface ChallengeContainerProps {
   challengeID?: string | BigNumber;
+}
+
+export interface ProposalParameterProps {
+  parameterName: string;
 }
 
 // Simple selectors from State. These don't look at component props or
@@ -55,6 +63,15 @@ export const getChallengesStartedByAllUsers = (state: State) => state.networkDep
 export const getHistories = (state: State) => state.networkDependent.histories;
 
 export const getParameters = (state: State) => state.networkDependent.parameters;
+
+export const getParameterProposals = (state: State) => state.networkDependent.proposals;
+
+export const getParameterProposalChallenges = (state: State) => state.networkDependent.parameterProposalChallenges;
+
+export const getParameterProposalChallengesFetching = (state: State) =>
+  state.networkDependent.parameterProposalChallengesFetching;
+
+export const getAppellateMembers = (state: State) => state.networkDependent.appellateMembers;
 
 // end simple selectors
 
@@ -78,6 +95,13 @@ export const makeGetIsUserNewsroomOwner = () => {
     return newsroomWrapper.data.owners.includes(userAccount);
   });
 };
+
+export const getIsMemberOfAppellate = createSelector([getAppellateMembers, getUser], (appellateMembers, user) => {
+  if (!appellateMembers || !user) {
+    return false;
+  }
+  return appellateMembers.includes(user.account.account);
+});
 
 export const getListingWrapper = (state: State, props: ListingContainerProps) => {
   if (!props.listingAddress) {
@@ -352,6 +376,26 @@ export const makeGetChallengeState = () => {
   });
 };
 
+export const makeGetParameterProposalChallengeState = () => {
+  return createSelector(
+    [getParameterProposalChallenges, getChallengeID],
+    (parameterProposalChallenges, challengeID) => {
+      const challenge = parameterProposalChallenges.get(challengeID!);
+      const isResolved = challenge && challenge.resolved;
+      const inCommitPhase = challenge && isPollInCommitStage(challenge.poll);
+      const inRevealPhase = challenge && isPollInRevealStage(challenge.poll);
+      const didChallengeSucceed = challenge && isPollVotePassed(challenge.poll);
+
+      return {
+        isResolved,
+        inCommitPhase,
+        inRevealPhase,
+        didChallengeSucceed,
+      };
+    },
+  );
+};
+
 export const makeGetListingPhaseState = () => {
   return createSelector([getListingWrapper], listing => {
     if (!listing) {
@@ -440,6 +484,46 @@ export const makeGetLatestWhitelistedTimestamp = () => {
       return whitelistedTimestamp;
     }
     return;
+  });
+};
+
+export const getProposalParameterName = (state: State, props: ProposalParameterProps) => {
+  const { parameterName } = props;
+  return parameterName;
+};
+
+export const makeGetProposalsByParameterName = () => {
+  return createSelector(
+    [getParameterProposals, getProposalParameterName],
+    (parameterProposals: Map<string, any>, parameterName) => {
+      const proposalsForParameterName = parameterProposals
+        .filter((proposal, proposalID, iter): boolean => {
+          const { paramName: proposalParamName } = proposal;
+          return proposalParamName === parameterName;
+        })
+        .toSet() as Set<any>;
+      return proposalsForParameterName;
+    },
+  );
+};
+
+export const makeGetParameterProposalChallenge = () => {
+  return createSelector([getParameterProposalChallenges, getChallengeID], (challenges, challengeID) => {
+    if (!challengeID) {
+      return;
+    }
+    const challenge: ParamPropChallengeData = challenges.get(challengeID);
+    return challenge;
+  });
+};
+
+export const makeGetParameterProposalChallengeRequestStatus = () => {
+  return createSelector([getParameterProposalChallengesFetching, getChallengeID], (challengesFetching, challengeID) => {
+    if (!challengeID) {
+      return;
+    }
+    const requestStatus: any = challengesFetching.get(challengeID);
+    return requestStatus;
   });
 };
 // end memoized selectors

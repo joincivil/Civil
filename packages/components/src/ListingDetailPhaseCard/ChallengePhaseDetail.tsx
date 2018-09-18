@@ -1,19 +1,12 @@
 import * as React from "react";
 import { ChallengePhaseProps } from "./types";
-import {
-  StyledListingDetailPhaseCardSection,
-  MetaRow,
-  MetaItem,
-  MetaItemValue,
-  MetaItemValueLong,
-  MetaItemLabel,
-} from "./styledComponents";
+import { MetaRow, MetaItem, MetaItemValue, MetaItemValueLong, MetaItemLabel } from "./styledComponents";
 import { RewardPoolToolTipText, DepositsToolTipText } from "./textComponents";
 import { QuestionToolTip } from "../QuestionToolTip";
 
 export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps> = props => {
   return (
-    <StyledListingDetailPhaseCardSection>
+    <>
       <MetaRow>
         <MetaItem>
           <MetaItemLabel>{props.isViewingUserChallenger ? "You are the challenger" : "Challenger"}</MetaItemLabel>
@@ -36,6 +29,6 @@ export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps>
           <MetaItemValue>{props.stake}</MetaItemValue>
         </MetaItem>
       </MetaRow>
-    </StyledListingDetailPhaseCardSection>
+    </>
   );
 };

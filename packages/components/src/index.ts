@@ -45,3 +45,5 @@ export * from "./NavBar/NavBar";
 export * from "./NavBar/NavErrorBar";
 export * from "./ReviewVote";
 export * from "./WalletOnboarding";
+export * from "./Table";
+export * from "./Parameterizer";

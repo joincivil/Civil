@@ -36,6 +36,7 @@ export interface CommitVoteProps {
   userHasRevealedVote?: boolean;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
   onReviewVote(): void;
+  postExecuteTransactions?(): any;
 }
 
 export interface RevealVoteProps {
@@ -44,6 +45,7 @@ export interface RevealVoteProps {
   transactions: any[];
   modalContentComponents?: any;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
+  postExecuteTransactions?(): any;
 }
 
 export interface AppealDecisionProps {

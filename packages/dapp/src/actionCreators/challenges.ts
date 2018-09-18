@@ -88,7 +88,9 @@ export const fetchAndAddChallengeData = (challengeID: string): any => {
 
       const tcr = await getTCR();
       const challengeIDBN = ensureWeb3BigNumber(parseInt(challengeID, 10));
+      console.log("got tcr, fetching", challengeID);
       const wrappedChallenge = await tcr.getChallengeData(challengeIDBN);
+      console.log(challengeID, wrappedChallenge);
       dispatch(addChallenge(wrappedChallenge));
 
       return dispatch(fetchChallengeComplete(challengeID));

@@ -74,12 +74,14 @@ export class ChallengeRevealVoteCard extends React.Component<
                 />
               </StyledListingDetailPhaseCardSection>
 
-              <ChallengePhaseDetail
-                challengeID={this.props.challengeID}
-                challenger={this.props.challenger}
-                rewardPool={this.props.rewardPool}
-                stake={this.props.stake}
-              />
+              <StyledListingDetailPhaseCardSection>
+                <ChallengePhaseDetail
+                  challengeID={this.props.challengeID}
+                  challenger={this.props.challenger}
+                  rewardPool={this.props.rewardPool}
+                  stake={this.props.stake}
+                />
+              </StyledListingDetailPhaseCardSection>
 
               <StyledListingDetailPhaseCardSection bgAccentColor="REVEAL_VOTE">
                 {this.renderRevealVote()}

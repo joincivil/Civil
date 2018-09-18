@@ -200,6 +200,15 @@ export interface Param {
   value: BigNumber;
 }
 
+export interface ParamPropChallengeData {
+  rewardPool: BigNumber;
+  challenger: EthAddress;
+  resolved: boolean;
+  stake: BigNumber;
+  totalTokens: BigNumber;
+  poll: PollData;
+}
+
 // tslint:disable-next-line
 export interface TimestampedEvent<T extends DecodedLogEntryEvent> extends DecodedLogEntryEvent {
   timestamp(): Promise<number>;
