@@ -4,7 +4,11 @@ exports[`Storyshots ModalContent content 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD
       "class": "sc-hwcHae dOCorx",
+=======
+      "class": "sc-RbTVP bmuqDR",
+>>>>>>> tests
     },
     "children": Array [
       Object {

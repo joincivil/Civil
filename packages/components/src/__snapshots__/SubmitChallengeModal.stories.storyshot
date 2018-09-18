@@ -4,7 +4,11 @@ exports[`Storyshots Submit Challenge Modal Submit Challenge Modal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD
       "class": "sc-ekulBa jUzfjg",
+=======
+      "class": "sc-jxGEyO jVVVfx",
+>>>>>>> tests
     },
     "children": Array [
       Object {
