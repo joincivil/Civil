@@ -350,7 +350,8 @@ export async function createAllTestParameterizerInstance(accounts: string[]): Pr
   const telemetry = await TokenTelemetry.new();
   const token = await createTestTokenInstance(accounts);
   const plcr = await createTestPLCRInstance(token, telemetry, accounts);
-  return [createTestParameterizerInstance(accounts, token, plcr), telemetry];
+  const parameterizer = await createTestParameterizerInstance(accounts, token, plcr);
+  return [parameterizer, telemetry];
 }
 
 export async function createAllTestAddressRegistryInstance(accounts: string[]): Promise<any> {
