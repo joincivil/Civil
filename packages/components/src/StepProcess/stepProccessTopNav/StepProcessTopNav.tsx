@@ -1,10 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
-import { StepProps } from "./Step";
+import { StepTopNavProps } from "./Step";
 
 export interface StepsProps {
   activeIndex?: number;
-  children: Array<React.ReactElement<StepProps>>;
+  children: Array<React.ReactElement<StepTopNavProps>>;
   startPosition?: number;
   onActiveTabChange?(activeIndex: number): void;
 }
@@ -31,6 +31,11 @@ const StyledContainer = styled.ul`
   padding: 0;
 `;
 
+const MainSection = styled.div`
+  background-color: #fff;
+  padding: 45px 115px;
+`;
+
 export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTopNavState> {
   constructor(props: StepsProps) {
     super(props);
@@ -50,9 +55,9 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
     }
   }
 
-  public renderTabs(): Array<React.ReactElement<StepProps>> {
+  public renderTabs(): Array<React.ReactElement<StepTopNavProps>> {
     return React.Children.map(this.props.children, (child: React.ReactChild, index) => {
-      return React.cloneElement(child as React.ReactElement<StepProps>, {
+      return React.cloneElement(child as React.ReactElement<StepTopNavProps>, {
         index,
         startPosition: this.state.startPosition,
         isCurrent: this.state.activeIndex === index,
@@ -77,7 +82,7 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
         <StyledNav>
           <StyledContainer>{this.renderTabs()}</StyledContainer>
         </StyledNav>
-        <div>{this.renderContent()}</div>
+        <MainSection>{this.renderContent()}</MainSection>
       </div>
     );
   }

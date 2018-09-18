@@ -10,7 +10,7 @@ import {
   Modal,
   StepDescription,
   StepHeader,
-  StepProps,
+  StepTopNavProps,
   StepStyled,
   TextInput,
   ViewTransactionLink,
@@ -18,6 +18,7 @@ import {
   ModalHeading,
   Transaction,
   TransactionButtonModalFlowState,
+  StepProcess,
 } from "@joincivil/components";
 import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
@@ -29,7 +30,7 @@ import { CivilContext, CivilContextValue } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
-export interface NameAndAddressProps extends StepProps {
+export interface NameAndAddressProps {
   address?: EthAddress;
   txHash?: TxHash;
   name?: string;
@@ -280,31 +281,19 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       body = this.renderNoContract();
     }
     return (
-      <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
-        {this.renderCheckMark()}
-        <CollapsableWrapper>
-          <Collapsable
-            open={!this.props.disabled && this.state.collapsableOpen}
-            disabled={this.props.disabled}
-            header={
-              <>
-                <StepHeader active={this.props.active} disabled={this.props.disabled}>
-                  Set up a newsroom
-                </StepHeader>
-                <Description disabled={this.props.disabled}>
-                  Enter your newsroom name to create your newsroom smart contract.
-                </Description>
-              </>
-            }
-          >
-            <CollapsableInner>{body}</CollapsableInner>
-          </Collapsable>
-        </CollapsableWrapper>
+      <>
+        <StepHeader active={this.props.active}>
+          Set up a newsroom
+        </StepHeader>
+        <Description>
+          Enter your newsroom name to create your newsroom smart contract.
+        </Description>
+        {body}
         {this.renderPreMetamaskCreateModal()}
         {this.renderAwaitingTransactionModal()}
         {this.renderMetaMaskRejectionModal()}
         {this.progressModal()}
-      </StepStyled>
+      </>
     );
   }
 

@@ -1,5 +1,5 @@
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ButtonTheme, colors, StepProcess, ManagerHeading, WalletOnboarding } from "@joincivil/components";
+import { ButtonTheme, colors, StepProcessTopNav, Step, ManagerHeading, WalletOnboarding } from "@joincivil/components";
 import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -92,15 +92,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     const disabled = this.isDisabled();
     const manager = (
       <>
-        <Heading disabled={disabled}>Newsroom Smart Contract</Heading>
-        <P disabled={disabled}>
-          Here are the steps to set up your newsroom smart contract. You'll be able to use Civil's blockchain features
-          such as indexing and signing posts.
-        </P>
-        <NoteSection disabled={disabled}>
-          Note: Each step will involve a transaction from your wallet, which will open in a new pop-up window in
-          MetaMask. You'll need to confirm the transaction
-        </NoteSection>
+        <Heading disabled={disabled}>Newsroom Application</Heading>
         <CivilContext.Provider
           value={{
             civil: this.props.civil,
@@ -109,23 +101,27 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-          <StepProcess disabled={disabled} activeIndex={this.state.currentStep} stepIsDisabled={this.isStepDisabled}>
-            <NameAndAddress
-              onNewsroomCreated={this.onNewsroomCreated}
-              name={this.props.name}
-              address={this.props.address}
-              txHash={this.props.txHash}
-              onContractDeployStarted={this.props.onContractDeployStarted}
-            />
-            <CompleteYourProfile
-              address={this.props.address}
-              renderUserSearch={this.props.renderUserSearch}
-              profileWalletAddress={this.props.profileWalletAddress}
-            />
-            {/* <CreateCharter /> */}
-            {/* <SignConstitution address={this.props.address} active={this.state.currentStep} /> */}
-            {/* <ApplyToTCR /> */}
-          </StepProcess>
+          <StepProcessTopNav activeIndex={this.state.currentStep}>
+            <Step title={"Set up a newsroom"} complete={!!this.props.address}>
+              <NameAndAddress
+                onNewsroomCreated={this.onNewsroomCreated}
+                name={this.props.name}
+                address={this.props.address}
+                txHash={this.props.txHash}
+                onContractDeployStarted={this.props.onContractDeployStarted}
+              />
+            </Step>
+            <Step title={"Add accounts"}>
+              <CompleteYourProfile
+                address={this.props.address}
+                renderUserSearch={this.props.renderUserSearch}
+                profileWalletAddress={this.props.profileWalletAddress}
+              />
+            </Step>
+            <Step title={"Create your charter"}><div/></Step>
+            <Step title={"Sign the Constitution"}><div/></Step>
+            <Step title={"Apply to the Registry"}><div/></Step>
+          </StepProcessTopNav>
         </CivilContext.Provider>
       </>
     );

@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { fonts } from "../../styleConstants";
 
-export interface StepProps {
+export interface StepTopNavProps {
   title: string | JSX.Element;
   isActive?: boolean;
   isCurrent?: boolean;
@@ -118,10 +118,19 @@ CompleteDot.defaultProps = {
   },
 };
 
-export class Step extends React.Component<StepProps, StepState> {
+export interface StepProcessTopNavTheme {
+  stepProccessTopNavCurrentColor: string;
+  stepProccessTopNavActiveColor: string;
+  stepProccessTopNavFutureColor: string;
+  stepProcessDotActiveColor: string;
+  stepProcessDotFutureColor: string;
+  stepProccessCompleteDotBorderColor: string;
+}
+
+export class Step extends React.Component<StepTopNavProps, StepState> {
   public dot?: HTMLDivElement;
 
-  constructor(props: StepProps) {
+  constructor(props: StepTopNavProps) {
     super(props);
     this.state = {};
   }
