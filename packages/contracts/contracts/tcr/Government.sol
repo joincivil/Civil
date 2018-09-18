@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.24;
 import "../interfaces/IGovernment.sol";
 import "../installed_contracts/PLCRVoting.sol";
 import "../installed_contracts/EIP20Interface.sol";
@@ -56,7 +56,6 @@ contract Government is IGovernment {
   NewConstProposal activeConstProp;
 
   // Global Variables
-  EIP20Interface public token;
   PLCRVoting public voting;
   // solium-disable-next-line
   uint public PROCESSBY = 604800; // 7 days
@@ -68,7 +67,6 @@ contract Government is IGovernment {
   function Government(
     address appellateAddr,
     address governmentControllerAddr,
-    address tokenAddr,
     address plcrAddr,
     uint appealFeeAmount,
     uint requestAppealLength,
@@ -85,7 +83,6 @@ contract Government is IGovernment {
     require(governmentControllerAddr != 0);
     appellate = appellateAddr;
     governmentController = governmentControllerAddr;
-    token = EIP20Interface(tokenAddr);
     voting = PLCRVoting(plcrAddr);
     set("requestAppealLen", requestAppealLength);
     set("judgeAppealLen", judgeAppealLength);

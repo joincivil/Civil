@@ -1,6 +1,5 @@
 import { config } from "./utils";
 const Government = artifacts.require("Government");
-const Token = artifacts.require("EIP20");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
@@ -26,7 +25,6 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       Government,
       appellate,
       govtController,
-      Token.address,
       PLCRVoting.address,
       parameterizerConfig.appealFeeAmount,
       parameterizerConfig.requestAppealPhaseLength,
