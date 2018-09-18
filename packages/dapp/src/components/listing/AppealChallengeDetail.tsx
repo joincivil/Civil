@@ -26,6 +26,7 @@ import {
 } from "@joincivil/components";
 import { commitVote, approveVotingRights, revealVote, updateStatus } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
+import { fetchVote, saveVote } from "@joincivil/dapp/src/helpers/vote";
 
 export enum ModalContentEventNames {
   APPROVE_VOTING_RIGHTS = "APPROVE_VOTING_RIGHTS",
@@ -59,6 +60,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     super(props);
 
     this.state = {
+      voteOption: fetchVote(this.props.challengeID, this.props.user),
       salt: fetchSalt(this.props.appealChallengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       isReviewVoteModalOpen: false,
     };
@@ -362,6 +364,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
     const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
+    saveVote(this.props.appealChallengeID, this.props.user, voteOption);
     return commitVote(this.props.appealChallengeID, voteOption, salt, numTokens);
   };
 

@@ -42,6 +42,7 @@ import { makeGetChallengeState, getNewsroom } from "../../selectors";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { fetchSalt } from "../../helpers/salt";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
+import { saveVote, fetchVote } from "@joincivil/dapp/src/helpers/vote";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
@@ -121,7 +122,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
     this.state = {
       isReviewVoteModalOpen: false,
-      voteOption: undefined,
+      voteOption: fetchVote(this.props.challengeID, this.props.user),
       salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
     };
@@ -471,6 +472,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    saveVote(this.props.challengeID, this.props.user, voteOption);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };
 
