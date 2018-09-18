@@ -48,16 +48,12 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
 `;
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
-  max-width: 750px;
+  max-width: 845px;
 
   &,
   & p {
     font-size: 14px;
   }
-`;
-
-const P = styled.p`
-  color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
 const Heading = ManagerHeading.extend`

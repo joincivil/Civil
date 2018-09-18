@@ -2,7 +2,6 @@ import {
   AddressWithCopyButton,
   Button,
   buttonSizes,
-  Collapsable,
   DetailTransactionButton,
   fonts,
   GreenCheckMark,
@@ -10,15 +9,12 @@ import {
   Modal,
   StepDescription,
   StepHeader,
-  StepTopNavProps,
-  StepStyled,
   TextInput,
   ViewTransactionLink,
   MetaMaskModal,
   ModalHeading,
   Transaction,
   TransactionButtonModalFlowState,
-  StepProcess,
 } from "@joincivil/components";
 import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
@@ -56,14 +52,6 @@ const PendingWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-`;
-
-const CollapsableWrapper = styled.div`
-  width: 600px;
-`;
-
-const CollapsableInner = styled.div`
-  width: 500px;
 `;
 
 const Description = StepDescription.extend`

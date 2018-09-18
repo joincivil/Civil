@@ -33,11 +33,10 @@ const StyledLi = styled<StyledLiProps, "li">("li")`
   cursor: pointer;
   box-sizing: border-box;
   font-family: ${props => props.theme.sansSerifFont};
-  font-weight: 600;
+  font-weight: ${props => (props.isCurrent ? 500 : 300)};
   margin-bottom: 0;
   padding: 3px 0 18px;
   text-align: center;
-  width: 75px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -60,7 +59,7 @@ const Dot = styled<DotProps, "div">("div")`
   background-color: ${(props): string =>
     props.isActive ? props.theme.stepProcessDotActiveColor : props.theme.stepProcessDotFutureColor};
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   box-sizing: border-box;
   ${(props): string =>
     props.isCurrent
@@ -78,7 +77,7 @@ const CompleteDot = Dot.extend`
   z-index: 10;
   margin-top: -5px;
   margin-left: -2px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   background-color: ${props => props.theme.stepProcessDotActiveColor};
   border: 2px solid ${props => props.theme.stepProccessCompleteDotBorderColor};
   ${(props): string =>

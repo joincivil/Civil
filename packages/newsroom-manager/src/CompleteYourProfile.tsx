@@ -2,16 +2,12 @@ import {
   AddressInput,
   BorderlessButton,
   buttonSizes,
-  Collapsable,
   colors,
   DetailTransactionButton,
   fonts,
   QuestionToolTip,
   StepDescription,
   StepHeader,
-  Step,
-  StepTopNavProps,
-  StepStyled,
   Transaction,
   TransactionButtonModalFlowState,
   MetaMaskModal,
@@ -86,14 +82,6 @@ const FormDescription = styled.p`
 
 const AddButton = BorderlessButton.extend`
   padding-left: 0px;
-`;
-
-const CollapsableWrapper = styled.div`
-  width: 600px;
-`;
-
-const CollapsableInner = styled.div`
-  width: 618px;
 `;
 
 const Description = StepDescription.extend`
