@@ -4,6 +4,7 @@ import "./RestrictedAddressRegistry.sol";
 import "../interfaces/IGovernment.sol";
 import "./CivilPLCRVoting.sol";
 import "../proof-of-use/telemetry/TokenTelemetryI.sol";
+import "./CivilParameterizer.sol";
 
 /**
 @title CivilTCR - Token Curated Registry with Appeallate Functionality and Restrictions on Application
@@ -62,23 +63,23 @@ contract CivilTCR is RestrictedAddressRegistry {
   /**
   @notice Init function calls AddressRegistry init then sets IGovernment
   @dev passes tokenAddr, plcrAddr, paramsAddr up to RestrictedAddressRegistry constructor
-  @param tokenAddr Address of the TCR's intrinsic ERC20 token
-  @param plcrAddr Address of a PLCR voting contract for the provided token
-  @param paramsAddr Address of a Parameterizer contract
+  @param token TCR's intrinsic ERC20 token
+  @param plcr CivilPLCR voting contract for the provided token
+  @param param CivilParameterizer contract
   @param govt IGovernment contract
   */
   constructor(
-    address tokenAddr,
-    address plcrAddr,
-    address paramsAddr,
+    EIP20Interface token,
+    CivilPLCRVoting plcr,
+    CivilParameterizer param,
     IGovernment govt,
     TokenTelemetryI tele
-  ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr, "CivilTCR")
+  ) public RestrictedAddressRegistry(token, address(plcr), address(param), "CivilTCR")
   {
     require(address(govt) != 0);
     require(govt.getGovernmentController() != 0);
     require(address(tele) != 0);
-    civilVoting = CivilPLCRVoting(plcrAddr);
+    civilVoting = plcr;
     government = govt;
     telemetry = tele;
   }
