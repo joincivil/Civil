@@ -282,12 +282,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     }
     return (
       <>
-        <StepHeader active={this.props.active}>
-          Set up a newsroom
-        </StepHeader>
-        <Description>
-          Enter your newsroom name to create your newsroom smart contract.
-        </Description>
+        <StepHeader active={this.props.active}>Set up a newsroom</StepHeader>
+        <Description>Enter your newsroom name to create your newsroom smart contract.</Description>
         {body}
         {this.renderPreMetamaskCreateModal()}
         {this.renderAwaitingTransactionModal()}

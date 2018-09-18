@@ -118,9 +118,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 profileWalletAddress={this.props.profileWalletAddress}
               />
             </Step>
-            <Step title={"Create your charter"}><div/></Step>
-            <Step title={"Sign the Constitution"}><div/></Step>
-            <Step title={"Apply to the Registry"}><div/></Step>
+            <Step title={"Create your charter"}>
+              <div />
+            </Step>
+            <Step title={"Sign the Constitution"}>
+              <div />
+            </Step>
+            <Step title={"Apply to the Registry"}>
+              <div />
+            </Step>
           </StepProcessTopNav>
         </CivilContext.Provider>
       </>

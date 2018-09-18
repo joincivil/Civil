@@ -313,9 +313,7 @@ class CompleteYourProfileComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <>
-        <StepHeader>
-          Add accounts to your newsroom smart contract
-        </StepHeader>
+        <StepHeader>Add accounts to your newsroom smart contract</StepHeader>
         <Description>
           Add additional officers and members to your newsroom smart contract. You will need their public wallet
           addresses. This step is optional, but recommended.
@@ -331,8 +329,8 @@ class CompleteYourProfileComponent extends React.Component<
           <FormTitleSection>
             <FormTitle>Civil Officer</FormTitle>
             <FormDescription>
-              An Officer is an admin role that has all possible capabilities in the newsroom smart contract. They
-              can add additional officers and members and have access to your newsrooms funds and Civil Registry
+              An Officer is an admin role that has all possible capabilities in the newsroom smart contract. They can
+              add additional officers and members and have access to your newsrooms funds and Civil Registry
               application.
             </FormDescription>
           </FormTitleSection>
@@ -356,8 +354,8 @@ class CompleteYourProfileComponent extends React.Component<
           <FormTitleSection>
             <FormTitle>Civil Member</FormTitle>
             <FormDescription>
-              A Member is the standard role in the newsroom smart contract. They have permission to index and sign
-              posts on the blockchain. They cannot add Civil Officers to a newsroom smart contract.
+              A Member is the standard role in the newsroom smart contract. They have permission to index and sign posts
+              on the blockchain. They cannot add Civil Officers to a newsroom smart contract.
             </FormDescription>
           </FormTitleSection>
           <Section>
