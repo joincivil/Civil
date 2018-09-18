@@ -304,7 +304,8 @@ async function createTestPLCRInstance(token: any, telemetry: any, accounts: stri
     }
     return approvePLCRFor(addresses.slice(1));
   }
-  const plcr = await PLCRVoting.new(token.address, telemetry.address);
+  const telemetryAddress = await telemetry.address;
+  const plcr = await PLCRVoting.new(token.address, telemetryAddress);
   await approvePLCRFor(accounts);
 
   return plcr;
@@ -345,10 +346,11 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
   return parameterizer;
 }
 
-export async function createAllTestParameterizerInstance(telemetry: any, accounts: string[]): Promise<any> {
+export async function createAllTestParameterizerInstance(accounts: string[]): Promise<any> {
+  const telemetry = await TokenTelemetry.new();
   const token = await createTestTokenInstance(accounts);
   const plcr = await createTestPLCRInstance(token, telemetry, accounts);
-  return createTestParameterizerInstance(accounts, token, plcr);
+  return [createTestParameterizerInstance(accounts, token, plcr), telemetry];
 }
 
 export async function createAllTestAddressRegistryInstance(accounts: string[]): Promise<any> {
@@ -367,8 +369,7 @@ export async function createAllTestContractAddressRegistryInstance(accounts: str
 }
 
 export async function createAllCivilTCRInstance(accounts: string[], appellateEntity: string): Promise<any> {
-  const telemetry = await TokenTelemetry.new();
-  const parameterizer = await createAllTestParameterizerInstance(telemetry, accounts);
+  const [parameterizer, telemetry] = await createAllTestParameterizerInstance(accounts);
   return createTestCivilTCRInstance(parameterizer, telemetry, accounts, appellateEntity);
 }
 
