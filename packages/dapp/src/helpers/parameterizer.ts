@@ -72,19 +72,19 @@ async function getNextTimerExpiry(paramProposal: any, dispatch: Dispatch<any>): 
 
   switch (paramProposal.state) {
     case ParamProposalState.APPLYING:
-      nextExpiry = paramProposal.applicationExpiry.valueOf() / 1000;
+      nextExpiry = paramProposal.applicationExpiry.valueOf();
       break;
     case ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
-      nextExpiry = paramProposal.challenge.challengeCommitExpiry.valueOf() / 1000;
+      nextExpiry = paramProposal.challenge.challengeCommitExpiry.valueOf();
       break;
     case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
-      nextExpiry = paramProposal.challenge.challengeRevealExpiry.valueOf() / 1000;
+      nextExpiry = paramProposal.challenge.challengeRevealExpiry.valueOf();
       break;
     case ParamProposalState.READY_TO_PROCESS:
-      nextExpiry = paramProposal.propProcessByExpiry.valueOf() / 1000;
+      nextExpiry = paramProposal.propProcessByExpiry.valueOf();
       break;
     case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
-      nextExpiry = paramProposal.propProcessByExpiry.valueOf() / 1000;
+      nextExpiry = paramProposal.propProcessByExpiry.valueOf();
       break;
     default:
       nextExpiry = 0;
@@ -104,17 +104,17 @@ async function setupParamProposalCallback(paramProposal: any, isInit: boolean, d
     setTimeoutTimeouts.delete(paramProposal.id);
   }
 
-  const nowSeconds = Date.now() / 1000;
+  const now = Date.now();
   const nextExpiry = await getNextTimerExpiry(paramProposal, dispatch);
   if (nextExpiry > 0) {
-    const delaySeconds = nextExpiry - nowSeconds;
+    const delay = nextExpiry - now;
     paramProposalTimeouts.set(
       paramProposal.id,
-      setTimeout(dispatch, delaySeconds * 1000, checkAndUpdateParameterProposalState(paramProposal.id)),
-    ); // convert to milliseconds
+      setTimeout(dispatch, delay, checkAndUpdateParameterProposalState(paramProposal.id)),
+    );
     setTimeoutTimeouts.set(
       paramProposal.id,
-      setTimeout(setupParamProposalCallback, delaySeconds * 1000, paramProposal, false, dispatch),
+      setTimeout(setupParamProposalCallback, delay, paramProposal, false, dispatch),
     );
   }
 }
