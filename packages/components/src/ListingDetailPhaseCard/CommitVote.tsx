@@ -37,7 +37,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     return (
       <>
         <FormQuestion>
-          <VoteCallToActionText newsroomName={this.props.newsroomName} />
+          {this.props.children || <VoteCallToActionText newsroomName={this.props.newsroomName} />}
         </FormQuestion>
 
         <VoteOptionsContainer>

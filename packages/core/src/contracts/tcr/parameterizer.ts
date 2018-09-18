@@ -3,7 +3,15 @@ import { Observable } from "rxjs";
 import * as Debug from "debug";
 import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
 
-import { Bytes32, EthAddress, TwoStepEthTransaction, ParamProposalState, ParamProp, PollID } from "../../types";
+import {
+  Bytes32,
+  EthAddress,
+  TwoStepEthTransaction,
+  ParamProposalState,
+  ParamProp,
+  PollID,
+  ParamPropChallengeData,
+} from "../../types";
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "../basewrapper";
 import { CivilParameterizerContract } from "../generated/wrappers/civil_parameterizer";
@@ -123,6 +131,10 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
       .concatFilter(async propID => this.isPropInChallengeRevealPhase(propID));
+  }
+
+  public propIDsInChallenge(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<string> {
+    return this.instance._NewChallengeStream({}, { fromBlock }).map(e => e.args.propID);
   }
 
   /**
@@ -273,6 +285,28 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
   }
 
   /**
+   * Gets the challenge data for the specified proposal challenge ID
+   * @param challenge ID of prop challenge to check
+   */
+  public async getChallengeData(challengeID: BigNumber): Promise<ParamPropChallengeData> {
+    const [rewardPool, challenger, resolved, stake, totalTokens] = await this.instance.challenges.callAsync(
+      challengeID,
+    );
+
+    const voting = await this.getVoting();
+    const poll = await voting.getPoll(challengeID);
+
+    return {
+      rewardPool,
+      challenger,
+      resolved,
+      stake,
+      totalTokens,
+      poll,
+    };
+  }
+
+  /**
    * Returns whether or not a Proposal is in the Unchallenged Applicaton Phase
    * @param propID ID of prop to check
    */
@@ -324,7 +358,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
     if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
-    const [challengeID] = await this.instance.proposals.callAsync(propID);
+    const [, challengeID] = await this.instance.proposals.callAsync(propID);
     if (challengeID.isZero()) {
       return false;
     }
@@ -341,7 +375,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
     if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
-    const [challengeID] = await this.instance.proposals.callAsync(propID);
+    const [, challengeID] = await this.instance.proposals.callAsync(propID);
     if (challengeID.isZero()) {
       return false;
     }
@@ -358,7 +392,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
     if (!(await this.instance.propExists.callAsync(propID))) {
       return false;
     }
-    const [challengeID] = await this.instance.proposals.callAsync(propID);
+    const [, challengeID] = await this.instance.proposals.callAsync(propID);
     if (challengeID.isZero()) {
       return false;
     }

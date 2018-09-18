@@ -1,5 +1,6 @@
 import { Param } from "@joincivil/core";
 import { Dispatch } from "react-redux";
+import { GovernmentParameters } from "@joincivil/utils";
 import {
   multiSetGovtParameters,
   setGovernmentParameter,
@@ -12,8 +13,7 @@ import { getGovernmentParameters } from "../apis/civilTCR";
 import { getCivil, getTCR } from "./civilInstance";
 
 export async function initializeGovernment(dispatch: Dispatch<any>): Promise<void> {
-  const paramKeys = ["requestAppealLen", "judgeAppealLen", "appealFee", "appealVotePercentage"];
-
+  const paramKeys: string[] = Object.values(GovernmentParameters);
   const parameterVals = await getGovernmentParameters(paramKeys);
   const paramObj = parameterVals.reduce((acc, item, index) => {
     acc[paramKeys[index]] = item.toString();

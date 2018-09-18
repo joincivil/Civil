@@ -72,12 +72,14 @@ export class ChallengeCommitVoteCard extends React.Component<
                 />
               </StyledListingDetailPhaseCardSection>
 
-              <ChallengePhaseDetail
-                challengeID={this.props.challengeID}
-                challenger={this.props.challenger}
-                rewardPool={this.props.rewardPool}
-                stake={this.props.stake}
-              />
+              <StyledListingDetailPhaseCardSection>
+                <ChallengePhaseDetail
+                  challengeID={this.props.challengeID}
+                  challenger={this.props.challenger}
+                  rewardPool={this.props.rewardPool}
+                  stake={this.props.stake}
+                />
+              </StyledListingDetailPhaseCardSection>
 
               {this.renderCommitVoteCallout()}
 

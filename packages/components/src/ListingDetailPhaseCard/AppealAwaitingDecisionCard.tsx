@@ -53,12 +53,14 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
         />
       </StyledListingDetailPhaseCardSection>
 
-      <ChallengePhaseDetail
-        challengeID={props.challengeID}
-        challenger={props.challenger}
-        rewardPool={props.rewardPool}
-        stake={props.stake}
-      />
+      <StyledListingDetailPhaseCardSection>
+        <ChallengePhaseDetail
+          challengeID={props.challengeID}
+          challenger={props.challenger}
+          rewardPool={props.rewardPool}
+          stake={props.stake}
+        />
+      </StyledListingDetailPhaseCardSection>
 
       <StyledListingDetailPhaseCardSection>
         <ChallengeResults
