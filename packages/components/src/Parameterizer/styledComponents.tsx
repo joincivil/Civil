@@ -73,7 +73,9 @@ export const StyledSection = styled.div`
   margin: 0 0 19px;
 `;
 
-export const StyledMetaName = styled.div``;
+export const StyledMetaName = styled.div`
+  margin: 0 0 3px;
+`;
 
 export const StyledMetaValue = styled.div`
   font-weight: bold;
