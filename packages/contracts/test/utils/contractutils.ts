@@ -264,7 +264,6 @@ async function createTestCivilTCRInstance(
   const government = await Government.new(
     appellateEntity,
     appellateEntity,
-    tokenAddress,
     plcrAddress,
     parameterizerConfig.appealFeeAmount,
     parameterizerConfig.requestAppealPhaseLength,
