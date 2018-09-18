@@ -11,7 +11,7 @@ contract("Parameterizer", (accounts: string[]) => {
     let parameterizer: any;
 
     beforeEach(async () => {
-      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
+      [parameterizer] = await utils.createAllTestParameterizerInstance(accounts);
     });
 
     it("should get a parameter", async () => {

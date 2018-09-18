@@ -3,6 +3,7 @@ pragma solidity ^0.4.19;
 import "./RestrictedAddressRegistry.sol";
 import "../interfaces/IGovernment.sol";
 import "./CivilPLCRVoting.sol";
+import "../proof-of-use/telemetry/TokenTelemetryI.sol";
 
 /**
 @title CivilTCR - Token Curated Registry with Appeallate Functionality and Restrictions on Application
@@ -39,6 +40,7 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   CivilPLCRVoting public civilVoting;
   IGovernment public government;
+  TokenTelemetryI public telemetry;
 
   /*
   @notice this struct handles the state of an appeal. It is first initialized
@@ -69,18 +71,33 @@ contract CivilTCR is RestrictedAddressRegistry {
     address tokenAddr,
     address plcrAddr,
     address paramsAddr,
-    IGovernment govt
+    IGovernment govt,
+    TokenTelemetryI tele
   ) public RestrictedAddressRegistry(tokenAddr, plcrAddr, paramsAddr, "CivilTCR")
   {
-    civilVoting = CivilPLCRVoting(plcrAddr);
     require(address(govt) != 0);
     require(govt.getGovernmentController() != 0);
+    require(address(tele) != 0);
+    civilVoting = CivilPLCRVoting(plcrAddr);
     government = govt;
+    telemetry = tele;
   }
 
   // --------------------
   // LISTING OWNER INTERFACE:
   // --------------------
+
+  /**
+  @dev                Allows a user to start an application. Takes tokens from user and sets
+                      apply stage end time.
+  @param listingAddress The hash of a potential listing a user is applying to add to the registry
+  @param amount      The number of ERC20 tokens a user is willing to potentially stake
+  @param data        Extra data relevant to the application. Think IPFS hashes.
+  */
+  function apply(address listingAddress, uint amount, string data) public {
+    super.apply(listingAddress, amount, data);
+    telemetry.onTokensUsed(msg.sender, parameterizer.get("minDeposit"));
+  }
 
   /**
   @notice Requests an appeal for a listing that has been challenged and completed its voting
@@ -108,7 +125,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.requester = msg.sender;
     appeal.appealFeePaid = appealFee;
     appeal.appealPhaseExpiry = now.add(government.get("judgeAppealLen"));
-
+    telemetry.onTokensUsed(msg.sender, appealFee);
     require(token.transferFrom(msg.sender, this, appealFee));
     emit _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender);
   }
