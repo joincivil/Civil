@@ -392,7 +392,6 @@ contract CivilTCR is RestrictedAddressRegistry {
   ) public view returns (uint)
   {
     Challenge challenge = challenges[challengeID];
-    Appeal appeal = appeals[challengeID];
     uint totalTokens = challenge.totalTokens;
     uint rewardPool = challenge.rewardPool;
     uint voterTokens = getNumChallengeTokens(voter, challengeID, salt);
