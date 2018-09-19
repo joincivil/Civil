@@ -7,6 +7,7 @@ export interface NewsroomState {
   address: EthAddress;
   wrapper: NewsroomWrapper;
   newsroom?: any;
+  owners?: EthAddress[];
   editors?: EthAddress[];
 }
 
@@ -17,10 +18,13 @@ export interface StateWithNewsroom {
 }
 
 export function newsrooms(
-  state: Map<string, NewsroomState> = Map<string, NewsroomState>({ "": { editors: [], wrapper: { data: {} } } }),
+  state: Map<string, NewsroomState> = Map<string, NewsroomState>({
+    "": { owners: [], editors: [], wrapper: { data: {} } },
+  }),
   action: AnyAction,
 ): Map<string, NewsroomState> {
   let newsroom;
+  let owners;
   let editors;
   switch (action.type) {
     case newsroomActions.ADD_NEWSROOM:
@@ -35,6 +39,13 @@ export function newsrooms(
       newsroom = state.get(action.data.address);
       newsroom.wrapper.data.name = action.data.name;
       return state.set(action.data.address, newsroom);
+    case newsroomActions.ADD_OWNER:
+      newsroom = state.get(action.data.address);
+      owners = newsroom.owners || [];
+      return state.set(action.data.address, {
+        ...state.get(action.data.address),
+        owners: owners.concat([action.data.owner]),
+      });
     case newsroomActions.ADD_EDITOR:
       newsroom = state.get(action.data.address);
       editors = newsroom.editors || [];

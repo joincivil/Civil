@@ -4,7 +4,7 @@ import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
-import { addGetNameForAddress, addNewsroom, getEditors, getNewsroom } from "./actionCreators";
+import { addGetNameForAddress, addNewsroom, getOwners, getEditors, getNewsroom } from "./actionCreators";
 // import { SignConstitution } from "./SignConstitution";
 // import { CreateCharter } from "./CreateCharter";
 // import { ApplyToTCR } from "./ApplyToTCR";
@@ -36,6 +36,9 @@ export interface NewsroomProps {
   helpUrl?: string;
   profileUrl?: string;
   profileAddressSaving?: boolean;
+  userIsOwner?: boolean;
+  userIsEditor?: boolean;
+  userNotOnContract?: boolean;
   saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
@@ -54,6 +57,10 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   & p {
     font-size: 14px;
   }
+`;
+
+const ErrorP = styled.p`
+  color: ${colors.accent.CIVIL_RED};
 `;
 
 const Heading = ManagerHeading.extend`
@@ -88,6 +95,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     const disabled = this.isDisabled();
     const manager = (
       <>
+        {this.props.userNotOnContract && (
+          <ErrorP>
+            Your wallet address is not listed on your newsroom contract, so you are unable to make changes to it. Please
+            contact a newsroom officer in order to be added.
+          </ErrorP>
+        )}
         <Heading disabled={disabled}>Newsroom Application</Heading>
         <CivilContext.Provider
           value={{
@@ -166,10 +179,17 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   public isStepDisabled = (index: number) => {
+    if (this.props.userNotOnContract) {
+      return true;
+    }
+
     if (index === 0) {
       return false;
     } else if (index < 2 && this.props.address) {
       return false;
+    } else if (index > 1 && this.props.address && !this.props.userIsOwner) {
+      // steps > 1 are things only owners can do (charter, sign constitution, apply to registry)
+      return true;
     }
     return true;
   };
@@ -179,22 +199,31 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.disabled ||
       !this.props.civil ||
       !this.props.requiredNetwork!.includes(this.props.currentNetwork!) ||
-      !this.props.account
+      !this.props.account ||
+      !!this.props.userNotOnContract
     );
   };
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
+    this.props.dispatch!(getOwners(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
   };
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {
-  const { address } = ownProps;
+  const { address, account } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
+  const userIsOwner = newsroom.owners && newsroom.owners.indexOf(account!) !== -1;
+  const userIsEditor = newsroom.editors && newsroom.editors.indexOf(account!) !== -1;
+  const userNotOnContract = !!ownProps.address && !userIsOwner && !userIsEditor;
+
   return {
     ...ownProps,
     name: newsroom.wrapper.data.name,
+    userIsOwner,
+    userIsEditor,
+    userNotOnContract,
   };
 };
 
