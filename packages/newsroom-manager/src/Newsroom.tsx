@@ -4,7 +4,15 @@ import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
-import { addGetNameForAddress, addNewsroom, getOwners, getEditors, getNewsroom } from "./actionCreators";
+import {
+  addGetNameForAddress,
+  addNewsroom,
+  getOwners,
+  getEditors,
+  getIsOwner,
+  getIsEditor,
+  getNewsroom,
+} from "./actionCreators";
 // import { SignConstitution } from "./SignConstitution";
 // import { CreateCharter } from "./CreateCharter";
 // import { ApplyToTCR } from "./ApplyToTCR";
@@ -208,15 +216,17 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getOwners(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
+    this.props.dispatch!(getIsOwner(address, this.props.civil!));
+    this.props.dispatch!(getIsEditor(address, this.props.civil!));
   };
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {
-  const { address, account } = ownProps;
+  const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
-  const userIsOwner = newsroom.owners && newsroom.owners.indexOf(account!) !== -1;
-  const userIsEditor = newsroom.editors && newsroom.editors.indexOf(account!) !== -1;
-  const userNotOnContract = !!ownProps.address && !userIsOwner && !userIsEditor;
+  const userIsOwner = newsroom.isOwner;
+  const userIsEditor = newsroom.isEditor;
+  const userNotOnContract = !!ownProps.address && userIsOwner === false && userIsEditor === false;
 
   return {
     ...ownProps,

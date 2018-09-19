@@ -9,6 +9,8 @@ export interface NewsroomState {
   newsroom?: any;
   owners?: EthAddress[];
   editors?: EthAddress[];
+  isOwner?: boolean;
+  isEditor?: boolean;
 }
 
 export interface StateWithNewsroom {
@@ -61,6 +63,16 @@ export function newsrooms(
       return state.set(action.data.address, {
         ...state.get(action.data.address),
         editors,
+      });
+    case newsroomActions.SET_IS_OWNER:
+      return state.set(action.data.address, {
+        ...state.get(action.data.address),
+        isOwner: action.data.isOwner,
+      });
+    case newsroomActions.SET_IS_EDITOR:
+      return state.set(action.data.address, {
+        ...state.get(action.data.address),
+        isEditor: action.data.isEditor,
       });
     default:
       return state;
