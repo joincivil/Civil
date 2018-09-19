@@ -119,10 +119,14 @@ export interface ChallengeVoteState {
 class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState> {
   constructor(props: any) {
     super(props);
-
+    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
     this.state = {
       isReviewVoteModalOpen: false,
-      voteOption: fetchVote(this.props.challengeID, this.props.user),
+      voteOption,
       salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
     };
@@ -283,6 +287,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
+        voteOption={this.state.voteOption}
         salt={this.state.salt}
         onInputChange={this.updateCommitVoteState}
         userHasRevealedVote={userHasRevealedVote}

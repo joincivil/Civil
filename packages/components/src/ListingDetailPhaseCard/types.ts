@@ -42,6 +42,7 @@ export interface CommitVoteProps {
 export interface RevealVoteProps {
   newsroomName?: string;
   salt: string | undefined;
+  voteOption: string | undefined;
   transactions: any[];
   modalContentComponents?: any;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
