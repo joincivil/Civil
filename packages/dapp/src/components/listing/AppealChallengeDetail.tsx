@@ -42,6 +42,7 @@ export interface AppealChallengeDetailProps {
   appealChallengeID: BigNumber;
   appealChallenge: AppealChallengeData;
   appeal: AppealData;
+  parameters: any;
   govtParameters: any;
   tokenBalance: number;
   user: any;
@@ -81,7 +82,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     const challenge = this.props.appealChallenge;
 
     const endTime = challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.govtParameters.challengeAppealCommitLen;
+    const phaseLength = this.props.parameters.challengeAppealCommitLen;
 
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
@@ -130,7 +131,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     const challenge = this.props.appealChallenge;
 
     const endTime = challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.govtParameters.challengeAppealCommitLen;
+    const phaseLength = this.props.parameters.challengeAppealRevealLen;
 
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);

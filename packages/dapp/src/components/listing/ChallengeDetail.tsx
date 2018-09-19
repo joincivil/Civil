@@ -186,6 +186,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challengeID}
         challenge={challenge}
         challengeState={this.props.challengeState}
+        parameters={this.props.parameters}
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
         user={this.props.user}

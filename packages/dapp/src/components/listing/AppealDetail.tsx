@@ -43,6 +43,7 @@ export interface AppealDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
+  parameters: any;
   govtParameters: any;
   tokenBalance: number;
   user: EthAddress;
@@ -60,7 +61,11 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
-        {!hasAppealChallenge && !canAppealBeResolved && !appeal.appealChallenge && !isAwaitingAppealChallenge && this.renderAwaitingAppealDecision()}
+        {!hasAppealChallenge &&
+          !canAppealBeResolved &&
+          !appeal.appealChallenge &&
+          !isAwaitingAppealChallenge &&
+          this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
         {appeal.appealChallenge &&
           !appeal.appealChallenge.resolved &&
@@ -73,6 +78,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
               appeal={this.props.appeal}
               appealChallengeID={appeal.appealChallengeID}
               appealChallenge={appeal.appealChallenge}
+              parameters={this.props.parameters}
               govtParameters={this.props.govtParameters}
               tokenBalance={this.props.tokenBalance}
               user={this.props.user}
@@ -212,7 +218,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       { transaction: this.challengeGrantedAppeal, progressEventName: ModalContentEventNames.CHALLENGE_APPEAL },
     ];
     const endTime = appeal.appealOpenToChallengeExpiry.toNumber();
-    const phaseLength = this.props.govtParameters.challengeAppealLen;
+    const phaseLength = this.props.parameters.challengeAppealLen;
     return (
       <AppealDecisionCard
         endTime={endTime}
