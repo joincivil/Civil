@@ -26,7 +26,7 @@ import {
 } from "../../selectors";
 import { fetchAndAddParameterProposalChallengeData } from "../../actionCreators/parameterizer";
 import { fetchSalt } from "../../helpers/salt";
-import { fetchVote, saveVote } from "@joincivil/dapp/src/helpers/vote";
+import { fetchVote, saveVote } from "../../helpers/vote";
 
 enum ModalContentEventNames {
   IN_PROGRESS_APPROVE_VOTING_RIGHTS = "IN_PROGRESS:APPROVE_VOTING_RIGHTS",

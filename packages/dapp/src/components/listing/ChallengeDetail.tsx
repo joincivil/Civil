@@ -42,7 +42,7 @@ import { makeGetChallengeState, getNewsroom } from "../../selectors";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { fetchSalt } from "../../helpers/salt";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
-import { saveVote, fetchVote } from "@joincivil/dapp/src/helpers/vote";
+import { saveVote, fetchVote } from "../../helpers/vote";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<

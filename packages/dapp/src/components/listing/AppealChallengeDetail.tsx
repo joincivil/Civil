@@ -26,7 +26,7 @@ import {
 } from "@joincivil/components";
 import { commitVote, approveVotingRights, revealVote, updateStatus } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
-import { fetchVote, saveVote } from "@joincivil/dapp/src/helpers/vote";
+import { fetchVote, saveVote } from "../../helpers/vote";
 
 export enum ModalContentEventNames {
   APPROVE_VOTING_RIGHTS = "APPROVE_VOTING_RIGHTS",
