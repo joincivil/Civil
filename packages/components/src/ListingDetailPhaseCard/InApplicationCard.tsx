@@ -27,7 +27,7 @@ export class InApplicationCard extends React.Component<
             endTime={this.props.endTime}
             totalSeconds={this.props.phaseLength}
             displayLabel="Waiting for approval"
-            toolTipText={<NewApplicationToolTipText />}
+            toolTipText={<NewApplicationToolTipText phaseLength={this.props.phaseLength} />}
             flavorText="under community review"
           />
         </StyledListingDetailPhaseCardSection>

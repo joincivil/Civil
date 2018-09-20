@@ -73,41 +73,39 @@ export const WhitelistedNewroomsDisplayNameText: React.SFC = props => <>Approved
 
 // Tooltips
 export interface ToolTipTextProps {
-  reviewDuration?: string;
+  phaseLength?: number;
 }
+
+export const DurationToolTipText: React.SFC<ToolTipTextProps> = props => {
+  const days = props.phaseLength! / 86400;
+  const duration = days <= 1 ? days + " day" : days + " days";
+  return <>Time duration: {duration}</>;
+};
 
 export const NewApplicationToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipHdr>Under review by the community</ToolTipHdr>
-      <ToolTipItalic>Time duration: 14 days</ToolTipItalic>
+      <ToolTipItalic>
+        <DurationToolTipText phaseLength={props.phaseLength} />
+      </ToolTipItalic>
       <p>
         CVL token holders may challenge a Newsroom if their mission, charter, or roster is perceived to misalign with
-        the{" "}
-        <a href="https://civil.co/consitution" target="_blank">
-          Civil Constitution
-        </a>. Newsroom will be approved if there are no challenges.
+        the Civil Constitution. Newsroom will be approved if there are no challenges.
       </p>
     </>
   );
 };
 
-export const UnderChallengeToolTipText: React.SFC = props => {
+export const UnderChallengeToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipHdr>A CVL token holder is challenging this newsroom</ToolTipHdr>
-      <ToolTipItalic>Time duration: 20 days total</ToolTipItalic>
       <p>
         This Newsroom is being challenged by a CVL token holder who believes it violates one of principles outlined in
-        the{" "}
-        <a href="https://civil.co/consitution" target="_blank">
-          Civil Constitution
-        </a>. Read the challenger's statement in the Discussion section.
+        the Civil Constitution. Read the challenger's statement in the Discussion section.
       </p>
-      <p>
-        The challenge phase consists of 3 subphases: Commit vote (10 days), Confirm vote (7 days), and Request an Appeal
-        (5 days).
-      </p>
+      <p>The challenge phase consists of 3 subphases: Commit vote, Confirm vote, and Request an Appeal.</p>
     </>
   );
 };
@@ -153,11 +151,13 @@ export const ResolveChallengeToolTipText: React.SFC = props => {
   );
 };
 
-export const CommitVoteToolTipText: React.SFC = props => {
+export const CommitVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipHdr>Commit tokens to cast a secret vote</ToolTipHdr>
-      <ToolTipItalic>Time duration: 10 days</ToolTipItalic>
+      <ToolTipItalic>
+        <DurationToolTipText phaseLength={props.phaseLength} />
+      </ToolTipItalic>
       <p>
         Decide how many tokens you would like to put towards this vote. Note that the more tokens you include, the more
         power your vote carries. You can never lose your vote, but you will not be able to withdraw them until the end
@@ -168,11 +168,13 @@ export const CommitVoteToolTipText: React.SFC = props => {
   );
 };
 
-export const ConfirmVoteToolTipText: React.SFC = props => {
+export const ConfirmVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
-      <ToolTipHdr>Finalize vote using secret phrase</ToolTipHdr>
-      <ToolTipItalic>Time duration: 7 days</ToolTipItalic>
+      <ToolTipHdr>Finalize vote using secret ph rase</ToolTipHdr>
+      <ToolTipItalic>
+        <DurationToolTipText phaseLength={props.phaseLength} />
+      </ToolTipItalic>
       <p>
         Voters must enter the secret phrase they received during the commit vote stage of the process in order to
         confirm their vote. Votes can not be counted and rewards can not be claimed unless voters confirm their earlier
@@ -200,10 +202,12 @@ export const DepositsToolTipText: React.SFC = props => {
   );
 };
 
-export const RequestAppealToolTipText: React.SFC = props => {
+export const RequestAppealToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
-      <ToolTipItalic>Time duration: 5 days</ToolTipItalic>
+      <ToolTipItalic>
+        <DurationToolTipText phaseLength={props.phaseLength} />
+      </ToolTipItalic>
       <p>
         CVL token holders, (including newsrooms or challengers) can appeal a vote outcome if they believe it is not in
         keeping with the Civil Constitution. This system of checks and balances ensures that all voices and perspectives
@@ -213,10 +217,12 @@ export const RequestAppealToolTipText: React.SFC = props => {
   );
 };
 
-export const WaitingCouncilDecisionToolTipText: React.SFC = props => {
+export const WaitingCouncilDecisionToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
-      <ToolTipItalic>Time duration: 14 days</ToolTipItalic>
+      <ToolTipItalic>
+        <DurationToolTipText phaseLength={props.phaseLength} />
+      </ToolTipItalic>
       <p>
         After The Civil Council reaches a decision on the appeal, they will publish a document explaining their choice
         and citing the section of the Civil Constitution they used to reach their decision. This system of checks and
@@ -226,10 +232,12 @@ export const WaitingCouncilDecisionToolTipText: React.SFC = props => {
   );
 };
 
-export const ChallangeCouncilToolTipText: React.SFC = props => {
+export const ChallangeCouncilToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
-      <ToolTipItalic>Time duration: 7 days</ToolTipItalic>
+      <ToolTipItalic>
+        <DurationToolTipText phaseLength={props.phaseLength} />
+      </ToolTipItalic>
       <p>
         The challenger must submit a statement with evidence to make their case, and deposit CVL tokens equal to the
         amount of the Newsroom's deposit. The CVL token deposit for the challenge is set aside for the duration of the

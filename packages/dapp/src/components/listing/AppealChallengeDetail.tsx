@@ -82,6 +82,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
 
     const endTime = challenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.govtParameters.challengeAppealCommitLen;
+    const secondaryPhaseLength = this.props.govtParameters.challengeAppealRevealLen;
 
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
@@ -104,6 +105,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
         <AppealChallengeCommitVoteCard
           endTime={endTime}
           phaseLength={phaseLength}
+          secondaryPhaseLength={secondaryPhaseLength}
           challengeID={this.props.challengeID.toString()}
           challenger={challenger}
           rewardPool={rewardPool}
@@ -131,6 +133,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
 
     const endTime = challenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.govtParameters.challengeAppealCommitLen;
+    const secondaryPhaseLength = this.props.govtParameters.challengeAppealRevealLen;
 
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
@@ -162,6 +165,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
       <AppealChallengeRevealVoteCard
         endTime={endTime}
         phaseLength={phaseLength}
+        secondaryPhaseLength={secondaryPhaseLength}
         challengeID={this.props.challengeID.toString()}
         challenger={challenger}
         rewardPool={rewardPool}

@@ -36,7 +36,7 @@ export const AppealDecisionCard: React.SFC<
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Request to challenge Council's decision"
-          toolTipText={<ChallangeCouncilToolTipText />}
+          toolTipText={<ChallangeCouncilToolTipText phaseLength={props.phaseLength} />}
           flavorText="under Appeal to Council"
         />
       </StyledListingDetailPhaseCardSection>

@@ -65,9 +65,9 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Revealing votes"
-                  toolTipText={<ConfirmVoteToolTipText />}
+                  toolTipText={<ConfirmVoteToolTipText phaseLength={this.props.phaseLength} />}
                   secondaryDisplayLabel="Accepting votes"
-                  secondaryToolTipText={<CommitVoteToolTipText />}
+                  secondaryToolTipText={<CommitVoteToolTipText phaseLength={this.props.secondaryPhaseLength} />}
                   flavorText="under challenge"
                   activePhaseIndex={1}
                 />

@@ -50,7 +50,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Waiting for Council's decision"
-          toolTipText={<WaitingCouncilDecisionToolTipText />}
+          toolTipText={<WaitingCouncilDecisionToolTipText phaseLength={props.phaseLength} />}
           flavorText="under Appeal to Council"
         />
       </StyledListingDetailPhaseCardSection>
