@@ -115,6 +115,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                 <StyledPhaseKicker>Appeal Challenge ID {this.props.appealChallengeID}</StyledPhaseKicker>
                 <RevealVote
                   salt={this.props.salt}
+                  voteOption={this.props.voteOption}
                   onInputChange={this.props.onInputChange}
                   transactions={this.props.transactions}
                   modalContentComponents={this.props.modalContentComponents}

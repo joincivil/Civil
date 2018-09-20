@@ -14,7 +14,9 @@ export interface RevealVoteState {
 export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState> {
   constructor(props: RevealVoteProps) {
     super(props);
-    this.state = {};
+    this.state = {
+      voteOption: this.props.voteOption ? Number.parseInt(this.props.voteOption, 10) : undefined,
+    };
   }
 
   public render(): JSX.Element {

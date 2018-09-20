@@ -95,6 +95,7 @@ export class ChallengeRevealVoteCard extends React.Component<
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <RevealVote
                   salt={this.props.salt}
+                  voteOption={this.props.voteOption}
                   onInputChange={this.props.onInputChange}
                   transactions={this.props.transactions}
                   modalContentComponents={this.props.modalContentComponents}

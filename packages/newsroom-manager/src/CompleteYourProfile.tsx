@@ -2,15 +2,12 @@ import {
   AddressInput,
   BorderlessButton,
   buttonSizes,
-  Collapsable,
   colors,
   DetailTransactionButton,
   fonts,
   QuestionToolTip,
   StepDescription,
   StepHeader,
-  StepProps,
-  StepStyled,
   Transaction,
   TransactionButtonModalFlowState,
   MetaMaskModal,
@@ -28,13 +25,13 @@ import { NewsroomUser, UserTypes } from "./NewsroomUser";
 import { StateWithNewsroom } from "./reducers";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
-export interface CompleteYourProfileComponentExternalProps extends StepProps {
+export interface CompleteYourProfileComponentExternalProps {
   address?: EthAddress;
   profileWalletAddress?: EthAddress;
   renderUserSearch?(onSetAddress: any): JSX.Element;
 }
 
-export interface CompleteYourProfileComponentProps extends StepProps {
+export interface CompleteYourProfileComponentProps {
   owners: Array<{ address: EthAddress; name?: string }>;
   editors: Array<{ address: EthAddress; name?: string }>;
   address?: EthAddress;
@@ -85,14 +82,6 @@ const FormDescription = styled.p`
 
 const AddButton = BorderlessButton.extend`
   padding-left: 0px;
-`;
-
-const CollapsableWrapper = styled.div`
-  width: 600px;
-`;
-
-const CollapsableInner = styled.div`
-  width: 618px;
 `;
 
 const Description = StepDescription.extend`
@@ -311,88 +300,72 @@ class CompleteYourProfileComponent extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
-        <CollapsableWrapper>
-          <Collapsable
-            header={
-              <>
-                <StepHeader active={this.props.active} disabled={this.props.disabled}>
-                  Add accounts to your newsroom smart contract
-                </StepHeader>
-                <Description disabled={this.props.disabled}>
-                  Add additional officers and members to your newsroom smart contract. You will need their public wallet
-                  addresses. This step is optional, but recommended.
-                  <QuestionToolTipWrapper>
-                    <QuestionToolTip
-                      disabled={this.props.disabled}
-                      explainerText={
-                        "Think of officers as admins of your newsroom.  You can skip adding an additional officer but if not have one, you will not be able to access you newsroom contract if you lose your private key."
-                      }
-                    />
-                  </QuestionToolTipWrapper>
-                </Description>
-              </>
-            }
-            open={!!this.props.address && !this.props.disabled}
-            disabled={this.props.disabled}
-          >
-            <CollapsableInner>
-              <FormSection>
-                <FormTitleSection>
-                  <FormTitle>Civil Officer</FormTitle>
-                  <FormDescription>
-                    An Officer is an admin role that has all possible capabilities in the newsroom smart contract. They
-                    can add additional officers and members and have access to your newsrooms funds and Civil Registry
-                    application.
-                  </FormDescription>
-                </FormTitleSection>
-                <Section>
-                  {this.props.owners.map(item => {
-                    return (
-                      <NewsroomUser
-                        newsroomAddress={this.props.address}
-                        type={UserTypes.OWNER}
-                        profileWalletAddress={this.props.profileWalletAddress}
-                        key={item.address}
-                        address={item.address}
-                        name={item.name}
-                      />
-                    );
-                  })}
-                </Section>
-                {this.renderAddOwnerForm()}
-              </FormSection>
-              <FormSection>
-                <FormTitleSection>
-                  <FormTitle>Civil Member</FormTitle>
-                  <FormDescription>
-                    A Member is the standard role in the newsroom smart contract. They have permission to index and sign
-                    posts on the blockchain. They cannot add Civil Officers to a newsroom smart contract.
-                  </FormDescription>
-                </FormTitleSection>
-                <Section>
-                  {this.props.editors.map(item => (
-                    <NewsroomUser
-                      newsroomAddress={this.props.address}
-                      type={UserTypes.EDITOR}
-                      profileWalletAddress={this.props.profileWalletAddress}
-                      key={item.address}
-                      address={item.address}
-                      name={item.name}
-                    />
-                  ))}
-                </Section>
-                {this.renderAddEditorForm()}
-              </FormSection>
-              {this.renderPreMetamMask()}
-              {this.renderAwaitingTransactionModal()}
-              {this.renderMetaMaskRejectionModal()}
-              {this.renderCompleteModal()}
-              {this.renderProgressModal()}
-            </CollapsableInner>
-          </Collapsable>
-        </CollapsableWrapper>
-      </StepStyled>
+      <>
+        <StepHeader>Add accounts to your newsroom smart contract</StepHeader>
+        <Description>
+          Add additional officers and members to your newsroom smart contract. You will need their public wallet
+          addresses. This step is optional, but recommended.
+          <QuestionToolTipWrapper>
+            <QuestionToolTip
+              explainerText={
+                "Think of officers as admins of your newsroom.  You can skip adding an additional officer but if not have one, you will not be able to access you newsroom contract if you lose your private key."
+              }
+            />
+          </QuestionToolTipWrapper>
+        </Description>
+        <FormSection>
+          <FormTitleSection>
+            <FormTitle>Civil Officer</FormTitle>
+            <FormDescription>
+              An Officer is an admin role that has all possible capabilities in the newsroom smart contract. They can
+              add additional officers and members and have access to your newsrooms funds and Civil Registry
+              application.
+            </FormDescription>
+          </FormTitleSection>
+          <Section>
+            {this.props.owners.map(item => {
+              return (
+                <NewsroomUser
+                  newsroomAddress={this.props.address}
+                  type={UserTypes.OWNER}
+                  profileWalletAddress={this.props.profileWalletAddress}
+                  key={item.address}
+                  address={item.address}
+                  name={item.name}
+                />
+              );
+            })}
+          </Section>
+          {this.renderAddOwnerForm()}
+        </FormSection>
+        <FormSection>
+          <FormTitleSection>
+            <FormTitle>Civil Member</FormTitle>
+            <FormDescription>
+              A Member is the standard role in the newsroom smart contract. They have permission to index and sign posts
+              on the blockchain. They cannot add Civil Officers to a newsroom smart contract.
+            </FormDescription>
+          </FormTitleSection>
+          <Section>
+            {this.props.editors.map(item => (
+              <NewsroomUser
+                newsroomAddress={this.props.address}
+                type={UserTypes.EDITOR}
+                profileWalletAddress={this.props.profileWalletAddress}
+                key={item.address}
+                address={item.address}
+                name={item.name}
+              />
+            ))}
+          </Section>
+          {this.renderAddEditorForm()}
+        </FormSection>
+        {this.renderPreMetamMask()}
+        {this.renderAwaitingTransactionModal()}
+        {this.renderMetaMaskRejectionModal()}
+        {this.renderCompleteModal()}
+        {this.renderProgressModal()}
+      </>
     );
   }
 

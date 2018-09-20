@@ -26,6 +26,7 @@ import {
 } from "../../selectors";
 import { fetchAndAddParameterProposalChallengeData } from "../../actionCreators/parameterizer";
 import { fetchSalt } from "../../helpers/salt";
+import { fetchVote, saveVote } from "../../helpers/vote";
 
 enum ModalContentEventNames {
   IN_PROGRESS_APPROVE_VOTING_RIGHTS = "IN_PROGRESS:APPROVE_VOTING_RIGHTS",
@@ -89,10 +90,14 @@ export interface ChallengeVoteState {
 class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState> {
   constructor(props: any) {
     super(props);
-
+    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
     this.state = {
       isReviewVoteModalOpen: false,
-      voteOption: undefined,
+      voteOption,
       salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
     };
@@ -231,6 +236,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
+        voteOption={this.state.voteOption}
         salt={this.state.salt}
         onInputChange={this.updateCommitVoteState}
         userHasRevealedVote={userHasRevealedVote}
@@ -356,6 +362,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    saveVote(this.props.challengeID, this.props.user, voteOption);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };
 

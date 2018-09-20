@@ -27,6 +27,7 @@ import {
 } from "@joincivil/components";
 import { commitVote, approveVotingRights, revealVote, updateStatus } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
+import { fetchVote, saveVote } from "../../helpers/vote";
 
 export enum ModalContentEventNames {
   APPROVE_VOTING_RIGHTS = "APPROVE_VOTING_RIGHTS",
@@ -60,8 +61,13 @@ export interface ChallengeVoteState {
 class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, ChallengeVoteState> {
   constructor(props: AppealChallengeDetailProps) {
     super(props);
-
+    const fetchedVote = fetchVote(this.props.appealChallengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
     this.state = {
+      voteOption,
       salt: fetchSalt(this.props.appealChallengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       isReviewVoteModalOpen: false,
     };
@@ -175,6 +181,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
         userHasRevealedVote={userHasRevealedVote}
         userHasCommittedVote={userHasCommittedVote}
         stake={stake}
+        voteOption={this.state.voteOption}
         salt={this.state.salt}
         totalVotes={getFormattedTokenBalance(totalVotes)}
         votesFor={votesFor}
@@ -371,6 +378,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
     const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
+    saveVote(this.props.appealChallengeID, this.props.user, voteOption);
     return commitVote(this.props.appealChallengeID, voteOption, salt, numTokens);
   };
 
