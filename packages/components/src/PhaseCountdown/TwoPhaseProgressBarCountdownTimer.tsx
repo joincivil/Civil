@@ -45,7 +45,7 @@ export class TwoPhaseProgressBarCountdownTimerComponent extends React.Component<
     const progress = this.getProgress();
     const style = { width: `${(progress * 100).toString()}%` };
     return (
-      <ProgressBarCountdownContainer>
+      <ProgressBarCountdownContainer key="progressBarPrimary">
         <ProgressBarDisplayLabel>{this.props.displayLabel}</ProgressBarDisplayLabel>
         <ProgressBarCountdownTotal>
           <ProgressBarCountdownProgress style={style} />
@@ -58,7 +58,7 @@ export class TwoPhaseProgressBarCountdownTimerComponent extends React.Component<
     const progress = this.props.activePhaseIndex === 0 ? 0 : 1;
     const style = { width: `${(progress * 100).toString()}%` };
     return (
-      <ProgressBarCountdownContainer>
+      <ProgressBarCountdownContainer key="progressBarSecondary">
         <ProgressBarDisplayLabel>{this.props.secondaryDisplayLabel}</ProgressBarDisplayLabel>
         <ProgressBarCountdownTotal>
           <ProgressBarCountdownProgress style={style} />
