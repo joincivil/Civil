@@ -1,6 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import { AppealData, ChallengeData, EthAddress, TwoStepEthTransaction, NewsroomWrapper } from "@joincivil/core";
+import {
+  AppealData,
+  ChallengeData,
+  EthAddress,
+  TwoStepEthTransaction,
+  NewsroomWrapper,
+  UserChallengeData,
+} from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
   AppealAwaitingDecisionCard,
@@ -43,11 +50,12 @@ export interface AppealDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
+  userAppealChallengeData?: UserChallengeData;
   parameters: any;
   govtParameters: any;
   tokenBalance: number;
   user: EthAddress;
-  isMemberOfCouncil: boolean;
+  isMemberOfAppellate: boolean;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -78,6 +86,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
               appeal={this.props.appeal}
               appealChallengeID={appeal.appealChallengeID}
               appealChallenge={appeal.appealChallenge}
+              userAppealChallengeData={this.props.userAppealChallengeData}
               parameters={this.props.parameters}
               govtParameters={this.props.govtParameters}
               tokenBalance={this.props.tokenBalance}
@@ -113,7 +122,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     // @TODO(jon): Check if user is in Civil Council multi-sig
     let transactions;
     let modalContentComponents;
-    if (isAwaitingAppealJudgment && this.props.isMemberOfCouncil) {
+    if (isAwaitingAppealJudgment && this.props.isMemberOfAppellate) {
       const grantAppealProgressModal = this.renderGrantAppealProgressModal();
       modalContentComponents = {
         [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,

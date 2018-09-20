@@ -8,6 +8,7 @@ import {
   TwoStepEthTransaction,
   EthAddress,
   NewsroomWrapper,
+  UserChallengeData,
 } from "@joincivil/core";
 import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
@@ -41,6 +42,7 @@ export interface AppealChallengeDetailProps {
   challenge: ChallengeData;
   appealChallengeID: BigNumber;
   appealChallenge: AppealChallengeData;
+  userAppealChallengeData?: UserChallengeData;
   appeal: AppealData;
   parameters: any;
   govtParameters: any;
@@ -129,8 +131,12 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
 
   private renderRevealStage(): JSX.Element {
     const challenge = this.props.appealChallenge;
+    const userHasRevealedVote =
+      this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserReveal;
+    const userHasCommittedVote =
+      this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserCommit;
 
-    const endTime = challenge.poll.commitEndDate.toNumber();
+    const endTime = challenge.poll.revealEndDate.toNumber();
     const phaseLength = this.props.parameters.challengeAppealRevealLen;
 
     const challenger = challenge.challenger.toString();
@@ -166,6 +172,8 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
         challengeID={this.props.challengeID.toString()}
         challenger={challenger}
         rewardPool={rewardPool}
+        userHasRevealedVote={userHasRevealedVote}
+        userHasCommittedVote={userHasCommittedVote}
         stake={stake}
         salt={this.state.salt}
         totalVotes={getFormattedTokenBalance(totalVotes)}

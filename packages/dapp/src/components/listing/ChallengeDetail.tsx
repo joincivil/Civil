@@ -38,7 +38,12 @@ import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import { appealChallenge, approveForAppeal, commitVote, approveVotingRights, revealVote } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
-import { makeGetChallengeState, getNewsroom } from "../../selectors";
+import {
+  makeGetChallengeState,
+  makeGetAppealChallengeState,
+  getNewsroom,
+  getIsMemberOfAppellate,
+} from "../../selectors";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { fetchSalt } from "../../helpers/salt";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
@@ -71,6 +76,7 @@ const StyledChallengeResults = styled.div`
 export interface ChallengeDetailContainerProps {
   listingAddress: EthAddress;
   challengeID: BigNumber;
+  appealChallengeID?: BigNumber;
   showNotFoundMessage?: boolean;
   listingPhaseState?: any;
 }
@@ -82,6 +88,7 @@ export interface ChallengeContainerReduxProps {
   userAppealChallengeData?: UserChallengeData;
   challengeDataRequestStatus?: any;
   challengeState: any;
+  appealChallengeState: any;
   user: EthAddress;
   balance: BigNumber;
   votingBalance: BigNumber;
@@ -95,6 +102,8 @@ export interface ChallengeDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
+  appealChallengeID?: BigNumber;
+  appealChallengeState: any;
   parameters?: any;
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
@@ -185,12 +194,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         appeal={challenge.appeal!}
         challengeID={this.props.challengeID}
         challenge={challenge}
+        userAppealChallengeData={this.props.userAppealChallengeData}
         challengeState={this.props.challengeState}
         parameters={this.props.parameters}
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
         user={this.props.user}
-        isMemberOfCouncil={this.props.isMemberOfAppellate}
+        isMemberOfAppellate={this.props.isMemberOfAppellate}
       />
     );
   }
@@ -513,8 +523,10 @@ class ChallengeContainer extends React.Component<
         challengeID={this.props.challengeID}
         challenge={challenge}
         userChallengeData={this.props.userChallengeData}
+        appealChallengeID={this.props.appealChallengeID}
         userAppealChallengeData={this.props.userAppealChallengeData}
         challengeState={this.props.challengeState}
+        appealChallengeState={this.props.appealChallengeState}
         user={this.props.user}
         parameters={this.props.parameters}
         balance={this.props.balance}
@@ -532,6 +544,7 @@ class ChallengeContainer extends React.Component<
 
 const makeMapStateToProps = () => {
   const getChallengeState = makeGetChallengeState();
+  const getAppealChallengeState = makeGetAppealChallengeState();
 
   const mapStateToProps = (
     state: State,
@@ -545,7 +558,6 @@ const makeMapStateToProps = () => {
       user,
       parameters,
       govtParameters,
-      appellateMembers,
     } = state.networkDependent;
     let listingAddress = ownProps.listingAddress;
     let challengeData;
@@ -589,13 +601,14 @@ const makeMapStateToProps = () => {
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
-    const isMemberOfAppellate = appellateMembers.includes(userAcct.account);
+    const isMemberOfAppellate = getIsMemberOfAppellate(state);
     return {
       newsroom: newsroomWrapper,
       challengeData,
       userChallengeData,
       userAppealChallengeData,
       challengeState: getChallengeState(state, ownProps),
+      appealChallengeState: getAppealChallengeState(state, ownProps),
       challengeDataRequestStatus,
       user: userAcct.account,
       balance: user.account.balance,
