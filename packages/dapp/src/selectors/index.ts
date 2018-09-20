@@ -139,28 +139,31 @@ export const getChallengeID = (state: State, props: ChallengeContainerProps) => 
   return challengeID;
 };
 
-export const getAppealChallengeID = (state: State, props: AppealChallengeContainerProps) => {
-  let { appealChallengeID } = props;
-  if (!appealChallengeID) {
-    return;
-  }
-  if (typeof appealChallengeID !== "string") {
-    appealChallengeID = appealChallengeID.toString();
-  }
-  return appealChallengeID;
-};
-
-export const getChallenge = (state: State, props: ChallengeContainerProps) => {
-  let { challengeID } = props;
+export const getChallenge = createSelector([getChallenges, getChallengeID], (challenges, challengeID) => {
   if (!challengeID) {
     return;
   }
-  if (typeof challengeID !== "string") {
-    challengeID = challengeID.toString();
-  }
-  const challenges = state.networkDependent.challenges;
   const challenge: WrappedChallengeData = challenges.get(challengeID);
   return challenge;
+});
+
+export const getAppealChallengeID = createSelector([getChallenge], challengeData => {
+  if (!challengeData) {
+    return;
+  }
+
+  const appealChallengeID =
+    (challengeData &&
+      challengeData.challenge &&
+      challengeData.challenge.appeal &&
+      challengeData.challenge.appeal.appealChallengeID) ||
+    undefined;
+
+  return appealChallengeID ? appealChallengeID.toString() : undefined;
+});
+
+export const makeGetAppealChallengeID = () => {
+  return getAppealChallengeID;
 };
 
 export const getAppealChallenge = (state: State, props: AppealChallengeContainerProps) => {
@@ -177,13 +180,7 @@ export const getAppealChallenge = (state: State, props: AppealChallengeContainer
 };
 
 export const makeGetChallenge = () => {
-  return createSelector([getChallenges, getChallengeID], (challenges, challengeID) => {
-    if (!challengeID) {
-      return;
-    }
-    const challenge: WrappedChallengeData = challenges.get(challengeID);
-    return challenge;
-  });
+  return getChallenge;
 };
 
 export const getChallengeUserDataMap = createSelector(

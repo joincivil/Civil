@@ -39,8 +39,12 @@ import { appealChallenge, approveForAppeal, commitVote, approveVotingRights, rev
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import {
+  makeGetChallenge,
   makeGetChallengeState,
   makeGetAppealChallengeState,
+  makeGetListingAddressByChallengeID,
+  makeGetUserChallengeData,
+  makeGetUserAppealChallengeData,
   getNewsroom,
   getIsMemberOfAppellate,
 } from "../../selectors";
@@ -543,33 +547,24 @@ class ChallengeContainer extends React.Component<
 }
 
 const makeMapStateToProps = () => {
+  const getChallenge = makeGetChallenge();
   const getChallengeState = makeGetChallengeState();
   const getAppealChallengeState = makeGetAppealChallengeState();
+  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
+  const getUserChallengeData = makeGetUserChallengeData();
+  const getUserAppealChallengeData = makeGetUserAppealChallengeData();
 
   const mapStateToProps = (
     state: State,
     ownProps: ChallengeDetailContainerProps,
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
-    const {
-      challenges,
-      challengesFetching,
-      challengeUserData,
-      appealChallengeUserData,
-      user,
-      parameters,
-      govtParameters,
-    } = state.networkDependent;
-    let listingAddress = ownProps.listingAddress;
-    let challengeData;
-    let userChallengeData;
-    let userAppealChallengeData;
+    const { challengesFetching, user, parameters, govtParameters } = state.networkDependent;
+    const challengeData = getChallenge(state, ownProps);
     const newsroomState = getNewsroom(state, ownProps);
     const challengeID = ownProps.challengeID;
-    if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
-    }
-    if (!listingAddress && challengeData) {
-      listingAddress = challenges.get(challengeID.toString())!.listingAddress;
+    let listingAddress: string | undefined = ownProps.listingAddress;
+    if (!listingAddress) {
+      listingAddress = getListingAddressByChallengeID(state, ownProps);
     }
     const userAcct = user.account;
 
@@ -578,30 +573,15 @@ const makeMapStateToProps = () => {
       newsroomWrapper = newsroomState.wrapper;
     }
 
-    // TODO(nickreynolds): clean this up
-    if (challengeID && userAcct) {
-      const challengeUserDataMap = challengeUserData.get(challengeID!.toString());
-      if (challengeUserDataMap) {
-        userChallengeData = challengeUserDataMap.get(userAcct.account);
-      }
-      if (challengeData) {
-        const wrappedChallenge = challengeData as WrappedChallengeData;
+    const userChallengeData = getUserChallengeData(state, ownProps);
+    const userAppealChallengeData = getUserAppealChallengeData(state, ownProps);
 
-        // null checks
-        if (wrappedChallenge && wrappedChallenge.challenge && wrappedChallenge.challenge.appeal) {
-          const appealChallengeID = wrappedChallenge.challenge.appeal.appealChallengeID;
-          const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID!.toString());
-          if (appealChallengeUserDataMap) {
-            userAppealChallengeData = appealChallengeUserDataMap.get(userAcct.account);
-          }
-        }
-      }
-    }
     let challengeDataRequestStatus;
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
     const isMemberOfAppellate = getIsMemberOfAppellate(state);
+
     return {
       newsroom: newsroomWrapper,
       challengeData,
