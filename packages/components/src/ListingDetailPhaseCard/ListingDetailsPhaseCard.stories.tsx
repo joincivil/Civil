@@ -34,6 +34,7 @@ const now = Date.now() / 1000;
 const oneDay = 86400;
 const endTime = now + oneDay * 4.25;
 const phaseLength = oneDay * 7;
+const secondaryPhaseLength = phaseLength * 2;
 
 const challengeID = "420";
 const challenger = "0x0";
@@ -112,6 +113,7 @@ storiesOf("Listing Details Phase Card", module)
           <ChallengeRevealVoteCard
             endTime={endTime}
             phaseLength={phaseLength}
+            secondaryPhaseLength={secondaryPhaseLength}
             challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
@@ -133,6 +135,7 @@ storiesOf("Listing Details Phase Card", module)
           <ChallengeRevealVoteCard
             endTime={endTime}
             phaseLength={phaseLength}
+            secondaryPhaseLength={secondaryPhaseLength}
             challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
@@ -309,6 +312,7 @@ storiesOf("Listing Details Phase Card", module)
           <AppealChallengeCommitVoteCard
             endTime={endTime}
             phaseLength={phaseLength}
+            secondaryPhaseLength={secondaryPhaseLength}
             tokenBalance={tokenBalance}
             salt={commitVoteState.salt}
             challengeID={challengeID}
@@ -338,6 +342,7 @@ storiesOf("Listing Details Phase Card", module)
           <AppealChallengeRevealVoteCard
             endTime={endTime}
             phaseLength={phaseLength}
+            secondaryPhaseLength={secondaryPhaseLength}
             challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
