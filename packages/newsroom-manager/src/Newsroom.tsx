@@ -61,6 +61,10 @@ const Heading = ManagerHeading.extend`
 `;
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
+  public static defaultProps = {
+    theme: {},
+  };
+
   constructor(props: NewsroomProps) {
     super(props);
     this.state = {
