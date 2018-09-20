@@ -16,6 +16,7 @@ export * from "./DetailsButtonComponent";
 export * from "./SignConstitutionButton";
 export * from "./Collapsable";
 export * from "./AddressWithCopyButton";
+export * from "./AddressWithMetaMaskIcon";
 export * from "./ListingSummary";
 export * from "./ListingSummary/ListingSummaryRejected";
 export * from "./ListingSummary/ListingSummaryList";
