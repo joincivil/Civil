@@ -1,6 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import { AppealData, ChallengeData, EthAddress, TwoStepEthTransaction, NewsroomWrapper } from "@joincivil/core";
+import {
+  AppealData,
+  ChallengeData,
+  EthAddress,
+  TwoStepEthTransaction,
+  NewsroomWrapper,
+  UserChallengeData,
+} from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
   AppealAwaitingDecisionCard,
@@ -43,10 +50,12 @@ export interface AppealDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
+  userAppealChallengeData?: UserChallengeData;
+  parameters: any;
   govtParameters: any;
   tokenBalance: number;
   user: EthAddress;
-  isMemberOfCouncil: boolean;
+  isMemberOfAppellate: boolean;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -60,22 +69,30 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
-        {!hasAppealChallenge && !canAppealBeResolved && this.renderAwaitingAppealDecision()}
+        {!hasAppealChallenge &&
+          !canAppealBeResolved &&
+          !appeal.appealChallenge &&
+          !isAwaitingAppealChallenge &&
+          this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
-        {appeal.appealChallenge && (
-          <AppealChallengeDetail
-            listingAddress={this.props.listingAddress}
-            newsroom={this.props.newsroom}
-            challengeID={this.props.challengeID}
-            challenge={this.props.challenge}
-            appeal={this.props.appeal}
-            appealChallengeID={appeal.appealChallengeID}
-            appealChallenge={appeal.appealChallenge}
-            govtParameters={this.props.govtParameters}
-            tokenBalance={this.props.tokenBalance}
-            user={this.props.user}
-          />
-        )}
+        {appeal.appealChallenge &&
+          !appeal.appealChallenge.resolved &&
+          !canAppealBeResolved && (
+            <AppealChallengeDetail
+              listingAddress={this.props.listingAddress}
+              newsroom={this.props.newsroom}
+              challengeID={this.props.challengeID}
+              challenge={this.props.challenge}
+              appeal={this.props.appeal}
+              appealChallengeID={appeal.appealChallengeID}
+              appealChallenge={appeal.appealChallenge}
+              userAppealChallengeData={this.props.userAppealChallengeData}
+              parameters={this.props.parameters}
+              govtParameters={this.props.govtParameters}
+              tokenBalance={this.props.tokenBalance}
+              user={this.props.user}
+            />
+          )}
         {canAppealBeResolved && this.renderCanResolve()}
       </StyledDiv>
     );
@@ -105,7 +122,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     // @TODO(jon): Check if user is in Civil Council multi-sig
     let transactions;
     let modalContentComponents;
-    if (isAwaitingAppealJudgment && this.props.isMemberOfCouncil) {
+    if (isAwaitingAppealJudgment && this.props.isMemberOfAppellate) {
       const grantAppealProgressModal = this.renderGrantAppealProgressModal();
       modalContentComponents = {
         [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,
@@ -210,7 +227,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       { transaction: this.challengeGrantedAppeal, progressEventName: ModalContentEventNames.CHALLENGE_APPEAL },
     ];
     const endTime = appeal.appealOpenToChallengeExpiry.toNumber();
-    const phaseLength = this.props.govtParameters.challengeAppealLen;
+    const phaseLength = this.props.parameters.challengeAppealLen;
     return (
       <AppealDecisionCard
         endTime={endTime}

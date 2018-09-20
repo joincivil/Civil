@@ -118,6 +118,7 @@ storiesOf("Listing Details Phase Card", module)
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
+            voteOption={commitVoteState.voteOption}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}
@@ -139,6 +140,7 @@ storiesOf("Listing Details Phase Card", module)
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
+            voteOption={commitVoteState.voteOption}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}
@@ -160,6 +162,7 @@ storiesOf("Listing Details Phase Card", module)
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
+            voteOption={commitVoteState.voteOption}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}
@@ -344,6 +347,7 @@ storiesOf("Listing Details Phase Card", module)
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
+            voteOption={commitVoteState.voteOption}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}
@@ -370,6 +374,7 @@ storiesOf("Listing Details Phase Card", module)
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
+            voteOption={commitVoteState.voteOption}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}
@@ -398,6 +403,7 @@ storiesOf("Listing Details Phase Card", module)
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
+            voteOption={commitVoteState.voteOption}
             salt={commitVoteState.salt}
             onInputChange={commitVoteChange}
             transactions={[]}

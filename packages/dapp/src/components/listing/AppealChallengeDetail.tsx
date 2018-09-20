@@ -8,6 +8,7 @@ import {
   TwoStepEthTransaction,
   EthAddress,
   NewsroomWrapper,
+  UserChallengeData,
 } from "@joincivil/core";
 import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
@@ -26,6 +27,7 @@ import {
 } from "@joincivil/components";
 import { commitVote, approveVotingRights, revealVote, updateStatus } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
+import { fetchVote, saveVote } from "../../helpers/vote";
 
 export enum ModalContentEventNames {
   APPROVE_VOTING_RIGHTS = "APPROVE_VOTING_RIGHTS",
@@ -41,7 +43,9 @@ export interface AppealChallengeDetailProps {
   challenge: ChallengeData;
   appealChallengeID: BigNumber;
   appealChallenge: AppealChallengeData;
+  userAppealChallengeData?: UserChallengeData;
   appeal: AppealData;
+  parameters: any;
   govtParameters: any;
   tokenBalance: number;
   user: any;
@@ -57,8 +61,13 @@ export interface ChallengeVoteState {
 class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, ChallengeVoteState> {
   constructor(props: AppealChallengeDetailProps) {
     super(props);
-
+    const fetchedVote = fetchVote(this.props.appealChallengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
     this.state = {
+      voteOption,
       salt: fetchSalt(this.props.appealChallengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       isReviewVoteModalOpen: false,
     };
@@ -81,8 +90,8 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     const challenge = this.props.appealChallenge;
 
     const endTime = challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.govtParameters.challengeAppealCommitLen;
-    const secondaryPhaseLength = this.props.govtParameters.challengeAppealRevealLen;
+    const phaseLength = this.props.parameters.challengeAppealCommitLen;
+    const secondaryPhaseLength = this.props.parameters.challengeAppealRevealLen;
 
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
@@ -130,10 +139,14 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
 
   private renderRevealStage(): JSX.Element {
     const challenge = this.props.appealChallenge;
+    const userHasRevealedVote =
+      this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserReveal;
+    const userHasCommittedVote =
+      this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserCommit;
 
     const endTime = challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.govtParameters.challengeAppealCommitLen;
-    const secondaryPhaseLength = this.props.govtParameters.challengeAppealRevealLen;
+    const phaseLength = this.props.parameters.challengeAppealRevealLen;
+    const secondaryPhaseLength = this.props.parameters.challengeAppealCommitLen;
 
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
@@ -169,7 +182,10 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
         challengeID={this.props.challengeID.toString()}
         challenger={challenger}
         rewardPool={rewardPool}
+        userHasRevealedVote={userHasRevealedVote}
+        userHasCommittedVote={userHasCommittedVote}
         stake={stake}
+        voteOption={this.state.voteOption}
         salt={this.state.salt}
         totalVotes={getFormattedTokenBalance(totalVotes)}
         votesFor={votesFor}
@@ -366,6 +382,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps, 
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
     const numTokens: BigNumber = new BigNumber((this.state.numTokens as string).replace(",", "")).mul(1e18);
+    saveVote(this.props.appealChallengeID, this.props.user, voteOption);
     return commitVote(this.props.appealChallengeID, voteOption, salt, numTokens);
   };
 

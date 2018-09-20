@@ -12,7 +12,7 @@ contract("Parameterizer", accounts => {
     let parameterizer: any;
 
     beforeEach(async () => {
-      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
+      [parameterizer] = await utils.createAllTestParameterizerInstance(accounts);
     });
 
     it("should true if a proposal exists for the provided propID", async () => {
