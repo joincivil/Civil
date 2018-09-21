@@ -18,7 +18,7 @@ export interface StepTopNavProps {
   complete?: boolean;
   index?: number;
   children: React.ReactChild;
-  renderButtons?(args: RenderButtonsArgs): JSX.Element; 
+  renderButtons?(args: RenderButtonsArgs): JSX.Element;
   onClick?(index: number): void;
   setStartPosition?(position: number): void;
 }

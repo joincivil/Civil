@@ -1,5 +1,16 @@
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ButtonTheme, colors, StepProcessTopNav, Step, ManagerHeading, WalletOnboarding, RenderButtonsArgs, Button, SecondaryButton, buttonSizes } from "@joincivil/components";
+import {
+  ButtonTheme,
+  colors,
+  StepProcessTopNav,
+  Step,
+  ManagerHeading,
+  WalletOnboarding,
+  RenderButtonsArgs,
+  Button,
+  SecondaryButton,
+  buttonSizes,
+} from "@joincivil/components";
 import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -100,9 +111,17 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           }}
         >
           <StepProcessTopNav activeIndex={this.state.currentStep}>
-            <Step title={"Set up a newsroom"} renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-              return <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>Next</Button>;
-            }} complete={!!this.props.address}>
+            <Step
+              title={"Set up a newsroom"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                    Next
+                  </Button>
+                );
+              }}
+              complete={!!this.props.address}
+            >
               <NameAndAddress
                 onNewsroomCreated={this.onNewsroomCreated}
                 name={this.props.name}
@@ -111,9 +130,22 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 onContractDeployStarted={this.props.onContractDeployStarted}
               />
             </Step>
-            <Step title={"Add accounts"} renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-              return <><SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>Back</SecondaryButton><Button onClick={args.goNext} size={buttonSizes.MEDIUM}>Next</Button></>;
-            }} complete={this.props.owners!.length > 1 || !!this.props.editors!.length}>
+            <Step
+              title={"Add accounts"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+              complete={this.props.owners!.length > 1 || !!this.props.editors!.length}
+            >
               <CompleteYourProfile
                 address={this.props.address}
                 renderUserSearch={this.props.renderUserSearch}
@@ -130,7 +162,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               <div />
             </Step>
           </StepProcessTopNav>
-          <button></button>
+          <button />
         </CivilContext.Provider>
       </>
     );

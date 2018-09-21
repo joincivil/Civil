@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import { StepTopNavProps } from "./Step";
-import { Button, SecondaryButton, buttonSizes } from "../../Button";
 
 export interface StepsProps {
   activeIndex?: number;
@@ -115,9 +114,7 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
           <StyledContainer>{this.renderTabs()}</StyledContainer>
         </StyledNav>
         <MainSection>{this.renderContent()}</MainSection>
-        <ButtonSection>
-          {this.renderButtons()}
-        </ButtonSection>
+        <ButtonSection>{this.renderButtons()}</ButtonSection>
       </div>
     );
   }
