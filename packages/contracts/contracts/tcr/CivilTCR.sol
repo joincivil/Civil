@@ -493,6 +493,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   function appealChallengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
     Appeal appeal = appeals[challengeID];
+    require(challengeExists(listingAddress));
     if (appeal.appealChallengeID == 0) {
       return false;
     }
