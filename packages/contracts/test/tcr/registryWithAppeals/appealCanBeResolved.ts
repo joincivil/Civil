@@ -71,6 +71,35 @@ contract("Registry With Appeals", accounts => {
       );
     });
 
+    it("should return false if appeal granted and challenged", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
+      const canBeResolved = await registry.appealCanBeResolved(newsroomAddress);
+      await expect(canBeResolved).to.be.false(
+        "Should return false if appeal granted and appeal open challenge phase not expired",
+      );
+    });
+
+    it("should return false if appeal granted and challenged even if we wait until can be challenged phase would have ended", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
+      await utils.advanceEvmTime(utils.paramConfig.challengeAppealLength + 100);
+      const canBeResolved = await registry.appealCanBeResolved(newsroomAddress);
+      await expect(canBeResolved).to.be.false(
+        "Should return false if appeal granted and appeal open challenge phase not expired",
+      );
+    });
+
     it("should return true if appeal granted and appeal open challenge phase expired", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await registry.challenge(newsroomAddress, "", { from: challenger });
