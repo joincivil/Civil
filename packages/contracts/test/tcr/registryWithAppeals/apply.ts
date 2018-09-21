@@ -87,7 +87,7 @@ contract("Registry With Appeals", accounts => {
           await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
           await registry.challenge(newsroomAddress, "", { from: challenger });
           await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
-          await registry.requestAppeal(newsroomAddress, { from: applicant });
+          await registry.requestAppeal(newsroomAddress, "", { from: applicant });
           await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
 
           const applyTx = registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
@@ -105,7 +105,7 @@ contract("Registry With Appeals", accounts => {
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
         await voting.revealVote(pollID, "0", "1234", { from: voter });
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, { from: applicant });
+        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
         await registry.updateStatus(newsroomAddress);
 
