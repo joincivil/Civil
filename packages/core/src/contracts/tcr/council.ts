@@ -36,14 +36,14 @@ export class Council {
     this.multisig = multi;
   }
 
-  public async grantAppeal(listingAddress: EthAddress): Promise<TwoStepEthTransaction<any>> {
-    const data = await this.civilInstance.grantAppeal.getRaw(listingAddress, { gas: 0 });
-    return this.multisig.submitTransaction(this.civilInstance.address, new BigNumber(0), data.data!);
+  public async grantAppeal(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction<any>> {
+    const txdata = await this.civilInstance.grantAppeal.getRaw(listingAddress, data, { gas: 0 });
+    return this.multisig.submitTransaction(this.civilInstance.address, new BigNumber(0), txdata.data!);
   }
 
   public async transferAppellate(newAppellate: EthAddress): Promise<TwoStepEthTransaction<any>> {
-    const data = await this.govtInstance.setAppellate.getRaw(newAppellate);
-    return this.multisig.submitTransaction(this.govtInstance.address, new BigNumber(0), data.data!);
+    const txdata = await this.govtInstance.setAppellate.getRaw(newAppellate);
+    return this.multisig.submitTransaction(this.govtInstance.address, new BigNumber(0), txdata.data!);
   }
 
   public async getAppellateMembers(): Promise<string[]> {

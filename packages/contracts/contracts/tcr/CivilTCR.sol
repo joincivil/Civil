@@ -16,8 +16,8 @@ A successful Appeal Challenge reverses the result of the Granted Appeal (again, 
 */
 contract CivilTCR is RestrictedAddressRegistry {
 
-  event _AppealRequested(address indexed listingAddress, uint indexed challengeID, uint appealFeePaid, address requester);
-  event _AppealGranted(address indexed listingAddress, uint indexed challengeID);
+  event _AppealRequested(address indexed listingAddress, uint indexed challengeID, uint appealFeePaid, address requester, string data);
+  event _AppealGranted(address indexed listingAddress, uint indexed challengeID, string data);
   event _FailedChallengeOverturned(address indexed listingAddress, uint indexed challengeID, uint rewardPool, uint totalTokens);
   event _SuccessfulChallengeOverturned(address indexed listingAddress, uint indexed challengeID, uint rewardPool, uint totalTokens);
   event _GrantedAppealChallenged(address indexed listingAddress, uint indexed challengeID, uint indexed appealChallengeID, string data);
@@ -88,11 +88,10 @@ contract CivilTCR is RestrictedAddressRegistry {
   // --------------------
 
   /**
-  @dev                Allows a user to start an application. Takes tokens from user and sets
-                      apply stage end time.
+  @dev Allows a user to start an application. Takes tokens from user and sets apply stage end time.
   @param listingAddress The hash of a potential listing a user is applying to add to the registry
-  @param amount      The number of ERC20 tokens a user is willing to potentially stake
-  @param data        Extra data relevant to the application. Think IPFS hashes.
+  @param amount The number of ERC20 tokens a user is willing to potentially stake
+  @param data Extra data relevant to the application. Think IPFS hashes.
   */
   function apply(address listingAddress, uint amount, string data) public {
     super.apply(listingAddress, amount, data);
@@ -113,8 +112,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   --------
   Emits `_AppealRequested` if successful
   @param listingAddress address of listing that has challenged result that the user wants to appeal
+  @param data Extra data relevant to the spprsl. Think IPFS hashes.
   */
-  function requestAppeal(address listingAddress) external {
+  function requestAppeal(address listingAddress, string data) external {
     Listing storage listing = listings[listingAddress];
     require(voting.pollEnded(listing.challengeID));
     require(challengeRequestAppealExpiries[listing.challengeID] > now); // "Request Appeal Phase" active
@@ -127,7 +127,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealPhaseExpiry = now.add(government.get("judgeAppealLen"));
     telemetry.onTokensUsed(msg.sender, appealFee);
     require(token.transferFrom(msg.sender, this, appealFee));
-    emit _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender);
+    emit _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender, data);
   }
 
   // --------
@@ -148,8 +148,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   --------
   Emits `_AppealGranted` if successful
   @param listingAddress The address of the listing associated with the appeal
+  @param data Extra data relevant to the appeal. Think IPFS hashes.
   */
-  function grantAppeal(address listingAddress) external onlyAppellate {
+  function grantAppeal(address listingAddress, string data) external onlyAppellate {
     Listing storage listing = listings[listingAddress];
     Appeal storage appeal = appeals[listing.challengeID];
     require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
@@ -157,7 +158,7 @@ contract CivilTCR is RestrictedAddressRegistry {
 
     appeal.appealGranted = true;
     appeal.appealOpenToChallengeExpiry = now.add(parameterizer.get("challengeAppealLen"));
-    emit _AppealGranted(listingAddress, listing.challengeID);
+    emit _AppealGranted(listingAddress, listing.challengeID, data);
   }
 
   /**
@@ -493,6 +494,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   function appealChallengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
     Appeal appeal = appeals[challengeID];
+    require(challengeExists(listingAddress));
     if (appeal.appealChallengeID == 0) {
       return false;
     }
