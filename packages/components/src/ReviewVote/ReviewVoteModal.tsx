@@ -5,6 +5,7 @@ import { saltToWords, getFormattedEthAddress, getLocalDateTimeStrings, padString
 import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionButton } from "../TransactionButton";
+import { QuestionToolTip } from "../QuestionToolTip";
 import {
   ReviewVoteHeaderTitleText,
   ReviewVoteHeaderCopyText,
@@ -20,6 +21,7 @@ import {
   PrintThisText,
   EmailYourselfText,
   TransactionButtonText,
+  SaltPhraseToolTipText,
 } from "./textComponents";
 import {
   ModalOuter,
@@ -150,6 +152,7 @@ export const ReviewVote: React.StatelessComponent<ReviewVoteProps> = props => {
                 <MetaRow>
                   <MetaItemLabelSalt>
                     <SaltLabelText />
+                    <QuestionToolTip explainerText={<SaltPhraseToolTipText />} positionBottom={true} />
                   </MetaItemLabelSalt>
 
                   <MetaItemValueSalt>{getSaltyWords(props.salt)}</MetaItemValueSalt>

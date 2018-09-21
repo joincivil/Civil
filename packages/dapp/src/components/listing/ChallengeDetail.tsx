@@ -279,6 +279,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private renderRevealStage(): JSX.Element | null {
     const endTime = this.props.challenge.poll.revealEndDate.toNumber();
     const phaseLength = this.props.parameters.revealStageLen;
+    const secondaryPhaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
     const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
@@ -299,6 +300,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challengeID.toString()}
         endTime={endTime}
         phaseLength={phaseLength}
+        secondaryPhaseLength={secondaryPhaseLength}
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}

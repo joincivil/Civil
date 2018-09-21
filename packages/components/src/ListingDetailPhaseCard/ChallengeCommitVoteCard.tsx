@@ -25,13 +25,16 @@ import {
   CommitVoteCalloutCopyText,
   CommitVoteAlreadyVotedHeaderText,
   CommitVoteAlreadyVotedCopyText,
-  CommitVoteCalloutButtonText,
+  UnderChallengeToolTipText,
+  CommitVoteToolTipText,
+  ConfirmVoteToolTipText,
 } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { NeedHelp } from "./NeedHelp";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { CommitVote } from "./CommitVote";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export type ChallengeCommitVoteCardProps = ListingDetailPhaseCardComponentProps &
   PhaseWithExpiryProps &
@@ -61,12 +64,15 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <StyledPhaseDisplayName>
                   <UnderChallengePhaseDisplayNameText />
+                  <QuestionToolTip explainerText={<UnderChallengeToolTipText />} positionBottom={true} />
                 </StyledPhaseDisplayName>
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Accepting votes"
+                  toolTipText={<CommitVoteToolTipText />}
                   secondaryDisplayLabel="Confirming Votes"
+                  secondaryToolTipText={<ConfirmVoteToolTipText />}
                   flavorText="under challenge"
                   activePhaseIndex={0}
                 />

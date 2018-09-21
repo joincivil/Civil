@@ -52,6 +52,7 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={shortTotalSeconds}
               flavorText={flavorText}
               displayLabel="Waiting for approval"
+              toolTipText="Tool Tip for label"
             />
 
             <h3>A Long Phase</h3>
@@ -60,6 +61,7 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={totalSeconds}
               flavorText={flavorText}
               displayLabel="Waiting for approval"
+              toolTipText="Tool Tip for label"
             />
           </>
         )}
@@ -80,7 +82,9 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={shortTotalSeconds}
               flavorText={flavorText}
               displayLabel="Committing Votes"
+              toolTipText="Tool Tip text for Committing Votes"
               secondaryDisplayLabel="Revealing Votes"
+              secondaryToolTipText="Tool Tip text for Revealing Votes"
               activePhaseIndex={0}
             />
 
@@ -90,7 +94,9 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={shortTotalSeconds}
               flavorText={flavorText}
               displayLabel="Revealing Votes"
+              toolTipText="Tool Tip text for Revealing Votes"
               secondaryDisplayLabel="Committing Votes"
+              secondaryToolTipText="Tool Tip text for Committing Votes"
               activePhaseIndex={1}
             />
           </>

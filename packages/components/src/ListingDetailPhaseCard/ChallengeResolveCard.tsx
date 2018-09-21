@@ -7,10 +7,12 @@ import {
   StyledPhaseKicker,
   StyledPhaseDisplayName,
 } from "./styledComponents";
+import { ReadyToCompletePhaseDisplayNameText, ResolveChallengeToolTipText } from "./textComponents";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { NeedHelp } from "./NeedHelp";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export const ChallengeResolveCard: React.StatelessComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeResultsProps
@@ -19,7 +21,10 @@ export const ChallengeResolveCard: React.StatelessComponent<
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
-        <StyledPhaseDisplayName>Ready to Complete</StyledPhaseDisplayName>
+        <StyledPhaseDisplayName>
+          <ReadyToCompletePhaseDisplayNameText />
+          <QuestionToolTip explainerText={<ResolveChallengeToolTipText />} positionBottom={true} />
+        </StyledPhaseDisplayName>
       </StyledListingDetailPhaseCardSection>
 
       <StyledListingDetailPhaseCardSection>

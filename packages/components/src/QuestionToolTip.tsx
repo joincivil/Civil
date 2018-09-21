@@ -7,14 +7,13 @@ const Wrapper = styled.div`
   width: 18px;
   height: 18px;
   position: relative;
-  display: inline-block;
   margin-left: 5px;
   margin-top: -1px;
 `;
 
 export class QuestionToolTip extends React.Component<ToolTipProps> {
   public render(): JSX.Element {
-    const color = this.props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000";
+    const color = this.props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK;
     return (
       <ToolTip {...this.props}>
         <Wrapper>
