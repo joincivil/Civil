@@ -25,7 +25,6 @@ import {
   CommitVoteCalloutCopyText,
   CommitVoteAlreadyVotedHeaderText,
   CommitVoteAlreadyVotedCopyText,
-  CommitVoteCalloutButtonText,
   UnderChallengeToolTipText,
   CommitVoteToolTipText,
   ConfirmVoteToolTipText,
