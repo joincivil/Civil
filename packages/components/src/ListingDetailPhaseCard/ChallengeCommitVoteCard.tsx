@@ -25,7 +25,6 @@ import {
   CommitVoteCalloutCopyText,
   CommitVoteAlreadyVotedHeaderText,
   CommitVoteAlreadyVotedCopyText,
-  CommitVoteCalloutButtonText,
   UnderChallengeToolTipText,
   CommitVoteToolTipText,
   ConfirmVoteToolTipText,
@@ -88,7 +87,13 @@ export class ChallengeCommitVoteCard extends React.Component<
                 />
               </StyledListingDetailPhaseCardSection>
 
-              {this.renderCommitVoteCallout()}
+              <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+                {this.renderCommitVoteCallout()}
+
+                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+                  Submit My Vote
+                </FullWidthButton>
+              </StyledListingDetailPhaseCardSection>
 
               <NeedHelp />
             </StyledListingDetailPhaseCardContainer>
@@ -100,12 +105,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledCardClose>
                   <span onClick={this.swapFlipped}>✖</span>
                 </StyledCardClose>
-                <FormHeader>
-                  <CommitVoteCalloutHeaderText />
-                </FormHeader>
-                <FormCopy>
-                  <CommitVoteCalloutCopyText />
-                </FormCopy>
+                {this.renderCommitVoteCallout()}
               </StyledListingDetailPhaseCardSection>
               <StyledListingDetailPhaseCardSection>
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
@@ -132,31 +132,25 @@ export class ChallengeCommitVoteCard extends React.Component<
   private renderCommitVoteCallout = (): JSX.Element => {
     if (this.props.userHasCommittedVote) {
       return (
-        <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+        <>
           <FormHeader>
             <CommitVoteAlreadyVotedHeaderText />
           </FormHeader>
           <FormCopy>
             <CommitVoteAlreadyVotedCopyText />
           </FormCopy>
-          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-            Submit My Vote
-          </FullWidthButton>
-        </StyledListingDetailPhaseCardSection>
+        </>
       );
     }
     return (
-      <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+      <>
         <FormHeader>
           <CommitVoteCalloutHeaderText />
         </FormHeader>
         <FormCopy>
           <CommitVoteCalloutCopyText />
         </FormCopy>
-        <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-          <CommitVoteCalloutButtonText />
-        </FullWidthButton>
-      </StyledListingDetailPhaseCardSection>
+      </>
     );
   };
 }

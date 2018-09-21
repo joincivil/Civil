@@ -76,8 +76,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
           this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
         {appeal.appealChallenge &&
-          !appeal.appealChallenge.resolved &&
-          !canAppealBeResolved && (
+          !appeal.appealChallenge.resolved && (
             <AppealChallengeDetail
               listingAddress={this.props.listingAddress}
               newsroom={this.props.newsroom}
@@ -93,7 +92,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
               user={this.props.user}
             />
           )}
-        {canAppealBeResolved && this.renderCanResolve()}
+        {canAppealBeResolved && !appeal.appealChallenge && this.renderCanResolve()}
       </StyledDiv>
     );
   }
