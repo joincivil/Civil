@@ -33,6 +33,7 @@ import {
   ReviewVoteProps,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getCivil } from "../../helpers/civilInstance";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import { appealChallenge, approveForAppeal, commitVote, approveVotingRights, revealVote } from "../../apis/civilTCR";
@@ -121,10 +122,14 @@ export interface ChallengeDetailProps {
 }
 
 export interface ChallengeVoteState {
-  isReviewVoteModalOpen: boolean;
+  isReviewVoteModalOpen?: boolean;
+  isRequestAppealModalOpen?: boolean;
   voteOption?: string;
   salt?: string;
   numTokens?: string;
+  requestAppealSummaryValue?: string;
+  requestAppealCiteConstitutionValue?: string;
+  requestAppealDetailsValue?: string;
 }
 
 // A container encapsultes the Commit Vote, Reveal Vote and Rewards phases for a Challenge.
@@ -139,6 +144,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     }
     this.state = {
       isReviewVoteModalOpen: false,
+      isRequestAppealModalOpen: false,
       voteOption,
       salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
@@ -333,6 +339,30 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const challenge = this.props.challenge;
     const endTime = challenge.requestAppealExpiry.toNumber();
     const phaseLength = this.props.govtParameters.requestAppealLen;
+    const ChallengeRequestAppeal = withChallengeResults(ChallengeRequestAppealCard);
+
+    return (
+      <>
+        <ChallengeRequestAppeal
+          challengeID={this.props.challengeID.toString()}
+          endTime={endTime}
+          phaseLength={phaseLength}
+          challenger={challenge!.challenger.toString()}
+          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+          stake={getFormattedTokenBalance(challenge!.stake)}
+          handleRequestAppeal={this.handleRequestAppeal}
+        />
+        {this.renderRequestAppealModal()}
+      </>
+    );
+  }
+
+  private renderRequestAppealModal(): JSX.Element {
+    if (!this.props.parameters && !this.props.govtParameters) {
+      return <></>;
+    }
+
+    const civil = getCivil();
     const approveForAppealProgressModal = this.renderApproveForAppealProgressModal();
     const requestAppealProgressModal = this.renderRequestAppealProgressModal();
     const modalContentComponents = {
@@ -350,20 +380,20 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       },
     ];
 
-    const ChallengeRequestAppeal = withChallengeResults(ChallengeRequestAppealCard);
+    const constitutionURI = this.props.parameters.constitutionURI || "#";
+    const appealFee = getFormattedTokenBalance(civil.toBigNumber(this.props.govtParameters.appealFee), true);
+    const props: RequestAppealModalProps = {
+      open: this.state.isRequestAppealModalOpen,
+      constitutionURI,
+      appealFee,
+      modalContentComponents,
+      transactions,
+      updateStatementValue: this.updateAppealStatement,
+      postExecuteTransactions: this.closeRequestAppealModal,
+      handleClose: this.closeRequestAppealModal,
+    };
+    return <SubmitChallengeModal {...props} />;
 
-    return (
-      <ChallengeRequestAppeal
-        challengeID={this.props.challengeID.toString()}
-        endTime={endTime}
-        phaseLength={phaseLength}
-        challenger={challenge!.challenger.toString()}
-        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-        stake={getFormattedTokenBalance(challenge!.stake)}
-        modalContentComponents={modalContentComponents}
-        transactions={transactions}
-      />
-    );
   }
 
   private renderApproveForAppealProgressModal(): JSX.Element {
@@ -481,8 +511,18 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     }
   };
 
+  private updateAppealStatement = (key: string, value: any): void => {
+    const stateKey = `appealRequest${key.charAt(0).toUpperCase()}${key.substring(1)}`;
+    this.setState(() => ({ [stateKey]: value }));
+  };
+
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    return appealChallenge(this.props.listingAddress);
+    const summary = this.state.requestAppealSummaryValue;
+    const citeConstitution = this.state.requestAppealCiteConstitutionValue;
+    const details = this.state.requestAppealDetailsValue;
+    const jsonToSave = { summary, citeConstitution, details };
+    console.log(jsonToSave);
+    return appealChallenge(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
@@ -511,6 +551,15 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private closeReviewVoteModal = () => {
     this.setState({ isReviewVoteModalOpen: false });
   };
+
+  private closeRequestAppealModal = () => {
+    this.setState({ isRequestAppealModalOpen: false });
+  };
+
+  private handleRequestAppeal = () => {
+    this.setState({ isRequestAppealModalOpen: true });
+  };
+
 }
 
 class ChallengeContainer extends React.Component<
