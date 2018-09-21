@@ -157,6 +157,7 @@ export interface AppealData {
   appealOpenToChallengeExpiry: BigNumber;
   appealChallengeID: BigNumber;
   appealChallenge?: AppealChallengeData;
+  statement?: ContentData;
 }
 
 /**
