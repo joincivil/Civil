@@ -41,8 +41,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, appealChallengePollID, "1", "500", "1337", voterBob);
@@ -68,8 +68,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       await utils.challengeAppealAndGetPollID(newsroomAddress, challenger2, registry);
 
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
@@ -82,13 +82,13 @@ contract("Registry with Appeals", accounts => {
       const challenger2BalanceAfter = await token.balanceOf(challenger2);
       const appealerBalanceAfter = await token.balanceOf(voterBob);
 
-      expect(appealerBalanceAfter).to.be.bignumber.equal(
-        appealerBalanceBefore,
+      expect(challenger2BalanceAfter).to.be.bignumber.equal(
+        challenger2BalanceBefore,
         "appealer should not have gained money from losing",
       );
-      const expected = challenger2BalanceBefore.add(utils.paramConfig.appealFeeAmount * 2);
+      const expected = appealerBalanceBefore.add(utils.paramConfig.appealFeeAmount * 2);
 
-      expect(challenger2BalanceAfter).to.be.bignumber.equal(
+      expect(appealerBalanceAfter).to.be.bignumber.equal(
         expected,
         "appeal challenger should have received both deposits",
       );
@@ -105,8 +105,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, appealChallengePollID, "1", "50", "1337", voterBob);
@@ -140,8 +140,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, appealChallengePollID, "0", "50", "1337", voterBob);
@@ -177,8 +177,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "123", { from: voterBob });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, appealChallengePollID, "1", "50", "1337", voterBob);

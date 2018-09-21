@@ -14,14 +14,14 @@ if (teammates) {
   teammatesSplit = teammates!.split(",");
 }
 module.exports = (deployer: any, network: string, accounts: string[]) => {
-  const totalSupply = new BN("1000000000000000000000000", BASE_10);
+  const totalSupply = new BN("100000000000000000000000000", BASE_10);
   const decimals = "18";
 
   async function giveTokensTo(addresses: string[], originalCount: number): Promise<boolean> {
     const token = await Token.deployed();
     const user = addresses[0];
     let allocation;
-    allocation = totalSupply.div(new BN(originalCount, BASE_10));
+    allocation = 50000000000000000000000;
     console.log("give " + allocation + " tokens to: " + user);
     await token.transfer(user, allocation);
     if (network === "ganache" && !accounts.includes(user)) {

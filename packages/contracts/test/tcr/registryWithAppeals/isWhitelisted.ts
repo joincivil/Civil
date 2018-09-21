@@ -45,7 +45,7 @@ contract("Registry With Appeals", accounts => {
     it("should whitelist if challenge unsuccessful, appeal requested, no granted appeal", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
       await registry.updateStatus(newsroomAddress);
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
@@ -57,7 +57,7 @@ contract("Registry With Appeals", accounts => {
     it("should delist if challenge successful, appeal requested, no granted appeal", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
       await registry.updateStatus(newsroomAddress);
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
@@ -69,8 +69,8 @@ contract("Registry With Appeals", accounts => {
     it("should whitelist if challenge successful, granted appeal", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       await utils.advanceEvmTime(utils.paramConfig.challengeAppealLength + 1);
       await registry.updateStatus(newsroomAddress);
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
@@ -82,8 +82,8 @@ contract("Registry With Appeals", accounts => {
     it("should delist if challenge unsuccessful, granted appeal", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       await utils.advanceEvmTime(utils.paramConfig.challengeAppealLength + 1);
       await registry.updateStatus(newsroomAddress);
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
@@ -94,8 +94,8 @@ contract("Registry With Appeals", accounts => {
     it("should delist if challenge success, granted appeal, appeal challenge success", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       await utils.simpleSuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
       await registry.updateStatus(newsroomAddress);
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
@@ -106,8 +106,8 @@ contract("Registry With Appeals", accounts => {
     it("should whitelist if challenge success, granted appeal, appeal challenge failure", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       await utils.simpleUnsuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
       await registry.updateStatus(newsroomAddress);
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
@@ -118,8 +118,8 @@ contract("Registry With Appeals", accounts => {
     it("should whitelist if challenge failure, granted appeal, appeal challenge success", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       await utils.simpleSuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
       await registry.updateStatus(newsroomAddress);
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
@@ -130,8 +130,8 @@ contract("Registry With Appeals", accounts => {
     it("should delist if challenge failure, granted appeal, appeal challenge failure", async () => {
       await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
       await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
       await utils.simpleUnsuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
       await registry.updateStatus(newsroomAddress);
       const [, isWhitelisted] = await registry.listings(newsroomAddress);
