@@ -9,8 +9,10 @@ import {
   MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
+import { WhitelistedNewroomsDisplayNameText, WhitelistedNewroomsToolTipText } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export interface WhitelistedCardProps {
   whitelistedTimestamp?: number;
@@ -29,7 +31,10 @@ export const WhitelistedCard: React.StatelessComponent<
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
-        <StyledPhaseDisplayName>Approved Newsroom</StyledPhaseDisplayName>
+        <StyledPhaseDisplayName>
+          <WhitelistedNewroomsDisplayNameText />
+          <QuestionToolTip explainerText={<WhitelistedNewroomsToolTipText />} positionBottom={true} />
+        </StyledPhaseDisplayName>
         <MetaItemLabel>Approved date</MetaItemLabel>
         <MetaItemValue>{displayDateTime}</MetaItemValue>
       </StyledListingDetailPhaseCardSection>

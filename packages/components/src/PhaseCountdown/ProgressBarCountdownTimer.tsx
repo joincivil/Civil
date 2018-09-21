@@ -12,6 +12,7 @@ import {
   MetaItemValueAccent,
   MetaItemLabel,
 } from "./styledComponents";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export class ProgressBarCountdownTimerComponent extends React.Component<
   ProgressBarCountdownProps & InjectedCountdownTimerProps
@@ -22,7 +23,10 @@ export class ProgressBarCountdownTimerComponent extends React.Component<
     return (
       <StyledProgressBarCountdownTimer>
         <ProgressBarCountdownContainer>
-          <ProgressBarDisplayLabel>{this.props.displayLabel}</ProgressBarDisplayLabel>
+          <ProgressBarDisplayLabel>
+            {this.props.displayLabel}
+            <QuestionToolTip explainerText={this.props.toolTipText} positionBottom={true} />
+          </ProgressBarDisplayLabel>
           <ProgressBarCountdownTotal>
             <ProgressBarCountdownProgress style={style} />
           </ProgressBarCountdownTotal>
