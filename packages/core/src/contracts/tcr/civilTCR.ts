@@ -663,12 +663,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return this.challengeWithURI(listingAddress, uri);
   }
 
-  public async requestAppeal(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.requestAppeal.sendTransactionAsync(listingAddress);
+  public async requestAppeal(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.requestAppeal.sendTransactionAsync(listingAddress, data);
   }
 
-  public async grantAppeal(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.grantAppeal.sendTransactionAsync(listingAddress);
+  public async grantAppeal(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.grantAppeal.sendTransactionAsync(listingAddress, data);
   }
 
   public async challengeGrantedAppeal(
