@@ -1,6 +1,14 @@
 import * as React from "react";
 import styled from "styled-components";
 import { fonts } from "../../styleConstants";
+import * as ReactDom from "react-dom";
+
+export interface RenderButtonsArgs {
+  stepsLength: number;
+  index: number;
+  goNext(): void;
+  goPrevious(): void;
+}
 
 export interface StepTopNavProps {
   title: string | JSX.Element;
@@ -10,6 +18,7 @@ export interface StepTopNavProps {
   complete?: boolean;
   index?: number;
   children: React.ReactChild;
+  renderButtons?(args: RenderButtonsArgs): JSX.Element; 
   onClick?(index: number): void;
   setStartPosition?(position: number): void;
 }
