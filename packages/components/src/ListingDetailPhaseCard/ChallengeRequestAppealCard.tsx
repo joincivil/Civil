@@ -23,8 +23,8 @@ import { QuestionToolTip } from "../QuestionToolTip";
 const RequestAppealButton: React.SFC<ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps & RequestAppealProps> = props => {
   if (props.handleRequestAppeal) {
     return (
-      <InvertedButton size={buttonSizes.MEDIUM} onClick={this.props.handleSubmitChallenge}>
-        Submit a Challenge
+      <InvertedButton size={buttonSizes.MEDIUM} onClick={props.handleRequestAppeal}>
+        Request an Appeal
       </InvertedButton>
     );
   }
@@ -80,9 +80,8 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
       </StyledListingDetailPhaseCardSection>
       <StyledListingDetailPhaseCardSection>
         <CTACopy>If you disagree with the community, you may request an appeal to the Civil Council.</CTACopy>
+        <RequestAppealButton {...props} />
       </StyledListingDetailPhaseCardSection>
-
-      <RequestAppealButton {...props} />
 
       <NeedHelp />
     </StyledListingDetailPhaseCardContainer>

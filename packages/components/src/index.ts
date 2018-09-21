@@ -47,3 +47,4 @@ export * from "./ReviewVote";
 export * from "./WalletOnboarding";
 export * from "./Table";
 export * from "./Parameterizer";
+export * from "./RequestAppealModal";

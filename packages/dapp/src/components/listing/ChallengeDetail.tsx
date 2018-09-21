@@ -31,8 +31,11 @@ import {
   ChallengeResultsProps,
   ReviewVote,
   ReviewVoteProps,
+  RequestAppealModal,
+  RequestAppealProps,
+  RequestAppealModalProps,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, getReadableDuration } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import AppealDetail from "./AppealDetail";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
@@ -56,12 +59,12 @@ import { saveVote, fetchVote } from "../../helpers/vote";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
-    ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps
+    ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps & RequestAppealProps
   >,
 ) => {
   return compose<
     React.ComponentType<
-      ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeContainerProps
+      ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeContainerProps & RequestAppealProps
     >
   >(connectChallengeResults)(WrappedComponent);
 };
@@ -381,18 +384,22 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     ];
 
     const constitutionURI = this.props.parameters.constitutionURI || "#";
+    const governanceGuideUrl = "https://civil.co/#governance";
+    const judgeAppealLen = getReadableDuration(civil.toBigNumber(this.props.govtParameters.judgeAppealLen));
     const appealFee = getFormattedTokenBalance(civil.toBigNumber(this.props.govtParameters.appealFee), true);
     const props: RequestAppealModalProps = {
       open: this.state.isRequestAppealModalOpen,
       constitutionURI,
+      governanceGuideUrl,
       appealFee,
+      judgeAppealLen,
       modalContentComponents,
       transactions,
       updateStatementValue: this.updateAppealStatement,
       postExecuteTransactions: this.closeRequestAppealModal,
       handleClose: this.closeRequestAppealModal,
     };
-    return <SubmitChallengeModal {...props} />;
+    return <RequestAppealModal {...props} />;
 
   }
 
@@ -487,7 +494,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       newsroomName: this.props.newsroom && this.props.newsroom.data.name,
       listingDetailURL,
       challengeID: this.props.challengeID.toString(),
-      open: this.state.isReviewVoteModalOpen,
+      open: this.state.isReviewVoteModalOpen!,
       salt: this.state.salt,
       numTokens: this.state.numTokens,
       voteOption: this.state.voteOption,
@@ -512,7 +519,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   };
 
   private updateAppealStatement = (key: string, value: any): void => {
-    const stateKey = `appealRequest${key.charAt(0).toUpperCase()}${key.substring(1)}`;
+    const stateKey = `requestAppeal${key.charAt(0).toUpperCase()}${key.substring(1)}`;
     this.setState(() => ({ [stateKey]: value }));
   };
 
@@ -521,7 +528,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const citeConstitution = this.state.requestAppealCiteConstitutionValue;
     const details = this.state.requestAppealDetailsValue;
     const jsonToSave = { summary, citeConstitution, details };
-    console.log(jsonToSave);
     return appealChallenge(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 

@@ -36,6 +36,7 @@ import { ListingWrapperWithExpiry, ListingExtendedMetadata } from "../reducers/l
 
 export interface ListingContainerProps {
   listingAddress?: EthAddress;
+  listing?: EthAddress;
 }
 
 export interface ChallengeContainerProps {
@@ -126,6 +127,15 @@ export const makeGetListing = () => {
     const listing: ListingWrapper | undefined = listingWrapper ? listingWrapper.listing : undefined;
     return listing;
   });
+};
+
+export const getListingAddress = (state: State, props: ListingContainerProps) => {
+  const { listing, listingAddress } = props;
+  if (!listing && !listingAddress) {
+    return;
+  }
+  const address = listing || listingAddress;
+  return address;
 };
 
 export const getChallengeID = (state: State, props: ChallengeContainerProps) => {
@@ -380,6 +390,23 @@ export const getChallengesWonTotalCvl = createSelector(
       }, bnZero);
   },
 );
+
+export const getChallengeByListingAddress = createSelector([getChallenges, getListings, getListingAddress], (challenges, listings, listingAddress) => {
+  if (!challenges || !listings || !listingAddress) {
+    return;
+  }
+  const listing = listings.get(listingAddress);
+  if (!listing) {
+    return;
+  }
+
+  const challengeID = listing!.listing.data.challengeID;
+  if (!challengeID || challengeID.isZero()) {
+    return;
+  }
+
+  return challenges.get(challengeID.toString());
+});
 
 export const makeGetListingAddressByChallengeID = () => {
   return createSelector([getChallenge, getListings], (challenge, listings) => {
