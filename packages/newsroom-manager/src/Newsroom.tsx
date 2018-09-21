@@ -115,7 +115,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               title={"Set up a newsroom"}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
-                  <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                  <Button disabled={!this.props.address} onClick={args.goNext} size={buttonSizes.MEDIUM}>
                     Next
                   </Button>
                 );

@@ -11,7 +11,6 @@ export interface StepsProps {
 
 export interface StepProcessTopNavState {
   activeIndex: number;
-  childrendNumber: number;
   startPosition?: number;
 }
 
@@ -55,7 +54,6 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
     super(props);
     this.state = {
       activeIndex: props.activeIndex || 0,
-      childrendNumber: props.children.length,
     };
   }
 
