@@ -1,5 +1,10 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, ChallengePhaseProps, PhaseWithExpiryProps, RequestAppealProps } from "./types";
+import {
+  ListingDetailPhaseCardComponentProps,
+  ChallengePhaseProps,
+  PhaseWithExpiryProps,
+  RequestAppealProps,
+} from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -20,7 +25,13 @@ import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { NeedHelp } from "./NeedHelp";
 import { QuestionToolTip } from "../QuestionToolTip";
 
-const RequestAppealButton: React.SFC<ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps & RequestAppealProps> = props => {
+const RequestAppealButton: React.SFC<
+  ListingDetailPhaseCardComponentProps &
+    PhaseWithExpiryProps &
+    ChallengePhaseProps &
+    ChallengeResultsProps &
+    RequestAppealProps
+> = props => {
   if (props.handleRequestAppeal) {
     return (
       <InvertedButton size={buttonSizes.MEDIUM} onClick={props.handleRequestAppeal}>
@@ -30,17 +41,18 @@ const RequestAppealButton: React.SFC<ListingDetailPhaseCardComponentProps & Phas
   }
 
   return (
-    <TransactionInvertedButton
-      transactions={props.transactions!}
-      modalContentComponents={props.modalContentComponents}
-    >
+    <TransactionInvertedButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
       Request Appeal from Civil Council
     </TransactionInvertedButton>
   );
 };
 
 export const ChallengeRequestAppealCard: React.StatelessComponent<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps & RequestAppealProps
+  ListingDetailPhaseCardComponentProps &
+    PhaseWithExpiryProps &
+    ChallengePhaseProps &
+    ChallengeResultsProps &
+    RequestAppealProps
 > = props => {
   return (
     <StyledListingDetailPhaseCardContainer>

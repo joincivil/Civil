@@ -1,15 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Parameterizer Create Proposal 1`] = `
+exports[`Storyshots Request Appeal Modal Request Appeal Modal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-ekkqgF cNIbTh",
+      "class": "sc-jvEmr iMMyup",
     },
     "children": Array [
       Object {
         "attribs": Object {},
-        "children": Array [],
+        "children": Array [
+          Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "Some good stuff was already on the page which is pretty exciting",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "p",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+        ],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,

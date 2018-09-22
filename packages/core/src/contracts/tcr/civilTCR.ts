@@ -663,8 +663,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return this.challengeWithURI(listingAddress, uri);
   }
 
-  public async requestAppeal(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.requestAppeal.sendTransactionAsync(listingAddress, data);
+  public async requestAppeal(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
+    const { uri } = await this.contentProvider.put(data);
+    return this.requestAppealWithURI(listingAddress, uri);
   }
 
   public async grantAppeal(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
@@ -686,6 +687,16 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async challengeWithURI(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
     return this.multisigProxy.challenge.sendTransactionAsync(listingAddress, data);
+  }
+
+  /**
+   * This is a low-level call and assumes you stored your content on your own
+   * Requests an appeal on a challenged application
+   * @param address Address of listing to request appeal
+   * @param data Data associated with requested appeal (URI that points to data object)
+   */
+  public async requestAppealWithURI(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.requestAppeal.sendTransactionAsync(listingAddress, data);
   }
 
   /**

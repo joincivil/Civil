@@ -391,22 +391,25 @@ export const getChallengesWonTotalCvl = createSelector(
   },
 );
 
-export const getChallengeByListingAddress = createSelector([getChallenges, getListings, getListingAddress], (challenges, listings, listingAddress) => {
-  if (!challenges || !listings || !listingAddress) {
-    return;
-  }
-  const listing = listings.get(listingAddress);
-  if (!listing) {
-    return;
-  }
+export const getChallengeByListingAddress = createSelector(
+  [getChallenges, getListings, getListingAddress],
+  (challenges, listings, listingAddress) => {
+    if (!challenges || !listings || !listingAddress) {
+      return;
+    }
+    const listing = listings.get(listingAddress);
+    if (!listing) {
+      return;
+    }
 
-  const challengeID = listing!.listing.data.challengeID;
-  if (!challengeID || challengeID.isZero()) {
-    return;
-  }
+    const challengeID = listing!.listing.data.challengeID;
+    if (!challengeID || challengeID.isZero()) {
+      return;
+    }
 
-  return challenges.get(challengeID.toString());
-});
+    return challenges.get(challengeID.toString());
+  },
+);
 
 export const makeGetListingAddressByChallengeID = () => {
   return createSelector([getChallenge, getListings], (challenge, listings) => {

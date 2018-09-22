@@ -59,12 +59,20 @@ import { saveVote, fetchVote } from "../../helpers/vote";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
-    ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps & RequestAppealProps
+    ListingDetailPhaseCardComponentProps &
+      PhaseWithExpiryProps &
+      ChallengePhaseProps &
+      ChallengeResultsProps &
+      RequestAppealProps
   >,
 ) => {
   return compose<
     React.ComponentType<
-      ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeContainerProps & RequestAppealProps
+      ListingDetailPhaseCardComponentProps &
+        PhaseWithExpiryProps &
+        ChallengePhaseProps &
+        ChallengeContainerProps &
+        RequestAppealProps
     >
   >(connectChallengeResults)(WrappedComponent);
 };
@@ -131,8 +139,8 @@ export interface ChallengeVoteState {
   salt?: string;
   numTokens?: string;
   requestAppealSummaryValue?: string;
-  requestAppealCiteConstitutionValue?: string;
-  requestAppealDetailsValue?: string;
+  requestAppealCiteConstitutionValue?: any;
+  requestAppealDetailsValue?: any;
 }
 
 // A container encapsultes the Commit Vote, Reveal Vote and Rewards phases for a Challenge.
@@ -400,7 +408,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       handleClose: this.closeRequestAppealModal,
     };
     return <RequestAppealModal {...props} />;
-
   }
 
   private renderApproveForAppealProgressModal(): JSX.Element {
@@ -525,9 +532,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
     const summary = this.state.requestAppealSummaryValue;
-    const citeConstitution = this.state.requestAppealCiteConstitutionValue;
-    const details = this.state.requestAppealDetailsValue;
+    const citeConstitution = this.state.requestAppealCiteConstitutionValue.toString("html");
+    const details = this.state.requestAppealDetailsValue.toString("html");
     const jsonToSave = { summary, citeConstitution, details };
+    console.log(jsonToSave);
     return appealChallenge(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 
@@ -565,7 +573,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private handleRequestAppeal = () => {
     this.setState({ isRequestAppealModalOpen: true });
   };
-
 }
 
 class ChallengeContainer extends React.Component<

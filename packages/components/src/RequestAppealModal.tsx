@@ -134,10 +134,7 @@ export interface RequestAppealModalState {
   detailsValue: any;
 }
 
-export class RequestAppealModal extends React.Component<
-  StepProps & RequestAppealModalProps,
-  RequestAppealModalState
-> {
+export class RequestAppealModal extends React.Component<StepProps & RequestAppealModalProps, RequestAppealModalState> {
   constructor(props: RequestAppealModalProps) {
     super(props);
     this.state = {
@@ -157,7 +154,8 @@ export class RequestAppealModal extends React.Component<
             </CloseModalButton>
             <ModalHeading>Request an Appeal</ModalHeading>
             <CopyLarge>
-              A deposit of <strong>{this.props.appealFee} tokens</strong> is required to request an appeal. Read our <StyledLink href={this.props.governanceGuideUrl}>governance guide</StyledLink> before you begin.
+              A deposit of <strong>{this.props.appealFee} tokens</strong> is required to request an appeal. Read our{" "}
+              <StyledLink href={this.props.governanceGuideUrl}>governance guide</StyledLink> before you begin.
             </CopyLarge>
             <StyledOl>
               <StyledLi>
@@ -168,7 +166,8 @@ export class RequestAppealModal extends React.Component<
               </StyledLi>
             </StyledOl>
             <CopySmall>
-              After a request is submitted, the Civil Council will have {this.props.judgeAppealLen} to rule on the appeal.
+              After a request is submitted, the Civil Council will have {this.props.judgeAppealLen} to rule on the
+              appeal.
             </CopySmall>
             <StepProcess>
               {this.renderChallengeReason()}
@@ -220,19 +219,26 @@ export class RequestAppealModal extends React.Component<
           </SectionFormOuter>
 
           <CopyLarge>
-            Please cite sections of the Civil Constitution that you believe support your position on why the vote should be overturned. (required)
+            Please cite sections of the Civil Constitution that you believe support your position on why the vote should
+            be overturned. (required)
           </CopyLarge>
-          <CopyHelper><StyledLink href={this.props.constitutionURI}>See Civil Constitution</StyledLink></CopyHelper>
+          <CopyHelper>
+            <StyledLink href={this.props.constitutionURI}>See Civil Constitution</StyledLink>
+          </CopyHelper>
           <SectionFormOuter>
             <FormInputGroup>
-              <RichTextEditor value={this.state.citeConstitutionValue} onChange={this.handleCiteConstitutionValueChange} />
+              <RichTextEditor
+                value={this.state.citeConstitutionValue}
+                onChange={this.handleCiteConstitutionValueChange}
+              />
             </FormInputGroup>
           </SectionFormOuter>
 
-          <CopyLarge>
-            Add details and evidence to support your statements. (required)
-          </CopyLarge>
-          <CopyHelper>Help the Civil Council consider your request by providing as much information as possible to support your case. </CopyHelper>
+          <CopyLarge>Add details and evidence to support your statements. (required)</CopyLarge>
+          <CopyHelper>
+            Help the Civil Council consider your request by providing as much information as possible to support your
+            case.{" "}
+          </CopyHelper>
           <SectionFormOuter>
             <FormInputGroup>
               <RichTextEditor value={this.state.detailsValue} onChange={this.handleDetailsValueChange} />

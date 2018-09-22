@@ -44,7 +44,6 @@ class ListingChallengeStatement extends React.Component<
       return <></>;
     }
     const parsed = JSON.parse(this.props.appealStatement);
-    console.log(parsed);
     const summary = parsed.summary;
     const cleanCiteConstitution = sanitizeHtml(parsed.citeConstitution, {
       allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
@@ -55,9 +54,7 @@ class ListingChallengeStatement extends React.Component<
     return (
       <StyledChallengeStatementComponent>
         <ListingTabHeading>The Civil Council is reviewing a requested appeal.</ListingTabHeading>
-        <p>
-          Should the Civil Council overturn this challenge result?
-        </p>
+        <p>Should the Civil Council overturn this challenge result?</p>
         <ListingTabHeading>Appeal Statement</ListingTabHeading>
         <StyledChallengeStatementSection>{summary}</StyledChallengeStatementSection>
         <StyledChallengeStatementSection>
@@ -68,7 +65,7 @@ class ListingChallengeStatement extends React.Component<
         </StyledChallengeStatementSection>
       </StyledChallengeStatementComponent>
     );
-  }
+  };
 
   private renderChallengeStatement = (): JSX.Element => {
     if (!this.props.challengeStatement) {
@@ -82,14 +79,14 @@ class ListingChallengeStatement extends React.Component<
       <StyledChallengeStatementComponent>
         <ListingTabHeading>Newsroom listing is under challenge</ListingTabHeading>
         <p>
-          Should this newsroom stay on the Civil Registry? Read the challenger’s statement below and vote with your
-          CVL tokens.
+          Should this newsroom stay on the Civil Registry? Read the challenger’s statement below and vote with your CVL
+          tokens.
         </p>
         <ListingTabHeading>Challenge Statement</ListingTabHeading>
         <div dangerouslySetInnerHTML={{ __html: cleanStatement }} />
       </StyledChallengeStatementComponent>
     );
-  }
+  };
 }
 
 const mapToStateToProps = (
