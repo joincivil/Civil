@@ -1,7 +1,6 @@
 /* global artifacts */
 
 import BN from "bignumber.js";
-
 import { config } from "./utils";
 import { MAIN_NETWORK, RINKEBY } from "./utils/consts";
 
@@ -9,16 +8,25 @@ const Token = artifacts.require("EIP20");
 
 const BASE_10 = 10;
 
+const teammates = process.env.TEAMMATES;
+let teammatesSplit: any;
+if (teammates) {
+  teammatesSplit = teammates!.split(",");
+}
 module.exports = (deployer: any, network: string, accounts: string[]) => {
-  const totalSupply = new BN("1000000000000000000000000", BASE_10);
+  const totalSupply = new BN("100000000000000000000000000", BASE_10);
   const decimals = "18";
 
   async function giveTokensTo(addresses: string[], originalCount: number): Promise<boolean> {
     const token = await Token.deployed();
     const user = addresses[0];
     let allocation;
-    allocation = totalSupply.div(new BN(originalCount, BASE_10));
+    allocation = 50000000000000000000000;
+    console.log("give " + allocation + " tokens to: " + user);
     await token.transfer(user, allocation);
+    if (network === "ganache" && !accounts.includes(user)) {
+      web3.eth.sendTransaction({ from: accounts[0], to: user, value: web3.toWei(1, "ether") });
+    }
 
     if (addresses.length === 1) {
       return true;
@@ -26,13 +34,16 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     return giveTokensTo(addresses.slice(1), originalCount);
   }
   deployer.then(async () => {
-    if (network !== MAIN_NETWORK && network !== RINKEBY) {
+    if (network === RINKEBY) {
       await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      if (network in config.nets) {
-        const updatedAccounts = [...accounts, ...config.nets[network].tokenHolders];
-        return giveTokensTo(updatedAccounts, updatedAccounts.length);
+      const allAccounts = teammatesSplit.concat(config.nets[network].tokenHolders);
+      if (teammatesSplit) {
+        return giveTokensTo(allAccounts, allAccounts.length);
       }
-      return giveTokensTo(accounts, accounts.length);
+    } else if (network !== MAIN_NETWORK) {
+      await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
+      const allAccounts = accounts.concat(config.nets[network].tokenHolders);
+      return giveTokensTo(allAccounts, allAccounts.length);
     }
   });
 };

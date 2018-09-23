@@ -1,10 +1,9 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
-import { REVERTED } from "../../utils/constants";
+import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -16,16 +15,13 @@ contract("PLCRVoting", accounts => {
     let voting: any;
 
     beforeEach(async () => {
-      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
+      [parameterizer] = await utils.createAllTestParameterizerInstance(accounts);
       const votingAddress = await parameterizer.voting();
       voting = await PLCRVoting.at(votingAddress);
     });
 
-    it("should revert if poll does not exists.", async () => {
-      await expect(voting.didCommit(voterAlice, 123)).to.eventually.be.rejectedWith(
-        REVERTED,
-        "should have reverted if poll did not exist",
-      );
+    it("should return false if poll does not exists.", async () => {
+      await expect(voting.didCommit(voterAlice, 123)).to.eventually.be.false();
     });
 
     it("should return false before vote committed", async () => {

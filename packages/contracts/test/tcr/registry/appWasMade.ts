@@ -26,12 +26,10 @@ contract("AddressRegistry", accounts => {
       expect(result).to.be.true("should have returned true for the applied listing");
 
       // Commit stage complete
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
+      await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
       const resultTwo = await registry.appWasMade(listing2);
       expect(resultTwo).to.be.true("should have returned true because app is still not expired");
 
-      // Reveal stage complete, update status (whitelist it)
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing2, { from: applicant });
       const [, isWhitelisted] = await registry.listings(listing2);
       expect(isWhitelisted).to.be.true("should have been whitelisted");
@@ -39,7 +37,7 @@ contract("AddressRegistry", accounts => {
       expect(resultThree).to.be.true("should have returned true because its whitelisted");
 
       // Exit
-      await registry.exitListing(listing2, { from: applicant });
+      await registry.exit(listing2, { from: applicant });
       const resultFour = await registry.appWasMade(listing2);
       expect(resultFour).to.be.false("should have returned false because exit");
     });

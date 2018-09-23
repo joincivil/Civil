@@ -1,61 +1,37 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors } from "../styleConstants";
-
-export interface StepProcessState {
-  el?: HTMLDivElement | null;
-}
 
 export interface StepProcessProps {
+  disabled?: boolean;
+  activeIndex?: number;
   stepIsDisabled?(index: number): boolean;
 }
 
 export interface StepProps {
-  el?: HTMLDivElement;
   index?: number;
-  active?: number;
+  active?: boolean;
   disabled?: boolean;
 }
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
 `;
 
-const StepIndicators = styled.div`
-  width: 30%;
-  max-width: 250px;
-  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin-right: 35px;
-`;
-
-export class StepProcess extends React.Component<StepProcessProps, StepProcessState> {
-  public el: HTMLDivElement | null = null;
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      el: null,
-    };
-  }
-  public componentDidMount(): void {
-    this.setState({ el: this.el });
-  }
+export class StepProcess extends React.Component<StepProcessProps> {
   public render(): JSX.Element {
-    const childrenWithEl = React.Children.map(this.props.children, (child, index) => {
+    const childrenWithDisabled = React.Children.map(this.props.children, (child, index) => {
+      let disabled = this.props.stepIsDisabled ? this.props.stepIsDisabled(index) : false;
+      if (this.props.disabled) {
+        disabled = this.props.disabled;
+      }
       return React.cloneElement(child as JSX.Element, {
-        el: this.state.el,
         index,
-        disabled: this.props.stepIsDisabled ? this.props.stepIsDisabled(index) : false,
+        active: this.props.activeIndex === index,
+        disabled,
       });
     });
-    return (
-      <Container>
-        <StepIndicators>
-          <div ref={el => (this.el = el)} />
-        </StepIndicators>
-        <div>{childrenWithEl}</div>
-      </Container>
-    );
+    return <Container>{childrenWithDisabled}</Container>;
   }
 }

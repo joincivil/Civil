@@ -1,40 +1,66 @@
-import { Dispatch } from "react-redux";
-import { getTCR, getCivil } from "./civilInstance";
-import { addListing } from "../actionCreators/listings";
-import { addChallenge, addUserChallengeData, addUserAppealChallengeData } from "../actionCreators/challenges";
-import { addUserNewsroom } from "../actionCreators/newsrooms";
+import { EthAddress, getNextTimerExpiry, ListingWrapper } from "@joincivil/core";
 import { addNewsroom } from "@joincivil/newsroom-manager";
-import { EthAddress, ListingWrapper, getNextTimerExpiry } from "@joincivil/core";
-import { Observable, Subscription } from "rxjs";
+import { getDefaultFromBlock } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
+import { Dispatch } from "react-redux";
+import { Observable, Subscription } from "rxjs";
+import {
+  addChallenge,
+  addUserAppealChallengeData,
+  addUserChallengeData,
+  addUserChallengeStarted,
+} from "../actionCreators/challenges";
+import { addListing, setLoadingFinished } from "../actionCreators/listings";
+import { addUserNewsroom } from "../actionCreators/newsrooms";
+import { getCivil, getTCR } from "./civilInstance";
 
 const listingTimeouts = new Map<string, number>();
+const setTimeoutTimeouts = new Map<string, number>();
+const civilGenesisBlock = getDefaultFromBlock();
 
 export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = getTCR();
+  const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
-  await Observable.merge(
-    tcr.whitelistedListings(0),
-    tcr.listingsInApplicationStage(),
-    tcr.allEventsExceptWhitelistFromBlock(current),
-  ).subscribe(async (listing: ListingWrapper) => {
-    await getNewsroom(dispatch, listing.address);
-    setupListingCallback(listing, dispatch);
-    dispatch(addListing(listing));
-  });
+
+  const initialLoadObservable = Observable.merge(
+    tcr.listingsInApplicationStage(civilGenesisBlock, current),
+    tcr.whitelistedListings(civilGenesisBlock, current),
+  );
+  initialLoadObservable.subscribe(
+    async (listing: ListingWrapper) => {
+      await getNewsroom(dispatch, listing.address);
+      setupListingCallback(listing, dispatch);
+      dispatch(addListing(listing));
+    },
+    err => {
+      console.log("error: ", err);
+    },
+    () => {
+      dispatch(setLoadingFinished());
+      tcr.allEventsExceptWhitelistFromBlock(current).subscribe(async (listing: ListingWrapper) => {
+        await getNewsroom(dispatch, listing.address);
+        setupListingCallback(listing, dispatch);
+        dispatch(addListing(listing));
+      });
+    },
+  );
 }
 
-let challengeSubscriptions: Subscription;
+let challengeSubscription: Subscription;
+let challengeStartedSubscription: Subscription;
 export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
-  if (challengeSubscriptions) {
-    challengeSubscriptions.unsubscribe();
+  if (challengeSubscription) {
+    challengeSubscription.unsubscribe();
+  }
+  if (challengeStartedSubscription) {
+    challengeStartedSubscription.unsubscribe();
   }
 
-  const tcr = getTCR();
-  challengeSubscriptions = tcr
+  const tcr = await getTCR();
+  challengeSubscription = tcr
     .getVoting()
-    .votesCommitted(0, user)
+    .votesCommitted(civilGenesisBlock, user)
     .subscribe(async (pollID: BigNumber) => {
       const challengeId = await tcr.getChallengeIDForPollID(pollID);
       const wrappedChallenge = await tcr.getChallengeData(challengeId);
@@ -48,11 +74,17 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
         dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
       }
     });
+
+  challengeStartedSubscription = tcr.challengesStartedByUser(user).subscribe(async (challengeId: BigNumber) => {
+    const wrappedChallenge = await tcr.getChallengeData(challengeId);
+    dispatch(addChallenge(wrappedChallenge));
+    dispatch(addUserChallengeStarted(challengeId.toString(), user));
+  });
 }
 
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
   const civil = getCivil();
-  const user = civil.userAccount;
+  const user = await civil.accountStream.first().toPromise();
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
   dispatch(addNewsroom({ wrapper, address: wrapper.address, newsroom }));
@@ -62,14 +94,21 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
 }
 
 function setupListingCallback(listing: ListingWrapper, dispatch: Dispatch<any>): void {
-  if (listingTimeouts[listing.address]) {
-    clearTimeout(listingTimeouts[listing.address]);
+  if (listingTimeouts.get(listing.address)) {
+    clearTimeout(listingTimeouts.get(listing.address));
     listingTimeouts.delete(listing.address);
   }
+
+  if (setTimeoutTimeouts.get(listing.address)) {
+    clearTimeout(setTimeoutTimeouts.get(listing.address));
+    setTimeoutTimeouts.delete(listing.address);
+  }
+
   const nowSeconds = Date.now() / 1000;
   const nextExpiry = getNextTimerExpiry(listing.data);
   if (nextExpiry > 0) {
-    const delaySeconds = nowSeconds - nextExpiry;
+    const delaySeconds = nextExpiry - nowSeconds;
     listingTimeouts.set(listing.address, setTimeout(dispatch, delaySeconds * 1000, addListing(listing))); // convert to milliseconds
+    setTimeoutTimeouts.set(listing.address, setTimeout(setupListingCallback, delaySeconds * 1000, listing, dispatch));
   }
 }

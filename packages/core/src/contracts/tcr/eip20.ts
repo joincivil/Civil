@@ -1,11 +1,11 @@
 import BigNumber from "bignumber.js";
-import "@joincivil/utils";
+import { getDefaultFromBlock } from "@joincivil/utils";
+import { Observable } from "rxjs";
 
 import { BaseWrapper } from "../basewrapper";
 import { EIP20Contract } from "../generated/wrappers/eip20";
-import { EthApi } from "../../utils/ethapi";
+import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { EthAddress } from "../../types";
-import { requireAccount } from "../../utils/errors";
 import { EIP20MultisigProxy } from "../generated/multisig/eip20";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 
@@ -44,6 +44,13 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
    */
   public async approveSpender(spender: EthAddress, numTokens: BigNumber): Promise<MultisigProxyTransaction> {
     return this.multisigProxy.approve.sendTransactionAsync(spender, numTokens);
+  }
+
+  public balanceUpdate(fromBlock: number | "latest" = getDefaultFromBlock(), user: EthAddress): Observable<BigNumber> {
+    return this.instance
+      .TransferStream({ _from: user }, { fromBlock })
+      .merge(this.instance.TransferStream({ _to: user }, { fromBlock }))
+      .concatMap(async e => this.getBalance(user));
   }
 
   /**
@@ -90,7 +97,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
       who = await this.multisigProxy.getMultisigAddress();
     }
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return who;
   }

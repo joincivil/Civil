@@ -1,12 +1,12 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
 const expect = chai.expect;
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(PLCRVoting);
 
 contract("Registry", accounts => {
   describe("Function: updateStatus", () => {
@@ -57,13 +57,16 @@ contract("Registry", accounts => {
     it("should not whitelist a listing that failed a challenge", async () => {
       await registry.apply(listing24, minDeposit, "", { from: applicant });
       const pollID = await utils.challengeAndGetPollID(listing24, challenger, registry);
-      await utils.commitVote(voting, pollID, "1", "100", "123", voter);
+      await utils.commitVote(voting, pollID, "0", "100", "123", voter);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-      await voting.revealVote(pollID, "1", "123", { from: voter });
+      await voting.revealVote(pollID, "0", "123", { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await registry.updateStatus(listing24);
       const [, isWhitelisted] = await registry.listings(listing24);
       expect(isWhitelisted).to.be.false("Listing should not have been whitelisted");
+
+      const [, , , , challengeID] = await registry.listings(listing24);
+      await expect(challengeID.isZero()).to.be.true("challengeID should be 0 after successfully updating status");
     });
 
     it("should not be possible to add a listing to the whitelist just by calling updateStatus", async () => {
@@ -81,7 +84,7 @@ contract("Registry", accounts => {
         const [, resultOne] = await registry.listings(listing26);
         expect(resultOne).to.be.true("Listing should have been whitelisted");
 
-        await registry.exitListing(listing26, { from: applicant });
+        await registry.exit(listing26, { from: applicant });
         const [, resultTwo] = await registry.listings(listing26);
         expect(resultTwo).to.be.false("Listing should not be in the whitelist");
 

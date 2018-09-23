@@ -11,12 +11,14 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-                key: node-modules-{{ checksum "package.json" }}
+                name: Restore yarn cache
+                key: node-modules-{{ .Branch }}-{{ checksum "yarn.lock" }}
             - run:
                 name: Install modules
                 command: yarn --frozen-lockfile install
             - save_cache:
-                key: node-modules-{{ checksum "package.json" }}
+                name: Save yarn cache
+                key: node-modules--{{ .Branch }}-{{ checksum "yarn.lock" }}
                 paths:
                     - node_modules
             - run:
@@ -58,6 +60,10 @@ jobs:
             - attach_workspace:
                 at: ../
             - run:
+                name: Starting Ganache
+                command: yarn ganache:raw
+                background: true
+            - run:
                 name: Calculating coverage
                 command: yarn coverage
             - run:
@@ -97,6 +103,7 @@ jobs:
         docker:
             - image: civilmedia/gcloud-node:latest
         steps:
+            - checkout
             - attach_workspace:
                 at: /root
             - setup_remote_docker
@@ -128,18 +135,42 @@ jobs:
 
 workflows:
     version: 2
-    everything:
+    nightly:
+        triggers:
+            - schedule:
+                cron: "0 0 * * *" # Midnight UTC
+                filters:
+                    branches:
+                        only:
+                            - master
         jobs:
             - build
-            - test:
-                requires:
-                    - build
             - coverage:
                 requires:
                     - build
-            - lint:
+    pull-request:
+        jobs:
+            - build:
+                filters:
+                    branches:
+                        ignore:
+                            - master
+            - test:
+                filters:
+                    branches:
+                        ignore:
+                            - master
                 requires:
                     - build
+            - lint:
+                filters:
+                    branches:
+                        ignore:
+                            - master
+                requires:
+                    - build
+    staging:
+        jobs:
             - setup-gcp:
                 context: gcp-common
                 filters:
@@ -149,8 +180,6 @@ workflows:
             - push-containers:
                 context: gcp-common
                 requires:
-                    - test
-                    - lint
                     - setup-gcp
                 filters:
                     branches:

@@ -7,6 +7,7 @@ import { promisify } from "util";
 // We're just using types from web3
 // tslint:disable-next-line:no-implicit-dependencies
 import * as Web3 from "web3";
+import ethApi from "./getethapi";
 
 // advanceEvmTime was moved to dev-utils
 // We would need to update ALL the tests, this is a workaround
@@ -14,14 +15,25 @@ export { advanceEvmTime } from "@joincivil/dev-utils";
 
 const Token = artifacts.require("tokens/eip20/EIP20");
 
-const PLCRVoting = artifacts.require("PLCRVoting");
-const Parameterizer = artifacts.require("Parameterizer");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
+const CivilParameterizer = artifacts.require("CivilParameterizer");
 const AddressRegistry = artifacts.require("AddressRegistry");
 const RestrictedAddressRegistry = artifacts.require("RestrictedAddressRegistry");
 const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
 const Newsroom = artifacts.require("Newsroom");
+const TokenTelemetry = artifacts.require("TokenTelemetry");
+configureProviders(
+  PLCRVoting,
+  CivilParameterizer,
+  AddressRegistry,
+  RestrictedAddressRegistry,
+  ContractAddressRegistry,
+  CivilTCR,
+  Government,
+  Newsroom,
+);
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
 export const paramConfig = config.paramDefaults;
@@ -87,9 +99,9 @@ export async function simpleSuccessfulChallenge(
   const votingAddress = await registry.voting();
   const voting = PLCRVoting.at(votingAddress);
   const pollID = await challengeAndGetPollID(listing, challenger, registry);
-  await commitVote(voting, pollID, "1", "100", "123", voter);
+  await commitVote(voting, pollID, "0", "100", "123", voter);
   await advanceEvmTime(paramConfig.commitStageLength + 1);
-  await voting.revealVote(pollID, "1", "123", { from: voter });
+  await voting.revealVote(pollID, "0", "123", { from: voter });
   await advanceEvmTime(paramConfig.revealStageLength + 1);
 }
 
@@ -102,9 +114,9 @@ export async function simpleUnsuccessfulChallenge(
   const votingAddress = await registry.voting();
   const voting = PLCRVoting.at(votingAddress);
   const pollID = await challengeAndGetPollID(listing, challenger, registry);
-  await commitVote(voting, pollID, "0", "100", "420", voter);
+  await commitVote(voting, pollID, "1", "100", "420", voter);
   await advanceEvmTime(paramConfig.commitStageLength + 1);
-  await voting.revealVote(pollID, "0", "420", { from: voter });
+  await voting.revealVote(pollID, "1", "420", { from: voter });
   await advanceEvmTime(paramConfig.revealStageLength + 1);
 }
 
@@ -221,7 +233,7 @@ async function createTestRegistryInstance(registryContract: any, parameterizer: 
   const parameterizerAddress = await parameterizer.address;
   const token = await Token.at(tokenAddress);
 
-  const registry = await registryContract.new(tokenAddress, plcrAddress, parameterizerAddress);
+  const registry = await registryContract.new(tokenAddress, plcrAddress, parameterizerAddress, "registry");
 
   await approveRegistryFor(accounts.slice(0, 8));
   return registry;
@@ -229,6 +241,7 @@ async function createTestRegistryInstance(registryContract: any, parameterizer: 
 
 async function createTestCivilTCRInstance(
   parameterizer: any,
+  telemetry: any,
   accounts: string[],
   appellateEntity: string,
 ): Promise<any> {
@@ -236,6 +249,7 @@ async function createTestCivilTCRInstance(
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
     await token.approve(registry.address, balanceOfUser, { from: user });
+    await token.approve(government.address, balanceOfUser, { from: user });
     if (addresses.length === 1) {
       return true;
     }
@@ -245,19 +259,31 @@ async function createTestCivilTCRInstance(
   const tokenAddress = await parameterizer.token();
   const plcrAddress = await parameterizer.voting();
   const parameterizerAddress = await parameterizer.address;
+  const telemetryAddress = await telemetry.address;
   const token = await Token.at(tokenAddress);
   const government = await Government.new(
     appellateEntity,
     appellateEntity,
+    tokenAddress,
+    plcrAddress,
     parameterizerConfig.appealFeeAmount,
     parameterizerConfig.requestAppealPhaseLength,
     parameterizerConfig.judgeAppealPhaseLength,
     parameterizerConfig.appealSupermajorityPercentage,
-    web3.sha3("Constitution: Be Bad."),
-    "http://madeupURL.com",
+    parameterizerConfig.govtPDeposit,
+    parameterizerConfig.govtPCommitStageLength,
+    parameterizerConfig.govtPRevealStageLength,
+    parameterizerConfig.constitutionHash,
+    parameterizerConfig.constitutionURI,
   );
 
-  const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);
+  const registry = await CivilTCR.new(
+    tokenAddress,
+    plcrAddress,
+    parameterizerAddress,
+    government.address,
+    telemetryAddress,
+  );
 
   await approveRegistryFor(accounts.slice(0, 8));
   return registry;
@@ -267,7 +293,7 @@ async function createTestTokenInstance(accounts: string[]): Promise<any> {
   return createAndDistributeToken(new BigNumber("1000000000000000000000000"), "18", accounts);
 }
 
-async function createTestPLCRInstance(token: any, accounts: string[]): Promise<any> {
+async function createTestPLCRInstance(token: any, telemetry: any, accounts: string[]): Promise<any> {
   async function approvePLCRFor(addresses: string[]): Promise<boolean> {
     const user = addresses[0];
     const balanceOfUser = await token.balanceOf(user);
@@ -278,8 +304,8 @@ async function createTestPLCRInstance(token: any, accounts: string[]): Promise<a
     }
     return approvePLCRFor(addresses.slice(1));
   }
-
-  const plcr = await PLCRVoting.new(token.address);
+  const telemetryAddress = await telemetry.address;
+  const plcr = await PLCRVoting.new(token.address, telemetryAddress);
   await approvePLCRFor(accounts);
 
   return plcr;
@@ -297,7 +323,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
   }
   const parameterizerConfig = config.paramDefaults;
 
-  const parameterizer = await Parameterizer.new(token.address, plcr.address, [
+  const params = [
     parameterizerConfig.minDeposit,
     parameterizerConfig.pMinDeposit,
     parameterizerConfig.applyStageLength,
@@ -310,42 +336,49 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
     parameterizerConfig.pDispensationPct,
     parameterizerConfig.voteQuorum,
     parameterizerConfig.pVoteQuorum,
-    parameterizerConfig.pProcessBy,
     parameterizerConfig.challengeAppealLength,
     parameterizerConfig.appealChallengeCommitStageLength,
     parameterizerConfig.appealChallengeRevealStageLength,
-  ]);
+  ];
+  const parameterizer = await CivilParameterizer.new(token.address, plcr.address, params);
 
   await approveParameterizerFor(accounts);
   return parameterizer;
 }
 
 export async function createAllTestParameterizerInstance(accounts: string[]): Promise<any> {
+  const telemetry = await TokenTelemetry.new();
   const token = await createTestTokenInstance(accounts);
-  const plcr = await createTestPLCRInstance(token, accounts);
-  return createTestParameterizerInstance(accounts, token, plcr);
+  const plcr = await createTestPLCRInstance(token, telemetry, accounts);
+  const parameterizer = await createTestParameterizerInstance(accounts, token, plcr);
+  return [parameterizer, telemetry];
 }
 
 export async function createAllTestAddressRegistryInstance(accounts: string[]): Promise<any> {
-  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  const [parameterizer] = await createAllTestParameterizerInstance(accounts);
   return createTestRegistryInstance(AddressRegistry, parameterizer, accounts);
 }
 
 export async function createAllTestRestrictedAddressRegistryInstance(accounts: string[]): Promise<any> {
-  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  const [parameterizer] = await createAllTestParameterizerInstance(accounts);
   return createTestRegistryInstance(RestrictedAddressRegistry, parameterizer, accounts);
 }
 
 export async function createAllTestContractAddressRegistryInstance(accounts: string[]): Promise<any> {
-  const parameterizer = await createAllTestParameterizerInstance(accounts);
+  const [parameterizer] = await createAllTestParameterizerInstance(accounts);
   return createTestRegistryInstance(ContractAddressRegistry, parameterizer, accounts);
 }
 
 export async function createAllCivilTCRInstance(accounts: string[], appellateEntity: string): Promise<any> {
-  const parameterizer = await createAllTestParameterizerInstance(accounts);
-  return createTestCivilTCRInstance(parameterizer, accounts, appellateEntity);
+  const [parameterizer, telemetry] = await createAllTestParameterizerInstance(accounts);
+  return createTestCivilTCRInstance(parameterizer, telemetry, accounts, appellateEntity);
 }
 
 export async function createDummyNewsrom(from?: string): Promise<any> {
   return Newsroom.new("Fake newsroom name", "http://fakenewsroomcharter.com", web3.sha3(), { from });
+}
+
+export function configureProviders(...contracts: any[]): void {
+  // TODO(ritave): Use our own contracts
+  contracts.forEach(contract => contract.setProvider(ethApi.currentProvider));
 }

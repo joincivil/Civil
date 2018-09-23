@@ -1,11 +1,11 @@
+import { configureChai } from "@joincivil/dev-utils";
 import BN from "bignumber.js";
 import * as chai from "chai";
-import { configureChai } from "@joincivil/dev-utils";
-
 import * as utils from "../../utils/contractutils";
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Token = artifacts.require("EIP20.sol");
+utils.configureProviders(PLCRVoting, Token);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -18,7 +18,7 @@ contract("Parameterizer", accounts => {
     let token: any;
 
     beforeEach(async () => {
-      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
+      [parameterizer] = await utils.createAllTestParameterizerInstance(accounts);
       const votingAddress = await parameterizer.voting();
       voting = await PLCRVoting.at(votingAddress);
       const tokenAddress = await parameterizer.token();

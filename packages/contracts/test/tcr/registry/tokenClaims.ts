@@ -1,9 +1,9 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -35,14 +35,14 @@ contract("Registry", accounts => {
 
       await registry.updateStatus(listing20, { from: challenger });
 
-      const initialHasClaimed = await registry.hasClaimedTokens(pollID, voter);
+      const initialHasClaimed = await registry.tokenClaims(pollID, voter);
       expect(initialHasClaimed).to.be.false(
         "The voter is purported to have claimed " + "their reward, when in fact they have not",
       );
 
       await registry.claimReward(pollID, "420", { from: voter });
 
-      const finalHasClaimed = await registry.hasClaimedTokens(pollID, voter);
+      const finalHasClaimed = await registry.tokenClaims(pollID, voter);
       expect(finalHasClaimed).to.be.true(
         "The voter is purported to not have claimed " + "their reward, when in fact they have",
       );

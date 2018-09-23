@@ -1,6 +1,14 @@
-import { CountdownTimerProps, InjectedCountdownTimerProps, CountdownTimerState } from "./types";
+import {
+  CountdownTimerProps,
+  InjectedCountdownTimerProps,
+  CountdownTimerState,
+  ProgressBarCountdownProps,
+  TwoPhaseProgressBarCountdownProps,
+} from "./types";
 import { TextCountdownTimerComponent } from "./TextCountdownTimer";
-import { ProgressBarCountdownTimerComponent, ProgressBarCountdownProps } from "./ProgressBarCountdownTimer";
+import { ProgressBarCountdownTimerComponent } from "./ProgressBarCountdownTimer";
+import { TwoPhaseProgressBarCountdownTimerComponent } from "./TwoPhaseProgressBarCountdownTimer";
+import { SmallProgressBarCountdownTimerComponent } from "./SmallProgressBarCountdownTimer";
 import * as React from "react";
 
 const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimerProps>(
@@ -52,6 +60,18 @@ const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimer
 };
 
 export const TextCountdownTimer = connectCountdownTimer()(TextCountdownTimerComponent);
-export const ProgressBarCountdownTimer: React.ComponentClass<
-  ProgressBarCountdownProps & CountdownTimerProps
-> = connectCountdownTimer()(ProgressBarCountdownTimerComponent);
+
+export const ProgressBarCountdownTimer: React.ComponentClass<ProgressBarCountdownProps> = connectCountdownTimer()(
+  ProgressBarCountdownTimerComponent,
+);
+
+export const SmallProgressBarCountdownTimer: React.ComponentClass<ProgressBarCountdownProps> = connectCountdownTimer()(
+  SmallProgressBarCountdownTimerComponent,
+);
+
+export const TwoPhaseProgressBarCountdownTimer: React.ComponentClass<
+  TwoPhaseProgressBarCountdownProps
+> = connectCountdownTimer()(TwoPhaseProgressBarCountdownTimerComponent);
+
+export * from "./types";
+export * from "./constants";

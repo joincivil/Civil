@@ -1,9 +1,9 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -15,7 +15,7 @@ contract("Parameterizer", accounts => {
     let voting: any;
 
     beforeEach(async () => {
-      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
+      [parameterizer] = await utils.createAllTestParameterizerInstance(accounts);
       const votingAddress = await parameterizer.voting();
       voting = await PLCRVoting.at(votingAddress);
     });

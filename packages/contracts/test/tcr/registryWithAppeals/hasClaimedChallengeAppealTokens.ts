@@ -2,7 +2,8 @@ import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -38,8 +39,8 @@ contract("Registry", accounts => {
       await voting.revealVote(pollID, "1", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
 
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
@@ -51,14 +52,14 @@ contract("Registry", accounts => {
 
       await registry.updateStatus(newsroomAddress);
 
-      const hasClaimedBefore = await registry.hasClaimedTokens(appealChallengePollID, voterBob);
-      expect(hasClaimedBefore).to.be.false("hasClaimedTokens should have been false for unclaimed reward 2");
+      const hasClaimedBefore = await registry.tokenClaims(appealChallengePollID, voterBob);
+      expect(hasClaimedBefore).to.be.false("tokenClaims should have been false for unclaimed reward 2");
 
       await registry.claimReward(appealChallengePollID, "1337", { from: voterBob });
 
-      const hasClaimedAfter = await registry.hasClaimedTokens(appealChallengePollID, voterBob);
+      const hasClaimedAfter = await registry.tokenClaims(appealChallengePollID, voterBob);
       expect(hasClaimedAfter).to.be.true(
-        "hasClaimedTokens should have been true for voter than has claimed challenge reward",
+        "tokenClaims should have been true for voter than has claimed challenge reward",
       );
     });
   });

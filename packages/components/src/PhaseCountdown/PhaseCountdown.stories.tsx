@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
-import { TextCountdownTimer, ProgressBarCountdownTimer } from "./index";
+import { TextCountdownTimer, ProgressBarCountdownTimer, TwoPhaseProgressBarCountdownTimer } from "./index";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -52,6 +52,7 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={shortTotalSeconds}
               flavorText={flavorText}
               displayLabel="Waiting for approval"
+              toolTipText="Tool Tip for label"
             />
 
             <h3>A Long Phase</h3>
@@ -60,6 +61,43 @@ storiesOf("Application Phase Countdown Timer", module)
               totalSeconds={totalSeconds}
               flavorText={flavorText}
               displayLabel="Waiting for approval"
+              toolTipText="Tool Tip for label"
+            />
+          </>
+        )}
+      </Container>
+    );
+  })
+  .add("Two Phase Progress Bar Timers", () => {
+    const shortTotalSeconds = 60 * 1;
+    const shortEndTime = now + shortTotalSeconds * 0.65;
+    const flavorText = "under community review";
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && (
+          <>
+            <h3>First phase is active</h3>
+            <TwoPhaseProgressBarCountdownTimer
+              endTime={shortEndTime}
+              totalSeconds={shortTotalSeconds}
+              flavorText={flavorText}
+              displayLabel="Committing Votes"
+              toolTipText="Tool Tip text for Committing Votes"
+              secondaryDisplayLabel="Revealing Votes"
+              secondaryToolTipText="Tool Tip text for Revealing Votes"
+              activePhaseIndex={0}
+            />
+
+            <h3>Second phase is active</h3>
+            <TwoPhaseProgressBarCountdownTimer
+              endTime={shortEndTime}
+              totalSeconds={shortTotalSeconds}
+              flavorText={flavorText}
+              displayLabel="Revealing Votes"
+              toolTipText="Tool Tip text for Revealing Votes"
+              secondaryDisplayLabel="Committing Votes"
+              secondaryToolTipText="Tool Tip text for Committing Votes"
+              activePhaseIndex={1}
             />
           </>
         )}

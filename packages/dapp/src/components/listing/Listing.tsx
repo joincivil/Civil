@@ -1,49 +1,131 @@
 import * as React from "react";
-
-import ListingHistory from "./ListingHistory";
-import ListingDetail from "./ListingDetail";
-import ListingPhaseActions from "./ListingPhaseActions";
-import { EthAddress, ListingWrapper } from "@joincivil/core";
-import { State } from "../../reducers";
 import { connect, DispatchProp } from "react-redux";
-import { PageView } from "../utility/ViewModules";
-import { fetchAndAddListingData } from "../../actionCreators/listings";
+import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
+
+import ListingOwnerActions from "./ListingOwnerActions";
+import ListingDiscourse from "./ListingDiscourse";
+import ListingHistory from "./ListingHistory";
+import ListingHeader from "./ListingHeader";
+import ListingCharter from "./ListingCharter";
+import ListingPhaseActions from "./ListingPhaseActions";
+import ListingChallengeStatement from "./ListingChallengeStatement";
+import { State } from "../../reducers";
+import { fetchAndAddListingData, setupListingHistorySubscription } from "../../actionCreators/listings";
+import {
+  makeGetListingPhaseState,
+  makeGetListing,
+  makeGetListingExpiry,
+  makeGetIsUserNewsroomOwner,
+} from "../../selectors";
+import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
+import { Tabs, Tab, StyledTab } from "@joincivil/components";
 
 export interface ListingPageProps {
   match: any;
 }
 
-export interface ListingReduxProps {
-  newsroom: NewsroomState | undefined;
-  listing: ListingWrapper | undefined;
-  userAccount?: EthAddress;
-  listingDataRequestStatus?: any;
+export interface ListingPageComponentProps {
+  listingAddress: EthAddress;
 }
 
-class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageProps> {
+export interface ListingReduxProps {
+  newsroom?: NewsroomState;
+  listing?: ListingWrapper;
+  expiry?: number;
+  userAccount?: EthAddress;
+  isUserNewsroomOwner?: boolean;
+  listingDataRequestStatus?: any;
+  listingPhaseState?: any;
+  parameters: any;
+  govtParameters: any;
+  constitutionURI: string;
+}
+
+class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
   public componentDidUpdate(): void {
     if (!this.props.listing && !this.props.listingDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.match.params.listing.toString()));
+      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
     }
+  }
+
+  public async componentDidMount(): Promise<void> {
+    this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress));
   }
 
   public render(): JSX.Element {
     const listing = this.props.listing;
     const newsroom = this.props.newsroom;
-    let appExistsAsNewsroom = false;
-    if (listing && newsroom) {
-      appExistsAsNewsroom = !listing.data.appExpiry.isZero();
-    }
+    const listingExistsAsNewsroom = listing && newsroom;
     return (
-      <PageView>
-        {appExistsAsNewsroom && (
-          <ListingDetail userAccount={this.props.userAccount} listing={listing!} newsroom={newsroom!.wrapper} />
+      <>
+        {listingExistsAsNewsroom && (
+          <>
+            <ListingHeader
+              userAccount={this.props.userAccount}
+              listing={listing!}
+              newsroom={newsroom!.wrapper}
+              listingPhaseState={this.props.listingPhaseState}
+            />
+          </>
         )}
-        {appExistsAsNewsroom && <ListingPhaseActions listing={this.props.listing!} />}
-        {!appExistsAsNewsroom && this.renderListingNotFound()}
-        <ListingHistory listing={this.props.match.params.listing} />
-      </PageView>
+
+        <GridRow>
+          <LeftShark>
+            {!listingExistsAsNewsroom && this.renderListingNotFound()}
+
+            <Tabs TabComponent={StyledTab}>
+              {(listingExistsAsNewsroom && (
+                <Tab title="About">
+                  <ListingTabContent>
+                    <ListingCharter listing={this.props.listing!} newsroom={this.props.newsroom!.wrapper} />
+                  </ListingTabContent>
+                </Tab>
+              )) || <></>}
+
+              <Tab title="Discussions">
+                <ListingTabContent>
+                  <ListingChallengeStatement listing={this.props.listingAddress} />
+
+                  <p>
+                    Use this space to discuss, ask questions, or cheer on the newsmakers. If you have questions, check
+                    out our help page.
+                  </p>
+                  <ListingDiscourse />
+                </ListingTabContent>
+              </Tab>
+
+              <Tab title="History">
+                <ListingTabContent>
+                  <ListingHistory listingAddress={this.props.listingAddress} />
+                </ListingTabContent>
+              </Tab>
+
+              {(this.props.isUserNewsroomOwner &&
+                this.props.listing && (
+                  <Tab title="Owner Actions">
+                    <ListingTabContent>
+                      <ListingOwnerActions listing={this.props.listing} />
+                    </ListingTabContent>
+                  </Tab>
+                )) || <></>}
+            </Tabs>
+          </LeftShark>
+
+          <RightShark>
+            {listingExistsAsNewsroom && (
+              <ListingPhaseActions
+                listing={this.props.listing!}
+                expiry={this.props.expiry}
+                listingPhaseState={this.props.listingPhaseState}
+                parameters={this.props.parameters}
+                govtParameters={this.props.govtParameters}
+                constitutionURI={this.props.constitutionURI}
+              />
+            )}
+          </RightShark>
+        </GridRow>
+      </>
     );
   }
 
@@ -52,22 +134,42 @@ class ListingPage extends React.Component<ListingReduxProps & DispatchProp<any> 
   }
 }
 
-const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingReduxProps => {
-  const { newsrooms, listings, listingsFetching, user } = state;
-  const listingAddress = ownProps.match.params.listing;
+const makeMapStateToProps = () => {
+  const getListingPhaseState = makeGetListingPhaseState();
+  const getListing = makeGetListing();
+  const getListingExpiry = makeGetListingExpiry();
+  const getIsUserNewsroomOwner = makeGetIsUserNewsroomOwner();
+  const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
+    const { newsrooms } = state;
+    const { listingsFetching, user, parameters, govtParameters, constitution } = state.networkDependent;
+    const constitutionURI = constitution.get("uri");
 
-  let listingDataRequestStatus;
-  if (listingAddress) {
-    listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
-  }
+    let listingDataRequestStatus;
+    if (ownProps.listingAddress) {
+      listingDataRequestStatus = listingsFetching.get(ownProps.listingAddress.toString());
+    }
 
-  const listing = listings.get(listingAddress) ? listings.get(listingAddress).listing : undefined;
-  return {
-    newsroom: newsrooms.get(listingAddress),
-    listing,
-    userAccount: user.account,
-    listingDataRequestStatus,
+    return {
+      newsroom: newsrooms.get(ownProps.listingAddress),
+      listing: getListing(state, ownProps),
+      expiry: getListingExpiry(state, ownProps),
+      listingDataRequestStatus,
+      listingPhaseState: getListingPhaseState(state, ownProps),
+      isUserNewsroomOwner: getIsUserNewsroomOwner(state, ownProps),
+      userAccount: user.account,
+      parameters,
+      govtParameters,
+      constitutionURI,
+    };
   };
+  return mapStateToProps;
 };
 
-export default connect(mapToStateToProps)(ListingPage);
+export const ListingPage = connect(makeMapStateToProps)(ListingPageComponent);
+
+export default class ListingPageContainer extends React.Component<ListingPageProps> {
+  public render(): JSX.Element {
+    const listingAddress = this.props.match.params.listing;
+    return <ListingPage listingAddress={listingAddress} />;
+  }
+}

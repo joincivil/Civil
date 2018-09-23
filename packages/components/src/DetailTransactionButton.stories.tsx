@@ -1,8 +1,9 @@
+import { Civil, TwoStepEthTransaction } from "@joincivil/core";
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import { DetailTransactionButton } from "./DetailTransactionButton";
-import { Civil, TwoStepEthTransaction } from "@joincivil/core";
+import { DarkTransactionButton } from "./TransactionButton";
 
 let civil: Civil | undefined;
 
@@ -28,6 +29,7 @@ storiesOf("DetailTransactionButton", module)
         {process.env.NODE_ENV !== "test" && (
           <DetailTransactionButton
             civil={civil}
+            Button={DarkTransactionButton}
             transactions={[{ transaction: createNewsroom }]}
             estimateFunctions={[civil!.estimateNewsroomDeployTrusted.bind(civil, "some name")]}
             requiredNetwork="rinkeby"

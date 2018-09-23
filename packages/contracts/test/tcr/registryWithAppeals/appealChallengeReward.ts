@@ -5,7 +5,8 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-const PLCRVoting = artifacts.require("PLCRVoting");
+const PLCRVoting = artifacts.require("CivilPLCRVoting");
+utils.configureProviders(PLCRVoting);
 
 contract("Registry With Appeals", accounts => {
   describe("Function: determineAppealChallengeReward", () => {
@@ -31,8 +32,8 @@ contract("Registry With Appeals", accounts => {
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
 
       const pollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength);
@@ -49,8 +50,8 @@ contract("Registry With Appeals", accounts => {
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
 
       const pollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 

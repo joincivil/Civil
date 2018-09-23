@@ -1,12 +1,19 @@
-import { Dispatch } from "react-redux";
-import { multiSetGovtParameters, setGovernmentParameter } from "../actionCreators/government";
-import { getGovernmentParameters } from "../apis/civilTCR";
-import { getTCR, getCivil } from "./civilInstance";
 import { Param } from "@joincivil/core";
+import { Dispatch } from "react-redux";
+import { GovernmentParameters } from "@joincivil/utils";
+import {
+  multiSetGovtParameters,
+  setGovernmentParameter,
+  setConstitutionData,
+  setAppellate,
+  setController,
+  setAppellateMembers,
+} from "../actionCreators/government";
+import { getGovernmentParameters } from "../apis/civilTCR";
+import { getCivil, getTCR } from "./civilInstance";
 
 export async function initializeGovernment(dispatch: Dispatch<any>): Promise<void> {
-  const paramKeys = ["requestAppealLen", "judgeAppealLen", "appealFee", "appealVotePercentage"];
-
+  const paramKeys: string[] = Object.values(GovernmentParameters);
   const parameterVals = await getGovernmentParameters(paramKeys);
   const paramObj = parameterVals.reduce((acc, item, index) => {
     acc[paramKeys[index]] = item.toString();
@@ -17,11 +24,28 @@ export async function initializeGovernment(dispatch: Dispatch<any>): Promise<voi
 }
 
 export async function initializeGovernmentParamSubscription(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = getTCR();
+  const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
   const govt = await tcr.getGovernment();
   govt.getParameterSet(current).subscribe(async (p: Param) => {
     dispatch(setGovernmentParameter(p.paramName, p.value));
   });
+}
+
+export async function initializeConstitution(dispatch: Dispatch<any>): Promise<void> {
+  const tcr = await getTCR();
+  const govt = await tcr.getGovernment();
+  const council = await tcr.getCouncil();
+  const uri = await govt.getConstitutionURI();
+  dispatch(setConstitutionData("uri", uri));
+
+  const hash = await govt.getConstitutionHash();
+  dispatch(setConstitutionData("hash", hash));
+  const appellate = await govt.getAppellate();
+  dispatch(setAppellate(appellate));
+  const controller = await govt.getController();
+  dispatch(setController(controller));
+  const appellateMembers = await council.getAppellateMembers();
+  dispatch(setAppellateMembers(appellateMembers));
 }

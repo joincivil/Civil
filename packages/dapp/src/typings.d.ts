@@ -7,3 +7,5 @@ declare module "@joincivil/editor";
 declare module "slate";
 declare module "sort-by";
 declare module "react-ellipsis-text";
+declare module "react-rte";
+declare module "*.png";

@@ -8,13 +8,7 @@ export class CreateCharter extends React.Component<StepProps> {
         <Collapsable
           header={
             <>
-              <StepHeader
-                disabled={this.props.disabled}
-                el={this.props.el}
-                isActive={this.props.active === this.props.index}
-              >
-                Create your charter (Coming Soon!)
-              </StepHeader>
+              <StepHeader disabled={this.props.disabled}>Create your charter (Coming Soon!)</StepHeader>
               <StepDescription disabled={this.props.disabled}>State your newsrooms goals.</StepDescription>
             </>
           }

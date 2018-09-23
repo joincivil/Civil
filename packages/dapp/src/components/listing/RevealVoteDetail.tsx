@@ -37,8 +37,8 @@ class RevealVoteDetail extends React.Component<RevealVoteDetailProps, RevealVote
         <FormGroup>
           <label>
             Support This Challenge (Vote Option)
-            <InputElement type="radio" value="1" name="voteOption" onChange={this.updateRevealVoteParam} /> Yes
-            <InputElement type="radio" value="0" name="voteOption" onChange={this.updateRevealVoteParam} /> No
+            <InputElement type="radio" value="0" name="voteOption" onChange={this.updateRevealVoteParam} /> Yes
+            <InputElement type="radio" value="1" name="voteOption" onChange={this.updateRevealVoteParam} /> No
           </label>
         </FormGroup>
 

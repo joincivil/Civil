@@ -1,34 +1,69 @@
+import { hasInjectedProvider } from "@joincivil/ethapi";
+import { ButtonTheme, colors, StepProcessTopNav, Step, ManagerHeading, WalletOnboarding } from "@joincivil/components";
+import { Civil, EthAddress, TxHash } from "@joincivil/core";
 import * as React from "react";
-import { FormHeading, StepProcess, Modal, ModalContent, Button, buttonSizes } from "@joincivil/components";
-import { NameAndAddress } from "./NameAndAddress";
-import { CompleteYourProfile } from "./CompleteYourProfile";
 import { connect, DispatchProp } from "react-redux";
-import { StateWithNewsroom } from "./reducers";
-import { addNewsroom, getNewsroom, getEditors, addGetNameForAddress } from "./actionCreators";
-import { EthAddress, Civil } from "@joincivil/core";
-import { SignConstitution } from "./SignConstitution";
-import { CreateCharter } from "./CreateCharter";
-import { ApplyToTCR } from "./ApplyToTCR";
+import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
+import { addGetNameForAddress, addNewsroom, getEditors, getNewsroom } from "./actionCreators";
+// import { SignConstitution } from "./SignConstitution";
+// import { CreateCharter } from "./CreateCharter";
+// import { ApplyToTCR } from "./ApplyToTCR";
+import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
+import { CompleteYourProfile } from "./CompleteYourProfile";
+import { NameAndAddress } from "./NameAndAddress";
+import { StateWithNewsroom } from "./reducers";
 
 export interface NewsroomComponentState {
-  modalOpen: boolean;
   currentStep: number;
+  subscription?: any;
 }
 
 export interface NewsroomProps {
-  address?: string;
+  address?: EthAddress;
+  txHash?: TxHash;
   name?: string;
-  civil: Civil;
+  disabled?: boolean;
+  account?: string;
+  currentNetwork?: string;
+  requiredNetwork?: string;
+  requiredNetworkNiceName?: string;
+  civil?: Civil;
+  theme?: ButtonTheme;
+  profileWalletAddress?: EthAddress;
+  showWalletOnboarding?: boolean;
+  showWelcome?: boolean;
+  helpUrl?: string;
+  profileUrl?: string;
+  profileAddressSaving?: boolean;
+  saveAddressToProfile?(): Promise<void>;
+  renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
+  onContractDeployStarted?(txHash: TxHash): void;
   getNameForAddress?(address: EthAddress): Promise<string>;
 }
+
+export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
+  color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
+`;
+
+export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+  max-width: 845px;
+
+  &,
+  & p {
+    font-size: 14px;
+  }
+`;
+
+const Heading = ManagerHeading.extend`
+  color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
+`;
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
   constructor(props: NewsroomProps) {
     super(props);
     this.state = {
-      modalOpen: !JSON.parse(window.localStorage.getItem("civil:hasSeenWelcomeModal") || "false"),
       currentStep: props.address ? 1 : 0,
     };
   }
@@ -38,63 +73,82 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addGetNameForAddress(this.props.getNameForAddress));
     }
 
-    if (this.props.address) {
-      await this.props.dispatch!(getNewsroom(this.props.address, this.props.civil));
-      this.props.dispatch!(getEditors(this.props.address, this.props.civil));
+    if (this.props.address && this.props.civil) {
+      await this.hydrateNewsroom(this.props.address);
     }
   }
 
-  public componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): void {
+  public async componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): Promise<void> {
     if (newProps.address && !this.props.address) {
-      this.props.dispatch!(getEditors(newProps.address, this.props.civil));
+      await this.hydrateNewsroom(newProps.address);
     }
-  }
-
-  public renderModal(): JSX.Element {
-    return (
-      <Modal>
-        <FormHeading>Welcome</FormHeading>
-        <ModalContent>Welcome to our newsroom setup guide</ModalContent>
-        <ModalContent>
-          Here, you'll be going through the steps to set up your newsroom smart contract so that you can publish on
-          Civil and make use of blockchain features such as permananet archiving.
-        </ModalContent>
-        <ModalContent>
-          You'll need to use either Chrome, Brave, or FireFox as your browser and have MetaMask installed. You'll also
-          need the public keys (wallet addresses) of your newsroom co-owners and of your editors, as well as your
-          newsroom charter.
-        </ModalContent>
-        <ModalContent>
-          If you're not sure about some of the above, don't worry, we'll point you to some resources. Let's go!
-        </ModalContent>
-        <Button onClick={this.onModalClose} size={buttonSizes.MEDIUM}>
-          Get Started
-        </Button>
-      </Modal>
-    );
   }
 
   public render(): JSX.Element {
-    return (
+    const disabled = this.isDisabled();
+    const manager = (
       <>
-        <FormHeading>Newsroom Application</FormHeading>
-        <p>Set up your newsroom smart contract and get started publishing on Civil.</p>
-        <CivilContext.Provider value={this.props.civil}>
-          <StepProcess stepIsDisabled={this.isDisabled}>
-            <NameAndAddress
-              active={this.state.currentStep}
-              onNewsroomCreated={this.onNewsroomCreated}
-              name={this.props.name}
-              address={this.props.address}
-            />
-            <CompleteYourProfile active={this.state.currentStep} address={this.props.address} />
-            <CreateCharter />
-            <SignConstitution address={this.props.address} active={this.state.currentStep} />
-            <ApplyToTCR />
-          </StepProcess>
+        <Heading disabled={disabled}>Newsroom Application</Heading>
+        <CivilContext.Provider
+          value={{
+            civil: this.props.civil,
+            currentNetwork: this.props.currentNetwork,
+            requiredNetwork: this.props.requiredNetwork || "rinkeby",
+            account: this.props.account,
+          }}
+        >
+          <StepProcessTopNav activeIndex={this.state.currentStep}>
+            <Step title={"Set up a newsroom"} complete={!!this.props.address}>
+              <NameAndAddress
+                onNewsroomCreated={this.onNewsroomCreated}
+                name={this.props.name}
+                address={this.props.address}
+                txHash={this.props.txHash}
+                onContractDeployStarted={this.props.onContractDeployStarted}
+              />
+            </Step>
+            <Step title={"Add accounts"}>
+              <CompleteYourProfile
+                address={this.props.address}
+                renderUserSearch={this.props.renderUserSearch}
+                profileWalletAddress={this.props.profileWalletAddress}
+              />
+            </Step>
+            <Step title={"Create your charter"}>
+              <div />
+            </Step>
+            <Step title={"Sign the Constitution"}>
+              <div />
+            </Step>
+            <Step title={"Apply to the Registry"}>
+              <div />
+            </Step>
+          </StepProcessTopNav>
         </CivilContext.Provider>
-        {this.state.modalOpen && !this.props.address && this.renderModal()}
       </>
+    );
+
+    return (
+      <ThemeProvider theme={this.props.theme}>
+        <Wrapper>
+          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} />}
+          {this.props.showWalletOnboarding && (
+            <WalletOnboarding
+              noProvider={!hasInjectedProvider()}
+              walletLocked={this.props.civil && !this.props.account}
+              wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
+              requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
+              metamaskWalletAddress={this.props.account}
+              profileUrl={this.props.profileUrl}
+              profileAddressSaving={this.props.profileAddressSaving}
+              profileWalletAddress={this.props.profileWalletAddress}
+              saveAddressToProfile={this.props.saveAddressToProfile}
+            />
+          )}
+
+          {manager}
+        </Wrapper>
+      </ThemeProvider>
     );
   }
 
@@ -111,7 +165,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   };
 
-  public isDisabled = (index: number) => {
+  public isStepDisabled = (index: number) => {
     if (index === 0) {
       return false;
     } else if (index < 2 && this.props.address) {
@@ -120,9 +174,18 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return true;
   };
 
-  private onModalClose = () => {
-    this.setState({ modalOpen: false });
-    window.localStorage.setItem("civil:hasSeenWelcomeModal", "true");
+  private isDisabled = (): boolean => {
+    return (
+      this.props.disabled ||
+      !this.props.civil ||
+      !this.props.requiredNetwork!.includes(this.props.currentNetwork!) ||
+      !this.props.account
+    );
+  };
+
+  private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
+    await this.props.dispatch!(getNewsroom(address, this.props.civil!));
+    this.props.dispatch!(getEditors(address, this.props.civil!));
   };
 }
 
@@ -131,7 +194,6 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): New
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   return {
     ...ownProps,
-    address,
     name: newsroom.wrapper.data.name,
   };
 };

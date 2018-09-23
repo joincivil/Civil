@@ -1,11 +1,12 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-import { REVERTED } from "../../utils/constants";
 import BN from "bignumber.js";
+import * as chai from "chai";
+import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
-const Parameterizer = artifacts.require("Parameterizer");
+const Parameterizer = artifacts.require("CivilParameterizer");
 const Token = artifacts.require("EIP20");
+utils.configureProviders(Parameterizer, Token);
 
 configureChai(chai);
 const expect = chai.expect;

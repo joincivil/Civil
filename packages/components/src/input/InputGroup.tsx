@@ -32,6 +32,15 @@ const StyledInputGroupPrepend = styled.div`
   }
 `;
 
+const StyledInputGroupAppend = styled.div`
+  display: flex;
+  box-sizing: border-box;
+
+  & > span {
+    margin-left: -1px;
+  }
+`;
+
 const InputGroupText = styled.span`
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   display: flex;
@@ -41,7 +50,15 @@ const InputGroupText = styled.span`
   white-space: nowrap;
 `;
 
-export const InputGroupPrepend: React.StatelessComponent = props => {
+const InputGroupAppend: React.StatelessComponent = props => {
+  return (
+    <StyledInputGroupAppend>
+      <InputGroupText>{props.children}</InputGroupText>
+    </StyledInputGroupAppend>
+  );
+};
+
+const InputGroupPrepend: React.StatelessComponent = props => {
   return (
     <StyledInputGroupPrepend>
       <InputGroupText>{props.children}</InputGroupText>
@@ -50,18 +67,22 @@ export const InputGroupPrepend: React.StatelessComponent = props => {
 };
 
 export interface InputGroupProps {
+  append?: string;
   prepend?: string;
+  inputComponent?: React.ComponentClass<any> | React.SFC<any>;
 }
 
 export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> = (props: any) => {
-  const { label, prepend, placeholder, name, onChange } = props;
+  const { label, append, prepend, placeholder, ...inputProps } = props;
+  const Input = props.inputComponent || TextInput;
 
   return (
     <StyledInputGroupContainer>
-      <InputLabel>{label || props.placeholder}</InputLabel>
+      <InputLabel>{label || placeholder}</InputLabel>
       <StyledInputGroup>
         {prepend && <InputGroupPrepend>{props.prepend}</InputGroupPrepend>}
-        <TextInput noLabel={true} placeholder={placeholder} name={name} onChange={onChange} />
+        <Input noLabel={true} {...inputProps} />
+        {append && <InputGroupAppend>{props.append}</InputGroupAppend>}
       </StyledInputGroup>
     </StyledInputGroupContainer>
   );

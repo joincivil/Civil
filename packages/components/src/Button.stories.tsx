@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import StoryRouter from "storybook-react-router";
 import * as React from "react";
 import styled from "styled-components";
-import { Button, SecondaryButton, CancelButton, InvertedButton, buttonSizes } from "./Button";
+import { Button, SecondaryButton, DarkButton, InvertedButton, buttonSizes } from "./Button";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -53,10 +53,10 @@ storiesOf("Buttons", module)
       </Container>
     );
   })
-  .add("CancelButton", () => {
+  .add("DarkButton", () => {
     return (
       <Container>
-        <CancelButton>Cancel Button</CancelButton>
+        <DarkButton>Dark Button</DarkButton>
       </Container>
     );
   });

@@ -1,5 +1,6 @@
-// import "@joincivil/utils";
+import { currentAccount, EthApi, requireAccount } from "@joincivil/ethapi";
 import {
+  CivilErrors,
   hashContent,
   hashPersonalMessage,
   is0x0Address,
@@ -7,9 +8,14 @@ import {
   prepareNewsroomMessage,
   prepareUserFriendlyNewsroomMessage,
   recoverSigner,
+  promisify,
+  estimateRawHex,
+  getDefaultFromBlock,
 } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
+import * as Debug from "debug";
 import { Observable } from "rxjs";
+import { TransactionReceipt, Transaction } from "web3";
 import { ContentProvider } from "../content/contentprovider";
 import {
   ApprovedRevision,
@@ -26,10 +32,10 @@ import {
   StorageHeader,
   TwoStepEthTransaction,
   TxData,
+  TxHash,
   Uri,
+  TxDataAll,
 } from "../types";
-import { CivilErrors, requireAccount } from "../utils/errors";
-import { EthApi } from "../utils/ethapi";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";
@@ -45,6 +51,18 @@ import {
   findEventOrThrow,
   findEvents,
 } from "./utils/contracts";
+import * as zlib from "zlib";
+import { bufferToHex, toBuffer, setLengthLeft, addHexPrefix } from "ethereumjs-util";
+
+const deflate = promisify<Buffer>(zlib.deflate);
+
+const debug = Debug("civil:newsroom");
+
+const findContentId = (receipt: CivilTransactionReceipt) =>
+  findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
+
+const findRevisionId = (receipt: CivilTransactionReceipt) =>
+  findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -70,9 +88,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if ((charterUri.length === 0) !== (charterHash.length === 0)) {
       throw new Error("Both charter URI and Hash need to be set, or both empty");
     }
-    const txData: TxData = { from: ethApi.account };
+    const account = await requireAccount(ethApi).toPromise();
+    const txData: TxData = { from: account };
 
-    const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
@@ -83,34 +102,48 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         newsroomName,
         charterUri,
         charterHash,
-        [ethApi.account!],
+        [account],
         ethApi.toBigNumber(1),
         txData,
       ),
       async factoryReceipt => {
-        const createdNewsroom = findEvents<NewsroomFactory.Logs.ContractInstantiation>(
-          factoryReceipt,
-          NewsroomFactory.Events.ContractInstantiation,
-        ).find(log => log.address === factory.address);
-
-        if (!createdNewsroom) {
-          throw new Error("No Newsroom created during deployment through factory");
-        }
-
-        const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
-        const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
-        return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
+        return Newsroom.fromFactoryReceipt(factoryReceipt, ethApi, contentProvider);
       },
     );
   }
 
-  public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {
-    const txData: TxData = { from: ethApi.account };
-    const factory = NewsroomFactoryContract.singletonTrusted(ethApi);
+  public static async fromFactoryReceipt(
+    factoryReceipt: TransactionReceipt,
+    ethApi: EthApi,
+    contentProvider: ContentProvider,
+  ): Promise<Newsroom> {
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return factory.create.estimateGasAsync(newsroomName, "", "", [ethApi.account!], ethApi.toBigNumber(1), txData);
+
+    const createdNewsroom = findEvents<NewsroomFactory.Logs.ContractInstantiation>(
+      factoryReceipt,
+      NewsroomFactory.Events.ContractInstantiation,
+    ).find(log => log.address === factory.address);
+
+    if (!createdNewsroom) {
+      throw new Error("No Newsroom created during deployment through factory");
+    }
+
+    const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
+    const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
+    return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
+  }
+
+  public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {
+    const account = await requireAccount(ethApi).toPromise();
+    const txData: TxData = { from: account };
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
+    if (!factory) {
+      throw new Error(CivilErrors.UnsupportedNetwork);
+    }
+    return factory.create.estimateGasAsync(newsroomName, "", "", [account], ethApi.toBigNumber(1), txData);
   }
 
   public static async deployNonMultisigTrusted(
@@ -123,7 +156,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if ((charterUri.length === 0) !== (charterHash.length === 0)) {
       throw new Error("Both charter URI and Hash need to be set, or both empty");
     }
-    const txData: TxData = { from: ethApi.account };
+    const txData: TxData = { from: await currentAccount(ethApi) };
     return createTwoStepTransaction(
       ethApi,
       await NewsroomContract.deployTrusted.sendTransactionAsync(ethApi, newsroomName, charterUri, charterHash, txData),
@@ -159,7 +192,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   //#region streams
   public editors(): Observable<EthAddress> {
     return this.instance
-      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: 0 })
+      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: getDefaultFromBlock() })
       .map(e => e.args.grantee)
       .concatFilter(async e => this.isEditor(e));
   }
@@ -170,7 +203,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" for only new events
    * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public content(fromBlock: number | "latest" = 0): Observable<EthContentHeader> {
+  public content(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<EthContentHeader> {
     return this.instance
       .ContentPublishedStream({}, { fromBlock })
       .map(e => e.args.contentId)
@@ -186,12 +219,17 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public revisions(
     contentId?: number | BigNumber | undefined,
-    fromBlock: number | "latest" = 0,
+    fromBlock: number | "latest" = getDefaultFromBlock(),
   ): Observable<EthContentHeader> {
     const myContentId = contentId ? this.ethApi.toBigNumber(contentId) : undefined;
-    return this.instance
-      .RevisionUpdatedStream({ contentId: myContentId }, { fromBlock })
-      .concatMap(async e => this.loadContentHeader(e.args.contentId, e.args.revisionId));
+    return this.instance.RevisionUpdatedStream({ contentId: myContentId }, { fromBlock }).concatMap(async e => {
+      const contentHeader = await this.loadContentHeader(e.args.contentId, e.args.revisionId);
+      return {
+        blockNumber: e.blockNumber,
+        transactionHash: e.transactionHash,
+        ...contentHeader,
+      };
+    });
   }
 
   /**
@@ -200,7 +238,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" to only listen for new events
    * @returns Name history of this Newsroom
    */
-  public nameChanges(fromBlock: number | "latest" = 0): Observable<string> {
+  public nameChanges(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<string> {
     return this.instance.NameChangedStream({}, { fromBlock }).map(e => e.args.newName);
   }
   //#endregion
@@ -268,9 +306,23 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     let who = address;
 
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.multisigProxy.isOwner(who);
+  }
+
+  /**
+   * Checks if the user can assign roles and approve/deny content
+   * @param address Address for the role check, leave empty for current user
+   * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
+   */
+  public async isEditor(address?: EthAddress): Promise<boolean> {
+    let who = address;
+
+    if (!who) {
+      who = await requireAccount(this.ethApi).toPromise();
+    }
+    return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
 
   /**
@@ -279,14 +331,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param address Address for the role check, leave empty for current user
    * @throws {CivilErrors.NoUnlockedAccount} Requires the node to have at least one account if no address provided
    */
-  public async isEditor(address?: EthAddress): Promise<boolean> {
+  public async hasEditorCapabilities(address?: EthAddress): Promise<boolean> {
     if (await this.isOwner(address)) {
       return true;
     }
     let who = address;
 
     if (!who) {
-      who = requireAccount(this.ethApi);
+      who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
@@ -314,13 +366,18 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * text needed for display
    * @param header Metadata you get from Ethereum
    */
-  public async resolveContent(header: EthContentHeader): Promise<NewsroomContent> {
+  public async resolveContent(header: EthContentHeader): Promise<NewsroomContent | undefined> {
     // TODO(ritave): Choose ContentProvider based on schema
-    const content = await this.contentProvider.get(header);
-    return {
-      ...header,
-      content,
-    };
+    try {
+      const content = await this.contentProvider.get(header);
+      return {
+        ...header,
+        content,
+      };
+    } catch (e) {
+      debug(`Resolving Content failed for EthContentHeader: ${header}`, e);
+      return;
+    }
   }
 
   /**
@@ -331,24 +388,30 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: number | BigNumber,
     revisionId?: number | BigNumber,
   ): Promise<EthContentHeader> {
+    let revision = revisionId;
+    if (!revision) {
+      revision = (await this.instance.revisionCount.callAsync(this.ethApi.toBigNumber(contentId))).sub(1);
+    }
     const myContentId = this.ethApi.toBigNumber(contentId);
     let contentHash: string;
     let uri: string;
     let timestamp: BigNumber;
     let author: EthAddress;
     let signature: string;
-    if (revisionId) {
-      const myRevisionId = this.ethApi.toBigNumber(revisionId);
+    let myRevisionId: BigNumber | undefined;
+    if (revision) {
+      myRevisionId = this.ethApi.toBigNumber(revision);
       [contentHash, uri, timestamp, author, signature] = await this.instance.getRevision.callAsync(
         myContentId,
-        myRevisionId,
+        myRevisionId!,
       );
     } else {
       [contentHash, uri, timestamp, author, signature] = await this.instance.getContent.callAsync(myContentId);
     }
     return {
       contentId: myContentId.toNumber(),
-      timestamp: new Date(timestamp.toNumber()),
+      revisionId: myRevisionId ? myRevisionId.toNumber() : 0,
+      timestamp: new Date(timestamp.toNumber() * 1000),
       uri,
       contentHash,
       author,
@@ -407,6 +470,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return createTwoStepSimple(this.ethApi, await this.instance.removeRole.sendTransactionAsync(actor, role));
   }
 
+  public async removeOwner(actor: EthAddress): Promise<TwoStepEthTransaction<MultisigTransaction>> {
+    await this.requireOwner();
+    const address = await this.getMultisigAddress();
+    const contract = await Multisig.atUntrusted(this.ethApi, address!);
+    return contract.removeOwner(actor);
+  }
+
   /**
    * Changes the name of the Newsroom.
    * The name can be any string, but when applying to a TCR, it must be unique in that TCR
@@ -420,16 +490,114 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.multisigProxy.setName.sendTransactionAsync(newName);
   }
 
+  public async recoverArchiveTx(tx: Transaction): Promise<string> {
+    const inflate = promisify<string>(zlib.inflate);
+    const txDataLength = parseInt(addHexPrefix(tx.input.substr(tx.input.length - 16)), 16);
+    const content = addHexPrefix(tx.input.substr(txDataLength, tx.input.length - 16));
+    return (await inflate(toBuffer(content))).toString();
+  }
+
+  public txArchiveForContentId(contentId: number, revisionId: number): Observable<any> {
+    const myContentId = this.ethApi.toBigNumber(contentId);
+    const myRevisionId = this.ethApi.toBigNumber(revisionId);
+    return this.instance
+      .RevisionUpdatedStream({ contentId: myContentId, revisionId: myRevisionId }, { fromBlock: getDefaultFromBlock() })
+      .concatMap(async item => {
+        const transaction = await this.ethApi.getTransaction(item.transactionHash);
+        return this.recoverArchiveTx(transaction);
+      });
+  }
+
+  public async estimatePublishURIAndHash(
+    uriOrContent: any,
+    hash: string,
+    author: string = "",
+    signature: string = "",
+    archive?: boolean,
+  ): Promise<number> {
+    const uriForEstimate = archive ? "self-tx:1.0" : uriOrContent;
+    const data = await this.instance.publishContent.getRaw(uriForEstimate, hash, author, signature, { gas: 0 });
+    if (!(await this.isEditor()) && (await this.isOwner())) {
+      if (archive) {
+        return this.estimateFromDataMultiSig(data, uriOrContent);
+      } else {
+        return this.estimateFromDataMultiSig(data);
+      }
+    } else {
+      const baseGas = await this.instance.publishContent.estimateGasAsync(uriForEstimate, hash, author, signature, {});
+      let additionalGas = 0;
+      if (archive) {
+        additionalGas = await this.estimateFromContent(uriOrContent, data.data!.length);
+      }
+      return baseGas + additionalGas;
+    }
+  }
+
+  public async estimateUpdateURIAndHash(
+    contentId: number,
+    uriOrContent: any,
+    hash: string,
+    signature: string = "",
+    archive?: boolean,
+  ): Promise<number> {
+    const uriForEstimate = archive ? "self-tx:1.0" : uriOrContent;
+    const data = await this.instance.updateRevision.getRaw(
+      this.ethApi.toBigNumber(contentId),
+      uriForEstimate,
+      hash,
+      signature,
+      { gas: 0 },
+    );
+    if (!(await this.isEditor()) && (await this.isOwner())) {
+      if (archive) {
+        return this.estimateFromDataMultiSig(data, uriOrContent);
+      } else {
+        return this.estimateFromDataMultiSig(data);
+      }
+    } else {
+      const baseGas = await this.instance.updateRevision.estimateGasAsync(
+        this.ethApi.toBigNumber(contentId),
+        uriForEstimate,
+        hash,
+        signature,
+        {},
+      );
+      let additionalGas = 0;
+      if (archive) {
+        additionalGas = await this.estimateFromContent(uriOrContent, data.data!.length);
+      }
+      return baseGas + additionalGas;
+    }
+  }
+
+  public async estimateFromDataMultiSig(data: TxDataAll, content?: any): Promise<number> {
+    const address = await this.multisigProxy.getMultisigAddress();
+    const contract = await Multisig.atUntrusted(this.ethApi, address!);
+    const baseGas = await contract.estimateTransaction(address!, this.ethApi.toBigNumber(0), data.data!);
+    let additionalGas = 0;
+    if (content) {
+      const multiSigData = await contract.getRawTransaction(address!, this.ethApi.toBigNumber(0), data.data!);
+      additionalGas = await this.estimateFromContent(content, multiSigData.data!.length);
+    }
+    return baseGas + additionalGas;
+  }
+
+  public async estimateFromContent(content: any, dataLength: number): Promise<number> {
+    const revision = typeof content === "string" ? content : JSON.stringify(content);
+    const buffer = await deflate(revision);
+    const hex = bufferToHex(buffer);
+    const length = bufferToHex(setLengthLeft(toBuffer(dataLength), 8));
+    const extra = hex.substr(2) + length.substr(2);
+    return estimateRawHex(extra);
+  }
+
   public async publishURIAndHash(
     uri: string,
     hash: string,
     author: string = "",
     signature: string = "",
   ): Promise<TwoStepEthTransaction<ContentId | MultisigTransaction>> {
-    const findContentId = (receipt: CivilTransactionReceipt) =>
-      findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
-
-    if (this.isOwner()) {
+    if (!(await this.isEditor()) && (await this.isOwner())) {
       return this.twoStepOrMulti(
         await this.multisigProxy.publishContent.sendTransactionAsync(uri, hash, author, signature),
         findContentId,
@@ -445,6 +613,117 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     }
   }
 
+  public async updateRevisionURIAndHash(
+    contentId: ContentId,
+    uri: string,
+    hash: string,
+    signature: string = "",
+  ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
+    if (!(await this.isEditor()) && (await this.isOwner())) {
+      return this.twoStepOrMulti(
+        await this.multisigProxy.updateRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          uri,
+          hash,
+          signature,
+        ),
+        findRevisionId,
+      );
+    } else {
+      await this.requireEditor();
+
+      return createTwoStepTransaction(
+        this.ethApi,
+        await this.instance.updateRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          uri,
+          hash,
+          signature,
+        ),
+        findRevisionId,
+      );
+    }
+  }
+
+  public async addArchiveToMultisig(data: TxDataAll, hex: string, gas: number): Promise<TxDataAll> {
+    const address = await this.multisigProxy.getMultisigAddress();
+    const contract = await Multisig.atUntrusted(this.ethApi, address!);
+    const multiSigData = await contract.getRawTransaction(address!, this.ethApi.toBigNumber(0), data.data!);
+    const length = bufferToHex(setLengthLeft(toBuffer(multiSigData.data!.length), 8));
+    const extra = hex.substr(2) + length.substr(2);
+    multiSigData.gas = gas;
+    multiSigData.data = multiSigData + extra;
+    return multiSigData;
+  }
+
+  public async publishWithArchive(
+    content: any,
+    hash: string,
+    author: string = "",
+    signature: string = "",
+  ): Promise<TwoStepEthTransaction<MultisigTransaction | ContentId>> {
+    const revision = typeof content === "string" ? content : JSON.stringify(content);
+    const gas = await this.estimatePublishURIAndHash(content, hash, author, signature, true);
+    const data = await this.instance.publishContent.getRaw("self-tx:1.0", hash, author, signature, { gas });
+    const buffer = await deflate(revision);
+    const hex = bufferToHex(buffer);
+    if (!(await this.isEditor()) && (await this.isOwner())) {
+      const multiSigData = await this.addArchiveToMultisig(data, hex, gas);
+      return createTwoStepTransaction(this.ethApi, await this.ethApi.sendTransaction(multiSigData), findContentId);
+    } else {
+      await this.requireEditor();
+      const txData = await this.instance.publishContent.getRaw("self-tx:1.0", hash, author, signature, { gas });
+      const length = bufferToHex(setLengthLeft(toBuffer(txData.data!.length), 8));
+      const extra = hex.substr(2) + length.substr(2);
+      txData.data = txData.data + extra;
+      txData.gas = gas;
+      return createTwoStepTransaction(this.ethApi, await this.ethApi.sendTransaction(txData), findContentId);
+    }
+  }
+
+  public async updateRevisionURIAndHashWithArchive(
+    contentId: ContentId,
+    content: any,
+    hash: string,
+    signature: string = "",
+  ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
+    const revision = typeof content === "string" ? content : JSON.stringify(content);
+    const gas = await this.estimateUpdateURIAndHash(contentId, content, hash, signature, true);
+    const data = await this.instance.updateRevision.getRaw(
+      this.ethApi.toBigNumber(contentId),
+      "self-tx:1.0",
+      hash,
+      signature,
+      { gas },
+    );
+    const buffer = await deflate(revision);
+    const hex = bufferToHex(buffer);
+    if (!(await this.isEditor()) && (await this.isOwner())) {
+      const multiSigData = await this.addArchiveToMultisig(data, hex, gas);
+      return createTwoStepTransaction(this.ethApi, await this.ethApi.sendTransaction(multiSigData), findRevisionId);
+    } else {
+      await this.requireEditor();
+      const txData = await this.instance.updateRevision.getRaw(
+        this.ethApi.toBigNumber(contentId),
+        "self-tx:1.0",
+        hash,
+        signature,
+        { gas },
+      );
+      const length = bufferToHex(setLengthLeft(toBuffer(txData.data!.length), 8));
+      const extra = hex.substr(2) + length.substr(2);
+      txData.data = txData.data + extra;
+      txData.gas = gas;
+      return createTwoStepTransaction(this.ethApi, await this.ethApi.sendTransaction(txData), findRevisionId);
+    }
+  }
+
+  public async contentIdFromTxHash(txHash: TxHash): Promise<number> {
+    const publishReceipt = await this.ethApi.awaitReceipt<CivilTransactionReceipt>(txHash);
+
+    return findContentId(publishReceipt);
+  }
+
   /**
    * Allows editor to publish content on the ethereum storage and record it in the
    * Blockchain Newsroom.
@@ -458,10 +737,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     signedData?: ApprovedRevision,
   ): Promise<TwoStepEthTransaction<ContentId | MultisigTransaction>> {
     const { storageHeader, author, signature } = await this.uploadToStorage(content, signedData);
-
-    const findContentId = (receipt: CivilTransactionReceipt) =>
-      findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
-
     if (this.isOwner()) {
       return this.twoStepOrMulti(
         await this.multisigProxy.publishContent.sendTransactionAsync(
@@ -488,39 +763,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     }
   }
 
-  public async updateRevisionURIAndHash(
-    contentId: ContentId,
-    uri: string,
-    hash: string,
-    signature: string = "",
-  ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
-    const findRevisionId = (receipt: CivilTransactionReceipt) =>
-      findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
-
-    if (this.isOwner()) {
-      return this.twoStepOrMulti(
-        await this.multisigProxy.updateRevision.sendTransactionAsync(
-          this.ethApi.toBigNumber(contentId),
-          uri,
-          hash,
-          signature,
-        ),
-        findRevisionId,
-      );
-    } else {
-      await this.requireEditor();
-
-      return createTwoStepTransaction(
-        this.ethApi,
-        await this.instance.updateRevision.sendTransactionAsync(
-          this.ethApi.toBigNumber(contentId),
-          uri,
-          hash,
-          signature,
-        ),
-        findRevisionId,
-      );
-    }
+  public async revisionFromTxHash(txHash: TxHash): Promise<RevisionId> {
+    const revisionReceipt = await this.ethApi.awaitReceipt<CivilTransactionReceipt>(txHash);
+    return findRevisionId(revisionReceipt);
   }
 
   /**
@@ -538,9 +783,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     signedData?: ApprovedRevision,
   ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
     const { storageHeader, signature } = await this.uploadToStorage(content, signedData);
-
-    const findRevisionId = (receipt: CivilTransactionReceipt) =>
-      findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
 
     if (this.isOwner()) {
       return this.twoStepOrMulti(
@@ -619,7 +861,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @returns An object containing all information to represent what has the author approved
    */
   public async approveByAuthor(content: string): Promise<ApprovedRevision> {
-    const author = requireAccount(this.ethApi);
+    const author = await requireAccount(this.ethApi).toPromise();
 
     const contentHash = hashContent(content);
     const message = prepareNewsroomMessage(this.address, contentHash);
@@ -629,18 +871,21 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       author,
       contentHash,
       signature,
+      date: new Date().toISOString(),
       newsroomAddress: this.address,
     };
   }
 
   public async approveByAuthorPersonalSign(contentHash: Hex): Promise<ApprovedRevision> {
-    const author = requireAccount(this.ethApi);
+    const author = await requireAccount(this.ethApi).toPromise();
     const message = prepareUserFriendlyNewsroomMessage(this.address, contentHash);
     const { signature } = await this.ethApi.signMessage(message, author);
+    const date = new Date().toISOString();
     return {
       author,
       contentHash,
       signature,
+      date,
       newsroomAddress: this.address,
     };
   }
@@ -650,7 +895,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   private async requireRole(role: NewsroomRoles): Promise<void> {
-    const account = requireAccount(this.ethApi);
+    const account = await requireAccount(this.ethApi).toPromise();
     if ((await this.instance.owner.callAsync()) !== account) {
       if (!(await this.instance.hasRole.callAsync(account, role))) {
         throw new Error(CivilErrors.NoPrivileges);

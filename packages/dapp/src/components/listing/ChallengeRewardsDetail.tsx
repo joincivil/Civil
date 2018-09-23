@@ -1,37 +1,56 @@
 import * as React from "react";
-import { TransactionButton } from "@joincivil/components";
-import { InputElement, StyledFormContainer, FormGroup } from "../utility/FormElements";
-import { EthAddress, TwoStepEthTransaction, UserChallengeData } from "@joincivil/core";
+import { ClaimRewards, RescueTokens } from "@joincivil/components";
+import { StyledFormContainer, FormGroup } from "../utility/FormElements";
+import {
+  EthAddress,
+  TwoStepEthTransaction,
+  UserChallengeData,
+  ChallengeData,
+  canUserCollectReward,
+  canRescueTokens,
+  isUserWinner,
+  AppealChallengeData,
+  isUserAppealChallengeWinner,
+  canUserCollectAppealChallengeReward,
+  canRescueAppealChallengeTokens,
+} from "@joincivil/core";
 import { claimRewards, rescueTokens } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 export interface ChallengeRewardsDetailProps {
   challengeID: BigNumber;
+  challenge?: ChallengeData;
+  appealChallenge?: AppealChallengeData;
   user?: EthAddress;
-  userChallengeData: UserChallengeData | undefined;
+  userChallengeData?: UserChallengeData;
 }
 
-export interface ChallengeRewardsDetailState {
-  salt?: string;
-}
-
-class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps, ChallengeRewardsDetailState> {
+class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps> {
   public render(): JSX.Element {
-    const isNoRewardsVisible = this.props.userChallengeData && !this.props.userChallengeData.didUserCollect;
-    const isClaimRewardsVisible =
-      this.props.userChallengeData &&
-      this.props.userChallengeData.didUserReveal &&
-      !this.props.userChallengeData.didUserCollect;
-    const isRescueTokensVisible =
-      this.props.userChallengeData &&
-      this.props.userChallengeData.didUserCommit &&
-      !this.props.userChallengeData.didUserReveal &&
-      !this.props.userChallengeData.didUserRescue;
-    const isClaimedRewardVisible = this.props.userChallengeData && this.props.userChallengeData.didCollectAmount;
+    const userChallengeData = this.props.userChallengeData;
+    let isWinner;
+    let isClaimRewardsVisible;
+    let isRescueTokensVisible;
+    let isClaimedRewardVisible;
+    if (userChallengeData) {
+      const challenge = this.props.challenge;
+      const appealChallenge = this.props.appealChallenge;
+      if (challenge) {
+        isWinner = isUserWinner(challenge, userChallengeData);
+        isClaimRewardsVisible = canUserCollectReward(challenge, userChallengeData);
+        isRescueTokensVisible = canRescueTokens(challenge, userChallengeData);
+      } else if (appealChallenge) {
+        isWinner = isUserAppealChallengeWinner(appealChallenge, userChallengeData);
+        isClaimedRewardVisible = canUserCollectAppealChallengeReward(appealChallenge, userChallengeData);
+        isRescueTokensVisible = canRescueAppealChallengeTokens(appealChallenge, userChallengeData);
+      }
+      isClaimedRewardVisible = userChallengeData.didCollectAmount;
+    }
+
     return (
       <StyledFormContainer>
-        {isNoRewardsVisible && (
+        {!isWinner && (
           <FormGroup>
             Sorry, there are no rewards available for you for this challenge. Better luck next time!
           </FormGroup>
@@ -48,71 +67,24 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
         )}
 
         {isClaimRewardsVisible && (
-          <>
-            <h3>Claim Rewards</h3>
-
-            <FormGroup>Congrats, you have a reward available!</FormGroup>
-
-            {/* @TODO(jon): We can remove this at some point in the near future
-              since the value still get stored in React and the user will never see it.
-              This is just here for debug purposes. */}
-            <FormGroup>
-              <label>
-                Poll ID
-                <InputElement type="text" name="" value={this.props.challengeID.toString()} readOnly={true} />
-              </label>
-            </FormGroup>
-
-            <FormGroup>
-              <label>Salt</label>
-              <InputElement type="text" name="salt" onChange={this.updateChallengeRewardsParam} />
-            </FormGroup>
-
-            <FormGroup>
-              <TransactionButton transactions={[{ transaction: this.claimRewards }]}>Claim Rewards</TransactionButton>
-            </FormGroup>
-          </>
+          <ClaimRewards
+            challengeID={this.props.challengeID.toString()}
+            transactions={[{ transaction: this.claimRewards }]}
+          />
         )}
 
         {isRescueTokensVisible && (
-          <>
-            <h3>Rescue Tokens</h3>
-
-            <FormGroup>
-              It seems like you didn't reveal your vote for this challenge. You can rescue your tokens using the below
-              form.
-            </FormGroup>
-
-            {/* @TODO(jon): We can remove this at some point in the near future
-              since the value still get stored in React and the user will never see it.
-              This is just here for debug purposes. */}
-            <FormGroup>
-              <label>
-                Poll ID
-                <InputElement type="text" name="" value={this.props.challengeID.toString()} readOnly={true} />
-              </label>
-            </FormGroup>
-
-            <FormGroup>
-              <TransactionButton transactions={[{ transaction: this.rescueTokens }]}>Claim Rewards</TransactionButton>
-            </FormGroup>
-          </>
+          <RescueTokens
+            challengeID={this.props.challengeID.toString()}
+            transactions={[{ transaction: this.rescueTokens }]}
+          />
         )}
       </StyledFormContainer>
     );
   }
 
-  private updateChallengeRewardsParam = (event: any): void => {
-    const paramName = event.target.getAttribute("name");
-    const val = event.target.value;
-    const newState = {};
-    newState[paramName] = val;
-    this.setState(newState);
-  };
-
   private claimRewards = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
-    return claimRewards(this.props.challengeID, salt);
+    return claimRewards(this.props.challengeID, this.props.userChallengeData!.salt!);
   };
 
   private rescueTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {

@@ -8,8 +8,9 @@
     "build": "lerna run build --sort",
     "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint --parallel",
-    "coverage": "solidity-coverage",
-    "coverage:submit": "lcov-result-merger '{coverage/lcov.info, packages/**/lcov.info}' | coveralls",
+    "build:core": "lerna run --scope @joincivil/core build",
+    "coverage": "lerna run coverage --parallel",
+    "coverage:submit": "lcov-result-merger 'packages/*/coverage/lcov.info' | coveralls",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
     "clean": "lerna run clean --parallel",
     "test": "lerna run test --stream --sort",
@@ -17,8 +18,11 @@
     "prepare": "lerna run prepare --no-sort",
     "ganache": "run-p ganache:raw 'lerna:run --scope @joincivil/contracts migrate:ganache'",
     "ganache:raw": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
+    "migrate": "lerna run --scope @joincivil/contracts migrate:ganache",
     "serve:dapp": "cd ./packages/dapp && serve -s build",
-    "publish:docs": "ncp ./packages/dapp/build/ ./docs/"
+    "publish:docs": "ncp ./packages/dapp/build/ ./docs/",
+    "publish:artifacts": "ncp ./packages/contracts/build/artifacts/CivilTCR.json ./packages/core/src/artifacts/CivilTCR.json && ncp ./packages/contracts/build/artifacts/CivilPLCRVoting.json ./packages/core/src/artifacts/CivilPLCRVoting.json && ncp ./packages/contracts/build/artifacts/CivilParameterizer.json ./packages/core/src/artifacts/CivilParameterizer.json && ncp ./packages/contracts/build/artifacts/EIP20.json ./packages/core/src/artifacts/EIP20.json && ncp ./packages/contracts/build/artifacts/EventStorage.json ./packages/core/src/artifacts/EventStorage.json && ncp ./packages/contracts/build/artifacts/Government.json ./packages/core/src/artifacts/Government.json && ncp ./packages/contracts/build/artifacts/MultiSigWallet.json ./packages/core/src/artifacts/MultiSigWallet.json && ncp ./packages/contracts/build/artifacts/Newsroom.json ./packages/core/src/artifacts/Newsroom.json && ncp ./packages/contracts/build/artifacts/NewsroomFactory.json ./packages/core/src/artifacts/NewsroomFactory.json",
+    "preparelocally": "run-s migrate publish:artifacts build:core"
   },
   "config": {
     "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"
@@ -26,12 +30,11 @@
   "license": "(Apache-2.0 OR LGPL-2.1-only)",
   "devDependencies": {
     "coveralls": "^3.0.0",
-    "ganache-cli": "^6.1.0-beta.4",
+    "ganache-cli": "^6.1.6",
     "lcov-result-merger": "^2.0.0",
     "lerna": "^2.9.0",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.2",
-    "prettier": "1.12.1",
-    "solidity-coverage": "^0.5.0"
+    "prettier": "1.12.1"
   }
 }

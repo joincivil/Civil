@@ -2,16 +2,18 @@ import { configureChai } from "@joincivil/dev-utils";
 import { is0x0Address, prepareNewsroomMessage, promisify } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as chai from "chai";
-import { NEWSROOM_ROLE_EDITOR, REVERTED, events } from "../utils/constants";
-import { findEvent } from "../utils/contractutils";
+import { events, NEWSROOM_ROLE_EDITOR, REVERTED } from "../utils/constants";
+import { findEvent, configureProviders } from "../utils/contractutils";
 
 const Newsroom = artifacts.require("Newsroom");
+configureProviders(Newsroom);
 
 configureChai(chai);
 const expect = chai.expect;
 
 const FIRST_NEWSROOM_NAME = "TEST NAME, PLEASE IGNORE";
 const SOME_URI = "http://thiistest.uri";
+const SECOND_URI = "http://anotheruri.com";
 const SOME_HASH = web3.sha3();
 
 const signAsync = promisify<string>(web3.eth.sign, web3.eth);
@@ -113,6 +115,25 @@ contract("Newsroom", (accounts: string[]) => {
       it("doesn't allow empty signature and an author", async () => {
         await expect(newsroom.publishContent(SOME_URI, SOME_HASH, author, "")).to.be.rejected.with(REVERTED);
       });
+
+      it("verifies that the signature was not used in other content", async () => {
+        await newsroom.publishContent(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor });
+
+        await expect(
+          newsroom.publishContent(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor }),
+        ).to.eventually.be.rejectedWith(REVERTED);
+      });
+
+      // Implementation edge case
+      it("verifies that the signature was not reused from charter", async () => {
+        expect(await newsroom.revisionCount(0)).to.be.bignumber.equal(1);
+
+        await newsroom.signRevision(0, 0, author, SIGNATURE, { from: defaultAccount });
+
+        await expect(
+          newsroom.publishContent(SOME_URI, SOME_HASH, author, SIGNATURE, { from: editor }),
+        ).to.eventually.be.rejectedWith(REVERTED);
+      });
     });
   });
 
@@ -204,11 +225,22 @@ contract("Newsroom", (accounts: string[]) => {
   });
 
   describe("updateRevision", () => {
-    const SECOND_URI = "http://thisIsSecondUri.com";
     const SECOND_HASH = web3.sha3("Some content");
 
     beforeEach(async () => {
       await newsroom.addRole(editor, NEWSROOM_ROLE_EDITOR);
+    });
+
+    it("can't update the charter if you're not an owner", async () => {
+      await expect(
+        newsroom.updateRevision(0, SECOND_URI, SECOND_HASH, "", { from: editor }),
+      ).to.eventually.be.rejectedWith(REVERTED);
+    });
+
+    it("works for charter if you're the owner", async () => {
+      await expect(
+        newsroom.updateRevision(0, SECOND_URI, SECOND_HASH, "", { from: defaultAccount }),
+      ).to.eventually.be.fulfilled();
     });
 
     describe("without author signature", () => {
@@ -269,6 +301,17 @@ contract("Newsroom", (accounts: string[]) => {
         contentId = event!.args.contentId;
       });
 
+      it("disallows to reuse signature from different content", async () => {
+        const SECOND_MESSAGE = prepareNewsroomMessage(newsroom.address, SECOND_HASH);
+        const SECOND_SIGNATURE = await signAsync(author, SECOND_MESSAGE);
+
+        await newsroom.publishContent(SECOND_URI, SECOND_HASH, author, SECOND_SIGNATURE);
+
+        await expect(
+          newsroom.updateRevision(contentId, SECOND_URI, SECOND_HASH, SECOND_SIGNATURE),
+        ).to.eventually.be.rejectedWith(REVERTED);
+      });
+
       it("requires signature from the same author", async () => {
         const message = prepareNewsroomMessage(newsroom.address, SOME_HASH);
         const editorSignature = await signAsync(editor, message);
@@ -281,7 +324,7 @@ contract("Newsroom", (accounts: string[]) => {
       it("allows unsigned revisions", async () => {
         expect(await newsroom.isContentSigned(contentId)).to.be.true();
 
-        await expect(newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, ""));
+        await newsroom.updateRevision(contentId, SOME_URI, SOME_HASH, "");
 
         expect(await newsroom.isContentSigned(contentId)).to.be.false();
         expect(await newsroom.isRevisionSigned(contentId, 0)).to.be.true();
@@ -295,6 +338,10 @@ contract("Newsroom", (accounts: string[]) => {
         await expect(
           newsroom.updateRevision(secondContentId, SOME_URI, SOME_HASH, SIGNATURE),
         ).to.eventually.be.rejectedWith(REVERTED);
+      });
+
+      it("allows to reuse the signature from previous revision", async () => {
+        await expect(newsroom.updateRevision(contentId, SECOND_URI, SOME_HASH, SIGNATURE)).to.eventually.be.fulfilled();
       });
     });
   });
@@ -357,12 +404,16 @@ contract("Newsroom", (accounts: string[]) => {
       expect(signature).to.be.equal(SIGNATURE);
     });
 
-    it("fails on on non-existing content", async () => {
-      await expect(newsroom.getContent(999)).to.eventually.be.rejectedWith(REVERTED);
+    it("returns zeros on on non-existing content", async () => {
+      const [hash, uri, timestamp, retAuthor, signature] = await newsroom.getContent(999);
+      expect(is0x0Address(hash)).to.be.ok();
+      expect(uri).to.be.empty();
+      expect(timestamp).to.be.bignumber.equal(0);
+      expect(retAuthor).to.be.equal("0x");
+      expect(signature).to.be.equal("0x");
     });
 
     it("returns latest revision", async () => {
-      const SECOND_URI = "http://anotheruri.com";
       const SECOND_HASH = web3.sha3("Some test content");
 
       const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, "", "");
@@ -393,12 +444,16 @@ contract("Newsroom", (accounts: string[]) => {
       expect(timestamp).to.be.bignumber.equal(block.timestamp);
     });
 
-    it("fails on on non-existing content", async () => {
-      await expect(newsroom.getRevision(999, 0)).to.eventually.be.rejectedWith(REVERTED);
+    it("returns zeros on non-existing content", async () => {
+      const [hash, uri, timestamp, retAuthor, signature] = await newsroom.getRevision(999, 0);
+      expect(is0x0Address(hash)).to.be.ok();
+      expect(uri).to.be.empty();
+      expect(timestamp).to.be.bignumber.equal(0);
+      expect(retAuthor).to.be.equal("0x");
+      expect(signature).to.be.equal("0x");
     });
 
     it("returns latest revision", async () => {
-      const SECOND_URI = "http://anotheruri.com";
       const SECOND_HASH = web3.sha3("Some test content");
 
       const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, "", "");
@@ -415,7 +470,6 @@ contract("Newsroom", (accounts: string[]) => {
     });
 
     it("returns previous revision", async () => {
-      const SECOND_URI = "http://anotheruri.com";
       const SECOND_HASH = web3.sha3("Some test content");
 
       const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, "", "");
@@ -432,12 +486,17 @@ contract("Newsroom", (accounts: string[]) => {
       expect(timestamp).to.be.bignumber.equal(block.timestamp);
     });
 
-    it("fails on non-existing revision", async () => {
+    it("returns zeros on non-existing revision", async () => {
       const receipt = await newsroom.publishContent(SOME_URI, SOME_HASH, "", "");
 
       const contentId = idFromEvent(receipt);
 
-      await expect(newsroom.getRevision(contentId, 999)).to.eventually.be.rejectedWith(REVERTED);
+      const [hash, uri, timestamp, retAuthor, signature] = await newsroom.getRevision(contentId, 999);
+      expect(is0x0Address(hash)).to.be.ok();
+      expect(uri).to.be.empty();
+      expect(timestamp).to.be.bignumber.equal(0);
+      expect(retAuthor).to.be.equal("0x");
+      expect(signature).to.be.equal("0x");
     });
   });
 
@@ -450,6 +509,18 @@ contract("Newsroom", (accounts: string[]) => {
       MESSAGE = prepareNewsroomMessage(newsroom.address, SOME_HASH);
       SIGNATURE = await signAsync(author, MESSAGE);
       await newsroom.addRole(editor, NEWSROOM_ROLE_EDITOR);
+    });
+
+    it("requires the owner to sign charter", async () => {
+      expect(await newsroom.revisionCount(0)).to.be.bignumber.equal(1);
+
+      await expect(newsroom.signRevision(0, 0, author, SIGNATURE, { from: editor })).to.eventually.be.rejectedWith(
+        REVERTED,
+      );
+
+      await expect(
+        newsroom.signRevision(0, 0, author, SIGNATURE, { from: defaultAccount }),
+      ).to.eventually.be.fulfilled();
     });
 
     describe("with no publishing author", () => {

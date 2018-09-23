@@ -1,10 +1,10 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const Token = artifacts.require("EIP20.sol");
+utils.configureProviders(Token);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -17,7 +17,7 @@ contract("Parameterizer", accounts => {
     let token: any;
 
     beforeEach(async () => {
-      parameterizer = await utils.createAllTestParameterizerInstance(accounts);
+      [parameterizer] = await utils.createAllTestParameterizerInstance(accounts);
       const tokenAddress = await parameterizer.token();
       token = await Token.at(tokenAddress);
     });

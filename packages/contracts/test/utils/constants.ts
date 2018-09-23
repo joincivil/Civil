@@ -11,3 +11,5 @@ export const events = {
 };
 export const ACL_TEST_ROLE = "testrole";
 export const NEWSROOM_ROLE_EDITOR = "editor";
+export const POU_SUPER_GROUP = "0x1";
+export const POU_GLOBAL_GROUP = "0x2";

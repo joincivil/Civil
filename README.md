@@ -4,7 +4,7 @@
 
 [Civil](https://joincivil.com/) is a decentralized and censorship resistant ecosystem for online Journalism. Read more in our whitepaper.
 
-[Civil DApp](https://dapp.staging.cvl.pub/) - Read Documentation and Interact with Contracts and tools at our DApp, hosted for your convenience.
+[WIP Civil DApp](https://dapp.staging.cvl.pub/) - Read Documentation and Interact with Contracts and tools at our DApp, hosted for your convenience. This DApp and associated contracts are a Work In Progress and contracts are deployed on the Rinkeby testnet. If you would like some test CVL to try out the DApp, please ask in our Gitter room and we can send you some.
 
 This repository contains all of the open-source Civil tools and packages written in Typescript.
 We hope that those tools will be useful for creation of interesting applications on top of the ecosystem as well as be useful in any project in the Ethereum space.
@@ -13,6 +13,12 @@ We hope that those tools will be useful for creation of interesting applications
 [![CircleCI](https://img.shields.io/circleci/project/github/joincivil/Civil.svg)](https://circleci.com/gh/joincivil/Civil/tree/master)
 [![Gitter chat](https://badges.gitter.im/joincivil/Lobby.png)](https://gitter.im/joincivil/Lobby)
 [![Telegram chat](https://img.shields.io/badge/chat-telegram-blue.svg)](https://t.me/join_civil)
+
+Most of the packages require additional typings for external dependencies. You can include those by prepending @joincivil/typescript-typings package to your typeRoots config.
+
+```json
+"typeRoots": ["node_modules/@joincivil/typescript-typings/types", "node_modules/@types"],
+```
 
 ### Published packages
 
@@ -24,6 +30,7 @@ We hope that those tools will be useful for creation of interesting applications
 | [`@joincivil/editor`](/packages/editor)                         | [![npm link](https://img.shields.io/badge/npm-editor-blue.svg)](https://www.npmjs.com/package/@joincivil/editor)                          | Editor for Civil-formatted articles and content                        |
 | [`@joincivil/typescript-types`](/packages/typescript-types)     | [![npm link](https://img.shields.io/badge/npm-typescript--types-blue.svg)](https://www.npmjs.com/package/@joincivil/typescript-types)     | Types used in multiple Civil packages                                  |
 | [`@joincivil/typescript-typings`](/packages/typescript-typings) | [![npm link](https://img.shields.io/badge/npm-typescript--typings-blue.svg)](https://www.npmjs.com/package/@joincivil/typescript-typings) | Typescript type roots for external projects and internal modifications |
+| [`@joincivil/ethapi`](/packages/ethapi)                         | [![npm link](https://img.shields.io/badge/npm-ethapi-blue.svg)](https://www.npmjs.com/package/@joincivil/ethapi)                          | An abstraction of Ethereum communication                               |
 
 ### Private packages
 

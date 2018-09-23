@@ -1,135 +1,120 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { connect, DispatchProp } from "react-redux";
+import { compose } from "redux";
 import { State } from "../../reducers";
-import {
-  canListingBeChallenged,
-  // canBeWhitelisted,
-  // canResolveChallenge,
-  // isAwaitingAppealJudgment,
-  isInApplicationPhase,
-  isChallengeInCommitStage,
-  isChallengeInRevealStage,
-  ListingWrapper,
-  UserChallengeData,
-  WrappedChallengeData,
-} from "@joincivil/core";
+import { makeGetListingPhaseState, makeGetListing } from "../../selectors";
+import { ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-import { ListingSummaryComponent } from "@joincivil/components";
+import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
+import WhitelistedListingItem from "./WhitelistedListingItem";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
-  challengeID?: string;
   even: boolean;
   user?: string;
 }
 
 export interface ListingListItemReduxProps {
-  newsroom: NewsroomState | undefined;
-  listing: ListingWrapper | undefined;
-  challenge?: WrappedChallengeData;
-  userChallengeData?: UserChallengeData;
-  userAppealChallengeData?: UserChallengeData;
+  newsroom?: NewsroomState;
+  listing?: ListingWrapper;
+  listingPhaseState?: any;
 }
 
-class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps> {
-  constructor(props: any) {
-    super(props);
-  }
-
+class ListingListItemComponent extends React.Component<
+  ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>
+> {
   public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom } = this.props;
-    if (listing && listing.data && newsroom) {
-      const newsroomData = newsroom.wrapper.data;
-      const listingData = listing.data;
-      const description =
-        "This will be a great description someday, but until then The Dude Abides. um i to you you call duder or so thats the dude thats what i am brevity thing um i let me duder or";
-      const listingDetailURL = `/listing/${address}`;
-      const isInApplication = isInApplicationPhase(listingData);
-      const canBeChallenged = canListingBeChallenged(listingData);
-      const inChallengePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
-      const inRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
-      const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
+    const { listing, newsroom, listingPhaseState } = this.props;
+    const listingExists = listing && listing.data && newsroom && listingPhaseState;
+    const isWhitelisted = listingExists && listingPhaseState.isWhitelisted && !listingPhaseState.isUnderChallenge;
 
-      const pollData = listingData.challenge && listingData.challenge.poll;
-      const commitEndDate = pollData && pollData.commitEndDate.toNumber();
-      const revealEndDate = pollData && pollData.revealEndDate.toNumber();
-
-      const listingViewProps = {
-        ...newsroomData,
-        address,
-        description,
-        listingDetailURL,
-        isInApplication,
-        canBeChallenged,
-        inChallengePhase,
-        inRevealPhase,
-        appExpiry,
-        commitEndDate,
-        revealEndDate,
-      };
-
-      return <ListingSummaryComponent {...listingViewProps} />;
-    } else {
-      return <></>;
-    }
+    return (
+      <>
+        {isWhitelisted && <WhitelistedListingItem {...this.props} />}
+        {listingExists && !isWhitelisted && !listingPhaseState.isRejected && this.renderListing()}
+        {listingExists && listingPhaseState.isRejected && <RejectedListing {...this.props} />}
+      </>
+    );
   }
+
+  private renderListing = (): JSX.Element => {
+    const { listingAddress, listing, newsroom, listingPhaseState } = this.props;
+    const listingData = listing!.data;
+    let description = "";
+    if (newsroom!.wrapper.data.charter) {
+      description = JSON.parse(newsroom!.wrapper.data.charter!.content.toString()).desc;
+    }
+    const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
+    const pollData = listingData.challenge && listingData.challenge.poll;
+    const commitEndDate = pollData && pollData.commitEndDate.toNumber();
+    const revealEndDate = pollData && pollData.revealEndDate.toNumber();
+    const requestAppealExpiry = listingData.challenge && listingData.challenge.requestAppealExpiry.toNumber();
+    const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
+    const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
+
+    const newsroomData = newsroom!.wrapper.data;
+    const listingDetailURL = `/listing/${listingAddress}`;
+
+    const listingViewProps = {
+      ...newsroomData,
+      listingAddress,
+      description,
+      listingDetailURL,
+      ...listingPhaseState,
+      appExpiry,
+      commitEndDate,
+      revealEndDate,
+      requestAppealExpiry,
+      unstakedDeposit,
+      challengeStake,
+    };
+
+    return <ListingSummaryComponent {...listingViewProps} />;
+  };
 }
 
-const mapStateToProps = (
-  state: State,
-  ownProps: ListingListItemOwnProps,
-): ListingListItemReduxProps & ListingListItemOwnProps => {
-  const { newsrooms, listings, challenges, challengeUserData, appealChallengeUserData, user } = state;
+const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
+  const { listingAddress, newsroom, listingPhaseState } = props;
+  const newsroomData = newsroom!.wrapper.data;
+  const listingDetailURL = `/listing/${listingAddress}`;
 
-  let listingAddress = ownProps.listingAddress;
-  let challenge;
-  if (!listingAddress && ownProps.challengeID) {
-    challenge = challenges.get(ownProps.challengeID);
-    listingAddress = challenges.get(ownProps.challengeID)!.listingAddress;
-  }
-
-  const newsroom = newsrooms.get(listingAddress!);
-  const listing = listings.get(listingAddress!) ? listings.get(listingAddress!).listing : undefined;
-
-  let challengeID = ownProps.challengeID;
-  if (!challengeID && listing) {
-    challengeID = listing.data.challengeID!.toString();
-  }
-
-  let userAcct = ownProps.user;
-  if (!userAcct) {
-    userAcct = user.account.account;
-  }
-
-  let userChallengeData;
-  let userAppealChallengeData;
-
-  if (challengeID && userAcct) {
-    const challengeUserDataMap = challengeUserData.get(challengeID!);
-    if (challengeUserDataMap) {
-      userChallengeData = challengeUserDataMap.get(userAcct);
-    }
-    if (challenge) {
-      const wrappedChallenge = challenge as WrappedChallengeData;
-      if (wrappedChallenge && wrappedChallenge.challenge && wrappedChallenge.challenge.appeal) {
-        const appealChallengeID = wrappedChallenge.challenge.appeal.appealChallengeID;
-        const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID!.toString());
-        if (appealChallengeUserDataMap) {
-          userAppealChallengeData = appealChallengeUserDataMap.get(userAcct);
-        }
-      }
-    }
-  }
-
-  return {
-    newsroom,
-    listing,
-    challenge,
-    userChallengeData,
-    userAppealChallengeData,
-    ...ownProps,
+  const listingViewProps = {
+    ...newsroomData,
     listingAddress,
+    listingDetailURL,
+    ...listingPhaseState,
   };
+
+  const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
+    connectLatestChallengeSucceededResults,
+  )(ListingSummaryRejectedComponent);
+
+  return <ListingSummaryRejected {...listingViewProps} />;
 };
 
-export default connect(mapStateToProps)(ListingListItem);
+const makeMapStateToProps = () => {
+  const getListingPhaseState = makeGetListingPhaseState();
+  const getListing = makeGetListing();
+
+  const mapStateToProps = (
+    state: State,
+    ownProps: ListingListItemOwnProps,
+  ): ListingListItemReduxProps & ListingListItemOwnProps => {
+    const { newsrooms } = state;
+    const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
+    const listing = getListing(state, ownProps);
+
+    return {
+      newsroom,
+      listing,
+      listingPhaseState: getListingPhaseState(state, ownProps),
+      ...ownProps,
+    };
+  };
+
+  return mapStateToProps;
+};
+
+export const ListingListItem = connect(makeMapStateToProps)(ListingListItemComponent);

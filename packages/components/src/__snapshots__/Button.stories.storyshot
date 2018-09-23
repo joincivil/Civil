@@ -4,12 +4,12 @@ exports[`Storyshots Buttons Button 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iwsKbI ljFNSl",
+      "class": "sc-VigVT ieDPiS",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-EHOje awzch",
+          "class": "sc-gzVnrw NAVxl",
           "type": "button",
         },
         "children": Array [
@@ -30,7 +30,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-EHOje awzch",
+              "class": "sc-gzVnrw NAVxl disabled",
               "disabled": "",
               "type": "button",
             },
@@ -52,7 +52,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-EHOje awzch",
+                  "class": "sc-gzVnrw NAVxl",
                   "href": "/home",
                 },
                 "children": Array [
@@ -135,7 +135,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-EHOje awzch",
+            "class": "sc-gzVnrw NAVxl disabled",
             "disabled": "",
             "type": "button",
           },
@@ -157,7 +157,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-EHOje awzch",
+                "class": "sc-gzVnrw NAVxl",
                 "href": "/home",
               },
               "children": Array [
@@ -218,7 +218,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-EHOje awzch",
+            "class": "sc-gzVnrw NAVxl",
             "type": "button",
           },
           "children": Array [
@@ -251,7 +251,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-EHOje awzch",
+          "class": "sc-gzVnrw NAVxl disabled",
           "disabled": "",
           "type": "button",
         },
@@ -273,7 +273,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-EHOje awzch",
+              "class": "sc-gzVnrw NAVxl",
               "href": "/home",
             },
             "children": Array [
@@ -327,7 +327,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-EHOje awzch",
+              "class": "sc-gzVnrw NAVxl",
               "type": "button",
             },
             "children": Array [
@@ -377,7 +377,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-EHOje awzch",
+            "class": "sc-gzVnrw NAVxl",
             "href": "/home",
           },
           "children": Array [
@@ -418,7 +418,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-EHOje awzch",
+            "class": "sc-gzVnrw NAVxl disabled",
             "disabled": "",
             "type": "button",
           },
@@ -444,7 +444,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-EHOje awzch",
+                "class": "sc-gzVnrw NAVxl",
                 "type": "button",
               },
               "children": Array [
@@ -493,7 +493,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-EHOje awzch",
+          "class": "sc-gzVnrw NAVxl",
           "href": "/home",
         },
         "children": Array [
@@ -529,7 +529,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-EHOje awzch",
+              "class": "sc-gzVnrw NAVxl disabled",
               "disabled": "",
               "type": "button",
             },
@@ -555,7 +555,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-EHOje awzch",
+                  "class": "sc-gzVnrw NAVxl",
                   "type": "button",
                 },
                 "children": Array [
@@ -621,7 +621,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-EHOje awzch",
+            "class": "sc-gzVnrw NAVxl",
             "href": "/home",
           },
           "children": Array [
@@ -646,7 +646,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-EHOje awzch",
+                "class": "sc-gzVnrw NAVxl disabled",
                 "disabled": "",
                 "type": "button",
               },
@@ -672,7 +672,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-EHOje awzch",
+                    "class": "sc-gzVnrw NAVxl",
                     "type": "button",
                   },
                   "children": Array [
@@ -772,21 +772,21 @@ initialize {
 }
 `;
 
-exports[`Storyshots Buttons CancelButton 1`] = `
+exports[`Storyshots Buttons DarkButton 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iwsKbI ljFNSl",
+      "class": "sc-VigVT ieDPiS",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-htoDjs kJqdLB",
+          "class": "sc-iwsKbI QvBhJ",
           "type": "button",
         },
         "children": Array [
           Object {
-            "data": "Cancel Button",
+            "data": "Dark Button",
             "next": null,
             "parent": [Circular],
             "prev": null,
@@ -851,12 +851,12 @@ exports[`Storyshots Buttons InvertedButton 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iwsKbI ljFNSl",
+      "class": "sc-VigVT ieDPiS",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-bZQynM eUDyEY",
+          "class": "sc-htoDjs YmlvP",
           "type": "button",
         },
         "children": Array [
@@ -926,12 +926,12 @@ exports[`Storyshots Buttons SecondaryButton 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iwsKbI ljFNSl",
+      "class": "sc-VigVT ieDPiS",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-gzVnrw fOWERi",
+          "class": "sc-dnqmqq hLoJUW",
           "type": "button",
         },
         "children": Array [
@@ -1001,12 +1001,12 @@ exports[`Storyshots Buttons sizes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iwsKbI ljFNSl",
+      "class": "sc-VigVT ieDPiS",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-EHOje awzch",
+          "class": "sc-gzVnrw NAVxl",
           "type": "button",
         },
         "children": Array [
@@ -1027,7 +1027,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-EHOje kddJZS",
+              "class": "sc-gzVnrw cUjDIa",
               "type": "button",
             },
             "children": Array [
@@ -1048,7 +1048,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-EHOje hDMbsE",
+                  "class": "sc-gzVnrw eyXgLx",
                   "type": "button",
                 },
                 "children": Array [
@@ -1129,7 +1129,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-EHOje kddJZS",
+            "class": "sc-gzVnrw cUjDIa",
             "type": "button",
           },
           "children": Array [
@@ -1150,7 +1150,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-EHOje hDMbsE",
+                "class": "sc-gzVnrw eyXgLx",
                 "type": "button",
               },
               "children": Array [
@@ -1209,7 +1209,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-EHOje awzch",
+            "class": "sc-gzVnrw NAVxl",
             "type": "button",
           },
           "children": Array [
@@ -1242,7 +1242,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-EHOje kddJZS",
+          "class": "sc-gzVnrw cUjDIa",
           "type": "button",
         },
         "children": Array [
@@ -1263,7 +1263,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-EHOje hDMbsE",
+              "class": "sc-gzVnrw eyXgLx",
               "type": "button",
             },
             "children": Array [
@@ -1317,7 +1317,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-EHOje awzch",
+              "class": "sc-gzVnrw NAVxl",
               "type": "button",
             },
             "children": Array [
@@ -1365,7 +1365,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-EHOje hDMbsE",
+            "class": "sc-gzVnrw eyXgLx",
             "type": "button",
           },
           "children": Array [
@@ -1406,7 +1406,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-EHOje kddJZS",
+            "class": "sc-gzVnrw cUjDIa",
             "type": "button",
           },
           "children": Array [
@@ -1431,7 +1431,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-EHOje awzch",
+                "class": "sc-gzVnrw NAVxl",
                 "type": "button",
               },
               "children": Array [
@@ -1478,7 +1478,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-EHOje hDMbsE",
+          "class": "sc-gzVnrw eyXgLx",
           "type": "button",
         },
         "children": Array [
@@ -1514,7 +1514,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-EHOje kddJZS",
+              "class": "sc-gzVnrw cUjDIa",
               "type": "button",
             },
             "children": Array [
@@ -1539,7 +1539,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-EHOje awzch",
+                  "class": "sc-gzVnrw NAVxl",
                   "type": "button",
                 },
                 "children": Array [
@@ -1603,7 +1603,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-EHOje hDMbsE",
+            "class": "sc-gzVnrw eyXgLx",
             "type": "button",
           },
           "children": Array [
@@ -1628,7 +1628,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-EHOje kddJZS",
+                "class": "sc-gzVnrw cUjDIa",
                 "type": "button",
               },
               "children": Array [
@@ -1653,7 +1653,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-EHOje awzch",
+                    "class": "sc-gzVnrw NAVxl",
                     "type": "button",
                   },
                   "children": Array [

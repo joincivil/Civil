@@ -14,13 +14,20 @@ export const InputLabel = styled.label`
   font-family: ${fonts.SANS_SERIF};
 `;
 
+export const ErrorMessage = styled.small`
+  color: ${colors.accent.CIVIL_RED};
+  font-family: ${fonts.SANS_SERIF};
+`;
+
 export interface InputBaseProps {
   className?: string;
   icon?: JSX.Element;
-  label?: string;
+  label?: string | JSX.Element;
   noLabel?: boolean;
   inputRef?: string;
-
+  invalid?: boolean;
+  disabled?: boolean;
+  errorMessage?: string;
   name: string;
   value?: string;
   placeholder?: string;
@@ -28,21 +35,43 @@ export interface InputBaseProps {
   type?: string;
   min?: string;
   step?: string;
+  onKeyPress?(ev: any): void;
   onChange?(name: string, value: string | null): void;
 }
 
+const InputBaseWrapperComponent: React.StatelessComponent<InputBaseProps> = props => {
+  const { icon, className, label, noLabel, invalid, errorMessage } = props;
+  return (
+    <div className={`${invalid ? "civil-input-error" : ""} ${className}`}>
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {icon ? <InputIcon>{icon}</InputIcon> : null}
+      {props.children}
+      {!noLabel && <InputLabel>{label || props.placeholder}</InputLabel>}
+    </div>
+  );
+};
+
 const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
-  const { icon, onChange, className, label, noLabel, inputRef, ...inputProps } = props;
+  const { onChange, inputRef, invalid, noLabel, errorMessage, ...inputProps } = props;
   let cb;
   if (onChange) {
     cb = (ev: any) => onChange(props.name, ev.target.value);
   }
+
+  if (inputProps.type === "textarea") {
+    return (
+      <InputBaseWrapperComponent {...props}>
+        <textarea {...inputProps} onChange={cb} ref={inputRef}>
+          {inputProps.value}
+        </textarea>
+      </InputBaseWrapperComponent>
+    );
+  }
+
   return (
-    <div className={className}>
-      {icon ? <InputIcon>{icon}</InputIcon> : null}
+    <InputBaseWrapperComponent {...props}>
       <input {...inputProps} onChange={cb} ref={inputRef} />
-      {!noLabel && <InputLabel>{label || props.placeholder}</InputLabel>}
-    </div>
+    </InputBaseWrapperComponent>
   );
 };
 
@@ -57,25 +86,29 @@ const InputBase = styled(InputBaseComponent)`
     display: flex;
     flex-direction: row;
   }
-  > input {
+  > input,
+  > textarea {
+    box-sizing: border-box;
     font-size: inherit;
     margin: 5px 0px 10px 0;
     padding: 10px;
     border: 1px solid ${colors.accent.CIVIL_GRAY_3};
     outline: none;
   }
-  > input::placeholder {
+  > input::placeholder,
+  > textarea::placeholder {
     color: ${colors.accent.CIVIL_GRAY_3};
   }
-  > input:focus {
+  > input:focus,
+  > textarea:focus {
     border-bottom: 1px solid ${colors.accent.CIVIL_BLUE};
   }
-  &.error {
+  &.civil-input-error {
     color: ${colors.accent.CIVIL_RED};
   }
-  &.error > input {
+  &.civil-input-error > input {
     color: ${colors.accent.CIVIL_RED};
-    border-color: ${colors.accent.CIVIL_RED};
+    border-bottom-color: ${colors.accent.CIVIL_RED};
   }
 `;
 
@@ -83,10 +116,16 @@ export interface InputProps {
   name: string;
   value?: string;
   placeholder?: string;
-  label?: string;
+  label?: string | JSX.Element;
+  icon?: JSX.Element;
   className?: string;
+  invalid?: boolean;
+  disabled?: boolean;
+  errorMessage?: string;
   noLabel?: boolean;
-  onChange(name: string, value: string): any;
+  readOnly?: boolean;
+  onKeyPress?(ev: any): void;
+  onChange?(name: string, value: string): any;
 }
 
 export const TextInput: React.StatelessComponent<InputProps> = props => {
@@ -101,7 +140,8 @@ export interface CurrencyProps extends InputProps {
   currency: string;
 }
 export const CurrencyInput: React.StatelessComponent<InputProps> = props => {
-  return <InputBase type="number" min="0.01" step="0.01" {...props} icon={<span>USD</span>} />;
+  const icon = props.icon || <span>USD</span>;
+  return <InputBase type="number" min="0.01" step="0.01" {...props} icon={icon} />;
 };
 
 export interface TextProps extends InputProps {
@@ -112,3 +152,12 @@ export const HeaderInput = styled(TextInput)`
     font-size: 25px;
   }
 `;
+
+export interface TextareaProps {
+  height?: string;
+  maxLength?: string;
+}
+
+export const TextareaInput: React.StatelessComponent<TextareaProps & InputProps> = props => {
+  return <InputBase type="textarea" {...props} />;
+};

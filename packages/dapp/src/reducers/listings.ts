@@ -9,7 +9,7 @@ import {
   isInChallengedCommitVotePhase,
   isInChallengedRevealVotePhase,
   isAwaitingAppealRequest,
-  isAwaitingAppealJudgment,
+  isListingAwaitingAppealJudgment,
   isListingAwaitingAppealChallenge,
   isInAppealChallengeCommitPhase,
   isInAppealChallengeRevealPhase,
@@ -18,10 +18,18 @@ import {
   TimestampedEvent,
 } from "@joincivil/core";
 import { listingActions } from "../actionCreators/listings";
+import { Subscription } from "rxjs";
+import BigNumber from "bignumber.js";
 
 export interface ListingWrapperWithExpiry {
   listing: ListingWrapper;
   expiry: number;
+}
+
+export interface ListingExtendedMetadata {
+  latestChallengeID?: BigNumber;
+  listingRemovedTimestamp?: number;
+  whitelistedTimestamp?: number;
 }
 
 export function listings(
@@ -32,6 +40,19 @@ export function listings(
     case listingActions.ADD_OR_UPDATE_LISTING:
       const getNextExpiry = getNextTimerExpiry(action.data.data);
       return state.set(action.data.address, { listing: action.data, expiry: getNextExpiry });
+    default:
+      return state;
+  }
+}
+
+export function listingsExtendedMetadata(
+  state: Map<string, ListingExtendedMetadata> = Map<string, ListingExtendedMetadata>(),
+  action: AnyAction,
+): Map<string, ListingExtendedMetadata> {
+  switch (action.type) {
+    case listingActions.ADD_OR_UPDATE_LISTING_EXTENDED_METADATA:
+      const prevExtendedMetadata = state.get(action.data.address) || {};
+      return state.set(action.data.address, { ...prevExtendedMetadata, ...action.data });
     default:
       return state;
   }
@@ -59,9 +80,57 @@ export function histories(
         action.data.address,
         list
           .push(action.data.event)
-          .sort((a, b) => a.blockNumber! - b.blockNumber!)
+          .sort((a, b) => b.blockNumber! - a.blockNumber!)
           .toList(),
       );
+    default:
+      return state;
+  }
+}
+
+export function listingHistorySubscriptions(
+  state: Map<string, Subscription> = Map<string, Subscription>(),
+  action: AnyAction,
+): Map<string, Subscription> {
+  switch (action.type) {
+    case listingActions.ADD_HISTORY_SUBSCRIPTION:
+      return state.set(action.data.address, action.data.subscription);
+    default:
+      return state;
+  }
+}
+
+export function rejectedListingLatestChallengeSubscriptions(
+  state: Map<string, Subscription> = Map<string, Subscription>(),
+  action: AnyAction,
+): Map<string, Subscription> {
+  switch (action.type) {
+    case listingActions.ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION:
+      return state.set(action.data.address, action.data.subscription);
+    default:
+      return state;
+  }
+}
+
+export function rejectedListingRemovedSubscriptions(
+  state: Map<string, Subscription> = Map<string, Subscription>(),
+  action: AnyAction,
+): Map<string, Subscription> {
+  switch (action.type) {
+    case listingActions.ADD_REJECTED_LISTING_LISTING_REMOVED_SUBSCRIPTION:
+      return state.set(action.data.address, action.data.subscription);
+    default:
+      return state;
+  }
+}
+
+export function whitelistedSubscriptions(
+  state: Map<string, Subscription> = Map<string, Subscription>(),
+  action: AnyAction,
+): Map<string, Subscription> {
+  switch (action.type) {
+    case listingActions.ADD_LISTING_WHITELISTED_SUBSCRIPTION:
+      return state.set(action.data.address, action.data.subscription);
     default:
       return state;
   }
@@ -148,7 +217,7 @@ export function awaitingAppealRequestListings(state: Set<string> = Set<string>()
 export function awaitingAppealJudgmentListings(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
-      if (isAwaitingAppealJudgment(action.data.data)) {
+      if (isListingAwaitingAppealJudgment(action.data.data)) {
         return state.add(action.data.address);
       } else {
         return state.remove(action.data.address);
@@ -231,6 +300,15 @@ export function rejectedListings(state: Set<string> = Set<string>(), action: Any
       } else {
         return state.remove(action.data.address);
       }
+    default:
+      return state;
+  }
+}
+
+export function loadingFinished(state: boolean = false, action: AnyAction): boolean {
+  switch (action.type) {
+    case listingActions.SET_LOADING_FINISHED:
+      return true;
     default:
       return state;
   }

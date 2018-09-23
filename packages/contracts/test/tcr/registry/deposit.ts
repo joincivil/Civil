@@ -1,6 +1,5 @@
-import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
-
+import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
@@ -8,6 +7,7 @@ configureChai(chai);
 const expect = chai.expect;
 
 const Token = artifacts.require("EIP20");
+utils.configureProviders(Token);
 
 contract("Registry", accounts => {
   describe("Function: deposit", () => {

@@ -1,11 +1,9 @@
+import { EthApi } from "@joincivil/ethapi";
+import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
-import "@joincivil/utils";
 import { Observable } from "rxjs";
-
-import { EthAddress, TwoStepEthTransaction, Param } from "../../types";
-import { CivilErrors } from "../../utils/errors";
-import { EthApi } from "../../utils/ethapi";
+import { EthAddress, Param, TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { GovernmentContract } from "../generated/wrappers/government";
 import { createTwoStepSimple } from "../utils/contracts";
@@ -17,6 +15,8 @@ export const enum GovtParameters {
   judgeAppealLen = "judgeAppealLen",
   appealFee = "appealFee",
   appealVotePercentage = "appealVotePercentage",
+  govtPCommitStageLen = "govtPCommitStageLen",
+  govtPRevealStageLen = "govtPRevealStageLen",
 }
 
 /**
@@ -24,8 +24,8 @@ export const enum GovtParameters {
  * the controlling entities can update them and update the controlling entities as well
  */
 export class Government extends BaseWrapper<GovernmentContract> {
-  public static singleton(ethApi: EthApi): Government {
-    const instance = GovernmentContract.singletonTrusted(ethApi);
+  public static async singleton(ethApi: EthApi): Promise<Government> {
+    const instance = await GovernmentContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
@@ -45,8 +45,8 @@ export class Government extends BaseWrapper<GovernmentContract> {
   /**
    * Gets an unending stream of parameters being set
    */
-  public getParameterSet(fromBlock: number | "latest" = 0): Observable<Param> {
-    return this.instance.ParameterSetStream({}, { fromBlock }).map(e => {
+  public getParameterSet(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<Param> {
+    return this.instance._ParameterSetStream({}, { fromBlock }).map(e => {
       return {
         paramName: e.args.name,
         value: e.args.value,
@@ -71,7 +71,10 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param newValue value you want parameter to be changed to
    */
   public async set(paramName: GovtParameters | string, newValue: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.set.sendTransactionAsync(paramName, newValue));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue),
+    );
   }
   /**
    * Get the URI of the Civil Constitution
@@ -85,5 +88,13 @@ export class Government extends BaseWrapper<GovernmentContract> {
    */
   public async getConstitutionHash(): Promise<string> {
     return this.instance.constitutionHash.callAsync();
+  }
+
+  public async getAppellate(): Promise<EthAddress> {
+    return this.instance.getAppellate.callAsync();
+  }
+
+  public async getController(): Promise<EthAddress> {
+    return this.instance.getGovernmentController.callAsync();
   }
 }

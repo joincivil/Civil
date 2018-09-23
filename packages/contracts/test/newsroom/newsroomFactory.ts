@@ -1,14 +1,17 @@
 import { configureChai } from "@joincivil/dev-utils";
 import { DecodedLogEntry } from "@joincivil/typescript-types";
-import { isDeployedBytecodeEqual, promisify } from "@joincivil/utils";
+import { isDeployedBytecodeEqual } from "@joincivil/utils";
 import * as chai from "chai";
-import * as Web3 from "web3";
+import { bufferToHex, sha3 } from "ethereumjs-util";
 import { REVERTED } from "../utils/constants";
+import { configureProviders } from "../utils/contractutils";
+import ethApi from "../utils/getethapi";
 
 const Newsroom = artifacts.require("Newsroom");
 const MultiSigWallet = artifacts.require("MultiSigWallet");
 const MultiSigWalletFactory = artifacts.require("MultiSigWalletFactory");
 const NewsroomFactory = artifacts.require("NewsroomFactory");
+configureProviders(Newsroom, MultiSigWallet, MultiSigWalletFactory, NewsroomFactory);
 
 configureChai(chai);
 const expect = chai.expect;
@@ -16,9 +19,9 @@ const expect = chai.expect;
 const CONTRACT_EVENT = "ContractInstantiation";
 const NEWSROOM_NAME = "Newsroom name";
 const SOME_URI = "http://someuri.com";
-const SOME_HASH = web3.sha3();
+const SOME_HASH = bufferToHex(sha3(""));
 
-function createdContract(factory: any, txReceipt: Web3.TransactionReceipt): string {
+function createdContract(factory: any, txReceipt: any): string {
   const myLog = txReceipt.logs.find((log: any) => log.event === CONTRACT_EVENT && log.address === factory.address) as
     | DecodedLogEntry
     | undefined;
@@ -29,10 +32,9 @@ function createdContract(factory: any, txReceipt: Web3.TransactionReceipt): stri
   return myLog.args.instantiation;
 }
 
-const getCode = promisify<string>(web3.eth.getCode);
 // TODO(ritave): Make this into mocha extension
 async function codeMatches(instance: any, clazz: any): Promise<void> {
-  const code = await getCode(instance.address);
+  const code = await ethApi.getCode(instance.address);
   expect(isDeployedBytecodeEqual(code, clazz.deployedBytecode)).to.be.true();
 }
 
@@ -123,14 +125,12 @@ contract("NewsroomFactory", accounts => {
   });
 
   it("doesn't allow empty names", async () => {
-    await expect(instance.create("", "somecontent.com", web3.sha3(), [owner], 1)).to.eventually.be.rejectedWith(
-      REVERTED,
-    );
+    await expect(instance.create("", "somecontent.com", SOME_HASH, [owner], 1)).to.eventually.be.rejectedWith(REVERTED);
   });
 
   it("checks required amount", async () => {
     await expect(
-      instance.create(NEWSROOM_NAME, "somecontent.com", web3.sha3(), [owner], 2),
+      instance.create(NEWSROOM_NAME, "somecontent.com", SOME_HASH, [owner], 2),
     ).to.eventually.be.rejectedWith(REVERTED);
   });
 });

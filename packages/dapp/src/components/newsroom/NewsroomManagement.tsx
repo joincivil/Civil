@@ -1,10 +1,12 @@
+import { TransactionButton } from "@joincivil/components";
+import { Civil, NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
+import { CivilErrors } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
-import { Civil, NewsroomRoles, TwoStepEthTransaction, CivilErrors } from "@joincivil/core";
 import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import RichTextEditor from "react-rte";
 import { Subscription } from "rxjs";
-import { TransactionButton } from "@joincivil/components";
 import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
 import { PageView, ViewModule } from "../utility/ViewModules";
 import NewsroomDetail from "./NewsroomDetail";
@@ -19,10 +21,13 @@ export interface NewsroomManagementState {
   numTokens: string;
   proposedArticleIds: List<string>;
   compositeSubscription: Subscription;
+  value: any;
+  descValue: string;
 }
 export interface NewsroomManagementProps {
   match: any;
   history: any;
+  initialValue: any;
 }
 
 class NewsroomManagement extends React.Component<NewsroomManagementProps, NewsroomManagementState> {
@@ -38,8 +43,18 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       numTokens: "",
       proposedArticleIds: List<string>(),
       compositeSubscription: new Subscription(),
+      value: RichTextEditor.createEmptyValue(),
+      descValue: "",
     };
   }
+
+  public handleValueChange = (value: any) => {
+    this.setState({ value });
+  };
+
+  public onDescChange = (event: any) => {
+    this.setState({ descValue: event.target.value });
+  };
 
   public async componentDidMount(): Promise<void> {
     return this.initNewsroom();
@@ -63,7 +78,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           ProposedArticleIds:
           <ul>
             {this.state.proposedArticleIds.map(id => {
-              console.log("there is an article here");
               const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
               return (
                 <li key={id}>
@@ -95,6 +109,14 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
               <br />
             </>
           )}
+          Short Description:
+          <br />
+          <textarea value={this.state.descValue} onChange={this.onDescChange} />
+          <br />
+          Charter:
+          <RichTextEditor value={this.state.value} onChange={this.handleValueChange} />
+          <br />
+          <TransactionButton transactions={[{ transaction: this.updateCharter }]}> Update Charter </TransactionButton>
           <br />
           <TransactionButton
             transactions={[
@@ -113,6 +135,12 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       </PageView>
     );
   }
+
+  private updateCharter = async (): Promise<TwoStepEthTransaction | void> => {
+    const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
+    const jsonToSave = { desc: this.state.descValue, charter: this.state.value.toString("html") };
+    return newsroomInstance.updateRevision(0, JSON.stringify(jsonToSave));
+  };
 
   private approve = async (): Promise<TwoStepEthTransaction | void> => {
     this.setState({ error: "" });
@@ -178,14 +206,14 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     this.setState({ error: "" });
 
     const civil = new Civil();
-    const tcr = civil.tcrSingletonTrusted();
+    const tcr = await civil.tcrSingletonTrusted();
     const token = await tcr.getToken();
     return token.transfer(this.state.multisigAddr, civil.toBigNumber(numTokens).mul(1e18));
   };
 
   private postSendToken = async () => {
     const civil = new Civil();
-    const tcr = civil.tcrSingletonTrusted();
+    const tcr = await civil.tcrSingletonTrusted();
     const token = await tcr.getToken();
     const balance = await token.getBalance(this.state.multisigAddr);
     this.setState({
@@ -198,6 +226,15 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   private initNewsroom = async () => {
     const newsroom = await getNewsroom(this.props.match.params.newsroomAddress);
     this.setState({ newsroom });
+
+    const data = await newsroom.getNewsroomData();
+    if (data.charter) {
+      const charterStuff = JSON.parse(data.charter.content);
+      this.setState({
+        descValue: charterStuff.desc,
+        value: RichTextEditor.createValueFromString(charterStuff.charter, "html"),
+      });
+    }
     if (newsroom) {
       this.state.compositeSubscription.add(
         newsroom
@@ -211,7 +248,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
       this.setState({ multisigAddr });
       if (multisigAddr) {
         const civil = new Civil();
-        const tcr = civil.tcrSingletonTrusted();
+        const tcr = await civil.tcrSingletonTrusted();
         const token = await tcr.getToken();
         const balance = await token.getBalance(multisigAddr);
         this.setState({ multisigBalance: balance });

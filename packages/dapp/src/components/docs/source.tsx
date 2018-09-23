@@ -1,6 +1,6 @@
+import * as hljs from "highlight.js";
 import * as React from "react";
 
-import * as hljs from "highlight.js";
 // import hljsDefineSolidity from "highlightjs-solidity"
 // import "../css/hljs-atom-one.css"
 
@@ -15,21 +15,22 @@ export interface SourceState {
 }
 
 export default class Source extends React.Component<SourceProps, SourceState> {
-  private highlight: HTMLPreElement | null;
+  private highlight: React.RefObject<any>;
   constructor(props: SourceProps) {
     super(props);
     this.state = {
       renderHack: false,
     };
+    this.highlight = React.createRef();
   }
   public componentDidMount(): void {
-    hljs.highlightBlock(this.refs.highlight);
+    hljs.highlightBlock(this.highlight.current);
   }
   public componentWillReceiveProps(): void {
     this.state = { renderHack: true };
     setTimeout(() => {
       this.setState({ renderHack: false });
-      hljs.highlightBlock(this.refs.highlight);
+      hljs.highlightBlock(this.highlight.current);
     }, 0);
   }
   public render(): JSX.Element {
@@ -37,7 +38,7 @@ export default class Source extends React.Component<SourceProps, SourceState> {
     return (
       <div className="source">
         {!this.state.renderHack && (
-          <pre ref={highlight => (this.highlight = highlight)}>
+          <pre ref={this.highlight}>
             <code>{contract.source}</code>
           </pre>
         )}
