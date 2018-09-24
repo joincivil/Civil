@@ -23,27 +23,29 @@ export class Council {
     }
     const appellateAddr = await govt.getAppellate.callAsync();
     const multisig = Multisig.atUntrusted(ethApi, appellateAddr);
-    return new Council(govt, tcr, multisig);
+    return new Council(govt, tcr, multisig, ethApi);
   }
 
   private govtInstance: GovernmentContract;
   private civilInstance: CivilTCRContract;
   private multisig: Multisig;
+  private ethApi: EthApi;
 
-  private constructor(govt: GovernmentContract, tcr: CivilTCRContract, multi: Multisig) {
+  private constructor(govt: GovernmentContract, tcr: CivilTCRContract, multi: Multisig, api: EthApi) {
     this.govtInstance = govt;
     this.civilInstance = tcr;
     this.multisig = multi;
+    this.ethApi = api;
   }
 
   public async grantAppeal(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction<any>> {
     const txdata = await this.civilInstance.grantAppeal.getRaw(listingAddress, data, { gas: 0 });
-    return this.multisig.submitTransaction(this.civilInstance.address, new BigNumber(0), txdata.data!);
+    return this.multisig.submitTransaction(this.civilInstance.address, this.ethApi.toBigNumber(0), txdata.data!);
   }
 
   public async transferAppellate(newAppellate: EthAddress): Promise<TwoStepEthTransaction<any>> {
     const txdata = await this.govtInstance.setAppellate.getRaw(newAppellate);
-    return this.multisig.submitTransaction(this.govtInstance.address, new BigNumber(0), txdata.data!);
+    return this.multisig.submitTransaction(this.govtInstance.address, this.ethApi.toBigNumber(0), txdata.data!);
   }
 
   public async getAppellateMembers(): Promise<string[]> {

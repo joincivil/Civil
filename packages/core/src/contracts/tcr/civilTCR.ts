@@ -164,6 +164,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   ): Observable<ListingWrapper> {
     return Observable.merge(
       this.instance
+        ._ApplicationStream({}, { fromBlock, toBlock })
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
+      this.instance
         ._AppealRequestedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
