@@ -11,6 +11,7 @@ export interface ListingDetailPhaseCardComponentProps {
 export interface PhaseWithExpiryProps {
   endTime: number;
   phaseLength: number;
+  secondaryPhaseLength?: number;
 }
 
 export interface SubmitChallengeProps {

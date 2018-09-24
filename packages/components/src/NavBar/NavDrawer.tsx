@@ -7,6 +7,7 @@ import {
   NavDrawerBalanceText,
   NavDrawerTotalBalanceText,
   NavDrawerVotingBalanceText,
+  NavDrawerVotingBalanceToolTipText,
   NavDrawerCopyBtnText,
   NavDrawerBuyCvlBtnText,
   NavDrawerDashboardText,
@@ -15,6 +16,7 @@ import {
   NavDrawerSubmittedChallengesText,
   NavDrawerVotedChallengesText,
 } from "./textComponents";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 const NavDrawer = styled.div`
   background-color: ${colors.primary.BLACK};
@@ -52,6 +54,8 @@ const NavDrawerRow = styled.div`
 `;
 
 const NavDrawerRowLabel = styled.div`
+  align-items: center;
+  display: flex;
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
@@ -144,6 +148,7 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerVotingBalanceText />
+              <QuestionToolTip explainerText={<NavDrawerVotingBalanceToolTipText />} />
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
               <NavDrawerCvlBalance>{this.props.votingBalance}</NavDrawerCvlBalance>

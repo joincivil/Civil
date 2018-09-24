@@ -12,6 +12,7 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
+import { ChallangeCouncilToolTipText } from "./textComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
@@ -35,6 +36,7 @@ export const AppealDecisionCard: React.SFC<
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Request to challenge Council's decision"
+          toolTipText={<ChallangeCouncilToolTipText phaseLength={props.phaseLength} />}
           flavorText="under Appeal to Council"
         />
       </StyledListingDetailPhaseCardSection>

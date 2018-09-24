@@ -4,7 +4,7 @@ exports[`Storyshots check box checkbox 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-daURTG kBdYZN",
+      "class": "sc-lkqHmb gIriAe",
     },
     "children": Array [
       Object {
@@ -16,7 +16,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-gojNiO gRfhkR",
+            "class": "sc-bXGyLb hPZlhl",
           },
           "children": Array [],
           "name": "span",
@@ -44,7 +44,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-gojNiO gRfhkR",
+          "class": "sc-bXGyLb hPZlhl",
         },
         "children": Array [],
         "name": "span",
@@ -120,7 +120,7 @@ exports[`Storyshots check box slide check box 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cQFLBn fUTYnQ",
+      "class": "sc-daURTG KIYej",
     },
     "children": Array [
       Object {
@@ -132,7 +132,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-exAgwC gjojiS",
+            "class": "sc-gojNiO jdBZjl",
           },
           "children": Array [],
           "name": "span",
@@ -160,7 +160,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-exAgwC gjojiS",
+          "class": "sc-gojNiO jdBZjl",
         },
         "children": Array [],
         "name": "span",

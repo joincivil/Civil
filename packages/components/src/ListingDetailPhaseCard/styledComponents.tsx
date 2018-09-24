@@ -9,7 +9,6 @@ const BACKGROUND_ACCENT_COLORS: any = {
 };
 
 export const StyledListingDetailPhaseCardContainer = styled.div`
-  box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
   box-sizing: border-box;
   background: ${colors.basic.WHITE};
   font-family: ${fonts.SANS_SERIF};
@@ -190,8 +189,10 @@ export const StyledCardClose = styled.div`
 export const StyledCardFace: StyledComponentClass<StyledCardProps, "div"> = styled<StyledCardProps, "div">("div")`
   background-color: ${colors.basic.WHITE};
   backface-visibility: hidden;
+  box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
   height: 100%;
-  position: absolute;
+  position: relative;
+  min-height: 100%;
   width: 100%;
 `;
 
@@ -200,6 +201,11 @@ export const StyledCardFront = StyledCardFace.extend`
 `;
 
 export const StyledCardBack = StyledCardFace.extend`
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
   transform: rotateY(180deg);
   z-index: ${props => (!!props.flipped ? "-1" : "1")};
 
@@ -219,3 +225,15 @@ export const buttonTheme: ButtonTheme = {
   primaryButtonDisabledColor: colors.accent.CIVIL_GRAY_3,
   darkButtonTextTransform: "uppercase",
 };
+
+export const ToolTipHdr = styled.p`
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  margin: 0 0 12px;
+`;
+
+export const ToolTipItalic = styled.p`
+  font-style: italic;
+  margin: 0 0 12px;
+`;

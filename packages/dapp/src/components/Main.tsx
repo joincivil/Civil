@@ -7,7 +7,11 @@ import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom
 import { setNetwork, setNetworkName } from "../actionCreators/network";
 import { addUser } from "../actionCreators/userAccount";
 import { getCivil } from "../helpers/civilInstance";
-import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
+import {
+  initializeGovernment,
+  initializeGovernmentParamSubscription,
+  initializeConstitution,
+} from "../helpers/government";
 import { initializeChallengeSubscriptions, initializeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
@@ -40,6 +44,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     try {
       await initializeParameterizer(this.props.dispatch!);
       await initializeGovernment(this.props.dispatch!);
+      await initializeConstitution(this.props.dispatch!);
       await initializeProposalsSubscriptions(this.props.dispatch!);
       await initializeGovernmentParamSubscription(this.props.dispatch!);
       await initializeSubscriptions(this.props.dispatch!);

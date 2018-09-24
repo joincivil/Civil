@@ -15,17 +15,27 @@ yarn add @joincivil/core
 ```typescript
 import { Civil } from "@joincivil/core";
 
-const MY_NEWSROOM_ADDRESS = "0xABC...";
+const MY_NEWSROOM_NAME = "Example Newsroom";
+const MY_CONTENT_URI = "https://example.com/article/123";
+const MY_CONTENT_HASH = "0x123abc";
 
 (async () => {
   const civil = new Civil();
-  const newsroom = civil.newsroomAtUntruested(MY_NEWSROOM_ADDRESS);
-  const article = await newsroom.loadArticle(0);
-  console.log("First article");
-  console.log("Author:", article.author);
-  console.log("Content:");
-  console.log(article.content);
-}).catch(console.error);
+
+  // This will launch web3 wallet, e.g. MetaMask, to confirm transaction:
+  const newsroomTx = await civil.newsroomDeployTrusted(MY_NEWSROOM_NAME);
+  console.log("Waiting for newsroom creation tx", newsroomTx.txHash, "to complete...");
+
+  const newsroom = await newsroomTx.awaitReceipt();
+  console.log("Newsroom created with name", await newsroom.getName(), "at address", newsroom.address);
+
+  const pendingTx = await newsroom.publishURIAndHash(MY_CONTENT_URI, MY_CONTENT_HASH);
+  console.log("Waiting for publish tx", pendingTx.txHash, "to complete...");
+
+  const contentId = await pendingTx.awaitReceipt();
+  console.log("Content published with ID", contentId);
+  console.log("Content:", await newsroom.loadArticle(contentId));
+})().catch(console.error);
 ```
 
 Check the [documentation directory](./doc) for more

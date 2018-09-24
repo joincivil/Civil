@@ -6,9 +6,11 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
+import { NewApplicationDisplayNameText, NewApplicationToolTipText } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export class InApplicationCard extends React.Component<
   ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & SubmitChallengeProps
@@ -17,11 +19,15 @@ export class InApplicationCard extends React.Component<
     return (
       <StyledListingDetailPhaseCardContainer>
         <StyledListingDetailPhaseCardSection>
-          <StyledPhaseDisplayName>New Application</StyledPhaseDisplayName>
+          <StyledPhaseDisplayName>
+            <NewApplicationDisplayNameText />
+            <QuestionToolTip explainerText={<NewApplicationToolTipText />} positionBottom={true} />
+          </StyledPhaseDisplayName>
           <ProgressBarCountdownTimer
             endTime={this.props.endTime}
             totalSeconds={this.props.phaseLength}
             displayLabel="Waiting for approval"
+            toolTipText={<NewApplicationToolTipText phaseLength={this.props.phaseLength} />}
             flavorText="under community review"
           />
         </StyledListingDetailPhaseCardSection>

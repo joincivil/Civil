@@ -21,6 +21,14 @@ import {
   FormCopy,
   FullWidthButton,
 } from "./styledComponents";
+import {
+  CommitVoteCalloutHeaderText,
+  CommitVoteCalloutCopyText,
+  CommitVoteAlreadyVotedHeaderText,
+  CommitVoteAlreadyVotedCopyText,
+  CommitVoteToolTipText,
+  ConfirmVoteToolTipText,
+} from "./textComponents";
 import { buttonSizes } from "../Button";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
@@ -64,7 +72,9 @@ export class AppealChallengeCommitVoteCard extends React.Component<
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Accepting votes"
+                  toolTipText={<CommitVoteToolTipText phaseLength={this.props.phaseLength} />}
                   secondaryDisplayLabel="Revealing Votes"
+                  secondaryToolTipText={<ConfirmVoteToolTipText phaseLength={this.props.secondaryPhaseLength} />}
                   flavorText="under challenge"
                   activePhaseIndex={0}
                 />
@@ -93,10 +103,7 @@ export class AppealChallengeCommitVoteCard extends React.Component<
               <AppealDecisionDetail appealGranted={this.props.appealGranted} />
 
               <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
-                <FormHeader>Submit Your Votes!</FormHeader>
-                <FormCopy>
-                  Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.
-                </FormCopy>
+                {this.renderCommitVoteCallout()}
                 <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
                   Submit My Vote
                 </FullWidthButton>
@@ -112,10 +119,7 @@ export class AppealChallengeCommitVoteCard extends React.Component<
                 <StyledCardClose>
                   <span onClick={this.swapFlipped}>✖</span>
                 </StyledCardClose>
-                <FormHeader>Submit Your Votes!</FormHeader>
-                <FormCopy>
-                  Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.
-                </FormCopy>
+                {this.renderCommitVoteCallout()}
               </StyledListingDetailPhaseCardSection>
               <StyledListingDetailPhaseCardSection>
                 <StyledPhaseKicker>Appeal Challenge ID {this.props.appealChallengeID}</StyledPhaseKicker>
@@ -137,5 +141,30 @@ export class AppealChallengeCommitVoteCard extends React.Component<
 
   private swapFlipped = (): void => {
     this.setState(() => ({ flipped: !this.state.flipped }));
+  };
+
+  private renderCommitVoteCallout = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return (
+        <>
+          <FormHeader>
+            <CommitVoteAlreadyVotedHeaderText />
+          </FormHeader>
+          <FormCopy>
+            <CommitVoteAlreadyVotedCopyText />
+          </FormCopy>
+        </>
+      );
+    }
+    return (
+      <>
+        <FormHeader>
+          <CommitVoteCalloutHeaderText />
+        </FormHeader>
+        <FormCopy>
+          <CommitVoteCalloutCopyText />
+        </FormCopy>
+      </>
+    );
   };
 }

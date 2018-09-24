@@ -19,14 +19,14 @@ const StyledInner = styled.div`
 `;
 
 const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props => {
-  const decisionText = props.appealGranted ? "grant" : "dismiss";
+  const decisionText = props.appealGranted ? "granted" : "not granted";
   return (
     <StyledInner>
       <FormCopy>
-        The Civil Council has decided to {decisionText} the appeal. Read more about their methodology and how they’ve
-        come to this decision.
+        The Civil Council has {decisionText} the appeal.{" "}
+        {props.appealGranted && "Read more about their methodology and how they’ve come to this decision."}
       </FormCopy>
-      <Button size={buttonSizes.MEDIUM_WIDE}>Read about this decision</Button>
+      {props.appealGranted && <Button size={buttonSizes.MEDIUM_WIDE}>Read about this decision</Button>}
     </StyledInner>
   );
 };

@@ -13,6 +13,7 @@ import {
   MetaItemValueAccent,
   MetaItemLabel,
 } from "./styledComponents";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export class TwoPhaseProgressBarCountdownTimerComponent extends React.Component<
   TwoPhaseProgressBarCountdownProps & InjectedCountdownTimerProps
@@ -45,8 +46,11 @@ export class TwoPhaseProgressBarCountdownTimerComponent extends React.Component<
     const progress = this.getProgress();
     const style = { width: `${(progress * 100).toString()}%` };
     return (
-      <ProgressBarCountdownContainer>
-        <ProgressBarDisplayLabel>{this.props.displayLabel}</ProgressBarDisplayLabel>
+      <ProgressBarCountdownContainer key="progressBarPrimary">
+        <ProgressBarDisplayLabel>
+          {this.props.displayLabel}
+          <QuestionToolTip explainerText={this.props.toolTipText} positionBottom={true} />
+        </ProgressBarDisplayLabel>
         <ProgressBarCountdownTotal>
           <ProgressBarCountdownProgress style={style} />
         </ProgressBarCountdownTotal>
@@ -58,8 +62,11 @@ export class TwoPhaseProgressBarCountdownTimerComponent extends React.Component<
     const progress = this.props.activePhaseIndex === 0 ? 0 : 1;
     const style = { width: `${(progress * 100).toString()}%` };
     return (
-      <ProgressBarCountdownContainer>
-        <ProgressBarDisplayLabel>{this.props.secondaryDisplayLabel}</ProgressBarDisplayLabel>
+      <ProgressBarCountdownContainer key="progressBarSecondary">
+        <ProgressBarDisplayLabel>
+          {this.props.secondaryDisplayLabel}
+          <QuestionToolTip explainerText={this.props.secondaryToolTipText} positionBottom={true} />
+        </ProgressBarDisplayLabel>
         <ProgressBarCountdownTotal>
           <ProgressBarCountdownProgress style={style} />
         </ProgressBarCountdownTotal>

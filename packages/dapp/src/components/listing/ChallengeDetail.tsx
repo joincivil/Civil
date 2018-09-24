@@ -38,7 +38,16 @@ import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import { appealChallenge, approveForAppeal, commitVote, approveVotingRights, revealVote } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
-import { makeGetChallengeState, getNewsroom } from "../../selectors";
+import {
+  makeGetChallenge,
+  makeGetChallengeState,
+  makeGetAppealChallengeState,
+  makeGetListingAddressByChallengeID,
+  makeGetUserChallengeData,
+  makeGetUserAppealChallengeData,
+  getNewsroom,
+  getIsMemberOfAppellate,
+} from "../../selectors";
 import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
 import { fetchSalt } from "../../helpers/salt";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
@@ -72,6 +81,7 @@ const StyledChallengeResults = styled.div`
 export interface ChallengeDetailContainerProps {
   listingAddress: EthAddress;
   challengeID: BigNumber;
+  appealChallengeID?: BigNumber;
   showNotFoundMessage?: boolean;
   listingPhaseState?: any;
 }
@@ -83,6 +93,7 @@ export interface ChallengeContainerReduxProps {
   userAppealChallengeData?: UserChallengeData;
   challengeDataRequestStatus?: any;
   challengeState: any;
+  appealChallengeState: any;
   user: EthAddress;
   balance: BigNumber;
   votingBalance: BigNumber;
@@ -96,6 +107,8 @@ export interface ChallengeDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
+  appealChallengeID?: BigNumber;
+  appealChallengeState: any;
   parameters?: any;
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
@@ -190,11 +203,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         appeal={challenge.appeal!}
         challengeID={this.props.challengeID}
         challenge={challenge}
+        userAppealChallengeData={this.props.userAppealChallengeData}
         challengeState={this.props.challengeState}
+        parameters={this.props.parameters}
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
         user={this.props.user}
-        isMemberOfCouncil={this.props.isMemberOfAppellate}
+        isMemberOfAppellate={this.props.isMemberOfAppellate}
       />
     );
   }
@@ -264,6 +279,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   private renderRevealStage(): JSX.Element | null {
     const endTime = this.props.challenge.poll.revealEndDate.toNumber();
     const phaseLength = this.props.parameters.revealStageLen;
+    const secondaryPhaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
     const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
@@ -284,6 +300,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         challengeID={this.props.challengeID.toString()}
         endTime={endTime}
         phaseLength={phaseLength}
+        secondaryPhaseLength={secondaryPhaseLength}
         challenger={challenge!.challenger.toString()}
         rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
         stake={getFormattedTokenBalance(challenge!.stake)}
@@ -519,8 +536,10 @@ class ChallengeContainer extends React.Component<
         challengeID={this.props.challengeID}
         challenge={challenge}
         userChallengeData={this.props.userChallengeData}
+        appealChallengeID={this.props.appealChallengeID}
         userAppealChallengeData={this.props.userAppealChallengeData}
         challengeState={this.props.challengeState}
+        appealChallengeState={this.props.appealChallengeState}
         user={this.props.user}
         parameters={this.props.parameters}
         balance={this.props.balance}
@@ -537,33 +556,24 @@ class ChallengeContainer extends React.Component<
 }
 
 const makeMapStateToProps = () => {
+  const getChallenge = makeGetChallenge();
   const getChallengeState = makeGetChallengeState();
+  const getAppealChallengeState = makeGetAppealChallengeState();
+  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
+  const getUserChallengeData = makeGetUserChallengeData();
+  const getUserAppealChallengeData = makeGetUserAppealChallengeData();
 
   const mapStateToProps = (
     state: State,
     ownProps: ChallengeDetailContainerProps,
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
-    const {
-      challenges,
-      challengesFetching,
-      challengeUserData,
-      appealChallengeUserData,
-      user,
-      parameters,
-      govtParameters,
-      appellateMembers,
-    } = state.networkDependent;
-    let listingAddress = ownProps.listingAddress;
-    let challengeData;
-    let userChallengeData;
-    let userAppealChallengeData;
+    const { challengesFetching, user, parameters, govtParameters } = state.networkDependent;
+    const challengeData = getChallenge(state, ownProps);
     const newsroomState = getNewsroom(state, ownProps);
     const challengeID = ownProps.challengeID;
-    if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
-    }
-    if (!listingAddress && challengeData) {
-      listingAddress = challenges.get(challengeID.toString())!.listingAddress;
+    let listingAddress: string | undefined = ownProps.listingAddress;
+    if (!listingAddress) {
+      listingAddress = getListingAddressByChallengeID(state, ownProps);
     }
     const userAcct = user.account;
 
@@ -572,36 +582,22 @@ const makeMapStateToProps = () => {
       newsroomWrapper = newsroomState.wrapper;
     }
 
-    // TODO(nickreynolds): clean this up
-    if (challengeID && userAcct) {
-      const challengeUserDataMap = challengeUserData.get(challengeID!.toString());
-      if (challengeUserDataMap) {
-        userChallengeData = challengeUserDataMap.get(userAcct.account);
-      }
-      if (challengeData) {
-        const wrappedChallenge = challengeData as WrappedChallengeData;
+    const userChallengeData = getUserChallengeData(state, ownProps);
+    const userAppealChallengeData = getUserAppealChallengeData(state, ownProps);
 
-        // null checks
-        if (wrappedChallenge && wrappedChallenge.challenge && wrappedChallenge.challenge.appeal) {
-          const appealChallengeID = wrappedChallenge.challenge.appeal.appealChallengeID;
-          const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID!.toString());
-          if (appealChallengeUserDataMap) {
-            userAppealChallengeData = appealChallengeUserDataMap.get(userAcct.account);
-          }
-        }
-      }
-    }
     let challengeDataRequestStatus;
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
-    const isMemberOfAppellate = appellateMembers.includes(userAcct.account);
+    const isMemberOfAppellate = getIsMemberOfAppellate(state);
+
     return {
       newsroom: newsroomWrapper,
       challengeData,
       userChallengeData,
       userAppealChallengeData,
       challengeState: getChallengeState(state, ownProps),
+      appealChallengeState: getAppealChallengeState(state, ownProps),
       challengeDataRequestStatus,
       user: userAcct.account,
       balance: user.account.balance,
