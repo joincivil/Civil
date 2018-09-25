@@ -16,12 +16,20 @@ export class Challenge {
   private contentProvider: ContentProvider;
   private challengeId: BigNumber;
   private voting: Promise<Voting>;
+  private listingAddress?: EthAddress;
 
-  constructor(ethApi: EthApi, instance: CivilTCRContract, contentProvider: ContentProvider, challengeId: BigNumber) {
+  constructor(
+    ethApi: EthApi,
+    instance: CivilTCRContract,
+    contentProvider: ContentProvider,
+    challengeId: BigNumber,
+    listingAddress?: EthAddress,
+  ) {
     this.ethApi = ethApi;
     this.tcrInstance = instance;
     this.contentProvider = contentProvider;
     this.challengeId = challengeId;
+    this.listingAddress = listingAddress;
     this.voting = Voting.singleton(ethApi);
   }
 
@@ -35,7 +43,17 @@ export class Challenge {
     const poll = await resolvedVoting.getPoll(this.challengeId);
     const requestAppealExpiry = await this.tcrInstance.challengeRequestAppealExpiries.callAsync(this.challengeId);
 
-    const appealInstance = new Appeal(this.ethApi, this.tcrInstance, this.challengeId, this.contentProvider);
+    let listingAddress = this.listingAddress;
+    if (!listingAddress) {
+      listingAddress = await this.getListingIdForChallenge();
+    }
+    const appealInstance = new Appeal(
+      this.ethApi,
+      this.tcrInstance,
+      this.challengeId,
+      listingAddress,
+      this.contentProvider,
+    );
     const appeal = await appealInstance.getAppealData();
 
     return {

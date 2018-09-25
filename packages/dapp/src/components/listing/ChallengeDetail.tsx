@@ -112,6 +112,7 @@ export interface ChallengeContainerReduxProps {
   parameters: any;
   govtParameters: any;
   isMemberOfAppellate: boolean;
+  txIdToConfirm?: number;
 }
 
 export interface ChallengeDetailProps {
@@ -129,6 +130,7 @@ export interface ChallengeDetailProps {
   balance?: BigNumber;
   votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
+  txIdToConfirm?: number;
   newsroom: NewsroomWrapper;
 }
 
@@ -227,6 +229,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
         user={this.props.user}
         isMemberOfAppellate={this.props.isMemberOfAppellate}
+        txIdToConfirm={this.props.txIdToConfirm}
       />
     );
   }
@@ -608,6 +611,7 @@ class ChallengeContainer extends React.Component<
         votingBalance={this.props.votingBalance}
         govtParameters={this.props.govtParameters}
         isMemberOfAppellate={this.props.isMemberOfAppellate}
+        txIdToConfirm={this.props.txIdToConfirm}
       />
     );
   }
@@ -629,8 +633,21 @@ const makeMapStateToProps = () => {
     state: State,
     ownProps: ChallengeDetailContainerProps,
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
-    const { challengesFetching, user, parameters, govtParameters } = state.networkDependent;
+    const {
+      challengesFetching,
+      user,
+      parameters,
+      govtParameters,
+      councilMultisigTransactions,
+    } = state.networkDependent;
+    let txIdToConfirm;
     const challengeData = getChallenge(state, ownProps);
+    if (challengeData && challengeData.challenge && challengeData.challenge.appeal) {
+      const txData = challengeData.challenge.appeal.appealTxData.data!;
+      if (councilMultisigTransactions.has(txData)) {
+        txIdToConfirm = councilMultisigTransactions.get(txData).id;
+      }
+    }
     const newsroomState = getNewsroom(state, ownProps);
     const challengeID = ownProps.challengeID;
     let listingAddress: string | undefined = ownProps.listingAddress;
@@ -667,6 +684,7 @@ const makeMapStateToProps = () => {
       parameters,
       govtParameters,
       isMemberOfAppellate,
+      txIdToConfirm,
       ...ownProps,
     };
   };

@@ -26,6 +26,7 @@ import {
   challengeGrantedAppeal,
   grantAppeal,
   updateStatus,
+  confirmAppeal,
 } from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 
@@ -41,6 +42,7 @@ enum ModalContentEventNames {
   RESOLVE_APPEAL = "RESOLVE_APPEAL",
   APPROVE_CHALLENGE_APPEAL = "APPROVE_CHALLENGE_APPEAL",
   CHALLENGE_APPEAL = "CHALLENGE_APPEAL",
+  CONFIRM_APPEAL = "CONFIRM_APPEAL",
 }
 
 export interface AppealDetailProps {
@@ -56,6 +58,7 @@ export interface AppealDetailProps {
   tokenBalance: number;
   user: EthAddress;
   isMemberOfAppellate: boolean;
+  txIdToConfirm?: number;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -118,20 +121,34 @@ class AppealDetail extends React.Component<AppealDetailProps> {
 
     const { isAwaitingAppealJudgment } = this.props.challengeState;
 
-    // @TODO(jon): Check if user is in Civil Council multi-sig
     let transactions;
     let modalContentComponents;
     if (isAwaitingAppealJudgment && this.props.isMemberOfAppellate) {
-      const grantAppealProgressModal = this.renderGrantAppealProgressModal();
-      modalContentComponents = {
-        [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,
-      };
-      transactions = [
-        {
-          transaction: this.grantAppeal,
-          progressEventName: ModalContentEventNames.GRANT_APPEAL,
-        },
-      ];
+      if (this.props.txIdToConfirm) {
+        console.log("yes good");
+        const confirmAppealProgressModal = this.renderConfirmAppealProgressModal();
+        modalContentComponents = {
+          [ModalContentEventNames.CONFIRM_APPEAL]: confirmAppealProgressModal,
+        };
+        transactions = [
+          {
+            transaction: this.confirmAppeal,
+            progressEventName: ModalContentEventNames.CONFIRM_APPEAL,
+          },
+        ];
+      } else {
+        console.log("no bad");
+        const grantAppealProgressModal = this.renderGrantAppealProgressModal();
+        modalContentComponents = {
+          [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,
+        };
+        transactions = [
+          {
+            transaction: this.grantAppeal,
+            progressEventName: ModalContentEventNames.GRANT_APPEAL,
+          },
+        ];
+      }
     }
 
     return (
@@ -151,6 +168,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         percentAgainst={percentAgainst.toString()}
         transactions={transactions}
         modalContentComponents={modalContentComponents}
+        txIdToConfirm={this.props.txIdToConfirm}
       />
     );
   }
@@ -305,8 +323,26 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     );
   }
 
+  private renderConfirmAppealProgressModal(): JSX.Element {
+    return (
+      <>
+        <LoadingIndicator height={100} />
+        <ModalHeading>Transaction in progress</ModalHeading>
+        <ModalOrderedList>
+          <ModalListItem type={ModalListItemTypes.STRONG}>Confirming Granting appeal</ModalListItem>
+        </ModalOrderedList>
+        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+      </>
+    );
+  }
+
   private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return grantAppeal(this.props.listingAddress);
+  };
+
+  private confirmAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return confirmAppeal(this.props.txIdToConfirm!);
   };
 
   private challengeGrantedAppeal = async (): Promise<TwoStepEthTransaction<any>> => {

@@ -1,4 +1,5 @@
 import { AnyAction } from "redux";
+import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";
 
 export enum governmentActions {
   SET_GOVT_PARAMETER = "SET_GOVT_PARAMETER",
@@ -8,6 +9,7 @@ export enum governmentActions {
   SET_APPELLATE = "SET_APPELLATE",
   SET_CONTROLLER = "SET_CONTROLLER",
   SET_APPELLATE_MEMBERS = "SET_APPELLATE_MEMBERS",
+  ADD_COUNCIL_MULTISIG_TRANSACTION = "ADD_COUNCIL_MULTISIG_TRANSACTION",
 }
 
 export const setGovernmentParameter = (paramName: string, paramValue: any): AnyAction => {
@@ -62,5 +64,12 @@ export const setAppellateMembers = (members: string[]): AnyAction => {
   return {
     type: governmentActions.SET_APPELLATE_MEMBERS,
     data: members,
+  };
+};
+
+export const addCouncilMultisigTransaction = (transaction: MultisigTransaction): AnyAction => {
+  return {
+    type: governmentActions.ADD_COUNCIL_MULTISIG_TRANSACTION,
+    data: transaction,
   };
 };

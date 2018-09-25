@@ -39,7 +39,15 @@ import {
   challengesStartedByUser,
   challengeUserData,
 } from "./challenges";
-import { government, govtParameters, constitution, appellate, controller, appellateMembers } from "./government";
+import {
+  government,
+  govtParameters,
+  constitution,
+  appellate,
+  controller,
+  appellateMembers,
+  councilMultisigTransactions,
+} from "./government";
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
 import { ui } from "./ui";
@@ -55,6 +63,7 @@ import { currentUserNewsrooms } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
 import { networkActions } from "../actionCreators/network";
 import { Subscription } from "rxjs";
+import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";
 
 export interface State {
   networkDependent: NetworkDependentState;
@@ -107,6 +116,7 @@ export interface NetworkDependentState {
   rejectedListingRemovedSubscriptions: Map<string, Subscription>;
   rejectedListingLatestChallengeSubscriptions: Map<string, Subscription>;
   whitelistedSubscriptions: Map<string, Subscription>;
+  councilMultisigTransactions: Map<string, MultisigTransaction>;
 }
 
 const networkDependentReducers = combineReducers({
@@ -150,6 +160,7 @@ const networkDependentReducers = combineReducers({
   rejectedListingRemovedSubscriptions,
   rejectedListingLatestChallengeSubscriptions,
   whitelistedSubscriptions,
+  councilMultisigTransactions,
 });
 
 const networkDependent = (state: any, action: AnyAction) => {

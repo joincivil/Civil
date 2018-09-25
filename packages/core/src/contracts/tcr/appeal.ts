@@ -6,6 +6,7 @@ import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { ContentProvider } from "../../content/contentprovider";
 import { AppealData, ContentData, EthAddress } from "../../types";
 import { AppealChallenge } from "./appealChallenge";
+import { EthAddress } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:appeal");
 
@@ -14,12 +15,20 @@ export class Appeal {
   private tcrInstance: CivilTCRContract;
   private contentProvider: ContentProvider;
   private challengeId: BigNumber;
+  private listingAddress: EthAddress;
 
-  constructor(ethApi: EthApi, instance: CivilTCRContract, challengeId: BigNumber, contentProvider: ContentProvider) {
+  constructor(
+    ethApi: EthApi,
+    instance: CivilTCRContract,
+    challengeId: BigNumber,
+    listingAddress: EthAddress,
+    contentProvider: ContentProvider,
+  ) {
     this.ethApi = ethApi;
     this.tcrInstance = instance;
     this.challengeId = challengeId;
     this.contentProvider = contentProvider;
+    this.listingAddress = listingAddress;
   }
 
   public async getAppealData(): Promise<AppealData> {
@@ -37,6 +46,7 @@ export class Appeal {
       appealChallenge = await appealChallengeInstance.getAppealChallengeData();
     }
     const statement = await this.getAppealStatement();
+    const appealTxData = await this.tcrInstance.grantAppeal.getRaw(this.listingAddress, "", { gas: 0 });
     return {
       requester,
       appealFeePaid,
@@ -44,6 +54,7 @@ export class Appeal {
       appealGranted,
       appealOpenToChallengeExpiry,
       appealChallengeID,
+      appealTxData,
       appealChallenge,
       statement,
     };

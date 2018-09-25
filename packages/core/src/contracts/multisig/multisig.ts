@@ -166,6 +166,20 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     );
   }
 
+  public async confirmTransaction(txId: number): Promise<TwoStepEthTransaction<MultisigTransaction>> {
+    return createTwoStepTransaction(
+      this.ethApi,
+      await this.instance.confirmTransaction.sendTransactionAsync(this.ethApi.toBigNumber(txId)),
+      async receipt => {
+        const event = receipt.logs.filter(isDecodedLog).find(log => log.event === MultiSigWallet.Events.Confirmation);
+        if (!event) {
+          throw new Error("No Confirmation event found when confirming transaction to Multisig");
+        }
+        return this.transaction((event.args as MultiSigWallet.Args.Confirmation).transactionId.toNumber());
+      },
+    );
+  }
+
   public async estimateTransaction(address: EthAddress, weiToSend: BigNumber, payload: string): Promise<number> {
     return this.instance.submitTransaction.estimateGasAsync(address, weiToSend, payload, {});
   }
@@ -195,21 +209,18 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    */
   public transactions(filters: TransactionFilters = { pending: true }): Observable<MultisigTransaction> {
     // Notice that we're using transactionCount smart-contract variable, not getTransactonCount func
-    return Observable.fromPromise(this.instance.transactionCount.callAsync())
-      .concatMap(async numTransactions => {
-        const ids = await this.instance.getTransactionIds.callAsync(
+    return Observable.fromPromise(
+      this.instance.getTransactionCount.callAsync(filters.pending || false, filters.executed || false),
+    )
+      .concatMap(async numTransactions =>
+        this.instance.getTransactionIds.callAsync(
           this.ethApi.toBigNumber(0),
           this.ethApi.toBigNumber(numTransactions),
-          true,
-          false,
-        );
-        console.log("first ids:  " + ids);
-        return ids;
-      })
-      .concatMap(ids => {
-        console.log("ids: ", ids);
-        return Observable.from(ids);
-      })
+          filters.pending || false,
+          filters.executed || false,
+        ),
+      )
+      .concatMap(ids => Observable.from(ids))
       .concatMap(async id => this.transaction(id.toNumber()));
   }
 

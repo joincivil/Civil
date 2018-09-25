@@ -7,6 +7,7 @@ import { GovernmentContract } from "../generated/wrappers/government";
 import { Multisig, TransactionFilters } from "../multisig/multisig";
 import { MultisigTransaction } from "../multisig/multisigtransaction";
 import { Observable } from "rxjs";
+import { TxDataAll } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:tcr");
 
@@ -39,9 +40,17 @@ export class Council {
     this.ethApi = api;
   }
 
+  public async getRawGrantAppeal(listingAddress: EthAddress, data: string = ""): Promise<TxDataAll> {
+    return this.civilInstance.grantAppeal.getRaw(listingAddress, data, { gas: 0 });
+  }
+
   public async grantAppeal(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction<any>> {
     const txdata = await this.civilInstance.grantAppeal.getRaw(listingAddress, data, { gas: 0 });
     return this.multisig.submitTransaction(this.civilInstance.address, this.ethApi.toBigNumber(0), txdata.data!);
+  }
+
+  public async confirmAppeal(txId: number): Promise<TwoStepEthTransaction<any>> {
+    return this.multisig.confirmTransaction(txId);
   }
 
   public async transferAppellate(newAppellate: EthAddress): Promise<TwoStepEthTransaction<any>> {

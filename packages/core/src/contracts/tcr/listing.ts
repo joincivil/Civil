@@ -34,7 +34,7 @@ export class Listing {
     );
     let challenge;
     if (!challengeID.isZero()) {
-      const c = new Challenge(this.ethApi, this.tcrInstance, this.contentProvider, challengeID);
+      const c = new Challenge(this.ethApi, this.tcrInstance, this.contentProvider, challengeID, this.listingAddress);
       challenge = await c.getChallengeData();
     }
     return {
