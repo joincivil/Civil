@@ -68,7 +68,6 @@ export function councilMultisigTransactions(
 ): Map<string, MultisigTransaction> {
   switch (action.type) {
     case governmentActions.ADD_COUNCIL_MULTISIG_TRANSACTION:
-      console.log("action.data: ", action.data.information.data);
       return state.set(action.data.information.data, action.data);
     default:
       return state;
