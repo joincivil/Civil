@@ -11,7 +11,7 @@ const CivilTCR = artifacts.require("CivilTCR");
 const Parameterizer = artifacts.require("CivilParameterizer");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Government = artifacts.require("Government");
-const TokenTelemetry = artifacts.require("TokenTelemetry");
+const UserGroups = artifacts.require("UserGroups");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   deployer.then(async () => {
@@ -34,7 +34,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       PLCRVoting.address,
       Parameterizer.address,
       Government.address,
-      TokenTelemetry.address,
+      UserGroups.address,
     );
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), CivilTCR.address);
