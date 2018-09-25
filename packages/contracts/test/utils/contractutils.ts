@@ -23,7 +23,7 @@ const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
 const Newsroom = artifacts.require("Newsroom");
-const TokenTelemetry = artifacts.require("TokenTelemetry");
+const DummyTokenTelemetry = artifacts.require("DummyTokenTelemetry");
 const Whitelist = artifacts.require("Whitelist");
 const UserGroups = artifacts.require("UserGroups");
 const DummyTokenSale = artifacts.require("DummyTokenSale");
@@ -39,7 +39,7 @@ configureProviders(
   Whitelist,
   UserGroups,
   DummyTokenSale,
-  TokenTelemetry,
+  DummyTokenTelemetry,
 );
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
@@ -353,7 +353,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
 }
 
 export async function createAllTestParameterizerInstance(accounts: string[]): Promise<any> {
-  const telemetry = await TokenTelemetry.new();
+  const telemetry = await DummyTokenTelemetry.new();
   const token = await createTestTokenInstance(accounts);
   const plcr = await createTestPLCRInstance(token, telemetry, accounts);
   const parameterizer = await createTestParameterizerInstance(accounts, token, plcr);
