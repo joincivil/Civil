@@ -196,15 +196,20 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   public transactions(filters: TransactionFilters = { pending: true }): Observable<MultisigTransaction> {
     // Notice that we're using transactionCount smart-contract variable, not getTransactonCount func
     return Observable.fromPromise(this.instance.transactionCount.callAsync())
-      .concatMap(async noTransactions =>
-        this.instance.getTransactionIds.callAsync(
+      .concatMap(async numTransactions => {
+        const ids = await this.instance.getTransactionIds.callAsync(
           this.ethApi.toBigNumber(0),
-          noTransactions,
-          filters.pending || false,
-          filters.executed || false,
-        ),
-      )
-      .concatMap(ids => Observable.from(ids))
+          this.ethApi.toBigNumber(numTransactions),
+          true,
+          false,
+        );
+        console.log("first ids:  " + ids);
+        return ids;
+      })
+      .concatMap(ids => {
+        console.log("ids: ", ids);
+        return Observable.from(ids);
+      })
       .concatMap(async id => this.transaction(id.toNumber()));
   }
 

@@ -48,4 +48,8 @@ export async function initializeConstitution(dispatch: Dispatch<any>): Promise<v
   dispatch(setController(controller));
   const appellateMembers = await council.getAppellateMembers();
   dispatch(setAppellateMembers(appellateMembers));
+
+  council.transactions().subscribe(async (t: any) => {
+    console.log("found a transaction. it's: ", t);
+  });
 }

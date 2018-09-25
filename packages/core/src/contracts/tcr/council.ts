@@ -4,7 +4,9 @@ import * as Debug from "debug";
 import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { GovernmentContract } from "../generated/wrappers/government";
-import { Multisig } from "../multisig/multisig";
+import { Multisig, TransactionFilters } from "../multisig/multisig";
+import { MultisigTransaction } from "../multisig/multisigtransaction";
+import { Observable } from "rxjs";
 
 const debug = Debug("civil:tcr");
 
@@ -49,5 +51,9 @@ export class Council {
 
   public async getAppellateMembers(): Promise<string[]> {
     return this.multisig.owners();
+  }
+
+  public transactions(filters: TransactionFilters = { pending: true }): Observable<MultisigTransaction> {
+    return this.multisig.transactions(filters);
   }
 }
