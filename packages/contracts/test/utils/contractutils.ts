@@ -39,7 +39,7 @@ configureProviders(
   Whitelist,
   UserGroups,
   DummyTokenSale,
-  TokenTelemetry
+  TokenTelemetry,
 );
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
