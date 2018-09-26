@@ -1,12 +1,14 @@
 import * as React from "react";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress, AppealData } from "@joincivil/core";
 import { getLocalDateTimeStrings } from "@joincivil/utils";
+import { HollowGreenCheck, HollowRedNoGood } from "../icons";
 import {
   StyledListingSummaryContainer,
   StyledListingSummaryTop,
   StyledListingSummarySection,
   StyledListingSummaryNewsroomName,
   StyledListingSummaryDescription,
+  StyledAppealJudgementContainer,
   NewsroomIcon,
   MetaRow,
   MetaItemValue,
@@ -37,18 +39,22 @@ export interface ListingSummaryComponentProps {
   name?: string;
   description?: string;
   listingDetailURL?: string;
+  appeal?: AppealData;
   isInApplication?: boolean;
   canBeChallenged?: boolean;
   canBeWhitelisted?: boolean;
   inChallengeCommitVotePhase?: boolean;
   inChallengeRevealPhase?: boolean;
   isAwaitingAppealRequest?: boolean;
+  didListingChallengeSucceed?: boolean;
   canResolveChallenge?: boolean;
   canResolveAppealChallenge?: boolean;
   isAwaitingAppealJudgement?: boolean;
   isAwaitingAppealChallenge?: boolean;
+  canListingAppealBeResolved?: boolean;
   isInAppealChallengeCommitPhase?: boolean;
   isInAppealChallengeRevealPhase?: boolean;
+  isAwaitingAppealJudgment?: boolean;
   isWhitelisted?: boolean;
   isUnderChallenge?: boolean;
   canListingAppealChallengeBeResolved?: boolean;
@@ -56,6 +62,8 @@ export interface ListingSummaryComponentProps {
   commitEndDate?: number;
   revealEndDate?: number;
   requestAppealExpiry?: number;
+  appealPhaseExpiry?: number;
+  appealOpenToChallengeExpiry?: number;
   whitelistedTimestamp?: number;
   unstakedDeposit?: string;
   challengeStake?: string;
@@ -72,6 +80,8 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     }
     return (
       <StyledListingSummaryContainer>
+        {this.renderAppealJudgement()}
+
         <StyledListingSummaryTop>
           <NewsroomIcon />
           <div>
@@ -105,6 +115,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
       isAwaitingAppealRequest,
       canBeWhitelisted,
       canResolveChallenge,
+      canListingAppealBeResolved,
       canListingAppealChallengeBeResolved,
       isAwaitingAppealJudgement,
       isAwaitingAppealChallenge,
@@ -117,7 +128,12 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
       return <RevealVoteStatusLabel />;
     } else if (isAwaitingAppealRequest) {
       return <AwaitingAppealRequestLabel />;
-    } else if (canBeWhitelisted || canResolveChallenge || canListingAppealChallengeBeResolved) {
+    } else if (
+      canBeWhitelisted ||
+      canResolveChallenge ||
+      canListingAppealChallengeBeResolved ||
+      canListingAppealBeResolved
+    ) {
       return <ReadyToCompleteStatusLabel />;
     } else if (isAwaitingAppealJudgement) {
       return <AwaitingDecisionStatusLabel />;
@@ -129,7 +145,14 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
 
   private renderPhaseCountdown = (): JSX.Element | undefined => {
     let expiry: number | undefined;
-    const { isInApplication, inChallengeCommitVotePhase, inChallengeRevealPhase, isAwaitingAppealRequest } = this.props;
+    const {
+      isInApplication,
+      inChallengeCommitVotePhase,
+      inChallengeRevealPhase,
+      isAwaitingAppealRequest,
+      isAwaitingAppealJudgment,
+      isAwaitingAppealChallenge,
+    } = this.props;
     if (isInApplication) {
       expiry = this.props.appExpiry;
     } else if (inChallengeCommitVotePhase) {
@@ -138,6 +161,10 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
       expiry = this.props.revealEndDate;
     } else if (isAwaitingAppealRequest) {
       expiry = this.props.requestAppealExpiry;
+    } else if (isAwaitingAppealJudgment) {
+      expiry = this.props.appealPhaseExpiry;
+    } else if (isAwaitingAppealChallenge) {
+      expiry = this.props.appealOpenToChallengeExpiry;
     }
 
     const warn = this.props.inChallengeCommitVotePhase || this.props.inChallengeRevealPhase;
@@ -245,5 +272,32 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     }
 
     return;
+  };
+
+  private renderAppealJudgement = (): JSX.Element => {
+    const { appeal, didListingChallengeSucceed } = this.props;
+    if (!appeal || !appeal.appealGranted) {
+      return <></>;
+    }
+
+    let decisionText;
+
+    // Challenge succeeded (newsroom rejected) and appeal was granted, so newsroom is accepted
+    if (didListingChallengeSucceed) {
+      decisionText = (
+        <>
+          <HollowGreenCheck /> Appeal granted to accept Newsroom
+        </>
+      );
+      // Challenge failed (newsroom accepted) and appeal was granted, so newsroom is rejected
+    } else {
+      decisionText = (
+        <>
+          <HollowRedNoGood /> Appeal granted to reject Newsroom
+        </>
+      );
+    }
+
+    return <StyledAppealJudgementContainer>{decisionText}</StyledAppealJudgementContainer>;
   };
 }

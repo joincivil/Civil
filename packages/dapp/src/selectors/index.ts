@@ -506,17 +506,22 @@ export const makeGetListingPhaseState = () => {
     }
 
     const listingData = listing.listing.data;
+    const challenge = listingData.challenge;
+    const appeal = challenge && challenge.appeal;
 
     const isInApplication = isInApplicationPhase(listingData);
     const canBeChallenged = canListingBeChallenged(listingData);
     const canBeWhitelisted = getCanBeWhitelisted(listingData);
 
-    const inChallengeCommitVotePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
-    const inChallengeRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
+    const inChallengeCommitVotePhase = challenge && isChallengeInCommitStage(challenge);
+    const inChallengeRevealPhase = challenge && isChallengeInRevealStage(challenge);
     const isAwaitingAppealRequest = getIsAwaitingAppealRequest(listingData);
-    const canResolveChallenge = listingData.challenge && getCanResolveChallenge(listingData.challenge);
+    const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
+    const didListingChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
 
     const isAwaitingAppealJudgment = getIsListingAwaitingAppealJudgement(listingData);
+    const canListingAppealBeResolved = appeal && getCanAppealBeResolved(appeal);
+
     const isAwaitingAppealChallenge = getIsListingAwaitingAppealChallenge(listingData);
     const isInAppealChallengeCommitPhase = getIsInAppealChallengeCommitPhase(listingData);
     const isInAppealChallengeRevealPhase = getIsInAppealChallengeRevealPhase(listingData);
@@ -537,8 +542,10 @@ export const makeGetListingPhaseState = () => {
       isWhitelisted,
       isUnderChallenge,
       isRejected,
+      didListingChallengeSucceed,
       isAwaitingAppealJudgment,
       isAwaitingAppealChallenge,
+      canListingAppealBeResolved,
       isInAppealChallengeCommitPhase,
       isInAppealChallengeRevealPhase,
       canListingAppealChallengeBeResolved,
