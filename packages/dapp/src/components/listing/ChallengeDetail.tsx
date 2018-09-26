@@ -644,8 +644,9 @@ const makeMapStateToProps = () => {
     const challengeData = getChallenge(state, ownProps);
     if (challengeData && challengeData.challenge && challengeData.challenge.appeal) {
       const txData = challengeData.challenge.appeal.appealTxData.data!;
-      if (councilMultisigTransactions.has(txData.substring(0, 74))) {
-        txIdToConfirm = councilMultisigTransactions.get(txData).id;
+      const key = txData.substring(0, 74);
+      if (councilMultisigTransactions.has(key)) {
+        txIdToConfirm = councilMultisigTransactions.get(key).id;
       }
     }
     const newsroomState = getNewsroom(state, ownProps);
