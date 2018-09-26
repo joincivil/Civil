@@ -268,19 +268,18 @@ contract CivilTCR is RestrictedAddressRegistry {
   function challengeGrantedAppeal(address listingAddress, string data) public returns (uint challengeID) {
     Listing storage listing = listings[listingAddress];
     Appeal storage appeal = appeals[listing.challengeID];
-    uint pct = government.get("appealVotePercentage");
     require(appeal.appealGranted);
     require(appeal.appealChallengeID == 0);
     require(appeal.appealOpenToChallengeExpiry > now);
 
     uint pollID = voting.startPoll(
-      pct,
+      government.get("appealVotePercentage"),
       parameterizer.get("challengeAppealCommitLen"),
       parameterizer.get("challengeAppealRevealLen")
     );
 
     uint oneHundred = 100;
-    uint reward = (oneHundred.sub(pct)).mul(appeal.appealFeePaid).div(oneHundred);
+    uint reward = (oneHundred.sub(government.get("appealVoteDispensationPct"))).mul(appeal.appealFeePaid).div(oneHundred);
     challenges[pollID] = Challenge({
       challenger: msg.sender,
       rewardPool: reward,

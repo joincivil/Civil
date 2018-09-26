@@ -74,6 +74,7 @@ contract Government is IGovernment {
     uint requestAppealLength,
     uint judgeAppealLength,
     uint appealSupermajorityPercentage,
+    uint appealChallengeVoteDispensationPct,
     uint pDeposit,
     uint pCommitStageLength,
     uint pRevealStageLength,
@@ -90,8 +91,10 @@ contract Government is IGovernment {
     set("judgeAppealLen", judgeAppealLength);
     set("appealFee", appealFeeAmount);
     set("appealVotePercentage", appealSupermajorityPercentage);
+    set("appealChallengeVoteDispensationPct", appealChallengeVoteDispensationPct);
     set("govtPCommitStageLen", pCommitStageLength);
     set("govtPRevealStageLen", pRevealStageLength);
+    
     constitutionHash = constHash;
     constitutionURI = constURI;
   }
@@ -128,7 +131,7 @@ contract Government is IGovernment {
   function proposeReparameterization(string _name, uint _value) public onlyAppellate returns (bytes32) {
     bytes32 propID = keccak256(_name, _value);
 
-    if (keccak256(_name) == keccak256("appealVotePercentage")) {
+    if (keccak256(_name) == keccak256("appealVotePercentage") || keccak256(_name) == keccak256("appealChallengeVoteDispensationPct")) {
       require(_value <= 100);
     }
 
