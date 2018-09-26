@@ -1,12 +1,14 @@
 import * as React from "react";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress, AppealData } from "@joincivil/core";
 import { getLocalDateTimeStrings } from "@joincivil/utils";
+import { HollowGreenCheck, HollowRedNoGood } from "../icons";
 import {
   StyledListingSummaryContainer,
   StyledListingSummaryTop,
   StyledListingSummarySection,
   StyledListingSummaryNewsroomName,
   StyledListingSummaryDescription,
+  StyledAppealJudgementContainer,
   NewsroomIcon,
   MetaRow,
   MetaItemValue,
@@ -37,12 +39,14 @@ export interface ListingSummaryComponentProps {
   name?: string;
   description?: string;
   listingDetailURL?: string;
+  appeal?: AppealData;
   isInApplication?: boolean;
   canBeChallenged?: boolean;
   canBeWhitelisted?: boolean;
   inChallengeCommitVotePhase?: boolean;
   inChallengeRevealPhase?: boolean;
   isAwaitingAppealRequest?: boolean;
+  didListingChallengeSucceed?: boolean;
   canResolveChallenge?: boolean;
   canResolveAppealChallenge?: boolean;
   isAwaitingAppealJudgement?: boolean;
@@ -76,6 +80,8 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     }
     return (
       <StyledListingSummaryContainer>
+        {this.renderAppealJudgement()}
+
         <StyledListingSummaryTop>
           <NewsroomIcon />
           <div>
@@ -266,5 +272,32 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     }
 
     return;
+  };
+
+  private renderAppealJudgement = (): JSX.Element => {
+    const { appeal, didListingChallengeSucceed } = this.props;
+    if (!appeal || !appeal.appealGranted) {
+      return <></>;
+    }
+
+    let decisionText;
+
+    // Challenge succeeded (newsroom rejected) and appeal was granted, so newsroom is accepted
+    if (didListingChallengeSucceed) {
+      decisionText = (
+        <>
+          <HollowGreenCheck /> Appeal granted to accept Newsroom
+        </>
+      );
+      // Challenge failed (newsroom accepted) and appeal was granted, so newsroom is rejected
+    } else {
+      decisionText = (
+        <>
+          <HollowRedNoGood /> Appeal granted to reject Newsroom
+        </>
+      );
+    }
+
+    return <StyledAppealJudgementContainer>{decisionText}</StyledAppealJudgementContainer>;
   };
 }

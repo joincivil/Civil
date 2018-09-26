@@ -46,7 +46,6 @@ class ListingListItemComponent extends React.Component<
     if (newsroom!.wrapper.data.charter) {
       description = JSON.parse(newsroom!.wrapper.data.charter!.content.toString()).desc;
     }
-    console.log(this.props);
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
     const pollData = listingData.challenge && listingData.challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
@@ -67,6 +66,7 @@ class ListingListItemComponent extends React.Component<
       description,
       listingDetailURL,
       ...listingPhaseState,
+      appeal,
       appExpiry,
       commitEndDate,
       revealEndDate,
