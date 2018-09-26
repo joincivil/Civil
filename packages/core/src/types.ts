@@ -5,6 +5,7 @@ import {
   EthAddress,
   Hex,
   TxHash,
+  TxDataAll,
 } from "@joincivil/typescript-types";
 import BigNumber from "bignumber.js";
 import { CivilLogs } from "./contracts/generated/events";
@@ -156,7 +157,9 @@ export interface AppealData {
   appealGranted: boolean;
   appealOpenToChallengeExpiry: BigNumber;
   appealChallengeID: BigNumber;
+  appealTxData: TxDataAll;
   appealChallenge?: AppealChallengeData;
+  statement?: ContentData;
 }
 
 /**

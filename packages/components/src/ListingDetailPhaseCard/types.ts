@@ -18,6 +18,10 @@ export interface SubmitChallengeProps {
   handleSubmitChallenge?(): void;
 }
 
+export interface RequestAppealProps {
+  handleRequestAppeal?(): void;
+}
+
 export interface ChallengePhaseProps {
   challengeID?: string;
   isViewingUserChallenger?: boolean;

@@ -122,10 +122,10 @@ export async function depositTokens(
   return tcr.deposit(address, ensureWeb3BigNumber(numTokens));
 }
 
-export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function appealChallenge(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
-  return tcr.requestAppeal(address);
+  return tcr.requestAppeal(address, data);
 }
 
 export async function exitListing(address: EthAddress): Promise<TwoStepEthTransaction> {
@@ -185,11 +185,26 @@ export async function setAppellate(address: EthAddress): Promise<TwoStepEthTrans
   return council.transferAppellate(address);
 }
 
+export async function getRawGrantAppeal(address: EthAddress): Promise<string> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  const council = await tcr.getCouncil();
+  const tx = await council.getRawGrantAppeal(address);
+  return tx.data!;
+}
+
 export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
   const council = await tcr.getCouncil();
   return council.grantAppeal(address);
+}
+
+export async function confirmAppeal(id: number): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  const council = await tcr.getCouncil();
+  return council.confirmAppeal(id);
 }
 
 export async function approveVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {

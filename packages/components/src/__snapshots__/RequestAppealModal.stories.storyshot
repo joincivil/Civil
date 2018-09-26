@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Submit Challenge Modal Submit Challenge Modal 1`] = `
+exports[`Storyshots Request Appeal Modal Request Appeal Modal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hdPSEv jqCwaR",
+      "class": "sc-cCbXAZ hcktUN",
     },
     "children": Array [
       Object {

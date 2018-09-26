@@ -8,9 +8,11 @@ import {
   setAppellate,
   setController,
   setAppellateMembers,
+  addCouncilMultisigTransaction,
 } from "../actionCreators/government";
 import { getGovernmentParameters } from "../apis/civilTCR";
 import { getCivil, getTCR } from "./civilInstance";
+import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";
 
 export async function initializeGovernment(dispatch: Dispatch<any>): Promise<void> {
   const paramKeys: string[] = Object.values(GovernmentParameters);
@@ -48,4 +50,8 @@ export async function initializeConstitution(dispatch: Dispatch<any>): Promise<v
   dispatch(setController(controller));
   const appellateMembers = await council.getAppellateMembers();
   dispatch(setAppellateMembers(appellateMembers));
+
+  council.transactions().subscribe(async (transaction: MultisigTransaction) => {
+    dispatch(addCouncilMultisigTransaction(transaction));
+  });
 }
