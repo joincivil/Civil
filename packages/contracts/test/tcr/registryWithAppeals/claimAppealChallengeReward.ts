@@ -82,13 +82,13 @@ contract("Registry with Appeals", accounts => {
       const challenger2BalanceAfter = await token.balanceOf(challenger2);
       const appealerBalanceAfter = await token.balanceOf(voterBob);
 
-      expect(challenger2BalanceAfter).to.be.bignumber.equal(
-        challenger2BalanceBefore,
+      expect(appealerBalanceAfter).to.be.bignumber.equal(
+        appealerBalanceBefore,
         "appealer should not have gained money from losing",
       );
-      const expected = appealerBalanceBefore.add(utils.paramConfig.appealFeeAmount * 2);
+      const expected = challenger2BalanceBefore.add(utils.paramConfig.appealFeeAmount * 2);
 
-      expect(appealerBalanceAfter).to.be.bignumber.equal(
+      expect(challenger2BalanceAfter).to.be.bignumber.equal(
         expected,
         "appeal challenger should have received both deposits",
       );
