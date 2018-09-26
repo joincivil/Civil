@@ -122,10 +122,10 @@ export async function depositTokens(
   return tcr.deposit(address, ensureWeb3BigNumber(numTokens));
 }
 
-export async function appealChallenge(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function appealChallenge(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
-  return tcr.requestAppeal(address);
+  return tcr.requestAppeal(address, data);
 }
 
 export async function exitListing(address: EthAddress): Promise<TwoStepEthTransaction> {

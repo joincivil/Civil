@@ -11,6 +11,7 @@ const BACKGROUND_ACCENT_COLORS: any = {
 export const StyledListingDetailPhaseCardContainer = styled.div`
   box-sizing: border-box;
   background: ${colors.basic.WHITE};
+  box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
   font-family: ${fonts.SANS_SERIF};
   padding: 30px 0 50px;
   position: relative;
@@ -163,6 +164,10 @@ export const StyledCardStage: StyledComponentClass<StyledCardStageProps, "div"> 
 )`
   perspective: 800px;
   width: ${props => (props.width ? props.width + "px" : "")};
+
+  & ${StyledListingDetailPhaseCardContainer} {
+    box-shadow: none;
+  }
 `;
 
 export const StyledCard: StyledComponentClass<StyledCardProps, "div"> = styled<StyledCardProps, "div">("div")`

@@ -35,7 +35,7 @@ export class Challenge {
     const poll = await resolvedVoting.getPoll(this.challengeId);
     const requestAppealExpiry = await this.tcrInstance.challengeRequestAppealExpiries.callAsync(this.challengeId);
 
-    const appealInstance = new Appeal(this.ethApi, this.tcrInstance, this.challengeId);
+    const appealInstance = new Appeal(this.ethApi, this.tcrInstance, this.challengeId, this.contentProvider);
     const appeal = await appealInstance.getAppealData();
 
     return {
