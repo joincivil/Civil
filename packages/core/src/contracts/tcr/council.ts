@@ -1,6 +1,5 @@
 import { EthApi } from "@joincivil/ethapi";
 import { CivilErrors } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
