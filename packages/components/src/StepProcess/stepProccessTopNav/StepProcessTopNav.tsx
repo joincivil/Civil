@@ -17,7 +17,7 @@ export interface StepProcessTopNavState {
 const StyledNav = styled.div`
   position: relative;
   height: 76px;
-  margin: 0 auto 50px;
+  margin: 0 auto 25px;
   width: 100%;
   & > ul {
     justify-content: space-between;
@@ -36,7 +36,20 @@ const MainSection = styled.div`
   padding: 45px 115px;
 `;
 
+const ButtonSection = styled.div`
+  border-top: 1px solid rgb(233, 233, 234);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 25px;
+  & > button {
+    margin-left: 15px;
+  }
+`;
+
 export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTopNavState> {
+  public buttonContainer?: HTMLDivElement;
+
   constructor(props: StepsProps) {
     super(props);
     this.state = {
@@ -79,6 +92,19 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
     }
   }
 
+  public renderButtons(): JSX.Element | undefined {
+    const children = this.props.children;
+    const { activeIndex } = this.state;
+    if (children[activeIndex] && children[activeIndex].props.renderButtons) {
+      return children[activeIndex].props.renderButtons!({
+        goNext: this.goNext,
+        goPrevious: this.goPrevious,
+        index: this.state.activeIndex,
+        stepsLength: children.length,
+      });
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <div>
@@ -86,12 +112,21 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
           <StyledContainer>{this.renderTabs()}</StyledContainer>
         </StyledNav>
         <MainSection>{this.renderContent()}</MainSection>
+        <ButtonSection>{this.renderButtons()}</ButtonSection>
       </div>
     );
   }
 
   private setStartPosition = (position: number): void => {
     this.setState({ startPosition: position });
+  };
+
+  private goNext = (): void => {
+    this.setState({ activeIndex: this.state.activeIndex + 1 });
+  };
+
+  private goPrevious = (): void => {
+    this.setState({ activeIndex: this.state.activeIndex - 1 });
   };
 
   private handleClick = (index: number): void => {

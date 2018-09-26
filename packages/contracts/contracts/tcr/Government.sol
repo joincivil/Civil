@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.24;
 import "../interfaces/IGovernment.sol";
 import "../installed_contracts/PLCRVoting.sol";
 import "../installed_contracts/EIP20Interface.sol";
@@ -16,9 +16,11 @@ contract Government is IGovernment {
   event _ParameterSet(string name, uint value);
   event _GovtReparameterizationProposal(string name, uint value, bytes32 propID, uint pollID);
   event _ProposalPassed(bytes32 propId, uint pollID);
+  event _ProposalExpired(bytes32 propId, uint pollID);
   event _ProposalFailed(bytes32 propId, uint pollID);
   event _NewConstProposal(bytes32 proposedHash, string proposedURI, uint pollID);
   event _NewConstProposalPassed(bytes32 constHash, string constURI);
+  event _NewConstProposalExpired(bytes32 constHash, string constURI);
   event _NewConstProposalFailed(bytes32 constHash, string constURI);
 
   modifier onlyGovernmentController {
@@ -56,7 +58,6 @@ contract Government is IGovernment {
   NewConstProposal activeConstProp;
 
   // Global Variables
-  EIP20Interface public token;
   PLCRVoting public voting;
   // solium-disable-next-line
   uint public PROCESSBY = 604800; // 7 days
@@ -68,7 +69,6 @@ contract Government is IGovernment {
   function Government(
     address appellateAddr,
     address governmentControllerAddr,
-    address tokenAddr,
     address plcrAddr,
     uint appealFeeAmount,
     uint requestAppealLength,
@@ -85,7 +85,6 @@ contract Government is IGovernment {
     require(governmentControllerAddr != 0);
     appellate = appellateAddr;
     governmentController = governmentControllerAddr;
-    token = EIP20Interface(tokenAddr);
     voting = PLCRVoting(plcrAddr);
     set("requestAppealLen", requestAppealLength);
     set("judgeAppealLen", judgeAppealLength);
@@ -223,8 +222,10 @@ contract Government is IGovernment {
     if (voting.isPassed(prop.pollID)) { // The challenge failed
       if (prop.processBy > now) {
         set(prop.name, prop.value);
+        emit _ProposalPassed(_propID, prop.pollID);
+      } else {
+        emit _ProposalExpired(_propID, prop.pollID);
       }
-      emit _ProposalPassed(_propID, prop.pollID);
     } else { // The challenge succeeded or nobody voted
       emit _ProposalFailed(_propID, prop.pollID);
     }
@@ -240,8 +241,10 @@ contract Government is IGovernment {
       if (activeConstProp.processBy > now) {
         constitutionHash = activeConstProp.newConstHash;
         constitutionURI = activeConstProp.newConstURI;
+        emit _NewConstProposalPassed(activeConstProp.newConstHash, activeConstProp.newConstURI);
+      } else {
+        emit _NewConstProposalExpired(activeConstProp.newConstHash, activeConstProp.newConstURI);
       }
-      emit _NewConstProposalPassed(activeConstProp.newConstHash, activeConstProp.newConstURI);
     } else { // The challenge succeeded or nobody voted
       emit _NewConstProposalFailed(activeConstProp.newConstHash, activeConstProp.newConstURI);
     }

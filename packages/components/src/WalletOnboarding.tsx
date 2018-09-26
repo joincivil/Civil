@@ -1,11 +1,11 @@
 import * as React from "react";
 import { EthAddress } from "@joincivil/core";
 import {
+  AddressWithMetaMaskIcon,
   NorthEastArrow,
   Button,
   buttonSizes,
   MetaMaskSideIcon,
-  MetaMaskFrontIcon,
   fonts,
   ManagerSectionHeading,
 } from "./";
@@ -48,18 +48,8 @@ const LargeishLinkButton = LargeishButton.extend`
   padding-top: 11px;
 `;
 
-const WalletAddress = styled.span`
-  font-family: ${fonts.MONOSPACE};
-  display: inline-block;
-  margin-bottom: 24px;
-  padding: 8px 12px 4px 8px;
-  border: 1px solid #dddddd;
-
-  img {
-    position: relative;
-    top: -1px;
-    margin-right: 12px;
-  }
+const WalletAddress = styled(AddressWithMetaMaskIcon)`
+  margin-bottom: 28px;
 `;
 const ProfileWalletAddress = styled.span`
   font-family: ${fonts.MONOSPACE};
@@ -197,10 +187,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
             <p>Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.</p>
             <WalletLabel>Your wallet address</WalletLabel>
-            <WalletAddress>
-              <MetaMaskFrontIcon />
-              {this.props.metamaskWalletAddress}
-            </WalletAddress>{" "}
+            <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
             <WalletAction>
               <Button
                 size={buttonSizes.MEDIUM_WIDE}
@@ -222,10 +209,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <WalletLabel>Profile wallet address</WalletLabel>
             <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
             <WalletLabel>Connected wallet address</WalletLabel>
-            <WalletAddress>
-              <MetaMaskFrontIcon />
-              {this.props.metamaskWalletAddress}
-            </WalletAddress>{" "}
+            <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
             <WalletAction>
               <Button
                 size={buttonSizes.MEDIUM_WIDE}
@@ -242,10 +226,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <Wrapper>
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
             <WalletLabel>Your wallet address</WalletLabel>
-            <WalletAddress>
-              <MetaMaskFrontIcon />
-              {this.props.metamaskWalletAddress}
-            </WalletAddress>{" "}
+            <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
             <WalletAction>
               <a href={this.props.profileUrl}>Open Profile</a>
             </WalletAction>
