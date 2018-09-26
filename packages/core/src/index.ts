@@ -8,3 +8,4 @@ export * from "./utils/listingDataHelpers/userChallengeDataHelper";
 export * from "./utils/listingDataHelpers/pollHelper";
 export * from "./contracts/generated/events";
 export * from "./content";
+export * from "./contracts/multisig/multisigtransaction";

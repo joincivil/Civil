@@ -185,11 +185,26 @@ export async function setAppellate(address: EthAddress): Promise<TwoStepEthTrans
   return council.transferAppellate(address);
 }
 
+export async function getRawGrantAppeal(address: EthAddress): Promise<string> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  const council = await tcr.getCouncil();
+  const tx = await council.getRawGrantAppeal(address);
+  return tx.data!;
+}
+
 export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
   const council = await tcr.getCouncil();
   return council.grantAppeal(address);
+}
+
+export async function confirmAppeal(id: number): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  const council = await tcr.getCouncil();
+  return council.confirmAppeal(id);
 }
 
 export async function approveVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
