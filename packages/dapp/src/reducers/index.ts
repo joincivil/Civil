@@ -63,7 +63,7 @@ import { currentUserNewsrooms } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
 import { networkActions } from "../actionCreators/network";
 import { Subscription } from "rxjs";
-import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";
+import { MultisigTransaction } from "@joincivil/core";
 
 export interface State {
   networkDependent: NetworkDependentState;

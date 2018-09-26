@@ -125,7 +125,6 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     let modalContentComponents;
     if (isAwaitingAppealJudgment && this.props.isMemberOfAppellate) {
       if (this.props.txIdToConfirm) {
-        console.log("yes good");
         const confirmAppealProgressModal = this.renderConfirmAppealProgressModal();
         modalContentComponents = {
           [ModalContentEventNames.CONFIRM_APPEAL]: confirmAppealProgressModal,
@@ -137,7 +136,6 @@ class AppealDetail extends React.Component<AppealDetailProps> {
           },
         ];
       } else {
-        console.log("no bad");
         const grantAppealProgressModal = this.renderGrantAppealProgressModal();
         modalContentComponents = {
           [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,
