@@ -47,8 +47,10 @@ export interface ListingSummaryComponentProps {
   canResolveAppealChallenge?: boolean;
   isAwaitingAppealJudgement?: boolean;
   isAwaitingAppealChallenge?: boolean;
+  canListingAppealBeResolved?: boolean;
   isInAppealChallengeCommitPhase?: boolean;
   isInAppealChallengeRevealPhase?: boolean;
+  isAwaitingAppealJudgment?: boolean;
   isWhitelisted?: boolean;
   isUnderChallenge?: boolean;
   canListingAppealChallengeBeResolved?: boolean;
@@ -56,6 +58,8 @@ export interface ListingSummaryComponentProps {
   commitEndDate?: number;
   revealEndDate?: number;
   requestAppealExpiry?: number;
+  appealPhaseExpiry?: number;
+  appealOpenToChallengeExpiry?: number;
   whitelistedTimestamp?: number;
   unstakedDeposit?: string;
   challengeStake?: string;
@@ -105,6 +109,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
       isAwaitingAppealRequest,
       canBeWhitelisted,
       canResolveChallenge,
+      canListingAppealBeResolved,
       canListingAppealChallengeBeResolved,
       isAwaitingAppealJudgement,
       isAwaitingAppealChallenge,
@@ -117,7 +122,12 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
       return <RevealVoteStatusLabel />;
     } else if (isAwaitingAppealRequest) {
       return <AwaitingAppealRequestLabel />;
-    } else if (canBeWhitelisted || canResolveChallenge || canListingAppealChallengeBeResolved) {
+    } else if (
+      canBeWhitelisted ||
+      canResolveChallenge ||
+      canListingAppealChallengeBeResolved ||
+      canListingAppealBeResolved
+    ) {
       return <ReadyToCompleteStatusLabel />;
     } else if (isAwaitingAppealJudgement) {
       return <AwaitingDecisionStatusLabel />;
@@ -129,7 +139,14 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
 
   private renderPhaseCountdown = (): JSX.Element | undefined => {
     let expiry: number | undefined;
-    const { isInApplication, inChallengeCommitVotePhase, inChallengeRevealPhase, isAwaitingAppealRequest } = this.props;
+    const {
+      isInApplication,
+      inChallengeCommitVotePhase,
+      inChallengeRevealPhase,
+      isAwaitingAppealRequest,
+      isAwaitingAppealJudgment,
+      isAwaitingAppealChallenge,
+    } = this.props;
     if (isInApplication) {
       expiry = this.props.appExpiry;
     } else if (inChallengeCommitVotePhase) {
@@ -138,6 +155,10 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
       expiry = this.props.revealEndDate;
     } else if (isAwaitingAppealRequest) {
       expiry = this.props.requestAppealExpiry;
+    } else if (isAwaitingAppealJudgment) {
+      expiry = this.props.appealPhaseExpiry;
+    } else if (isAwaitingAppealChallenge) {
+      expiry = this.props.appealOpenToChallengeExpiry;
     }
 
     const warn = this.props.inChallengeCommitVotePhase || this.props.inChallengeRevealPhase;

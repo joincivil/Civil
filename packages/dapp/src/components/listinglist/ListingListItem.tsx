@@ -46,11 +46,15 @@ class ListingListItemComponent extends React.Component<
     if (newsroom!.wrapper.data.charter) {
       description = JSON.parse(newsroom!.wrapper.data.charter!.content.toString()).desc;
     }
+    console.log(this.props);
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
     const pollData = listingData.challenge && listingData.challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
     const requestAppealExpiry = listingData.challenge && listingData.challenge.requestAppealExpiry.toNumber();
+    const appeal = listingData.challenge && listingData.challenge.appeal;
+    const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
+    const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
@@ -67,6 +71,8 @@ class ListingListItemComponent extends React.Component<
       commitEndDate,
       revealEndDate,
       requestAppealExpiry,
+      appealPhaseExpiry,
+      appealOpenToChallengeExpiry,
       unstakedDeposit,
       challengeStake,
     };
