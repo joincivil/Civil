@@ -16,7 +16,7 @@ export const ApprovedNewsroomsTabText: React.SFC = props => {
 export const ApplicationsInProgressTabText: React.SFC = props => {
   return (
     <>
-      <ApplicationInProgressIcon /> Applications In Progress
+      <ApplicationInProgressIcon /> Newsrooms In Progress
     </>
   );
 };
