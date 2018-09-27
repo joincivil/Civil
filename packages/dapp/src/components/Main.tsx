@@ -26,7 +26,7 @@ import Listing from "./listing/Listing";
 import Listings from "./listinglist/Listings";
 import NewsroomManagementV1 from "./newsroom/NewsroomManagement";
 import NewsroomManagement from "./newsroom/NewsroomManagementV2";
-import Parameterizer from "./Parameterizer";
+import Parameterizer from "./parameterizer";
 import Government from "./council/Government";
 import SubmitChallengePage from "./listing/SubmitChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
