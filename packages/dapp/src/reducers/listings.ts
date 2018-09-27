@@ -80,7 +80,7 @@ export function histories(
         action.data.address,
         list
           .push(action.data.event)
-          // .sort((a, b) => b.blockNumber! - a.blockNumber!)
+          .sort((a, b) => b.blockNumber! - a.blockNumber!)
           .toList(),
       );
     default:
