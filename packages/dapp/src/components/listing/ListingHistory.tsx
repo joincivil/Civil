@@ -1,12 +1,14 @@
-import { List } from "immutable";
 import * as React from "react";
+import { List } from "immutable";
+
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../../reducers";
 import { getListingHistory } from "../../selectors";
-import ListingEvent from "./ListingEvent";
+// import ListingEvent from "./ListingEvent";
 import { ListingTabHeading } from "./styledComponents";
-import gql from "graphql-tag";
+
 import { Query } from "react-apollo";
+import gql from "graphql-tag";
 
 export interface ListingHistoryProps {
   listingAddress: string;
@@ -33,42 +35,20 @@ const LISTING_QUERY = gql`
   }
 `;
 
-interface Data {
-  governanceEvents: {
-    governanceEventType: string;
-    creationData: string;
-    metadata: MetaData[];
-  } | null;
-}
+export const TestGraphql = (props: any) => (
+  <Query query={LISTING_QUERY} variables={{ addr: "0xD51A14a9269E6fED86E95B96B73439226B35C200" }}>
+    {(ack: any): JSX.Element => {
+      if (ack.loading) {
+        return <p>Loading...</p>;
+      }
+      if (ack.error) {
+        return <p>Error :(</p>;
+      }
 
-interface MetaData {
-  key: string;
-  value: string;
-}
-
-interface Variables {
-  addr: string;
-}
-
-class MyQuery extends Query<Data, Variables> {}
-
-const Thingy = (addr: string) => {
-  return (
-    <MyQuery query={LISTING_QUERY} variables={{ addr }}>
-      {(thingy: any): JSX.Element => {
-        if (thingy.loading) {
-          return <span />;
-        } else if (thingy.error) {
-          return <span />;
-        }
-        thingy.data.governanceEvents.map((event: any) => {
-          console.log("event: ", event);
-        });
-        return <>waddup</>;
-      }}
-    </MyQuery>
-  );
-};
+      return ack.data.governanceEvents.map((foo: any) => <div>{JSON.stringify(foo)}</div>);
+    }}
+  </Query>
+);
 
 class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryReduxProps, ListingHistoryState> {
   constructor(props: DispatchProp<any> & ListingHistoryReduxProps) {
@@ -82,22 +62,7 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
     return (
       <>
         <ListingTabHeading>Listing History</ListingTabHeading>
-        <Query query={LISTING_QUERY} variables={{ addr: this.props.listingAddress }}>
-          {({ loading, error, data }: { loading: any; error: any; data: any }) => {
-            if (loading) {
-              return;
-            } else if (error) {
-              return;
-            }
-            data.governanceEvents.map((event: any) => {
-              console.log("event: ", event);
-            });
-            return <>waddup</>;
-          }}
-          {/*this.props.listingHistory.map((e, i) => {
-            return <ListingEvent key={i} event={e} listing={this.props.listingAddress} />;
-          })*/}
-        </Query>
+        <TestGraphql />
       </>
     );
   }
