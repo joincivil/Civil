@@ -36,6 +36,7 @@ import { ListingWrapperWithExpiry, ListingExtendedMetadata } from "../reducers/l
 
 export interface ListingContainerProps {
   listingAddress?: EthAddress;
+  listing?: EthAddress;
 }
 
 export interface ChallengeContainerProps {
@@ -126,6 +127,15 @@ export const makeGetListing = () => {
     const listing: ListingWrapper | undefined = listingWrapper ? listingWrapper.listing : undefined;
     return listing;
   });
+};
+
+export const getListingAddress = (state: State, props: ListingContainerProps) => {
+  const { listing, listingAddress } = props;
+  if (!listing && !listingAddress) {
+    return;
+  }
+  const address = listing || listingAddress;
+  return address;
 };
 
 export const getChallengeID = (state: State, props: ChallengeContainerProps) => {
@@ -381,6 +391,26 @@ export const getChallengesWonTotalCvl = createSelector(
   },
 );
 
+export const getChallengeByListingAddress = createSelector(
+  [getChallenges, getListings, getListingAddress],
+  (challenges, listings, listingAddress) => {
+    if (!challenges || !listings || !listingAddress) {
+      return;
+    }
+    const listing = listings.get(listingAddress);
+    if (!listing) {
+      return;
+    }
+
+    const challengeID = listing!.listing.data.challengeID;
+    if (!challengeID || challengeID.isZero()) {
+      return;
+    }
+
+    return challenges.get(challengeID.toString());
+  },
+);
+
 export const makeGetListingAddressByChallengeID = () => {
   return createSelector([getChallenge, getListings], (challenge, listings) => {
     let listingAddress;
@@ -476,17 +506,22 @@ export const makeGetListingPhaseState = () => {
     }
 
     const listingData = listing.listing.data;
+    const challenge = listingData.challenge;
+    const appeal = challenge && challenge.appeal;
 
     const isInApplication = isInApplicationPhase(listingData);
     const canBeChallenged = canListingBeChallenged(listingData);
     const canBeWhitelisted = getCanBeWhitelisted(listingData);
 
-    const inChallengeCommitVotePhase = listingData.challenge && isChallengeInCommitStage(listingData.challenge);
-    const inChallengeRevealPhase = listingData.challenge && isChallengeInRevealStage(listingData.challenge);
+    const inChallengeCommitVotePhase = challenge && isChallengeInCommitStage(challenge);
+    const inChallengeRevealPhase = challenge && isChallengeInRevealStage(challenge);
     const isAwaitingAppealRequest = getIsAwaitingAppealRequest(listingData);
-    const canResolveChallenge = listingData.challenge && getCanResolveChallenge(listingData.challenge);
+    const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
+    const didListingChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
 
     const isAwaitingAppealJudgment = getIsListingAwaitingAppealJudgement(listingData);
+    const canListingAppealBeResolved = appeal && getCanAppealBeResolved(appeal);
+
     const isAwaitingAppealChallenge = getIsListingAwaitingAppealChallenge(listingData);
     const isInAppealChallengeCommitPhase = getIsInAppealChallengeCommitPhase(listingData);
     const isInAppealChallengeRevealPhase = getIsInAppealChallengeRevealPhase(listingData);
@@ -507,8 +542,10 @@ export const makeGetListingPhaseState = () => {
       isWhitelisted,
       isUnderChallenge,
       isRejected,
+      didListingChallengeSucceed,
       isAwaitingAppealJudgment,
       isAwaitingAppealChallenge,
+      canListingAppealBeResolved,
       isInAppealChallengeCommitPhase,
       isInAppealChallengeRevealPhase,
       canListingAppealChallengeBeResolved,

@@ -23,6 +23,7 @@ import { NeedHelp } from "./NeedHelp";
 export interface AppealProps {
   requester: string;
   appealFeePaid: string;
+  txIdToConfirm?: number;
 }
 
 export type AppealAwaitingDecisionCardProps = ListingDetailPhaseCardComponentProps &
@@ -32,9 +33,13 @@ export type AppealAwaitingDecisionCardProps = ListingDetailPhaseCardComponentPro
   AppealProps;
 
 const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
+  let text = "Grant Appeal";
+  if (props.txIdToConfirm) {
+    text = "Confirm Appeal";
+  }
   return (
     <TransactionInvertedButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
-      Grant Appeal
+      {text}
     </TransactionInvertedButton>
   );
 };

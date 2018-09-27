@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import { governmentActions } from "../actionCreators/government";
 import { Map } from "immutable";
+import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";
 
 export function govtParameters(state: object = {}, action: AnyAction): object {
   switch (action.type) {
@@ -56,6 +57,18 @@ export function appellateMembers(state: string[] = [""], action: AnyAction): str
   switch (action.type) {
     case governmentActions.SET_APPELLATE_MEMBERS:
       return action.data;
+    default:
+      return state;
+  }
+}
+
+export function councilMultisigTransactions(
+  state: Map<string, MultisigTransaction> = Map<string, MultisigTransaction>(),
+  action: AnyAction,
+): Map<string, MultisigTransaction> {
+  switch (action.type) {
+    case governmentActions.ADD_COUNCIL_MULTISIG_TRANSACTION:
+      return state.set(action.data.information.data.substring(0, 74), action.data);
     default:
       return state;
   }

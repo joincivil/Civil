@@ -4,7 +4,7 @@ exports[`Storyshots Application Status Labels Labels 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-EHOje jLOkBO",
+      "class": "sc-bZQynM bcRGdN",
     },
     "children": Array [
       Object {
@@ -49,11 +49,11 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bwzfXH hmsOxZ",
+                  "class": "sc-htpNat eLzBYu",
                 },
                 "children": Array [
                   Object {
-                    "data": "Awaiting Appeal Challenge",
+                    "data": "Challenge Council Appeal ",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -69,7 +69,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-htpNat vCOFa",
+                      "class": "sc-bxivhb dXIuOW",
                     },
                     "children": Array [
                       Object {
@@ -89,7 +89,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-bxivhb draNpB",
+                          "class": "sc-ifAKCX ftTgTa",
                         },
                         "children": Array [
                           Object {
@@ -109,7 +109,7 @@ initialize {
                           "namespace": "http://www.w3.org/1999/xhtml",
                           "next": Object {
                             "attribs": Object {
-                              "class": "sc-bdVaJa kxHOUi",
+                              "class": "sc-htpNat eLzBYu",
                             },
                             "children": Array [
                               Object {
@@ -129,7 +129,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-ifAKCX lmIBBL",
+                                  "class": "sc-EHOje etPsyp",
                                 },
                                 "children": Array [
                                   Object {
@@ -276,11 +276,11 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-bwzfXH hmsOxZ",
+                "class": "sc-htpNat eLzBYu",
               },
               "children": Array [
                 Object {
-                  "data": "Awaiting Appeal Challenge",
+                  "data": "Challenge Council Appeal ",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -296,7 +296,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-htpNat vCOFa",
+                    "class": "sc-bxivhb dXIuOW",
                   },
                   "children": Array [
                     Object {
@@ -316,7 +316,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-bxivhb draNpB",
+                        "class": "sc-ifAKCX ftTgTa",
                       },
                       "children": Array [
                         Object {
@@ -336,7 +336,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-bdVaJa kxHOUi",
+                            "class": "sc-htpNat eLzBYu",
                           },
                           "children": Array [
                             Object {
@@ -356,7 +356,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-ifAKCX lmIBBL",
+                                "class": "sc-EHOje etPsyp",
                               },
                               "children": Array [
                                 Object {
@@ -513,11 +513,11 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-bwzfXH hmsOxZ",
+              "class": "sc-htpNat eLzBYu",
             },
             "children": Array [
               Object {
-                "data": "Awaiting Appeal Challenge",
+                "data": "Challenge Council Appeal ",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
@@ -533,7 +533,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-htpNat vCOFa",
+                  "class": "sc-bxivhb dXIuOW",
                 },
                 "children": Array [
                   Object {
@@ -553,7 +553,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bxivhb draNpB",
+                      "class": "sc-ifAKCX ftTgTa",
                     },
                     "children": Array [
                       Object {
@@ -573,7 +573,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-bdVaJa kxHOUi",
+                          "class": "sc-htpNat eLzBYu",
                         },
                         "children": Array [
                           Object {
@@ -593,7 +593,7 @@ initialize {
                           "namespace": "http://www.w3.org/1999/xhtml",
                           "next": Object {
                             "attribs": Object {
-                              "class": "sc-ifAKCX lmIBBL",
+                              "class": "sc-EHOje etPsyp",
                             },
                             "children": Array [
                               Object {
@@ -740,11 +740,11 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-bwzfXH hmsOxZ",
+            "class": "sc-htpNat eLzBYu",
           },
           "children": Array [
             Object {
-              "data": "Awaiting Appeal Challenge",
+              "data": "Challenge Council Appeal ",
               "next": null,
               "parent": [Circular],
               "prev": null,
@@ -760,7 +760,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-htpNat vCOFa",
+                "class": "sc-bxivhb dXIuOW",
               },
               "children": Array [
                 Object {
@@ -780,7 +780,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bxivhb draNpB",
+                    "class": "sc-ifAKCX ftTgTa",
                   },
                   "children": Array [
                     Object {
@@ -800,7 +800,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-bdVaJa kxHOUi",
+                        "class": "sc-htpNat eLzBYu",
                       },
                       "children": Array [
                         Object {
@@ -820,7 +820,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-ifAKCX lmIBBL",
+                            "class": "sc-EHOje etPsyp",
                           },
                           "children": Array [
                             Object {
@@ -977,11 +977,11 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-bwzfXH hmsOxZ",
+          "class": "sc-htpNat eLzBYu",
         },
         "children": Array [
           Object {
-            "data": "Awaiting Appeal Challenge",
+            "data": "Challenge Council Appeal ",
             "next": null,
             "parent": [Circular],
             "prev": null,
@@ -997,7 +997,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-htpNat vCOFa",
+              "class": "sc-bxivhb dXIuOW",
             },
             "children": Array [
               Object {
@@ -1017,7 +1017,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bxivhb draNpB",
+                  "class": "sc-ifAKCX ftTgTa",
                 },
                 "children": Array [
                   Object {
@@ -1037,7 +1037,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bdVaJa kxHOUi",
+                      "class": "sc-htpNat eLzBYu",
                     },
                     "children": Array [
                       Object {
@@ -1057,7 +1057,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-ifAKCX lmIBBL",
+                          "class": "sc-EHOje etPsyp",
                         },
                         "children": Array [
                           Object {
@@ -1224,7 +1224,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-htpNat vCOFa",
+            "class": "sc-bxivhb dXIuOW",
           },
           "children": Array [
             Object {
@@ -1244,7 +1244,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-bxivhb draNpB",
+                "class": "sc-ifAKCX ftTgTa",
               },
               "children": Array [
                 Object {
@@ -1264,7 +1264,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bdVaJa kxHOUi",
+                    "class": "sc-htpNat eLzBYu",
                   },
                   "children": Array [
                     Object {
@@ -1284,7 +1284,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-ifAKCX lmIBBL",
+                        "class": "sc-EHOje etPsyp",
                       },
                       "children": Array [
                         Object {
@@ -1359,11 +1359,11 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-bwzfXH hmsOxZ",
+            "class": "sc-htpNat eLzBYu",
           },
           "children": Array [
             Object {
-              "data": "Awaiting Appeal Challenge",
+              "data": "Challenge Council Appeal ",
               "next": null,
               "parent": [Circular],
               "prev": null,
@@ -1461,7 +1461,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-htpNat vCOFa",
+          "class": "sc-bxivhb dXIuOW",
         },
         "children": Array [
           Object {
@@ -1481,7 +1481,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-bxivhb draNpB",
+              "class": "sc-ifAKCX ftTgTa",
             },
             "children": Array [
               Object {
@@ -1501,7 +1501,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bdVaJa kxHOUi",
+                  "class": "sc-htpNat eLzBYu",
                 },
                 "children": Array [
                   Object {
@@ -1521,7 +1521,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-ifAKCX lmIBBL",
+                      "class": "sc-EHOje etPsyp",
                     },
                     "children": Array [
                       Object {
@@ -1593,11 +1593,11 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-bwzfXH hmsOxZ",
+              "class": "sc-htpNat eLzBYu",
             },
             "children": Array [
               Object {
-                "data": "Awaiting Appeal Challenge",
+                "data": "Challenge Council Appeal ",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
@@ -1708,7 +1708,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-bxivhb draNpB",
+            "class": "sc-ifAKCX ftTgTa",
           },
           "children": Array [
             Object {
@@ -1728,7 +1728,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-bdVaJa kxHOUi",
+                "class": "sc-htpNat eLzBYu",
               },
               "children": Array [
                 Object {
@@ -1748,7 +1748,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-ifAKCX lmIBBL",
+                    "class": "sc-EHOje etPsyp",
                   },
                   "children": Array [
                     Object {
@@ -1807,7 +1807,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-htpNat vCOFa",
+            "class": "sc-bxivhb dXIuOW",
           },
           "children": Array [
             Object {
@@ -1831,11 +1831,11 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-bwzfXH hmsOxZ",
+                "class": "sc-htpNat eLzBYu",
               },
               "children": Array [
                 Object {
-                  "data": "Awaiting Appeal Challenge",
+                  "data": "Challenge Council Appeal ",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -1945,7 +1945,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-bxivhb draNpB",
+          "class": "sc-ifAKCX ftTgTa",
         },
         "children": Array [
           Object {
@@ -1965,7 +1965,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-bdVaJa kxHOUi",
+              "class": "sc-htpNat eLzBYu",
             },
             "children": Array [
               Object {
@@ -1985,7 +1985,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-ifAKCX lmIBBL",
+                  "class": "sc-EHOje etPsyp",
                 },
                 "children": Array [
                   Object {
@@ -2041,7 +2041,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-htpNat vCOFa",
+              "class": "sc-bxivhb dXIuOW",
             },
             "children": Array [
               Object {
@@ -2065,11 +2065,11 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bwzfXH hmsOxZ",
+                  "class": "sc-htpNat eLzBYu",
                 },
                 "children": Array [
                   Object {
-                    "data": "Awaiting Appeal Challenge",
+                    "data": "Challenge Council Appeal ",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -2192,7 +2192,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-bdVaJa kxHOUi",
+            "class": "sc-htpNat eLzBYu",
           },
           "children": Array [
             Object {
@@ -2212,7 +2212,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-ifAKCX lmIBBL",
+                "class": "sc-EHOje etPsyp",
               },
               "children": Array [
                 Object {
@@ -2255,7 +2255,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-bxivhb draNpB",
+            "class": "sc-ifAKCX ftTgTa",
           },
           "children": Array [
             Object {
@@ -2279,7 +2279,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-htpNat vCOFa",
+                "class": "sc-bxivhb dXIuOW",
               },
               "children": Array [
                 Object {
@@ -2303,11 +2303,11 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bwzfXH hmsOxZ",
+                    "class": "sc-htpNat eLzBYu",
                   },
                   "children": Array [
                     Object {
-                      "data": "Awaiting Appeal Challenge",
+                      "data": "Challenge Council Appeal ",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -2429,7 +2429,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-bdVaJa kxHOUi",
+          "class": "sc-htpNat eLzBYu",
         },
         "children": Array [
           Object {
@@ -2449,7 +2449,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-ifAKCX lmIBBL",
+              "class": "sc-EHOje etPsyp",
             },
             "children": Array [
               Object {
@@ -2489,7 +2489,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-bxivhb draNpB",
+              "class": "sc-ifAKCX ftTgTa",
             },
             "children": Array [
               Object {
@@ -2513,7 +2513,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-htpNat vCOFa",
+                  "class": "sc-bxivhb dXIuOW",
                 },
                 "children": Array [
                   Object {
@@ -2537,11 +2537,11 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bwzfXH hmsOxZ",
+                      "class": "sc-htpNat eLzBYu",
                     },
                     "children": Array [
                       Object {
-                        "data": "Awaiting Appeal Challenge",
+                        "data": "Challenge Council Appeal ",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -2676,7 +2676,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-ifAKCX lmIBBL",
+            "class": "sc-EHOje etPsyp",
           },
           "children": Array [
             Object {
@@ -2703,7 +2703,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-bdVaJa kxHOUi",
+            "class": "sc-htpNat eLzBYu",
           },
           "children": Array [
             Object {
@@ -2727,7 +2727,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-bxivhb draNpB",
+                "class": "sc-ifAKCX ftTgTa",
               },
               "children": Array [
                 Object {
@@ -2751,7 +2751,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-htpNat vCOFa",
+                    "class": "sc-bxivhb dXIuOW",
                   },
                   "children": Array [
                     Object {
@@ -2775,11 +2775,11 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-bwzfXH hmsOxZ",
+                        "class": "sc-htpNat eLzBYu",
                       },
                       "children": Array [
                         Object {
-                          "data": "Awaiting Appeal Challenge",
+                          "data": "Challenge Council Appeal ",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -2913,7 +2913,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-ifAKCX lmIBBL",
+          "class": "sc-EHOje etPsyp",
         },
         "children": Array [
           Object {
@@ -2937,7 +2937,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-bdVaJa kxHOUi",
+              "class": "sc-htpNat eLzBYu",
             },
             "children": Array [
               Object {
@@ -2961,7 +2961,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bxivhb draNpB",
+                  "class": "sc-ifAKCX ftTgTa",
                 },
                 "children": Array [
                   Object {
@@ -2985,7 +2985,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-htpNat vCOFa",
+                      "class": "sc-bxivhb dXIuOW",
                     },
                     "children": Array [
                       Object {
@@ -3009,11 +3009,11 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-bwzfXH hmsOxZ",
+                          "class": "sc-htpNat eLzBYu",
                         },
                         "children": Array [
                           Object {
-                            "data": "Awaiting Appeal Challenge",
+                            "data": "Challenge Council Appeal ",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,

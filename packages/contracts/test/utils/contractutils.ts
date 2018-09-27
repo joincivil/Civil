@@ -23,7 +23,10 @@ const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
 const Newsroom = artifacts.require("Newsroom");
-const TokenTelemetry = artifacts.require("TokenTelemetry");
+const DummyTokenTelemetry = artifacts.require("DummyTokenTelemetry");
+const Whitelist = artifacts.require("Whitelist");
+const UserGroups = artifacts.require("UserGroups");
+const DummyTokenSale = artifacts.require("DummyTokenSale");
 configureProviders(
   PLCRVoting,
   CivilParameterizer,
@@ -33,6 +36,10 @@ configureProviders(
   CivilTCR,
   Government,
   Newsroom,
+  Whitelist,
+  UserGroups,
+  DummyTokenSale,
+  DummyTokenTelemetry,
 );
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
@@ -264,7 +271,6 @@ async function createTestCivilTCRInstance(
   const government = await Government.new(
     appellateEntity,
     appellateEntity,
-    tokenAddress,
     plcrAddress,
     parameterizerConfig.appealFeeAmount,
     parameterizerConfig.requestAppealPhaseLength,
@@ -347,7 +353,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
 }
 
 export async function createAllTestParameterizerInstance(accounts: string[]): Promise<any> {
-  const telemetry = await TokenTelemetry.new();
+  const telemetry = await DummyTokenTelemetry.new();
   const token = await createTestTokenInstance(accounts);
   const plcr = await createTestPLCRInstance(token, telemetry, accounts);
   const parameterizer = await createTestParameterizerInstance(accounts, token, plcr);
@@ -381,4 +387,13 @@ export async function createDummyNewsrom(from?: string): Promise<any> {
 export function configureProviders(...contracts: any[]): void {
   // TODO(ritave): Use our own contracts
   contracts.forEach(contract => contract.setProvider(ethApi.currentProvider));
+}
+
+export async function setUpUserGroups(
+  tokensPerUsd: number,
+): Promise<{ whitelist: any; userGroups: any; tokenSale: any }> {
+  const tokenSale = await DummyTokenSale.new(tokensPerUsd);
+  const whitelist = await Whitelist.new();
+  const userGroups = await UserGroups.new(whitelist.address, tokenSale.address);
+  return { whitelist, userGroups, tokenSale };
 }

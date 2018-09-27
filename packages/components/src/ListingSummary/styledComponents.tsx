@@ -22,6 +22,23 @@ export const StyledListingSummaryTop = styled.div`
   padding: 25px 22px;
 `;
 
+export const StyledAppealJudgementContainer = styled.div`
+  align-items: center;
+  display: flex;
+  background: ${colors.primary.BLACK};
+  border-radius: 3px;
+  color: ${colors.basic.WHITE};
+  font-size: 14px;
+  justify-content: center;
+  line-height: 18px;
+  margin: 9px 8px 2px;
+  padding: 15px 0;
+
+  & svg {
+    margin-right: 4px;
+  }
+`;
+
 export const StyledListingSummarySection = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
