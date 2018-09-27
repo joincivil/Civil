@@ -29,13 +29,12 @@ import {
   PullRight,
 } from "./styledComponents";
 
-export interface SubmitChallengeStatementProps {
+export interface SubmitAppealStatementProps {
   constitutionURI: string;
   governanceGuideURI: string;
   backToURL: string;
-  minDeposit: string;
-  commitStageLen: string;
-  revealStageLen: string;
+  appealFee: string;
+  judgeAppealLen: string;
   newsroomName: string;
   transactions: any[];
   modalContentComponents?: { [index: string]: JSX.Element };
@@ -44,7 +43,7 @@ export interface SubmitChallengeStatementProps {
   postExecuteTransactions?(): void;
 }
 
-export interface SubmitChallengeStatementState {
+export interface SubmitAppealStatementState {
   summaryValue: string;
   citeConstitutionValue: any;
   detailsValue: any;
@@ -52,11 +51,11 @@ export interface SubmitChallengeStatementState {
 
 const SUMMARY_MAX_LENGTH = 120;
 
-export class SubmitChallengeStatement extends React.Component<
-  SubmitChallengeStatementProps,
-  SubmitChallengeStatementState
+export class SubmitAppealStatement extends React.Component<
+  SubmitAppealStatementProps,
+  SubmitAppealStatementState
 > {
-  constructor(props: SubmitChallengeStatementProps) {
+  constructor(props: SubmitAppealStatementProps) {
     super(props);
     this.state = {
       summaryValue: "",
@@ -73,20 +72,19 @@ export class SubmitChallengeStatement extends React.Component<
             <StatementHeaderHeading>Challenge Newsroom</StatementHeaderHeading>
             <StatementHeaderNewsroomName>{this.props.newsroomName}</StatementHeaderNewsroomName>
             <CopyLarge>
-              A deposit of <strong>{this.props.minDeposit} tokens</strong> is required to request an appeal. Read our{" "}
+              A deposit of <strong>{this.props.appealFee} tokens</strong> is required to request an appeal. Read our{" "}
               <StyledLink href={this.props.governanceGuideURI}>governance guide</StyledLink> before you begin.
             </CopyLarge>
             <StyledOl>
               <StyledLi>
-                <StyledLiContent>State reasons for your challenge</StyledLiContent>
+                <StyledLiContent>State reasons for your request to appeal</StyledLiContent>
               </StyledLi>
               <StyledLi>
-                <StyledLiContent>Deposit CVL tokens to challenge</StyledLiContent>
+                <StyledLiContent>Deposit CVL tokens to request to appeal</StyledLiContent>
               </StyledLi>
             </StyledOl>
             <CopySmall>
-              After a challenge is submitted, the CVL token-holding community will have have {this.props.commitStageLen}{" "}
-              to commit their votes, followed by {this.props.revealStageLen} to confirm their votes appeal.
+              After a request is submitted, the Civil Council will have {this.props.judgeAppealLen} to rule on the appeal.
             </CopySmall>
           </StyledUserStatementHeader>
         </StyledUserStatementHeaderOuter>
@@ -133,8 +131,7 @@ export class SubmitChallengeStatement extends React.Component<
             <SectionForm>
               <SectionFormHeader>Add details and evidence to support your statements. (required) </SectionFormHeader>
               <SectionFormCopyHelper>
-                Help inform the Civil community to vote accordingly by providing as much information as possible to
-                support your case.
+                Help the Civil Council consider your request by providing as much information as possible to support your case
               </SectionFormCopyHelper>
 
               <StyledTextareaContainer>
@@ -144,7 +141,7 @@ export class SubmitChallengeStatement extends React.Component<
 
             <SectionDeposit>
               <StyledDepositLabel>Total Token Deposit</StyledDepositLabel>
-              <StyledDepositAmount>{this.props.minDeposit}</StyledDepositAmount>
+              <StyledDepositAmount>{this.props.appealFee}</StyledDepositAmount>
             </SectionDeposit>
 
             <SectionActions>
