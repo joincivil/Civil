@@ -5,6 +5,18 @@ export function getVoteSaltHash(vote: string, salt: string): string {
   return soliditySha3(["uint", "uint"], [vote, salt]);
 }
 
+/** For Proof of Use UserGroups smart-contract forceUnion */
+export function prepareForceUnionMessage(
+  userGroupsAddress: EthAddress,
+  addressA: EthAddress,
+  addressB: EthAddress,
+): Hex {
+  return soliditySha3(
+    ["address", "bytes32"],
+    [userGroupsAddress, soliditySha3(["address", "address"], [addressA, addressB])],
+  );
+}
+
 export function prepareNewsroomMessage(newsroomAddress: EthAddress, contentHash: Hex): Hex {
   // TODO(ritave): We might want to use Metamask's typed signining procedure which would explain
   //               Sadly it's only supported by Metamask so not yet

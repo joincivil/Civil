@@ -1,11 +1,7 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
 import { POU_GLOBAL_GROUP, POU_SUPER_GROUP, REVERTED } from "../utils/constants";
-import { configureProviders } from "../utils/contractutils";
-
-const UserGroups = artifacts.require("UserGroups");
-const Whitelist = artifacts.require("Whitelist");
-configureProviders(UserGroups, Whitelist);
+import { setUpUserGroups } from "../utils/contractutils";
 
 configureChai(chai);
 const expect = chai.expect;
@@ -16,8 +12,8 @@ contract("UserGroups", accounts => {
   let whitelist: any;
 
   beforeEach(async () => {
-    whitelist = await Whitelist.new();
-    userGroups = await UserGroups.new(whitelist.address);
+    ({ whitelist, userGroups } = await setUpUserGroups(1));
+    await whitelist.addAddressToWhitelist(owner);
   });
 
   // TODO(ritave): Add support for OffChainOwnable
@@ -70,6 +66,8 @@ contract("UserGroups", accounts => {
       await expect(userGroups.setMaxGroupSize(5, { from: accounts[1] })).to.eventually.be.rejectedWith(REVERTED);
     });
 
+    xit("signature from non-owners doesn't work", () => {});
+
     xit("max group size takes effect on any new inGroup unions", async () => {
       await userGroups.setMaxGroupSize(1);
       await expect(userGroups.allowInGroupTransfers(accounts[0], accounts[1])).to.be.rejectedWith(REVERTED);
@@ -77,6 +75,8 @@ contract("UserGroups", accounts => {
       await userGroups.allowInGroupTransfers(accounts[0], accounts[1]);
       await expect(userGroups.allowInGroupTransfers(accounts[0], accounts[2])).to.be.rejectedWith(REVERTED);
     });
+
+    xit("can't re-use signatures", () => {});
   });
 
   describe("allowInGroupTransfers", () => {
