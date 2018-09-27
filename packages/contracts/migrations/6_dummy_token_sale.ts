@@ -5,7 +5,6 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
 
   deployer.then(async () => {
     if (!config.nets[network] || !config.nets[network].TokenSaleAddress) {
-      console.log("Deploying Dummy Token Sale");
       await deployer.deploy(DummyTokenSale, 1);
     }
   });
