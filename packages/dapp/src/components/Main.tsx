@@ -26,7 +26,7 @@ import Listing from "./listing/Listing";
 import Listings from "./listinglist/Listings";
 import NewsroomManagementV1 from "./newsroom/NewsroomManagement";
 import NewsroomManagement from "./newsroom/NewsroomManagementV2";
-import Parameterizer from "./parameterizer";
+import Parameterizer from "./Parameterizer";
 import Government from "./council/Government";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
