@@ -8,6 +8,7 @@ import {
   QuestionToolTip,
   StepDescription,
   StepHeader,
+  StepFormSection,
   Transaction,
   TransactionButtonModalFlowState,
   MetaMaskModal,
@@ -302,7 +303,7 @@ class CompleteYourProfileComponent extends React.Component<
             />
           </QuestionToolTipWrapper>
         </Description>
-        <FormSection>
+        <StepFormSection>
           <FormTitleSection>
             <FormTitle>Civil Officer</FormTitle>
             <FormDescription>
@@ -326,8 +327,8 @@ class CompleteYourProfileComponent extends React.Component<
             })}
           </Section>
           {this.renderAddOwnerForm()}
-        </FormSection>
-        <FormSection>
+        </StepFormSection>
+        <StepFormSection>
           <FormTitleSection>
             <FormTitle>Civil Member</FormTitle>
             <FormDescription>
@@ -348,7 +349,7 @@ class CompleteYourProfileComponent extends React.Component<
             ))}
           </Section>
           {this.renderAddEditorForm()}
-        </FormSection>
+        </StepFormSection>
         {this.renderPreMetamMask()}
         {this.renderAwaitingTransactionModal()}
         {this.renderMetaMaskRejectionModal()}

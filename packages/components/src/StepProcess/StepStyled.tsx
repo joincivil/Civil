@@ -62,3 +62,9 @@ export const StepDescription = styled<StepDescriptionProps, "p">("p")`
   margin-bottom: 23px;
   margin-top: 0;
 `;
+
+export const StepFormSection = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding-top: 10px;
+  padding-bottom: 40px;
+`;

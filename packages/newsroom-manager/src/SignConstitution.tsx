@@ -1,138 +1,253 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-// import { addGovernmentData } from "./actionCreators";
-// import { getConstitutionHash, getConstitutionUri, getNewsroom, signMessage } from "../../apis/civilTCR";
 import {
   StepHeader,
-  StepProps,
-  StepStyled,
-  Collapsable,
-  // SignConstitutionButton,
   StepDescription,
+  StepFormSection,
+  Checkbox,
+  MetaMaskLogoButton,
+  MetaMaskModal,
+  ModalHeading,
+  TransactionButtonNoModal,
+  Transaction,
+  MetaMaskStepCounter,
 } from "@joincivil/components";
-// import styled from "styled-components";
+import { prepareConstitutionSignMessage } from "@joincivil/utils";
+import { Civil, EthAddress } from "@joincivil/core";
 import { Map } from "immutable";
-// import { getCivil } from "../../helpers/civilInstance";
+import styled from "styled-components";
+import { CivilContext, CivilContextValue } from "./CivilContext";
+import { EthSignedMessage } from "@joincivil/typescript-types";
 
-// const StyledLegalIframe = styled.iframe`
-// border-width: 1px;
-// height: 15rem;
-// margin: 0 0 2rem;
-// width: 100%;
-// `;
+const StyledLegalIframe = styled.iframe`
+  border-width: 1px;
+  height: 15rem;
+  margin: 0 0 2rem;
+  width: 100%;
+`;
 
-export interface SignConstitutionProps {
-  address?: string;
-}
+const CheckWrapper = styled.span`
+  margin-right: 8px;
+`;
 
 export interface SignConstitutionReduxProps {
   government?: Map<string, string>;
-  user?: any;
+  newsroomAdress?: EthAddress;
 }
 
 export interface SignConstitutionState {
-  isNewsroomOwner?: boolean;
+  isNewsroomOwner: boolean;
+  agreedToConstitution: boolean;
+  preSignModalOpen: boolean;
+  isWaitingSignatureOpen: boolean;
+  metaMaskRejectionModal: boolean;
+  startTransaction(): void;
+  cancelTransaction(): void;
 }
 
 class SignConstitutionComponent extends React.Component<
-  DispatchProp<any> & StepProps & SignConstitutionProps & SignConstitutionReduxProps,
+  DispatchProp<any> & SignConstitutionReduxProps,
   SignConstitutionState
 > {
-  constructor(props: StepProps & SignConstitutionProps & SignConstitutionReduxProps) {
+  constructor(props: SignConstitutionReduxProps) {
     super(props);
     this.state = {
       isNewsroomOwner: false,
+      agreedToConstitution: false,
+      preSignModalOpen: false,
+      isWaitingSignatureOpen: false,
+      metaMaskRejectionModal: false,
+      startTransaction: () => {
+        return;
+      },
+      cancelTransaction: () => {
+        return;
+      },
     };
   }
 
-  public async componentDidMount(): Promise<void> {
-    if (this.props.address && this.props.address.length && !this.props.disabled) {
-      // const isOwner = await this.isNewsroomOwner();
-      // this.setState({ isNewsroomOwner: isOwner });
+  public renderPreSignModal(): JSX.Element | null {
+    if (!this.state.preSignModalOpen) {
+      return null;
     }
-    // return this.initGovernmentData();
-  }
-
-  public async componentDidUpdate(
-    prevProps: StepProps & SignConstitutionProps & SignConstitutionReduxProps,
-    prevState: SignConstitutionState,
-  ): Promise<void> {
-    // const prevNewsroomAddress = prevProps.address;
-    // const newsroomAddress = this.props.address;
-    // const newState: SignConstitutionState = {};
-    // const isUpdatedAddress = !prevNewsroomAddress && newsroomAddress && newsroomAddress.length;
-    // const isUpdatedUser = prevProps.user !== this.props.user;
-    // if (isUpdatedAddress || (isUpdatedUser && !this.props.disabled)) {
-    // const isOwner = await this.isNewsroomOwner();
-    // newState.isNewsroomOwner = isOwner;
-    // }
-    // if (Object.keys(newState).length) {
-    // this.setState(newState);
-    // }
-  }
-
-  public render(): JSX.Element {
-    // const civil = getCivil();
     return (
-      <StepStyled disabled={this.props.disabled} index={this.props.index || 0}>
-        <Collapsable
-          header={
-            <>
-              <StepHeader disabled={this.props.disabled}>Sign the Civil Constitution (Coming Soon!)</StepHeader>
-              <StepDescription disabled={this.props.disabled}>Agree to the Civil Constitution</StepDescription>
-            </>
-          }
-          disabled={this.props.disabled}
-          open={false}
-        >
-          {/* <StyledLegalIframe src={this.props.government!.get("constitutionURI")} /> */}
-
-          {/* <SignConstitutionButton */}
-          {/* civil={civil} */}
-          {/* requiredNetwork="rinkeby" */}
-          {/* isNewsroomOwner={this.state.isNewsroomOwner} */}
-          {/* signConstitution={this.signConstitution} */}
-          {/* > */}
-          {/* Create Newsroom */}
-          {/* </SignConstitutionButton> */}
-        </Collapsable>
-      </StepStyled>
+      <MetaMaskModal
+        waiting={false}
+        signing={true}
+        cancelTransaction={() => this.cancelTransaction()}
+        startTransaction={() => this.startTransaction()}
+      >
+        <MetaMaskStepCounter>Step 1 of 2</MetaMaskStepCounter>
+        <ModalHeading>To sign the Civil Constitution, please open MetaMask and sign the request.</ModalHeading>
+      </MetaMaskModal>
     );
   }
 
-  // private initGovernmentData = async (): Promise<void> => {
-  // const constitutionHash = await getConstitutionHash();
-  // this.props.dispatch!(addGovernmentData("constitutionHash", constitutionHash));
-  // const constitutionURI = await getConstitutionUri();
-  // this.props.dispatch!(addGovernmentData("constitutionURI", constitutionURI));
-  // };
+  public renderWaitingSignModal(): JSX.Element | null {
+    if (!this.state.isWaitingSignatureOpen) {
+      return null;
+    }
+    return (
+      <MetaMaskModal
+        waiting={true}
+        signing={true}
+        cancelTransaction={() => this.cancelTransaction()}
+        startTransaction={() => this.startTransaction()}
+      >
+        <MetaMaskStepCounter>Step 1 of 2</MetaMaskStepCounter>
+        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
 
-  // private signConstitution = async (): Promise<void> => {
-  // const signature = await signMessage(this.props.government!.get("constitutionHash"));
-  // console.log(signature);
-  // };
+  public renderMetaMaskRejectionModal(): JSX.Element | null {
+    if (!this.state.metaMaskRejectionModal) {
+      return null;
+    }
+    const message = "Your signature was not created";
 
-  // private isNewsroomOwner = async (): Promise<boolean> => {
-  // const userAccount = (this.props.user && this.props.user.account) || undefined;
-  // if (!userAccount || Object.keys(userAccount).length === 0) {
-  // return false;
-  // }
-  // const newsroom = await getNewsroom(this.props.address!);
-  // const isOwner = await newsroom.isOwner(userAccount.account);
-  // return isOwner;
-  // };
+    const denailMessage =
+      "To sign the constitution, you need to confirm in your MetaMask wallet. You will not be able to proceed without signing the constitution.";
+
+    return (
+      <CivilContext.Consumer>
+        {(value: CivilContextValue) => (
+          <MetaMaskModal
+            waiting={false}
+            denied={true}
+            denialText={denailMessage}
+            cancelTransaction={() => this.cancelTransaction()}
+            denialRestartTransactions={this.getTransactions(value.civil!, true)}
+          >
+            <MetaMaskStepCounter>Step 1 of 2</MetaMaskStepCounter>
+            <ModalHeading>{message}</ModalHeading>
+          </MetaMaskModal>
+        )}
+      </CivilContext.Consumer>
+    );
+  }
+
+  public render(): JSX.Element {
+    return (
+      <>
+        <StepHeader>Sign the Civil Constitution</StepHeader>
+        <StepDescription>
+          Signing the Civil Constitution is an acknowledgement that you agree to abide by its set of ethical standards.
+        </StepDescription>
+        <StepFormSection>
+          <h4>Civil Constitution</h4>
+          <StepDescription>Please read and sign the Civil Constitution below</StepDescription>
+          <StyledLegalIframe src={this.props.government!.get("constitutionUri")} />
+          <p>
+            <CheckWrapper>
+              <Checkbox
+                checked={this.state.agreedToConstitution}
+                onClick={() => this.setState({ agreedToConstitution: !this.state.agreedToConstitution })}
+              />
+            </CheckWrapper>{" "}
+            I agree to abide by the Civil Community's ethical principles as described in the Civil Constitution
+          </p>
+        </StepFormSection>
+        <StepFormSection>
+          <CivilContext.Consumer>
+            {(value: CivilContextValue) => {
+              return (
+                <>
+                  <h4>Add signature and complete your charter</h4>
+                  <StepDescription>
+                    You will now cryptographically sign the constitution and add the signature to your charter and then
+                    save the charter to your newsroom smart contract. You will see two windows: one to sign this message
+                    and the other to confirm.
+                  </StepDescription>
+                  <TransactionButtonNoModal
+                    Button={props => (
+                      <MetaMaskLogoButton onClick={props.onClick}>Complete Your Charter</MetaMaskLogoButton>
+                    )}
+                    transactions={this.getTransactions(value.civil!)}
+                  />
+                </>
+              );
+            }}
+          </CivilContext.Consumer>
+          {this.renderPreSignModal()}
+          {this.renderWaitingSignModal()}
+          {this.renderMetaMaskRejectionModal()}
+        </StepFormSection>
+      </>
+    );
+  }
+  private getTransactions = (civil: Civil, noPremodal?: boolean): Transaction[] => {
+    return [
+      {
+        requireBeforeTransaction: noPremodal
+          ? undefined
+          : async (): Promise<any> => {
+              return new Promise((res, rej) => {
+                this.setState({
+                  startTransaction: res,
+                  cancelTransaction: rej,
+                  preSignModalOpen: true,
+                });
+              });
+            },
+        transaction: async (): Promise<EthSignedMessage> => {
+          this.setState({ isWaitingSignatureOpen: true });
+          return civil.signMessage(
+            prepareConstitutionSignMessage(this.props.newsroomAdress!, this.props.government!.get("constitutionHash")),
+          );
+        },
+        postTransaction: async (sig: EthSignedMessage): Promise<void> => {
+          const { signature } = sig;
+          console.log(signature); // do stuff with the signature
+        },
+        handleTransactionError: (err: Error) => {
+          this.setState({ isWaitingSignatureOpen: false });
+          if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
+            this.setState({ metaMaskRejectionModal: true });
+          }
+        },
+      },
+    ];
+  };
+
+  private cancelTransaction = () => {
+    if (this.state.cancelTransaction) {
+      this.state.cancelTransaction();
+    }
+    this.setState({
+      cancelTransaction: () => {
+        return;
+      },
+      startTransaction: () => {
+        return;
+      },
+      preSignModalOpen: false,
+    });
+  };
+
+  private startTransaction = () => {
+    if (this.state.startTransaction) {
+      this.state.startTransaction();
+    }
+    this.setState({
+      cancelTransaction: () => {
+        return;
+      },
+      startTransaction: () => {
+        return;
+      },
+      preSignModalOpen: false,
+      isWaitingSignatureOpen: true,
+    });
+  };
 }
 
-const mapStateToProps = (
-  state: any,
-  ownProps: StepProps & SignConstitutionReduxProps,
-): StepProps & SignConstitutionReduxProps & SignConstitutionReduxProps => {
-  // const { government, user } = state;
+const mapStateToProps = (state: any, ownProps: SignConstitutionReduxProps): SignConstitutionReduxProps => {
+  const { newsroomGovernment } = state;
 
   return {
-    // ...ownProps,
-    // government,
-    // user,
+    ...ownProps,
+    government: newsroomGovernment,
   };
 };
 

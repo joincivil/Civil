@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import {
   Modal,
   BorderlessButton,
@@ -10,9 +10,11 @@ import {
   Transaction,
   TransactionButtonInnerProps,
   MetaMaskSideIcon,
+  MetaMaskLogoButton,
 } from ".";
 import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm.png";
 import * as confirmButton from "./images/img-metamask-confirm@2x.png";
+import * as signImage from "./images/img-metamaskmodal-new-signature.png";
 
 const ModalP = styled.p`
   font-size: 18px;
@@ -34,35 +36,19 @@ export interface ContentSectionWrapperProps {
   row?: boolean;
 }
 
+export const MetaMaskStepCounter: StyledComponentClass<any, "div"> = styled.div`
+  font-weight: 600;
+`;
+
 const ContentSectionWrapper = styled.div`
   display: flex;
   flex-direction: ${(props: ContentSectionWrapperProps) => (props.row ? "row" : "column")};
   justify-content: space-between;
 `;
 
-const B = Button.extend`
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 46px;
-  padding-left: 75px;
-`;
-
 const IB = BorderlessButton.extend`
   font-weight: 400;
   margin-right: 30px;
-`;
-
-const ImgWrapper = styled.div`
-  width: 44px;
-  height: 44px;
-  background-color: #ffffff;
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const ImgWrapperSmall = styled.span`
@@ -100,34 +86,24 @@ const SpanWithMargin = styled.span`
 export interface MetaMaskModalProps {
   waiting: boolean;
   denied?: boolean;
+  signing?: boolean;
   denialText?: string;
   denialRestartTransactions?: Transaction[];
   cancelTransaction?(): void;
   startTransaction?(): void;
 }
 
-const PrimaryButton = (props: TransactionButtonInnerProps): JSX.Element => {
-  return (
-    <B onClick={props.onClick} size={buttonSizes.MEDIUM_WIDE}>
-      <ImgWrapper>
-        <MetaMaskSideIcon />
-      </ImgWrapper>
-      {props.children}
-    </B>
-  );
-};
-
 export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props => {
   const buttonSection = !props.waiting ? (
     <ButtonContainer>
       <IB onClick={props.cancelTransaction}>Cancel</IB>
       {props.denied ? (
-        <TransactionButtonNoModal transactions={props.denialRestartTransactions!} Button={PrimaryButton}>
+        <TransactionButtonNoModal transactions={props.denialRestartTransactions!} Button={MetaMaskLogoButton}>
           {" "}
           Try Again{" "}
         </TransactionButtonNoModal>
       ) : (
-        <PrimaryButton onClick={props.startTransaction!}>Open MetaMask</PrimaryButton>
+        <MetaMaskLogoButton onClick={props.startTransaction!}>Open MetaMask</MetaMaskLogoButton>
       )}
     </ButtonContainer>
   ) : (
@@ -138,19 +114,34 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
       </WaitingButton>
     </ButtonContainer>
   );
-
-  let paragraph = !props.waiting ? (
-    <ModalP> MetaMask will open a new window for you to confirm this transaction with your wallet.</ModalP>
-  ) : (
-    <ModalP>
-      You need to confirm this transaction in your wallet. MetaMask will open a new window to confirm. If you don't see
-      it, please click the icon{" "}
-      <ImgWrapperSmall>
-        <MetaMaskSideIcon />
-      </ImgWrapperSmall>{" "}
-      in the browser bar.
-    </ModalP>
-  );
+  let paragraph;
+  if (props.signing) {
+    paragraph = !props.waiting ? (
+      <ModalP> MetaMask will open a new window and request a signature.</ModalP>
+    ) : (
+      <ModalP>
+        You need to sign this message in your wallet. MetaMask will open a new window to confirm. If you don't see it,
+        please click the icon{" "}
+        <ImgWrapperSmall>
+          <MetaMaskSideIcon />
+        </ImgWrapperSmall>{" "}
+        in the browser bar.
+      </ModalP>
+    );
+  } else {
+    paragraph = !props.waiting ? (
+      <ModalP> MetaMask will open a new window for you to confirm this transaction with your wallet.</ModalP>
+    ) : (
+      <ModalP>
+        You need to confirm this transaction in your wallet. MetaMask will open a new window to confirm. If you don't
+        see it, please click the icon{" "}
+        <ImgWrapperSmall>
+          <MetaMaskSideIcon />
+        </ImgWrapperSmall>{" "}
+        in the browser bar.
+      </ModalP>
+    );
+  }
 
   if (props.denied) {
     paragraph = (
@@ -161,7 +152,11 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
     );
   }
 
-  const image = props.denied ? <MainImg src={confirmButton} /> : <img src={metaMaskModalUrl} />;
+  const image = props.denied ? (
+    <MainImg src={confirmButton} />
+  ) : (
+    <img src={props.signing ? signImage : metaMaskModalUrl} />
+  );
 
   return (
     <Modal width={560} padding={"32px 26px 0 26px"}>
