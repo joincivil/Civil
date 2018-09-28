@@ -1,10 +1,9 @@
 import * as React from "react";
 import { List } from "immutable";
-
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../../reducers";
 import { getListingHistory } from "../../selectors";
-// import ListingEvent from "./ListingEvent";
+import ListingEvent from "./ListingEvent";
 import { ListingTabHeading } from "./styledComponents";
 
 import { Query } from "react-apollo";
@@ -19,6 +18,7 @@ export interface ListingHistoryReduxProps extends ListingHistoryProps {
 }
 
 export interface ListingHistoryState {
+  useGraphql: boolean;
   error: undefined | string;
 }
 
@@ -35,25 +35,11 @@ const LISTING_QUERY = gql`
   }
 `;
 
-export const TestGraphql = (props: any) => (
-  <Query query={LISTING_QUERY} variables={{ addr: "0xD51A14a9269E6fED86E95B96B73439226B35C200" }}>
-    {(ack: any): JSX.Element => {
-      if (ack.loading) {
-        return <p>Loading...</p>;
-      }
-      if (ack.error) {
-        return <p>Error :(</p>;
-      }
-
-      return ack.data.governanceEvents.map((foo: any) => <div>{JSON.stringify(foo)}</div>);
-    }}
-  </Query>
-);
-
 class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryReduxProps, ListingHistoryState> {
   constructor(props: DispatchProp<any> & ListingHistoryReduxProps) {
     super(props);
     this.state = {
+      useGraphql: true,
       error: undefined,
     };
   }
@@ -62,7 +48,53 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
     return (
       <>
         <ListingTabHeading>Listing History</ListingTabHeading>
-        <TestGraphql />
+        {this.state.useGraphql && this.renderGraphQLHistory()}
+        {!this.state.useGraphql && this.renderReduxHistory()}
+      </>
+    );
+  }
+
+  public renderGraphQLHistory(): JSX.Element {
+    return (
+      <Query query={LISTING_QUERY} variables={{ addr: "0xD51A14a9269E6fED86E95B96B73439226B35C200" }}>
+        {({ loading, error, data }: any): JSX.Element => {
+          if (loading) {
+            return <p>Loading...</p>;
+          }
+          if (error) {
+            return <p>Error :(</p>;
+          }
+
+          return data.governanceEvents.map((event: any, i: number) => {
+            return (
+              <ListingEvent key={i} event={this.transformGraphQlEvent(event)} listing={this.props.listingAddress} />
+            );
+          });
+        }}
+      </Query>
+    );
+  }
+
+  public transformGraphQlEvent = (event: any): any => {
+    const args = {};
+    event.metadata.forEach((data: any) => {
+      const key = data.key.charAt(0).toLowerCase() + data.key.substring(1);
+      args[key] = data.value;
+    });
+    const date = new Date(event.creationDate).getTime() / 1000;
+    return {
+      event: "_" + event.governanceEventType,
+      timestamp: date,
+      args,
+    };
+  };
+
+  public renderReduxHistory(): JSX.Element {
+    return (
+      <>
+        {this.props.listingHistory.map((e, i) => {
+          return <ListingEvent key={i} event={e} listing={this.props.listingAddress} />;
+        })}
       </>
     );
   }
