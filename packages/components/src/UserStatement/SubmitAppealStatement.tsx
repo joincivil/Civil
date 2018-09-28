@@ -51,16 +51,13 @@ export interface SubmitAppealStatementState {
 
 const SUMMARY_MAX_LENGTH = 120;
 
-export class SubmitAppealStatement extends React.Component<
-  SubmitAppealStatementProps,
-  SubmitAppealStatementState
-> {
+export class SubmitAppealStatement extends React.Component<SubmitAppealStatementProps, SubmitAppealStatementState> {
   constructor(props: SubmitAppealStatementProps) {
     super(props);
     this.state = {
       summaryValue: "",
       citeConstitutionValue: RichTextEditor.createEmptyValue(),
-      detailsValue:  RichTextEditor.createEmptyValue(),
+      detailsValue: RichTextEditor.createEmptyValue(),
     };
   }
 
@@ -84,7 +81,8 @@ export class SubmitAppealStatement extends React.Component<
               </StyledLi>
             </StyledOl>
             <CopySmall>
-              After a request is submitted, the Civil Council will have {this.props.judgeAppealLen} to rule on the appeal.
+              After a request is submitted, the Civil Council will have {this.props.judgeAppealLen} to rule on the
+              appeal.
             </CopySmall>
           </StyledUserStatementHeader>
         </StyledUserStatementHeaderOuter>
@@ -131,7 +129,8 @@ export class SubmitAppealStatement extends React.Component<
             <SectionForm>
               <SectionFormHeader>Add details and evidence to support your statements. (required) </SectionFormHeader>
               <SectionFormCopyHelper>
-                Help the Civil Council consider your request by providing as much information as possible to support your case
+                Help the Civil Council consider your request by providing as much information as possible to support
+                your case
               </SectionFormCopyHelper>
 
               <StyledTextareaContainer>

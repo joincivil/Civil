@@ -30,7 +30,7 @@ storiesOf("User Statement Forms", module)
       governanceGuideURI: "https://civil.co",
       backToURL: "https://civil.co",
       newsroomName: "The Sleeper Reporters",
-      minDeposit: "100,000",
+      minDeposit: "100,000 CVL",
       commitStageLen: "10 days",
       revealStageLen: "7 days",
       transactions: [],
@@ -38,11 +38,7 @@ storiesOf("User Statement Forms", module)
       handleClose,
     };
 
-    return (
-      <Container>
-        {process.env.NODE_ENV !== "test" && <SubmitChallengeStatement {...props} />}
-      </Container>
-    );
+    return <Container>{process.env.NODE_ENV !== "test" && <SubmitChallengeStatement {...props} />}</Container>;
   })
   .add("Submit Appeal Statement", () => {
     const updateStatementValue = (name: string, value: any) => {
@@ -56,16 +52,12 @@ storiesOf("User Statement Forms", module)
       governanceGuideURI: "https://civil.co",
       backToURL: "https://civil.co",
       newsroomName: "The Sleeper Reporters",
-      appealFee: "100,000",
+      appealFee: "100,000 CVL",
       judgeAppealLen: "5 days",
       transactions: [],
       updateStatementValue,
       handleClose,
     };
 
-    return (
-      <Container>
-        {process.env.NODE_ENV !== "test" && <SubmitAppealStatement {...props} />}
-      </Container>
-    );
+    return <Container>{process.env.NODE_ENV !== "test" && <SubmitAppealStatement {...props} />}</Container>;
   });

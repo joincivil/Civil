@@ -121,13 +121,14 @@ export const SectionFormCopyHelper = styled.div`
 export const StyledTextareaContainer = styled.div`
   min-height: 110px;
 
-  & textarea {
-    height: 110px;
+  & textarea,
+  & .public-DraftEditor-content {
+    min-height: 110px;
   }
 `;
 
 export const SectionDeposit = styled.div`
-  box-shadow: inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_4}, inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_4};}
+  box-shadow: inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_4};
   display: flex;
   justify-content: space-between;
   padding: 26px;
@@ -148,6 +149,12 @@ export const SectionActions = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 50px 0 120px;
+
+  & ${SectionFormCopyHelper} {
+    margin-top: 18px;
+    max-width: 305px;
+    text-align: left;
+  }
 `;
 
 export const PullRight = styled.div`

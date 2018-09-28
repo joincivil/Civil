@@ -61,7 +61,7 @@ export class SubmitChallengeStatement extends React.Component<
     this.state = {
       summaryValue: "",
       citeConstitutionValue: RichTextEditor.createEmptyValue(),
-      detailsValue:  RichTextEditor.createEmptyValue(),
+      detailsValue: RichTextEditor.createEmptyValue(),
     };
   }
 
