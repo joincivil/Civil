@@ -5,6 +5,7 @@ export interface ListingDetailPhaseCardComponentProps {
   listing?: any;
   listingAddress?: EthAddress;
   transactions?: any[];
+  constitutionURI?: string;
   modalContentComponents?: any;
 }
 
@@ -15,11 +16,11 @@ export interface PhaseWithExpiryProps {
 }
 
 export interface SubmitChallengeProps {
-  handleSubmitChallenge?(): void;
+  submitChallengeURI?: string;
 }
 
 export interface RequestAppealProps {
-  handleRequestAppeal?(): void;
+  requestAppealURI?: string;
 }
 
 export interface ChallengePhaseProps {

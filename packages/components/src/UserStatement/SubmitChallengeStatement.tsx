@@ -1,7 +1,7 @@
 import * as React from "react";
 import RichTextEditor from "react-rte";
 import { TextareaInput } from "../input";
-import { buttonSizes, CancelButton } from "../Button";
+import { buttonSizes, SecondaryButton } from "../Button";
 import { TransactionButton } from "../TransactionButton";
 import {
   StyledUserStatementHeaderOuter,
@@ -30,17 +30,16 @@ import {
 } from "./styledComponents";
 
 export interface SubmitChallengeStatementProps {
-  constitutionURI: string;
-  governanceGuideURI: string;
-  backToURL: string;
-  minDeposit: string;
-  commitStageLen: string;
-  revealStageLen: string;
-  newsroomName: string;
+  constitutionURI?: string;
+  governanceGuideURI?: string;
+  listingURI?: string;
+  minDeposit?: string;
+  commitStageLen?: string;
+  revealStageLen?: string;
+  newsroomName?: string;
   transactions: any[];
   modalContentComponents?: { [index: string]: JSX.Element };
   updateStatementValue(key: string, value: any): void;
-  handleClose?(): void;
   postExecuteTransactions?(): void;
 }
 
@@ -85,8 +84,9 @@ export class SubmitChallengeStatement extends React.Component<
               </StyledLi>
             </StyledOl>
             <CopySmall>
-              After a challenge is submitted, the CVL token-holding community will have have {this.props.commitStageLen}{" "}
-              to commit their votes, followed by {this.props.revealStageLen} to confirm their votes appeal.
+              After a challenge is submitted, the CVL token-holding community will have have{" "}
+              <strong>{this.props.commitStageLen} to commit their votes</strong>, followed by{" "}
+              <strong>{this.props.revealStageLen} to confirm their votes.</strong>
             </CopySmall>
           </StyledUserStatementHeader>
         </StyledUserStatementHeaderOuter>
@@ -149,9 +149,9 @@ export class SubmitChallengeStatement extends React.Component<
 
             <SectionActions>
               <div>
-                <CancelButton size={buttonSizes.MEDIUM} onClick={this.closeModal}>
+                <SecondaryButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
                   Cancel
-                </CancelButton>
+                </SecondaryButton>
               </div>
 
               <PullRight>
@@ -187,11 +187,5 @@ export class SubmitChallengeStatement extends React.Component<
   private handleDetailsValueChange = (detailsValue: any) => {
     this.setState({ detailsValue });
     this.props.updateStatementValue("details", detailsValue);
-  };
-
-  private closeModal = () => {
-    if (this.props.handleClose) {
-      this.props.handleClose();
-    }
   };
 }

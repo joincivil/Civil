@@ -1,2 +1,2 @@
 export * from "./SubmitChallengeStatement";
-export * from "./SubmitAppealStatement";
+export * from "./RequestAppealStatement";

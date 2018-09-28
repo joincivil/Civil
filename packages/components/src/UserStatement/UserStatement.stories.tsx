@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import { SubmitChallengeStatement, SubmitChallengeStatementProps } from "./SubmitChallengeStatement";
-import { SubmitAppealStatement, SubmitAppealStatementProps } from "./SubmitAppealStatement";
+import { RequestAppealStatement, RequestAppealStatementProps } from "./RequestAppealStatement";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -22,20 +22,16 @@ storiesOf("User Statement Forms", module)
     const updateStatementValue = (name: string, value: any) => {
       console.log("update statement", name, value);
     };
-    const handleClose = () => {
-      console.log("Closed the Submit Challenge modal");
-    };
     const props: SubmitChallengeStatementProps = {
       constitutionURI: "https://civil.co",
       governanceGuideURI: "https://civil.co",
-      backToURL: "https://civil.co",
+      listingURI: "https://civil.co",
       newsroomName: "The Sleeper Reporters",
       minDeposit: "100,000 CVL",
       commitStageLen: "10 days",
       revealStageLen: "7 days",
       transactions: [],
       updateStatementValue,
-      handleClose,
     };
 
     return <Container>{process.env.NODE_ENV !== "test" && <SubmitChallengeStatement {...props} />}</Container>;
@@ -44,20 +40,16 @@ storiesOf("User Statement Forms", module)
     const updateStatementValue = (name: string, value: any) => {
       console.log("update statement", name, value);
     };
-    const handleClose = () => {
-      console.log("Closed the Submit Challenge modal");
-    };
-    const props: SubmitAppealStatementProps = {
+    const props: RequestAppealStatementProps = {
       constitutionURI: "https://civil.co",
       governanceGuideURI: "https://civil.co",
-      backToURL: "https://civil.co",
+      listingURI: "https://civil.co",
       newsroomName: "The Sleeper Reporters",
       appealFee: "100,000 CVL",
       judgeAppealLen: "5 days",
       transactions: [],
       updateStatementValue,
-      handleClose,
     };
 
-    return <Container>{process.env.NODE_ENV !== "test" && <SubmitAppealStatement {...props} />}</Container>;
+    return <Container>{process.env.NODE_ENV !== "test" && <RequestAppealStatement {...props} />}</Container>;
   });

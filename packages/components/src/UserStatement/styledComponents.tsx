@@ -14,6 +14,7 @@ export const StyledUserStatementHeaderOuter = styled.div`
 
 export const StyledUserStatementHeader = styled.div`
   background: ${colors.accent.CIVIL_YELLOW};
+  box-sizing: content-box;
   font-family: ${fonts.SANS_SERIF};
   padding: 36px 123px;
   width: 675px;
@@ -137,6 +138,7 @@ export const SectionDeposit = styled.div`
 export const StyledDepositLabel = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-size: 18px;
+  font-weight: bold;
   letter-spacing: -0.1px;
   line-height: 21px;
 `;

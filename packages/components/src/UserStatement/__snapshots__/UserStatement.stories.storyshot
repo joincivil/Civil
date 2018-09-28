@@ -1,12 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Application Phase Countdown Timer Progress Bar Timers 1`] = `
+exports[`Storyshots User Statement Forms Submit Appeal Statement 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fKGOjr kKOIYE",
+      "class": "sc-dTLGrV larWON",
     },
-    "children": Array [],
+    "children": Array [
+      Object {
+        "attribs": Object {},
+        "children": Array [],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
     "name": "div",
     "namespace": "http://www.w3.org/1999/xhtml",
     "next": null,
@@ -45,58 +58,26 @@ initialize {
 }
 `;
 
-exports[`Storyshots Application Phase Countdown Timer Text Timers 1`] = `
+exports[`Storyshots User Statement Forms Submit Challenge Statement 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fKGOjr kKOIYE",
+      "class": "sc-dTLGrV larWON",
     },
-    "children": Array [],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
-`;
-
-exports[`Storyshots Application Phase Countdown Timer Two Phase Progress Bar Timers 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "sc-fKGOjr kKOIYE",
-    },
-    "children": Array [],
+    "children": Array [
+      Object {
+        "attribs": Object {},
+        "children": Array [],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
     "name": "div",
     "namespace": "http://www.w3.org/1999/xhtml",
     "next": null,

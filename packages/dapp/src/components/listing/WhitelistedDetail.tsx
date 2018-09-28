@@ -9,7 +9,7 @@ import { ListingContainerProps } from "../utility/HigherOrderComponents";
 
 export interface WhitelistedCardSubmitChallengeProps {
   listingAddress: EthAddress;
-  handleSubmitChallenge?(): void;
+  constitutionURI?: string;
 }
 
 class WhitelistedDetail extends React.Component<
@@ -20,11 +20,13 @@ class WhitelistedDetail extends React.Component<
   }
 
   public render(): JSX.Element {
+    const submitChallengeURI = `/listing/${this.props.listingAddress}/submit-challenge`;
     return (
       <>
         <WhitelistedCard
           whitelistedTimestamp={this.props.whitelistedTimestamp}
-          handleSubmitChallenge={this.props.handleSubmitChallenge}
+          submitChallengeURI={submitChallengeURI}
+          constitutionURI={this.props.constitutionURI}
         />
       </>
     );

@@ -1,7 +1,7 @@
 import * as React from "react";
 import RichTextEditor from "react-rte";
 import { TextareaInput } from "../input";
-import { buttonSizes, CancelButton } from "../Button";
+import { buttonSizes, SecondaryButton } from "../Button";
 import { TransactionButton } from "../TransactionButton";
 import {
   StyledUserStatementHeaderOuter,
@@ -29,21 +29,20 @@ import {
   PullRight,
 } from "./styledComponents";
 
-export interface SubmitAppealStatementProps {
+export interface RequestAppealStatementProps {
   constitutionURI: string;
   governanceGuideURI: string;
-  backToURL: string;
+  listingURI: string;
   appealFee: string;
   judgeAppealLen: string;
   newsroomName: string;
   transactions: any[];
   modalContentComponents?: { [index: string]: JSX.Element };
   updateStatementValue(key: string, value: any): void;
-  handleClose?(): void;
   postExecuteTransactions?(): void;
 }
 
-export interface SubmitAppealStatementState {
+export interface RequestAppealStatementState {
   summaryValue: string;
   citeConstitutionValue: any;
   detailsValue: any;
@@ -51,8 +50,8 @@ export interface SubmitAppealStatementState {
 
 const SUMMARY_MAX_LENGTH = 120;
 
-export class SubmitAppealStatement extends React.Component<SubmitAppealStatementProps, SubmitAppealStatementState> {
-  constructor(props: SubmitAppealStatementProps) {
+export class RequestAppealStatement extends React.Component<RequestAppealStatementProps, RequestAppealStatementState> {
+  constructor(props: RequestAppealStatementProps) {
     super(props);
     this.state = {
       summaryValue: "",
@@ -145,9 +144,9 @@ export class SubmitAppealStatement extends React.Component<SubmitAppealStatement
 
             <SectionActions>
               <div>
-                <CancelButton size={buttonSizes.MEDIUM} onClick={this.closeModal}>
+                <SecondaryButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
                   Cancel
-                </CancelButton>
+                </SecondaryButton>
               </div>
 
               <PullRight>
@@ -183,11 +182,5 @@ export class SubmitAppealStatement extends React.Component<SubmitAppealStatement
   private handleDetailsValueChange = (detailsValue: any) => {
     this.setState({ detailsValue });
     this.props.updateStatementValue("details", detailsValue);
-  };
-
-  private closeModal = () => {
-    if (this.props.handleClose) {
-      this.props.handleClose();
-    }
   };
 }

@@ -32,9 +32,9 @@ const RequestAppealButton: React.SFC<
     ChallengeResultsProps &
     RequestAppealProps
 > = props => {
-  if (props.handleRequestAppeal) {
+  if (props.requestAppealURI) {
     return (
-      <InvertedButton size={buttonSizes.MEDIUM} onClick={props.handleRequestAppeal}>
+      <InvertedButton size={buttonSizes.MEDIUM} to={props.requestAppealURI}>
         Request an Appeal
       </InvertedButton>
     );
