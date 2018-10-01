@@ -9,6 +9,7 @@ configureChai(chai);
 const expect = chai.expect;
 
 contract("GroupTokenController", accounts => {
+  const [owner] = accounts;
   const group1 = accounts.slice(1, 5);
   const group2 = accounts.slice(5, 9);
   const restAccounts = accounts.slice(9);
@@ -18,7 +19,7 @@ contract("GroupTokenController", accounts => {
   let controller: any;
 
   beforeEach(async () => {
-    ({ whitelist, userGroups } = await setUpUserGroups(1));
+    ({ whitelist, userGroups } = await setUpUserGroups(1, owner));
     controller = await GroupTokenController.new(userGroups.address);
   });
 

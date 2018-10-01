@@ -17,6 +17,10 @@ export function prepareForceUnionMessage(
   );
 }
 
+export function prepareMaxGroupSizeMessage(userGroupsAddress: EthAddress, nonce: number, groupSize: number): Hex {
+  return soliditySha3(["address", "bytes32"], [userGroupsAddress, soliditySha3(["uint", "uint"], [nonce, groupSize])]);
+}
+
 export function prepareNewsroomMessage(newsroomAddress: EthAddress, contentHash: Hex): Hex {
   // TODO(ritave): We might want to use Metamask's typed signining procedure which would explain
   //               Sadly it's only supported by Metamask so not yet
