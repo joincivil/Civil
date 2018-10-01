@@ -391,9 +391,11 @@ export function configureProviders(...contracts: any[]): void {
 
 export async function setUpUserGroups(
   tokensPerUsd: number,
+  owner: string,
 ): Promise<{ whitelist: any; userGroups: any; tokenSale: any }> {
   const tokenSale = await DummyTokenSale.new(tokensPerUsd);
   const whitelist = await Whitelist.new();
+  await whitelist.addAddressToWhitelist(owner);
   const userGroups = await UserGroups.new(whitelist.address, tokenSale.address);
   return { whitelist, userGroups, tokenSale };
 }
