@@ -92,6 +92,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     return (
       <Switch>
         <Route exact path="/" component={Listings} />
+        <Route path="/registry/:listingType/:subListingType" component={Listings} />
         <Route path="/registry/:listingType" component={Listings} />
         <Route path="/registry" component={Listings} />
         <Route path="/contracts" component={Contracts} />
