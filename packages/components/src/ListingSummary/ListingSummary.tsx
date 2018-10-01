@@ -97,7 +97,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
         </StyledListingSummaryTop>
         <StyledListingSummarySection>
           <StyledListingSummaryDescription>{description}</StyledListingSummaryDescription>
-          :
+
           {this.props.challengeStatementSummary && (
             <StyledListingSummaryDescription>
               <b>Challenge Summary</b>
