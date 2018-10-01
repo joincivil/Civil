@@ -56,11 +56,16 @@ class ListingChallengeStatement extends React.Component<
         <ListingTabHeading>The Civil Council is reviewing a requested appeal.</ListingTabHeading>
         <p>Should the Civil Council overturn this challenge result?</p>
         <ListingTabHeading>Appeal Statement</ListingTabHeading>
-        <StyledChallengeStatementSection>{summary}</StyledChallengeStatementSection>
         <StyledChallengeStatementSection>
+          <b>Summary</b>
+          <div>{summary}</div>
+        </StyledChallengeStatementSection>
+        <StyledChallengeStatementSection>
+          <b>Evidence From Civil Constitution</b>
           <div dangerouslySetInnerHTML={{ __html: cleanCiteConstitution }} />
         </StyledChallengeStatementSection>
         <StyledChallengeStatementSection>
+          <b>Additional Details</b>
           <div dangerouslySetInnerHTML={{ __html: cleanDetails }} />
         </StyledChallengeStatementSection>
       </StyledChallengeStatementComponent>
@@ -72,9 +77,17 @@ class ListingChallengeStatement extends React.Component<
       return <></>;
     }
     const parsed = JSON.parse(this.props.challengeStatement);
-    const cleanStatement = sanitizeHtml(parsed.statement, {
-      allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
-    });
+    const summary = parsed.summary || "";
+    const cleanCiteConstitution = parsed.citeConstitution
+      ? sanitizeHtml(parsed.citeConstitution, {
+          allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
+        })
+      : "";
+    const cleanDetails = parsed.citeConstitution
+      ? sanitizeHtml(parsed.citeConstitution, {
+          allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
+        })
+      : "";
     return (
       <StyledChallengeStatementComponent>
         <ListingTabHeading>Newsroom listing is under challenge</ListingTabHeading>
@@ -83,7 +96,18 @@ class ListingChallengeStatement extends React.Component<
           tokens.
         </p>
         <ListingTabHeading>Challenge Statement</ListingTabHeading>
-        <div dangerouslySetInnerHTML={{ __html: cleanStatement }} />
+        <StyledChallengeStatementSection>
+          <b>Summary</b>
+          <div>{summary}</div>
+        </StyledChallengeStatementSection>
+        <StyledChallengeStatementSection>
+          <b>Evidence From Civil Constitution</b>
+          <div dangerouslySetInnerHTML={{ __html: cleanCiteConstitution }} />
+        </StyledChallengeStatementSection>
+        <StyledChallengeStatementSection>
+          <b>Additional Details</b>
+          <div dangerouslySetInnerHTML={{ __html: cleanDetails }} />
+        </StyledChallengeStatementSection>
       </StyledChallengeStatementComponent>
     );
   };

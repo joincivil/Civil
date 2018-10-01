@@ -17,8 +17,6 @@ import {
 import { buttonSizes, InvertedButton } from "../Button";
 import { TextCountdownTimer } from "../PhaseCountdown/";
 import {
-  AmountDepositedLabelText,
-  AmountStakedChallengeLabelText,
   ApplicationPhaseEndedLabelText,
   ApprovedLabelText,
   ChallengeEndedLabelText,
@@ -39,6 +37,7 @@ export interface ListingSummaryComponentProps {
   name?: string;
   description?: string;
   listingDetailURL?: string;
+  challengeStatementSummary?: string;
   appeal?: AppealData;
   isInApplication?: boolean;
   canBeChallenged?: boolean;
@@ -94,12 +93,18 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
             <InvertedButton size={buttonSizes.SMALL} to={this.props.listingDetailURL}>
               <ViewDetailsButtonText />
             </InvertedButton>
-
-            {this.renderUnstakedDepositOrChallengeStake()}
           </div>
         </StyledListingSummaryTop>
         <StyledListingSummarySection>
           <StyledListingSummaryDescription>{description}</StyledListingSummaryDescription>
+          :
+          {this.props.challengeStatementSummary && (
+            <StyledListingSummaryDescription>
+              <b>Challenge Summary</b>
+              <br />
+              {this.props.challengeStatementSummary}
+            </StyledListingSummaryDescription>
+          )}
         </StyledListingSummarySection>
       </StyledListingSummaryContainer>
     );
@@ -225,53 +230,6 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     } else {
       return this.renderTimestamp();
     }
-  };
-
-  private renderUnstakedDeposit = (): JSX.Element | undefined => {
-    if (this.props.unstakedDeposit || this.props.isWhitelisted) {
-      return (
-        <MetaRow>
-          <MetaItemValue>{this.props.unstakedDeposit}</MetaItemValue>
-          <MetaItemLabel>
-            <AmountDepositedLabelText />
-          </MetaItemLabel>
-        </MetaRow>
-      );
-    }
-    return;
-  };
-
-  private renderChallengeStake = (): JSX.Element | undefined => {
-    if (this.props.challengeStake) {
-      return (
-        <MetaRow>
-          <MetaItemValue>{this.props.challengeStake}</MetaItemValue>
-          <MetaItemLabel>
-            <AmountStakedChallengeLabelText />
-          </MetaItemLabel>
-        </MetaRow>
-      );
-    }
-    return;
-  };
-
-  private renderUnstakedDepositOrChallengeStake = (): JSX.Element | undefined => {
-    if (this.props.isInApplication || this.props.canBeWhitelisted) {
-      return this.renderUnstakedDeposit();
-    } else if (
-      this.props.inChallengeCommitVotePhase ||
-      this.props.isInAppealChallengeCommitPhase ||
-      this.props.inChallengeRevealPhase ||
-      this.props.isInAppealChallengeRevealPhase ||
-      this.props.canResolveChallenge ||
-      this.props.canListingAppealChallengeBeResolved ||
-      this.props.isAwaitingAppealJudgement ||
-      this.props.isAwaitingAppealChallenge
-    ) {
-      return this.renderChallengeStake();
-    }
-
-    return;
   };
 
   private renderAppealJudgement = (): JSX.Element => {

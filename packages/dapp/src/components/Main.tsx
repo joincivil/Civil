@@ -28,6 +28,8 @@ import NewsroomManagementV1 from "./newsroom/NewsroomManagement";
 import NewsroomManagement from "./newsroom/NewsroomManagementV2";
 import Parameterizer from "./Parameterizer";
 import Government from "./council/Government";
+import SubmitChallengePage from "./listing/SubmitChallenge";
+import RequestAppealPage from "./listing/RequestAppeal";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -95,6 +97,8 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
         <Route path="/contracts" component={Contracts} />
         <Route path="/contract/:contract" component={ContractPage} />
         <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
+        <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
+        <Route path="/listing/:listing/request-appeal" component={RequestAppealPage} />
         <Route path="/listing/:listing" component={Listing} />
         <Route path="/editor" component={Editor} />
         <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />

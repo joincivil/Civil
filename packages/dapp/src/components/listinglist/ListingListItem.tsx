@@ -47,15 +47,18 @@ class ListingListItemComponent extends React.Component<
       description = JSON.parse(newsroom!.wrapper.data.charter!.content.toString()).desc;
     }
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-    const pollData = listingData.challenge && listingData.challenge.poll;
+    const challenge = listingData.challenge;
+    const pollData = challenge && challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
-    const requestAppealExpiry = listingData.challenge && listingData.challenge.requestAppealExpiry.toNumber();
-    const appeal = listingData.challenge && listingData.challenge.appeal;
+    const requestAppealExpiry = challenge && challenge.requestAppealExpiry.toNumber();
+    const appeal = challenge && challenge.appeal;
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
+    const challengeStatementSummary =
+      challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
 
     const newsroomData = newsroom!.wrapper.data;
     const listingDetailURL = `/listing/${listingAddress}`;
@@ -66,6 +69,7 @@ class ListingListItemComponent extends React.Component<
       description,
       listingDetailURL,
       ...listingPhaseState,
+      challengeStatementSummary,
       appeal,
       appExpiry,
       commitEndDate,
