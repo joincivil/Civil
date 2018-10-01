@@ -31,7 +31,14 @@ import {
 import ActivityList from "./ActivityList";
 import ReclaimTokens from "./ReclaimTokens";
 
+const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
+
 export interface DashboardActivityProps {
+  match?: any;
+  history: any;
+}
+
+export interface DashboardActivityReduxProps {
   currentUserNewsrooms: Set<string>;
   currentUserChallengesVotedOn: Set<string>;
   currentUserChallengesStarted: Set<string>;
@@ -61,8 +68,11 @@ const StyledBatchButtonContainer = styled.div`
   padding: 12px 0 36px;
 `;
 
-class DashboardActivity extends React.Component<DashboardActivityProps, DashboardActivityState> {
-  constructor(props: DashboardActivityProps) {
+class DashboardActivity extends React.Component<
+  DashboardActivityProps & DashboardActivityReduxProps,
+  DashboardActivityState
+> {
+  constructor(props: DashboardActivityProps & DashboardActivityReduxProps) {
     super(props);
     this.state = {
       challengesToClaim: {},
@@ -71,11 +81,18 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
   }
 
   public render(): JSX.Element {
+    const { activeDashboardTab } = this.props.match.params;
+    let activeIndex = 0;
+    if (activeDashboardTab) {
+      activeIndex = TABS.indexOf(activeDashboardTab) || 0;
+    }
     return (
       <DashboardActivityComponent
         userVotes={this.renderUserVotes()}
         userNewsrooms={this.renderUserNewsrooms()}
         userChallenges={this.renderUserChallenges()}
+        activeIndex={activeIndex}
+        onTabChange={this.onTabChange}
       />
     );
   }
@@ -103,7 +120,7 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
       <Tabs
         TabComponent={StyledDashboardSubTab}
         TabsNavComponent={StyledTabsComponent}
-        onActiveTabChange={this.onTabChange}
+        onActiveTabChange={this.onSubTabChange}
       >
         <Tab title={allVotesTabTitle}>
           <ActivityList challenges={currentUserChallengesVotedOn} />
@@ -151,6 +168,12 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
   };
 
   private onTabChange = (activeIndex: number = 0): void => {
+    const tabName = TABS[activeIndex];
+    this.props.history.push(`/dashboard/${tabName}`);
+    this.resetMultiClaimRescue();
+  };
+
+  private onSubTabChange = (activeIndex: number = 0): void => {
     this.resetMultiClaimRescue();
   };
 
@@ -213,7 +236,10 @@ class DashboardActivity extends React.Component<DashboardActivityProps, Dashboar
   };
 }
 
-const mapStateToProps = (state: State): DashboardActivityProps => {
+const mapStateToProps = (
+  state: State,
+  ownProps: DashboardActivityProps,
+): DashboardActivityProps & DashboardActivityReduxProps => {
   const { currentUserNewsrooms, user } = state.networkDependent;
   const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
@@ -229,6 +255,7 @@ const mapStateToProps = (state: State): DashboardActivityProps => {
     userChallengesWithUnrevealedVotes,
     userChallengesWithRescueTokens,
     userAccount: user.account.account,
+    ...ownProps,
   };
 };
 
