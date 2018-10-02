@@ -279,7 +279,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     );
 
     uint oneHundred = 100;
-    uint reward = (oneHundred.sub(government.get("appealVoteDispensationPct"))).mul(appeal.appealFeePaid).div(oneHundred);
+    uint reward = (oneHundred.sub(government.get("appealChallengeVoteDispensationPct"))).mul(appeal.appealFeePaid).div(oneHundred);
     challenges[pollID] = Challenge({
       challenger: msg.sender,
       rewardPool: reward,
