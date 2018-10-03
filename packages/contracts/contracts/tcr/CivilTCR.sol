@@ -386,11 +386,11 @@ contract CivilTCR is RestrictedAddressRegistry {
     // Edge case, nobody voted, give all tokens to the challenger.
     if (overturned) {
       if (civilVoting.getTotalNumberOfTokensForLosingOption(challengeID) == 0) {
-          return 2 * challenges[challengeID].stake;
+        return 2 * challenges[challengeID].stake;
       }
     } else {
       if (voting.getTotalNumberOfTokensForWinningOption(challengeID) == 0) {
-          return 2 * challenges[challengeID].stake;
+        return 2 * challenges[challengeID].stake;
       }
     }
 
