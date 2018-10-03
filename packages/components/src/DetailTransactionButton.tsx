@@ -1,5 +1,5 @@
 import { Civil, EthAddress } from "@joincivil/core";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import * as React from "react";
 import { Subscription } from "rxjs/Subscription";
 import styled from "styled-components";

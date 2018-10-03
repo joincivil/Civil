@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import styled from "styled-components";
 import { StepHeader, StepProps, StepDescription, TextareaInput } from "@joincivil/components";
 import { EthAddress, CharterData } from "@joincivil/core";
