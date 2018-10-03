@@ -30,6 +30,13 @@ contract UserGroups is OffChainOwnable, TokenTelemetryI, UnionFind {
   {
   }
 
+  function useProven(address who) external view returns (uint usedTokens, uint totalTokens) {
+    (address root, ) = UnionFind.find(who);
+    Group storage group = groups[root];
+    usedTokens = group.usedTokens;
+    totalTokens = group.totalTokens;
+  }
+
   function setMaxGroupSize(uint groupSize, bytes signature) external
     requireSignature(
       signature,
