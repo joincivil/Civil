@@ -11,6 +11,7 @@
     "pretty": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true, // https://github.com/ReactiveX/rxjs/issues/3031
+    "esModuleInterop": true,
     "typeRoots": ["packages/typescript-typings/types", "node_modules/@types"]
   }
 }

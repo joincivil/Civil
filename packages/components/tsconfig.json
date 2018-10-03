@@ -5,7 +5,7 @@
     "declaration": true,
     "declarationDir": "build/",
     "jsx": "react",
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true,
     "lib": ["dom", "es2017"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.tsx"]
