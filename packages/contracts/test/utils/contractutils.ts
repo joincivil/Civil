@@ -276,6 +276,7 @@ async function createTestCivilTCRInstance(
     parameterizerConfig.requestAppealPhaseLength,
     parameterizerConfig.judgeAppealPhaseLength,
     parameterizerConfig.appealSupermajorityPercentage,
+    parameterizerConfig.appealChallengeVoteDispensationPct,
     parameterizerConfig.govtPDeposit,
     parameterizerConfig.govtPCommitStageLength,
     parameterizerConfig.govtPRevealStageLength,
