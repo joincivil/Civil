@@ -1,6 +1,6 @@
 import { Map } from "immutable";
 import { AnyAction } from "redux";
-import { NewsroomWrapper, EthAddress } from "@joincivil/core";
+import { NewsroomWrapper, EthAddress, CharterData } from "@joincivil/core";
 import { newsroomActions, uiActions, userActions } from "./actionCreators";
 
 export interface NewsroomState {
@@ -8,6 +8,7 @@ export interface NewsroomState {
   wrapper: NewsroomWrapper;
   newsroom?: any;
   editors?: EthAddress[];
+  charter?: Partial<CharterData>;
 }
 
 export interface StateWithNewsroom {
@@ -51,6 +52,10 @@ export function newsrooms(
         ...state.get(action.data.address),
         editors,
       });
+    case newsroomActions.UPDATE_CHARTER:
+      newsroom = state.get(action.data.address) || {};
+      newsroom.charter = action.data.charter;
+      return state.set(action.data.address, newsroom);
     default:
       return state;
   }

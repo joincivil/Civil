@@ -11,13 +11,14 @@ import {
   SecondaryButton,
   buttonSizes,
 } from "@joincivil/components";
-import { Civil, EthAddress, TxHash } from "@joincivil/core";
+import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import { addGetNameForAddress, addNewsroom, getEditors, getNewsroom } from "./actionCreators";
 // import { SignConstitution } from "./SignConstitution";
-// import { CreateCharter } from "./CreateCharter";
+import { CreateCharterPartOne } from "./CreateCharterPartOne";
+import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
 // import { ApplyToTCR } from "./ApplyToTCR";
 import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
@@ -28,6 +29,8 @@ import { StateWithNewsroom } from "./reducers";
 export interface NewsroomComponentState {
   currentStep: number;
   subscription?: any;
+  charterPartOneComplete?: boolean;
+  charterPartTwoComplete?: boolean;
 }
 
 export interface NewsroomProps {
@@ -49,6 +52,8 @@ export interface NewsroomProps {
   profileAddressSaving?: boolean;
   owners?: string[];
   editors?: string[];
+  savedCharter?: Partial<CharterData>;
+  saveCharter?(charter: Partial<CharterData>): void;
   saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
@@ -114,7 +119,10 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-          <StepProcessTopNav activeIndex={this.state.currentStep}>
+          <StepProcessTopNav
+            activeIndex={this.state.currentStep}
+            onActiveTabChange={(newIndex: number) => this.setState({ currentStep: newIndex })}
+          >
             <Step
               title={"Set up a newsroom"}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
@@ -156,8 +164,59 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 profileWalletAddress={this.props.profileWalletAddress}
               />
             </Step>
-            <Step title={"Create your charter"}>
-              <div />
+            <Step
+              title={"Create Registry profile"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button
+                      onClick={args.goNext}
+                      size={buttonSizes.MEDIUM}
+                      disabled={!this.state.charterPartOneComplete}
+                    >
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+              complete={this.state.charterPartOneComplete}
+            >
+              <CreateCharterPartOne
+                address={this.props.address}
+                savedCharter={this.props.savedCharter}
+                saveCharter={this.props.saveCharter}
+                stepisComplete={(isComplete: boolean) => this.setState({ charterPartOneComplete: isComplete })}
+              />
+            </Step>
+            <Step
+              title={"Write your charter"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button
+                      onClick={args.goNext}
+                      size={buttonSizes.MEDIUM}
+                      disabled={!this.state.charterPartTwoComplete}
+                    >
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+              complete={this.state.charterPartTwoComplete}
+            >
+              <CreateCharterPartTwo
+                address={this.props.address}
+                savedCharter={this.props.savedCharter}
+                saveCharter={this.props.saveCharter}
+                stepisComplete={(isComplete: boolean) => this.setState({ charterPartTwoComplete: isComplete })}
+              />
             </Step>
             <Step title={"Sign the Constitution"}>
               <div />
