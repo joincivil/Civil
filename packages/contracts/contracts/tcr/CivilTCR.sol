@@ -377,6 +377,27 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
+  @dev Determines the number of tokens awarded to the winning party in a challenge.
+  @param challengeID The challengeID to determine a reward for
+  */
+  function determineReward(uint challengeID) public view returns (uint) {
+    require(!challenges[challengeID].resolved && voting.pollEnded(challengeID));
+    bool overturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
+    // Edge case, nobody voted, give all tokens to the challenger.
+    if (overturned) {
+      if (civilVoting.getTotalNumberOfTokensForLosingOption(challengeID) == 0) {
+          return 2 * challenges[challengeID].stake;
+      }
+    } else {
+      if (voting.getTotalNumberOfTokensForWinningOption(challengeID) == 0) {
+          return 2 * challenges[challengeID].stake;
+      }
+    }
+
+    return (2 * challenges[challengeID].stake) - challenges[challengeID].rewardPool;
+  }
+
+  /**
   @notice Calculates the provided voter's token reward for the given poll.
   @dev differs from implementation in `AddressRegistry` in that it takes into consideration whether an
   appeal was granted and possible overturned via appeal challenge.
