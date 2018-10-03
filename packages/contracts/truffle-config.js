@@ -1,7 +1,3 @@
-var HDWalletProvider = require("truffle-hdwallet-provider");
-var infuraProvider = require("@joincivil/dev-utils").infuraProvider;
-var mnemonic = process.env.MNEMONIC;
-var infura_key = process.env.INFURA_KEY;
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -26,9 +22,11 @@ module.exports = {
     },
     rinkeby: {
       provider: function() {
+        var infuraProvider = require("@joincivil/dev-utils").infuraProvider;
+        var mnemonic = process.env.MNEMONIC;
+        var infura_key = process.env.INFURA_KEY;
+        // HDWalletProvider doesn't support signing transactions which is nessecary for group creation
         return infuraProvider(mnemonic, "https://rinkeby.infura.io/" + infura_key);
-        // HDWalletProvider doesn't support signing transactions which is nessecary
-        //return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/" + infura_key);
       },
       network_id: 4,
       gasPrice: "20000000000",
