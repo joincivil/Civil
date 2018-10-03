@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { EthAddress, Civil } from "@joincivil/core";
+import { EthAddress, Civil, CharterData } from "@joincivil/core";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 
 export enum newsroomActions {
@@ -8,6 +8,7 @@ export enum newsroomActions {
   CHANGE_NAME = "CHANGE_NAME",
   ADD_EDITOR = "ADD_EDITOR",
   REMOVE_EDITOR = "REMOVE_EDITOR",
+  UPDATE_CHARTER = "UPDATE_CHARTER",
 }
 
 export enum uiActions {
@@ -95,6 +96,13 @@ export const changeName = (address: EthAddress, name: string): AnyAction => {
   return {
     type: newsroomActions.CHANGE_NAME,
     data: { name, address },
+  };
+};
+
+export const updateCharter = (address: EthAddress, charter: Partial<CharterData>): AnyAction => {
+  return {
+    type: newsroomActions.UPDATE_CHARTER,
+    data: { charter, address },
   };
 };
 

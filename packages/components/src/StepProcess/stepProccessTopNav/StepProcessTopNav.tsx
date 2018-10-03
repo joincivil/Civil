@@ -122,14 +122,25 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
   };
 
   private goNext = (): void => {
-    this.setState({ activeIndex: this.state.activeIndex + 1 });
+    const newIndex = this.state.activeIndex + 1;
+    if (this.props.onActiveTabChange) {
+      this.props.onActiveTabChange(newIndex);
+    }
+    this.setState({ activeIndex: newIndex });
   };
 
   private goPrevious = (): void => {
-    this.setState({ activeIndex: this.state.activeIndex - 1 });
+    const newIndex = this.state.activeIndex - 1;
+    if (this.props.onActiveTabChange) {
+      this.props.onActiveTabChange(newIndex);
+    }
+    this.setState({ activeIndex: newIndex });
   };
 
   private handleClick = (index: number): void => {
+    if (this.props.onActiveTabChange) {
+      this.props.onActiveTabChange(index);
+    }
     this.setState({ activeIndex: index });
   };
 }

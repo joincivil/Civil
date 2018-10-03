@@ -14,6 +14,7 @@ import {
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
 import styled, { StyledComponentClass } from "styled-components";
+import { TertiaryButton, FormSubhead } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { connect, DispatchProp } from "react-redux";
 import { CivilContext, CivilContextValue } from "./CivilContext";
@@ -36,26 +37,6 @@ const Wrapper: StyledComponentClass<{}, "div"> = styled.div`
 const NameSection = styled.div`
   margin-right: 80px;
   width: 120px;
-`;
-
-const StyledHeader = styled.h4`
-  margin-bottom: 10px;
-`;
-
-const RemoveButton = Button.extend`
-  border-radius: 3px;
-  background-color: #f7f7f7;
-  border: solid 1px #cccccc;
-  color: #555555;
-  margin: 1em 0;
-  &:active,
-  &:hover {
-    border-radius: 3px;
-    background-color: #f7f7f7;
-    border: solid 1px #cccccc;
-    color: #555555;
-    margin: 1em 0;
-  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -89,16 +70,16 @@ export const DisabledTransactionProcessingButton: StyledComponentClass<any, "but
 
 const TransactionButtonInner = (props: TransactionButtonInnerProps): JSX.Element => {
   let buttonComponent = (
-    <RemoveButton disabled={props.disabled} onClick={props.onClick} size={buttonSizes.SMALL} fullWidth>
+    <TertiaryButton disabled={props.disabled} onClick={props.onClick} size={buttonSizes.SMALL} fullWidth>
       Remove
-    </RemoveButton>
+    </TertiaryButton>
   );
   switch (props.step) {
     case 1:
       buttonComponent = (
-        <RemoveButton disabled={true} size={buttonSizes.SMALL} fullWidth>
+        <TertiaryButton disabled={true} size={buttonSizes.SMALL} fullWidth>
           Confirm
-        </RemoveButton>
+        </TertiaryButton>
       );
       break;
     case 2:
@@ -233,11 +214,11 @@ export class NewsroomUserComponent extends React.Component<
       <>
         <Wrapper>
           <NameSection>
-            <StyledHeader>Name</StyledHeader>
+            <FormSubhead>Name</FormSubhead>
             <p>{this.props.name}</p>
           </NameSection>
           <div>
-            <StyledHeader>Wallet Address</StyledHeader>
+            <FormSubhead>Wallet Address</FormSubhead>
             <p>{this.props.address}</p>
           </div>
           <ButtonWrapper>

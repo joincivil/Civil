@@ -24,6 +24,7 @@ import {
   EthAddress,
   EthContentHeader,
   Hex,
+  CharterContent,
   NewsroomContent,
   NewsroomData,
   NewsroomRoles,
@@ -343,8 +344,26 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
 
-  public async getCharter(): Promise<NewsroomContent | undefined> {
-    return this.loadArticle(0);
+  /**
+   * Gets newsroom charter data.
+   * @throws {CivilErrors.MalformedCharter} Charter data is malformed.
+   */
+  public async getCharter(): Promise<CharterContent | undefined> {
+    const charterData = await this.loadArticle(0);
+    if (!charterData) {
+      return charterData;
+    }
+
+    if (typeof charterData.content !== "object") {
+      try {
+        charterData.content = JSON.parse(charterData.content);
+      } catch (e) {
+        debug(`Charter content not in expected format: ${charterData}`, e);
+        throw CivilErrors.MalformedCharter;
+      }
+    }
+
+    return charterData as CharterContent;
   }
 
   /**

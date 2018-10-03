@@ -22,6 +22,7 @@ import styled from "styled-components";
 import { fetchNewsroom, uiActions } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser, UserTypes } from "./NewsroomUser";
+import { FormSection, FormTitle } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
@@ -45,19 +46,6 @@ export interface CompleteYourProfileComponentState extends TransactionButtonModa
   newOwner: EthAddress;
   newEditor: EthAddress;
 }
-
-const FormSection = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding-top: 10px;
-  padding-bottom: 40px;
-`;
-
-const FormTitle = styled.h4`
-  font-size: 15px;
-  color: #000;
-  font-family: ${fonts.SANS_SERIF};
-  margin-right: 15px;
-`;
 
 const Section = styled.div`
   display: flex;
@@ -89,7 +77,8 @@ const Description = StepDescription.extend`
 `;
 
 const QuestionToolTipWrapper = styled.span`
-  padding-top: 5px;
+  position: relative;
+  top: 3px;
 `;
 
 const makeUserObject = (state: StateWithNewsroom, item: EthAddress): { address: EthAddress; name?: string } => {
