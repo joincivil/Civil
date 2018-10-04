@@ -52,7 +52,7 @@
     "react-test-renderer": "^16.2.0",
     "rimraf": "^2.6.2",
     "strip-ansi": "^4.0.0",
-    "ts-jest": "^22.4.0",
+    "ts-jest": "^23.10.3",
     "ts-loader": "^4",
     "typescript": "<2.9.0",
     "webpack": "^3",
