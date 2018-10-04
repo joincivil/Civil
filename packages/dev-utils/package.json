@@ -20,6 +20,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
+    "@0xproject/subproviders": "^2.0.6",
     "argparse": "^1.0.9",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
@@ -29,7 +30,8 @@
     "handlebars": "^4.0.11",
     "mkdirp": "^0.5.1",
     "to-snake-case": "^1.0.0",
-    "web3": "^0.20.3"
+    "web3": "^0.20.3",
+    "web3-provider-engine": "^14.0.6"
   },
   "devDependencies": {
     "@joincivil/tslint-rules": "^2.6.3",
