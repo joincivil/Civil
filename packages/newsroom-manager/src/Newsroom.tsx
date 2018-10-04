@@ -39,6 +39,10 @@ export interface NewsroomComponentState {
   charterPartTwoComplete?: boolean;
 }
 
+export interface IpfsObject {
+  add(content: any, options?: { hash: string; pin: boolean }): Promise<[{ path: string; hash: string; size: number }]>;
+}
+
 export interface NewsroomProps {
   address?: EthAddress;
   txHash?: TxHash;
@@ -49,6 +53,7 @@ export interface NewsroomProps {
   requiredNetwork?: string;
   requiredNetworkNiceName?: string;
   civil?: Civil;
+  ipfs?: IpfsObject;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
   showWalletOnboarding?: boolean;
@@ -234,7 +239,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               />
             </Step>
             <Step title={"Sign the Constitution"}>
-              <SignConstitution newsroomAdress={this.props.address} />
+              <SignConstitution
+                newsroomAdress={this.props.address}
+                ipfs={this.props.ipfs}
+                savedCharter={this.props.savedCharter}
+                saveCharter={this.props.saveCharter}
+              />
             </Step>
             <Step title={"Apply to the Registry"}>
               <div />

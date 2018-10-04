@@ -23,7 +23,7 @@ import styled from "styled-components";
 import { fetchNewsroom, uiActions } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser, UserTypes } from "./NewsroomUser";
-import { FormSection, FormTitle } from "./styledComponents";
+import { FormTitle } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 

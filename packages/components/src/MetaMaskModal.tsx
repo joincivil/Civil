@@ -3,12 +3,9 @@ import styled, { StyledComponentClass } from "styled-components";
 import {
   Modal,
   BorderlessButton,
-  Button,
-  buttonSizes,
   ClipLoader,
   TransactionButtonNoModal,
   Transaction,
-  TransactionButtonInnerProps,
   MetaMaskSideIcon,
   MetaMaskLogoButton,
 } from ".";

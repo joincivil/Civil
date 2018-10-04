@@ -19,6 +19,8 @@
     "@joincivil/core": "^4.6.1",
     "@joincivil/ethapi": "^0.2.1",
     "@joincivil/utils": "^1.7.1",
+    "ethereumjs-util": "^5.2.0",
+    "ipfs-api": "^24.0.2",
     "lodash": "^4.17.10"
   },
   "devDependencies": {

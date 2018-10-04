@@ -33,7 +33,7 @@ export function prepareUserFriendlyNewsroomMessage(newsroomAddress: EthAddress, 
 }
 
 export function prepareConstitutionSignMessage(newsroomAddress: EthAddress, constitutionHash: Hex): string {
-  return `By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitutions.\n\nNewsrooom Address:\n${newsroomAddress}\n\nConstitution Hash:\n${constitutionHash}`;
+  return `By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitution.\n\nNewsrooom Address:\n${newsroomAddress}\n\nConstitution Hash:\n${constitutionHash}`;
 }
 
 // TODO(jon): Update this to support the proper blocks by network

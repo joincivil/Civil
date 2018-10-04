@@ -12,12 +12,15 @@ import {
   Transaction,
   MetaMaskStepCounter,
 } from "@joincivil/components";
-import { prepareConstitutionSignMessage } from "@joincivil/utils";
-import { Civil, EthAddress } from "@joincivil/core";
+import { prepareConstitutionSignMessage, hashContent } from "@joincivil/utils";
+import { Civil, EthAddress, CharterData } from "@joincivil/core";
 import { Map } from "immutable";
 import styled from "styled-components";
 import { CivilContext, CivilContextValue } from "./CivilContext";
-import { EthSignedMessage } from "@joincivil/typescript-types";
+import { EthSignedMessage, TxHash } from "@joincivil/typescript-types";
+import { updateCharter } from "./actionCreators";
+import { IpfsObject } from "./Newsroom";
+import { toBuffer } from "ethereumjs-util";
 
 const StyledLegalIframe = styled.iframe`
   border-width: 1px;
@@ -33,6 +36,10 @@ const CheckWrapper = styled.span`
 export interface SignConstitutionReduxProps {
   government?: Map<string, string>;
   newsroomAdress?: EthAddress;
+  savedCharter?: Partial<CharterData>;
+  ipfs?: IpfsObject;
+  newsroom?: any;
+  saveCharter?(charter: Partial<CharterData>): void;
 }
 
 export interface SignConstitutionState {
@@ -41,6 +48,8 @@ export interface SignConstitutionState {
   preSignModalOpen: boolean;
   isWaitingSignatureOpen: boolean;
   metaMaskRejectionModal: boolean;
+  isWaitingPublishModalOpen: boolean;
+  metaMaskPublishRejectionModal: boolean;
   startTransaction(): void;
   cancelTransaction(): void;
 }
@@ -57,6 +66,8 @@ class SignConstitutionComponent extends React.Component<
       preSignModalOpen: false,
       isWaitingSignatureOpen: false,
       metaMaskRejectionModal: false,
+      metaMaskPublishRejectionModal: false,
+      isWaitingPublishModalOpen: false,
       startTransaction: () => {
         return;
       },
@@ -127,6 +138,33 @@ class SignConstitutionComponent extends React.Component<
     );
   }
 
+  public renderMetaMaskPublishRejectionModal(): JSX.Element | null {
+    if (!this.state.metaMaskPublishRejectionModal) {
+      return null;
+    }
+    const message = "Your charter was not saved to your newsroom smart contract.";
+
+    const denailMessage =
+      "To save your charter to your newsroom smart contract, you need to confirm in your MetaMask wallet. You will not be able to proceed without saving.";
+
+    return (
+      <CivilContext.Consumer>
+        {(value: CivilContextValue) => (
+          <MetaMaskModal
+            waiting={false}
+            denied={true}
+            denialText={denailMessage}
+            cancelTransaction={() => this.cancelTransaction()}
+            denialRestartTransactions={this.getPublishTransaction(value.civil!)}
+          >
+            <MetaMaskStepCounter>Step 2 of 2</MetaMaskStepCounter>
+            <ModalHeading>{message}</ModalHeading>
+          </MetaMaskModal>
+        )}
+      </CivilContext.Consumer>
+    );
+  }
+
   public render(): JSX.Element {
     return (
       <>
@@ -172,6 +210,7 @@ class SignConstitutionComponent extends React.Component<
           {this.renderPreSignModal()}
           {this.renderWaitingSignModal()}
           {this.renderMetaMaskRejectionModal()}
+          {this.renderMetaMaskPublishRejectionModal()}
         </StepFormSection>
       </>
     );
@@ -197,13 +236,47 @@ class SignConstitutionComponent extends React.Component<
           );
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
-          const { signature } = sig;
-          console.log(signature); // do stuff with the signature
+          const { signature, message, signer } = sig;
+          const signatures = this.props.savedCharter!.signatures || [];
+          signatures.push({ signature, message, signer });
+          const charter = { ...this.props.savedCharter, signatures };
+          this.props.dispatch!(updateCharter(this.props.newsroomAdress!, charter));
+          if (this.props.saveCharter) {
+            this.props.saveCharter(charter);
+          }
+          this.setState({ isWaitingSignatureOpen: false });
         },
         handleTransactionError: (err: Error) => {
           this.setState({ isWaitingSignatureOpen: false });
           if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
             this.setState({ metaMaskRejectionModal: true });
+          }
+        },
+      },
+      ...this.getPublishTransaction(civil),
+    ];
+  };
+
+  private getPublishTransaction = (civil: Civil): Transaction[] => {
+    return [
+      {
+        transaction: async () => {
+          this.setState({ isWaitingPublishModalOpen: true });
+          const charter = JSON.stringify(this.props.savedCharter);
+          const files = await this.props.ipfs!.add(toBuffer(charter), {
+            hash: "keccak-256",
+            pin: true,
+          });
+          const hash = hashContent(charter);
+          return this.props.newsroom.updateRevisionURIAndHash(0, `ipfs://${files[0].path}`, hash);
+        },
+        handleTransactionHash: (hash: TxHash) => {
+          this.setState({ isWaitingPublishModalOpen: false });
+        },
+        handleTransactionError: (err: Error) => {
+          this.setState({ isWaitingPublishModalOpen: false });
+          if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
+            this.setState({ metaMaskPublishRejectionModal: true });
           }
         },
       },
@@ -244,10 +317,17 @@ class SignConstitutionComponent extends React.Component<
 
 const mapStateToProps = (state: any, ownProps: SignConstitutionReduxProps): SignConstitutionReduxProps => {
   const { newsroomGovernment } = state;
+  let charterFromState;
+  const newsroom = state.newsrooms.get(ownProps.newsroomAdress);
+  if (ownProps.newsroomAdress && newsroom) {
+    charterFromState = state.newsrooms.get(ownProps.newsroomAdress).charter;
+  }
 
   return {
     ...ownProps,
     government: newsroomGovernment,
+    savedCharter: ownProps.savedCharter || charterFromState || {},
+    newsroom: newsroom.newsroom,
   };
 };
 
