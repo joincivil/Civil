@@ -838,10 +838,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jest@^22.1.4":
-  version "22.2.3"
-  resolved "http://registry.npmjs.org/@types/jest/-/jest-22.2.3.tgz#0157c0316dc3722c43a7b71de3fdf3acbccef10d"
-  integrity sha512-e74sM9W/4qqWB6D4TWV9FQk0WoHtX1X4FJpbjxucMSVJHtFjbQOH3H6yp+xno4br0AKG0wz/kPtaN599GUOvAg==
+"@types/jest@23.3.2":
+  version "23.3.2"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.2.tgz#07b90f6adf75d42c34230c026a2529e56c249dbb"
+  integrity sha512-D1xlXHZpDonVX+VJ28XtcD5xlu8ex6Fc4cQNnrm2wJvlQnbec9RedhCrhQr6kRAE9XWHSec+JPuTmqJ9jC0qsA==
 
 "@types/json5@^0.0.29":
   version "0.0.29"
