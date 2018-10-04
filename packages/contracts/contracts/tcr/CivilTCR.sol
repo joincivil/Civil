@@ -334,8 +334,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @dev                Called by a voter to claim their reward for each completed vote. Someone
-                      must call updateStatus() before this can be called.
+  @dev Called by a voter to claim their reward for each completed vote. Someone must call 
+  updateStatus() before this can be called.
   @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
   @param _salt        The salt of a voter's commit hash in the given poll
   */
