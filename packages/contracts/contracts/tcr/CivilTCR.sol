@@ -368,8 +368,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param salt The salt of a voter's commit hash in the given poll
   */
   function getNumChallengeTokens(address voter, uint challengeID, uint salt) internal view returns (uint) {
-    bool overturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
-    if (overturned) {
+    // a challenge is overturned if an appeal for it was granted, but the appeal itself was not overturned
+    bool challengeOverturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
+    if (challengeOverturned) {
       return civilVoting.getNumLosingTokens(voter, challengeID, salt);
     } else {
       return voting.getNumPassingTokens(voter, challengeID, salt);
@@ -381,10 +382,11 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param challengeID The challengeID to determine a reward for
   */
   function determineReward(uint challengeID) public view returns (uint) {
+    // a challenge is overturned if an appeal for it was granted, but the appeal itself was not overturned
     require(!challenges[challengeID].resolved && voting.pollEnded(challengeID));
-    bool overturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
+    bool challengeOverturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
     // Edge case, nobody voted, give all tokens to the challenger.
-    if (overturned) {
+    if (challengeOverturned) {
       if (civilVoting.getTotalNumberOfTokensForLosingOption(challengeID) == 0) {
         return 2 * challenges[challengeID].stake;
       }
@@ -420,10 +422,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   }
 
   /**
-  @dev                Called by updateStatus() if the applicationExpiry date passed without a
-                      challenge being made. Called by resolveChallenge() if an
-                      application/listing beat a challenge. Differs from base implementation in that
-                      it also clears out challengeID
+  @dev Called by updateStatus() if the applicationExpiry date passed without a challenge being made. 
+  Called by resolveChallenge() if an application/listing beat a challenge. Differs from base 
+  implementation in thatit also clears out challengeID
   @param listingAddress The listingHash of an application/listingHash to be whitelisted
   */
   function whitelistApplication(address listingAddress) internal {
