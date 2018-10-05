@@ -206,18 +206,50 @@ contract("Registry With Appeals", accounts => {
         challenger2BalanceBefore.add(utils.paramConfig.appealFeeAmount).add(utils.getAppealChallengeReward()),
       );
     });
-    // it("correct rewards when: challenge success, granted appeal, appeal challenge failure", async () => {
-    //   await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-    //   await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter);
-    //   await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-    //   await registry.grantAppeal(newsroomAddress, "", { from: JAB });
-    //   await utils.simpleUnsuccessfulAppealChallenge(registry, newsroomAddress, challenger, voter);
-    //   await registry.updateStatus(newsroomAddress);
-    //   const [, isWhitelisted] = await registry.listings(newsroomAddress);
-    //   expect(isWhitelisted).to.be.true(
-    //     "Should have whitelisted newsroom with successful challenge, granted appeal, unsuccessful appeal challenge",
-    //   );
-    // });
+    it("correct rewards when: challenge success, granted appeal, appeal challenge failure", async () => {
+      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      const pollID = await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voter, "420");
+      await registry.requestAppeal(newsroomAddress, "", { from: appealer });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      const pollID2 = await utils.simpleUnsuccessfulAppealChallenge(
+        registry,
+        newsroomAddress,
+        challenger,
+        voter2,
+        "123",
+      );
+      const challengerBalanceBefore = await token.balanceOf(challenger);
+      const challenger2BalanceBefore = await token.balanceOf(challenger2);
+      const appealerBalanceBefore = await token.balanceOf(appealer);
+      const voterBalanceBefore = await token.balanceOf(voter);
+      const voter2BalanceBefore = await token.balanceOf(voter2);
+
+      await registry.updateStatus(newsroomAddress);
+      const challengerBalanceAfter = await token.balanceOf(challenger);
+      const challenger2BalanceAfter = await token.balanceOf(challenger2);
+      const appealerBalanceAfter = await token.balanceOf(appealer);
+      await expect(registry.claimReward(pollID, "420", { from: voter })).to.eventually.be.rejectedWith(REVERTED);
+      const voterBalanceAfter = await token.balanceOf(voter);
+      expect(voterBalanceAfter).to.be.bignumber.equal(voterBalanceBefore);
+      await registry.claimReward(pollID2, "123", { from: voter2 });
+      const voter2BalanceAfter = await token.balanceOf(voter2);
+      expect(voter2BalanceAfter).to.be.bignumber.equal(
+        voter2BalanceBefore.add(utils.getTotalAppealChallengeVoterReward()),
+      );
+      const [, isWhitelisted, , unstakedDeposit] = await registry.listings(newsroomAddress);
+      expect(isWhitelisted).to.be.true(
+        "Should have whitelisted newsroom with successful challenge, granted appeal, unsuccessful appeal challenge",
+      );
+      expect(unstakedDeposit).to.be.bignumber.equal(
+        new BigNumber(minDeposit).add(utils.getChallengeReward()).add(utils.getTotalVoterReward()), // add voter reward since there are no "winning voters" now, so everything goes to challenge winner
+        "listing should have received reward",
+      );
+      expect(appealerBalanceAfter).to.be.bignumber.equal(
+        appealerBalanceBefore.add(utils.paramConfig.appealFeeAmount).add(utils.getAppealChallengeReward()),
+      );
+      expect(challengerBalanceAfter).to.be.bignumber.equal(challengerBalanceBefore);
+      expect(challenger2BalanceAfter).to.be.bignumber.equal(challenger2BalanceBefore);
+    });
     // it("correct rewards when: challenge failure, granted appeal, appeal challenge success", async () => {
     //   await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
     //   await utils.simpleUnsuccessfulChallenge(registry, newsroomAddress, challenger, voter);
