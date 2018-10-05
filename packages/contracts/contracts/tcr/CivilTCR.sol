@@ -322,8 +322,8 @@ contract CivilTCR is RestrictedAddressRegistry {
     appealChallenge.totalTokens = voting.getTotalNumberOfTokensForWinningOption(appealChallengeID);
 
     if (voting.isPassed(appealChallengeID)) { // Case: vote passed, appeal challenge succeeded, overturn appeal
-      super.resolveChallenge(listingAddress);
       appeal.overturned = true;
+      super.resolveChallenge(listingAddress);
       require(token.transfer(appealChallenge.challenger, reward));
       emit _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     } else { // Case: vote not passed, appeal challenge failed, confirm appeal
