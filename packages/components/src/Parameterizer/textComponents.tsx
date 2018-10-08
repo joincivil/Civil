@@ -30,8 +30,6 @@ export const ParamVoteQuorumLabelText: React.SFC = props => (
   <>Percentage of Votes Needed For Quorum for Parameter Proposal Challenge</>
 );
 
-export const ParamProcessByLabelText: React.SFC = props => <>Duration of Parameter Proposal Processing Stage</>;
-
 export const ChallengeAppealLenLabelText: React.SFC = props => <>Duration of Challenge Appeal Stage</>;
 
 export const ChallengeAppealCommitStageLenLabelText: React.SFC = props => (

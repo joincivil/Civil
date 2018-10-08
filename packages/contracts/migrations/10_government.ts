@@ -30,6 +30,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.requestAppealPhaseLength,
       parameterizerConfig.judgeAppealPhaseLength,
       parameterizerConfig.appealSupermajorityPercentage,
+      parameterizerConfig.appealChallengeVoteDispensationPct,
       parameterizerConfig.govtPDeposit,
       parameterizerConfig.govtPCommitStageLength,
       parameterizerConfig.govtPRevealStageLength,

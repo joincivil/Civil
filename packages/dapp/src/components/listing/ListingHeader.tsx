@@ -52,7 +52,12 @@ function getRegistryURLData(listingPhaseState: any): [string, string] {
 const ListingHeader: React.SFC<ListingHeaderProps> = props => {
   let newsroomDescription = "";
   if (props.newsroom.data.charter) {
-    newsroomDescription = JSON.parse(props.newsroom.data.charter.content.toString()).desc;
+    try {
+      // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
+      newsroomDescription = (props.newsroom.data.charter.content as any).desc;
+    } catch (ex) {
+      console.error("charter not formatted correctly");
+    }
   }
 
   const registryURLData = getRegistryURLData(props.listingPhaseState);

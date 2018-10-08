@@ -174,7 +174,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
         cancelTransaction={() => this.cancelTransaction()}
         startTransaction={() => this.startTransaction()}
       >
-        <ModalHeading>Waiting to Confirm in MetaMask</ModalHeading>
+        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
       </MetaMaskModal>
     );
   }

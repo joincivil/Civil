@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { EthAddress, Civil } from "@joincivil/core";
+import { EthAddress, Civil, CharterData } from "@joincivil/core";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 
 export enum newsroomActions {
@@ -8,6 +8,7 @@ export enum newsroomActions {
   CHANGE_NAME = "CHANGE_NAME",
   ADD_EDITOR = "ADD_EDITOR",
   REMOVE_EDITOR = "REMOVE_EDITOR",
+  UPDATE_CHARTER = "UPDATE_CHARTER",
 }
 
 export enum uiActions {
@@ -17,6 +18,11 @@ export enum uiActions {
 
 export enum userActions {
   ADD_USER = "ADD_USER",
+}
+
+export enum governmentActions {
+  ADD_CONSTITUTION_URI = "ADD_CONSTITUTION_URI",
+  ADD_CONSTITUTION_HASH = "ADD_CONSTITUTION_HASH",
 }
 
 export const getEditors = (address: EthAddress, civil: Civil): any => async (
@@ -98,6 +104,13 @@ export const changeName = (address: EthAddress, name: string): AnyAction => {
   };
 };
 
+export const updateCharter = (address: EthAddress, charter: Partial<CharterData>): AnyAction => {
+  return {
+    type: newsroomActions.UPDATE_CHARTER,
+    data: { charter, address },
+  };
+};
+
 export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
   const { newsrooms }: StateWithNewsroom = getState();
   const newsroom = newsrooms.get(address);
@@ -118,6 +131,24 @@ export const addUser = (address: EthAddress, name: string): AnyAction => {
     data: {
       address,
       name,
+    },
+  };
+};
+
+export const addConstitutionUri = (uri: string): AnyAction => {
+  return {
+    type: governmentActions.ADD_CONSTITUTION_URI,
+    data: {
+      uri,
+    },
+  };
+};
+
+export const addConstitutionHash = (hash: string): AnyAction => {
+  return {
+    type: governmentActions.ADD_CONSTITUTION_HASH,
+    data: {
+      hash,
     },
   };
 };
