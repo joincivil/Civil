@@ -20,6 +20,11 @@ export enum userActions {
   ADD_USER = "ADD_USER",
 }
 
+export enum governmentActions {
+  ADD_CONSTITUTION_URI = "ADD_CONSTITUTION_URI",
+  ADD_CONSTITUTION_HASH = "ADD_CONSTITUTION_HASH",
+}
+
 export const getEditors = (address: EthAddress, civil: Civil): any => async (
   dispatch: any,
   getState: any,
@@ -126,6 +131,24 @@ export const addUser = (address: EthAddress, name: string): AnyAction => {
     data: {
       address,
       name,
+    },
+  };
+};
+
+export const addConstitutionUri = (uri: string): AnyAction => {
+  return {
+    type: governmentActions.ADD_CONSTITUTION_URI,
+    data: {
+      uri,
+    },
+  };
+};
+
+export const addConstitutionHash = (hash: string): AnyAction => {
+  return {
+    type: governmentActions.ADD_CONSTITUTION_HASH,
+    data: {
+      hash,
     },
   };
 };

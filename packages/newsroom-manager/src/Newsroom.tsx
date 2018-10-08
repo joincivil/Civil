@@ -15,11 +15,17 @@ import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
-import { addGetNameForAddress, addNewsroom, getEditors, getNewsroom } from "./actionCreators";
-// import { SignConstitution } from "./SignConstitution";
+import {
+  addGetNameForAddress,
+  addNewsroom,
+  getEditors,
+  getNewsroom,
+  addConstitutionHash,
+  addConstitutionUri,
+} from "./actionCreators";
 import { CreateCharterPartOne } from "./CreateCharterPartOne";
 import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
-// import { ApplyToTCR } from "./ApplyToTCR";
+import { SignConstitution } from "./SignConstitution";
 import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
@@ -33,6 +39,10 @@ export interface NewsroomComponentState {
   charterPartTwoComplete?: boolean;
 }
 
+export interface IpfsObject {
+  add(content: any, options?: { hash: string; pin: boolean }): Promise<[{ path: string; hash: string; size: number }]>;
+}
+
 export interface NewsroomProps {
   address?: EthAddress;
   txHash?: TxHash;
@@ -43,6 +53,7 @@ export interface NewsroomProps {
   requiredNetwork?: string;
   requiredNetworkNiceName?: string;
   civil?: Civil;
+  ipfs?: IpfsObject;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
   showWalletOnboarding?: boolean;
@@ -97,6 +108,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
     if (this.props.address && this.props.civil) {
       await this.hydrateNewsroom(this.props.address);
+    }
+
+    if (this.props.civil) {
+      const tcr = await this.props.civil.tcrSingletonTrusted();
+      const government = await tcr.getGovernment();
+      const hash = await government.getConstitutionHash();
+      const uri = await government.getConstitutionURI();
+      this.props.dispatch!(addConstitutionHash(hash));
+      this.props.dispatch!(addConstitutionUri(uri));
     }
   }
 
@@ -219,7 +239,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               />
             </Step>
             <Step title={"Sign the Constitution"}>
-              <div />
+              <SignConstitution
+                newsroomAdress={this.props.address}
+                ipfs={this.props.ipfs}
+                savedCharter={this.props.savedCharter}
+                saveCharter={this.props.saveCharter}
+              />
             </Step>
             <Step title={"Apply to the Registry"}>
               <div />

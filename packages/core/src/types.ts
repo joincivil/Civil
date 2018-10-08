@@ -64,12 +64,19 @@ export interface CharterContent extends NewsroomContent {
   content: CharterData;
 }
 
+export interface ConstitutionSignature {
+  signer: EthAddress;
+  signature: Hex;
+  message: string;
+}
+
 export interface CharterData {
   logoUrl: string;
   newsroomUrl: string;
   tagline: string;
   socialUrls: { [type: string]: string };
   roster: RosterMember[];
+  signatures: ConstitutionSignature[];
   mission: {
     purpose: string;
     structure: string;
