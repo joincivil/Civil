@@ -26,6 +26,8 @@ export namespace {{contractName}} {
     export type All =
     {{#each events}}
       Logs.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+    {{else}}
+      never;
     {{/each}}
   }
 
@@ -37,6 +39,8 @@ export namespace {{contractName}} {
     export type All =
     {{#each events}}
       LogEvents.{{name}}{{#unless @last}} |{{/unless}}{{^unless @last}};{{/unless}}
+    {{else}}
+      never;
     {{/each}}
   }
 

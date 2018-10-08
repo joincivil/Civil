@@ -1,12 +1,12 @@
-import BigNumber from "bignumber.js";
-import { getDefaultFromBlock } from "@joincivil/utils";
-import { Observable } from "rxjs";
-
-import { BaseWrapper } from "../basewrapper";
-import { EIP20Contract } from "../generated/wrappers/eip20";
 import { EthApi, requireAccount } from "@joincivil/ethapi";
+import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
+import BigNumber from "bignumber.js";
+import { Observable } from "rxjs";
 import { EthAddress } from "../../types";
+import { BaseWrapper } from "../basewrapper";
 import { EIP20MultisigProxy } from "../generated/multisig/eip20";
+import { EIP20Contract } from "../generated/wrappers/eip20";
+import { GroupTokenControllerContract } from "../generated/wrappers/group_token_controller";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 
 /**
@@ -22,15 +22,26 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
   ): Promise<EIP20> {
     const instance = EIP20Contract.atUntrusted(web3wrapper, address);
     const multisigProxy = await EIP20MultisigProxy.create(web3wrapper, instance, multisigAddress);
-    return new EIP20(web3wrapper, instance, multisigProxy);
+    const tokenController = await GroupTokenControllerContract.singletonTrusted(web3wrapper);
+    if (!tokenController) {
+      throw new Error(CivilErrors.UnsupportedNetwork);
+    }
+    return new EIP20(web3wrapper, instance, multisigProxy, tokenController);
   }
 
   /** If instantiated with `multisigAddress` undefined, proxy will send transactions directly to the contract instance. */
   private multisigProxy: EIP20MultisigProxy;
+  private tokenController: GroupTokenControllerContract;
 
-  private constructor(ethApi: EthApi, instance: EIP20Contract, multisigProxy: EIP20MultisigProxy) {
+  private constructor(
+    ethApi: EthApi,
+    instance: EIP20Contract,
+    multisigProxy: EIP20MultisigProxy,
+    tokenController: GroupTokenControllerContract,
+  ) {
     super(ethApi, instance);
     this.multisigProxy = multisigProxy;
+    this.tokenController = tokenController;
   }
 
   /**
@@ -80,6 +91,14 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
       who = await this.getDefaultCurrentAddress();
     }
     return this.instance.balanceOf.callAsync(who);
+  }
+
+  public async isTransferAllowed(to: EthAddress, from?: EthAddress): Promise<boolean> {
+    let who = from;
+    if (!who) {
+      who = await this.getDefaultCurrentAddress();
+    }
+    return this.tokenController.transferAllowed.callAsync(who, to);
   }
 
   /**
