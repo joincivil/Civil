@@ -1,11 +1,11 @@
-import { createTwoStepSimple } from "@joincivil/core/src/contracts/utils/contracts";
-import { TwoStepEthTransaction } from "@joincivil/core/src/types";
 import { EthApi } from "@joincivil/ethapi";
 import { EthAddress } from "@joincivil/typescript-types";
 import { CivilErrors } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
+import { TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { UserGroupsContract } from "../generated/wrappers/user_groups";
+import { createTwoStepSimple } from "../utils/contracts";
 
 export interface UsedAndTotalTokens {
   usedTokens: BigNumber;
