@@ -48,3 +48,4 @@ export * from "./WalletOnboarding";
 export * from "./Table";
 export * from "./Parameterizer";
 export * from "./UserStatement";
+export * from "./MetaMaskLogoButton";

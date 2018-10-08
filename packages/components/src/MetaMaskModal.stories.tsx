@@ -41,4 +41,22 @@ storiesOf("MetaMaskModal", module)
     ) : (
       <div> test </div>
     );
+  })
+  .add("SignatureMetaMaskModal", () => {
+    return process.env.NODE_ENV !== "test" ? (
+      <MetaMaskModal cancelTransaction={func} startTransaction={func} waiting={false} signing={true}>
+        <ModalHeading>test</ModalHeading>
+      </MetaMaskModal>
+    ) : (
+      <div> test </div>
+    );
+  })
+  .add("SignatureMetaMaskModal waiting", () => {
+    return process.env.NODE_ENV !== "test" ? (
+      <MetaMaskModal cancelTransaction={func} startTransaction={func} waiting={true} signing={true}>
+        <ModalHeading>test</ModalHeading>
+      </MetaMaskModal>
+    ) : (
+      <div> test </div>
+    );
   });

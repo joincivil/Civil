@@ -54,9 +54,46 @@ export interface EthContentHeader extends BaseContentHeader, SignedContentHeader
   transactionHash?: TxHash | null;
 }
 
-// TODO(ritave, dankins): Decide on content schema and update this type
+/** Any piece of newsroom content, e.g. an article or the charter. */
 export interface NewsroomContent extends EthContentHeader {
   content: ContentData;
+}
+
+/** The first article: the charter. */
+export interface CharterContent extends NewsroomContent {
+  content: CharterData;
+}
+
+export interface ConstitutionSignature {
+  signer: EthAddress;
+  signature: Hex;
+  message: string;
+}
+
+export interface CharterData {
+  logoUrl: string;
+  newsroomUrl: string;
+  tagline: string;
+  socialUrls: { [type: string]: string };
+  roster: RosterMember[];
+  signatures: ConstitutionSignature[];
+  mission: {
+    purpose: string;
+    structure: string;
+    revenue: string;
+    encumbrances: string;
+    miscellaneous: string;
+  };
+}
+
+export interface RosterMember {
+  name: string;
+  role: string;
+  bio: string;
+  ethAddress?: EthAddress;
+  twitterUrl?: string;
+  avatarUrl?: string;
+  signature?: string;
 }
 
 export interface ApprovedRevision {

@@ -6,4 +6,5 @@ export enum CivilErrors {
   EvmException = "EVM_EXCEPTION_OCCURED",
   NoChallenge = "NO_CHALLENGE_FOUND_FOR_LISTING",
   InsufficientToken = "INSUFFICIENT_TOKEN_FOR_ACTION",
+  MalformedCharter = "MALFORMED_CHARTER",
 }
