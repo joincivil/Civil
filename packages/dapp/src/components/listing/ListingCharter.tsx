@@ -11,7 +11,12 @@ class ListingCharter extends React.Component<ListingCharterProps> {
   public render(): JSX.Element {
     let cleanNewsroomCharter = "";
     if (this.props.newsroom && this.props.newsroom.data.charter) {
-      const newsroomCharter = JSON.parse(this.props.newsroom.data.charter.content.toString()).charter;
+      let newsroomCharter;
+      try {
+        newsroomCharter = JSON.parse(this.props.newsroom.data.charter.content.toString()).charter;
+      } catch (ex) {
+        console.error("charter not formatted correctly");
+      }
       cleanNewsroomCharter = sanitizeHtml(newsroomCharter, {
         allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
       });

@@ -44,7 +44,11 @@ class ListingListItemComponent extends React.Component<
     const listingData = listing!.data;
     let description = "";
     if (newsroom!.wrapper.data.charter) {
-      description = JSON.parse(newsroom!.wrapper.data.charter!.content.toString()).desc;
+      try {
+        description = JSON.parse(newsroom!.wrapper.data.charter!.content.toString()).desc;
+      } catch (ex) {
+        console.error("charter not formatted correctly");
+      }
     }
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
     const challenge = listingData.challenge;

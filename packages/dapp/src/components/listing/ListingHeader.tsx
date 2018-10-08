@@ -18,7 +18,11 @@ class ListingHeader extends React.Component<ListingHeaderProps> {
   public render(): JSX.Element {
     let newsroomDescription = "";
     if (this.props.newsroom.data.charter) {
-      newsroomDescription = JSON.parse(this.props.newsroom.data.charter.content.toString()).desc;
+      try {
+        newsroomDescription = JSON.parse(this.props.newsroom.data.charter.content.toString()).desc;
+      } catch (ex) {
+        console.error("charter not formatted correctly");
+      }
     }
 
     const props: ListingDetailHeaderProps = {
