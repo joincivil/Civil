@@ -30,6 +30,7 @@ import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
+import { ApplyToTCR } from "./ApplyToTCR";
 import { StateWithNewsroom } from "./reducers";
 
 export interface NewsroomComponentState {
@@ -238,7 +239,24 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 stepisComplete={(isComplete: boolean) => this.setState({ charterPartTwoComplete: isComplete })}
               />
             </Step>
-            <Step title={"Sign the Constitution"}>
+            <Step
+              title={"Sign the Constitution"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button
+                      onClick={args.goNext}
+                      size={buttonSizes.MEDIUM}
+                    >
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+            >
               <SignConstitution
                 newsroomAdress={this.props.address}
                 ipfs={this.props.ipfs}
@@ -246,8 +264,25 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 saveCharter={this.props.saveCharter}
               />
             </Step>
-            <Step title={"Apply to the Registry"}>
-              <div />
+            <Step 
+              title={"Apply to the Registry"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button
+                      onClick={args.goNext}
+                      size={buttonSizes.MEDIUM}
+                    >
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+            >
+              <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
           <button />

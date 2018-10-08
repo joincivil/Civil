@@ -24,7 +24,6 @@ import {
   EthAddress,
   EthContentHeader,
   Hex,
-  CharterContent,
   NewsroomContent,
   NewsroomData,
   NewsroomRoles,
@@ -344,31 +343,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
 
-  /**
-   * Gets newsroom charter data.
-   * @throws {CivilErrors.MalformedCharter} Charter data is malformed.
-   */
-  public async getCharter(): Promise<CharterContent | undefined> {
-    const charterData = await this.loadArticle(0);
-    if (!charterData) {
-      return charterData;
-    }
-
-    if (typeof charterData.content !== "object") {
-      try {
-        charterData.content = JSON.parse(charterData.content);
-      } catch (e) {
-        debug(`Charter content not in expected format: ${charterData}`, e);
-        throw CivilErrors.MalformedCharter;
-      }
-    }
-
-    return charterData as CharterContent;
+  public async getCharter(): Promise<NewsroomContent | undefined> {
+    return this.loadArticle(0);
   }
 
   /**
    * Loads everything concerning one article needed to read it fully.
-   * Accesess both Ethereum network as well as the active ContentProvider
+   * Accesess both Ethereum network as well as the active ContentProvide
    * @param articleId Id of the article that you want to read
    */
   public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent | undefined> {
