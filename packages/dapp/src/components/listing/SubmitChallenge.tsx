@@ -1,13 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { EthAddress, TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  LoadingIndicator,
+  Button,
+  buttonSizes,
+  MetaMaskModal,
+  Modal,
   ModalHeading,
   ModalContent,
-  ModalOrderedList,
-  ModalListItem,
-  ModalListItemTypes,
   SubmitChallengeStatement as SubmitChallengeStatementComponent,
   SubmitChallengeStatementProps,
 } from "@joincivil/components";
@@ -40,30 +40,70 @@ interface SubmitChallengeState {
   challengeStatementDetailsValue?: any;
 }
 
-enum ModalContentEventNames {
-  IN_PROGRESS_APPROVE_FOR_CHALLENGE = "IN_PROGRESS:APPROVE_FOR_CHALLENGE",
-  IN_PROGRESS_SUBMIT_CHALLENGE = "IN_PROGRESS:SUBMIT_CHALLENGE",
+interface ProgressModalPropsState {
+  isApproveMetaMaskModalOpen?: boolean;
+  isChallengeMetaMaskModalOpen?: boolean;
+  isChallengeSuccessModalOpen?: boolean;
+  isWaitingTransactionModalOpen?: boolean;
+}
+
+interface ProgressModalActionProps {
+  handleSuccessClose(): void;
+}
+
+interface VotingParamsDisplayProps {
+  commitStageLen: string;
+  revealStageLen: string;
 }
 
 class SubmitChallengeComponent extends React.Component<
   SubmitChallengeProps & SubmitChallengeReduxProps,
-  SubmitChallengeState
+  SubmitChallengeState & ProgressModalPropsState
 > {
-  public render(): JSX.Element {
-    const approveForChallengeProgressModal = <ApproveForChallengeProgressModal />;
-    const submitChallengeProgressModal = <SubmitChallengeProgressModal />;
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE]: approveForChallengeProgressModal,
-      [ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE]: submitChallengeProgressModal,
+  constructor(props: SubmitChallengeProps & SubmitChallengeReduxProps) {
+    super(props);
+
+    this.state = {
+      isApproveMetaMaskModalOpen: false,
+      isChallengeMetaMaskModalOpen: false,
+      isChallengeSuccessModalOpen: false,
+      isWaitingTransactionModalOpen: false,
     };
+  }
+
+  public render(): JSX.Element {
     const transactions = [
       {
-        transaction: approveForChallenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_CHALLENGE,
+        transaction: async () => {
+          this.setState({
+            isApproveMetaMaskModalOpen: false,
+            isChallengeMetaMaskModalOpen: false,
+            isWaitingTransactionModalOpen: true,
+          });
+          return approveForChallenge();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isApproveMetaMaskModalOpen: true,
+            isWaitingTransactionModalOpen: false,
+          });
+        }
       },
       {
-        transaction: this.challenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_SUBMIT_CHALLENGE,
+        transaction: async () => {
+          this.setState({
+            isApproveMetaMaskModalOpen: false,
+            isChallengeMetaMaskModalOpen: false,
+            isWaitingTransactionModalOpen: true,
+          });
+          return this.challenge();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isChallengeMetaMaskModalOpen: true,
+            isWaitingTransactionModalOpen: false,
+          });
+        }
       },
     ];
 
@@ -87,14 +127,39 @@ class SubmitChallengeComponent extends React.Component<
       revealStageLen,
       updateStatementValue: this.updateStatement,
       transactions,
-      modalContentComponents,
     };
 
-    return <SubmitChallengeStatementComponent {...props} />;
+    const { isApproveMetaMaskModalOpen, isChallengeMetaMaskModalOpen, isWaitingTransactionModalOpen, isChallengeSuccessModalOpen } = this.state;
+
+    const modalProps = {
+      isApproveMetaMaskModalOpen, isChallengeMetaMaskModalOpen, isWaitingTransactionModalOpen, isChallengeSuccessModalOpen
+    };
+
+    return (
+      <>
+        <SubmitChallengeStatementComponent {...props} />
+        <ApproveForChallengeProgressModal {...modalProps} />
+        <SubmitChallengeProgressModal {...modalProps} />
+        <SubmitChallengeSuccessModal {...modalProps} handleSuccessClose={this.closeAllModals} commitStageLen={commitStageLen} revealStageLen={revealStageLen} />
+      </>
+    );
+  }
+
+  private closeAllModals = (): void => {
+    this.setState({
+      isApproveMetaMaskModalOpen: false,
+      isChallengeMetaMaskModalOpen: false,
+      isChallengeSuccessModalOpen: false,
+      isWaitingTransactionModalOpen: false,
+    });
   }
 
   private updateStatement = (key: string, value: any): void => {
-    const stateKey = `challengeStatement{key.charAt(0).toUpperCase()}${key.substring(1)}`;
+    const stateKey = `challengeStatement${key.charAt(0).toUpperCase()}${key.substring(1)}`;
+<<<<<<< Updated upstream
+=======
+    console.log(stateKey);
+>>>>>>> Stashed changes
     this.setState(() => ({ [stateKey]: value }));
   };
 
@@ -110,37 +175,49 @@ class SubmitChallengeComponent extends React.Component<
       citeConstitution: challengeStatementCiteConstitutionValue.toString("html"),
       details: challengeStatementDetailsValue.toString("html"),
     };
+    console.log(this.props.listingAddress, JSON.stringify(jsonToSave));
     return challengeListing(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 }
 
-const ApproveForChallengeProgressModal: React.SFC = props => {
+const ApproveForChallengeProgressModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isApproveMetaMaskModalOpen) {
+    return null;
+  }
   return (
-    <>
-      <LoadingIndicator height={100} />
-      <ModalHeading>Transactions in progress</ModalHeading>
-      <ModalOrderedList>
-        <ModalListItem type={ModalListItemTypes.STRONG}>Approving For Challenge</ModalListItem>
-        <ModalListItem type={ModalListItemTypes.FADED}>Submitting Challenge</ModalListItem>
-      </ModalOrderedList>
-      <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-      <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-    </>
+    <MetaMaskModal waiting={false}>
+      <ModalHeading>Approving For Challenge</ModalHeading>
+    </MetaMaskModal>
   );
 };
 
-const SubmitChallengeProgressModal: React.SFC = props => {
+const SubmitChallengeProgressModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isChallengeMetaMaskModalOpen) {
+    return null;
+  }
   return (
-    <>
-      <LoadingIndicator height={100} />
-      <ModalHeading>Transactions in progress</ModalHeading>
-      <ModalOrderedList>
-        <ModalListItem>Approving For Challenge</ModalListItem>
-        <ModalListItem type={ModalListItemTypes.STRONG}>Submitting Challenge</ModalListItem>
-      </ModalOrderedList>
-      <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-      <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-    </>
+    <MetaMaskModal waiting={false}>
+      <ModalHeading>Submitting Challenge</ModalHeading>
+    </MetaMaskModal>
+  );
+};
+
+const SubmitChallengeSuccessModal: React.SFC<ProgressModalPropsState & ProgressModalActionProps & VotingParamsDisplayProps> = props => {
+  if (!props.isChallengeSuccessModalOpen) {
+    return null;
+  }
+  return (
+    <Modal>
+      <ModalHeading>
+        <strong>Success!</strong><br />
+        This Newsroom is now under challenge
+      </ModalHeading>
+      <ModalContent>
+        <p>This challenge is now accepting votes. The CVL token-holding community will have the next {props.commitStageLen} to commit their secret votes, and {props.revealStageLen} to confirm their vote. To prevent decision bias, all votes will be hidden using a secret phrase, until the end of the voting period.</p>
+        <p>You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge deposit.</p>
+        <Button size={buttonSizes.MEDIUM} onClick={props.handleSuccessClose}>Ok, got it</Button>
+      </ModalContent>
+    </Modal>
   );
 };
 
@@ -164,7 +241,6 @@ const mapStateToProps = (
   let revealStageLen = "";
   if (parameters && Object.keys(parameters).length) {
     const civil = getCivil();
-    console.log(parameters);
     minDeposit = getFormattedParameterValue(
       Parameters.minDeposit,
       civil.toBigNumber(parameters[Parameters.minDeposit]),
