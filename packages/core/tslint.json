@@ -4,7 +4,8 @@
     "exclude": [
       "src/contracts/generated/wrappers/parameterizer.ts",
       "src/contracts/generated/wrappers/p_l_c_r_voting.ts",
-      "src/contracts/generated/wrappers/eip20.ts"
+      "src/contracts/generated/wrappers/eip20.ts",
+      "src/contracts/generated/wrappers/group_token_controller.ts"
     ]
   }
 }
