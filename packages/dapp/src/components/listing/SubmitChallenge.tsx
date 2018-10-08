@@ -98,7 +98,6 @@ class SubmitChallengeComponent extends React.Component<
 
   private updateStatement = (key: string, value: any): void => {
     const stateKey = `challengeStatement${key.charAt(0).toUpperCase()}${key.substring(1)}Value`;
-    console.log(stateKey);
     this.setState(() => ({ [stateKey]: value }));
   };
 
@@ -108,7 +107,6 @@ class SubmitChallengeComponent extends React.Component<
 
   // Transactions
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    console.log("challenging");
     const {
       challengeStatementSummaryValue,
       challengeStatementCiteConstitutionValue,
@@ -119,7 +117,6 @@ class SubmitChallengeComponent extends React.Component<
       citeConstitution: challengeStatementCiteConstitutionValue.toString("html"),
       details: challengeStatementDetailsValue.toString("html"),
     };
-    console.log(this.props.listingAddress, JSON.stringify(jsonToSave));
     return challengeListing(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 }
