@@ -18,9 +18,11 @@ import { State } from "../../reducers";
 
 export interface SubmitChallengePageProps {
   match: any;
+  history?: any;
 }
 
 interface SubmitChallengeProps {
+  history?: any;
   listingAddress: EthAddress;
   listingURI: string;
   governanceGuideURI: string;
@@ -88,18 +90,25 @@ class SubmitChallengeComponent extends React.Component<
       updateStatementValue: this.updateStatement,
       transactions,
       modalContentComponents,
+      postExecuteTransactions: this.onSubmitChallengeSuccess,
     };
 
     return <SubmitChallengeStatementComponent {...props} />;
   }
 
   private updateStatement = (key: string, value: any): void => {
-    const stateKey = `challengeStatement${key.charAt(0).toUpperCase()}${key.substring(1)}`;
+    const stateKey = `challengeStatement${key.charAt(0).toUpperCase()}${key.substring(1)}Value`;
+    console.log(stateKey);
     this.setState(() => ({ [stateKey]: value }));
+  };
+
+  private onSubmitChallengeSuccess = (): void => {
+    this.props.history.push("/listing/" + this.props.listingAddress);
   };
 
   // Transactions
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
+    console.log("challenging");
     const {
       challengeStatementSummaryValue,
       challengeStatementCiteConstitutionValue,
@@ -110,6 +119,7 @@ class SubmitChallengeComponent extends React.Component<
       citeConstitution: challengeStatementCiteConstitutionValue.toString("html"),
       details: challengeStatementDetailsValue.toString("html"),
     };
+    console.log(this.props.listingAddress, JSON.stringify(jsonToSave));
     return challengeListing(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 }
@@ -164,7 +174,6 @@ const mapStateToProps = (
   let revealStageLen = "";
   if (parameters && Object.keys(parameters).length) {
     const civil = getCivil();
-    console.log(parameters);
     minDeposit = getFormattedParameterValue(
       Parameters.minDeposit,
       civil.toBigNumber(parameters[Parameters.minDeposit]),
@@ -196,7 +205,12 @@ const SubmitChallengePage: React.SFC<SubmitChallengePageProps> = props => {
   const listingURI = `/listing/${listingAddress}`;
   const governanceGuideURI = "https://civil.co";
   return (
-    <SubmitChallenge listingAddress={listingAddress} listingURI={listingURI} governanceGuideURI={governanceGuideURI} />
+    <SubmitChallenge
+      listingAddress={listingAddress}
+      listingURI={listingURI}
+      governanceGuideURI={governanceGuideURI}
+      history={props.history}
+    />
   );
 };
 

@@ -18,12 +18,14 @@ import { State } from "../../reducers";
 
 export interface RequestAppealPageProps {
   match: any;
+  history?: any;
 }
 
 interface RequestAppealProps {
   listingAddress: EthAddress;
   listingURI: string;
   governanceGuideURI: string;
+  history?: any;
 }
 
 interface RequestAppealReduxProps {
@@ -75,14 +77,19 @@ class RequestAppealComponent extends React.Component<RequestAppealProps & Reques
       updateStatementValue: this.updateStatement,
       transactions,
       modalContentComponents,
+      postExecuteTransactions: this.onSubmitChallengeSuccess,
     };
 
     return <RequestAppealStatementComponent {...props} />;
   }
 
   private updateStatement = (key: string, value: any): void => {
-    const stateKey = `appealStatement${key.charAt(0).toUpperCase()}${key.substring(1)}`;
+    const stateKey = `appealStatement${key.charAt(0).toUpperCase()}${key.substring(1)}Value`;
     this.setState(() => ({ [stateKey]: value }));
+  };
+
+  private onSubmitChallengeSuccess = (): void => {
+    this.props.history.push("/listing/" + this.props.listingAddress);
   };
 
   // Transactions
@@ -173,7 +180,12 @@ const RequestAppealPage: React.SFC<RequestAppealPageProps> = props => {
   const listingURI = `/listing/${listingAddress}`;
   const governanceGuideURI = "https://civil.co";
   return (
-    <RequestAppeal listingAddress={listingAddress} listingURI={listingURI} governanceGuideURI={governanceGuideURI} />
+    <RequestAppeal
+      listingAddress={listingAddress}
+      listingURI={listingURI}
+      governanceGuideURI={governanceGuideURI}
+      history={props.history}
+    />
   );
 };
 
