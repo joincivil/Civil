@@ -81,7 +81,7 @@ class RequestAppealComponent extends React.Component<RequestAppealProps & Reques
   }
 
   private updateStatement = (key: string, value: any): void => {
-    const stateKey = `appealStatement{key.charAt(0).toUpperCase()}${key.substring(1)}`;
+    const stateKey = `appealStatement${key.charAt(0).toUpperCase()}${key.substring(1)}`;
     this.setState(() => ({ [stateKey]: value }));
   };
 

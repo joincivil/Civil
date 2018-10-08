@@ -94,7 +94,7 @@ class SubmitChallengeComponent extends React.Component<
   }
 
   private updateStatement = (key: string, value: any): void => {
-    const stateKey = `challengeStatement{key.charAt(0).toUpperCase()}${key.substring(1)}`;
+    const stateKey = `challengeStatement${key.charAt(0).toUpperCase()}${key.substring(1)}`;
     this.setState(() => ({ [stateKey]: value }));
   };
 
