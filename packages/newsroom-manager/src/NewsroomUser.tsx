@@ -14,7 +14,7 @@ import {
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
 import styled, { StyledComponentClass } from "styled-components";
-import { TertiaryButton, FormSubhead } from "./styledComponents";
+import { TertiaryButton as _TertiaryButton, FormSubhead } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { connect, DispatchProp } from "react-redux";
 import { CivilContext, CivilContextValue } from "./CivilContext";
@@ -24,6 +24,10 @@ export enum UserTypes {
   EDITOR = "EDITOR",
   OWNER = "OWNER",
 }
+
+const TertiaryButton = styled(_TertiaryButton)`
+  margin: 1em 0;
+`;
 
 const Wrapper: StyledComponentClass<{}, "div"> = styled.div`
   width: 100%;

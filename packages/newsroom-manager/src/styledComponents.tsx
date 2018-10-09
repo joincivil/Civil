@@ -30,13 +30,11 @@ export const TertiaryButton: StyledComponentClass<ButtonProps, "button"> = Butto
   font-size: 13px;
   font-weight: normal;
   color: #555555;
-  margin: 1em 0;
   &:active,
   &:hover {
     border-radius: 3px;
     background-color: #f7f7f7;
     border: solid 1px #cccccc;
     color: #555555;
-    margin: 1em 0;
   }
 `;
