@@ -248,10 +248,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                     <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
                       Back
                     </SecondaryButton>
-                    <Button
-                      onClick={args.goNext}
-                      size={buttonSizes.MEDIUM}
-                    >
+                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
                       Next
                     </Button>
                   </>
@@ -265,9 +262,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 saveCharter={this.saveCharter}
               />
             </Step>
-            <Step 
-              title={"Apply to the Registry"}
-            >
+            <Step title={"Apply to the Registry"}>
               <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
