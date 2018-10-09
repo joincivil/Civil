@@ -1,6 +1,6 @@
 pragma solidity ^0.4.23;
 
-import "../telemetry/TokenSaleI.sol";
+import "../telemetry/ContributionProxyI.sol";
 import "./GroupsI.sol";
 
 contract UnionFind is GroupsI {
@@ -14,10 +14,10 @@ contract UnionFind is GroupsI {
   }
 
   mapping(address => Group) internal groups;
-  TokenSaleI internal tokenSale;
+  ContributionProxyI internal contributions;
 
-  constructor(TokenSaleI _tokenSale) public {
-    tokenSale = _tokenSale;
+  constructor(ContributionProxyI _contributions) public {
+    contributions = _contributions;
   }
 
   function find(address element) public view returns (address root, uint size) {
@@ -82,8 +82,7 @@ contract UnionFind is GroupsI {
     if (group.parent == 0x0) {
       group.parent = element;
       group.size = 1;
-      // TODO(ritave): Get the token count from Token Sale contract
-      group.totalTokens = tokenSale.saleTokensPerUnit() * tokenSale.unitContributions(element);
+      group.totalTokens = contributions.tokensBought(element);
     }
     return group;
   }
