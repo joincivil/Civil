@@ -49,3 +49,4 @@ export * from "./Table";
 export * from "./Parameterizer";
 export * from "./UserStatement";
 export * from "./MetaMaskLogoButton";
+export * from "./ProgressModalContent";

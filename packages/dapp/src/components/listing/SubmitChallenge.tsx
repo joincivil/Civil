@@ -8,6 +8,8 @@ import {
   Modal,
   ModalHeading,
   ModalContent,
+  ModalStepLabel,
+  ProgressModalContentInProgress,
   SubmitChallengeStatement as SubmitChallengeStatementComponent,
   SubmitChallengeStatementProps,
 } from "@joincivil/components";
@@ -18,9 +20,11 @@ import { State } from "../../reducers";
 
 export interface SubmitChallengePageProps {
   match: any;
+  history?: any;
 }
 
 interface SubmitChallengeProps {
+  history?: any;
   listingAddress: EthAddress;
   listingURI: string;
   governanceGuideURI: string;
@@ -41,10 +45,13 @@ interface SubmitChallengeState {
 }
 
 interface ProgressModalPropsState {
-  isApproveMetaMaskModalOpen?: boolean;
-  isChallengeMetaMaskModalOpen?: boolean;
-  isChallengeSuccessModalOpen?: boolean;
   isWaitingTransactionModalOpen?: boolean;
+  isTransactionProgressModalOpen?: boolean;
+  isTransactionSuccessModalOpen?: boolean;
+  isTransactionRejectionModalOpen?: boolean;
+  transactionIndex?: number;
+  transactions?: any[];
+  cancelTransaction?(): void;
 }
 
 interface ProgressModalActionProps {
@@ -64,10 +71,11 @@ class SubmitChallengeComponent extends React.Component<
     super(props);
 
     this.state = {
-      isApproveMetaMaskModalOpen: false,
-      isChallengeMetaMaskModalOpen: false,
-      isChallengeSuccessModalOpen: false,
       isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionIndex: -1,
     };
   }
 
@@ -76,34 +84,39 @@ class SubmitChallengeComponent extends React.Component<
       {
         transaction: async () => {
           this.setState({
-            isApproveMetaMaskModalOpen: false,
-            isChallengeMetaMaskModalOpen: false,
             isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            isTransactionRejectionModalOpen: false,
+            transactionIndex: 0,
           });
           return approveForChallenge();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.setState({
-            isApproveMetaMaskModalOpen: true,
             isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
           });
-        }
+        },
+        handleTransactionError: this.handleTransactionError,
       },
       {
         transaction: async () => {
           this.setState({
-            isApproveMetaMaskModalOpen: false,
-            isChallengeMetaMaskModalOpen: false,
             isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionIndex: 1,
           });
           return this.challenge();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.setState({
-            isChallengeMetaMaskModalOpen: true,
-            isWaitingTransactionModalOpen: false,
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
           });
-        }
+        },
+        handleTransactionError: this.handleTransactionError,
       },
     ];
 
@@ -127,40 +140,79 @@ class SubmitChallengeComponent extends React.Component<
       revealStageLen,
       updateStatementValue: this.updateStatement,
       transactions,
+      postExecuteTransactions: this.onSubmitChallengeSuccess,
     };
 
-    const { isApproveMetaMaskModalOpen, isChallengeMetaMaskModalOpen, isWaitingTransactionModalOpen, isChallengeSuccessModalOpen } = this.state;
+    const {
+      isWaitingTransactionModalOpen,
+      isTransactionProgressModalOpen,
+      isTransactionSuccessModalOpen,
+      transactionIndex,
+    } = this.state;
 
     const modalProps = {
-      isApproveMetaMaskModalOpen, isChallengeMetaMaskModalOpen, isWaitingTransactionModalOpen, isChallengeSuccessModalOpen
+      isWaitingTransactionModalOpen,
+      isTransactionProgressModalOpen,
+      isTransactionSuccessModalOpen,
+      transactionIndex,
     };
 
     return (
       <>
         <SubmitChallengeStatementComponent {...props} />
-        <ApproveForChallengeProgressModal {...modalProps} />
-        <SubmitChallengeProgressModal {...modalProps} />
-        <SubmitChallengeSuccessModal {...modalProps} handleSuccessClose={this.closeAllModals} commitStageLen={commitStageLen} revealStageLen={revealStageLen} />
+        <AwaitingTransactionModal {...modalProps} />
+        <TransactionProgressModal {...modalProps} />
+        <TransactionSuccessModal
+          {...modalProps}
+          handleSuccessClose={this.redirectToListingPage}
+          commitStageLen={commitStageLen}
+          revealStageLen={revealStageLen}
+        />
+        <TransactionRejectionModal
+          transactions={transactions}
+          cancelTransaction={this.closeAllModals}
+          {...modalProps}
+        />
       </>
     );
   }
 
   private closeAllModals = (): void => {
     this.setState({
-      isApproveMetaMaskModalOpen: false,
-      isChallengeMetaMaskModalOpen: false,
-      isChallengeSuccessModalOpen: false,
       isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionIndex: -1,
     });
-  }
+  };
+
+  private handleTransactionError = (err: Error) => {
+    const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
+    this.setState(() => ({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: isErrorUserRejection,
+    }));
+  };
 
   private updateStatement = (key: string, value: any): void => {
-    const stateKey = `challengeStatement${key.charAt(0).toUpperCase()}${key.substring(1)}`;
-<<<<<<< Updated upstream
-=======
-    console.log(stateKey);
->>>>>>> Stashed changes
+    const stateKey = `challengeStatement${key.charAt(0).toUpperCase()}${key.substring(1)}Value`;
     this.setState(() => ({ [stateKey]: value }));
+  };
+
+  private onSubmitChallengeSuccess = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: true,
+    });
+  };
+
+  private redirectToListingPage = (): void => {
+    this.closeAllModals();
+    this.props.history.push("/listing/" + this.props.listingAddress);
   };
 
   // Transactions
@@ -175,49 +227,110 @@ class SubmitChallengeComponent extends React.Component<
       citeConstitution: challengeStatementCiteConstitutionValue.toString("html"),
       details: challengeStatementDetailsValue.toString("html"),
     };
-    console.log(this.props.listingAddress, JSON.stringify(jsonToSave));
     return challengeListing(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 }
 
-const ApproveForChallengeProgressModal: React.SFC<ProgressModalPropsState> = props => {
-  if (!props.isApproveMetaMaskModalOpen) {
+const AwaitingTransactionModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isWaitingTransactionModalOpen) {
     return null;
   }
+  const { transactionIndex } = props;
+  let transactionLabel = "";
+  let stepLabelText = "";
+  if (transactionIndex === 0) {
+    transactionLabel = "Approve For Challenge";
+    stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
+  } else if (transactionIndex === 1) {
+    transactionLabel = "Submit Challenge";
+    stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
+  }
   return (
-    <MetaMaskModal waiting={false}>
-      <ModalHeading>Approving For Challenge</ModalHeading>
+    <MetaMaskModal waiting={true}>
+      <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+      <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
     </MetaMaskModal>
   );
 };
 
-const SubmitChallengeProgressModal: React.SFC<ProgressModalPropsState> = props => {
-  if (!props.isChallengeMetaMaskModalOpen) {
+const TransactionProgressModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isTransactionProgressModalOpen) {
     return null;
   }
+  const { transactionIndex } = props;
+  let transactionLabel = "";
+  let stepLabelText = "";
+  if (transactionIndex === 0) {
+    transactionLabel = "Approve For Challenge";
+    stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
+  } else if (transactionIndex === 1) {
+    transactionLabel = "Submit Challenge";
+    stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
+  }
   return (
-    <MetaMaskModal waiting={false}>
-      <ModalHeading>Submitting Challenge</ModalHeading>
-    </MetaMaskModal>
+    <Modal>
+      <ProgressModalContentInProgress>
+        <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+        <ModalHeading>{transactionLabel}</ModalHeading>
+      </ProgressModalContentInProgress>
+    </Modal>
   );
 };
 
-const SubmitChallengeSuccessModal: React.SFC<ProgressModalPropsState & ProgressModalActionProps & VotingParamsDisplayProps> = props => {
-  if (!props.isChallengeSuccessModalOpen) {
+const TransactionSuccessModal: React.SFC<
+  ProgressModalPropsState & ProgressModalActionProps & VotingParamsDisplayProps
+> = props => {
+  if (!props.isTransactionSuccessModalOpen) {
     return null;
   }
   return (
     <Modal>
       <ModalHeading>
-        <strong>Success!</strong><br />
+        <strong>Success!</strong>
+        <br />
         This Newsroom is now under challenge
       </ModalHeading>
       <ModalContent>
-        <p>This challenge is now accepting votes. The CVL token-holding community will have the next {props.commitStageLen} to commit their secret votes, and {props.revealStageLen} to confirm their vote. To prevent decision bias, all votes will be hidden using a secret phrase, until the end of the voting period.</p>
-        <p>You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge deposit.</p>
-        <Button size={buttonSizes.MEDIUM} onClick={props.handleSuccessClose}>Ok, got it</Button>
+        This challenge is now accepting votes. The CVL token-holding community will have the next {props.commitStageLen}{" "}
+        to commit their secret votes, and {props.revealStageLen} to confirm their vote. To prevent decision bias, all
+        votes will be hidden using a secret phrase, until the end of the voting period.
       </ModalContent>
+      <ModalContent>
+        You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge deposit.
+      </ModalContent>
+      <Button size={buttonSizes.MEDIUM} onClick={props.handleSuccessClose}>
+        Ok, got it
+      </Button>
     </Modal>
+  );
+};
+
+const TransactionRejectionModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isTransactionRejectionModalOpen) {
+    return null;
+  }
+
+  const { transactionIndex } = props;
+  const message = "Your challenge was not submitted";
+  let denialMessage = "";
+
+  if (transactionIndex === 0) {
+    denialMessage =
+      "Before submitting a challenge, you need to confirm the approval of your challenge deposit in your MetaMask wallet.";
+  } else if (transactionIndex === 1) {
+    denialMessage = "To submit a challenge, you need to confirm the transaction in your MetaMask wallet.";
+  }
+
+  return (
+    <MetaMaskModal
+      waiting={false}
+      denied={true}
+      denialText={denialMessage}
+      cancelTransaction={() => props.cancelTransaction!()}
+      denialRestartTransactions={props.transactions}
+    >
+      <ModalHeading>{message}</ModalHeading>
+    </MetaMaskModal>
   );
 };
 
@@ -272,7 +385,12 @@ const SubmitChallengePage: React.SFC<SubmitChallengePageProps> = props => {
   const listingURI = `/listing/${listingAddress}`;
   const governanceGuideURI = "https://civil.co";
   return (
-    <SubmitChallenge listingAddress={listingAddress} listingURI={listingURI} governanceGuideURI={governanceGuideURI} />
+    <SubmitChallenge
+      listingAddress={listingAddress}
+      listingURI={listingURI}
+      governanceGuideURI={governanceGuideURI}
+      history={props.history}
+    />
   );
 };
 

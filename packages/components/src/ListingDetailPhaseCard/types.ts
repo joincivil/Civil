@@ -40,6 +40,7 @@ export interface CommitVoteProps {
   numTokens?: string;
   userHasCommittedVote?: boolean;
   userHasRevealedVote?: boolean;
+  buttonText?: string | JSX.Element;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
   onReviewVote(): void;
   postExecuteTransactions?(): any;
