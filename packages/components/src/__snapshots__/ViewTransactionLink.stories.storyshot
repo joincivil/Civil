@@ -4,7 +4,7 @@ exports[`Storyshots viewTransactionLink link 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hgHYgh dowTQc",
+      "class": "sc-eInJlc hWkJgB",
       "href": "https://rinkeby.etherscan.io/tx/0x90cf2411cac2a4d4873332bcf60bed49e62d7d4021120c3de0749eba8f6168af",
       "target": "_blank",
     },
@@ -21,7 +21,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-fjmCvl ZYZXe",
+                "class": "sc-TFwJa gcrowC",
                 "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
                 "fill-rule": "evenodd",
               },
@@ -77,7 +77,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-fjmCvl ZYZXe",
+              "class": "sc-TFwJa gcrowC",
               "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
               "fill-rule": "evenodd",
             },
