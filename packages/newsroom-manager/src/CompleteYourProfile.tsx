@@ -20,11 +20,13 @@ import { EthAddress, NewsroomRoles } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
-import { fetchNewsroom, uiActions } from "./actionCreators";
+import { fetchNewsroom } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser, UserTypes } from "./NewsroomUser";
 import { FormTitle } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
+import { makeUserObject } from "./utils";
+import { UserData } from "./types";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface CompleteYourProfileComponentExternalProps {
@@ -34,8 +36,8 @@ export interface CompleteYourProfileComponentExternalProps {
 }
 
 export interface CompleteYourProfileComponentProps {
-  owners: Array<{ address: EthAddress; name?: string }>;
-  editors: Array<{ address: EthAddress; name?: string }>;
+  owners: UserData[];
+  editors: UserData[];
   address?: EthAddress;
   newsroom: any;
   active?: boolean;
@@ -81,17 +83,6 @@ const QuestionToolTipWrapper = styled.span`
   position: relative;
   top: 3px;
 `;
-
-const makeUserObject = (state: StateWithNewsroom, item: EthAddress): { address: EthAddress; name?: string } => {
-  let name;
-  if (state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS)) {
-    name = state.newsroomUsers.get(item);
-  }
-  return {
-    address: item,
-    name,
-  };
-};
 
 class CompleteYourProfileComponent extends React.Component<
   CompleteYourProfileComponentProps & CompleteYourProfileComponentExternalProps & DispatchProp<any>,
@@ -319,9 +310,9 @@ class CompleteYourProfileComponent extends React.Component<
                   newsroomAddress={this.props.address}
                   type={UserTypes.OWNER}
                   profileWalletAddress={this.props.profileWalletAddress}
-                  key={item.address}
-                  address={item.address}
-                  name={item.name}
+                  key={item.rosterData.ethAddress}
+                  address={item.rosterData.ethAddress}
+                  name={item.rosterData.name}
                 />
               );
             })}
@@ -342,9 +333,9 @@ class CompleteYourProfileComponent extends React.Component<
                 newsroomAddress={this.props.address}
                 type={UserTypes.EDITOR}
                 profileWalletAddress={this.props.profileWalletAddress}
-                key={item.address}
-                address={item.address}
-                name={item.name}
+                key={item.rosterData.ethAddress}
+                address={item.rosterData.ethAddress}
+                name={item.rosterData.name}
               />
             ))}
           </Section>
@@ -445,12 +436,8 @@ const mapStateToProps = (
 ): CompleteYourProfileComponentProps & CompleteYourProfileComponentExternalProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
-  const owners: Array<{ address: EthAddress; name?: string }> = (newsroom.wrapper.data.owners || []).map(
-    makeUserObject.bind(null, state),
-  );
-  const editors: Array<{ address: EthAddress; name?: string }> = (newsroom.editors || []).map(
-    makeUserObject.bind(null, state),
-  );
+  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(makeUserObject.bind(null, state));
+  const editors: UserData[] = (newsroom.editors || []).map(makeUserObject.bind(null, state));
   return {
     ...ownProps,
     address,

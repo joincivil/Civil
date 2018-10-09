@@ -219,7 +219,7 @@ export class NewsroomUserComponent extends React.Component<
         <Wrapper>
           <NameSection>
             <FormSubhead>Name</FormSubhead>
-            <p>{this.props.name}</p>
+            <p>{this.props.name || "Could not find a user with that address"}</p>
           </NameSection>
           <div>
             <FormSubhead>Wallet Address</FormSubhead>
