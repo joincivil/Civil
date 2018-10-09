@@ -43,7 +43,7 @@ const ContentSectionWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const IB = BorderlessButton.extend`
+const IB = styled(BorderlessButton)`
   font-weight: 400;
   margin-right: 30px;
 `;

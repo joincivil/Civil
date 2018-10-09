@@ -55,7 +55,7 @@ export const HelperText = styled.div`
   color: #72777c;
 `;
 
-export const TertiaryButton: StyledComponentClass<ButtonProps, "button"> = Button.extend`
+export const TertiaryButton: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   border-radius: 3px;
   background-color: #f7f7f7;
   border: solid 1px #cccccc;

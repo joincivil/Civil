@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
 `;
 
-const DisplayName = FormSubhead.extend`
+const DisplayName = styled(FormSubhead)`
   display: inline-block;
   font-weight: bold;
   margin: 0 10px 0 0;

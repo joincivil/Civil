@@ -2,7 +2,7 @@ import * as React from "react";
 import { MetaMaskSideIcon, Button, buttonSizes, TransactionButtonInnerProps } from ".";
 import styled from "styled-components";
 
-const B = Button.extend`
+const B = styled(Button)`
   position: relative;
   display: flex;
   align-items: center;

@@ -58,7 +58,7 @@ const Section = styled.div`
   margin-bottom: 20px;
 `;
 
-const FormTitleSection = Section.extend`
+const FormTitleSection = styled(Section)`
   flex-direction: row;
   justify-content: flex-start;
 `;
@@ -71,11 +71,11 @@ const FormDescription = styled.p`
   margin-left: 50px;
 `;
 
-const AddButton = BorderlessButton.extend`
+const AddButton = styled(BorderlessButton)`
   padding-left: 0px;
 `;
 
-const Description = StepDescription.extend`
+const Description = styled(StepDescription)`
   font-size: 14px;
 `;
 

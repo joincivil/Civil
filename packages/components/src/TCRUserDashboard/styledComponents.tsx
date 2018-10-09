@@ -32,7 +32,7 @@ export const StyledSubTabCount = styled.span`
   padding: 3px 10px;
 `;
 
-export const StyledDashboardSubTab = StyledTab.extend`
+export const StyledDashboardSubTab = styled(StyledTab)`
   white-space: nowrap;
 
   & ${StyledSubTabCount} {

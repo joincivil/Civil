@@ -86,7 +86,7 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   }
 `;
 
-const Heading = ManagerHeading.extend`
+const Heading = styled(ManagerHeading)`
   color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
