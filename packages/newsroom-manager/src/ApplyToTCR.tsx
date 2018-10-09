@@ -25,11 +25,11 @@ export class ApplyToTCRComponent extends React.Component<ApplyToTCRProps> {
                   {
                     transaction: async () => {
                       const multisigAddr = await this.props.newsroom.getMultisigAddress();
-                      const tcr = await value.civil!.tcrSingletonTrustedMultisigSupport(multisigAddr);
+                      const tcr = await value.civil!.tcrSingletonTrusted();
                       const parameterizer = await tcr.getParameterizer();
                       const minDeposit = await parameterizer.getParameterValue("minDeposit");
                       const token = await tcr.getToken();
-                      return token.transfer(multisigAddr, minDeposit);
+                      return token.transfer(multisigAddr, minDeposit.mul(2));
                     },
                   },
                 ]}

@@ -47,6 +47,7 @@ class ListingListItemComponent extends React.Component<
       try {
         // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
         description = (newsroom!.wrapper.data.charter!.content as any).desc;
+        console.log(newsroom!.wrapper.data.charter);
       } catch (ex) {
         console.error("charter not formatted correctly");
       }

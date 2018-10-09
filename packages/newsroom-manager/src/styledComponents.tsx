@@ -23,7 +23,7 @@ export const FormSubhead = styled.h4`
   margin-bottom: 5px;
 `;
 
-export const TertiaryButton: StyledComponentClass<ButtonProps, "button"> = Button.extend`
+export const TertiaryButton: StyledComponentClass<ButtonProps, any> = styled(Button)`
   border-radius: 3px;
   background-color: #f7f7f7;
   border: solid 1px #cccccc;
