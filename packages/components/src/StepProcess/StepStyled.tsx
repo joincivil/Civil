@@ -39,7 +39,7 @@ StepStyled.defaultProps = {
   },
 };
 
-export const StepStyledFluid = StepStyled.extend`
+export const StepStyledFluid = styled(StepStyled)`
   padding-left: 0;
   padding-right: 0;
   width: 100%;

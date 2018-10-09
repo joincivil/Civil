@@ -79,7 +79,7 @@ const Dot = styled<DotProps, "div">("div")`
       : ""};
 `;
 
-const CompleteDot = Dot.extend`
+const CompleteDot = styled(Dot)`
   position: relative;
   width: 21px;
   height: 21px;

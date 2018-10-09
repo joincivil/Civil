@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { debounce } from "lodash";
+import { debounce, findIndex } from "lodash";
 import styled from "styled-components";
 import {
   colors,
@@ -12,38 +12,45 @@ import {
   TextInput,
   TextareaInput,
 } from "@joincivil/components";
-import { EthAddress, CharterData } from "@joincivil/core";
-import { FormSection, FormTitle, FormSubhead, TertiaryButton } from "./styledComponents";
+import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { RosterMember } from "./RosterMember";
+import {
+  FormSection,
+  FormTitle,
+  FormSubhead,
+  FormRow,
+  FormRowItem,
+  HelperText,
+  TertiaryButton,
+} from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
+import { makeUserObject } from "./utils";
+import { UserData } from "./types";
 import { updateCharter } from "./actionCreators";
 
-export interface CreateCharterPartOneProps extends StepProps {
+export interface CreateCharterPartOneExternalProps extends StepProps {
   address?: EthAddress;
   savedCharter?: Partial<CharterData>;
   stepisComplete(isComplete: boolean): void;
-  saveCharter?(charter: Partial<CharterData>): void;
+  saveCharter(charter: Partial<CharterData>): void;
+}
+
+export interface CreateCharterPartOneProps extends CreateCharterPartOneExternalProps {
+  owners: UserData[];
+  editors: UserData[];
 }
 
 export interface CreateCharterPartOneState {
   charter: Partial<CharterData>;
 }
 
-const HelperText = styled.div`
-  margin-top: -6px;
-  padding-left: 15px;
-  font-size: 13px;
-  color: #72777c;
-`;
-
 const LogoFormWrap = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: -4px;
 
   ${TertiaryButton} {
-    &,
-    &:hover {
-      margin: 6px 0 0;
-    }
+    margin: 6px 0 0;
   }
 `;
 const LogoURLWrap = styled.div`
@@ -59,23 +66,24 @@ const LogoURLInput = styled(TextInput)`
   }
 `;
 
-const SocialWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-const SocialForm = styled.div`
-  width: 50%;
-  &:first-child {
-    padding-right: 15px;
-  }
-`;
-
 const NewsroomURLInput = styled(TextInput)`
   max-width: 400px;
 `;
 const TaglineTextarea = styled(TextareaInput)`
   height: 80px;
-  margin-bottom: 0;
+  margin: -4px 0 0;
+`;
+
+const AddRosterMember = styled.a`
+  display: block;
+  cursor: pointer;
+  padding: 22px 0 22px 30px;
+  text-decoration: none;
+  font-weight: bold;
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  outline: none !important;
+  box-shadow: none !important;
 `;
 
 class CreateCharterPartOneComponent extends React.Component<
@@ -101,6 +109,11 @@ class CreateCharterPartOneComponent extends React.Component<
   }
 
   public render(): JSX.Element {
+    const contractUsers = this.props.owners.concat(this.props.editors);
+    const nonRosterContractUsers = contractUsers.filter(
+      user => findIndex(this.state.charter.roster, { ethAddress: user.rosterData.ethAddress }) === -1,
+    );
+
     return (
       <>
         <StepHeader>Create your Registry profile</StepHeader>
@@ -162,34 +175,28 @@ class CreateCharterPartOneComponent extends React.Component<
             <HelperText>Maximum of 120 Characters</HelperText>
           </div>
 
-          <div>
-            <SocialWrap>
-              <SocialForm>
-                <div>
-                  <FormSubhead>
-                    Twitter URL <em>(optional)</em>
-                  </FormSubhead>
-                  <TextInput
-                    name="twitter"
-                    value={(this.state.charter.socialUrls || {}).twitter || ""}
-                    onChange={this.charterSocialInputChange}
-                  />
-                </div>
-              </SocialForm>
-              <SocialForm>
-                <div>
-                  <FormSubhead>
-                    Facebook URL <em>(optional)</em>
-                  </FormSubhead>
-                  <TextInput
-                    name="facebook"
-                    value={(this.state.charter.socialUrls || {}).facebook || ""}
-                    onChange={this.charterSocialInputChange}
-                  />
-                </div>
-              </SocialForm>
-            </SocialWrap>
-          </div>
+          <FormRow>
+            <FormRowItem>
+              <div>
+                <FormSubhead optional>Twitter URL</FormSubhead>
+                <TextInput
+                  name="twitter"
+                  value={(this.state.charter.socialUrls || {}).twitter || ""}
+                  onChange={this.charterSocialInputChange}
+                />
+              </div>
+            </FormRowItem>
+            <FormRowItem>
+              <div>
+                <FormSubhead optional>Facebook URL</FormSubhead>
+                <TextInput
+                  name="facebook"
+                  value={(this.state.charter.socialUrls || {}).facebook || ""}
+                  onChange={this.charterSocialInputChange}
+                />
+              </div>
+            </FormRowItem>
+          </FormRow>
         </FormSection>
 
         <FormSection>
@@ -198,7 +205,34 @@ class CreateCharterPartOneComponent extends React.Component<
             Select the participants in your WordPress newsroom you want to add your roster and include any relevant
             credentials.
           </p>
-          <p>TODO</p>
+          {(this.state.charter.roster || []).map(member => {
+            return (
+              <RosterMember
+                newsroomAddress={this.props.address!}
+                key={member.ethAddress}
+                user={{ rosterData: member }}
+                onRoster={true}
+                onContract={findIndex(contractUsers, user => user.rosterData.ethAddress === member.ethAddress) !== -1}
+                updateRosterMember={this.rosterMemberUpdate}
+                newUser={!member.ethAddress}
+              />
+            );
+          })}
+          {nonRosterContractUsers.map(user => {
+            return (
+              <RosterMember
+                newsroomAddress={this.props.address!}
+                key={user.rosterData.ethAddress}
+                user={user}
+                onRoster={false}
+                onContract={true}
+                updateRosterMember={this.rosterMemberUpdate}
+              />
+            );
+          })}
+          <AddRosterMember href="#" onClick={this.addRosterMember}>
+            Add Additional Roster Member
+          </AddRosterMember>
         </FormSection>
       </>
     );
@@ -210,9 +244,11 @@ class CreateCharterPartOneComponent extends React.Component<
         this.state.charter &&
         this.state.charter.logoUrl &&
         this.state.charter.newsroomUrl &&
-        this.state.charter.tagline
+        this.state.charter.tagline &&
+        this.state.charter.roster &&
+        this.state.charter.roster.length
       ),
-    ); // @TODO/tobek also roster, and validate fields
+    ); // @TODO/tobek validate fields
   }
 
   private charterInputChange = (name: string, val: string) => {
@@ -237,16 +273,65 @@ class CreateCharterPartOneComponent extends React.Component<
     });
     this.handleCharterUpdate();
   };
+
+  private addRosterMember = (e: any) => {
+    e.preventDefault();
+    const newMember: RosterMemberInterface = {} as any;
+    this.setState({
+      charter: {
+        ...this.state.charter,
+        roster: (this.state.charter.roster || []).concat(newMember),
+      },
+    });
+  };
+
+  private rosterMemberUpdate = (onRoster: boolean, member: Partial<RosterMemberInterface>, newUser?: boolean) => {
+    let roster = (this.state.charter.roster || []).slice();
+    let memberIndex;
+    if (newUser) {
+      memberIndex = findIndex(roster, rosterMember => rosterMember.ethAddress === undefined);
+    } else {
+      memberIndex = findIndex(roster, rosterMember => rosterMember.ethAddress === member.ethAddress);
+    }
+    const wasOnRoster = memberIndex !== -1;
+
+    if (wasOnRoster) {
+      if (onRoster) {
+        roster[memberIndex] = member as RosterMemberInterface;
+      } else {
+        roster.splice(memberIndex, 1);
+      }
+    } else {
+      if (onRoster) {
+        roster = roster.concat(member as RosterMemberInterface);
+      } else {
+        return;
+      }
+    }
+
+    this.setState({
+      charter: {
+        ...this.state.charter,
+        roster,
+      },
+    });
+    this.handleCharterUpdate();
+  };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: CreateCharterPartOneProps): CreateCharterPartOneProps => {
-  let charterFromState;
-  if (ownProps.address && state.newsrooms.get(ownProps.address)) {
-    charterFromState = state.newsrooms.get(ownProps.address).charter;
-  }
+const mapStateToProps = (
+  state: StateWithNewsroom,
+  ownProps: CreateCharterPartOneExternalProps,
+): CreateCharterPartOneProps => {
+  const newsroom = state.newsrooms.get(ownProps.address || "") || { wrapper: { data: {} } };
+  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(makeUserObject.bind(null, state));
+  const editors: UserData[] = (newsroom.editors || []).map(makeUserObject.bind(null, state));
+
   return {
     ...ownProps,
-    savedCharter: ownProps.savedCharter || charterFromState || {},
+    owners,
+    editors,
+    savedCharter: newsroom.charter || ownProps.savedCharter || {},
   };
 };
 

@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import { EthAddress, Civil, CharterData } from "@joincivil/core";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
+import { CmsUserData } from "./types";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -118,7 +119,7 @@ export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any,
   return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
 };
 
-export const addGetNameForAddress = (func: (address: EthAddress) => Promise<string>): AnyAction => {
+export const addGetNameForAddress = (func: (address: EthAddress) => Promise<CmsUserData>): AnyAction => {
   return {
     type: uiActions.ADD_GET_NAME_FOR_ADDRESS,
     data: func,

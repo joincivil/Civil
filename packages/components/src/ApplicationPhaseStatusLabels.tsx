@@ -13,27 +13,27 @@ const StyledBaseStatus = styled.div`
   text-transform: uppercase;
 `;
 
-const StyledAwaitingStatuslabel = StyledBaseStatus.extend`
+const StyledAwaitingStatuslabel = styled(StyledBaseStatus)`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   color: ${colors.primary.BLACK};
 `;
 
-const StyledAwaitingAppealStatuslabel = StyledBaseStatus.extend`
+const StyledAwaitingAppealStatuslabel = styled(StyledBaseStatus)`
   background-color: ${colors.accent.CIVIL_RED_VERY_FADED};
   color: ${colors.primary.BLACK};
 `;
 
-const StyledCommitVoteStatus = StyledBaseStatus.extend`
+const StyledCommitVoteStatus = styled(StyledBaseStatus)`
   background-color: ${colors.accent.CIVIL_YELLOW};
   color: ${colors.primary.BLACK};
 `;
 
-const StyledRevealVoteStatus = StyledBaseStatus.extend`
+const StyledRevealVoteStatus = styled(StyledBaseStatus)`
   background-color: ${colors.accent.CIVIL_TEAL_FADED};
   color: ${colors.primary.BLACK};
 `;
 
-const StyledReadyToCompleteStatus = StyledBaseStatus.extend`
+const StyledReadyToCompleteStatus = styled(StyledBaseStatus)`
   background-color: ${colors.accent.CIVIL_BLUE};
   color: ${colors.basic.WHITE};
 `;

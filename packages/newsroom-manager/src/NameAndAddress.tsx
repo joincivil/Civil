@@ -54,7 +54,7 @@ const PendingWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Description = StepDescription.extend`
+const Description = styled(StepDescription)`
   font-size: 14px;
 `;
 

@@ -27,7 +27,7 @@ const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   margin-bottom: 10px;
 `;
 
-const Button = SecondaryButton.extend`
+const Button = styled(SecondaryButton)`
   padding: 10px;
   font-size: 14px;
 `;

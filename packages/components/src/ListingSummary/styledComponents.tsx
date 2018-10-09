@@ -45,7 +45,7 @@ export const StyledListingSummarySection = styled.div`
   padding: 25px 22px;
 `;
 
-export const StyledListingSummaryNewsroomName = SectionHeading.extend`
+export const StyledListingSummaryNewsroomName = styled(SectionHeading)`
   margin: 0 0 16px;
 `;
 
