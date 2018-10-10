@@ -19,7 +19,7 @@ import { fetchVote } from "../../helpers/vote";
 import { ChallengeDetailProps, ChallengeVoteState, ProgressModalPropsState } from "./ChallengeDetail";
 
 class ChallengeRevealVote extends React.Component<ChallengeDetailProps, ChallengeVoteState & ProgressModalPropsState> {
-  constructor(props: any) {
+  constructor(props: ChallengeDetailProps) {
     super(props);
     const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
     let voteOption;

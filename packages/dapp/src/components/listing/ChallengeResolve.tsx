@@ -41,6 +41,17 @@ const ChallengeResolveCard = compose(connectChallengePhase, connectChallengeResu
 
 // A container for the Challenge Resolve Card component
 export class ChallengeResolve extends React.Component<ChallengeResolveProps, ChallengeResolveProgressModalPropsState> {
+  constructor(props: ChallengeResolveProps) {
+    super(props);
+    this.state = {
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionIndex: -1,
+    };
+  }
+
   public render(): JSX.Element | null {
     const transactions = [
       {
@@ -93,7 +104,7 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
       <Modal>
         <ModalHeading>
           <strong>
-            Success!><br />Thanks for resolving this challenge.
+            Success!<br />Thanks for resolving this challenge.
           </strong>
         </ModalHeading>
         <ModalContent>
