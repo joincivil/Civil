@@ -12,7 +12,7 @@ import {
   UserChallengeData,
 } from "@joincivil/core";
 import BigNumber from "bignumber.js";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
 import {
   Button,
   buttonSizes,
@@ -40,10 +40,10 @@ enum AppealChallengeDetailTransactionTypes {
 }
 
 const AppealChallengeDetailTransactionLabels = {
-  [AppealChallengeDetailTransactionTypes.APPROVE_VOTING_RIGHTS]: "Grant Appeal",
-  [AppealChallengeDetailTransactionTypes.COMMIT_VOTE]: "Confirm Appeal",
-  [AppealChallengeDetailTransactionTypes.REVEAL_VOTE]: "Resolve Appeal",
-  [AppealChallengeDetailTransactionTypes.RESOLVE]: "Challenge Appeal",
+  [AppealChallengeDetailTransactionTypes.APPROVE_VOTING_RIGHTS]: "Approve Voting Rights",
+  [AppealChallengeDetailTransactionTypes.COMMIT_VOTE]: "Commit Vote",
+  [AppealChallengeDetailTransactionTypes.REVEAL_VOTE]: "Reveal Vote",
+  [AppealChallengeDetailTransactionTypes.RESOLVE]: "Resolve Appeal Challenge",
 };
 
 const MultiStepTransactionLabels = {
@@ -169,11 +169,11 @@ class AppealChallengeDetail extends React.Component<
   }
 
   private renderCommitStage(): JSX.Element {
-    const challenge = this.props.appealChallenge;
+    const { challenge, appealChallenge } = this.props;
 
-    const endTime = challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.parameters.challengeAppealCommitLen;
-    const secondaryPhaseLength = this.props.parameters.challengeAppealRevealLen;
+    const endTime = appealChallenge.poll.commitEndDate.toNumber();
+    const phaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
+    const secondaryPhaseLength = this.props.parameters[Parameters.challengeAppealRevealLen];
 
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
@@ -220,15 +220,16 @@ class AppealChallengeDetail extends React.Component<
   }
 
   private renderRevealStage(): JSX.Element {
-    const challenge = this.props.appealChallenge;
+    const { challenge, appealChallenge } = this.props;
+
     const userHasRevealedVote =
       this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserReveal;
     const userHasCommittedVote =
       this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserCommit;
 
-    const endTime = challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.parameters.challengeAppealRevealLen;
-    const secondaryPhaseLength = this.props.parameters.challengeAppealCommitLen;
+    const endTime = appealChallenge.poll.revealEndDate.toNumber();
+    const phaseLength = this.props.parameters[Parameters.challengeAppealRevealLen];
+    const secondaryPhaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
 
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);

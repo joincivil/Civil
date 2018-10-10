@@ -5,7 +5,6 @@ import {
   Button,
   buttonSizes,
   MetaMaskModal,
-  LoadingIndicator,
   Modal,
   ModalHeading,
   ModalContent,
@@ -130,6 +129,7 @@ class RequestAppealComponent extends React.Component<
       judgeAppealLen,
       updateStatementValue: this.updateStatement,
       transactions,
+      postExecuteTransactions: this.onRequestAppealSuccess,
     };
 
     const {
@@ -190,6 +190,14 @@ class RequestAppealComponent extends React.Component<
     });
   };
 
+  private onRequestAppealSuccess = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: true,
+    });
+  };
+
   private redirectToListingPage = (): void => {
     this.closeAllModals();
     this.props.history.push("/listing/" + this.props.listingAddress);
@@ -219,10 +227,10 @@ const AwaitingTransactionModal: React.SFC<ProgressModalPropsState> = props => {
   let transactionLabel = "";
   let stepLabelText = "";
   if (transactionIndex === 0) {
-    transactionLabel = "Approve For Challenge";
+    transactionLabel = "Approve For Request Appeal";
     stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
   } else if (transactionIndex === 1) {
-    transactionLabel = "Submit Challenge";
+    transactionLabel = "Request Appeal";
     stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
   }
   return (
@@ -241,17 +249,16 @@ const TransactionProgressModal: React.SFC<ProgressModalPropsState> = props => {
   let transactionLabel = "";
   let stepLabelText = "";
   if (transactionIndex === 0) {
-    transactionLabel = "Approve For Challenge";
+    transactionLabel = "Approve For Request Appeal";
     stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
   } else if (transactionIndex === 1) {
-    transactionLabel = "Submit Challenge";
+    transactionLabel = "Request Appeal";
     stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
   }
   return (
     <Modal>
       <ProgressModalContentInProgress>
         <ModalStepLabel>{stepLabelText}</ModalStepLabel>
-        <LoadingIndicator height={100} width={150} />
         <ModalHeading>{transactionLabel}</ModalHeading>
       </ProgressModalContentInProgress>
     </Modal>
