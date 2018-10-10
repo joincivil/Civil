@@ -30,7 +30,9 @@ import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
+import { ApplyToTCR } from "./ApplyToTCR";
 import { StateWithNewsroom } from "./reducers";
+import { CmsUserData } from "./types";
 
 export interface NewsroomComponentState {
   currentStep: number;
@@ -69,7 +71,7 @@ export interface NewsroomProps {
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
-  getNameForAddress?(address: EthAddress): Promise<string>;
+  getNameForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
@@ -85,7 +87,7 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   }
 `;
 
-const Heading = ManagerHeading.extend`
+const Heading = styled(ManagerHeading)`
   color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
@@ -206,8 +208,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             >
               <CreateCharterPartOne
                 address={this.props.address}
-                savedCharter={this.props.savedCharter}
-                saveCharter={this.props.saveCharter}
+                savedCharter={this.getSavedCharter()}
+                saveCharter={this.saveCharter}
                 stepisComplete={(isComplete: boolean) => this.setState({ charterPartOneComplete: isComplete })}
               />
             </Step>
@@ -233,21 +235,35 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             >
               <CreateCharterPartTwo
                 address={this.props.address}
-                savedCharter={this.props.savedCharter}
-                saveCharter={this.props.saveCharter}
+                savedCharter={this.getSavedCharter()}
+                saveCharter={this.saveCharter}
                 stepisComplete={(isComplete: boolean) => this.setState({ charterPartTwoComplete: isComplete })}
               />
             </Step>
-            <Step title={"Sign the Constitution"}>
+            <Step
+              title={"Sign the Constitution"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+            >
               <SignConstitution
                 newsroomAdress={this.props.address}
                 ipfs={this.props.ipfs}
-                savedCharter={this.props.savedCharter}
-                saveCharter={this.props.saveCharter}
+                savedCharter={this.getSavedCharter()}
+                saveCharter={this.saveCharter}
               />
             </Step>
             <Step title={"Apply to the Registry"}>
-              <div />
+              <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
           <button />
@@ -313,6 +329,35 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
+  };
+
+  private getSavedCharter = (): Partial<CharterData> | undefined => {
+    if (this.props.savedCharter) {
+      return this.props.savedCharter;
+    }
+
+    try {
+      if (localStorage[this.props.address! + "|charter"]) {
+        return JSON.parse(localStorage[this.props.address! + "|charter"]);
+      }
+    } catch (e) {
+      console.error("Failed to retrieve charter from local storage:", e);
+    }
+
+    return undefined;
+  };
+
+  private saveCharter = (charter: Partial<CharterData>): void => {
+    if (this.props.saveCharter) {
+      this.props.saveCharter(charter);
+      return;
+    }
+
+    try {
+      localStorage[this.props.address! + "|charter"] = JSON.stringify(charter);
+    } catch (e) {
+      console.error("Failed to save charter to local storage:", e);
+    }
   };
 }
 

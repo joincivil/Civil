@@ -140,6 +140,10 @@ class SubmitChallengeComponent extends React.Component<
       revealStageLen,
       updateStatementValue: this.updateStatement,
       transactions,
+<<<<<<< HEAD
+=======
+      modalContentComponents,
+>>>>>>> origin/master
       postExecuteTransactions: this.onSubmitChallengeSuccess,
     };
 
@@ -203,6 +207,7 @@ class SubmitChallengeComponent extends React.Component<
   };
 
   private onSubmitChallengeSuccess = (): void => {
+<<<<<<< HEAD
     this.setState({
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
@@ -212,6 +217,8 @@ class SubmitChallengeComponent extends React.Component<
 
   private redirectToListingPage = (): void => {
     this.closeAllModals();
+=======
+>>>>>>> origin/master
     this.props.history.push("/listing/" + this.props.listingAddress);
   };
 

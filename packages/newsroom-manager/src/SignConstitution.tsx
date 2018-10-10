@@ -39,7 +39,7 @@ export interface SignConstitutionReduxProps {
   savedCharter?: Partial<CharterData>;
   ipfs?: IpfsObject;
   newsroom?: any;
-  saveCharter?(charter: Partial<CharterData>): void;
+  saveCharter(charter: Partial<CharterData>): void;
 }
 
 export interface SignConstitutionState {
@@ -241,9 +241,7 @@ class SignConstitutionComponent extends React.Component<
           signatures.push({ signature, message, signer });
           const charter = { ...this.props.savedCharter, signatures };
           this.props.dispatch!(updateCharter(this.props.newsroomAdress!, charter));
-          if (this.props.saveCharter) {
-            this.props.saveCharter(charter);
-          }
+          this.props.saveCharter(charter);
           this.setState({ isWaitingSignatureOpen: false });
         },
         handleTransactionError: (err: Error) => {
@@ -326,7 +324,7 @@ const mapStateToProps = (state: any, ownProps: SignConstitutionReduxProps): Sign
   return {
     ...ownProps,
     government: newsroomGovernment,
-    savedCharter: ownProps.savedCharter || charterFromState || {},
+    savedCharter: charterFromState || ownProps.savedCharter || {},
     newsroom: newsroom.newsroom,
   };
 };

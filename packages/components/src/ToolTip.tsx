@@ -57,7 +57,6 @@ const Tip = styled.div`
 const Wrapper = styled.div`
   display: inline-block;
   position: relative;
-  vertical-align: top;
 `;
 
 const HitBox = styled.div`

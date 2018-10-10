@@ -92,11 +92,11 @@ export const MetaItemValue = styled.div`
   text-overflow: ellipsis;
 `;
 
-export const MetaItemValueLong = MetaItemValue.extend`
+export const MetaItemValueLong = styled(MetaItemValue)`
   font-size: 16px;
 `;
 
-export const MetaItemValueAccent = MetaItemValue.extend`
+export const MetaItemValueAccent = styled(MetaItemValue)`
   color: ${colors.primary.CIVIL_BLUE_1};
 `;
 
@@ -201,11 +201,11 @@ export const StyledCardFace: StyledComponentClass<StyledCardProps, "div"> = styl
   width: 100%;
 `;
 
-export const StyledCardFront = StyledCardFace.extend`
+export const StyledCardFront = styled(StyledCardFace)`
   z-index: ${props => (!!props.flipped ? "1" : "-1")};
 `;
 
-export const StyledCardBack = StyledCardFace.extend`
+export const StyledCardBack = styled(StyledCardFace)`
   top: 0;
   bottom: 0;
   left: 0;
@@ -219,7 +219,7 @@ export const StyledCardBack = StyledCardFace.extend`
   }
 `;
 
-export const FullWidthButton: StyledComponentClass<ButtonProps, "button"> = Button.extend`
+export const FullWidthButton: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   margin: 14px 0 0;
   width: 100%;
 `;

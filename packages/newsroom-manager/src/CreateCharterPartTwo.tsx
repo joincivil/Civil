@@ -12,7 +12,7 @@ export interface CreateCharterPartTwoProps extends StepProps {
   address?: EthAddress;
   savedCharter?: Partial<CharterData>;
   stepisComplete(isComplete: boolean): void;
-  saveCharter?(charter: Partial<CharterData>): void;
+  saveCharter(charter: Partial<CharterData>): void;
 }
 
 export interface CreateCharterPartTwoState {
@@ -132,13 +132,13 @@ class CreateCharterPartTwoComponent extends React.Component<
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: CreateCharterPartTwoProps): CreateCharterPartTwoProps => {
-  let charterFromState;
+  let charterFromState: Partial<CharterData> | undefined;
   if (ownProps.address && state.newsrooms.get(ownProps.address)) {
     charterFromState = state.newsrooms.get(ownProps.address).charter;
   }
   return {
     ...ownProps,
-    savedCharter: ownProps.savedCharter || charterFromState || {},
+    savedCharter: charterFromState || ownProps.savedCharter || {},
   };
 };
 
