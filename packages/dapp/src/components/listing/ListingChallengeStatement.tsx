@@ -48,7 +48,7 @@ class ListingChallengeStatement extends React.Component<
     const cleanCiteConstitution = sanitizeHtml(parsed.citeConstitution, {
       allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
     });
-    const cleanDetails = sanitizeHtml(parsed.citeConstitution, {
+    const cleanDetails = sanitizeHtml(parsed.details, {
       allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
     });
     return (
@@ -77,14 +77,15 @@ class ListingChallengeStatement extends React.Component<
       return <></>;
     }
     const parsed = JSON.parse(this.props.challengeStatement);
+    console.log(parsed);
     const summary = parsed.summary || "";
     const cleanCiteConstitution = parsed.citeConstitution
       ? sanitizeHtml(parsed.citeConstitution, {
           allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
         })
       : "";
-    const cleanDetails = parsed.citeConstitution
-      ? sanitizeHtml(parsed.citeConstitution, {
+    const cleanDetails = parsed.details
+      ? sanitizeHtml(parsed.details, {
           allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
         })
       : "";

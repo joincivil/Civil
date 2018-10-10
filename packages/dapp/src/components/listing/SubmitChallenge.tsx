@@ -117,6 +117,7 @@ class SubmitChallengeComponent extends React.Component<
       citeConstitution: challengeStatementCiteConstitutionValue.toString("html"),
       details: challengeStatementDetailsValue.toString("html"),
     };
+    console.log(jsonToSave);
     return challengeListing(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 }
