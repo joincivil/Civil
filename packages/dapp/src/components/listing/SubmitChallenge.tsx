@@ -270,8 +270,10 @@ const TransactionProgressModal: React.SFC<ProgressModalPropsState> = props => {
   return (
     <Modal>
       <ProgressModalContentInProgress>
-        <ModalStepLabel>{stepLabelText}</ModalStepLabel>
-        <ModalHeading>{transactionLabel}</ModalHeading>
+        <>
+          <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+          <ModalHeading>{transactionLabel}</ModalHeading>
+        </>
       </ProgressModalContentInProgress>
     </Modal>
   );
