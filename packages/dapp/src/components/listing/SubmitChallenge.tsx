@@ -300,7 +300,7 @@ const TransactionSuccessModal: React.SFC<
       <ModalContent>
         You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge deposit.
       </ModalContent>
-      <Button size={buttonSizes.MEDIUM} onClick={props.handleSuccessClose}>
+      <Button size={buttonSizes.MEDIUM} onClick={() => props.handleSuccessClose()}>
         Ok, got it
       </Button>
     </Modal>

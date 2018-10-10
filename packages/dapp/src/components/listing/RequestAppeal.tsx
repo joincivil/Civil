@@ -280,7 +280,7 @@ const TransactionSuccessModal: React.SFC<
         The Civil Council has {props.judgeAppealLen} to review the vote. They will publish at least one public document
         outlining the Constitutional rationale for their decision. Please check back for their decision.
       </ModalContent>
-      <Button size={buttonSizes.MEDIUM} onClick={props.handleSuccessClose}>
+      <Button size={buttonSizes.MEDIUM} onClick={() => props.handleSuccessClose()}>
         Ok, got it
       </Button>
     </Modal>
