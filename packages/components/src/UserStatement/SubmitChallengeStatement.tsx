@@ -159,6 +159,7 @@ export class SubmitChallengeStatement extends React.Component<
                   modalContentComponents={this.props.modalContentComponents}
                   transactions={this.props.transactions}
                   postExecuteTransactions={this.props.postExecuteTransactions}
+                  disabled={this.isFormInvalid()}
                 >
                   Confirm and Deposit CVL
                 </TransactionButton>
@@ -173,6 +174,13 @@ export class SubmitChallengeStatement extends React.Component<
       </>
     );
   }
+
+  private isFormInvalid = (): boolean => {
+    const { summaryValue, citeConstitutionValue, detailsValue } = this.state;
+    return (
+      !summaryValue || !summaryValue.length || !citeConstitutionValue.toString("html") || !detailsValue.toString("html")
+    );
+  };
 
   private handleSummaryValueChange = (name: string, summaryValue: string) => {
     this.setState({ summaryValue });

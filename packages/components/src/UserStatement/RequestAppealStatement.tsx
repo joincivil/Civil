@@ -87,8 +87,8 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
         </StyledUserStatementHeaderOuter>
         <StyledUserStatementBodyOuter>
           <StyledUserStatementBody>
-            <BodyHeader>State reasons for your challenge</BodyHeader>
-            <BodyCopyHelper>Enter a summary of the reasons for your challenge (Max 120 characters)</BodyCopyHelper>
+            <BodyHeader>State reasons for your appeal request</BodyHeader>
+            <BodyCopyHelper>Enter a summary of the reasons for your appeal request (Max 120 characters)</BodyCopyHelper>
 
             <SectionForm>
               <SectionFormHeader>
@@ -154,6 +154,7 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
                   modalContentComponents={this.props.modalContentComponents}
                   transactions={this.props.transactions}
                   postExecuteTransactions={this.props.postExecuteTransactions}
+                  disabled={this.isFormInvalid()}
                 >
                   Confirm and Deposit CVL
                 </TransactionButton>
@@ -168,6 +169,13 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
       </>
     );
   }
+
+  private isFormInvalid = (): boolean => {
+    const { summaryValue, citeConstitutionValue, detailsValue } = this.state;
+    return (
+      !summaryValue || !summaryValue.length || !citeConstitutionValue.toString("html") || !detailsValue.toString("html")
+    );
+  };
 
   private handleSummaryValueChange = (name: string, summaryValue: string) => {
     this.setState({ summaryValue });
