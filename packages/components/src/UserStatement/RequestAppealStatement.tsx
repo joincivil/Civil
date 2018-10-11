@@ -172,9 +172,11 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
 
   private isFormInvalid = (): boolean => {
     const { summaryValue, citeConstitutionValue, detailsValue } = this.state;
-    return (
-      !summaryValue || !summaryValue.length || !citeConstitutionValue.toString("html") || !detailsValue.toString("html")
-    );
+    const citeConstitution = document.createElement("div");
+    citeConstitution.innerHTML = citeConstitutionValue.toString("html");
+    const details = document.createElement("div");
+    details.innerHTML = detailsValue.toString("html");
+    return !summaryValue || !summaryValue.length || !citeConstitution.innerText.length || !details.innerText.length;
   };
 
   private handleSummaryValueChange = (name: string, summaryValue: string) => {
