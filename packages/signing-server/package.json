@@ -31,6 +31,8 @@
   },
   "homepage": "https://github.com/joincivil/Civil",
   "dependencies": {
+    "@joincivil/core": "^4.6.1",
+    "@joincivil/dev-utils": "^1.0.1",
     "@joincivil/utils": "^1.7.1",
     "@types/koa": "^2.0.46",
     "bip39": "^2.5.0",

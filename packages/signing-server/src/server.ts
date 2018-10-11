@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import yargs = require("yargs");
+import { Civil, TwoStepEthTransaction } from "@joincivil/core";
+import { infuraProvider } from "@joincivil/dev-utils";
 import { isValidAddress, toBuffer } from "ethereumjs-util";
 import * as Koa from "koa";
 import * as logger from "koa-logger";
@@ -20,31 +22,48 @@ const args = yargs
     describe: "mnemonic to generate private key",
     requiresArg: true,
     demandOption: true,
-    coerce: mnemonic => ActionSigner.fromMnemonic(mnemonic),
+  })
+  .option("nodeEndpoint", {
+    describe: "Ethereum node url",
+    requiresArg: true,
+    demandOption: true,
   })
   .strict().argv;
 
 const port = Number.parseInt(args.port, 10);
-const actionSigner = args.mnemonic as ActionSigner;
+const actionSigner = ActionSigner.fromMnemonic(args.mnemonic);
+
+const provider = infuraProvider(args.mnemonic, args.nodeEndpoint);
+const civil = new Civil({ web3Provider: provider });
 
 const app = new Koa();
 
 app.use(logger());
 
 app.use(
-  route.get("/union/:userGroup/:groupA/:groupB", async (ctx, userGroup, groupA, groupB) => {
-    if (!isValidAddress(userGroup) || !isValidAddress(groupA) || !isValidAddress(groupB)) {
+  route.get("/union/:groupA/:groupB", async (ctx, groupA, groupB) => {
+    if (!isValidAddress(groupA) || !isValidAddress(groupB)) {
       throw new Error("Invalid address");
     }
-    ctx.body = actionSigner.signUnion(toBuffer(userGroup), toBuffer(groupA), toBuffer(groupB));
+    // Due to interactions with core, web3 doesn't have a default account when trying to send tx
+    // Ensure it's set for the first time
+    await civil.accountStream.first().toPromise();
+    const userGroups = await civil.userGroupsSingletonTrusted();
+    const signature = actionSigner.signUnion(toBuffer(userGroups.address), toBuffer(groupA), toBuffer(groupB));
+    const twoStep: TwoStepEthTransaction = await userGroups.forceUnion(groupA, groupB, signature);
+    ctx.body = twoStep.txHash;
   }),
 );
 app.use(
-  route.get("/groupSize/:userGroup/:nonce/:size", async (ctx, userGroup, nonce, size) => {
-    if (!isValidAddress(userGroup)) {
-      throw new Error("Invalid address");
-    }
-    ctx.body = actionSigner.signMaxGroupSize(toBuffer(userGroup), new BN(nonce), new BN(size));
+  route.get("/groupSize/:size", async (ctx, size) => {
+    // Due to interactions with core, web3 doesn't have a default account when trying to send tx
+    // Ensure it's set for the first time
+    await civil.accountStream.first().toPromise();
+    const userGroups = await civil.userGroupsSingletonTrusted();
+    const nonce = await userGroups.getMaxGroupSizeUpdateNonce();
+    const signature = actionSigner.signMaxGroupSize(toBuffer(userGroups.address), new BN(nonce), new BN(size));
+    const twoStep: TwoStepEthTransaction = await userGroups.setMaxGroupSize(Number.parseInt(size, 10), signature);
+    ctx.body = twoStep.txHash;
   }),
 );
 
