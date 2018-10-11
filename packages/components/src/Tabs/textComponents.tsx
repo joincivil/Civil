@@ -25,7 +25,7 @@ export const ApplicationsInProgressTabText: React.SFC = props => {
 export const RejectedNewsroomsTabText: React.SFC = props => {
   return (
     <>
-      <RejectedNewsroomsIcon /> Rejected Newsromos
+      <RejectedNewsroomsIcon /> Rejected Newsrooms
     </>
   );
 };

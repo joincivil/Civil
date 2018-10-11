@@ -77,7 +77,6 @@ class ListingChallengeStatement extends React.Component<
       return <></>;
     }
     const parsed = JSON.parse(this.props.challengeStatement);
-    console.log(parsed);
     const summary = parsed.summary || "";
     const cleanCiteConstitution = parsed.citeConstitution
       ? sanitizeHtml(parsed.citeConstitution, {
