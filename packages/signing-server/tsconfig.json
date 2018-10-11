@@ -2,7 +2,7 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "outDir": "build/",
-    "declarationDir": "build/"
+    "declarationDir": "build/",
   },
   "include": ["./src/**/*.ts"]
 }

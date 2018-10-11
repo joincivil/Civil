@@ -4,7 +4,9 @@ import { isValidAddress, toBuffer } from "ethereumjs-util";
 import { ActionSigner } from "./lib/actionsigner";
 import BN = require("bn.js");
 
-const result = yargs
+// calling ".argv" executes the pipeline
+// tslint:disable-next-line:no-unused-expression
+yargs
   .env("SIGNING_SERVER")
   .option("mnemonic", {
     alias: "m",
