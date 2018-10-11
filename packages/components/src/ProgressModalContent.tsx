@@ -9,11 +9,15 @@ export interface ProgressModalContentProps {
 
 export class ProgressModalContentInProgress extends React.Component<ProgressModalContentProps> {
   public render(): JSX.Element {
+    const content = this.props.children || <ModalHeading>Your transaction is in progress.</ModalHeading>;
+
     return (
       <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Your transaction is in progress.</ModalHeading>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
+        <LoadingIndicator height={100} width={150} />
+        {content}
+        <ModalContent>
+          Your transaction is processing. This can take 1-3 minutes. Please don't close the tab.
+        </ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </>
     );

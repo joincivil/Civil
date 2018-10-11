@@ -29,7 +29,7 @@ export function prepareNewsroomMessage(newsroomAddress: EthAddress, contentHash:
 }
 
 export function prepareUserFriendlyNewsroomMessage(newsroomAddress: EthAddress, contentHash: Hex): string {
-  return `I authorize this newsroom with address ${newsroomAddress} to publish this article whose content hashes to ${contentHash} using keccak256`;
+  return `I authorize this newsroom to publish this post and verify its content.\n\nNewsroom address:\n${newsroomAddress}\n\nPost content hash:\n${contentHash}`;
 }
 
 export function prepareConstitutionSignMessage(newsroomAddress: EthAddress, constitutionHash: Hex): string {

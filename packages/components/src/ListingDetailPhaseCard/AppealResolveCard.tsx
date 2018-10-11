@@ -7,7 +7,7 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { NeedHelp } from "./NeedHelp";
@@ -50,12 +50,7 @@ export const AppealResolveCard: React.StatelessComponent<
           This challenge is complete. To update this Newsroom's status on the Civil Registry, please{" "}
           <a href="#">resolve this appeal</a>.
         </CTACopy>
-        <TransactionInvertedButton
-          transactions={props.transactions!}
-          modalContentComponents={props.modalContentComponents}
-        >
-          Resolve Appeal
-        </TransactionInvertedButton>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Appeal</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />

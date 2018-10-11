@@ -1,11 +1,10 @@
 import * as React from "react";
-import { compose } from "redux";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import BigNumber from "bignumber.js";
+import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   Button,
   buttonSizes,
-  ListingDetailPhaseCardComponentProps,
-  ChallengeResolveCard as ChallengeResolveCardComponent,
+  ChallengeRevealVoteCard,
   MetaMaskModal,
   Modal,
   ModalHeading,
@@ -13,37 +12,25 @@ import {
   ModalStepLabel,
   ProgressModalContentInProgress,
 } from "@joincivil/components";
+import { getLocalDateTimeStrings, getFormattedTokenBalance } from "@joincivil/utils";
+import { revealVote } from "../../apis/civilTCR";
+import { fetchSalt } from "../../helpers/salt";
+import { fetchVote } from "../../helpers/vote";
+import { ChallengeDetailProps, ChallengeVoteState, ProgressModalPropsState } from "./ChallengeDetail";
 
-import { updateStatus } from "../../apis/civilTCR";
-import {
-  ChallengeContainerProps,
-  connectChallengeResults,
-  connectChallengePhase,
-} from "../utility/HigherOrderComponents";
-
-export interface ChallengeResolveProps extends ChallengeContainerProps {
-  listingAddress: EthAddress;
-}
-
-export interface ChallengeResolveProgressModalPropsState {
-  isWaitingTransactionModalOpen?: boolean;
-  isTransactionProgressModalOpen?: boolean;
-  isTransactionSuccessModalOpen?: boolean;
-  isTransactionRejectionModalOpen?: boolean;
-  transactionIndex?: number;
-  transactions?: any[];
-  cancelTransaction?(): void;
-}
-
-const ChallengeResolveCard = compose(connectChallengePhase, connectChallengeResults)(
-  ChallengeResolveCardComponent,
-) as React.ComponentClass<ChallengeResolveProps & ListingDetailPhaseCardComponentProps>;
-
-// A container for the Challenge Resolve Card component
-export class ChallengeResolve extends React.Component<ChallengeResolveProps, ChallengeResolveProgressModalPropsState> {
-  constructor(props: ChallengeResolveProps) {
+class ChallengeRevealVote extends React.Component<ChallengeDetailProps, ChallengeVoteState & ProgressModalPropsState> {
+  constructor(props: ChallengeDetailProps) {
     super(props);
+    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
     this.state = {
+      isReviewVoteModalOpen: false,
+      voteOption,
+      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
+      numTokens: undefined,
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
@@ -53,6 +40,12 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
   }
 
   public render(): JSX.Element | null {
+    const endTime = this.props.challenge.poll.revealEndDate.toNumber();
+    const phaseLength = this.props.parameters.revealStageLen;
+    const secondaryPhaseLength = this.props.parameters.commitStageLen;
+    const challenge = this.props.challenge;
+    const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
+    const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
     const transactions = [
       {
         transaction: async () => {
@@ -62,7 +55,7 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
             isTransactionSuccessModalOpen: false,
             transactionIndex: 0,
           });
-          return this.resolve();
+          return this.revealVoteOnChallenge();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.setState({
@@ -81,11 +74,25 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
       },
     ];
 
+    if (!challenge) {
+      return null;
+    }
+
     return (
       <>
-        <ChallengeResolveCard
-          listingAddress={this.props.listingAddress}
-          challengeID={this.props.challengeID}
+        <ChallengeRevealVoteCard
+          challengeID={this.props.challengeID.toString()}
+          endTime={endTime}
+          phaseLength={phaseLength}
+          secondaryPhaseLength={secondaryPhaseLength}
+          challenger={challenge!.challenger.toString()}
+          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+          stake={getFormattedTokenBalance(challenge!.stake)}
+          voteOption={this.state.voteOption}
+          salt={this.state.salt}
+          onInputChange={this.updateCommitVoteState}
+          userHasRevealedVote={userHasRevealedVote}
+          userHasCommittedVote={userHasCommittedVote}
           transactions={transactions}
         />
         {this.renderAwaitingTransactionModal()}
@@ -100,17 +107,20 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
     if (!this.state.isTransactionSuccessModalOpen) {
       return null;
     }
+    const endTime = getLocalDateTimeStrings(this.props.challenge.poll.revealEndDate.toNumber());
     return (
       <Modal>
         <ModalHeading>
-          <strong>
-            Success!<br />Thanks for resolving this challenge.
-          </strong>
+          <strong>Success! Thanks for confirming your vote.</strong>
         </ModalHeading>
         <ModalContent>
-          Voters can now collect rewards from their votes on this challenge, if they are available.
+          We are still waiting for all voters to confirm their votes. Please check back after{" "}
+          <strong>
+            {endTime[0]} {endTime[1]}
+          </strong>{" "}
+          to see voting results. Thank you for your patience!
         </ModalContent>
-        <Button size={buttonSizes.MEDIUM} onClick={this.closeAllModals}>
+        <Button size={buttonSizes.MEDIUM} onClick={this.handleRevealVoteSuccessClose}>
           Ok, got it
         </Button>
       </Modal>
@@ -121,7 +131,7 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
     if (!this.state.isWaitingTransactionModalOpen) {
       return null;
     }
-    const transactionLabel = "Resolve Challenge";
+    const transactionLabel = "Confirm Vote";
     const stepLabelText = `Step 1 of 1 - ${transactionLabel}`;
     return (
       <MetaMaskModal waiting={true}>
@@ -135,7 +145,7 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
     if (!this.state.isTransactionProgressModalOpen) {
       return null;
     }
-    const transactionLabel = "Resolve Challenge";
+    const transactionLabel = "Confirm Vote";
     const stepLabelText = `Step 1 of 1 - ${transactionLabel}`;
     return (
       <Modal>
@@ -152,8 +162,8 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
       return null;
     }
 
-    const message = "The challenge was not resolved";
-    const denialMessage = "To resolve the challenge, you need to confirm the transaction in your MetaMask wallet.";
+    const message = "Your vote was not confirmed";
+    const denialMessage = "To confirm your vote, you need to confirm the transaction in your MetaMask wallet.";
 
     return (
       <MetaMaskModal
@@ -187,17 +197,23 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
     }));
   };
 
-  private closeAllModals = (): void => {
-    this.setState({
-      isWaitingTransactionModalOpen: false,
-      isTransactionProgressModalOpen: false,
-      isTransactionSuccessModalOpen: false,
-      isTransactionRejectionModalOpen: false,
-      transactionIndex: -1,
-    });
+  private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
+    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
+    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    return revealVote(this.props.challengeID, voteOption, salt);
   };
 
-  private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateStatus(this.props.listingAddress);
+  private updateCommitVoteState = (data: any, callback?: () => void): void => {
+    if (callback) {
+      this.setState({ ...data }, callback);
+    } else {
+      this.setState({ ...data });
+    }
+  };
+
+  private handleRevealVoteSuccessClose = () => {
+    this.setState({ isTransactionSuccessModalOpen: false });
   };
 }
+
+export default ChallengeRevealVote;

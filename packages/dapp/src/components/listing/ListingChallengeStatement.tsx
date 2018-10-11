@@ -48,7 +48,7 @@ class ListingChallengeStatement extends React.Component<
     const cleanCiteConstitution = sanitizeHtml(parsed.citeConstitution, {
       allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
     });
-    const cleanDetails = sanitizeHtml(parsed.citeConstitution, {
+    const cleanDetails = sanitizeHtml(parsed.details, {
       allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
     });
     return (
@@ -83,8 +83,8 @@ class ListingChallengeStatement extends React.Component<
           allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
         })
       : "";
-    const cleanDetails = parsed.citeConstitution
-      ? sanitizeHtml(parsed.citeConstitution, {
+    const cleanDetails = parsed.details
+      ? sanitizeHtml(parsed.details, {
           allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
         })
       : "";
