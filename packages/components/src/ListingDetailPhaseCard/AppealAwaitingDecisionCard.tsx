@@ -14,7 +14,7 @@ import {
   MetaItemLabel,
 } from "./styledComponents";
 import { WaitingCouncilDecisionToolTipText } from "./textComponents";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
@@ -37,11 +37,7 @@ const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProp
   if (props.txIdToConfirm) {
     text = "Confirm Appeal";
   }
-  return (
-    <TransactionInvertedButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
-      {text}
-    </TransactionInvertedButton>
-  );
+  return <TransactionButtonNoModal transactions={props.transactions!}>{text}</TransactionButtonNoModal>;
 };
 
 export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
