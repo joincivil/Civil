@@ -226,9 +226,11 @@ class SignConstitutionComponent extends React.Component<
                     disabled={!this.state.agreedToConstitution}
                     Button={props => {
                       return (
-                        <MetaMaskLogoButton disabled={props.disabled} onClick={props.onClick}>Complete Your Charter</MetaMaskLogoButton>
-                      )}
-                    }
+                        <MetaMaskLogoButton disabled={props.disabled} onClick={props.onClick}>
+                          Complete Your Charter
+                        </MetaMaskLogoButton>
+                      );
+                    }}
                     transactions={this.getTransactions(value.civil!)}
                   />
                 </>

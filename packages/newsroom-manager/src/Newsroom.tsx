@@ -157,7 +157,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               } catch (e) {
                 console.error("Failed to save step index", e);
               }
-              this.setState({ currentStep: newIndex })
+              this.setState({ currentStep: newIndex });
             }}
           >
             <Step
