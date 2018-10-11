@@ -77,6 +77,14 @@ class SignConstitutionComponent extends React.Component<
     };
   }
 
+  public componentDidUpdate(prevProps: SignConstitutionReduxProps): void {
+    if (!this.state.agreedToConstitution) {
+      this.setState({
+        agreedToConstitution: !!prevProps.savedCharter!.signatures && !!prevProps.savedCharter!.signatures!.length, // TODO, check if your signature is here
+      });
+    }
+  }
+
   public renderPreSignModal(): JSX.Element | null {
     if (!this.state.preSignModalOpen) {
       return null;
@@ -106,7 +114,24 @@ class SignConstitutionComponent extends React.Component<
         startTransaction={() => this.startTransaction()}
       >
         <MetaMaskStepCounter>Step 1 of 2</MetaMaskStepCounter>
-        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+        <ModalHeading>Waiting for you to sign in MetaMask</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  public renderWaitingPublishModal(): JSX.Element | null {
+    if (!this.state.isWaitingPublishModalOpen) {
+      return null;
+    }
+    return (
+      <MetaMaskModal
+        waiting={true}
+        signing={true}
+        cancelTransaction={() => this.cancelTransaction()}
+        startTransaction={() => this.startTransaction()}
+      >
+        <MetaMaskStepCounter>Step 2 of 2</MetaMaskStepCounter>
+        <ModalHeading>Waiting for you to confirm the transaction in MetaMask</ModalHeading>
       </MetaMaskModal>
     );
   }
@@ -198,9 +223,12 @@ class SignConstitutionComponent extends React.Component<
                     and the other to confirm.
                   </StepDescription>
                   <TransactionButtonNoModal
-                    Button={props => (
-                      <MetaMaskLogoButton onClick={props.onClick}>Complete Your Charter</MetaMaskLogoButton>
-                    )}
+                    disabled={!this.state.agreedToConstitution}
+                    Button={props => {
+                      return (
+                        <MetaMaskLogoButton disabled={props.disabled} onClick={props.onClick}>Complete Your Charter</MetaMaskLogoButton>
+                      )}
+                    }
                     transactions={this.getTransactions(value.civil!)}
                   />
                 </>
@@ -209,6 +237,7 @@ class SignConstitutionComponent extends React.Component<
           </CivilContext.Consumer>
           {this.renderPreSignModal()}
           {this.renderWaitingSignModal()}
+          {this.renderWaitingPublishModal()}
           {this.renderMetaMaskRejectionModal()}
           {this.renderMetaMaskPublishRejectionModal()}
         </StepFormSection>
@@ -242,7 +271,9 @@ class SignConstitutionComponent extends React.Component<
           const charter = { ...this.props.savedCharter, signatures };
           this.props.dispatch!(updateCharter(this.props.newsroomAdress!, charter));
           this.props.saveCharter(charter);
-          this.setState({ isWaitingSignatureOpen: false });
+          this.setState({
+            isWaitingSignatureOpen: false,
+          });
         },
         handleTransactionError: (err: Error) => {
           this.setState({ isWaitingSignatureOpen: false });

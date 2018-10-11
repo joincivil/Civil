@@ -98,8 +98,16 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
+    let currentStep = props.address ? 1 : 0;
+    try {
+      if (localStorage.newsroomOnBoardingLastSeen) {
+        currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
+      }
+    } catch (e) {
+      console.error("Failed to load step index", e);
+    }
     this.state = {
-      currentStep: props.address ? 1 : 0,
+      currentStep,
     };
   }
 
@@ -143,7 +151,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         >
           <StepProcessTopNav
             activeIndex={this.state.currentStep}
-            onActiveTabChange={(newIndex: number) => this.setState({ currentStep: newIndex })}
+            onActiveTabChange={(newIndex: number) => {
+              try {
+                localStorage.newsroomOnBoardingLastSeen = JSON.stringify(newIndex);
+              } catch (e) {
+                console.error("Failed to save step index", e);
+              }
+              this.setState({ currentStep: newIndex })
+            }}
           >
             <Step
               title={"Set up a newsroom"}
@@ -178,7 +193,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                   </>
                 );
               }}
-              complete={this.props.owners!.length > 1 || !!this.props.editors!.length}
+              complete={this.props.owners!.length > 1 || !!this.props.editors!.length || this.state.currentStep > 1}
             >
               <CompleteYourProfile
                 address={this.props.address}
