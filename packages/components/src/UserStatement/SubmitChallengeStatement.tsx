@@ -176,7 +176,7 @@ export class SubmitChallengeStatement extends React.Component<
 
   private handleSummaryValueChange = (name: string, summaryValue: string) => {
     this.setState({ summaryValue });
-    this.props.updateStatementValue("summaryValue", summaryValue);
+    this.props.updateStatementValue("summary", summaryValue);
   };
 
   private handleCiteConstitutionValueChange = (citeConstitutionValue: any) => {

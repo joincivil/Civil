@@ -171,7 +171,7 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
 
   private handleSummaryValueChange = (name: string, summaryValue: string) => {
     this.setState({ summaryValue });
-    this.props.updateStatementValue("summaryValue", summaryValue);
+    this.props.updateStatementValue("summary", summaryValue);
   };
 
   private handleCiteConstitutionValueChange = (citeConstitutionValue: any) => {
