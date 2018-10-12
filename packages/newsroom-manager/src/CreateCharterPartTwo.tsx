@@ -15,9 +15,7 @@ const Textarea = styled(TextareaInput)`
   height: 140px;
 `;
 
-class CreateCharterPartTwoComponent extends React.Component<
-  CreateCharterPartTwoProps & DispatchProp<any>
-> {
+class CreateCharterPartTwoComponent extends React.Component<CreateCharterPartTwoProps & DispatchProp<any>> {
   constructor(props: CreateCharterPartTwoProps) {
     super(props);
   }

@@ -123,11 +123,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.checkCharterCompletion();
 
     if (props.getPersistedCharter) {
-      props.getPersistedCharter().then(charter => {
-        if (charter) {
-          this.setState({ charter }, this.checkCharterCompletion);
-        }
-      }).catch();
+      props
+        .getPersistedCharter()
+        .then(charter => {
+          if (charter) {
+            this.setState({ charter }, this.checkCharterCompletion);
+          }
+        })
+        .catch();
     }
   }
 
@@ -269,10 +272,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               }}
               complete={this.state.charterPartTwoComplete}
             >
-              <CreateCharterPartTwo
-                charter={this.state.charter}
-                updateCharter={this.updateCharter}
-              />
+              <CreateCharterPartTwo charter={this.state.charter} updateCharter={this.updateCharter} />
             </Step>
             <Step
               title={"Sign the Constitution"}
@@ -422,7 +422,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       charterPartOneComplete,
       charterPartTwoComplete,
     });
-  }
+  };
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {

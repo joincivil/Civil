@@ -80,9 +80,7 @@ const AddRosterMember = styled.a`
   box-shadow: none !important;
 `;
 
-class CreateCharterPartOneComponent extends React.Component<
-  CreateCharterPartOneProps & DispatchProp<any>
-> {
+class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOneProps & DispatchProp<any>> {
   constructor(props: CreateCharterPartOneProps) {
     super(props);
   }
