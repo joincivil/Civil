@@ -39,7 +39,7 @@
     "@joincivil/typescript-types": "^1.2.1",
     "@types/debug": "0.0.30",
     "@types/underscore": "^1.8.6",
-    "copyfiles": "^1.2.0",
+    "copyfiles": "^2.1.0",
     "npm-run-all": "^4.1.2",
     "rimraf": "^2.6.2",
     "tslint": "^5.9.1",
