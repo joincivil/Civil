@@ -3,7 +3,9 @@ import yargs = require("yargs");
 import { Civil, TwoStepEthTransaction } from "@joincivil/core";
 import { infuraProvider } from "@joincivil/dev-utils";
 import { isValidAddress, toBuffer } from "ethereumjs-util";
+import * as http from "http";
 import * as Koa from "koa";
+import * as json from "koa-json";
 import * as logger from "koa-logger";
 import * as route from "koa-route";
 import { ActionSigner } from "./lib/actionsigner";
@@ -16,6 +18,12 @@ const args = yargs
     describe: "server port to listen to",
     requiresArg: true,
     default: "8080",
+  })
+  .option("host", {
+    alias: "h",
+    describe: "server host to bind to",
+    default: "0.0.0.0",
+    requiresArg: true,
   })
   .option("mnemonic", {
     alias: "m",
@@ -30,6 +38,7 @@ const args = yargs
   })
   .strict().argv;
 
+const host = args.host;
 const port = Number.parseInt(args.port, 10);
 const actionSigner = ActionSigner.fromMnemonic(args.mnemonic);
 
@@ -39,6 +48,7 @@ const civil = new Civil({ web3Provider: provider });
 const app = new Koa();
 
 app.use(logger());
+app.use(json());
 
 app.use(
   route.get("/union/:groupA/:groupB", async (ctx, groupA, groupB) => {
@@ -51,7 +61,7 @@ app.use(
     const userGroups = await civil.userGroupsSingletonTrusted();
     const signature = actionSigner.signUnion(toBuffer(userGroups.address), toBuffer(groupA), toBuffer(groupB));
     const twoStep: TwoStepEthTransaction = await userGroups.forceUnion(groupA, groupB, signature);
-    ctx.body = twoStep.txHash;
+    ctx.body = { txHash: twoStep.txHash };
   }),
 );
 app.use(
@@ -63,9 +73,9 @@ app.use(
     const nonce = await userGroups.getMaxGroupSizeUpdateNonce();
     const signature = actionSigner.signMaxGroupSize(toBuffer(userGroups.address), new BN(nonce), new BN(size));
     const twoStep: TwoStepEthTransaction = await userGroups.setMaxGroupSize(Number.parseInt(size, 10), signature);
-    ctx.body = twoStep.txHash;
+    ctx.body = { txHash: twoStep.txHash };
   }),
 );
 
-app.listen(port);
-console.log(`Listening on port ${port}`);
+http.createServer(app.callback()).listen(port, host);
+console.log(`Listening on ${host}:${port}`);
