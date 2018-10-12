@@ -18,7 +18,6 @@ import { Map } from "immutable";
 import styled from "styled-components";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { EthSignedMessage, TxHash } from "@joincivil/typescript-types";
-import { updateCharter } from "./actionCreators";
 import { IpfsObject } from "./Newsroom";
 import { toBuffer } from "ethereumjs-util";
 
@@ -34,12 +33,12 @@ const CheckWrapper = styled.span`
 `;
 
 export interface SignConstitutionReduxProps {
+  charter: Partial<CharterData>;
   government?: Map<string, string>;
   newsroomAdress?: EthAddress;
-  savedCharter?: Partial<CharterData>;
   ipfs?: IpfsObject;
   newsroom?: any;
-  saveCharter(charter: Partial<CharterData>): void;
+  updateCharter(charter: Partial<CharterData>): void;
 }
 
 export interface SignConstitutionState {
@@ -80,7 +79,7 @@ class SignConstitutionComponent extends React.Component<
   public componentDidUpdate(prevProps: SignConstitutionReduxProps): void {
     if (!this.state.agreedToConstitution) {
       this.setState({
-        agreedToConstitution: !!prevProps.savedCharter!.signatures && !!prevProps.savedCharter!.signatures!.length, // TODO, check if your signature is here
+        agreedToConstitution: !!prevProps.charter!.signatures && !!prevProps.charter!.signatures!.length, // TODO, check if your signature is here
       });
     }
   }
@@ -268,11 +267,10 @@ class SignConstitutionComponent extends React.Component<
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
           const { signature, message, signer } = sig;
-          const signatures = this.props.savedCharter!.signatures || [];
+          const signatures = this.props.charter.signatures || [];
           signatures.push({ signature, message, signer });
-          const charter = { ...this.props.savedCharter, signatures };
-          this.props.dispatch!(updateCharter(this.props.newsroomAdress!, charter));
-          this.props.saveCharter(charter);
+          const charter = { ...this.props.charter, signatures };
+          this.props.updateCharter(charter);
           this.setState({
             isWaitingSignatureOpen: false,
           });
@@ -293,7 +291,7 @@ class SignConstitutionComponent extends React.Component<
       {
         transaction: async () => {
           this.setState({ isWaitingPublishModalOpen: true });
-          const charter = JSON.stringify(this.props.savedCharter);
+          const charter = JSON.stringify(this.props.charter);
           const files = await this.props.ipfs!.add(toBuffer(charter), {
             hash: "keccak-256",
             pin: true,
@@ -348,16 +346,11 @@ class SignConstitutionComponent extends React.Component<
 
 const mapStateToProps = (state: any, ownProps: SignConstitutionReduxProps): SignConstitutionReduxProps => {
   const { newsroomGovernment } = state;
-  let charterFromState;
   const newsroom = state.newsrooms.get(ownProps.newsroomAdress);
-  if (ownProps.newsroomAdress && newsroom) {
-    charterFromState = state.newsrooms.get(ownProps.newsroomAdress).charter;
-  }
 
   return {
     ...ownProps,
     government: newsroomGovernment,
-    savedCharter: charterFromState || ownProps.savedCharter || {},
     newsroom: newsroom.newsroom,
   };
 };

@@ -67,6 +67,8 @@ export function newsroomUi(state: Map<string, any> = Map(), action: AnyAction): 
   switch (action.type) {
     case uiActions.ADD_GET_NAME_FOR_ADDRESS:
       return state.set(uiActions.GET_NAME_FOR_ADDRESS, action.data);
+    case uiActions.ADD_PERSIST_CHARTER:
+      return state.set(uiActions.PERSIST_CHARTER, action.data);
     default:
       return state;
   }
