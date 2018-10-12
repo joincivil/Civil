@@ -62,7 +62,7 @@ export const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
   ]
 `;
 
-export const VotesPerTokenTotal = VotesPerTokenVote.extend`
+export const VotesPerTokenTotal = styled(VotesPerTokenVote)`
   color: ${colors.accent.CIVIL_GRAY_3};
   text-transform: uppercase;
   width: 95px;

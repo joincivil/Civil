@@ -14,7 +14,7 @@ import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
 import { VoteTypeSummaryRow } from "./VoteTypeSummaryRow";
 import { Collapsable } from "../Collapsable";
 
-const DefaultHeader = StyledListingDetailPhaseCardSectionHeader.extend`
+const DefaultHeader = styled(StyledListingDetailPhaseCardSectionHeader)`
   & + ${VoteTypeSummaryContainer} {
     margin-top: 14px;
   }

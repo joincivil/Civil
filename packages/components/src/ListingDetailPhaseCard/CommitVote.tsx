@@ -51,7 +51,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         {this.renderSaltInput()}
 
         <Button disabled={!canReview} size={buttonSizes.MEDIUM} theme={buttonTheme} onClick={this.props.onReviewVote}>
-          <CommitVoteReviewButtonText />
+          {this.props.buttonText || <CommitVoteReviewButtonText />}
         </Button>
       </>
     );

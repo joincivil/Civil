@@ -39,12 +39,12 @@ const Wrapper = styled.div`
   }
 `;
 
-const LargeishButton = Button.extend`
+const LargeishButton = styled(Button)`
   box-sizing: border-box;
   height: 42px;
 `;
 // fix vertical alignment on anchor tag:
-const LargeishLinkButton = LargeishButton.extend`
+const LargeishLinkButton = styled(LargeishButton)`
   padding-top: 11px;
 `;
 

@@ -20,7 +20,7 @@ export const Message = styled(MessageBase)`
   color: black;
 `;
 
-export const InfoMessage = Message.extend`
+export const InfoMessage = styled(Message)`
   background-color: ${colors.accent.CIVIL_BLUE_VERY_FADED};
   color: black;
 `;

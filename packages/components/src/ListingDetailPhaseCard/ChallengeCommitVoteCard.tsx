@@ -91,7 +91,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                 {this.renderCommitVoteCallout()}
 
                 <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-                  Submit My Vote
+                  {this.renderCommitVoteButtonText()}
                 </FullWidthButton>
               </StyledListingDetailPhaseCardSection>
 
@@ -116,6 +116,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                   onInputChange={this.props.onInputChange}
                   userHasCommittedVote={this.props.userHasCommittedVote}
                   onReviewVote={this.props.onReviewVote}
+                  buttonText={this.renderCommitVoteButtonText()}
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
@@ -152,5 +153,12 @@ export class ChallengeCommitVoteCard extends React.Component<
         </FormCopy>
       </>
     );
+  };
+
+  private renderCommitVoteButtonText = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return <>Change My Vote</>;
+    }
+    return <>Submit My Vote</>;
   };
 }

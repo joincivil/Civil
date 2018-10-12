@@ -18,7 +18,12 @@ class ListingHeader extends React.Component<ListingHeaderProps> {
   public render(): JSX.Element {
     let newsroomDescription = "";
     if (this.props.newsroom.data.charter) {
-      newsroomDescription = JSON.parse(this.props.newsroom.data.charter.content.toString()).desc;
+      try {
+        // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
+        newsroomDescription = (this.props.newsroom.data.charter.content as any).desc;
+      } catch (ex) {
+        console.error("charter not formatted correctly");
+      }
     }
 
     const props: ListingDetailHeaderProps = {

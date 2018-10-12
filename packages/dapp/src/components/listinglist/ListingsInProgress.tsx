@@ -1,7 +1,17 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Tabs, Tab, StyledSquarePillTabNav, StyledSquarePillTab } from "@joincivil/components";
+import {
+  Tabs,
+  Tab,
+  StyledSquarePillTabNav,
+  StyledSquarePillTab,
+  NewApplicationsTabTitle,
+  UnderChallengeTabTitle,
+  AppealToCouncilTabTitle,
+  ChallengeCouncilAppealTabTitle,
+  ReadyToUpdateTabTitle,
+} from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { State } from "../../reducers";
@@ -36,9 +46,16 @@ class ListingsInProgress extends React.Component<ListingProps> {
     const readyToUpdate = this.props.readyToWhitelistListings
       .merge(this.props.resolveChallengeListings)
       .merge(this.props.resolveAppealListings);
+
+    const newApplicationsTab = <NewApplicationsTabTitle count={applications.count()} />;
+    const underChallengeTab = <UnderChallengeTabTitle count={beingChallenged.count()} />;
+    const appealToCouncilTab = <AppealToCouncilTabTitle count={consideringAppeal.count()} />;
+    const challengeCouncilAppealTab = <ChallengeCouncilAppealTabTitle count={appealChallenge.count()} />;
+    const readyToUpdateTab = <ReadyToUpdateTabTitle count={readyToUpdate.count()} />;
+
     return (
       <Tabs TabsNavComponent={StyledSquarePillTabNav} TabComponent={StyledSquarePillTab}>
-        <Tab title={"New Applications (" + applications.count() + ")"}>
+        <Tab title={newApplicationsTab}>
           <>
             <StyledListingCopy>
               New applications are subject to Civil community review for alignment with the Civil Constitution. By
@@ -47,7 +64,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
             <ListingList listings={applications} />
           </>
         </Tab>
-        <Tab title={"Under Challenge (" + beingChallenged.count() + ")"}>
+        <Tab title={underChallengeTab}>
           <>
             <StyledListingCopy>
               Applications “under challenge” require the Civil community vote to remain on the Registry due to a
@@ -57,7 +74,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
             <ListingList listings={beingChallenged} />
           </>
         </Tab>
-        <Tab title={"Appeal to Council (" + consideringAppeal.count() + ")"}>
+        <Tab title={appealToCouncilTab}>
           <>
             <StyledListingCopy>
               Appeal to the Civil Council has been granted to these Newsrooms. The Civil Council will review whether
@@ -67,7 +84,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
             <ListingList listings={consideringAppeal} />
           </>
         </Tab>
-        <Tab title={"Challenge Council Appeal (" + appealChallenge.count() + ")"}>
+        <Tab title={challengeCouncilAppealTab}>
           <>
             <StyledListingCopy>
               Newsrooms under “Challenge Council Appeal” require the Civil community vote to veto the Council decision
@@ -77,7 +94,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
             <ListingList listings={appealChallenge} />
           </>
         </Tab>
-        <Tab title={"Ready to Update (" + readyToUpdate.count() + ")"}>
+        <Tab title={readyToUpdateTab}>
           <>
             <StyledListingCopy>Step 1: Resolve these challenges. Step 2: ???. Step 3: Profit!!!</StyledListingCopy>
             <ListingList listings={readyToUpdate} />
