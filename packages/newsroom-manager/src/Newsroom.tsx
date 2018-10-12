@@ -115,13 +115,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       persistedCharterLoaded: false,
       currentStep,
     };
+    this.checkCharterStepCompletion();
   }
 
   public componentDidUpdate(prevProps: NewsroomProps, prevState: NewsroomComponentState): void {
     if (typeof prevProps.persistedCharter === "undefined" && typeof this.props.persistedCharter !== "undefined") {
       this.setState({
         charter: this.props.persistedCharter || prevState.charter,
-      });
+      }, this.checkCharterStepCompletion);
     }
   }
 
@@ -239,7 +240,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 address={this.props.address}
                 charter={this.state.charter}
                 updateCharter={this.updateCharter}
-                stepisComplete={(isComplete: boolean) => this.setState({ charterPartOneComplete: isComplete })}
               />
             </Step>
             <Step
@@ -265,7 +265,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               <CreateCharterPartTwo
                 charter={this.state.charter}
                 updateCharter={this.updateCharter}
-                stepisComplete={(isComplete: boolean) => this.setState({ charterPartTwoComplete: isComplete })}
               />
             </Step>
             <Step
@@ -381,6 +380,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private processCharterUpdate = debounce(() => {
+    this.checkCharterStepCompletion();
+
     this.props.dispatch!(updateCharter(this.props.address!, this.state.charter));
     // check complete!
     this.persistCharter(this.state.charter);
@@ -398,6 +399,34 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       console.error("Failed to save charter to local storage:", e);
     }
   };
+
+  private checkCharterStepCompletion = () => {
+    const charterPartOneComplete = !!(
+      this.state.charter &&
+      this.state.charter.logoUrl &&
+      this.state.charter.newsroomUrl &&
+      this.state.charter.tagline &&
+      this.state.charter.roster &&
+      this.state.charter.roster.length
+    );
+
+    let charterPartTwoComplete = false;
+    const mission = this.state.charter.mission;
+    if (mission) {
+      charterPartTwoComplete = !!(
+        mission.purpose &&
+        mission.structure &&
+        mission.revenue &&
+        mission.encumbrances &&
+        mission.miscellaneous
+      );
+    }
+
+    this.setState({
+      charterPartOneComplete,
+      charterPartTwoComplete,
+    });
+  }
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {

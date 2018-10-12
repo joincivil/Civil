@@ -30,7 +30,6 @@ import { UserData } from "./types";
 export interface CreateCharterPartOneExternalProps extends StepProps {
   charter: Partial<CharterData>;
   address?: EthAddress;
-  stepisComplete(isComplete: boolean): void;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
@@ -86,7 +85,6 @@ class CreateCharterPartOneComponent extends React.Component<
 > {
   constructor(props: CreateCharterPartOneProps) {
     super(props);
-    this.checkIsComplete();
   }
 
   public render(): JSX.Element {
@@ -217,19 +215,6 @@ class CreateCharterPartOneComponent extends React.Component<
         </FormSection>
       </>
     );
-  }
-
-  private checkIsComplete(): void {
-    this.props.stepisComplete(
-      !!(
-        this.props.charter &&
-        this.props.charter.logoUrl &&
-        this.props.charter.newsroomUrl &&
-        this.props.charter.tagline &&
-        this.props.charter.roster &&
-        this.props.charter.roster.length
-      ),
-    ); // @TODO/tobek validate fields
   }
 
   private charterInputChange = (name: string, val: string) => {

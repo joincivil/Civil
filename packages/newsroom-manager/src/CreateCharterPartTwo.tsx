@@ -9,7 +9,6 @@ import { updateCharter } from "./actionCreators";
 
 export interface CreateCharterPartTwoProps extends StepProps {
   charter: Partial<CharterData>;
-  stepisComplete(isComplete: boolean): void;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
@@ -22,7 +21,6 @@ class CreateCharterPartTwoComponent extends React.Component<
 > {
   constructor(props: CreateCharterPartTwoProps) {
     super(props);
-    this.checkIsComplete();
   }
 
   public render(): JSX.Element {
@@ -80,21 +78,6 @@ class CreateCharterPartTwoComponent extends React.Component<
         </FormSection>
       </>
     );
-  }
-
-  private checkIsComplete(): void {
-    let isComplete = false;
-    if (this.props.charter.mission) {
-      const mission = this.props.charter.mission;
-      isComplete = !!(
-        mission.purpose &&
-        mission.structure &&
-        mission.revenue &&
-        mission.encumbrances &&
-        mission.miscellaneous
-      );
-    }
-    this.props.stepisComplete(isComplete);
   }
 
   private missionInputChange = (name: string, val: string) => {
