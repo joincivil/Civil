@@ -13,14 +13,7 @@ import {
 } from "@joincivil/components";
 import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { RosterMember } from "./RosterMember";
-import {
-  FormSection,
-  FormTitle,
-  FormSubhead,
-  FormRow,
-  FormRowItem,
-  HelperText,
-} from "./styledComponents";
+import { FormSection, FormTitle, FormSubhead, FormRow, FormRowItem, HelperText } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { makeUserObject } from "./utils";
 import { UserData } from "./types";
