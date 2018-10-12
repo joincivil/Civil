@@ -18,6 +18,7 @@ import { debounce } from "lodash";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
   addGetNameForAddress,
+  addPersistCharter,
   addNewsroom,
   getEditors,
   getNewsroom,
@@ -102,7 +103,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private processCharterUpdate = debounce(() => {
     this.checkCharterCompletion();
     this.props.dispatch!(updateCharter(this.props.address!, this.state.charter));
-    this.persistCharter(this.state.charter);
   }, 1000);
 
   constructor(props: NewsroomProps) {
@@ -135,6 +135,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (this.props.getNameForAddress) {
       this.props.dispatch!(addGetNameForAddress(this.props.getNameForAddress));
     }
+
+    this.props.dispatch!(addPersistCharter(this.persistCharter));
 
     if (this.props.address && this.props.civil) {
       await this.hydrateNewsroom(this.props.address);
