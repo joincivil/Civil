@@ -18,7 +18,6 @@ import { Map } from "immutable";
 import styled from "styled-components";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { EthSignedMessage, TxHash } from "@joincivil/typescript-types";
-import { updateCharter } from "./actionCreators";
 import { IpfsObject } from "./Newsroom";
 import { toBuffer } from "ethereumjs-util";
 

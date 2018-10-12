@@ -2,10 +2,9 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
 import { StepHeader, StepProps, StepDescription, TextareaInput } from "@joincivil/components";
-import { EthAddress, CharterData } from "@joincivil/core";
+import { CharterData } from "@joincivil/core";
 import { FormSection, FormTitle, FormSubhead } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
-import { updateCharter } from "./actionCreators";
 
 export interface CreateCharterPartTwoProps extends StepProps {
   charter: Partial<CharterData>;
