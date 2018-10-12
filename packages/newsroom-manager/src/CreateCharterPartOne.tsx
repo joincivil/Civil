@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { debounce, findIndex } from "lodash";
+import { findIndex } from "lodash";
 import styled from "styled-components";
 import {
   colors,
@@ -26,22 +26,17 @@ import {
 import { StateWithNewsroom } from "./reducers";
 import { makeUserObject } from "./utils";
 import { UserData } from "./types";
-import { updateCharter } from "./actionCreators";
 
 export interface CreateCharterPartOneExternalProps extends StepProps {
+  charter: Partial<CharterData>;
   address?: EthAddress;
-  savedCharter?: Partial<CharterData>;
   stepisComplete(isComplete: boolean): void;
-  saveCharter(charter: Partial<CharterData>): void;
+  updateCharter(charter: Partial<CharterData>): void;
 }
 
 export interface CreateCharterPartOneProps extends CreateCharterPartOneExternalProps {
   owners: UserData[];
   editors: UserData[];
-}
-
-export interface CreateCharterPartOneState {
-  charter: Partial<CharterData>;
 }
 
 const LogoFormWrap = styled.div`
@@ -87,31 +82,17 @@ const AddRosterMember = styled.a`
 `;
 
 class CreateCharterPartOneComponent extends React.Component<
-  CreateCharterPartOneProps & DispatchProp<any>,
-  CreateCharterPartOneState
+  CreateCharterPartOneProps & DispatchProp<any>
 > {
-  private handleCharterUpdate = debounce(() => {
-    this.props.dispatch!(updateCharter(this.props.address!, this.state.charter));
-
-    this.checkIsComplete();
-
-    if (this.props.saveCharter) {
-      this.props.saveCharter(this.state.charter);
-    }
-  }, 1000);
-
   constructor(props: CreateCharterPartOneProps) {
     super(props);
-    this.state = {
-      charter: props.savedCharter || {},
-    };
     this.checkIsComplete();
   }
 
   public render(): JSX.Element {
     const contractUsers = this.props.owners.concat(this.props.editors);
     const nonRosterContractUsers = contractUsers.filter(
-      user => findIndex(this.state.charter.roster, { ethAddress: user.rosterData.ethAddress }) === -1,
+      user => findIndex(this.props.charter.roster, { ethAddress: user.rosterData.ethAddress }) === -1,
     );
 
     return (
@@ -141,7 +122,7 @@ class CreateCharterPartOneComponent extends React.Component<
                   placeholder="Enter URL or Open Media Library"
                   noLabel
                   name="logoUrl"
-                  value={this.state.charter.logoUrl || ""}
+                  value={this.props.charter.logoUrl || ""}
                   onChange={this.charterInputChange}
                 />
               </LogoURLWrap>
@@ -157,7 +138,7 @@ class CreateCharterPartOneComponent extends React.Component<
             </FormSubhead>
             <NewsroomURLInput
               name="newsroomUrl"
-              value={this.state.charter.newsroomUrl || ""}
+              value={this.props.charter.newsroomUrl || ""}
               onChange={this.charterInputChange}
             />
           </div>
@@ -169,7 +150,7 @@ class CreateCharterPartOneComponent extends React.Component<
             </FormSubhead>
             <TaglineTextarea
               name="tagline"
-              value={this.state.charter.tagline || ""}
+              value={this.props.charter.tagline || ""}
               onChange={this.charterInputChange}
             />
             <HelperText>Maximum of 120 Characters</HelperText>
@@ -181,7 +162,7 @@ class CreateCharterPartOneComponent extends React.Component<
                 <FormSubhead optional>Twitter URL</FormSubhead>
                 <TextInput
                   name="twitter"
-                  value={(this.state.charter.socialUrls || {}).twitter || ""}
+                  value={(this.props.charter.socialUrls || {}).twitter || ""}
                   onChange={this.charterSocialInputChange}
                 />
               </div>
@@ -191,7 +172,7 @@ class CreateCharterPartOneComponent extends React.Component<
                 <FormSubhead optional>Facebook URL</FormSubhead>
                 <TextInput
                   name="facebook"
-                  value={(this.state.charter.socialUrls || {}).facebook || ""}
+                  value={(this.props.charter.socialUrls || {}).facebook || ""}
                   onChange={this.charterSocialInputChange}
                 />
               </div>
@@ -205,7 +186,7 @@ class CreateCharterPartOneComponent extends React.Component<
             Select the participants in your WordPress newsroom you want to add your roster and include any relevant
             credentials.
           </p>
-          {(this.state.charter.roster || []).map(member => {
+          {(this.props.charter.roster || []).map(member => {
             return (
               <RosterMember
                 newsroomAddress={this.props.address!}
@@ -241,52 +222,44 @@ class CreateCharterPartOneComponent extends React.Component<
   private checkIsComplete(): void {
     this.props.stepisComplete(
       !!(
-        this.state.charter &&
-        this.state.charter.logoUrl &&
-        this.state.charter.newsroomUrl &&
-        this.state.charter.tagline &&
-        this.state.charter.roster &&
-        this.state.charter.roster.length
+        this.props.charter &&
+        this.props.charter.logoUrl &&
+        this.props.charter.newsroomUrl &&
+        this.props.charter.tagline &&
+        this.props.charter.roster &&
+        this.props.charter.roster.length
       ),
     ); // @TODO/tobek validate fields
   }
 
   private charterInputChange = (name: string, val: string) => {
-    this.setState({
-      charter: {
-        ...this.state.charter,
-        [name]: val,
-      },
+    this.props.updateCharter({
+      ...this.props.charter,
+      [name]: val,
     });
-    this.handleCharterUpdate();
   };
 
   private charterSocialInputChange = (type: string, url: string) => {
-    this.setState({
-      charter: {
-        ...this.state.charter,
-        socialUrls: {
-          ...this.state.charter.socialUrls,
-          [type]: url,
-        },
+    this.props.updateCharter({
+      ...this.props.charter,
+      socialUrls: {
+        ...this.props.charter.socialUrls,
+        [type]: url,
       },
     });
-    this.handleCharterUpdate();
   };
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
     const newMember: RosterMemberInterface = {} as any;
-    this.setState({
-      charter: {
-        ...this.state.charter,
-        roster: (this.state.charter.roster || []).concat(newMember),
-      },
+    this.props.updateCharter({
+      ...this.props.charter,
+      roster: (this.props.charter.roster || []).concat(newMember),
     });
   };
 
   private rosterMemberUpdate = (onRoster: boolean, member: Partial<RosterMemberInterface>, newUser?: boolean) => {
-    let roster = (this.state.charter.roster || []).slice();
+    let roster = (this.props.charter.roster || []).slice();
     let memberIndex;
     if (newUser) {
       memberIndex = findIndex(roster, rosterMember => rosterMember.ethAddress === undefined);
@@ -309,13 +282,10 @@ class CreateCharterPartOneComponent extends React.Component<
       }
     }
 
-    this.setState({
-      charter: {
-        ...this.state.charter,
-        roster,
-      },
+    this.props.updateCharter({
+      ...this.props.charter,
+      roster,
     });
-    this.handleCharterUpdate();
   };
 }
 
@@ -331,7 +301,6 @@ const mapStateToProps = (
     ...ownProps,
     owners,
     editors,
-    savedCharter: newsroom.charter || ownProps.savedCharter || {},
   };
 };
 

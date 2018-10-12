@@ -14,6 +14,7 @@ import {
 import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { debounce } from "lodash";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
   addGetNameForAddress,
@@ -22,6 +23,7 @@ import {
   getNewsroom,
   addConstitutionHash,
   addConstitutionUri,
+  updateCharter,
 } from "./actionCreators";
 import { CreateCharterPartOne } from "./CreateCharterPartOne";
 import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
@@ -36,6 +38,8 @@ import { CmsUserData } from "./types";
 
 export interface NewsroomComponentState {
   currentStep: number;
+  charter: Partial<CharterData>;
+  persistedCharterLoaded: boolean;
   subscription?: any;
   charterPartOneComplete?: boolean;
   charterPartTwoComplete?: boolean;
@@ -65,8 +69,8 @@ export interface NewsroomProps {
   profileAddressSaving?: boolean;
   owners?: string[];
   editors?: string[];
-  savedCharter?: Partial<CharterData>;
-  saveCharter?(charter: Partial<CharterData>): void;
+  persistedCharter?: Partial<CharterData> | false;
+  persistCharter?(charter: Partial<CharterData>): void;
   saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
@@ -107,8 +111,18 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       console.error("Failed to load step index", e);
     }
     this.state = {
+      charter: props.persistedCharter || {},
+      persistedCharterLoaded: false,
       currentStep,
     };
+  }
+
+  public componentDidUpdate(prevProps: NewsroomProps, prevState: NewsroomComponentState): void {
+    if (typeof prevProps.persistedCharter === "undefined" && typeof this.props.persistedCharter !== "undefined") {
+      this.setState({
+        charter: this.props.persistedCharter || prevState.charter,
+      });
+    }
   }
 
   public async componentDidMount(): Promise<void> {
@@ -223,8 +237,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             >
               <CreateCharterPartOne
                 address={this.props.address}
-                savedCharter={this.getSavedCharter()}
-                saveCharter={this.saveCharter}
+                charter={this.state.charter}
+                updateCharter={this.updateCharter}
                 stepisComplete={(isComplete: boolean) => this.setState({ charterPartOneComplete: isComplete })}
               />
             </Step>
@@ -249,9 +263,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               complete={this.state.charterPartTwoComplete}
             >
               <CreateCharterPartTwo
-                address={this.props.address}
-                savedCharter={this.getSavedCharter()}
-                saveCharter={this.saveCharter}
+                charter={this.state.charter}
+                updateCharter={this.updateCharter}
                 stepisComplete={(isComplete: boolean) => this.setState({ charterPartTwoComplete: isComplete })}
               />
             </Step>
@@ -273,8 +286,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               <SignConstitution
                 newsroomAdress={this.props.address}
                 ipfs={this.props.ipfs}
-                savedCharter={this.getSavedCharter()}
-                saveCharter={this.saveCharter}
+                charter={this.state.charter}
+                updateCharter={this.updateCharter}
               />
             </Step>
             <Step title={"Apply to the Registry"}>
@@ -347,8 +360,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private getSavedCharter = (): Partial<CharterData> | undefined => {
-    if (this.props.savedCharter) {
-      return this.props.savedCharter;
+    if (this.props.persistedCharter) {
+      return this.props.persistedCharter;
     }
 
     try {
@@ -362,9 +375,20 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return undefined;
   };
 
-  private saveCharter = (charter: Partial<CharterData>): void => {
-    if (this.props.saveCharter) {
-      this.props.saveCharter(charter);
+  private updateCharter = (charter: Partial<CharterData>): void => {
+    this.setState({ charter });
+    this.processCharterUpdate();
+  };
+
+  private processCharterUpdate = debounce(() => {
+    this.props.dispatch!(updateCharter(this.props.address!, this.state.charter));
+    // check complete!
+    this.persistCharter(this.state.charter);
+  }, 1000);
+
+  private persistCharter = (charter: Partial<CharterData>): void => {
+    if (this.props.persistCharter) {
+      this.props.persistCharter(charter);
       return;
     }
 
@@ -384,6 +408,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): New
     name: newsroom.wrapper.data.name,
     owners: newsroom.wrapper.data.owners || [],
     editors: newsroom.editors || [],
+    persistedCharter: newsroom.charter || ownProps.persistedCharter,
   };
 };
 

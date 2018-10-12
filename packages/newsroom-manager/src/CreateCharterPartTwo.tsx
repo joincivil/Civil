@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { debounce } from "lodash";
 import styled from "styled-components";
 import { StepHeader, StepProps, StepDescription, TextareaInput } from "@joincivil/components";
 import { EthAddress, CharterData } from "@joincivil/core";
@@ -9,14 +8,9 @@ import { StateWithNewsroom } from "./reducers";
 import { updateCharter } from "./actionCreators";
 
 export interface CreateCharterPartTwoProps extends StepProps {
-  address?: EthAddress;
-  savedCharter?: Partial<CharterData>;
-  stepisComplete(isComplete: boolean): void;
-  saveCharter(charter: Partial<CharterData>): void;
-}
-
-export interface CreateCharterPartTwoState {
   charter: Partial<CharterData>;
+  stepisComplete(isComplete: boolean): void;
+  updateCharter(charter: Partial<CharterData>): void;
 }
 
 const Textarea = styled(TextareaInput)`
@@ -24,24 +18,10 @@ const Textarea = styled(TextareaInput)`
 `;
 
 class CreateCharterPartTwoComponent extends React.Component<
-  CreateCharterPartTwoProps & DispatchProp<any>,
-  CreateCharterPartTwoState
+  CreateCharterPartTwoProps & DispatchProp<any>
 > {
-  private handleCharterUpdate = debounce(() => {
-    this.props.dispatch!(updateCharter(this.props.address!, this.state.charter));
-
-    this.checkIsComplete();
-
-    if (this.props.saveCharter) {
-      this.props.saveCharter(this.state.charter);
-    }
-  }, 1000);
-
   constructor(props: CreateCharterPartTwoProps) {
     super(props);
-    this.state = {
-      charter: props.savedCharter || {},
-    };
     this.checkIsComplete();
   }
 
@@ -60,21 +40,21 @@ class CreateCharterPartTwoComponent extends React.Component<
           <FormSubhead>Your newsroom's mission or purpose.</FormSubhead>
           <Textarea
             name="purpose"
-            value={(this.state.charter.mission && this.state.charter.mission.purpose) || ""}
+            value={(this.props.charter.mission && this.props.charter.mission.purpose) || ""}
             onChange={this.missionInputChange}
           />
 
           <FormSubhead>Your newsroom's ownership structure.</FormSubhead>
           <Textarea
             name="structure"
-            value={(this.state.charter.mission && this.state.charter.mission.structure) || ""}
+            value={(this.props.charter.mission && this.props.charter.mission.structure) || ""}
             onChange={this.missionInputChange}
           />
 
           <FormSubhead>What are your newsroom's current or planned revenue sources?</FormSubhead>
           <Textarea
             name="revenue"
-            value={(this.state.charter.mission && this.state.charter.mission.revenue) || ""}
+            value={(this.props.charter.mission && this.props.charter.mission.revenue) || ""}
             onChange={this.missionInputChange}
           />
 
@@ -84,7 +64,7 @@ class CreateCharterPartTwoComponent extends React.Component<
           </FormSubhead>
           <Textarea
             name="encumbrances"
-            value={(this.state.charter.mission && this.state.charter.mission.encumbrances) || ""}
+            value={(this.props.charter.mission && this.props.charter.mission.encumbrances) || ""}
             onChange={this.missionInputChange}
           />
 
@@ -94,7 +74,7 @@ class CreateCharterPartTwoComponent extends React.Component<
           </FormSubhead>
           <Textarea
             name="miscellaneous"
-            value={(this.state.charter.mission && this.state.charter.mission.miscellaneous) || ""}
+            value={(this.props.charter.mission && this.props.charter.mission.miscellaneous) || ""}
             onChange={this.missionInputChange}
           />
         </FormSection>
@@ -104,8 +84,8 @@ class CreateCharterPartTwoComponent extends React.Component<
 
   private checkIsComplete(): void {
     let isComplete = false;
-    if (this.state.charter.mission) {
-      const mission = this.state.charter.mission;
+    if (this.props.charter.mission) {
+      const mission = this.props.charter.mission;
       isComplete = !!(
         mission.purpose &&
         mission.structure &&
@@ -118,27 +98,19 @@ class CreateCharterPartTwoComponent extends React.Component<
   }
 
   private missionInputChange = (name: string, val: string) => {
-    this.setState({
-      charter: {
-        ...this.state.charter,
-        mission: {
-          ...this.state.charter.mission,
-          [name]: val,
-        } as any, // "as any" required because Partial<T> doesn't seem to recurse to optional mission values inside CharterData
-      },
+    this.props.updateCharter({
+      ...this.props.charter,
+      mission: {
+        ...this.props.charter.mission,
+        [name]: val,
+      } as any, // "as any" required because Partial<T> doesn't recurse to optional mission values inside CharterData
     });
-    this.handleCharterUpdate();
   };
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: CreateCharterPartTwoProps): CreateCharterPartTwoProps => {
-  let charterFromState: Partial<CharterData> | undefined;
-  if (ownProps.address && state.newsrooms.get(ownProps.address)) {
-    charterFromState = state.newsrooms.get(ownProps.address).charter;
-  }
   return {
     ...ownProps,
-    savedCharter: charterFromState || ownProps.savedCharter || {},
   };
 };
 
