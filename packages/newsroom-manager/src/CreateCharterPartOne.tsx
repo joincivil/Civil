@@ -128,10 +128,7 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
           </div>
 
           <div>
-            <FormSubhead>
-              Newsroom URL
-              {/*TODO: pre-fill with value from CMS*/}
-            </FormSubhead>
+            <FormSubhead>Newsroom URL</FormSubhead>
             <NewsroomURLInput
               name="newsroomUrl"
               value={this.props.charter.newsroomUrl || ""}
