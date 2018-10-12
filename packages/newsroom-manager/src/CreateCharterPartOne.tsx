@@ -20,7 +20,6 @@ import {
   FormRow,
   FormRowItem,
   HelperText,
-  TertiaryButton,
 } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { makeUserObject } from "./utils";
@@ -41,10 +40,6 @@ const LogoFormWrap = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: -4px;
-
-  ${TertiaryButton} {
-    margin: 6px 0 0;
-  }
 `;
 const LogoURLWrap = styled.div`
   flex-grow: 2;
@@ -117,7 +112,6 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
               Logo
               <QuestionToolTip
                 explainerText={
-                  /*"You need to add a URL to a logo or image. You can add a logo to your WordPress media library and copy the URL here. We recommend the image be square and at minimum 300 x 300 pixels."*/
                   "You need to add a URL to a logo or image. If you set a Site Icon in your WordPress dashboard under Appearance > Customize > Site Identity it will be used here. We recommend the image be square and at minimum 300 x 300 pixels."
                 }
               />
@@ -125,7 +119,6 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
             <LogoFormWrap>
               <LogoURLWrap>
                 <LogoURLInput
-                  /*placeholder="Enter URL or Open Media Library"*/
                   noLabel
                   name="logoUrl"
                   value={this.props.charter.logoUrl || ""}
@@ -133,7 +126,6 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
                 />
               </LogoURLWrap>
               <LogoImgWrap>{this.props.charter.logoUrl && <LogoImg src={this.props.charter.logoUrl} />}</LogoImgWrap>
-              {/*<TertiaryButton size={buttonSizes.SMALL}>Open Media Library</TertiaryButton>*/}
             </LogoFormWrap>
             <HelperText style={{ marginTop: 4 }}>Must be image URL</HelperText>
           </div>
