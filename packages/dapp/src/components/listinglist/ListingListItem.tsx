@@ -44,18 +44,26 @@ class ListingListItemComponent extends React.Component<
     const listingData = listing!.data;
     let description = "";
     if (newsroom!.wrapper.data.charter) {
-      description = JSON.parse(newsroom!.wrapper.data.charter!.content.toString()).desc;
+      try {
+        // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
+        description = (newsroom!.wrapper.data.charter!.content as any).desc;
+      } catch (ex) {
+        console.error("charter not formatted correctly");
+      }
     }
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-    const pollData = listingData.challenge && listingData.challenge.poll;
+    const challenge = listingData.challenge;
+    const pollData = challenge && challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
-    const requestAppealExpiry = listingData.challenge && listingData.challenge.requestAppealExpiry.toNumber();
-    const appeal = listingData.challenge && listingData.challenge.appeal;
+    const requestAppealExpiry = challenge && challenge.requestAppealExpiry.toNumber();
+    const appeal = challenge && challenge.appeal;
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
+    const challengeStatementSummary =
+      challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
 
     const newsroomData = newsroom!.wrapper.data;
     const listingDetailURL = `/listing/${listingAddress}`;
@@ -66,6 +74,7 @@ class ListingListItemComponent extends React.Component<
       description,
       listingDetailURL,
       ...listingPhaseState,
+      challengeStatementSummary,
       appeal,
       appExpiry,
       commitEndDate,

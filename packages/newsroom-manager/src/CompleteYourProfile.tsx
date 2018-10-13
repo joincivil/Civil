@@ -8,6 +8,7 @@ import {
   QuestionToolTip,
   StepDescription,
   StepHeader,
+  StepFormSection,
   Transaction,
   TransactionButtonModalFlowState,
   MetaMaskModal,
@@ -19,10 +20,13 @@ import { EthAddress, NewsroomRoles } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
-import { fetchNewsroom, uiActions } from "./actionCreators";
+import { fetchNewsroom } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser, UserTypes } from "./NewsroomUser";
+import { FormTitle } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
+import { makeUserObject } from "./utils";
+import { UserData } from "./types";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface CompleteYourProfileComponentExternalProps {
@@ -32,8 +36,8 @@ export interface CompleteYourProfileComponentExternalProps {
 }
 
 export interface CompleteYourProfileComponentProps {
-  owners: Array<{ address: EthAddress; name?: string }>;
-  editors: Array<{ address: EthAddress; name?: string }>;
+  owners: UserData[];
+  editors: UserData[];
   address?: EthAddress;
   newsroom: any;
   active?: boolean;
@@ -46,19 +50,6 @@ export interface CompleteYourProfileComponentState extends TransactionButtonModa
   newEditor: EthAddress;
 }
 
-const FormSection = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding-top: 10px;
-  padding-bottom: 40px;
-`;
-
-const FormTitle = styled.h4`
-  font-size: 15px;
-  color: #000;
-  font-family: ${fonts.SANS_SERIF};
-  margin-right: 15px;
-`;
-
 const Section = styled.div`
   display: flex;
   flex-direction: column;
@@ -67,7 +58,7 @@ const Section = styled.div`
   margin-bottom: 20px;
 `;
 
-const FormTitleSection = Section.extend`
+const FormTitleSection = styled(Section)`
   flex-direction: row;
   justify-content: flex-start;
 `;
@@ -80,28 +71,18 @@ const FormDescription = styled.p`
   margin-left: 50px;
 `;
 
-const AddButton = BorderlessButton.extend`
+const AddButton = styled(BorderlessButton)`
   padding-left: 0px;
 `;
 
-const Description = StepDescription.extend`
+const Description = styled(StepDescription)`
   font-size: 14px;
 `;
 
 const QuestionToolTipWrapper = styled.span`
-  padding-top: 5px;
+  position: relative;
+  top: 3px;
 `;
-
-const makeUserObject = (state: StateWithNewsroom, item: EthAddress): { address: EthAddress; name?: string } => {
-  let name;
-  if (state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS)) {
-    name = state.newsroomUsers.get(item);
-  }
-  return {
-    address: item,
-    name,
-  };
-};
 
 class CompleteYourProfileComponent extends React.Component<
   CompleteYourProfileComponentProps & CompleteYourProfileComponentExternalProps & DispatchProp<any>,
@@ -313,7 +294,7 @@ class CompleteYourProfileComponent extends React.Component<
             />
           </QuestionToolTipWrapper>
         </Description>
-        <FormSection>
+        <StepFormSection>
           <FormTitleSection>
             <FormTitle>Civil Officer</FormTitle>
             <FormDescription>
@@ -329,16 +310,16 @@ class CompleteYourProfileComponent extends React.Component<
                   newsroomAddress={this.props.address}
                   type={UserTypes.OWNER}
                   profileWalletAddress={this.props.profileWalletAddress}
-                  key={item.address}
-                  address={item.address}
-                  name={item.name}
+                  key={item.rosterData.ethAddress}
+                  address={item.rosterData.ethAddress}
+                  name={item.rosterData.name}
                 />
               );
             })}
           </Section>
           {this.renderAddOwnerForm()}
-        </FormSection>
-        <FormSection>
+        </StepFormSection>
+        <StepFormSection>
           <FormTitleSection>
             <FormTitle>Civil Member</FormTitle>
             <FormDescription>
@@ -352,14 +333,14 @@ class CompleteYourProfileComponent extends React.Component<
                 newsroomAddress={this.props.address}
                 type={UserTypes.EDITOR}
                 profileWalletAddress={this.props.profileWalletAddress}
-                key={item.address}
-                address={item.address}
-                name={item.name}
+                key={item.rosterData.ethAddress}
+                address={item.rosterData.ethAddress}
+                name={item.rosterData.name}
               />
             ))}
           </Section>
           {this.renderAddEditorForm()}
-        </FormSection>
+        </StepFormSection>
         {this.renderPreMetamMask()}
         {this.renderAwaitingTransactionModal()}
         {this.renderMetaMaskRejectionModal()}
@@ -455,12 +436,8 @@ const mapStateToProps = (
 ): CompleteYourProfileComponentProps & CompleteYourProfileComponentExternalProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
-  const owners: Array<{ address: EthAddress; name?: string }> = (newsroom.wrapper.data.owners || []).map(
-    makeUserObject.bind(null, state),
-  );
-  const editors: Array<{ address: EthAddress; name?: string }> = (newsroom.editors || []).map(
-    makeUserObject.bind(null, state),
-  );
+  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(makeUserObject.bind(null, state));
+  const editors: UserData[] = (newsroom.editors || []).map(makeUserObject.bind(null, state));
   return {
     ...ownProps,
     address,

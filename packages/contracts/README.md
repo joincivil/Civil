@@ -52,6 +52,17 @@ the Ethereum's network.
 
 During the build process artifacts are striped out of additional, debugging information and placed in the `build/artifacts` folder.
 
+## Migrations
+
+This package supports easy Infura migrations and automatic token allocation to teammates.
+Adding enviromental variables to your `.profile` will allow you to use it during migrations:
+
+```bash
+export MNEMONIC="" # Your mnemonic for HD Wallet provider
+export INFURA_KEY="" # Your infura api key
+export TEAMMATES="" # Comma seperated list of addresses
+```
+
 ## Contributing
 
 Civil's ecosystem is free and open-source, we're all part of it and you're encouraged to be a part of it with us.

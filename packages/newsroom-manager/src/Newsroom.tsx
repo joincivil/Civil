@@ -11,23 +11,38 @@ import {
   SecondaryButton,
   buttonSizes,
 } from "@joincivil/components";
-import { Civil, EthAddress, TxHash } from "@joincivil/core";
+import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
-import { addGetNameForAddress, addNewsroom, getEditors, getNewsroom } from "./actionCreators";
-// import { SignConstitution } from "./SignConstitution";
-// import { CreateCharter } from "./CreateCharter";
-// import { ApplyToTCR } from "./ApplyToTCR";
+import {
+  addGetNameForAddress,
+  addNewsroom,
+  getEditors,
+  getNewsroom,
+  addConstitutionHash,
+  addConstitutionUri,
+} from "./actionCreators";
+import { CreateCharterPartOne } from "./CreateCharterPartOne";
+import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
+import { SignConstitution } from "./SignConstitution";
 import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
+import { ApplyToTCR } from "./ApplyToTCR";
 import { StateWithNewsroom } from "./reducers";
+import { CmsUserData } from "./types";
 
 export interface NewsroomComponentState {
   currentStep: number;
   subscription?: any;
+  charterPartOneComplete?: boolean;
+  charterPartTwoComplete?: boolean;
+}
+
+export interface IpfsObject {
+  add(content: any, options?: { hash: string; pin: boolean }): Promise<[{ path: string; hash: string; size: number }]>;
 }
 
 export interface NewsroomProps {
@@ -40,6 +55,7 @@ export interface NewsroomProps {
   requiredNetwork?: string;
   requiredNetworkNiceName?: string;
   civil?: Civil;
+  ipfs?: IpfsObject;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
   showWalletOnboarding?: boolean;
@@ -49,11 +65,13 @@ export interface NewsroomProps {
   profileAddressSaving?: boolean;
   owners?: string[];
   editors?: string[];
+  savedCharter?: Partial<CharterData>;
+  saveCharter?(charter: Partial<CharterData>): void;
   saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
-  getNameForAddress?(address: EthAddress): Promise<string>;
+  getNameForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
@@ -69,7 +87,7 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   }
 `;
 
-const Heading = ManagerHeading.extend`
+const Heading = styled(ManagerHeading)`
   color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
@@ -80,8 +98,16 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
+    let currentStep = props.address ? 1 : 0;
+    try {
+      if (localStorage.newsroomOnBoardingLastSeen) {
+        currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
+      }
+    } catch (e) {
+      console.error("Failed to load step index", e);
+    }
     this.state = {
-      currentStep: props.address ? 1 : 0,
+      currentStep,
     };
   }
 
@@ -92,6 +118,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
     if (this.props.address && this.props.civil) {
       await this.hydrateNewsroom(this.props.address);
+    }
+
+    if (this.props.civil) {
+      const tcr = await this.props.civil.tcrSingletonTrusted();
+      const government = await tcr.getGovernment();
+      const hash = await government.getConstitutionHash();
+      const uri = await government.getConstitutionURI();
+      this.props.dispatch!(addConstitutionHash(hash));
+      this.props.dispatch!(addConstitutionUri(uri));
     }
   }
 
@@ -114,7 +149,17 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-          <StepProcessTopNav activeIndex={this.state.currentStep}>
+          <StepProcessTopNav
+            activeIndex={this.state.currentStep}
+            onActiveTabChange={(newIndex: number) => {
+              try {
+                localStorage.newsroomOnBoardingLastSeen = JSON.stringify(newIndex);
+              } catch (e) {
+                console.error("Failed to save step index", e);
+              }
+              this.setState({ currentStep: newIndex });
+            }}
+          >
             <Step
               title={"Set up a newsroom"}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
@@ -148,7 +193,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                   </>
                 );
               }}
-              complete={this.props.owners!.length > 1 || !!this.props.editors!.length}
+              complete={this.props.owners!.length > 1 || !!this.props.editors!.length || this.state.currentStep > 1}
             >
               <CompleteYourProfile
                 address={this.props.address}
@@ -156,14 +201,84 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 profileWalletAddress={this.props.profileWalletAddress}
               />
             </Step>
-            <Step title={"Create your charter"}>
-              <div />
+            <Step
+              title={"Create Registry profile"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button
+                      onClick={args.goNext}
+                      size={buttonSizes.MEDIUM}
+                      disabled={!this.state.charterPartOneComplete}
+                    >
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+              complete={this.state.charterPartOneComplete}
+            >
+              <CreateCharterPartOne
+                address={this.props.address}
+                savedCharter={this.getSavedCharter()}
+                saveCharter={this.saveCharter}
+                stepisComplete={(isComplete: boolean) => this.setState({ charterPartOneComplete: isComplete })}
+              />
             </Step>
-            <Step title={"Sign the Constitution"}>
-              <div />
+            <Step
+              title={"Write your charter"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button
+                      onClick={args.goNext}
+                      size={buttonSizes.MEDIUM}
+                      disabled={!this.state.charterPartTwoComplete}
+                    >
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+              complete={this.state.charterPartTwoComplete}
+            >
+              <CreateCharterPartTwo
+                address={this.props.address}
+                savedCharter={this.getSavedCharter()}
+                saveCharter={this.saveCharter}
+                stepisComplete={(isComplete: boolean) => this.setState({ charterPartTwoComplete: isComplete })}
+              />
+            </Step>
+            <Step
+              title={"Sign the Constitution"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+            >
+              <SignConstitution
+                newsroomAdress={this.props.address}
+                ipfs={this.props.ipfs}
+                savedCharter={this.getSavedCharter()}
+                saveCharter={this.saveCharter}
+              />
             </Step>
             <Step title={"Apply to the Registry"}>
-              <div />
+              <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
           <button />
@@ -229,6 +344,35 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
+  };
+
+  private getSavedCharter = (): Partial<CharterData> | undefined => {
+    if (this.props.savedCharter) {
+      return this.props.savedCharter;
+    }
+
+    try {
+      if (localStorage[this.props.address! + "|charter"]) {
+        return JSON.parse(localStorage[this.props.address! + "|charter"]);
+      }
+    } catch (e) {
+      console.error("Failed to retrieve charter from local storage:", e);
+    }
+
+    return undefined;
+  };
+
+  private saveCharter = (charter: Partial<CharterData>): void => {
+    if (this.props.saveCharter) {
+      this.props.saveCharter(charter);
+      return;
+    }
+
+    try {
+      localStorage[this.props.address! + "|charter"] = JSON.stringify(charter);
+    } catch (e) {
+      console.error("Failed to save charter to local storage:", e);
+    }
   };
 }
 

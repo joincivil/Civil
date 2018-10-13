@@ -58,7 +58,7 @@ export const Button = styled.button`
   }
 `;
 
-export const SecondaryButton = Button.extend`
+export const SecondaryButton = styled(Button)`
   background-color: ${colorConstants.ACCENT_GREY};
   &:hover {
     background-color: ${colorConstants.ACCENT_FADED_GREY};

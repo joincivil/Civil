@@ -4,7 +4,7 @@ import { EthAddress } from "@joincivil/core";
 import { saltToWords, getFormattedEthAddress, getLocalDateTimeStrings, padString } from "@joincivil/utils";
 import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
 import { buttonSizes, InvertedButton } from "../Button";
-import { TransactionButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { QuestionToolTip } from "../QuestionToolTip";
 import {
   ReviewVoteHeaderTitleText,
@@ -221,13 +221,12 @@ export const ReviewVote: React.StatelessComponent<ReviewVoteProps> = props => {
               <InvertedButton size={buttonSizes.MEDIUM} onClick={props.handleClose}>
                 Cancel
               </InvertedButton>
-              <TransactionButton
+              <TransactionButtonNoModal
                 transactions={props.transactions}
-                modalContentComponents={props.modalContentComponents}
                 postExecuteTransactions={props.postExecuteTransactions}
               >
                 <TransactionButtonText />
-              </TransactionButton>
+              </TransactionButtonNoModal>
             </StyledButtonContainer>
           </StyledReviewVoteContent>
         </ModalContent>

@@ -1,4 +1,5 @@
 import { configureChai } from "@joincivil/dev-utils";
+import { prepareForceUnionMessage, prepareMaxGroupSizeMessage, promisify } from "@joincivil/utils";
 import * as chai from "chai";
 import { POU_GLOBAL_GROUP, POU_SUPER_GROUP, REVERTED } from "../utils/constants";
 import { setUpUserGroups } from "../utils/contractutils";
@@ -6,28 +7,33 @@ import { setUpUserGroups } from "../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
+const signAsync = promisify(web3.eth.sign, web3.eth);
+
 contract("UserGroups", accounts => {
-  const [owner] = accounts;
+  const [owner, nonowner] = accounts;
   let userGroups: any;
   let whitelist: any;
 
   beforeEach(async () => {
-    ({ whitelist, userGroups } = await setUpUserGroups(1));
+    ({ whitelist, userGroups } = await setUpUserGroups(1, owner));
     await whitelist.addAddressToWhitelist(owner);
   });
 
-  // TODO(ritave): Add support for OffChainOwnable
   describe("forceUnion", () => {
-    xit("owner can force union", async () => {
-      await userGroups.forceUnion(accounts[1], accounts[2]);
+    it("owner can force union", async () => {
+      const message = prepareForceUnionMessage(userGroups.address, accounts[1], accounts[2]);
+      const signature = await signAsync(owner, message);
+      await userGroups.forceUnion(accounts[1], accounts[2], signature, { from: nonowner });
       const [root1] = await userGroups.find(accounts[1]);
       const [root2] = await userGroups.find(accounts[2]);
       expect(root1).to.be.equal(root2);
     });
 
-    xit("non-owners can't force union", async () => {
+    it("non-owners can't force union", async () => {
+      const message = prepareForceUnionMessage(userGroups.address, accounts[1], accounts[2]);
+      const signature = await signAsync(nonowner, message);
       await expect(
-        userGroups.forceUnion(accounts[1], accounts[2], { from: accounts[1] }),
+        userGroups.forceUnion(accounts[1], accounts[2], signature, { from: owner }),
       ).to.eventually.be.rejectedWith(REVERTED);
     });
   });
@@ -56,27 +62,41 @@ contract("UserGroups", accounts => {
   });
 
   describe("setMaxGroupSize", () => {
-    xit("owner can change max group size", async () => {
+    it("owner can change max group size", async () => {
       expect(await userGroups.maxGroupSize()).to.bignumber.equal(4);
-      await userGroups.setMaxGroupSize(5);
+
+      const message = prepareMaxGroupSizeMessage(userGroups.address, 0, 5);
+      const signature = await signAsync(owner, message);
+      await userGroups.setMaxGroupSize(5, signature, { from: nonowner });
+
       expect(await userGroups.maxGroupSize()).to.bignumber.equal(5);
     });
 
-    xit("non-owners can't change max group size", async () => {
-      await expect(userGroups.setMaxGroupSize(5, { from: accounts[1] })).to.eventually.be.rejectedWith(REVERTED);
+    it("non-owners can't change max group size", async () => {
+      const message = prepareMaxGroupSizeMessage(userGroups.address, 0, 5);
+      const signature = await signAsync(nonowner, message);
+      await expect(userGroups.setMaxGroupSize(5, signature, { from: owner })).to.eventually.be.rejectedWith(REVERTED);
     });
 
-    xit("signature from non-owners doesn't work", () => {});
-
-    xit("max group size takes effect on any new inGroup unions", async () => {
-      await userGroups.setMaxGroupSize(1);
+    it("max group size takes effect on any new inGroup unions", async () => {
+      let message = prepareMaxGroupSizeMessage(userGroups.address, 0, 1);
+      let signature = await signAsync(owner, message);
+      await userGroups.setMaxGroupSize(1, signature);
       await expect(userGroups.allowInGroupTransfers(accounts[0], accounts[1])).to.be.rejectedWith(REVERTED);
-      await userGroups.setMaxGroupSize(2);
+
+      message = prepareMaxGroupSizeMessage(userGroups.address, 1, 2);
+      signature = await signAsync(owner, message);
+      await userGroups.setMaxGroupSize(2, signature);
       await userGroups.allowInGroupTransfers(accounts[0], accounts[1]);
       await expect(userGroups.allowInGroupTransfers(accounts[0], accounts[2])).to.be.rejectedWith(REVERTED);
     });
 
-    xit("can't re-use signatures", () => {});
+    it("can't re-use signatures", async () => {
+      const message = prepareMaxGroupSizeMessage(userGroups.address, 0, 1);
+      const signature = await signAsync(owner, message);
+      await userGroups.setMaxGroupSize(1, signature);
+      await expect(userGroups.setMaxGroupSize(1, signature)).to.be.rejectedWith(REVERTED);
+    });
   });
 
   describe("allowInGroupTransfers", () => {

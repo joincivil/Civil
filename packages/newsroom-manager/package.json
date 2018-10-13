@@ -17,9 +17,14 @@
   "dependencies": {
     "@joincivil/components": "^1.6.1",
     "@joincivil/core": "^4.6.1",
-    "@joincivil/ethapi": "^0.2.1"
+    "@joincivil/ethapi": "^0.2.1",
+    "@joincivil/utils": "^1.7.1",
+    "ethereumjs-util": "^5.2.0",
+    "ipfs-api": "^24.0.2",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
+    "@joincivil/typescript-types": "^1.2.1",
     "@types/redux-thunk": "^2.1.0",
     "immutable": "^3.8.2",
     "npm-run-all": "^4.1.3",

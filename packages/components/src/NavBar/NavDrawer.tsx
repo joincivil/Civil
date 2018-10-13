@@ -93,7 +93,7 @@ const UserAddress = styled.span`
   word-wrap: break-word;
 `;
 
-const NavDrawerBuyCvlBtn = Button.extend`
+const NavDrawerBuyCvlBtn = styled(Button)`
   font-weight: 600;
   margin-top: 20px;
   padding: 15px;
@@ -101,7 +101,7 @@ const NavDrawerBuyCvlBtn = Button.extend`
   width: 100%;
 `;
 
-const CopyButton = Button.extend`
+const CopyButton = styled(Button)`
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 1px;

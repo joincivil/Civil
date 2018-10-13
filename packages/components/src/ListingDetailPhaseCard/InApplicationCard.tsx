@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, SubmitChallengeProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
@@ -33,8 +34,9 @@ export class InApplicationCard extends React.Component<
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>
-            If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
-            <a href="#">submit a challenge</a>.
+            If you believe this newsroom does not align with the{" "}
+            <a href={this.props.constitutionURI}>Civil Constitution</a>, you may{" "}
+            <Link to={this.props.submitChallengeURI || "#"}>submit a challenge</Link>.
           </CTACopy>
           {this.renderSubmitChallengeButton()}
         </StyledListingDetailPhaseCardSection>
@@ -43,9 +45,9 @@ export class InApplicationCard extends React.Component<
   }
 
   private renderSubmitChallengeButton = (): JSX.Element => {
-    if (this.props.handleSubmitChallenge) {
+    if (this.props.submitChallengeURI) {
       return (
-        <InvertedButton size={buttonSizes.MEDIUM} onClick={this.props.handleSubmitChallenge}>
+        <InvertedButton size={buttonSizes.MEDIUM} to={this.props.submitChallengeURI}>
           Submit a Challenge
         </InvertedButton>
       );

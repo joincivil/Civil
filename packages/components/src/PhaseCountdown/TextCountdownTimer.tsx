@@ -12,7 +12,7 @@ const StyledCountdownTimerContainer = styled.div`
 const StyledCountdownLabel = styled.span`
   color: ${colors.primary.BLACK};
 `;
-const StyledCountdownLabelWarn = StyledCountdownLabel.extend`
+const StyledCountdownLabelWarn = styled(StyledCountdownLabel)`
   color: ${colors.accent.CIVIL_RED};
 `;
 const StyledExpiry = styled.div`

@@ -4,6 +4,8 @@ import "../telemetry/TokenSaleI.sol";
 import "./GroupsI.sol";
 
 contract UnionFind is GroupsI {
+  event GroupsMerged(address indexed rootA, address indexed rootB);
+
   struct Group {
     address parent;
     uint totalTokens;
@@ -11,14 +13,14 @@ contract UnionFind is GroupsI {
     uint size;
   }
 
-  mapping(address => Group) private groups;
+  mapping(address => Group) internal groups;
   TokenSaleI internal tokenSale;
 
   constructor(TokenSaleI _tokenSale) public {
     tokenSale = _tokenSale;
   }
 
-  function find(address element) external view returns (address root, uint size) {
+  function find(address element) public view returns (address root, uint size) {
     Group storage currentGroup = groups[element];
     if (currentGroup.size == 0) {
       return (element, 1);
@@ -41,6 +43,8 @@ contract UnionFind is GroupsI {
     if (a.parent == b.parent) {
       return a;
     }
+
+    emit GroupsMerged(a.parent, b.parent);
 
     if (a.size >= b.size) { // A is bigger, and so is new root
       b.parent = a.parent;

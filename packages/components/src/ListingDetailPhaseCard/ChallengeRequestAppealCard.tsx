@@ -18,7 +18,7 @@ import {
   RequestAppealToolTipText,
 } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
@@ -32,18 +32,18 @@ const RequestAppealButton: React.SFC<
     ChallengeResultsProps &
     RequestAppealProps
 > = props => {
-  if (props.handleRequestAppeal) {
+  if (props.requestAppealURI) {
     return (
-      <InvertedButton size={buttonSizes.MEDIUM} onClick={props.handleRequestAppeal}>
+      <InvertedButton size={buttonSizes.MEDIUM} to={props.requestAppealURI}>
         Request an Appeal
       </InvertedButton>
     );
   }
 
   return (
-    <TransactionInvertedButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
+    <TransactionButtonNoModal transactions={props.transactions!}>
       Request Appeal from Civil Council
-    </TransactionInvertedButton>
+    </TransactionButtonNoModal>
   );
 };
 

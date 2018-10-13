@@ -39,7 +39,7 @@ StepStyled.defaultProps = {
   },
 };
 
-export const StepStyledFluid = StepStyled.extend`
+export const StepStyledFluid = styled(StepStyled)`
   padding-left: 0;
   padding-right: 0;
   width: 100%;
@@ -61,4 +61,10 @@ export const StepDescription = styled<StepDescriptionProps, "p">("p")`
   color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.accent.CIVIL_GRAY_2)};
   margin-bottom: 23px;
   margin-top: 0;
+`;
+
+export const StepFormSection = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding-top: 10px;
+  padding-bottom: 40px;
 `;

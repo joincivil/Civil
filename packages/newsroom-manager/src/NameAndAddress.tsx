@@ -54,7 +54,7 @@ const PendingWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Description = StepDescription.extend`
+const Description = styled(StepDescription)`
   font-size: 14px;
 `;
 
@@ -174,7 +174,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
         cancelTransaction={() => this.cancelTransaction()}
         startTransaction={() => this.startTransaction()}
       >
-        <ModalHeading>Waiting to Confirm in MetaMask</ModalHeading>
+        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
       </MetaMaskModal>
     );
   }

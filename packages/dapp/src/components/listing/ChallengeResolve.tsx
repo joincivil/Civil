@@ -1,15 +1,17 @@
 import * as React from "react";
 import { compose } from "redux";
-import { EthAddress, TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
+  Button,
+  buttonSizes,
   ListingDetailPhaseCardComponentProps,
   ChallengeResolveCard as ChallengeResolveCardComponent,
-  LoadingIndicator,
+  MetaMaskModal,
+  Modal,
   ModalHeading,
   ModalContent,
-  ModalOrderedList,
-  ModalListItem,
-  ModalListItemTypes,
+  ModalStepLabel,
+  ProgressModalContentInProgress,
 } from "@joincivil/components";
 
 import { updateStatus } from "../../apis/civilTCR";
@@ -23,8 +25,14 @@ export interface ChallengeResolveProps extends ChallengeContainerProps {
   listingAddress: EthAddress;
 }
 
-enum ModalContentEventNames {
-  IN_PROGRESS_RESOLVE_CHALLENGE = "IN_PROGRESS:RESOLVE_CHALLENGE",
+export interface ChallengeResolveProgressModalPropsState {
+  isWaitingTransactionModalOpen?: boolean;
+  isTransactionProgressModalOpen?: boolean;
+  isTransactionSuccessModalOpen?: boolean;
+  isTransactionRejectionModalOpen?: boolean;
+  transactionIndex?: number;
+  transactions?: any[];
+  cancelTransaction?(): void;
 }
 
 const ChallengeResolveCard = compose(connectChallengePhase, connectChallengeResults)(
@@ -32,39 +40,162 @@ const ChallengeResolveCard = compose(connectChallengePhase, connectChallengeResu
 ) as React.ComponentClass<ChallengeResolveProps & ListingDetailPhaseCardComponentProps>;
 
 // A container for the Challenge Resolve Card component
-export class ChallengeResolve extends React.Component<ChallengeResolveProps> {
-  public render(): JSX.Element | null {
-    const resolveChallengeProgressModal = this.renderResolveChallengeProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_RESOLVE_CHALLENGE]: resolveChallengeProgressModal,
+export class ChallengeResolve extends React.Component<ChallengeResolveProps, ChallengeResolveProgressModalPropsState> {
+  constructor(props: ChallengeResolveProps) {
+    super(props);
+    this.state = {
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionIndex: -1,
     };
+  }
+
+  public render(): JSX.Element | null {
     const transactions = [
-      { transaction: this.resolve, progressEventName: ModalContentEventNames.IN_PROGRESS_RESOLVE_CHALLENGE },
+      {
+        transaction: async () => {
+          this.setState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionIndex: 0,
+          });
+          return this.resolve();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        postTransaction: () => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: true,
+          });
+        },
+        handleTransactionError: this.handleTransactionError,
+      },
     ];
 
     return (
-      <ChallengeResolveCard
-        listingAddress={this.props.listingAddress}
-        challengeID={this.props.challengeID}
-        modalContentComponents={modalContentComponents}
-        transactions={transactions}
-      />
-    );
-  }
-
-  private renderResolveChallengeProgressModal(): JSX.Element {
-    return (
       <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving Challenge</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+        <ChallengeResolveCard
+          listingAddress={this.props.listingAddress}
+          challengeID={this.props.challengeID}
+          transactions={transactions}
+        />
+        {this.renderAwaitingTransactionModal()}
+        {this.renderTransactionProgressModal()}
+        {this.renderRevealVoteSuccess()}
+        {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
       </>
     );
   }
+
+  private renderRevealVoteSuccess(): JSX.Element | null {
+    if (!this.state.isTransactionSuccessModalOpen) {
+      return null;
+    }
+    return (
+      <Modal>
+        <ModalHeading>
+          <strong>
+            Success!<br />Thanks for resolving this challenge.
+          </strong>
+        </ModalHeading>
+        <ModalContent>
+          Voters can now collect rewards from their votes on this challenge, if they are available.
+        </ModalContent>
+        <Button size={buttonSizes.MEDIUM} onClick={this.closeAllModals}>
+          Ok, got it
+        </Button>
+      </Modal>
+    );
+  }
+
+  private renderAwaitingTransactionModal(): JSX.Element | null {
+    if (!this.state.isWaitingTransactionModalOpen) {
+      return null;
+    }
+    const transactionLabel = "Resolve Challenge";
+    const stepLabelText = `Step 1 of 1 - ${transactionLabel}`;
+    return (
+      <MetaMaskModal waiting={true}>
+        <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  private renderTransactionProgressModal(): JSX.Element | null {
+    if (!this.state.isTransactionProgressModalOpen) {
+      return null;
+    }
+    const transactionLabel = "Resolve Challenge";
+    const stepLabelText = `Step 1 of 1 - ${transactionLabel}`;
+    return (
+      <Modal>
+        <ProgressModalContentInProgress>
+          <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+          <ModalHeading>{transactionLabel}</ModalHeading>
+        </ProgressModalContentInProgress>
+      </Modal>
+    );
+  }
+
+  private renderTransactionRejectionModal(transactions: any[], cancelTransaction: () => void): JSX.Element | null {
+    if (!this.state.isTransactionRejectionModalOpen) {
+      return null;
+    }
+
+    const message = "The challenge was not resolved";
+    const denialMessage = "To resolve the challenge, you need to confirm the transaction in your MetaMask wallet.";
+
+    return (
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText={denialMessage}
+        cancelTransaction={cancelTransaction}
+        denialRestartTransactions={transactions}
+      >
+        <ModalHeading>{message}</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  private cancelTransaction = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+    });
+  };
+
+  private handleTransactionError = (err: Error) => {
+    const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
+    this.setState(() => ({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: isErrorUserRejection,
+    }));
+  };
+
+  private closeAllModals = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionIndex: -1,
+    });
+  };
 
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateStatus(this.props.listingAddress);
