@@ -10,3 +10,7 @@ export function ui(state: Map<string, any> = Map<string, any>(), action: AnyActi
       return state;
   }
 }
+
+export function useGraphQL(state: boolean = true): boolean {
+  return true;
+}

@@ -20,6 +20,7 @@ export interface ListingListItemReduxProps {
   newsroom?: NewsroomState;
   listing?: ListingWrapper;
   listingPhaseState?: any;
+  charter?: any;
 }
 
 class ListingListItemComponent extends React.Component<
@@ -43,10 +44,10 @@ class ListingListItemComponent extends React.Component<
     const { listingAddress, listing, newsroom, listingPhaseState } = this.props;
     const listingData = listing!.data;
     let description = "";
-    if (newsroom!.wrapper.data.charter) {
+    if (this.props.charter) {
       try {
         // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-        description = (newsroom!.wrapper.data.charter!.content as any).desc;
+        description = (this.props.charter!.content as any).desc;
       } catch (ex) {
         console.error("charter not formatted correctly");
       }
@@ -118,13 +119,18 @@ const makeMapStateToProps = () => {
     ownProps: ListingListItemOwnProps,
   ): ListingListItemReduxProps & ListingListItemOwnProps => {
     const { newsrooms } = state;
+    const { content } = state.networkDependent;
     const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
     const listing = getListing(state, ownProps);
-
+    let charter;
+    if (newsroom && newsroom.wrapper.data.charterHeader) {
+      charter = content.get(newsroom.wrapper.data.charterHeader);
+    }
     return {
       newsroom,
       listing,
       listingPhaseState: getListingPhaseState(state, ownProps),
+      charter,
       ...ownProps,
     };
   };

@@ -1,4 +1,4 @@
-import { EthAddress, getNextTimerExpiry, ListingWrapper } from "@joincivil/core";
+import { EthAddress, getNextTimerExpiry, ListingWrapper, EthContentHeader } from "@joincivil/core";
 import { addNewsroom } from "@joincivil/newsroom-manager";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
@@ -11,7 +11,7 @@ import {
   addUserChallengeStarted,
 } from "../actionCreators/challenges";
 import { addListing, setLoadingFinished } from "../actionCreators/listings";
-import { addUserNewsroom } from "../actionCreators/newsrooms";
+import { addUserNewsroom, addContent } from "../actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
 
 const listingTimeouts = new Map<string, number>();
@@ -91,6 +91,15 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
   if (user && wrapper.data.owners.includes(user)) {
     dispatch(addUserNewsroom(address));
   }
+}
+
+export async function getIPFSContent(header: EthContentHeader, dispatch: Dispatch<any>): Promise<void> {
+  const civil = getCivil();
+  console.log("getIPFSContent");
+  const content = await civil.getContent(header);
+  console.log("got it: ", content);
+  const parsedContent = JSON.parse(content.toString());
+  dispatch(addContent(header, parsedContent));
 }
 
 function setupListingCallback(listing: ListingWrapper, dispatch: Dispatch<any>): void {

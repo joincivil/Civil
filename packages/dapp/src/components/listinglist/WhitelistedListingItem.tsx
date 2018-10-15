@@ -6,6 +6,7 @@ import { State } from "../../reducers";
 import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
 import { makeGetListingPhaseState, makeGetListing, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
+import { getContent } from "../../actionCreators/newsrooms";
 
 export interface WhitelistedCardReduxProps extends ListingListItemReduxProps {
   whitelistedTimestamp?: number;
@@ -16,16 +17,19 @@ class WhitelistedListingItem extends React.Component<
 > {
   public async componentDidMount(): Promise<void> {
     this.props.dispatch!(await setupListingWhitelistedSubscription(this.props.listingAddress!));
+    if (this.props.newsroom) {
+      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+    }
   }
 
   public render(): JSX.Element {
-    const { listingAddress, listing, newsroom, listingPhaseState } = this.props;
+    const { listingAddress, listing, newsroom, listingPhaseState, charter } = this.props;
     const listingData = listing!.data;
     let description = "";
-    if (newsroom!.wrapper.data.charter) {
+    if (charter) {
       try {
         // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-        description = (newsroom!.wrapper.data.charter!.content as any).desc;
+        description = charter.desc;
       } catch (ex) {
         console.error("charter not formatted correctly");
       }
@@ -68,15 +72,20 @@ const makeMapStateToProps = () => {
     ownProps: ListingListItemOwnProps,
   ): ListingListItemOwnProps & WhitelistedCardReduxProps => {
     const { newsrooms } = state;
+    const { content } = state.networkDependent;
     const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
     const listing = getListing(state, ownProps);
     const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
-
+    let charter;
+    if (newsroom && newsroom.wrapper.data.charterHeader) {
+      charter = content.get(newsroom.wrapper.data.charterHeader);
+    }
     return {
       newsroom,
       listing,
       listingPhaseState: getListingPhaseState(state, ownProps),
       whitelistedTimestamp,
+      charter,
       ...ownProps,
     };
   };

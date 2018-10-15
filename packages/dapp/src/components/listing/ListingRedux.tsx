@@ -22,6 +22,7 @@ import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledCompo
 import { Tabs, Tab, StyledTab } from "@joincivil/components";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import { getContent } from "../../actionCreators/newsrooms";
 
 export interface ListingPageComponentProps {
   listingAddress: EthAddress;
@@ -38,6 +39,7 @@ export interface ListingReduxProps {
   parameters: any;
   govtParameters: any;
   constitutionURI: string;
+  charter: any;
 }
 
 const LISTING_QUERY = gql`
@@ -50,9 +52,13 @@ const LISTING_QUERY = gql`
 `;
 
 class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
-  public componentDidUpdate(): void {
+  public async componentDidUpdate(): Promise<void> {
     if (!this.props.listing && !this.props.listingDataRequestStatus) {
       this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
+    }
+    if (this.props.newsroom) {
+      console.log("GET CHARTER");
+      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
     }
   }
 
@@ -109,6 +115,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
               listing={listing!}
               newsroom={newsroom!.wrapper}
               listingPhaseState={this.props.listingPhaseState}
+              charter={this.props.charter}
             />
           </>
         )}
@@ -120,7 +127,11 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
               {(listingExistsAsNewsroom && (
                 <Tab title="About">
                   <ListingTabContent>
-                    <ListingCharter listing={this.props.listing!} newsroom={this.props.newsroom!.wrapper} />
+                    <ListingCharter
+                      listing={this.props.listing!}
+                      newsroom={this.props.newsroom!.wrapper}
+                      charter={this.props.charter}
+                    />
                   </ListingTabContent>
                 </Tab>
               )) || <></>}
@@ -183,16 +194,19 @@ const makeMapStateToProps = () => {
   const getIsUserNewsroomOwner = makeGetIsUserNewsroomOwner();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
     const { newsrooms } = state;
-    const { listingsFetching, user, parameters, govtParameters, constitution } = state.networkDependent;
+    const { listingsFetching, user, parameters, govtParameters, constitution, content } = state.networkDependent;
     const constitutionURI = constitution.get("uri");
-
+    const newsroom = newsrooms.get(ownProps.listingAddress);
     let listingDataRequestStatus;
     if (ownProps.listingAddress) {
       listingDataRequestStatus = listingsFetching.get(ownProps.listingAddress.toString());
     }
-
+    let charter;
+    if (newsroom && newsroom.wrapper.data.charterHeader) {
+      charter = content.get(newsroom.wrapper.data.charterHeader);
+    }
     return {
-      newsroom: newsrooms.get(ownProps.listingAddress),
+      newsroom,
       listing: getListing(state, ownProps),
       expiry: getListingExpiry(state, ownProps),
       listingDataRequestStatus,
@@ -202,6 +216,7 @@ const makeMapStateToProps = () => {
       parameters,
       govtParameters,
       constitutionURI,
+      charter,
     };
   };
   return mapStateToProps;

@@ -50,7 +50,7 @@ import {
 } from "./government";
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
-import { ui } from "./ui";
+import { ui, useGraphQL } from "./ui";
 import { Set, List, Map } from "immutable";
 import {
   TimestampedEvent,
@@ -59,8 +59,10 @@ import {
   EthAddress,
   ParamPropChallengeData,
   MultisigTransaction,
+  EthContentHeader,
+  ContentData,
 } from "@joincivil/core";
-import { currentUserNewsrooms } from "./newsrooms";
+import { currentUserNewsrooms, content } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
 import { networkActions } from "../actionCreators/network";
 import { Subscription } from "rxjs";
@@ -70,6 +72,7 @@ export interface State {
   network: string;
   networkName: string;
   ui: Map<string, any>;
+  useGraphQL: boolean;
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, string>;
@@ -77,6 +80,7 @@ export interface State {
 
 export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
+  content: Map<EthContentHeader, ContentData>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsExtendedMetadata: Map<string, ListingExtendedMetadata>;
   listingsFetching: Map<string, any>;
@@ -121,6 +125,7 @@ export interface NetworkDependentState {
 
 const networkDependentReducers = combineReducers({
   currentUserNewsrooms,
+  content,
   listings,
   listingsExtendedMetadata,
   listingsFetching,
@@ -178,4 +183,5 @@ export default combineReducers({
   network,
   networkName,
   ui,
+  useGraphQL,
 });

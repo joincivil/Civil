@@ -68,7 +68,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
 
   public renderGraphQLHistory(): JSX.Element {
     return (
-      <Query query={LISTING_QUERY} variables={{ addr: "0xD51A14a9269E6fED86E95B96B73439226B35C200" }}>
+      <Query query={LISTING_QUERY} variables={{ addr: this.props.listingAddress }}>
         {({ loading, error, data }: any): JSX.Element => {
           if (loading) {
             return <p>Loading...</p>;
