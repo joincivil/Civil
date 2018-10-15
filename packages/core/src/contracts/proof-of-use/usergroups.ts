@@ -42,12 +42,27 @@ export class UserGroups extends BaseWrapper<UserGroupsContract> {
     };
   }
 
+  public async getMaxGroupSizeUpdateNonce(): Promise<number> {
+    return (await this.instance.changeGroupSizeNonce.callAsync()).toNumber();
+  }
+
   public async getUsedAndTotalTokens(groupMember: EthAddress): Promise<UsedAndTotalTokens> {
     const [usedTokens, totalTokens] = await this.instance.usedAndTotalTokensForGroup.callAsync(groupMember);
     return {
       usedTokens,
       totalTokens,
     };
+  }
+
+  public async setMaxGroupSize(size: number, signature: string): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.setMaxGroupSize.sendTransactionAsync(new BigNumber(size), signature),
+    );
+  }
+
+  public async forceUnion(a: EthAddress, b: EthAddress, signature: string): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.ethApi, await this.instance.forceUnion.sendTransactionAsync(a, b, signature));
   }
 
   public async allowGlobalGroupTransfers(who: EthAddress): Promise<TwoStepEthTransaction> {
