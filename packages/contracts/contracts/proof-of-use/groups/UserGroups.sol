@@ -3,7 +3,7 @@ pragma solidity ^0.4.23;
 import "./UnionFind.sol";
 import "./OffChainOwnable.sol";
 import "../telemetry/TokenTelemetryI.sol";
-import "../telemetry/TokenSaleI.sol";
+import "../telemetry/ContributionProxyI.sol";
 import "../../zeppelin-solidity/access/Whitelist.sol";
 import "../../zeppelin-solidity/math/SafeMath.sol";
 
@@ -26,7 +26,7 @@ contract UserGroups is OffChainOwnable, TokenTelemetryI, UnionFind {
   // To prevent replay attacks
   uint public changeGroupSizeNonce = 0;
 
-  constructor(Whitelist whitelist, TokenSaleI tokenSale) OffChainOwnable(whitelist) UnionFind(tokenSale) public
+  constructor(Whitelist whitelist, ContributionProxyI contributions) OffChainOwnable(whitelist) UnionFind(contributions) public
   {
   }
 
@@ -98,7 +98,7 @@ contract UserGroups is OffChainOwnable, TokenTelemetryI, UnionFind {
   }
 
   function isUseProven(uint usedTokens, uint totalTokens) internal view returns (bool) {
-    bool isAbove10K = (totalTokens / tokenSale.saleTokensPerUnit()) > USD_10K;
+    bool isAbove10K = (totalTokens / contributions.tokensPerUnit()) > USD_10K;
     uint percentUsed = usedTokens * 10 / totalTokens;
     if (isAbove10K) {
       return percentUsed > PERCENT_PROOF_OF_USE_ABOVE_10K;
