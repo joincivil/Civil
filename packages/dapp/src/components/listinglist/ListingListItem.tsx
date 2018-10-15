@@ -111,7 +111,6 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
 };
 
 const makeMapStateToProps = () => {
-  const getListingPhaseState = makeGetListingPhaseState();
   const getListing = makeGetListing();
 
   const mapStateToProps = (
@@ -129,7 +128,7 @@ const makeMapStateToProps = () => {
     return {
       newsroom,
       listing,
-      listingPhaseState: getListingPhaseState(state, ownProps),
+      listingPhaseState: makeGetListingPhaseState(listing),
       charter,
       ...ownProps,
     };

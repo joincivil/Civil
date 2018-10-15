@@ -63,7 +63,6 @@ class WhitelistedListingItem extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getListingPhaseState = makeGetListingPhaseState();
   const getListing = makeGetListing();
   const getLatestWhitelistedTimestamp = makeGetLatestWhitelistedTimestamp();
 
@@ -83,7 +82,7 @@ const makeMapStateToProps = () => {
     return {
       newsroom,
       listing,
-      listingPhaseState: getListingPhaseState(state, ownProps),
+      listingPhaseState: makeGetListingPhaseState(listing),
       whitelistedTimestamp,
       charter,
       ...ownProps,

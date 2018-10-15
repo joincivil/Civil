@@ -228,7 +228,6 @@ class ActivityListItemComponent extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getListingPhaseState = makeGetListingPhaseState();
   const getListing = makeGetListing();
 
   const mapStateToProps = (
@@ -248,7 +247,7 @@ const makeMapStateToProps = () => {
     return {
       newsroom,
       listing,
-      listingPhaseState: getListingPhaseState(state, ownProps),
+      listingPhaseState: makeGetListingPhaseState(listing!),
       ...ownProps,
     };
   };

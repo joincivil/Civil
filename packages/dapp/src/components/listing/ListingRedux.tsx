@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { EthAddress, ListingWrapper } from "@joincivil/core";
-import { NewsroomState } from "@joincivil/newsroom-manager";
+import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
@@ -12,24 +11,20 @@ import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../actionCreators/listings";
-import {
-  makeGetListingPhaseState,
-  makeGetListing,
-  makeGetListingExpiry,
-  makeGetIsUserNewsroomOwner,
-} from "../../selectors";
+import { makeGetListingPhaseState, makeGetListingExpiry, makeGetIsUserNewsroomOwner } from "../../selectors";
 import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
 import { Tabs, Tab, StyledTab } from "@joincivil/components";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import { getContent } from "../../actionCreators/newsrooms";
 
 export interface ListingPageComponentProps {
   listingAddress: EthAddress;
+  newsroom?: NewsroomWrapper;
+  listing?: ListingWrapper;
 }
 
 export interface ListingReduxProps {
-  newsroom?: NewsroomState;
+  listingAddress: EthAddress;
+  newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
   expiry?: number;
   userAccount?: EthAddress;
@@ -42,15 +37,6 @@ export interface ListingReduxProps {
   charter: any;
 }
 
-const LISTING_QUERY = gql`
-  query($addr: String!) {
-    listing(addr: $addr) {
-      name
-      ownerAddresses
-    }
-  }
-`;
-
 class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
   public async componentDidUpdate(): Promise<void> {
     if (!this.props.listing && !this.props.listingDataRequestStatus) {
@@ -58,7 +44,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     }
     if (this.props.newsroom) {
       console.log("GET CHARTER");
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
     }
   }
 
@@ -70,50 +56,18 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     const listing = this.props.listing;
     const newsroom = this.props.newsroom;
     const listingExistsAsNewsroom = listing && newsroom;
-    const queryData = (
-      <Query query={LISTING_QUERY} variables={{ addr: "0xD51A14a9269E6fED86E95B96B73439226B35C200" }}>
-        {({ loading, error, data }: any): JSX.Element => {
-          if (loading) {
-            console.log("loading");
-            return <p>Loading...</p>;
-          }
-          if (error) {
-            console.log("erro: ", error);
-            return <p>Error :</p>;
-          }
-          console.log("data: ", data);
-          return data.listing.name;
-        }}
-      </Query>
-    );
-    console.log("queryData: ", queryData);
+
     console.log("listing: ", listing);
     console.log("newsroom: ", newsroom);
-
+    console.log("this.props: ", this.props);
     return (
       <>
-        (
-        <Query query={LISTING_QUERY} variables={{ addr: "0xD51A14a9269E6fED86E95B96B73439226B35C200" }}>
-          {({ loading, error, data }: any): JSX.Element => {
-            if (loading) {
-              console.log("loading");
-              return <p>Loading...</p>;
-            }
-            if (error) {
-              console.log("erro: ", error);
-              return <p>Error :(</p>;
-            }
-            console.log("data: ", data);
-            return data.listing.name;
-          }}
-        </Query>
-        );
         {listingExistsAsNewsroom && (
           <>
             <ListingHeader
               userAccount={this.props.userAccount}
               listing={listing!}
-              newsroom={newsroom!.wrapper}
+              newsroom={newsroom!}
               listingPhaseState={this.props.listingPhaseState}
               charter={this.props.charter}
             />
@@ -129,7 +83,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                   <ListingTabContent>
                     <ListingCharter
                       listing={this.props.listing!}
-                      newsroom={this.props.newsroom!.wrapper}
+                      newsroom={this.props.newsroom!}
                       charter={this.props.charter}
                     />
                   </ListingTabContent>
@@ -138,7 +92,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
 
               <Tab title="Discussions">
                 <ListingTabContent>
-                  <ListingChallengeStatement listing={this.props.listingAddress} />
+                  <ListingChallengeStatement listingAddress={this.props.listingAddress} />
 
                   <p>
                     Use this space to discuss, ask questions, or cheer on the newsmakers. If you have questions, check
@@ -188,29 +142,29 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
 }
 
 const makeMapStateToProps = () => {
-  const getListingPhaseState = makeGetListingPhaseState();
-  const getListing = makeGetListing();
   const getListingExpiry = makeGetListingExpiry();
   const getIsUserNewsroomOwner = makeGetIsUserNewsroomOwner();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
-    const { newsrooms } = state;
     const { listingsFetching, user, parameters, govtParameters, constitution, content } = state.networkDependent;
     const constitutionURI = constitution.get("uri");
-    const newsroom = newsrooms.get(ownProps.listingAddress);
+    const newsroom = ownProps.newsroom;
     let listingDataRequestStatus;
     if (ownProps.listingAddress) {
       listingDataRequestStatus = listingsFetching.get(ownProps.listingAddress.toString());
     }
     let charter;
-    if (newsroom && newsroom.wrapper.data.charterHeader) {
-      charter = content.get(newsroom.wrapper.data.charterHeader);
+    if (newsroom && newsroom.data.charterHeader) {
+      charter = content.get(newsroom.data.charterHeader);
     }
+    const expiry = getListingExpiry(state, ownProps);
+    console.log("expiry: ", expiry);
+    const listingPhaseState = makeGetListingPhaseState(ownProps.listing);
+    console.log("listingPhaseState: ", listingPhaseState);
     return {
-      newsroom,
-      listing: getListing(state, ownProps),
-      expiry: getListingExpiry(state, ownProps),
+      ...ownProps,
+      expiry,
       listingDataRequestStatus,
-      listingPhaseState: getListingPhaseState(state, ownProps),
+      listingPhaseState,
       isUserNewsroomOwner: getIsUserNewsroomOwner(state, ownProps),
       userAccount: user.account,
       parameters,

@@ -27,6 +27,7 @@ import {
   WrappedChallengeData,
   TimestampedEvent,
   ParamPropChallengeData,
+  NewsroomWrapper,
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 import { State } from "../reducers";
@@ -36,7 +37,8 @@ import { ListingWrapperWithExpiry, ListingExtendedMetadata } from "../reducers/l
 
 export interface ListingContainerProps {
   listingAddress?: EthAddress;
-  listing?: EthAddress;
+  listing?: ListingWrapper;
+  newsroom?: NewsroomWrapper;
 }
 
 export interface ChallengeContainerProps {
@@ -134,7 +136,7 @@ export const getListingAddress = (state: State, props: ListingContainerProps) =>
   if (!listing && !listingAddress) {
     return;
   }
-  const address = listing || listingAddress;
+  const address = listingAddress || listing!.address;
   return address;
 };
 
@@ -499,58 +501,58 @@ export const makeGetParameterProposalChallengeState = () => {
   );
 };
 
-export const makeGetListingPhaseState = () => {
-  return createSelector([getListingWrapper], listing => {
-    if (!listing) {
-      return;
-    }
+export const makeGetListingPhaseState = (listing?: ListingWrapper) => {
+  if (!listing) {
+    return;
+  }
+  console.log("listing: ", listing);
+  const listingData = listing.data;
+  const challenge = listingData.challenge;
+  const appeal = challenge && challenge.appeal;
 
-    const listingData = listing.listing.data;
-    const challenge = listingData.challenge;
-    const appeal = challenge && challenge.appeal;
+  const isInApplication = isInApplicationPhase(listingData);
+  const canBeChallenged = canListingBeChallenged(listingData);
+  const canBeWhitelisted = getCanBeWhitelisted(listingData);
 
-    const isInApplication = isInApplicationPhase(listingData);
-    const canBeChallenged = canListingBeChallenged(listingData);
-    const canBeWhitelisted = getCanBeWhitelisted(listingData);
+  const inChallengeCommitVotePhase = challenge && isChallengeInCommitStage(challenge);
+  const inChallengeRevealPhase = challenge && isChallengeInRevealStage(challenge);
+  const isAwaitingAppealRequest = getIsAwaitingAppealRequest(listingData);
+  const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
+  const didListingChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
 
-    const inChallengeCommitVotePhase = challenge && isChallengeInCommitStage(challenge);
-    const inChallengeRevealPhase = challenge && isChallengeInRevealStage(challenge);
-    const isAwaitingAppealRequest = getIsAwaitingAppealRequest(listingData);
-    const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
-    const didListingChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
+  const isAwaitingAppealJudgment = getIsListingAwaitingAppealJudgement(listingData);
+  const canListingAppealBeResolved = appeal && getCanAppealBeResolved(appeal);
 
-    const isAwaitingAppealJudgment = getIsListingAwaitingAppealJudgement(listingData);
-    const canListingAppealBeResolved = appeal && getCanAppealBeResolved(appeal);
+  const isAwaitingAppealChallenge = getIsListingAwaitingAppealChallenge(listingData);
+  const isInAppealChallengeCommitPhase = getIsInAppealChallengeCommitPhase(listingData);
+  const isInAppealChallengeRevealPhase = getIsInAppealChallengeRevealPhase(listingData);
+  const canListingAppealChallengeBeResolved = getCanListingAppealChallengeBeResolved(listingData);
 
-    const isAwaitingAppealChallenge = getIsListingAwaitingAppealChallenge(listingData);
-    const isInAppealChallengeCommitPhase = getIsInAppealChallengeCommitPhase(listingData);
-    const isInAppealChallengeRevealPhase = getIsInAppealChallengeRevealPhase(listingData);
-    const canListingAppealChallengeBeResolved = getCanListingAppealChallengeBeResolved(listingData);
+  const isUnderChallenge = listingData.challenge && !listingData.challenge.resolved;
+  const isWhitelisted = listingData.isWhitelisted;
+  const isRejected = !isWhitelisted && !isInApplication && !canBeWhitelisted && !listingData.challenge;
 
-    const isUnderChallenge = listingData.challenge && !listingData.challenge.resolved;
-    const isWhitelisted = listingData.isWhitelisted;
-    const isRejected = !isWhitelisted && !isInApplication && !canBeWhitelisted && !listingData.challenge;
-
-    return {
-      isInApplication,
-      canBeChallenged,
-      canBeWhitelisted,
-      canResolveChallenge,
-      inChallengeCommitVotePhase,
-      inChallengeRevealPhase,
-      isAwaitingAppealRequest,
-      isWhitelisted,
-      isUnderChallenge,
-      isRejected,
-      didListingChallengeSucceed,
-      isAwaitingAppealJudgment,
-      isAwaitingAppealChallenge,
-      canListingAppealBeResolved,
-      isInAppealChallengeCommitPhase,
-      isInAppealChallengeRevealPhase,
-      canListingAppealChallengeBeResolved,
-    };
-  });
+  const state = {
+    isInApplication,
+    canBeChallenged,
+    canBeWhitelisted,
+    canResolveChallenge,
+    inChallengeCommitVotePhase,
+    inChallengeRevealPhase,
+    isAwaitingAppealRequest,
+    isWhitelisted,
+    isUnderChallenge,
+    isRejected,
+    didListingChallengeSucceed,
+    isAwaitingAppealJudgment,
+    isAwaitingAppealChallenge,
+    canListingAppealBeResolved,
+    isInAppealChallengeCommitPhase,
+    isInAppealChallengeRevealPhase,
+    canListingAppealChallengeBeResolved,
+  };
+  console.log("state: ", state);
+  return state;
 };
 
 export const getListingHistory = (state: State, props: ListingContainerProps) => {
