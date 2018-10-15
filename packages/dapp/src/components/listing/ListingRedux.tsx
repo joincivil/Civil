@@ -143,7 +143,6 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
 
 const makeMapStateToProps = () => {
   const getListingExpiry = makeGetListingExpiry();
-  const getIsUserNewsroomOwner = makeGetIsUserNewsroomOwner();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
     const { listingsFetching, user, parameters, govtParameters, constitution, content } = state.networkDependent;
     const constitutionURI = constitution.get("uri");
@@ -162,10 +161,10 @@ const makeMapStateToProps = () => {
     console.log("listingPhaseState: ", listingPhaseState);
     return {
       ...ownProps,
-      expiry,
+      expiry: undefined,
       listingDataRequestStatus,
       listingPhaseState,
-      isUserNewsroomOwner: getIsUserNewsroomOwner(state, ownProps),
+      isUserNewsroomOwner: makeGetIsUserNewsroomOwner(newsroom, user),
       userAccount: user.account,
       parameters,
       govtParameters,

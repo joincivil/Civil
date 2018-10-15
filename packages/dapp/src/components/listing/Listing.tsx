@@ -33,6 +33,7 @@ const LISTING_QUERY = gql`
       charterUri
       unstakedDeposit
       appExpiry
+      challengeID
     }
   }
 `;
@@ -93,7 +94,7 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
         isWhitelisted: queryData.listing.whitelisted,
         owner: queryData.listing.owner,
         unstakedDeposit: new BigNumber(queryData.listing.unstakedDeposit),
-        challengeID: new BigNumber(0),
+        challengeID: new BigNumber(queryData.listing.challengeID),
       },
     };
   }
