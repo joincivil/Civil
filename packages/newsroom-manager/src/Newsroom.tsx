@@ -69,6 +69,8 @@ export interface NewsroomProps {
   profileAddressSaving?: boolean;
   owners?: string[];
   editors?: string[];
+  newsroomUrl?: string;
+  logoUrl?: string;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
   persistCharter?(charter: Partial<CharterData>): Promise<void>;
   saveAddressToProfile?(): Promise<void>;
@@ -117,7 +119,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
 
     this.state = {
-      charter: this.getCharterFromLocalStorage() || {},
+      charter: this.defaultCharterValues(this.getCharterFromLocalStorage() || {}),
       currentStep,
     };
     this.checkCharterCompletion();
@@ -127,7 +129,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         .getPersistedCharter()
         .then(charter => {
           if (charter) {
-            this.setState({ charter }, this.checkCharterCompletion);
+            this.setState(
+              {
+                charter: this.defaultCharterValues(charter),
+              },
+              this.checkCharterCompletion,
+            );
           }
         })
         .catch();
@@ -422,6 +429,16 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       charterPartOneComplete,
       charterPartTwoComplete,
     });
+  };
+
+  /** Replace even empty string values for newsroom/logo URLs in case user has partially filled charter and later goes in to CMS and sets these values. */
+  private defaultCharterValues = (charter: Partial<CharterData>): Partial<CharterData> => {
+    const { newsroomUrl, logoUrl } = this.props;
+    return {
+      ...charter,
+      newsroomUrl: charter.newsroomUrl || newsroomUrl,
+      logoUrl: charter.logoUrl || logoUrl,
+    };
   };
 }
 

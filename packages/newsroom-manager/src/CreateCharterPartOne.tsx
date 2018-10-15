@@ -8,21 +8,12 @@ import {
   StepProps,
   StepDescription,
   QuestionToolTip,
-  buttonSizes,
   TextInput,
   TextareaInput,
 } from "@joincivil/components";
 import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { RosterMember } from "./RosterMember";
-import {
-  FormSection,
-  FormTitle,
-  FormSubhead,
-  FormRow,
-  FormRowItem,
-  HelperText,
-  TertiaryButton,
-} from "./styledComponents";
+import { FormSection, FormTitle, FormSubhead, FormRow, FormRowItem, HelperText } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { makeUserObject } from "./utils";
 import { UserData } from "./types";
@@ -42,10 +33,6 @@ const LogoFormWrap = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: -4px;
-
-  ${TertiaryButton} {
-    margin: 6px 0 0;
-  }
 `;
 const LogoURLWrap = styled.div`
   flex-grow: 2;
@@ -58,6 +45,16 @@ const LogoURLInput = styled(TextInput)`
   input {
     margin-bottom: 0;
   }
+`;
+const LogoImgWrap = styled.div`
+  position: relative;
+  width: 100px;
+`;
+const LogoImg = styled.img`
+  position: absolute;
+  width: 100px;
+  height: auto;
+  top: -50%;
 `;
 
 const NewsroomURLInput = styled(TextInput)`
@@ -108,30 +105,26 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
               Logo
               <QuestionToolTip
                 explainerText={
-                  "You need to add a URL to a logo or image. You can add a logo to your WordPress media library and copy the URL here. We recommend the image dimensions to be at minimum  300 x 300 pixels."
+                  "You need to add a URL to a logo or image. If you set a Site Icon in your WordPress dashboard under Appearance > Customize > Site Identity it will be used here. We recommend the image be square and at minimum 300 x 300 pixels."
                 }
               />
             </FormSubhead>
             <LogoFormWrap>
               <LogoURLWrap>
                 <LogoURLInput
-                  placeholder="Enter URL or Open Media Library"
                   noLabel
                   name="logoUrl"
                   value={this.props.charter.logoUrl || ""}
                   onChange={this.charterInputChange}
                 />
               </LogoURLWrap>
-              <TertiaryButton size={buttonSizes.SMALL}>Open Media Library</TertiaryButton>
+              <LogoImgWrap>{this.props.charter.logoUrl && <LogoImg src={this.props.charter.logoUrl} />}</LogoImgWrap>
             </LogoFormWrap>
             <HelperText style={{ marginTop: 4 }}>Must be image URL</HelperText>
           </div>
 
           <div>
-            <FormSubhead>
-              Newsroom URL
-              {/*TODO: pre-fill with value from CMS*/}
-            </FormSubhead>
+            <FormSubhead>Newsroom URL</FormSubhead>
             <NewsroomURLInput
               name="newsroomUrl"
               value={this.props.charter.newsroomUrl || ""}
