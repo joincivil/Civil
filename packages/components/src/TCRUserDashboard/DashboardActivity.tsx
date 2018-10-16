@@ -7,12 +7,14 @@ export interface DashboardActivityProps {
   userVotes: JSX.Element;
   userNewsrooms: JSX.Element;
   userChallenges: JSX.Element;
+  activeIndex: number;
+  onTabChange(activeIndex: number): void;
 }
 
 export const DashboardActivity: React.StatelessComponent<DashboardActivityProps> = props => {
   return (
     <StyledUserActivity>
-      <Tabs TabComponent={StyledDashboardTab}>
+      <Tabs TabComponent={StyledDashboardTab} activeIndex={props.activeIndex} onActiveTabChange={props.onTabChange}>
         <Tab title={<MyVotingTabText />}>
           <StyledUserActivityContent>{props.userVotes}</StyledUserActivityContent>
         </Tab>

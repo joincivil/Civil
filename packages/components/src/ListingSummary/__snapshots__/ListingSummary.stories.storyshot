@@ -319,13 +319,7 @@ initialize {
                       ],
                       "name": "div",
                       "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "data": ":",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "text",
-                      },
+                      "next": null,
                       "parent": [Circular],
                       "prev": null,
                       "type": "tag",
@@ -335,38 +329,6 @@ initialize {
                       "x-attribsPrefix": Object {
                         "class": undefined,
                       },
-                    },
-                    Object {
-                      "data": ":",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "class": "sc-gPWkxV eqPESO",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "div",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                        },
-                      },
-                      "type": "text",
                     },
                   ],
                   "name": "div",
@@ -412,13 +374,7 @@ initialize {
                     ],
                     "name": "div",
                     "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "data": ":",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "text",
-                    },
+                    "next": null,
                     "parent": [Circular],
                     "prev": null,
                     "type": "tag",
@@ -428,38 +384,6 @@ initialize {
                     "x-attribsPrefix": Object {
                       "class": undefined,
                     },
-                  },
-                  Object {
-                    "data": ":",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-gPWkxV eqPESO",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "div",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "type": "text",
                   },
                 ],
                 "name": "div",
@@ -1156,13 +1080,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -1172,38 +1090,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -1249,13 +1135,7 @@ initialize {
                         ],
                         "name": "div",
                         "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
+                        "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "tag",
@@ -1265,38 +1145,6 @@ initialize {
                         "x-attribsPrefix": Object {
                           "class": undefined,
                         },
-                      },
-                      Object {
-                        "data": ":",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "class": "sc-gPWkxV eqPESO",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "div",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "class": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "class": undefined,
-                          },
-                        },
-                        "type": "text",
                       },
                     ],
                     "name": "div",
@@ -1918,13 +1766,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -1934,38 +1776,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -2011,13 +1821,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -2027,38 +1831,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -2680,13 +2452,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -2696,38 +2462,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -2773,13 +2507,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -2789,38 +2517,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -3442,13 +3138,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -3458,38 +3148,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -3535,13 +3193,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -3551,38 +3203,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -4204,13 +3824,7 @@ initialize {
                                   ],
                                   "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": Object {
-                                    "data": ":",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": [Circular],
-                                    "type": "text",
-                                  },
+                                  "next": null,
                                   "parent": [Circular],
                                   "prev": null,
                                   "type": "tag",
@@ -4220,38 +3834,6 @@ initialize {
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
                                   },
-                                },
-                                Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": Object {
-                                    "attribs": Object {
-                                      "class": "sc-gPWkxV eqPESO",
-                                    },
-                                    "children": Array [
-                                      Object {
-                                        "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                        "next": null,
-                                        "parent": [Circular],
-                                        "prev": null,
-                                        "type": "text",
-                                      },
-                                    ],
-                                    "name": "div",
-                                    "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": [Circular],
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "tag",
-                                    "x-attribsNamespace": Object {
-                                      "class": undefined,
-                                    },
-                                    "x-attribsPrefix": Object {
-                                      "class": undefined,
-                                    },
-                                  },
-                                  "type": "text",
                                 },
                               ],
                               "name": "div",
@@ -4297,13 +3879,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -4313,38 +3889,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -4966,13 +4510,7 @@ initialize {
                                     ],
                                     "name": "div",
                                     "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": Object {
-                                      "data": ":",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": [Circular],
-                                      "type": "text",
-                                    },
+                                    "next": null,
                                     "parent": [Circular],
                                     "prev": null,
                                     "type": "tag",
@@ -4982,38 +4520,6 @@ initialize {
                                     "x-attribsPrefix": Object {
                                       "class": undefined,
                                     },
-                                  },
-                                  Object {
-                                    "data": ":",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": Object {
-                                      "attribs": Object {
-                                        "class": "sc-gPWkxV eqPESO",
-                                      },
-                                      "children": Array [
-                                        Object {
-                                          "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                          "next": null,
-                                          "parent": [Circular],
-                                          "prev": null,
-                                          "type": "text",
-                                        },
-                                      ],
-                                      "name": "div",
-                                      "namespace": "http://www.w3.org/1999/xhtml",
-                                      "next": [Circular],
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "tag",
-                                      "x-attribsNamespace": Object {
-                                        "class": undefined,
-                                      },
-                                      "x-attribsPrefix": Object {
-                                        "class": undefined,
-                                      },
-                                    },
-                                    "type": "text",
                                   },
                                 ],
                                 "name": "div",
@@ -5059,13 +4565,7 @@ initialize {
                                   ],
                                   "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": Object {
-                                    "data": ":",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": [Circular],
-                                    "type": "text",
-                                  },
+                                  "next": null,
                                   "parent": [Circular],
                                   "prev": null,
                                   "type": "tag",
@@ -5075,38 +4575,6 @@ initialize {
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
                                   },
-                                },
-                                Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": Object {
-                                    "attribs": Object {
-                                      "class": "sc-gPWkxV eqPESO",
-                                    },
-                                    "children": Array [
-                                      Object {
-                                        "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                        "next": null,
-                                        "parent": [Circular],
-                                        "prev": null,
-                                        "type": "text",
-                                      },
-                                    ],
-                                    "name": "div",
-                                    "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": [Circular],
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "tag",
-                                    "x-attribsNamespace": Object {
-                                      "class": undefined,
-                                    },
-                                    "x-attribsPrefix": Object {
-                                      "class": undefined,
-                                    },
-                                  },
-                                  "type": "text",
                                 },
                               ],
                               "name": "div",
@@ -5789,13 +5257,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -5805,38 +5267,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -5882,13 +5312,7 @@ initialize {
                         ],
                         "name": "div",
                         "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
+                        "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "tag",
@@ -5898,38 +5322,6 @@ initialize {
                         "x-attribsPrefix": Object {
                           "class": undefined,
                         },
-                      },
-                      Object {
-                        "data": ":",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "class": "sc-gPWkxV eqPESO",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "div",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "class": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "class": undefined,
-                          },
-                        },
-                        "type": "text",
                       },
                     ],
                     "name": "div",
@@ -6551,13 +5943,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -6567,38 +5953,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -6644,13 +5998,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -6660,38 +6008,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -7313,13 +6629,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -7329,38 +6639,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -7406,13 +6684,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -7422,38 +6694,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -8075,13 +7315,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -8091,38 +7325,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -8168,13 +7370,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -8184,38 +7380,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -8837,13 +8001,7 @@ initialize {
                                   ],
                                   "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": Object {
-                                    "data": ":",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": [Circular],
-                                    "type": "text",
-                                  },
+                                  "next": null,
                                   "parent": [Circular],
                                   "prev": null,
                                   "type": "tag",
@@ -8853,38 +8011,6 @@ initialize {
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
                                   },
-                                },
-                                Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": Object {
-                                    "attribs": Object {
-                                      "class": "sc-gPWkxV eqPESO",
-                                    },
-                                    "children": Array [
-                                      Object {
-                                        "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                        "next": null,
-                                        "parent": [Circular],
-                                        "prev": null,
-                                        "type": "text",
-                                      },
-                                    ],
-                                    "name": "div",
-                                    "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": [Circular],
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "tag",
-                                    "x-attribsNamespace": Object {
-                                      "class": undefined,
-                                    },
-                                    "x-attribsPrefix": Object {
-                                      "class": undefined,
-                                    },
-                                  },
-                                  "type": "text",
                                 },
                               ],
                               "name": "div",
@@ -8930,13 +8056,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -8946,38 +8066,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -9641,13 +8729,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -9657,38 +8739,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -9734,13 +8784,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -9750,38 +8794,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -10422,13 +9434,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -10438,38 +9444,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -10515,13 +9489,7 @@ initialize {
                         ],
                         "name": "div",
                         "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
+                        "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "tag",
@@ -10531,38 +9499,6 @@ initialize {
                         "x-attribsPrefix": Object {
                           "class": undefined,
                         },
-                      },
-                      Object {
-                        "data": ":",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "class": "sc-gPWkxV eqPESO",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "div",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "class": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "class": undefined,
-                          },
-                        },
-                        "type": "text",
                       },
                     ],
                     "name": "div",
@@ -11184,13 +10120,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -11200,38 +10130,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -11277,13 +10175,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -11293,38 +10185,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -11946,13 +10806,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -11962,38 +10816,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -12039,13 +10861,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -12055,38 +10871,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -12708,13 +11492,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -12724,38 +11502,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -12801,13 +11547,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -12817,38 +11557,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -13502,13 +12210,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -13518,38 +12220,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -13595,13 +12265,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -13611,38 +12275,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -14266,13 +12898,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -14282,38 +12908,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -14359,13 +12953,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -14375,38 +12963,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -15055,13 +13611,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -15071,38 +13621,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -15148,13 +13666,7 @@ initialize {
                         ],
                         "name": "div",
                         "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
+                        "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "tag",
@@ -15164,38 +13676,6 @@ initialize {
                         "x-attribsPrefix": Object {
                           "class": undefined,
                         },
-                      },
-                      Object {
-                        "data": ":",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "class": "sc-gPWkxV eqPESO",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "div",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "class": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "class": undefined,
-                          },
-                        },
-                        "type": "text",
                       },
                     ],
                     "name": "div",
@@ -15817,13 +14297,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -15833,38 +14307,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -15910,13 +14352,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -15926,38 +14362,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -16579,13 +14983,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -16595,38 +14993,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -16672,13 +15038,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -16688,38 +15048,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -17363,13 +15691,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -17379,38 +15701,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -17456,13 +15746,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -17472,38 +15756,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -18127,13 +16379,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -18143,38 +16389,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -18220,13 +16434,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -18236,38 +16444,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -18891,13 +17067,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -18907,38 +17077,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -18984,13 +17122,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -19000,38 +17132,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -19688,13 +17788,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -19704,38 +17798,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -19781,13 +17843,7 @@ initialize {
                         ],
                         "name": "div",
                         "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
+                        "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "tag",
@@ -19797,38 +17853,6 @@ initialize {
                         "x-attribsPrefix": Object {
                           "class": undefined,
                         },
-                      },
-                      Object {
-                        "data": ":",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "class": "sc-gPWkxV eqPESO",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "div",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "class": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "class": undefined,
-                          },
-                        },
-                        "type": "text",
                       },
                     ],
                     "name": "div",
@@ -20450,13 +18474,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -20466,38 +18484,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -20543,13 +18529,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -20559,38 +18539,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -21224,13 +19172,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -21240,38 +19182,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -21317,13 +19227,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -21333,38 +19237,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -21988,13 +19860,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -22004,38 +19870,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -22081,13 +19915,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -22097,38 +19925,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -22752,13 +20548,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -22768,38 +20558,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -22845,13 +20603,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -22861,38 +20613,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -23516,13 +21236,7 @@ initialize {
                                   ],
                                   "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": Object {
-                                    "data": ":",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": [Circular],
-                                    "type": "text",
-                                  },
+                                  "next": null,
                                   "parent": [Circular],
                                   "prev": null,
                                   "type": "tag",
@@ -23532,38 +21246,6 @@ initialize {
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
                                   },
-                                },
-                                Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": Object {
-                                    "attribs": Object {
-                                      "class": "sc-gPWkxV eqPESO",
-                                    },
-                                    "children": Array [
-                                      Object {
-                                        "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                        "next": null,
-                                        "parent": [Circular],
-                                        "prev": null,
-                                        "type": "text",
-                                      },
-                                    ],
-                                    "name": "div",
-                                    "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": [Circular],
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "tag",
-                                    "x-attribsNamespace": Object {
-                                      "class": undefined,
-                                    },
-                                    "x-attribsPrefix": Object {
-                                      "class": undefined,
-                                    },
-                                  },
-                                  "type": "text",
                                 },
                               ],
                               "name": "div",
@@ -23609,13 +21291,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -23625,38 +21301,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -24321,13 +21965,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -24337,38 +21975,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -24414,13 +22020,7 @@ initialize {
                         ],
                         "name": "div",
                         "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
+                        "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "tag",
@@ -24430,38 +22030,6 @@ initialize {
                         "x-attribsPrefix": Object {
                           "class": undefined,
                         },
-                      },
-                      Object {
-                        "data": ":",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "class": "sc-gPWkxV eqPESO",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "div",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "class": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "class": undefined,
-                          },
-                        },
-                        "type": "text",
                       },
                     ],
                     "name": "div",
@@ -25085,13 +22653,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -25101,38 +22663,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -25178,13 +22708,7 @@ initialize {
                           ],
                           "name": "div",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
+                          "next": null,
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -25194,38 +22718,6 @@ initialize {
                           "x-attribsPrefix": Object {
                             "class": undefined,
                           },
-                        },
-                        Object {
-                          "data": ":",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "class": "sc-gPWkxV eqPESO",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "div",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          "type": "text",
                         },
                       ],
                       "name": "div",
@@ -25849,13 +23341,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -25865,38 +23351,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -25942,13 +23396,7 @@ initialize {
                             ],
                             "name": "div",
                             "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
+                            "next": null,
                             "parent": [Circular],
                             "prev": null,
                             "type": "tag",
@@ -25958,38 +23406,6 @@ initialize {
                             "x-attribsPrefix": Object {
                               "class": undefined,
                             },
-                          },
-                          Object {
-                            "data": ":",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-gPWkxV eqPESO",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "text",
                           },
                         ],
                         "name": "div",
@@ -26613,13 +24029,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -26629,38 +24039,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -26706,13 +24084,7 @@ initialize {
                               ],
                               "name": "div",
                               "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "text",
-                              },
+                              "next": null,
                               "parent": [Circular],
                               "prev": null,
                               "type": "tag",
@@ -26722,38 +24094,6 @@ initialize {
                               "x-attribsPrefix": Object {
                                 "class": undefined,
                               },
-                            },
-                            Object {
-                              "data": ":",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-gPWkxV eqPESO",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "text",
                             },
                           ],
                           "name": "div",
@@ -27377,13 +24717,7 @@ initialize {
                                   ],
                                   "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": Object {
-                                    "data": ":",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": [Circular],
-                                    "type": "text",
-                                  },
+                                  "next": null,
                                   "parent": [Circular],
                                   "prev": null,
                                   "type": "tag",
@@ -27393,38 +24727,6 @@ initialize {
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
                                   },
-                                },
-                                Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": Object {
-                                    "attribs": Object {
-                                      "class": "sc-gPWkxV eqPESO",
-                                    },
-                                    "children": Array [
-                                      Object {
-                                        "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                        "next": null,
-                                        "parent": [Circular],
-                                        "prev": null,
-                                        "type": "text",
-                                      },
-                                    ],
-                                    "name": "div",
-                                    "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": [Circular],
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "tag",
-                                    "x-attribsNamespace": Object {
-                                      "class": undefined,
-                                    },
-                                    "x-attribsPrefix": Object {
-                                      "class": undefined,
-                                    },
-                                  },
-                                  "type": "text",
                                 },
                               ],
                               "name": "div",
@@ -27470,13 +24772,7 @@ initialize {
                                 ],
                                 "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": [Circular],
-                                  "type": "text",
-                                },
+                                "next": null,
                                 "parent": [Circular],
                                 "prev": null,
                                 "type": "tag",
@@ -27486,38 +24782,6 @@ initialize {
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
                                 },
-                              },
-                              Object {
-                                "data": ":",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": Object {
-                                  "attribs": Object {
-                                    "class": "sc-gPWkxV eqPESO",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "div",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": [Circular],
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                  },
-                                },
-                                "type": "text",
                               },
                             ],
                             "name": "div",
@@ -28141,13 +25405,7 @@ initialize {
                                     ],
                                     "name": "div",
                                     "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": Object {
-                                      "data": ":",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": [Circular],
-                                      "type": "text",
-                                    },
+                                    "next": null,
                                     "parent": [Circular],
                                     "prev": null,
                                     "type": "tag",
@@ -28157,38 +25415,6 @@ initialize {
                                     "x-attribsPrefix": Object {
                                       "class": undefined,
                                     },
-                                  },
-                                  Object {
-                                    "data": ":",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": Object {
-                                      "attribs": Object {
-                                        "class": "sc-gPWkxV eqPESO",
-                                      },
-                                      "children": Array [
-                                        Object {
-                                          "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                          "next": null,
-                                          "parent": [Circular],
-                                          "prev": null,
-                                          "type": "text",
-                                        },
-                                      ],
-                                      "name": "div",
-                                      "namespace": "http://www.w3.org/1999/xhtml",
-                                      "next": [Circular],
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "tag",
-                                      "x-attribsNamespace": Object {
-                                        "class": undefined,
-                                      },
-                                      "x-attribsPrefix": Object {
-                                        "class": undefined,
-                                      },
-                                    },
-                                    "type": "text",
                                   },
                                 ],
                                 "name": "div",
@@ -28234,13 +25460,7 @@ initialize {
                                   ],
                                   "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": Object {
-                                    "data": ":",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": [Circular],
-                                    "type": "text",
-                                  },
+                                  "next": null,
                                   "parent": [Circular],
                                   "prev": null,
                                   "type": "tag",
@@ -28250,38 +25470,6 @@ initialize {
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
                                   },
-                                },
-                                Object {
-                                  "data": ":",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": Object {
-                                    "attribs": Object {
-                                      "class": "sc-gPWkxV eqPESO",
-                                    },
-                                    "children": Array [
-                                      Object {
-                                        "data": "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...",
-                                        "next": null,
-                                        "parent": [Circular],
-                                        "prev": null,
-                                        "type": "text",
-                                      },
-                                    ],
-                                    "name": "div",
-                                    "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": [Circular],
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "tag",
-                                    "x-attribsNamespace": Object {
-                                      "class": undefined,
-                                    },
-                                    "x-attribsPrefix": Object {
-                                      "class": undefined,
-                                    },
-                                  },
-                                  "type": "text",
                                 },
                               ],
                               "name": "div",
