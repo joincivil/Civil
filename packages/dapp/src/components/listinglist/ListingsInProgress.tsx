@@ -101,7 +101,11 @@ class ListingsInProgress extends React.Component<ListingProps> {
         </Tab>
         <Tab title={readyToUpdateTab}>
           <>
-            <StyledListingCopy>The Civil community has spoken and the vote results are in. However, in order for the decision to take effect, the status of the newsroom must be updated. Thank you for helping the community curate high-quality, trustworthy journalism. </StyledListingCopy>
+            <StyledListingCopy>
+              The Civil community has spoken and the vote results are in. However, in order for the decision to take
+              effect, the status of the newsroom must be updated. Thank you for helping the community curate
+              high-quality, trustworthy journalism.{" "}
+            </StyledListingCopy>
             {this.renderReadyToUpdate()}
           </>
         </Tab>
@@ -111,7 +115,9 @@ class ListingsInProgress extends React.Component<ListingProps> {
 
   private renderApplications = (): JSX.Element => {
     if (this.props.applications.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={this.props.applications} />
+      return (
+        <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={this.props.applications} />
+      );
     }
 
     return (
@@ -120,7 +126,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
         <RegistryEmptyIcon />
       </StyledRegistryEmpty>
     );
-  }
+  };
 
   private renderUnderChallenge = (): JSX.Element => {
     const beingChallenged = this.props.inChallengeCommitListings
@@ -128,7 +134,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.awaitingAppealRequestListings);
 
     if (beingChallenged.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={beingChallenged} />
+      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={beingChallenged} />;
     }
 
     return (
@@ -137,7 +143,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
         <RegistryEmptyIcon />
       </StyledRegistryEmpty>
     );
-  }
+  };
 
   private renderUnderAppeal = (): JSX.Element => {
     const consideringAppeal = this.props.awaitingAppealJudgmentListings.merge(
@@ -145,7 +151,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
     );
 
     if (consideringAppeal.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={consideringAppeal} />
+      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={consideringAppeal} />;
     }
 
     return (
@@ -154,7 +160,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
         <RegistryEmptyIcon />
       </StyledRegistryEmpty>
     );
-  }
+  };
 
   private renderUnderAppealChallenge = (): JSX.Element => {
     const appealChallenge = this.props.appealChallengeCommitPhaseListings.merge(
@@ -162,7 +168,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
     );
 
     if (appealChallenge.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={appealChallenge} />
+      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={appealChallenge} />;
     }
 
     return (
@@ -171,7 +177,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
         <RegistryEmptyIcon />
       </StyledRegistryEmpty>
     );
-  }
+  };
 
   private renderReadyToUpdate = (): JSX.Element => {
     const readyToUpdate = this.props.readyToWhitelistListings
@@ -179,7 +185,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
       .merge(this.props.resolveAppealListings);
 
     if (readyToUpdate.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryReadyToUpdateComponent} listings={readyToUpdate} />
+      return <ListingList ListingItemComponent={ListingSummaryReadyToUpdateComponent} listings={readyToUpdate} />;
     }
 
     return (
@@ -188,7 +194,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
         <RegistryEmptyIcon />
       </StyledRegistryEmpty>
     );
-  }
+  };
 }
 
 const mapStateToProps = (state: State): ListingProps => {

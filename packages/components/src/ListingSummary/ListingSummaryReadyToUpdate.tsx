@@ -91,7 +91,6 @@ export class ListingSummaryReadyToUpdateComponent extends React.Component<Listin
           </div>
         </StyledListingSummaryTop>
         <StyledListingSummarySection>
-
           {this.props.challengeStatementSummary && (
             <StyledListingSummaryDescription>
               <b>Challenge Summary</b>
@@ -253,7 +252,7 @@ export class ListingSummaryReadyToUpdateComponent extends React.Component<Listin
         );
       }
     } else if (didListingChallengeSucceed) {
-        // Challenge succeeded (newsroom rejected)
+      // Challenge succeeded (newsroom rejected)
       decisionText = (
         <StyledRejectedResultsBanner>
           <HollowRedNoGood /> Community voted to reject Newsroom

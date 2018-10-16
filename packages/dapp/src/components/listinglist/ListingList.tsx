@@ -21,7 +21,14 @@ class ListingList extends React.Component<ListingListOwnProps> {
         {this.props.listings &&
           this.props.listings.map(l => {
             index++;
-            return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} ListingItemComponent={this.props.ListingItemComponent} />;
+            return (
+              <ListingListItem
+                key={l}
+                listingAddress={l!}
+                even={index % 2 === 0}
+                ListingItemComponent={this.props.ListingItemComponent}
+              />
+            );
           })}
       </StyledListingSummaryList>
     );

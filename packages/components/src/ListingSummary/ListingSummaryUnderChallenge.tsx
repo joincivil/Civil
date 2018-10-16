@@ -91,7 +91,6 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
           </div>
         </StyledListingSummaryTop>
         <StyledListingSummarySection>
-
           {this.props.challengeStatementSummary && (
             <StyledListingSummaryDescription>
               <b>Challenge Summary</b>

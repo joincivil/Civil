@@ -9,7 +9,13 @@ export const RegistryEmptyIcon: React.SFC<RegistryEmptyProps> = props => {
   const width = (props.width || 350).toString();
   const height = (props.height || 155).toString();
   return (
-    <svg width={`${width}px`} height={`${height}px`} viewBox="0 0 350 155" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width={`${width}px`}
+      height={`${height}px`}
+      viewBox={`0 0 ${width} ${height}`}
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-546.000000, -398.000000)">
           <g transform="translate(546.000000, 398.000000)">
