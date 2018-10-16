@@ -5,7 +5,7 @@ export interface TableProps {
 
 export interface TableCellProps {
   accent?: boolean;
-  align?: string;
+  align?: any; // not sure why `string` was causing compiler issues, but it was. TODO(nickreynolds): investigate
   borderWidth?: string;
   colSpan?: number;
   padding?: number;
