@@ -41,10 +41,9 @@ import {
 } from "../types";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
-import { CreateNewsroomInGroupContract } from "./generated/wrappers/create_newsroom_in_group";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";
 import { Newsroom as Events, NewsroomContract } from "./generated/wrappers/newsroom";
-import { NewsroomFactory } from "./generated/wrappers/newsroom_factory";
+import { NewsroomFactory, NewsroomFactoryContract } from "./generated/wrappers/newsroom_factory";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 import { Multisig } from "./multisig/multisig";
 import { MultisigTransaction } from "./multisig/multisigtransaction";
@@ -93,7 +92,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const account = await requireAccount(ethApi).toPromise();
     const txData: TxData = { from: account };
 
-    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
@@ -119,7 +118,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     ethApi: EthApi,
     contentProvider: ContentProvider,
   ): Promise<Newsroom> {
-    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
@@ -141,7 +140,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {
     const account = await requireAccount(ethApi).toPromise();
     const txData: TxData = { from: account };
-    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
+    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
