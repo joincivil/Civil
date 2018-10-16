@@ -3,6 +3,6 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
   const TokenController = artifacts.require("GroupTokenController");
 
   deployer.then(async () => {
-    deployer.deploy(TokenController, UserGroups.address);
+    await deployer.deploy(TokenController, UserGroups.address);
   });
 };
