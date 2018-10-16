@@ -7,15 +7,31 @@ import { Parameters, GovernmentParameters } from "./civilHelpers";
 // Accepts `seconds` as a single argument and returns a
 // human-readable string of a duration of time.
 // ie: 1 day, 3 hours, 4 minutes, 20 seconds
-export function getReadableDuration(seconds: number): string {
+export function getReadableDuration(seconds: number, fuzzyFilterPeriods: string[] = []): string {
   const periods: Array<[number, string]> = [[86400, "day"], [3600, "hour"], [60, "minute"], [1, "second"]];
   let secondsRemaining: number = seconds;
   const lenPeriods: number = periods.length;
+  let fuzzyPeriods: string[] = [];
+
+  if (fuzzyFilterPeriods.length) {
+    fuzzyPeriods = periods
+      .filter(periodItem => {
+        return !fuzzyFilterPeriods.includes(periodItem[1]);
+      })
+      .map(periodItem => periodItem[1])
+      .slice(0, -1);
+  }
+  let fuzzyPeriodsRemain: boolean = false;
   return periods.reduce((acc: string, item: [number, string], index: number) => {
     const periodUnits = Math.floor(secondsRemaining / item[0]);
     let out: string = acc;
     if (periodUnits > 0) {
-      out += `${periodUnits} ${item[1]}${periodUnits !== 1 ? "s" : ""}${index < lenPeriods - 1 ? " " : ""}`;
+      if (!fuzzyPeriodsRemain && fuzzyPeriods.includes(item[1])) {
+        fuzzyPeriodsRemain = true;
+      }
+      if (!fuzzyFilterPeriods.includes(item[1]) || !fuzzyPeriodsRemain) {
+        out += `${periodUnits} ${item[1]}${periodUnits !== 1 ? "s" : ""}${index < lenPeriods - 1 ? " " : ""}`;
+      }
       secondsRemaining = secondsRemaining % item[0];
     }
     return out;
