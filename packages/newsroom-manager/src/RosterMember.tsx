@@ -132,7 +132,11 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
                 </FormRowItem>
                 <FormRowItem>
                   <FormSubhead optional>Twitter URL</FormSubhead>
-                  <Input name="twitter" value={(user.rosterData.socialUrls || {}).twitter} onChange={this.rosterSocialInputChange} />
+                  <Input
+                    name="twitter"
+                    value={(user.rosterData.socialUrls || {}).twitter}
+                    onChange={this.rosterSocialInputChange}
+                  />
                 </FormRowItem>
               </FormRow>
 

@@ -21,7 +21,7 @@ import { State } from "../../reducers";
 import ListingsInProgress from "./ListingsInProgress";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
 
-const TABS: string[] = ["whitelisted", "under-challenge", "rejected"];
+const TABS: string[] = ["whitelisted", "in-progress", "rejected"];
 
 export interface ListingProps {
   match?: any;
@@ -79,7 +79,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             </Tab>
             <Tab title={<ApplicationsInProgressTabText />}>
               <StyledPageContent>
-                <ListingsInProgress />
+                <ListingsInProgress match={this.props.match} history={this.props.history} />
               </StyledPageContent>
             </Tab>
             <Tab title={<RejectedNewsroomsTabText />}>

@@ -11,17 +11,20 @@ const StyledDashboardActivityContainer = styled.div`
   width: 1200px;
 `;
 
-export class Dashboard extends React.Component {
-  public render(): JSX.Element {
-    return (
-      <>
-        <UserDashboardHeader>
-          <UserInfoSummary />
-        </UserDashboardHeader>
-        <StyledDashboardActivityContainer>
-          <DashboardActivity />
-        </StyledDashboardActivityContainer>
-      </>
-    );
-  }
+export interface DashboardProps {
+  match?: any;
+  history: any;
 }
+
+export const Dashboard: React.SFC<DashboardProps> = props => {
+  return (
+    <>
+      <UserDashboardHeader>
+        <UserInfoSummary />
+      </UserDashboardHeader>
+      <StyledDashboardActivityContainer>
+        <DashboardActivity match={props.match} history={props.history} />
+      </StyledDashboardActivityContainer>
+    </>
+  );
+};

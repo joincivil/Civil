@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { Helmet } from "react-helmet";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
 
@@ -61,6 +62,10 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
       <>
         {listingExistsAsNewsroom && (
           <>
+            <Helmet>
+              <title>{newsroom!.wrapper.data.name} - The Civil Registry</title>
+            </Helmet>
+
             <ListingHeader
               userAccount={this.props.userAccount}
               listing={listing!}
