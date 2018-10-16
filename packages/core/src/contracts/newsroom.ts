@@ -41,7 +41,6 @@ import {
 } from "../types";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
-import { CreateNewsroomInGroupContract } from "./generated/wrappers/create_newsroom_in_group";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";
 import { Newsroom as Events, NewsroomContract } from "./generated/wrappers/newsroom";
 import { NewsroomFactory, NewsroomFactoryContract } from "./generated/wrappers/newsroom_factory";
