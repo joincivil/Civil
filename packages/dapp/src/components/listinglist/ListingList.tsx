@@ -5,7 +5,6 @@ import { StyledListingSummaryList } from "@joincivil/components";
 
 export interface ListingListOwnProps {
   listings?: Set<string>;
-  challenges?: Set<string>;
 }
 
 class ListingList extends React.Component<ListingListOwnProps> {
@@ -15,10 +14,12 @@ class ListingList extends React.Component<ListingListOwnProps> {
 
   public render(): JSX.Element {
     let index = 0;
+    console.log("listings are: ", this.props.listings);
     return (
       <StyledListingSummaryList>
         {this.props.listings &&
           this.props.listings.map(l => {
+            console.log("mapppa listing. l: ", l);
             index++;
             return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
           })}

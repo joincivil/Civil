@@ -30,7 +30,9 @@ class ListingListItemComponent extends React.Component<
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
     const isWhitelisted = listingExists && listingPhaseState.isWhitelisted && !listingPhaseState.isUnderChallenge;
-
+    console.log("listing: ", listing);
+    console.log("listingExists: ", listingExists);
+    console.log("isWhitelisted: ", isWhitelisted);
     return (
       <>
         {isWhitelisted && <WhitelistedListingItem {...this.props} />}
@@ -119,7 +121,9 @@ const makeMapStateToProps = () => {
   ): ListingListItemReduxProps & ListingListItemOwnProps => {
     const { newsrooms } = state;
     const { content } = state.networkDependent;
+    console.log("mapStateToProps listingAddress: " + ownProps.listingAddress);
     const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
+    console.log("mapStateToProps newsroom: " + newsroom);
     const listing = getListing(state, ownProps);
     let charter;
     if (newsroom && newsroom.wrapper.data.charterHeader) {
