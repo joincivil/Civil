@@ -36,6 +36,11 @@ const GlobalNavComponent: React.SFC<NavBarProps> = props => {
         userClaimRewardsCount={props.userChallengesWithUnclaimedRewards!.count()}
         userChallengesStartedCount={props.currentUserChallengesStarted.count()}
         userChallengesVotedOnCount={props.currentUserChallengesVotedOn.count()}
+        onLogin={() => {
+          if ((window as any).ethereum) {
+            (window as any).ethereum.enable();
+          }
+        }}
       />
       {shouldRenderErrorBar && <NavErrorBar />}
     </>
