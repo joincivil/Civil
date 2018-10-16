@@ -21,7 +21,7 @@
     "migrate": "lerna run --scope @joincivil/contracts migrate:ganache",
     "serve:dapp": "cd ./packages/dapp && serve -s build",
     "publish:docs": "ncp ./packages/dapp/build/ ./docs/",
-    "publish:artifacts": "ncp ./packages/contracts/build/artifacts/CivilTCR.json ./packages/core/src/artifacts/CivilTCR.json && ncp ./packages/contracts/build/artifacts/CivilPLCRVoting.json ./packages/core/src/artifacts/CivilPLCRVoting.json && ncp ./packages/contracts/build/artifacts/CivilParameterizer.json ./packages/core/src/artifacts/CivilParameterizer.json && ncp ./packages/contracts/build/artifacts/EIP20.json ./packages/core/src/artifacts/EIP20.json && ncp ./packages/contracts/build/artifacts/EventStorage.json ./packages/core/src/artifacts/EventStorage.json && ncp ./packages/contracts/build/artifacts/Government.json ./packages/core/src/artifacts/Government.json && ncp ./packages/contracts/build/artifacts/MultiSigWallet.json ./packages/core/src/artifacts/MultiSigWallet.json && ncp ./packages/contracts/build/artifacts/Newsroom.json ./packages/core/src/artifacts/Newsroom.json && ncp ./packages/contracts/build/artifacts/NewsroomFactory.json ./packages/core/src/artifacts/NewsroomFactory.json && ncp ./packages/contracts/build/artifacts/UserGroups.json ./packages/core/src/artifacts/UserGroups.json",
+    "publish:artifacts": "ncp ./packages/contracts/build/artifacts/CivilTCR.json ./packages/core/src/artifacts/CivilTCR.json && ncp ./packages/contracts/build/artifacts/CivilPLCRVoting.json ./packages/core/src/artifacts/CivilPLCRVoting.json && ncp ./packages/contracts/build/artifacts/CivilParameterizer.json ./packages/core/src/artifacts/CivilParameterizer.json && ncp ./packages/contracts/build/artifacts/EIP20.json ./packages/core/src/artifacts/EIP20.json && ncp ./packages/contracts/build/artifacts/EventStorage.json ./packages/core/src/artifacts/EventStorage.json && ncp ./packages/contracts/build/artifacts/Government.json ./packages/core/src/artifacts/Government.json && ncp ./packages/contracts/build/artifacts/MultiSigWallet.json ./packages/core/src/artifacts/MultiSigWallet.json && ncp ./packages/contracts/build/artifacts/Newsroom.json ./packages/core/src/artifacts/Newsroom.json && ncp ./packages/contracts/build/artifacts/NewsroomFactory.json ./packages/core/src/artifacts/NewsroomFactory.json && ncp ./packages/contracts/build/artifacts/UserGroups.json ./packages/core/src/artifacts/UserGroups.json && ncp ./packages/contracts/build/artifacts/GroupTokenController.json ./packages/core/src/artifacts/GroupTokenController.json && ncp ./packages/contracts/build/artifacts/CreateNewsroomInGroup.json ./packages/core/src/artifacts/CreateNewsroomInGroup.json",
     "preparelocally": "run-s migrate publish:artifacts build:core"
   },
   "config": {
@@ -31,8 +31,8 @@
   "devDependencies": {
     "coveralls": "^3.0.0",
     "ganache-cli": "^6.1.6",
-    "lcov-result-merger": "^2.0.0",
-    "lerna": "^2.9.0",
+    "lcov-result-merger": "^3.1.0",
+    "lerna": "^3.4.3",
     "ncp": "^2.0.0",
     "npm-run-all": "^4.1.2",
     "prettier": "1.12.1"

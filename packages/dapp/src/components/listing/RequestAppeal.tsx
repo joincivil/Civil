@@ -1,13 +1,15 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { EthAddress, TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  LoadingIndicator,
+  Button,
+  buttonSizes,
+  MetaMaskModal,
+  Modal,
   ModalHeading,
   ModalContent,
-  ModalOrderedList,
-  ModalListItem,
-  ModalListItemTypes,
+  ModalStepLabel,
+  ProgressModalContentInProgress,
   RequestAppealStatement as RequestAppealStatementComponent,
   RequestAppealStatementProps,
 } from "@joincivil/components";
@@ -18,12 +20,14 @@ import { State } from "../../reducers";
 
 export interface RequestAppealPageProps {
   match: any;
+  history?: any;
 }
 
 interface RequestAppealProps {
   listingAddress: EthAddress;
   listingURI: string;
   governanceGuideURI: string;
+  history?: any;
 }
 
 interface RequestAppealReduxProps {
@@ -33,33 +37,84 @@ interface RequestAppealReduxProps {
   judgeAppealLen: string;
 }
 
+interface ProgressModalPropsState {
+  isWaitingTransactionModalOpen?: boolean;
+  isTransactionProgressModalOpen?: boolean;
+  isTransactionSuccessModalOpen?: boolean;
+  isTransactionRejectionModalOpen?: boolean;
+  transactionIndex?: number;
+  transactions?: any[];
+  cancelTransaction?(): void;
+}
+
+interface ProgressModalActionProps {
+  handleSuccessClose(): void;
+}
+
+interface AppealParamsDisplayProps {
+  judgeAppealLen: string;
+}
+
 interface RequestAppealState {
   appealStatementSummaryValue?: string;
   appealStatementCiteConstitutionValue?: any;
   appealStatementDetailsValue?: any;
 }
 
-enum ModalContentEventNames {
-  IN_PROGRESS_APPROVE_FOR_APPEAL = "IN_PROGRESS:APPROVE_FOR_APPEAL",
-  IN_PROGRESS_REQUEST_APPEAL = "IN_PROGRESS:REQUEST_APPEAL",
-}
+class RequestAppealComponent extends React.Component<
+  RequestAppealProps & RequestAppealReduxProps,
+  RequestAppealState & ProgressModalPropsState
+> {
+  constructor(props: RequestAppealProps & RequestAppealReduxProps) {
+    super(props);
 
-class RequestAppealComponent extends React.Component<RequestAppealProps & RequestAppealReduxProps, RequestAppealState> {
-  public render(): JSX.Element {
-    const approveForAppealProgressModal = <ApproveForAppealProgressModal />;
-    const requestAppealProgressModal = <RequestAppealProgressModal />;
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL]: approveForAppealProgressModal,
-      [ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL]: requestAppealProgressModal,
+    this.state = {
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionIndex: -1,
     };
+  }
+
+  public render(): JSX.Element {
     const transactions = [
       {
-        transaction: approveForAppeal,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL,
+        transaction: async () => {
+          this.setState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            isTransactionRejectionModalOpen: false,
+            transactionIndex: 0,
+          });
+          return approveForAppeal();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        handleTransactionError: this.handleTransactionError,
       },
       {
-        transaction: this.appeal,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL,
+        transaction: async () => {
+          this.setState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionIndex: 1,
+          });
+          return this.appeal();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+          });
+        },
+        handleTransactionError: this.handleTransactionError,
       },
     ];
 
@@ -74,15 +129,78 @@ class RequestAppealComponent extends React.Component<RequestAppealProps & Reques
       judgeAppealLen,
       updateStatementValue: this.updateStatement,
       transactions,
-      modalContentComponents,
+      postExecuteTransactions: this.onRequestAppealSuccess,
     };
 
-    return <RequestAppealStatementComponent {...props} />;
+    const {
+      isWaitingTransactionModalOpen,
+      isTransactionProgressModalOpen,
+      isTransactionSuccessModalOpen,
+      transactionIndex,
+    } = this.state;
+
+    const modalProps = {
+      isWaitingTransactionModalOpen,
+      isTransactionProgressModalOpen,
+      isTransactionSuccessModalOpen,
+      transactionIndex,
+    };
+
+    return (
+      <>
+        <RequestAppealStatementComponent {...props} />
+        <AwaitingTransactionModal {...modalProps} />
+        <TransactionProgressModal {...modalProps} />
+        <TransactionSuccessModal
+          {...modalProps}
+          handleSuccessClose={this.redirectToListingPage}
+          judgeAppealLen={judgeAppealLen}
+        />
+        <TransactionRejectionModal
+          transactions={transactions}
+          cancelTransaction={this.closeAllModals}
+          {...modalProps}
+        />
+      </>
+    );
   }
 
   private updateStatement = (key: string, value: any): void => {
-    const stateKey = `appealStatement{key.charAt(0).toUpperCase()}${key.substring(1)}`;
+    const stateKey = `appealStatement${key.charAt(0).toUpperCase()}${key.substring(1)}Value`;
     this.setState(() => ({ [stateKey]: value }));
+  };
+
+  private handleTransactionError = (err: Error) => {
+    const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
+    this.setState(() => ({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: isErrorUserRejection,
+    }));
+  };
+
+  private closeAllModals = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionIndex: -1,
+    });
+  };
+
+  private onRequestAppealSuccess = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: true,
+    });
+  };
+
+  private redirectToListingPage = (): void => {
+    this.closeAllModals();
+    this.props.history.push("/listing/" + this.props.listingAddress);
   };
 
   // Transactions
@@ -101,33 +219,100 @@ class RequestAppealComponent extends React.Component<RequestAppealProps & Reques
   };
 }
 
-const ApproveForAppealProgressModal: React.SFC = props => {
+const AwaitingTransactionModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isWaitingTransactionModalOpen) {
+    return null;
+  }
+  const { transactionIndex } = props;
+  let transactionLabel = "";
+  let stepLabelText = "";
+  if (transactionIndex === 0) {
+    transactionLabel = "Approve For Request Appeal";
+    stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
+  } else if (transactionIndex === 1) {
+    transactionLabel = "Request Appeal";
+    stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
+  }
   return (
-    <>
-      <LoadingIndicator height={100} />
-      <ModalHeading>Transaction in progress</ModalHeading>
-      <ModalOrderedList>
-        <ModalListItem type={ModalListItemTypes.STRONG}>Approving for Request Appeal</ModalListItem>
-        <ModalListItem type={ModalListItemTypes.FADED}>Requesting Appeal</ModalListItem>
-      </ModalOrderedList>
-      <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-      <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-    </>
+    <MetaMaskModal waiting={true}>
+      <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+      <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+    </MetaMaskModal>
   );
 };
 
-const RequestAppealProgressModal: React.SFC = props => {
+const TransactionProgressModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isTransactionProgressModalOpen) {
+    return null;
+  }
+  const { transactionIndex } = props;
+  let transactionLabel = "";
+  let stepLabelText = "";
+  if (transactionIndex === 0) {
+    transactionLabel = "Approve For Request Appeal";
+    stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
+  } else if (transactionIndex === 1) {
+    transactionLabel = "Request Appeal";
+    stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
+  }
   return (
-    <>
-      <LoadingIndicator height={100} />
-      <ModalHeading>Transactions in progress</ModalHeading>
-      <ModalOrderedList>
-        <ModalListItem>Approving for Request Appeal</ModalListItem>
-        <ModalListItem type={ModalListItemTypes.STRONG}>Requesting Appeal</ModalListItem>
-      </ModalOrderedList>
-      <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-      <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-    </>
+    <Modal>
+      <ProgressModalContentInProgress>
+        <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+        <ModalHeading>{transactionLabel}</ModalHeading>
+      </ProgressModalContentInProgress>
+    </Modal>
+  );
+};
+
+const TransactionSuccessModal: React.SFC<
+  ProgressModalPropsState & ProgressModalActionProps & AppealParamsDisplayProps
+> = props => {
+  if (!props.isTransactionSuccessModalOpen) {
+    return null;
+  }
+  return (
+    <Modal>
+      <ModalHeading>
+        <strong>Request to Appeal Submitted!</strong>
+      </ModalHeading>
+      <ModalContent>
+        The Civil Council has {props.judgeAppealLen} to review the vote. They will publish at least one public document
+        outlining the Constitutional rationale for their decision. Please check back for their decision.
+      </ModalContent>
+      <Button size={buttonSizes.MEDIUM} onClick={() => props.handleSuccessClose()}>
+        Ok, got it
+      </Button>
+    </Modal>
+  );
+};
+
+const TransactionRejectionModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isTransactionRejectionModalOpen) {
+    return null;
+  }
+
+  const { transactionIndex } = props;
+  const message = "Your appeal request was not submitted";
+  let denialMessage = "";
+
+  if (transactionIndex === 0) {
+    denialMessage =
+      "Before requesting an appeal, you need to confirm the approval of your appeal deposit in your MetaMask wallet.";
+  } else if (transactionIndex === 1) {
+    denialMessage = "To request an appeal, you need to confirm the transaction in your MetaMask wallet.";
+  }
+
+  return (
+    <MetaMaskModal
+      waiting={false}
+      denied={true}
+      denialText={denialMessage}
+      cancelTransaction={() => props.cancelTransaction!()}
+      denialRestartTransactions={props.transactions}
+    >
+      <ModalHeading>{message}</ModalHeading>
+    </MetaMaskModal>
   );
 };
 
@@ -173,7 +358,12 @@ const RequestAppealPage: React.SFC<RequestAppealPageProps> = props => {
   const listingURI = `/listing/${listingAddress}`;
   const governanceGuideURI = "https://civil.co";
   return (
-    <RequestAppeal listingAddress={listingAddress} listingURI={listingURI} governanceGuideURI={governanceGuideURI} />
+    <RequestAppeal
+      listingAddress={listingAddress}
+      listingURI={listingURI}
+      governanceGuideURI={governanceGuideURI}
+      history={props.history}
+    />
   );
 };
 

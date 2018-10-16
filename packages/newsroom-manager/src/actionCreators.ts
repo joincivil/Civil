@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import { EthAddress, Civil, CharterData } from "@joincivil/core";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
+import { CmsUserData } from "./types";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -14,6 +15,8 @@ export enum newsroomActions {
 export enum uiActions {
   ADD_GET_NAME_FOR_ADDRESS = "ADD_GET_NAME_FOR_ADDRESS",
   GET_NAME_FOR_ADDRESS = "GET_NAME_FOR_ADDRESS",
+  ADD_PERSIST_CHARTER = "ADD_PERSIST_CHARTER",
+  PERSIST_CHARTER = "PERSIST_CHARTER",
 }
 
 export enum userActions {
@@ -104,7 +107,15 @@ export const changeName = (address: EthAddress, name: string): AnyAction => {
   };
 };
 
-export const updateCharter = (address: EthAddress, charter: Partial<CharterData>): AnyAction => {
+export const updateCharter = (address: EthAddress, charter: Partial<CharterData>): any => (
+  dispatch: any,
+  getState: any,
+): AnyAction => {
+  const state = getState();
+  const persistCharter = state.newsroomUi.get(uiActions.PERSIST_CHARTER);
+  if (persistCharter) {
+    persistCharter(charter);
+  }
   return {
     type: newsroomActions.UPDATE_CHARTER,
     data: { charter, address },
@@ -118,9 +129,16 @@ export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any,
   return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
 };
 
-export const addGetNameForAddress = (func: (address: EthAddress) => Promise<string>): AnyAction => {
+export const addGetNameForAddress = (func: (address: EthAddress) => Promise<CmsUserData>): AnyAction => {
   return {
     type: uiActions.ADD_GET_NAME_FOR_ADDRESS,
+    data: func,
+  };
+};
+
+export const addPersistCharter = (func: (charter: Partial<CharterData>) => void): AnyAction => {
+  return {
+    type: uiActions.ADD_PERSIST_CHARTER,
     data: func,
   };
 };

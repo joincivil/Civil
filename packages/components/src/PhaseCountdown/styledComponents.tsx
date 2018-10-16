@@ -17,13 +17,13 @@ export const ProgressBarBase = styled.div`
   height: 12px;
   border-radius: 7.5px;
 `;
-export const ProgressBarCountdownTotal = ProgressBarBase.extend`
+export const ProgressBarCountdownTotal = styled(ProgressBarBase)`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   box-sizing: border-box;
   position: relative;
   width: 100%;
 `;
-export const ProgressBarCountdownProgress = ProgressBarBase.extend`
+export const ProgressBarCountdownProgress = styled(ProgressBarBase)`
   display: inline-block;
   background-color: ${colors.accent.CIVIL_BLUE};
   left: 0;
@@ -59,7 +59,7 @@ export const MetaItemValue = styled.div`
   font-size: 22px;
   line-height: 27px;
 `;
-export const MetaItemValueAccent = MetaItemValue.extend`
+export const MetaItemValueAccent = styled(MetaItemValue)`
   color: ${colors.primary.CIVIL_BLUE_1};
 `;
 export const MetaItemLabel = styled.div`

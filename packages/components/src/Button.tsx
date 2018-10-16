@@ -158,7 +158,7 @@ const BaseButton = styled(ButtonComponent)`
   ${props => (props.fullWidth ? "width: 100%;" : "")};
 `;
 
-export const Button = BaseButton.extend`
+export const Button = styled(BaseButton)`
   background-color: ${props => props.theme.primaryButtonBackground};
   color: ${props => props.theme.primaryButtonColor};
   font-weight: ${props => props.theme.primaryButtonFontWeight};
@@ -179,7 +179,7 @@ Button.defaultProps = {
   theme: PRIMARY_BUTTON_DEFAULT_THEME,
 };
 
-export const InvertedButton = BaseButton.extend`
+export const InvertedButton = styled(BaseButton)`
   text-transform: uppercase;
   background-color: ${props => props.theme.invertedButtonBackground};
   color: ${props => props.theme.invertedButtonColor};
@@ -196,7 +196,7 @@ InvertedButton.defaultProps = {
   theme: INVERTED_BUTTON_DEFAULT_THEME,
 };
 
-export const SecondaryButton = BaseButton.extend`
+export const SecondaryButton = styled(BaseButton)`
   background-color: ${props => props.theme.secondaryButtonBackground};
   color: ${props => props.theme.secondaryButtonColor};
   border: 1px solid ${props => props.theme.secondaryButtonBorder};
@@ -213,7 +213,7 @@ SecondaryButton.defaultProps = {
   theme: SECONDARY_BUTTON_DEFAULT_THEME,
 };
 
-export const DarkButton = BaseButton.extend`
+export const DarkButton = styled(BaseButton)`
   background-color: ${props => props.theme.darkButtonBackground};
   color: ${props => props.theme.darkButtonColor};
   text-transform: ${props => props.theme.darkButtonTextTransform};
@@ -228,7 +228,7 @@ DarkButton.defaultProps = {
   theme: DARK_BUTTON_DEFAULT_THEME,
 };
 
-export const CancelButton = SecondaryButton.extend`
+export const CancelButton = styled(SecondaryButton)`
   color: ${colors.accent.CIVIL_BLUE};
   border: none;
   &:focus,
@@ -240,7 +240,7 @@ export const CancelButton = SecondaryButton.extend`
   }
 `;
 
-export const BorderlessButton = Button.extend`
+export const BorderlessButton = styled(Button)`
   border: none;
   font-family: ${props => props.theme.sansSerifFont};
   color: ${props => props.theme.borderlessButtonColor};

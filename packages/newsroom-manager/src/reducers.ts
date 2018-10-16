@@ -2,6 +2,7 @@ import { Map } from "immutable";
 import { AnyAction } from "redux";
 import { NewsroomWrapper, EthAddress, CharterData } from "@joincivil/core";
 import { newsroomActions, uiActions, userActions, governmentActions } from "./actionCreators";
+import { CmsUserData } from "./types";
 
 export interface NewsroomState {
   address: EthAddress;
@@ -14,7 +15,7 @@ export interface NewsroomState {
 export interface StateWithNewsroom {
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
-  newsroomUsers: Map<EthAddress, string>;
+  newsroomUsers: Map<EthAddress, CmsUserData>;
   newsroomGovernment: Map<string, string>;
 }
 
@@ -66,6 +67,8 @@ export function newsroomUi(state: Map<string, any> = Map(), action: AnyAction): 
   switch (action.type) {
     case uiActions.ADD_GET_NAME_FOR_ADDRESS:
       return state.set(uiActions.GET_NAME_FOR_ADDRESS, action.data);
+    case uiActions.ADD_PERSIST_CHARTER:
+      return state.set(uiActions.PERSIST_CHARTER, action.data);
     default:
       return state;
   }

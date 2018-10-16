@@ -8,7 +8,7 @@ import {
   StyledPhaseDisplayName,
 } from "./styledComponents";
 import { ReadyToCompletePhaseDisplayNameText, ResolveChallengeToolTipText } from "./textComponents";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { NeedHelp } from "./NeedHelp";
@@ -49,15 +49,10 @@ export const ChallengeResolveCard: React.StatelessComponent<
 
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
-          This challenge is complete. To update this Newsroom's status on the Civil Registry, please{" "}
-          <a href="#">resolve this challenge</a>.
+          This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
+          challenge.
         </CTACopy>
-        <TransactionInvertedButton
-          transactions={props.transactions!}
-          modalContentComponents={props.modalContentComponents}
-        >
-          Resolve Challenge
-        </TransactionInvertedButton>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Challenge</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />

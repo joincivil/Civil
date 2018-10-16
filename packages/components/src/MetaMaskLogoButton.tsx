@@ -2,7 +2,7 @@ import * as React from "react";
 import { MetaMaskSideIcon, Button, buttonSizes, TransactionButtonInnerProps } from ".";
 import styled from "styled-components";
 
-const B = Button.extend`
+const B = styled(Button)`
   position: relative;
   display: flex;
   align-items: center;
@@ -24,7 +24,7 @@ const ImgWrapper = styled.div`
 
 export const MetaMaskLogoButton = (props: TransactionButtonInnerProps): JSX.Element => {
   return (
-    <B onClick={props.onClick} size={buttonSizes.MEDIUM_WIDE}>
+    <B {...props} size={buttonSizes.MEDIUM_WIDE}>
       <ImgWrapper>
         <MetaMaskSideIcon />
       </ImgWrapper>

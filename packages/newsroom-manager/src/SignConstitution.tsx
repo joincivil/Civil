@@ -18,7 +18,6 @@ import { Map } from "immutable";
 import styled from "styled-components";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { EthSignedMessage, TxHash } from "@joincivil/typescript-types";
-import { updateCharter } from "./actionCreators";
 import { IpfsObject } from "./Newsroom";
 import { toBuffer } from "ethereumjs-util";
 
@@ -34,12 +33,12 @@ const CheckWrapper = styled.span`
 `;
 
 export interface SignConstitutionReduxProps {
+  charter: Partial<CharterData>;
   government?: Map<string, string>;
   newsroomAdress?: EthAddress;
-  savedCharter?: Partial<CharterData>;
   ipfs?: IpfsObject;
   newsroom?: any;
-  saveCharter?(charter: Partial<CharterData>): void;
+  updateCharter(charter: Partial<CharterData>): void;
 }
 
 export interface SignConstitutionState {
@@ -77,6 +76,14 @@ class SignConstitutionComponent extends React.Component<
     };
   }
 
+  public componentDidUpdate(prevProps: SignConstitutionReduxProps): void {
+    if (!this.state.agreedToConstitution) {
+      this.setState({
+        agreedToConstitution: !!prevProps.charter!.signatures && !!prevProps.charter!.signatures!.length, // TODO, check if your signature is here
+      });
+    }
+  }
+
   public renderPreSignModal(): JSX.Element | null {
     if (!this.state.preSignModalOpen) {
       return null;
@@ -106,7 +113,24 @@ class SignConstitutionComponent extends React.Component<
         startTransaction={() => this.startTransaction()}
       >
         <MetaMaskStepCounter>Step 1 of 2</MetaMaskStepCounter>
-        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+        <ModalHeading>Waiting for you to sign in MetaMask</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  public renderWaitingPublishModal(): JSX.Element | null {
+    if (!this.state.isWaitingPublishModalOpen) {
+      return null;
+    }
+    return (
+      <MetaMaskModal
+        waiting={true}
+        signing={true}
+        cancelTransaction={() => this.cancelTransaction()}
+        startTransaction={() => this.startTransaction()}
+      >
+        <MetaMaskStepCounter>Step 2 of 2</MetaMaskStepCounter>
+        <ModalHeading>Waiting for you to confirm the transaction in MetaMask</ModalHeading>
       </MetaMaskModal>
     );
   }
@@ -198,9 +222,14 @@ class SignConstitutionComponent extends React.Component<
                     and the other to confirm.
                   </StepDescription>
                   <TransactionButtonNoModal
-                    Button={props => (
-                      <MetaMaskLogoButton onClick={props.onClick}>Complete Your Charter</MetaMaskLogoButton>
-                    )}
+                    disabled={!this.state.agreedToConstitution}
+                    Button={props => {
+                      return (
+                        <MetaMaskLogoButton disabled={props.disabled} onClick={props.onClick}>
+                          Complete Your Charter
+                        </MetaMaskLogoButton>
+                      );
+                    }}
                     transactions={this.getTransactions(value.civil!)}
                   />
                 </>
@@ -209,6 +238,7 @@ class SignConstitutionComponent extends React.Component<
           </CivilContext.Consumer>
           {this.renderPreSignModal()}
           {this.renderWaitingSignModal()}
+          {this.renderWaitingPublishModal()}
           {this.renderMetaMaskRejectionModal()}
           {this.renderMetaMaskPublishRejectionModal()}
         </StepFormSection>
@@ -237,14 +267,13 @@ class SignConstitutionComponent extends React.Component<
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
           const { signature, message, signer } = sig;
-          const signatures = this.props.savedCharter!.signatures || [];
+          const signatures = this.props.charter.signatures || [];
           signatures.push({ signature, message, signer });
-          const charter = { ...this.props.savedCharter, signatures };
-          this.props.dispatch!(updateCharter(this.props.newsroomAdress!, charter));
-          if (this.props.saveCharter) {
-            this.props.saveCharter(charter);
-          }
-          this.setState({ isWaitingSignatureOpen: false });
+          const charter = { ...this.props.charter, signatures };
+          this.props.updateCharter(charter);
+          this.setState({
+            isWaitingSignatureOpen: false,
+          });
         },
         handleTransactionError: (err: Error) => {
           this.setState({ isWaitingSignatureOpen: false });
@@ -262,7 +291,7 @@ class SignConstitutionComponent extends React.Component<
       {
         transaction: async () => {
           this.setState({ isWaitingPublishModalOpen: true });
-          const charter = JSON.stringify(this.props.savedCharter);
+          const charter = JSON.stringify(this.props.charter);
           const files = await this.props.ipfs!.add(toBuffer(charter), {
             hash: "keccak-256",
             pin: true,
@@ -317,16 +346,11 @@ class SignConstitutionComponent extends React.Component<
 
 const mapStateToProps = (state: any, ownProps: SignConstitutionReduxProps): SignConstitutionReduxProps => {
   const { newsroomGovernment } = state;
-  let charterFromState;
   const newsroom = state.newsrooms.get(ownProps.newsroomAdress);
-  if (ownProps.newsroomAdress && newsroom) {
-    charterFromState = state.newsrooms.get(ownProps.newsroomAdress).charter;
-  }
 
   return {
     ...ownProps,
     government: newsroomGovernment,
-    savedCharter: ownProps.savedCharter || charterFromState || {},
     newsroom: newsroom.newsroom,
   };
 };

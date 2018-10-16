@@ -18,6 +18,14 @@ export const ModalContent = styled.p`
   line-height: 24px;
 `;
 
+export const ModalStepLabel = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0 0 35px;
+  text-transform: uppercase;
+`;
+
 export const ModalOrderedList = styled.ol`
   align-items: center;
   display: flex;

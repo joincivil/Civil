@@ -1,30 +1,32 @@
 import { currentAccount, EthApi, requireAccount } from "@joincivil/ethapi";
 import {
   CivilErrors,
+  estimateRawHex,
+  getDefaultFromBlock,
   hashContent,
   hashPersonalMessage,
   is0x0Address,
   is0x0Hash,
   prepareNewsroomMessage,
   prepareUserFriendlyNewsroomMessage,
-  recoverSigner,
   promisify,
-  estimateRawHex,
-  getDefaultFromBlock,
+  recoverSigner,
 } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
+import { addHexPrefix, bufferToHex, setLengthLeft, toBuffer } from "ethereumjs-util";
 import { Observable } from "rxjs";
-import { TransactionReceipt, Transaction } from "web3";
+import { Transaction, TransactionReceipt } from "web3";
+import * as zlib from "zlib";
 import { ContentProvider } from "../content/contentprovider";
 import {
   ApprovedRevision,
+  CharterContent,
   CivilTransactionReceipt,
   ContentId,
   EthAddress,
   EthContentHeader,
   Hex,
-  CharterContent,
   NewsroomContent,
   NewsroomData,
   NewsroomRoles,
@@ -33,15 +35,16 @@ import {
   StorageHeader,
   TwoStepEthTransaction,
   TxData,
+  TxDataAll,
   TxHash,
   Uri,
-  TxDataAll,
 } from "../types";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
+import { CreateNewsroomInGroupContract } from "./generated/wrappers/create_newsroom_in_group";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";
 import { Newsroom as Events, NewsroomContract } from "./generated/wrappers/newsroom";
-import { NewsroomFactory, NewsroomFactoryContract } from "./generated/wrappers/newsroom_factory";
+import { NewsroomFactory } from "./generated/wrappers/newsroom_factory";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 import { Multisig } from "./multisig/multisig";
 import { MultisigTransaction } from "./multisig/multisigtransaction";
@@ -52,8 +55,6 @@ import {
   findEventOrThrow,
   findEvents,
 } from "./utils/contracts";
-import * as zlib from "zlib";
-import { bufferToHex, toBuffer, setLengthLeft, addHexPrefix } from "ethereumjs-util";
 
 const deflate = promisify<Buffer>(zlib.deflate);
 
@@ -92,7 +93,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const account = await requireAccount(ethApi).toPromise();
     const txData: TxData = { from: account };
 
-    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
@@ -118,7 +119,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     ethApi: EthApi,
     contentProvider: ContentProvider,
   ): Promise<Newsroom> {
-    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
@@ -140,7 +141,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {
     const account = await requireAccount(ethApi).toPromise();
     const txData: TxData = { from: account };
-    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
