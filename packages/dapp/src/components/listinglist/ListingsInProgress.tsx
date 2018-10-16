@@ -11,6 +11,11 @@ import {
   AppealToCouncilTabTitle,
   ChallengeCouncilAppealTabTitle,
   ReadyToUpdateTabTitle,
+  RegistryEmptyIcon,
+  StyledRegistryEmpty,
+  StyledEmptyHeader,
+  ListingSummaryUnderChallengeComponent,
+  ListingSummaryReadyToUpdateComponent,
 } from "@joincivil/components";
 
 import ListingList from "./ListingList";
@@ -61,7 +66,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
               New applications are subject to Civil community review for alignment with the Civil Constitution. By
               participating in our governance, you can help curate high-quality, trustworthy journalism.
             </StyledListingCopy>
-            <ListingList listings={applications} />
+            {this.renderApplications()}
           </>
         </Tab>
         <Tab title={underChallengeTab}>
@@ -71,7 +76,7 @@ class ListingsInProgress extends React.Component<ListingProps> {
               potential breach of the Civil Constitution. Help us curate high quality, trustworthy journalism, and earn
               CVL tokens when you vote.
             </StyledListingCopy>
-            <ListingList listings={beingChallenged} />
+            {this.renderUnderChallenge()}
           </>
         </Tab>
         <Tab title={appealToCouncilTab}>
@@ -81,26 +86,107 @@ class ListingsInProgress extends React.Component<ListingProps> {
               these Newsrooms breached the Civil Constitution, and a decision will be announced X days after the appeal
               is granted.
             </StyledListingCopy>
-            <ListingList listings={consideringAppeal} />
+            {this.renderUnderAppeal()}
           </>
         </Tab>
         <Tab title={challengeCouncilAppealTab}>
           <>
             <StyledListingCopy>
-              Newsrooms under “Challenge Council Appeal” require the Civil community vote to veto the Council decision
+              Newsrooms under “Challenge Council Appeal” require the Civil community's vote to veto the Council decision
               in order to remain on the Registry. Help us curate high quality, trustworthy journalism, and earn CVL
               tokens when you vote.
             </StyledListingCopy>
-            <ListingList listings={appealChallenge} />
+            {this.renderUnderAppealChallenge()}
           </>
         </Tab>
         <Tab title={readyToUpdateTab}>
           <>
-            <StyledListingCopy>Step 1: Resolve these challenges. Step 2: ???. Step 3: Profit!!!</StyledListingCopy>
-            <ListingList listings={readyToUpdate} />
+            <StyledListingCopy>The Civil community has spoken and the vote results are in. However, in order for the decision to take effect, the status of the newsroom must be updated. Thank you for helping the community curate high-quality, trustworthy journalism. </StyledListingCopy>
+            {this.renderReadyToUpdate()}
           </>
         </Tab>
       </Tabs>
+    );
+  }
+
+  private renderApplications = (): JSX.Element => {
+    if (this.props.applications.count()) {
+      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={this.props.applications} />
+    }
+
+    return (
+      <StyledRegistryEmpty>
+        <StyledEmptyHeader>There are no new applications at this time</StyledEmptyHeader>
+        <RegistryEmptyIcon />
+      </StyledRegistryEmpty>
+    );
+  }
+
+  private renderUnderChallenge = (): JSX.Element => {
+    const beingChallenged = this.props.inChallengeCommitListings
+      .merge(this.props.inChallengeRevealListings)
+      .merge(this.props.awaitingAppealRequestListings);
+
+    if (beingChallenged.count()) {
+      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={beingChallenged} />
+    }
+
+    return (
+      <StyledRegistryEmpty>
+        <StyledEmptyHeader>There are no newsrooms under challenge at this time</StyledEmptyHeader>
+        <RegistryEmptyIcon />
+      </StyledRegistryEmpty>
+    );
+  }
+
+  private renderUnderAppeal = (): JSX.Element => {
+    const consideringAppeal = this.props.awaitingAppealJudgmentListings.merge(
+      this.props.awaitingAppealChallengeListings,
+    );
+
+    if (consideringAppeal.count()) {
+      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={consideringAppeal} />
+    }
+
+    return (
+      <StyledRegistryEmpty>
+        <StyledEmptyHeader>There are no newsrooms under appeal at this time</StyledEmptyHeader>
+        <RegistryEmptyIcon />
+      </StyledRegistryEmpty>
+    );
+  }
+
+  private renderUnderAppealChallenge = (): JSX.Element => {
+    const appealChallenge = this.props.appealChallengeCommitPhaseListings.merge(
+      this.props.appealChallengeRevealPhaseListings,
+    );
+
+    if (appealChallenge.count()) {
+      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={appealChallenge} />
+    }
+
+    return (
+      <StyledRegistryEmpty>
+        <StyledEmptyHeader>There are no newsrooms with granted appeals under appeal at this time</StyledEmptyHeader>
+        <RegistryEmptyIcon />
+      </StyledRegistryEmpty>
+    );
+  }
+
+  private renderReadyToUpdate = (): JSX.Element => {
+    const readyToUpdate = this.props.readyToWhitelistListings
+      .merge(this.props.resolveChallengeListings)
+      .merge(this.props.resolveAppealListings);
+
+    if (readyToUpdate.count()) {
+      return <ListingList ListingItemComponent={ListingSummaryReadyToUpdateComponent} listings={readyToUpdate} />
+    }
+
+    return (
+      <StyledRegistryEmpty>
+        <StyledEmptyHeader>There are no newsrooms to update at this time</StyledEmptyHeader>
+        <RegistryEmptyIcon />
+      </StyledRegistryEmpty>
     );
   }
 }

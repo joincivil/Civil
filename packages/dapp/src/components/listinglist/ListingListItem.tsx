@@ -12,6 +12,7 @@ import WhitelistedListingItem from "./WhitelistedListingItem";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
+  ListingItemComponent?: any;
   even: boolean;
   user?: string;
 }
@@ -86,7 +87,9 @@ class ListingListItemComponent extends React.Component<
       challengeStake,
     };
 
-    return <ListingSummaryComponent {...listingViewProps} />;
+    const ListingSummaryItem = this.props.ListingItemComponent || ListingSummaryComponent;
+
+    return <ListingSummaryItem {...listingViewProps} />;
   };
 }
 

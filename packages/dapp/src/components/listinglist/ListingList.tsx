@@ -4,6 +4,7 @@ import { ListingListItem } from "./ListingListItem";
 import { StyledListingSummaryList } from "@joincivil/components";
 
 export interface ListingListOwnProps {
+  ListingItemComponent?: any;
   listings?: Set<string>;
   challenges?: Set<string>;
 }
@@ -20,7 +21,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
         {this.props.listings &&
           this.props.listings.map(l => {
             index++;
-            return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
+            return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} ListingItemComponent={this.props.ListingItemComponent} />;
           })}
       </StyledListingSummaryList>
     );

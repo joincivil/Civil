@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
+import { Link } from "react-router-dom";
 import {
   Hero,
   HomepageHero,
@@ -11,6 +12,10 @@ import {
   ApprovedNewsroomsTabText,
   ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
+  RegistryEmptyIcon,
+  StyledRegistryEmpty,
+  StyledEmptyHeader,
+  StyledEmptyCopy,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
@@ -74,7 +79,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
                   review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
                 </StyledListingCopy>
-                <ListingList listings={this.props.whitelistedListings} />
+                {this.renderWhitelistedListings()}
               </StyledPageContent>
             </Tab>
             <Tab title={<ApplicationsInProgressTabText />}>
@@ -88,7 +93,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil
                   Constitution. Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.
                 </StyledListingCopy>
-                <ListingList listings={this.props.rejectedListings} />
+                {this.renderRejectedListings()}
               </StyledPageContent>
             </Tab>
           </Tabs>
@@ -96,6 +101,40 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
       </>
     );
   }
+
+  private renderWhitelistedListings = (): JSX.Element => {
+    if (this.props.whitelistedListings.count()) {
+      return <ListingList listings={this.props.whitelistedListings} />;
+    }
+
+    return (
+      <StyledRegistryEmpty>
+        <StyledEmptyHeader>There are no approved newsrooms</StyledEmptyHeader>
+        <StyledEmptyCopy>
+          You can <Link to="/registry/under-challenge">view new applications</Link> or{" "}
+          <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        </StyledEmptyCopy>
+        <RegistryEmptyIcon />
+      </StyledRegistryEmpty>
+    );
+  };
+
+  private renderRejectedListings = (): JSX.Element => {
+    if (this.props.rejectedListings.count()) {
+      return <ListingList listings={this.props.rejectedListings} />;
+    }
+
+    return (
+      <StyledRegistryEmpty>
+        <StyledEmptyHeader>There are no rejected newsrooms</StyledEmptyHeader>
+        <StyledEmptyCopy>
+          You can <Link to="/registry/under-challenge">view new applications</Link> or{" "}
+          <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        </StyledEmptyCopy>
+        <RegistryEmptyIcon />
+      </StyledRegistryEmpty>
+    );
+  };
 
   private onTabChange = (activeIndex: number = 0): void => {
     const tabName = TABS[activeIndex];

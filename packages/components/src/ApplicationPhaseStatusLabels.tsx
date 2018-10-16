@@ -2,7 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "./styleConstants";
 
-const StyledBaseStatus = styled.div`
+export const StyledBaseStatus = styled.div`
   background-color: ${colors.primary.BLACK};
   color: ${colors.basic.WHITE};
   display: inline-block;

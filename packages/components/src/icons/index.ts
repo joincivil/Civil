@@ -12,3 +12,4 @@ export * from "./HollowRedNoGood";
 export * from "./MetaMaskIcons";
 export * from "./NorthEastArrow";
 export * from "./RejectedNewsroomsIcon";
+export * from "./RegistryEmptyIcon";
