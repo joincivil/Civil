@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { ListingListItem } from "./ListingListItem";
+import { ListingListItemContainer } from "./ListingListItemContainer";
 import { StyledListingSummaryList } from "@joincivil/components";
 
 export interface ListingListOwnProps {
@@ -21,7 +21,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
           this.props.listings.map(l => {
             console.log("mapppa listing. l: ", l);
             index++;
-            return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
+            return <ListingListItemContainer key={l} listingAddress={l!} even={index % 2 === 0} />;
           })}
       </StyledListingSummaryList>
     );

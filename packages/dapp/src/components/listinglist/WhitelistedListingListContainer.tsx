@@ -47,7 +47,6 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
     } else {
       return <WhitelistedListingListRedux />;
     }
-    // return(<ListingList listings={this.props.whitelistedListings} />;
   }
 }
 

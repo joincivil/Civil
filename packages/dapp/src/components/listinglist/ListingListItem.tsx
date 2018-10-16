@@ -2,9 +2,8 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
 import { State } from "../../reducers";
-import { makeGetListingPhaseState, makeGetListing } from "../../selectors";
-import { ListingWrapper } from "@joincivil/core";
-import { NewsroomState } from "@joincivil/newsroom-manager";
+import { makeGetListingPhaseState } from "../../selectors";
+import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
@@ -12,20 +11,18 @@ import WhitelistedListingItem from "./WhitelistedListingItem";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
+  newsroom?: NewsroomWrapper;
+  listing?: ListingWrapper;
   even: boolean;
   user?: string;
 }
 
 export interface ListingListItemReduxProps {
-  newsroom?: NewsroomState;
-  listing?: ListingWrapper;
   listingPhaseState?: any;
   charter?: any;
 }
 
-class ListingListItemComponent extends React.Component<
-  ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>
-> {
+class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
   public render(): JSX.Element {
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
@@ -68,7 +65,7 @@ class ListingListItemComponent extends React.Component<
     const challengeStatementSummary =
       challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
 
-    const newsroomData = newsroom!.wrapper.data;
+    const newsroomData = newsroom!.data;
     const listingDetailURL = `/listing/${listingAddress}`;
 
     const listingViewProps = {
@@ -95,7 +92,7 @@ class ListingListItemComponent extends React.Component<
 
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
   const { listingAddress, newsroom, listingPhaseState } = props;
-  const newsroomData = newsroom!.wrapper.data;
+  const newsroomData = newsroom!.data;
   const listingDetailURL = `/listing/${listingAddress}`;
 
   const listingViewProps = {
@@ -112,33 +109,20 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
   return <ListingSummaryRejected {...listingViewProps} />;
 };
 
-const makeMapStateToProps = () => {
-  const getListing = makeGetListing();
-
-  const mapStateToProps = (
-    state: State,
-    ownProps: ListingListItemOwnProps,
-  ): ListingListItemReduxProps & ListingListItemOwnProps => {
-    const { newsrooms } = state;
-    const { content } = state.networkDependent;
-    console.log("mapStateToProps listingAddress: " + ownProps.listingAddress);
-    const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
-    console.log("mapStateToProps newsroom: " + newsroom);
-    const listing = getListing(state, ownProps);
-    let charter;
-    if (newsroom && newsroom.wrapper.data.charterHeader) {
-      charter = content.get(newsroom.wrapper.data.charterHeader);
-    }
-    return {
-      newsroom,
-      listing,
-      listingPhaseState: makeGetListingPhaseState(listing),
-      charter,
-      ...ownProps,
-    };
+const mapStateToProps = (
+  state: State,
+  ownProps: ListingListItemOwnProps,
+): ListingListItemReduxProps & ListingListItemOwnProps => {
+  const { content } = state.networkDependent;
+  let charter;
+  if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
+    charter = content.get(ownProps.newsroom.data.charterHeader);
+  }
+  return {
+    listingPhaseState: makeGetListingPhaseState(ownProps.listing),
+    charter,
+    ...ownProps,
   };
-
-  return mapStateToProps;
 };
 
-export const ListingListItem = connect(makeMapStateToProps)(ListingListItemComponent);
+export default connect(mapStateToProps)(ListingListItem);

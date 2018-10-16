@@ -4,7 +4,7 @@ import { ListingSummaryComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../reducers";
 import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
-import { makeGetListingPhaseState, makeGetListing, makeGetLatestWhitelistedTimestamp } from "../../selectors";
+import { makeGetListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
 import { getContent } from "../../actionCreators/newsrooms";
 
@@ -18,7 +18,7 @@ class WhitelistedListingItem extends React.Component<
   public async componentDidMount(): Promise<void> {
     this.props.dispatch!(await setupListingWhitelistedSubscription(this.props.listingAddress!));
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
     }
   }
 
@@ -41,7 +41,7 @@ class WhitelistedListingItem extends React.Component<
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
-    const newsroomData = newsroom!.wrapper.data;
+    const newsroomData = newsroom!.data;
     const listingDetailURL = `/listing/${listingAddress}`;
 
     const listingViewProps = {
@@ -63,26 +63,20 @@ class WhitelistedListingItem extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getListing = makeGetListing();
   const getLatestWhitelistedTimestamp = makeGetLatestWhitelistedTimestamp();
 
   const mapStateToProps = (
     state: State,
     ownProps: ListingListItemOwnProps,
   ): ListingListItemOwnProps & WhitelistedCardReduxProps => {
-    const { newsrooms } = state;
     const { content } = state.networkDependent;
-    const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
-    const listing = getListing(state, ownProps);
     const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
     let charter;
-    if (newsroom && newsroom.wrapper.data.charterHeader) {
-      charter = content.get(newsroom.wrapper.data.charterHeader);
+    if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
+      charter = content.get(ownProps.newsroom.data.charterHeader);
     }
     return {
-      newsroom,
-      listing,
-      listingPhaseState: makeGetListingPhaseState(listing),
+      listingPhaseState: makeGetListingPhaseState(ownProps.listing),
       whitelistedTimestamp,
       charter,
       ...ownProps,
