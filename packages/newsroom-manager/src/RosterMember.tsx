@@ -132,7 +132,11 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
                 </FormRowItem>
                 <FormRowItem>
                   <FormSubhead optional>Twitter URL</FormSubhead>
-                  <Input name="twitterUrl" value={user.rosterData.twitterUrl} onChange={this.rosterInputChange} />
+                  <Input
+                    name="twitter"
+                    value={(user.rosterData.socialUrls || {}).twitter}
+                    onChange={this.rosterSocialInputChange}
+                  />
                 </FormRowItem>
               </FormRow>
 
@@ -167,6 +171,16 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
     this.props.updateRosterMember(this.props.onRoster, {
       ...this.props.user.rosterData!,
       [name]: val,
+    });
+  };
+
+  private rosterSocialInputChange = (type: string, val: string) => {
+    this.props.updateRosterMember(this.props.onRoster, {
+      ...this.props.user.rosterData!,
+      socialUrls: {
+        ...this.props.user.rosterData.socialUrls,
+        [type]: val,
+      },
     });
   };
 }
