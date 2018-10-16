@@ -57,9 +57,6 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     const newsroom = this.props.newsroom;
     const listingExistsAsNewsroom = listing && newsroom;
 
-    console.log("listing: ", listing);
-    console.log("newsroom: ", newsroom);
-    console.log("this.props: ", this.props);
     return (
       <>
         {listingExistsAsNewsroom && (

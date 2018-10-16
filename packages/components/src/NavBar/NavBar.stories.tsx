@@ -25,6 +25,10 @@ storiesOf("Nav Bar", module)
         userChallengesStartedCount={userChallengesStartedCount}
         userChallengesVotedOnCount={userChallengesVotedOnCount}
         buyCvlUrl="https://civil.co/cvl/"
+        useGraphQL={false}
+        onLoadingPrefToggled={() => {
+          console.log("thinged");
+        }}
       />
     );
   })

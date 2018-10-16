@@ -18,7 +18,6 @@ export const LISTING_QUERY = gql`
 `;
 
 export function transformGraphQLDataIntoNewsroom(queryData: any, listingAddress: string): NewsroomWrapper {
-  console.log("queryData: ", queryData);
   return {
     address: listingAddress,
     data: {
@@ -38,7 +37,6 @@ export function transformGraphQLDataIntoNewsroom(queryData: any, listingAddress:
   };
 }
 export function transformGraphQLDataIntoListing(queryData: any, listingAddress: string): ListingWrapper {
-  console.log("queryData: ", queryData);
   const date = Math.round(new Date(queryData.listing.appExpiry).getTime() / 1000);
 
   return {

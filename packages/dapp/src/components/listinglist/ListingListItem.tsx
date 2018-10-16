@@ -27,9 +27,6 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
     const isWhitelisted = listingExists && listingPhaseState.isWhitelisted && !listingPhaseState.isUnderChallenge;
-    console.log("listing: ", listing);
-    console.log("listingExists: ", listingExists);
-    console.log("isWhitelisted: ", isWhitelisted);
     return (
       <>
         {isWhitelisted && <WhitelistedListingItem {...this.props} />}

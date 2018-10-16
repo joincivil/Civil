@@ -11,6 +11,11 @@ export function ui(state: Map<string, any> = Map<string, any>(), action: AnyActi
   }
 }
 
-export function useGraphQL(state: boolean = true): boolean {
-  return true;
+export function useGraphQL(state: boolean = false, action: AnyAction): boolean {
+  switch (action.type) {
+    case uiActions.TOGGLE_USE_GRAPH_QL:
+      return !state;
+    default:
+      return state;
+  }
 }

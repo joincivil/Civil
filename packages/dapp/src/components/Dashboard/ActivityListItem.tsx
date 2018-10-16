@@ -247,7 +247,7 @@ const makeMapStateToProps = () => {
     return {
       newsroom,
       listing,
-      listingPhaseState: makeGetListingPhaseState(listing!),
+      listingPhaseState: makeGetListingPhaseState(listing),
       ...ownProps,
     };
   };

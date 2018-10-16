@@ -33,12 +33,11 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
         <Query query={LISTING_QUERY} variables={{ addr: listingAddress }}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
-              return <p>Loading...</p>;
+              return <p />;
             }
             if (error) {
               return <p>Error :</p>;
             }
-            console.log("data: ", data);
             const newsroom = transformGraphQLDataIntoNewsroom(data, this.props.listingAddress);
             const listing = transformGraphQLDataIntoListing(data, this.props.listingAddress);
             return <ListingRedux listingAddress={listingAddress} newsroom={newsroom} listing={listing} />;

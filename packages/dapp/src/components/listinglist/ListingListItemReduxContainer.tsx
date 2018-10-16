@@ -22,7 +22,14 @@ class ListingListItemReduxContainerComponent extends React.Component<
   ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>
 > {
   public render(): JSX.Element {
-    return <ListingListItem listing={this.props.listing} newsroom={this.props.newsroom} even={this.props.even} />;
+    return (
+      <ListingListItem
+        listingAddress={this.props.listingAddress}
+        listing={this.props.listing}
+        newsroom={this.props.newsroom}
+        even={this.props.even}
+      />
+    );
   }
 }
 const makeMapStateToProps = () => {
@@ -33,9 +40,7 @@ const makeMapStateToProps = () => {
     ownProps: ListingListItemOwnProps,
   ): ListingListItemReduxProps & ListingListItemOwnProps => {
     const { newsrooms } = state;
-    console.log("mapStateToProps listingAddress: " + ownProps.listingAddress);
     const newsroomState = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
-    console.log("mapStateToProps newsroom: " + newsroomState);
     const listing = getListing(state, ownProps);
     const newsroom = newsroomState && newsroomState.wrapper;
     return {

@@ -22,12 +22,11 @@ export default class ListingListItemApolloContainerComponent extends React.Compo
       <Query query={LISTING_QUERY} variables={{ addr: listingAddress }}>
         {({ loading, error, data }: any): JSX.Element => {
           if (loading) {
-            return <p>Loading...</p>;
+            return <></>;
           }
           if (error) {
-            return <p>Error :</p>;
+            return <p>Error :{error}</p>;
           }
-          console.log("data: ", data);
           const newsroom = transformGraphQLDataIntoNewsroom(data, this.props.listingAddress);
           const listing = transformGraphQLDataIntoListing(data, this.props.listingAddress);
           return (

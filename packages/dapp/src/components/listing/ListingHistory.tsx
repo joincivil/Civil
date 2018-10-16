@@ -56,8 +56,9 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
 
   public renderGraphQLHistory(): JSX.Element {
     return (
-      <Query query={LISTING_QUERY} variables={{ addr: "0xD51A14a9269E6fED86E95B96B73439226B35C200" }}>
+      <Query query={LISTING_QUERY} variables={{ addr: this.props.listingAddress }}>
         {({ loading, error, data }: any): JSX.Element => {
+          console.log("history data: ", data);
           if (loading) {
             return <p>Loading...</p>;
           }

@@ -502,7 +502,6 @@ export const makeGetListingPhaseState = (listing?: ListingWrapper) => {
   if (!listing) {
     return;
   }
-  console.log("listing: ", listing);
   const listingData = listing.data;
   const challenge = listingData.challenge;
   const appeal = challenge && challenge.appeal;
@@ -548,7 +547,6 @@ export const makeGetListingPhaseState = (listing?: ListingWrapper) => {
     isInAppealChallengeRevealPhase,
     canListingAppealChallengeBeResolved,
   };
-  console.log("state: ", state);
   return state;
 };
 

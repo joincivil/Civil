@@ -26,7 +26,7 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
         <Query query={LISTING_QUERY} variables={{ whitelistedOnly: true }}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
-              return <p>Loading...</p>;
+              return <></>;
             }
             if (error) {
               return <p>Error :</p>;

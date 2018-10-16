@@ -11,7 +11,6 @@ export interface WhitelistedListingsListReduxReduxProps {
 
 class WhitelistedListingListRedux extends React.Component<WhitelistedListingsListReduxReduxProps> {
   public render(): JSX.Element {
-    console.log("listings: ", this.props.whitelistedListings);
     return <ListingList listings={this.props.whitelistedListings} />;
   }
 }
