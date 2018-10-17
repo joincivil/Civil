@@ -1,30 +1,32 @@
 import { currentAccount, EthApi, requireAccount } from "@joincivil/ethapi";
 import {
   CivilErrors,
+  estimateRawHex,
+  getDefaultFromBlock,
   hashContent,
   hashPersonalMessage,
   is0x0Address,
   is0x0Hash,
   prepareNewsroomMessage,
   prepareUserFriendlyNewsroomMessage,
-  recoverSigner,
   promisify,
-  estimateRawHex,
-  getDefaultFromBlock,
+  recoverSigner,
 } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
+import { addHexPrefix, bufferToHex, setLengthLeft, toBuffer } from "ethereumjs-util";
 import { Observable } from "rxjs";
-import { TransactionReceipt, Transaction } from "web3";
+import { Transaction, TransactionReceipt } from "web3";
+import * as zlib from "zlib";
 import { ContentProvider } from "../content/contentprovider";
 import {
   ApprovedRevision,
+  CharterContent,
   CivilTransactionReceipt,
   ContentId,
   EthAddress,
   EthContentHeader,
   Hex,
-  CharterContent,
   NewsroomContent,
   NewsroomData,
   NewsroomRoles,
@@ -33,9 +35,9 @@ import {
   StorageHeader,
   TwoStepEthTransaction,
   TxData,
+  TxDataAll,
   TxHash,
   Uri,
-  TxDataAll,
 } from "../types";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
@@ -52,8 +54,6 @@ import {
   findEventOrThrow,
   findEvents,
 } from "./utils/contracts";
-import * as zlib from "zlib";
-import { bufferToHex, toBuffer, setLengthLeft, addHexPrefix } from "ethereumjs-util";
 
 const deflate = promisify<Buffer>(zlib.deflate);
 

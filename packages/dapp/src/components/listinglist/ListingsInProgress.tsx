@@ -23,6 +23,11 @@ import { State } from "../../reducers";
 import { StyledListingCopy } from "../utility/styledComponents";
 
 export interface ListingProps {
+  match?: any;
+  history?: any;
+}
+
+export interface ListingReduxProps {
   applications: Set<string>;
   readyToWhitelistListings: Set<string>;
   inChallengeCommitListings: Set<string>;
@@ -36,8 +41,21 @@ export interface ListingProps {
   resolveAppealListings: Set<string>;
 }
 
-class ListingsInProgress extends React.Component<ListingProps> {
+const TABS: string[] = [
+  "in-application",
+  "under-challenge",
+  "under-appeal",
+  "under-appeal-challenge",
+  "ready-to-update",
+];
+
+class ListingsInProgress extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
+    const { subListingType } = this.props.match.params;
+    let activeIndex = 0;
+    if (subListingType) {
+      activeIndex = TABS.indexOf(subListingType) || 0;
+    }
     const applications = this.props.applications;
     const beingChallenged = this.props.inChallengeCommitListings
       .merge(this.props.inChallengeRevealListings)
@@ -59,7 +77,12 @@ class ListingsInProgress extends React.Component<ListingProps> {
     const readyToUpdateTab = <ReadyToUpdateTabTitle count={readyToUpdate.count()} />;
 
     return (
-      <Tabs TabsNavComponent={StyledSquarePillTabNav} TabComponent={StyledSquarePillTab}>
+      <Tabs
+        activeIndex={activeIndex}
+        TabsNavComponent={StyledSquarePillTabNav}
+        TabComponent={StyledSquarePillTab}
+        onActiveTabChange={this.onTabChange}
+      >
         <Tab title={newApplicationsTab}>
           <>
             <StyledListingCopy>
@@ -194,10 +217,16 @@ class ListingsInProgress extends React.Component<ListingProps> {
         <RegistryEmptyIcon />
       </StyledRegistryEmpty>
     );
+  }
+
+  private onTabChange = (activeIndex: number = 0): void => {
+    const tabName = this.props.match.params.listingType;
+    const subTabName = TABS[activeIndex];
+    this.props.history.push(`/registry/${tabName}/${subTabName}`);
   };
 }
 
-const mapStateToProps = (state: State): ListingProps => {
+const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
   const {
     applications,
     readyToWhitelistListings,
@@ -224,6 +253,7 @@ const mapStateToProps = (state: State): ListingProps => {
     appealChallengeRevealPhaseListings,
     resolveChallengeListings,
     resolveAppealListings,
+    ...ownProps,
   };
 };
 

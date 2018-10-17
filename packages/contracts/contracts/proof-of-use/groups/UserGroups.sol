@@ -3,7 +3,7 @@ pragma solidity ^0.4.23;
 import "./UnionFind.sol";
 import "./OffChainOwnable.sol";
 import "../telemetry/TokenTelemetryI.sol";
-import "../telemetry/TokenSaleI.sol";
+import "../telemetry/ContributionProxyI.sol";
 import "../../zeppelin-solidity/access/Whitelist.sol";
 import "../../zeppelin-solidity/math/SafeMath.sol";
 
@@ -26,7 +26,7 @@ contract UserGroups is OffChainOwnable, TokenTelemetryI, UnionFind {
   // To prevent replay attacks
   uint public changeGroupSizeNonce = 0;
 
-  constructor(Whitelist whitelist, TokenSaleI tokenSale) OffChainOwnable(whitelist) UnionFind(tokenSale) public
+  constructor(Whitelist whitelist, ContributionProxyI contributions) OffChainOwnable(whitelist) UnionFind(contributions) public
   {
   }
 
@@ -61,7 +61,15 @@ contract UserGroups is OffChainOwnable, TokenTelemetryI, UnionFind {
     UnionFind.unionStruct(UnionFind.findStruct(a), UnionFind.findStruct(b));
   }
 
-  function allowInGroupTransfers(address a, address b) external {
+  // This function is incredibly heavy in terms of gas cost
+  function allowInGroupTransfersAll(address[] members) external {
+    // Can't go lower than O(n) unions
+    for (uint i = 1; i < members.length; i++) {
+      allowInGroupTransfers(members[0], members[i]);
+    }
+  }
+
+  function allowInGroupTransfers(address a, address b) public {
     UnionFind.Group storage superGroup = UnionFind.findStruct(SUPER_GROUP);
     UnionFind.Group storage globalGroup = UnionFind.findStruct(GLOBAL_GROUP);
 
@@ -98,7 +106,7 @@ contract UserGroups is OffChainOwnable, TokenTelemetryI, UnionFind {
   }
 
   function isUseProven(uint usedTokens, uint totalTokens) internal view returns (bool) {
-    bool isAbove10K = (totalTokens / tokenSale.saleTokensPerUnit()) > USD_10K;
+    bool isAbove10K = (totalTokens / contributions.tokensPerUnit()) > USD_10K;
     uint percentUsed = usedTokens * 10 / totalTokens;
     if (isAbove10K) {
       return percentUsed > PERCENT_PROOF_OF_USE_ABOVE_10K;

@@ -26,7 +26,7 @@ const Newsroom = artifacts.require("Newsroom");
 const DummyTokenTelemetry = artifacts.require("DummyTokenTelemetry");
 const Whitelist = artifacts.require("Whitelist");
 const UserGroups = artifacts.require("UserGroups");
-const DummyTokenSale = artifacts.require("DummyTokenSale");
+const DummyContributionProxy = artifacts.require("DummyContributionProxy");
 configureProviders(
   PLCRVoting,
   CivilParameterizer,
@@ -38,7 +38,7 @@ configureProviders(
   Newsroom,
   Whitelist,
   UserGroups,
-  DummyTokenSale,
+  DummyContributionProxy,
   DummyTokenTelemetry,
 );
 
@@ -423,10 +423,10 @@ export function configureProviders(...contracts: any[]): void {
 export async function setUpUserGroups(
   tokensPerUsd: number,
   owner: string,
-): Promise<{ whitelist: any; userGroups: any; tokenSale: any }> {
-  const tokenSale = await DummyTokenSale.new(tokensPerUsd);
+): Promise<{ whitelist: any; userGroups: any; contributionProxy: any }> {
+  const contributionProxy = await DummyContributionProxy.new(tokensPerUsd);
   const whitelist = await Whitelist.new();
   await whitelist.addAddressToWhitelist(owner);
-  const userGroups = await UserGroups.new(whitelist.address, tokenSale.address);
-  return { whitelist, userGroups, tokenSale };
+  const userGroups = await UserGroups.new(whitelist.address, contributionProxy.address);
+  return { whitelist, userGroups, contributionProxy };
 }
