@@ -47,6 +47,25 @@ export function getDefaultFromBlock(network: number = 4): number {
   return defaultFromBlocks[network.toString()];
 }
 
+export function isValidHttpUrl(url: string): boolean {
+  if (url.indexOf("http") !== 0) {
+    return false;
+  }
+
+  if (!window.URL) {
+    // ¯\_(ツ)_/¯
+    return true;
+  }
+
+  try {
+    // tslint:disable-next-line:no-unused-expression
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 export enum Parameters {
   minDeposit = "minDeposit",
   pMinDeposit = "pMinDeposit",

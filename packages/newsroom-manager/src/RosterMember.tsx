@@ -1,9 +1,19 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { colors, Checkbox, ToolTip, TextInput, TextareaInput, buttonSizes } from "@joincivil/components";
+import { isValidAddress } from "ethereumjs-util";
+import { colors, Checkbox, ToolTip, buttonSizes } from "@joincivil/components";
 import { EthAddress, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { isValidHttpUrl } from "@joincivil/utils";
 import styled from "styled-components";
-import { FormSubhead, FormRow, FormRowItem, HelperText, TertiaryButton } from "./styledComponents";
+import {
+  FormSubhead,
+  FormRow,
+  FormRowItem,
+  HelperText,
+  TertiaryButton,
+  StyledTextInput,
+  StyledTextareaInput,
+} from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { UserData } from "./types";
 
@@ -58,11 +68,14 @@ const _NoAvatar = styled.div`
 `;
 const noAvatar = <_NoAvatar>?</_NoAvatar>;
 
-const Input = styled(TextInput)`
+const Input = styled(StyledTextInput)`
   margin: -8px 0 -20px;
 `;
-const Textarea = styled(TextareaInput)`
+const Textarea = styled(StyledTextareaInput)`
   margin: -8px 0 0;
+  small {
+    top: 70px;
+  }
 `;
 
 export class RosterMemberComponent extends React.Component<RosterMemberProps & DispatchProp<any>, RosterMemberState> {
@@ -98,10 +111,20 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
             <FormSubhead>Wallet Address</FormSubhead>
             <FormRow>
               <FormRowItem style={{ marginTop: 2 }}>
-                <Input name="ethAddress" value={this.state.newUserAddress || ""} onChange={this.addressInputChange} />
+                <Input
+                  name="ethAddress"
+                  value={this.state.newUserAddress || ""}
+                  onChange={this.addressInputChange}
+                  invalid={!!this.state.newUserAddress && !isValidAddress(this.state.newUserAddress)}
+                  invalidMessage={"Invalid ETH address"}
+                />
               </FormRowItem>
               <FormRowItem>
-                <TertiaryButton size={buttonSizes.SMALL} onClick={this.saveNewMember}>
+                <TertiaryButton
+                  size={buttonSizes.SMALL}
+                  onClick={this.saveNewMember}
+                  disabled={!!this.state.newUserAddress && !isValidAddress(this.state.newUserAddress)}
+                >
                   Add Member
                 </TertiaryButton>
               </FormRowItem>
@@ -120,7 +143,13 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
                   </FormRowItem>
                   <FormRowItem>
                     <FormSubhead optional>Avatar URL</FormSubhead>
-                    <Input name="avatarUrl" value={user.rosterData.avatarUrl || ""} onChange={this.rosterInputChange} />
+                    <Input
+                      name="avatarUrl"
+                      value={user.rosterData.avatarUrl || ""}
+                      onChange={this.rosterInputChange}
+                      invalid={!!user.rosterData.avatarUrl && !isValidHttpUrl(user.rosterData.avatarUrl)}
+                      invalidMessage={"Invalid URL"}
+                    />
                   </FormRowItem>
                 </FormRow>
               )}
@@ -136,12 +165,24 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
                     name="twitter"
                     value={(user.rosterData.socialUrls || {}).twitter}
                     onChange={this.rosterSocialInputChange}
+                    invalid={
+                      !!user.rosterData.socialUrls &&
+                      !!user.rosterData.socialUrls.twitter &&
+                      !isValidHttpUrl(user.rosterData.socialUrls.twitter)
+                    }
+                    invalidMessage={"Invalid URL"}
                   />
                 </FormRowItem>
               </FormRow>
 
               <FormSubhead>Bio</FormSubhead>
-              <Textarea name="bio" value={user.rosterData.bio} onChange={this.rosterInputChange} />
+              <Textarea
+                name="bio"
+                value={user.rosterData.bio}
+                onChange={this.rosterInputChange}
+                invalid={!!user.rosterData.bio && user.rosterData.bio.length > 120}
+                invalidMessage={"Too long"}
+              />
               <HelperText>Maximum of 120 characters</HelperText>
             </>
           )}
