@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
 import { State } from "../../reducers";
-import { makeGetListingPhaseState } from "../../selectors";
+import { getListingPhaseState } from "../../selectors";
 import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
@@ -116,7 +116,7 @@ const mapStateToProps = (
     charter = content.get(ownProps.newsroom.data.charterHeader);
   }
   return {
-    listingPhaseState: makeGetListingPhaseState(ownProps.listing),
+    listingPhaseState: getListingPhaseState(ownProps.listing),
     charter,
     ...ownProps,
   };

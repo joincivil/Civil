@@ -4,7 +4,7 @@ import { ListingSummaryComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../reducers";
 import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
-import { makeGetListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
+import { getListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
 import { getContent } from "../../actionCreators/newsrooms";
 
@@ -76,7 +76,7 @@ const makeMapStateToProps = () => {
       charter = content.get(ownProps.newsroom.data.charterHeader);
     }
     return {
-      listingPhaseState: makeGetListingPhaseState(ownProps.listing),
+      listingPhaseState: getListingPhaseState(ownProps.listing),
       whitelistedTimestamp,
       charter,
       ...ownProps,

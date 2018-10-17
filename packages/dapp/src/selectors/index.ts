@@ -94,7 +94,7 @@ export const getNewsroom = (state: State, props: ListingContainerProps): Newsroo
   return state.newsrooms.get(props.listingAddress);
 };
 
-export const makeGetIsUserNewsroomOwner = (newsroomWrapper?: NewsroomWrapper, user?: any) => {
+export const getIsUserNewsroomOwner = (newsroomWrapper?: NewsroomWrapper, user?: any) => {
   if (!newsroomWrapper || !user) {
     return;
   }
@@ -498,7 +498,7 @@ export const makeGetParameterProposalChallengeState = () => {
   );
 };
 
-export const makeGetListingPhaseState = (listing?: ListingWrapper) => {
+export const getListingPhaseState = (listing?: ListingWrapper) => {
   if (!listing) {
     return;
   }

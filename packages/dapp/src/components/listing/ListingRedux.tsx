@@ -11,7 +11,7 @@ import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../actionCreators/listings";
-import { makeGetListingPhaseState, makeGetListingExpiry, makeGetIsUserNewsroomOwner } from "../../selectors";
+import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
 import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
 import { Tabs, Tab, StyledTab } from "@joincivil/components";
 import { getContent } from "../../actionCreators/newsrooms";
@@ -154,14 +154,14 @@ const makeMapStateToProps = () => {
     }
     const expiry = getListingExpiry(state, ownProps);
     console.log("expiry: ", expiry);
-    const listingPhaseState = makeGetListingPhaseState(ownProps.listing);
+    const listingPhaseState = getListingPhaseState(ownProps.listing);
     console.log("listingPhaseState: ", listingPhaseState);
     return {
       ...ownProps,
       expiry: undefined,
       listingDataRequestStatus,
       listingPhaseState,
-      isUserNewsroomOwner: makeGetIsUserNewsroomOwner(newsroom, user),
+      isUserNewsroomOwner: getIsUserNewsroomOwner(newsroom, user),
       userAccount: user.account,
       parameters,
       govtParameters,

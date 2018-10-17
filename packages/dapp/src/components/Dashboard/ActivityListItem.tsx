@@ -9,7 +9,7 @@ import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../reducers";
 import {
   getChallenge,
-  makeGetListingPhaseState,
+  getListingPhaseState,
   makeGetListing,
   makeGetListingAddressByChallengeID,
   makeGetChallengeState,
@@ -247,7 +247,7 @@ const makeMapStateToProps = () => {
     return {
       newsroom,
       listing,
-      listingPhaseState: makeGetListingPhaseState(listing),
+      listingPhaseState: getListingPhaseState(listing),
       ...ownProps,
     };
   };
