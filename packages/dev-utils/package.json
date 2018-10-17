@@ -24,7 +24,7 @@
     "argparse": "^1.0.9",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
-    "debug": "^3.1.0",
+    "debug": "^4.1.0",
     "dirty-chai": "^2.0.1",
     "glob": "^7.1.2",
     "handlebars": "^4.0.11",
