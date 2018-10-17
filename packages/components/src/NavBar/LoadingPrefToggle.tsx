@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
 import { SlideCheckbox } from "../input/SlideCheckbox";
 
 export interface LoadingPrefToggleProps {
