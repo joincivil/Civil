@@ -8,6 +8,7 @@ import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joinc
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
+import { getContent } from "../../actionCreators/newsrooms";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -23,6 +24,11 @@ export interface ListingListItemReduxProps {
 }
 
 class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
+  public async componentDidMount(): Promise<void> {
+    if (this.props.newsroom) {
+      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+    }
+  }
   public render(): JSX.Element {
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
@@ -43,9 +49,13 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     if (this.props.charter) {
       try {
         // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-        description = (this.props.charter!.content as any).desc;
+        description = (this.props.charter.content as any).desc;
       } catch (ex) {
-        console.error("charter not formatted correctly");
+        try {
+          description = (this.props.charter as any).desc;
+        } catch (ex1) {
+          console.error("charter not formatted correctly. charter: ", this.props.charter);
+        }
       }
     }
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();

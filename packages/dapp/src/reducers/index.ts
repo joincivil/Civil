@@ -62,7 +62,7 @@ import {
   EthContentHeader,
   ContentData,
 } from "@joincivil/core";
-import { currentUserNewsrooms, content } from "./newsrooms";
+import { currentUserNewsrooms, content, contentFetched } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
 import { networkActions } from "../actionCreators/network";
 import { Subscription } from "rxjs";
@@ -81,6 +81,7 @@ export interface State {
 export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   content: Map<EthContentHeader, ContentData>;
+  contentFetched: Set<EthContentHeader>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsExtendedMetadata: Map<string, ListingExtendedMetadata>;
   listingsFetching: Map<string, any>;
@@ -126,6 +127,7 @@ export interface NetworkDependentState {
 const networkDependentReducers = combineReducers({
   currentUserNewsrooms,
   content,
+  contentFetched,
   listings,
   listingsExtendedMetadata,
   listingsFetching,

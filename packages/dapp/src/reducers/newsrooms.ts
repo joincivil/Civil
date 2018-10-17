@@ -12,13 +12,24 @@ export function currentUserNewsrooms(state: Set<string> = Set<string>(), action:
   }
 }
 
+export function contentFetched(
+  state: Set<EthContentHeader> = Set<EthContentHeader>(),
+  action: AnyAction,
+): Set<EthContentHeader> {
+  switch (action.type) {
+    case newsroomActions.FETCH_CONTENT:
+      return state.add(action.data);
+    default:
+      return state;
+  }
+}
+
 export function content(
   state: Map<EthContentHeader, ContentData> = Map<EthContentHeader, ContentData>(),
   action: AnyAction,
 ): Map<EthContentHeader, ContentData> {
   switch (action.type) {
     case newsroomActions.ADD_CONTENT:
-      console.log("content acquired");
       return state.set(action.data.header, action.data.content);
     default:
       return state;

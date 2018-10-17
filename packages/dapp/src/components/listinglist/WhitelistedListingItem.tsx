@@ -6,7 +6,6 @@ import { State } from "../../reducers";
 import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
 import { getListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
-import { getContent } from "../../actionCreators/newsrooms";
 
 export interface WhitelistedCardReduxProps extends ListingListItemReduxProps {
   whitelistedTimestamp?: number;
@@ -17,9 +16,6 @@ class WhitelistedListingItem extends React.Component<
 > {
   public async componentDidMount(): Promise<void> {
     this.props.dispatch!(await setupListingWhitelistedSubscription(this.props.listingAddress!));
-    if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
-    }
   }
 
   public render(): JSX.Element {

@@ -12,7 +12,7 @@ export interface WhitelistedListingsListContainerReduxProps {
   whitelistedListings: Set<string>;
   useGraphQL: boolean;
 }
-const LISTING_QUERY = gql`
+const LISTINGS_QUERY = gql`
   query($whitelistedOnly: Boolean!) {
     listings(whitelistedOnly: $whitelistedOnly) {
       contractAddress
@@ -23,7 +23,7 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
   public render(): JSX.Element {
     if (this.props.useGraphQL) {
       return (
-        <Query query={LISTING_QUERY} variables={{ whitelistedOnly: true }}>
+        <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
               return <></>;

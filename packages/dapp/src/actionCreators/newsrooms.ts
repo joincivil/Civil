@@ -1,11 +1,11 @@
 import { AnyAction } from "redux";
 import { EthAddress, EthContentHeader, ContentData } from "@joincivil/core";
 import { getIPFSContent } from "../helpers/listingEvents";
-import { Dispatch } from "react-redux";
 
 export enum newsroomActions {
   ADD_USER_NEWSROOM = "ADD_USER_NEWSROOM",
   ADD_CONTENT = "ADD_CONTENT",
+  FETCH_CONTENT = "FETCH_CONTENT",
 }
 
 export const addUserNewsroom = (address: EthAddress): AnyAction => {
@@ -25,12 +25,19 @@ export const addContent = (header: EthContentHeader, content: ContentData): AnyA
   };
 };
 
-const contentFetched = new Set<EthContentHeader>();
-export const getContent = async (header: EthContentHeader): Promise<any> => {
-  if (!contentFetched.has(header)) {
-    contentFetched.add(header);
-    return (dispatch: Dispatch<any>): any => {
-      return getIPFSContent(header, dispatch);
-    };
-  }
+export const fetchContent = (header: EthContentHeader): AnyAction => {
+  return {
+    type: newsroomActions.FETCH_CONTENT,
+    data: header,
+  };
+};
+
+export const getContent = (header: EthContentHeader): any => {
+  return async (dispatch: any, getState: any): Promise<AnyAction | void> => {
+    const contentFetched = getState().networkDependent.contentFetched;
+    if (!contentFetched.has(header)) {
+      await getIPFSContent(header, dispatch);
+      dispatch(fetchContent(header));
+    }
+  };
 };
