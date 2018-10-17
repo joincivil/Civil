@@ -1,4 +1,4 @@
-import { colors, fonts, Button, ButtonProps } from "@joincivil/components";
+import { colors, fonts, Button, ButtonProps, TextInput, TextareaInput, InputProps } from "@joincivil/components";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
 import styled, { StyledComponentClass } from "styled-components";
@@ -68,5 +68,27 @@ export const TertiaryButton: StyledComponentClass<ButtonProps, any> = styled(But
     background-color: #f7f7f7;
     border: solid 1px #cccccc;
     color: #555555;
+  }
+`;
+
+export const StyledTextInput: StyledComponentClass<InputProps, any> = styled(TextInput)`
+  position: relative;
+  small {
+    position: absolute;
+    width: 100%;
+    top: 45px;
+    right: 15px;
+    text-align: right;
+  }
+`;
+
+export const StyledTextareaInput: StyledComponentClass<InputProps, any> = styled(TextareaInput)`
+  position: relative;
+  small {
+    position: absolute;
+    width: 100%;
+    top: 75px;
+    right: 15px;
+    text-align: right;
   }
 `;
