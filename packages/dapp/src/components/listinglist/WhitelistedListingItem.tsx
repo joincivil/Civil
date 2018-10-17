@@ -4,7 +4,7 @@ import { ListingSummaryComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../reducers";
 import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
-import { makeGetListingPhaseState, makeGetListing, makeGetLatestWhitelistedTimestamp } from "../../selectors";
+import { getListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
 
 export interface WhitelistedCardReduxProps extends ListingListItemReduxProps {
@@ -19,13 +19,13 @@ class WhitelistedListingItem extends React.Component<
   }
 
   public render(): JSX.Element {
-    const { listingAddress, listing, newsroom, listingPhaseState } = this.props;
+    const { listingAddress, listing, newsroom, listingPhaseState, charter } = this.props;
     const listingData = listing!.data;
     let description = "";
-    if (newsroom!.wrapper.data.charter) {
+    if (charter) {
       try {
         // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-        description = (newsroom!.wrapper.data.charter!.content as any).desc;
+        description = charter.desc;
       } catch (ex) {
         console.error("charter not formatted correctly");
       }
@@ -37,7 +37,7 @@ class WhitelistedListingItem extends React.Component<
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
-    const newsroomData = newsroom!.wrapper.data;
+    const newsroomData = newsroom!.data;
     const listingDetailURL = `/listing/${listingAddress}`;
 
     const listingViewProps = {
@@ -59,24 +59,22 @@ class WhitelistedListingItem extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getListingPhaseState = makeGetListingPhaseState();
-  const getListing = makeGetListing();
   const getLatestWhitelistedTimestamp = makeGetLatestWhitelistedTimestamp();
 
   const mapStateToProps = (
     state: State,
     ownProps: ListingListItemOwnProps,
   ): ListingListItemOwnProps & WhitelistedCardReduxProps => {
-    const { newsrooms } = state;
-    const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
-    const listing = getListing(state, ownProps);
+    const { content } = state.networkDependent;
     const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
-
+    let charter;
+    if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
+      charter = content.get(ownProps.newsroom.data.charterHeader);
+    }
     return {
-      newsroom,
-      listing,
-      listingPhaseState: getListingPhaseState(state, ownProps),
+      listingPhaseState: getListingPhaseState(ownProps.listing),
       whitelistedTimestamp,
+      charter,
       ...ownProps,
     };
   };

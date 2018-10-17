@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { ListingListItem } from "./ListingListItem";
+import { ListingListItemContainer } from "./ListingListItemContainer";
 import { StyledListingSummaryList } from "@joincivil/components";
 
 export interface ListingListOwnProps {
   listings?: Set<string>;
-  challenges?: Set<string>;
 }
 
 class ListingList extends React.Component<ListingListOwnProps> {
@@ -20,7 +19,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
         {this.props.listings &&
           this.props.listings.map(l => {
             index++;
-            return <ListingListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
+            return <ListingListItemContainer key={l} listingAddress={l!} even={index % 2 === 0} />;
           })}
       </StyledListingSummaryList>
     );

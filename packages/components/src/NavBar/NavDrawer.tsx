@@ -15,8 +15,10 @@ import {
   NavDrawerClaimRewardsText,
   NavDrawerSubmittedChallengesText,
   NavDrawerVotedChallengesText,
+  NavDrawerLoadingPrefText,
 } from "./textComponents";
 import { QuestionToolTip } from "../QuestionToolTip";
+import { LoadingPrefToggle } from "./LoadingPrefToggle";
 
 const NavDrawer = styled.div`
   background-color: ${colors.primary.BLACK};
@@ -118,6 +120,8 @@ export interface NavDrawerProps {
   userChallengesStartedCount?: number;
   userClaimRewardsCount?: number;
   buyCvlUrl?: string;
+  useGraphQL: boolean;
+  onLoadingPrefToggled(): void;
 }
 
 export class NavDrawerComponent extends React.Component<NavDrawerProps> {
@@ -132,6 +136,12 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <CopyButton size={buttonSizes.SMALL} onClick={ev => this.copyToClipBoard()}>
             <NavDrawerCopyBtnText />
           </CopyButton>
+        </NavDrawerSection>
+        <NavDrawerSection>
+          <NavDrawerRowLabel>
+            <NavDrawerLoadingPrefText />
+          </NavDrawerRowLabel>
+          <LoadingPrefToggle onClick={this.props.onLoadingPrefToggled} useGraphQL={this.props.useGraphQL} />
         </NavDrawerSection>
         <NavDrawerSection>
           <NavDrawerSectionHeader>

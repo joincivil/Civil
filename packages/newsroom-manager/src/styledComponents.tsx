@@ -17,7 +17,7 @@ export const FormTitle = styled.h4`
 `;
 
 export interface FormSubheadProps {
-  optional?: boolean;
+  optional?: any;
 }
 export const FormSubhead = styled<FormSubheadProps, "h4">("h4")`
   font-size: 14px;

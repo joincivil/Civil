@@ -27,7 +27,9 @@ export interface NavProps {
   userChallengesStartedCount?: number;
   userChallengesVotedOnCount?: number;
   buyCvlUrl?: string;
+  useGraphQL: boolean;
   onLogin?(): void;
+  onLoadingPrefToggled(): void;
 }
 
 export interface NavState {
@@ -227,6 +229,8 @@ export class NavBar extends React.Component<NavProps, NavState> {
             userChallengesStartedCount={this.props.userChallengesStartedCount}
             userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
             buyCvlUrl={this.props.buyCvlUrl}
+            useGraphQL={this.props.useGraphQL}
+            onLoadingPrefToggled={this.props.onLoadingPrefToggled}
           />
         ) : null}
       </NavOuter>
