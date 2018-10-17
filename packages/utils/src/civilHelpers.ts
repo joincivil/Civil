@@ -47,14 +47,14 @@ export function getDefaultFromBlock(network: number = 4): number {
   return defaultFromBlocks[network.toString()];
 }
 
+const urlRegex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
 export function isValidHttpUrl(url: string): boolean {
   if (url.indexOf("http") !== 0) {
     return false;
   }
 
   if (!window.URL) {
-    // ¯\_(ツ)_/¯
-    return true;
+    return !!url.match(urlRegex);
   }
 
   try {
