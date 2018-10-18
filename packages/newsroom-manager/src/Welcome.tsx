@@ -25,10 +25,10 @@ export class Welcome extends React.Component<WelcomeProps> {
       <>
         <ManagerHeading>Welcome</ManagerHeading>
 
-        <p>Before getting started, here are the steps to set up your newsroom contract.</p>
+        <p>Before getting started setting up your newsroom and applying to the Civil Registry, you'll need to take the following steps.</p>
 
         <p>
-          First, you'll need an Ethereum wallet-enabled browser (<a
+          You'll need an Ethereum wallet-enabled browser (<a
             href="https://www.google.com/chrome/"
             target="_blank"
           >
@@ -48,13 +48,13 @@ export class Welcome extends React.Component<WelcomeProps> {
           </IconWrap>{" "}
           extension installed.{" "}
           <a href={this.props.helpUrl} target="_blank">
-            Read this FAQ
+            Read our guide
           </a>{" "}
-          to learn more.{" "}
+          to learn more about browsers and wallets.{" "}
         </p>
 
         <p>
-          Then, you'll need to set up your newsroom contract. Have the following information ready before you begin:
+          Next, you'll create your newsroom smart contract. Have the following information ready before you begin:
         </p>
 
         <ol>
@@ -66,14 +66,18 @@ export class Welcome extends React.Component<WelcomeProps> {
             </a>{" "}
             fees.{" "}
           </li>
-          <li>What you want to name your newsroom</li>
-          <li>The public wallet addresses for your newsroom's co-officers and editors</li>
+          <li>Your newsroom name</li>
+          <li>The public wallet addresses for your newsroom's officers and editors that you want to include</li>
         </ol>
+
+        <p>
+          You’ll be able to use Civil’s blockchain signing and publishing tools once your newsroom smart contract is created. After that, you will complete your Newsroom Application by applying to the Civil Registry. You will create your charter, sign the Civil Constitution and deposit CVL tokens.
+        </p>
 
         <MoreDetails>
           For full details about the Civil Newsroom Manager,{" "}
           <a href={this.props.helpUrl} target="_blank">
-            view more
+            visit our FAQ
           </a>.{" "}
         </MoreDetails>
       </>
