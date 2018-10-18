@@ -41,7 +41,7 @@ export interface StyledLiProps {
 }
 
 const StyledLi = styled<StyledLiProps, "li">("li")`
-  cursor: ${props => props.disabled ? "default" : "pointer"};
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
   box-sizing: border-box;
   font-family: ${props => props.theme.sansSerifFont};
   font-weight: ${props => (props.isCurrent ? 500 : 300)};

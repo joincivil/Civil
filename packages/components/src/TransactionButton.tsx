@@ -174,7 +174,7 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
             currTransaction.handleTransactionHash();
           }
         }
-        console.log({pending});
+        console.log({ pending });
 
         if (pending) {
           let receipt = pending;

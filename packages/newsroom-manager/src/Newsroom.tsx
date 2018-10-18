@@ -299,11 +299,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                     <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
                       Back
                     </SecondaryButton>
-                    <Button
-                      onClick={args.goNext}
-                      size={buttonSizes.MEDIUM}
-                      disabled={!this.props.charterUri}
-                    >
+                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
                       Next
                     </Button>
                   </>
@@ -317,10 +313,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 updateCharter={this.updateCharter}
               />
             </Step>
-            <Step
-              title={"Apply to the Registry"}
-              disabled={!this.props.address && !this.props.charterUri}
-            >
+            <Step title={"Apply to the Registry"} disabled={!this.props.address && !this.props.charterUri}>
               <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>

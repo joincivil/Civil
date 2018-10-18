@@ -305,7 +305,7 @@ class SignConstitutionComponent extends React.Component<
         },
         postTransaction: () => {
           this.props.dispatch!(fetchNewsroom(this.props.newsroomAdress!));
-        }
+        },
         handleTransactionError: (err: Error) => {
           this.setState({ isWaitingPublishModalOpen: false });
           if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
