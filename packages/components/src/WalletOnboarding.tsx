@@ -22,6 +22,8 @@ export interface WalletOnboardingProps {
   profileWalletAddress?: EthAddress;
   profileUrl?: string;
   profileAddressSaving?: boolean;
+  notEnabled?: boolean;
+  enable(): void;
   saveAddressToProfile?(): Promise<void>;
 }
 
@@ -138,6 +140,18 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             </p>
           </div>
         </Wrapper>
+      );
+    } else if (this.props.notEnabled) {
+      return (
+        <Wrapper>
+        <ManagerSectionHeading>MetaMask not enabled</ManagerSectionHeading>
+        <p>Press this button to enable metamask for this domain</p>
+        <p>
+          <LargeishButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.props.enable()}>
+            Enable
+          </LargeishButton>
+        </p>
+      </Wrapper>
       );
     } else if (this.props.walletLocked) {
       return (
