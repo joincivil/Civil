@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { ListingSummaryComponent, ListingSummaryComponentProps } from "./ListingSummary";
+import { ListingSummaryComponentProps } from "./types";
+import { ListingSummaryComponent } from "./ListingSummary";
 
 export const StyledListingSummaryList = styled.div`
   display: flex;
@@ -16,7 +17,9 @@ export interface ListingSummaryListProps {
 export class ListingSummaryList extends React.Component<ListingSummaryListProps> {
   public render(): JSX.Element {
     const listingViews = this.props.listings.map((listing: any) => (
-      <ListingSummaryComponent key={listing.address} {...listing} />
+      <div>
+        <ListingSummaryComponent key={listing.address} {...listing} />
+      </div>
     ));
     return <StyledListingSummaryList>{listingViews}</StyledListingSummaryList>;
   }

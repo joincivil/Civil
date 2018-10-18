@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Set } from "immutable";
 import { Link } from "react-router-dom";
 import {
+  ListingSummaryApprovedComponent,
   Hero,
   HomepageHero,
   Tabs,
@@ -104,7 +105,9 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 
   private renderWhitelistedListings = (): JSX.Element => {
     if (this.props.whitelistedListings.count()) {
-      return <ListingList listings={this.props.whitelistedListings} />;
+      return (
+        <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={this.props.whitelistedListings} />
+      );
     }
 
     return (

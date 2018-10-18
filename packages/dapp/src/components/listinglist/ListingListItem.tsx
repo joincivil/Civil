@@ -29,7 +29,7 @@ class ListingListItemComponent extends React.Component<
   public render(): JSX.Element {
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
-    const isWhitelisted = listingExists && listingPhaseState.isWhitelisted && !listingPhaseState.isUnderChallenge;
+    const isWhitelisted = listingExists && listingPhaseState.isWhitelisted;
 
     return (
       <>
@@ -58,13 +58,16 @@ class ListingListItemComponent extends React.Component<
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
     const requestAppealExpiry = challenge && challenge.requestAppealExpiry.toNumber();
-    const appeal = challenge && challenge.appeal;
-    const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
-    const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
+    const challengeID = challenge && listingData.challengeID.toString();
     const challengeStatementSummary =
       challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
+
+    const appeal = challenge && challenge.appeal;
+    const appealStatementSummary = appeal && appeal.statement && JSON.parse(appeal.statement as string).summary;
+    const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
+    const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
     const newsroomData = newsroom!.wrapper.data;
     const listingDetailURL = `/listing/${listingAddress}`;
@@ -75,8 +78,10 @@ class ListingListItemComponent extends React.Component<
       description,
       listingDetailURL,
       ...listingPhaseState,
+      challengeID,
       challengeStatementSummary,
       appeal,
+      appealStatementSummary,
       appExpiry,
       commitEndDate,
       revealEndDate,
@@ -97,9 +102,19 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
   const { listingAddress, newsroom, listingPhaseState } = props;
   const newsroomData = newsroom!.wrapper.data;
   const listingDetailURL = `/listing/${listingAddress}`;
+  let description = "";
+  if (newsroomData.charter) {
+    try {
+      // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
+      description = (newsroomData.charter!.content as any).desc;
+    } catch (ex) {
+      console.error("charter not formatted correctly");
+    }
+  }
 
   const listingViewProps = {
     ...newsroomData,
+    description,
     listingAddress,
     listingDetailURL,
     ...listingPhaseState,

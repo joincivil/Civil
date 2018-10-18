@@ -1,151 +1,50 @@
 import * as React from "react";
-import { EthAddress, AppealData } from "@joincivil/core";
 import { getLocalDateTimeStrings } from "@joincivil/utils";
 import { HollowGreenCheck, HollowRedNoGood } from "../icons";
+import { TextCountdownTimer } from "../PhaseCountdown/";
+import { ListingSummaryComponentProps } from "./types";
 import {
-  StyledListingSummaryContainer,
-  StyledListingSummaryTop,
-  StyledListingSummarySection,
-  StyledListingSummaryNewsroomName,
-  StyledListingSummaryDescription,
-  StyledAppealJudgementContainer,
-  NewsroomIcon,
   MetaRow,
   MetaItemValue,
   MetaItemLabel,
+  StyledListingSummaryContainer,
+  StyledListingSummary,
+  StyledListingSummarySection,
+  StyledAppealJudgementContainer,
 } from "./styledComponents";
-import { buttonSizes, InvertedButton } from "../Button";
-import { TextCountdownTimer } from "../PhaseCountdown/";
-import {
-  ApplicationPhaseEndedLabelText,
-  ApprovedLabelText,
-  ChallengeEndedLabelText,
-  ViewDetailsButtonText,
-} from "./textComponents";
-import {
-  AwaitingApprovalStatusLabel,
-  CommitVoteStatusLabel,
-  RevealVoteStatusLabel,
-  AwaitingAppealRequestLabel,
-  ReadyToCompleteStatusLabel,
-  AwaitingDecisionStatusLabel,
-  AwaitingAppealChallengeStatusLabel,
-} from "../ApplicationPhaseStatusLabels";
+import { ApplicationPhaseEndedLabelText, ApprovedLabelText, ChallengeEndedLabelText } from "./textComponents";
+import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
+import ListingPhaseLabel from "./ListingPhaseLabel";
+import NewsroomInfo from "./NewsroomInfo";
+import SummaryActionButton from "./SummaryActionButton";
 
-export interface ListingSummaryUnderChallengeComponentProps {
-  listingAddress?: EthAddress;
-  name?: string;
-  description?: string;
-  listingDetailURL?: string;
-  challengeStatementSummary?: string;
-  appeal?: AppealData;
-  isInApplication?: boolean;
-  canBeChallenged?: boolean;
-  canBeWhitelisted?: boolean;
-  inChallengeCommitVotePhase?: boolean;
-  inChallengeRevealPhase?: boolean;
-  isAwaitingAppealRequest?: boolean;
-  didListingChallengeSucceed?: boolean;
-  canResolveChallenge?: boolean;
-  canResolveAppealChallenge?: boolean;
-  isAwaitingAppealJudgement?: boolean;
-  isAwaitingAppealChallenge?: boolean;
-  canListingAppealBeResolved?: boolean;
-  isInAppealChallengeCommitPhase?: boolean;
-  isInAppealChallengeRevealPhase?: boolean;
-  isAwaitingAppealJudgment?: boolean;
-  isWhitelisted?: boolean;
-  isUnderChallenge?: boolean;
-  canListingAppealChallengeBeResolved?: boolean;
-  appExpiry?: number;
-  commitEndDate?: number;
-  revealEndDate?: number;
-  requestAppealExpiry?: number;
-  appealPhaseExpiry?: number;
-  appealOpenToChallengeExpiry?: number;
-  whitelistedTimestamp?: number;
-  unstakedDeposit?: string;
-  challengeStake?: string;
-  appealChallengeCommitEndDate?: number;
-  appealChallengeRevealEndDate?: number;
-}
-
-export class ListingSummaryUnderChallengeComponent extends React.Component<ListingSummaryUnderChallengeComponentProps> {
+export class ListingSummaryUnderChallengeComponent extends React.Component<ListingSummaryComponentProps> {
   public render(): JSX.Element {
-    const maxDescriptionLength = 120;
-    let description = this.props.description;
-    if (description && description.length > maxDescriptionLength) {
-      description = description.substring(0, maxDescriptionLength) + "...";
-    }
+    const { challengeID, challengeStatementSummary, appealStatementSummary } = this.props;
+
     return (
       <StyledListingSummaryContainer>
-        {this.renderAppealJudgement()}
+        <StyledListingSummary hasTopPadding={true}>
+          {this.renderAppealJudgement()}
 
-        {this.renderPhaseLabel()}
+          <ListingPhaseLabel{...this.props} />
 
-        <StyledListingSummaryTop>
-          <NewsroomIcon />
-          <div>
-            <StyledListingSummaryNewsroomName>{this.props.name}</StyledListingSummaryNewsroomName>
-            <StyledListingSummaryDescription>{description}</StyledListingSummaryDescription>
-          </div>
-        </StyledListingSummaryTop>
-        <StyledListingSummarySection>
-          {this.props.challengeStatementSummary && (
-            <StyledListingSummaryDescription>
-              <b>Challenge Summary</b>
-              <br />
-              {this.props.challengeStatementSummary}
-            </StyledListingSummaryDescription>
-          )}
+          <NewsroomInfo {...this.props} />
 
-          {this.renderPhaseCountdownOrTimestamp()}
+          <StyledListingSummarySection>
+            <ChallengeOrAppealStatementSummary
+              challengeID={challengeID}
+              challengeStatementSummary={challengeStatementSummary}
+              appealStatementSummary={appealStatementSummary}
+            />
+            {this.renderPhaseCountdownOrTimestamp()}
 
-          <InvertedButton size={buttonSizes.SMALL} to={this.props.listingDetailURL}>
-            <ViewDetailsButtonText />
-          </InvertedButton>
-        </StyledListingSummarySection>
+            <SummaryActionButton {...this.props} />
+          </StyledListingSummarySection>
+        </StyledListingSummary>
       </StyledListingSummaryContainer>
     );
   }
-
-  private renderPhaseLabel = (): JSX.Element | undefined => {
-    const {
-      isInApplication,
-      inChallengeCommitVotePhase,
-      isInAppealChallengeCommitPhase,
-      inChallengeRevealPhase,
-      isInAppealChallengeRevealPhase,
-      isAwaitingAppealRequest,
-      canBeWhitelisted,
-      canResolveChallenge,
-      canListingAppealBeResolved,
-      canListingAppealChallengeBeResolved,
-      isAwaitingAppealJudgement,
-      isAwaitingAppealChallenge,
-    } = this.props;
-    if (isInApplication) {
-      return <AwaitingApprovalStatusLabel />;
-    } else if (inChallengeCommitVotePhase || isInAppealChallengeCommitPhase) {
-      return <CommitVoteStatusLabel />;
-    } else if (inChallengeRevealPhase || isInAppealChallengeRevealPhase) {
-      return <RevealVoteStatusLabel />;
-    } else if (isAwaitingAppealRequest) {
-      return <AwaitingAppealRequestLabel />;
-    } else if (
-      canBeWhitelisted ||
-      canResolveChallenge ||
-      canListingAppealChallengeBeResolved ||
-      canListingAppealBeResolved
-    ) {
-      return <ReadyToCompleteStatusLabel />;
-    } else if (isAwaitingAppealJudgement) {
-      return <AwaitingDecisionStatusLabel />;
-    } else if (isAwaitingAppealChallenge) {
-      return <AwaitingAppealChallengeStatusLabel />;
-    }
-    return;
-  };
 
   private renderPhaseCountdown = (): JSX.Element | undefined => {
     let expiry: number | undefined;

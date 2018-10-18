@@ -1,50 +1,35 @@
 import * as React from "react";
-import { EthAddress } from "@joincivil/core";
-import { buttonSizes, InvertedButton } from "../Button";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
+import { ListingSummaryComponentProps } from "./types";
 import {
   StyledListingSummaryContainer,
-  StyledListingSummaryTop,
+  StyledListingSummary,
   StyledListingSummarySection,
-  StyledListingSummaryNewsroomName,
   ChallengeResultsContain,
-  NewsroomIcon,
 } from "./styledComponents";
+import NewsroomInfo from "./NewsroomInfo";
+import SummaryActionButton from "./SummaryActionButton";
 
-export interface ListingSummaryRejectedComponentProps {
-  listingAddress?: EthAddress;
-  name?: string;
-  listingDetailURL?: string;
-}
+export const ListingSummaryRejectedComponent: React.SFC<ListingSummaryComponentProps & ChallengeResultsProps> = props => {
+  return (
+    <StyledListingSummaryContainer>
+      <StyledListingSummary hasTopPadding={true}>
+        <NewsroomInfo {...props} />
 
-export class ListingSummaryRejectedComponent extends React.Component<
-  ListingSummaryRejectedComponentProps & ChallengeResultsProps
-> {
-  public render(): JSX.Element {
-    return (
-      <StyledListingSummaryContainer>
-        <StyledListingSummaryTop>
-          <NewsroomIcon />
-          <div>
-            <StyledListingSummaryNewsroomName>{this.props.name}</StyledListingSummaryNewsroomName>
-          </div>
-        </StyledListingSummaryTop>
-
+        <ChallengeResultsContain>
+          <ChallengeResults
+            headerText={`Challenge #${props.challengeID} Results`}
+            totalVotes={props.totalVotes}
+            votesFor={props.votesFor}
+            votesAgainst={props.votesAgainst}
+            percentFor={props.percentFor}
+            percentAgainst={props.percentAgainst}
+          />
+        </ChallengeResultsContain>
         <StyledListingSummarySection>
-          <ChallengeResultsContain>
-            <ChallengeResults
-              totalVotes={this.props.totalVotes}
-              votesFor={this.props.votesFor}
-              votesAgainst={this.props.votesAgainst}
-              percentFor={this.props.percentFor}
-              percentAgainst={this.props.percentAgainst}
-            />
-          </ChallengeResultsContain>
-          <InvertedButton size={buttonSizes.SMALL} to={this.props.listingDetailURL}>
-            View Details
-          </InvertedButton>
+          <SummaryActionButton {...props} />
         </StyledListingSummarySection>
-      </StyledListingSummaryContainer>
-    );
-  }
-}
+      </StyledListingSummary>
+    </StyledListingSummaryContainer>
+  );
+};

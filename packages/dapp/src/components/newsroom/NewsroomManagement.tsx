@@ -229,7 +229,8 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
 
     const data = await newsroom.getNewsroomData();
     if (data.charter) {
-      const charterStuff = JSON.parse(data.charter.content);
+      const charterStuff =
+        typeof data.charter.content === "string" ? JSON.parse(data.charter.content) : data.charter.content;
       this.setState({
         descValue: charterStuff.desc,
         value: RichTextEditor.createValueFromString(charterStuff.charter, "html"),

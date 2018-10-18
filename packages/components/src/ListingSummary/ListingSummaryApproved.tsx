@@ -1,70 +1,40 @@
 import * as React from "react";
-import { EthAddress, AppealData } from "@joincivil/core";
 import { getLocalDateTimeStrings } from "@joincivil/utils";
-import { HollowGreenCheck, HollowRedNoGood } from "../icons";
 import { TextCountdownTimer } from "../PhaseCountdown/";
 import { ListingSummaryComponentProps } from "./types";
-import { ApplicationPhaseEndedLabelText, ApprovedLabelText, ChallengeEndedLabelText } from "./textComponents";
 import {
-  StyledListingSummaryContainer,
-  StyledListingSummary,
-  StyledListingSummarySection,
-  StyledBaseResultsBanner,
-  StyledRejectedResultsBanner,
   MetaRow,
   MetaItemValue,
   MetaItemLabel,
+  StyledListingSummaryContainer,
+  StyledListingSummary,
+  StyledListingSummarySection,
+  StyledUnderChallengeBanner,
 } from "./styledComponents";
+import {
+  ApplicationPhaseEndedLabelText,
+  ApprovedLabelText,
+  ChallengeEndedLabelText,
+  UnderChallengeBannerText,
+} from "./textComponents";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
+import ListingPhaseLabel from "./ListingPhaseLabel";
 import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
 
-export interface ListingSummaryReadyToUpdateComponentProps {
-  listingAddress?: EthAddress;
-  name?: string;
-  description?: string;
-  listingDetailURL?: string;
-  challengeStatementSummary?: string;
-  appeal?: AppealData;
-  isInApplication?: boolean;
-  canBeChallenged?: boolean;
-  canBeWhitelisted?: boolean;
-  inChallengeCommitVotePhase?: boolean;
-  inChallengeRevealPhase?: boolean;
-  isAwaitingAppealRequest?: boolean;
-  didListingChallengeSucceed?: boolean;
-  canResolveChallenge?: boolean;
-  canResolveAppealChallenge?: boolean;
-  isAwaitingAppealJudgement?: boolean;
-  isAwaitingAppealChallenge?: boolean;
-  canListingAppealBeResolved?: boolean;
-  isInAppealChallengeCommitPhase?: boolean;
-  isInAppealChallengeRevealPhase?: boolean;
-  isAwaitingAppealJudgment?: boolean;
-  isWhitelisted?: boolean;
-  isUnderChallenge?: boolean;
-  canListingAppealChallengeBeResolved?: boolean;
-  appExpiry?: number;
-  commitEndDate?: number;
-  revealEndDate?: number;
-  requestAppealExpiry?: number;
-  appealPhaseExpiry?: number;
-  appealOpenToChallengeExpiry?: number;
-  whitelistedTimestamp?: number;
-  unstakedDeposit?: string;
-  challengeStake?: string;
-  appealChallengeCommitEndDate?: number;
-  appealChallengeRevealEndDate?: number;
-}
-
-export class ListingSummaryReadyToUpdateComponent extends React.Component<ListingSummaryComponentProps> {
+export class ListingSummaryApprovedComponent extends React.Component<ListingSummaryComponentProps> {
   public render(): JSX.Element {
     const { challengeID, challengeStatementSummary, appealStatementSummary } = this.props;
 
     return (
       <StyledListingSummaryContainer>
-        <StyledListingSummary>
-          {this.renderDecisionBanner()}
+        <StyledListingSummary hasTopPadding={!challengeID}>
+          {challengeID && (
+            <StyledUnderChallengeBanner>
+              <UnderChallengeBannerText />
+            </StyledUnderChallengeBanner>
+          )}
+          <ListingPhaseLabel{...this.props} />
 
           <NewsroomInfo {...this.props} />
 
@@ -165,51 +135,5 @@ export class ListingSummaryReadyToUpdateComponent extends React.Component<Listin
     } else {
       return this.renderTimestamp();
     }
-  };
-
-  private renderDecisionBanner = (): JSX.Element | undefined => {
-    const { appeal, didListingChallengeSucceed, canBeWhitelisted } = this.props;
-    let decisionText;
-
-    if (appeal && appeal.appealGranted) {
-      if (didListingChallengeSucceed) {
-        // Challenge succeeded (newsroom rejected) and appeal was granted, so newsroom is accepted
-        decisionText = (
-          <StyledBaseResultsBanner>
-            <HollowGreenCheck /> Appeal granted to accept Newsroom
-          </StyledBaseResultsBanner>
-        );
-      } else {
-        // Challenge failed (newsroom accepted) and appeal was granted, so newsroom is rejected
-        decisionText = (
-          <StyledRejectedResultsBanner>
-            <HollowRedNoGood /> Appeal granted to reject Newsroom
-          </StyledRejectedResultsBanner>
-        );
-      }
-    } else if (didListingChallengeSucceed) {
-      // Challenge succeeded (newsroom rejected)
-      decisionText = (
-        <StyledRejectedResultsBanner>
-          <HollowRedNoGood /> Community voted to reject Newsroom
-        </StyledRejectedResultsBanner>
-      );
-    } else if (canBeWhitelisted) {
-      // Challenge failed (newsroom accepted)
-      decisionText = (
-        <StyledBaseResultsBanner>
-          <HollowGreenCheck /> Newsroom application passed without challenge
-        </StyledBaseResultsBanner>
-      );
-    } else if (!didListingChallengeSucceed) {
-      // Challenge failed (newsroom accepted)
-      decisionText = (
-        <StyledBaseResultsBanner>
-          <HollowGreenCheck /> Community voted to accept Newsroom
-        </StyledBaseResultsBanner>
-      );
-    }
-
-    return decisionText;
   };
 }

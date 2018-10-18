@@ -105,7 +105,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingReduxProp
         <Tab title={appealToCouncilTab}>
           <>
             <StyledListingCopy>
-              Appeal to the Civil Council has been granted to these Newsrooms. The Civil Council will review whether
+              Appeal to the Civil Council has been requested for these Newsrooms. The Civil Council will review whether
               these Newsrooms breached the Civil Constitution, and a decision will be announced X days after the appeal
               is granted.
             </StyledListingCopy>
@@ -217,7 +217,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingReduxProp
         <RegistryEmptyIcon />
       </StyledRegistryEmpty>
     );
-  }
+  };
 
   private onTabChange = (activeIndex: number = 0): void => {
     const tabName = this.props.match.params.listingType;

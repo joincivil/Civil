@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { ListingSummaryComponent } from "@joincivil/components";
+import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../reducers";
 import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
@@ -9,6 +9,7 @@ import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingLis
 
 export interface WhitelistedCardReduxProps extends ListingListItemReduxProps {
   whitelistedTimestamp?: number;
+  ListingItemComponent?: any;
 }
 
 class WhitelistedListingItem extends React.Component<
@@ -30,15 +31,26 @@ class WhitelistedListingItem extends React.Component<
         console.error("charter not formatted correctly");
       }
     }
-    const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-    const pollData = listingData.challenge && listingData.challenge.poll;
+    const challenge = listingData.challenge;
+    const challengeID = challenge && listingData.challengeID.toString();
+    const challengeStatementSummary =
+      challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
+
+    const pollData = challenge && challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
+    const appeal = challenge && challenge.appeal;
+    const appealStatementSummary = appeal && appeal.statement && JSON.parse(appeal.statement as string).summary;
+    const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
+    const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
+
     const newsroomData = newsroom!.wrapper.data;
     const listingDetailURL = `/listing/${listingAddress}`;
+
+    const ListingSummaryItem = this.props.ListingItemComponent || ListingSummaryApprovedComponent;
 
     const listingViewProps = {
       ...newsroomData,
@@ -46,7 +58,12 @@ class WhitelistedListingItem extends React.Component<
       description,
       listingDetailURL,
       ...listingPhaseState,
-      appExpiry,
+      challengeID,
+      challengeStatementSummary,
+      appeal,
+      appealStatementSummary,
+      appealPhaseExpiry,
+      appealOpenToChallengeExpiry,
       commitEndDate,
       revealEndDate,
       unstakedDeposit,
@@ -54,7 +71,7 @@ class WhitelistedListingItem extends React.Component<
       whitelistedTimestamp: this.props.whitelistedTimestamp,
     };
 
-    return <ListingSummaryComponent {...listingViewProps} />;
+    return <ListingSummaryItem {...listingViewProps} />;
   }
 }
 
