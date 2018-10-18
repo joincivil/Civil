@@ -56,12 +56,10 @@ export function transformGraphQLDataIntoNewsroom(queryData: any, listingAddress:
   };
 }
 export function transformGraphQLDataIntoListing(queryData: any, listingAddress: string): ListingWrapper {
-  const date = Math.round(new Date(queryData.listing.appExpiry).getTime() / 1000);
-
   return {
     address: listingAddress,
     data: {
-      appExpiry: new BigNumber(date),
+      appExpiry: new BigNumber(queryData.listing.appExpiry),
       isWhitelisted: queryData.listing.whitelisted,
       owner: queryData.listing.owner,
       unstakedDeposit: new BigNumber(queryData.listing.unstakedDeposit),
