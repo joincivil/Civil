@@ -15,6 +15,7 @@ import {
   ModalHeading,
   Transaction,
   TransactionButtonModalFlowState,
+  QuestionToolTip,
 } from "@joincivil/components";
 import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
@@ -271,7 +272,14 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     return (
       <>
         <StepHeader active={this.props.active}>Set up a newsroom</StepHeader>
-        <Description>Enter your newsroom name to create your newsroom smart contract.</Description>
+        <Description>
+          Enter your newsroom name to create your newsroom smart contract.
+          <QuestionToolTip
+            explainerText={
+              "This name will be on your newsroom smart contract. It will also be the public name listed on the Civil Registry."
+            }
+          />
+        </Description>
         {body}
         {this.renderPreMetamaskCreateModal()}
         {this.renderAwaitingTransactionModal()}

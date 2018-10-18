@@ -17,7 +17,7 @@ export interface StepProcessTopNavState {
 const StyledNav = styled.div`
   position: relative;
   height: 76px;
-  margin: 0 auto 25px;
+  margin: 0 auto;
   width: 100%;
   & > ul {
     justify-content: space-between;

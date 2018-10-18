@@ -74,12 +74,13 @@ const ToolTipLink = styled.a`
 `;
 
 const PopUpWarning = styled.p`
-  color: ${colors.accent.CIVIL_GRAY_2};
-  font-size: 12px;
+  && {
+    color: ${colors.accent.CIVIL_GRAY_2};
+    font-size: 12px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
-  text-align: center;
   max-width: 200px;
 `;
 
@@ -167,7 +168,7 @@ export class DetailTransactionButton extends React.Component<
           >
             {this.props.children}
           </TransactionButtonComponent>
-          <PopUpWarning>This will open a pop-up to confirm your transaction.</PopUpWarning>
+          <PopUpWarning>This will open a new window to confirm and process your transaction.</PopUpWarning>
         </ButtonWrapper>
       </Wrapper>
     );
