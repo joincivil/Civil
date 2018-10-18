@@ -38,8 +38,10 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
             if (error) {
               return <p>Error :</p>;
             }
+            console.log("queryData: ", data);
             const newsroom = transformGraphQLDataIntoNewsroom(data, this.props.listingAddress);
             const listing = transformGraphQLDataIntoListing(data, this.props.listingAddress);
+            console.log("listing: ", listing);
             return <ListingRedux listingAddress={listingAddress} newsroom={newsroom} listing={listing} />;
           }}
         </Query>

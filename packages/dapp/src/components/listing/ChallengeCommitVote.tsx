@@ -49,16 +49,17 @@ class ChallengeCommitVote extends React.Component<ChallengeDetailProps, Challeng
   }
 
   public render(): JSX.Element | null {
+    console.log("render 1");
     const endTime = this.props.challenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
-
+    console.log("render 2");
     if (!challenge) {
       return null;
     }
-
+    console.log("challenge: ", challenge);
     return (
       <>
         <ChallengeCommitVoteCard
