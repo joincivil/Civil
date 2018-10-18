@@ -12,6 +12,7 @@ export const LISTING_QUERY = gql`
       charterUri
       unstakedDeposit
       appExpiry
+      approvalDate
       challengeID
       challenge {
         challengeID

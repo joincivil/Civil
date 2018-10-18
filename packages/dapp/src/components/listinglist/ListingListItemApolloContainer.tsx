@@ -35,6 +35,7 @@ export default class ListingListItemApolloContainerComponent extends React.Compo
               newsroom={newsroom}
               listing={listing}
               even={this.props.even}
+              queryData={data}
             />
           );
         }}
