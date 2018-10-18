@@ -55,7 +55,6 @@ export class ChallengeCommitVoteCard extends React.Component<
   }
 
   public render(): JSX.Element {
-    console.log("render card props: ", this.props);
     return (
       <StyledCardStage width="485">
         <StyledCard flipped={this.state.flipped}>

@@ -71,7 +71,6 @@ export function transformGraphQLDataIntoListing(queryData: any, listingAddress: 
 }
 
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
-  console.log("transform. queryChallengeData: ", queryChallengeData);
   if (queryChallengeData) {
     return {
       statement: queryChallengeData.statement,
