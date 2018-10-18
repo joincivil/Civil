@@ -9,7 +9,7 @@ import {
   MetaMaskSideIcon,
   MetaMaskLogoButton,
 } from ".";
-import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm.png";
+import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm@2x.png";
 import * as confirmButton from "./images/img-metamask-confirm@2x.png";
 import * as signImage from "./images/img-metamaskmodal-new-signature.png";
 
@@ -54,6 +54,11 @@ const ImgWrapperSmall = styled.span`
   border: 1px solid #dddddd;
   display: inline-blocks;
   vertical-align: middle;
+`;
+
+const ImgWrapperFull = styled.div`
+  text-align: center;
+  line-height: 0;
 `;
 
 const ButtonContainer = styled.div`
@@ -152,7 +157,9 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
   const image = props.denied ? (
     <MainImg src={confirmButton} />
   ) : (
-    <img src={props.signing ? signImage : metaMaskModalUrl} />
+    <ImgWrapperFull>
+      <img width={512} height={248} src={props.signing ? signImage : metaMaskModalUrl} />
+    </ImgWrapperFull>
   );
 
   return (
