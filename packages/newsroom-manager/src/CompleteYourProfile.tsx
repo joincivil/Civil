@@ -289,7 +289,7 @@ class CompleteYourProfileComponent extends React.Component<
           <QuestionToolTipWrapper>
             <QuestionToolTip
               explainerText={
-                "Think of officers as admins of your newsroom.  You can skip adding an additional officer but if not have one, you will not be able to access you newsroom contract if you lose your private key."
+                "If you lose access to your wallet, only a Civil Officer can add you back to the smart contract with a new address. You can always add Officers and Members later."
               }
             />
           </QuestionToolTipWrapper>
@@ -301,6 +301,11 @@ class CompleteYourProfileComponent extends React.Component<
               An Officer is an admin role that has all possible capabilities in the newsroom smart contract. They can
               add additional officers and members and have access to your newsrooms funds and Civil Registry
               application.
+              <QuestionToolTip
+                explainerText={
+                  "You can skip adding an additional Officer but if you do not have one, you will not be able to access your newsroom contract if you lose access to your wallet."
+                }
+              />
             </FormDescription>
           </FormTitleSection>
           <Section>
@@ -325,6 +330,11 @@ class CompleteYourProfileComponent extends React.Component<
             <FormDescription>
               A Member is the standard role in the newsroom smart contract. They have permission to index and sign posts
               on the blockchain. They cannot add Civil Officers to a newsroom smart contract.
+              <QuestionToolTip
+                explainerText={
+                  "If you lose your public wallet address, a Civil Member does not have the option to add additional officers to the contract."
+                }
+              />
             </FormDescription>
           </FormTitleSection>
           <Section>
