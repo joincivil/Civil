@@ -96,8 +96,10 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
 export async function getIPFSContent(header: EthContentHeader, dispatch: Dispatch<any>): Promise<void> {
   const civil = getCivil();
   const content = await civil.getContent(header);
-  const parsedContent = JSON.parse(content.toString());
-  dispatch(addContent(header, parsedContent));
+  if (content) {
+    const parsedContent = JSON.parse(content.toString());
+    dispatch(addContent(header, parsedContent));
+  }
 }
 
 function setupListingCallback(listing: ListingWrapper, dispatch: Dispatch<any>): void {
