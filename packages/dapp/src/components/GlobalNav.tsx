@@ -1,5 +1,5 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { connect, DispatchProp } from "react-redux";
 import { State } from "../reducers";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Set } from "immutable";
@@ -11,6 +11,7 @@ import {
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
 import { NavBar, NavErrorBar } from "@joincivil/components";
+import { toggleUseGraphQL } from "../actionCreators/ui";
 
 export interface NavBarProps {
   balance: string;
@@ -21,9 +22,10 @@ export interface NavBarProps {
   currentUserChallengesVotedOn: Set<string>;
   userChallengesWithUnrevealedVotes?: Set<string>;
   userChallengesWithUnclaimedRewards?: Set<string>;
+  useGraphQL: boolean;
 }
 
-const GlobalNavComponent: React.SFC<NavBarProps> = props => {
+const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => {
   const shouldRenderErrorBar = props.network !== "4";
   return (
     <>
@@ -36,10 +38,14 @@ const GlobalNavComponent: React.SFC<NavBarProps> = props => {
         userClaimRewardsCount={props.userChallengesWithUnclaimedRewards!.count()}
         userChallengesStartedCount={props.currentUserChallengesStarted.count()}
         userChallengesVotedOnCount={props.currentUserChallengesVotedOn.count()}
+        useGraphQL={props.useGraphQL}
         onLogin={() => {
           if ((window as any).ethereum) {
             (window as any).ethereum.enable();
           }
+        }}
+        onLoadingPrefToggled={() => {
+          props.dispatch!(toggleUseGraphQL());
         }}
       />
       {shouldRenderErrorBar && <NavErrorBar />}
@@ -48,7 +54,7 @@ const GlobalNavComponent: React.SFC<NavBarProps> = props => {
 };
 
 const mapStateToProps = (state: State): NavBarProps => {
-  const { network } = state;
+  const { network, useGraphQL } = state;
   const { user } = state.networkDependent;
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
   const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
@@ -79,6 +85,7 @@ const mapStateToProps = (state: State): NavBarProps => {
     currentUserChallengesVotedOn,
     userChallengesWithUnrevealedVotes,
     userChallengesWithUnclaimedRewards,
+    useGraphQL,
   };
 };
 

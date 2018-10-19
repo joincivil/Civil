@@ -2,18 +2,20 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { findIndex } from "lodash";
 import styled from "styled-components";
-import {
-  colors,
-  StepHeader,
-  StepProps,
-  StepDescription,
-  QuestionToolTip,
-  TextInput,
-  TextareaInput,
-} from "@joincivil/components";
+import { colors, StepHeader, StepProps, StepDescription, QuestionToolTip } from "@joincivil/components";
 import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { isValidHttpUrl } from "@joincivil/utils";
 import { RosterMember } from "./RosterMember";
-import { FormSection, FormTitle, FormSubhead, FormRow, FormRowItem, HelperText } from "./styledComponents";
+import {
+  FormSection,
+  FormTitle,
+  FormSubhead,
+  FormRow,
+  FormRowItem,
+  HelperText,
+  StyledTextInput,
+  StyledTextareaInput,
+} from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { makeUserObject } from "./utils";
 import { UserData } from "./types";
@@ -40,7 +42,7 @@ const LogoURLWrap = styled.div`
   padding-right: 15px;
   border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
 `;
-const LogoURLInput = styled(TextInput)`
+const LogoURLInput = styled(StyledTextInput)`
   &,
   input {
     margin-bottom: 0;
@@ -57,10 +59,10 @@ const LogoImg = styled.img`
   top: -50%;
 `;
 
-const NewsroomURLInput = styled(TextInput)`
+const NewsroomURLInput = styled(StyledTextInput)`
   max-width: 400px;
 `;
-const TaglineTextarea = styled(TextareaInput)`
+const TaglineTextarea = styled(StyledTextareaInput)`
   height: 80px;
   margin: -4px 0 0;
 `;
@@ -83,9 +85,11 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
   }
 
   public render(): JSX.Element {
+    const charter = this.props.charter;
+
     const contractUsers = this.props.owners.concat(this.props.editors);
     const nonRosterContractUsers = contractUsers.filter(
-      user => findIndex(this.props.charter.roster, { ethAddress: user.rosterData.ethAddress }) === -1,
+      user => findIndex(charter.roster, { ethAddress: user.rosterData.ethAddress }) === -1,
     );
 
     return (
@@ -114,8 +118,10 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
                 <LogoURLInput
                   noLabel
                   name="logoUrl"
-                  value={this.props.charter.logoUrl || ""}
+                  value={charter.logoUrl || ""}
                   onChange={this.charterInputChange}
+                  invalid={this.invalidUrlInput(charter.logoUrl)}
+                  invalidMessage={"Invalid URL"}
                 />
               </LogoURLWrap>
               <LogoImgWrap>{this.props.charter.logoUrl && <LogoImg src={this.props.charter.logoUrl} />}</LogoImgWrap>
@@ -127,8 +133,10 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
             <FormSubhead>Newsroom URL</FormSubhead>
             <NewsroomURLInput
               name="newsroomUrl"
-              value={this.props.charter.newsroomUrl || ""}
+              value={charter.newsroomUrl || ""}
               onChange={this.charterInputChange}
+              invalid={this.invalidUrlInput(charter.newsroomUrl)}
+              invalidMessage={"Invalid URL"}
             />
           </div>
 
@@ -139,8 +147,10 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
             </FormSubhead>
             <TaglineTextarea
               name="tagline"
-              value={this.props.charter.tagline || ""}
+              value={charter.tagline || ""}
               onChange={this.charterInputChange}
+              invalid={!!charter.tagline && charter.tagline.length > 120}
+              invalidMessage={"Too long"}
             />
             <HelperText>Maximum of 120 Characters</HelperText>
           </div>
@@ -149,20 +159,24 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
             <FormRowItem>
               <div>
                 <FormSubhead optional>Twitter URL</FormSubhead>
-                <TextInput
+                <StyledTextInput
                   name="twitter"
-                  value={(this.props.charter.socialUrls || {}).twitter || ""}
+                  value={(charter.socialUrls || {}).twitter || ""}
                   onChange={this.charterSocialInputChange}
+                  invalid={this.invalidUrlInput((charter.socialUrls || {}).twitter)}
+                  invalidMessage={"Invalid URL"}
                 />
               </div>
             </FormRowItem>
             <FormRowItem>
               <div>
                 <FormSubhead optional>Facebook URL</FormSubhead>
-                <TextInput
+                <StyledTextInput
                   name="facebook"
-                  value={(this.props.charter.socialUrls || {}).facebook || ""}
+                  value={(charter.socialUrls || {}).facebook || ""}
                   onChange={this.charterSocialInputChange}
+                  invalid={this.invalidUrlInput((charter.socialUrls || {}).facebook)}
+                  invalidMessage={"Invalid URL"}
                 />
               </div>
             </FormRowItem>
@@ -175,7 +189,7 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
             Select the participants in your WordPress newsroom you want to add your roster and include any relevant
             credentials.
           </p>
-          {(this.props.charter.roster || []).map(member => {
+          {(charter.roster || []).map(member => {
             return (
               <RosterMember
                 newsroomAddress={this.props.address!}
@@ -262,6 +276,10 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
       ...this.props.charter,
       roster,
     });
+  };
+
+  private invalidUrlInput = (url?: string): boolean => {
+    return !!url && !isValidHttpUrl(url);
   };
 }
 

@@ -123,7 +123,7 @@ export interface NewsroomWrapper {
 export interface NewsroomData {
   name: string;
   owners: EthAddress[];
-  charter?: CharterContent;
+  charterHeader?: EthContentHeader;
 }
 
 export interface ListingWrapper {

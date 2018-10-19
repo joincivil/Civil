@@ -21,7 +21,7 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import * as heroImgUrl from "../images/img-hero-listings.png";
-
+import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
 import ListingList from "./ListingList";
 import { State } from "../../reducers";
 import ListingsInProgress from "./ListingsInProgress";
@@ -35,11 +35,11 @@ export interface ListingProps {
 }
 
 export interface ListingReduxProps {
-  whitelistedListings: Set<string>;
   rejectedListings: Set<string>;
   parameters: any;
   error: undefined | string;
   loadingFinished: boolean;
+  useGraphQL: boolean;
 }
 
 class Listings extends React.Component<ListingProps & ListingReduxProps> {
@@ -80,7 +80,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
                   review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
                 </StyledListingCopy>
-                {this.renderWhitelistedListings()}
               </StyledPageContent>
             </Tab>
             <Tab title={<ApplicationsInProgressTabText />}>
@@ -106,7 +105,8 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
   private renderWhitelistedListings = (): JSX.Element => {
     if (this.props.whitelistedListings.count()) {
       return (
-        <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={this.props.whitelistedListings} />
+        <WhitelistedListingListContainer />
+        // <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={this.props.whitelistedListings} />
       );
     }
 
@@ -146,15 +146,15 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { whitelistedListings, rejectedListings, parameters, loadingFinished } = state.networkDependent;
-
+  const { rejectedListings, parameters } = state.networkDependent;
+  const useGraphQL = state.useGraphQL;
   return {
     ...ownProps,
-    whitelistedListings,
     rejectedListings,
     parameters,
     error: undefined,
-    loadingFinished,
+    loadingFinished: true,
+    useGraphQL,
   };
 };
 

@@ -263,11 +263,11 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async getNewsroomData(): Promise<NewsroomData> {
     const name = await this.getName();
     const owners = await this.owners();
-    const charter = await this.getCharter();
+    const charterHeader = await this.getCharterHeader();
     return {
       name,
       owners,
-      charter,
+      charterHeader,
     };
   }
 
@@ -342,6 +342,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       who = await requireAccount(this.ethApi).toPromise();
     }
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
+  }
+
+  public async getArticleHeader(articleId: number | BigNumber): Promise<EthContentHeader> {
+    return this.loadContentHeader(articleId);
+  }
+
+  public async getCharterHeader(): Promise<EthContentHeader> {
+    return this.getArticleHeader(0);
   }
 
   /**

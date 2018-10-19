@@ -13,6 +13,7 @@ import { Newsroom } from "./contracts/newsroom";
 import { UserGroups } from "./contracts/proof-of-use/usergroups";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
+import { ContentData, EthContentHeader } from "./types";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -229,6 +230,10 @@ export class Civil {
   public async publishContent(content: string): Promise<Uri> {
     const { uri } = await this.contentProvider.put(content);
     return uri;
+  }
+
+  public async getContent(header: EthContentHeader): Promise<ContentData> {
+    return this.contentProvider.get(header);
   }
 
   public async currentBlock(): Promise<number> {

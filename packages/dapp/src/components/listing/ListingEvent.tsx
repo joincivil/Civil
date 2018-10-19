@@ -1,6 +1,5 @@
 import * as React from "react";
 import { compose } from "redux";
-import { CivilTCR } from "@joincivil/core";
 import {
   ApplicationEvent,
   ChallengeEvent,
@@ -14,6 +13,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
+import { BigNumber } from "bignumber.js";
 
 export interface ListingEventProps {
   event: any;
@@ -32,31 +32,25 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   public render(): JSX.Element {
-    const wrappedEvent = this.props.event as
-      | CivilTCR.LogEvents._Application
-      | CivilTCR.LogEvents._ApplicationWhitelisted
-      | CivilTCR.LogEvents._Challenge
-      | CivilTCR.LogEvents._ChallengeFailed
-      | CivilTCR.LogEvents._ChallengeSucceeded
-      | CivilTCR.LogEvents._ListingRemoved;
+    const wrappedEvent = this.props.event;
 
     switch (wrappedEvent.event) {
-      case CivilTCR.Events._Application:
+      case "_Application":
         return this.renderApplicationEvent(wrappedEvent);
 
-      case CivilTCR.Events._ApplicationWhitelisted:
-        return <WhitelistedEvent timestamp={(wrappedEvent as any).timestamp} />;
+      case "_ApplicationWhitelisted":
+        return <WhitelistedEvent timestamp={wrappedEvent.timestamp} />;
 
-      case CivilTCR.Events._ListingRemoved:
-        return <RejectedEvent timestamp={(wrappedEvent as any).timestamp} />;
+      case "_ListingRemoved":
+        return <RejectedEvent timestamp={wrappedEvent.timestamp} />;
 
-      case CivilTCR.Events._Challenge:
+      case "_Challenge":
         return this.renderChallengeEvent(wrappedEvent);
 
-      case CivilTCR.Events._ChallengeFailed:
+      case "_ChallengeFailed":
         return this.renderChallengeFailedEvent(wrappedEvent);
 
-      case CivilTCR.Events._ChallengeSucceeded:
+      case "_ChallengeSucceeded":
         return this.renderChallengeSucceededEvent(wrappedEvent);
 
       default:
@@ -64,13 +58,14 @@ class ListingEvent extends React.Component<ListingEventProps> {
     }
   }
 
-  private renderApplicationEvent(wrappedEvent: CivilTCR.LogEvents._Application): JSX.Element {
+  private renderApplicationEvent(wrappedEvent: any): JSX.Element {
     const { deposit } = wrappedEvent.args;
-    const formattedDeposit = getFormattedTokenBalance(deposit);
+    const bnDeposit = new BigNumber(deposit);
+    const formattedDeposit = getFormattedTokenBalance(bnDeposit);
     return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
-  private renderChallengeEvent(wrappedEvent: CivilTCR.LogEvents._Challenge): JSX.Element {
+  private renderChallengeEvent(wrappedEvent: any): JSX.Element {
     const { challengeID, challenger } = wrappedEvent.args;
     const challengeURI = `/listing/${this.props.listing}/challenge/${challengeID.toString()}`;
     return (
@@ -83,20 +78,20 @@ class ListingEvent extends React.Component<ListingEventProps> {
     );
   }
 
-  private renderChallengeFailedEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeFailed): JSX.Element {
+  private renderChallengeFailedEvent(wrappedEvent: any): JSX.Element {
     const { challengeID } = wrappedEvent.args;
     const ChallengeFailedComponent = challengeCompletedEventContainer(
       ChallengeFailedEventComponent,
     ) as React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>;
 
-    return <ChallengeFailedComponent timestamp={(wrappedEvent as any).timestamp} challengeID={challengeID} />;
+    return <ChallengeFailedComponent timestamp={wrappedEvent.timestamp} challengeID={challengeID} />;
   }
 
-  private renderChallengeSucceededEvent(wrappedEvent: CivilTCR.LogEvents._ChallengeSucceeded): JSX.Element {
+  private renderChallengeSucceededEvent(wrappedEvent: any): JSX.Element {
     const { challengeID } = wrappedEvent.args;
     const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
 
-    return <ChallengeSucceededComponent timestamp={(wrappedEvent as any).timestamp} challengeID={challengeID} />;
+    return <ChallengeSucceededComponent timestamp={wrappedEvent.timestamp} challengeID={challengeID} />;
   }
 
   private renderUnsupportedEvent(wrappedEvent: any): JSX.Element {

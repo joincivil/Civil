@@ -9,7 +9,7 @@ import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../reducers";
 import {
   getChallenge,
-  makeGetListingPhaseState,
+  getListingPhaseState,
   makeGetListing,
   makeGetListingAddressByChallengeID,
   makeGetChallengeState,
@@ -228,7 +228,6 @@ class ActivityListItemComponent extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getListingPhaseState = makeGetListingPhaseState();
   const getListing = makeGetListing();
 
   const mapStateToProps = (
@@ -248,7 +247,7 @@ const makeMapStateToProps = () => {
     return {
       newsroom,
       listing,
-      listingPhaseState: getListingPhaseState(state, ownProps),
+      listingPhaseState: getListingPhaseState(listing),
       ...ownProps,
     };
   };
