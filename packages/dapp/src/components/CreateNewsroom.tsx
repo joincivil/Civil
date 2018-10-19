@@ -53,7 +53,12 @@ class CreateNewsroom extends React.Component<
             requiredNetwork="rinkeby|ganache"
             theme={DEFAULT_BUTTON_THEME}
             metamaskEnabled={this.state.metamaskEnabled}
-            enable={() => {}}
+            enable={async () => {
+              if ((window as any).ethereum) {
+                await (window as any).ethereum.enable();
+                this.setState({ metamaskEnabled: true });
+              }
+            }}
           />
         </ViewModule>
       </PageView>
