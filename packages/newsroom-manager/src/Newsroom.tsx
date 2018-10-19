@@ -325,6 +325,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
               metamaskWalletAddress={this.props.account}
               profileUrl={this.props.profileUrl}
+              helpUrl={this.props.helpUrl}
+              baseUrl={this.props.baseUrl}
               profileAddressSaving={this.props.profileAddressSaving}
               profileWalletAddress={this.props.profileWalletAddress}
               saveAddressToProfile={this.props.saveAddressToProfile}
