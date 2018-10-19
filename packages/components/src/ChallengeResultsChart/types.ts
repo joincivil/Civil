@@ -1,6 +1,7 @@
 import * as React from "react";
 
 export interface ChallengeResultsProps {
+  challengeID?: string;
   totalVotes: string;
   votesFor: string;
   votesAgainst: string;

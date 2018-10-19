@@ -232,8 +232,14 @@ export class Civil {
     return uri;
   }
 
-  public async getContent(header: EthContentHeader): Promise<ContentData> {
-    return this.contentProvider.get(header);
+  public async getContent(header: EthContentHeader): Promise<ContentData | undefined> {
+    try {
+      const content = await this.contentProvider.get(header);
+      return content;
+    } catch (e) {
+      debug(`Resolving Content failed for EthContentHeader: ${header}`, e);
+      return;
+    }
   }
 
   public async currentBlock(): Promise<number> {

@@ -11,6 +11,7 @@ import ListingListItem from "./ListingListItem";
 export interface ListingListItemApolloContainerOwnProps {
   listingAddress: string;
   even: boolean;
+  ListingItemComponent?: any;
 }
 
 export default class ListingListItemApolloContainerComponent extends React.Component<
@@ -35,6 +36,7 @@ export default class ListingListItemApolloContainerComponent extends React.Compo
               newsroom={newsroom}
               listing={listing}
               even={this.props.even}
+              ListingItemComponent={this.props.ListingItemComponent}
               queryData={data}
             />
           );

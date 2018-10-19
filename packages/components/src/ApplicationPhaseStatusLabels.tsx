@@ -2,7 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "./styleConstants";
 
-const StyledBaseStatus = styled.div`
+export const StyledBaseStatus = styled.div`
   background-color: ${colors.primary.BLACK};
   color: ${colors.basic.WHITE};
   display: inline-block;
@@ -14,7 +14,7 @@ const StyledBaseStatus = styled.div`
 `;
 
 const StyledAwaitingStatuslabel = styled(StyledBaseStatus)`
-  background-color: ${colors.accent.CIVIL_GRAY_4};
+  background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
   color: ${colors.primary.BLACK};
 `;
 
