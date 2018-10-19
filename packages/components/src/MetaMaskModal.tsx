@@ -14,7 +14,7 @@ import * as confirmButton from "./images/img-metamask-confirm@2x.png";
 import * as signImage from "./images/img-metamaskmodal-new-signature.png";
 
 const ModalP = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   color: #5f5f5f;
   line-height: 26px;
 `;
@@ -41,6 +41,7 @@ const ContentSectionWrapper = styled.div`
   display: flex;
   flex-direction: ${(props: ContentSectionWrapperProps) => (props.row ? "row" : "column")};
   justify-content: space-between;
+  margin-top: -20px;
 `;
 
 const IB = styled(BorderlessButton)`
@@ -135,8 +136,8 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
       <ModalP> MetaMask will open a new window for you to confirm this transaction with your wallet.</ModalP>
     ) : (
       <ModalP>
-        You need to confirm this transaction in your wallet. MetaMask will open a new window to confirm. If you don't
-        see it, please click the icon{" "}
+        This transaction needs to be confirmed in your wallet. MetaMask will open a new window for you to confirm. If you don't
+        see it, please click the MetaMask{" "}
         <ImgWrapperSmall>
           <MetaMaskSideIcon />
         </ImgWrapperSmall>{" "}
@@ -163,7 +164,7 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
   );
 
   return (
-    <Modal width={560} padding={"32px 26px 0 26px"}>
+    <Modal width={560} padding={"8px 26px 0 26px"}>
       {props.children}
       <ContentSectionWrapper row={props.denied}>
         {paragraph}
