@@ -101,7 +101,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
           Note: this could take a while depending on Ethereum network traffic. You can close this window while the transaction is processing.<br />
         </p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
-          Close
+          OK
         </Button>
       </Modal>
     );
