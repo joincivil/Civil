@@ -31,7 +31,6 @@ export default class NewsroomManagement extends React.Component<NewsroomManageme
         enable={async () => {
           if ((window as any).ethereum) {
             await (window as any).ethereum.enable();
-            console.log("here");
             this.setState({ metamaskEnabled: true });
           }
         }}
