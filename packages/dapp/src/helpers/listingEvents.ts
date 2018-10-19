@@ -99,6 +99,8 @@ export async function getIPFSContent(header: EthContentHeader, dispatch: Dispatc
   if (content) {
     const parsedContent = JSON.parse(content.toString());
     dispatch(addContent(header, parsedContent));
+  } else {
+    console.error("Missing IPFS content for header:", header);
   }
 }
 
