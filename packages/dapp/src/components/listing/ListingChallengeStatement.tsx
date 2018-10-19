@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { State } from "../../reducers";
 import { ListingTabHeading } from "./styledComponents";
 import { getChallengeByListingAddress } from "../../selectors";
+import { NewsroomWrapper, ListingWrapper } from "@joincivil/core";
 
 const StyledChallengeStatementComponent = styled.div`
   margin: 0 0 56px;
@@ -15,7 +16,9 @@ const StyledChallengeStatementSection = styled.div`
 `;
 
 export interface ListingChallengeStatementProps {
-  listing: string;
+  listingAddress: string;
+  newsroom?: NewsroomWrapper;
+  listing?: ListingWrapper;
 }
 
 export interface ListingChallengeStatementReduxProps {

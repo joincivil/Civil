@@ -1,11 +1,11 @@
 import { config } from "./utils";
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
-  const DummyTokenSale = artifacts.require("DummyTokenSale");
+  const DummyContributionProxy = artifacts.require("DummyContributionProxy");
 
   deployer.then(async () => {
     if (!config.nets[network] || !config.nets[network].TokenSaleAddress) {
-      await deployer.deploy(DummyTokenSale, 1);
+      await deployer.deploy(DummyContributionProxy);
     }
   });
 };

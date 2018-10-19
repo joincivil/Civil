@@ -15,13 +15,14 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import * as heroImgUrl from "../images/img-hero-listings.png";
-
+import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
 import ListingList from "./ListingList";
 import { State } from "../../reducers";
 import ListingsInProgress from "./ListingsInProgress";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
+import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 
-const TABS: string[] = ["whitelisted", "under-challenge", "rejected"];
+const TABS: string[] = ["whitelisted", "in-progress", "rejected"];
 
 export interface ListingProps {
   match?: any;
@@ -29,11 +30,11 @@ export interface ListingProps {
 }
 
 export interface ListingReduxProps {
-  whitelistedListings: Set<string>;
   rejectedListings: Set<string>;
   parameters: any;
   error: undefined | string;
   loadingFinished: boolean;
+  useGraphQL: boolean;
 }
 
 class Listings extends React.Component<ListingProps & ListingReduxProps> {
@@ -74,12 +75,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
                   review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
                 </StyledListingCopy>
-                <ListingList listings={this.props.whitelistedListings} />
+                <WhitelistedListingListContainer />
               </StyledPageContent>
             </Tab>
             <Tab title={<ApplicationsInProgressTabText />}>
               <StyledPageContent>
-                <ListingsInProgress />
+                <ListingsInProgress match={this.props.match} history={this.props.history} />
               </StyledPageContent>
             </Tab>
             <Tab title={<RejectedNewsroomsTabText />}>
@@ -88,7 +89,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil
                   Constitution. Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.
                 </StyledListingCopy>
-                <ListingList listings={this.props.rejectedListings} />
+                {this.renderRejectedListings()}
               </StyledPageContent>
             </Tab>
           </Tabs>
@@ -97,6 +98,14 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     );
   }
 
+  private renderRejectedListings = (): JSX.Element => {
+    if (this.props.rejectedListings.count()) {
+      return <ListingList listings={this.props.rejectedListings} />;
+    }
+
+    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
+  };
+
   private onTabChange = (activeIndex: number = 0): void => {
     const tabName = TABS[activeIndex];
     this.props.history.push(`/registry/${tabName}`);
@@ -104,15 +113,15 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { whitelistedListings, rejectedListings, parameters, loadingFinished } = state.networkDependent;
-
+  const { rejectedListings, parameters } = state.networkDependent;
+  const useGraphQL = state.useGraphQL;
   return {
     ...ownProps,
-    whitelistedListings,
     rejectedListings,
     parameters,
     error: undefined,
-    loadingFinished,
+    loadingFinished: true,
+    useGraphQL,
   };
 };
 

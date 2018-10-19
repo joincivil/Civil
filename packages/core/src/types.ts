@@ -74,7 +74,6 @@ export interface CharterData {
   logoUrl: string;
   newsroomUrl: string;
   tagline: string;
-  socialUrls: { [type: string]: string };
   roster: RosterMember[];
   signatures: ConstitutionSignature[];
   mission: {
@@ -84,6 +83,7 @@ export interface CharterData {
     encumbrances: string;
     miscellaneous: string;
   };
+  socialUrls?: { [type: string]: string };
 }
 
 export interface RosterMember {
@@ -91,7 +91,7 @@ export interface RosterMember {
   role: string;
   bio: string;
   ethAddress?: EthAddress;
-  twitterUrl?: string;
+  socialUrls?: { [type: string]: string };
   avatarUrl?: string;
   signature?: string;
 }
@@ -123,7 +123,7 @@ export interface NewsroomWrapper {
 export interface NewsroomData {
   name: string;
   owners: EthAddress[];
-  charter?: NewsroomContent;
+  charterHeader?: EthContentHeader;
 }
 
 export interface ListingWrapper {
