@@ -1,4 +1,4 @@
-import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { ListingWrapper, NewsroomWrapper, ChallengeData } from "@joincivil/core";
 import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 import gql from "graphql-tag";
 
@@ -12,7 +12,27 @@ export const LISTING_QUERY = gql`
       charterUri
       unstakedDeposit
       appExpiry
+      approvalDate
       challengeID
+      challenge {
+        challengeID
+        listingAddress
+        statement
+        rewardPool
+        challenger
+        resolved
+        stake
+        totalTokens
+        poll {
+          commitEndDate
+          revealEndDate
+          voteQuorum
+          votesFor
+          votesAgainst
+        }
+        requestAppealExpiry
+        lastUpdatedDateTs
+      }
     }
   }
 `;
@@ -37,16 +57,38 @@ export function transformGraphQLDataIntoNewsroom(queryData: any, listingAddress:
   };
 }
 export function transformGraphQLDataIntoListing(queryData: any, listingAddress: string): ListingWrapper {
-  const date = Math.round(new Date(queryData.listing.appExpiry).getTime() / 1000);
-
   return {
     address: listingAddress,
     data: {
-      appExpiry: new BigNumber(date),
+      appExpiry: new BigNumber(queryData.listing.appExpiry),
       isWhitelisted: queryData.listing.whitelisted,
       owner: queryData.listing.owner,
       unstakedDeposit: new BigNumber(queryData.listing.unstakedDeposit),
       challengeID: new BigNumber(queryData.listing.challengeID),
+      challenge: transformGraphQLDataIntoChallenge(queryData.listing.challenge),
     },
   };
+}
+
+export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
+  if (queryChallengeData) {
+    return {
+      statement: queryChallengeData.statement,
+      rewardPool: new BigNumber(queryChallengeData.rewardPool),
+      challenger: queryChallengeData.challenger,
+      resolved: queryChallengeData.resolved,
+      stake: new BigNumber(queryChallengeData.stake),
+      totalTokens: new BigNumber(queryChallengeData.totalTokens),
+      poll: {
+        commitEndDate: new BigNumber(queryChallengeData.poll.commitEndDate),
+        revealEndDate: new BigNumber(queryChallengeData.poll.revealEndDate),
+        voteQuorum: new BigNumber(queryChallengeData.poll.voteQuorum),
+        votesFor: new BigNumber(queryChallengeData.poll.votesFor),
+        votesAgainst: new BigNumber(queryChallengeData.poll.votesAgainst),
+      },
+      requestAppealExpiry: new BigNumber(queryChallengeData.requestAppealExpiry),
+    };
+  } else {
+    return undefined;
+  }
 }

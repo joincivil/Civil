@@ -17,6 +17,7 @@ export interface ListingListItemOwnProps {
   listing?: ListingWrapper;
   even: boolean;
   user?: string;
+  queryData?: any;
 }
 
 export interface ListingListItemReduxProps {

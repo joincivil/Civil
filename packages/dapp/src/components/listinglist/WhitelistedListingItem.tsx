@@ -49,6 +49,10 @@ class WhitelistedListingItem extends React.Component<
 
     const newsroomData = newsroom!.data;
     const listingDetailURL = `/listing/${listingAddress}`;
+    let whitelistedTimestamp = this.props.whitelistedTimestamp;
+    if (this.props.queryData) {
+      whitelistedTimestamp = this.props.queryData.listing.approvalDate;
+    }
 
     const ListingSummaryItem = this.props.ListingItemComponent || ListingSummaryApprovedComponent;
 
@@ -68,7 +72,7 @@ class WhitelistedListingItem extends React.Component<
       revealEndDate,
       unstakedDeposit,
       challengeStake,
-      whitelistedTimestamp: this.props.whitelistedTimestamp,
+      whitelistedTimestamp,
     };
 
     return <ListingSummaryItem {...listingViewProps} />;
