@@ -34,7 +34,7 @@ export class ListingSummaryApprovedComponent extends React.Component<ListingSumm
               <UnderChallengeBannerText />
             </StyledUnderChallengeBanner>
           )}
-          <ListingPhaseLabel{...this.props} />
+          <ListingPhaseLabel {...this.props} />
 
           <NewsroomInfo {...this.props} />
 

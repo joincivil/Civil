@@ -11,14 +11,12 @@ import {
   AppealToCouncilTabTitle,
   ChallengeCouncilAppealTabTitle,
   ReadyToUpdateTabTitle,
-  RegistryEmptyIcon,
-  StyledRegistryEmpty,
-  StyledEmptyHeader,
   ListingSummaryUnderChallengeComponent,
   ListingSummaryReadyToUpdateComponent,
 } from "@joincivil/components";
 
 import ListingList from "./ListingList";
+import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { State } from "../../reducers";
 import { StyledListingCopy } from "../utility/styledComponents";
 
@@ -143,12 +141,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingReduxProp
       );
     }
 
-    return (
-      <StyledRegistryEmpty>
-        <StyledEmptyHeader>There are no new applications at this time</StyledEmptyHeader>
-        <RegistryEmptyIcon />
-      </StyledRegistryEmpty>
-    );
+    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.IN_APPLICATION} />;
   };
 
   private renderUnderChallenge = (): JSX.Element => {
@@ -160,12 +153,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingReduxProp
       return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={beingChallenged} />;
     }
 
-    return (
-      <StyledRegistryEmpty>
-        <StyledEmptyHeader>There are no newsrooms under challenge at this time</StyledEmptyHeader>
-        <RegistryEmptyIcon />
-      </StyledRegistryEmpty>
-    );
+    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.UNDER_CHALLENGE} />;
   };
 
   private renderUnderAppeal = (): JSX.Element => {
@@ -177,12 +165,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingReduxProp
       return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={consideringAppeal} />;
     }
 
-    return (
-      <StyledRegistryEmpty>
-        <StyledEmptyHeader>There are no newsrooms under appeal at this time</StyledEmptyHeader>
-        <RegistryEmptyIcon />
-      </StyledRegistryEmpty>
-    );
+    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.UNDER_APPEAL} />;
   };
 
   private renderUnderAppealChallenge = (): JSX.Element => {
@@ -194,12 +177,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingReduxProp
       return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={appealChallenge} />;
     }
 
-    return (
-      <StyledRegistryEmpty>
-        <StyledEmptyHeader>There are no newsrooms with granted appeals under appeal at this time</StyledEmptyHeader>
-        <RegistryEmptyIcon />
-      </StyledRegistryEmpty>
-    );
+    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.UNDER_APPEAL_CHALLENGE} />;
   };
 
   private renderReadyToUpdate = (): JSX.Element => {
@@ -211,12 +189,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingReduxProp
       return <ListingList ListingItemComponent={ListingSummaryReadyToUpdateComponent} listings={readyToUpdate} />;
     }
 
-    return (
-      <StyledRegistryEmpty>
-        <StyledEmptyHeader>There are no newsrooms to update at this time</StyledEmptyHeader>
-        <RegistryEmptyIcon />
-      </StyledRegistryEmpty>
-    );
+    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.READY_TO_UPDATE} />;
   };
 
   private onTabChange = (activeIndex: number = 0): void => {

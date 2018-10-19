@@ -111,12 +111,16 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
   const newsroomData = newsroom!.data;
   const listingDetailURL = `/listing/${listingAddress}`;
   let description = "";
-  if (newsroomData.charter) {
+  if (props.charter) {
     try {
       // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-      description = (newsroomData.charter!.content as any).desc;
+      description = (props.charter!.content as any).desc;
     } catch (ex) {
-      console.error("charter not formatted correctly");
+      try {
+        description = (props.charter as any).desc;
+      } catch (ex1) {
+        console.error("charter not formatted correctly. charter: ", props.charter);
+      }
     }
   }
 

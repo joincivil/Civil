@@ -27,7 +27,7 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
         <StyledListingSummary hasTopPadding={true}>
           {this.renderAppealJudgement()}
 
-          <ListingPhaseLabel{...this.props} />
+          <ListingPhaseLabel {...this.props} />
 
           <NewsroomInfo {...this.props} />
 

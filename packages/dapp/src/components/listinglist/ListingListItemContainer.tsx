@@ -7,6 +7,7 @@ import ListingListItemReduxContainer from "./ListingListItemReduxContainer";
 export interface ListingListItemContainerOwnProps {
   listingAddress: string;
   even: boolean;
+  ListingItemComponent?: any;
 }
 
 export interface ListingListItemContainerReduxProps {
@@ -19,9 +20,21 @@ class ListingListItemContainerComponent extends React.Component<
   public render(): JSX.Element {
     const listingAddress = this.props.listingAddress;
     if (this.props.useGraphQL) {
-      return <ListingListItemApolloContainerComponent listingAddress={listingAddress} even={this.props.even} />;
+      return (
+        <ListingListItemApolloContainerComponent
+          listingAddress={listingAddress}
+          even={this.props.even}
+          ListingItemComponent={this.props.ListingItemComponent}
+        />
+      );
     } else {
-      return <ListingListItemReduxContainer listingAddress={listingAddress} even={this.props.even} />;
+      return (
+        <ListingListItemReduxContainer
+          listingAddress={listingAddress}
+          even={this.props.even}
+          ListingItemComponent={this.props.ListingItemComponent}
+        />
+      );
     }
   }
 }

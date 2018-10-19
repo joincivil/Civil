@@ -1,9 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Link } from "react-router-dom";
 import {
-  ListingSummaryApprovedComponent,
   Hero,
   HomepageHero,
   Tabs,
@@ -13,10 +11,6 @@ import {
   ApprovedNewsroomsTabText,
   ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
-  RegistryEmptyIcon,
-  StyledRegistryEmpty,
-  StyledEmptyHeader,
-  StyledEmptyCopy,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
@@ -26,6 +20,7 @@ import ListingList from "./ListingList";
 import { State } from "../../reducers";
 import ListingsInProgress from "./ListingsInProgress";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
+import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 
 const TABS: string[] = ["whitelisted", "in-progress", "rejected"];
 
@@ -80,6 +75,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
                   review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
                 </StyledListingCopy>
+                <WhitelistedListingListContainer />
               </StyledPageContent>
             </Tab>
             <Tab title={<ApplicationsInProgressTabText />}>
@@ -102,41 +98,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     );
   }
 
-  private renderWhitelistedListings = (): JSX.Element => {
-    if (this.props.whitelistedListings.count()) {
-      return (
-        <WhitelistedListingListContainer />
-        // <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={this.props.whitelistedListings} />
-      );
-    }
-
-    return (
-      <StyledRegistryEmpty>
-        <StyledEmptyHeader>There are no approved newsrooms</StyledEmptyHeader>
-        <StyledEmptyCopy>
-          You can <Link to="/registry/under-challenge">view new applications</Link> or{" "}
-          <Link to="/createNewsroom">apply to join the Civil Registry</Link>
-        </StyledEmptyCopy>
-        <RegistryEmptyIcon />
-      </StyledRegistryEmpty>
-    );
-  };
-
   private renderRejectedListings = (): JSX.Element => {
     if (this.props.rejectedListings.count()) {
       return <ListingList listings={this.props.rejectedListings} />;
     }
 
-    return (
-      <StyledRegistryEmpty>
-        <StyledEmptyHeader>There are no rejected newsrooms</StyledEmptyHeader>
-        <StyledEmptyCopy>
-          You can <Link to="/registry/under-challenge">view new applications</Link> or{" "}
-          <Link to="/createNewsroom">apply to join the Civil Registry</Link>
-        </StyledEmptyCopy>
-        <RegistryEmptyIcon />
-      </StyledRegistryEmpty>
-    );
+    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
   };
 
   private onTabChange = (activeIndex: number = 0): void => {

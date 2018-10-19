@@ -10,7 +10,9 @@ import {
 import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
 
-export const ListingSummaryRejectedComponent: React.SFC<ListingSummaryComponentProps & ChallengeResultsProps> = props => {
+export const ListingSummaryRejectedComponent: React.SFC<
+  ListingSummaryComponentProps & ChallengeResultsProps
+> = props => {
   return (
     <StyledListingSummaryContainer>
       <StyledListingSummary hasTopPadding={true}>

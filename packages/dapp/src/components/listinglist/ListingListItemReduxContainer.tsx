@@ -9,6 +9,7 @@ export interface ListingListItemOwnProps {
   listingAddress?: string;
   even: boolean;
   user?: string;
+  ListingItemComponent?: any;
 }
 
 export interface ListingListItemReduxProps {
@@ -28,6 +29,7 @@ class ListingListItemReduxContainerComponent extends React.Component<
         listing={this.props.listing}
         newsroom={this.props.newsroom}
         even={this.props.even}
+        ListingItemComponent={this.props.ListingItemComponent}
       />
     );
   }
