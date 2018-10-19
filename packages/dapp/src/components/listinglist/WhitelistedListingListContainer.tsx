@@ -9,7 +9,6 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 export interface WhitelistedListingsListContainerReduxProps {
-  whitelistedListings: Set<string>;
   useGraphQL: boolean;
 }
 const LISTINGS_QUERY = gql`
@@ -51,11 +50,9 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
 }
 
 const mapStateToProps = (state: State): WhitelistedListingsListContainerReduxProps => {
-  const { whitelistedListings } = state.networkDependent;
   const useGraphQL = state.useGraphQL;
 
   return {
-    whitelistedListings,
     useGraphQL,
   };
 };

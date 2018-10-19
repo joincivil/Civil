@@ -73,6 +73,11 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
                 <ChallengeDetailContainer
                   challengeID={this.props.listing.data.challengeID}
                   listingAddress={this.props.listing.address}
+                  challengeData={{
+                    listingAddress: this.props.listing.address,
+                    challengeID: this.props.listing.data.challengeID,
+                    challenge: this.props.listing.data.challenge!,
+                  }}
                 />
               )}
           </>

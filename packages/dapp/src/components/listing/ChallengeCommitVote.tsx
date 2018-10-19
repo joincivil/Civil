@@ -54,11 +54,9 @@ class ChallengeCommitVote extends React.Component<ChallengeDetailProps, Challeng
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
-
     if (!challenge) {
       return null;
     }
-
     return (
       <>
         <ChallengeCommitVoteCard
