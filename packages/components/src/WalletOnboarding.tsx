@@ -43,10 +43,6 @@ const LargeishButton = styled(Button)`
   box-sizing: border-box;
   height: 42px;
 `;
-// fix vertical alignment on anchor tag:
-const LargeishLinkButton = styled(LargeishButton)`
-  padding-top: 11px;
-`;
 
 const WalletAddress = styled(AddressWithMetaMaskIcon)`
   margin-bottom: 28px;
@@ -112,15 +108,27 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             </span>
           </p>
           <p>
-            After you've set up MetaMask, you'll receive a wallet address and you'll be able to buy ETH with your bank or credit card. We recommend purchasing USD$50 of ETH to start. Note: Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
+            After you've set up MetaMask, you'll receive a wallet address and you'll be able to buy ETH with your bank
+            or credit card. We recommend purchasing USD$50 of ETH to start. Note: Processing times can vary, and it can
+            take up to 7 days for the ETH to be deposited in your wallet.
           </p>
           <p>
-            You will use your MetaMask wallet to set up and manage your smart contract, as well as sign, index, and archive posts to the Ethereum blockchain. Make sure you've saved your <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">seed phrase</a> from MetaMask in a safe place.
+            You will use your MetaMask wallet to set up and manage your smart contract, as well as sign, index, and
+            archive posts to the Ethereum blockchain. Make sure you've saved your{" "}
+            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
+              seed phrase
+            </a>{" "}
+            from MetaMask in a safe place.
           </p>
 
           <p style={{ fontSize: 13 }}>
             <span style={{ color: "#23282d", fontWeight: 600 }}>Already have a wallet?</span>
-            <span style={{ color: "#72777c", marginLeft: 12 }}>Make sure it's unlocked and connected to the {this.props.requiredNetworkNiceName}, and then <a href="javascript:void(0)" onClick={() => window.location.reload()}>refresh this page</a>.</span>
+            <span style={{ color: "#72777c", marginLeft: 12 }}>
+              Make sure it's unlocked and connected to the {this.props.requiredNetworkNiceName}, and then{" "}
+              <a href="javascript:void(0)" onClick={() => window.location.reload()}>
+                refresh this page
+              </a>.
+            </span>
           </p>
         </Wrapper>
       );

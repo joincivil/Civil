@@ -25,13 +25,13 @@ export class Welcome extends React.Component<WelcomeProps> {
       <>
         <ManagerHeading>Welcome</ManagerHeading>
 
-        <p>Before getting started setting up your newsroom and applying to the Civil Registry, you'll need to take the following steps.</p>
+        <p>
+          Before getting started setting up your newsroom and applying to the Civil Registry, you'll need to take the
+          following steps.
+        </p>
 
         <p>
-          You'll need an Ethereum wallet-enabled browser (<a
-            href="https://www.google.com/chrome/"
-            target="_blank"
-          >
+          You'll need an Ethereum wallet-enabled browser (<a href="https://www.google.com/chrome/" target="_blank">
             Chrome
           </a>,{" "}
           <a href="https://brave.com/" target="_blank">
@@ -53,9 +53,7 @@ export class Welcome extends React.Component<WelcomeProps> {
           to learn more about browsers and wallets.{" "}
         </p>
 
-        <p>
-          Next, you'll create your newsroom smart contract. Have the following information ready before you begin:
-        </p>
+        <p>Next, you'll create your newsroom smart contract. Have the following information ready before you begin:</p>
 
         <ol>
           <li>Your public wallet address - this will be pulled from MetaMask</li>
@@ -71,7 +69,9 @@ export class Welcome extends React.Component<WelcomeProps> {
         </ol>
 
         <p>
-          You’ll be able to use Civil’s blockchain signing and publishing tools once your newsroom smart contract is created. After that, you will complete your Newsroom Application by applying to the Civil Registry. You will create your charter, sign the Civil Constitution and deposit CVL tokens.
+          You’ll be able to use Civil’s blockchain signing and publishing tools once your newsroom smart contract is
+          created. After that, you will complete your Newsroom Application by applying to the Civil Registry. You will
+          create your charter, sign the Civil Constitution and deposit CVL tokens.
         </p>
 
         <MoreDetails>

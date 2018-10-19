@@ -136,8 +136,8 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
       <ModalP> MetaMask will open a new window for you to confirm this transaction with your wallet.</ModalP>
     ) : (
       <ModalP>
-        This transaction needs to be confirmed in your wallet. MetaMask will open a new window for you to confirm. If you don't
-        see it, please click the MetaMask{" "}
+        This transaction needs to be confirmed in your wallet. MetaMask will open a new window for you to confirm. If
+        you don't see it, please click the MetaMask{" "}
         <ImgWrapperSmall>
           <MetaMaskSideIcon />
         </ImgWrapperSmall>{" "}

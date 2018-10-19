@@ -182,7 +182,8 @@ export class NewsroomUserComponent extends React.Component<
         <h2>{message}</h2>
         <p>You have confirmed the transaction in your MetaMask wallet and it is currently processing</p>
         <p>
-          Note: this could take a while depending on traffic on the Ethereum network. You can close this while the transaction is processing.
+          Note: this could take a while depending on traffic on the Ethereum network. You can close this while the
+          transaction is processing.
         </p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           OK
@@ -204,7 +205,8 @@ export class NewsroomUserComponent extends React.Component<
       <Modal textAlign="left">
         <h2>{message}</h2>
         <p>
-          The transaction has completed and the {this.props.type === UserTypes.EDITOR ? "Civil Member" : "Civil Officer"} was removed.
+          The transaction has completed and the{" "}
+          {this.props.type === UserTypes.EDITOR ? "Civil Member" : "Civil Officer"} was removed.
         </p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ completeModalOpen: false })}>
           OK

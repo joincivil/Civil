@@ -169,7 +169,8 @@ class CompleteYourProfileComponent extends React.Component<
         <h2>{message}</h2>
         <p>You have confirmed the transaction in your MetaMask wallet and it is currently processing</p>
         <p>
-          Note, that this could take a while depending on traffic on the Ethereum network. You can close this while the transaction is processing.
+          Note, that this could take a while depending on traffic on the Ethereum network. You can close this while the
+          transaction is processing.
         </p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           OK
@@ -189,8 +190,9 @@ class CompleteYourProfileComponent extends React.Component<
       <Modal textAlign="left">
         <h2>{message}</h2>
         <p>
-          The transaction has completed and the {this.state.addEditor ? "Civil Member" : "Civil Officer"} was added. You can keep
-          adding officers and members to your newsroom smart contract or continue to the next step to create your Registry profile.
+          The transaction has completed and the {this.state.addEditor ? "Civil Member" : "Civil Officer"} was added. You
+          can keep adding officers and members to your newsroom smart contract or continue to the next step to create
+          your Registry profile.
         </p>
         <Button
           size={buttonSizes.MEDIUM_WIDE}

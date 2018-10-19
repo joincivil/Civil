@@ -92,13 +92,19 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     if (!this.state.modalOpen) {
       return null;
     }
-    const message = this.props.address ? "Your name change is processing" : "Your newsroom smart contract is processing";
+    const message = this.props.address
+      ? "Your name change is processing"
+      : "Your newsroom smart contract is processing";
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
-        <p>You have confirmed the transaction in MetaMask{!this.props.address && ", and now computers around the world are learning about your newsroom contract"}.</p>
         <p>
-          Note: this could take a while depending on Ethereum network traffic. You can close this window while the transaction is processing.<br />
+          You have confirmed the transaction in MetaMask{!this.props.address &&
+            ", and now computers around the world are learning about your newsroom contract"}.
+        </p>
+        <p>
+          Note: this could take a while depending on Ethereum network traffic. You can close this window while the
+          transaction is processing.<br />
         </p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           OK
@@ -251,10 +257,12 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <LoadingIndicator height={100} width={150} />
             <h3>Your newsroom smart contract is processing.</h3>
             <p>
-              You have confirmed this transaction in MetaMask, and now computers around the world are learning about your newsroom contract.
+              You have confirmed this transaction in MetaMask, and now computers around the world are learning about
+              your newsroom contract.
             </p>
             <p>
-              Note: this could take a while depending on Ethereum network traffic. You can close this window while the transaction is processing.<br />
+              Note: this could take a while depending on Ethereum network traffic. You can close this window while the
+              transaction is processing.<br />
               <ViewTransactionLink txHash={this.props.txHash!} network={value.requiredNetwork} />
             </p>
           </PendingWrapper>
