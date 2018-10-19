@@ -12,6 +12,7 @@ import {
 import styled from "styled-components";
 import * as metaMaskNetworkSwitchUrl from "./images/img-metamask-networkswitch@2x.png";
 import * as metaMaskLoginUrl from "./images/img-metamask-login@2x.png";
+import { urls } from "../constants";
 
 export interface WalletOnboardingProps {
   noProvider?: boolean;

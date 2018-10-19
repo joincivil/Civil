@@ -65,6 +65,7 @@ export interface NewsroomProps {
   showWalletOnboarding?: boolean;
   showWelcome?: boolean;
   helpUrl?: string;
+  baseUrl?: string;
   profileUrl?: string;
   profileAddressSaving?: boolean;
   owners?: string[];
@@ -315,7 +316,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
-          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} />}
+          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} baseUrl={this.props.baseUrl!} />}
           {this.props.showWalletOnboarding && (
             <WalletOnboarding
               noProvider={!hasInjectedProvider()}
