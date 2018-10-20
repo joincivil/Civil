@@ -16,6 +16,7 @@ export interface StepTopNavProps {
   isCurrent?: boolean;
   startPosition?: number;
   complete?: boolean;
+  disabled?: boolean;
   index?: number;
   children: React.ReactChild;
   renderButtons?(args: RenderButtonsArgs): JSX.Element;
@@ -36,10 +37,11 @@ export interface DotProps {
 export interface StyledLiProps {
   isActive?: boolean;
   isCurrent?: boolean;
+  disabled?: boolean;
 }
 
 const StyledLi = styled<StyledLiProps, "li">("li")`
-  cursor: pointer;
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
   box-sizing: border-box;
   font-family: ${props => props.theme.sansSerifFont};
   font-weight: ${props => (props.isCurrent ? 500 : 300)};
@@ -154,9 +156,10 @@ export class Step extends React.Component<StepTopNavProps, StepState> {
     const tailLength = this.state.dotPosition! - this.props.startPosition!;
     return (
       <StyledLi
-        onClick={() => this.props.onClick!(this.props.index!)}
+        onClick={() => !this.props.disabled && this.props.onClick!(this.props.index!)}
         isActive={this.props.isActive}
         isCurrent={this.props.isCurrent}
+        disabled={this.props.disabled}
       >
         <Dot
           innerRef={(el: HTMLDivElement) => (this.dot = el)}

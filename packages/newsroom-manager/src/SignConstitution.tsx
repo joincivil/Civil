@@ -20,6 +20,7 @@ import { CivilContext, CivilContextValue } from "./CivilContext";
 import { EthSignedMessage, TxHash } from "@joincivil/typescript-types";
 import { IpfsObject } from "./Newsroom";
 import { toBuffer } from "ethereumjs-util";
+import { fetchNewsroom } from "./actionCreators";
 
 const StyledLegalIframe = styled.iframe`
   border-width: 1px;
@@ -302,6 +303,9 @@ class SignConstitutionComponent extends React.Component<
         handleTransactionHash: (hash: TxHash) => {
           this.setState({ isWaitingPublishModalOpen: false });
         },
+        postTransaction: () => {
+          this.props.dispatch!(fetchNewsroom(this.props.newsroomAdress!));
+        },
         handleTransactionError: (err: Error) => {
           this.setState({ isWaitingPublishModalOpen: false });
           if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
@@ -346,7 +350,7 @@ class SignConstitutionComponent extends React.Component<
 
 const mapStateToProps = (state: any, ownProps: SignConstitutionReduxProps): SignConstitutionReduxProps => {
   const { newsroomGovernment } = state;
-  const newsroom = state.newsrooms.get(ownProps.newsroomAdress);
+  const newsroom = state.newsrooms.get(ownProps.newsroomAdress) || {};
 
   return {
     ...ownProps,
