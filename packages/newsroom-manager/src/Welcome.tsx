@@ -4,6 +4,7 @@ import { ManagerHeading, MetaMaskSideIcon } from "@joincivil/components";
 
 export interface WelcomeProps {
   helpUrl: string;
+  helpUrlBase: string;
 }
 
 const IconWrap = styled.span`
@@ -61,7 +62,7 @@ export class Welcome extends React.Component<WelcomeProps> {
           <li>Your public wallet address - this will be pulled from MetaMask</li>
           <li>
             Funds in your wallet - you will need a small amount of Ether (ETH) to pay for{" "}
-            <a href={this.props.helpUrl + "#TODO"} target="_blank">
+            <a href={this.props.helpUrlBase + "articles/360016788791-What-is-Gas-"} target="_blank">
               gas
             </a>{" "}
             fees.{" "}
