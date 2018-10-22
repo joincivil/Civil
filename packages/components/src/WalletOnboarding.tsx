@@ -22,9 +22,9 @@ export interface WalletOnboardingProps {
   profileWalletAddress?: EthAddress;
   profileUrl?: string;
   profileAddressSaving?: boolean;
-  saveAddressToProfile?(): Promise<void>;
   helpUrl?: string;
   helpUrlBase?: string;
+  saveAddressToProfile?(): Promise<void>;
 }
 
 const Wrapper = styled.div`
@@ -105,7 +105,13 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <p>
             You will use your MetaMask wallet to set up and manage your contract, as well as sign and index posts to the
             Ethereum blockchain. Make sure you've backed up your{" "}
-            <a href={this.props.helpUrlBase + "articles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-"} target="_blank">
+            <a
+              href={
+                this.props.helpUrlBase +
+                "articles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-"
+              }
+              target="_blank"
+            >
               seed phrase
             </a>{" "}
             from MetaMask in a safe place.
@@ -169,7 +175,10 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <p>
             Looks like you’re using an unsupported Ethereum network. Make sure you're using the{" "}
             {this.props.requiredNetworkNiceName}.{" "}
-            <a  href={this.props.helpUrlBase + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-"} target="_blank">
+            <a
+              href={this.props.helpUrlBase + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-"}
+              target="_blank"
+            >
               Read this tutorial
             </a>{" "}
             to switch networks in MetaMask <MetaMaskSideIcon />
