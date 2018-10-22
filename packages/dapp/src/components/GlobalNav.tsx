@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../reducers";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, isNetworkSupported } from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
 import {
@@ -26,7 +26,7 @@ export interface NavBarProps {
 }
 
 const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => {
-  const shouldRenderErrorBar = props.network !== "4";
+  const shouldRenderErrorBar = isNetworkSupported(props.network);
   return (
     <>
       <NavBar
