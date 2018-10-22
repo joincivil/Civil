@@ -26,7 +26,7 @@ export interface NavBarProps {
 }
 
 const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => {
-  const shouldRenderErrorBar = isNetworkSupported(props.network);
+  const shouldRenderErrorBar = !isNetworkSupported(props.network);
   return (
     <>
       <NavBar
