@@ -1,5 +1,6 @@
 import { Civil, EthAddress } from "@joincivil/core";
 import { CivilErrors } from "@joincivil/utils";
+import { StyledMainContainer } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -90,27 +91,29 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
 
   public render(): JSX.Element {
     return (
-      <Switch>
-        <Route exact path="/" component={Listings} />
-        <Route path="/registry/:listingType/:subListingType" component={Listings} />
-        <Route path="/registry/:listingType" component={Listings} />
-        <Route path="/registry" component={Listings} />
-        <Route path="/contracts" component={Contracts} />
-        <Route path="/contract/:contract" component={ContractPage} />
-        <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
-        <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
-        <Route path="/listing/:listing/request-appeal" component={RequestAppealPage} />
-        <Route path="/listing/:listing" component={Listing} />
-        <Route path="/editor" component={Editor} />
-        <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
-        <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
-        <Route path="/parameterizer" component={Parameterizer} />
-        <Route path="/createNewsroom" component={CreateNewsroom} />
-        <Route path="/article/:newsroomAddress/:articleId" component={Article} />
-        <Route path="/government" component={Government} />
-        <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
-        <Route path="/dashboard" component={Dashboard} />
-      </Switch>
+      <StyledMainContainer>
+        <Switch>
+          <Route exact path="/" component={Listings} />
+          <Route path="/registry/:listingType/:subListingType" component={Listings} />
+          <Route path="/registry/:listingType" component={Listings} />
+          <Route path="/registry" component={Listings} />
+          <Route path="/contracts" component={Contracts} />
+          <Route path="/contract/:contract" component={ContractPage} />
+          <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
+          <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
+          <Route path="/listing/:listing/request-appeal" component={RequestAppealPage} />
+          <Route path="/listing/:listing" component={Listing} />
+          <Route path="/editor" component={Editor} />
+          <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
+          <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
+          <Route path="/parameterizer" component={Parameterizer} />
+          <Route path="/createNewsroom" component={CreateNewsroom} />
+          <Route path="/article/:newsroomAddress/:articleId" component={Article} />
+          <Route path="/government" component={Government} />
+          <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
+          <Route path="/dashboard" component={Dashboard} />
+        </Switch>
+      </StyledMainContainer>
     );
   }
 }

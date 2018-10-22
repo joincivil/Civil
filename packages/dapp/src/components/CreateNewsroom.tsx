@@ -32,7 +32,7 @@ class CreateNewsroom extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    if ((window as any).ethereum) {
+    if ((window as any).ethereum && (window as any).ethereum.isEnabled) {
       const metamaskEnabled = await (window as any).ethereum.isEnabled();
       this.setState({ metamaskEnabled });
     } else {

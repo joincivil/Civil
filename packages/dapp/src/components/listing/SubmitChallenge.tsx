@@ -4,12 +4,14 @@ import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   Button,
   buttonSizes,
+  InsufficientCVLForChallenge,
   MetaMaskModal,
   Modal,
   ModalHeading,
   ModalContent,
   ModalStepLabel,
   ProgressModalContentInProgress,
+  SnackBar,
   SubmitChallengeStatement as SubmitChallengeStatementComponent,
   SubmitChallengeStatementProps,
 } from "@joincivil/components";
@@ -36,6 +38,7 @@ interface SubmitChallengeReduxProps {
   minDeposit: string;
   commitStageLen: string;
   revealStageLen: string;
+  isInsufficientBalance: boolean;
 }
 
 interface SubmitChallengeState {
@@ -128,6 +131,7 @@ class SubmitChallengeComponent extends React.Component<
       minDeposit,
       commitStageLen,
       revealStageLen,
+      isInsufficientBalance,
     } = this.props;
 
     const props: SubmitChallengeStatementProps = {
@@ -159,6 +163,8 @@ class SubmitChallengeComponent extends React.Component<
 
     return (
       <>
+        {isInsufficientBalance &&
+          minDeposit && <InsufficientBalanceSnackBar minDeposit={minDeposit!} buyCVLURL="https://civil.co" />}
         <SubmitChallengeStatementComponent {...props} />
         <AwaitingTransactionModal {...modalProps} />
         <TransactionProgressModal {...modalProps} />
@@ -348,14 +354,14 @@ const mapStateToProps = (
     newsroomName = newsroom.wrapper.data.name;
   }
 
-  const { parameters, constitution } = state.networkDependent;
+  const { parameters, constitution, user } = state.networkDependent;
   const constitutionURI = constitution.get("uri") || "#";
 
   let minDeposit = "";
   let commitStageLen = "";
   let revealStageLen = "";
+  const civil = getCivil();
   if (parameters && Object.keys(parameters).length) {
-    const civil = getCivil();
     minDeposit = getFormattedParameterValue(
       Parameters.minDeposit,
       civil.toBigNumber(parameters[Parameters.minDeposit]),
@@ -369,6 +375,12 @@ const mapStateToProps = (
       civil.toBigNumber(parameters[Parameters.revealStageLen]),
     );
   }
+  let balance;
+  let isInsufficientBalance = false;
+  if (user) {
+    balance = civil.toBigNumber(user.account.balance);
+    isInsufficientBalance = balance.lt(civil.toBigNumber(parameters[Parameters.minDeposit]));
+  }
 
   return {
     newsroomName,
@@ -376,8 +388,22 @@ const mapStateToProps = (
     minDeposit,
     commitStageLen,
     revealStageLen,
+    isInsufficientBalance,
     ...ownProps,
   };
+};
+
+interface InsufficientBalanceSnackBarProps {
+  buyCVLURL: string;
+  minDeposit: string;
+}
+
+const InsufficientBalanceSnackBar: React.SFC<InsufficientBalanceSnackBarProps> = props => {
+  return (
+    <SnackBar>
+      <InsufficientCVLForChallenge minDeposit={props.minDeposit} buyCVLURL={props.buyCVLURL} />
+    </SnackBar>
+  );
 };
 
 const SubmitChallenge = connect(mapStateToProps)(SubmitChallengeComponent);

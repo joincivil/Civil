@@ -4,6 +4,7 @@ import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   Button,
   buttonSizes,
+  InsufficientCVLForAppeal,
   MetaMaskModal,
   Modal,
   ModalHeading,
@@ -12,6 +13,7 @@ import {
   ProgressModalContentInProgress,
   RequestAppealStatement as RequestAppealStatementComponent,
   RequestAppealStatementProps,
+  SnackBar,
 } from "@joincivil/components";
 import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
@@ -35,6 +37,7 @@ interface RequestAppealReduxProps {
   constitutionURI: string;
   appealFee: string;
   judgeAppealLen: string;
+  isInsufficientBalance: boolean;
 }
 
 interface ProgressModalPropsState {
@@ -118,7 +121,15 @@ class RequestAppealComponent extends React.Component<
       },
     ];
 
-    const { listingURI, newsroomName, constitutionURI, governanceGuideURI, appealFee, judgeAppealLen } = this.props;
+    const {
+      listingURI,
+      newsroomName,
+      constitutionURI,
+      governanceGuideURI,
+      appealFee,
+      judgeAppealLen,
+      isInsufficientBalance,
+    } = this.props;
 
     const props: RequestAppealStatementProps = {
       listingURI,
@@ -148,6 +159,8 @@ class RequestAppealComponent extends React.Component<
 
     return (
       <>
+        {isInsufficientBalance &&
+          appealFee && <InsufficientBalanceSnackBar minDeposit={appealFee} buyCVLURL="https://civil.co" />}
         <RequestAppealStatementComponent {...props} />
         <AwaitingTransactionModal {...modalProps} />
         <TransactionProgressModal {...modalProps} />
@@ -218,6 +231,19 @@ class RequestAppealComponent extends React.Component<
     return appealChallenge(this.props.listingAddress, JSON.stringify(jsonToSave));
   };
 }
+
+interface InsufficientBalanceSnackBarProps {
+  buyCVLURL: string;
+  minDeposit: string;
+}
+
+const InsufficientBalanceSnackBar: React.SFC<InsufficientBalanceSnackBarProps> = props => {
+  return (
+    <SnackBar>
+      <InsufficientCVLForAppeal minDeposit={props.minDeposit} buyCVLURL={props.buyCVLURL} />
+    </SnackBar>
+  );
+};
 
 const AwaitingTransactionModal: React.SFC<ProgressModalPropsState> = props => {
   if (!props.isWaitingTransactionModalOpen) {
@@ -325,13 +351,13 @@ const mapStateToProps = (state: State, ownProps: RequestAppealProps): RequestApp
     newsroomName = newsroom.wrapper.data.name;
   }
 
-  const { govtParameters, constitution } = state.networkDependent;
+  const { govtParameters, constitution, user } = state.networkDependent;
   const constitutionURI = constitution.get("uri") || "#";
 
   let appealFee = "";
   let judgeAppealLen = "";
+  const civil = getCivil();
   if (govtParameters && Object.keys(govtParameters).length) {
-    const civil = getCivil();
     appealFee = getFormattedParameterValue(
       GovernmentParameters.appealFee,
       civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]),
@@ -341,12 +367,19 @@ const mapStateToProps = (state: State, ownProps: RequestAppealProps): RequestApp
       civil.toBigNumber(govtParameters[GovernmentParameters.judgeAppealLen]),
     );
   }
+  let isInsufficientBalance = false;
+  let balance;
+  if (user) {
+    balance = civil.toBigNumber(user.account.balance);
+    isInsufficientBalance = balance.lt(civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]));
+  }
 
   return {
     newsroomName,
     constitutionURI,
     appealFee,
     judgeAppealLen,
+    isInsufficientBalance,
     ...ownProps,
   };
 };
