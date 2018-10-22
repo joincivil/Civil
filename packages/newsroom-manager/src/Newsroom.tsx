@@ -43,6 +43,7 @@ export interface NewsroomComponentState {
   subscription?: any;
   charterPartOneComplete?: boolean;
   charterPartTwoComplete?: boolean;
+  hasPublishedCharter?: boolean;
 }
 
 export interface IpfsObject {
@@ -70,7 +71,11 @@ export interface NewsroomProps {
   owners?: string[];
   editors?: string[];
   newsroomUrl?: string;
+  newsroom?: any;
   logoUrl?: string;
+  metamaskEnabled?: boolean;
+  charterUri?: string;
+  enable(): void;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
   persistCharter?(charter: Partial<CharterData>): Promise<void>;
   saveAddressToProfile?(): Promise<void>;
@@ -212,6 +217,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               />
             </Step>
             <Step
+              disabled={!this.props.address}
               title={"Add accounts"}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
@@ -235,6 +241,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             </Step>
             <Step
               title={"Create Registry profile"}
+              disabled={!this.props.address}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
                   <>
@@ -261,6 +268,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             </Step>
             <Step
               title={"Write your charter"}
+              disabled={!this.props.address && !this.state.charterPartOneComplete}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
                   <>
@@ -283,13 +291,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             </Step>
             <Step
               title={"Sign the Constitution"}
+              disabled={!this.props.address && !this.state.charterPartTwoComplete}
+              complete={!!this.props.charterUri}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
                   <>
                     <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
                       Back
                     </SecondaryButton>
-                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
                       Next
                     </Button>
                   </>
@@ -303,7 +313,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 updateCharter={this.updateCharter}
               />
             </Step>
-            <Step title={"Apply to the Registry"}>
+            <Step title={"Apply to the Registry"} disabled={!this.props.address && !this.props.charterUri}>
               <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
@@ -319,7 +329,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           {this.props.showWalletOnboarding && (
             <WalletOnboarding
               noProvider={!hasInjectedProvider()}
-              walletLocked={this.props.civil && !this.props.account}
+              notEnabled={this.props.civil && !this.props.metamaskEnabled}
+              enable={this.props.enable}
+              walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
               wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
               requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
               metamaskWalletAddress={this.props.account}
@@ -430,7 +442,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       charterPartTwoComplete,
     });
   };
-
   /** Replace even empty string values for newsroom/logo URLs in case user has partially filled charter and later goes in to CMS and sets these values. */
   private defaultCharterValues = (charter: Partial<CharterData>): Partial<CharterData> => {
     const { newsroomUrl, logoUrl } = this.props;
@@ -445,8 +456,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
+  const charterUri = newsroom.wrapper.data.charterHeader && newsroom.wrapper.data.charterHeader.uri;
   return {
     ...ownProps,
+    charterUri,
+    newsroom: newsroom.newsroom,
     name: newsroom.wrapper.data.name,
     owners: newsroom.wrapper.data.owners || [],
     editors: newsroom.editors || [],

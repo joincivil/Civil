@@ -20,6 +20,7 @@ import ListingList from "./ListingList";
 import { State } from "../../reducers";
 import ListingsInProgress from "./ListingsInProgress";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
+import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 
 const TABS: string[] = ["whitelisted", "in-progress", "rejected"];
 
@@ -74,7 +75,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
                   review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
                 </StyledListingCopy>
-
                 <WhitelistedListingListContainer />
               </StyledPageContent>
             </Tab>
@@ -89,7 +89,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil
                   Constitution. Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.
                 </StyledListingCopy>
-                <ListingList listings={this.props.rejectedListings} />
+                {this.renderRejectedListings()}
               </StyledPageContent>
             </Tab>
           </Tabs>
@@ -97,6 +97,14 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
       </>
     );
   }
+
+  private renderRejectedListings = (): JSX.Element => {
+    if (this.props.rejectedListings.count()) {
+      return <ListingList listings={this.props.rejectedListings} />;
+    }
+
+    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
+  };
 
   private onTabChange = (activeIndex: number = 0): void => {
     const tabName = TABS[activeIndex];

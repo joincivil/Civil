@@ -372,10 +372,11 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 
     public render(): JSX.Element | null {
       const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+      const challengeID = this.props.challengeID && this.props.challengeID.toString();
 
       return (
         <>
-          <PresentationComponent {...challengeResultsProps} {...this.props} />
+          <PresentationComponent {...challengeResultsProps} challengeID={challengeID} {...this.props} />
         </>
       );
     }

@@ -1,15 +1,15 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-
+import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { State } from "../../reducers";
 import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
+import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 export interface WhitelistedListingsListContainerReduxProps {
-  whitelistedListings: Set<string>;
   useGraphQL: boolean;
 }
 const LISTINGS_QUERY = gql`
@@ -36,9 +36,14 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
                 return listing.contractAddress.toLowerCase();
               }),
             );
+
+            if (!map.count()) {
+              return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
+            }
+
             return (
               <>
-                <ListingList listings={map} />
+                <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={map} />
               </>
             );
           }}
@@ -51,11 +56,9 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
 }
 
 const mapStateToProps = (state: State): WhitelistedListingsListContainerReduxProps => {
-  const { whitelistedListings } = state.networkDependent;
   const useGraphQL = state.useGraphQL;
 
   return {
-    whitelistedListings,
     useGraphQL,
   };
 };

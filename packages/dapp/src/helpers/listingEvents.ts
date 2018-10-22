@@ -95,11 +95,13 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
 
 export async function getIPFSContent(header: EthContentHeader, dispatch: Dispatch<any>): Promise<void> {
   const civil = getCivil();
-  console.log("getIPFSContent");
   const content = await civil.getContent(header);
-  console.log("got it: ", content);
-  const parsedContent = JSON.parse(content.toString());
-  dispatch(addContent(header, parsedContent));
+  if (content) {
+    const parsedContent = JSON.parse(content.toString());
+    dispatch(addContent(header, parsedContent));
+  } else {
+    console.error("Missing IPFS content for header:", header);
+  }
 }
 
 function setupListingCallback(listing: ListingWrapper, dispatch: Dispatch<any>): void {

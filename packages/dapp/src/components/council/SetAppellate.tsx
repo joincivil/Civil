@@ -46,7 +46,6 @@ export class SetAppellate extends React.Component<{}, SetAppellateState> {
 
   // @TODO(jon): This would probably be a nice place for a confirm dialog
   private setAppellate = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    console.log("address length: ", this.state.newValue.length);
     if (this.state.newValue.length !== 42) {
       throw new Error("oops. the address was not set correctly.");
     }

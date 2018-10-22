@@ -24,6 +24,7 @@ storiesOf("StepProcessTopNav", module)
         </Step>
         <Step
           title={"Step 2"}
+          disabled={true}
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>

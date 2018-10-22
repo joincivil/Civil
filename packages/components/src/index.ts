@@ -44,3 +44,4 @@ export * from "./Parameterizer";
 export * from "./UserStatement";
 export * from "./MetaMaskLogoButton";
 export * from "./ProgressModalContent";
+export * from "./RegistryEmpty";

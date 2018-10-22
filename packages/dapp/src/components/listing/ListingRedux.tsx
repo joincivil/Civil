@@ -43,13 +43,15 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
       this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
     }
     if (this.props.newsroom) {
-      console.log("GET CHARTER");
       this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
     }
   }
 
   public async componentDidMount(): Promise<void> {
     this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress));
+    if (this.props.newsroom) {
+      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+    }
   }
 
   public render(): JSX.Element {
@@ -153,12 +155,10 @@ const makeMapStateToProps = () => {
       charter = content.get(newsroom.data.charterHeader);
     }
     const expiry = getListingExpiry(state, ownProps);
-    console.log("expiry: ", expiry);
     const listingPhaseState = getListingPhaseState(ownProps.listing);
-    console.log("listingPhaseState: ", listingPhaseState);
     return {
       ...ownProps,
-      expiry: undefined,
+      expiry,
       listingDataRequestStatus,
       listingPhaseState,
       isUserNewsroomOwner: getIsUserNewsroomOwner(newsroom, user),

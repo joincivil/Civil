@@ -51,7 +51,7 @@ export class ProgressBarCountdownTimerComponent extends React.Component<
     if (this.props.secondsRemaining! > 0) {
       return (
         <MetaItem>
-          <MetaItemValueAccent>{getReadableDuration(this.props.secondsRemaining!)}</MetaItemValueAccent>
+          <MetaItemValueAccent>{getReadableDuration(this.props.secondsRemaining!, ["second"])}</MetaItemValueAccent>
           <MetaItemLabel>Remaining</MetaItemLabel>
         </MetaItem>
       );
