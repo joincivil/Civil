@@ -3,7 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { NavLink } from "./NavLink";
 import { NavDropDown } from "./NavDropDown";
-import { NavDrawerComponent } from "./NavDrawer";
+import { NavDrawer } from "./NavDrawer";
 import { CivilLogo } from "../CivilLogo";
 import { CvlToken } from "../icons/CvlToken";
 import {
@@ -227,8 +227,8 @@ export class NavBar extends React.Component<NavProps, NavState> {
               </AvatarContainer>
             </NavUser>
           </NavInner>
-          {this.state.isOpen ? (
-            <NavDrawerComponent
+          {this.state.isOpen && (
+            <NavDrawer
               balance={this.props.balance}
               votingBalance={this.props.votingBalance}
               userAccount={this.props.userAccount}
@@ -240,7 +240,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
               useGraphQL={this.props.useGraphQL}
               onLoadingPrefToggled={this.props.onLoadingPrefToggled}
             />
-          ) : null}
+          )}
         </NavOuter>
       </NavContainer>
     );

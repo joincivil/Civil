@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { Button, buttonSizes } from "../Button";
@@ -20,12 +21,15 @@ import {
 import { QuestionToolTip } from "../QuestionToolTip";
 import { LoadingPrefToggle } from "./LoadingPrefToggle";
 
-const NavDrawer = styled.div`
+const StyledNavDrawer = styled.div`
   background-color: ${colors.primary.BLACK};
-  right: 0;
+  bottom: 0;
   min-height: 100%;
-  position: absolute;
+  position: fixed;
+  overflow-y: scroll;
+  padding-bottom: 100px;
   top: 62px;
+  right: 0;
   width: 275px;
   z-index: 1;
   * {
@@ -124,10 +128,10 @@ export interface NavDrawerProps {
   onLoadingPrefToggled(): void;
 }
 
-export class NavDrawerComponent extends React.Component<NavDrawerProps> {
+class NavDrawerComponent extends React.Component<NavDrawerProps> {
   public render(): JSX.Element {
     return (
-      <NavDrawer>
+      <StyledNavDrawer>
         <NavDrawerSection>
           <NavDrawerSectionHeader>
             <NavDrawerUserAddessText />
@@ -197,7 +201,7 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
             <NavDrawerPill>{this.props.userChallengesVotedOnCount || 0}</NavDrawerPill>
           </NavDrawerRow>
         </NavDrawerSection>
-      </NavDrawer>
+      </StyledNavDrawer>
     );
   }
 
@@ -210,4 +214,20 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
     document.execCommand("copy");
     textArea.remove();
   };
+}
+
+export class NavDrawer extends React.Component<NavDrawerProps> {
+  public bucket: HTMLDivElement = document.createElement("div");
+
+  public componentDidMount(): void {
+    document.body.appendChild(this.bucket);
+  }
+
+  public componentWillUnmount(): void {
+    document.body.removeChild(this.bucket);
+  }
+
+  public render(): React.ReactPortal {
+    return ReactDOM.createPortal(<NavDrawerComponent {...this.props} />, this.bucket);
+  }
 }
