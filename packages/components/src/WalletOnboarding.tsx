@@ -22,6 +22,8 @@ export interface WalletOnboardingProps {
   profileWalletAddress?: EthAddress;
   profileUrl?: string;
   profileAddressSaving?: boolean;
+  helpUrl?: string;
+  helpUrlBase?: string;
   notEnabled?: boolean;
   enable(): void;
   saveAddressToProfile?(): Promise<void>;
@@ -90,7 +92,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
               MetaMask
             </a>{" "}
             <MetaMaskSideIcon /> to manage your transactions.{" "}
-            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
+            <a href={this.props.helpUrl} target="_blank">
               Read this FAQ
             </a>.
           </p>
@@ -117,7 +119,13 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <p>
             You will use your MetaMask wallet to set up and manage your smart contract, as well as sign, index, and
             archive posts to the Ethereum blockchain. Make sure you've saved your{" "}
-            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
+            <a
+              href={
+                this.props.helpUrlBase +
+                "articles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-"
+              }
+              target="_blank"
+            >
               seed phrase
             </a>{" "}
             from MetaMask in a safe place.
@@ -154,7 +162,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <p>
             Please open the MetaMask extension and follow the instructions to log in to your wallet. After you are
             logged in, you can continue with your newsroom smart contract.{" "}
-            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
+            <a href={this.props.helpUrl} target="_blank">
               Need help?
             </a>
           </p>
@@ -174,7 +182,10 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <p>
             Looks like you’re using an unsupported Ethereum network. Make sure you're using the{" "}
             {this.props.requiredNetworkNiceName}.{" "}
-            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
+            <a
+              href={this.props.helpUrlBase + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-"}
+              target="_blank"
+            >
               Read this tutorial
             </a>{" "}
             to switch networks in MetaMask <MetaMaskSideIcon />
