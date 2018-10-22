@@ -16,6 +16,7 @@ import {
   NavLinkWhitePaperText,
   NavLinkDashboardText,
 } from "./textComponents";
+import { Button, buttonSizes } from "../Button";
 
 export interface NavProps {
   balance: string;
@@ -26,6 +27,9 @@ export interface NavProps {
   userChallengesStartedCount?: number;
   userChallengesVotedOnCount?: number;
   buyCvlUrl?: string;
+  useGraphQL: boolean;
+  onLogin?(): void;
+  onLoadingPrefToggled(): void;
 }
 
 export interface NavState {
@@ -141,6 +145,10 @@ const Arrow: StyledComponentClass<NavArrowProps, "div"> = styled<NavArrowProps, 
   width: 8px;
 `;
 
+const LogInButton = styled(Button)`
+  margin-left: 10px;
+`;
+
 export class NavBar extends React.Component<NavProps, NavState> {
   constructor(props: NavProps) {
     super(props);
@@ -149,6 +157,21 @@ export class NavBar extends React.Component<NavProps, NavState> {
   }
 
   public render(): JSX.Element {
+    let accountInfo = (
+      <span>
+        <UserCvlBalance>{this.props.balance}</UserCvlBalance>
+        <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
+      </span>
+    );
+    if (!this.props.userAccount) {
+      accountInfo = (
+        <>
+          <LogInButton onClick={this.props.onLogin} size={buttonSizes.SMALL}>
+            Log In
+          </LogInButton>
+        </>
+      );
+    }
     return (
       <NavOuter>
         <NavLogo>
@@ -188,10 +211,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
           <NavUser onClick={ev => this.toggle()}>
             <CvlContainer>
               <CvlToken />
-              <span>
-                <UserCvlBalance>{this.props.balance}</UserCvlBalance>
-                <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
-              </span>
+              {accountInfo}
             </CvlContainer>
             <AvatarContainer>
               <UserAvatar />
@@ -209,6 +229,8 @@ export class NavBar extends React.Component<NavProps, NavState> {
             userChallengesStartedCount={this.props.userChallengesStartedCount}
             userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
             buyCvlUrl={this.props.buyCvlUrl}
+            useGraphQL={this.props.useGraphQL}
+            onLoadingPrefToggled={this.props.onLoadingPrefToggled}
           />
         ) : null}
       </NavOuter>

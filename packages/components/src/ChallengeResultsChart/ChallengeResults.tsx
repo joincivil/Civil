@@ -7,7 +7,6 @@ import {
   VoteTypeSummaryContainer,
   VotesPerTokenContainer,
   VotesPerTokenCount,
-  BreakdownBarContainer,
   VotesPerTokenTotal,
 } from "./styledComponents";
 import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
@@ -26,9 +25,10 @@ const StyledInner = styled.div`
 
 const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = props => {
   const Header = props.styledHeaderComponent || DefaultHeader;
+  const defaultHeaderText = props.challengeID ? `Challenge ${props.challengeID} Results` : "Challenge Results";
   return (
     <>
-      {!props.noHeader && <Header>{props.headerText || "Challenge Results"}</Header>}
+      {!props.noHeader && <Header>{props.headerText || defaultHeaderText}</Header>}
       {props.noHeader && <StyledInner />}
 
       <VoteTypeSummaryContainer>
@@ -53,10 +53,6 @@ const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = p
             <VotesPerTokenTotal>Total Votes</VotesPerTokenTotal>
             <VotesPerTokenCount>{props.totalVotes}</VotesPerTokenCount>
           </VotesPerTokenContainer>
-
-          <BreakdownBarContainer>
-            <a href="#">Read more details</a>
-          </BreakdownBarContainer>
         </VoteTypeSummary>
       </VoteTypeSummaryContainer>
     </>

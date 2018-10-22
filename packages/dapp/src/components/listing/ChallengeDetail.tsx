@@ -29,7 +29,6 @@ import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import BigNumber from "bignumber.js";
 import { State } from "../../reducers";
 import {
-  makeGetChallenge,
   makeGetChallengeState,
   makeGetAppealChallengeState,
   makeGetListingAddressByChallengeID,
@@ -69,6 +68,7 @@ const StyledChallengeResults = styled.div`
 
 export interface ChallengeDetailContainerProps {
   listingAddress: EthAddress;
+  challengeData?: WrappedChallengeData;
   challengeID: BigNumber;
   appealChallengeID?: BigNumber;
   showNotFoundMessage?: boolean;
@@ -77,7 +77,6 @@ export interface ChallengeDetailContainerProps {
 
 export interface ChallengeContainerReduxProps {
   newsroom?: NewsroomWrapper;
-  challengeData?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
   challengeDataRequestStatus?: any;
@@ -330,7 +329,6 @@ class ChallengeContainer extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getChallenge = makeGetChallenge();
   const getChallengeState = makeGetChallengeState();
   const getAppealChallengeState = makeGetAppealChallengeState();
   const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
@@ -349,7 +347,7 @@ const makeMapStateToProps = () => {
       councilMultisigTransactions,
     } = state.networkDependent;
     let txIdToConfirm;
-    const challengeData = getChallenge(state, ownProps);
+    const challengeData = ownProps.challengeData;
     if (challengeData && challengeData.challenge && challengeData.challenge.appeal) {
       const txData = challengeData.challenge.appeal.appealTxData.data!;
       const key = txData.substring(0, 74);

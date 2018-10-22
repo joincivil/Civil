@@ -59,6 +59,7 @@ export interface ListingDetailHeaderProps {
   newsroomName: string;
   newsroomDescription: string;
   registryURL?: string;
+  registryLinkText?: string;
   owner: string;
   unstakedDeposit: string;
   isWhitelisted?: boolean;
@@ -106,38 +107,16 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
     );
   }
 
-  private renderRegistryLink(): JSX.Element {
-    let urlArg = "";
-    let label = "Registry";
-    if (this.props.registryURL) {
-      if (this.props.isWhitelisted) {
-        urlArg = "whitelisted";
-        label = "Whitelisted Newsrooms";
-      } else if (
-        this.props.inChallengeCommitVotePhase ||
-        this.props.isInAppealChallengeCommitPhase ||
-        this.props.inChallengeRevealPhase ||
-        this.props.isAwaitingAppealChallenge ||
-        this.props.isInAppealChallengeRevealPhase ||
-        this.props.canBeWhitelisted ||
-        this.props.canResolveChallenge ||
-        this.props.canListingAppealChallengeBeResolved
-      ) {
-        urlArg = "under-challenge";
-        label = "Newsrooms Under Challenge";
-      } else if (this.props.isRejected) {
-        urlArg = "rejected";
-        label = "Rejected Newsrooms";
-      }
-
-      const url = `${this.props.registryURL}/${urlArg}`;
-      return (
-        <StyledRegistryLinkContainer>
-          <Link to={url}>&lt; Back to {label}</Link>
-        </StyledRegistryLinkContainer>
-      );
+  private renderRegistryLink(): JSX.Element | undefined {
+    if (!this.props.registryURL) {
+      return;
     }
-    return <></>;
+    const label = this.props.registryLinkText || "Registry";
+    return (
+      <StyledRegistryLinkContainer>
+        <Link to={this.props.registryURL}>&lt; Back to {label}</Link>
+      </StyledRegistryLinkContainer>
+    );
   }
 
   private renderPhaseLabel = (): JSX.Element | undefined => {

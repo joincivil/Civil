@@ -1,16 +1,24 @@
 import * as React from "react";
+import styled, { StyledComponentClass } from "styled-components";
 import { getLocalDateTimeStrings, getReadableDuration } from "@joincivil/utils";
 import { colors, fonts } from "../styleConstants";
-import styled, { StyledComponentClass } from "styled-components";
+import { ClockIcon } from "../icons";
 import { CountdownTimerProps, InjectedCountdownTimerProps } from "./types";
 
 const StyledCountdownTimerContainer = styled.div`
-  font: normal 16px/19px ${fonts.SANS_SERIF};
+  display: flex;
+  font: normal 14px/17px ${fonts.SANS_SERIF};
   margin: 0 0 16px;
 `;
 
+const StyledDurationContainer = styled.span`
+  color: ${colors.accent.CIVIL_BLUE};
+`;
+const StyledIconContainer = styled.span`
+  margin-right: 12px;
+`;
 const StyledCountdownLabel = styled.span`
-  color: ${colors.primary.BLACK};
+  color: ${colors.accent.CIVIL_BLUE};
 `;
 const StyledCountdownLabelWarn = styled(StyledCountdownLabel)`
   color: ${colors.accent.CIVIL_RED};
@@ -32,9 +40,15 @@ export class TextCountdownTimerComponent extends React.Component<CountdownTimerP
     }
     return (
       <StyledCountdownTimerContainer>
-        {label}
-        {this.renderReadableTimeRemaining()}
-        {this.renderExpiry()}
+        <StyledIconContainer>
+          <ClockIcon />
+        </StyledIconContainer>
+        <div>
+          <StyledDurationContainer>
+            {label} {this.renderReadableTimeRemaining()}
+          </StyledDurationContainer>
+          {this.renderExpiry()}
+        </div>
       </StyledCountdownTimerContainer>
     );
   }
@@ -43,7 +57,7 @@ export class TextCountdownTimerComponent extends React.Component<CountdownTimerP
     const [expiryDateString, expiryTimeString] = getLocalDateTimeStrings(this.props.endTime);
     return (
       <StyledExpiry>
-        <b>{expiryDateString}</b>&nbsp;{expiryTimeString}
+        {expiryDateString} at {expiryTimeString}
       </StyledExpiry>
     );
   };
@@ -52,10 +66,10 @@ export class TextCountdownTimerComponent extends React.Component<CountdownTimerP
     if (this.props.warn) {
       return (
         <StyledCountdownLabelWarn>
-          <b>{getReadableDuration(this.props.secondsRemaining!)}</b>
+          <b>{getReadableDuration(this.props.secondsRemaining!, ["second"])}</b>
         </StyledCountdownLabelWarn>
       );
     }
-    return <b>{getReadableDuration(this.props.secondsRemaining!)}</b>;
+    return <b>{getReadableDuration(this.props.secondsRemaining!, ["second"])}</b>;
   };
 }

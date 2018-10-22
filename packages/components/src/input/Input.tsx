@@ -27,7 +27,7 @@ export interface InputBaseProps {
   inputRef?: string;
   invalid?: boolean;
   disabled?: boolean;
-  errorMessage?: string;
+  invalidMessage?: string;
   name: string;
   value?: string;
   placeholder?: string;
@@ -40,10 +40,10 @@ export interface InputBaseProps {
 }
 
 const InputBaseWrapperComponent: React.StatelessComponent<InputBaseProps> = props => {
-  const { icon, className, label, noLabel, invalid, errorMessage } = props;
+  const { icon, className, label, noLabel, invalid, invalidMessage } = props;
   return (
     <div className={`${invalid ? "civil-input-error" : ""} ${className}`}>
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {invalid && invalidMessage && <ErrorMessage>{invalidMessage}</ErrorMessage>}
       {icon ? <InputIcon>{icon}</InputIcon> : null}
       {props.children}
       {!noLabel && <InputLabel>{label || props.placeholder}</InputLabel>}
@@ -52,7 +52,7 @@ const InputBaseWrapperComponent: React.StatelessComponent<InputBaseProps> = prop
 };
 
 const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
-  const { onChange, inputRef, invalid, noLabel, errorMessage, ...inputProps } = props;
+  const { onChange, inputRef, invalid, noLabel, invalidMessage, ...inputProps } = props;
   let cb;
   if (onChange) {
     cb = (ev: any) => onChange(props.name, ev.target.value);
@@ -121,7 +121,7 @@ export interface InputProps {
   className?: string;
   invalid?: boolean;
   disabled?: boolean;
-  errorMessage?: string;
+  invalidMessage?: string;
   noLabel?: boolean;
   readOnly?: boolean;
   onKeyPress?(ev: any): void;
