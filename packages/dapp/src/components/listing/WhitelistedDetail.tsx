@@ -2,8 +2,8 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { EthAddress } from "@joincivil/core";
 import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
-import { State } from "../../reducers";
-import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
+import { State } from "../../redux/reducers";
+import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingContainerProps } from "../utility/HigherOrderComponents";
 

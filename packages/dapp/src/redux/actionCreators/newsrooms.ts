@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { EthAddress, EthContentHeader, ContentData } from "@joincivil/core";
-import { getIPFSContent } from "../helpers/listingEvents";
+import { getIPFSContent } from "../../helpers/listingEvents";
 
 export enum newsroomActions {
   ADD_USER_NEWSROOM = "ADD_USER_NEWSROOM",

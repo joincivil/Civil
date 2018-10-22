@@ -3,8 +3,8 @@ import { List } from "immutable";
 import { Dispatch } from "react-redux";
 import { AnyAction } from "redux";
 import { Subscription } from "rxjs";
-import { getTCR } from "../helpers/civilInstance";
-import { getNewsroom } from "../helpers/listingEvents";
+import { getTCR } from "../../helpers/civilInstance";
+import { getNewsroom } from "../../helpers/listingEvents";
 import { addChallenge } from "./challenges";
 import BigNumber from "bignumber.js";
 

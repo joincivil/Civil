@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { connect, DispatchProp } from "react-redux";
 import { PageView, ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { SetAppellate } from "./SetAppellate";

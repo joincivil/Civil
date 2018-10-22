@@ -4,8 +4,8 @@ import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
-import { setNetwork, setNetworkName } from "../actionCreators/network";
-import { addUser } from "../actionCreators/userAccount";
+import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
+import { addUser } from "../redux/actionCreators/userAccount";
 import { getCivil } from "../helpers/civilInstance";
 import {
   initializeGovernment,

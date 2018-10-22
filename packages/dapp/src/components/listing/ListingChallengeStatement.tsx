@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import * as sanitizeHtml from "sanitize-html";
 import styled from "styled-components";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { ListingTabHeading } from "./styledComponents";
 import { getChallengeByListingAddress } from "../../selectors";
 import { NewsroomWrapper, ListingWrapper } from "@joincivil/core";

@@ -16,7 +16,7 @@ import {
 import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForAppeal, appealChallenge } from "../../apis/civilTCR";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 
 export interface RequestAppealPageProps {
   match: any;

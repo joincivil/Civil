@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Set } from "immutable";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";

@@ -1,8 +1,8 @@
 import { AnyAction } from "redux";
 import { Dispatch } from "react-redux";
-import { getTCR } from "../helpers/civilInstance";
+import { getTCR } from "../../helpers/civilInstance";
 import { ParamPropChallengeData } from "@joincivil/core";
-import { ensureWeb3BigNumber } from "../apis/civilTCR";
+import { ensureWeb3BigNumber } from "../../apis/civilTCR";
 
 export enum parameterizerActions {
   ADD_OR_UPDATE_PROPOSAL = "ADD_OR_UPDATE_PROPOSAL",

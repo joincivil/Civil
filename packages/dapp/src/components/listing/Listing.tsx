@@ -1,7 +1,7 @@
 import * as React from "react";
 import ListingReduxContainer from "./ListingReduxContainer";
 import ListingRedux from "./ListingRedux";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { connect } from "react-redux";
 import { Query } from "react-apollo";
 import { EthAddress, ListingWrapper } from "@joincivil/core";

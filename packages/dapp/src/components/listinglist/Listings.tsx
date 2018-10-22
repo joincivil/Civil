@@ -17,7 +17,7 @@ import { getCivil } from "../../helpers/civilInstance";
 import * as heroImgUrl from "../images/img-hero-listings.png";
 import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
 import ListingList from "./ListingList";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import ListingsInProgress from "./ListingsInProgress";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";

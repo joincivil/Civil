@@ -6,7 +6,7 @@ import { Set } from "immutable";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { StyledDashboardActivityDescription, TransactionButton, InputGroup } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { getUserChallengesWithRescueTokens } from "../../selectors";
 import { withdrawVotingRights } from "../../apis/civilTCR";
 import { FormGroup } from "../utility/FormElements";

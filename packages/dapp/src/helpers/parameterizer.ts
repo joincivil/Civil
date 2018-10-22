@@ -6,7 +6,7 @@ import {
   addOrUpdateProposal,
   checkAndUpdateParameterProposalState,
   multiSetParameters,
-} from "../actionCreators/parameterizer";
+} from "../redux/actionCreators/parameterizer";
 import { getParameterValues } from "../apis/civilTCR";
 import { getTCR } from "./civilInstance";
 

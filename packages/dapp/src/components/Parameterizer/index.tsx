@@ -38,7 +38,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import ListingDiscourse from "../listing/ListingDiscourse";
 import {
   approveForProposeReparameterization,

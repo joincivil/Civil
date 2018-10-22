@@ -6,7 +6,7 @@ import { ListingSummaryApprovedComponent } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 
 export interface WhitelistedListingsListReduxReduxProps {
   whitelistedListings: Set<string>;

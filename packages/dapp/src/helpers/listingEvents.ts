@@ -9,9 +9,9 @@ import {
   addUserAppealChallengeData,
   addUserChallengeData,
   addUserChallengeStarted,
-} from "../actionCreators/challenges";
-import { addListing, setLoadingFinished } from "../actionCreators/listings";
-import { addUserNewsroom, addContent } from "../actionCreators/newsrooms";
+} from "../redux/actionCreators/challenges";
+import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
+import { addUserNewsroom, addContent } from "../redux/actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
 
 const listingTimeouts = new Map<string, number>();

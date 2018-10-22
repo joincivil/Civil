@@ -9,7 +9,7 @@ import {
   setController,
   setAppellateMembers,
   addCouncilMultisigTransaction,
-} from "../actionCreators/government";
+} from "../redux/actionCreators/government";
 import { getGovernmentParameters } from "../apis/civilTCR";
 import { getCivil, getTCR } from "./civilInstance";
 import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";

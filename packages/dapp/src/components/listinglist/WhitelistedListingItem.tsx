@@ -2,8 +2,8 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { State } from "../../reducers";
-import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
+import { State } from "../../redux/reducers";
+import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
 
