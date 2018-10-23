@@ -94,7 +94,7 @@ export enum GovernmentParameters {
 
 export const supportedNetworks: number[] = [
   3, // rinkeby
-  50 // ganache
+  50, // ganache
 ];
 
 export function isNetworkSupported(network: string | number): boolean {
