@@ -11,7 +11,8 @@ export interface ComponentProps {
 export const SectionHeader = styled<ComponentProps, "h4">("h4")`
   font-family: ${props => props.theme.sansSerifFont};
   font-weight: ${props => (props.active ? props.theme.stepHeaderWeightHeavy : props.theme.stepHeaderWeightLight)};
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
   margin-top: 0;
   margin-bottom: 15px;
   color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : "#000")};

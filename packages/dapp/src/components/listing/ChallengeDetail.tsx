@@ -27,7 +27,7 @@ import ChallengeCommitVote from "./ChallengeCommitVote";
 import ChallengeRevealVote from "./ChallengeRevealVote";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import BigNumber from "bignumber.js";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import {
   makeGetChallengeState,
   makeGetAppealChallengeState,
@@ -37,7 +37,7 @@ import {
   getNewsroom,
   getIsMemberOfAppellate,
 } from "../../selectors";
-import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
+import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 import { fetchSalt } from "../../helpers/salt";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
 import { fetchVote } from "../../helpers/vote";

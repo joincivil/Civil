@@ -22,6 +22,8 @@ export interface WalletOnboardingProps {
   profileWalletAddress?: EthAddress;
   profileUrl?: string;
   profileAddressSaving?: boolean;
+  helpUrl?: string;
+  helpUrlBase?: string;
   notEnabled?: boolean;
   enable(): void;
   saveAddressToProfile?(): Promise<void>;
@@ -44,10 +46,6 @@ const Wrapper = styled.div`
 const LargeishButton = styled(Button)`
   box-sizing: border-box;
   height: 42px;
-`;
-// fix vertical alignment on anchor tag:
-const LargeishLinkButton = styled(LargeishButton)`
-  padding-top: 11px;
 `;
 
 const WalletAddress = styled(AddressWithMetaMaskIcon)`
@@ -89,56 +87,59 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
         <Wrapper>
           <ManagerSectionHeading>It looks like you aren’t logged in to your wallet</ManagerSectionHeading>
           <p>
-            New to this, or don't have a wallet? Having a wallet is mandatory and we recommend{" "}
+            New to using a digital wallet? Having a wallet is mandatory and we recommend{" "}
             <a href="https://metamask.io/" target="_blank">
               MetaMask
             </a>{" "}
-            <MetaMaskSideIcon /> to set up and fund your wallet.{" "}
-            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
+            <MetaMaskSideIcon /> to manage your transactions.{" "}
+            <a href={this.props.helpUrl} target="_blank">
               Read this FAQ
             </a>.
           </p>
           <p>
-            MetaMask will create a wallet address and you’ll be able to buy Ether (ETH) with your bank or credit card,
-            to cover fees. Processing times can vary (up to 7 days) and we recommend having $50 USD to start.
-          </p>
-          <p>
-            You will use your MetaMask wallet to set up and manage your contract, as well as sign and index posts to the
-            Ethereum blockchain. Make sure you've backed up your{" "}
-            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
-              seed phrase
-            </a>{" "}
-            from MetaMask in a safe place.
-          </p>
-
-          <div style={{ display: "inline-block" }}>
-            <ManagerSectionHeading>MetaMask Wallet</ManagerSectionHeading>
-            <p>
-              <LargeishLinkButton size={buttonSizes.MEDIUM_WIDE} href="https://metamask.io/" target="_blank">
-                Open MetaMask.io{" "}
-                <ArrowWrap>
-                  <NorthEastArrow />
-                </ArrowWrap>
-              </LargeishLinkButton>
-            </p>
-            <p>
+            <Button size={buttonSizes.MEDIUM_WIDE} href="https://metamask.io/" target="_blank">
+              Open MetaMask.io{" "}
+              <ArrowWrap>
+                <NorthEastArrow />
+              </ArrowWrap>
+            </Button>
+            <span style={{ fontSize: 13, marginLeft: 16 }}>
               Once the extension is installed,{" "}
               <a href="javascript:void(0)" onClick={() => window.location.reload()}>
                 refresh this page
               </a>
               .
-            </p>
-          </div>
-          <div style={{ display: "inline-block", float: "right", maxWidth: "240px" }}>
-            <p style={{ color: "#23282d", marginBottom: "-10px" }}>Already have a wallet?</p>
-            <p style={{ color: "#72777c" }}>
-              Make sure you have unlocked it and are connected to the {this.props.requiredNetworkNiceName}, and then{" "}
+            </span>
+          </p>
+          <p>
+            After you've set up MetaMask, you'll receive a wallet address and you'll be able to buy ETH with your bank
+            or credit card. We recommend purchasing USD$50 of ETH to start. Note: Processing times can vary, and it can
+            take up to 7 days for the ETH to be deposited in your wallet.
+          </p>
+          <p>
+            You will use your MetaMask wallet to set up and manage your smart contract, as well as sign, index, and
+            archive posts to the Ethereum blockchain. Make sure you've saved your{" "}
+            <a
+              href={
+                this.props.helpUrlBase +
+                "articles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-"
+              }
+              target="_blank"
+            >
+              seed phrase
+            </a>{" "}
+            from MetaMask in a safe place.
+          </p>
+
+          <p style={{ fontSize: 13 }}>
+            <span style={{ color: "#23282d", fontWeight: 600 }}>Already have a wallet?</span>
+            <span style={{ color: "#72777c", marginLeft: 12 }}>
+              Make sure it's unlocked and connected to the {this.props.requiredNetworkNiceName}, and then{" "}
               <a href="javascript:void(0)" onClick={() => window.location.reload()}>
                 refresh this page
-              </a>
-              .
-            </p>
-          </div>
+              </a>.
+            </span>
+          </p>
         </Wrapper>
       );
     } else if (this.props.notEnabled) {
@@ -161,7 +162,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <p>
             Please open the MetaMask extension and follow the instructions to log in to your wallet. After you are
             logged in, you can continue with your newsroom smart contract.{" "}
-            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
+            <a href={this.props.helpUrl} target="_blank">
               Need help?
             </a>
           </p>
@@ -181,7 +182,10 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
           <p>
             Looks like you’re using an unsupported Ethereum network. Make sure you're using the{" "}
             {this.props.requiredNetworkNiceName}.{" "}
-            <a href="/wp-admin/admin.php?page=civil-newsroom-protocol-help#TODO" target="_blank">
+            <a
+              href={this.props.helpUrlBase + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-"}
+              target="_blank"
+            >
               Read this tutorial
             </a>{" "}
             to switch networks in MetaMask <MetaMaskSideIcon />

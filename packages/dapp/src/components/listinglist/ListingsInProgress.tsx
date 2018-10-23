@@ -17,7 +17,7 @@ import {
 
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { StyledListingCopy } from "../utility/styledComponents";
 
 export interface ListingProps {

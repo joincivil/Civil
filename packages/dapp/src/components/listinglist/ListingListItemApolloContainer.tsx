@@ -26,7 +26,7 @@ export default class ListingListItemApolloContainerComponent extends React.Compo
             return <></>;
           }
           if (error) {
-            return <p>Error :{error}</p>;
+            return <p>Error :{error.toString()}</p>;
           }
           const newsroom = transformGraphQLDataIntoNewsroom(data, this.props.listingAddress);
           const listing = transformGraphQLDataIntoListing(data, this.props.listingAddress);

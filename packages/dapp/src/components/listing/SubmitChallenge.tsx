@@ -21,7 +21,7 @@ import {
 import { getFormattedParameterValue, Parameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForChallenge, challengeListing } from "../../apis/civilTCR";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 
 export interface SubmitChallengePageProps {
   match: any;

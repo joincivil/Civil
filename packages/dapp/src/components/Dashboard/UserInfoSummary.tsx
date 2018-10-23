@@ -6,7 +6,7 @@ import {
   DashboardUserInfoSummaryProps,
 } from "@joincivil/components";
 import { getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { getUserTotalClaimedRewards, getChallengesWonTotalCvl } from "../../selectors";
 
 const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {

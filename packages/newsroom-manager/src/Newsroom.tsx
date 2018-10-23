@@ -66,6 +66,7 @@ export interface NewsroomProps {
   showWalletOnboarding?: boolean;
   showWelcome?: boolean;
   helpUrl?: string;
+  helpUrlBase?: string;
   profileUrl?: string;
   profileAddressSaving?: boolean;
   owners?: string[];
@@ -198,7 +199,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             }}
           >
             <Step
-              title={"Set up a newsroom"}
+              title={"Create newsroom"}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
                   <Button disabled={!this.props.address} onClick={args.goNext} size={buttonSizes.MEDIUM}>
@@ -325,7 +326,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
-          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} />}
+          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} helpUrlBase={this.props.helpUrlBase!} />}
           {this.props.showWalletOnboarding && (
             <WalletOnboarding
               noProvider={!hasInjectedProvider()}
@@ -336,6 +337,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
               metamaskWalletAddress={this.props.account}
               profileUrl={this.props.profileUrl}
+              helpUrl={this.props.helpUrl}
+              helpUrlBase={this.props.helpUrlBase}
               profileAddressSaving={this.props.profileAddressSaving}
               profileWalletAddress={this.props.profileWalletAddress}
               saveAddressToProfile={this.props.saveAddressToProfile}

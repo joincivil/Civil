@@ -5,8 +5,8 @@ import { colors, fonts } from "./styleConstants";
 
 export const ModalHeading = styled.h2`
   font-family: ${fonts.SANS_SERIF};
-  font-weight: 400;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 20px;
   line-height: 30px;
 `;
 

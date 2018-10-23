@@ -5,7 +5,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
 import { PageView, ViewModule } from "./utility/ViewModules";
-import { State } from "../reducers";
+import { State } from "../redux/reducers";
 
 export interface CreateNewsroomState {
   error: string;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { State } from "../reducers";
+import { State } from "../redux/reducers";
 import { getFormattedTokenBalance, isNetworkSupported } from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
@@ -11,7 +11,7 @@ import {
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
 import { NavBar, NavErrorBar } from "@joincivil/components";
-import { toggleUseGraphQL } from "../actionCreators/ui";
+import { toggleUseGraphQL } from "../redux/actionCreators/ui";
 
 export interface NavBarProps {
   balance: string;
