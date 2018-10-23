@@ -1,14 +1,14 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { getListingPhaseState } from "../../selectors";
 import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
-import { getContent } from "../../actionCreators/newsrooms";
+import { getContent } from "../../redux/actionCreators/newsrooms";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;

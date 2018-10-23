@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { makeGetListing } from "../../selectors";
 import ListingRedux from "./ListingRedux";
 

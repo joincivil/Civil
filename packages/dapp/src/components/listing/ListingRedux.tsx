@@ -9,12 +9,12 @@ import ListingHeader from "./ListingHeader";
 import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
-import { State } from "../../reducers";
-import { fetchAndAddListingData, setupListingHistorySubscription } from "../../actionCreators/listings";
+import { State } from "../../redux/reducers";
+import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
 import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
 import { Tabs, Tab, StyledTab } from "@joincivil/components";
-import { getContent } from "../../actionCreators/newsrooms";
+import { getContent } from "../../redux/actionCreators/newsrooms";
 
 export interface ListingPageComponentProps {
   listingAddress: EthAddress;

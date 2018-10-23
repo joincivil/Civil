@@ -1,8 +1,8 @@
 import { EthAddress, UserChallengeData, WrappedChallengeData } from "@joincivil/core";
 import { Dispatch } from "react-redux";
 import { AnyAction } from "redux";
-import { ensureWeb3BigNumber } from "../apis/civilTCR";
-import { getTCR } from "../helpers/civilInstance";
+import { ensureWeb3BigNumber } from "../../apis/civilTCR";
+import { getTCR } from "../../helpers/civilInstance";
 
 export enum challengeActions {
   ADD_OR_UPDATE_CHALLENGE = "ADD_OR_UPDATE_CHALLENGE",

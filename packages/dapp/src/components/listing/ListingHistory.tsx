@@ -1,7 +1,7 @@
 import * as React from "react";
 import { List } from "immutable";
 import { connect, DispatchProp } from "react-redux";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { getListingHistory } from "../../selectors";
 import ListingEvent from "./ListingEvent";
 import { ListingTabHeading } from "./styledComponents";

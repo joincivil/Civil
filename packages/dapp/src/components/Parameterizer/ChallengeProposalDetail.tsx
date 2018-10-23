@@ -17,14 +17,14 @@ import {
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
 import { commitVote, approveVotingRights, revealVote, resolveReparameterizationChallenge } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import {
   makeGetParameterProposalChallengeState,
   makeGetParameterProposalChallenge,
   makeGetParameterProposalChallengeRequestStatus,
   getIsMemberOfAppellate,
 } from "../../selectors";
-import { fetchAndAddParameterProposalChallengeData } from "../../actionCreators/parameterizer";
+import { fetchAndAddParameterProposalChallengeData } from "../../redux/actionCreators/parameterizer";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote, saveVote } from "../../helpers/vote";
 

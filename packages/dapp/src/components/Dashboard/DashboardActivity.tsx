@@ -20,7 +20,7 @@ import {
   TransactionButton,
 } from "@joincivil/components";
 import { multiClaimRewards, rescueTokensInMultiplePolls } from "../../apis/civilTCR";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import {
   getUserChallengesWithUnclaimedRewards,
   getUserChallengesWithUnrevealedVotes,

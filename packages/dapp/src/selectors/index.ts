@@ -30,10 +30,10 @@ import {
   NewsroomWrapper,
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
-import { State } from "../reducers";
+import { State } from "../redux/reducers";
 
 // @TODO(jon): Export this in reducers?
-import { ListingWrapperWithExpiry, ListingExtendedMetadata } from "../reducers/listings";
+import { ListingWrapperWithExpiry, ListingExtendedMetadata } from "../redux/reducers/listings";
 
 export interface ListingContainerProps {
   listingAddress?: EthAddress;
