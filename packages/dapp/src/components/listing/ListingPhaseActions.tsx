@@ -1,19 +1,22 @@
 import * as React from "react";
 import { compose } from "redux";
 import { updateStatus } from "../../apis/civilTCR";
-import { ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
+import { ListingWrapper, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import ChallengeDetailContainer from "./ChallengeDetail";
 import { ChallengeResolve } from "./ChallengeResolve";
 import {
+  Button,
+  buttonSizes,
   InApplicationCard,
   InApplicationResolveCard,
-  RejectedCard as RejectedCardComponent,
-  LoadingIndicator,
+  MetaMaskModal,
+  Modal,
   ModalHeading,
   ModalContent,
-  ModalOrderedList,
-  ModalListItem,
-  ModalListItemTypes,
+  ModalStepLabel,
+  ProgressModalContentError,
+  ProgressModalContentInProgress,
+  RejectedCard as RejectedCardComponent,
 } from "@joincivil/components";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedDetail from "./WhitelistedDetail";
@@ -27,23 +30,31 @@ export interface ListingPhaseActionsProps {
   listingPhaseState: any;
 }
 
-export interface ListingPhaseActionsState {
-  isChallengeModalOpen?: boolean;
-  challengeStatement?: any;
-  challengeSummaryStatement?: string;
+enum TransactionTypes {
+  UPDATE_LISTING,
 }
 
-enum ModalContentEventNames {
-  IN_PROGRESS_APPROVE_FOR_CHALLENGE = "IN_PROGRESS:APPROVE_FOR_CHALLENGE",
-  IN_PROGRESS_SUBMIT_CHALLENGE = "IN_PROGRESS:SUBMIT_CHALLENGE",
-  IN_PROGRESS_UPDATE_LISTING = "IN_PROGRESS:UPDATE_LISTING",
+export interface TransactionsProgressModalPropsState {
+  isWaitingTransactionModalOpen?: boolean;
+  isTransactionProgressModalOpen?: boolean;
+  isTransactionSuccessModalOpen?: boolean;
+  isTransactionErrorModalOpen?: boolean;
+  isTransactionRejectionModalOpen?: boolean;
+  transactionType?: number;
+  transactions?: any[];
+  cancelTransaction?(): void;
 }
 
-class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, ListingPhaseActionsState> {
+class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, TransactionsProgressModalPropsState> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isChallengeModalOpen: false,
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionType: undefined,
     };
   }
 
@@ -87,18 +98,44 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderCanWhitelist = (): JSX.Element => {
-    const updateProgressModal = this.renderUpdateProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_UPDATE_LISTING]: updateProgressModal,
-    };
     const transactions = [
       {
-        transaction: this.update,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_UPDATE_LISTING,
+        transaction: async () => {
+          this.setState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.UPDATE_LISTING,
+          });
+          return this.update();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        postTransaction: () => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: true,
+          });
+        },
+        handleTransactionError: this.handleTransactionError,
       },
     ];
 
-    return <InApplicationResolveCard modalContentComponents={modalContentComponents} transactions={transactions} />;
+    return (
+      <>
+        <InApplicationResolveCard transactions={transactions} />
+        {this.renderAwaitingTransactionModal()}
+        {this.renderTransactionProgressModal()}
+        {this.renderTransactionSuccessModal()}
+        {this.renderTransactionErrorModal()}
+        {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
+      </>
+    );
   };
 
   private renderCanResolve(): JSX.Element {
@@ -123,19 +160,119 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     return <RejectedCard listingAddress={this.props.listing.address} />;
   }
 
-  private renderUpdateProgressModal(): JSX.Element {
+  private renderTransactionSuccessModal(): JSX.Element | null {
+    if (!this.state.isTransactionSuccessModalOpen) {
+      return null;
+    }
     return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Approving the listing</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
+      <Modal>
+        <ModalHeading>
+          <strong>
+            Success!<br />Thanks for adding this newsroom to the registry.
+          </strong>
+        </ModalHeading>
+        <Button size={buttonSizes.MEDIUM} onClick={this.closeAllModals}>
+          Ok, got it
+        </Button>
+      </Modal>
     );
   }
+
+  private renderAwaitingTransactionModal(): JSX.Element | null {
+    if (!this.state.isWaitingTransactionModalOpen) {
+      return null;
+    }
+    const transactionLabel = "Add to Registry";
+    const stepLabelText = `Step 1 of 1 - ${transactionLabel}`;
+    return (
+      <MetaMaskModal waiting={true}>
+        <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  private renderTransactionProgressModal(): JSX.Element | null {
+    if (!this.state.isTransactionProgressModalOpen) {
+      return null;
+    }
+    const transactionLabel = "Add to Registry";
+    const stepLabelText = `Step 1 of 1 - ${transactionLabel}`;
+    return (
+      <Modal>
+        <ProgressModalContentInProgress>
+          <ModalStepLabel>{stepLabelText}</ModalStepLabel>
+          <ModalHeading>{transactionLabel}</ModalHeading>
+        </ProgressModalContentInProgress>
+      </Modal>
+    );
+  }
+
+  private renderTransactionRejectionModal(transactions: any[], cancelTransaction: () => void): JSX.Element | null {
+    if (!this.state.isTransactionRejectionModalOpen) {
+      return null;
+    }
+
+    const message = "The listing was not added to the Civil Registry";
+    const denialMessage =
+      "To add this listing to the registry, you need to confirm the transaction in your MetaMask wallet.";
+
+    return (
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText={denialMessage}
+        cancelTransaction={cancelTransaction}
+        denialRestartTransactions={transactions}
+      >
+        <ModalHeading>{message}</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
+  private renderTransactionErrorModal(): JSX.Element | null {
+    if (!this.state.isTransactionErrorModalOpen) {
+      return null;
+    }
+
+    return (
+      <ProgressModalContentError hideModal={() => this.cancelTransaction()}>
+        <ModalHeading>The was an problem with adding this lisitingd</ModalHeading>
+        <ModalContent>Please retry your transaction</ModalContent>
+      </ProgressModalContentError>
+    );
+  }
+
+  private cancelTransaction = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+    });
+  };
+
+  private handleTransactionError = (err: Error) => {
+    const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
+    this.setState(() => ({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: !isErrorUserRejection,
+      isTransactionRejectionModalOpen: isErrorUserRejection,
+    }));
+  };
+
+  private closeAllModals = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionType: undefined,
+    });
+  };
 
   private renderApplicationPhase(): JSX.Element | null {
     const endTime = this.props.listing!.data.appExpiry.toNumber();
