@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../redux/reducers";
-import { getFormattedTokenBalance, isNetworkSupported } from "@joincivil/utils";
+import { getFormattedTokenBalance, getFormattedEthAddress, isNetworkSupported } from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
 import {
@@ -32,7 +32,7 @@ const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => 
       <NavBar
         balance={props.balance}
         votingBalance={props.votingBalance}
-        userAccount={props.userAccount}
+        userAccount={getFormattedEthAddress(props.userAccount)}
         buyCvlUrl="https://civil.co/cvl/"
         userRevealVotesCount={props.userChallengesWithUnrevealedVotes!.count()}
         userClaimRewardsCount={props.userChallengesWithUnclaimedRewards!.count()}
