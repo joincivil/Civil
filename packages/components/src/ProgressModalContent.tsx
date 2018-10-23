@@ -46,6 +46,17 @@ export class ProgressModalContentSuccess extends React.Component<ProgressModalCo
 
 export class ProgressModalContentError extends React.Component<ProgressModalContentProps> {
   public render(): JSX.Element {
+    if (this.props.children) {
+      return (
+        <>
+          {this.props.children}
+          <Button onClick={this.handleOnClick} size={buttonSizes.MEDIUM}>
+            Dismiss
+          </Button>
+        </>
+      );
+    }
+
     return (
       <>
         <ModalHeading>Uh oh!</ModalHeading>

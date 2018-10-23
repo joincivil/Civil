@@ -124,6 +124,7 @@ export interface ProgressModalPropsState {
   isWaitingTransactionModalOpen?: boolean;
   isTransactionProgressModalOpen?: boolean;
   isTransactionSuccessModalOpen?: boolean;
+  isTransactionErrorModalOpen?: boolean;
   isTransactionRejectionModalOpen?: boolean;
   transactionIndex?: number;
 }
@@ -143,10 +144,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       voteOption,
       salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
-      isWaitingTransactionModalOpen: false,
-      isTransactionProgressModalOpen: false,
-      isTransactionSuccessModalOpen: false,
-      transactionIndex: -1,
     };
   }
 

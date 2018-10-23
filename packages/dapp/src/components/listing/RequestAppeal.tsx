@@ -10,6 +10,9 @@ import {
   ModalHeading,
   ModalContent,
   ModalStepLabel,
+  ModalUnorderedList,
+  ModalListItem,
+  ProgressModalContentError,
   ProgressModalContentInProgress,
   RequestAppealStatement as RequestAppealStatementComponent,
   RequestAppealStatementProps,
@@ -44,6 +47,7 @@ interface ProgressModalPropsState {
   isWaitingTransactionModalOpen?: boolean;
   isTransactionProgressModalOpen?: boolean;
   isTransactionSuccessModalOpen?: boolean;
+  isTransactionErrorModalOpen?: boolean;
   isTransactionRejectionModalOpen?: boolean;
   transactionIndex?: number;
   transactions?: any[];
@@ -76,6 +80,7 @@ class RequestAppealComponent extends React.Component<
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
       isTransactionRejectionModalOpen: false,
+      isTransactionErrorModalOpen: false,
       transactionIndex: -1,
     };
   }
@@ -88,6 +93,7 @@ class RequestAppealComponent extends React.Component<
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: false,
+            isTransactionErrorModalOpen: false,
             isTransactionRejectionModalOpen: false,
             transactionIndex: 0,
           });
@@ -169,6 +175,7 @@ class RequestAppealComponent extends React.Component<
           handleSuccessClose={this.redirectToListingPage}
           judgeAppealLen={judgeAppealLen}
         />
+        <TransactionErrorModal {...modalProps} />
         <TransactionRejectionModal
           transactions={transactions}
           cancelTransaction={this.closeAllModals}
@@ -189,6 +196,7 @@ class RequestAppealComponent extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: !isErrorUserRejection,
       isTransactionRejectionModalOpen: isErrorUserRejection,
     }));
   };
@@ -198,6 +206,7 @@ class RequestAppealComponent extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionIndex: -1,
     });
@@ -339,6 +348,22 @@ const TransactionRejectionModal: React.SFC<ProgressModalPropsState> = props => {
     >
       <ModalHeading>{message}</ModalHeading>
     </MetaMaskModal>
+  );
+};
+
+const TransactionErrorModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isTransactionErrorModalOpen) {
+    return null;
+  }
+
+  return (
+    <ProgressModalContentError>
+      <ModalHeading>The was an problem with requesting your appeal</ModalHeading>
+      <ModalContent>Please check the following and retry your transaction</ModalContent>
+      <ModalUnorderedList>
+        <ModalListItem>You have sufficient CVL in your account for the appeal fee</ModalListItem>
+      </ModalUnorderedList>
+    </ProgressModalContentError>
   );
 };
 

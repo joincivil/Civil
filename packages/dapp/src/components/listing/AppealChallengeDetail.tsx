@@ -24,6 +24,9 @@ import {
   ModalHeading,
   ModalContent,
   ModalStepLabel,
+  ModalUnorderedList,
+  ModalListItem,
+  ProgressModalContentError,
   ProgressModalContentInProgress,
   ReviewVote,
   ReviewVoteProps,
@@ -97,6 +100,32 @@ const AppealChallengeDetailTransactionSuccessLabels = {
   ],
 };
 
+const AppealChallengeDetailTransactionErrorLabels = {
+  [AppealChallengeDetailTransactionTypes.COMMIT_VOTE]: [
+    "There was a problem committing your vote",
+    <>
+      <ModalContent>Please check the following and retry your transaction</ModalContent>
+      <ModalUnorderedList>
+        <ModalListItem>The number of tokens you are voting with does not exceed your available balance.</ModalListItem>
+      </ModalUnorderedList>
+    </>,
+  ],
+  [AppealChallengeDetailTransactionTypes.REVEAL_VOTE]: [
+    "There was a problem confirming your vote",
+    <>
+      <ModalContent>Please check the following and retry your transaction</ModalContent>
+      <ModalUnorderedList>
+        <ModalListItem>Your vote selection matches the vote you committed</ModalListItem>
+        <ModalListItem>Your secret phrase is correct</ModalListItem>
+      </ModalUnorderedList>
+    </>,
+  ],
+  [AppealChallengeDetailTransactionTypes.RESOLVE]: [
+    "There was a problem submitting your challenge",
+    <ModalContent>Please check the retry your transaction</ModalContent>,
+  ],
+};
+
 export interface AppealChallengeDetailProps {
   listingAddress: EthAddress;
   newsroom?: NewsroomWrapper;
@@ -123,6 +152,7 @@ export interface AppealChallengeDetailProgressModalPropsState {
   isWaitingTransactionModalOpen?: boolean;
   isTransactionProgressModalOpen?: boolean;
   isTransactionSuccessModalOpen?: boolean;
+  isTransactionErrorModalOpen?: boolean;
   isTransactionRejectionModalOpen?: boolean;
   transactionType?: number;
   transactions?: any[];
@@ -147,6 +177,7 @@ class AppealChallengeDetail extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionType: undefined,
     };
@@ -298,6 +329,7 @@ class AppealChallengeDetail extends React.Component<
           appealChallengeID={this.props.appealChallengeID.toString()}
           appealGranted={this.props.appeal.appealGranted}
         />
+        {this.renderTransactionErrorModal()}
         {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
       </>
     );
@@ -384,6 +416,7 @@ class AppealChallengeDetail extends React.Component<
           appealChallengePercentFor={appealChallengePercentFor.toString()}
           appealChallengePercentAgainst={appealChallengePercentAgainst.toString()}
         />
+        {this.renderTransactionErrorModal()}
         {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
       </>
     );
@@ -547,9 +580,25 @@ class AppealChallengeDetail extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
     });
   };
+
+  private renderTransactionErrorModal(): JSX.Element | null {
+    if (!this.state.isTransactionErrorModalOpen) {
+      return null;
+    }
+
+    const message = AppealChallengeDetailTransactionErrorLabels[this.state.transactionType!];
+
+    return (
+      <ProgressModalContentError>
+        <ModalHeading>{message[0]}</ModalHeading>
+        {message[1]}
+      </ProgressModalContentError>
+    );
+  }
 
   private handleTransactionError = (err: Error) => {
     const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
@@ -557,6 +606,7 @@ class AppealChallengeDetail extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: !isErrorUserRejection,
       isTransactionRejectionModalOpen: isErrorUserRejection,
     }));
   };
@@ -566,6 +616,7 @@ class AppealChallengeDetail extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionType: undefined,
     });

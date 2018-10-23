@@ -11,6 +11,7 @@ import {
   ModalHeading,
   ModalContent,
   ModalStepLabel,
+  ProgressModalContentError,
   ProgressModalContentInProgress,
 } from "@joincivil/components";
 
@@ -29,6 +30,7 @@ export interface ChallengeResolveProgressModalPropsState {
   isWaitingTransactionModalOpen?: boolean;
   isTransactionProgressModalOpen?: boolean;
   isTransactionSuccessModalOpen?: boolean;
+  isTransactionErrorModalOpen?: boolean;
   isTransactionRejectionModalOpen?: boolean;
   transactionIndex?: number;
   transactions?: any[];
@@ -47,6 +49,7 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionIndex: -1,
     };
@@ -91,6 +94,7 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
         {this.renderAwaitingTransactionModal()}
         {this.renderTransactionProgressModal()}
         {this.renderRevealVoteSuccess()}
+        {this.renderTransactionErrorModal()}
         {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
       </>
     );
@@ -168,11 +172,25 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
     );
   }
 
+  private renderTransactionErrorModal(): JSX.Element | null {
+    if (!this.state.isTransactionErrorModalOpen) {
+      return null;
+    }
+
+    return (
+      <ProgressModalContentError>
+        <ModalHeading>The was an problem with resolving this challenge</ModalHeading>
+        <ModalContent>Please retry your transaction</ModalContent>
+      </ProgressModalContentError>
+    );
+  }
+
   private cancelTransaction = (): void => {
     this.setState({
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
     });
   };
@@ -183,6 +201,7 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: !isErrorUserRejection,
       isTransactionRejectionModalOpen: isErrorUserRejection,
     }));
   };

@@ -21,6 +21,7 @@ import {
   ModalHeading,
   ModalContent,
   ModalStepLabel,
+  ProgressModalContentError,
   ProgressModalContentInProgress,
 } from "@joincivil/components";
 import BigNumber from "bignumber.js";
@@ -83,6 +84,26 @@ const AppealDetailTransactionRejectionLabels = {
   ],
 };
 
+const AppealDetailTransactionErrorLabels = {
+  [AppealDetailTransactionTypes.GRANT_APPEAL]: ["The appeal was not granted", `To grant the appeal${denialSuffix}`],
+  [AppealDetailTransactionTypes.CONFIRM_APPEAL]: [
+    "The appeal was not confirmed",
+    `To confirm the appeal${denialSuffix}`,
+  ],
+  [AppealDetailTransactionTypes.RESOLVE_APPEAL]: [
+    "The appeal was not resolved",
+    `To resolve the appeal${denialSuffix}`,
+  ],
+  [AppealDetailTransactionTypes.APPROVE_CHALLENGE_APPEAL]: [
+    "Your appeal challenge was not submitted",
+    "Before submitting an appeal challenge, you need to confirm that you approve the appeal fee deposit",
+  ],
+  [AppealDetailTransactionTypes.CHALLENGE_APPEAL]: [
+    "Your appeal challenge was not submitted",
+    `To submit an appeal challenge${denialSuffix}`,
+  ],
+};
+
 const AppealDetailTransactionSuccessLabels = {
   [AppealDetailTransactionTypes.GRANT_APPEAL]: ["The appeal was granted", null],
   [AppealDetailTransactionTypes.CONFIRM_APPEAL]: ["The appeal was confirmed", null],
@@ -126,6 +147,7 @@ export interface AppealDetailProgressModalPropsState {
   isWaitingTransactionModalOpen?: boolean;
   isTransactionProgressModalOpen?: boolean;
   isTransactionSuccessModalOpen?: boolean;
+  isTransactionErrorModalOpen?: boolean;
   isTransactionRejectionModalOpen?: boolean;
   transactionType?: number;
   transactions?: any[];
@@ -140,6 +162,7 @@ class AppealDetail extends React.Component<AppealDetailProps, AppealDetailProgre
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionType: undefined,
     };
@@ -344,6 +367,7 @@ class AppealDetail extends React.Component<AppealDetailProps, AppealDetailProgre
           appealGranted={appealGranted}
           transactions={transactions}
         />
+        {this.renderTransactionErrorModal()}
         {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
       </>
     );
@@ -510,11 +534,27 @@ class AppealDetail extends React.Component<AppealDetailProps, AppealDetailProgre
     );
   }
 
+  private renderTransactionErrorModal(): JSX.Element | null {
+    if (!this.state.isTransactionErrorModalOpen) {
+      return null;
+    }
+
+    const message = AppealDetailTransactionErrorLabels[this.state.transactionType!];
+
+    return (
+      <ProgressModalContentError>
+        <ModalHeading>{message[0]}</ModalHeading>
+        {message[1]}
+      </ProgressModalContentError>
+    );
+  }
+
   private cancelTransaction = (): void => {
     this.setState({
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
     });
   };
@@ -525,6 +565,7 @@ class AppealDetail extends React.Component<AppealDetailProps, AppealDetailProgre
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: !isErrorUserRejection,
       isTransactionRejectionModalOpen: isErrorUserRejection,
     }));
   };
@@ -534,6 +575,7 @@ class AppealDetail extends React.Component<AppealDetailProps, AppealDetailProgre
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionType: undefined,
     });

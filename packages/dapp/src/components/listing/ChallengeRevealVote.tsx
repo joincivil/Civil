@@ -10,6 +10,9 @@ import {
   ModalHeading,
   ModalContent,
   ModalStepLabel,
+  ModalUnorderedList,
+  ModalListItem,
+  ProgressModalContentError,
   ProgressModalContentInProgress,
 } from "@joincivil/components";
 import { getLocalDateTimeStrings, getFormattedTokenBalance } from "@joincivil/utils";
@@ -34,6 +37,7 @@ class ChallengeRevealVote extends React.Component<ChallengeDetailProps, Challeng
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionIndex: -1,
     };
@@ -98,6 +102,7 @@ class ChallengeRevealVote extends React.Component<ChallengeDetailProps, Challeng
         {this.renderAwaitingTransactionModal()}
         {this.renderTransactionProgressModal()}
         {this.renderRevealVoteSuccess()}
+        {this.renderTransactionErrorModal()}
         {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
       </>
     );
@@ -178,11 +183,29 @@ class ChallengeRevealVote extends React.Component<ChallengeDetailProps, Challeng
     );
   }
 
+  private renderTransactionErrorModal(): JSX.Element | null {
+    if (!this.state.isTransactionErrorModalOpen) {
+      return null;
+    }
+
+    return (
+      <ProgressModalContentError>
+        <ModalHeading>The was an problem with revealing your vote</ModalHeading>
+        <ModalContent>Please check the following and retry your transaction</ModalContent>
+        <ModalUnorderedList>
+          <ModalListItem>Your vote selection matches the vote you committed</ModalListItem>
+          <ModalListItem>Your secret phrase is correct</ModalListItem>
+        </ModalUnorderedList>
+      </ProgressModalContentError>
+    );
+  }
+
   private cancelTransaction = (): void => {
     this.setState({
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
     });
   };
@@ -193,6 +216,7 @@ class ChallengeRevealVote extends React.Component<ChallengeDetailProps, Challeng
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: !isErrorUserRejection,
       isTransactionRejectionModalOpen: isErrorUserRejection,
     }));
   };

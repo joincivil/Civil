@@ -10,6 +10,9 @@ import {
   ModalHeading,
   ModalContent,
   ModalStepLabel,
+  ModalUnorderedList,
+  ModalListItem,
+  ProgressModalContentError,
   ProgressModalContentInProgress,
   SnackBar,
   SubmitChallengeStatement as SubmitChallengeStatementComponent,
@@ -51,6 +54,7 @@ interface ProgressModalPropsState {
   isWaitingTransactionModalOpen?: boolean;
   isTransactionProgressModalOpen?: boolean;
   isTransactionSuccessModalOpen?: boolean;
+  isTransactionErrorModalOpen?: boolean;
   isTransactionRejectionModalOpen?: boolean;
   transactionIndex?: number;
   transactions?: any[];
@@ -77,6 +81,7 @@ class SubmitChallengeComponent extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionIndex: -1,
     };
@@ -90,6 +95,7 @@ class SubmitChallengeComponent extends React.Component<
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: false,
+            isTransactionErrorModalOpen: false,
             isTransactionRejectionModalOpen: false,
             transactionIndex: 0,
           });
@@ -174,6 +180,7 @@ class SubmitChallengeComponent extends React.Component<
           commitStageLen={commitStageLen}
           revealStageLen={revealStageLen}
         />
+        <TransactionErrorModal {...modalProps} />
         <TransactionRejectionModal
           transactions={transactions}
           cancelTransaction={this.closeAllModals}
@@ -188,6 +195,7 @@ class SubmitChallengeComponent extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: false,
       isTransactionRejectionModalOpen: false,
       transactionIndex: -1,
     });
@@ -199,6 +207,7 @@ class SubmitChallengeComponent extends React.Component<
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: false,
+      isTransactionErrorModalOpen: !isErrorUserRejection,
       isTransactionRejectionModalOpen: isErrorUserRejection,
     }));
   };
@@ -339,6 +348,22 @@ const TransactionRejectionModal: React.SFC<ProgressModalPropsState> = props => {
     >
       <ModalHeading>{message}</ModalHeading>
     </MetaMaskModal>
+  );
+};
+
+const TransactionErrorModal: React.SFC<ProgressModalPropsState> = props => {
+  if (!props.isTransactionErrorModalOpen) {
+    return null;
+  }
+
+  return (
+    <ProgressModalContentError>
+      <ModalHeading>The was an problem with submitting your challenge</ModalHeading>
+      <ModalContent>Please check the following and retry your transaction</ModalContent>
+      <ModalUnorderedList>
+        <ModalListItem>You have sufficient CVL in your account for the challenge fee</ModalListItem>
+      </ModalUnorderedList>
+    </ProgressModalContentError>
   );
 };
 
