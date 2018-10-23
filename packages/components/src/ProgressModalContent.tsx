@@ -4,7 +4,7 @@ import { ModalHeading, ModalContent } from "./ModalContent";
 import { Button, buttonSizes } from "./Button";
 
 export interface ProgressModalContentProps {
-  hideModal?(): () => void;
+  hideModal?(): void;
 }
 
 export class ProgressModalContentInProgress extends React.Component<ProgressModalContentProps> {

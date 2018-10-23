@@ -178,7 +178,7 @@ export class ChallengeResolve extends React.Component<ChallengeResolveProps, Cha
     }
 
     return (
-      <ProgressModalContentError>
+      <ProgressModalContentError hideModal={() => this.cancelTransaction()}>
         <ModalHeading>The was an problem with resolving this challenge</ModalHeading>
         <ModalContent>Please retry your transaction</ModalContent>
       </ProgressModalContentError>

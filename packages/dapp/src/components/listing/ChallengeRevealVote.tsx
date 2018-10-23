@@ -189,7 +189,7 @@ class ChallengeRevealVote extends React.Component<ChallengeDetailProps, Challeng
     }
 
     return (
-      <ProgressModalContentError>
+      <ProgressModalContentError hideModal={() => this.cancelTransaction()}>
         <ModalHeading>The was an problem with revealing your vote</ModalHeading>
         <ModalContent>Please check the following and retry your transaction</ModalContent>
         <ModalUnorderedList>

@@ -175,7 +175,7 @@ class RequestAppealComponent extends React.Component<
           handleSuccessClose={this.redirectToListingPage}
           judgeAppealLen={judgeAppealLen}
         />
-        <TransactionErrorModal {...modalProps} />
+        <TransactionErrorModal cancelTransaction={this.closeAllModals} {...modalProps} />
         <TransactionRejectionModal
           transactions={transactions}
           cancelTransaction={this.closeAllModals}
@@ -357,7 +357,7 @@ const TransactionErrorModal: React.SFC<ProgressModalPropsState> = props => {
   }
 
   return (
-    <ProgressModalContentError>
+    <ProgressModalContentError hideModal={() => props.cancelTransaction!()}>
       <ModalHeading>The was an problem with requesting your appeal</ModalHeading>
       <ModalContent>Please check the following and retry your transaction</ModalContent>
       <ModalUnorderedList>

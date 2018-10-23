@@ -542,7 +542,7 @@ class AppealDetail extends React.Component<AppealDetailProps, AppealDetailProgre
     const message = AppealDetailTransactionErrorLabels[this.state.transactionType!];
 
     return (
-      <ProgressModalContentError>
+      <ProgressModalContentError hideModal={() => this.cancelTransaction()}>
         <ModalHeading>{message[0]}</ModalHeading>
         {message[1]}
       </ProgressModalContentError>

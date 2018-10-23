@@ -180,7 +180,7 @@ class SubmitChallengeComponent extends React.Component<
           commitStageLen={commitStageLen}
           revealStageLen={revealStageLen}
         />
-        <TransactionErrorModal {...modalProps} />
+        <TransactionErrorModal cancelTransaction={this.closeAllModals} {...modalProps} />
         <TransactionRejectionModal
           transactions={transactions}
           cancelTransaction={this.closeAllModals}
@@ -357,7 +357,7 @@ const TransactionErrorModal: React.SFC<ProgressModalPropsState> = props => {
   }
 
   return (
-    <ProgressModalContentError>
+    <ProgressModalContentError hideModal={() => props.cancelTransaction!()}>
       <ModalHeading>The was an problem with submitting your challenge</ModalHeading>
       <ModalContent>Please check the following and retry your transaction</ModalContent>
       <ModalUnorderedList>
