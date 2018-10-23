@@ -6,7 +6,7 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 
 export class InApplicationResolveCard extends React.Component<ListingDetailPhaseCardComponentProps> {
   public render(): JSX.Element {
@@ -18,14 +18,13 @@ export class InApplicationResolveCard extends React.Component<ListingDetailPhase
         <StyledListingDetailPhaseCardSection>
           <CTACopy>
             This application is complete. To update this Newsroom's status on the Civil Registry, please{" "}
-            <a href="#">add to registry</a>.
+            add to registry.
           </CTACopy>
-          <TransactionInvertedButton
+          <TransactionButtonNoModal
             transactions={this.props.transactions!}
-            modalContentComponents={this.props.modalContentComponents}
           >
             Add To Registry
-          </TransactionInvertedButton>
+          </TransactionButtonNoModal>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
