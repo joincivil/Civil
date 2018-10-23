@@ -6,7 +6,6 @@ import * as metamaskFrontLogoUrl from "../images/img-metamask-small-front@2x.png
 const Img = styled.img`
   width: 16px;
   height: 16px;
-  vertical-align: text-bottom;
 `;
 
 export const MetaMaskSideIcon = (): JSX.Element => {
