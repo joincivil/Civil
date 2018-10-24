@@ -40,6 +40,8 @@ export function listings(
     case listingActions.ADD_OR_UPDATE_LISTING:
       const getNextExpiry = getNextTimerExpiry(action.data.data);
       return state.set(action.data.address, { listing: action.data, expiry: getNextExpiry });
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Map<string, ListingWrapperWithExpiry>();
     default:
       return state;
   }
@@ -53,6 +55,8 @@ export function listingsExtendedMetadata(
     case listingActions.ADD_OR_UPDATE_LISTING_EXTENDED_METADATA:
       const prevExtendedMetadata = state.get(action.data.address) || {};
       return state.set(action.data.address, { ...prevExtendedMetadata, ...action.data });
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Map<string, ListingExtendedMetadata>();
     default:
       return state;
   }
@@ -83,6 +87,8 @@ export function histories(
           .sort((a, b) => b.blockNumber! - a.blockNumber!)
           .toList(),
       );
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Map<string, List<TimestampedEvent<any>>>();
     default:
       return state;
   }
@@ -144,6 +150,8 @@ export function applications(state: Set<string> = Set<string>(), action: AnyActi
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -157,6 +165,8 @@ export function whitelistedListings(state: Set<string> = Set<string>(), action: 
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -170,6 +180,8 @@ export function readyToWhitelistListings(state: Set<string> = Set<string>(), act
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -183,6 +195,8 @@ export function inChallengeCommitListings(state: Set<string> = Set<string>(), ac
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -196,6 +210,8 @@ export function inChallengeRevealListings(state: Set<string> = Set<string>(), ac
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -209,6 +225,8 @@ export function awaitingAppealRequestListings(state: Set<string> = Set<string>()
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -222,6 +240,8 @@ export function awaitingAppealJudgmentListings(state: Set<string> = Set<string>(
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -235,6 +255,8 @@ export function awaitingAppealChallengeListings(state: Set<string> = Set<string>
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -248,6 +270,8 @@ export function appealChallengeCommitPhaseListings(state: Set<string> = Set<stri
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -261,6 +285,8 @@ export function appealChallengeRevealPhaseListings(state: Set<string> = Set<stri
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -274,6 +300,8 @@ export function resolveChallengeListings(state: Set<string> = Set<string>(), act
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -287,6 +315,8 @@ export function resolveAppealListings(state: Set<string> = Set<string>(), action
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }
@@ -300,6 +330,8 @@ export function rejectedListings(state: Set<string> = Set<string>(), action: Any
       } else {
         return state.remove(action.data.address);
       }
+    case listingActions.CLEAR_ALL_LISTING_DATA:
+      return Set<string>();
     default:
       return state;
   }

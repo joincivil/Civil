@@ -44,8 +44,8 @@ const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => 
             (window as any).ethereum.enable();
           }
         }}
-        onLoadingPrefToggled={() => {
-          props.dispatch!(toggleUseGraphQL());
+        onLoadingPrefToggled={async (): Promise<any> => {
+          props.dispatch!(await toggleUseGraphQL());
         }}
       />
       {shouldRenderErrorBar && <NavErrorBar />}
