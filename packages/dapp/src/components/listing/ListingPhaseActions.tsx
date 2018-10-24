@@ -3,10 +3,7 @@ import { compose } from "redux";
 import { ListingWrapper } from "@joincivil/core";
 import ChallengeDetailContainer from "./ChallengeDetail";
 import { ChallengeResolve } from "./ChallengeResolve";
-import {
-  InApplicationCard,
-  RejectedCard as RejectedCardComponent,
-} from "@joincivil/components";
+import { InApplicationCard, RejectedCard as RejectedCardComponent } from "@joincivil/components";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
@@ -61,7 +58,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   }
 
   private renderCanWhitelist = (): JSX.Element => {
-    return <ApplicationUpdateStatus listingAddress={this.props.listing!.address} />
+    return <ApplicationUpdateStatus listingAddress={this.props.listing!.address} />;
   };
 
   private renderCanResolve(): JSX.Element {

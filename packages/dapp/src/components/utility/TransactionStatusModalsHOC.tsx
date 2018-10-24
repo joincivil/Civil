@@ -33,7 +33,7 @@ export interface TransactionStatusModalState {
 export type TransactionStatusModalContent = string | JSX.Element | undefined;
 
 export interface TransactionStatusModalContentMap {
-  [index: string]: Array<string | JSX.Element | undefined>
+  [index: string]: Array<string | JSX.Element | undefined>;
 }
 
 export interface TransactionStatusModalsConfigProps {
@@ -76,7 +76,11 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
     }
 
     public render(): JSX.Element {
-      const cancelTransaction = this.props.cancelTransaction ? this.props.cancelTransaction : (() => { this.closeAllModals() });
+      const cancelTransaction = this.props.cancelTransaction
+        ? this.props.cancelTransaction
+        : () => {
+            this.closeAllModals();
+          };
       return (
         <>
           <WrappedComponent
@@ -128,7 +132,8 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         return null;
       }
       const transactionLabel = transactionLabels[this.state.transactionType!];
-      const stepLabelText = multiStepTransactionLabels && multiStepTransactionLabels[this.state.transactionType!] || "1 of 1";
+      const stepLabelText =
+        (multiStepTransactionLabels && multiStepTransactionLabels[this.state.transactionType!]) || "1 of 1";
       const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
       return (
         <MetaMaskModal waiting={true}>
@@ -143,7 +148,8 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         return null;
       }
       const transactionLabel = transactionLabels[this.state.transactionType!];
-      const stepLabelText = multiStepTransactionLabels && multiStepTransactionLabels[this.state.transactionType!] || "1 of 1";
+      const stepLabelText =
+        (multiStepTransactionLabels && multiStepTransactionLabels[this.state.transactionType!]) || "1 of 1";
       const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
       return (
         <Modal>
@@ -155,7 +161,10 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
       );
     }
 
-    public renderTransactionRejectionModal(transactions: any[], cancelTransaction: (() => void) | undefined): JSX.Element | null {
+    public renderTransactionRejectionModal(
+      transactions: any[],
+      cancelTransaction: (() => void) | undefined,
+    ): JSX.Element | null {
       if (!this.state.isTransactionRejectionModalOpen) {
         return null;
       }

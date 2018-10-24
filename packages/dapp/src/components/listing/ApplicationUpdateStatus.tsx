@@ -2,10 +2,7 @@ import * as React from "react";
 import { compose } from "redux";
 import { updateStatus } from "../../apis/civilTCR";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import {
-  InApplicationResolveCard,
-  ModalContent,
-} from "@joincivil/components";
+import { InApplicationResolveCard, ModalContent } from "@joincivil/components";
 
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
@@ -18,19 +15,25 @@ enum TransactionTypes {
 }
 
 const transactionLabels = {
-  [TransactionTypes.UPDATE_LISTING]: "Add to Registry"
+  [TransactionTypes.UPDATE_LISTING]: "Add to Registry",
 };
 
 const transactionSuccessContent = {
-  [TransactionTypes.UPDATE_LISTING]: ["Thanks for adding this newsroom to the registry.", <></>]
+  [TransactionTypes.UPDATE_LISTING]: ["Thanks for adding this newsroom to the registry.", <></>],
 };
 
 const transactionRejectionContent = {
-  [TransactionTypes.UPDATE_LISTING]: ["The listing was not added to the Civil Registry", "To add this listing to the registry, you need to confirm the transaction in your MetaMask wallet."]
+  [TransactionTypes.UPDATE_LISTING]: [
+    "The listing was not added to the Civil Registry",
+    "To add this listing to the registry, you need to confirm the transaction in your MetaMask wallet.",
+  ],
 };
 
 const transactionErrorContent = {
-  [TransactionTypes.UPDATE_LISTING]: ["The was an problem with adding this lisiting", <ModalContent>Please retry your transaction</ModalContent>]
+  [TransactionTypes.UPDATE_LISTING]: [
+    "The was an problem with adding this lisiting",
+    <ModalContent>Please retry your transaction</ModalContent>,
+  ],
 };
 
 const transactionStatusModalConfig = {
@@ -41,7 +44,9 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
-class ApplicationUpdateStatus extends React.Component<ApplicationUpdateStatusProps & InjectedTransactionStatusModalProps> {
+class ApplicationUpdateStatus extends React.Component<
+  ApplicationUpdateStatusProps & InjectedTransactionStatusModalProps
+> {
   public render(): JSX.Element {
     const transactions = [
       {
@@ -76,7 +81,7 @@ class ApplicationUpdateStatus extends React.Component<ApplicationUpdateStatusPro
         <InApplicationResolveCard transactions={transactions} />
       </>
     );
-  };
+  }
 
   // Transactions
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -84,4 +89,6 @@ class ApplicationUpdateStatus extends React.Component<ApplicationUpdateStatusPro
   };
 }
 
-export default compose<React.ComponentClass<ApplicationUpdateStatusProps>>(hasTransactionStatusModals(transactionStatusModalConfig))(ApplicationUpdateStatus);
+export default compose<React.ComponentClass<ApplicationUpdateStatusProps>>(
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(ApplicationUpdateStatus);

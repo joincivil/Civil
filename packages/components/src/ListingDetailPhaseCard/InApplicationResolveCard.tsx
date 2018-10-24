@@ -17,14 +17,10 @@ export class InApplicationResolveCard extends React.Component<ListingDetailPhase
         </StyledListingDetailPhaseCardSection>
         <StyledListingDetailPhaseCardSection>
           <CTACopy>
-            This application is complete. To update this Newsroom's status on the Civil Registry, please{" "}
-            add to registry.
+            This application is complete. To update this Newsroom's status on the Civil Registry, please add to
+            registry.
           </CTACopy>
-          <TransactionButtonNoModal
-            transactions={this.props.transactions!}
-          >
-            Add To Registry
-          </TransactionButtonNoModal>
+          <TransactionButtonNoModal transactions={this.props.transactions!}>Add To Registry</TransactionButtonNoModal>
         </StyledListingDetailPhaseCardSection>
       </StyledListingDetailPhaseCardContainer>
     );
