@@ -331,7 +331,10 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 updateCharter={this.updateCharter}
               />
             </Step>
-            <Step title={"Apply to the Registry"} disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}>
+            <Step
+              title={"Apply to the Registry"}
+              disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
+            >
               <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>

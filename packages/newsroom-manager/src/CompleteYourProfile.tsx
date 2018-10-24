@@ -256,7 +256,12 @@ class CompleteYourProfileComponent extends React.Component<
 
   public renderAddOwnerForm(): JSX.Element {
     if (!this.props.userIsOwner) {
-      return <p style={{ color: colors.accent.CIVIL_GRAY_2 }}>You are on the contract as a Member, not an Officer, so you cannot add additional Officers. You may add and remove Civil Members below.</p>
+      return (
+        <p style={{ color: colors.accent.CIVIL_GRAY_2 }}>
+          You are on the contract as a Member, not an Officer, so you cannot add additional Officers. You may add and
+          remove Civil Members below.
+        </p>
+      );
     } else if (!this.state.addOwner) {
       return (
         <AddButton size={buttonSizes.SMALL} onClick={() => this.setState({ addOwner: true })}>
