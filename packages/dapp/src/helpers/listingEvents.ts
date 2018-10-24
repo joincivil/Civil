@@ -21,10 +21,6 @@ const civilGenesisBlock = getDefaultFromBlock();
 let initialListingSubscriptions: Subscription | undefined;
 let currentListingSubscriptions: Subscription | undefined;
 
-// export async function toggle(dispatch: Dispatch<any>): Promise<void> {
-//   dispatch(await toggleUseGraphQL());
-// }
-
 export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<void> {
   const tcr = await getTCR();
   const civil = getCivil();
@@ -122,6 +118,7 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
 }
 
 export async function getIPFSContent(header: EthContentHeader, dispatch: Dispatch<any>): Promise<void> {
+  console.log("header: ", header);
   const civil = getCivil();
   const content = await civil.getContent(header);
   if (content) {
