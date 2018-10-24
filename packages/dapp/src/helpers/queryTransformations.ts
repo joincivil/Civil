@@ -9,7 +9,15 @@ export const LISTING_QUERY = gql`
       owner
       ownerAddresses
       whitelisted
-      charterUri
+      charter {
+        uri
+        contentID
+        revisionID
+        signature
+        author
+        contentHash
+        timestamp
+      }
       unstakedDeposit
       appExpiry
       approvalDate
@@ -44,13 +52,13 @@ export function transformGraphQLDataIntoNewsroom(queryData: any, listingAddress:
       name: queryData.listing.name,
       owners: queryData.listing.ownerAddresses,
       charterHeader: {
-        contentId: 0,
-        revisionId: 0,
-        timestamp: new Date(),
-        uri: queryData.listing.charterUri,
-        contentHash: "asdf",
-        author: "jejejej",
-        signature: "asdf",
+        contentId: queryData.listing.charter.contentID,
+        revisionId: queryData.listing.charter.revisionID,
+        timestamp: new Date(queryData.listing.charter.timestamp),
+        uri: queryData.listing.charter.uri,
+        contentHash: queryData.listing.charter.contentHash,
+        author: queryData.listing.charter.author,
+        signature: queryData.listing.charter.signature,
         verifySignature: () => true,
       },
     },
@@ -87,6 +95,17 @@ export function transformGraphQLDataIntoChallenge(queryChallengeData: any): Chal
         votesAgainst: new BigNumber(queryChallengeData.poll.votesAgainst),
       },
       requestAppealExpiry: new BigNumber(queryChallengeData.requestAppealExpiry),
+      appeal: {
+        requester: "0x0",
+        appealFeePaid: new BigNumber(0),
+        appealPhaseExpiry: new BigNumber(0),
+        appealGranted: false,
+        appealOpenToChallengeExpiry: new BigNumber(0),
+        appealChallengeID: new BigNumber(0),
+        appealTxData: undefined,
+        appealChallenge: undefined,
+        statement: undefined,
+      },
     };
   } else {
     return undefined;

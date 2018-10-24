@@ -194,7 +194,7 @@ export interface AppealData {
   appealGranted: boolean;
   appealOpenToChallengeExpiry: BigNumber;
   appealChallengeID: BigNumber;
-  appealTxData: TxDataAll;
+  appealTxData?: TxDataAll;
   appealChallenge?: AppealChallengeData;
   statement?: ContentData;
 }

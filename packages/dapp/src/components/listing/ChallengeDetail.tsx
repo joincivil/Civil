@@ -348,7 +348,12 @@ const makeMapStateToProps = () => {
     } = state.networkDependent;
     let txIdToConfirm;
     const challengeData = ownProps.challengeData;
-    if (challengeData && challengeData.challenge && challengeData.challenge.appeal) {
+    if (
+      challengeData &&
+      challengeData.challenge &&
+      challengeData.challenge.appeal &&
+      challengeData.challenge.appeal.appealTxData
+    ) {
       const txData = challengeData.challenge.appeal.appealTxData.data!;
       const key = txData.substring(0, 74);
       if (councilMultisigTransactions.has(key)) {
