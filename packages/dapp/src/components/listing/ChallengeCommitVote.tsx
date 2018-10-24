@@ -28,8 +28,8 @@ const transactionLabels = {
 };
 
 const multiStepTransactionLabels = {
-  [TransactionTypes.APPROVE_VOTING_RIGHTS]: "Approve Voting Rights",
-  [TransactionTypes.COMMIT_VOTE]: "Commit Vote",
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: "1 of 2",
+  [TransactionTypes.COMMIT_VOTE]: "2 of 2",
 };
 
 const transactionSuccessContent = {
