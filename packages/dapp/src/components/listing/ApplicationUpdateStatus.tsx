@@ -37,7 +37,6 @@ const transactionErrorContent = {
 };
 
 const transactionStatusModalConfig = {
-  // transactionTypes: TransactionTypes,
   transactionLabels,
   transactionSuccessContent,
   transactionRejectionContent,

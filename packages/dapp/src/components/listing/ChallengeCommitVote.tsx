@@ -1,19 +1,12 @@
 import * as React from "react";
+import { compose } from "redux";
 import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  Button,
-  buttonSizes,
   ChallengeCommitVoteCard,
-  MetaMaskModal,
-  Modal,
-  ModalHeading,
   ModalContent,
-  ModalStepLabel,
   ModalUnorderedList,
   ModalListItem,
-  ProgressModalContentError,
-  ProgressModalContentInProgress,
   ReviewVote,
   ReviewVoteProps,
 } from "@joincivil/components";
@@ -21,9 +14,78 @@ import { getFormattedTokenBalance } from "@joincivil/utils";
 import { commitVote, approveVotingRights } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
-import { ChallengeDetailProps, ChallengeVoteState, ProgressModalPropsState } from "./ChallengeDetail";
+import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
+import { ChallengeDetailProps, ChallengeVoteState } from "./ChallengeDetail";
 
-class ChallengeCommitVote extends React.Component<ChallengeDetailProps, ChallengeVoteState & ProgressModalPropsState> {
+enum TransactionTypes {
+  APPROVE_VOTING_RIGHTS = "APPROVE_VOTING_RIGHTS",
+  COMMIT_VOTE = "COMMIT_VOTE",
+}
+
+const transactionLabels = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: "Approve Voting Rights",
+  [TransactionTypes.COMMIT_VOTE]: "Commit Vote",
+};
+
+const multiStepTransactionLabels = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: "Approve Voting Rights",
+  [TransactionTypes.COMMIT_VOTE]: "Commit Vote",
+};
+
+const transactionSuccessContent = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: [undefined, undefined],
+  [TransactionTypes.COMMIT_VOTE]: [
+    "Your vote was committed!",
+    <>
+      <ModalContent>
+        Please keep your secret phrase safe. You will need it to confirm your vote. Votes can not be counted and rewards
+        can not be claimed unless you confirm them.
+      </ModalContent>
+    </>,
+  ],
+};
+
+const transactionRejectionContent = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: [
+    "Your vote was not committed",
+    "Before committing a vote, you need to confirm the approval of your voting token deposit in your MetaMask wallet.",
+  ],
+  [TransactionTypes.COMMIT_VOTE]: [
+    "Your vote was not committed",
+    "To commit a vote, you need to confirm the transaction in your MetaMask wallet.",
+  ],
+};
+
+const transactionErrorContent = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: [
+    "The was an problem with commiting your vote",
+    <>
+      <ModalContent>Please check the following and retry your transaction</ModalContent>
+      <ModalUnorderedList>
+        <ModalListItem>The number of tokens you are voting with does not exceed your available balance.</ModalListItem>
+      </ModalUnorderedList>
+    </>,
+  ],
+  [TransactionTypes.COMMIT_VOTE]: [
+    "The was an problem with commiting your vote",
+    <>
+      <ModalContent>Please retry your transaction</ModalContent>
+    </>,
+  ],
+};
+
+const transactionStatusModalConfig = {
+  transactionLabels,
+  multiStepTransactionLabels,
+  transactionSuccessContent,
+  transactionRejectionContent,
+  transactionErrorContent,
+};
+
+class ChallengeCommitVote extends React.Component<
+  ChallengeDetailProps & InjectedTransactionStatusModalProps,
+  ChallengeVoteState
+> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -31,12 +93,6 @@ class ChallengeCommitVote extends React.Component<ChallengeDetailProps, Challeng
       voteOption: undefined,
       salt: fetchSalt(this.props.challengeID, this.props.user),
       numTokens: undefined,
-      isWaitingTransactionModalOpen: false,
-      isTransactionProgressModalOpen: false,
-      isTransactionSuccessModalOpen: false,
-      isTransactionErrorModalOpen: false,
-      isTransactionRejectionModalOpen: false,
-      transactionIndex: -1,
     };
   }
 
@@ -44,6 +100,8 @@ class ChallengeCommitVote extends React.Component<ChallengeDetailProps, Challeng
     if (!this.state.numTokens && this.props.balance && this.props.votingBalance) {
       this.setInitNumTokens();
     }
+    this.props.setTransactions(this.getTransactions());
+    this.props.setHandleTransactionSuccessButtonClick(this.handleCommitVoteSuccessClose);
   }
 
   public componentDidUpdate(prevProps: ChallengeDetailProps): void {
@@ -102,52 +160,6 @@ class ChallengeCommitVote extends React.Component<ChallengeDetailProps, Challeng
     }
 
     const { challenge } = this.props;
-    const transactions = [
-      {
-        transaction: async () => {
-          this.setState({
-            isWaitingTransactionModalOpen: true,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: false,
-            transactionIndex: 0,
-          });
-          return this.approveVotingRights();
-        },
-        handleTransactionHash: (txHash: TxHash) => {
-          this.setState({
-            isWaitingTransactionModalOpen: false,
-            isTransactionProgressModalOpen: true,
-          });
-        },
-        handleTransactionError: this.handleTransactionError,
-      },
-      {
-        transaction: async () => {
-          this.setState({
-            isWaitingTransactionModalOpen: true,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: false,
-            transactionIndex: 1,
-          });
-          return this.commitVoteOnChallenge();
-        },
-        handleTransactionHash: (txHash: TxHash) => {
-          this.setState({
-            isWaitingTransactionModalOpen: false,
-            isTransactionProgressModalOpen: true,
-          });
-        },
-        postTransaction: () => {
-          this.setState({
-            isWaitingTransactionModalOpen: false,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: true,
-          });
-        },
-        handleTransactionError: this.handleTransactionError,
-      },
-    ];
-
     const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
 
     const props: ReviewVoteProps = {
@@ -161,154 +173,59 @@ class ChallengeCommitVote extends React.Component<ChallengeDetailProps, Challeng
       userAccount: this.props.user,
       commitEndDate: challenge.poll.commitEndDate.toNumber(),
       revealEndDate: challenge.poll.revealEndDate.toNumber(),
-      transactions,
+      transactions: this.getTransactions(),
       handleClose: this.closeReviewVoteModal,
     };
 
-    return (
-      <>
-        <ReviewVote {...props} />
-        {this.renderAwaitingTransactionModal()}
-        {this.renderTransactionProgressModal()}
-        {this.renderCommitVoteSuccess()}
-        {this.renderTransactionErrorModal()}
-        {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
-      </>
-    );
+    return <ReviewVote {...props} />;
   }
 
-  private renderAwaitingTransactionModal(): JSX.Element | null {
-    if (!this.state.isWaitingTransactionModalOpen) {
-      return null;
-    }
-    const { transactionIndex } = this.state;
-    let transactionLabel = "";
-    let stepLabelText = "";
-    if (transactionIndex === 0) {
-      transactionLabel = "Approve Voting Rights";
-      stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
-    } else if (transactionIndex === 1) {
-      transactionLabel = "Commit Vote";
-      stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
-    }
-    return (
-      <MetaMaskModal waiting={true}>
-        <ModalStepLabel>{stepLabelText}</ModalStepLabel>
-        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
-      </MetaMaskModal>
-    );
-  }
-
-  private renderTransactionProgressModal(): JSX.Element | null {
-    if (!this.state.isTransactionProgressModalOpen) {
-      return null;
-    }
-    const { transactionIndex } = this.state;
-    let transactionLabel = "";
-    let stepLabelText = "";
-    if (transactionIndex === 0) {
-      transactionLabel = "Approve Voting Rights";
-      stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
-    } else if (transactionIndex === 1) {
-      transactionLabel = "Commit Vote";
-      stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
-    }
-    return (
-      <Modal>
-        <ProgressModalContentInProgress>
-          <ModalStepLabel>{stepLabelText}</ModalStepLabel>
-          <ModalHeading>{transactionLabel}</ModalHeading>
-        </ProgressModalContentInProgress>
-      </Modal>
-    );
-  }
-
-  private renderCommitVoteSuccess(): JSX.Element | null {
-    if (!this.state.isTransactionSuccessModalOpen) {
-      return null;
-    }
-    return (
-      <Modal>
-        <ModalHeading>
-          <strong>Vote Committed!</strong>
-        </ModalHeading>
-        <ModalContent>
-          Please keep your secret phrase safe. You will need it to confirm your vote. Votes can not be counted and
-          rewards can not be claimed unless you confirm them.
-        </ModalContent>
-        <Button size={buttonSizes.MEDIUM} onClick={this.handleCommitVoteSuccessClose}>
-          Ok, got it
-        </Button>
-      </Modal>
-    );
-  }
-
-  private renderTransactionRejectionModal(transactions: any[], cancelTransaction: () => void): JSX.Element | null {
-    if (!this.state.isTransactionRejectionModalOpen) {
-      return null;
-    }
-
-    const { transactionIndex } = this.state;
-    const message = "Your vote was not committed";
-    let denialMessage = "";
-
-    if (transactionIndex === 0) {
-      denialMessage =
-        "Before committing a vote, you need to confirm the approval of your voting token deposit in your MetaMask wallet.";
-    } else if (transactionIndex === 1) {
-      denialMessage = "To commit a vote, you need to confirm the transaction in your MetaMask wallet.";
-    }
-
-    return (
-      <MetaMaskModal
-        waiting={false}
-        denied={true}
-        denialText={denialMessage}
-        cancelTransaction={cancelTransaction}
-        denialRestartTransactions={transactions}
-      >
-        <ModalHeading>{message}</ModalHeading>
-      </MetaMaskModal>
-    );
-  }
-
-  private renderTransactionErrorModal(): JSX.Element | null {
-    if (!this.state.isTransactionErrorModalOpen) {
-      return null;
-    }
-
-    return (
-      <ProgressModalContentError hideModal={() => this.cancelTransaction()}>
-        <ModalHeading>The was an problem with commiting your vote</ModalHeading>
-        <ModalContent>Please check the following and retry your transaction</ModalContent>
-        <ModalUnorderedList>
-          <ModalListItem>
-            The number of tokens you are voting with does not exceed your available balance.
-          </ModalListItem>
-        </ModalUnorderedList>
-      </ProgressModalContentError>
-    );
-  }
-
-  private cancelTransaction = (): void => {
-    this.setState({
-      isWaitingTransactionModalOpen: false,
-      isTransactionProgressModalOpen: false,
-      isTransactionSuccessModalOpen: false,
-      isTransactionErrorModalOpen: false,
-      isTransactionRejectionModalOpen: false,
-    });
-  };
-
-  private handleTransactionError = (err: Error) => {
-    const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
-    this.setState(() => ({
-      isWaitingTransactionModalOpen: false,
-      isTransactionProgressModalOpen: false,
-      isTransactionSuccessModalOpen: false,
-      isTransactionErrorModalOpen: !isErrorUserRejection,
-      isTransactionRejectionModalOpen: isErrorUserRejection,
-    }));
+  private getTransactions = (): any => {
+    return [
+      {
+        transaction: async () => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.APPROVE_VOTING_RIGHTS,
+          });
+          return this.approveVotingRights();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        handleTransactionError: this.props.handleTransactionError,
+      },
+      {
+        transaction: async () => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.COMMIT_VOTE,
+          });
+          return this.commitVoteOnChallenge();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        postTransaction: () => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: true,
+          });
+        },
+        handleTransactionError: this.props.handleTransactionError,
+      },
+    ];
   };
 
   private updateCommitVoteState = (data: any, callback?: () => void): void => {
@@ -328,7 +245,8 @@ class ChallengeCommitVote extends React.Component<ChallengeDetailProps, Challeng
   };
 
   private handleCommitVoteSuccessClose = () => {
-    this.setState({ isTransactionSuccessModalOpen: false, isReviewVoteModalOpen: false });
+    this.props.updateTransactionStatusModalsState({ isTransactionSuccessModalOpen: false });
+    this.setState({ isReviewVoteModalOpen: false });
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
@@ -345,4 +263,6 @@ class ChallengeCommitVote extends React.Component<ChallengeDetailProps, Challeng
   };
 }
 
-export default ChallengeCommitVote;
+export default compose<React.ComponentClass<ChallengeDetailProps>>(
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(ChallengeCommitVote);
