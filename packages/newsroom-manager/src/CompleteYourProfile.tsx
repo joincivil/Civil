@@ -31,6 +31,7 @@ import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface CompleteYourProfileComponentExternalProps {
   userIsOwner?: boolean;
+  userIsEditor?: boolean;
   address?: EthAddress;
   profileWalletAddress?: EthAddress;
   renderUserSearch?(onSetAddress: any): JSX.Element;
@@ -40,6 +41,7 @@ export interface CompleteYourProfileComponentProps {
   owners: UserData[];
   editors: UserData[];
   userIsOwner?: boolean;
+  userIsEditor?: boolean;
   address?: EthAddress;
   newsroom: any;
   active?: boolean;
@@ -255,7 +257,7 @@ class CompleteYourProfileComponent extends React.Component<
   }
 
   public renderAddOwnerForm(): JSX.Element {
-    if (!this.props.userIsOwner) {
+    if (this.props.userIsEditor && !this.props.userIsOwner) {
       return (
         <p style={{ color: colors.accent.CIVIL_GRAY_2 }}>
           You are on the contract as a Member, not an Officer, so you cannot add additional Officers. You may add and

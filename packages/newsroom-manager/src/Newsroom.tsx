@@ -252,6 +252,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             >
               <CompleteYourProfile
                 userIsOwner={this.props.userIsOwner}
+                userIsEditor={this.props.userIsEditor}
                 address={this.props.address}
                 renderUserSearch={this.props.renderUserSearch}
                 profileWalletAddress={this.props.profileWalletAddress}
