@@ -10,13 +10,10 @@ import {
   ProgressModalContentInProgress,
 } from "@joincivil/components";
 
-export interface TransactionStatusModalProps {
-  transactions: any[];
-  handleTransactionSuccessButtonClick?(): void;
-  cancelTransaction?(): void;
-}
-
 export interface InjectedTransactionStatusModalProps {
+  setTransactions(transactions: any[]): void;
+  setHandleTransactionSuccessButtonClick(handleTransactionSuccessButtonClick: () => void): void;
+  setCancelTransaction(cancelTransaction: () => void): void;
   updateTransactionStatusModalsState(newState: TransactionStatusModalState): void;
   handleTransactionError(err: Error): void;
 }
@@ -47,9 +44,7 @@ export interface TransactionStatusModalsConfigProps {
 export const hasTransactionStatusModals = (transactionStatusModalConfig: TransactionStatusModalsConfigProps) => <
   TOriginalProps extends {}
 >(
-  WrappedComponent: React.ComponentType<
-    TOriginalProps & TransactionStatusModalProps & InjectedTransactionStatusModalProps
-  >,
+  WrappedComponent: React.ComponentType<TOriginalProps & InjectedTransactionStatusModalProps>,
 ) => {
   const {
     transactionLabels,
@@ -60,10 +55,14 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
   } = transactionStatusModalConfig;
 
   return class ComponentWithTransactionStatusModals extends React.Component<
-    TOriginalProps & TransactionStatusModalProps & InjectedTransactionStatusModalProps,
+    TOriginalProps & InjectedTransactionStatusModalProps,
     TransactionStatusModalState
   > {
-    constructor(props: TOriginalProps & TransactionStatusModalProps & InjectedTransactionStatusModalProps) {
+    public transactions: any[];
+    public cancelTransaction: () => void;
+    public handleTransactionSuccessButtonClick: () => void;
+
+    constructor(props: TOriginalProps & InjectedTransactionStatusModalProps) {
       super(props);
       this.state = {
         isWaitingTransactionModalOpen: false,
@@ -76,14 +75,17 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
     }
 
     public render(): JSX.Element {
-      const cancelTransaction = this.props.cancelTransaction
-        ? this.props.cancelTransaction
+      const cancelTransaction = this.cancelTransaction
+        ? this.cancelTransaction
         : () => {
             this.closeAllModals();
           };
       return (
         <>
           <WrappedComponent
+            setTransactions={this.setTransactions}
+            setCancelTransaction={this.setCancelTransaction}
+            setHandleTransactionSuccessButtonClick={this.setHandleTransactionSuccessButtonClick}
             updateTransactionStatusModalsState={(newState: TransactionStatusModalState) =>
               this.updateTransactionStatusModalsState(newState)
             }
@@ -94,7 +96,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
           {this.renderTransactionProgressModal()}
           {this.renderTransactionSuccessModal()}
           {this.renderTransactionErrorModal()}
-          {this.renderTransactionRejectionModal(this.props.transactions, cancelTransaction)}
+          {this.renderTransactionRejectionModal(this.transactions, cancelTransaction)}
         </>
       );
     }
@@ -109,7 +111,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
       }
 
       const successContent = transactionSuccessContent[this.state.transactionType!];
-      const onClick = this.props.handleTransactionSuccessButtonClick || this.closeAllModals;
+      const onClick = this.handleTransactionSuccessButtonClick || this.closeAllModals;
 
       return (
         <Modal>
@@ -177,7 +179,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
           denied={true}
           denialText={denialContent[1] as string}
           cancelTransaction={cancelTransaction}
-          denialRestartTransactions={this.props.transactions}
+          denialRestartTransactions={this.transactions}
         >
           <ModalHeading>{denialContent[0]}</ModalHeading>
         </MetaMaskModal>
@@ -218,6 +220,18 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         isTransactionErrorModalOpen: !isErrorUserRejection,
         isTransactionRejectionModalOpen: isErrorUserRejection,
       }));
+    };
+
+    public setTransactions = (transactions: any[]): void => {
+      this.transactions = transactions;
+    };
+
+    public setCancelTransaction = (cancelTransaction: () => void): void => {
+      this.cancelTransaction = cancelTransaction;
+    };
+
+    public setHandleTransactionSuccessButtonClick = (handleTransactionSuccessButtonClick: () => void): void => {
+      this.handleTransactionSuccessButtonClick = handleTransactionSuccessButtonClick;
     };
   };
 };

@@ -31,7 +31,7 @@ const transactionRejectionContent = {
 
 const transactionErrorContent = {
   [TransactionTypes.UPDATE_LISTING]: [
-    "The was an problem with adding this lisiting",
+    "The was an problem with adding this listing",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };
@@ -47,8 +47,17 @@ const transactionStatusModalConfig = {
 class ApplicationUpdateStatus extends React.Component<
   ApplicationUpdateStatusProps & InjectedTransactionStatusModalProps
 > {
+  public componentDidMount(): void {
+    this.props.setTransactions(this.getTransactions());
+  }
+
   public render(): JSX.Element {
-    const transactions = [
+    return <InApplicationResolveCard transactions={this.getTransactions()} />;
+  }
+
+  // Transactions
+  private getTransactions = (): any[] => {
+    return [
       {
         transaction: async () => {
           this.props.updateTransactionStatusModalsState({
@@ -75,15 +84,8 @@ class ApplicationUpdateStatus extends React.Component<
         handleTransactionError: this.props.handleTransactionError,
       },
     ];
+  };
 
-    return (
-      <>
-        <InApplicationResolveCard transactions={transactions} />
-      </>
-    );
-  }
-
-  // Transactions
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
     return updateStatus(this.props.listingAddress);
   };
