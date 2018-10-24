@@ -250,6 +250,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               complete={this.props.owners!.length > 1 || !!this.props.editors!.length || this.state.currentStep > 1}
             >
               <CompleteYourProfile
+                userIsOwner={this.props.userIsOwner}
                 address={this.props.address}
                 renderUserSearch={this.props.renderUserSearch}
                 profileWalletAddress={this.props.profileWalletAddress}
@@ -257,7 +258,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             </Step>
             <Step
               title={"Create Registry profile"}
-              disabled={!this.props.address}
+              disabled={!this.props.address || !this.props.userIsOwner}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
                   <>
@@ -284,7 +285,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             </Step>
             <Step
               title={"Write your charter"}
-              disabled={!this.props.address && !this.state.charterPartOneComplete}
+              disabled={(!this.props.address && !this.state.charterPartOneComplete) || !this.props.userIsOwner}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
                   <>
@@ -307,7 +308,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             </Step>
             <Step
               title={"Sign the Constitution"}
-              disabled={!this.props.address && !this.state.charterPartTwoComplete}
+              disabled={(!this.props.address && !this.state.charterPartTwoComplete) || !this.props.userIsOwner}
               complete={!!this.props.charterUri}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
@@ -329,7 +330,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 updateCharter={this.updateCharter}
               />
             </Step>
-            <Step title={"Apply to the Registry"} disabled={!this.props.address && !this.props.charterUri}>
+            <Step title={"Apply to the Registry"} disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}>
               <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
@@ -377,22 +378,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (this.props.onNewsroomCreated) {
       this.props.onNewsroomCreated(result.address);
     }
-  };
-
-  public isStepDisabled = (index: number) => {
-    if (this.props.userNotOnContract) {
-      return true;
-    }
-
-    if (index === 0) {
-      return false;
-    } else if (index < 2 && this.props.address) {
-      return false;
-    } else if (index > 1 && this.props.address && !this.props.userIsOwner) {
-      // steps > 1 are things only owners can do (charter, sign constitution, apply to registry)
-      return true;
-    }
-    return true;
   };
 
   private isDisabled = (): boolean => {
