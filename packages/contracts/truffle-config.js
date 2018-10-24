@@ -39,6 +39,7 @@ module.exports = {
         return ledgerProvider({ endpoint: "https://mainnet.infura.io/v3/" + infura_key, networkId: 1, accountId });
       },
       network_id: 1,
+      gasPrice: "10000000000",
     },
   },
   mocha: {
