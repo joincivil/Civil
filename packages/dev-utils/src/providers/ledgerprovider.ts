@@ -6,6 +6,7 @@ import {
   Web3ProviderEngine,
 } from "@0xproject/subproviders";
 import Eth from "@ledgerhq/hw-app-eth";
+// tslint:disable-next-line:no-implicit-dependencies
 import TransportNodeHid from "@ledgerhq/hw-transport-node-hid";
 import { FilteredLedgerProvider } from "./filteraccountsprovider";
 import FiltersSubprovider = require("web3-provider-engine/subproviders/filters");
