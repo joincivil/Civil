@@ -2,14 +2,14 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { EthAddress } from "@joincivil/core";
 import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
-import { State } from "../../reducers";
-import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
+import { State } from "../../redux/reducers";
+import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingContainerProps } from "../utility/HigherOrderComponents";
 
 export interface WhitelistedCardSubmitChallengeProps {
   listingAddress: EthAddress;
-  handleSubmitChallenge?(): void;
+  constitutionURI?: string;
 }
 
 class WhitelistedDetail extends React.Component<
@@ -20,11 +20,13 @@ class WhitelistedDetail extends React.Component<
   }
 
   public render(): JSX.Element {
+    const submitChallengeURI = `/listing/${this.props.listingAddress}/submit-challenge`;
     return (
       <>
         <WhitelistedCard
           whitelistedTimestamp={this.props.whitelistedTimestamp}
-          handleSubmitChallenge={this.props.handleSubmitChallenge}
+          submitChallengeURI={submitChallengeURI}
+          constitutionURI={this.props.constitutionURI}
         />
       </>
     );

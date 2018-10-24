@@ -4,7 +4,7 @@ exports[`Storyshots ModalContent content 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bbkauy uNNrR",
+      "class": "sc-dRCTWM bmBDqp",
     },
     "children": Array [
       Object {
@@ -12,7 +12,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-kpOJdX gUtBDt",
+              "class": "sc-dxgOiQ jxKGzX",
             },
             "children": Array [
               Object {
@@ -27,7 +27,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dxgOiQ fYmNiY",
+                "class": "sc-ckVGcZ krbzab",
               },
               "children": Array [
                 Object {
@@ -63,7 +63,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-dxgOiQ fYmNiY",
+              "class": "sc-ckVGcZ krbzab",
             },
             "children": Array [
               Object {
@@ -80,7 +80,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kpOJdX gUtBDt",
+                "class": "sc-dxgOiQ jxKGzX",
               },
               "children": Array [
                 Object {

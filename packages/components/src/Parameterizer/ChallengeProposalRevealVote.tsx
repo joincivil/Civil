@@ -102,6 +102,7 @@ export class ChallengeProposalRevealVote extends React.Component<TChallengePropo
             <StyledSection>
               <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
               <RevealVote
+                voteOption={this.props.voteOption}
                 salt={this.props.salt}
                 onInputChange={this.props.onInputChange}
                 transactions={this.props.transactions}

@@ -4,65 +4,63 @@ import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
 import {
   canRequestAppeal,
-  // didChallengeSucceed,
   doesChallengeHaveAppeal,
   ChallengeData,
   EthAddress,
-  TwoStepEthTransaction,
   UserChallengeData,
   WrappedChallengeData,
   NewsroomWrapper,
   didUserCommit,
 } from "@joincivil/core";
 import {
-  ChallengeCommitVoteCard,
-  ChallengeRevealVoteCard,
   ChallengeRequestAppealCard,
   ChallengeResults as ChallengeResultsComponent,
-  LoadingIndicator,
-  ModalHeading,
-  ModalContent,
-  ModalOrderedList,
-  ModalListItem,
-  ModalListItemTypes,
   ListingDetailPhaseCardComponentProps,
   PhaseWithExpiryProps,
   ChallengePhaseProps,
   ChallengeResultsProps,
-  ReviewVote,
-  ReviewVoteProps,
+  RequestAppealProps,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import AppealDetail from "./AppealDetail";
+import ChallengeCommitVote from "./ChallengeCommitVote";
+import ChallengeRevealVote from "./ChallengeRevealVote";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import { appealChallenge, approveForAppeal, commitVote, approveVotingRights, revealVote } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
-import { State } from "../../reducers";
-import { makeGetChallengeState, getNewsroom } from "../../selectors";
-import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
+import { State } from "../../redux/reducers";
+import {
+  makeGetChallengeState,
+  makeGetAppealChallengeState,
+  makeGetListingAddressByChallengeID,
+  makeGetUserChallengeData,
+  makeGetUserAppealChallengeData,
+  getNewsroom,
+  getIsMemberOfAppellate,
+} from "../../selectors";
+import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 import { fetchSalt } from "../../helpers/salt";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
+import { fetchVote } from "../../helpers/vote";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
-    ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps
+    ListingDetailPhaseCardComponentProps &
+      PhaseWithExpiryProps &
+      ChallengePhaseProps &
+      ChallengeResultsProps &
+      RequestAppealProps
   >,
 ) => {
   return compose<
     React.ComponentType<
-      ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeContainerProps
+      ListingDetailPhaseCardComponentProps &
+        PhaseWithExpiryProps &
+        ChallengePhaseProps &
+        ChallengeContainerProps &
+        RequestAppealProps
     >
   >(connectChallengeResults)(WrappedComponent);
 };
-
-enum ModalContentEventNames {
-  IN_PROGRESS_APPROVE_VOTING_RIGHTS = "IN_PROGRESS:APPROVE_VOTING_RIGHTS",
-  IN_PROGRESS_COMMIT_VOTE = "IN_PROGRESS:COMMIT_VOTE",
-  IN_PROGRESS_REVEAL_VOTE = "IN_PROGRESS:REVEAL_VOTE",
-  IN_PROGRESS_RESOLVE_CHALLENGE = "IN_PROGRESS:RESOLVE_CHALLENGE",
-  IN_PROGRESS_APPROVE_FOR_APPEAL = "IN_PROGRESS:APPROVE_FOR_APPEAL",
-  IN_PROGRESS_REQUEST_APPEAL = "IN_PROGRESS:REQUEST_APPEAL",
-}
 
 const StyledChallengeResults = styled.div`
   width: 460px;
@@ -70,24 +68,27 @@ const StyledChallengeResults = styled.div`
 
 export interface ChallengeDetailContainerProps {
   listingAddress: EthAddress;
+  challengeData?: WrappedChallengeData;
   challengeID: BigNumber;
+  appealChallengeID?: BigNumber;
   showNotFoundMessage?: boolean;
   listingPhaseState?: any;
 }
 
 export interface ChallengeContainerReduxProps {
   newsroom?: NewsroomWrapper;
-  challengeData?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
   challengeDataRequestStatus?: any;
   challengeState: any;
+  appealChallengeState: any;
   user: EthAddress;
   balance: BigNumber;
   votingBalance: BigNumber;
   parameters: any;
   govtParameters: any;
   isMemberOfAppellate: boolean;
+  txIdToConfirm?: number;
 }
 
 export interface ChallengeDetailProps {
@@ -95,6 +96,8 @@ export interface ChallengeDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
+  appealChallengeID?: BigNumber;
+  appealChallengeState: any;
   parameters?: any;
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
@@ -103,27 +106,47 @@ export interface ChallengeDetailProps {
   balance?: BigNumber;
   votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
+  txIdToConfirm?: number;
   newsroom: NewsroomWrapper;
 }
 
 export interface ChallengeVoteState {
-  isReviewVoteModalOpen: boolean;
+  isReviewVoteModalOpen?: boolean;
   voteOption?: string;
   salt?: string;
   numTokens?: string;
+  requestAppealSummaryValue?: string;
+  requestAppealCiteConstitutionValue?: any;
+  requestAppealDetailsValue?: any;
+}
+
+export interface ProgressModalPropsState {
+  isWaitingTransactionModalOpen?: boolean;
+  isTransactionProgressModalOpen?: boolean;
+  isTransactionSuccessModalOpen?: boolean;
+  isTransactionRejectionModalOpen?: boolean;
+  transactionIndex?: number;
 }
 
 // A container encapsultes the Commit Vote, Reveal Vote and Rewards phases for a Challenge.
 // @TODO(jon): Clean this up... by maybe separating into separate containers for each phase card component
-class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState> {
+class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState & ProgressModalPropsState> {
   constructor(props: any) {
     super(props);
-
+    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
     this.state = {
       isReviewVoteModalOpen: false,
-      voteOption: undefined,
+      voteOption,
       salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      transactionIndex: -1,
     };
   }
 
@@ -185,190 +208,44 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         appeal={challenge.appeal!}
         challengeID={this.props.challengeID}
         challenge={challenge}
+        userAppealChallengeData={this.props.userAppealChallengeData}
         challengeState={this.props.challengeState}
+        parameters={this.props.parameters}
         govtParameters={this.props.govtParameters}
         tokenBalance={(this.props.balance && this.props.balance.toNumber()) || 0}
         user={this.props.user}
-        isMemberOfCouncil={this.props.isMemberOfAppellate}
+        isMemberOfAppellate={this.props.isMemberOfAppellate}
+        txIdToConfirm={this.props.txIdToConfirm}
       />
     );
   }
 
   private renderCommitStage(): JSX.Element | null {
-    const endTime = this.props.challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.parameters.commitStageLen;
-    const challenge = this.props.challenge;
-    const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
-    const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
-
-    if (!challenge) {
-      return null;
-    }
-
-    return (
-      <>
-        <ChallengeCommitVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          challenger={challenge!.challenger.toString()}
-          challengeID={this.props.challengeID.toString()}
-          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-          stake={getFormattedTokenBalance(challenge!.stake)}
-          userHasCommittedVote={userHasCommittedVote}
-          onInputChange={this.updateCommitVoteState}
-          onReviewVote={this.handleReviewVote}
-          tokenBalance={tokenBalance}
-          salt={this.state.salt}
-          numTokens={this.state.numTokens}
-        />
-        {this.renderReviewVoteModal()}
-      </>
-    );
-  }
-
-  private renderApproveVotingRightsProgress(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transactions in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Approving Voting Rights</ModalListItem>
-          <ModalListItem type={ModalListItemTypes.FADED}>Committing Vote</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
-  }
-
-  private renderCommitVoteProgress(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transactions in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem>Requesting Voting Rights</ModalListItem>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Committing Vote</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
+    return <ChallengeCommitVote {...this.props} />;
   }
 
   private renderRevealStage(): JSX.Element | null {
-    const endTime = this.props.challenge.poll.revealEndDate.toNumber();
-    const phaseLength = this.props.parameters.revealStageLen;
-    const challenge = this.props.challenge;
-    const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
-    const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
-    const revealVoteProgressModal = this.renderRevealVoteProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE]: revealVoteProgressModal,
-    };
-    const transactions = [
-      { transaction: this.revealVoteOnChallenge, progressEventName: ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE },
-    ];
-
-    if (!challenge) {
-      return null;
-    }
-
-    return (
-      <ChallengeRevealVoteCard
-        challengeID={this.props.challengeID.toString()}
-        endTime={endTime}
-        phaseLength={phaseLength}
-        challenger={challenge!.challenger.toString()}
-        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-        stake={getFormattedTokenBalance(challenge!.stake)}
-        salt={this.state.salt}
-        onInputChange={this.updateCommitVoteState}
-        userHasRevealedVote={userHasRevealedVote}
-        userHasCommittedVote={userHasCommittedVote}
-        modalContentComponents={modalContentComponents}
-        transactions={transactions}
-      />
-    );
-  }
-
-  private renderRevealVoteProgressModal(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Revealing Vote</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
+    return <ChallengeRevealVote {...this.props} />;
   }
 
   private renderRequestAppealStage(): JSX.Element {
     const challenge = this.props.challenge;
     const endTime = challenge.requestAppealExpiry.toNumber();
     const phaseLength = this.props.govtParameters.requestAppealLen;
-    const approveForAppealProgressModal = this.renderApproveForAppealProgressModal();
-    const requestAppealProgressModal = this.renderRequestAppealProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL]: approveForAppealProgressModal,
-      [ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL]: requestAppealProgressModal,
-    };
-    const transactions = [
-      {
-        transaction: approveForAppeal,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_FOR_APPEAL,
-      },
-      {
-        transaction: this.appeal,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_REQUEST_APPEAL,
-      },
-    ];
-
     const ChallengeRequestAppeal = withChallengeResults(ChallengeRequestAppealCard);
+    const requestAppealURI = `/listing/${this.props.listingAddress}/request-appeal`;
 
-    return (
-      <ChallengeRequestAppeal
-        challengeID={this.props.challengeID.toString()}
-        endTime={endTime}
-        phaseLength={phaseLength}
-        challenger={challenge!.challenger.toString()}
-        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-        stake={getFormattedTokenBalance(challenge!.stake)}
-        modalContentComponents={modalContentComponents}
-        transactions={transactions}
-      />
-    );
-  }
-
-  private renderApproveForAppealProgressModal(): JSX.Element {
     return (
       <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Approving for Request Appeal</ModalListItem>
-          <ModalListItem type={ModalListItemTypes.FADED}>Requesting Appeal</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
-  }
-
-  private renderRequestAppealProgressModal(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transactions in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem>Approving for Request Appeal</ModalListItem>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Requesting Appeal</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
+        <ChallengeRequestAppeal
+          challengeID={this.props.challengeID.toString()}
+          endTime={endTime}
+          phaseLength={phaseLength}
+          challenger={challenge!.challenger.toString()}
+          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+          stake={getFormattedTokenBalance(challenge!.stake)}
+          requestAppealURI={requestAppealURI}
+        />
       </>
     );
   }
@@ -384,6 +261,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       </StyledChallengeResults>
     );
   }
+
   private renderRewardsDetail(): JSX.Element {
     return (
       <ChallengeRewardsDetail
@@ -394,6 +272,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       />
     );
   }
+
   private renderAppealChallengeRewardsDetail(): JSX.Element {
     return (
       <ChallengeRewardsDetail
@@ -404,89 +283,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       />
     );
   }
-
-  private renderReviewVoteModal(): JSX.Element {
-    if (!this.props.parameters) {
-      return <></>;
-    }
-
-    const { challenge } = this.props;
-    const requestVotingRightsProgressModal = this.renderApproveVotingRightsProgress();
-    const commitVoteProgressModal = this.renderCommitVoteProgress();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS]: requestVotingRightsProgressModal,
-      [ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE]: commitVoteProgressModal,
-    };
-    const transactions = [
-      {
-        transaction: this.approveVotingRights,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS,
-      },
-      {
-        transaction: this.commitVoteOnChallenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE,
-      },
-    ];
-
-    const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
-
-    const props: ReviewVoteProps = {
-      newsroomName: this.props.newsroom && this.props.newsroom.data.name,
-      listingDetailURL,
-      challengeID: this.props.challengeID.toString(),
-      open: this.state.isReviewVoteModalOpen,
-      salt: this.state.salt,
-      numTokens: this.state.numTokens,
-      voteOption: this.state.voteOption,
-      userAccount: this.props.user,
-      commitEndDate: challenge.poll.commitEndDate.toNumber(),
-      revealEndDate: challenge.poll.revealEndDate.toNumber(),
-      transactions,
-      modalContentComponents,
-      postExecuteTransactions: this.closeReviewVoteModal,
-      handleClose: this.closeReviewVoteModal,
-    };
-
-    return <ReviewVote {...props} />;
-  }
-
-  private updateCommitVoteState = (data: any, callback?: () => void): void => {
-    if (callback) {
-      this.setState({ ...data }, callback);
-    } else {
-      this.setState({ ...data });
-    }
-  };
-
-  private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    return appealChallenge(this.props.listingAddress);
-  };
-
-  private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return approveVotingRights(numTokens);
-  };
-
-  private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return commitVote(this.props.challengeID, voteOption, salt, numTokens);
-  };
-
-  private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
-    return revealVote(this.props.challengeID, voteOption, salt);
-  };
-
-  private handleReviewVote = () => {
-    this.setState({ isReviewVoteModalOpen: true });
-  };
-
-  private closeReviewVoteModal = () => {
-    this.setState({ isReviewVoteModalOpen: false });
-  };
 }
 
 class ChallengeContainer extends React.Component<
@@ -512,14 +308,17 @@ class ChallengeContainer extends React.Component<
         challengeID={this.props.challengeID}
         challenge={challenge}
         userChallengeData={this.props.userChallengeData}
+        appealChallengeID={this.props.appealChallengeID}
         userAppealChallengeData={this.props.userAppealChallengeData}
         challengeState={this.props.challengeState}
+        appealChallengeState={this.props.appealChallengeState}
         user={this.props.user}
         parameters={this.props.parameters}
         balance={this.props.balance}
         votingBalance={this.props.votingBalance}
         govtParameters={this.props.govtParameters}
         isMemberOfAppellate={this.props.isMemberOfAppellate}
+        txIdToConfirm={this.props.txIdToConfirm}
       />
     );
   }
@@ -531,32 +330,36 @@ class ChallengeContainer extends React.Component<
 
 const makeMapStateToProps = () => {
   const getChallengeState = makeGetChallengeState();
+  const getAppealChallengeState = makeGetAppealChallengeState();
+  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
+  const getUserChallengeData = makeGetUserChallengeData();
+  const getUserAppealChallengeData = makeGetUserAppealChallengeData();
 
   const mapStateToProps = (
     state: State,
     ownProps: ChallengeDetailContainerProps,
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
     const {
-      challenges,
       challengesFetching,
-      challengeUserData,
-      appealChallengeUserData,
       user,
       parameters,
       govtParameters,
-      appellateMembers,
+      councilMultisigTransactions,
     } = state.networkDependent;
-    let listingAddress = ownProps.listingAddress;
-    let challengeData;
-    let userChallengeData;
-    let userAppealChallengeData;
+    let txIdToConfirm;
+    const challengeData = ownProps.challengeData;
+    if (challengeData && challengeData.challenge && challengeData.challenge.appeal) {
+      const txData = challengeData.challenge.appeal.appealTxData.data!;
+      const key = txData.substring(0, 74);
+      if (councilMultisigTransactions.has(key)) {
+        txIdToConfirm = councilMultisigTransactions.get(key).id;
+      }
+    }
     const newsroomState = getNewsroom(state, ownProps);
     const challengeID = ownProps.challengeID;
-    if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
-    }
-    if (!listingAddress && challengeData) {
-      listingAddress = challenges.get(challengeID.toString())!.listingAddress;
+    let listingAddress: string | undefined = ownProps.listingAddress;
+    if (!listingAddress) {
+      listingAddress = getListingAddressByChallengeID(state, ownProps);
     }
     const userAcct = user.account;
 
@@ -565,36 +368,22 @@ const makeMapStateToProps = () => {
       newsroomWrapper = newsroomState.wrapper;
     }
 
-    // TODO(nickreynolds): clean this up
-    if (challengeID && userAcct) {
-      const challengeUserDataMap = challengeUserData.get(challengeID!.toString());
-      if (challengeUserDataMap) {
-        userChallengeData = challengeUserDataMap.get(userAcct.account);
-      }
-      if (challengeData) {
-        const wrappedChallenge = challengeData as WrappedChallengeData;
+    const userChallengeData = getUserChallengeData(state, ownProps);
+    const userAppealChallengeData = getUserAppealChallengeData(state, ownProps);
 
-        // null checks
-        if (wrappedChallenge && wrappedChallenge.challenge && wrappedChallenge.challenge.appeal) {
-          const appealChallengeID = wrappedChallenge.challenge.appeal.appealChallengeID;
-          const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID!.toString());
-          if (appealChallengeUserDataMap) {
-            userAppealChallengeData = appealChallengeUserDataMap.get(userAcct.account);
-          }
-        }
-      }
-    }
     let challengeDataRequestStatus;
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
-    const isMemberOfAppellate = appellateMembers.includes(userAcct.account);
+    const isMemberOfAppellate = getIsMemberOfAppellate(state);
+
     return {
       newsroom: newsroomWrapper,
       challengeData,
       userChallengeData,
       userAppealChallengeData,
       challengeState: getChallengeState(state, ownProps),
+      appealChallengeState: getAppealChallengeState(state, ownProps),
       challengeDataRequestStatus,
       user: userAcct.account,
       balance: user.account.balance,
@@ -602,6 +391,7 @@ const makeMapStateToProps = () => {
       parameters,
       govtParameters,
       isMemberOfAppellate,
+      txIdToConfirm,
       ...ownProps,
     };
   };

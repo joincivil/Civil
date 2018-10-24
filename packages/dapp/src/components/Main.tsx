@@ -4,10 +4,14 @@ import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
-import { setNetwork, setNetworkName } from "../actionCreators/network";
-import { addUser } from "../actionCreators/userAccount";
+import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
+import { addUser } from "../redux/actionCreators/userAccount";
 import { getCivil } from "../helpers/civilInstance";
-import { initializeGovernment, initializeGovernmentParamSubscription } from "../helpers/government";
+import {
+  initializeGovernment,
+  initializeGovernmentParamSubscription,
+  initializeConstitution,
+} from "../helpers/government";
 import { initializeChallengeSubscriptions, initializeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
@@ -24,6 +28,8 @@ import NewsroomManagementV1 from "./newsroom/NewsroomManagement";
 import NewsroomManagement from "./newsroom/NewsroomManagementV2";
 import Parameterizer from "./Parameterizer";
 import Government from "./council/Government";
+import SubmitChallengePage from "./listing/SubmitChallenge";
+import RequestAppealPage from "./listing/RequestAppeal";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -40,6 +46,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     try {
       await initializeParameterizer(this.props.dispatch!);
       await initializeGovernment(this.props.dispatch!);
+      await initializeConstitution(this.props.dispatch!);
       await initializeProposalsSubscriptions(this.props.dispatch!);
       await initializeGovernmentParamSubscription(this.props.dispatch!);
       await initializeSubscriptions(this.props.dispatch!);
@@ -85,11 +92,14 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
     return (
       <Switch>
         <Route exact path="/" component={Listings} />
+        <Route path="/registry/:listingType/:subListingType" component={Listings} />
         <Route path="/registry/:listingType" component={Listings} />
         <Route path="/registry" component={Listings} />
         <Route path="/contracts" component={Contracts} />
         <Route path="/contract/:contract" component={ContractPage} />
         <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
+        <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
+        <Route path="/listing/:listing/request-appeal" component={RequestAppealPage} />
         <Route path="/listing/:listing" component={Listing} />
         <Route path="/editor" component={Editor} />
         <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
@@ -98,6 +108,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
         <Route path="/createNewsroom" component={CreateNewsroom} />
         <Route path="/article/:newsroomAddress/:articleId" component={Article} />
         <Route path="/government" component={Government} />
+        <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
         <Route path="/dashboard" component={Dashboard} />
       </Switch>
     );

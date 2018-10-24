@@ -26,6 +26,12 @@ export const NavDrawerTotalBalanceText: React.SFC = props => <>Total Balance</>;
 
 export const NavDrawerVotingBalanceText: React.SFC = props => <>Voting Tokens</>;
 
+export const NavDrawerLoadingPrefText: React.SFC = props => <>Use GraphQL Server to Improve Load Time</>;
+
+export const NavDrawerVotingBalanceToolTipText: React.SFC = props => (
+  <>This deposit is set aside for the duration of the challenge process.</>
+);
+
 export const NavDrawerBuyCvlBtnText: React.SFC = props => <>Buy CVL Tokens</>;
 
 export const NavDrawerCopyBtnText: React.SFC = props => <>Copy</>;

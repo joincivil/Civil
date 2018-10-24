@@ -10,8 +10,10 @@ import { ContentProvider, ContentProviderCreator } from "./content/contentprovid
 import { IPFSProvider } from "./content/ipfsprovider";
 import { Artifact, artifacts } from "./contracts/generated/artifacts";
 import { Newsroom } from "./contracts/newsroom";
+import { UserGroups } from "./contracts/proof-of-use/usergroups";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
+import { ContentData, EthContentHeader } from "./types";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -203,6 +205,10 @@ export class Civil {
     return CivilTCR.singletonMultisigProxy(this.ethApi, this.contentProvider, multisigAddress);
   }
 
+  public async userGroupsSingletonTrusted(): Promise<UserGroups> {
+    return UserGroups.singleton(this.ethApi);
+  }
+
   /**
    * Waits for the transaction located through the hash gets into the blockchain
    * and returns it's receipt after it gets in.
@@ -224,6 +230,16 @@ export class Civil {
   public async publishContent(content: string): Promise<Uri> {
     const { uri } = await this.contentProvider.put(content);
     return uri;
+  }
+
+  public async getContent(header: EthContentHeader): Promise<ContentData | undefined> {
+    try {
+      const content = await this.contentProvider.get(header);
+      return content;
+    } catch (e) {
+      debug(`Resolving Content failed for EthContentHeader: ${header}`, e);
+      return;
+    }
   }
 
   public async currentBlock(): Promise<number> {

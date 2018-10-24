@@ -7,6 +7,7 @@ import {
   NavDrawerBalanceText,
   NavDrawerTotalBalanceText,
   NavDrawerVotingBalanceText,
+  NavDrawerVotingBalanceToolTipText,
   NavDrawerCopyBtnText,
   NavDrawerBuyCvlBtnText,
   NavDrawerDashboardText,
@@ -14,7 +15,10 @@ import {
   NavDrawerClaimRewardsText,
   NavDrawerSubmittedChallengesText,
   NavDrawerVotedChallengesText,
+  NavDrawerLoadingPrefText,
 } from "./textComponents";
+import { QuestionToolTip } from "../QuestionToolTip";
+import { LoadingPrefToggle } from "./LoadingPrefToggle";
 
 const NavDrawer = styled.div`
   background-color: ${colors.primary.BLACK};
@@ -52,6 +56,8 @@ const NavDrawerRow = styled.div`
 `;
 
 const NavDrawerRowLabel = styled.div`
+  align-items: center;
+  display: flex;
   font-size: 14px;
   font-weight: 500;
   line-height: 17px;
@@ -89,7 +95,7 @@ const UserAddress = styled.span`
   word-wrap: break-word;
 `;
 
-const NavDrawerBuyCvlBtn = Button.extend`
+const NavDrawerBuyCvlBtn = styled(Button)`
   font-weight: 600;
   margin-top: 20px;
   padding: 15px;
@@ -97,7 +103,7 @@ const NavDrawerBuyCvlBtn = Button.extend`
   width: 100%;
 `;
 
-const CopyButton = Button.extend`
+const CopyButton = styled(Button)`
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 1px;
@@ -114,6 +120,8 @@ export interface NavDrawerProps {
   userChallengesStartedCount?: number;
   userClaimRewardsCount?: number;
   buyCvlUrl?: string;
+  useGraphQL: boolean;
+  onLoadingPrefToggled(): void;
 }
 
 export class NavDrawerComponent extends React.Component<NavDrawerProps> {
@@ -130,6 +138,12 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           </CopyButton>
         </NavDrawerSection>
         <NavDrawerSection>
+          <NavDrawerRowLabel>
+            <NavDrawerLoadingPrefText />
+          </NavDrawerRowLabel>
+          <LoadingPrefToggle onClick={this.props.onLoadingPrefToggled} useGraphQL={this.props.useGraphQL} />
+        </NavDrawerSection>
+        <NavDrawerSection>
           <NavDrawerSectionHeader>
             <NavDrawerBalanceText />
           </NavDrawerSectionHeader>
@@ -144,6 +158,7 @@ export class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerVotingBalanceText />
+              <QuestionToolTip explainerText={<NavDrawerVotingBalanceToolTipText />} />
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
               <NavDrawerCvlBalance>{this.props.votingBalance}</NavDrawerCvlBalance>

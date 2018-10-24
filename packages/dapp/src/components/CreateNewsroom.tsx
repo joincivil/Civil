@@ -5,10 +5,11 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
 import { PageView, ViewModule } from "./utility/ViewModules";
-import { State } from "../reducers";
+import { State } from "../redux/reducers";
 
 export interface CreateNewsroomState {
   error: string;
+  metamaskEnabled?: boolean;
 }
 export interface CreateNewsroomProps {
   match: any;
@@ -30,6 +31,15 @@ class CreateNewsroom extends React.Component<
     };
   }
 
+  public async componentDidMount(): Promise<void> {
+    if ((window as any).ethereum) {
+      const metamaskEnabled = await (window as any).ethereum.isEnabled();
+      this.setState({ metamaskEnabled });
+    } else {
+      this.setState({ metamaskEnabled: true });
+    }
+  }
+
   public render(): JSX.Element {
     const civil = getCivil();
     return (
@@ -42,6 +52,13 @@ class CreateNewsroom extends React.Component<
             currentNetwork={this.props.networkName}
             requiredNetwork="rinkeby|ganache"
             theme={DEFAULT_BUTTON_THEME}
+            metamaskEnabled={this.state.metamaskEnabled}
+            enable={async () => {
+              if ((window as any).ethereum) {
+                await (window as any).ethereum.enable();
+                this.setState({ metamaskEnabled: true });
+              }
+            }}
           />
         </ViewModule>
       </PageView>

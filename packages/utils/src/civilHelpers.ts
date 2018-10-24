@@ -5,6 +5,22 @@ export function getVoteSaltHash(vote: string, salt: string): string {
   return soliditySha3(["uint", "uint"], [vote, salt]);
 }
 
+/** For Proof of Use UserGroups smart-contract forceUnion */
+export function prepareForceUnionMessage(
+  userGroupsAddress: EthAddress,
+  addressA: EthAddress,
+  addressB: EthAddress,
+): Hex {
+  return soliditySha3(
+    ["address", "bytes32"],
+    [userGroupsAddress, soliditySha3(["address", "address"], [addressA, addressB])],
+  );
+}
+
+export function prepareMaxGroupSizeMessage(userGroupsAddress: EthAddress, nonce: number, groupSize: number): Hex {
+  return soliditySha3(["address", "bytes32"], [userGroupsAddress, soliditySha3(["uint", "uint"], [nonce, groupSize])]);
+}
+
 export function prepareNewsroomMessage(newsroomAddress: EthAddress, contentHash: Hex): Hex {
   // TODO(ritave): We might want to use Metamask's typed signining procedure which would explain
   //               Sadly it's only supported by Metamask so not yet
@@ -13,7 +29,11 @@ export function prepareNewsroomMessage(newsroomAddress: EthAddress, contentHash:
 }
 
 export function prepareUserFriendlyNewsroomMessage(newsroomAddress: EthAddress, contentHash: Hex): string {
-  return `I authorize this newsroom with address ${newsroomAddress} to publish this article whose content hashes to ${contentHash} using keccak256`;
+  return `I authorize this newsroom to publish this post and verify its content.\n\nNewsroom address:\n${newsroomAddress}\n\nPost content hash:\n${contentHash}`;
+}
+
+export function prepareConstitutionSignMessage(newsroomAddress: EthAddress, constitutionHash: Hex): string {
+  return `By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitution.\n\nNewsrooom Address:\n${newsroomAddress}\n\nConstitution Hash:\n${constitutionHash}`;
 }
 
 // TODO(jon): Update this to support the proper blocks by network
@@ -25,6 +45,25 @@ export function getDefaultFromBlock(network: number = 4): number {
     4: 2848355,
   };
   return defaultFromBlocks[network.toString()];
+}
+
+const urlRegex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+export function isValidHttpUrl(url: string): boolean {
+  if (url.indexOf("http") !== 0) {
+    return false;
+  }
+
+  if (!window.URL) {
+    return !!url.match(urlRegex);
+  }
+
+  try {
+    // tslint:disable-next-line:no-unused-expression
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }
 
 export enum Parameters {

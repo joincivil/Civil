@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
-import { EthAddress, Civil } from "@joincivil/core";
+import { EthAddress, Civil, CharterData } from "@joincivil/core";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
+import { CmsUserData } from "./types";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -11,15 +12,23 @@ export enum newsroomActions {
   REMOVE_EDITOR = "REMOVE_EDITOR",
   SET_IS_OWNER = "SET_IS_OWNER",
   SET_IS_EDITOR = "SET_IS_EDITOR",
+  UPDATE_CHARTER = "UPDATE_CHARTER",
 }
 
 export enum uiActions {
   ADD_GET_NAME_FOR_ADDRESS = "ADD_GET_NAME_FOR_ADDRESS",
   GET_NAME_FOR_ADDRESS = "GET_NAME_FOR_ADDRESS",
+  ADD_PERSIST_CHARTER = "ADD_PERSIST_CHARTER",
+  PERSIST_CHARTER = "PERSIST_CHARTER",
 }
 
 export enum userActions {
   ADD_USER = "ADD_USER",
+}
+
+export enum governmentActions {
+  ADD_CONSTITUTION_URI = "ADD_CONSTITUTION_URI",
+  ADD_CONSTITUTION_HASH = "ADD_CONSTITUTION_HASH",
 }
 
 export const getOwners = (address: EthAddress, civil: Civil): any => async (
@@ -163,6 +172,21 @@ export const changeName = (address: EthAddress, name: string): AnyAction => {
   };
 };
 
+export const updateCharter = (address: EthAddress, charter: Partial<CharterData>): any => (
+  dispatch: any,
+  getState: any,
+): AnyAction => {
+  const state = getState();
+  const persistCharter = state.newsroomUi.get(uiActions.PERSIST_CHARTER);
+  if (persistCharter) {
+    persistCharter(charter);
+  }
+  return {
+    type: newsroomActions.UPDATE_CHARTER,
+    data: { charter, address },
+  };
+};
+
 export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
   const { newsrooms }: StateWithNewsroom = getState();
   const newsroom = newsrooms.get(address);
@@ -170,9 +194,16 @@ export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any,
   return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
 };
 
-export const addGetNameForAddress = (func: (address: EthAddress) => Promise<string>): AnyAction => {
+export const addGetNameForAddress = (func: (address: EthAddress) => Promise<CmsUserData>): AnyAction => {
   return {
     type: uiActions.ADD_GET_NAME_FOR_ADDRESS,
+    data: func,
+  };
+};
+
+export const addPersistCharter = (func: (charter: Partial<CharterData>) => void): AnyAction => {
+  return {
+    type: uiActions.ADD_PERSIST_CHARTER,
     data: func,
   };
 };
@@ -183,6 +214,24 @@ export const addUser = (address: EthAddress, name: string): AnyAction => {
     data: {
       address,
       name,
+    },
+  };
+};
+
+export const addConstitutionUri = (uri: string): AnyAction => {
+  return {
+    type: governmentActions.ADD_CONSTITUTION_URI,
+    data: {
+      uri,
+    },
+  };
+};
+
+export const addConstitutionHash = (hash: string): AnyAction => {
+  return {
+    type: governmentActions.ADD_CONSTITUTION_HASH,
+    data: {
+      hash,
     },
   };
 };

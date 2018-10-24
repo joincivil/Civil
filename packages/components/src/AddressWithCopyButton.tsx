@@ -3,11 +3,11 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors } from "./styleConstants";
 import { SecondaryButton, buttonSizes } from "./Button";
 
-export interface Props {
+export interface AddressWithCopyButtonProps {
   address?: string;
 }
 
-export const Box: StyledComponentClass<any, "div"> = styled.div`
+const Box: StyledComponentClass<any, "div"> = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-right: none;
   background-color: ${colors.basic.WHITE};
@@ -19,7 +19,7 @@ export const Box: StyledComponentClass<any, "div"> = styled.div`
   width: calc(100% - 21px);
 `;
 
-export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -27,12 +27,12 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   margin-bottom: 10px;
 `;
 
-const Button = SecondaryButton.extend`
+const Button = styled(SecondaryButton)`
   padding: 10px;
   font-size: 14px;
 `;
 
-export class AddressWithCopyButton extends React.Component<Props> {
+export class AddressWithCopyButton extends React.Component<AddressWithCopyButtonProps> {
   public addressBox?: HTMLDivElement;
   public render(): JSX.Element {
     return (

@@ -48,7 +48,7 @@ contract("Registry With Appeals", accounts => {
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
 
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.rejectedWith(
         REVERTED,
@@ -61,7 +61,7 @@ contract("Registry With Appeals", accounts => {
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
         "should not have been able to update status before appeal challenge is over",
@@ -76,8 +76,8 @@ contract("Registry With Appeals", accounts => {
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
 
       await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
 
@@ -98,8 +98,8 @@ contract("Registry With Appeals", accounts => {
       await registry.challenge(newsroomAddress, "", { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, { from: applicant });
-      await registry.grantAppeal(newsroomAddress, { from: JAB });
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
 
       await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
 

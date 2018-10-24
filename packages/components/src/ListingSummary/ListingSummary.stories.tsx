@@ -2,7 +2,8 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import StoryRouter from "storybook-react-router";
-import { ListingSummaryComponent, ListingSummaryComponentProps } from "./ListingSummary";
+import { ListingSummaryComponentProps } from "./types";
+import { ListingSummaryComponent } from "./ListingSummary";
 import { ListingSummaryRejectedComponent } from "./ListingSummaryRejected";
 import { ListingSummaryList } from "./ListingSummaryList";
 

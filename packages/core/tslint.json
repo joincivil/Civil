@@ -1,10 +1,6 @@
 {
   "extends": ["@joincivil/tslint-rules"],
   "linterOptions": {
-    "exclude": [
-      "src/contracts/generated/wrappers/parameterizer.ts",
-      "src/contracts/generated/wrappers/p_l_c_r_voting.ts",
-      "src/contracts/generated/wrappers/eip20.ts"
-    ]
+    "exclude": ["src/contracts/generated/wrappers/**/*"]
   }
 }

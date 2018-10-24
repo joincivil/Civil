@@ -15,10 +15,10 @@ import {
   PHASE_TYPE_FLAVOR_TEXT,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { setupRejectedListingLatestChallengeSubscription } from "../../actionCreators/listings";
-import { fetchAndAddChallengeData } from "../../actionCreators/challenges";
+import { setupRejectedListingLatestChallengeSubscription } from "../../redux/actionCreators/listings";
+import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 
 const StyledPartialChallengeResultsHeader = styled.p`
   & > span {
@@ -372,10 +372,11 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 
     public render(): JSX.Element | null {
       const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+      const challengeID = this.props.challengeID && this.props.challengeID.toString();
 
       return (
         <>
-          <PresentationComponent {...challengeResultsProps} {...this.props} />
+          <PresentationComponent {...challengeResultsProps} challengeID={challengeID} {...this.props} />
         </>
       );
     }

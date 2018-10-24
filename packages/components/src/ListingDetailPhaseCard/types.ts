@@ -5,16 +5,22 @@ export interface ListingDetailPhaseCardComponentProps {
   listing?: any;
   listingAddress?: EthAddress;
   transactions?: any[];
+  constitutionURI?: string;
   modalContentComponents?: any;
 }
 
 export interface PhaseWithExpiryProps {
   endTime: number;
   phaseLength: number;
+  secondaryPhaseLength?: number;
 }
 
 export interface SubmitChallengeProps {
-  handleSubmitChallenge?(): void;
+  submitChallengeURI?: string;
+}
+
+export interface RequestAppealProps {
+  requestAppealURI?: string;
 }
 
 export interface ChallengePhaseProps {
@@ -34,6 +40,7 @@ export interface CommitVoteProps {
   numTokens?: string;
   userHasCommittedVote?: boolean;
   userHasRevealedVote?: boolean;
+  buttonText?: string | JSX.Element;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
   onReviewVote(): void;
   postExecuteTransactions?(): any;
@@ -42,6 +49,7 @@ export interface CommitVoteProps {
 export interface RevealVoteProps {
   newsroomName?: string;
   salt: string | undefined;
+  voteOption: string | undefined;
   transactions: any[];
   modalContentComponents?: any;
   onInputChange(propsData: any, validateFn?: () => boolean): void;

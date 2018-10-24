@@ -13,7 +13,8 @@ import {
   MetaItemValueLong,
   MetaItemLabel,
 } from "./styledComponents";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { WaitingCouncilDecisionToolTipText } from "./textComponents";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
@@ -22,6 +23,7 @@ import { NeedHelp } from "./NeedHelp";
 export interface AppealProps {
   requester: string;
   appealFeePaid: string;
+  txIdToConfirm?: number;
 }
 
 export type AppealAwaitingDecisionCardProps = ListingDetailPhaseCardComponentProps &
@@ -31,11 +33,11 @@ export type AppealAwaitingDecisionCardProps = ListingDetailPhaseCardComponentPro
   AppealProps;
 
 const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
-  return (
-    <TransactionInvertedButton transactions={props.transactions!} modalContentComponents={props.modalContentComponents}>
-      Grant Appeal
-    </TransactionInvertedButton>
-  );
+  let text = "Grant Appeal";
+  if (props.txIdToConfirm) {
+    text = "Confirm Appeal";
+  }
+  return <TransactionButtonNoModal transactions={props.transactions!}>{text}</TransactionButtonNoModal>;
 };
 
 export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
@@ -49,6 +51,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Waiting for Council's decision"
+          toolTipText={<WaitingCouncilDecisionToolTipText phaseLength={props.phaseLength} />}
           flavorText="under Appeal to Council"
         />
       </StyledListingDetailPhaseCardSection>

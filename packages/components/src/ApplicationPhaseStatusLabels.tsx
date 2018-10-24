@@ -2,7 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "./styleConstants";
 
-const StyledBaseStatus = styled.div`
+export const StyledBaseStatus = styled.div`
   background-color: ${colors.primary.BLACK};
   color: ${colors.basic.WHITE};
   display: inline-block;
@@ -13,22 +13,27 @@ const StyledBaseStatus = styled.div`
   text-transform: uppercase;
 `;
 
-const StyledAwaitingStatuslabel = StyledBaseStatus.extend`
-  background-color: ${colors.accent.CIVIL_GRAY_4};
+const StyledAwaitingStatuslabel = styled(StyledBaseStatus)`
+  background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
   color: ${colors.primary.BLACK};
 `;
 
-const StyledCommitVoteStatus = StyledBaseStatus.extend`
+const StyledAwaitingAppealStatuslabel = styled(StyledBaseStatus)`
+  background-color: ${colors.accent.CIVIL_RED_VERY_FADED};
+  color: ${colors.primary.BLACK};
+`;
+
+const StyledCommitVoteStatus = styled(StyledBaseStatus)`
   background-color: ${colors.accent.CIVIL_YELLOW};
   color: ${colors.primary.BLACK};
 `;
 
-const StyledRevealVoteStatus = StyledBaseStatus.extend`
+const StyledRevealVoteStatus = styled(StyledBaseStatus)`
   background-color: ${colors.accent.CIVIL_TEAL_FADED};
   color: ${colors.primary.BLACK};
 `;
 
-const StyledReadyToCompleteStatus = StyledBaseStatus.extend`
+const StyledReadyToCompleteStatus = styled(StyledBaseStatus)`
   background-color: ${colors.accent.CIVIL_BLUE};
   color: ${colors.basic.WHITE};
 `;
@@ -38,7 +43,7 @@ export const AwaitingApprovalStatusLabel: React.SFC = props => {
 };
 
 export const AwaitingAppealRequestLabel: React.SFC = props => {
-  return <StyledAwaitingStatuslabel>Awaiting Appeal Request</StyledAwaitingStatuslabel>;
+  return <StyledAwaitingAppealStatuslabel>Awaiting Appeal Request</StyledAwaitingAppealStatuslabel>;
 };
 
 export const AwaitingDecisionStatusLabel: React.SFC = props => {
@@ -46,7 +51,7 @@ export const AwaitingDecisionStatusLabel: React.SFC = props => {
 };
 
 export const AwaitingAppealChallengeStatusLabel: React.SFC = props => {
-  return <StyledAwaitingStatuslabel>Awaiting Appeal Challenge</StyledAwaitingStatuslabel>;
+  return <StyledAwaitingAppealStatuslabel>Challenge Council Appeal </StyledAwaitingAppealStatuslabel>;
 };
 
 export const CommitVoteStatusLabel: React.SFC = props => {
@@ -58,7 +63,7 @@ export const RevealVoteStatusLabel: React.SFC = props => {
 };
 
 export const RequestingAppealStatusLabel: React.SFC = props => {
-  return <StyledBaseStatus>Requesting Appeal</StyledBaseStatus>;
+  return <StyledAwaitingAppealStatuslabel>Requesting Appeal</StyledAwaitingAppealStatuslabel>;
 };
 
 export const ReadyToCompleteStatusLabel: React.SFC = props => {

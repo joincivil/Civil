@@ -5,8 +5,8 @@ import { colors, fonts } from "./styleConstants";
 
 export const ModalHeading = styled.h2`
   font-family: ${fonts.SANS_SERIF};
-  font-weight: 400;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 20px;
   line-height: 30px;
 `;
 
@@ -16,6 +16,14 @@ export const ModalContent = styled.p`
   font-weight: 200;
   font-size: 12px;
   line-height: 24px;
+`;
+
+export const ModalStepLabel = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 14px;
+  line-height: 17px;
+  margin: 0 0 35px;
+  text-transform: uppercase;
 `;
 
 export const ModalOrderedList = styled.ol`

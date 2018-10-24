@@ -97,7 +97,7 @@ export const MetaItemLabel = styled.div`
   text-transform: uppercase;
 `;
 
-export const MetaItemLabelSalt = MetaItemLabel.extend`
+export const MetaItemLabelSalt = styled(MetaItemLabel)`
   text-align: center;
 `;
 
@@ -106,7 +106,7 @@ export const MetaItemValue = styled.div`
   line-height: 33px;
 `;
 
-export const MetaItemValueUser = MetaItemValue.extend`
+export const MetaItemValueUser = styled(MetaItemValue)`
   font-family: ${fonts.MONOSPACE};
 `;
 

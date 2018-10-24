@@ -164,6 +164,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   ): Observable<ListingWrapper> {
     return Observable.merge(
       this.instance
+        ._ApplicationStream({}, { fromBlock, toBlock })
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
+      this.instance
         ._AppealRequestedStream({}, { fromBlock, toBlock })
         .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress)),
 
@@ -663,12 +666,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return this.challengeWithURI(listingAddress, uri);
   }
 
-  public async requestAppeal(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.requestAppeal.sendTransactionAsync(listingAddress);
+  public async requestAppeal(listingAddress: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
+    const { uri } = await this.contentProvider.put(data);
+    return this.requestAppealWithURI(listingAddress, uri);
   }
 
-  public async grantAppeal(listingAddress: EthAddress): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.grantAppeal.sendTransactionAsync(listingAddress);
+  public async grantAppeal(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.grantAppeal.sendTransactionAsync(listingAddress, data);
   }
 
   public async challengeGrantedAppeal(
@@ -686,6 +690,16 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async challengeWithURI(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
     return this.multisigProxy.challenge.sendTransactionAsync(listingAddress, data);
+  }
+
+  /**
+   * This is a low-level call and assumes you stored your content on your own
+   * Requests an appeal on a challenged application
+   * @param address Address of listing to request appeal
+   * @param data Data associated with requested appeal (URI that points to data object)
+   */
+  public async requestAppealWithURI(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.requestAppeal.sendTransactionAsync(listingAddress, data);
   }
 
   /**

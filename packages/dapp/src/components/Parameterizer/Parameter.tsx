@@ -5,7 +5,7 @@ import { Set } from "immutable";
 import { Table, Tr, Td, StyledTableAccentText } from "@joincivil/components";
 import { getFormattedParameterValue } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import { makeGetProposalsByParameterName } from "../../selectors";
 import { Proposal } from "./Proposal";
 

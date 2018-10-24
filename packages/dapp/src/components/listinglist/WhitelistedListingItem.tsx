@@ -1,14 +1,15 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { ListingSummaryComponent } from "@joincivil/components";
+import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { State } from "../../reducers";
-import { setupListingWhitelistedSubscription } from "../../actionCreators/listings";
-import { makeGetListingPhaseState, makeGetListing, makeGetLatestWhitelistedTimestamp } from "../../selectors";
+import { State } from "../../redux/reducers";
+import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
+import { getListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
 
 export interface WhitelistedCardReduxProps extends ListingListItemReduxProps {
   whitelistedTimestamp?: number;
+  ListingItemComponent?: any;
 }
 
 class WhitelistedListingItem extends React.Component<
@@ -19,21 +20,41 @@ class WhitelistedListingItem extends React.Component<
   }
 
   public render(): JSX.Element {
-    const { listingAddress, listing, newsroom, listingPhaseState } = this.props;
+    const { listingAddress, listing, newsroom, listingPhaseState, charter } = this.props;
     const listingData = listing!.data;
     let description = "";
-    if (newsroom!.wrapper.data.charter) {
-      description = JSON.parse(newsroom!.wrapper.data.charter!.content.toString()).desc;
+    if (charter) {
+      try {
+        // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
+        description = charter.desc;
+      } catch (ex) {
+        console.error("charter not formatted correctly");
+      }
     }
-    const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-    const pollData = listingData.challenge && listingData.challenge.poll;
+    const challenge = listingData.challenge;
+    const challengeID = challenge && listingData.challengeID.toString();
+    const challengeStatementSummary =
+      challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
+
+    const pollData = challenge && challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
     const revealEndDate = pollData && pollData.revealEndDate.toNumber();
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
-    const newsroomData = newsroom!.wrapper.data;
+    const appeal = challenge && challenge.appeal;
+    const appealStatementSummary = appeal && appeal.statement && JSON.parse(appeal.statement as string).summary;
+    const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
+    const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
+
+    const newsroomData = newsroom!.data;
     const listingDetailURL = `/listing/${listingAddress}`;
+    let whitelistedTimestamp = this.props.whitelistedTimestamp;
+    if (this.props.queryData) {
+      whitelistedTimestamp = this.props.queryData.listing.approvalDate;
+    }
+
+    const ListingSummaryItem = this.props.ListingItemComponent || ListingSummaryApprovedComponent;
 
     const listingViewProps = {
       ...newsroomData,
@@ -41,37 +62,40 @@ class WhitelistedListingItem extends React.Component<
       description,
       listingDetailURL,
       ...listingPhaseState,
-      appExpiry,
+      challengeID,
+      challengeStatementSummary,
+      appeal,
+      appealStatementSummary,
+      appealPhaseExpiry,
+      appealOpenToChallengeExpiry,
       commitEndDate,
       revealEndDate,
       unstakedDeposit,
       challengeStake,
-      whitelistedTimestamp: this.props.whitelistedTimestamp,
+      whitelistedTimestamp,
     };
 
-    return <ListingSummaryComponent {...listingViewProps} />;
+    return <ListingSummaryItem {...listingViewProps} />;
   }
 }
 
 const makeMapStateToProps = () => {
-  const getListingPhaseState = makeGetListingPhaseState();
-  const getListing = makeGetListing();
   const getLatestWhitelistedTimestamp = makeGetLatestWhitelistedTimestamp();
 
   const mapStateToProps = (
     state: State,
     ownProps: ListingListItemOwnProps,
   ): ListingListItemOwnProps & WhitelistedCardReduxProps => {
-    const { newsrooms } = state;
-    const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
-    const listing = getListing(state, ownProps);
+    const { content } = state.networkDependent;
     const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
-
+    let charter;
+    if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
+      charter = content.get(ownProps.newsroom.data.charterHeader);
+    }
     return {
-      newsroom,
-      listing,
-      listingPhaseState: getListingPhaseState(state, ownProps),
+      listingPhaseState: getListingPhaseState(ownProps.listing),
       whitelistedTimestamp,
+      charter,
       ...ownProps,
     };
   };

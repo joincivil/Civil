@@ -25,13 +25,16 @@ import {
   CommitVoteCalloutCopyText,
   CommitVoteAlreadyVotedHeaderText,
   CommitVoteAlreadyVotedCopyText,
-  CommitVoteCalloutButtonText,
+  UnderChallengeToolTipText,
+  CommitVoteToolTipText,
+  ConfirmVoteToolTipText,
 } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { NeedHelp } from "./NeedHelp";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { CommitVote } from "./CommitVote";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export type ChallengeCommitVoteCardProps = ListingDetailPhaseCardComponentProps &
   PhaseWithExpiryProps &
@@ -61,12 +64,15 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <StyledPhaseDisplayName>
                   <UnderChallengePhaseDisplayNameText />
+                  <QuestionToolTip explainerText={<UnderChallengeToolTipText />} positionBottom={true} />
                 </StyledPhaseDisplayName>
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Accepting votes"
+                  toolTipText={<CommitVoteToolTipText />}
                   secondaryDisplayLabel="Confirming Votes"
+                  secondaryToolTipText={<ConfirmVoteToolTipText />}
                   flavorText="under challenge"
                   activePhaseIndex={0}
                 />
@@ -81,7 +87,13 @@ export class ChallengeCommitVoteCard extends React.Component<
                 />
               </StyledListingDetailPhaseCardSection>
 
-              {this.renderCommitVoteCallout()}
+              <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+                {this.renderCommitVoteCallout()}
+
+                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+                  {this.renderCommitVoteButtonText()}
+                </FullWidthButton>
+              </StyledListingDetailPhaseCardSection>
 
               <NeedHelp />
             </StyledListingDetailPhaseCardContainer>
@@ -93,12 +105,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledCardClose>
                   <span onClick={this.swapFlipped}>✖</span>
                 </StyledCardClose>
-                <FormHeader>
-                  <CommitVoteCalloutHeaderText />
-                </FormHeader>
-                <FormCopy>
-                  <CommitVoteCalloutCopyText />
-                </FormCopy>
+                {this.renderCommitVoteCallout()}
               </StyledListingDetailPhaseCardSection>
               <StyledListingDetailPhaseCardSection>
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
@@ -109,6 +116,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                   onInputChange={this.props.onInputChange}
                   userHasCommittedVote={this.props.userHasCommittedVote}
                   onReviewVote={this.props.onReviewVote}
+                  buttonText={this.renderCommitVoteButtonText()}
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
@@ -125,31 +133,32 @@ export class ChallengeCommitVoteCard extends React.Component<
   private renderCommitVoteCallout = (): JSX.Element => {
     if (this.props.userHasCommittedVote) {
       return (
-        <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+        <>
           <FormHeader>
             <CommitVoteAlreadyVotedHeaderText />
           </FormHeader>
           <FormCopy>
             <CommitVoteAlreadyVotedCopyText />
           </FormCopy>
-          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-            Submit My Vote
-          </FullWidthButton>
-        </StyledListingDetailPhaseCardSection>
+        </>
       );
     }
     return (
-      <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
+      <>
         <FormHeader>
           <CommitVoteCalloutHeaderText />
         </FormHeader>
         <FormCopy>
           <CommitVoteCalloutCopyText />
         </FormCopy>
-        <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-          <CommitVoteCalloutButtonText />
-        </FullWidthButton>
-      </StyledListingDetailPhaseCardSection>
+      </>
     );
+  };
+
+  private renderCommitVoteButtonText = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return <>Change My Vote</>;
+    }
+    return <>Submit My Vote</>;
   };
 }

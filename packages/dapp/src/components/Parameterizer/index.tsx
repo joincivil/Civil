@@ -25,7 +25,6 @@ import {
   ParamDispensationPctLabelText,
   VoteQuorumLabelText,
   ParamVoteQuorumLabelText,
-  ParamProcessByLabelText,
   ChallengeAppealLenLabelText,
   ChallengeAppealCommitStageLenLabelText,
   ChallengeAppealRevealStageLenLabelText,
@@ -39,7 +38,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
-import { State } from "../../reducers";
+import { State } from "../../redux/reducers";
 import ListingDiscourse from "../listing/ListingDiscourse";
 import {
   approveForProposeReparameterization,
@@ -420,7 +419,6 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       [Parameters.pCommitStageLen]: ParamCommitStageLenLabelText,
       [Parameters.revealStageLen]: RevealStageLenLabelText,
       [Parameters.pRevealStageLen]: ParamRevealStageLenLabelText,
-      [Parameters.pProcessBy]: ParamProcessByLabelText,
       [Parameters.challengeAppealLen]: ChallengeAppealLenLabelText,
       [Parameters.challengeAppealCommitLen]: ChallengeAppealCommitStageLenLabelText,
       [Parameters.challengeAppealRevealLen]: ChallengeAppealRevealStageLenLabelText,

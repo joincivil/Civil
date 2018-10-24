@@ -1,6 +1,14 @@
 import * as React from "react";
 import styled from "styled-components";
 import { fonts } from "../../styleConstants";
+import * as ReactDom from "react-dom";
+
+export interface RenderButtonsArgs {
+  stepsLength: number;
+  index: number;
+  goNext(): void;
+  goPrevious(): void;
+}
 
 export interface StepTopNavProps {
   title: string | JSX.Element;
@@ -8,8 +16,10 @@ export interface StepTopNavProps {
   isCurrent?: boolean;
   startPosition?: number;
   complete?: boolean;
+  disabled?: boolean;
   index?: number;
   children: React.ReactChild;
+  renderButtons?(args: RenderButtonsArgs): JSX.Element;
   onClick?(index: number): void;
   setStartPosition?(position: number): void;
 }
@@ -27,10 +37,11 @@ export interface DotProps {
 export interface StyledLiProps {
   isActive?: boolean;
   isCurrent?: boolean;
+  disabled?: boolean;
 }
 
 const StyledLi = styled<StyledLiProps, "li">("li")`
-  cursor: pointer;
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
   box-sizing: border-box;
   font-family: ${props => props.theme.sansSerifFont};
   font-weight: ${props => (props.isCurrent ? 500 : 300)};
@@ -70,7 +81,7 @@ const Dot = styled<DotProps, "div">("div")`
       : ""};
 `;
 
-const CompleteDot = Dot.extend`
+const CompleteDot = styled(Dot)`
   position: relative;
   width: 21px;
   height: 21px;
@@ -145,9 +156,10 @@ export class Step extends React.Component<StepTopNavProps, StepState> {
     const tailLength = this.state.dotPosition! - this.props.startPosition!;
     return (
       <StyledLi
-        onClick={() => this.props.onClick!(this.props.index!)}
+        onClick={() => !this.props.disabled && this.props.onClick!(this.props.index!)}
         isActive={this.props.isActive}
         isCurrent={this.props.isCurrent}
+        disabled={this.props.disabled}
       >
         <Dot
           innerRef={(el: HTMLDivElement) => (this.dot = el)}

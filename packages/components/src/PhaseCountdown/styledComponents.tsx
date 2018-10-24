@@ -6,22 +6,24 @@ export const ProgressBarCountdownContainer = styled.div`
   margin-bottom: 24px;
 `;
 export const ProgressBarDisplayLabel = styled.h4`
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 19px;
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 15px;
   margin: 0 0 7px;
+  text-transform: uppercase;
 `;
 export const ProgressBarBase = styled.div`
   height: 12px;
   border-radius: 7.5px;
 `;
-export const ProgressBarCountdownTotal = ProgressBarBase.extend`
+export const ProgressBarCountdownTotal = styled(ProgressBarBase)`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   box-sizing: border-box;
   position: relative;
   width: 100%;
 `;
-export const ProgressBarCountdownProgress = ProgressBarBase.extend`
+export const ProgressBarCountdownProgress = styled(ProgressBarBase)`
   display: inline-block;
   background-color: ${colors.accent.CIVIL_BLUE};
   left: 0;
@@ -48,11 +50,6 @@ export const TwoPhaseProgressBarContainer = styled.div`
     margin-left: 0;
     padding-right: 4%;
   }
-
-  ${ProgressBarDisplayLabel} {
-    font-size: 12px;
-    line-height: 15px;
-  }
 `;
 
 export const MetaItem = styled.div`
@@ -62,7 +59,7 @@ export const MetaItemValue = styled.div`
   font-size: 22px;
   line-height: 27px;
 `;
-export const MetaItemValueAccent = MetaItemValue.extend`
+export const MetaItemValueAccent = styled(MetaItemValue)`
   color: ${colors.primary.CIVIL_BLUE_1};
 `;
 export const MetaItemLabel = styled.div`

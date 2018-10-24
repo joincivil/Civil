@@ -9,9 +9,9 @@ const BACKGROUND_ACCENT_COLORS: any = {
 };
 
 export const StyledListingDetailPhaseCardContainer = styled.div`
-  box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
   box-sizing: border-box;
   background: ${colors.basic.WHITE};
+  box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
   font-family: ${fonts.SANS_SERIF};
   padding: 30px 0 50px;
   position: relative;
@@ -92,11 +92,11 @@ export const MetaItemValue = styled.div`
   text-overflow: ellipsis;
 `;
 
-export const MetaItemValueLong = MetaItemValue.extend`
+export const MetaItemValueLong = styled(MetaItemValue)`
   font-size: 16px;
 `;
 
-export const MetaItemValueAccent = MetaItemValue.extend`
+export const MetaItemValueAccent = styled(MetaItemValue)`
   color: ${colors.primary.CIVIL_BLUE_1};
 `;
 
@@ -164,6 +164,10 @@ export const StyledCardStage: StyledComponentClass<StyledCardStageProps, "div"> 
 )`
   perspective: 800px;
   width: ${props => (props.width ? props.width + "px" : "")};
+
+  & ${StyledListingDetailPhaseCardContainer} {
+    box-shadow: none;
+  }
 `;
 
 export const StyledCard: StyledComponentClass<StyledCardProps, "div"> = styled<StyledCardProps, "div">("div")`
@@ -190,16 +194,23 @@ export const StyledCardClose = styled.div`
 export const StyledCardFace: StyledComponentClass<StyledCardProps, "div"> = styled<StyledCardProps, "div">("div")`
   background-color: ${colors.basic.WHITE};
   backface-visibility: hidden;
+  box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
   height: 100%;
-  position: absolute;
+  position: relative;
+  min-height: 100%;
   width: 100%;
 `;
 
-export const StyledCardFront = StyledCardFace.extend`
+export const StyledCardFront = styled(StyledCardFace)`
   z-index: ${props => (!!props.flipped ? "1" : "-1")};
 `;
 
-export const StyledCardBack = StyledCardFace.extend`
+export const StyledCardBack = styled(StyledCardFace)`
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
   transform: rotateY(180deg);
   z-index: ${props => (!!props.flipped ? "-1" : "1")};
 
@@ -208,7 +219,7 @@ export const StyledCardBack = StyledCardFace.extend`
   }
 `;
 
-export const FullWidthButton: StyledComponentClass<ButtonProps, "button"> = Button.extend`
+export const FullWidthButton: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   margin: 14px 0 0;
   width: 100%;
 `;
@@ -219,3 +230,15 @@ export const buttonTheme: ButtonTheme = {
   primaryButtonDisabledColor: colors.accent.CIVIL_GRAY_3,
   darkButtonTextTransform: "uppercase",
 };
+
+export const ToolTipHdr = styled.p`
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  margin: 0 0 12px;
+`;
+
+export const ToolTipItalic = styled.p`
+  font-style: italic;
+  margin: 0 0 12px;
+`;

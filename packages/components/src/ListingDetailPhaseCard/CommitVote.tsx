@@ -51,7 +51,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         {this.renderSaltInput()}
 
         <Button disabled={!canReview} size={buttonSizes.MEDIUM} theme={buttonTheme} onClick={this.props.onReviewVote}>
-          <CommitVoteReviewButtonText />
+          {this.props.buttonText || <CommitVoteReviewButtonText />}
         </Button>
       </>
     );
@@ -143,7 +143,6 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private validateSalt = (): boolean => {
-    console.log("validate salt", this.props);
     let isValid = true;
 
     if (!this.props.salt || this.props.salt.length === 0) {
@@ -159,7 +158,6 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private validateNumTokens = (): boolean => {
-    console.log("validate num tokens", this.props);
     const numTokens = !this.props.numTokens ? 0 : parseInt(this.props.numTokens as string, 10);
     let isValid = true;
 

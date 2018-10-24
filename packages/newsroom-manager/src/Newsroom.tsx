@@ -1,30 +1,56 @@
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ButtonTheme, colors, StepProcessTopNav, Step, ManagerHeading, WalletOnboarding } from "@joincivil/components";
-import { Civil, EthAddress, TxHash } from "@joincivil/core";
+import {
+  ButtonTheme,
+  colors,
+  StepProcessTopNav,
+  Step,
+  ManagerHeading,
+  WalletOnboarding,
+  RenderButtonsArgs,
+  Button,
+  SecondaryButton,
+  buttonSizes,
+} from "@joincivil/components";
+import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { debounce } from "lodash";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
   addGetNameForAddress,
+  addPersistCharter,
   addNewsroom,
   getOwners,
   getEditors,
   getIsOwner,
   getIsEditor,
   getNewsroom,
+  addConstitutionHash,
+  addConstitutionUri,
+  updateCharter,
 } from "./actionCreators";
-// import { SignConstitution } from "./SignConstitution";
-// import { CreateCharter } from "./CreateCharter";
-// import { ApplyToTCR } from "./ApplyToTCR";
+import { CreateCharterPartOne } from "./CreateCharterPartOne";
+import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
+import { SignConstitution } from "./SignConstitution";
 import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
+import { ApplyToTCR } from "./ApplyToTCR";
 import { StateWithNewsroom } from "./reducers";
+import { CmsUserData } from "./types";
 
 export interface NewsroomComponentState {
   currentStep: number;
+  charter: Partial<CharterData>;
   subscription?: any;
+  charterPartOneComplete?: boolean;
+  charterPartTwoComplete?: boolean;
+  hasPublishedCharter?: boolean;
+}
+
+export interface IpfsObject {
+  add(content: any, options?: { hash: string; pin: boolean }): Promise<[{ path: string; hash: string; size: number }]>;
 }
 
 export interface NewsroomProps {
@@ -37,21 +63,33 @@ export interface NewsroomProps {
   requiredNetwork?: string;
   requiredNetworkNiceName?: string;
   civil?: Civil;
+  ipfs?: IpfsObject;
   theme?: ButtonTheme;
   profileWalletAddress?: EthAddress;
   showWalletOnboarding?: boolean;
   showWelcome?: boolean;
   helpUrl?: string;
+  helpUrlBase?: string;
   profileUrl?: string;
   profileAddressSaving?: boolean;
+  owners?: string[];
+  editors?: string[];
   userIsOwner?: boolean;
   userIsEditor?: boolean;
   userNotOnContract?: boolean;
+  newsroomUrl?: string;
+  newsroom?: any;
+  logoUrl?: string;
+  metamaskEnabled?: boolean;
+  charterUri?: string;
+  enable(): void;
+  getPersistedCharter?(): Promise<Partial<CharterData> | void>;
+  persistCharter?(charter: Partial<CharterData>): Promise<void>;
   saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
-  getNameForAddress?(address: EthAddress): Promise<string>;
+  getNameForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
@@ -71,16 +109,52 @@ const ErrorP = styled.p`
   color: ${colors.accent.CIVIL_RED};
 `;
 
-const Heading = ManagerHeading.extend`
+const Heading = styled(ManagerHeading)`
   color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
+  public static defaultProps = {
+    theme: {},
+  };
+
+  private processCharterUpdate = debounce(() => {
+    this.checkCharterCompletion();
+    this.props.dispatch!(updateCharter(this.props.address!, this.state.charter));
+  }, 1000);
+
   constructor(props: NewsroomProps) {
     super(props);
+    let currentStep = props.address ? 1 : 0;
+    try {
+      if (localStorage.newsroomOnBoardingLastSeen) {
+        currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
+      }
+    } catch (e) {
+      console.error("Failed to load step index", e);
+    }
+
     this.state = {
-      currentStep: props.address ? 1 : 0,
+      charter: this.defaultCharterValues(this.getCharterFromLocalStorage() || {}),
+      currentStep,
     };
+    this.checkCharterCompletion();
+
+    if (props.getPersistedCharter) {
+      props
+        .getPersistedCharter()
+        .then(charter => {
+          if (charter) {
+            this.setState(
+              {
+                charter: this.defaultCharterValues(charter),
+              },
+              this.checkCharterCompletion,
+            );
+          }
+        })
+        .catch();
+    }
   }
 
   public async componentDidMount(): Promise<void> {
@@ -88,8 +162,19 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addGetNameForAddress(this.props.getNameForAddress));
     }
 
+    this.props.dispatch!(addPersistCharter(this.persistCharter));
+
     if (this.props.address && this.props.civil) {
       await this.hydrateNewsroom(this.props.address);
+    }
+
+    if (this.props.civil) {
+      const tcr = await this.props.civil.tcrSingletonTrusted();
+      const government = await tcr.getGovernment();
+      const hash = await government.getConstitutionHash();
+      const uri = await government.getConstitutionURI();
+      this.props.dispatch!(addConstitutionHash(hash));
+      this.props.dispatch!(addConstitutionUri(uri));
     }
   }
 
@@ -118,8 +203,28 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-          <StepProcessTopNav activeIndex={this.state.currentStep}>
-            <Step title={"Set up a newsroom"} complete={!!this.props.address}>
+          <StepProcessTopNav
+            activeIndex={this.state.currentStep}
+            onActiveTabChange={(newIndex: number) => {
+              try {
+                localStorage.newsroomOnBoardingLastSeen = JSON.stringify(newIndex);
+              } catch (e) {
+                console.error("Failed to save step index", e);
+              }
+              this.setState({ currentStep: newIndex });
+            }}
+          >
+            <Step
+              title={"Create newsroom"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <Button disabled={!this.props.address} onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                    Next
+                  </Button>
+                );
+              }}
+              complete={!!this.props.address}
+            >
               <NameAndAddress
                 onNewsroomCreated={this.onNewsroomCreated}
                 name={this.props.name}
@@ -128,23 +233,108 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                 onContractDeployStarted={this.props.onContractDeployStarted}
               />
             </Step>
-            <Step title={"Add accounts"}>
+            <Step
+              disabled={!this.props.address}
+              title={"Add accounts"}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+              complete={this.props.owners!.length > 1 || !!this.props.editors!.length || this.state.currentStep > 1}
+            >
               <CompleteYourProfile
                 address={this.props.address}
                 renderUserSearch={this.props.renderUserSearch}
                 profileWalletAddress={this.props.profileWalletAddress}
               />
             </Step>
-            <Step title={"Create your charter"}>
-              <div />
+            <Step
+              title={"Create Registry profile"}
+              disabled={!this.props.address}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button
+                      onClick={args.goNext}
+                      size={buttonSizes.MEDIUM}
+                      disabled={!this.state.charterPartOneComplete}
+                    >
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+              complete={this.state.charterPartOneComplete}
+            >
+              <CreateCharterPartOne
+                address={this.props.address}
+                charter={this.state.charter}
+                updateCharter={this.updateCharter}
+              />
             </Step>
-            <Step title={"Sign the Constitution"}>
-              <div />
+            <Step
+              title={"Write your charter"}
+              disabled={!this.props.address && !this.state.charterPartOneComplete}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button
+                      onClick={args.goNext}
+                      size={buttonSizes.MEDIUM}
+                      disabled={!this.state.charterPartTwoComplete}
+                    >
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+              complete={this.state.charterPartTwoComplete}
+            >
+              <CreateCharterPartTwo charter={this.state.charter} updateCharter={this.updateCharter} />
             </Step>
-            <Step title={"Apply to the Registry"}>
-              <div />
+            <Step
+              title={"Sign the Constitution"}
+              disabled={!this.props.address && !this.state.charterPartTwoComplete}
+              complete={!!this.props.charterUri}
+              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                return (
+                  <>
+                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                      Back
+                    </SecondaryButton>
+                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
+                      Next
+                    </Button>
+                  </>
+                );
+              }}
+            >
+              <SignConstitution
+                newsroomAdress={this.props.address}
+                ipfs={this.props.ipfs}
+                charter={this.state.charter}
+                updateCharter={this.updateCharter}
+              />
+            </Step>
+            <Step title={"Apply to the Registry"} disabled={!this.props.address && !this.props.charterUri}>
+              <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
+          <button />
         </CivilContext.Provider>
       </>
     );
@@ -152,15 +342,19 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
-          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} />}
+          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} helpUrlBase={this.props.helpUrlBase!} />}
           {this.props.showWalletOnboarding && (
             <WalletOnboarding
               noProvider={!hasInjectedProvider()}
-              walletLocked={this.props.civil && !this.props.account}
+              notEnabled={this.props.civil && !this.props.metamaskEnabled}
+              enable={this.props.enable}
+              walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
               wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
               requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
               metamaskWalletAddress={this.props.account}
               profileUrl={this.props.profileUrl}
+              helpUrl={this.props.helpUrl}
+              helpUrlBase={this.props.helpUrlBase}
               profileAddressSaving={this.props.profileAddressSaving}
               profileWalletAddress={this.props.profileWalletAddress}
               saveAddressToProfile={this.props.saveAddressToProfile}
@@ -219,6 +413,74 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.props.dispatch!(getIsOwner(address, this.props.civil!));
     this.props.dispatch!(getIsEditor(address, this.props.civil!));
   };
+
+  private getCharterFromLocalStorage = (): Partial<CharterData> | undefined => {
+    try {
+      if (localStorage[this.props.address! + "|charter"]) {
+        return JSON.parse(localStorage[this.props.address! + "|charter"]);
+      }
+    } catch (e) {
+      console.error("Failed to retrieve charter from local storage:", e);
+    }
+    return undefined;
+  };
+
+  private updateCharter = (charter: Partial<CharterData>): void => {
+    this.setState({ charter });
+    this.processCharterUpdate();
+  };
+
+  private persistCharter = (charter: Partial<CharterData>): void => {
+    if (this.props.persistCharter) {
+      // We don't need to know when this finishes, but maybe some day we'd have a saving indicator or something.
+      // tslint:disable-next-line: no-floating-promises
+      this.props.persistCharter(charter);
+      return;
+    }
+
+    try {
+      localStorage[this.props.address! + "|charter"] = JSON.stringify(charter);
+    } catch (e) {
+      console.error("Failed to save charter to local storage:", e);
+    }
+  };
+
+  private checkCharterCompletion = () => {
+    const charterPartOneComplete = !!(
+      this.state.charter &&
+      this.state.charter.logoUrl &&
+      this.state.charter.newsroomUrl &&
+      this.state.charter.tagline &&
+      this.state.charter.roster &&
+      this.state.charter.roster.length
+    );
+
+    let charterPartTwoComplete = false;
+    const mission = this.state.charter.mission;
+    if (mission) {
+      charterPartTwoComplete = !!(
+        mission.purpose &&
+        mission.structure &&
+        mission.revenue &&
+        mission.encumbrances &&
+        mission.miscellaneous
+      );
+    }
+
+    this.setState({
+      charterPartOneComplete,
+      charterPartTwoComplete,
+    });
+  };
+  /** Replace even empty string values for newsroom/logo URLs in case user has partially filled charter and later goes in to CMS and sets these values. */
+  private defaultCharterValues = (charter: Partial<CharterData>): Partial<CharterData> => {
+    const { newsroomUrl, logoUrl } = this.props;
+    return {
+      ...charter,
+      newsroomUrl: charter.newsroomUrl || newsroomUrl,
+      logoUrl: charter.logoUrl || logoUrl,
+    };
+  };
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {
@@ -228,12 +490,17 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): New
   const userIsEditor = newsroom.isEditor;
   const userNotOnContract = !!ownProps.address && userIsOwner === false && userIsEditor === false;
 
+  const charterUri = newsroom.wrapper.data.charterHeader && newsroom.wrapper.data.charterHeader.uri;
   return {
     ...ownProps,
+    charterUri,
+    newsroom: newsroom.newsroom,
     name: newsroom.wrapper.data.name,
     userIsOwner,
     userIsEditor,
     userNotOnContract,
+    owners: newsroom.wrapper.data.owners || [],
+    editors: newsroom.editors || [],
   };
 };
 

@@ -3,6 +3,15 @@ import styled, { StyledComponentClass } from "styled-components";
 import { TabComponentProps } from "./Tab";
 import { colors, fonts } from "../styleConstants";
 
+export const StyledTabCount = styled.span`
+  display: inline-block;
+  border-radius: 31px;
+  font-size: 12px;
+  line-height: 15px;
+  margin-left: 6px;
+  padding: 3px 10px;
+`;
+
 export const StyledTabNav = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   height: 76px;
@@ -55,7 +64,7 @@ export const StyledSquarePillTabNav = styled.div`
 
 export const StyledSquarePillTab = styled.li`
   background-color: ${(props: TabComponentProps) =>
-    props.isActive ? colors.accent.CIVIL_BLUE_VERY_FADED : "transparent"};
+    props.isActive ? colors.accent.CIVIL_BLUE_FADED_2 : "transparent"};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-right: none;
   color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.primary.BLACK)};
@@ -65,12 +74,17 @@ export const StyledSquarePillTab = styled.li`
   font-weight: 600;
   line-height: 17px;
   padding: 20px 44px;
+  white-space: nowrap;
   &:last-of-type {
     border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
   }
   &:hover {
     color: ${colors.accent.CIVIL_BLUE};
-    background-color: ${colors.accent.CIVIL_BLUE_VERY_FADED};
+    background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
+  }
+  & ${StyledTabCount} {
+    background-color: ${(props: TabComponentProps) =>
+      props.isActive ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_GRAY_3};
   }
 `;
 

@@ -7,10 +7,12 @@ import {
   StyledPhaseKicker,
   StyledPhaseDisplayName,
 } from "./styledComponents";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { ReadyToCompletePhaseDisplayNameText, ResolveChallengeToolTipText } from "./textComponents";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { NeedHelp } from "./NeedHelp";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export const ChallengeResolveCard: React.StatelessComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeResultsProps
@@ -19,7 +21,10 @@ export const ChallengeResolveCard: React.StatelessComponent<
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
-        <StyledPhaseDisplayName>Ready to Complete</StyledPhaseDisplayName>
+        <StyledPhaseDisplayName>
+          <ReadyToCompletePhaseDisplayNameText />
+          <QuestionToolTip explainerText={<ResolveChallengeToolTipText />} positionBottom={true} />
+        </StyledPhaseDisplayName>
       </StyledListingDetailPhaseCardSection>
 
       <StyledListingDetailPhaseCardSection>
@@ -44,15 +49,10 @@ export const ChallengeResolveCard: React.StatelessComponent<
 
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
-          This challenge is complete. To update this Newsroom's status on the Civil Registry, please{" "}
-          <a href="#">resolve this challenge</a>.
+          This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
+          challenge.
         </CTACopy>
-        <TransactionInvertedButton
-          transactions={props.transactions!}
-          modalContentComponents={props.modalContentComponents}
-        >
-          Resolve Challenge
-        </TransactionInvertedButton>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Challenge</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />

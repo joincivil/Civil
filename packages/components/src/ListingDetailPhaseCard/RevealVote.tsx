@@ -1,7 +1,7 @@
 import * as React from "react";
 import { buttonSizes, Button, DarkButton } from "../Button";
 import { SaltInput } from "../input/";
-import { TransactionDarkButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { FormQuestion, StyledOrText, VoteOptionsContainer, buttonTheme } from "./styledComponents";
 import { WhitelistActionText, RemoveActionText, VoteCallToActionText, RevealVoteButtonText } from "./textComponents";
 import { RevealVoteProps } from "./types";
@@ -14,7 +14,9 @@ export interface RevealVoteState {
 export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState> {
   constructor(props: RevealVoteProps) {
     super(props);
-    this.state = {};
+    this.state = {
+      voteOption: this.props.voteOption ? Number.parseInt(this.props.voteOption, 10) : undefined,
+    };
   }
 
   public render(): JSX.Element {
@@ -33,14 +35,13 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
 
         <SaltInput salt={this.props.salt} label="Enter your salt" name="salt" onChange={this.onChange} />
 
-        <TransactionDarkButton
+        <TransactionButtonNoModal
           transactions={this.props.transactions}
-          modalContentComponents={this.props.modalContentComponents}
           disabled={!canReveal}
           postExecuteTransactions={this.props.postExecuteTransactions}
         >
           <RevealVoteButtonText />
-        </TransactionDarkButton>
+        </TransactionButtonNoModal>
       </>
     );
   }

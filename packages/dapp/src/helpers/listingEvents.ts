@@ -1,4 +1,4 @@
-import { EthAddress, getNextTimerExpiry, ListingWrapper } from "@joincivil/core";
+import { EthAddress, getNextTimerExpiry, ListingWrapper, EthContentHeader } from "@joincivil/core";
 import { addNewsroom } from "@joincivil/newsroom-manager";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
@@ -9,9 +9,9 @@ import {
   addUserAppealChallengeData,
   addUserChallengeData,
   addUserChallengeStarted,
-} from "../actionCreators/challenges";
-import { addListing, setLoadingFinished } from "../actionCreators/listings";
-import { addUserNewsroom } from "../actionCreators/newsrooms";
+} from "../redux/actionCreators/challenges";
+import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
+import { addUserNewsroom, addContent } from "../redux/actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
 
 const listingTimeouts = new Map<string, number>();
@@ -90,6 +90,17 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
   dispatch(addNewsroom({ wrapper, address: wrapper.address, newsroom }));
   if (user && wrapper.data.owners.includes(user)) {
     dispatch(addUserNewsroom(address));
+  }
+}
+
+export async function getIPFSContent(header: EthContentHeader, dispatch: Dispatch<any>): Promise<void> {
+  const civil = getCivil();
+  const content = await civil.getContent(header);
+  if (content) {
+    const parsedContent = JSON.parse(content.toString());
+    dispatch(addContent(header, parsedContent));
+  } else {
+    console.error("Missing IPFS content for header:", header);
   }
 }
 

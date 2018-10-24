@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { App } from "./App";
 import { createStore, applyMiddleware } from "redux";
-import reducers from "./reducers";
+import reducers from "./redux/reducers";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";

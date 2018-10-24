@@ -1,5 +1,6 @@
 import * as React from "react";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { EthSignedMessage } from "@joincivil/typescript-types";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
 import {
@@ -27,12 +28,12 @@ export interface TransactionButtonModalFlowState {
 
 export interface Transaction {
   progressEventName?: string;
-  transaction(): Promise<TwoStepEthTransaction<any> | void>;
+  transaction(): Promise<TwoStepEthTransaction<any> | EthSignedMessage | void>;
   preTransaction?(): any;
   requireBeforeTransaction?(): Promise<any>;
   postTransaction?(result: any): any;
   handleTransactionError?(err: any): any;
-  handleTransactionHash?(txhash: TxHash): void;
+  handleTransactionHash?(txhash?: TxHash): void;
 }
 
 export interface TransactionButtonProps {
@@ -167,11 +168,18 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
         this.setState({ step: 2 });
 
         if (currTransaction.handleTransactionHash && pending) {
-          currTransaction.handleTransactionHash(pending.txHash);
+          if ("txHash" in pending) {
+            currTransaction.handleTransactionHash(pending.txHash);
+          } else {
+            currTransaction.handleTransactionHash();
+          }
         }
 
         if (pending) {
-          const receipt = await pending.awaitReceipt();
+          let receipt = pending;
+          if ("awaitReceipt" in pending) {
+            receipt = await pending.awaitReceipt();
+          }
 
           if (!transactions.length) {
             this.setState({ step: 0, disableButton: false });

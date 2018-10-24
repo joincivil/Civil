@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { getLocalDateTimeStrings } from "@joincivil/utils";
 import { ListingDetailPhaseCardComponentProps, SubmitChallengeProps } from "./types";
 import {
@@ -9,8 +10,10 @@ import {
   MetaItemLabel,
   CTACopy,
 } from "./styledComponents";
+import { WhitelistedNewroomsDisplayNameText, WhitelistedNewroomsToolTipText } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export interface WhitelistedCardProps {
   whitelistedTimestamp?: number;
@@ -29,14 +32,17 @@ export const WhitelistedCard: React.StatelessComponent<
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
-        <StyledPhaseDisplayName>Approved Newsroom</StyledPhaseDisplayName>
+        <StyledPhaseDisplayName>
+          <WhitelistedNewroomsDisplayNameText />
+          <QuestionToolTip explainerText={<WhitelistedNewroomsToolTipText />} positionBottom={true} />
+        </StyledPhaseDisplayName>
         <MetaItemLabel>Approved date</MetaItemLabel>
         <MetaItemValue>{displayDateTime}</MetaItemValue>
       </StyledListingDetailPhaseCardSection>
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
-          If you believe this newsroom does not align with the <a href="#">Civil Constitution</a>, you may{" "}
-          <a href="#">submit a challenge</a>.
+          If you believe this newsroom does not align with the <a href={props.constitutionURI}>Civil Constitution</a>,
+          you may <Link to={props.submitChallengeURI || "#"}>submit a challenge</Link>.
         </CTACopy>
         {renderSubmitChallengeButton(props)}
       </StyledListingDetailPhaseCardSection>
@@ -47,9 +53,9 @@ export const WhitelistedCard: React.StatelessComponent<
 const renderSubmitChallengeButton: React.StatelessComponent<
   ListingDetailPhaseCardComponentProps & SubmitChallengeProps & WhitelistedCardProps
 > = props => {
-  if (props.handleSubmitChallenge) {
+  if (props.submitChallengeURI) {
     return (
-      <InvertedButton size={buttonSizes.MEDIUM} onClick={props.handleSubmitChallenge}>
+      <InvertedButton size={buttonSizes.MEDIUM} to={props.submitChallengeURI}>
         Submit a Challenge
       </InvertedButton>
     );

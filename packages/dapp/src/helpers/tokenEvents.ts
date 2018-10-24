@@ -1,7 +1,7 @@
 import { EthAddress } from "@joincivil/core";
 import { Dispatch } from "react-redux";
 import { Subscription } from "rxjs";
-import { updateUserTokenBalance, updateUserVotingBalance } from "../actionCreators/userAccount";
+import { updateUserTokenBalance, updateUserVotingBalance } from "../redux/actionCreators/userAccount";
 import { getTCR } from "./civilInstance";
 
 let tokenBalanceSubscriptions: Subscription;

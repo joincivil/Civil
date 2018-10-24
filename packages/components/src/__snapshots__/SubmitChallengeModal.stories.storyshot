@@ -4,7 +4,11 @@ exports[`Storyshots Submit Challenge Modal Submit Challenge Modal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-ciodno jWCRPv",
+<<<<<<< HEAD
+      "class": "sc-hdPSEv jqCwaR",
+=======
+      "class": "sc-crNyjn bytJpZ",
+>>>>>>> Get Constitution Sign it, no persistance
     },
     "children": Array [
       Object {

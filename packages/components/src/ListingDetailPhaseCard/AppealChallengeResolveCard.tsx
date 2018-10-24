@@ -12,11 +12,13 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { ReadyToCompletePhaseDisplayNameText, ResolveChallengeToolTipText } from "./textComponents";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { NeedHelp } from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export interface AppealChallengeResultsProps {
   appealChallengeTotalVotes: string;
@@ -39,7 +41,10 @@ export const AppealChallengeResolveCard: React.SFC<
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
         <StyledPhaseKicker>Appeal Challenge ID {props.appealChallengeID}</StyledPhaseKicker>
-        <StyledPhaseDisplayName>Ready to Complete</StyledPhaseDisplayName>
+        <StyledPhaseDisplayName>
+          <ReadyToCompletePhaseDisplayNameText />
+          <QuestionToolTip explainerText={<ResolveChallengeToolTipText />} positionBottom={true} />
+        </StyledPhaseDisplayName>
       </StyledListingDetailPhaseCardSection>
 
       <StyledListingDetailPhaseCardSection>
@@ -77,15 +82,10 @@ export const AppealChallengeResolveCard: React.SFC<
 
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
-          This challenge is complete. To update this Newsroom's status on the Civil Registry, please{" "}
-          <a href="#">resolve this appeal</a>.
+          This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
+          appeal.
         </CTACopy>
-        <TransactionInvertedButton
-          transactions={props.transactions!}
-          modalContentComponents={props.modalContentComponents}
-        >
-          Resolve Appeal Challenge
-        </TransactionInvertedButton>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Appeal Challenge</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />

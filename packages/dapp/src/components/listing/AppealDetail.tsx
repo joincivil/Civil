@@ -1,17 +1,27 @@
 import * as React from "react";
 import styled from "styled-components";
-import { AppealData, ChallengeData, EthAddress, TwoStepEthTransaction, NewsroomWrapper } from "@joincivil/core";
+import {
+  AppealData,
+  ChallengeData,
+  EthAddress,
+  NewsroomWrapper,
+  TwoStepEthTransaction,
+  TxHash,
+  UserChallengeData,
+} from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
+  Button,
+  buttonSizes,
   AppealAwaitingDecisionCard,
   AppealResolveCard,
   AppealDecisionCard,
-  LoadingIndicator,
+  MetaMaskModal,
+  Modal,
   ModalHeading,
   ModalContent,
-  ModalOrderedList,
-  ModalListItem,
-  ModalListItemTypes,
+  ModalStepLabel,
+  ProgressModalContentInProgress,
 } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import {
@@ -19,6 +29,7 @@ import {
   challengeGrantedAppeal,
   grantAppeal,
   updateStatus,
+  confirmAppeal,
 } from "../../apis/civilTCR";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 
@@ -29,12 +40,71 @@ const StyledDiv = styled.div`
   color: black;
 `;
 
-enum ModalContentEventNames {
-  GRANT_APPEAL = "GRANT_APPEAL",
-  RESOLVE_APPEAL = "RESOLVE_APPEAL",
-  APPROVE_CHALLENGE_APPEAL = "APPROVE_CHALLENGE_APPEAL",
-  CHALLENGE_APPEAL = "CHALLENGE_APPEAL",
+enum AppealDetailTransactionTypes {
+  GRANT_APPEAL,
+  RESOLVE_APPEAL,
+  APPROVE_CHALLENGE_APPEAL,
+  CHALLENGE_APPEAL,
+  CONFIRM_APPEAL,
 }
+
+const AppealDetailTransactionLabels = {
+  [AppealDetailTransactionTypes.GRANT_APPEAL]: "Grant Appeal",
+  [AppealDetailTransactionTypes.CONFIRM_APPEAL]: "Confirm Appeal",
+  [AppealDetailTransactionTypes.RESOLVE_APPEAL]: "Resolve Appeal",
+  [AppealDetailTransactionTypes.APPROVE_CHALLENGE_APPEAL]: "Approve Challenge Appeal",
+  [AppealDetailTransactionTypes.CHALLENGE_APPEAL]: "Challenge Appeal",
+};
+
+const MultiStepTransactionLabels = {
+  [AppealDetailTransactionTypes.APPROVE_CHALLENGE_APPEAL]: "1 of 2",
+  [AppealDetailTransactionTypes.CHALLENGE_APPEAL]: "2 of 2",
+};
+
+const denialSuffix = ", you need to confirm the transaction in your MetaMask wallet.";
+
+const AppealDetailTransactionRejectionLabels = {
+  [AppealDetailTransactionTypes.GRANT_APPEAL]: ["The appeal was not granted", `To grant the appeal${denialSuffix}`],
+  [AppealDetailTransactionTypes.CONFIRM_APPEAL]: [
+    "The appeal was not confirmed",
+    `To confirm the appeal${denialSuffix}`,
+  ],
+  [AppealDetailTransactionTypes.RESOLVE_APPEAL]: [
+    "The appeal was not resolved",
+    `To resolve the appeal${denialSuffix}`,
+  ],
+  [AppealDetailTransactionTypes.APPROVE_CHALLENGE_APPEAL]: [
+    "Your appeal challenge was not submitted",
+    "Before submitting an appeal challenge, you need to confirm that you approve the appeal fee deposit",
+  ],
+  [AppealDetailTransactionTypes.CHALLENGE_APPEAL]: [
+    "Your appeal challenge was not submitted",
+    `To submit an appeal challenge${denialSuffix}`,
+  ],
+};
+
+const AppealDetailTransactionSuccessLabels = {
+  [AppealDetailTransactionTypes.GRANT_APPEAL]: ["The appeal was granted", null],
+  [AppealDetailTransactionTypes.CONFIRM_APPEAL]: ["The appeal was confirmed", null],
+  [AppealDetailTransactionTypes.RESOLVE_APPEAL]: [
+    "The appeal was resolved",
+    <ModalContent>
+      Voters can now collect rewards from their votes on this challenge, if they are available.
+    </ModalContent>,
+  ],
+  [AppealDetailTransactionTypes.CHALLENGE_APPEAL]: [
+    "Your appeal challenge was submitted",
+    <>
+      <ModalContent>
+        This challenge is now accepting votes. To prevent decision bias, all votes will be hidden using a secret phrase,
+        until the end of the voting period.
+      </ModalContent>
+      <ModalContent>
+        You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge deposit.
+      </ModalContent>
+    </>,
+  ],
+};
 
 export interface AppealDetailProps {
   listingAddress: EthAddress;
@@ -43,15 +113,36 @@ export interface AppealDetailProps {
   challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
+  userAppealChallengeData?: UserChallengeData;
+  parameters: any;
   govtParameters: any;
   tokenBalance: number;
   user: EthAddress;
-  isMemberOfCouncil: boolean;
+  isMemberOfAppellate: boolean;
+  txIdToConfirm?: number;
 }
 
-class AppealDetail extends React.Component<AppealDetailProps> {
+export interface AppealDetailProgressModalPropsState {
+  isWaitingTransactionModalOpen?: boolean;
+  isTransactionProgressModalOpen?: boolean;
+  isTransactionSuccessModalOpen?: boolean;
+  isTransactionRejectionModalOpen?: boolean;
+  transactionType?: number;
+  transactions?: any[];
+  cancelTransaction?(): void;
+}
+
+class AppealDetail extends React.Component<AppealDetailProps, AppealDetailProgressModalPropsState> {
   constructor(props: AppealDetailProps) {
     super(props);
+
+    this.state = {
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionType: undefined,
+    };
   }
 
   public render(): JSX.Element {
@@ -60,23 +151,33 @@ class AppealDetail extends React.Component<AppealDetailProps> {
     const hasAppealChallenge = appeal.appealChallenge;
     return (
       <StyledDiv>
-        {!hasAppealChallenge && !canAppealBeResolved && this.renderAwaitingAppealDecision()}
+        {!hasAppealChallenge &&
+          !canAppealBeResolved &&
+          !appeal.appealChallenge &&
+          !isAwaitingAppealChallenge &&
+          this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
-        {appeal.appealChallenge && (
-          <AppealChallengeDetail
-            listingAddress={this.props.listingAddress}
-            newsroom={this.props.newsroom}
-            challengeID={this.props.challengeID}
-            challenge={this.props.challenge}
-            appeal={this.props.appeal}
-            appealChallengeID={appeal.appealChallengeID}
-            appealChallenge={appeal.appealChallenge}
-            govtParameters={this.props.govtParameters}
-            tokenBalance={this.props.tokenBalance}
-            user={this.props.user}
-          />
-        )}
-        {canAppealBeResolved && this.renderCanResolve()}
+        {appeal.appealChallenge &&
+          !appeal.appealChallenge.resolved && (
+            <AppealChallengeDetail
+              listingAddress={this.props.listingAddress}
+              newsroom={this.props.newsroom}
+              challengeID={this.props.challengeID}
+              challenge={this.props.challenge}
+              appeal={this.props.appeal}
+              appealChallengeID={appeal.appealChallengeID}
+              appealChallenge={appeal.appealChallenge}
+              userAppealChallengeData={this.props.userAppealChallengeData}
+              parameters={this.props.parameters}
+              govtParameters={this.props.govtParameters}
+              tokenBalance={this.props.tokenBalance}
+              user={this.props.user}
+            />
+          )}
+        {canAppealBeResolved && !appeal.appealChallenge && this.renderCanResolve()}
+        {this.renderAwaitingTransactionModal()}
+        {this.renderTransactionProgressModal()}
+        {this.renderTransactionSuccessModal()}
       </StyledDiv>
     );
   }
@@ -102,52 +203,117 @@ class AppealDetail extends React.Component<AppealDetailProps> {
 
     const { isAwaitingAppealJudgment } = this.props.challengeState;
 
-    // @TODO(jon): Check if user is in Civil Council multi-sig
     let transactions;
-    let modalContentComponents;
-    if (isAwaitingAppealJudgment && this.props.isMemberOfCouncil) {
-      const grantAppealProgressModal = this.renderGrantAppealProgressModal();
-      modalContentComponents = {
-        [ModalContentEventNames.GRANT_APPEAL]: grantAppealProgressModal,
-      };
-      transactions = [
-        {
-          transaction: this.grantAppeal,
-          progressEventName: ModalContentEventNames.GRANT_APPEAL,
-        },
-      ];
+    if (isAwaitingAppealJudgment && this.props.isMemberOfAppellate) {
+      if (this.props.txIdToConfirm) {
+        transactions = [
+          {
+            transaction: async () => {
+              this.setState({
+                isWaitingTransactionModalOpen: true,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: false,
+                transactionType: AppealDetailTransactionTypes.CONFIRM_APPEAL,
+              });
+              return this.confirmAppeal();
+            },
+            handleTransactionHash: (txHash: TxHash) => {
+              this.setState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: true,
+              });
+            },
+            postTransaction: () => {
+              this.setState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: true,
+              });
+            },
+            handleTransactionError: this.handleTransactionError,
+          },
+        ];
+      } else {
+        transactions = [
+          {
+            transaction: async () => {
+              this.setState({
+                isWaitingTransactionModalOpen: true,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: false,
+                transactionType: AppealDetailTransactionTypes.GRANT_APPEAL,
+              });
+              return this.grantAppeal();
+            },
+            handleTransactionHash: (txHash: TxHash) => {
+              this.setState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: true,
+              });
+            },
+            postTransaction: () => {
+              this.setState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: true,
+              });
+            },
+            handleTransactionError: this.handleTransactionError,
+          },
+        ];
+      }
     }
 
     return (
-      <AppealAwaitingDecisionCard
-        endTime={endTime}
-        phaseLength={phaseLength}
-        challengeID={this.props.challengeID.toString()}
-        challenger={challenge!.challenger.toString()}
-        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-        stake={getFormattedTokenBalance(challenge!.stake)}
-        requester={requester}
-        appealFeePaid={appealFeePaid}
-        totalVotes={getFormattedTokenBalance(totalVotes)}
-        votesFor={votesFor}
-        votesAgainst={votesAgainst}
-        percentFor={percentFor.toString()}
-        percentAgainst={percentAgainst.toString()}
-        transactions={transactions}
-        modalContentComponents={modalContentComponents}
-      />
+      <>
+        <AppealAwaitingDecisionCard
+          endTime={endTime}
+          phaseLength={phaseLength}
+          challengeID={this.props.challengeID.toString()}
+          challenger={challenge!.challenger.toString()}
+          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+          stake={getFormattedTokenBalance(challenge!.stake)}
+          requester={requester}
+          appealFeePaid={appealFeePaid}
+          totalVotes={getFormattedTokenBalance(totalVotes)}
+          votesFor={votesFor}
+          votesAgainst={votesAgainst}
+          percentFor={percentFor.toString()}
+          percentAgainst={percentAgainst.toString()}
+          transactions={transactions}
+          txIdToConfirm={this.props.txIdToConfirm}
+        />
+        {transactions && this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
+      </>
     );
   }
 
   private renderCanResolve(): JSX.Element {
-    const resolveAppealProgressModal = this.renderResolveAppealProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.RESOLVE_APPEAL]: resolveAppealProgressModal,
-    };
     const transactions = [
       {
-        transaction: this.resolveAppeal,
-        progressEventName: ModalContentEventNames.RESOLVE_APPEAL,
+        transaction: async () => {
+          this.setState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: AppealDetailTransactionTypes.RESOLVE_APPEAL,
+          });
+          return this.resolveAppeal();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        postTransaction: () => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: true,
+          });
+        },
+        handleTransactionError: this.handleTransactionError,
       },
     ];
     const challenge = this.props.challenge;
@@ -164,20 +330,22 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       .mul(100)
       .toFixed(0);
     return (
-      <AppealResolveCard
-        challengeID={this.props.challengeID.toString()}
-        challenger={challenge!.challenger.toString()}
-        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-        stake={getFormattedTokenBalance(challenge!.stake)}
-        totalVotes={getFormattedTokenBalance(totalVotes)}
-        votesFor={votesFor}
-        votesAgainst={votesAgainst}
-        percentFor={percentFor.toString()}
-        percentAgainst={percentAgainst.toString()}
-        appealGranted={appealGranted}
-        transactions={transactions}
-        modalContentComponents={modalContentComponents}
-      />
+      <>
+        <AppealResolveCard
+          challengeID={this.props.challengeID.toString()}
+          challenger={challenge!.challenger.toString()}
+          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+          stake={getFormattedTokenBalance(challenge!.stake)}
+          totalVotes={getFormattedTokenBalance(totalVotes)}
+          votesFor={votesFor}
+          votesAgainst={votesAgainst}
+          percentFor={percentFor.toString()}
+          percentAgainst={percentAgainst.toString()}
+          appealGranted={appealGranted}
+          transactions={transactions}
+        />
+        {this.renderTransactionRejectionModal(transactions, this.cancelTransaction)}
+      </>
     );
   }
 
@@ -196,21 +364,60 @@ class AppealDetail extends React.Component<AppealDetailProps> {
       .toFixed(0);
     const appeal = this.props.appeal;
     const appealGranted = appeal.appealGranted;
-    const approveForChallengeProgressModal = this.getApproveForChallengeProgressModal();
-    const challengeProgressModal = this.getChallengeProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.APPROVE_CHALLENGE_APPEAL]: approveForChallengeProgressModal,
-      [ModalContentEventNames.CHALLENGE_APPEAL]: challengeProgressModal,
-    };
     const transactions = [
       {
-        transaction: approveForChallengeGrantedAppeal,
-        progressEventName: ModalContentEventNames.APPROVE_CHALLENGE_APPEAL,
+        transaction: async () => {
+          this.setState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: AppealDetailTransactionTypes.APPROVE_CHALLENGE_APPEAL,
+          });
+          return approveForChallengeGrantedAppeal();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        postTransaction: () => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: true,
+          });
+        },
+        handleTransactionError: this.handleTransactionError,
       },
-      { transaction: this.challengeGrantedAppeal, progressEventName: ModalContentEventNames.CHALLENGE_APPEAL },
+      {
+        transaction: async () => {
+          this.setState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: AppealDetailTransactionTypes.CHALLENGE_APPEAL,
+          });
+          return this.challengeGrantedAppeal();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        postTransaction: () => {
+          this.setState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: true,
+          });
+        },
+        handleTransactionError: this.handleTransactionError,
+      },
     ];
     const endTime = appeal.appealOpenToChallengeExpiry.toNumber();
-    const phaseLength = this.props.govtParameters.challengeAppealLen;
+    const phaseLength = this.props.parameters.challengeAppealLen;
     return (
       <AppealDecisionCard
         endTime={endTime}
@@ -226,71 +433,118 @@ class AppealDetail extends React.Component<AppealDetailProps> {
         percentAgainst={percentAgainst.toString()}
         appealGranted={appealGranted}
         transactions={transactions}
-        modalContentComponents={modalContentComponents}
       />
     );
   }
 
-  private getApproveForChallengeProgressModal(): JSX.Element {
+  private renderTransactionSuccessModal(): JSX.Element | null {
+    if (!this.state.isTransactionSuccessModalOpen) {
+      return null;
+    }
+    const successLabel = AppealDetailTransactionSuccessLabels[this.state.transactionType!];
     return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transactions in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Approving for Challenge</ModalListItem>
-          <ModalListItem type={ModalListItemTypes.FADED}>Challenge Granted Appeal</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
+      <Modal>
+        <ModalHeading>
+          <strong>
+            Success!<br />
+            {successLabel[0]}
+          </strong>
+        </ModalHeading>
+        {successLabel[1]}
+        <Button size={buttonSizes.MEDIUM} onClick={this.closeAllModals}>
+          Ok, got it
+        </Button>
+      </Modal>
     );
   }
 
-  private getChallengeProgressModal(): JSX.Element {
+  private renderAwaitingTransactionModal(): JSX.Element | null {
+    if (!this.state.isWaitingTransactionModalOpen) {
+      return null;
+    }
+    const transactionLabel = AppealDetailTransactionLabels[this.state.transactionType!];
+    const stepLabelText = MultiStepTransactionLabels[this.state.transactionType!] || "1 of 1";
+    const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
     return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transactions in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem>Approving for Challenge</ModalListItem>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Challenge Granted Appeal</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
+      <MetaMaskModal waiting={true}>
+        <ModalStepLabel>{stepLabel}</ModalStepLabel>
+        <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+      </MetaMaskModal>
     );
   }
 
-  private renderResolveAppealProgressModal(): JSX.Element {
+  private renderTransactionProgressModal(): JSX.Element | null {
+    if (!this.state.isTransactionProgressModalOpen) {
+      return null;
+    }
+    const transactionLabel = AppealDetailTransactionLabels[this.state.transactionType!];
+    const stepLabelText = MultiStepTransactionLabels[this.state.transactionType!] || "1 of 1";
+    const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
     return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Resolving appeal</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
+      <Modal>
+        <ProgressModalContentInProgress>
+          <ModalStepLabel>{stepLabel}</ModalStepLabel>
+          <ModalHeading>{transactionLabel}</ModalHeading>
+        </ProgressModalContentInProgress>
+      </Modal>
     );
   }
 
-  private renderGrantAppealProgressModal(): JSX.Element {
+  private renderTransactionRejectionModal(transactions: any[], cancelTransaction: () => void): JSX.Element | null {
+    if (!this.state.isTransactionRejectionModalOpen) {
+      return null;
+    }
+
+    const denialMessage = AppealDetailTransactionRejectionLabels[this.state.transactionType!];
+
     return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Granting appeal</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText={denialMessage[1]}
+        cancelTransaction={cancelTransaction}
+        denialRestartTransactions={transactions}
+      >
+        <ModalHeading>{denialMessage[0]}</ModalHeading>
+      </MetaMaskModal>
     );
   }
+
+  private cancelTransaction = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+    });
+  };
+
+  private handleTransactionError = (err: Error) => {
+    const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
+    this.setState(() => ({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: isErrorUserRejection,
+    }));
+  };
+
+  private closeAllModals = (): void => {
+    this.setState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: false,
+      isTransactionRejectionModalOpen: false,
+      transactionType: undefined,
+    });
+  };
 
   private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
     return grantAppeal(this.props.listingAddress);
+  };
+
+  private confirmAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return confirmAppeal(this.props.txIdToConfirm!);
   };
 
   private challengeGrantedAppeal = async (): Promise<TwoStepEthTransaction<any>> => {

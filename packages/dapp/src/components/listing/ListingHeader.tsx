@@ -8,30 +8,74 @@ export interface ListingHeaderProps {
   listing: ListingWrapper;
   userAccount?: EthAddress;
   listingPhaseState: any;
+  charter?: any;
 }
 
-class ListingHeader extends React.Component<ListingHeaderProps> {
-  constructor(props: any) {
-    super(props);
+function getRegistryURLData(listingPhaseState: any): [string, string] {
+  let urlArg = "";
+  let label = "Registry";
+
+  if (listingPhaseState.isWhitelisted) {
+    urlArg = "whitelisted";
+    label = "Whitelisted Newsrooms";
+  } else if (listingPhaseState.isInApplication) {
+    urlArg = "in-progress/in-application";
+    label = "Whitelisted Newsrooms";
+  } else if (
+    listingPhaseState.inChallengeCommitVotePhase ||
+    listingPhaseState.inChallengeRevealPhase ||
+    listingPhaseState.isAwaitingAppealRequest
+  ) {
+    urlArg = "in-progress/under-challenge";
+    label = "Newsrooms Under Challenge";
+  } else if (listingPhaseState.isAwaitingAppealJudgment || listingPhaseState.isAwaitingAppealChallenge) {
+    urlArg = "in-progress/under-appeal";
+    label = "Newsrooms Under Appeal";
+  } else if (listingPhaseState.isInAppealChallengeRevealPhase || listingPhaseState.isInAppealChallengeCommitPhase) {
+    urlArg = "in-progress/under-appeal-challenge";
+    label = "Newsrooms Under Challenge";
+  } else if (
+    listingPhaseState.canBeWhitelisted ||
+    listingPhaseState.canResolveChallenge ||
+    listingPhaseState.canListingAppealBeResolved ||
+    listingPhaseState.canListingAppealChallengeBeResolved
+  ) {
+    urlArg = "in-progress/ready-to-update";
+    label = "Newsrooms Ready To Update";
+  } else if (listingPhaseState.isRejected) {
+    urlArg = "rejected";
+    label = "Rejected Newsrooms";
   }
 
-  public render(): JSX.Element {
-    let newsroomDescription = "";
-    if (this.props.newsroom.data.charter) {
-      newsroomDescription = JSON.parse(this.props.newsroom.data.charter.content.toString()).desc;
+  return [urlArg, label];
+}
+
+const ListingHeader: React.SFC<ListingHeaderProps> = props => {
+  let newsroomDescription = "";
+  if (props.charter) {
+    try {
+      // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
+      newsroomDescription = (props.charter.content as any).desc;
+    } catch (ex) {
+      console.error("charter not formatted correctly");
     }
 
-    const props: ListingDetailHeaderProps = {
-      newsroomName: this.props.newsroom.data.name,
-      newsroomDescription,
-      owner: this.props.listing.data.owner,
-      registryURL: "/registry",
-      unstakedDeposit: getFormattedTokenBalance(this.props.listing.data.unstakedDeposit),
-      ...this.props.listingPhaseState,
-    };
+    const registryURLData = getRegistryURLData(props.listingPhaseState);
+    const registryURLParameter = registryURLData[0];
+    const registryLinkText = registryURLData[1];
 
-    return <>{this.props.listing.data && <ListingDetailHeader {...props} />}</>;
+    const headerProps: ListingDetailHeaderProps = {
+      newsroomName: props.newsroom.data.name,
+      newsroomDescription,
+      owner: props.listing.data.owner,
+      registryURL: `/registry/${registryURLParameter}`,
+      registryLinkText,
+      unstakedDeposit: getFormattedTokenBalance(props.listing.data.unstakedDeposit),
+      ...props.listingPhaseState,
+    };
+    return <>{props.listing.data && <ListingDetailHeader {...headerProps} />}</>;
   }
-}
+  return <></>;
+};
 
 export default ListingHeader;

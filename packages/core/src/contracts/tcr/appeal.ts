@@ -1,19 +1,34 @@
 import BigNumber from "bignumber.js";
-import "@joincivil/utils";
-import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
+import * as Debug from "debug";
 import { EthApi } from "@joincivil/ethapi";
-import { AppealData } from "../../types";
+import { getDefaultFromBlock } from "@joincivil/utils";
+import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
+import { ContentProvider } from "../../content/contentprovider";
+import { AppealData, ContentData } from "../../types";
 import { AppealChallenge } from "./appealChallenge";
+import { EthAddress } from "@joincivil/typescript-types";
+
+const debug = Debug("civil:appeal");
 
 export class Appeal {
   private ethApi: EthApi;
   private tcrInstance: CivilTCRContract;
+  private contentProvider: ContentProvider;
   private challengeId: BigNumber;
+  private listingAddress: EthAddress;
 
-  constructor(ethApi: EthApi, instance: CivilTCRContract, challengeId: BigNumber) {
+  constructor(
+    ethApi: EthApi,
+    instance: CivilTCRContract,
+    challengeId: BigNumber,
+    listingAddress: EthAddress,
+    contentProvider: ContentProvider,
+  ) {
     this.ethApi = ethApi;
     this.tcrInstance = instance;
     this.challengeId = challengeId;
+    this.contentProvider = contentProvider;
+    this.listingAddress = listingAddress;
   }
 
   public async getAppealData(): Promise<AppealData> {
@@ -30,6 +45,8 @@ export class Appeal {
       const appealChallengeInstance = new AppealChallenge(this.ethApi, this.tcrInstance, appealChallengeID);
       appealChallenge = await appealChallengeInstance.getAppealChallengeData();
     }
+    const statement = await this.getAppealStatement();
+    const appealTxData = await this.tcrInstance.grantAppeal.getRaw(this.listingAddress, "", { gas: 0 });
     return {
       requester,
       appealFeePaid,
@@ -37,7 +54,41 @@ export class Appeal {
       appealGranted,
       appealOpenToChallengeExpiry,
       appealChallengeID,
+      appealTxData,
       appealChallenge,
+      statement,
     };
+  }
+
+  private async getAppealURI(): Promise<EthAddress | undefined> {
+    const currentBlock = await this.ethApi.getLatestBlockNumber();
+
+    try {
+      const appealRequestedEvent = await this.tcrInstance
+        ._AppealRequestedStream(
+          { challengeID: this.challengeId },
+          { fromBlock: getDefaultFromBlock(), toBlock: currentBlock },
+        )
+        .first()
+        .toPromise();
+      return appealRequestedEvent.args.data;
+    } catch (e) {
+      debug(`Getting AppealURI failed for ChallengeID: ${this.challengeId}`, e);
+      return;
+    }
+  }
+
+  private async getAppealStatement(): Promise<ContentData | undefined> {
+    const uri = await this.getAppealURI();
+    if (!uri) {
+      return;
+    }
+    try {
+      const appealStatement = await this.contentProvider.get({ uri, contentHash: "" });
+      return appealStatement;
+    } catch (e) {
+      debug(`Getting Appeal Statement failed for ChallengeID: ${this.challengeId}`, e);
+      return;
+    }
   }
 }

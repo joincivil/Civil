@@ -4,17 +4,17 @@ exports[`Storyshots Hero Homepage 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-jhAzac fFvrNu",
+      "class": "sc-dVhcbM kCWQzk",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-fBuWsC dxjVed",
+          "class": "sc-eqIVtm htPNwL",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-fMiknA kKJplf",
+              "class": "sc-fAjcbJ cqSRYh",
             },
             "children": Array [
               Object {
@@ -29,11 +29,11 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dVhcbM ixWYHc",
+                "class": "sc-caSCKo kJTkQA",
               },
               "children": Array [
                 Object {
-                  "data": "The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.",
+                  "data": "Participate in credible, trustworthy journalism",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -44,12 +44,12 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-eqIVtm kHWZjT",
+                  "class": "sc-gisBJw fYXtmr",
                   "href": "#",
                 },
                 "children": Array [
                   Object {
-                    "data": "Learn how to participate in our governance",
+                    "data": "The Civil Registry is a list of all newsrooms approved to publish on the Civil platform.",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -60,7 +60,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-gzVnrw cUjDIa",
+                    "class": "sc-htoDjs ixXLWo sc-gzVnrw gRywsu",
                     "href": "/",
                   },
                   "children": Array [
@@ -76,7 +76,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-fAjcbJ hlFpKq",
+                      "class": "sc-kjoXOD kvitfR",
                     },
                     "children": Array [
                       Object {
@@ -152,11 +152,11 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-dVhcbM ixWYHc",
+              "class": "sc-caSCKo kJTkQA",
             },
             "children": Array [
               Object {
-                "data": "The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.",
+                "data": "Participate in credible, trustworthy journalism",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
@@ -167,12 +167,12 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-eqIVtm kHWZjT",
+                "class": "sc-gisBJw fYXtmr",
                 "href": "#",
               },
               "children": Array [
                 Object {
-                  "data": "Learn how to participate in our governance",
+                  "data": "The Civil Registry is a list of all newsrooms approved to publish on the Civil platform.",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -183,7 +183,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-gzVnrw cUjDIa",
+                  "class": "sc-htoDjs ixXLWo sc-gzVnrw gRywsu",
                   "href": "/",
                 },
                 "children": Array [
@@ -199,7 +199,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-fAjcbJ hlFpKq",
+                    "class": "sc-kjoXOD kvitfR",
                   },
                   "children": Array [
                     Object {
@@ -256,7 +256,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-fMiknA kKJplf",
+                "class": "sc-fAjcbJ cqSRYh",
               },
               "children": Array [
                 Object {
@@ -290,12 +290,12 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-eqIVtm kHWZjT",
+              "class": "sc-gisBJw fYXtmr",
               "href": "#",
             },
             "children": Array [
               Object {
-                "data": "Learn how to participate in our governance",
+                "data": "The Civil Registry is a list of all newsrooms approved to publish on the Civil platform.",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
@@ -306,7 +306,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-gzVnrw cUjDIa",
+                "class": "sc-htoDjs ixXLWo sc-gzVnrw gRywsu",
                 "href": "/",
               },
               "children": Array [
@@ -322,7 +322,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-fAjcbJ hlFpKq",
+                  "class": "sc-kjoXOD kvitfR",
                 },
                 "children": Array [
                   Object {
@@ -367,11 +367,11 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-dVhcbM ixWYHc",
+                "class": "sc-caSCKo kJTkQA",
               },
               "children": Array [
                 Object {
-                  "data": "The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.",
+                  "data": "Participate in credible, trustworthy journalism",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -384,7 +384,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-fMiknA kKJplf",
+                  "class": "sc-fAjcbJ cqSRYh",
                 },
                 "children": Array [
                   Object {
@@ -428,7 +428,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-gzVnrw cUjDIa",
+              "class": "sc-htoDjs ixXLWo sc-gzVnrw gRywsu",
               "href": "/",
             },
             "children": Array [
@@ -444,7 +444,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-fAjcbJ hlFpKq",
+                "class": "sc-kjoXOD kvitfR",
               },
               "children": Array [
                 Object {
@@ -477,12 +477,12 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-eqIVtm kHWZjT",
+                "class": "sc-gisBJw fYXtmr",
                 "href": "#",
               },
               "children": Array [
                 Object {
-                  "data": "Learn how to participate in our governance",
+                  "data": "The Civil Registry is a list of all newsrooms approved to publish on the Civil platform.",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -495,11 +495,11 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-dVhcbM ixWYHc",
+                  "class": "sc-caSCKo kJTkQA",
                 },
                 "children": Array [
                   Object {
-                    "data": "The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.",
+                    "data": "Participate in credible, trustworthy journalism",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -512,7 +512,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-fMiknA kKJplf",
+                    "class": "sc-fAjcbJ cqSRYh",
                   },
                   "children": Array [
                     Object {
@@ -566,7 +566,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-fAjcbJ hlFpKq",
+              "class": "sc-kjoXOD kvitfR",
             },
             "children": Array [
               Object {
@@ -589,7 +589,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-gzVnrw cUjDIa",
+                "class": "sc-htoDjs ixXLWo sc-gzVnrw gRywsu",
                 "href": "/",
               },
               "children": Array [
@@ -607,12 +607,12 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-eqIVtm kHWZjT",
+                  "class": "sc-gisBJw fYXtmr",
                   "href": "#",
                 },
                 "children": Array [
                   Object {
-                    "data": "Learn how to participate in our governance",
+                    "data": "The Civil Registry is a list of all newsrooms approved to publish on the Civil platform.",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -625,11 +625,11 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-dVhcbM ixWYHc",
+                    "class": "sc-caSCKo kJTkQA",
                   },
                   "children": Array [
                     Object {
-                      "data": "The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.",
+                      "data": "Participate in credible, trustworthy journalism",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -642,7 +642,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-fMiknA kKJplf",
+                      "class": "sc-fAjcbJ cqSRYh",
                     },
                     "children": Array [
                       Object {
@@ -708,7 +708,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-fAjcbJ hlFpKq",
+                "class": "sc-kjoXOD kvitfR",
               },
               "children": Array [
                 Object {
@@ -725,7 +725,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-gzVnrw cUjDIa",
+                  "class": "sc-htoDjs ixXLWo sc-gzVnrw gRywsu",
                   "href": "/",
                 },
                 "children": Array [
@@ -743,12 +743,12 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-eqIVtm kHWZjT",
+                    "class": "sc-gisBJw fYXtmr",
                     "href": "#",
                   },
                   "children": Array [
                     Object {
-                      "data": "Learn how to participate in our governance",
+                      "data": "The Civil Registry is a list of all newsrooms approved to publish on the Civil platform.",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
@@ -761,11 +761,11 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-dVhcbM ixWYHc",
+                      "class": "sc-caSCKo kJTkQA",
                     },
                     "children": Array [
                       Object {
-                        "data": "The Civil Registry is a whitelist of community-approved newsrooms that have publishing rights on Civil.",
+                        "data": "Participate in credible, trustworthy journalism",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -778,7 +778,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-fMiknA kKJplf",
+                        "class": "sc-fAjcbJ cqSRYh",
                       },
                       "children": Array [
                         Object {

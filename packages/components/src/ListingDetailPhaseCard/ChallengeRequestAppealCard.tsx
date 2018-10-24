@@ -1,5 +1,10 @@
 import * as React from "react";
-import { ListingDetailPhaseCardComponentProps, ChallengePhaseProps, PhaseWithExpiryProps } from "./types";
+import {
+  ListingDetailPhaseCardComponentProps,
+  ChallengePhaseProps,
+  PhaseWithExpiryProps,
+  RequestAppealProps,
+} from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
   StyledListingDetailPhaseCardSection,
@@ -7,24 +12,61 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
-import { TransactionInvertedButton } from "../TransactionButton";
+import {
+  UnderChallengePhaseDisplayNameText,
+  UnderChallengeToolTipText,
+  RequestAppealToolTipText,
+} from "./textComponents";
+import { buttonSizes, InvertedButton } from "../Button";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { NeedHelp } from "./NeedHelp";
+import { QuestionToolTip } from "../QuestionToolTip";
+
+const RequestAppealButton: React.SFC<
+  ListingDetailPhaseCardComponentProps &
+    PhaseWithExpiryProps &
+    ChallengePhaseProps &
+    ChallengeResultsProps &
+    RequestAppealProps
+> = props => {
+  if (props.requestAppealURI) {
+    return (
+      <InvertedButton size={buttonSizes.MEDIUM} to={props.requestAppealURI}>
+        Request an Appeal
+      </InvertedButton>
+    );
+  }
+
+  return (
+    <TransactionButtonNoModal transactions={props.transactions!}>
+      Request Appeal from Civil Council
+    </TransactionButtonNoModal>
+  );
+};
 
 export const ChallengeRequestAppealCard: React.StatelessComponent<
-  ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & ChallengePhaseProps & ChallengeResultsProps
+  ListingDetailPhaseCardComponentProps &
+    PhaseWithExpiryProps &
+    ChallengePhaseProps &
+    ChallengeResultsProps &
+    RequestAppealProps
 > = props => {
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
         <StyledPhaseKicker>Challenge ID {props.challengeID}</StyledPhaseKicker>
-        <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
+        <StyledPhaseDisplayName>
+          <UnderChallengePhaseDisplayNameText />
+          <QuestionToolTip explainerText={<UnderChallengeToolTipText />} positionBottom={true} />
+        </StyledPhaseDisplayName>
         <ProgressBarCountdownTimer
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Accepting Appeal Requests"
+          toolTipText={<RequestAppealToolTipText />}
           flavorText="under challenge"
         />
       </StyledListingDetailPhaseCardSection>
@@ -50,12 +92,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
       </StyledListingDetailPhaseCardSection>
       <StyledListingDetailPhaseCardSection>
         <CTACopy>If you disagree with the community, you may request an appeal to the Civil Council.</CTACopy>
-        <TransactionInvertedButton
-          transactions={props.transactions!}
-          modalContentComponents={props.modalContentComponents}
-        >
-          Request Appeal from Civil Council
-        </TransactionInvertedButton>
+        <RequestAppealButton {...props} />
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />

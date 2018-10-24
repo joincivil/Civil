@@ -19,11 +19,18 @@ import {
   FormCopy,
   FullWidthButton,
 } from "./styledComponents";
+import {
+  UnderChallengePhaseDisplayNameText,
+  UnderChallengeToolTipText,
+  CommitVoteToolTipText,
+  ConfirmVoteToolTipText,
+} from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { NeedHelp } from "./NeedHelp";
 import { RevealVote } from "./RevealVote";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export type ChallengeRevealVoteCardProps = ListingDetailPhaseCardComponentProps &
   PhaseWithExpiryProps &
@@ -51,12 +58,17 @@ export class ChallengeRevealVoteCard extends React.Component<
             <StyledListingDetailPhaseCardContainer>
               <StyledListingDetailPhaseCardSection>
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
-                <StyledPhaseDisplayName>Under Challenge</StyledPhaseDisplayName>
+                <StyledPhaseDisplayName>
+                  <UnderChallengePhaseDisplayNameText />
+                  <QuestionToolTip explainerText={<UnderChallengeToolTipText />} positionBottom={true} />
+                </StyledPhaseDisplayName>
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Revealing votes"
+                  toolTipText={<ConfirmVoteToolTipText phaseLength={this.props.phaseLength} />}
                   secondaryDisplayLabel="Accepting Votes"
+                  secondaryToolTipText={<CommitVoteToolTipText phaseLength={this.props.secondaryPhaseLength} />}
                   flavorText="under challenge"
                   activePhaseIndex={1}
                 />
@@ -95,6 +107,7 @@ export class ChallengeRevealVoteCard extends React.Component<
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <RevealVote
                   salt={this.props.salt}
+                  voteOption={this.props.voteOption}
                   onInputChange={this.props.onInputChange}
                   transactions={this.props.transactions}
                   modalContentComponents={this.props.modalContentComponents}

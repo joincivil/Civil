@@ -23,7 +23,10 @@ const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
 const Newsroom = artifacts.require("Newsroom");
-const TokenTelemetry = artifacts.require("TokenTelemetry");
+const DummyTokenTelemetry = artifacts.require("DummyTokenTelemetry");
+const Whitelist = artifacts.require("Whitelist");
+const UserGroups = artifacts.require("UserGroups");
+const DummyContributionProxy = artifacts.require("DummyContributionProxy");
 configureProviders(
   PLCRVoting,
   CivilParameterizer,
@@ -33,6 +36,10 @@ configureProviders(
   CivilTCR,
   Government,
   Newsroom,
+  Whitelist,
+  UserGroups,
+  DummyContributionProxy,
+  DummyTokenTelemetry,
 );
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
@@ -95,14 +102,16 @@ export async function simpleSuccessfulChallenge(
   listing: string,
   challenger: string,
   voter: string,
-): Promise<void> {
+  salt: string = "123",
+): Promise<string> {
   const votingAddress = await registry.voting();
   const voting = PLCRVoting.at(votingAddress);
   const pollID = await challengeAndGetPollID(listing, challenger, registry);
-  await commitVote(voting, pollID, "0", "100", "123", voter);
+  await commitVote(voting, pollID, "0", "100", salt, voter);
   await advanceEvmTime(paramConfig.commitStageLength + 1);
-  await voting.revealVote(pollID, "0", "123", { from: voter });
+  await voting.revealVote(pollID, "0", salt, { from: voter });
   await advanceEvmTime(paramConfig.revealStageLength + 1);
+  return pollID;
 }
 
 export async function simpleUnsuccessfulChallenge(
@@ -110,14 +119,16 @@ export async function simpleUnsuccessfulChallenge(
   listing: string,
   challenger: string,
   voter: string,
-): Promise<void> {
+  salt: string = "420",
+): Promise<string> {
   const votingAddress = await registry.voting();
   const voting = PLCRVoting.at(votingAddress);
   const pollID = await challengeAndGetPollID(listing, challenger, registry);
-  await commitVote(voting, pollID, "1", "100", "420", voter);
+  await commitVote(voting, pollID, "1", "100", salt, voter);
   await advanceEvmTime(paramConfig.commitStageLength + 1);
-  await voting.revealVote(pollID, "1", "420", { from: voter });
+  await voting.revealVote(pollID, "1", salt, { from: voter });
   await advanceEvmTime(paramConfig.revealStageLength + 1);
+  return pollID;
 }
 
 export async function simpleSuccessfulAppealChallenge(
@@ -125,14 +136,16 @@ export async function simpleSuccessfulAppealChallenge(
   listing: string,
   challenger: string,
   voter: string,
-): Promise<void> {
+  salt: string = "123",
+): Promise<string> {
   const votingAddress = await registry.voting();
   const voting = PLCRVoting.at(votingAddress);
   const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
-  await commitVote(voting, pollID, "1", "100", "123", voter);
+  await commitVote(voting, pollID, "1", "100", salt, voter);
   await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
-  await voting.revealVote(pollID, "1", "123", { from: voter });
+  await voting.revealVote(pollID, "1", salt, { from: voter });
   await advanceEvmTime(paramConfig.appealChallengeRevealStageLength + 1);
+  return pollID;
 }
 
 export async function simpleUnsuccessfulAppealChallenge(
@@ -140,14 +153,16 @@ export async function simpleUnsuccessfulAppealChallenge(
   listing: string,
   challenger: string,
   voter: string,
-): Promise<void> {
+  salt: string = "420",
+): Promise<string> {
   const votingAddress = await registry.voting();
   const voting = PLCRVoting.at(votingAddress);
   const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
-  await commitVote(voting, pollID, "0", "100", "420", voter);
+  await commitVote(voting, pollID, "0", "100", salt, voter);
   await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
-  await voting.revealVote(pollID, "0", "420", { from: voter });
+  await voting.revealVote(pollID, "0", salt, { from: voter });
   await advanceEvmTime(paramConfig.appealChallengeRevealStageLength + 1);
+  return pollID;
 }
 
 export async function addToWhitelist(
@@ -159,6 +174,28 @@ export async function addToWhitelist(
   await registry.apply(listingAddress, deposit, "", { from: account });
   await advanceEvmTime(paramConfig.applyStageLength + 1);
   await registry.updateStatus(listingAddress, { from: account });
+}
+
+export function getChallengeReward(): BigNumber {
+  const reward = paramConfig.minDeposit - paramConfig.minDeposit * (1 - paramConfig.dispensationPct / 100);
+  return new BigNumber(reward);
+}
+
+export function getAppealChallengeReward(): BigNumber {
+  const reward =
+    paramConfig.appealFeeAmount -
+    paramConfig.appealFeeAmount * (1 - paramConfig.appealChallengeVoteDispensationPct / 100);
+  return new BigNumber(reward);
+}
+
+export function getTotalVoterReward(): BigNumber {
+  const totalVoterReward = new BigNumber(paramConfig.minDeposit).sub(getChallengeReward());
+  return totalVoterReward;
+}
+
+export function getTotalAppealChallengeVoterReward(): BigNumber {
+  const totalVoterReward = new BigNumber(paramConfig.appealFeeAmount).sub(getAppealChallengeReward());
+  return totalVoterReward;
 }
 
 export function toBaseTenBigNumber(p: number): BigNumber {
@@ -264,12 +301,12 @@ async function createTestCivilTCRInstance(
   const government = await Government.new(
     appellateEntity,
     appellateEntity,
-    tokenAddress,
     plcrAddress,
     parameterizerConfig.appealFeeAmount,
     parameterizerConfig.requestAppealPhaseLength,
     parameterizerConfig.judgeAppealPhaseLength,
     parameterizerConfig.appealSupermajorityPercentage,
+    parameterizerConfig.appealChallengeVoteDispensationPct,
     parameterizerConfig.govtPDeposit,
     parameterizerConfig.govtPCommitStageLength,
     parameterizerConfig.govtPRevealStageLength,
@@ -347,7 +384,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
 }
 
 export async function createAllTestParameterizerInstance(accounts: string[]): Promise<any> {
-  const telemetry = await TokenTelemetry.new();
+  const telemetry = await DummyTokenTelemetry.new();
   const token = await createTestTokenInstance(accounts);
   const plcr = await createTestPLCRInstance(token, telemetry, accounts);
   const parameterizer = await createTestParameterizerInstance(accounts, token, plcr);
@@ -381,4 +418,15 @@ export async function createDummyNewsrom(from?: string): Promise<any> {
 export function configureProviders(...contracts: any[]): void {
   // TODO(ritave): Use our own contracts
   contracts.forEach(contract => contract.setProvider(ethApi.currentProvider));
+}
+
+export async function setUpUserGroups(
+  tokensPerUsd: number,
+  owner: string,
+): Promise<{ whitelist: any; userGroups: any; contributionProxy: any }> {
+  const contributionProxy = await DummyContributionProxy.new(tokensPerUsd);
+  const whitelist = await Whitelist.new();
+  await whitelist.addAddressToWhitelist(owner);
+  const userGroups = await UserGroups.new(whitelist.address, contributionProxy.address);
+  return { whitelist, userGroups, contributionProxy };
 }

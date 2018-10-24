@@ -8,7 +8,9 @@ import {
   MetaItemValue,
   MetaItemLabel,
 } from "./styledComponents";
+import { RejectedNewroomDisplayNameText, RejectedNewsroomsToolTipText } from "./textComponents";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
+import { QuestionToolTip } from "../QuestionToolTip";
 
 export interface RejectedCardProps {
   listingRemovedTimestamp?: number;
@@ -27,7 +29,10 @@ export const RejectedCard: React.StatelessComponent<
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
-        <StyledPhaseDisplayName>Rejected Newsroom</StyledPhaseDisplayName>
+        <StyledPhaseDisplayName>
+          <RejectedNewroomDisplayNameText />
+          <QuestionToolTip explainerText={<RejectedNewsroomsToolTipText />} positionBottom={true} />
+        </StyledPhaseDisplayName>
         <MetaItemLabel>Rejected date</MetaItemLabel>
         <MetaItemValue>{displayDateTime}</MetaItemValue>
       </StyledListingDetailPhaseCardSection>

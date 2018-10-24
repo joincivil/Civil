@@ -12,8 +12,9 @@ import {
   StyledPhaseDisplayName,
   CTACopy,
 } from "./styledComponents";
+import { ChallangeCouncilToolTipText } from "./textComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
-import { TransactionInvertedButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { NeedHelp } from "./NeedHelp";
@@ -35,6 +36,7 @@ export const AppealDecisionCard: React.SFC<
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Request to challenge Council's decision"
+          toolTipText={<ChallangeCouncilToolTipText phaseLength={props.phaseLength} />}
           flavorText="under Appeal to Council"
         />
       </StyledListingDetailPhaseCardSection>
@@ -66,12 +68,7 @@ export const AppealDecisionCard: React.SFC<
           If you believe this newsroom does not align with the Civil Constitution, you may challenge the Council’s
           decision.
         </CTACopy>
-        <TransactionInvertedButton
-          transactions={props.transactions!}
-          modalContentComponents={props.modalContentComponents}
-        >
-          Submit a Challenge
-        </TransactionInvertedButton>
+        <TransactionButtonNoModal transactions={props.transactions!}>Submit a Challenge</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />
