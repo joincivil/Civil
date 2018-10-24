@@ -21,7 +21,6 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@0xproject/subproviders": "^2.0.6",
-    "@ledgerhq/hw-app-eth": "^4.24.0",
     "argparse": "^1.0.9",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",
@@ -49,8 +48,5 @@
     "rimraf": "^2.6.2",
     "tslint": "^5.9.1",
     "typescript": "<2.9.0"
-  },
-  "peerDependencies": {
-    "@ledgerhq/hw-transport-node-hid": "^4.24.0"
   }
 }

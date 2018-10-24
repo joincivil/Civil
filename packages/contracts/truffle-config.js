@@ -1,3 +1,11 @@
+async function ledgerEthereumNodeJsClientFactoryAsync() {
+  const Eth = require("@ledgerhq/hw-app-eth").default;
+  const TransportNodeHid = require("@ledgerhq/hw-transport-node-hid").default;
+  const ledgerConnection = await TransportNodeHid.create();
+  const ledgerEthClient = new Eth(ledgerConnection);
+  return ledgerEthClient;
+}
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -36,7 +44,12 @@ module.exports = {
         var ledgerProvider = require("@joincivil/dev-utils").ledgerProvider;
         var infura_key = process.env.INFURA_KEY;
         var accountId = +process.env.LEDGER_ACCOUNT_ID;
-        return ledgerProvider({ endpoint: "https://mainnet.infura.io/v3/" + infura_key, networkId: 1, accountId });
+        return ledgerProvider({
+          endpoint: "https://mainnet.infura.io/v3/" + infura_key,
+          networkId: 1,
+          accountId,
+          ledgerEthereumClientFactoryAsync: ledgerEthereumNodeJsClientFactoryAsync,
+        });
       },
       network_id: 1,
       gasPrice: "10000000000",

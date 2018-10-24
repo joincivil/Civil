@@ -1,25 +1,17 @@
 import {
-  LedgerEthereumClient,
+  LedgerEthereumClientFactoryAsync,
   NonceTrackerSubprovider,
   Provider,
   RPCSubprovider,
   Web3ProviderEngine,
 } from "@0xproject/subproviders";
-import Eth from "@ledgerhq/hw-app-eth";
-// tslint:disable-next-line:no-implicit-dependencies
-import TransportNodeHid from "@ledgerhq/hw-transport-node-hid";
 import { FilteredLedgerProvider } from "./filteraccountsprovider";
 import FiltersSubprovider = require("web3-provider-engine/subproviders/filters");
-
-async function ledgerEthereumNodeJsClientFactoryAsync(): Promise<LedgerEthereumClient> {
-  const ledgerConnection = await TransportNodeHid.create();
-  const ledgerEthClient = new Eth(ledgerConnection);
-  return ledgerEthClient;
-}
 
 export interface LedgerProviderConfig {
   endpoint: string;
   networkId: number;
+  ledgerEthereumClientFactoryAsync: LedgerEthereumClientFactoryAsync;
   accountId?: number;
   baseDerivationPath?: string;
 }
@@ -30,7 +22,7 @@ export function ledgerProvider(config: LedgerProviderConfig): Provider {
     new FilteredLedgerProvider({
       networkId: config.networkId,
       baseDerivationPath: config.baseDerivationPath,
-      ledgerEthereumClientFactoryAsync: ledgerEthereumNodeJsClientFactoryAsync,
+      ledgerEthereumClientFactoryAsync: config.ledgerEthereumClientFactoryAsync,
       accountId: config.accountId,
     }),
   );
