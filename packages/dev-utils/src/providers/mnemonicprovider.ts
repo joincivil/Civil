@@ -7,7 +7,7 @@ import {
 } from "@0xproject/subproviders";
 import FiltersSubprovider = require("web3-provider-engine/subproviders/filters");
 
-export function infuraProvider(mnemonic: string, endpoint: string): Provider {
+export function mnemonicProvider(mnemonic: string, endpoint: string): Provider {
   const engine = new Web3ProviderEngine();
   engine.addProvider(new MnemonicWalletSubprovider({ mnemonic }));
   engine.addProvider(new NonceTrackerSubprovider());

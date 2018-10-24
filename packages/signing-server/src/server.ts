@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import yargs = require("yargs");
 import { Civil, TwoStepEthTransaction } from "@joincivil/core";
-import { infuraProvider } from "@joincivil/dev-utils";
+import { mnemonicProvider } from "@joincivil/dev-utils";
 import { isValidAddress, toBuffer } from "ethereumjs-util";
 import * as http from "http";
 import * as Koa from "koa";
@@ -42,7 +42,7 @@ const host = args.host;
 const port = Number.parseInt(args.port, 10);
 const actionSigner = ActionSigner.fromMnemonic(args.mnemonic);
 
-const provider = infuraProvider(args.mnemonic, args.nodeEndpoint);
+const provider = mnemonicProvider(args.mnemonic, args.nodeEndpoint);
 const civil = new Civil({ web3Provider: provider });
 
 const app = new Koa();
