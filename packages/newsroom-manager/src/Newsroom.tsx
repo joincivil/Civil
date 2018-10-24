@@ -20,7 +20,6 @@ import {
   addGetNameForAddress,
   addPersistCharter,
   addNewsroom,
-  getOwners,
   getEditors,
   getIsOwner,
   getIsEditor,
@@ -408,7 +407,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
-    this.props.dispatch!(getOwners(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.props.dispatch!(getIsOwner(address, this.props.civil!));
     this.props.dispatch!(getIsEditor(address, this.props.civil!));

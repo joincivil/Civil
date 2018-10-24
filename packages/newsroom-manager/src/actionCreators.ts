@@ -7,7 +7,6 @@ export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
   UPDATE_NEWSROOM = "UPDATE_NEWSROOM",
   CHANGE_NAME = "CHANGE_NAME",
-  ADD_OWNER = "ADD_OWNER",
   ADD_EDITOR = "ADD_EDITOR",
   REMOVE_EDITOR = "REMOVE_EDITOR",
   SET_IS_OWNER = "SET_IS_OWNER",
@@ -30,22 +29,6 @@ export enum governmentActions {
   ADD_CONSTITUTION_URI = "ADD_CONSTITUTION_URI",
   ADD_CONSTITUTION_HASH = "ADD_CONSTITUTION_HASH",
 }
-
-export const getOwners = (address: EthAddress, civil: Civil): any => async (
-  dispatch: any,
-  getState: any,
-): Promise<void> => {
-  const state = getState();
-  const newsroom = await civil.newsroomAtUntrusted(address);
-  (await newsroom.owners()).forEach(async val => {
-    const getNameForAddress = state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS);
-    if (getNameForAddress && !state.newsroomUsers.get(val)) {
-      const name = await getNameForAddress(val);
-      dispatch(addUser(val, name));
-    }
-    dispatch(addOwner(address, val));
-  });
-};
 
 export const getEditors = (address: EthAddress, civil: Civil): any => async (
   dispatch: any,
@@ -111,16 +94,6 @@ export const updateNewsroom = (address: EthAddress, data: any): AnyAction => {
     data: {
       address,
       ...data,
-    },
-  };
-};
-
-export const addOwner = (address: EthAddress, owner: EthAddress): AnyAction => {
-  return {
-    type: newsroomActions.ADD_OWNER,
-    data: {
-      address,
-      owner,
     },
   };
 };
