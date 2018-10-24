@@ -33,30 +33,27 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b506101bc806100206000396000f3006080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663131a06808114610045575b600080fd5b34801561005157600080fd5b506040805160206004803580820135601f810184900484028501840190955284845261009e9436949293602493928401919081908401838280828437509497506100a09650505050505050565b005b806040518082805190602001908083835b602083106100d05780518252601f1990920191602091820191016100b1565b51815160209384036101000a60001901801990921691161790526040805192909401829003822081835287518383015287519096507f2162a3c4a129c520b65f2837a045d97d2119710c87276c5ca08ed28155daa13a95508794929350839283019185019080838360005b8381101561015357818101518382015260200161013b565b50505050905090810190601f1680156101805780820380516001836020036101000a031916815260200191505b509250505060405180910390a2505600a165627a7a723058205cf8793243833fa802857252f356ea844ce47845701187cc03111f8247b405310029",
-  "deployedBytecode": "0x6080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663131a06808114610045575b600080fd5b34801561005157600080fd5b506040805160206004803580820135601f810184900484028501840190955284845261009e9436949293602493928401919081908401838280828437509497506100a09650505050505050565b005b806040518082805190602001908083835b602083106100d05780518252601f1990920191602091820191016100b1565b51815160209384036101000a60001901801990921691161790526040805192909401829003822081835287518383015287519096507f2162a3c4a129c520b65f2837a045d97d2119710c87276c5ca08ed28155daa13a95508794929350839283019185019080838360005b8381101561015357818101518382015260200161013b565b50505050905090810190601f1680156101805780820380516001836020036101000a031916815260200191505b509250505060405180910390a2505600a165627a7a723058205cf8793243833fa802857252f356ea844ce47845701187cc03111f8247b405310029",
+  "bytecode":
+    "0x608060405234801561001057600080fd5b506101bc806100206000396000f3006080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663131a06808114610045575b600080fd5b34801561005157600080fd5b506040805160206004803580820135601f810184900484028501840190955284845261009e9436949293602493928401919081908401838280828437509497506100a09650505050505050565b005b806040518082805190602001908083835b602083106100d05780518252601f1990920191602091820191016100b1565b51815160209384036101000a60001901801990921691161790526040805192909401829003822081835287518383015287519096507f2162a3c4a129c520b65f2837a045d97d2119710c87276c5ca08ed28155daa13a95508794929350839283019185019080838360005b8381101561015357818101518382015260200161013b565b50505050905090810190601f1680156101805780820380516001836020036101000a031916815260200191505b509250505060405180910390a2505600a165627a7a723058205cf8793243833fa802857252f356ea844ce47845701187cc03111f8247b405310029",
+  "deployedBytecode":
+    "0x6080604052600436106100405763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663131a06808114610045575b600080fd5b34801561005157600080fd5b506040805160206004803580820135601f810184900484028501840190955284845261009e9436949293602493928401919081908401838280828437509497506100a09650505050505050565b005b806040518082805190602001908083835b602083106100d05780518252601f1990920191602091820191016100b1565b51815160209384036101000a60001901801990921691161790526040805192909401829003822081835287518383015287519096507f2162a3c4a129c520b65f2837a045d97d2119710c87276c5ca08ed28155daa13a95508794929350839283019185019080838360005b8381101561015357818101518382015260200161013b565b50505050905090810190601f1680156101805780820380516001836020036101000a031916815260200191505b509250505060405180910390a2505600a165627a7a723058205cf8793243833fa802857252f356ea844ce47845701187cc03111f8247b405310029",
   "sourceMap": "355:178:13:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;355:178:13;;;;;;;",
-  "deployedSourceMap": "355:178:13:-;;;;;;;;;;;;;;;;;;;;;;;443:88;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;443:88:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;443:88:13;;-1:-1:-1;443:88:13;;-1:-1:-1;;;;;;;443:88:13;;;;513:4;502:17;;;;;;;;;;;;;36:153:-1;66:2;58:11;;36:153;;176:10;;164:23;;-1:-1;;139:12;;;;98:2;89:12;;;;114;36:153;;;299:10;344;;263:2;259:12;;;254:3;250:22;-1:-1;;246:30;311:9;;295:26;;;340:21;;377:20;365:33;;502:17:13;;;;;;;;;;;;489:37;;;;;;;;;;;502:17;;-1:-1:-1;489:37:13;;-1:-1:-1;489:37:13;;502:17;;-1:-1:-1;502:17:13;;489:37;;;;;;;;;-1:-1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;489:37:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;443:88;:::o",
-  "source": "pragma solidity ^0.4.19;\n\n/**\n@title Event Storage Archive\n@notice This smart-contract uses events to cheaply store content on the blockchain.\n@dev For most use-cases, using events to store strings than using the \"Storage\" memory model is cheaper\nAdditionally the keccak256 is also calculated for easier filtering of events for which we're looking for\n*/\ncontract EventStorage {\n  event StringStored(bytes32 indexed dataHash, string data);\n\n  function store(string data) public {\n    emit StringStored(keccak256((data)), data);\n  }\n}\n",
+  "deployedSourceMap":
+    "355:178:13:-;;;;;;;;;;;;;;;;;;;;;;;443:88;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;443:88:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;443:88:13;;-1:-1:-1;443:88:13;;-1:-1:-1;;;;;;;443:88:13;;;;513:4;502:17;;;;;;;;;;;;;36:153:-1;66:2;58:11;;36:153;;176:10;;164:23;;-1:-1;;139:12;;;;98:2;89:12;;;;114;36:153;;;299:10;344;;263:2;259:12;;;254:3;250:22;-1:-1;;246:30;311:9;;295:26;;;340:21;;377:20;365:33;;502:17:13;;;;;;;;;;;;489:37;;;;;;;;;;;502:17;;-1:-1:-1;489:37:13;;-1:-1:-1;489:37:13;;502:17;;-1:-1:-1;502:17:13;;489:37;;;;;;;;;-1:-1:-1;8:100;33:3;30:1;27:10;8:100;;;90:11;;;84:18;71:11;;;64:39;52:2;45:10;8:100;;;12:14;489:37:13;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;443:88;:::o",
+  "source":
+    "pragma solidity ^0.4.19;\n\n/**\n@title Event Storage Archive\n@notice This smart-contract uses events to cheaply store content on the blockchain.\n@dev For most use-cases, using events to store strings than using the \"Storage\" memory model is cheaper\nAdditionally the keccak256 is also calculated for easier filtering of events for which we're looking for\n*/\ncontract EventStorage {\n  event StringStored(bytes32 indexed dataHash, string data);\n\n  function store(string data) public {\n    emit StringStored(keccak256((data)), data);\n  }\n}\n",
   "sourcePath": "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/newsroom/EventStorage.sol",
   "ast": {
     "absolutePath": "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/newsroom/EventStorage.sol",
     "exportedSymbols": {
-      "EventStorage": [
-        4230
-      ]
+      "EventStorage": [4230]
     },
     "id": 4231,
     "nodeType": "SourceUnit",
     "nodes": [
       {
         "id": 4209,
-        "literals": [
-          "solidity",
-          "^",
-          "0.4",
-          ".19"
-        ],
+        "literals": ["solidity", "^", "0.4", ".19"],
         "nodeType": "PragmaDirective",
         "src": "0:24:13"
       },
@@ -64,12 +61,11 @@
         "baseContracts": [],
         "contractDependencies": [],
         "contractKind": "contract",
-        "documentation": "@title Event Storage Archive\n@notice This smart-contract uses events to cheaply store content on the blockchain.\n@dev For most use-cases, using events to store strings than using the \"Storage\" memory model is cheaper\nAdditionally the keccak256 is also calculated for easier filtering of events for which we're looking for",
+        "documentation":
+          "@title Event Storage Archive\n@notice This smart-contract uses events to cheaply store content on the blockchain.\n@dev For most use-cases, using events to store strings than using the \"Storage\" memory model is cheaper\nAdditionally the keccak256 is also calculated for easier filtering of events for which we're looking for",
         "fullyImplemented": true,
         "id": 4230,
-        "linearizedBaseContracts": [
-          4230
-        ],
+        "linearizedBaseContracts": [4230],
         "name": "EventStorage",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -338,21 +334,14 @@
   "legacyAST": {
     "absolutePath": "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/newsroom/EventStorage.sol",
     "exportedSymbols": {
-      "EventStorage": [
-        4230
-      ]
+      "EventStorage": [4230]
     },
     "id": 4231,
     "nodeType": "SourceUnit",
     "nodes": [
       {
         "id": 4209,
-        "literals": [
-          "solidity",
-          "^",
-          "0.4",
-          ".19"
-        ],
+        "literals": ["solidity", "^", "0.4", ".19"],
         "nodeType": "PragmaDirective",
         "src": "0:24:13"
       },
@@ -360,12 +349,11 @@
         "baseContracts": [],
         "contractDependencies": [],
         "contractKind": "contract",
-        "documentation": "@title Event Storage Archive\n@notice This smart-contract uses events to cheaply store content on the blockchain.\n@dev For most use-cases, using events to store strings than using the \"Storage\" memory model is cheaper\nAdditionally the keccak256 is also calculated for easier filtering of events for which we're looking for",
+        "documentation":
+          "@title Event Storage Archive\n@notice This smart-contract uses events to cheaply store content on the blockchain.\n@dev For most use-cases, using events to store strings than using the \"Storage\" memory model is cheaper\nAdditionally the keccak256 is also calculated for easier filtering of events for which we're looking for",
         "fullyImplemented": true,
         "id": 4230,
-        "linearizedBaseContracts": [
-          4230
-        ],
+        "linearizedBaseContracts": [4230],
         "name": "EventStorage",
         "nodeType": "ContractDefinition",
         "nodes": [

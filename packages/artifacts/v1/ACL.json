@@ -160,35 +160,34 @@
       "type": "function"
     }
   ],
-  "bytecode": "0x608060405234801561001057600080fd5b5060008054600160a060020a03191633179055610355806100326000396000f30060806040526004361061006c5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663217fe6c681146100715780632f54bf6e146100ec578063715018a61461010d5780638da5cb5b14610124578063f2fde38b14610155575b600080fd5b34801561007d57600080fd5b5060408051602060046024803582810135601f81018590048502860185019096528585526100d8958335600160a060020a03169536956044949193909101919081908401838280828437509497506101769650505050505050565b604080519115158252519081900360200190f35b3480156100f857600080fd5b506100d8600160a060020a03600435166101fa565b34801561011957600080fd5b5061012261020e565b005b34801561013057600080fd5b5061013961027a565b60408051600160a060020a039092168252519081900360200190f35b34801561016157600080fd5b50610122600160a060020a0360043516610289565b60006001826040518082805190602001908083835b602083106101aa5780518252601f19909201916020918201910161018b565b51815160209384036101000a600019018019909216911617905292019485525060408051948590038201909420600160a060020a0397909716600090815296905250509092205460ff1692915050565b600054600160a060020a0390811691161490565b600054600160a060020a0316331461022557600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031681565b600054600160a060020a031633146102a057600080fd5b6102a9816102ac565b50565b600160a060020a03811615156102c157600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820b55624f9823a8598d2272ca6a6dca0a4f4d4a5381d6f99567ae0f215004fac200029",
-  "deployedBytecode": "0x60806040526004361061006c5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663217fe6c681146100715780632f54bf6e146100ec578063715018a61461010d5780638da5cb5b14610124578063f2fde38b14610155575b600080fd5b34801561007d57600080fd5b5060408051602060046024803582810135601f81018590048502860185019096528585526100d8958335600160a060020a03169536956044949193909101919081908401838280828437509497506101769650505050505050565b604080519115158252519081900360200190f35b3480156100f857600080fd5b506100d8600160a060020a03600435166101fa565b34801561011957600080fd5b5061012261020e565b005b34801561013057600080fd5b5061013961027a565b60408051600160a060020a039092168252519081900360200190f35b34801561016157600080fd5b50610122600160a060020a0360043516610289565b60006001826040518082805190602001908083835b602083106101aa5780518252601f19909201916020918201910161018b565b51815160209384036101000a600019018019909216911617905292019485525060408051948590038201909420600160a060020a0397909716600090815296905250509092205460ff1692915050565b600054600160a060020a0390811691161490565b600054600160a060020a0316331461022557600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031681565b600054600160a060020a031633146102a057600080fd5b6102a9816102ac565b50565b600160a060020a03811615156102c157600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820b55624f9823a8598d2272ca6a6dca0a4f4d4a5381d6f99567ae0f215004fac200029",
-  "sourceMap": "516:1365:12:-;;;870:37;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;567:5:40;:18;;-1:-1:-1;;;;;;567:18:40;575:10;567:18;;;516:1365:12;;;;;;",
-  "deployedSourceMap": "516:1365:12:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1142:113;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1142:113:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;1142:113:12;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;1142:113:12;;-1:-1:-1;1142:113:12;;-1:-1:-1;;;;;;;1142:113:12;;;;;;;;;;;;;;;;;;;1417:89;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1417:89:12;-1:-1:-1;;;;;1417:89:12;;;;;1001:111:40;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1001:111:40;;;;;;238:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;238:20:40;;;;;;;;-1:-1:-1;;;;;238:20:40;;;;;;;;;;;;;;1274:103;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1274:103:40;-1:-1:-1;;;;;1274:103:40;;;;;1142:113:12;1207:4;1226:5;1232:4;1226:11;;;;;;;;;;;;;36:153:-1;66:2;58:11;;36:153;;176:10;;164:23;;-1:-1;;139:12;;;;98:2;89:12;;;;114;36:153;;;299:10;344;;263:2;259:12;;;254:3;250:22;-1:-1;;246:30;311:9;;295:26;;;340:21;;377:20;365:33;;1226:11:12;;;;;-1:-1:-1;1226:11:12;;;;;;;;;;;;-1:-1:-1;;;;;1226:24:12;;;;-1:-1:-1;1226:24:12;;;;;;-1:-1:-1;;1226:24:12;;;;;;;1142:113;-1:-1:-1;;1142:113:12:o;1417:89::-;1469:4;1496:5;-1:-1:-1;;;;;1496:5:12;;;1488:13;;;;1417:89::o;1001:111:40:-;719:5;;-1:-1:-1;;;;;719:5:40;705:10;:19;697:28;;;;;;1077:5;;;1058:25;;-1:-1:-1;;;;;1077:5:40;;;;1058:25;;;1105:1;1089:18;;-1:-1:-1;;1089:18:40;;;1001:111::o;238:20::-;;;-1:-1:-1;;;;;238:20:40;;:::o;1274:103::-;719:5;;-1:-1:-1;;;;;719:5:40;705:10;:19;697:28;;;;;;1343:29;1362:9;1343:18;:29::i;:::-;1274:103;:::o;1512:171::-;-1:-1:-1;;;;;1582:23:40;;;;1574:32;;;;;;1638:5;;;1617:38;;-1:-1:-1;;;;;1617:38:40;;;;1638:5;;;1617:38;;;1661:5;:17;;-1:-1:-1;;1661:17:40;-1:-1:-1;;;;;1661:17:40;;;;;;;;;;1512:171::o",
-  "source": "pragma solidity ^0.4.19;\nimport \"../zeppelin-solidity/ownership/Ownable.sol\";\n\n/**\n@title String-based Access Control List\n@author The Civil Media Company\n@dev The owner of this smart-contract overrides any role requirement in the requireRole modifier,\nand so it is important to use the modifier instead of checking hasRole when creating actual requirements.\nThe internal functions are not secured in any way and should be extended in the deriving contracts to define\nrequirements that suit that specific domain.\n*/\ncontract ACL is Ownable {\n  event RoleAdded(address indexed granter, address indexed grantee, string role);\n  event RoleRemoved(address indexed granter, address indexed grantee, string role);\n\n  mapping(string => RoleData) private roles;\n\n  modifier requireRole(string role) {\n    require(isOwner(msg.sender) || hasRole(msg.sender, role));\n    _;\n  }\n\n  function ACL() Ownable() public {\n  }\n\n  /**\n  @notice Returns whether a specific addres has a role. Keep in mind that the owner can override role checks\n  @param user The address for which role check is done\n  @param role A constant name of the role being checked\n  */\n  function hasRole(address user, string role) public view returns (bool) {\n    return roles[role].actors[user];\n  }\n\n  /**\n  @notice Returns if the specified address is owner of this smart-contract and thus can override any role checks\n  @param user The checked address\n  */\n  function isOwner(address user) public view returns (bool) {\n    return user == owner;\n  }\n\n  function _addRole(address grantee, string role) internal {\n    roles[role].actors[grantee] = true;\n    emit RoleAdded(msg.sender, grantee, role);\n  }\n\n  function _removeRole(address grantee, string role) internal {\n    delete roles[role].actors[grantee];\n    emit RoleRemoved(msg.sender, grantee, role);\n  }\n\n  struct RoleData {\n    mapping(address => bool) actors;\n  }\n}\n",
+  "bytecode":
+    "0x608060405234801561001057600080fd5b5060008054600160a060020a03191633179055610355806100326000396000f30060806040526004361061006c5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663217fe6c681146100715780632f54bf6e146100ec578063715018a61461010d5780638da5cb5b14610124578063f2fde38b14610155575b600080fd5b34801561007d57600080fd5b5060408051602060046024803582810135601f81018590048502860185019096528585526100d8958335600160a060020a03169536956044949193909101919081908401838280828437509497506101769650505050505050565b604080519115158252519081900360200190f35b3480156100f857600080fd5b506100d8600160a060020a03600435166101fa565b34801561011957600080fd5b5061012261020e565b005b34801561013057600080fd5b5061013961027a565b60408051600160a060020a039092168252519081900360200190f35b34801561016157600080fd5b50610122600160a060020a0360043516610289565b60006001826040518082805190602001908083835b602083106101aa5780518252601f19909201916020918201910161018b565b51815160209384036101000a600019018019909216911617905292019485525060408051948590038201909420600160a060020a0397909716600090815296905250509092205460ff1692915050565b600054600160a060020a0390811691161490565b600054600160a060020a0316331461022557600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031681565b600054600160a060020a031633146102a057600080fd5b6102a9816102ac565b50565b600160a060020a03811615156102c157600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820b55624f9823a8598d2272ca6a6dca0a4f4d4a5381d6f99567ae0f215004fac200029",
+  "deployedBytecode":
+    "0x60806040526004361061006c5763ffffffff7c0100000000000000000000000000000000000000000000000000000000600035041663217fe6c681146100715780632f54bf6e146100ec578063715018a61461010d5780638da5cb5b14610124578063f2fde38b14610155575b600080fd5b34801561007d57600080fd5b5060408051602060046024803582810135601f81018590048502860185019096528585526100d8958335600160a060020a03169536956044949193909101919081908401838280828437509497506101769650505050505050565b604080519115158252519081900360200190f35b3480156100f857600080fd5b506100d8600160a060020a03600435166101fa565b34801561011957600080fd5b5061012261020e565b005b34801561013057600080fd5b5061013961027a565b60408051600160a060020a039092168252519081900360200190f35b34801561016157600080fd5b50610122600160a060020a0360043516610289565b60006001826040518082805190602001908083835b602083106101aa5780518252601f19909201916020918201910161018b565b51815160209384036101000a600019018019909216911617905292019485525060408051948590038201909420600160a060020a0397909716600090815296905250509092205460ff1692915050565b600054600160a060020a0390811691161490565b600054600160a060020a0316331461022557600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031681565b600054600160a060020a031633146102a057600080fd5b6102a9816102ac565b50565b600160a060020a03811615156102c157600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820b55624f9823a8598d2272ca6a6dca0a4f4d4a5381d6f99567ae0f215004fac200029",
+  "sourceMap":
+    "516:1365:12:-;;;870:37;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;567:5:40;:18;;-1:-1:-1;;;;;;567:18:40;575:10;567:18;;;516:1365:12;;;;;;",
+  "deployedSourceMap":
+    "516:1365:12:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1142:113;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1142:113:12;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;1142:113:12;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;1142:113:12;;-1:-1:-1;1142:113:12;;-1:-1:-1;;;;;;;1142:113:12;;;;;;;;;;;;;;;;;;;1417:89;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1417:89:12;-1:-1:-1;;;;;1417:89:12;;;;;1001:111:40;;8:9:-1;5:2;;;30:1;27;20:12;5:2;1001:111:40;;;;;;238:20;;8:9:-1;5:2;;;30:1;27;20:12;5:2;238:20:40;;;;;;;;-1:-1:-1;;;;;238:20:40;;;;;;;;;;;;;;1274:103;;8:9:-1;5:2;;;30:1;27;20:12;5:2;-1:-1;1274:103:40;-1:-1:-1;;;;;1274:103:40;;;;;1142:113:12;1207:4;1226:5;1232:4;1226:11;;;;;;;;;;;;;36:153:-1;66:2;58:11;;36:153;;176:10;;164:23;;-1:-1;;139:12;;;;98:2;89:12;;;;114;36:153;;;299:10;344;;263:2;259:12;;;254:3;250:22;-1:-1;;246:30;311:9;;295:26;;;340:21;;377:20;365:33;;1226:11:12;;;;;-1:-1:-1;1226:11:12;;;;;;;;;;;;-1:-1:-1;;;;;1226:24:12;;;;-1:-1:-1;1226:24:12;;;;;;-1:-1:-1;;1226:24:12;;;;;;;1142:113;-1:-1:-1;;1142:113:12:o;1417:89::-;1469:4;1496:5;-1:-1:-1;;;;;1496:5:12;;;1488:13;;;;1417:89::o;1001:111:40:-;719:5;;-1:-1:-1;;;;;719:5:40;705:10;:19;697:28;;;;;;1077:5;;;1058:25;;-1:-1:-1;;;;;1077:5:40;;;;1058:25;;;1105:1;1089:18;;-1:-1:-1;;1089:18:40;;;1001:111::o;238:20::-;;;-1:-1:-1;;;;;238:20:40;;:::o;1274:103::-;719:5;;-1:-1:-1;;;;;719:5:40;705:10;:19;697:28;;;;;;1343:29;1362:9;1343:18;:29::i;:::-;1274:103;:::o;1512:171::-;-1:-1:-1;;;;;1582:23:40;;;;1574:32;;;;;;1638:5;;;1617:38;;-1:-1:-1;;;;;1617:38:40;;;;1638:5;;;1617:38;;;1661:5;:17;;-1:-1:-1;;1661:17:40;-1:-1:-1;;;;;1661:17:40;;;;;;;;;;1512:171::o",
+  "source":
+    "pragma solidity ^0.4.19;\nimport \"../zeppelin-solidity/ownership/Ownable.sol\";\n\n/**\n@title String-based Access Control List\n@author The Civil Media Company\n@dev The owner of this smart-contract overrides any role requirement in the requireRole modifier,\nand so it is important to use the modifier instead of checking hasRole when creating actual requirements.\nThe internal functions are not secured in any way and should be extended in the deriving contracts to define\nrequirements that suit that specific domain.\n*/\ncontract ACL is Ownable {\n  event RoleAdded(address indexed granter, address indexed grantee, string role);\n  event RoleRemoved(address indexed granter, address indexed grantee, string role);\n\n  mapping(string => RoleData) private roles;\n\n  modifier requireRole(string role) {\n    require(isOwner(msg.sender) || hasRole(msg.sender, role));\n    _;\n  }\n\n  function ACL() Ownable() public {\n  }\n\n  /**\n  @notice Returns whether a specific addres has a role. Keep in mind that the owner can override role checks\n  @param user The address for which role check is done\n  @param role A constant name of the role being checked\n  */\n  function hasRole(address user, string role) public view returns (bool) {\n    return roles[role].actors[user];\n  }\n\n  /**\n  @notice Returns if the specified address is owner of this smart-contract and thus can override any role checks\n  @param user The checked address\n  */\n  function isOwner(address user) public view returns (bool) {\n    return user == owner;\n  }\n\n  function _addRole(address grantee, string role) internal {\n    roles[role].actors[grantee] = true;\n    emit RoleAdded(msg.sender, grantee, role);\n  }\n\n  function _removeRole(address grantee, string role) internal {\n    delete roles[role].actors[grantee];\n    emit RoleRemoved(msg.sender, grantee, role);\n  }\n\n  struct RoleData {\n    mapping(address => bool) actors;\n  }\n}\n",
   "sourcePath": "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/newsroom/ACL.sol",
   "ast": {
     "absolutePath": "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/newsroom/ACL.sol",
     "exportedSymbols": {
-      "ACL": [
-        4207
-      ]
+      "ACL": [4207]
     },
     "id": 4208,
     "nodeType": "SourceUnit",
     "nodes": [
       {
         "id": 4077,
-        "literals": [
-          "solidity",
-          "^",
-          "0.4",
-          ".19"
-        ],
+        "literals": ["solidity", "^", "0.4", ".19"],
         "nodeType": "PragmaDirective",
         "src": "0:24:12"
       },
       {
-        "absolutePath": "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/zeppelin-solidity/ownership/Ownable.sol",
+        "absolutePath":
+          "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/zeppelin-solidity/ownership/Ownable.sol",
         "file": "../zeppelin-solidity/ownership/Ownable.sol",
         "id": 4078,
         "nodeType": "ImportDirective",
@@ -219,17 +218,13 @@
             "src": "532:7:12"
           }
         ],
-        "contractDependencies": [
-          10168
-        ],
+        "contractDependencies": [10168],
         "contractKind": "contract",
-        "documentation": "@title String-based Access Control List\n@author The Civil Media Company\n@dev The owner of this smart-contract overrides any role requirement in the requireRole modifier,\nand so it is important to use the modifier instead of checking hasRole when creating actual requirements.\nThe internal functions are not secured in any way and should be extended in the deriving contracts to define\nrequirements that suit that specific domain.",
+        "documentation":
+          "@title String-based Access Control List\n@author The Civil Media Company\n@dev The owner of this smart-contract overrides any role requirement in the requireRole modifier,\nand so it is important to use the modifier instead of checking hasRole when creating actual requirements.\nThe internal functions are not secured in any way and should be extended in the deriving contracts to define\nrequirements that suit that specific domain.",
         "fullyImplemented": true,
         "id": 4207,
-        "linearizedBaseContracts": [
-          4207,
-          10168
-        ],
+        "linearizedBaseContracts": [4207, 10168],
         "name": "ACL",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -624,7 +619,8 @@
                             "referencedDeclaration": 4142,
                             "src": "828:7:12",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_function_internal_view$_t_address_$_t_string_memory_ptr_$returns$_t_bool_$",
+                              "typeIdentifier":
+                                "t_function_internal_view$_t_address_$_t_string_memory_ptr_$returns$_t_bool_$",
                               "typeString": "function (address,string memory) view returns (bool)"
                             }
                           },
@@ -659,10 +655,7 @@
                       "id": 4104,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        10186,
-                        10187
-                      ],
+                      "overloadedDeclarations": [10186, 10187],
                       "referencedDeclaration": 10186,
                       "src": "797:7:12",
                       "typeDescriptions": {
@@ -886,7 +879,8 @@
                 }
               ]
             },
-            "documentation": "@notice Returns whether a specific addres has a role. Keep in mind that the owner can override role checks\n@param user The address for which role check is done\n@param role A constant name of the role being checked",
+            "documentation":
+              "@notice Returns whether a specific addres has a role. Keep in mind that the owner can override role checks\n@param user The address for which role check is done\n@param role A constant name of the role being checked",
             "id": 4142,
             "implemented": true,
             "isConstructor": false,
@@ -1052,7 +1046,8 @@
                 }
               ]
             },
-            "documentation": "@notice Returns if the specified address is owner of this smart-contract and thus can override any role checks\n@param user The checked address",
+            "documentation":
+              "@notice Returns if the specified address is owner of this smart-contract and thus can override any role checks\n@param user The checked address",
             "id": 4154,
             "implemented": true,
             "isConstructor": false,
@@ -1342,7 +1337,8 @@
                       "referencedDeclaration": 4088,
                       "src": "1618:9:12",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_string_memory_ptr_$returns$__$",
+                        "typeIdentifier":
+                          "t_function_event_nonpayable$_t_address_$_t_address_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (address,address,string memory)"
                       }
                     },
@@ -1638,7 +1634,8 @@
                       "referencedDeclaration": 4096,
                       "src": "1774:11:12",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_string_memory_ptr_$returns$__$",
+                        "typeIdentifier":
+                          "t_function_event_nonpayable$_t_address_$_t_address_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (address,address,string memory)"
                       }
                     },
@@ -1808,26 +1805,20 @@
   "legacyAST": {
     "absolutePath": "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/newsroom/ACL.sol",
     "exportedSymbols": {
-      "ACL": [
-        4207
-      ]
+      "ACL": [4207]
     },
     "id": 4208,
     "nodeType": "SourceUnit",
     "nodes": [
       {
         "id": 4077,
-        "literals": [
-          "solidity",
-          "^",
-          "0.4",
-          ".19"
-        ],
+        "literals": ["solidity", "^", "0.4", ".19"],
         "nodeType": "PragmaDirective",
         "src": "0:24:12"
       },
       {
-        "absolutePath": "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/zeppelin-solidity/ownership/Ownable.sol",
+        "absolutePath":
+          "/Users/ritave/Documents/Praca/Civil/Civil/packages/contracts/contracts/zeppelin-solidity/ownership/Ownable.sol",
         "file": "../zeppelin-solidity/ownership/Ownable.sol",
         "id": 4078,
         "nodeType": "ImportDirective",
@@ -1858,17 +1849,13 @@
             "src": "532:7:12"
           }
         ],
-        "contractDependencies": [
-          10168
-        ],
+        "contractDependencies": [10168],
         "contractKind": "contract",
-        "documentation": "@title String-based Access Control List\n@author The Civil Media Company\n@dev The owner of this smart-contract overrides any role requirement in the requireRole modifier,\nand so it is important to use the modifier instead of checking hasRole when creating actual requirements.\nThe internal functions are not secured in any way and should be extended in the deriving contracts to define\nrequirements that suit that specific domain.",
+        "documentation":
+          "@title String-based Access Control List\n@author The Civil Media Company\n@dev The owner of this smart-contract overrides any role requirement in the requireRole modifier,\nand so it is important to use the modifier instead of checking hasRole when creating actual requirements.\nThe internal functions are not secured in any way and should be extended in the deriving contracts to define\nrequirements that suit that specific domain.",
         "fullyImplemented": true,
         "id": 4207,
-        "linearizedBaseContracts": [
-          4207,
-          10168
-        ],
+        "linearizedBaseContracts": [4207, 10168],
         "name": "ACL",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -2263,7 +2250,8 @@
                             "referencedDeclaration": 4142,
                             "src": "828:7:12",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_function_internal_view$_t_address_$_t_string_memory_ptr_$returns$_t_bool_$",
+                              "typeIdentifier":
+                                "t_function_internal_view$_t_address_$_t_string_memory_ptr_$returns$_t_bool_$",
                               "typeString": "function (address,string memory) view returns (bool)"
                             }
                           },
@@ -2298,10 +2286,7 @@
                       "id": 4104,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        10186,
-                        10187
-                      ],
+                      "overloadedDeclarations": [10186, 10187],
                       "referencedDeclaration": 10186,
                       "src": "797:7:12",
                       "typeDescriptions": {
@@ -2525,7 +2510,8 @@
                 }
               ]
             },
-            "documentation": "@notice Returns whether a specific addres has a role. Keep in mind that the owner can override role checks\n@param user The address for which role check is done\n@param role A constant name of the role being checked",
+            "documentation":
+              "@notice Returns whether a specific addres has a role. Keep in mind that the owner can override role checks\n@param user The address for which role check is done\n@param role A constant name of the role being checked",
             "id": 4142,
             "implemented": true,
             "isConstructor": false,
@@ -2691,7 +2677,8 @@
                 }
               ]
             },
-            "documentation": "@notice Returns if the specified address is owner of this smart-contract and thus can override any role checks\n@param user The checked address",
+            "documentation":
+              "@notice Returns if the specified address is owner of this smart-contract and thus can override any role checks\n@param user The checked address",
             "id": 4154,
             "implemented": true,
             "isConstructor": false,
@@ -2981,7 +2968,8 @@
                       "referencedDeclaration": 4088,
                       "src": "1618:9:12",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_string_memory_ptr_$returns$__$",
+                        "typeIdentifier":
+                          "t_function_event_nonpayable$_t_address_$_t_address_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (address,address,string memory)"
                       }
                     },
@@ -3277,7 +3265,8 @@
                       "referencedDeclaration": 4096,
                       "src": "1774:11:12",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_string_memory_ptr_$returns$__$",
+                        "typeIdentifier":
+                          "t_function_event_nonpayable$_t_address_$_t_address_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (address,address,string memory)"
                       }
                     },
