@@ -1,6 +1,6 @@
 # You should always specify a full version here to ensure all of your developers
 # are running the same version of Node.
-FROM node:8 as build
+FROM node:10.12.0-stretch as build
 WORKDIR /app
 
 COPY . .
