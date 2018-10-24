@@ -30,7 +30,6 @@ import {
 } from "./actionCreators";
 import { CreateCharterPartOne } from "./CreateCharterPartOne";
 import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
-import { SignConstitution } from "./SignConstitution";
 import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
@@ -309,37 +308,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               <CreateCharterPartTwo charter={this.state.charter} updateCharter={this.updateCharter} />
             </Step>
             <Step
-              title={"Sign the Constitution"}
-              disabled={(!this.props.address && !this.state.charterPartTwoComplete) || !this.props.userIsOwner}
-              complete={!!this.props.charterUri}
-              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-                return (
-                  <>
-                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                      Back
-                    </SecondaryButton>
-                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
-                      Next
-                    </Button>
-                  </>
-                );
-              }}
-            >
-              <SignConstitution
-                newsroomAdress={this.props.address}
-                ipfs={this.props.ipfs}
-                charter={this.state.charter}
-                updateCharter={this.updateCharter}
-              />
-            </Step>
-            <Step
               title={"Apply to the Registry"}
               disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
             >
               <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
-          <button />
         </CivilContext.Provider>
       </>
     );
