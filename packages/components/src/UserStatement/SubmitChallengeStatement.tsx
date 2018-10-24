@@ -2,7 +2,7 @@ import * as React from "react";
 import RichTextEditor from "react-rte";
 import { TextareaInput } from "../input";
 import { buttonSizes, SecondaryButton } from "../Button";
-import { TransactionButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import {
   StyledUserStatementHeaderOuter,
   StyledUserStatementHeader,
@@ -155,14 +155,13 @@ export class SubmitChallengeStatement extends React.Component<
               </div>
 
               <PullRight>
-                <TransactionButton
-                  modalContentComponents={this.props.modalContentComponents}
+                <TransactionButtonNoModal
                   transactions={this.props.transactions}
                   postExecuteTransactions={this.props.postExecuteTransactions}
                   disabled={this.isFormInvalid()}
                 >
                   Confirm and Deposit CVL
-                </TransactionButton>
+                </TransactionButtonNoModal>
 
                 <SectionFormCopyHelper>
                   This will pop up a separate MetaMask window to confirm your transactions.
