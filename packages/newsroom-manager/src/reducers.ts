@@ -9,6 +9,8 @@ export interface NewsroomState {
   wrapper: NewsroomWrapper;
   newsroom?: any;
   editors?: EthAddress[];
+  isOwner?: boolean;
+  isEditor?: boolean;
   charter?: Partial<CharterData>;
 }
 
@@ -20,7 +22,9 @@ export interface StateWithNewsroom {
 }
 
 export function newsrooms(
-  state: Map<string, NewsroomState> = Map<string, NewsroomState>({ "": { editors: [], wrapper: { data: {} } } }),
+  state: Map<string, NewsroomState> = Map<string, NewsroomState>({
+    "": { editors: [], wrapper: { data: {} } },
+  }),
   action: AnyAction,
 ): Map<string, NewsroomState> {
   let newsroom;
@@ -53,6 +57,16 @@ export function newsrooms(
       return state.set(action.data.address, {
         ...state.get(action.data.address),
         editors,
+      });
+    case newsroomActions.SET_IS_OWNER:
+      return state.set(action.data.address, {
+        ...state.get(action.data.address),
+        isOwner: action.data.isOwner,
+      });
+    case newsroomActions.SET_IS_EDITOR:
+      return state.set(action.data.address, {
+        ...state.get(action.data.address),
+        isEditor: action.data.isEditor,
       });
     case newsroomActions.UPDATE_CHARTER:
       newsroom = state.get(action.data.address) || {};

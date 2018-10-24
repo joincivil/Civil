@@ -9,6 +9,8 @@ export enum newsroomActions {
   CHANGE_NAME = "CHANGE_NAME",
   ADD_EDITOR = "ADD_EDITOR",
   REMOVE_EDITOR = "REMOVE_EDITOR",
+  SET_IS_OWNER = "SET_IS_OWNER",
+  SET_IS_EDITOR = "SET_IS_EDITOR",
   UPDATE_CHARTER = "UPDATE_CHARTER",
 }
 
@@ -63,6 +65,22 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
   return dispatch(addNewsroom({ wrapper, newsroom, address }));
 };
 
+export const getIsOwner = (address: EthAddress, civil: Civil): any => async (
+  dispatch: any,
+  getState: any,
+): Promise<AnyAction> => {
+  const newsroom = await civil.newsroomAtUntrusted(address);
+  return dispatch(setIsOwner(address, await newsroom.isOwner()));
+};
+
+export const getIsEditor = (address: EthAddress, civil: Civil): any => async (
+  dispatch: any,
+  getState: any,
+): Promise<AnyAction> => {
+  const newsroom = await civil.newsroomAtUntrusted(address);
+  return dispatch(setIsEditor(address, await newsroom.isEditor()));
+};
+
 export const addNewsroom = (newsroom: NewsroomState): AnyAction => {
   return {
     type: newsroomActions.ADD_NEWSROOM,
@@ -96,6 +114,26 @@ export const removeEditor = (address: EthAddress, editor: EthAddress) => {
     data: {
       address,
       editor,
+    },
+  };
+};
+
+export const setIsOwner = (address: EthAddress, isOwner: boolean) => {
+  return {
+    type: newsroomActions.SET_IS_OWNER,
+    data: {
+      address,
+      isOwner,
+    },
+  };
+};
+
+export const setIsEditor = (address: EthAddress, isEditor: boolean) => {
+  return {
+    type: newsroomActions.SET_IS_EDITOR,
+    data: {
+      address,
+      isEditor,
     },
   };
 };
