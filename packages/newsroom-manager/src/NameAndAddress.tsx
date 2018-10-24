@@ -28,6 +28,7 @@ import { StateWithNewsroom } from "./reducers";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface NameAndAddressProps {
+  userIsOwner?: boolean;
   address?: EthAddress;
   txHash?: TxHash;
   name?: string;
@@ -225,8 +226,9 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               name="NameInput"
               value={this.state.name || ""}
               onChange={(name, val) => this.onContractChange(name, val)}
+              disabled={!this.props.userIsOwner}
             />
-            <DetailTransactionButton
+            {this.props.userIsOwner && <DetailTransactionButton
               transactions={this.getTransactions(value.civil!)}
               civil={value.civil}
               requiredNetwork={value.requiredNetwork}
@@ -234,7 +236,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               noModal={true}
             >
               Change Name
-            </DetailTransactionButton>
+            </DetailTransactionButton>}
             <div>
               <Label>Newsroom Contract Address</Label>
               <AddressWithCopyButton address={this.props.address || ""} />

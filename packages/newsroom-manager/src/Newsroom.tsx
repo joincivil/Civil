@@ -225,6 +225,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               complete={!!this.props.address}
             >
               <NameAndAddress
+                userIsOwner={this.props.userIsOwner}
                 onNewsroomCreated={this.onNewsroomCreated}
                 name={this.props.name}
                 address={this.props.address}
