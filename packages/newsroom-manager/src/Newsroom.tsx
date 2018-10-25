@@ -21,6 +21,8 @@ import {
   addPersistCharter,
   addNewsroom,
   getEditors,
+  getIsOwner,
+  getIsEditor,
   getNewsroom,
   addConstitutionHash,
   addConstitutionUri,
@@ -28,7 +30,6 @@ import {
 } from "./actionCreators";
 import { CreateCharterPartOne } from "./CreateCharterPartOne";
 import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
-import { SignConstitution } from "./SignConstitution";
 import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
@@ -71,6 +72,9 @@ export interface NewsroomProps {
   profileAddressSaving?: boolean;
   owners?: string[];
   editors?: string[];
+  userIsOwner?: boolean;
+  userIsEditor?: boolean;
+  userNotOnContract?: boolean;
   newsroomUrl?: string;
   newsroom?: any;
   logoUrl?: string;
@@ -97,6 +101,10 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   & p {
     font-size: 14px;
   }
+`;
+
+const ErrorP = styled.p`
+  color: ${colors.accent.CIVIL_RED};
 `;
 
 const Heading = styled(ManagerHeading)`
@@ -178,6 +186,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     const disabled = this.isDisabled();
     const manager = (
       <>
+        {this.props.userNotOnContract && (
+          <ErrorP>
+            Your wallet address is not listed on your newsroom contract, so you are unable to make changes to it. Please
+            contact a newsroom officer in order to be added.
+          </ErrorP>
+        )}
         <Heading disabled={disabled}>Newsroom Application</Heading>
         <CivilContext.Provider
           value={{
@@ -210,6 +224,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               complete={!!this.props.address}
             >
               <NameAndAddress
+                userIsOwner={this.props.userIsOwner}
                 onNewsroomCreated={this.onNewsroomCreated}
                 name={this.props.name}
                 address={this.props.address}
@@ -235,6 +250,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               complete={this.props.owners!.length > 1 || !!this.props.editors!.length || this.state.currentStep > 1}
             >
               <CompleteYourProfile
+                userIsOwner={this.props.userIsOwner}
+                userIsEditor={this.props.userIsEditor}
                 address={this.props.address}
                 renderUserSearch={this.props.renderUserSearch}
                 profileWalletAddress={this.props.profileWalletAddress}
@@ -242,7 +259,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             </Step>
             <Step
               title={"Create Registry profile"}
-              disabled={!this.props.address}
+              disabled={!this.props.address || !this.props.userIsOwner}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
                   <>
@@ -269,7 +286,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             </Step>
             <Step
               title={"Write your charter"}
-              disabled={!this.props.address && !this.state.charterPartOneComplete}
+              disabled={(!this.props.address && !this.state.charterPartOneComplete) || !this.props.userIsOwner}
               renderButtons={(args: RenderButtonsArgs): JSX.Element => {
                 return (
                   <>
@@ -291,34 +308,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               <CreateCharterPartTwo charter={this.state.charter} updateCharter={this.updateCharter} />
             </Step>
             <Step
-              title={"Sign the Constitution"}
-              disabled={!this.props.address && !this.state.charterPartTwoComplete}
-              complete={!!this.props.charterUri}
-              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-                return (
-                  <>
-                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                      Back
-                    </SecondaryButton>
-                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
-                      Next
-                    </Button>
-                  </>
-                );
-              }}
+              title={"Apply to the Registry"}
+              disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
             >
-              <SignConstitution
-                newsroomAdress={this.props.address}
-                ipfs={this.props.ipfs}
-                charter={this.state.charter}
-                updateCharter={this.updateCharter}
-              />
-            </Step>
-            <Step title={"Apply to the Registry"} disabled={!this.props.address && !this.props.charterUri}>
               <ApplyToTCR address={this.props.address} />
             </Step>
           </StepProcessTopNav>
-          <button />
         </CivilContext.Provider>
       </>
     );
@@ -364,27 +359,21 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   };
 
-  public isStepDisabled = (index: number) => {
-    if (index === 0) {
-      return false;
-    } else if (index < 2 && this.props.address) {
-      return false;
-    }
-    return true;
-  };
-
   private isDisabled = (): boolean => {
     return (
       this.props.disabled ||
       !this.props.civil ||
       !this.props.requiredNetwork!.includes(this.props.currentNetwork!) ||
-      !this.props.account
+      !this.props.account ||
+      !!this.props.userNotOnContract
     );
   };
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
+    this.props.dispatch!(getIsOwner(address, this.props.civil!));
+    this.props.dispatch!(getIsEditor(address, this.props.civil!));
   };
 
   private getCharterFromLocalStorage = (): Partial<CharterData> | undefined => {
@@ -459,12 +448,19 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
+  const userIsOwner = newsroom.isOwner;
+  const userIsEditor = newsroom.isEditor;
+  const userNotOnContract = !!ownProps.address && userIsOwner === false && userIsEditor === false;
+
   const charterUri = newsroom.wrapper.data.charterHeader && newsroom.wrapper.data.charterHeader.uri;
   return {
     ...ownProps,
     charterUri,
     newsroom: newsroom.newsroom,
     name: newsroom.wrapper.data.name,
+    userIsOwner,
+    userIsEditor,
+    userNotOnContract,
     owners: newsroom.wrapper.data.owners || [],
     editors: newsroom.editors || [],
   };

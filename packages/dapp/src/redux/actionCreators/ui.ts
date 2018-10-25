@@ -1,4 +1,7 @@
 import { AnyAction } from "redux";
+import { Dispatch } from "react-redux";
+import { clearListingSubscriptions, initializeSubscriptions } from "../../helpers/listingEvents";
+import { clearAllListingData } from "./listings";
 
 export enum uiActions {
   ADD_OR_UPDATE_UI_STATE = "ADD_OR_UPDATE_UI_STATE",
@@ -14,7 +17,23 @@ export const addOrUpdateUIState = (key: string, value: any): AnyAction => {
   };
 };
 
-export const toggleUseGraphQL = (): AnyAction => {
+export const toggleUseGraphQL = async (): Promise<any> => {
+  return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
+    const { useGraphQL } = getState();
+
+    if (!useGraphQL) {
+      // going to graphQL loading
+      clearListingSubscriptions();
+      dispatch(clearAllListingData());
+    } else {
+      // going to web3 loading
+      await initializeSubscriptions(dispatch);
+    }
+    return dispatch(toggleUseGraphQLSimple());
+  };
+};
+
+export const toggleUseGraphQLSimple = (): any => {
   return {
     type: uiActions.TOGGLE_USE_GRAPH_QL,
   };

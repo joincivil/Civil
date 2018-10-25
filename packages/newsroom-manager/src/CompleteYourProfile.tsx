@@ -30,6 +30,8 @@ import { UserData } from "./types";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface CompleteYourProfileComponentExternalProps {
+  userIsOwner?: boolean;
+  userIsEditor?: boolean;
   address?: EthAddress;
   profileWalletAddress?: EthAddress;
   renderUserSearch?(onSetAddress: any): JSX.Element;
@@ -38,6 +40,8 @@ export interface CompleteYourProfileComponentExternalProps {
 export interface CompleteYourProfileComponentProps {
   owners: UserData[];
   editors: UserData[];
+  userIsOwner?: boolean;
+  userIsEditor?: boolean;
   address?: EthAddress;
   newsroom: any;
   active?: boolean;
@@ -253,7 +257,14 @@ class CompleteYourProfileComponent extends React.Component<
   }
 
   public renderAddOwnerForm(): JSX.Element {
-    if (!this.state.addOwner) {
+    if (this.props.userIsEditor && !this.props.userIsOwner) {
+      return (
+        <p style={{ color: colors.accent.CIVIL_GRAY_2 }}>
+          You are on the contract as a Member, not an Officer, so you cannot add additional Officers. You may add and
+          remove Civil Members below.
+        </p>
+      );
+    } else if (!this.state.addOwner) {
       return (
         <AddButton size={buttonSizes.SMALL} onClick={() => this.setState({ addOwner: true })}>
           + Add Civil Officer
@@ -320,6 +331,7 @@ class CompleteYourProfileComponent extends React.Component<
                   key={item.rosterData.ethAddress}
                   address={item.rosterData.ethAddress}
                   name={item.rosterData.name}
+                  readOnly={!this.props.userIsOwner}
                 />
               );
             })}

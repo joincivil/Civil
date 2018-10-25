@@ -28,6 +28,7 @@ import { StateWithNewsroom } from "./reducers";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
 export interface NameAndAddressProps {
+  userIsOwner?: boolean;
   address?: EthAddress;
   txHash?: TxHash;
   name?: string;
@@ -225,16 +226,19 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               name="NameInput"
               value={this.state.name || ""}
               onChange={(name, val) => this.onContractChange(name, val)}
+              disabled={!this.props.userIsOwner}
             />
-            <DetailTransactionButton
-              transactions={this.getTransactions(value.civil!)}
-              civil={value.civil}
-              requiredNetwork={value.requiredNetwork}
-              Button={TransactionButtonInner}
-              noModal={true}
-            >
-              Change Name
-            </DetailTransactionButton>
+            {this.props.userIsOwner && (
+              <DetailTransactionButton
+                transactions={this.getTransactions(value.civil!)}
+                civil={value.civil}
+                requiredNetwork={value.requiredNetwork}
+                Button={TransactionButtonInner}
+                noModal={true}
+              >
+                Change Name
+              </DetailTransactionButton>
+            )}
             <div>
               <Label>Newsroom Contract Address</Label>
               <AddressWithCopyButton address={this.props.address || ""} />
@@ -282,9 +286,13 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
     }
     return (
       <>
-        <StepHeader active={this.props.active}>Set up a newsroom</StepHeader>
+        <StepHeader active={this.props.active}>
+          {this.props.address ? "Newsroom successfully created!" : "Create your newsroom"}
+        </StepHeader>
         <Description>
-          Enter your newsroom name to create your newsroom smart contract.
+          {this.props.address
+            ? "Your newsroom smart contract is set up and ready to go. Here are the details."
+            : "Enter your newsroom name to create your newsroom smart contract."}
           <QuestionToolTip
             explainerText={
               "This name will be on your newsroom smart contract. It will also be the public name listed on the Civil Registry."

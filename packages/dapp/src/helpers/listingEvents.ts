@@ -17,6 +17,8 @@ import { getCivil, getTCR } from "./civilInstance";
 const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
 const civilGenesisBlock = getDefaultFromBlock();
+let initialListingSubscriptions: Subscription | undefined;
+let currentListingSubscriptions: Subscription | undefined;
 
 export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<void> {
   const tcr = await getTCR();
@@ -27,7 +29,7 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
     tcr.listingsInApplicationStage(civilGenesisBlock, current),
     tcr.whitelistedListings(civilGenesisBlock, current),
   );
-  initialLoadObservable.subscribe(
+  initialListingSubscriptions = initialLoadObservable.subscribe(
     async (listing: ListingWrapper) => {
       await getNewsroom(dispatch, listing.address);
       setupListingCallback(listing, dispatch);
@@ -38,13 +40,34 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
     },
     () => {
       dispatch(setLoadingFinished());
-      tcr.allEventsExceptWhitelistFromBlock(current).subscribe(async (listing: ListingWrapper) => {
-        await getNewsroom(dispatch, listing.address);
-        setupListingCallback(listing, dispatch);
-        dispatch(addListing(listing));
-      });
+      currentListingSubscriptions = tcr
+        .allEventsExceptWhitelistFromBlock(current)
+        .subscribe(async (listing: ListingWrapper) => {
+          await getNewsroom(dispatch, listing.address);
+          setupListingCallback(listing, dispatch);
+          dispatch(addListing(listing));
+        });
     },
   );
+}
+
+export function clearListingSubscriptions(): any {
+  if (currentListingSubscriptions) {
+    currentListingSubscriptions.unsubscribe();
+    currentListingSubscriptions = undefined;
+  }
+  if (initialListingSubscriptions) {
+    initialListingSubscriptions.unsubscribe();
+    initialListingSubscriptions = undefined;
+  }
+  listingTimeouts.forEach((val, key) => {
+    clearTimeout(listingTimeouts.get(key));
+  });
+  listingTimeouts.clear();
+  setTimeoutTimeouts.forEach((val, key) => {
+    clearTimeout(setTimeoutTimeouts.get(key));
+  });
+  setTimeoutTimeouts.clear();
 }
 
 let challengeSubscription: Subscription;

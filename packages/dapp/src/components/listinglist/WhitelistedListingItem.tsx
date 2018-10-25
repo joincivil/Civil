@@ -90,7 +90,7 @@ const makeMapStateToProps = () => {
     const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
     let charter;
     if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
-      charter = content.get(ownProps.newsroom.data.charterHeader);
+      charter = content.get(ownProps.newsroom.data.charterHeader.uri);
     }
     return {
       listingPhaseState: getListingPhaseState(ownProps.listing),
