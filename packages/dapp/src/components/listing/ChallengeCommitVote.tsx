@@ -96,7 +96,7 @@ class ChallengeCommitVote extends React.Component<
     };
   }
 
-  public componentDidMount(): void {
+  public componentWillMount(): void {
     if (!this.state.numTokens && this.props.balance && this.props.votingBalance) {
       this.setInitNumTokens();
     }
