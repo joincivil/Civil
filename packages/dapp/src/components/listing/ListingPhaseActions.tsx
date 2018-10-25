@@ -2,7 +2,7 @@ import * as React from "react";
 import { compose } from "redux";
 import { ListingWrapper } from "@joincivil/core";
 import ChallengeDetailContainer from "./ChallengeDetail";
-import { ChallengeResolve } from "./ChallengeResolve";
+import ChallengeResolve from "./ChallengeResolve";
 import { InApplicationCard, RejectedCard as RejectedCardComponent } from "@joincivil/components";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
