@@ -3,7 +3,7 @@ version: 2
 # What is this - http://yaml.org/type/merge.html
 defaults: &defaults
   docker:
-    - image: circleci/node:9.3
+    - image: circleci/node:10.12.0-stretch
 
 jobs:
     build:

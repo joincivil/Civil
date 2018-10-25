@@ -20,6 +20,7 @@
     "migrate": "truffle migrate",
     "migrate:ganache": "run-s 'migrate --reset --network=ganache' build:stripArtifacts",
     "migrate:rinkeby": "run-s 'migrate --network=rinkeby' build:stripArtifacts",
+    "migrate:ledgerMainnet": "run-s 'migrate --network=ledgerMainnet' build:stripArtifacts",
     "test": "truffle test --network ganache",
     "clean": "rimraf build/ coverage/ .0x-artifacts/",
     "prepare": "truffle install",
@@ -65,6 +66,10 @@
     "tslint": "^5.9.1",
     "typescript": "<2.9.0",
     "web3": "^0.20.3",
-    "web3-provider-engine": "^14.0.6"
+    "web3-provider-engine": "^14.0.6",
+    "@ledgerhq/hw-app-eth": "^4.24.0"
+  },
+  "peerDependencies": {
+    "@ledgerhq/hw-transport-node-hid": "^4.24.0"
   }
 }
