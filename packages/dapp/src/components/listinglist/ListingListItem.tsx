@@ -147,7 +147,6 @@ const mapStateToProps = (
   const { content } = state.networkDependent;
   let charter;
   if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
-    console.log("ownProps.newsroom.data.charterHeader: ", ownProps.newsroom.data.charterHeader);
     charter = content.get(ownProps.newsroom.data.charterHeader.uri);
   }
   console.log("charter: ", charter);

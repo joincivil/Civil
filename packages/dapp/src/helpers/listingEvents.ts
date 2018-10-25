@@ -13,7 +13,6 @@ import {
 import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
 import { addUserNewsroom, addContent } from "../redux/actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
-// import { toggleUseGraphQL } from "../redux/actionCreators/ui";
 
 const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
@@ -118,7 +117,6 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
 }
 
 export async function getIPFSContent(header: EthContentHeader, dispatch: Dispatch<any>): Promise<void> {
-  console.log("header: ", header);
   const civil = getCivil();
   const content = await civil.getContent(header);
   if (content) {
