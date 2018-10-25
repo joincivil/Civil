@@ -24,8 +24,9 @@ export interface AppealDetailProps {
   userAppealChallengeData?: UserChallengeData;
   parameters: any;
   govtParameters: any;
-  tokenBalance: number;
   user: EthAddress;
+  balance: BigNumber;
+  votingBalance: BigNumber;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
 }
@@ -56,7 +57,8 @@ class AppealDetail extends React.Component<AppealDetailProps> {
               userAppealChallengeData={this.props.userAppealChallengeData}
               parameters={this.props.parameters}
               govtParameters={this.props.govtParameters}
-              tokenBalance={this.props.tokenBalance}
+              balance={this.props.balance}
+              votingBalance={this.props.votingBalance}
               user={this.props.user}
             />
           )}
