@@ -56,6 +56,7 @@ export interface NewsroomUserProps {
   newsroomAddress: EthAddress;
   address: EthAddress;
   profileWalletAddress?: EthAddress;
+  readOnly?: boolean;
   name?: string;
   newsroom: any;
   type: UserTypes;
@@ -228,9 +229,10 @@ export class NewsroomUserComponent extends React.Component<
             <p>{this.props.address}</p>
           </div>
           <ButtonWrapper>
-            {this.props.address !== this.props.profileWalletAddress && (
-              <TransactionButtonNoModal transactions={this.getTransaction()} Button={TransactionButtonInner} />
-            )}
+            {this.props.address !== this.props.profileWalletAddress &&
+              !this.props.readOnly && (
+                <TransactionButtonNoModal transactions={this.getTransaction()} Button={TransactionButtonInner} />
+              )}
           </ButtonWrapper>
         </Wrapper>
         {this.renderProgressModal()}
