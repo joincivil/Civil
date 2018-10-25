@@ -20,7 +20,14 @@ export enum listingActions {
   FETCH_LISTING_DATA_COMPLETE = "FETCH_LISTING_DATA_COMPLETE",
   FETCH_LISTING_DATA_IN_PROGRESS = "FETCH_LISTING_DATA_IN_PROGRESS",
   SET_LOADING_FINISHED = "SET_LOADING_FINISHED",
+  CLEAR_ALL_LISTING_DATA = "CLEAR_ALL_LISTING_DATA",
 }
+
+export const clearAllListingData = (): AnyAction => {
+  return {
+    type: listingActions.CLEAR_ALL_LISTING_DATA,
+  };
+};
 
 export const addListing = (listing: ListingWrapper): any => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {

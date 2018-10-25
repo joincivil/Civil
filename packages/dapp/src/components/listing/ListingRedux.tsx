@@ -152,7 +152,7 @@ const makeMapStateToProps = () => {
     }
     let charter;
     if (newsroom && newsroom.data.charterHeader) {
-      charter = content.get(newsroom.data.charterHeader);
+      charter = content.get(newsroom.data.charterHeader.uri);
     }
     const expiry = getListingExpiry(state, ownProps);
     const listingPhaseState = getListingPhaseState(ownProps.listing);

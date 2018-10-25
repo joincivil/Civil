@@ -25,12 +25,12 @@ export function contentFetched(
 }
 
 export function content(
-  state: Map<EthContentHeader, ContentData> = Map<EthContentHeader, ContentData>(),
+  state: Map<string, ContentData> = Map<string, ContentData>(),
   action: AnyAction,
-): Map<EthContentHeader, ContentData> {
+): Map<string, ContentData> {
   switch (action.type) {
     case newsroomActions.ADD_CONTENT:
-      return state.set(action.data.header, action.data.content);
+      return state.set(action.data.header.uri, action.data.content);
     default:
       return state;
   }
