@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/components",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "React components for Civil",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -35,7 +35,7 @@
     "test": "NODE_ENV=test jest"
   },
   "devDependencies": {
-    "@joincivil/typescript-types": "^1.2.2",
+    "@joincivil/typescript-types": "^1.2.3",
     "@storybook/addon-storyshots": "^3.3.14",
     "@storybook/react": "^3.3.14",
     "@types/enzyme": "^3.1.9",
@@ -72,8 +72,8 @@
     "react-dom": "^16.2.0"
   },
   "dependencies": {
-    "@joincivil/core": "^4.6.2",
-    "@joincivil/utils": "^1.7.2",
+    "@joincivil/core": "^4.6.3",
+    "@joincivil/utils": "^1.7.3",
     "@material-ui/core": "1.5.0",
     "@material-ui/icons": "^1.1.0",
     "@types/classnames": "^2.2.3",
