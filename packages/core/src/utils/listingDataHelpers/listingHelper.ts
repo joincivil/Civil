@@ -44,11 +44,15 @@ export function isWhitelisted(listingData: ListingData): boolean {
  */
 export function isInApplicationPhase(listingData: ListingData): boolean {
   // if expiry time has passed
+  console.log("check 1");
   if (new Date(listingData.appExpiry.toNumber() * 1000) < new Date()) {
+    console.log("return 1");
     return false;
   }
 
+  console.log("check 2");
   if (!listingData.challengeID.isZero()) {
+    console.log("return 2");
     return false;
   }
 

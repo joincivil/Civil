@@ -20,7 +20,7 @@ export default class ListingListItemApolloContainerComponent extends React.Compo
   public render(): JSX.Element {
     const listingAddress = this.props.listingAddress;
     return (
-      <Query query={LISTING_QUERY} variables={{ addr: listingAddress }}>
+      <Query query={LISTING_QUERY} variables={{ addr: listingAddress }} pollInterval={2000}>
         {({ loading, error, data }: any): JSX.Element => {
           if (loading) {
             return <></>;
@@ -28,8 +28,8 @@ export default class ListingListItemApolloContainerComponent extends React.Compo
           if (error) {
             return <p>Error :{error.toString()}</p>;
           }
-          const newsroom = transformGraphQLDataIntoNewsroom(data, this.props.listingAddress);
-          const listing = transformGraphQLDataIntoListing(data, this.props.listingAddress);
+          const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
+          const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
           return (
             <ListingListItem
               listingAddress={listingAddress}

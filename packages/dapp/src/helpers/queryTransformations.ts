@@ -9,6 +9,7 @@ export const LISTING_QUERY = gql`
       owner
       ownerAddresses
       whitelisted
+      lastGovState
       charter {
         uri
         contentID
@@ -45,35 +46,38 @@ export const LISTING_QUERY = gql`
   }
 `;
 
-export function transformGraphQLDataIntoNewsroom(queryData: any, listingAddress: string): NewsroomWrapper {
+export function transformGraphQLDataIntoNewsroom(listing: any, listingAddress: string): NewsroomWrapper {
   return {
     address: listingAddress,
     data: {
-      name: queryData.listing.name,
-      owners: queryData.listing.ownerAddresses,
+      name: listing.name,
+      owners: listing.ownerAddresses,
       charterHeader: {
-        contentId: queryData.listing.charter.contentID,
-        revisionId: queryData.listing.charter.revisionID,
-        timestamp: new Date(queryData.listing.charter.timestamp),
-        uri: queryData.listing.charter.uri,
-        contentHash: queryData.listing.charter.contentHash,
-        author: queryData.listing.charter.author,
-        signature: queryData.listing.charter.signature,
+        contentId: listing.charter.contentID,
+        revisionId: listing.charter.revisionID,
+        timestamp: new Date(listing.charter.timestamp),
+        uri: listing.charter.uri,
+        contentHash: listing.charter.contentHash,
+        author: listing.charter.author,
+        signature: listing.charter.signature,
         verifySignature: () => true,
       },
     },
   };
 }
-export function transformGraphQLDataIntoListing(queryData: any, listingAddress: string): ListingWrapper {
+export function transformGraphQLDataIntoListing(listing: any, listingAddress: string): ListingWrapper {
+  console.log("listing.challengeID: ", listing.challengeID);
+  const id = listing.challengeID;
+  console.log("ID == -1: ", id === -1);
   return {
     address: listingAddress,
     data: {
-      appExpiry: new BigNumber(queryData.listing.appExpiry),
-      isWhitelisted: queryData.listing.whitelisted,
-      owner: queryData.listing.owner,
-      unstakedDeposit: new BigNumber(queryData.listing.unstakedDeposit),
-      challengeID: new BigNumber(queryData.listing.challengeID),
-      challenge: transformGraphQLDataIntoChallenge(queryData.listing.challenge),
+      appExpiry: new BigNumber(listing.appExpiry),
+      isWhitelisted: listing.whitelisted,
+      owner: listing.owner,
+      unstakedDeposit: new BigNumber(listing.unstakedDeposit),
+      challengeID: id === -1 ? new BigNumber(0) : new BigNumber(listing.challengeID),
+      challenge: transformGraphQLDataIntoChallenge(listing.challenge),
     },
   };
 }
