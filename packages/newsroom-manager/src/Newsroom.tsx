@@ -24,8 +24,6 @@ import {
   getIsOwner,
   getIsEditor,
   getNewsroom,
-  addConstitutionHash,
-  addConstitutionUri,
   updateCharter,
 } from "./actionCreators";
 import { CreateCharterPartOne } from "./CreateCharterPartOne";
@@ -164,15 +162,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
     if (this.props.address && this.props.civil) {
       await this.hydrateNewsroom(this.props.address);
-    }
-
-    if (this.props.civil) {
-      const tcr = await this.props.civil.tcrSingletonTrusted();
-      const government = await tcr.getGovernment();
-      const hash = await government.getConstitutionHash();
-      const uri = await government.getConstitutionURI();
-      this.props.dispatch!(addConstitutionHash(hash));
-      this.props.dispatch!(addConstitutionUri(uri));
     }
   }
 
