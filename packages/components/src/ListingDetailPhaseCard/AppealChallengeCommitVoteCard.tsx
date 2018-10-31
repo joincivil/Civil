@@ -125,10 +125,12 @@ export class AppealChallengeCommitVoteCard extends React.Component<
                 <StyledPhaseKicker>Appeal Challenge ID {this.props.appealChallengeID}</StyledPhaseKicker>
                 <CommitVote
                   tokenBalance={this.props.tokenBalance}
+                  votingTokenBalance={this.props.votingTokenBalance}
                   salt={this.props.salt}
                   numTokens={this.props.numTokens}
                   onInputChange={this.props.onInputChange}
                   userHasCommittedVote={this.props.userHasCommittedVote}
+                  onCommitMaxTokens={this.props.onCommitMaxTokens}
                   onReviewVote={this.props.onReviewVote}
                 />
               </StyledListingDetailPhaseCardSection>

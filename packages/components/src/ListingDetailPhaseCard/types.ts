@@ -36,11 +36,13 @@ export interface ChallengePhaseProps {
 export interface CommitVoteProps {
   newsroomName?: string;
   tokenBalance: number;
+  votingTokenBalance: number;
   salt?: string;
   numTokens?: string;
   userHasCommittedVote?: boolean;
   userHasRevealedVote?: boolean;
   buttonText?: string | JSX.Element;
+  onCommitMaxTokens(): void;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
   onReviewVote(): void;
   postExecuteTransactions?(): any;

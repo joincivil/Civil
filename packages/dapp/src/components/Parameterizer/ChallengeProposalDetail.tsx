@@ -145,6 +145,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const phaseLength = this.props.parameters[Parameters.pCommitStageLen];
     const challenge = this.props.challenge;
     const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
+    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.toNumber() : 0;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
 
     if (!challenge) {
@@ -166,8 +167,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
           stake={getFormattedTokenBalance(challenge!.stake)}
           userHasCommittedVote={userHasCommittedVote}
           onInputChange={this.updateCommitVoteState}
+          onCommitMaxTokens={() => console.log("committing max")}
           onReviewVote={this.handleReviewVote}
           tokenBalance={tokenBalance}
+          votingTokenBalance={votingTokenBalance}
           salt={this.state.salt}
           numTokens={this.state.numTokens}
         />

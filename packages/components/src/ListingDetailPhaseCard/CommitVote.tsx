@@ -1,9 +1,8 @@
 import * as React from "react";
 import { buttonSizes, Button, DarkButton } from "../Button";
-import { InputGroup, CurrencyInput } from "../input/";
+import { InputGroup, CurrencyInputWithButton } from "../input/";
 import { CommitVoteProps } from "./types";
 import { FormQuestion, VoteOptionsContainer, StyledOrText, buttonTheme } from "./styledComponents";
-import { SaltField } from "./SaltField";
 
 import {
   CommitVoteReviewButtonText,
@@ -47,8 +46,6 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         </VoteOptionsContainer>
 
         {this.renderNumTokensInput()}
-
-        {this.renderSaltInput()}
 
         <Button disabled={!canReview} size={buttonSizes.MEDIUM} theme={buttonTheme} onClick={this.props.onReviewVote}>
           {this.props.buttonText || <CommitVoteReviewButtonText />}
@@ -99,29 +96,19 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       className = "error";
     }
     return (
-      <InputGroup
-        prepend="CVL"
-        label={label}
-        className={className}
-        placeholder="Enter a value"
+      <CurrencyInputWithButton
+        placeholder="0.00"
         name="numTokens"
-        value={!this.props.numTokens ? "" : this.props.numTokens.toString()}
         onChange={this.onChange}
-        inputComponent={CurrencyInput}
-        icon={<></>}
+        buttonText="Commit Max"
+        icon={<>CVL</>}
+        onButtonClick={() => this.props.onCommitMaxTokens()}
       />
     );
   };
 
-  private renderSaltInput = (): JSX.Element => {
-    return <SaltField salt={this.props.salt} />;
-  };
-
   private onChange = (name: string, value: string): void => {
     let validateFn;
-    if (name === "salt") {
-      validateFn = this.validateSalt;
-    }
     if (name === "numTokens") {
       validateFn = this.validateNumTokens;
     }
@@ -140,21 +127,6 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     // challenge, so `voteOption === 0`
     this.props.onInputChange({ voteOption: "0" });
     this.setState(() => ({ voteOption: 0 }));
-  };
-
-  private validateSalt = (): boolean => {
-    let isValid = true;
-
-    if (!this.props.salt || this.props.salt.length === 0) {
-      isValid = false;
-      this.setState({
-        saltError: "Please enter a valid salt phrase",
-      });
-    } else {
-      this.setState({ saltError: undefined });
-    }
-
-    return isValid;
   };
 
   private validateNumTokens = (): boolean => {

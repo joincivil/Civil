@@ -96,9 +96,11 @@ storiesOf("Listing Details Phase Card", module)
             rewardPool={rewardPool}
             stake={stake}
             tokenBalance={tokenBalance}
+            votingTokenBalance={tokenBalance}
             salt={commitVoteState.salt}
             numTokens={commitVoteState.numTokens}
             onInputChange={commitVoteChange}
+            onCommitMaxTokens={noop}
             onReviewVote={noop}
             transactions={[]}
           />
@@ -314,12 +316,14 @@ storiesOf("Listing Details Phase Card", module)
             phaseLength={phaseLength}
             secondaryPhaseLength={secondaryPhaseLength}
             tokenBalance={tokenBalance}
+            votingTokenBalance={tokenBalance}
             salt={commitVoteState.salt}
             challengeID={challengeID}
             challenger={challenger}
             rewardPool={rewardPool}
             stake={stake}
             numTokens={commitVoteState.numTokens}
+            onCommitMaxTokens={noop}
             onInputChange={commitVoteChange}
             transactions={[]}
             totalVotes={totalVotes}

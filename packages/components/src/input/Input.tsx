@@ -24,7 +24,7 @@ export interface InputBaseProps {
   icon?: JSX.Element;
   label?: string | JSX.Element;
   noLabel?: boolean;
-  inputRef?: string;
+  inputRef?: any;
   invalid?: boolean;
   disabled?: boolean;
   invalidMessage?: string;
@@ -35,6 +35,8 @@ export interface InputBaseProps {
   type?: string;
   min?: string;
   step?: string;
+  onBlur?(ev: any): void;
+  onFocus?(ev: any): void;
   onKeyPress?(ev: any): void;
   onChange?(name: string, value: string | null): void;
 }
@@ -124,6 +126,9 @@ export interface InputProps {
   invalidMessage?: string;
   noLabel?: boolean;
   readOnly?: boolean;
+  inputRef?: any;
+  onBlur?(ev: any): void;
+  onFocus?(ev: any): void;
   onKeyPress?(ev: any): void;
   onChange?(name: string, value: string): any;
 }
