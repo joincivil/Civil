@@ -4,7 +4,7 @@ import { uiActions } from "./actionCreators";
 import { UserData } from "./types";
 
 export const makeUserObject = (state: StateWithNewsroom, address: EthAddress): UserData => {
-  const userData = state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS) && state.newsroomUsers.get(address);
+  const userData = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS) && state.newsroomUsers.get(address);
 
   return {
     rosterData: {

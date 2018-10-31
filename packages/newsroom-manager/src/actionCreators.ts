@@ -15,8 +15,8 @@ export enum newsroomActions {
 }
 
 export enum uiActions {
-  ADD_GET_NAME_FOR_ADDRESS = "ADD_GET_NAME_FOR_ADDRESS",
-  GET_NAME_FOR_ADDRESS = "GET_NAME_FOR_ADDRESS",
+  ADD_GET_CMS_USER_DATA_FOR_ADDRESS = "ADD_GET_CMS_USER_DATA_FOR_ADDRESS",
+  GET_CMS_USER_DATA_FOR_ADDRESS = "GET_CMS_USER_DATA_FOR_ADDRESS",
   ADD_PERSIST_CHARTER = "ADD_PERSIST_CHARTER",
   PERSIST_CHARTER = "PERSIST_CHARTER",
 }
@@ -37,9 +37,9 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
   const state = getState();
   const newsroom = await civil.newsroomAtUntrusted(address);
   await newsroom.editors().forEach(async val => {
-    const getNameForAddress = state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS);
-    if (getNameForAddress && !state.newsroomUsers.get(val)) {
-      const name = await getNameForAddress(val);
+    const getCmsUserDataForAddress = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS);
+    if (getCmsUserDataForAddress && !state.newsroomUsers.get(val)) {
+      const name = await getCmsUserDataForAddress(val);
       dispatch(addUser(val, name));
     }
     dispatch(addEditor(address, val));
@@ -53,11 +53,11 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
   const state = getState();
-  const getNameForAddress = state.newsroomUi.get(uiActions.GET_NAME_FOR_ADDRESS);
-  if (getNameForAddress) {
+  const getCmsUserDataForAddress = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS);
+  if (getCmsUserDataForAddress) {
     wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
       if (!state.newsroomUsers.get(userAddress)) {
-        const name = await getNameForAddress(userAddress);
+        const name = await getCmsUserDataForAddress(userAddress);
         dispatch(addUser(userAddress, name));
       }
     });
@@ -167,9 +167,9 @@ export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any,
   return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
 };
 
-export const addGetNameForAddress = (func: (address: EthAddress) => Promise<CmsUserData>): AnyAction => {
+export const addGetCmsUserDataForAddress = (func: (address: EthAddress) => Promise<CmsUserData>): AnyAction => {
   return {
-    type: uiActions.ADD_GET_NAME_FOR_ADDRESS,
+    type: uiActions.ADD_GET_CMS_USER_DATA_FOR_ADDRESS,
     data: func,
   };
 };
@@ -181,7 +181,7 @@ export const addPersistCharter = (func: (charter: Partial<CharterData>) => void)
   };
 };
 
-export const addUser = (address: EthAddress, name: string): AnyAction => {
+export const addUser = (address: EthAddress, name: CmsUserData): AnyAction => {
   return {
     type: userActions.ADD_USER,
     data: {
