@@ -22,6 +22,11 @@ public {{this.name}} = {
         {{> params inputs=inputs}}
         txOptions);
     }
+    if (!isDefined(txOptions.gasPrice)) {
+      const getGasPrice = promisify<BigNumber>(self.instance._eth.getGasPrice, self.instance._eth);
+      txOptions.gasPrice = await getGasPrice();
+      debug("{{this.name}}: new gas price: ", txOptions.gasPrice);
+    }
     const promisified = promisify<TxHash>(
       self.instance.{{this.name}}.sendTransaction,
       self.instance.{{this.name}},
