@@ -17,7 +17,7 @@ import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
-  addGetNameForAddress,
+  addGetCmsUserDataForAddress,
   addPersistCharter,
   addNewsroom,
   getEditors,
@@ -85,7 +85,7 @@ export interface NewsroomProps {
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
-  getNameForAddress?(address: EthAddress): Promise<CmsUserData>;
+  getCmsUserDataForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
@@ -154,8 +154,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public async componentDidMount(): Promise<void> {
-    if (this.props.getNameForAddress) {
-      this.props.dispatch!(addGetNameForAddress(this.props.getNameForAddress));
+    if (this.props.getCmsUserDataForAddress) {
+      this.props.dispatch!(addGetCmsUserDataForAddress(this.props.getCmsUserDataForAddress));
     }
 
     this.props.dispatch!(addPersistCharter(this.persistCharter));
