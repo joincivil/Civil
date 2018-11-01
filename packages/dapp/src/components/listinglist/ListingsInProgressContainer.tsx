@@ -71,6 +71,31 @@ const LISTINGS_QUERY = gql`
         }
         requestAppealExpiry
         lastUpdatedDateTs
+        appeal {
+          requester
+          appealFeePaid
+          appealPhaseExpiry
+          appealGranted
+          appealOpenToChallengeExpiry
+          statement
+          appealChallengeID
+          appealChallenge {
+            challengeID
+            statement
+            rewardPool
+            challenger
+            resolved
+            stake
+            totalTokens
+            poll {
+              commitEndDate
+              revealEndDate
+              voteQuorum
+              votesFor
+              votesAgainst
+            }
+          }
+        }
       }
     }
   }
@@ -82,10 +107,8 @@ class ListingsInProgressContainer extends React.Component<
   constructor(props: ListingsInProgressContainerReduxProps & ListingsInProgressProps) {
     super(props);
     this.state = { increment: 0 };
-    this.onTimerExpiry = this.onTimerExpiry.bind(this);
   }
   public render(): JSX.Element {
-    console.log("re-render! state: ", this.state);
     if (this.props.useGraphQL) {
       return (
         <Query
@@ -109,7 +132,6 @@ class ListingsInProgressContainer extends React.Component<
             let soonestExpiry = Number.MAX_SAFE_INTEGER;
             allListings.forEach(listing => {
               const expiry = getNextTimerExpiry(listing!.data);
-              console.log("expiry: ", expiry);
               if (expiry > 0 && expiry < soonestExpiry) {
                 soonestExpiry = expiry;
               }
@@ -117,7 +139,6 @@ class ListingsInProgressContainer extends React.Component<
             const nowSeconds = Date.now() / 1000;
             const delaySeconds = soonestExpiry - nowSeconds;
             setTimeout(this.onTimerExpiry, delaySeconds * 1000);
-            console.log("timeout set (seconds): ", delaySeconds);
 
             const applications = allListings
               .filter(listing => isInApplicationPhase(listing!.data))
@@ -199,10 +220,9 @@ class ListingsInProgressContainer extends React.Component<
       return <ListingsInProgressRedux {...this.props} />;
     }
   }
-  public onTimerExpiry(): void {
-    console.log("state: ", this.state);
+  public onTimerExpiry = (): void => {
     this.setState({ increment: this.state.increment + 1 });
-  }
+  };
 }
 
 const mapStateToProps = (
