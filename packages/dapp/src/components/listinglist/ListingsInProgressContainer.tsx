@@ -18,6 +18,7 @@ import {
   isListingAwaitingAppealChallenge,
   canChallengeBeResolved,
   canListingAppealBeResolved,
+  getNextTimerExpiry,
 } from "@joincivil/core";
 import ListingsInProgress from "./ListingsInProgress";
 
@@ -27,6 +28,9 @@ export interface ListingsInProgressProps {
 }
 export interface ListingsInProgressContainerReduxProps {
   useGraphQL: boolean;
+}
+export interface ListingsInProgressState {
+  increment: number;
 }
 const LISTINGS_QUERY = gql`
   query($activeChallenge: Boolean!, $currentApplication: Boolean!) {
@@ -72,9 +76,16 @@ const LISTINGS_QUERY = gql`
   }
 `;
 class ListingsInProgressContainer extends React.Component<
-  ListingsInProgressContainerReduxProps & ListingsInProgressProps
+  ListingsInProgressContainerReduxProps & ListingsInProgressProps,
+  ListingsInProgressState
 > {
+  constructor(props: ListingsInProgressContainerReduxProps & ListingsInProgressProps) {
+    super(props);
+    this.state = { increment: 0 };
+    this.onTimerExpiry = this.onTimerExpiry.bind(this);
+  }
   public render(): JSX.Element {
+    console.log("re-render! state: ", this.state);
     if (this.props.useGraphQL) {
       return (
         <Query
@@ -95,13 +106,23 @@ class ListingsInProgressContainer extends React.Component<
               return transformed;
             });
 
+            let soonestExpiry = Number.MAX_SAFE_INTEGER;
+            allListings.forEach(listing => {
+              const expiry = getNextTimerExpiry(listing!.data);
+              console.log("expiry: ", expiry);
+              if (expiry > 0 && expiry < soonestExpiry) {
+                soonestExpiry = expiry;
+              }
+            });
+            const nowSeconds = Date.now() / 1000;
+            const delaySeconds = soonestExpiry - nowSeconds;
+            setTimeout(this.onTimerExpiry, delaySeconds * 1000);
+            console.log("timeout set (seconds): ", delaySeconds);
+
             const applications = allListings
               .filter(listing => isInApplicationPhase(listing!.data))
               .map(listing => listing!.address)
               .toSet();
-
-            console.log("allListings: ", allListings);
-            console.log("applications: ", applications);
 
             const readyToWhitelistListings = allListings
               .filter(listing => canBeWhitelisted(listing!.data))
@@ -175,9 +196,12 @@ class ListingsInProgressContainer extends React.Component<
         </Query>
       );
     } else {
-      console.log("other way");
       return <ListingsInProgressRedux {...this.props} />;
     }
+  }
+  public onTimerExpiry(): void {
+    console.log("state: ", this.state);
+    this.setState({ increment: this.state.increment + 1 });
   }
 }
 
