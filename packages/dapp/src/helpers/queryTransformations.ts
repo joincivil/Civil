@@ -91,7 +91,6 @@ export function transformGraphQLDataIntoNewsroom(listing: any, listingAddress: s
   };
 }
 export function transformGraphQLDataIntoListing(listing: any, listingAddress: string): ListingWrapper {
-  const id = listing.challengeID;
   return {
     address: listingAddress,
     data: {
