@@ -4,26 +4,26 @@ import { Set } from "immutable";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { State } from "../../redux/reducers";
-import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
+import RejectedListingListRedux from "./RejectedListingListRedux";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-export interface WhitelistedListingsListContainerReduxProps {
+export interface RejectedListingsListContainerReduxProps {
   useGraphQL: boolean;
 }
 const LISTINGS_QUERY = gql`
-  query($whitelistedOnly: Boolean!) {
-    listings(whitelistedOnly: $whitelistedOnly) {
+  query($rejectedOnly: Boolean!) {
+    listings(rejectedOnly: $rejectedOnly) {
       contractAddress
     }
   }
 `;
-class WhitelistedListingListContainer extends React.Component<WhitelistedListingsListContainerReduxProps> {
+class RejectedListingListContainer extends React.Component<RejectedListingsListContainerReduxProps> {
   public render(): JSX.Element {
     if (this.props.useGraphQL) {
       return (
-        <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }} pollInterval={1000}>
+        <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true }} pollInterval={1000}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
               return <></>;
@@ -50,12 +50,12 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
         </Query>
       );
     } else {
-      return <WhitelistedListingListRedux />;
+      return <RejectedListingListRedux />;
     }
   }
 }
 
-const mapStateToProps = (state: State): WhitelistedListingsListContainerReduxProps => {
+const mapStateToProps = (state: State): RejectedListingsListContainerReduxProps => {
   const useGraphQL = state.useGraphQL;
 
   return {
@@ -63,4 +63,4 @@ const mapStateToProps = (state: State): WhitelistedListingsListContainerReduxPro
   };
 };
 
-export default connect(mapStateToProps)(WhitelistedListingListContainer);
+export default connect(mapStateToProps)(RejectedListingListContainer);

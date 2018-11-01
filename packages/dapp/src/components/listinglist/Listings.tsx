@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Set } from "immutable";
 import {
   Hero,
   HomepageHero,
@@ -16,11 +15,10 @@ import { getFormattedTokenBalance } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import * as heroImgUrl from "../images/img-hero-listings.png";
 import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
-import ListingList from "./ListingList";
+import RejectedListingListContainer from "./RejectedListingListContainer";
 import { State } from "../../redux/reducers";
 import ListingsInProgress from "./ListingsInProgress";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
-import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 
 const TABS: string[] = ["whitelisted", "in-progress", "rejected"];
 
@@ -30,7 +28,6 @@ export interface ListingProps {
 }
 
 export interface ListingReduxProps {
-  rejectedListings: Set<string>;
   parameters: any;
   error: undefined | string;
   loadingFinished: boolean;
@@ -89,7 +86,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil
                   Constitution. Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.
                 </StyledListingCopy>
-                {this.renderRejectedListings()}
+                <RejectedListingListContainer />
               </StyledPageContent>
             </Tab>
           </Tabs>
@@ -98,14 +95,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     );
   }
 
-  private renderRejectedListings = (): JSX.Element => {
-    if (this.props.rejectedListings.count()) {
-      return <ListingList listings={this.props.rejectedListings} />;
-    }
-
-    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
-  };
-
   private onTabChange = (activeIndex: number = 0): void => {
     const tabName = TABS[activeIndex];
     this.props.history.push(`/registry/${tabName}`);
@@ -113,11 +102,10 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { rejectedListings, parameters } = state.networkDependent;
+  const { parameters } = state.networkDependent;
   const useGraphQL = state.useGraphQL;
   return {
     ...ownProps,
-    rejectedListings,
     parameters,
     error: undefined,
     loadingFinished: true,
