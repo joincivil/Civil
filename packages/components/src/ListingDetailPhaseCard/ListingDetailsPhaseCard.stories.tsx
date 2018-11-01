@@ -55,7 +55,7 @@ const percentAgainst = "27";
 const tokenBalance = 10000;
 let commitVoteState = {
   salt: "9635457449074",
-  numTokens: tokenBalance.toString(),
+  numTokens: (tokenBalance * 0.67).toString(),
   voteOption: undefined,
 };
 
@@ -97,6 +97,8 @@ storiesOf("Listing Details Phase Card", module)
             stake={stake}
             tokenBalance={tokenBalance}
             votingTokenBalance={tokenBalance}
+            tokenBalanceDisplay={`${tokenBalance} CVL`}
+            votingTokenBalanceDisplay={`${tokenBalance} CVL`}
             salt={commitVoteState.salt}
             numTokens={commitVoteState.numTokens}
             onInputChange={commitVoteChange}
@@ -317,6 +319,8 @@ storiesOf("Listing Details Phase Card", module)
             secondaryPhaseLength={secondaryPhaseLength}
             tokenBalance={tokenBalance}
             votingTokenBalance={tokenBalance}
+            tokenBalanceDisplay={`${tokenBalance} CVL`}
+            votingTokenBalanceDisplay={`${tokenBalance} CVL`}
             salt={commitVoteState.salt}
             challengeID={challengeID}
             challenger={challenger}

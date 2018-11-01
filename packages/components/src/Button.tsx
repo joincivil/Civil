@@ -137,7 +137,13 @@ export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
   }
 
   return (
-    <button className={className + activeClass + disabledClass} onClick={onClick} type="button" disabled={disabled} ref={inputRef}>
+    <button
+      className={className + activeClass + disabledClass}
+      onClick={onClick}
+      type="button"
+      disabled={disabled}
+      ref={inputRef}
+    >
       {children}
     </button>
   );

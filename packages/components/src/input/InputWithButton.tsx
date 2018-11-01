@@ -44,7 +44,12 @@ const StyledButtonContainer = styled.div`
 export interface InputWithButtonContainerProps {
   buttonText: string;
   icon?: JSX.Element;
-  children(isFocused: boolean, setFocused: () => void, setUnfocused: (ev: any) => void, setInputRef: (el: any) => void): React.ReactNode;
+  children(
+    isFocused: boolean,
+    setFocused: () => void,
+    setUnfocused: (ev: any) => void,
+    setInputRef: (el: any) => void,
+  ): React.ReactNode;
   onButtonClick(ev: any): void;
 }
 
@@ -110,8 +115,8 @@ class InputWithButtonContainer extends React.Component<InputWithButtonContainerP
     }
   };
 
-  private setInputRef = (el: HTMLInputElement) => this.inputElement = el;
-  private setButtonRef = (el: HTMLButtonElement) => this.buttonElement = el;
+  private setInputRef = (el: HTMLInputElement) => (this.inputElement = el);
+  private setButtonRef = (el: HTMLButtonElement) => (this.buttonElement = el);
 }
 
 export const TextInputWithButton: React.StatelessComponent<InputWithButtonProps> = props => {
@@ -121,15 +126,15 @@ export const TextInputWithButton: React.StatelessComponent<InputWithButtonProps>
 
   return (
     <InputWithButtonContainer {...containerProps}>
-      {(isFocused: boolean, setFocused: () => void, setUnfocused: (ev: any) => void, setInputRef: (el: any) => void) => {
+      {(
+        isFocused: boolean,
+        setFocused: () => void,
+        setUnfocused: (ev: any) => void,
+        setInputRef: (el: any) => void,
+      ) => {
         return (
           <>
-            <TextInput
-              {...inputProps}
-              onFocus={setFocused}
-              onBlur={setUnfocused}
-              inputRef={setInputRef}
-            />
+            <TextInput {...inputProps} onFocus={setFocused} onBlur={setUnfocused} inputRef={setInputRef} />
           </>
         );
       }}
@@ -144,15 +149,15 @@ export const CurrencyInputWithButton: React.StatelessComponent<InputWithButtonPr
 
   return (
     <InputWithButtonContainer {...containerProps}>
-      {(isFocused: boolean, setFocused: () => void, setUnfocused: (ev: any) => void, setInputRef: (el: any) => void) => {
+      {(
+        isFocused: boolean,
+        setFocused: () => void,
+        setUnfocused: (ev: any) => void,
+        setInputRef: (el: any) => void,
+      ) => {
         return (
           <>
-            <NumericInput
-              {...inputProps}
-              onFocus={setFocused}
-              onBlur={setUnfocused}
-              inputRef={setInputRef}
-            />
+            <NumericInput {...inputProps} onFocus={setFocused} onBlur={setUnfocused} inputRef={setInputRef} />
           </>
         );
       }}

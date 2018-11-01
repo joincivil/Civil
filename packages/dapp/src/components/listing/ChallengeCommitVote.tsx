@@ -105,31 +105,37 @@ class ChallengeCommitVote extends React.Component<
     const endTime = this.props.challenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
-    const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
-    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.toNumber() : 0;
+    const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
+    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
+    const tokenBalanceDisplay = this.props.balance ? getFormattedTokenBalance(this.props.balance) : "";
+    const votingTokenBalanceDisplay = this.props.votingBalance
+      ? getFormattedTokenBalance(this.props.votingBalance)
+      : "";
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
     if (!challenge) {
       return null;
     }
-    console.log(this.state.numTokens);
+    const props = {
+      endTime,
+      phaseLength,
+      challenger: challenge!.challenger.toString(),
+      challengeID: this.props.challengeID.toString(),
+      rewardPool: getFormattedTokenBalance(challenge!.rewardPool),
+      stake: getFormattedTokenBalance(challenge!.stake),
+      userHasCommittedVote,
+      onInputChange: this.updateCommitVoteState,
+      onCommitMaxTokens: () => this.commitMaxTokens(),
+      onReviewVote: this.handleReviewVote,
+      tokenBalance,
+      votingTokenBalance,
+      tokenBalanceDisplay,
+      votingTokenBalanceDisplay,
+      salt: this.state.salt,
+      numTokens: this.state.numTokens,
+    };
     return (
       <>
-        <ChallengeCommitVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          challenger={challenge!.challenger.toString()}
-          challengeID={this.props.challengeID.toString()}
-          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-          stake={getFormattedTokenBalance(challenge!.stake)}
-          userHasCommittedVote={userHasCommittedVote}
-          onInputChange={this.updateCommitVoteState}
-          onCommitMaxTokens={() => this.commitMaxTokens()}
-          onReviewVote={this.handleReviewVote}
-          tokenBalance={tokenBalance}
-          votingTokenBalance={votingTokenBalance}
-          salt={this.state.salt}
-          numTokens={this.state.numTokens}
-        />
+        <ChallengeCommitVoteCard {...props} />
         {this.renderReviewVoteModal()}
       </>
     );
@@ -146,7 +152,6 @@ class ChallengeCommitVote extends React.Component<
       .div(1e18)
       .toFixed(2)
       .toString();
-    console.log("committing max tokens", numTokensString);
     this.setState(() => ({ numTokens: numTokensString }));
   }
 

@@ -37,6 +37,8 @@ export interface CommitVoteProps {
   newsroomName?: string;
   tokenBalance: number;
   votingTokenBalance: number;
+  tokenBalanceDisplay: string;
+  votingTokenBalanceDisplay: string;
   salt?: string;
   numTokens?: string;
   userHasCommittedVote?: boolean;

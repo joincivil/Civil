@@ -126,6 +126,8 @@ export class AppealChallengeCommitVoteCard extends React.Component<
                 <CommitVote
                   tokenBalance={this.props.tokenBalance}
                   votingTokenBalance={this.props.votingTokenBalance}
+                  tokenBalanceDisplay={this.props.tokenBalanceDisplay}
+                  votingTokenBalanceDisplay={this.props.votingTokenBalanceDisplay}
                   salt={this.props.salt}
                   numTokens={this.props.numTokens}
                   onInputChange={this.props.onInputChange}

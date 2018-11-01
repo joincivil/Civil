@@ -111,8 +111,15 @@ class AppealChallengeCommitVote extends React.Component<
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
     const stake = getFormattedTokenBalance(challenge.stake);
-    const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
-    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.toNumber() : 0;
+    const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
+    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
+    const tokenBalanceDisplay = this.props.balance ? getFormattedTokenBalance(this.props.balance) : "";
+    const votingTokenBalanceDisplay = this.props.votingBalance
+      ? getFormattedTokenBalance(this.props.votingBalance)
+      : "";
+
+    const userHasCommittedVote =
+      this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserCommit;
 
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
     const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
@@ -126,31 +133,36 @@ class AppealChallengeCommitVote extends React.Component<
       .mul(100)
       .toFixed(0);
 
+    const props = {
+      endTime,
+      phaseLength,
+      secondaryPhaseLength,
+      challengeID: this.props.challengeID.toString(),
+      challenger,
+      rewardPool,
+      stake,
+      userHasCommittedVote,
+      totalVotes: getFormattedTokenBalance(totalVotes),
+      votesFor,
+      votesAgainst,
+      percentFor: percentFor.toString(),
+      percentAgainst: percentAgainst.toString(),
+      onCommitMaxTokens: () => this.commitMaxTokens(),
+      tokenBalance,
+      votingTokenBalance,
+      tokenBalanceDisplay,
+      votingTokenBalanceDisplay,
+      salt: this.state.salt,
+      numTokens: this.state.numTokens,
+      onInputChange: this.updateCommitVoteState,
+      onReviewVote: this.handleReviewVote,
+      appealChallengeID: this.props.appealChallengeID.toString(),
+      appealGranted: this.props.appeal.appealGranted,
+    };
+
     return (
       <>
-        <AppealChallengeCommitVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          secondaryPhaseLength={secondaryPhaseLength}
-          challengeID={this.props.challengeID.toString()}
-          challenger={challenger}
-          rewardPool={rewardPool}
-          stake={stake}
-          totalVotes={getFormattedTokenBalance(totalVotes)}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor.toString()}
-          percentAgainst={percentAgainst.toString()}
-          onInputChange={this.updateCommitVoteState}
-          salt={this.state.salt}
-          numTokens={this.state.numTokens}
-          tokenBalance={tokenBalance}
-          votingTokenBalance={votingTokenBalance}
-          onReviewVote={this.handleReviewVote}
-          onCommitMaxTokens={() => this.commitMaxTokens()}
-          appealChallengeID={this.props.appealChallengeID.toString()}
-          appealGranted={this.props.appeal.appealGranted}
-        />
+        <AppealChallengeCommitVoteCard {...props} />
         {this.renderReviewVoteModal()}
       </>
     );

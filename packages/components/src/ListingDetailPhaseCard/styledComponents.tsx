@@ -149,6 +149,7 @@ export const FormQuestion = styled.p`
   font-size: 21px;
   line-height: 34px;
   margin: 0 0 24px;
+  text-align: center;
 `;
 
 export interface StyledCardStageProps {
@@ -241,4 +242,76 @@ export const ToolTipHdr = styled.p`
 export const ToolTipItalic = styled.p`
   font-style: italic;
   margin: 0 0 12px;
+`;
+
+export interface StyledStepPropsState {
+  visible: boolean;
+}
+
+export const StyledStep: StyledComponentClass<StyledStepPropsState, "div"> = styled<StyledStepPropsState, "div">("div")`
+  display: ${(props: StyledStepPropsState) => (props.visible ? "block" : "none")};
+`;
+
+export const StyledStepLabel = styled(StyledPhaseKicker)`
+  margin: 0 0 20px;
+  text-align: center;
+`;
+
+export const StyledOneTokenOneVote = styled.div`
+  background-color: ${colors.accent.CIVIL_GRAY_4};
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0 -40px 39px;
+  padding: 13px 0 15px;
+  text-align: center;
+`;
+
+export const StyledBalanceRow = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_2};
+  display: flex;
+  font-size: 14px;
+  line-height: 17px;
+  justify-content: space-between;
+`;
+
+export const StyledBalanceRowRight = styled.div`
+  text-align: right;
+`;
+
+export const ProgressBarBase = styled.div`
+  height: 8px;
+  border-radius: 5px;
+`;
+
+export const ProgressBarTotal = styled(ProgressBarBase)`
+  background-color: ${colors.accent.CIVIL_TEAL_FADED_2};
+  box-sizing: border-box;
+  margin: 13px 0 16px;
+  position: relative;
+  width: 100%;
+`;
+
+export const ProgressBarProgress = styled(ProgressBarBase)`
+  display: inline-block;
+  background-color: ${colors.accent.CIVIL_TEAL};
+  left: 0;
+  top: 0;
+  position: absolute;
+  transition: width 500ms ease;
+`;
+
+export const StyledAppMessage = styled.div`
+  color: ${colors.accent.CIVIL_RED};
+  font-size: 14px;
+  line-height: 17px;
+  margin: 20px 0;
+  padding: 0 20px;
+  text-align: center;
+`;
+
+export const StyledButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 23px;
 `;
