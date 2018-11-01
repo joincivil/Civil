@@ -312,7 +312,7 @@ class CompleteYourProfileComponent extends React.Component<
             <FormTitle>Civil Officer</FormTitle>
             <FormDescription>
               An Officer is an admin role that has all possible capabilities in the newsroom smart contract. They can
-              add additional officers and members and have access to your newsrooms funds and Civil Registry
+              add additional officers and members and have access to your newsroom's funds and Civil Registry
               application.
               <QuestionToolTip
                 explainerText={
@@ -342,8 +342,9 @@ class CompleteYourProfileComponent extends React.Component<
           <FormTitleSection>
             <FormTitle>Civil Member</FormTitle>
             <FormDescription>
-              A Member is the standard role in the newsroom smart contract. They have permission to index and sign posts
-              on the blockchain. They cannot add Civil Officers to a newsroom smart contract.
+              A Member is the standard role in the newsroom smart contract. They have permission to sign, index and
+              archive posts on the blockchain. They cannot add Civil Officers to you newsroom smart contract or access
+              your newsroom's funds.
               <QuestionToolTip
                 explainerText={
                   "If you lose your public wallet address, a Civil Member does not have the option to add additional officers to the contract."

@@ -79,8 +79,8 @@ export function newsrooms(
 
 export function newsroomUi(state: Map<string, any> = Map(), action: AnyAction): Map<string, any> {
   switch (action.type) {
-    case uiActions.ADD_GET_NAME_FOR_ADDRESS:
-      return state.set(uiActions.GET_NAME_FOR_ADDRESS, action.data);
+    case uiActions.ADD_GET_CMS_USER_DATA_FOR_ADDRESS:
+      return state.set(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS, action.data);
     case uiActions.ADD_PERSIST_CHARTER:
       return state.set(uiActions.PERSIST_CHARTER, action.data);
     default:
@@ -88,7 +88,10 @@ export function newsroomUi(state: Map<string, any> = Map(), action: AnyAction): 
   }
 }
 
-export function newsroomUsers(state: Map<EthAddress, string> = Map(), action: AnyAction): Map<EthAddress, string> {
+export function newsroomUsers(
+  state: Map<EthAddress, CmsUserData> = Map(),
+  action: AnyAction,
+): Map<EthAddress, CmsUserData> {
   switch (action.type) {
     case userActions.ADD_USER:
       return state.set(action.data.address, action.data.name);
