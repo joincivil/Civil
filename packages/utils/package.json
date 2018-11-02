@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/utils",
-  "version": "1.7.4",
+  "version": "1.7.3",
   "description": "Utils shared between multiple Civil packages",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -14,8 +14,8 @@
   "author": "The Civil Media Company",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@joincivil/dev-utils": "^1.4.4",
-    "@joincivil/typescript-types": "^1.2.4",
+    "@joincivil/dev-utils": "^1.4.3",
+    "@joincivil/typescript-types": "^1.2.3",
     "@types/chai": "^4.1.2",
     "@types/mocha": "^5.2.5",
     "chai": "^4.1.2",
