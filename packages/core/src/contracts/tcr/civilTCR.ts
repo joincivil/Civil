@@ -233,6 +233,25 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   /**
+   * An unending stream of all events that change the state of a listing
+   * @param fromBlock Starting block in history for events concerning whitelisted addresses.
+   *                  Set to "latest" for only new events
+   * @returns currently listings as new events get triggered
+   */
+  public allEventsFromBlock(
+    fromBlock: number | "latest" = getDefaultFromBlock(),
+    toBlock?: number,
+  ): Observable<ListingWrapper> {
+    return Observable.merge(
+      this.allEventsExceptWhitelistFromBlock(fromBlock, toBlock),
+      this.instance
+        ._ApplicationWhitelistedStream({}, { fromBlock, toBlock })
+        .map(e => new Listing(this.ethApi, this.instance, this.contentProvider, e.args.listingAddress))
+        .concatMap(async l => l.getListingWrapper()),
+    );
+  }
+
+  /**
    * An unending stream of all addresses that have been whitelisted
    * @param fromBlock Starting block in history for events concerning whitelisted addresses.
    *                  Set to "latest" for only new events
