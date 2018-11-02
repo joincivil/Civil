@@ -218,9 +218,9 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   private renderAppMessages = (): JSX.Element | null => {
     let message;
     const { numTokens, tokenBalance, votingTokenBalance } = this.props;
-    if (numTokens && parseFloat(numTokens) > (tokenBalance + votingTokenBalance)) {
+    if (numTokens && parseFloat(numTokens) > tokenBalance + votingTokenBalance) {
       message = <CommitVoteInsufficientTokensText />;
-    } else if (numTokens && parseFloat(numTokens) === (tokenBalance + votingTokenBalance)) {
+    } else if (numTokens && parseFloat(numTokens) === tokenBalance + votingTokenBalance) {
       message = <CommitVoteMaxTokensWarningText />;
     }
 

@@ -115,7 +115,17 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
   }
 
   private renderCommitStage(): JSX.Element | null {
-    const { handleClose, parameterDisplayName, parameterCurrentValue, parameterProposalValue, challenge, parameters, balance, votingBalance, userChallengeData } = this.props;
+    const {
+      handleClose,
+      parameterDisplayName,
+      parameterCurrentValue,
+      parameterProposalValue,
+      challenge,
+      parameters,
+      balance,
+      votingBalance,
+      userChallengeData,
+    } = this.props;
     const endTime = challenge.poll.commitEndDate.toNumber();
     const phaseLength = parameters[Parameters.pCommitStageLen];
     const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
@@ -153,9 +163,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
     return (
       <>
-        <ChallengeProposalCommitVote
-          {...props}
-        />
+        <ChallengeProposalCommitVote {...props} />
         {this.renderReviewVoteModal()}
       </>
     );
