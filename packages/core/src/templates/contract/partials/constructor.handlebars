@@ -32,6 +32,9 @@ public static deployTrusted = {
           {{> params inputs=ctor.inputs }}
           options);
     }
+    if (!options.gasPrice) {
+      options.gasPrice = await ethApi.getGasPrice();
+    }
     const txhash = await new Promise<string>((resolve, reject) => {
       const clazz = ethApi.getContractClass(artifacts.{{contractName}}.abi);
       /* There's a bug in Metamask, this callback should be called twice, first when the transaction

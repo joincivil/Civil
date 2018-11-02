@@ -40,13 +40,11 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<
     },
     () => {
       dispatch(setLoadingFinished());
-      currentListingSubscriptions = tcr
-        .allEventsExceptWhitelistFromBlock(current)
-        .subscribe(async (listing: ListingWrapper) => {
-          await getNewsroom(dispatch, listing.address);
-          setupListingCallback(listing, dispatch);
-          dispatch(addListing(listing));
-        });
+      currentListingSubscriptions = tcr.allEventsFromBlock(current).subscribe(async (listing: ListingWrapper) => {
+        await getNewsroom(dispatch, listing.address);
+        setupListingCallback(listing, dispatch);
+        dispatch(addListing(listing));
+      });
     },
   );
 }

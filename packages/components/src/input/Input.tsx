@@ -31,6 +31,7 @@ export interface InputBaseProps {
   name: string;
   value?: string;
   placeholder?: string;
+  autocomplete?: string;
   defaultValue?: any;
   type?: string;
   min?: string;
@@ -118,6 +119,7 @@ export interface InputProps {
   name: string;
   value?: string;
   placeholder?: string;
+  autocomplete?: string;
   label?: string | JSX.Element;
   icon?: JSX.Element;
   className?: string;
