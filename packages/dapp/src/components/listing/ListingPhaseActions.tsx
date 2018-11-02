@@ -1,21 +1,11 @@
 import * as React from "react";
 import { compose } from "redux";
-import { updateStatus } from "../../apis/civilTCR";
-import { ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
+import { ListingWrapper } from "@joincivil/core";
 import ChallengeDetailContainer from "./ChallengeDetail";
-import { ChallengeResolve } from "./ChallengeResolve";
-import {
-  InApplicationCard,
-  InApplicationResolveCard,
-  RejectedCard as RejectedCardComponent,
-  LoadingIndicator,
-  ModalHeading,
-  ModalContent,
-  ModalOrderedList,
-  ModalListItem,
-  ModalListItemTypes,
-} from "@joincivil/components";
+import ChallengeResolve from "./ChallengeResolve";
+import { InApplicationCard, RejectedCard as RejectedCardComponent } from "@joincivil/components";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
+import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
 
 export interface ListingPhaseActionsProps {
@@ -27,26 +17,7 @@ export interface ListingPhaseActionsProps {
   listingPhaseState: any;
 }
 
-export interface ListingPhaseActionsState {
-  isChallengeModalOpen?: boolean;
-  challengeStatement?: any;
-  challengeSummaryStatement?: string;
-}
-
-enum ModalContentEventNames {
-  IN_PROGRESS_APPROVE_FOR_CHALLENGE = "IN_PROGRESS:APPROVE_FOR_CHALLENGE",
-  IN_PROGRESS_SUBMIT_CHALLENGE = "IN_PROGRESS:SUBMIT_CHALLENGE",
-  IN_PROGRESS_UPDATE_LISTING = "IN_PROGRESS:UPDATE_LISTING",
-}
-
-class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, ListingPhaseActionsState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      isChallengeModalOpen: false,
-    };
-  }
-
+class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
   public render(): JSX.Element {
     const listing = this.props.listing;
     const {
@@ -87,18 +58,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderCanWhitelist = (): JSX.Element => {
-    const updateProgressModal = this.renderUpdateProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_UPDATE_LISTING]: updateProgressModal,
-    };
-    const transactions = [
-      {
-        transaction: this.update,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_UPDATE_LISTING,
-      },
-    ];
-
-    return <InApplicationResolveCard modalContentComponents={modalContentComponents} transactions={transactions} />;
+    return <ApplicationUpdateStatus listingAddress={this.props.listing!.address} />;
   };
 
   private renderCanResolve(): JSX.Element {
@@ -123,20 +83,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     return <RejectedCard listingAddress={this.props.listing.address} />;
   }
 
-  private renderUpdateProgressModal(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Approving the listing</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
-  }
-
   private renderApplicationPhase(): JSX.Element | null {
     const endTime = this.props.listing!.data.appExpiry.toNumber();
     const phaseLength = this.props.parameters.applyStageLen;
@@ -156,11 +102,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       </>
     );
   }
-
-  // Transactions
-  private update = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateStatus(this.props.listing.address);
-  };
 }
 
 export default ListingPhaseActions;

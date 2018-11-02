@@ -14,4 +14,5 @@ export * from "./MetaMaskIcons";
 export * from "./NorthEastArrow";
 export * from "./RegistryEmptyIcon";
 export * from "./RejectedNewsroomsIcon";
+export * from "./WarningIcon";
 export * from "./WaitForApply";

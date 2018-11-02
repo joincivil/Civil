@@ -26,6 +26,13 @@ export const ModalStepLabel = styled.div`
   text-transform: uppercase;
 `;
 
+export const ModalUnorderedList = styled.ol`
+  display: flex;
+  flex-flow: column;
+  font-size: 14px;
+  line-height: 19px;
+`;
+
 export const ModalOrderedList = styled.ol`
   align-items: center;
   display: flex;

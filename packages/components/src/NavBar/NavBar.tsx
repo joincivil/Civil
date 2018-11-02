@@ -3,7 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { NavLink } from "./NavLink";
 import { NavDropDown } from "./NavDropDown";
-import { NavDrawerComponent } from "./NavDrawer";
+import { NavDrawer } from "./NavDrawer";
 import { CivilLogo } from "../CivilLogo";
 import { CvlToken } from "../icons/CvlToken";
 import {
@@ -39,6 +39,13 @@ export interface NavState {
 export interface NavArrowProps {
   isOpen?: boolean;
 }
+
+const NavContainer = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999999;
+`;
 
 const NavOuter = styled.div`
   align-items: center;
@@ -173,67 +180,69 @@ export class NavBar extends React.Component<NavProps, NavState> {
       );
     }
     return (
-      <NavOuter>
-        <NavLogo>
-          <NavLink to="/">
-            <CivilLogo color={colors.basic.WHITE} />
-          </NavLink>
-        </NavLogo>
-        <NavInner>
-          <NavLink to="/registry">
-            <NavLinkRegistryText />
-          </NavLink>
-          <NavLink to="/parameterizer">
-            <NavLinkParameterizerText />
-          </NavLink>
-          <NavLink to="/createNewsroom">
-            <NavLinkCreateNewsroomText />
-          </NavLink>
-          <NavDropDown label="How Civil works">
-            <NavLink href="https://civil.co/constitution/" target="_blank">
-              <NavLinkConstitutionText />
+      <NavContainer>
+        <NavOuter>
+          <NavLogo>
+            <NavLink to="/">
+              <CivilLogo color={colors.basic.WHITE} />
             </NavLink>
-            <NavLink href="https://civil.co/about/" target="_blank">
-              <NavLinkAboutText />
+          </NavLogo>
+          <NavInner>
+            <NavLink to="/registry">
+              <NavLinkRegistryText />
             </NavLink>
-            <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
-              <NavLinkLaunchNewsroomText />
+            <NavLink to="/parameterizer">
+              <NavLinkParameterizerText />
             </NavLink>
-            <NavLink href="https://civil.co/white-paper/" target="_blank">
-              <NavLinkWhitePaperText />
+            <NavLink to="/createNewsroom">
+              <NavLinkCreateNewsroomText />
             </NavLink>
-          </NavDropDown>
-          <NavAccent>
-            <NavLink to="/dashboard">
-              <NavLinkDashboardText />
-            </NavLink>
-          </NavAccent>
-          <NavUser onClick={ev => this.toggle()}>
-            <CvlContainer>
-              <CvlToken />
-              {accountInfo}
-            </CvlContainer>
-            <AvatarContainer>
-              <UserAvatar />
-              <Arrow isOpen={this.state.isOpen} />
-            </AvatarContainer>
-          </NavUser>
-        </NavInner>
-        {this.state.isOpen ? (
-          <NavDrawerComponent
-            balance={this.props.balance}
-            votingBalance={this.props.votingBalance}
-            userAccount={this.props.userAccount}
-            userRevealVotesCount={this.props.userRevealVotesCount}
-            userClaimRewardsCount={this.props.userClaimRewardsCount}
-            userChallengesStartedCount={this.props.userChallengesStartedCount}
-            userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
-            buyCvlUrl={this.props.buyCvlUrl}
-            useGraphQL={this.props.useGraphQL}
-            onLoadingPrefToggled={this.props.onLoadingPrefToggled}
-          />
-        ) : null}
-      </NavOuter>
+            <NavDropDown label="How Civil works">
+              <NavLink href="https://civil.co/constitution/" target="_blank">
+                <NavLinkConstitutionText />
+              </NavLink>
+              <NavLink href="https://civil.co/about/" target="_blank">
+                <NavLinkAboutText />
+              </NavLink>
+              <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
+                <NavLinkLaunchNewsroomText />
+              </NavLink>
+              <NavLink href="https://civil.co/white-paper/" target="_blank">
+                <NavLinkWhitePaperText />
+              </NavLink>
+            </NavDropDown>
+            <NavAccent>
+              <NavLink to="/dashboard">
+                <NavLinkDashboardText />
+              </NavLink>
+            </NavAccent>
+            <NavUser onClick={ev => this.toggle()}>
+              <CvlContainer>
+                <CvlToken />
+                {accountInfo}
+              </CvlContainer>
+              <AvatarContainer>
+                <UserAvatar />
+                <Arrow isOpen={this.state.isOpen} />
+              </AvatarContainer>
+            </NavUser>
+          </NavInner>
+          {this.state.isOpen && (
+            <NavDrawer
+              balance={this.props.balance}
+              votingBalance={this.props.votingBalance}
+              userAccount={this.props.userAccount}
+              userRevealVotesCount={this.props.userRevealVotesCount}
+              userClaimRewardsCount={this.props.userClaimRewardsCount}
+              userChallengesStartedCount={this.props.userChallengesStartedCount}
+              userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
+              buyCvlUrl={this.props.buyCvlUrl}
+              useGraphQL={this.props.useGraphQL}
+              onLoadingPrefToggled={this.props.onLoadingPrefToggled}
+            />
+          )}
+        </NavOuter>
+      </NavContainer>
     );
   }
 

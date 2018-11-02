@@ -1,15 +1,13 @@
 import * as React from "react";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  Button,
-  buttonSizes,
-  MetaMaskModal,
-  Modal,
-  ModalHeading,
+  InsufficientCVLForChallenge,
   ModalContent,
-  ModalStepLabel,
-  ProgressModalContentInProgress,
+  ModalUnorderedList,
+  ModalListItem,
+  SnackBar,
   SubmitChallengeStatement as SubmitChallengeStatementComponent,
   SubmitChallengeStatementProps,
 } from "@joincivil/components";
@@ -17,6 +15,11 @@ import { getFormattedParameterValue, Parameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForChallenge, challengeListing } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
+import {
+  InjectedTransactionStatusModalProps,
+  hasTransactionStatusModals,
+  TransactionStatusModalContentMap,
+} from "../utility/TransactionStatusModalsHOC";
 
 export interface SubmitChallengePageProps {
   match: any;
@@ -36,6 +39,7 @@ interface SubmitChallengeReduxProps {
   minDeposit: string;
   commitStageLen: string;
   revealStageLen: string;
+  isInsufficientBalance: boolean;
 }
 
 interface SubmitChallengeState {
@@ -44,82 +48,76 @@ interface SubmitChallengeState {
   challengeStatementDetailsValue?: any;
 }
 
-interface ProgressModalPropsState {
-  isWaitingTransactionModalOpen?: boolean;
-  isTransactionProgressModalOpen?: boolean;
-  isTransactionSuccessModalOpen?: boolean;
-  isTransactionRejectionModalOpen?: boolean;
-  transactionIndex?: number;
-  transactions?: any[];
-  cancelTransaction?(): void;
+enum TransactionTypes {
+  APPROVE_FOR_CHALLENGE = "APPROVE_FOR_CHALLENGE",
+  CHALLENGE_LISTING = "CHALLENGE_LISTING",
 }
 
-interface ProgressModalActionProps {
-  handleSuccessClose(): void;
-}
+const transactionLabels = {
+  [TransactionTypes.APPROVE_FOR_CHALLENGE]: "Approve for Challenge",
+  [TransactionTypes.CHALLENGE_LISTING]: "Challenge Listing",
+};
 
-interface VotingParamsDisplayProps {
-  commitStageLen: string;
-  revealStageLen: string;
-}
+const multiStepTransactionLabels = {
+  [TransactionTypes.APPROVE_FOR_CHALLENGE]: "1 of 2",
+  [TransactionTypes.CHALLENGE_LISTING]: "2 of 2",
+};
+
+const transactionRejectionContent = {
+  [TransactionTypes.APPROVE_FOR_CHALLENGE]: [
+    "Your challenge was not submitted",
+    "Before submitting a challenge, you need to confirm the approval of your challenge deposit in your MetaMask wallet.",
+  ],
+  [TransactionTypes.CHALLENGE_LISTING]: [
+    "Your challenge was not submitted",
+    "To submit a challenge, you need to confirm the transaction in your MetaMask wallet.",
+  ],
+};
+
+const transactionErrorContent = {
+  [TransactionTypes.APPROVE_FOR_CHALLENGE]: [
+    "The was an problem with submitting your challenge",
+    <>
+      <ModalContent>Please check the following and retry your transaction</ModalContent>
+      <ModalUnorderedList>
+        <ModalListItem>You have sufficient CVL in your account for the challenge fee</ModalListItem>
+      </ModalUnorderedList>
+    </>,
+  ],
+  [TransactionTypes.CHALLENGE_LISTING]: [
+    "The was an problem with submitting your challenge",
+    <>
+      <ModalContent>Please check the following and retry your transaction</ModalContent>
+      <ModalUnorderedList>
+        <ModalListItem>
+          Your Challenge Statement has a Summary, Cites the Civil Constitution, and Details on your challenge
+        </ModalListItem>
+      </ModalUnorderedList>
+    </>,
+  ],
+};
+
+const transactionStatusModalConfig = {
+  transactionLabels,
+  multiStepTransactionLabels,
+  transactionRejectionContent,
+  transactionErrorContent,
+};
 
 class SubmitChallengeComponent extends React.Component<
-  SubmitChallengeProps & SubmitChallengeReduxProps,
-  SubmitChallengeState & ProgressModalPropsState
+  SubmitChallengeProps & SubmitChallengeReduxProps & InjectedTransactionStatusModalProps,
+  SubmitChallengeState
 > {
-  constructor(props: SubmitChallengeProps & SubmitChallengeReduxProps) {
-    super(props);
-
-    this.state = {
-      isWaitingTransactionModalOpen: false,
-      isTransactionProgressModalOpen: false,
-      isTransactionSuccessModalOpen: false,
-      isTransactionRejectionModalOpen: false,
-      transactionIndex: -1,
-    };
+  public componentWillMount(): void {
+    const transactionSuccessContent = this.getTransactionSuccessContent();
+    this.props.setTransactions(this.getTransactions());
+    this.props.setTransactionStatusModalConfig({
+      transactionSuccessContent,
+    });
+    this.props.setHandleTransactionSuccessButtonClick(this.redirectToListingPage);
   }
 
   public render(): JSX.Element {
-    const transactions = [
-      {
-        transaction: async () => {
-          this.setState({
-            isWaitingTransactionModalOpen: true,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: false,
-            isTransactionRejectionModalOpen: false,
-            transactionIndex: 0,
-          });
-          return approveForChallenge();
-        },
-        handleTransactionHash: (txHash: TxHash) => {
-          this.setState({
-            isWaitingTransactionModalOpen: false,
-            isTransactionProgressModalOpen: true,
-          });
-        },
-        handleTransactionError: this.handleTransactionError,
-      },
-      {
-        transaction: async () => {
-          this.setState({
-            isWaitingTransactionModalOpen: true,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: false,
-            transactionIndex: 1,
-          });
-          return this.challenge();
-        },
-        handleTransactionHash: (txHash: TxHash) => {
-          this.setState({
-            isWaitingTransactionModalOpen: true,
-            isTransactionProgressModalOpen: false,
-          });
-        },
-        handleTransactionError: this.handleTransactionError,
-      },
-    ];
-
     const {
       listingURI,
       newsroomName,
@@ -128,6 +126,7 @@ class SubmitChallengeComponent extends React.Component<
       minDeposit,
       commitStageLen,
       revealStageLen,
+      isInsufficientBalance,
     } = this.props;
 
     const props: SubmitChallengeStatementProps = {
@@ -139,62 +138,81 @@ class SubmitChallengeComponent extends React.Component<
       commitStageLen,
       revealStageLen,
       updateStatementValue: this.updateStatement,
-      transactions,
+      transactions: this.getTransactions(),
       postExecuteTransactions: this.onSubmitChallengeSuccess,
-    };
-
-    const {
-      isWaitingTransactionModalOpen,
-      isTransactionProgressModalOpen,
-      isTransactionSuccessModalOpen,
-      transactionIndex,
-    } = this.state;
-
-    const modalProps = {
-      isWaitingTransactionModalOpen,
-      isTransactionProgressModalOpen,
-      isTransactionSuccessModalOpen,
-      transactionIndex,
     };
 
     return (
       <>
+        {isInsufficientBalance &&
+          minDeposit && <InsufficientBalanceSnackBar minDeposit={minDeposit!} buyCVLURL="https://civil.co" />}
         <SubmitChallengeStatementComponent {...props} />
-        <AwaitingTransactionModal {...modalProps} />
-        <TransactionProgressModal {...modalProps} />
-        <TransactionSuccessModal
-          {...modalProps}
-          handleSuccessClose={this.redirectToListingPage}
-          commitStageLen={commitStageLen}
-          revealStageLen={revealStageLen}
-        />
-        <TransactionRejectionModal
-          transactions={transactions}
-          cancelTransaction={this.closeAllModals}
-          {...modalProps}
-        />
       </>
     );
   }
 
-  private closeAllModals = (): void => {
-    this.setState({
-      isWaitingTransactionModalOpen: false,
-      isTransactionProgressModalOpen: false,
-      isTransactionSuccessModalOpen: false,
-      isTransactionRejectionModalOpen: false,
-      transactionIndex: -1,
-    });
+  private getTransactions = (): any[] => {
+    return [
+      {
+        transaction: async () => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            isTransactionErrorModalOpen: false,
+            isTransactionRejectionModalOpen: false,
+            transactionType: TransactionTypes.APPROVE_FOR_CHALLENGE,
+          });
+          return approveForChallenge();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        handleTransactionError: this.props.handleTransactionError,
+      },
+      {
+        transaction: async () => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.CHALLENGE_LISTING,
+          });
+          return this.challenge();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+          });
+        },
+        handleTransactionError: this.props.handleTransactionError,
+      },
+    ];
   };
 
-  private handleTransactionError = (err: Error) => {
-    const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
-    this.setState(() => ({
-      isWaitingTransactionModalOpen: false,
-      isTransactionProgressModalOpen: false,
-      isTransactionSuccessModalOpen: false,
-      isTransactionRejectionModalOpen: isErrorUserRejection,
-    }));
+  private getTransactionSuccessContent = (): TransactionStatusModalContentMap => {
+    return {
+      [TransactionTypes.APPROVE_FOR_CHALLENGE]: [undefined, undefined],
+      [TransactionTypes.CHALLENGE_LISTING]: [
+        "This Newsroom is now under challenge",
+        <>
+          <ModalContent>
+            This challenge is now accepting votes. The CVL token-holding community will have the next{" "}
+            {this.props.commitStageLen} to commit their secret votes, and {this.props.revealStageLen} to confirm their
+            vote. To prevent decision bias, all votes will be hidden using a secret phrase, until the end of the voting
+            period.
+          </ModalContent>
+          <ModalContent>
+            You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge
+            deposit.
+          </ModalContent>
+        </>,
+      ],
+    };
   };
 
   private updateStatement = (key: string, value: any): void => {
@@ -203,7 +221,7 @@ class SubmitChallengeComponent extends React.Component<
   };
 
   private onSubmitChallengeSuccess = (): void => {
-    this.setState({
+    this.props.updateTransactionStatusModalsState({
       isWaitingTransactionModalOpen: false,
       isTransactionProgressModalOpen: false,
       isTransactionSuccessModalOpen: true,
@@ -211,7 +229,7 @@ class SubmitChallengeComponent extends React.Component<
   };
 
   private redirectToListingPage = (): void => {
-    this.closeAllModals();
+    this.props.closeAllModals();
     this.props.history.push("/listing/" + this.props.listingAddress);
   };
 
@@ -231,111 +249,6 @@ class SubmitChallengeComponent extends React.Component<
   };
 }
 
-const AwaitingTransactionModal: React.SFC<ProgressModalPropsState> = props => {
-  if (!props.isWaitingTransactionModalOpen) {
-    return null;
-  }
-  const { transactionIndex } = props;
-  let transactionLabel = "";
-  let stepLabelText = "";
-  if (transactionIndex === 0) {
-    transactionLabel = "Approve For Challenge";
-    stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
-  } else if (transactionIndex === 1) {
-    transactionLabel = "Submit Challenge";
-    stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
-  }
-  return (
-    <MetaMaskModal waiting={true}>
-      <ModalStepLabel>{stepLabelText}</ModalStepLabel>
-      <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
-    </MetaMaskModal>
-  );
-};
-
-const TransactionProgressModal: React.SFC<ProgressModalPropsState> = props => {
-  if (!props.isTransactionProgressModalOpen) {
-    return null;
-  }
-  const { transactionIndex } = props;
-  let transactionLabel = "";
-  let stepLabelText = "";
-  if (transactionIndex === 0) {
-    transactionLabel = "Approve For Challenge";
-    stepLabelText = `Step 1 of 2 - ${transactionLabel}`;
-  } else if (transactionIndex === 1) {
-    transactionLabel = "Submit Challenge";
-    stepLabelText = `Step 2 of 2 - ${transactionLabel}`;
-  }
-  return (
-    <Modal>
-      <ProgressModalContentInProgress>
-        <>
-          <ModalStepLabel>{stepLabelText}</ModalStepLabel>
-          <ModalHeading>{transactionLabel}</ModalHeading>
-        </>
-      </ProgressModalContentInProgress>
-    </Modal>
-  );
-};
-
-const TransactionSuccessModal: React.SFC<
-  ProgressModalPropsState & ProgressModalActionProps & VotingParamsDisplayProps
-> = props => {
-  if (!props.isTransactionSuccessModalOpen) {
-    return null;
-  }
-  return (
-    <Modal>
-      <ModalHeading>
-        <strong>Success!</strong>
-        <br />
-        This Newsroom is now under challenge
-      </ModalHeading>
-      <ModalContent>
-        This challenge is now accepting votes. The CVL token-holding community will have the next {props.commitStageLen}{" "}
-        to commit their secret votes, and {props.revealStageLen} to confirm their vote. To prevent decision bias, all
-        votes will be hidden using a secret phrase, until the end of the voting period.
-      </ModalContent>
-      <ModalContent>
-        You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge deposit.
-      </ModalContent>
-      <Button size={buttonSizes.MEDIUM} onClick={() => props.handleSuccessClose()}>
-        Ok, got it
-      </Button>
-    </Modal>
-  );
-};
-
-const TransactionRejectionModal: React.SFC<ProgressModalPropsState> = props => {
-  if (!props.isTransactionRejectionModalOpen) {
-    return null;
-  }
-
-  const { transactionIndex } = props;
-  const message = "Your challenge was not submitted";
-  let denialMessage = "";
-
-  if (transactionIndex === 0) {
-    denialMessage =
-      "Before submitting a challenge, you need to confirm the approval of your challenge deposit in your MetaMask wallet.";
-  } else if (transactionIndex === 1) {
-    denialMessage = "To submit a challenge, you need to confirm the transaction in your MetaMask wallet.";
-  }
-
-  return (
-    <MetaMaskModal
-      waiting={false}
-      denied={true}
-      denialText={denialMessage}
-      cancelTransaction={() => props.cancelTransaction!()}
-      denialRestartTransactions={props.transactions}
-    >
-      <ModalHeading>{message}</ModalHeading>
-    </MetaMaskModal>
-  );
-};
-
 const mapStateToProps = (
   state: State,
   ownProps: SubmitChallengeProps,
@@ -348,14 +261,14 @@ const mapStateToProps = (
     newsroomName = newsroom.wrapper.data.name;
   }
 
-  const { parameters, constitution } = state.networkDependent;
+  const { parameters, constitution, user } = state.networkDependent;
   const constitutionURI = constitution.get("uri") || "#";
 
   let minDeposit = "";
   let commitStageLen = "";
   let revealStageLen = "";
+  const civil = getCivil();
   if (parameters && Object.keys(parameters).length) {
-    const civil = getCivil();
     minDeposit = getFormattedParameterValue(
       Parameters.minDeposit,
       civil.toBigNumber(parameters[Parameters.minDeposit]),
@@ -369,6 +282,12 @@ const mapStateToProps = (
       civil.toBigNumber(parameters[Parameters.revealStageLen]),
     );
   }
+  let balance;
+  let isInsufficientBalance = false;
+  if (user) {
+    balance = civil.toBigNumber(user.account.balance);
+    isInsufficientBalance = balance.lt(civil.toBigNumber(parameters[Parameters.minDeposit]));
+  }
 
   return {
     newsroomName,
@@ -376,11 +295,27 @@ const mapStateToProps = (
     minDeposit,
     commitStageLen,
     revealStageLen,
+    isInsufficientBalance,
     ...ownProps,
   };
 };
 
-const SubmitChallenge = connect(mapStateToProps)(SubmitChallengeComponent);
+interface InsufficientBalanceSnackBarProps {
+  buyCVLURL: string;
+  minDeposit: string;
+}
+
+const InsufficientBalanceSnackBar: React.SFC<InsufficientBalanceSnackBarProps> = props => {
+  return (
+    <SnackBar>
+      <InsufficientCVLForChallenge minDeposit={props.minDeposit} buyCVLURL={props.buyCVLURL} />
+    </SnackBar>
+  );
+};
+
+const SubmitChallenge = compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
+  SubmitChallengeComponent,
+) as React.ComponentClass<SubmitChallengeProps>;
 
 const SubmitChallengePage: React.SFC<SubmitChallengePageProps> = props => {
   const listingAddress = props.match.params.listing;

@@ -91,3 +91,16 @@ export enum GovernmentParameters {
   appealFee = "appealFee",
   appealVotePercentage = "appealVotePercentage",
 }
+
+export const supportedNetworks: number[] = [
+  4, // rinkeby
+  50, // ganache
+];
+
+export function isNetworkSupported(network: string | number): boolean {
+  let networkKey = network;
+  if (typeof networkKey === "string") {
+    networkKey = parseInt(networkKey, 10);
+  }
+  return supportedNetworks.includes(networkKey);
+}

@@ -4,7 +4,7 @@ import { ModalHeading, ModalContent } from "./ModalContent";
 import { Button, buttonSizes } from "./Button";
 
 export interface ProgressModalContentProps {
-  hideModal?(): () => void;
+  hideModal?(): void;
 }
 
 export class ProgressModalContentInProgress extends React.Component<ProgressModalContentProps> {
@@ -46,6 +46,17 @@ export class ProgressModalContentSuccess extends React.Component<ProgressModalCo
 
 export class ProgressModalContentError extends React.Component<ProgressModalContentProps> {
   public render(): JSX.Element {
+    if (this.props.children) {
+      return (
+        <>
+          {this.props.children}
+          <Button onClick={this.handleOnClick} size={buttonSizes.MEDIUM}>
+            Dismiss
+          </Button>
+        </>
+      );
+    }
+
     return (
       <>
         <ModalHeading>Uh oh!</ModalHeading>
