@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/typescript-types",
-  "version": "1.2.5",
+  "version": "1.2.3",
   "description": "Types used in multiple Civil packages",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@joincivil/tslint-rules": "^2.6.3",
-    "@joincivil/typescript-typings": "^1.2.5",
+    "@joincivil/typescript-typings": "^1.2.3",
     "rimraf": "^2.6.2",
     "tslint": "^5.9.1",
     "typescript": "<2.9.0",
