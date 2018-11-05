@@ -227,7 +227,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
               </AvatarContainer>
             </NavUser>
           </NavInner>
-          {this.state.isOpen && (
+          {this.props.userAccount && this.state.isOpen && (
             <NavDrawer
               balance={this.props.balance}
               votingBalance={this.props.votingBalance}
