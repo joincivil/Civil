@@ -6,8 +6,33 @@ import { InvertedButton, buttonSizes } from "../Button";
 
 import { NumericInput, TextInput, InputProps } from "./Input";
 
-const StyledTextInputButton = styled.div`
-  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+export interface InputWithButtonContainerProps {
+  buttonText: string;
+  icon?: JSX.Element;
+  children(
+    isFocused: boolean,
+    setFocused: () => void,
+    setUnfocused: (ev: any) => void,
+    setInputRef: (el: any) => void,
+  ): React.ReactNode;
+  onButtonClick(ev: any): void;
+}
+
+export interface InputWithButtonProps extends InputProps {
+  buttonText: string;
+  icon?: JSX.Element;
+  onButtonClick(ev: any): void;
+}
+
+export interface InputWithButtonState {
+  isFocused: boolean;
+}
+
+const StyledTextInputButton: StyledComponentClass<InputWithButtonState, "div"> = styled<InputWithButtonState, "div">(
+  "div",
+)`
+  border: 1px solid;
+  border-color: ${props => (props.isFocused ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_3)};
   border-radius: 3px;
   font-size: 21px;
   padding: 26px 20px;
@@ -41,28 +66,6 @@ const StyledButtonContainer = styled.div`
   top: 22px;
 `;
 
-export interface InputWithButtonContainerProps {
-  buttonText: string;
-  icon?: JSX.Element;
-  children(
-    isFocused: boolean,
-    setFocused: () => void,
-    setUnfocused: (ev: any) => void,
-    setInputRef: (el: any) => void,
-  ): React.ReactNode;
-  onButtonClick(ev: any): void;
-}
-
-export interface InputWithButtonProps extends InputProps {
-  buttonText: string;
-  icon?: JSX.Element;
-  onButtonClick(ev: any): void;
-}
-
-export interface InputWithButtonState {
-  isFocused: boolean;
-}
-
 class InputWithButtonContainer extends React.Component<InputWithButtonContainerProps, InputWithButtonState> {
   private inputElement: HTMLInputElement | undefined = undefined;
   private buttonElement: HTMLButtonElement | undefined = undefined;
@@ -76,7 +79,7 @@ class InputWithButtonContainer extends React.Component<InputWithButtonContainerP
 
   public render(): JSX.Element {
     return (
-      <StyledTextInputButton>
+      <StyledTextInputButton {...this.state}>
         {this.props.children(this.state.isFocused, this.setFocused, this.setUnfocused, this.setInputRef)}
         {this.state.isFocused && (
           <StyledButtonContainer>
@@ -107,7 +110,6 @@ class InputWithButtonContainer extends React.Component<InputWithButtonContainerP
   private _setUnfocused = () => this.setFocusState(false);
 
   private setUnfocused = (ev: any) => {
-    console.log(ev);
     if (ev.relatedTarget === this.buttonElement) {
       ev.preventDefault();
     } else {

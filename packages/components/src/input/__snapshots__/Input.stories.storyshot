@@ -356,7 +356,7 @@ exports[`Storyshots Inputs Currency Input With Button 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bMvGRv HsCCp",
+      "class": "sc-bMvGRv dLBWYx",
     },
     "children": Array [
       Object {
@@ -5397,7 +5397,7 @@ exports[`Storyshots Inputs Text Input With Button 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bMvGRv HsCCp",
+      "class": "sc-bMvGRv dLBWYx",
     },
     "children": Array [
       Object {
