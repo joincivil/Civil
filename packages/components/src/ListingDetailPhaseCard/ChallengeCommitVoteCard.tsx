@@ -111,12 +111,15 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <CommitVote
                   tokenBalance={this.props.tokenBalance}
+                  votingTokenBalance={this.props.votingTokenBalance}
+                  tokenBalanceDisplay={this.props.tokenBalanceDisplay}
+                  votingTokenBalanceDisplay={this.props.votingTokenBalanceDisplay}
                   salt={this.props.salt}
                   numTokens={this.props.numTokens}
                   onInputChange={this.props.onInputChange}
                   userHasCommittedVote={this.props.userHasCommittedVote}
                   onReviewVote={this.props.onReviewVote}
-                  buttonText={this.renderCommitVoteButtonText()}
+                  onCommitMaxTokens={this.props.onCommitMaxTokens}
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
@@ -159,6 +162,6 @@ export class ChallengeCommitVoteCard extends React.Component<
     if (this.props.userHasCommittedVote) {
       return <>Change My Vote</>;
     }
-    return <>Submit My Vote</>;
+    return <>Ready To Commit My Vote</>;
   };
 }

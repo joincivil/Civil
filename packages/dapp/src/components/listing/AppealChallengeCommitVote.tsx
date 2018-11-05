@@ -97,17 +97,8 @@ class AppealChallengeCommitVote extends React.Component<
   }
 
   public componentWillMount(): void {
-    if (!this.state.numTokens && this.props.balance && this.props.votingBalance) {
-      this.setInitNumTokens();
-    }
     this.props.setTransactions(this.getTransactions());
     this.props.setHandleTransactionSuccessButtonClick(this.handleCommitVoteSuccessClose);
-  }
-
-  public componentDidUpdate(prevProps: AppealChallengeDetailProps): void {
-    if (!this.state.numTokens && (this.props.balance && this.props.votingBalance)) {
-      this.setInitNumTokens();
-    }
   }
 
   public render(): JSX.Element | null {
@@ -120,7 +111,15 @@ class AppealChallengeCommitVote extends React.Component<
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
     const stake = getFormattedTokenBalance(challenge.stake);
-    const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
+    const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
+    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
+    const tokenBalanceDisplay = this.props.balance ? getFormattedTokenBalance(this.props.balance) : "";
+    const votingTokenBalanceDisplay = this.props.votingBalance
+      ? getFormattedTokenBalance(this.props.votingBalance)
+      : "";
+
+    const userHasCommittedVote =
+      this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserCommit;
 
     const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
     const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
@@ -134,46 +133,53 @@ class AppealChallengeCommitVote extends React.Component<
       .mul(100)
       .toFixed(0);
 
+    const props = {
+      endTime,
+      phaseLength,
+      secondaryPhaseLength,
+      challengeID: this.props.challengeID.toString(),
+      challenger,
+      rewardPool,
+      stake,
+      userHasCommittedVote,
+      totalVotes: getFormattedTokenBalance(totalVotes),
+      votesFor,
+      votesAgainst,
+      percentFor: percentFor.toString(),
+      percentAgainst: percentAgainst.toString(),
+      onCommitMaxTokens: () => this.commitMaxTokens(),
+      tokenBalance,
+      votingTokenBalance,
+      tokenBalanceDisplay,
+      votingTokenBalanceDisplay,
+      salt: this.state.salt,
+      numTokens: this.state.numTokens,
+      onInputChange: this.updateCommitVoteState,
+      onReviewVote: this.handleReviewVote,
+      appealChallengeID: this.props.appealChallengeID.toString(),
+      appealGranted: this.props.appeal.appealGranted,
+    };
+
     return (
       <>
-        <AppealChallengeCommitVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          secondaryPhaseLength={secondaryPhaseLength}
-          challengeID={this.props.challengeID.toString()}
-          challenger={challenger}
-          rewardPool={rewardPool}
-          stake={stake}
-          totalVotes={getFormattedTokenBalance(totalVotes)}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor.toString()}
-          percentAgainst={percentAgainst.toString()}
-          onInputChange={this.updateCommitVoteState}
-          salt={this.state.salt}
-          numTokens={this.state.numTokens}
-          tokenBalance={tokenBalance}
-          onReviewVote={this.handleReviewVote}
-          appealChallengeID={this.props.appealChallengeID.toString()}
-          appealGranted={this.props.appeal.appealGranted}
-        />
+        <AppealChallengeCommitVoteCard {...props} />
         {this.renderReviewVoteModal()}
       </>
     );
   }
 
-  private setInitNumTokens(): void {
-    let initNumTokens: BigNumber;
+  private commitMaxTokens(): void {
+    let numTokens: BigNumber;
     if (!this.props.votingBalance!.isZero()) {
-      initNumTokens = this.props.votingBalance!;
+      numTokens = this.props.votingBalance!;
     } else {
-      initNumTokens = this.props.balance!.add(this.props.votingBalance!);
+      numTokens = this.props.balance!.add(this.props.votingBalance!);
     }
-    const initNumTokensString = initNumTokens
+    const numTokensString = numTokens
       .div(1e18)
       .toFixed(2)
       .toString();
-    this.setState(() => ({ numTokens: initNumTokensString }));
+    this.setState(() => ({ numTokens: numTokensString }));
   }
 
   private renderReviewVoteModal(): JSX.Element {

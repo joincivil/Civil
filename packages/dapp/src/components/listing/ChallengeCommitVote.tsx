@@ -97,61 +97,62 @@ class ChallengeCommitVote extends React.Component<
   }
 
   public componentWillMount(): void {
-    if (!this.state.numTokens && this.props.balance && this.props.votingBalance) {
-      this.setInitNumTokens();
-    }
     this.props.setTransactions(this.getTransactions());
     this.props.setHandleTransactionSuccessButtonClick(this.handleCommitVoteSuccessClose);
-  }
-
-  public componentDidUpdate(prevProps: ChallengeDetailProps): void {
-    if (!this.state.numTokens && (this.props.balance && this.props.votingBalance)) {
-      this.setInitNumTokens();
-    }
   }
 
   public render(): JSX.Element | null {
     const endTime = this.props.challenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
-    const tokenBalance = this.props.balance ? this.props.balance.toNumber() : 0;
+    const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
+    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
+    const tokenBalanceDisplay = this.props.balance ? getFormattedTokenBalance(this.props.balance) : "";
+    const votingTokenBalanceDisplay = this.props.votingBalance
+      ? getFormattedTokenBalance(this.props.votingBalance)
+      : "";
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
     if (!challenge) {
       return null;
     }
+    const props = {
+      endTime,
+      phaseLength,
+      challenger: challenge!.challenger.toString(),
+      challengeID: this.props.challengeID.toString(),
+      rewardPool: getFormattedTokenBalance(challenge!.rewardPool),
+      stake: getFormattedTokenBalance(challenge!.stake),
+      userHasCommittedVote,
+      onInputChange: this.updateCommitVoteState,
+      onCommitMaxTokens: () => this.commitMaxTokens(),
+      onReviewVote: this.handleReviewVote,
+      tokenBalance,
+      votingTokenBalance,
+      tokenBalanceDisplay,
+      votingTokenBalanceDisplay,
+      salt: this.state.salt,
+      numTokens: this.state.numTokens,
+    };
     return (
       <>
-        <ChallengeCommitVoteCard
-          endTime={endTime}
-          phaseLength={phaseLength}
-          challenger={challenge!.challenger.toString()}
-          challengeID={this.props.challengeID.toString()}
-          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-          stake={getFormattedTokenBalance(challenge!.stake)}
-          userHasCommittedVote={userHasCommittedVote}
-          onInputChange={this.updateCommitVoteState}
-          onReviewVote={this.handleReviewVote}
-          tokenBalance={tokenBalance}
-          salt={this.state.salt}
-          numTokens={this.state.numTokens}
-        />
+        <ChallengeCommitVoteCard {...props} />
         {this.renderReviewVoteModal()}
       </>
     );
   }
 
-  private setInitNumTokens(): void {
-    let initNumTokens: BigNumber;
+  private commitMaxTokens(): void {
+    let numTokens: BigNumber;
     if (!this.props.votingBalance!.isZero()) {
-      initNumTokens = this.props.votingBalance!;
+      numTokens = this.props.votingBalance!;
     } else {
-      initNumTokens = this.props.balance!.add(this.props.votingBalance!);
+      numTokens = this.props.balance!.add(this.props.votingBalance!);
     }
-    const initNumTokensString = initNumTokens
+    const numTokensString = numTokens
       .div(1e18)
       .toFixed(2)
       .toString();
-    this.setState(() => ({ numTokens: initNumTokensString }));
+    this.setState(() => ({ numTokens: numTokensString }));
   }
 
   private renderReviewVoteModal(): JSX.Element {

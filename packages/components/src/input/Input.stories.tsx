@@ -3,6 +3,7 @@ import * as React from "react";
 import { TextInput, HeaderInput, CurrencyInput, TextareaInput } from "./Input";
 import { InputGroup } from "./InputGroup";
 import { RadioInput, RadioButton } from "./RadioInput";
+import { CurrencyInputWithButton, TextInputWithButton } from "./InputWithButton";
 
 type changeCallback = (name: string, value: any) => any;
 interface ControlProps {
@@ -95,15 +96,48 @@ storiesOf("Inputs", module)
     );
   })
 
-  .add("Texarea Input", () => {
+  .add("Textarea Input", () => {
     return (
       <ControlComponent>
         {(state: any, onChange: changeCallback) => (
           <TextareaInput
             label="Textarea Input"
             placeholder="Input your long text"
-            name="TexareaInput"
+            name="TextareaInput"
             onChange={onChange}
+          />
+        )}
+      </ControlComponent>
+    );
+  })
+
+  .add("Text Input With Button", () => {
+    return (
+      <ControlComponent>
+        {(state: any, onChange: changeCallback) => (
+          <TextInputWithButton
+            placeholder="Enter a thing"
+            name="TextInputWithButton"
+            onChange={onChange}
+            buttonText="Click Me"
+            onButtonClick={() => console.log("TextInputWithButton button was clicked")}
+          />
+        )}
+      </ControlComponent>
+    );
+  })
+
+  .add("Currency Input With Button", () => {
+    return (
+      <ControlComponent>
+        {(state: any, onChange: changeCallback) => (
+          <CurrencyInputWithButton
+            placeholder="Enter an amount"
+            name="CurrencyInputWithButton"
+            onChange={onChange}
+            buttonText="Click Me"
+            icon={<>CVL</>}
+            onButtonClick={() => console.log("CurrencyInputWithButton button was clicked")}
           />
         )}
       </ControlComponent>

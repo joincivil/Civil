@@ -118,11 +118,11 @@ const fontObject: { [index: string]: string } = {
 export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
   const activeClass = props.active ? " active" : "";
   const disabledClass = props.disabled ? " disabled" : "";
-  const { children, className, onClick, disabled, to, href, target } = props;
+  const { children, className, onClick, disabled, to, href, target, inputRef } = props;
 
   if (to) {
     return (
-      <Link className={className + activeClass + disabledClass} to={to}>
+      <Link className={className + activeClass + disabledClass} to={to} ref={inputRef}>
         {children}
       </Link>
     );
@@ -130,14 +130,20 @@ export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
 
   if (href) {
     return (
-      <a className={className + activeClass + disabledClass} href={href} target={target}>
+      <a className={className + activeClass + disabledClass} href={href} target={target} ref={inputRef}>
         {children}
       </a>
     );
   }
 
   return (
-    <button className={className + activeClass + disabledClass} onClick={onClick} type="button" disabled={disabled}>
+    <button
+      className={className + activeClass + disabledClass}
+      onClick={onClick}
+      type="button"
+      disabled={disabled}
+      ref={inputRef}
+    >
       {children}
     </button>
   );

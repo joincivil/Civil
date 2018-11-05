@@ -102,11 +102,15 @@ export class ChallengeProposalCommitVote extends React.Component<TChallengePropo
               <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
               <CommitVote
                 tokenBalance={this.props.tokenBalance}
+                votingTokenBalance={this.props.votingTokenBalance}
+                tokenBalanceDisplay={this.props.tokenBalanceDisplay}
+                votingTokenBalanceDisplay={this.props.votingTokenBalanceDisplay}
                 salt={this.props.salt}
                 numTokens={this.props.numTokens}
                 onInputChange={this.props.onInputChange}
                 userHasCommittedVote={this.props.userHasCommittedVote}
                 onReviewVote={this.props.onReviewVote}
+                onCommitMaxTokens={this.props.onCommitMaxTokens}
               >
                 Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
               </CommitVote>

@@ -38,11 +38,16 @@ export const CommitVoteNumTokensLabelText: React.SFC = props => {
 
 // Commit Vote callouts
 export const CommitVoteCalloutHeaderText: React.SFC = props => {
-  return <>Submit Your Votes!</>;
+  return <>You're Invited to Vote!</>;
 };
 
 export const CommitVoteCalloutCopyText: React.SFC = props => {
-  return <>Submit your vote with your CVL tokens, and help curate credible, trustworthy journalism on Civil.</>;
+  return (
+    <>
+      Evaluate whether the Newsroom is in violation of the Civil Constitution and cast your vote accordingly. Voters
+      will never lose tokens for participating in a vote.
+    </>
+  );
 };
 
 export const CommitVoteAlreadyVotedHeaderText: React.SFC = props => {
@@ -243,6 +248,69 @@ export const ChallangeCouncilToolTipText: React.SFC<ToolTipTextProps> = props =>
         amount of the Newsroom's deposit. The CVL token deposit for the challenge is set aside for the duration of the
         challenge process, like an escrow account.
       </p>
+    </>
+  );
+};
+
+// Num tokens for Commit Vote text
+export const VotingTokenBalanceText: React.SFC = props => {
+  return <>Voting Token Balance</>;
+};
+
+export const AvailableTokenBalanceText: React.SFC = props => {
+  return <>Available Token Balance</>;
+};
+
+export const VotingTokenBalanceTooltipText: React.SFC = props => {
+  return (
+    <>
+      Voting tokens are tokens locked in voting contracts until the challenge is completed. If a token is locked in a
+      vote, it can be used for other votes, but can NOT be used for applications, challenges, appeals, or exchanged for
+      currency. If you’re planning on taking other actions, we recommend reserving some CVL in your available balance.
+    </>
+  );
+};
+
+export const AvailableTokenBalanceTooltipText: React.SFC = props => {
+  return (
+    <>
+      CVL tokens you can use to tip journalists, use for deposits to challenge, request appeal, and challenge appeal, or
+      cash out for fiat currency. To vote, you will need to approve and transfer them to your Voting Token Balance.
+      Committing CVL tokens from your Available Balance with any vote will automatically transfer those tokens into your
+      Voting Token Balance. If you’re planning on taking other actions, we recommend reserving some CVL in your
+      Available Balance
+    </>
+  );
+};
+
+export const SelectNumTokensText: React.SFC = props => {
+  return <>Select amount of CVL tokens to commit to your vote.</>;
+};
+
+export const OneTokenOneVoteText: React.SFC = props => {
+  return <>1 token equals 1 vote.</>;
+};
+
+export const OneTokenOneVoteTooltipText: React.SFC = props => {
+  return (
+    <>
+      Your vote is weighted based on the amount of CVL tokens you put towards your vote. If you have 1 CVL, you have 1
+      vote; 10 CVL gives you the power of 10 votes. This ensures that those who have the most tokens are incentivized to
+      vote for the side that abides by the Civil Constitution. Note that you can not lose any CVL as a result of voting.
+    </>
+  );
+};
+
+export const CommitVoteInsufficientTokensText: React.SFC = props => {
+  return <>You don't have enough CVL tokens in your available balance</>;
+};
+
+export const CommitVoteMaxTokensWarningText: React.SFC = props => {
+  return (
+    <>
+      You are commiting all of your CVL tokens to this vote. If you’re planning on taking other actions - tipping
+      journalists, challenging listings, requesting appeals, challenging granted appeals, or cashing out for fiat
+      currency - we recommend reserving some CVL in your Available Balance.
     </>
   );
 };
