@@ -10,7 +10,6 @@ export enum newsroomActions {
   REMOVE_EDITOR = "REMOVE_EDITOR",
   SET_IS_OWNER = "SET_IS_OWNER",
   SET_IS_EDITOR = "SET_IS_EDITOR",
-  UPDATE_CHARTER = "UPDATE_CHARTER",
 }
 
 export enum uiActions {

@@ -66,10 +66,6 @@ export function newsrooms(
         ...state.get(action.data.address),
         isEditor: action.data.isEditor,
       });
-    case newsroomActions.UPDATE_CHARTER:
-      newsroom = state.get(action.data.address) || {};
-      newsroom.charter = action.data.charter;
-      return state.set(action.data.address, newsroom);
     default:
       return state;
   }
