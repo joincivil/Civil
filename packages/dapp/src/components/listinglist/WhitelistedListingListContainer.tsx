@@ -8,6 +8,8 @@ import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import { NewsroomListing } from "@joincivil/core";
+import { transformGraphQLDataIntoListing, transformGraphQLDataIntoNewsroom } from "../../helpers/queryTransformations";
 
 export interface WhitelistedListingsListContainerReduxProps {
   useGraphQL: boolean;
@@ -16,6 +18,67 @@ const LISTINGS_QUERY = gql`
   query($whitelistedOnly: Boolean!) {
     listings(whitelistedOnly: $whitelistedOnly) {
       contractAddress
+      name
+      owner
+      ownerAddresses
+      whitelisted
+      charter {
+        uri
+        contentID
+        revisionID
+        signature
+        author
+        contentHash
+        timestamp
+      }
+      unstakedDeposit
+      appExpiry
+      approvalDate
+      challengeID
+      challenge {
+        challengeID
+        listingAddress
+        statement
+        rewardPool
+        challenger
+        resolved
+        stake
+        totalTokens
+        poll {
+          commitEndDate
+          revealEndDate
+          voteQuorum
+          votesFor
+          votesAgainst
+        }
+        requestAppealExpiry
+        lastUpdatedDateTs
+        appeal {
+          requester
+          appealFeePaid
+          appealPhaseExpiry
+          appealGranted
+          appealOpenToChallengeExpiry
+          statement
+          appealChallengeID
+          appealChallenge {
+            challengeID
+            statement
+            rewardPool
+            challenger
+            resolved
+            stake
+            totalTokens
+            poll {
+              commitEndDate
+              revealEndDate
+              voteQuorum
+              votesFor
+              votesAgainst
+            }
+          }
+        }
+      }
     }
   }
 `;
@@ -31,9 +94,12 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
             if (error) {
               return <p>Error :</p>;
             }
-            const map = Set<string>(
+            const map = Set<NewsroomListing>(
               data.listings.map((listing: any) => {
-                return listing.contractAddress.toLowerCase();
+                return {
+                  listing: transformGraphQLDataIntoListing(listing, listing.contractAddress),
+                  newsroom: transformGraphQLDataIntoNewsroom(listing, listing.contractAddress),
+                };
               }),
             );
 

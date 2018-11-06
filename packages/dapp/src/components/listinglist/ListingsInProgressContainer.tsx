@@ -5,7 +5,7 @@ import { State } from "../../redux/reducers";
 import ListingsInProgressRedux from "./ListingsInProgressRedux";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { transformGraphQLDataIntoListing } from "../../helpers/queryTransformations";
+import { transformGraphQLDataIntoListing, transformGraphQLDataIntoNewsroom } from "../../helpers/queryTransformations";
 import {
   isInApplicationPhase,
   isInChallengedCommitVotePhase,
@@ -19,6 +19,7 @@ import {
   canChallengeBeResolved,
   canListingAppealBeResolved,
   getNextTimerExpiry,
+  NewsroomListing,
 } from "@joincivil/core";
 import ListingsInProgress from "./ListingsInProgress";
 
@@ -124,14 +125,19 @@ class ListingsInProgressContainer extends React.Component<
               return <p>Error :</p>;
             }
             const map = Set<any>(data.listings);
-            const allListings = map.map(listing => {
-              const transformed = transformGraphQLDataIntoListing(listing, listing!.contractAddress);
-              return transformed;
-            });
+            const allListings: Set<NewsroomListing> = map
+              .map(listing => {
+                console.log("listing: ", listing);
+                return {
+                  listing: transformGraphQLDataIntoListing(listing, listing!.contractAddress),
+                  newsroom: transformGraphQLDataIntoNewsroom(listing, listing!.contractAddress),
+                };
+              })
+              .toSet();
 
             let soonestExpiry = Number.MAX_SAFE_INTEGER;
             allListings.forEach(listing => {
-              const expiry = getNextTimerExpiry(listing!.data);
+              const expiry = getNextTimerExpiry(listing!.listing.data);
               if (expiry > 0 && expiry < soonestExpiry) {
                 soonestExpiry = expiry;
               }
@@ -140,59 +146,46 @@ class ListingsInProgressContainer extends React.Component<
             const delaySeconds = soonestExpiry - nowSeconds;
             setTimeout(this.onTimerExpiry, delaySeconds * 1000);
 
-            const applications = allListings
-              .filter(listing => isInApplicationPhase(listing!.data))
-              .map(listing => listing!.address)
-              .toSet();
+            const applications = allListings.filter(listing => isInApplicationPhase(listing!.listing.data)).toSet();
 
             const readyToWhitelistListings = allListings
-              .filter(listing => canBeWhitelisted(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => canBeWhitelisted(listing!.listing.data))
               .toSet();
 
             const inChallengeCommitListings = allListings
-              .filter(listing => isInChallengedCommitVotePhase(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => isInChallengedCommitVotePhase(listing!.listing.data))
               .toSet();
 
             const inChallengeRevealListings = allListings
-              .filter(listing => isInChallengedRevealVotePhase(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => isInChallengedRevealVotePhase(listing!.listing.data))
               .toSet();
 
             const awaitingAppealRequestListings = allListings
-              .filter(listing => isAwaitingAppealRequest(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => isAwaitingAppealRequest(listing!.listing.data))
               .toSet();
 
             const awaitingAppealJudgmentListings = allListings
-              .filter(listing => isListingAwaitingAppealJudgment(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => isListingAwaitingAppealJudgment(listing!.listing.data))
               .toSet();
 
             const awaitingAppealChallengeListings = allListings
-              .filter(listing => isListingAwaitingAppealChallenge(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => isListingAwaitingAppealChallenge(listing!.listing.data))
               .toSet();
 
             const appealChallengeCommitPhaseListings = allListings
-              .filter(listing => isInAppealChallengeCommitPhase(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => isInAppealChallengeCommitPhase(listing!.listing.data))
               .toSet();
 
             const appealChallengeRevealPhaseListings = allListings
-              .filter(listing => isInAppealChallengeRevealPhase(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => isInAppealChallengeRevealPhase(listing!.listing.data))
               .toSet();
 
             const resolveChallengeListings = allListings
-              .filter(listing => canChallengeBeResolved(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => canChallengeBeResolved(listing!.listing.data))
               .toSet();
 
             const resolveAppealListings = allListings
-              .filter(listing => canListingAppealBeResolved(listing!.data))
-              .map(listing => listing!.address)
+              .filter(listing => canListingAppealBeResolved(listing!.listing.data))
               .toSet();
 
             return (

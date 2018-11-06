@@ -1,11 +1,12 @@
 import * as React from "react";
 import { Set } from "immutable";
-import { ListingListItemContainer } from "./ListingListItemContainer";
+import ListingListItem from "./ListingListItem";
 import { StyledListingSummaryList } from "@joincivil/components";
+import { NewsroomListing } from "@joincivil/core";
 
 export interface ListingListOwnProps {
   ListingItemComponent?: any;
-  listings?: Set<string>;
+  listings?: Set<NewsroomListing>;
 }
 
 class ListingList extends React.Component<ListingListOwnProps> {
@@ -21,9 +22,10 @@ class ListingList extends React.Component<ListingListOwnProps> {
           this.props.listings.map(l => {
             index++;
             return (
-              <ListingListItemContainer
-                key={l}
-                listingAddress={l!}
+              <ListingListItem
+                key={l!.listing.address}
+                newsroom={l!.newsroom}
+                listing={l!.listing}
                 even={index % 2 === 0}
                 ListingItemComponent={this.props.ListingItemComponent}
               />

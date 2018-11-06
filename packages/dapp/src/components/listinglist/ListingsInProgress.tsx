@@ -17,6 +17,7 @@ import {
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { StyledListingCopy } from "../utility/styledComponents";
+import { NewsroomListing } from "@joincivil/core";
 
 export interface ListingProps {
   match?: any;
@@ -24,17 +25,17 @@ export interface ListingProps {
 }
 
 export interface ListingsInProgressProps {
-  applications: Set<string>;
-  readyToWhitelistListings: Set<string>;
-  inChallengeCommitListings: Set<string>;
-  inChallengeRevealListings: Set<string>;
-  awaitingAppealRequestListings: Set<string>;
-  awaitingAppealJudgmentListings: Set<string>;
-  awaitingAppealChallengeListings: Set<string>;
-  appealChallengeCommitPhaseListings: Set<string>;
-  appealChallengeRevealPhaseListings: Set<string>;
-  resolveChallengeListings: Set<string>;
-  resolveAppealListings: Set<string>;
+  applications: Set<NewsroomListing>;
+  readyToWhitelistListings: Set<NewsroomListing>;
+  inChallengeCommitListings: Set<NewsroomListing>;
+  inChallengeRevealListings: Set<NewsroomListing>;
+  awaitingAppealRequestListings: Set<NewsroomListing>;
+  awaitingAppealJudgmentListings: Set<NewsroomListing>;
+  awaitingAppealChallengeListings: Set<NewsroomListing>;
+  appealChallengeCommitPhaseListings: Set<NewsroomListing>;
+  appealChallengeRevealPhaseListings: Set<NewsroomListing>;
+  resolveChallengeListings: Set<NewsroomListing>;
+  resolveAppealListings: Set<NewsroomListing>;
 }
 
 const TABS: string[] = [
