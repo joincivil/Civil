@@ -39,8 +39,8 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
   await newsroom.editors().forEach(async val => {
     const getCmsUserDataForAddress = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS);
     if (getCmsUserDataForAddress && !state.newsroomUsers.get(val)) {
-      const name = await getCmsUserDataForAddress(val);
-      dispatch(addUser(val, name));
+      const userData = await getCmsUserDataForAddress(val);
+      dispatch(addUser(val, userData));
     }
     dispatch(addEditor(address, val));
   });
@@ -57,8 +57,8 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
   if (getCmsUserDataForAddress) {
     wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
       if (!state.newsroomUsers.get(userAddress)) {
-        const name = await getCmsUserDataForAddress(userAddress);
-        dispatch(addUser(userAddress, name));
+        const userData = await getCmsUserDataForAddress(userAddress);
+        dispatch(addUser(userAddress, userData));
       }
     });
   }
@@ -181,12 +181,12 @@ export const addPersistCharter = (func: (charter: Partial<CharterData>) => void)
   };
 };
 
-export const addUser = (address: EthAddress, name: CmsUserData): AnyAction => {
+export const addUser = (address: EthAddress, userData: CmsUserData): AnyAction => {
   return {
     type: userActions.ADD_USER,
     data: {
       address,
-      name,
+      userData,
     },
   };
 };

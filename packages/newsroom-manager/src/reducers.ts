@@ -94,7 +94,7 @@ export function newsroomUsers(
 ): Map<EthAddress, CmsUserData> {
   switch (action.type) {
     case userActions.ADD_USER:
-      return state.set(action.data.address, action.data.name);
+      return state.set(action.data.address, action.data.userData);
     default:
       return state;
   }
