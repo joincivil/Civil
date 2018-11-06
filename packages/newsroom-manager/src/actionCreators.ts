@@ -4,7 +4,6 @@ import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 
 export enum newsroomActions {
-  ADD_NEWSROOM = "ADD_NEWSROOM",
   UPDATE_NEWSROOM = "UPDATE_NEWSROOM",
   CHANGE_NAME = "CHANGE_NAME",
   ADD_EDITOR = "ADD_EDITOR",
@@ -62,7 +61,7 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
       }
     });
   }
-  return dispatch(addNewsroom({ wrapper, newsroom, address }));
+  return dispatch(updateNewsroom(address, { wrapper, newsroom }));
 };
 
 export const getIsOwner = (address: EthAddress, civil: Civil): any => async (
@@ -79,13 +78,6 @@ export const getIsEditor = (address: EthAddress, civil: Civil): any => async (
 ): Promise<AnyAction> => {
   const newsroom = await civil.newsroomAtUntrusted(address);
   return dispatch(setIsEditor(address, await newsroom.isEditor()));
-};
-
-export const addNewsroom = (newsroom: NewsroomState): AnyAction => {
-  return {
-    type: newsroomActions.ADD_NEWSROOM,
-    data: newsroom,
-  };
 };
 
 export const updateNewsroom = (address: EthAddress, data: any): AnyAction => {
@@ -149,15 +141,16 @@ export const updateCharter = (address: EthAddress, charter: Partial<CharterData>
   dispatch: any,
   getState: any,
 ): AnyAction => {
-  const state = getState();
-  const persistCharter = state.newsroomUi.get(uiActions.PERSIST_CHARTER);
+  const { newsrooms, newsroomUi }: StateWithNewsroom = getState();
+  const newsroom = newsrooms.get(address) || { wrapper: { data: {} } };
+  const persistCharter = newsroomUi.get(uiActions.PERSIST_CHARTER);
   if (persistCharter) {
     persistCharter(charter);
   }
-  return {
-    type: newsroomActions.UPDATE_CHARTER,
-    data: { charter, address },
-  };
+  return dispatch(updateNewsroom(address, {
+    ...newsroom,
+    charter,
+  }));
 };
 
 export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
