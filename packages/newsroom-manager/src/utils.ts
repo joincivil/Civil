@@ -11,6 +11,7 @@ export const makeUserObject = (state: StateWithNewsroom, address: EthAddress): U
       ethAddress: address,
       name: userData && userData.displayName,
       avatarUrl: userData && userData.avatarUrl,
+      bio: userData && userData.bio,
     },
     isCmsUser: !!userData,
     username: userData && userData.username,

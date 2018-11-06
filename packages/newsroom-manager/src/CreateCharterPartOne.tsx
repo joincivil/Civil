@@ -124,7 +124,7 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
                   invalidMessage={"Invalid URL"}
                 />
               </LogoURLWrap>
-              <LogoImgWrap>{this.props.charter.logoUrl && <LogoImg src={this.props.charter.logoUrl} />}</LogoImgWrap>
+              <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
             </LogoFormWrap>
             <HelperText style={{ marginTop: 4 }}>Must be image URL</HelperText>
           </div>
