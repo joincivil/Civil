@@ -373,7 +373,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.checkCharterCompletion();
   };
 
-  private persistCharter = (charter: Partial<CharterData>): void => {
+  private persistCharter = debounce((charter: Partial<CharterData>): void => {
     if (this.props.persistCharter) {
       // We don't need to know when this finishes, but maybe some day we'd have a saving indicator or something.
       // tslint:disable-next-line: no-floating-promises
@@ -386,7 +386,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     } catch (e) {
       console.error("Failed to save charter to local storage:", e);
     }
-  };
+  }, 1000, { maxWait: 2000 });
 
   private checkCharterCompletion = debounce(() => {
     const charterPartOneComplete = !!(
@@ -414,7 +414,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       charterPartOneComplete,
       charterPartTwoComplete,
     });
-  }, 1000);
+  }, 1000, { maxWait: 2000 });
 
   /** Replace even empty string values for newsroom/logo URLs in case user has partially filled charter and later goes in to CMS and sets these values. */
   private defaultCharterValues = (charter: Partial<CharterData>): Partial<CharterData> => {
