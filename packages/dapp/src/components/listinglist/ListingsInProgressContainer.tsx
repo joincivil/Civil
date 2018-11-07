@@ -5,7 +5,11 @@ import { State } from "../../redux/reducers";
 import ListingsInProgressRedux from "./ListingsInProgressRedux";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { transformGraphQLDataIntoListing, transformGraphQLDataIntoNewsroom } from "../../helpers/queryTransformations";
+import {
+  LISTING_FRAGMENT,
+  transformGraphQLDataIntoListing,
+  transformGraphQLDataIntoNewsroom,
+} from "../../helpers/queryTransformations";
 import {
   isInApplicationPhase,
   isInChallengedCommitVotePhase,
@@ -36,70 +40,10 @@ export interface ListingsInProgressState {
 const LISTINGS_QUERY = gql`
   query($activeChallenge: Boolean!, $currentApplication: Boolean!) {
     listings(activeChallenge: $activeChallenge, currentApplication: $currentApplication) {
-      contractAddress
-      name
-      owner
-      ownerAddresses
-      whitelisted
-      charter {
-        uri
-        contentID
-        revisionID
-        signature
-        author
-        contentHash
-        timestamp
-      }
-      unstakedDeposit
-      appExpiry
-      approvalDate
-      challengeID
-      challenge {
-        challengeID
-        listingAddress
-        statement
-        rewardPool
-        challenger
-        resolved
-        stake
-        totalTokens
-        poll {
-          commitEndDate
-          revealEndDate
-          voteQuorum
-          votesFor
-          votesAgainst
-        }
-        requestAppealExpiry
-        lastUpdatedDateTs
-        appeal {
-          requester
-          appealFeePaid
-          appealPhaseExpiry
-          appealGranted
-          appealOpenToChallengeExpiry
-          statement
-          appealChallengeID
-          appealChallenge {
-            challengeID
-            statement
-            rewardPool
-            challenger
-            resolved
-            stake
-            totalTokens
-            poll {
-              commitEndDate
-              revealEndDate
-              voteQuorum
-              votesFor
-              votesAgainst
-            }
-          }
-        }
-      }
+      ...ListingFragment
     }
   }
+  ${LISTING_FRAGMENT}
 `;
 class ListingsInProgressContainer extends React.Component<
   ListingsInProgressContainerReduxProps & ListingsInProgressProps,

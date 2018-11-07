@@ -9,7 +9,11 @@ import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./Em
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { NewsroomListing } from "@joincivil/core";
-import { transformGraphQLDataIntoListing, transformGraphQLDataIntoNewsroom } from "../../helpers/queryTransformations";
+import {
+  LISTING_FRAGMENT,
+  transformGraphQLDataIntoListing,
+  transformGraphQLDataIntoNewsroom,
+} from "../../helpers/queryTransformations";
 
 export interface WhitelistedListingsListContainerReduxProps {
   useGraphQL: boolean;
@@ -17,70 +21,10 @@ export interface WhitelistedListingsListContainerReduxProps {
 const LISTINGS_QUERY = gql`
   query($whitelistedOnly: Boolean!) {
     listings(whitelistedOnly: $whitelistedOnly) {
-      contractAddress
-      name
-      owner
-      ownerAddresses
-      whitelisted
-      charter {
-        uri
-        contentID
-        revisionID
-        signature
-        author
-        contentHash
-        timestamp
-      }
-      unstakedDeposit
-      appExpiry
-      approvalDate
-      challengeID
-      challenge {
-        challengeID
-        listingAddress
-        statement
-        rewardPool
-        challenger
-        resolved
-        stake
-        totalTokens
-        poll {
-          commitEndDate
-          revealEndDate
-          voteQuorum
-          votesFor
-          votesAgainst
-        }
-        requestAppealExpiry
-        lastUpdatedDateTs
-        appeal {
-          requester
-          appealFeePaid
-          appealPhaseExpiry
-          appealGranted
-          appealOpenToChallengeExpiry
-          statement
-          appealChallengeID
-          appealChallenge {
-            challengeID
-            statement
-            rewardPool
-            challenger
-            resolved
-            stake
-            totalTokens
-            poll {
-              commitEndDate
-              revealEndDate
-              voteQuorum
-              votesFor
-              votesAgainst
-            }
-          }
-        }
-      }
+      ...ListingFragment
     }
   }
+  ${LISTING_FRAGMENT}
 `;
 class WhitelistedListingListContainer extends React.Component<WhitelistedListingsListContainerReduxProps> {
   public render(): JSX.Element {

@@ -8,7 +8,11 @@ import RejectedListingListRedux from "./RejectedListingListRedux";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { transformGraphQLDataIntoListing, transformGraphQLDataIntoNewsroom } from "../../helpers/queryTransformations";
+import {
+  LISTING_FRAGMENT,
+  transformGraphQLDataIntoListing,
+  transformGraphQLDataIntoNewsroom,
+} from "../../helpers/queryTransformations";
 import { NewsroomListing } from "@joincivil/core";
 
 export interface RejectedListingsListContainerReduxProps {
@@ -17,70 +21,10 @@ export interface RejectedListingsListContainerReduxProps {
 const LISTINGS_QUERY = gql`
   query($rejectedOnly: Boolean!) {
     listings(rejectedOnly: $rejectedOnly) {
-      contractAddress
-      name
-      owner
-      ownerAddresses
-      whitelisted
-      charter {
-        uri
-        contentID
-        revisionID
-        signature
-        author
-        contentHash
-        timestamp
-      }
-      unstakedDeposit
-      appExpiry
-      approvalDate
-      challengeID
-      challenge {
-        challengeID
-        listingAddress
-        statement
-        rewardPool
-        challenger
-        resolved
-        stake
-        totalTokens
-        poll {
-          commitEndDate
-          revealEndDate
-          voteQuorum
-          votesFor
-          votesAgainst
-        }
-        requestAppealExpiry
-        lastUpdatedDateTs
-        appeal {
-          requester
-          appealFeePaid
-          appealPhaseExpiry
-          appealGranted
-          appealOpenToChallengeExpiry
-          statement
-          appealChallengeID
-          appealChallenge {
-            challengeID
-            statement
-            rewardPool
-            challenger
-            resolved
-            stake
-            totalTokens
-            poll {
-              commitEndDate
-              revealEndDate
-              voteQuorum
-              votesFor
-              votesAgainst
-            }
-          }
-        }
-      }
+      ...ListingFragment
     }
   }
+  ${LISTING_FRAGMENT}
 `;
 class RejectedListingListContainer extends React.Component<RejectedListingsListContainerReduxProps> {
   public render(): JSX.Element {

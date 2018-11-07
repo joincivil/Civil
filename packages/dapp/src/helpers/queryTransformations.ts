@@ -2,73 +2,80 @@ import { ListingWrapper, NewsroomWrapper, ChallengeData, AppealData, AppealChall
 import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 import gql from "graphql-tag";
 
-export const LISTING_QUERY = gql`
-  query($addr: String!) {
-    listing(addr: $addr) {
-      name
-      owner
-      ownerAddresses
-      whitelisted
-      lastGovState
-      charter {
-        uri
-        contentID
-        revisionID
-        signature
-        author
-        contentHash
-        timestamp
-      }
-      unstakedDeposit
-      appExpiry
-      approvalDate
+export const LISTING_FRAGMENT = gql`
+  fragment ListingFragment on Listing {
+    name
+    owner
+    ownerAddresses
+    whitelisted
+    lastGovState
+    charter {
+      uri
+      contentID
+      revisionID
+      signature
+      author
+      contentHash
+      timestamp
+    }
+    unstakedDeposit
+    appExpiry
+    approvalDate
+    challengeID
+    challenge {
       challengeID
-      challenge {
-        challengeID
-        listingAddress
+      listingAddress
+      statement
+      rewardPool
+      challenger
+      resolved
+      stake
+      totalTokens
+      poll {
+        commitEndDate
+        revealEndDate
+        voteQuorum
+        votesFor
+        votesAgainst
+      }
+      requestAppealExpiry
+      lastUpdatedDateTs
+      appeal {
+        requester
+        appealFeePaid
+        appealPhaseExpiry
+        appealGranted
+        appealOpenToChallengeExpiry
         statement
-        rewardPool
-        challenger
-        resolved
-        stake
-        totalTokens
-        poll {
-          commitEndDate
-          revealEndDate
-          voteQuorum
-          votesFor
-          votesAgainst
-        }
-        requestAppealExpiry
-        lastUpdatedDateTs
-        appeal {
-          requester
-          appealFeePaid
-          appealPhaseExpiry
-          appealGranted
-          appealOpenToChallengeExpiry
+        appealChallengeID
+        appealChallenge {
+          challengeID
           statement
-          appealChallengeID
-          appealChallenge {
-            challengeID
-            statement
-            rewardPool
-            challenger
-            resolved
-            stake
-            totalTokens
-            poll {
-              commitEndDate
-              revealEndDate
-              voteQuorum
-              votesFor
-              votesAgainst
-            }
+          rewardPool
+          challenger
+          resolved
+          stake
+          totalTokens
+          poll {
+            commitEndDate
+            revealEndDate
+            voteQuorum
+            votesFor
+            votesAgainst
           }
         }
       }
     }
   }
+`;
+
+export const LISTING_QUERY = gql`
+  query($addr: String!) {
+    listing(addr: $addr) {
+      ...ListingFragment
+    }
+  }
+  ${LISTING_FRAGMENT}
 `;
 
 export function transformGraphQLDataIntoNewsroom(listing: any, listingAddress: string): NewsroomWrapper {
@@ -107,7 +114,7 @@ export function transformGraphQLDataIntoListing(listing: any, listingAddress: st
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
   if (queryChallengeData) {
     return {
-      statement: queryChallengeData.statement,
+      statement: "",
       rewardPool: new BigNumber(queryChallengeData.rewardPool),
       challenger: queryChallengeData.challenger,
       resolved: queryChallengeData.resolved,
@@ -139,7 +146,7 @@ export function transformGraphQLDataIntoAppeal(queryAppealData: any): AppealData
       appealChallengeID: new BigNumber(queryAppealData.appealChallengeID),
       appealTxData: undefined,
       appealChallenge: transformGraphQLDataIntoAppealChallenge(queryAppealData.appealChallenge),
-      statement: queryAppealData.statement,
+      statement: "",
     };
   } else {
     return undefined;

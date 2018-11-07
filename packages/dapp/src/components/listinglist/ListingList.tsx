@@ -23,6 +23,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
             index++;
             return (
               <ListingListItem
+                listingAddress={l!.listing.address}
                 key={l!.listing.address}
                 newsroom={l!.newsroom}
                 listing={l!.listing}
