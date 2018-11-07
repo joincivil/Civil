@@ -148,10 +148,12 @@ export const updateCharter = (address: EthAddress, charter: Partial<CharterData>
   if (persistCharter) {
     persistCharter(charter);
   }
-  return dispatch(updateNewsroom(address, {
-    ...newsroom,
-    charter,
-  }));
+  return dispatch(
+    updateNewsroom(address, {
+      ...newsroom,
+      charter,
+    }),
+  );
 };
 
 export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
@@ -175,16 +177,21 @@ export const addPersistCharter = (func: (charter: Partial<CharterData>) => void)
   };
 };
 
-export const addUser = (newsroomAddress: EthAddress, address: EthAddress, userData: CmsUserData): any => (dispatch: any, getState: any): AnyAction => {
+export const addUser = (newsroomAddress: EthAddress, address: EthAddress, userData: CmsUserData): any => (
+  dispatch: any,
+  getState: any,
+): AnyAction => {
   const { newsrooms }: StateWithNewsroom = getState();
   const charter = (newsrooms.get(newsroomAddress) || {}).charter || {};
   let roster = charter.roster || [];
   if (findIndex(roster, member => member.ethAddress === address) === -1) {
     roster = roster.concat(makeUserObject(address, userData).rosterData as RosterMember);
-    dispatch(updateCharter(newsroomAddress, {
-      ...charter,
-      roster,
-    }));
+    dispatch(
+      updateCharter(newsroomAddress, {
+        ...charter,
+        roster,
+      }),
+    );
   }
 
   return dispatch({

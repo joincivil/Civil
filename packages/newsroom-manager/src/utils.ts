@@ -6,7 +6,7 @@ import { CmsUserData, UserData } from "./types";
 export const getUserObject = (state: StateWithNewsroom, address: EthAddress): UserData => {
   const userData = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS) && state.newsroomUsers.get(address);
   return makeUserObject(address, userData);
-}
+};
 
 export const makeUserObject = (address: EthAddress, userData?: CmsUserData): UserData => {
   return {
