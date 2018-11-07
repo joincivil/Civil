@@ -71,7 +71,6 @@ class ListingsInProgressContainer extends React.Component<
             const map = Set<any>(data.listings);
             const allListings: Set<NewsroomListing> = map
               .map(listing => {
-                console.log("listing: ", listing);
                 return {
                   listing: transformGraphQLDataIntoListing(listing, listing!.contractAddress),
                   newsroom: transformGraphQLDataIntoNewsroom(listing, listing!.contractAddress),

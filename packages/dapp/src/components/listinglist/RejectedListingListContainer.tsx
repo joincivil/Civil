@@ -40,7 +40,6 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
             }
             const map = Set<NewsroomListing>(
               data.listings.map((listing: any) => {
-                console.log("listing: ", listing);
                 return {
                   listing: transformGraphQLDataIntoListing(listing, listing.contractAddress),
                   newsroom: transformGraphQLDataIntoNewsroom(listing, listing.contractAddress),
