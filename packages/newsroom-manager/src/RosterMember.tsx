@@ -106,123 +106,101 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
           {user.rosterData.ethAddress && <code>{user.rosterData.ethAddress}</code>}
         </div>
 
-        {this.props.newUser && (
+        {this.props.onRoster && (
           <>
-            <FormSubhead>Wallet Address</FormSubhead>
-            <FormRow>
-              <FormRowItem style={{ marginTop: 2 }}>
-                <Input
-                  name="ethAddress"
-                  value={this.state.newUserAddress || ""}
-                  onChange={this.addressInputChange}
-                  invalid={!!this.state.newUserAddress && !isValidAddress(this.state.newUserAddress)}
-                  invalidMessage={"Invalid ETH address"}
-                />
-              </FormRowItem>
-              <FormRowItem>
-                <TertiaryButton
-                  size={buttonSizes.SMALL}
-                  onClick={this.saveNewMember}
-                  disabled={!!this.state.newUserAddress && !isValidAddress(this.state.newUserAddress)}
-                >
-                  Add Member
-                </TertiaryButton>
-              </FormRowItem>
-            </FormRow>
-          </>
-        )}
-
-        {!this.props.newUser &&
-          this.props.onRoster && (
-            <>
-              {!user.isCmsUser && (
-                <FormRow>
-                  <FormRowItem>
-                    <FormSubhead>Name</FormSubhead>
-                    <Input name="name" value={user.rosterData.name || ""} onChange={this.rosterInputChange} />
-                  </FormRowItem>
-                  <FormRowItem>
-                    <FormSubhead optional>Avatar URL</FormSubhead>
-                    <Input
-                      name="avatarUrl"
-                      value={user.rosterData.avatarUrl || ""}
-                      onChange={this.rosterInputChange}
-                      invalid={!!user.rosterData.avatarUrl && !isValidHttpUrl(user.rosterData.avatarUrl)}
-                      invalidMessage={"Invalid URL"}
-                    />
-                  </FormRowItem>
-                </FormRow>
-              )}
-
+            {!user.isCmsUser && (
               <FormRow>
                 <FormRowItem>
-                  <FormSubhead>Role</FormSubhead>
-                  <Input name="role" value={user.rosterData.role} onChange={this.rosterInputChange} />
+                  <FormSubhead>Name</FormSubhead>
+                  <Input name="name" value={user.rosterData.name || ""} onChange={this.rosterInputChange} />
                 </FormRowItem>
                 <FormRowItem>
-                  <FormSubhead optional>Twitter URL</FormSubhead>
+                  <FormSubhead optional>Avatar URL</FormSubhead>
                   <Input
-                    name="twitter"
-                    value={(user.rosterData.socialUrls || {}).twitter}
-                    onChange={this.rosterSocialInputChange}
-                    invalid={
-                      !!user.rosterData.socialUrls &&
-                      !!user.rosterData.socialUrls.twitter &&
-                      !isValidHttpUrl(user.rosterData.socialUrls.twitter)
-                    }
+                    name="avatarUrl"
+                    value={user.rosterData.avatarUrl || ""}
+                    onChange={this.rosterInputChange}
+                    invalid={!!user.rosterData.avatarUrl && !isValidHttpUrl(user.rosterData.avatarUrl)}
                     invalidMessage={"Invalid URL"}
                   />
                 </FormRowItem>
               </FormRow>
+            )}
 
-              <FormSubhead>Bio</FormSubhead>
-              <Textarea
-                name="bio"
-                value={user.rosterData.bio}
-                onChange={this.rosterInputChange}
-                invalid={!!user.rosterData.bio && user.rosterData.bio.length > 120}
-                invalidMessage={"Too long"}
-              />
-              <HelperText>Maximum of 120 characters</HelperText>
-            </>
-          )}
+            {this.props.newUser && (
+              <>
+                <FormSubhead>Public Wallet Address</FormSubhead>
+                <Input name="ethAddress" value={user.rosterData.ethAddress || ""} onChange={this.rosterInputChange} />
+              </>
+            )}
+
+            <FormRow>
+              <FormRowItem>
+                <FormSubhead>Role</FormSubhead>
+                <Input name="role" value={user.rosterData.role} onChange={this.rosterInputChange} />
+              </FormRowItem>
+              <FormRowItem>
+                <FormSubhead optional>Twitter URL</FormSubhead>
+                <Input
+                  name="twitter"
+                  value={(user.rosterData.socialUrls || {}).twitter}
+                  onChange={this.rosterSocialInputChange}
+                  invalid={
+                    !!user.rosterData.socialUrls &&
+                    !!user.rosterData.socialUrls.twitter &&
+                    !isValidHttpUrl(user.rosterData.socialUrls.twitter)
+                  }
+                  invalidMessage={"Invalid URL"}
+                />
+              </FormRowItem>
+            </FormRow>
+
+            <FormSubhead>Bio</FormSubhead>
+            <Textarea
+              name="bio"
+              value={user.rosterData.bio}
+              onChange={this.rosterInputChange}
+              invalid={!!user.rosterData.bio && user.rosterData.bio.length > 120}
+              invalidMessage={"Too long"}
+            />
+            <HelperText>Maximum of 120 characters</HelperText>
+          </>
+        )}
       </Wrapper>
     );
   }
-
-  private saveNewMember = () => {
-    this.props.updateRosterMember(
-      this.props.onRoster,
-      {
-        ethAddress: this.state.newUserAddress,
-      },
-      true,
-    );
-  };
 
   private addressInputChange = (name: string, val: string) => {
     this.setState({ newUserAddress: val });
   };
 
   private toggleOnRoster = () => {
-    this.props.updateRosterMember(!this.props.onRoster, this.props.user.rosterData);
+    this.props.updateRosterMember(!this.props.onRoster, this.props.user.rosterData, this.props.newUser);
   };
 
   private rosterInputChange = (name: string, val: string) => {
-    this.props.updateRosterMember(this.props.onRoster, {
-      ...this.props.user.rosterData!,
-      [name]: val,
-    });
+    this.props.updateRosterMember(
+      this.props.onRoster,
+      {
+        ...this.props.user.rosterData!,
+        [name]: val,
+      },
+      this.props.newUser,
+    );
   };
 
   private rosterSocialInputChange = (type: string, val: string) => {
-    this.props.updateRosterMember(this.props.onRoster, {
-      ...this.props.user.rosterData!,
-      socialUrls: {
-        ...this.props.user.rosterData.socialUrls,
-        [type]: val,
+    this.props.updateRosterMember(
+      this.props.onRoster,
+      {
+        ...this.props.user.rosterData!,
+        socialUrls: {
+          ...this.props.user.rosterData.socialUrls,
+          [type]: val,
+        },
       },
-    });
+      this.props.newUser,
+    );
   };
 }
 
