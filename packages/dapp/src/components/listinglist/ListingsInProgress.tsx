@@ -1,5 +1,4 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import { Set } from "immutable";
 import {
   Tabs,
@@ -17,26 +16,26 @@ import {
 
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
-import { State } from "../../redux/reducers";
 import { StyledListingCopy } from "../utility/styledComponents";
+import { NewsroomListing } from "@joincivil/core";
 
 export interface ListingProps {
   match?: any;
   history?: any;
 }
 
-export interface ListingReduxProps {
-  applications: Set<string>;
-  readyToWhitelistListings: Set<string>;
-  inChallengeCommitListings: Set<string>;
-  inChallengeRevealListings: Set<string>;
-  awaitingAppealRequestListings: Set<string>;
-  awaitingAppealJudgmentListings: Set<string>;
-  awaitingAppealChallengeListings: Set<string>;
-  appealChallengeCommitPhaseListings: Set<string>;
-  appealChallengeRevealPhaseListings: Set<string>;
-  resolveChallengeListings: Set<string>;
-  resolveAppealListings: Set<string>;
+export interface ListingsInProgressProps {
+  applications: Set<NewsroomListing>;
+  readyToWhitelistListings: Set<NewsroomListing>;
+  inChallengeCommitListings: Set<NewsroomListing>;
+  inChallengeRevealListings: Set<NewsroomListing>;
+  awaitingAppealRequestListings: Set<NewsroomListing>;
+  awaitingAppealJudgmentListings: Set<NewsroomListing>;
+  awaitingAppealChallengeListings: Set<NewsroomListing>;
+  appealChallengeCommitPhaseListings: Set<NewsroomListing>;
+  appealChallengeRevealPhaseListings: Set<NewsroomListing>;
+  resolveChallengeListings: Set<NewsroomListing>;
+  resolveAppealListings: Set<NewsroomListing>;
 }
 
 const TABS: string[] = [
@@ -47,7 +46,7 @@ const TABS: string[] = [
   "ready-to-update",
 ];
 
-class ListingsInProgress extends React.Component<ListingProps & ListingReduxProps> {
+class ListingsInProgress extends React.Component<ListingProps & ListingsInProgressProps> {
   public render(): JSX.Element {
     const { subListingType } = this.props.match.params;
     let activeIndex = 0;
@@ -199,35 +198,4 @@ class ListingsInProgress extends React.Component<ListingProps & ListingReduxProp
   };
 }
 
-const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const {
-    applications,
-    readyToWhitelistListings,
-    inChallengeCommitListings,
-    inChallengeRevealListings,
-    awaitingAppealRequestListings,
-    awaitingAppealJudgmentListings,
-    awaitingAppealChallengeListings,
-    appealChallengeCommitPhaseListings,
-    appealChallengeRevealPhaseListings,
-    resolveChallengeListings,
-    resolveAppealListings,
-  } = state.networkDependent;
-
-  return {
-    applications,
-    readyToWhitelistListings,
-    inChallengeCommitListings,
-    inChallengeRevealListings,
-    awaitingAppealRequestListings,
-    awaitingAppealJudgmentListings,
-    awaitingAppealChallengeListings,
-    appealChallengeCommitPhaseListings,
-    appealChallengeRevealPhaseListings,
-    resolveChallengeListings,
-    resolveAppealListings,
-    ...ownProps,
-  };
-};
-
-export default connect(mapStateToProps)(ListingsInProgress);
+export default ListingsInProgress;

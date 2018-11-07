@@ -7,9 +7,10 @@ import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { State } from "../../redux/reducers";
+import { NewsroomListing } from "@joincivil/core";
 
 export interface RejectedListingsListReduxReduxProps {
-  rejectedListings: Set<string>;
+  rejectedListings: Set<NewsroomListing>;
 }
 
 class RejectedListingListRedux extends React.Component<RejectedListingsListReduxReduxProps> {
@@ -25,10 +26,18 @@ class RejectedListingListRedux extends React.Component<RejectedListingsListRedux
 }
 
 const mapStateToProps = (state: State): RejectedListingsListReduxReduxProps => {
-  const { rejectedListings } = state.networkDependent;
-
+  const { rejectedListings, listings } = state.networkDependent;
+  const { newsrooms } = state;
+  const rejectedNewsroomListings = rejectedListings
+    .map(l => {
+      return {
+        newsroom: newsrooms.get(l!).wrapper,
+        listing: listings.get(l!).listing,
+      };
+    })
+    .toSet();
   return {
-    rejectedListings,
+    rejectedListings: rejectedNewsroomListings,
   };
 };
 

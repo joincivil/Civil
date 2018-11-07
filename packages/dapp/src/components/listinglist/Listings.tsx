@@ -17,8 +17,8 @@ import * as heroImgUrl from "../images/img-hero-listings.png";
 import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
 import RejectedListingListContainer from "./RejectedListingListContainer";
 import { State } from "../../redux/reducers";
-import ListingsInProgress from "./ListingsInProgress";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
+import ListingsInProgressContainer from "./ListingsInProgressContainer";
 
 const TABS: string[] = ["whitelisted", "in-progress", "rejected"];
 
@@ -77,7 +77,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             </Tab>
             <Tab title={<ApplicationsInProgressTabText />}>
               <StyledPageContent>
-                <ListingsInProgress match={this.props.match} history={this.props.history} />
+                <ListingsInProgressContainer match={this.props.match} history={this.props.history} />
               </StyledPageContent>
             </Tab>
             <Tab title={<RejectedNewsroomsTabText />}>

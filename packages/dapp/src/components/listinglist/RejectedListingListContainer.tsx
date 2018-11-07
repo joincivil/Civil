@@ -8,6 +8,12 @@ import RejectedListingListRedux from "./RejectedListingListRedux";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import {
+  LISTING_FRAGMENT,
+  transformGraphQLDataIntoListing,
+  transformGraphQLDataIntoNewsroom,
+} from "../../helpers/queryTransformations";
+import { NewsroomListing } from "@joincivil/core";
 
 export interface RejectedListingsListContainerReduxProps {
   useGraphQL: boolean;
@@ -15,9 +21,10 @@ export interface RejectedListingsListContainerReduxProps {
 const LISTINGS_QUERY = gql`
   query($rejectedOnly: Boolean!) {
     listings(rejectedOnly: $rejectedOnly) {
-      contractAddress
+      ...ListingFragment
     }
   }
+  ${LISTING_FRAGMENT}
 `;
 class RejectedListingListContainer extends React.Component<RejectedListingsListContainerReduxProps> {
   public render(): JSX.Element {
@@ -31,9 +38,12 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
             if (error) {
               return <p>Error :</p>;
             }
-            const map = Set<string>(
+            const map = Set<NewsroomListing>(
               data.listings.map((listing: any) => {
-                return listing.contractAddress.toLowerCase();
+                return {
+                  listing: transformGraphQLDataIntoListing(listing, listing.contractAddress),
+                  newsroom: transformGraphQLDataIntoNewsroom(listing, listing.contractAddress),
+                };
               }),
             );
 
