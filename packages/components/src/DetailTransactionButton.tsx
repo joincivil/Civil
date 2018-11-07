@@ -19,6 +19,7 @@ export interface DetailTransactionButtonProps {
   requiredNetwork: string;
   Button?: React.StatelessComponent<TransactionButtonInnerProps>;
   noModal?: boolean;
+  disabled?: boolean;
   preExecuteTransactions?(): any;
 }
 
@@ -176,7 +177,7 @@ export class DetailTransactionButton extends React.Component<
 
   public isDisabled(): boolean {
     return (
-      !this.props.civil || !this.state.currentAccount || !this.props.requiredNetwork.includes(this.state.currentNetwork)
+      this.props.disabled || !this.props.civil || !this.state.currentAccount || !this.props.requiredNetwork.includes(this.state.currentNetwork)
     );
   }
 
