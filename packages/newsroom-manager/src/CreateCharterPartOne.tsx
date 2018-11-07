@@ -17,7 +17,7 @@ import {
   StyledTextareaInput,
 } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
-import { makeUserObject } from "./utils";
+import { getUserObject } from "./utils";
 import { UserData } from "./types";
 
 export interface CreateCharterPartOneExternalProps extends StepProps {
@@ -288,8 +288,8 @@ const mapStateToProps = (
   ownProps: CreateCharterPartOneExternalProps,
 ): CreateCharterPartOneProps => {
   const newsroom = state.newsrooms.get(ownProps.address || "") || { wrapper: { data: {} } };
-  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(makeUserObject.bind(null, state));
-  const editors: UserData[] = (newsroom.editors || []).map(makeUserObject.bind(null, state));
+  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(getUserObject.bind(null, state));
+  const editors: UserData[] = (newsroom.editors || []).map(getUserObject.bind(null, state));
 
   return {
     ...ownProps,

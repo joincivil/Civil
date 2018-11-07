@@ -25,7 +25,7 @@ import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser, UserTypes } from "./NewsroomUser";
 import { FormTitle } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
-import { makeUserObject } from "./utils";
+import { getUserObject } from "./utils";
 import { UserData } from "./types";
 import { TransactionButtonInner } from "./TransactionButtonInner";
 
@@ -461,8 +461,8 @@ const mapStateToProps = (
 ): CompleteYourProfileComponentProps & CompleteYourProfileComponentExternalProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
-  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(makeUserObject.bind(null, state));
-  const editors: UserData[] = (newsroom.editors || []).map(makeUserObject.bind(null, state));
+  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(getUserObject.bind(null, state));
+  const editors: UserData[] = (newsroom.editors || []).map(getUserObject.bind(null, state));
   return {
     ...ownProps,
     address,

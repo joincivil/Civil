@@ -1,7 +1,9 @@
 import { AnyAction } from "redux";
-import { EthAddress, Civil, CharterData } from "@joincivil/core";
+import { findIndex } from "lodash";
+import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
+import { makeUserObject } from "./utils";
 
 export enum newsroomActions {
   UPDATE_NEWSROOM = "UPDATE_NEWSROOM",
@@ -38,7 +40,7 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
     const getCmsUserDataForAddress = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS);
     if (getCmsUserDataForAddress && !state.newsroomUsers.get(val)) {
       const userData = await getCmsUserDataForAddress(val);
-      dispatch(addUser(val, userData));
+      dispatch(addUser(address, val, userData));
     }
     dispatch(addEditor(address, val));
   });
@@ -56,7 +58,7 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
     wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
       if (!state.newsroomUsers.get(userAddress)) {
         const userData = await getCmsUserDataForAddress(userAddress);
-        dispatch(addUser(userAddress, userData));
+        dispatch(addUser(address, userAddress, userData));
       }
     });
   }
@@ -173,14 +175,25 @@ export const addPersistCharter = (func: (charter: Partial<CharterData>) => void)
   };
 };
 
-export const addUser = (address: EthAddress, userData: CmsUserData): AnyAction => {
-  return {
+export const addUser = (newsroomAddress: EthAddress, address: EthAddress, userData: CmsUserData): any => (dispatch: any, getState: any): AnyAction => {
+  const { newsrooms }: StateWithNewsroom = getState();
+  const charter = (newsrooms.get(newsroomAddress) || {}).charter || {};
+  let roster = charter.roster || [];
+  if (findIndex(roster, member => member.ethAddress === address) === -1) {
+    roster = roster.concat(makeUserObject(address, userData).rosterData as RosterMember);
+    dispatch(updateCharter(newsroomAddress, {
+      ...charter,
+      roster,
+    }));
+  }
+
+  return dispatch({
     type: userActions.ADD_USER,
     data: {
       address,
       userData,
     },
-  };
+  });
 };
 
 export const addConstitutionUri = (uri: string): AnyAction => {
