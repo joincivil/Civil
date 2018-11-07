@@ -28,6 +28,7 @@ import { StateWithNewsroom } from "./reducers";
 import { getUserObject } from "./utils";
 import { UserData } from "./types";
 import { TransactionButtonInner } from "./TransactionButtonInner";
+import { isValidAddress } from "ethereumjs-util";
 
 export interface CompleteYourProfileComponentExternalProps {
   userIsOwner?: boolean;
@@ -52,6 +53,8 @@ export interface CompleteYourProfileComponentState extends TransactionButtonModa
   addEditor: boolean;
   newOwner: EthAddress;
   newEditor: EthAddress;
+  disableOwnerAdd: boolean;
+  disableEditorAdd: boolean;
 }
 
 const Section = styled.div`
@@ -100,6 +103,8 @@ class CompleteYourProfileComponent extends React.Component<
       newOwner: "",
       newEditor: "",
       modalOpen: false,
+      disableEditorAdd: true,
+      disableOwnerAdd: true,
     };
   }
 
@@ -210,7 +215,10 @@ class CompleteYourProfileComponent extends React.Component<
 
   public renderEditorInputs(): JSX.Element {
     return this.props.renderUserSearch ? (
-      this.props.renderUserSearch((address: string) => this.setState({ newEditor: address }))
+      this.props.renderUserSearch((address: string) => {
+        const valid = isValidAddress(address);
+        this.setState({ newEditor: address, disableEditorAdd: !valid });
+      })
     ) : (
       <AddressInput
         address={this.state.newEditor}
@@ -221,7 +229,10 @@ class CompleteYourProfileComponent extends React.Component<
 
   public renderOwnerInputs(): JSX.Element {
     return this.props.renderUserSearch ? (
-      this.props.renderUserSearch((address: string) => this.setState({ newOwner: address }))
+      this.props.renderUserSearch((address: string) => {
+        const valid = isValidAddress(address);
+        this.setState({ newOwner: address, disableOwnerAdd: !valid });
+      })
     ) : (
       <AddressInput address={this.state.newOwner} onChange={(name, val) => this.setState({ newOwner: val })} />
     );
@@ -241,6 +252,7 @@ class CompleteYourProfileComponent extends React.Component<
             <>
               {this.renderEditorInputs()}
               <DetailTransactionButton
+                disabled={this.state.disableEditorAdd}
                 transactions={this.getTransaction()}
                 Button={TransactionButtonInner}
                 civil={value.civil}
@@ -277,6 +289,7 @@ class CompleteYourProfileComponent extends React.Component<
             <>
               {this.renderOwnerInputs()}
               <DetailTransactionButton
+                disabled={this.state.disableOwnerAdd}
                 transactions={this.getTransaction()}
                 civil={value.civil}
                 Button={TransactionButtonInner}
