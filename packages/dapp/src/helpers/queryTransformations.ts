@@ -139,7 +139,7 @@ export function transformGraphQLDataIntoAppeal(queryAppealData: any): AppealData
   if (queryAppealData) {
     return {
       requester: queryAppealData.requester,
-      appealFeePaid: new BigNumber(10), // queryAppealData.appealFeePaid
+      appealFeePaid: new BigNumber(queryAppealData.appealFeePaid),
       appealPhaseExpiry: new BigNumber(queryAppealData.appealPhaseExpiry),
       appealGranted: queryAppealData.appealGranted,
       appealOpenToChallengeExpiry: new BigNumber(queryAppealData.appealOpenToChallengeExpiry),

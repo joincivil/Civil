@@ -25,7 +25,6 @@ export interface ListingReduxProps {
 
 class ListingsInProgressRedux extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
-    console.log("Listings in Progress Redux");
     return <ListingsInProgress {...this.props} />;
   }
 }
@@ -47,104 +46,32 @@ const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & L
   } = state.networkDependent;
   const { newsrooms } = state;
 
-  const applicationNewsroomListings = applications
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
+  const mapListingAddressToNewsroomListing = (listingAddresses: Set<string>) => {
+    return listingAddresses
+      .map(l => {
+        return {
+          newsroom: newsrooms.get(l!).wrapper,
+          listing: listings.get(l!).listing,
+        };
+      })
+      .toSet();
+  };
 
-  const readyToWhitelistNewsroomListings = readyToWhitelistListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const inChallengeCommitNewsroomListings = inChallengeCommitListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const inChallengeRevealNewsroomListings = inChallengeRevealListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const awaitingAppealRequestNewsroomListings = awaitingAppealRequestListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const awaitingAppealJudgmentNewsroomListings = awaitingAppealJudgmentListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const awaitingAppealChallengeNewsroomListings = awaitingAppealChallengeListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const appealChallengeCommitPhaseNewsroomListings = appealChallengeCommitPhaseListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const appealChallengeRevealPhaseNewsroomListings = appealChallengeRevealPhaseListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const resolveChallengeNewsroomListings = resolveChallengeListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
-
-  const resolveAppealNewsroomListings = resolveAppealListings
-    .map(l => {
-      return {
-        newsroom: newsrooms.get(l!).wrapper,
-        listing: listings.get(l!).listing,
-      };
-    })
-    .toSet();
+  const applicationNewsroomListings = mapListingAddressToNewsroomListing(applications);
+  const readyToWhitelistNewsroomListings = mapListingAddressToNewsroomListing(readyToWhitelistListings);
+  const inChallengeCommitNewsroomListings = mapListingAddressToNewsroomListing(inChallengeCommitListings);
+  const inChallengeRevealNewsroomListings = mapListingAddressToNewsroomListing(inChallengeRevealListings);
+  const awaitingAppealRequestNewsroomListings = mapListingAddressToNewsroomListing(awaitingAppealRequestListings);
+  const awaitingAppealJudgmentNewsroomListings = mapListingAddressToNewsroomListing(awaitingAppealJudgmentListings);
+  const awaitingAppealChallengeNewsroomListings = mapListingAddressToNewsroomListing(awaitingAppealChallengeListings);
+  const appealChallengeCommitPhaseNewsroomListings = mapListingAddressToNewsroomListing(
+    appealChallengeCommitPhaseListings,
+  );
+  const appealChallengeRevealPhaseNewsroomListings = mapListingAddressToNewsroomListing(
+    appealChallengeRevealPhaseListings,
+  );
+  const resolveChallengeNewsroomListings = mapListingAddressToNewsroomListing(resolveChallengeListings);
+  const resolveAppealNewsroomListings = mapListingAddressToNewsroomListing(resolveAppealListings);
 
   return {
     applications: applicationNewsroomListings,
