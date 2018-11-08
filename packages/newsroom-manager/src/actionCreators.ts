@@ -1,11 +1,12 @@
 import { AnyAction } from "redux";
 import { findIndex } from "lodash";
 import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
-import { StateWithNewsroom } from "./reducers";
+import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { makeUserObject } from "./utils";
 
 export enum newsroomActions {
+  ADD_NEWSROOM = "ADD_NEWSROOM",
   UPDATE_NEWSROOM = "UPDATE_NEWSROOM",
   CHANGE_NAME = "CHANGE_NAME",
   ADD_EDITOR = "ADD_EDITOR",
@@ -79,6 +80,13 @@ export const getIsEditor = (address: EthAddress, civil: Civil): any => async (
 ): Promise<AnyAction> => {
   const newsroom = await civil.newsroomAtUntrusted(address);
   return dispatch(setIsEditor(address, await newsroom.isEditor()));
+};
+
+export const addNewsroom = (newsroom: NewsroomState): AnyAction => {
+  return {
+    type: newsroomActions.ADD_NEWSROOM,
+    data: newsroom,
+  };
 };
 
 export const updateNewsroom = (address: EthAddress, data: any): AnyAction => {

@@ -30,6 +30,8 @@ export function newsrooms(
   let newsroom;
   let editors;
   switch (action.type) {
+    case newsroomActions.ADD_NEWSROOM:
+      return state.set(action.data.address, action.data);
     case newsroomActions.UPDATE_NEWSROOM:
       return state.set(action.data.address, {
         address: action.data.address,
