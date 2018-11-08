@@ -3,9 +3,9 @@ import { connect, DispatchProp } from "react-redux";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
-import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
+import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 
 export interface WhitelistedCardReduxProps extends ListingListItemReduxProps {
   whitelistedTimestamp?: number;
@@ -16,7 +16,13 @@ class WhitelistedListingItem extends React.Component<
   ListingListItemOwnProps & WhitelistedCardReduxProps & DispatchProp<any>
 > {
   public async componentDidMount(): Promise<void> {
-    this.props.dispatch!(await setupListingWhitelistedSubscription(this.props.listingAddress!));
+    if (this.props.newsroom) {
+      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+    }
+    const { listing } = this.props;
+    if (listing && listing.data.challenge) {
+      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+    }
   }
 
   public render(): JSX.Element {
@@ -34,7 +40,7 @@ class WhitelistedListingItem extends React.Component<
     const challenge = listingData.challenge;
     const challengeID = challenge && listingData.challengeID.toString();
     const challengeStatementSummary =
-      challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
+      this.props.challengeStatement && JSON.parse(this.props.challengeStatement as string).summary;
 
     const pollData = challenge && challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();

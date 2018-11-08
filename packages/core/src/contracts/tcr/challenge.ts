@@ -3,7 +3,7 @@ import { getDefaultFromBlock } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { ContentProvider } from "../../content/contentprovider";
-import { ChallengeData, ContentData, EthAddress } from "../../types";
+import { ChallengeData, ContentData, EthAddress, EthContentHeader } from "../../types";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Appeal } from "./appeal";
 import { Voting } from "./voting";
@@ -38,7 +38,7 @@ export class Challenge {
     const [rewardPool, challenger, resolved, stake, totalTokens] = await this.tcrInstance.challenges.callAsync(
       this.challengeId,
     );
-    const statement = await this.getChallengeStatement();
+    const challengeStatementURI = await this.getChallengeStatementURI();
 
     const poll = await resolvedVoting.getPoll(this.challengeId);
     const requestAppealExpiry = await this.tcrInstance.challengeRequestAppealExpiries.callAsync(this.challengeId);
@@ -57,7 +57,7 @@ export class Challenge {
     const appeal = await appealInstance.getAppealData();
 
     return {
-      statement,
+      challengeStatementURI,
       rewardPool,
       challenger,
       resolved,
@@ -83,6 +83,11 @@ export class Challenge {
       .first()
       .toPromise();
     return challengeEvent.args.data;
+  }
+
+  private async getChallengeStatementURI(): Promise<string | undefined> {
+    const uri = await this.getChallengeURI();
+    return uri;
   }
 
   private async getChallengeStatement(): Promise<ContentData | undefined> {

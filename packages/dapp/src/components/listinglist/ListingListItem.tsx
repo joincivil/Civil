@@ -8,7 +8,7 @@ import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joinc
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
-import { getContent } from "../../redux/actionCreators/newsrooms";
+import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -23,12 +23,18 @@ export interface ListingListItemOwnProps {
 export interface ListingListItemReduxProps {
   listingPhaseState?: any;
   charter?: any;
+  challengeStatement?: any;
 }
 
 class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
   public async componentDidMount(): Promise<void> {
     if (this.props.newsroom) {
       this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+    }
+    const { listing } = this.props;
+    if (listing && listing.data.challenge) {
+      console.log("GO GET CONTENT: ", listing.data.challenge.challengeStatementURI);
+      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
     }
   }
   public render(): JSX.Element {
@@ -70,8 +76,20 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
     const challengeID = challenge && listingData.challengeID.toString();
-    const challengeStatementSummary =
-      challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
+    console.log("this.props.challengeStatement: ", this.props.challengeStatement);
+    let challengeStatementSummary;
+    if (this.props.challengeStatement) {
+      try {
+        challengeStatementSummary = JSON.parse(this.props.challengeStatement as string).summary;
+      } catch (ex) {
+        console.log("something bad: ", ex);
+        try {
+          challengeStatementSummary = this.props.challengeStatement.summary;
+        } catch (ex1) {
+          console.log("something worse: ", ex1);
+        }
+      }
+    }
 
     const appeal = challenge && challenge.appeal;
     const appealStatementSummary = appeal && appeal.statement && JSON.parse(appeal.statement as string).summary;
@@ -146,12 +164,17 @@ const mapStateToProps = (
 ): ListingListItemReduxProps & ListingListItemOwnProps => {
   const { content } = state.networkDependent;
   let charter;
+  let challengeStatement;
   if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
     charter = content.get(ownProps.newsroom.data.charterHeader.uri);
+  }
+  if (ownProps.listing && ownProps.listing.data.challenge) {
+    challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
   }
   return {
     listingPhaseState: getListingPhaseState(ownProps.listing),
     charter,
+    challengeStatement,
     ...ownProps,
   };
 };

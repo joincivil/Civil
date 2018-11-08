@@ -114,7 +114,7 @@ export function transformGraphQLDataIntoListing(listing: any, listingAddress: st
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
   if (queryChallengeData) {
     return {
-      statement: "",
+      challengeStatementURI: queryChallengeData.statement,
       rewardPool: new BigNumber(queryChallengeData.rewardPool),
       challenger: queryChallengeData.challenger,
       resolved: queryChallengeData.resolved,
