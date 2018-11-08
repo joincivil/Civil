@@ -33,10 +33,19 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     }
     const { listing } = this.props;
     if (listing && listing.data.challenge) {
-      console.log("GO GET CONTENT: ", listing.data.challenge.challengeStatementURI);
       this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
     }
   }
+
+  public async componentDidUpdate(prevProps: ListingListItemOwnProps & ListingListItemReduxProps): Promise<void> {
+    if (prevProps.listing !== this.props.listing) {
+      const { listing } = this.props;
+      if (listing && listing.data.challenge) {
+        this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      }
+    }
+  }
+
   public render(): JSX.Element {
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;

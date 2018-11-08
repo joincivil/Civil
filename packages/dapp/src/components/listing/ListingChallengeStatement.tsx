@@ -39,6 +39,18 @@ class ListingChallengeStatement extends React.Component<
       this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
     }
   }
+
+  public async componentDidUpdate(
+    prevProps: ListingChallengeStatementProps & ListingChallengeStatementReduxProps,
+  ): Promise<void> {
+    if (prevProps.listing !== this.props.listing) {
+      const { listing } = this.props;
+      if (listing && listing.data.challenge) {
+        this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      }
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <>
