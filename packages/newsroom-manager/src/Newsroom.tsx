@@ -117,6 +117,57 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     theme: {},
   };
 
+  private persistCharter = debounce(
+    (charter: Partial<CharterData>): void => {
+      if (this.props.persistCharter) {
+        // We don't need to know when this finishes, but maybe some day we'd have a saving indicator or something.
+        // tslint:disable-next-line: no-floating-promises
+        this.props.persistCharter(charter);
+        return;
+      }
+
+      try {
+        localStorage[`civil:${this.props.address!}:charter`] = JSON.stringify(charter);
+      } catch (e) {
+        console.error("Failed to save charter to local storage:", e);
+      }
+    },
+    1000,
+    { maxWait: 2000 },
+  );
+
+  private checkCharterCompletion = debounce(
+    () => {
+      const charterPartOneComplete = !!(
+        this.props.charter &&
+        this.props.charter.logoUrl &&
+        this.props.charter.newsroomUrl &&
+        this.props.charter.tagline &&
+        this.props.charter.roster &&
+        this.props.charter.roster.length
+      );
+
+      let charterPartTwoComplete = false;
+      const mission = this.props.charter.mission;
+      if (mission) {
+        charterPartTwoComplete = !!(
+          mission.purpose &&
+          mission.structure &&
+          mission.revenue &&
+          mission.encumbrances &&
+          mission.miscellaneous
+        );
+      }
+
+      this.setState({
+        charterPartOneComplete,
+        charterPartTwoComplete,
+      });
+    },
+    1000,
+    { maxWait: 2000 },
+  );
+
   constructor(props: NewsroomProps) {
     super(props);
     let currentStep = props.address ? 1 : 0;
@@ -373,57 +424,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.props.dispatch!(updateCharter(this.props.address!, charter));
     this.checkCharterCompletion();
   };
-
-  private persistCharter = debounce(
-    (charter: Partial<CharterData>): void => {
-      if (this.props.persistCharter) {
-        // We don't need to know when this finishes, but maybe some day we'd have a saving indicator or something.
-        // tslint:disable-next-line: no-floating-promises
-        this.props.persistCharter(charter);
-        return;
-      }
-
-      try {
-        localStorage[`civil:${this.props.address!}:charter`] = JSON.stringify(charter);
-      } catch (e) {
-        console.error("Failed to save charter to local storage:", e);
-      }
-    },
-    1000,
-    { maxWait: 2000 },
-  );
-
-  private checkCharterCompletion = debounce(
-    () => {
-      const charterPartOneComplete = !!(
-        this.props.charter &&
-        this.props.charter.logoUrl &&
-        this.props.charter.newsroomUrl &&
-        this.props.charter.tagline &&
-        this.props.charter.roster &&
-        this.props.charter.roster.length
-      );
-
-      let charterPartTwoComplete = false;
-      const mission = this.props.charter.mission;
-      if (mission) {
-        charterPartTwoComplete = !!(
-          mission.purpose &&
-          mission.structure &&
-          mission.revenue &&
-          mission.encumbrances &&
-          mission.miscellaneous
-        );
-      }
-
-      this.setState({
-        charterPartOneComplete,
-        charterPartTwoComplete,
-      });
-    },
-    1000,
-    { maxWait: 2000 },
-  );
 
   /** Replace even empty string values for newsroom/logo URLs in case user has partially filled charter and later goes in to CMS and sets these values. */
   private defaultCharterValues = (charter: Partial<CharterData>): Partial<CharterData> => {

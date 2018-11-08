@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { isValidAddress } from "ethereumjs-util";
-import { colors, Checkbox, ToolTip, buttonSizes } from "@joincivil/components";
+import { colors, Checkbox, ToolTip } from "@joincivil/components";
 import { EthAddress, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import styled from "styled-components";
@@ -10,7 +9,6 @@ import {
   FormRow,
   FormRowItem,
   HelperText,
-  TertiaryButton,
   StyledTextInput,
   StyledTextareaInput,
 } from "./styledComponents";
@@ -24,10 +22,6 @@ export interface RosterMemberProps {
   onContract?: boolean;
   newUser?: boolean;
   updateRosterMember(onRoster: boolean, member: Partial<RosterMemberInterface>, newUser?: boolean): void;
-}
-
-export interface RosterMemberState {
-  newUserAddress?: EthAddress;
 }
 
 const Wrapper = styled.div`
@@ -78,10 +72,9 @@ const Textarea = styled(StyledTextareaInput)`
   }
 `;
 
-export class RosterMemberComponent extends React.Component<RosterMemberProps & DispatchProp<any>, RosterMemberState> {
+export class RosterMemberComponent extends React.Component<RosterMemberProps & DispatchProp<any>> {
   constructor(props: RosterMemberProps & DispatchProp<any>) {
     super(props);
-    this.state = {};
   }
 
   public render(): JSX.Element {
@@ -169,10 +162,6 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
       </Wrapper>
     );
   }
-
-  private addressInputChange = (name: string, val: string) => {
-    this.setState({ newUserAddress: val });
-  };
 
   private toggleOnRoster = () => {
     this.props.updateRosterMember(!this.props.onRoster, this.props.user.rosterData, this.props.newUser);

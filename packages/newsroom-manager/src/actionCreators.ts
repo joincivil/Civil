@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { findIndex } from "lodash";
 import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
-import { NewsroomState, StateWithNewsroom } from "./reducers";
+import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { makeUserObject } from "./utils";
 
