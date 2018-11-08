@@ -441,7 +441,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   Emits `_SuccessfulChallengeOverturned` if original challenge succeeded.
   Emits `_ListingRemoved` if original challenge failed and listing was previous whitelisted.
   Emits `_ApplicationRemoved` if original challenge failed and listing was not previously whitelisted.
-  Emits `_NewListingWhitelisted` if original challenge succeeded and listing was not previously whitelisted.
+  Emits `_ApplicationWhitelisted` if original challenge succeeded and listing was not previously whitelisted.
   @param listingAddress Address of listing with a challenge that is to be resolved
   */
   function resolveOverturnedChallenge(address listingAddress) private {
