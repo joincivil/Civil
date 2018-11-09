@@ -19,7 +19,7 @@ import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
   addGetCmsUserDataForAddress,
   addPersistCharter,
-  addNewsroom,
+  updateNewsroom,
   getEditors,
   getIsOwner,
   getIsEditor,
@@ -38,7 +38,6 @@ import { CmsUserData } from "./types";
 
 export interface NewsroomComponentState {
   currentStep: number;
-  charter: Partial<CharterData>;
   subscription?: any;
   charterPartOneComplete?: boolean;
   charterPartTwoComplete?: boolean;
@@ -49,10 +48,9 @@ export interface IpfsObject {
   add(content: any, options?: { hash: string; pin: boolean }): Promise<[{ path: string; hash: string; size: number }]>;
 }
 
-export interface NewsroomProps {
+export interface NewsroomExternalProps {
   address?: EthAddress;
   txHash?: TxHash;
-  name?: string;
   disabled?: boolean;
   account?: string;
   currentNetwork?: string;
@@ -68,16 +66,9 @@ export interface NewsroomProps {
   helpUrlBase?: string;
   profileUrl?: string;
   profileAddressSaving?: boolean;
-  owners?: string[];
-  editors?: string[];
-  userIsOwner?: boolean;
-  userIsEditor?: boolean;
-  userNotOnContract?: boolean;
   newsroomUrl?: string;
-  newsroom?: any;
   logoUrl?: string;
   metamaskEnabled?: boolean;
-  charterUri?: string;
   enable(): void;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
   persistCharter?(charter: Partial<CharterData>): Promise<void>;
@@ -86,6 +77,18 @@ export interface NewsroomProps {
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
   getCmsUserDataForAddress?(address: EthAddress): Promise<CmsUserData>;
+}
+
+export interface NewsroomProps extends NewsroomExternalProps {
+  charter: Partial<CharterData>;
+  owners: string[];
+  editors: string[];
+  name?: string;
+  newsroom?: any;
+  userIsOwner?: boolean;
+  userIsEditor?: boolean;
+  userNotOnContract?: boolean;
+  charterUri?: string;
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
@@ -114,10 +117,56 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     theme: {},
   };
 
-  private processCharterUpdate = debounce(() => {
-    this.checkCharterCompletion();
-    this.props.dispatch!(updateCharter(this.props.address!, this.state.charter));
-  }, 1000);
+  private persistCharter = debounce(
+    (charter: Partial<CharterData>): void => {
+      if (this.props.persistCharter) {
+        // We don't need to know when this finishes, but maybe some day we'd have a saving indicator or something.
+        // tslint:disable-next-line: no-floating-promises
+        this.props.persistCharter(charter);
+        return;
+      }
+
+      try {
+        localStorage[`civil:${this.props.address!}:charter`] = JSON.stringify(charter);
+      } catch (e) {
+        console.error("Failed to save charter to local storage:", e);
+      }
+    },
+    1000,
+    { maxWait: 2000 },
+  );
+
+  private checkCharterCompletion = debounce(
+    () => {
+      const charterPartOneComplete = !!(
+        this.props.charter &&
+        this.props.charter.logoUrl &&
+        this.props.charter.newsroomUrl &&
+        this.props.charter.tagline &&
+        this.props.charter.roster &&
+        this.props.charter.roster.length
+      );
+
+      let charterPartTwoComplete = false;
+      const mission = this.props.charter.mission;
+      if (mission) {
+        charterPartTwoComplete = !!(
+          mission.purpose &&
+          mission.structure &&
+          mission.revenue &&
+          mission.encumbrances &&
+          mission.miscellaneous
+        );
+      }
+
+      this.setState({
+        charterPartOneComplete,
+        charterPartTwoComplete,
+      });
+    },
+    1000,
+    { maxWait: 2000 },
+  );
 
   constructor(props: NewsroomProps) {
     super(props);
@@ -130,23 +179,18 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       console.error("Failed to load step index", e);
     }
 
+    this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
+
     this.state = {
-      charter: this.defaultCharterValues(this.getCharterFromLocalStorage() || {}),
       currentStep,
     };
-    this.checkCharterCompletion();
 
     if (props.getPersistedCharter) {
       props
         .getPersistedCharter()
         .then(charter => {
           if (charter) {
-            this.setState(
-              {
-                charter: this.defaultCharterValues(charter),
-              },
-              this.checkCharterCompletion,
-            );
+            this.updateCharter(this.defaultCharterValues(charter));
           }
         })
         .catch();
@@ -239,7 +283,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
                   </>
                 );
               }}
-              complete={this.props.owners!.length > 1 || !!this.props.editors!.length || this.state.currentStep > 1}
+              complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
             >
               <CompleteYourProfile
                 userIsOwner={this.props.userIsOwner}
@@ -272,7 +316,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             >
               <CreateCharterPartOne
                 address={this.props.address}
-                charter={this.state.charter}
+                charter={this.props.charter}
                 updateCharter={this.updateCharter}
               />
             </Step>
@@ -297,7 +341,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               }}
               complete={this.state.charterPartTwoComplete}
             >
-              <CreateCharterPartTwo charter={this.state.charter} updateCharter={this.updateCharter} />
+              <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
             </Step>
             <Step
               title={"Apply to the Registry"}
@@ -342,9 +386,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   public onNewsroomCreated = async (result: any) => {
     await this.props.dispatch!(
-      addNewsroom({
+      updateNewsroom(result.address, {
         wrapper: await result.getNewsroomWrapper(),
-        address: result.address,
         newsroom: result,
       }),
     );
@@ -372,8 +415,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   private getCharterFromLocalStorage = (): Partial<CharterData> | undefined => {
     try {
-      if (localStorage[this.props.address! + "|charter"]) {
-        return JSON.parse(localStorage[this.props.address! + "|charter"]);
+      const key = `civil:${this.props.address!}:charter`;
+      if (localStorage[key]) {
+        return JSON.parse(localStorage[key]);
       }
     } catch (e) {
       console.error("Failed to retrieve charter from local storage:", e);
@@ -382,52 +426,10 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private updateCharter = (charter: Partial<CharterData>): void => {
-    this.setState({ charter });
-    this.processCharterUpdate();
+    this.props.dispatch!(updateCharter(this.props.address!, charter));
+    this.checkCharterCompletion();
   };
 
-  private persistCharter = (charter: Partial<CharterData>): void => {
-    if (this.props.persistCharter) {
-      // We don't need to know when this finishes, but maybe some day we'd have a saving indicator or something.
-      // tslint:disable-next-line: no-floating-promises
-      this.props.persistCharter(charter);
-      return;
-    }
-
-    try {
-      localStorage[this.props.address! + "|charter"] = JSON.stringify(charter);
-    } catch (e) {
-      console.error("Failed to save charter to local storage:", e);
-    }
-  };
-
-  private checkCharterCompletion = () => {
-    const charterPartOneComplete = !!(
-      this.state.charter &&
-      this.state.charter.logoUrl &&
-      this.state.charter.newsroomUrl &&
-      this.state.charter.tagline &&
-      this.state.charter.roster &&
-      this.state.charter.roster.length
-    );
-
-    let charterPartTwoComplete = false;
-    const mission = this.state.charter.mission;
-    if (mission) {
-      charterPartTwoComplete = !!(
-        mission.purpose &&
-        mission.structure &&
-        mission.revenue &&
-        mission.encumbrances &&
-        mission.miscellaneous
-      );
-    }
-
-    this.setState({
-      charterPartOneComplete,
-      charterPartTwoComplete,
-    });
-  };
   /** Replace even empty string values for newsroom/logo URLs in case user has partially filled charter and later goes in to CMS and sets these values. */
   private defaultCharterValues = (charter: Partial<CharterData>): Partial<CharterData> => {
     const { newsroomUrl, logoUrl } = this.props;
@@ -439,7 +441,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): NewsroomProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   const userIsOwner = newsroom.isOwner;
@@ -457,6 +459,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomProps): New
     userNotOnContract,
     owners: newsroom.wrapper.data.owners || [],
     editors: newsroom.editors || [],
+    charter: newsroom.charter || {},
   };
 };
 
