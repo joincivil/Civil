@@ -6,7 +6,7 @@ export type CmsUserData =
       displayName?: string;
       username?: string;
       avatarUrl?: string;
-      bio?: any;
+      bio?: string;
     }
   | undefined;
 

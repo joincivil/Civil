@@ -1,7 +1,9 @@
 import { AnyAction } from "redux";
-import { EthAddress, Civil, CharterData } from "@joincivil/core";
+import { findIndex } from "lodash";
+import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
+import { makeUserObject } from "./utils";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -11,7 +13,6 @@ export enum newsroomActions {
   REMOVE_EDITOR = "REMOVE_EDITOR",
   SET_IS_OWNER = "SET_IS_OWNER",
   SET_IS_EDITOR = "SET_IS_EDITOR",
-  UPDATE_CHARTER = "UPDATE_CHARTER",
 }
 
 export enum uiActions {
@@ -39,8 +40,8 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
   await newsroom.editors().forEach(async val => {
     const getCmsUserDataForAddress = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS);
     if (getCmsUserDataForAddress && !state.newsroomUsers.get(val)) {
-      const name = await getCmsUserDataForAddress(val);
-      dispatch(addUser(val, name));
+      const userData = await getCmsUserDataForAddress(val);
+      dispatch(addUser(address, val, userData));
     }
     dispatch(addEditor(address, val));
   });
@@ -57,12 +58,12 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
   if (getCmsUserDataForAddress) {
     wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
       if (!state.newsroomUsers.get(userAddress)) {
-        const name = await getCmsUserDataForAddress(userAddress);
-        dispatch(addUser(userAddress, name));
+        const userData = await getCmsUserDataForAddress(userAddress);
+        dispatch(addUser(address, userAddress, userData));
       }
     });
   }
-  return dispatch(addNewsroom({ wrapper, newsroom, address }));
+  return dispatch(updateNewsroom(address, { wrapper, newsroom }));
 };
 
 export const getIsOwner = (address: EthAddress, civil: Civil): any => async (
@@ -149,15 +150,18 @@ export const updateCharter = (address: EthAddress, charter: Partial<CharterData>
   dispatch: any,
   getState: any,
 ): AnyAction => {
-  const state = getState();
-  const persistCharter = state.newsroomUi.get(uiActions.PERSIST_CHARTER);
+  const { newsrooms, newsroomUi }: StateWithNewsroom = getState();
+  const newsroom = newsrooms.get(address) || { wrapper: { data: {} } };
+  const persistCharter = newsroomUi.get(uiActions.PERSIST_CHARTER);
   if (persistCharter) {
     persistCharter(charter);
   }
-  return {
-    type: newsroomActions.UPDATE_CHARTER,
-    data: { charter, address },
-  };
+  return dispatch(
+    updateNewsroom(address, {
+      ...newsroom,
+      charter,
+    }),
+  );
 };
 
 export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
@@ -181,14 +185,30 @@ export const addPersistCharter = (func: (charter: Partial<CharterData>) => void)
   };
 };
 
-export const addUser = (address: EthAddress, name: CmsUserData): AnyAction => {
-  return {
+export const addUser = (newsroomAddress: EthAddress, address: EthAddress, userData: CmsUserData): any => (
+  dispatch: any,
+  getState: any,
+): AnyAction => {
+  const { newsrooms }: StateWithNewsroom = getState();
+  const charter = (newsrooms.get(newsroomAddress) || {}).charter || {};
+  let roster = charter.roster || [];
+  if (findIndex(roster, member => member.ethAddress === address) === -1) {
+    roster = roster.concat(makeUserObject(address, userData).rosterData as RosterMember);
+    dispatch(
+      updateCharter(newsroomAddress, {
+        ...charter,
+        roster,
+      }),
+    );
+  }
+
+  return dispatch({
     type: userActions.ADD_USER,
     data: {
       address,
-      name,
+      userData,
     },
-  };
+  });
 };
 
 export const addConstitutionUri = (uri: string): AnyAction => {

@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { findIndex } from "lodash";
 import styled from "styled-components";
+import { isValidAddress } from "ethereumjs-util";
 import { colors, StepHeader, StepProps, StepDescription, QuestionToolTip } from "@joincivil/components";
 import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
@@ -17,7 +18,7 @@ import {
   StyledTextareaInput,
 } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
-import { makeUserObject } from "./utils";
+import { getUserObject } from "./utils";
 import { UserData } from "./types";
 
 export interface CreateCharterPartOneExternalProps extends StepProps {
@@ -29,6 +30,10 @@ export interface CreateCharterPartOneExternalProps extends StepProps {
 export interface CreateCharterPartOneProps extends CreateCharterPartOneExternalProps {
   owners: UserData[];
   editors: UserData[];
+}
+
+export interface CreateCharterPartOneState {
+  newUser?: Partial<UserData>;
 }
 
 const LogoFormWrap = styled.div`
@@ -79,9 +84,13 @@ const AddRosterMember = styled.a`
   box-shadow: none !important;
 `;
 
-class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOneProps & DispatchProp<any>> {
+class CreateCharterPartOneComponent extends React.Component<
+  CreateCharterPartOneProps & DispatchProp<any>,
+  CreateCharterPartOneState
+> {
   constructor(props: CreateCharterPartOneProps) {
     super(props);
+    this.state = {};
   }
 
   public render(): JSX.Element {
@@ -124,7 +133,7 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
                   invalidMessage={"Invalid URL"}
                 />
               </LogoURLWrap>
-              <LogoImgWrap>{this.props.charter.logoUrl && <LogoImg src={this.props.charter.logoUrl} />}</LogoImgWrap>
+              <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
             </LogoFormWrap>
             <HelperText style={{ marginTop: 4 }}>Must be image URL</HelperText>
           </div>
@@ -198,7 +207,6 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
                 onRoster={true}
                 onContract={findIndex(contractUsers, user => user.rosterData.ethAddress === member.ethAddress) !== -1}
                 updateRosterMember={this.rosterMemberUpdate}
-                newUser={!member.ethAddress}
               />
             );
           })}
@@ -214,9 +222,21 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
               />
             );
           })}
-          <AddRosterMember href="#" onClick={this.addRosterMember}>
-            Add Additional Roster Member
-          </AddRosterMember>
+          {this.state.newUser ? (
+            <RosterMember
+              newsroomAddress={this.props.address!}
+              key={"new"}
+              user={this.state.newUser as any}
+              onRoster={true}
+              onContract={false}
+              updateRosterMember={this.rosterMemberUpdate}
+              newUser={true}
+            />
+          ) : (
+            <AddRosterMember href="#" onClick={this.addRosterMember}>
+              Add Additional Roster Member
+            </AddRosterMember>
+          )}
         </FormSection>
       </>
     );
@@ -241,18 +261,25 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
-    const newMember: RosterMemberInterface = {} as any;
-    this.props.updateCharter({
-      ...this.props.charter,
-      roster: (this.props.charter.roster || []).concat(newMember),
-    });
+    this.setState({ newUser: { rosterData: {} } });
   };
 
   private rosterMemberUpdate = (onRoster: boolean, member: Partial<RosterMemberInterface>, newUser?: boolean) => {
+    if (newUser) {
+      if (member.ethAddress && isValidAddress(member.ethAddress)) {
+        // new member ready to go, clear state for another new member and continue to adding to roster
+        this.setState({ newUser: undefined });
+      } else {
+        // unsaved new member
+        this.setState({ newUser: { rosterData: member } });
+        return;
+      }
+    }
+
     let roster = (this.props.charter.roster || []).slice();
     let memberIndex;
     if (newUser) {
-      memberIndex = findIndex(roster, rosterMember => rosterMember.ethAddress === undefined);
+      memberIndex = -1;
     } else {
       memberIndex = findIndex(roster, rosterMember => rosterMember.ethAddress === member.ethAddress);
     }
@@ -288,8 +315,8 @@ const mapStateToProps = (
   ownProps: CreateCharterPartOneExternalProps,
 ): CreateCharterPartOneProps => {
   const newsroom = state.newsrooms.get(ownProps.address || "") || { wrapper: { data: {} } };
-  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(makeUserObject.bind(null, state));
-  const editors: UserData[] = (newsroom.editors || []).map(makeUserObject.bind(null, state));
+  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(getUserObject.bind(null, state));
+  const editors: UserData[] = (newsroom.editors || []).map(getUserObject.bind(null, state));
 
   return {
     ...ownProps,

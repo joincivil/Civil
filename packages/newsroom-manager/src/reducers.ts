@@ -68,10 +68,6 @@ export function newsrooms(
         ...state.get(action.data.address),
         isEditor: action.data.isEditor,
       });
-    case newsroomActions.UPDATE_CHARTER:
-      newsroom = state.get(action.data.address) || {};
-      newsroom.charter = action.data.charter;
-      return state.set(action.data.address, newsroom);
     default:
       return state;
   }
@@ -94,7 +90,7 @@ export function newsroomUsers(
 ): Map<EthAddress, CmsUserData> {
   switch (action.type) {
     case userActions.ADD_USER:
-      return state.set(action.data.address, action.data.name);
+      return state.set(action.data.address, action.data.userData);
     default:
       return state;
   }
