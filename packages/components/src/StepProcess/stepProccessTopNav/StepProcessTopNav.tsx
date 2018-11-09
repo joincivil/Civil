@@ -49,6 +49,7 @@ const ButtonSection = styled.div`
 
 export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTopNavState> {
   public buttonContainer?: HTMLDivElement;
+  public navContainer?: HTMLDivElement;
 
   constructor(props: StepsProps) {
     super(props);
@@ -108,7 +109,7 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
   public render(): JSX.Element {
     return (
       <div>
-        <StyledNav>
+        <StyledNav innerRef={el => (this.navContainer = el)}>
           <StyledContainer>{this.renderTabs()}</StyledContainer>
         </StyledNav>
         <MainSection>{this.renderContent()}</MainSection>
@@ -121,7 +122,14 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
     this.setState({ startPosition: position });
   };
 
+  private scrollToTop = (): void => {
+    if (this.navContainer) {
+      this.navContainer.scrollIntoView(true);
+    }
+  };
+
   private goNext = (): void => {
+    this.scrollToTop();
     const newIndex = this.state.activeIndex + 1;
     if (this.props.onActiveTabChange) {
       this.props.onActiveTabChange(newIndex);
@@ -130,6 +138,7 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
   };
 
   private goPrevious = (): void => {
+    this.scrollToTop();
     const newIndex = this.state.activeIndex - 1;
     if (this.props.onActiveTabChange) {
       this.props.onActiveTabChange(newIndex);
