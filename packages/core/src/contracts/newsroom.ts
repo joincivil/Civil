@@ -905,7 +905,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
 
   public async approveByAuthorPersonalSign(contentHash: Hex): Promise<ApprovedRevision> {
     const author = await requireAccount(this.ethApi).toPromise();
-    const message = prepareUserFriendlyNewsroomMessage(this.address, contentHash);
+    const name = await this.getName();
+    const message = prepareUserFriendlyNewsroomMessage(this.address, contentHash, name);
     const { signature } = await this.ethApi.signMessage(message, author);
     const date = new Date().toISOString();
     return {

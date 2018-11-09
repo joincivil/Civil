@@ -28,8 +28,14 @@ export function prepareNewsroomMessage(newsroomAddress: EthAddress, contentHash:
   return soliditySha3(["address", "bytes32"], [newsroomAddress, contentHash]);
 }
 
-export function prepareUserFriendlyNewsroomMessage(newsroomAddress: EthAddress, contentHash: Hex): string {
-  return `I authorize this newsroom to publish this post and verify its content.\n\nNewsroom address:\n${newsroomAddress}\n\nPost content hash:\n${contentHash}`;
+export function prepareUserFriendlyNewsroomMessage(
+  newsroomAddress: EthAddress,
+  contentHash: Hex,
+  name?: string,
+): string {
+  return `I authorize ${
+    name ? name : "this newsroom"
+  } to publish this post and verify its content.\n\nNewsroom address:\n${newsroomAddress}\n\nPost content hash:\n${contentHash}`;
 }
 
 export function prepareConstitutionSignMessage(newsroomAddress: EthAddress, constitutionHash: Hex): string {
