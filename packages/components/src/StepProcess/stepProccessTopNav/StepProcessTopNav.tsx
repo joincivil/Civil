@@ -109,7 +109,7 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
   public render(): JSX.Element {
     return (
       <div>
-        <StyledNav innerRef={el => this.navContainer = el}>
+        <StyledNav innerRef={el => (this.navContainer = el)}>
           <StyledContainer>{this.renderTabs()}</StyledContainer>
         </StyledNav>
         <MainSection>{this.renderContent()}</MainSection>
@@ -126,7 +126,7 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
     if (this.navContainer) {
       this.navContainer.scrollIntoView(true);
     }
-  }
+  };
 
   private goNext = (): void => {
     this.scrollToTop();
