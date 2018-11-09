@@ -7,9 +7,10 @@ import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { State } from "../../redux/reducers";
+import { NewsroomListing } from "@joincivil/core";
 
 export interface WhitelistedListingsListReduxReduxProps {
-  whitelistedListings: Set<string>;
+  whitelistedListings: Set<NewsroomListing>;
 }
 
 class WhitelistedListingListRedux extends React.Component<WhitelistedListingsListReduxReduxProps> {
@@ -25,10 +26,18 @@ class WhitelistedListingListRedux extends React.Component<WhitelistedListingsLis
 }
 
 const mapStateToProps = (state: State): WhitelistedListingsListReduxReduxProps => {
-  const { whitelistedListings } = state.networkDependent;
-
+  const { whitelistedListings, listings } = state.networkDependent;
+  const { newsrooms } = state;
+  const whitelistedNewsroomListings = whitelistedListings
+    .map(l => {
+      return {
+        newsroom: newsrooms.get(l!).wrapper,
+        listing: listings.get(l!).listing,
+      };
+    })
+    .toSet();
   return {
-    whitelistedListings,
+    whitelistedListings: whitelistedNewsroomListings,
   };
 };
 

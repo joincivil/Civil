@@ -8,6 +8,12 @@ import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import { NewsroomListing } from "@joincivil/core";
+import {
+  LISTING_FRAGMENT,
+  transformGraphQLDataIntoListing,
+  transformGraphQLDataIntoNewsroom,
+} from "../../helpers/queryTransformations";
 
 export interface WhitelistedListingsListContainerReduxProps {
   useGraphQL: boolean;
@@ -15,9 +21,10 @@ export interface WhitelistedListingsListContainerReduxProps {
 const LISTINGS_QUERY = gql`
   query($whitelistedOnly: Boolean!) {
     listings(whitelistedOnly: $whitelistedOnly) {
-      contractAddress
+      ...ListingFragment
     }
   }
+  ${LISTING_FRAGMENT}
 `;
 class WhitelistedListingListContainer extends React.Component<WhitelistedListingsListContainerReduxProps> {
   public render(): JSX.Element {
@@ -31,9 +38,12 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
             if (error) {
               return <p>Error :</p>;
             }
-            const map = Set<string>(
+            const map = Set<NewsroomListing>(
               data.listings.map((listing: any) => {
-                return listing.contractAddress.toLowerCase();
+                return {
+                  listing: transformGraphQLDataIntoListing(listing, listing.contractAddress),
+                  newsroom: transformGraphQLDataIntoNewsroom(listing, listing.contractAddress),
+                };
               }),
             );
 

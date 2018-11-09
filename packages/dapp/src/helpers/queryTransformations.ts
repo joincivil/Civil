@@ -1,79 +1,112 @@
-import { ListingWrapper, NewsroomWrapper, ChallengeData } from "@joincivil/core";
+import { ListingWrapper, NewsroomWrapper, ChallengeData, AppealData, AppealChallengeData } from "@joincivil/core";
 import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 import gql from "graphql-tag";
 
-export const LISTING_QUERY = gql`
-  query($addr: String!) {
-    listing(addr: $addr) {
-      name
-      owner
-      ownerAddresses
-      whitelisted
-      charter {
-        uri
-        contentID
-        revisionID
-        signature
-        author
-        contentHash
-        timestamp
-      }
-      unstakedDeposit
-      appExpiry
-      approvalDate
+export const LISTING_FRAGMENT = gql`
+  fragment ListingFragment on Listing {
+    name
+    owner
+    ownerAddresses
+    whitelisted
+    lastGovState
+    charter {
+      uri
+      contentID
+      revisionID
+      signature
+      author
+      contentHash
+      timestamp
+    }
+    unstakedDeposit
+    appExpiry
+    approvalDate
+    challengeID
+    challenge {
       challengeID
-      challenge {
-        challengeID
-        listingAddress
+      listingAddress
+      statement
+      rewardPool
+      challenger
+      resolved
+      stake
+      totalTokens
+      poll {
+        commitEndDate
+        revealEndDate
+        voteQuorum
+        votesFor
+        votesAgainst
+      }
+      requestAppealExpiry
+      lastUpdatedDateTs
+      appeal {
+        requester
+        appealFeePaid
+        appealPhaseExpiry
+        appealGranted
+        appealOpenToChallengeExpiry
         statement
-        rewardPool
-        challenger
-        resolved
-        stake
-        totalTokens
-        poll {
-          commitEndDate
-          revealEndDate
-          voteQuorum
-          votesFor
-          votesAgainst
+        appealChallengeID
+        appealChallenge {
+          challengeID
+          statement
+          rewardPool
+          challenger
+          resolved
+          stake
+          totalTokens
+          poll {
+            commitEndDate
+            revealEndDate
+            voteQuorum
+            votesFor
+            votesAgainst
+          }
         }
-        requestAppealExpiry
-        lastUpdatedDateTs
       }
     }
   }
 `;
 
-export function transformGraphQLDataIntoNewsroom(queryData: any, listingAddress: string): NewsroomWrapper {
+export const LISTING_QUERY = gql`
+  query($addr: String!) {
+    listing(addr: $addr) {
+      ...ListingFragment
+    }
+  }
+  ${LISTING_FRAGMENT}
+`;
+
+export function transformGraphQLDataIntoNewsroom(listing: any, listingAddress: string): NewsroomWrapper {
   return {
     address: listingAddress,
     data: {
-      name: queryData.listing.name,
-      owners: queryData.listing.ownerAddresses,
+      name: listing.name,
+      owners: listing.ownerAddresses,
       charterHeader: {
-        contentId: queryData.listing.charter.contentID,
-        revisionId: queryData.listing.charter.revisionID,
-        timestamp: new Date(queryData.listing.charter.timestamp),
-        uri: queryData.listing.charter.uri,
-        contentHash: queryData.listing.charter.contentHash,
-        author: queryData.listing.charter.author,
-        signature: queryData.listing.charter.signature,
+        contentId: listing.charter.contentID,
+        revisionId: listing.charter.revisionID,
+        timestamp: new Date(listing.charter.timestamp),
+        uri: listing.charter.uri,
+        contentHash: listing.charter.contentHash,
+        author: listing.charter.author,
+        signature: listing.charter.signature,
         verifySignature: () => true,
       },
     },
   };
 }
-export function transformGraphQLDataIntoListing(queryData: any, listingAddress: string): ListingWrapper {
+export function transformGraphQLDataIntoListing(listing: any, listingAddress: string): ListingWrapper {
   return {
     address: listingAddress,
     data: {
-      appExpiry: new BigNumber(queryData.listing.appExpiry),
-      isWhitelisted: queryData.listing.whitelisted,
-      owner: queryData.listing.owner,
-      unstakedDeposit: new BigNumber(queryData.listing.unstakedDeposit),
-      challengeID: new BigNumber(queryData.listing.challengeID),
-      challenge: transformGraphQLDataIntoChallenge(queryData.listing.challenge),
+      appExpiry: new BigNumber(listing.appExpiry),
+      isWhitelisted: listing.whitelisted,
+      owner: listing.owner,
+      unstakedDeposit: new BigNumber(listing.unstakedDeposit),
+      challengeID: new BigNumber(listing.challengeID),
+      challenge: transformGraphQLDataIntoChallenge(listing.challenge),
     },
   };
 }
@@ -81,7 +114,7 @@ export function transformGraphQLDataIntoListing(queryData: any, listingAddress: 
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
   if (queryChallengeData) {
     return {
-      statement: queryChallengeData.statement,
+      statement: "",
       rewardPool: new BigNumber(queryChallengeData.rewardPool),
       challenger: queryChallengeData.challenger,
       resolved: queryChallengeData.resolved,
@@ -95,16 +128,47 @@ export function transformGraphQLDataIntoChallenge(queryChallengeData: any): Chal
         votesAgainst: new BigNumber(queryChallengeData.poll.votesAgainst),
       },
       requestAppealExpiry: new BigNumber(queryChallengeData.requestAppealExpiry),
-      appeal: {
-        requester: "0x0",
-        appealFeePaid: new BigNumber(0),
-        appealPhaseExpiry: new BigNumber(0),
-        appealGranted: false,
-        appealOpenToChallengeExpiry: new BigNumber(0),
-        appealChallengeID: new BigNumber(0),
-        appealTxData: undefined,
-        appealChallenge: undefined,
-        statement: undefined,
+      appeal: transformGraphQLDataIntoAppeal(queryChallengeData.appeal),
+    };
+  } else {
+    return undefined;
+  }
+}
+
+export function transformGraphQLDataIntoAppeal(queryAppealData: any): AppealData | undefined {
+  if (queryAppealData) {
+    return {
+      requester: queryAppealData.requester,
+      appealFeePaid: new BigNumber(queryAppealData.appealFeePaid),
+      appealPhaseExpiry: new BigNumber(queryAppealData.appealPhaseExpiry),
+      appealGranted: queryAppealData.appealGranted,
+      appealOpenToChallengeExpiry: new BigNumber(queryAppealData.appealOpenToChallengeExpiry),
+      appealChallengeID: new BigNumber(queryAppealData.appealChallengeID),
+      appealTxData: undefined,
+      appealChallenge: transformGraphQLDataIntoAppealChallenge(queryAppealData.appealChallenge),
+      statement: "",
+    };
+  } else {
+    return undefined;
+  }
+}
+
+export function transformGraphQLDataIntoAppealChallenge(
+  queryAppealChallengeData: any,
+): AppealChallengeData | undefined {
+  if (queryAppealChallengeData) {
+    return {
+      rewardPool: new BigNumber(queryAppealChallengeData.rewardPool),
+      challenger: queryAppealChallengeData.challenger,
+      resolved: queryAppealChallengeData.resolved,
+      stake: new BigNumber(queryAppealChallengeData.stake),
+      totalTokens: new BigNumber(queryAppealChallengeData.totalTokens),
+      poll: {
+        commitEndDate: new BigNumber(queryAppealChallengeData.poll.commitEndDate),
+        revealEndDate: new BigNumber(queryAppealChallengeData.poll.revealEndDate),
+        voteQuorum: new BigNumber(queryAppealChallengeData.poll.voteQuorum),
+        votesFor: new BigNumber(queryAppealChallengeData.poll.votesFor),
+        votesAgainst: new BigNumber(queryAppealChallengeData.poll.votesAgainst),
       },
     };
   } else {

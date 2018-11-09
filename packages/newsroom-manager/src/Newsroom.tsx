@@ -215,9 +215,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   }
 
-  public render(): JSX.Element {
+  public renderManager(): JSX.Element | null {
+    if (!hasInjectedProvider()) {
+      return null;
+    }
     const disabled = this.isDisabled();
-    const manager = (
+    return (
       <>
         {this.props.userNotOnContract && (
           <ErrorP>
@@ -350,7 +353,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         </CivilContext.Provider>
       </>
     );
+  }
 
+  public render(): JSX.Element {
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
@@ -373,7 +378,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             />
           )}
 
-          {manager}
+          {this.renderManager()}
         </Wrapper>
       </ThemeProvider>
     );
