@@ -7,6 +7,7 @@ export interface ToolTipProps {
   explainerText: React.ReactNode;
   disabled?: boolean;
   positionBottom?: boolean;
+  positionXCenter?: boolean;
 }
 
 export interface ToolTipState {
@@ -15,12 +16,13 @@ export interface ToolTipState {
 
 export interface TipProps {
   positionBottom?: boolean;
+  positionXCenter?: boolean;
 }
 
 const TipContainer = styled.div`
   position: absolute;
   top: 0;
-  left: -133px;
+  left: ${(props: TipProps) => (props.positionXCenter ? "-3px" : "-133px")};
   height: 0;
 `;
 
@@ -82,7 +84,7 @@ export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {
     let hitBox = null;
     if (this.state.open) {
       tip = (
-        <TipContainer>
+        <TipContainer positionXCenter={this.props.positionXCenter}>
           <Tip positionBottom={this.props.positionBottom}>{this.props.explainerText}</Tip>
         </TipContainer>
       );
