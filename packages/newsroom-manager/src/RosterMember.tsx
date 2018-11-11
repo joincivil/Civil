@@ -153,10 +153,10 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
               name="bio"
               value={user.rosterData.bio}
               onChange={this.rosterInputChange}
-              invalid={!!user.rosterData.bio && user.rosterData.bio.length > 120}
+              invalid={!!user.rosterData.bio && user.rosterData.bio.length > 1000}
               invalidMessage={"Too long"}
             />
-            <HelperText>Maximum of 120 characters</HelperText>
+            <HelperText>Maximum of 1000 characters</HelperText>
           </>
         )}
       </Wrapper>
