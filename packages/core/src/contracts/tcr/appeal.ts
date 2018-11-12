@@ -3,8 +3,7 @@ import * as Debug from "debug";
 import { EthApi } from "@joincivil/ethapi";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
-import { ContentProvider } from "../../content/contentprovider";
-import { AppealData, ContentData } from "../../types";
+import { AppealData } from "../../types";
 import { AppealChallenge } from "./appealChallenge";
 import { EthAddress } from "@joincivil/typescript-types";
 
@@ -13,21 +12,13 @@ const debug = Debug("civil:appeal");
 export class Appeal {
   private ethApi: EthApi;
   private tcrInstance: CivilTCRContract;
-  private contentProvider: ContentProvider;
   private challengeId: BigNumber;
   private listingAddress: EthAddress;
 
-  constructor(
-    ethApi: EthApi,
-    instance: CivilTCRContract,
-    challengeId: BigNumber,
-    listingAddress: EthAddress,
-    contentProvider: ContentProvider,
-  ) {
+  constructor(ethApi: EthApi, instance: CivilTCRContract, challengeId: BigNumber, listingAddress: EthAddress) {
     this.ethApi = ethApi;
     this.tcrInstance = instance;
     this.challengeId = challengeId;
-    this.contentProvider = contentProvider;
     this.listingAddress = listingAddress;
   }
 

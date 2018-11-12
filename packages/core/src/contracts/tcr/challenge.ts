@@ -1,33 +1,21 @@
 import { EthApi } from "@joincivil/ethapi";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
-import * as Debug from "debug";
-import { ContentProvider } from "../../content/contentprovider";
 import { ChallengeData, EthAddress } from "../../types";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Appeal } from "./appeal";
 import { Voting } from "./voting";
 
-const debug = Debug("civil:challenge");
-
 export class Challenge {
   private ethApi: EthApi;
   private tcrInstance: CivilTCRContract;
-  private contentProvider: ContentProvider;
   private challengeId: BigNumber;
   private voting: Promise<Voting>;
   private listingAddress?: EthAddress;
 
-  constructor(
-    ethApi: EthApi,
-    instance: CivilTCRContract,
-    contentProvider: ContentProvider,
-    challengeId: BigNumber,
-    listingAddress?: EthAddress,
-  ) {
+  constructor(ethApi: EthApi, instance: CivilTCRContract, challengeId: BigNumber, listingAddress?: EthAddress) {
     this.ethApi = ethApi;
     this.tcrInstance = instance;
-    this.contentProvider = contentProvider;
     this.challengeId = challengeId;
     this.listingAddress = listingAddress;
     this.voting = Voting.singleton(ethApi);
@@ -47,13 +35,7 @@ export class Challenge {
     if (!listingAddress) {
       listingAddress = await this.getListingIdForChallenge();
     }
-    const appealInstance = new Appeal(
-      this.ethApi,
-      this.tcrInstance,
-      this.challengeId,
-      listingAddress,
-      this.contentProvider,
-    );
+    const appealInstance = new Appeal(this.ethApi, this.tcrInstance, this.challengeId, listingAddress);
     const appeal = await appealInstance.getAppealData();
 
     return {
