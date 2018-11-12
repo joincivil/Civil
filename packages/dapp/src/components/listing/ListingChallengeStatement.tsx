@@ -150,7 +150,7 @@ const mapToStateToProps = (
   if (challenge) {
     challengeStatement = content.get(challenge.challenge.challengeStatementURI!);
 
-    if (challenge.challenge.appeal && challenge.challenge.appeal) {
+    if (challenge.challenge.appeal) {
       appealStatement = content.get(challenge.challenge.appeal.appealStatementURI!);
     }
   }
