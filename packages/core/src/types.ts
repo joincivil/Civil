@@ -201,7 +201,7 @@ export interface AppealData {
   appealChallengeID: BigNumber;
   appealTxData?: TxDataAll;
   appealChallenge?: AppealChallengeData;
-  statement?: ContentData;
+  appealStatementURI?: string;
 }
 
 /**
@@ -214,6 +214,7 @@ export interface AppealChallengeData {
   stake: BigNumber;
   totalTokens: BigNumber;
   poll: PollData;
+  appealChallengeStatementURI?: string;
 }
 
 export type PollID = BigNumber;

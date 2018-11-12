@@ -34,20 +34,14 @@ class ListingChallengeStatement extends React.Component<
     super(props);
   }
   public async componentDidMount(): Promise<void> {
-    const { listing } = this.props;
-    if (listing && listing.data.challenge) {
-      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
-    }
+    await this.getContents();
   }
 
   public async componentDidUpdate(
     prevProps: ListingChallengeStatementProps & ListingChallengeStatementReduxProps,
   ): Promise<void> {
     if (prevProps.listing !== this.props.listing) {
-      const { listing } = this.props;
-      if (listing && listing.data.challenge) {
-        this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
-      }
+      await this.getContents();
     }
   }
 
@@ -58,6 +52,17 @@ class ListingChallengeStatement extends React.Component<
         {this.renderAppealStatement()}
       </>
     );
+  }
+
+  private async getContents(): Promise<void> {
+    const { listing } = this.props;
+    if (listing && listing.data.challenge) {
+      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      const { challenge } = listing.data;
+      if (challenge.appeal) {
+        this.props.dispatch!(await getBareContent(challenge.appeal.appealStatementURI!));
+      }
+    }
   }
 
   private renderAppealStatement = (): JSX.Element => {
@@ -145,8 +150,8 @@ const mapToStateToProps = (
   if (challenge) {
     challengeStatement = content.get(challenge.challenge.challengeStatementURI!);
 
-    if (challenge.challenge.appeal && challenge.challenge.appeal.statement) {
-      appealStatement = challenge.challenge.appeal.statement;
+    if (challenge.challenge.appeal && challenge.challenge.appeal) {
+      appealStatement = content.get(challenge.challenge.appeal.appealStatementURI!);
     }
   }
   return {

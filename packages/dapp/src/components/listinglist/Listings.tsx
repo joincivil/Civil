@@ -36,6 +36,7 @@ export interface ListingReduxProps {
 
 class Listings extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
+    console.log("listings 0");
     const { listingType } = this.props.match.params;
     let activeIndex = 0;
     let hero;

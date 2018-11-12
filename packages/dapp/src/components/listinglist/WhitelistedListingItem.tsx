@@ -58,7 +58,8 @@ class WhitelistedListingItem extends React.Component<
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
     const appeal = challenge && challenge.appeal;
-    const appealStatementSummary = appeal && appeal.statement && JSON.parse(appeal.statement as string).summary;
+    const appealStatementSummary =
+      this.props.appealStatement && JSON.parse(this.props.appealStatement as string).summary;
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
@@ -104,13 +105,23 @@ const makeMapStateToProps = () => {
     const { content } = state.networkDependent;
     const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
     let charter;
+    let challengeStatement;
+    let appealStatement;
     if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
       charter = content.get(ownProps.newsroom.data.charterHeader.uri);
+    }
+    if (ownProps.listing && ownProps.listing.data.challenge) {
+      challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
+      if (ownProps.listing.data.challenge.appeal) {
+        appealStatement = content.get(ownProps.listing.data.challenge.appeal.appealStatementURI!);
+      }
     }
     return {
       listingPhaseState: getListingPhaseState(ownProps.listing),
       whitelistedTimestamp,
       charter,
+      challengeStatement,
+      appealStatement,
       ...ownProps,
     };
   };

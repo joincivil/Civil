@@ -45,7 +45,7 @@ export class Appeal {
       const appealChallengeInstance = new AppealChallenge(this.ethApi, this.tcrInstance, appealChallengeID);
       appealChallenge = await appealChallengeInstance.getAppealChallengeData();
     }
-    const statement = await this.getAppealStatement();
+    const appealStatementURI = await this.getAppealURI();
     const appealTxData = await this.tcrInstance.grantAppeal.getRaw(this.listingAddress, "", { gas: 0 });
     return {
       requester,
@@ -56,11 +56,11 @@ export class Appeal {
       appealChallengeID,
       appealTxData,
       appealChallenge,
-      statement,
+      appealStatementURI,
     };
   }
 
-  private async getAppealURI(): Promise<EthAddress | undefined> {
+  private async getAppealURI(): Promise<string | undefined> {
     const currentBlock = await this.ethApi.getLatestBlockNumber();
 
     try {
@@ -76,6 +76,11 @@ export class Appeal {
       debug(`Getting AppealURI failed for ChallengeID: ${this.challengeId}`, e);
       return;
     }
+  }
+
+  private async getAppealStatementURI(): Promise<string | undefined> {
+    const uri = await this.getAppealURI();
+    return uri;
   }
 
   private async getAppealStatement(): Promise<ContentData | undefined> {

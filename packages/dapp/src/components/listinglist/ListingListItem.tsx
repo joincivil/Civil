@@ -24,6 +24,7 @@ export interface ListingListItemReduxProps {
   listingPhaseState?: any;
   charter?: any;
   challengeStatement?: any;
+  appealStatement?: any;
 }
 
 class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
@@ -85,7 +86,6 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
     const challengeID = challenge && listingData.challengeID.toString();
-    console.log("this.props.challengeStatement: ", this.props.challengeStatement);
     let challengeStatementSummary;
     if (this.props.challengeStatement) {
       try {
@@ -101,7 +101,8 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     }
 
     const appeal = challenge && challenge.appeal;
-    const appealStatementSummary = appeal && appeal.statement && JSON.parse(appeal.statement as string).summary;
+    const appealStatementSummary =
+      this.props.appealStatement && JSON.parse(this.props.appealStatement as string).summary;
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
@@ -174,16 +175,21 @@ const mapStateToProps = (
   const { content } = state.networkDependent;
   let charter;
   let challengeStatement;
+  let appealStatement;
   if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
     charter = content.get(ownProps.newsroom.data.charterHeader.uri);
   }
   if (ownProps.listing && ownProps.listing.data.challenge) {
     challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
+    if (ownProps.listing.data.challenge.appeal) {
+      appealStatement = content.get(ownProps.listing.data.challenge.appeal.appealStatementURI!);
+    }
   }
   return {
     listingPhaseState: getListingPhaseState(ownProps.listing),
     charter,
     challengeStatement,
+    appealStatement,
     ...ownProps,
   };
 };
