@@ -3,7 +3,6 @@ declare module "*.json" {
   export default value;
 }
 
-declare module "@joincivil/editor";
 declare module "slate";
 declare module "sort-by";
 declare module "react-ellipsis-text";
