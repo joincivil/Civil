@@ -13,7 +13,7 @@ import { Newsroom } from "./contracts/newsroom";
 import { UserGroups } from "./contracts/proof-of-use/usergroups";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
-import { ContentData, EthContentHeader } from "./types";
+import { ContentData, StorageHeader } from "./types";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -232,12 +232,25 @@ export class Civil {
     return uri;
   }
 
-  public async getContent(header: EthContentHeader): Promise<ContentData | undefined> {
+  public async getContent(header: StorageHeader): Promise<ContentData | undefined> {
     try {
       const content = await this.contentProvider.get(header);
       return content;
     } catch (e) {
       debug(`Resolving Content failed for EthContentHeader: ${header}`, e);
+      return;
+    }
+  }
+
+  public async getBareContent(uri: string): Promise<ContentData | undefined> {
+    try {
+      const content = await this.contentProvider.get({
+        uri,
+        contentHash: "",
+      });
+      return content;
+    } catch (e) {
+      debug(`Resolving Content failed for uri: ${uri}`, e);
       return;
     }
   }

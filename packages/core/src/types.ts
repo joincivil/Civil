@@ -34,7 +34,7 @@ export interface StorageHeader {
   /**
    * Normalized content schema hashed using keccak256 algorithm
    */
-  contentHash: Hex;
+  contentHash?: Hex;
 }
 
 export interface SignedContentHeader {
@@ -44,9 +44,9 @@ export interface SignedContentHeader {
 }
 
 export interface BaseContentHeader extends StorageHeader {
-  contentId: ContentId;
+  contentId?: ContentId;
   revisionId?: RevisionId;
-  timestamp: Date;
+  timestamp?: Date;
 }
 
 export interface EthContentHeader extends BaseContentHeader, SignedContentHeader {
@@ -166,7 +166,7 @@ export interface WrappedChallengeData {
  * The data associated with a Challenge
  */
 export interface ChallengeData {
-  statement?: ContentData;
+  challengeStatementURI?: string;
   rewardPool: BigNumber;
   challenger: EthAddress;
   resolved: boolean;
@@ -201,7 +201,7 @@ export interface AppealData {
   appealChallengeID: BigNumber;
   appealTxData?: TxDataAll;
   appealChallenge?: AppealChallengeData;
-  statement?: ContentData;
+  appealStatementURI?: string;
 }
 
 /**
@@ -214,6 +214,7 @@ export interface AppealChallengeData {
   stake: BigNumber;
   totalTokens: BigNumber;
   poll: PollData;
+  appealChallengeStatementURI?: string;
 }
 
 export type PollID = BigNumber;

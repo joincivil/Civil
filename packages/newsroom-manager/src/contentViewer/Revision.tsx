@@ -128,7 +128,7 @@ class RevisionComponent extends React.Component<RevisionProps & DispatchProp<any
           </Tr>
           <Tr>
             <Td>block number: {this.props.revision.blockNumber}</Td>
-            <Td>time stamp: {this.props.revision.timestamp.toDateString()}</Td>
+            <Td>time stamp: {this.props.revision.timestamp!.toDateString()}</Td>
           </Tr>
           <Tr>
             <Td>transaction hash: {this.props.revision.transactionHash}</Td>
@@ -140,7 +140,7 @@ class RevisionComponent extends React.Component<RevisionProps & DispatchProp<any
   }
   private onClick = (): void => {
     this.props.dispatch!(
-      fetchRevisionJson(this.props.revision.uri, this.props.revision.contentId, this.props.revision.revisionId!),
+      fetchRevisionJson(this.props.revision.uri, this.props.revision.contentId!, this.props.revision.revisionId!),
     );
   };
 }

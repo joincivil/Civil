@@ -114,7 +114,7 @@ export function transformGraphQLDataIntoListing(listing: any, listingAddress: st
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
   if (queryChallengeData) {
     return {
-      statement: "",
+      challengeStatementURI: queryChallengeData.statement,
       rewardPool: new BigNumber(queryChallengeData.rewardPool),
       challenger: queryChallengeData.challenger,
       resolved: queryChallengeData.resolved,
@@ -146,7 +146,7 @@ export function transformGraphQLDataIntoAppeal(queryAppealData: any): AppealData
       appealChallengeID: new BigNumber(queryAppealData.appealChallengeID),
       appealTxData: undefined,
       appealChallenge: transformGraphQLDataIntoAppealChallenge(queryAppealData.appealChallenge),
-      statement: "",
+      appealStatementURI: queryAppealData.statement,
     };
   } else {
     return undefined;
@@ -170,6 +170,7 @@ export function transformGraphQLDataIntoAppealChallenge(
         votesFor: new BigNumber(queryAppealChallengeData.poll.votesFor),
         votesAgainst: new BigNumber(queryAppealChallengeData.poll.votesAgainst),
       },
+      appealChallengeStatementURI: queryAppealChallengeData.statement,
     };
   } else {
     return undefined;

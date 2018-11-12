@@ -1,7 +1,7 @@
 import { Set, Map } from "immutable";
 import { AnyAction } from "redux";
 import { newsroomActions } from "../actionCreators/newsrooms";
-import { EthContentHeader, ContentData } from "@joincivil/core";
+import { StorageHeader, ContentData } from "@joincivil/core";
 
 export function currentUserNewsrooms(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {
@@ -13,9 +13,9 @@ export function currentUserNewsrooms(state: Set<string> = Set<string>(), action:
 }
 
 export function contentFetched(
-  state: Set<EthContentHeader> = Set<EthContentHeader>(),
+  state: Set<StorageHeader> = Set<StorageHeader>(),
   action: AnyAction,
-): Set<EthContentHeader> {
+): Set<StorageHeader> {
   switch (action.type) {
     case newsroomActions.FETCH_CONTENT:
       return state.add(action.data);

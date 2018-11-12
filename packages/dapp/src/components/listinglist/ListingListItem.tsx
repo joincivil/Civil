@@ -8,7 +8,7 @@ import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joinc
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
-import { getContent } from "../../redux/actionCreators/newsrooms";
+import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -23,6 +23,8 @@ export interface ListingListItemOwnProps {
 export interface ListingListItemReduxProps {
   listingPhaseState?: any;
   charter?: any;
+  challengeStatement?: any;
+  appealStatement?: any;
 }
 
 class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
@@ -30,7 +32,21 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     if (this.props.newsroom) {
       this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
     }
+    const { listing } = this.props;
+    if (listing && listing.data.challenge) {
+      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+    }
   }
+
+  public async componentDidUpdate(prevProps: ListingListItemOwnProps & ListingListItemReduxProps): Promise<void> {
+    if (prevProps.listing !== this.props.listing) {
+      const { listing } = this.props;
+      if (listing && listing.data.challenge) {
+        this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      }
+    }
+  }
+
   public render(): JSX.Element {
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
@@ -70,11 +86,25 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
     const challengeID = challenge && listingData.challengeID.toString();
-    const challengeStatementSummary =
-      challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
+    let challengeStatementSummary;
+    if (this.props.challengeStatement) {
+      try {
+        challengeStatementSummary = JSON.parse(this.props.challengeStatement as string).summary;
+      } catch (ex) {
+        // TODO: clean this up once new charter format is in
+        console.log("something bad: ", ex);
+        try {
+          challengeStatementSummary = this.props.challengeStatement.summary;
+        } catch (ex1) {
+          // TODO: clean this up once new charter format is in
+          console.log("something worse: ", ex1);
+        }
+      }
+    }
 
     const appeal = challenge && challenge.appeal;
-    const appealStatementSummary = appeal && appeal.statement && JSON.parse(appeal.statement as string).summary;
+    const appealStatementSummary =
+      this.props.appealStatement && JSON.parse(this.props.appealStatement as string).summary;
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
@@ -146,12 +176,22 @@ const mapStateToProps = (
 ): ListingListItemReduxProps & ListingListItemOwnProps => {
   const { content } = state.networkDependent;
   let charter;
+  let challengeStatement;
+  let appealStatement;
   if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
     charter = content.get(ownProps.newsroom.data.charterHeader.uri);
+  }
+  if (ownProps.listing && ownProps.listing.data.challenge) {
+    challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
+    if (ownProps.listing.data.challenge.appeal) {
+      appealStatement = content.get(ownProps.listing.data.challenge.appeal.appealStatementURI!);
+    }
   }
   return {
     listingPhaseState: getListingPhaseState(ownProps.listing),
     charter,
+    challengeStatement,
+    appealStatement,
     ...ownProps,
   };
 };

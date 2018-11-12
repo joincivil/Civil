@@ -1,4 +1,4 @@
-import { EthAddress, getNextTimerExpiry, ListingWrapper, EthContentHeader } from "@joincivil/core";
+import { EthAddress, getNextTimerExpiry, ListingWrapper, StorageHeader } from "@joincivil/core";
 import { addNewsroom } from "@joincivil/newsroom-manager";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
@@ -114,7 +114,7 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
   }
 }
 
-export async function getIPFSContent(header: EthContentHeader, dispatch: Dispatch<any>): Promise<void> {
+export async function getIPFSContent(header: StorageHeader, dispatch: Dispatch<any>): Promise<void> {
   const civil = getCivil();
   const content = await civil.getContent(header);
   if (content) {

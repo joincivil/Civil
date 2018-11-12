@@ -1,11 +1,12 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { connect, DispatchProp } from "react-redux";
 import * as sanitizeHtml from "sanitize-html";
 import styled from "styled-components";
 import { State } from "../../redux/reducers";
 import { ListingTabHeading } from "./styledComponents";
 import { getChallengeByListingAddress } from "../../selectors";
 import { NewsroomWrapper, ListingWrapper } from "@joincivil/core";
+import { getBareContent } from "../../redux/actionCreators/newsrooms";
 
 const StyledChallengeStatementComponent = styled.div`
   margin: 0 0 56px;
@@ -23,14 +24,25 @@ export interface ListingChallengeStatementProps {
 
 export interface ListingChallengeStatementReduxProps {
   appealStatement: any;
-  challengeStatement: any;
+  challengeStatement?: any;
 }
 
 class ListingChallengeStatement extends React.Component<
-  ListingChallengeStatementProps & ListingChallengeStatementReduxProps
+  ListingChallengeStatementProps & ListingChallengeStatementReduxProps & DispatchProp<any>
 > {
-  constructor(props: ListingChallengeStatementProps & ListingChallengeStatementReduxProps) {
+  constructor(props: ListingChallengeStatementProps & ListingChallengeStatementReduxProps & DispatchProp<any>) {
     super(props);
+  }
+  public async componentDidMount(): Promise<void> {
+    await this.getContents();
+  }
+
+  public async componentDidUpdate(
+    prevProps: ListingChallengeStatementProps & ListingChallengeStatementReduxProps,
+  ): Promise<void> {
+    if (prevProps.listing !== this.props.listing) {
+      await this.getContents();
+    }
   }
 
   public render(): JSX.Element {
@@ -40,6 +52,17 @@ class ListingChallengeStatement extends React.Component<
         {this.renderAppealStatement()}
       </>
     );
+  }
+
+  private async getContents(): Promise<void> {
+    const { listing } = this.props;
+    if (listing && listing.data.challenge) {
+      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      const { challenge } = listing.data;
+      if (challenge.appeal) {
+        this.props.dispatch!(await getBareContent(challenge.appeal.appealStatementURI!));
+      }
+    }
   }
 
   private renderAppealStatement = (): JSX.Element => {
@@ -121,13 +144,14 @@ const mapToStateToProps = (
   ownProps: ListingChallengeStatementProps,
 ): ListingChallengeStatementProps & ListingChallengeStatementReduxProps => {
   const challenge = getChallengeByListingAddress(state, ownProps);
+  const { content } = state.networkDependent;
   let challengeStatement: any = "";
   let appealStatement: any = "";
   if (challenge) {
-    challengeStatement = challenge.challenge.statement;
+    challengeStatement = content.get(challenge.challenge.challengeStatementURI!);
 
-    if (challenge.challenge.appeal && challenge.challenge.appeal.statement) {
-      appealStatement = challenge.challenge.appeal.statement;
+    if (challenge.challenge.appeal) {
+      appealStatement = content.get(challenge.challenge.appeal.appealStatementURI!);
     }
   }
   return {

@@ -381,7 +381,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent | undefined> {
     const header = await this.loadContentHeader(articleId);
-    if (!is0x0Hash(header.contentHash)) {
+    if (header.contentHash && !is0x0Hash(header.contentHash)) {
       return this.resolveContent(header);
     } else {
       return undefined;
@@ -768,7 +768,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       return this.twoStepOrMulti(
         await this.multisigProxy.publishContent.sendTransactionAsync(
           storageHeader.uri,
-          storageHeader.contentHash,
+          storageHeader.contentHash!,
           author,
           signature,
         ),
@@ -781,7 +781,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         this.ethApi,
         await this.instance.publishContent.sendTransactionAsync(
           storageHeader.uri,
-          storageHeader.contentHash,
+          storageHeader.contentHash!,
           author,
           signature,
         ),
@@ -816,7 +816,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         await this.multisigProxy.updateRevision.sendTransactionAsync(
           this.ethApi.toBigNumber(contentId),
           storageHeader.uri,
-          storageHeader.contentHash,
+          storageHeader.contentHash!,
           signature,
         ),
         findRevisionId,
@@ -829,7 +829,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         await this.instance.updateRevision.sendTransactionAsync(
           this.ethApi.toBigNumber(contentId),
           storageHeader.uri,
-          storageHeader.contentHash,
+          storageHeader.contentHash!,
           signature,
         ),
         findRevisionId,

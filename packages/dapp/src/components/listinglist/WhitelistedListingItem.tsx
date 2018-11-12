@@ -3,9 +3,9 @@ import { connect, DispatchProp } from "react-redux";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
-import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
+import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 
 export interface WhitelistedCardReduxProps extends ListingListItemReduxProps {
   whitelistedTimestamp?: number;
@@ -16,7 +16,22 @@ class WhitelistedListingItem extends React.Component<
   ListingListItemOwnProps & WhitelistedCardReduxProps & DispatchProp<any>
 > {
   public async componentDidMount(): Promise<void> {
-    this.props.dispatch!(await setupListingWhitelistedSubscription(this.props.listingAddress!));
+    if (this.props.newsroom) {
+      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+    }
+    const { listing } = this.props;
+    if (listing && listing.data.challenge) {
+      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+    }
+  }
+
+  public async componentDidUpdate(prevProps: ListingListItemOwnProps & WhitelistedCardReduxProps): Promise<void> {
+    if (prevProps.listing !== this.props.listing) {
+      const { listing } = this.props;
+      if (listing && listing.data.challenge) {
+        this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      }
+    }
   }
 
   public render(): JSX.Element {
@@ -34,7 +49,7 @@ class WhitelistedListingItem extends React.Component<
     const challenge = listingData.challenge;
     const challengeID = challenge && listingData.challengeID.toString();
     const challengeStatementSummary =
-      challenge && challenge.statement && JSON.parse(challenge.statement as string).summary;
+      this.props.challengeStatement && JSON.parse(this.props.challengeStatement as string).summary;
 
     const pollData = challenge && challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
@@ -43,7 +58,8 @@ class WhitelistedListingItem extends React.Component<
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
     const appeal = challenge && challenge.appeal;
-    const appealStatementSummary = appeal && appeal.statement && JSON.parse(appeal.statement as string).summary;
+    const appealStatementSummary =
+      this.props.appealStatement && JSON.parse(this.props.appealStatement as string).summary;
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
@@ -89,13 +105,23 @@ const makeMapStateToProps = () => {
     const { content } = state.networkDependent;
     const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
     let charter;
+    let challengeStatement;
+    let appealStatement;
     if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
       charter = content.get(ownProps.newsroom.data.charterHeader.uri);
+    }
+    if (ownProps.listing && ownProps.listing.data.challenge) {
+      challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
+      if (ownProps.listing.data.challenge.appeal) {
+        appealStatement = content.get(ownProps.listing.data.challenge.appeal.appealStatementURI!);
+      }
     }
     return {
       listingPhaseState: getListingPhaseState(ownProps.listing),
       whitelistedTimestamp,
       charter,
+      challengeStatement,
+      appealStatement,
       ...ownProps,
     };
   };

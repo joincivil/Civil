@@ -62,7 +62,7 @@ class ListingsInProgressContainer extends React.Component<
           pollInterval={1000}
         >
           {({ loading, error, data }: any): JSX.Element => {
-            if (loading) {
+            if (loading && !data) {
               return <></>;
             }
             if (error) {
