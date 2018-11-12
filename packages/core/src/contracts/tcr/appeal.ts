@@ -77,23 +77,4 @@ export class Appeal {
       return;
     }
   }
-
-  private async getAppealStatementURI(): Promise<string | undefined> {
-    const uri = await this.getAppealURI();
-    return uri;
-  }
-
-  private async getAppealStatement(): Promise<ContentData | undefined> {
-    const uri = await this.getAppealURI();
-    if (!uri) {
-      return;
-    }
-    try {
-      const appealStatement = await this.contentProvider.get({ uri, contentHash: "" });
-      return appealStatement;
-    } catch (e) {
-      debug(`Getting Appeal Statement failed for ChallengeID: ${this.challengeId}`, e);
-      return;
-    }
-  }
 }

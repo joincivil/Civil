@@ -13,7 +13,7 @@ import { Newsroom } from "./contracts/newsroom";
 import { UserGroups } from "./contracts/proof-of-use/usergroups";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
-import { ContentData, EthContentHeader, StorageHeader } from "./types";
+import { ContentData, StorageHeader } from "./types";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
