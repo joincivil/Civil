@@ -6,7 +6,6 @@
   "dependencies": {
     "@joincivil/components": "^1.6.3",
     "@joincivil/core": "^4.6.3",
-    "@joincivil/editor": "1.1.4",
     "@joincivil/ethapi": "^0.2.3",
     "@joincivil/newsroom-manager": "^1.6.3",
     "@joincivil/typescript-types": "^1.2.3",
