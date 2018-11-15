@@ -36,8 +36,8 @@ export const getContent = (header: StorageHeader): any => {
   return async (dispatch: any, getState: any): Promise<AnyAction | void> => {
     const contentFetched = getState().networkDependent.contentFetched;
     if (!contentFetched.has(header)) {
-      await getIPFSContent(header, dispatch);
       dispatch(fetchContent(header));
+      await getIPFSContent(header, dispatch);
     }
   };
 };

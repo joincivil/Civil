@@ -7,6 +7,7 @@ export const LISTING_FRAGMENT = gql`
     name
     owner
     ownerAddresses
+    contractAddress
     whitelisted
     lastGovState
     charter {
