@@ -227,20 +227,21 @@ export class NavBar extends React.Component<NavProps, NavState> {
               </AvatarContainer>
             </NavUser>
           </NavInner>
-          {this.state.isOpen && (
-            <NavDrawer
-              balance={this.props.balance}
-              votingBalance={this.props.votingBalance}
-              userAccount={this.props.userAccount}
-              userRevealVotesCount={this.props.userRevealVotesCount}
-              userClaimRewardsCount={this.props.userClaimRewardsCount}
-              userChallengesStartedCount={this.props.userChallengesStartedCount}
-              userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
-              buyCvlUrl={this.props.buyCvlUrl}
-              useGraphQL={this.props.useGraphQL}
-              onLoadingPrefToggled={this.props.onLoadingPrefToggled}
-            />
-          )}
+          {this.props.userAccount &&
+            this.state.isOpen && (
+              <NavDrawer
+                balance={this.props.balance}
+                votingBalance={this.props.votingBalance}
+                userAccount={this.props.userAccount}
+                userRevealVotesCount={this.props.userRevealVotesCount}
+                userClaimRewardsCount={this.props.userClaimRewardsCount}
+                userChallengesStartedCount={this.props.userChallengesStartedCount}
+                userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
+                buyCvlUrl={this.props.buyCvlUrl}
+                useGraphQL={this.props.useGraphQL}
+                onLoadingPrefToggled={this.props.onLoadingPrefToggled}
+              />
+            )}
         </NavOuter>
       </NavContainer>
     );
