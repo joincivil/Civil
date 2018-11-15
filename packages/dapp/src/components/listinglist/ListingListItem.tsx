@@ -114,7 +114,6 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
     const newsroomData = newsroom!.data;
-    console.log("listingAddress: ", listingAddress);
     const listingDetailURL = `/listing/${listingAddress}`;
 
     const listingViewProps = {
