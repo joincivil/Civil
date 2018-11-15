@@ -45,6 +45,11 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
         this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
       }
     }
+    if (prevProps.newsroom !== this.props.newsroom) {
+      if (this.props.newsroom) {
+        this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+      }
+    }
   }
 
   public render(): JSX.Element {
@@ -109,6 +114,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
     const newsroomData = newsroom!.data;
+    console.log("listingAddress: ", listingAddress);
     const listingDetailURL = `/listing/${listingAddress}`;
 
     const listingViewProps = {
