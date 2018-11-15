@@ -8,10 +8,14 @@ const Img = styled.img`
   height: 16px;
 `;
 
-export const MetaMaskSideIcon = (): JSX.Element => {
-  return <Img src={metamaskSideLogoUrl} />;
+export interface MetaMaskIconProps {
+  className?: string;
+}
+
+export const MetaMaskSideIcon = (props: MetaMaskIconProps): JSX.Element => {
+  return <Img src={metamaskSideLogoUrl} className={props.className} />;
 };
 
-export const MetaMaskFrontIcon = (): JSX.Element => {
-  return <Img src={metamaskFrontLogoUrl} />;
+export const MetaMaskFrontIcon = (props: MetaMaskIconProps): JSX.Element => {
+  return <Img src={metamaskFrontLogoUrl} className={props.className} />;
 };

@@ -74,6 +74,11 @@ const WalletLabel = styled.p`
   margin-bottom: 10px;
 `;
 
+const MetaMaskIcon = styled(MetaMaskSideIcon)`
+  position: relative;
+  top: 3px;
+`;
+
 const MetaMaskMockImage = styled.img`
   float: right;
   max-width: 255px;
@@ -91,7 +96,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <a href="https://metamask.io/" target="_blank">
               MetaMask
             </a>{" "}
-            <MetaMaskSideIcon /> to manage your transactions.{" "}
+            <MetaMaskIcon /> to manage your transactions.{" "}
             <a href={this.props.helpUrl} target="_blank">
               Read this FAQ
             </a>.
@@ -188,7 +193,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             >
               Read this tutorial
             </a>{" "}
-            to switch networks in MetaMask <MetaMaskSideIcon />
+            to switch networks in MetaMask <MetaMaskIcon />
           </p>
           <p>Once you are on the correct network, refresh this page.</p>
           <p>

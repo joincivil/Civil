@@ -8,6 +8,7 @@ export interface ToolTipProps {
   disabled?: boolean;
   positionBottom?: boolean;
   positionXCenter?: boolean;
+  className?: string; // for use as styled component
 }
 
 export interface ToolTipState {
@@ -92,7 +93,7 @@ export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {
     }
 
     return (
-      <Wrapper onMouseLeave={this.onMouseLeave} onMouseEnter={this.onMouseEnter}>
+      <Wrapper onMouseLeave={this.onMouseLeave} onMouseEnter={this.onMouseEnter} className={this.props.className}>
         {tip}
         {hitBox}
         {this.props.children}

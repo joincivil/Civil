@@ -8,7 +8,9 @@ export interface WelcomeProps {
 }
 
 const IconWrap = styled.span`
-  padding: 1px 3px 3px;
+  position: relative;
+  top: 3px;
+  padding: 5px 4px 0;
   border-radius: 2px;
   border: solid 1px #dddddd;
 `;
