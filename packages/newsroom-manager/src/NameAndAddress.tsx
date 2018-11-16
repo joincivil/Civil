@@ -243,8 +243,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
               <Label>Newsroom Contract Address</Label>
               <AddressWithCopyButton address={this.props.address || ""} />
               <StepDescription>
-                This is your newsroom contract address. Think of it as your newsroom's permanent identity on the
-                blockchain.
+                This is your newsroom contract address. It will be added to the Civil Registry. You will be able to view
+                it on this page, but you can also save it for future use.
               </StepDescription>
             </div>
           </>
