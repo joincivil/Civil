@@ -29,6 +29,10 @@ export interface WalletOnboardingProps {
   saveAddressToProfile?(): Promise<void>;
 }
 
+export interface WalletOnboardingState {
+  justSaved?: boolean;
+}
+
 const Wrapper = styled.div`
   margin: 32px 0;
   padding: 6px 24px 12px;
@@ -85,7 +89,12 @@ const MetaMaskMockImage = styled.img`
   margin-bottom: -12px;
 `;
 
-export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
+export class WalletOnboarding extends React.Component<WalletOnboardingProps, WalletOnboardingState> {
+  constructor(props: WalletOnboardingProps) {
+    super(props);
+    this.state = {};
+  }
+
   public render(): JSX.Element | null {
     if (this.props.noProvider) {
       return (
@@ -214,7 +223,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <WalletAction>
               <Button
                 size={buttonSizes.MEDIUM_WIDE}
-                onClick={this.props.saveAddressToProfile}
+                onClick={this.saveAddress}
                 disabled={this.props.profileAddressSaving}
               >
                 Save to Your Profile
@@ -239,7 +248,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <WalletAction>
               <Button
                 size={buttonSizes.MEDIUM_WIDE}
-                onClick={this.props.saveAddressToProfile}
+                onClick={this.saveAddress}
                 disabled={this.props.profileAddressSaving}
               >
                 Update Profile Address
@@ -255,6 +264,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
             {this.props.profileUrl && (
               <WalletAction>
+                {this.state.justSaved && "Saved. "}
                 <a href={this.props.profileUrl}>Open Profile</a>
               </WalletAction>
             )}
@@ -265,4 +275,12 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
       return null;
     }
   }
+
+  private saveAddress = () => {
+    if (!this.props.saveAddressToProfile) {
+      return;
+    }
+    this.props.saveAddressToProfile();
+    this.setState({ justSaved: true });
+  };
 }
