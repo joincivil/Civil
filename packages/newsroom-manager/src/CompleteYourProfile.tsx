@@ -112,7 +112,7 @@ class CompleteYourProfileComponent extends React.Component<
     if (!this.state.isPreTransactionModalOpen) {
       return null;
     }
-    const message = this.state.addEditor ? "Open MetaMask to add Civil Member" : "Open MetaMask to add Civil Admin";
+    const message = this.state.addEditor ? "Open MetaMask to add Civil Member" : "Open MetaMask to add Civil Officer";
     return (
       <MetaMaskModal
         waiting={false}
@@ -128,11 +128,13 @@ class CompleteYourProfileComponent extends React.Component<
     if (!this.state.metaMaskRejectionModal) {
       return null;
     }
-    const message = this.state.addEditor ? "Your new Civil Member was not added" : "Your new Civil Admin was not added";
+    const message = this.state.addEditor
+      ? "Your new Civil Member was not added"
+      : "Your new Civil Officer was not added";
 
     const denailMessage = this.state.addEditor
       ? "To add a new Civil Member, you need to confirm the transaction in your MetaMask wallet."
-      : "To add a new Civil Admin, you need to confirm the transaction in your MetaMask wallet.";
+      : "To add a new Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
 
     return (
       <CivilContext.Consumer>
@@ -172,7 +174,7 @@ class CompleteYourProfileComponent extends React.Component<
     }
     const message = this.state.addEditor
       ? "A Civil Member is being added to your newsroom smart contract"
-      : "A Civil Admin is being added to your newsroom smart contract";
+      : "A Civil Officer is being added to your newsroom smart contract";
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
@@ -194,7 +196,7 @@ class CompleteYourProfileComponent extends React.Component<
     }
     const message = this.state.addEditor
       ? "A Civil Member has been added to the newsroom smart contract!"
-      : "A Civil Admin has been added to the newsroom smart contract!";
+      : "A Civil Officer has been added to the newsroom smart contract!";
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
