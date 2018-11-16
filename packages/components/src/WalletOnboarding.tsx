@@ -204,7 +204,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
         </Wrapper>
       );
     } else if (this.props.metamaskWalletAddress) {
-      if (!this.props.profileWalletAddress) {
+      if (this.props.saveAddressToProfile && !this.props.profileWalletAddress) {
         return (
           <Wrapper>
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
@@ -222,7 +222,10 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             </WalletAction>
           </Wrapper>
         );
-      } else if (this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
+      } else if (
+        this.props.saveAddressToProfile &&
+        this.props.metamaskWalletAddress !== this.props.profileWalletAddress
+      ) {
         return (
           <Wrapper>
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
@@ -250,9 +253,11 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps> {
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
-            <WalletAction>
-              <a href={this.props.profileUrl}>Open Profile</a>
-            </WalletAction>
+            {this.props.profileUrl && (
+              <WalletAction>
+                <a href={this.props.profileUrl}>Open Profile</a>
+              </WalletAction>
+            )}
           </Wrapper>
         );
       }
