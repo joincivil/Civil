@@ -2,83 +2,6 @@ import { ListingWrapper, NewsroomWrapper, ChallengeData, AppealData, AppealChall
 import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 import gql from "graphql-tag";
 
-export const LISTING_FRAGMENT = gql`
-  fragment ListingFragment on Listing {
-    name
-    owner
-    ownerAddresses
-    contractAddress
-    whitelisted
-    lastGovState
-    charter {
-      uri
-      contentID
-      revisionID
-      signature
-      author
-      contentHash
-      timestamp
-    }
-    unstakedDeposit
-    appExpiry
-    approvalDate
-    challengeID
-    challenge {
-      challengeID
-      listingAddress
-      statement
-      rewardPool
-      challenger
-      resolved
-      stake
-      totalTokens
-      poll {
-        commitEndDate
-        revealEndDate
-        voteQuorum
-        votesFor
-        votesAgainst
-      }
-      requestAppealExpiry
-      lastUpdatedDateTs
-      appeal {
-        requester
-        appealFeePaid
-        appealPhaseExpiry
-        appealGranted
-        appealOpenToChallengeExpiry
-        statement
-        appealChallengeID
-        appealChallenge {
-          challengeID
-          statement
-          rewardPool
-          challenger
-          resolved
-          stake
-          totalTokens
-          poll {
-            commitEndDate
-            revealEndDate
-            voteQuorum
-            votesFor
-            votesAgainst
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const LISTING_QUERY = gql`
-  query($addr: String!) {
-    listing(addr: $addr) {
-      ...ListingFragment
-    }
-  }
-  ${LISTING_FRAGMENT}
-`;
-
 export const CHALLENGE_FRAGMENT = gql`
   fragment ChallengeFragment on Challenge {
     challengeID
@@ -124,6 +47,43 @@ export const CHALLENGE_FRAGMENT = gql`
       }
     }
   }
+`;
+
+export const LISTING_FRAGMENT = gql`
+  fragment ListingFragment on Listing {
+    name
+    owner
+    ownerAddresses
+    contractAddress
+    whitelisted
+    lastGovState
+    charter {
+      uri
+      contentID
+      revisionID
+      signature
+      author
+      contentHash
+      timestamp
+    }
+    unstakedDeposit
+    appExpiry
+    approvalDate
+    challengeID
+    challenge {
+      ...ChallengeFragment
+    }
+  }
+  ${CHALLENGE_FRAGMENT}
+`;
+
+export const LISTING_QUERY = gql`
+  query($addr: String!) {
+    listing(addr: $addr) {
+      ...ListingFragment
+    }
+  }
+  ${LISTING_FRAGMENT}
 `;
 
 export const CHALLENGE_QUERY = gql`

@@ -48,8 +48,14 @@ class WhitelistedListingItem extends React.Component<
     }
     const challenge = listingData.challenge;
     const challengeID = challenge && listingData.challengeID.toString();
-    const challengeStatementSummary =
-      this.props.challengeStatement && JSON.parse(this.props.challengeStatement as string).summary;
+    let challengeStatementSummary;
+    if (this.props.challengeStatement) {
+      try {
+        challengeStatementSummary = JSON.parse(this.props.challengeStatement as string).summary;
+      } catch (ex) {
+        challengeStatementSummary = this.props.challengeStatement.summary;
+      }
+    }
 
     const pollData = challenge && challenge.poll;
     const commitEndDate = pollData && pollData.commitEndDate.toNumber();
