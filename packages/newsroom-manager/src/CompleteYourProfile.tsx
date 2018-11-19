@@ -216,27 +216,28 @@ class CompleteYourProfileComponent extends React.Component<
   }
 
   public renderEditorInputs(): JSX.Element {
+    const onSetAddress = (address: string) => {
+      const valid = isValidAddress(address);
+      this.setState({ newEditor: address, disableEditorAdd: !valid });
+    };
+
     return this.props.renderUserSearch ? (
-      this.props.renderUserSearch((address: string) => {
-        const valid = isValidAddress(address);
-        this.setState({ newEditor: address, disableEditorAdd: !valid });
-      })
+      this.props.renderUserSearch(onSetAddress)
     ) : (
-      <AddressInput
-        address={this.state.newEditor}
-        onChange={(name: any, val: any) => this.setState({ newEditor: val })}
-      />
+      <AddressInput address={this.state.newEditor} onChange={(name: any, val: any) => onSetAddress(val)} />
     );
   }
 
   public renderOwnerInputs(): JSX.Element {
+    const onSetAddress = (address: string) => {
+      const valid = isValidAddress(address);
+      this.setState({ newOwner: address, disableOwnerAdd: !valid });
+    };
+
     return this.props.renderUserSearch ? (
-      this.props.renderUserSearch((address: string) => {
-        const valid = isValidAddress(address);
-        this.setState({ newOwner: address, disableOwnerAdd: !valid });
-      })
+      this.props.renderUserSearch(onSetAddress)
     ) : (
-      <AddressInput address={this.state.newOwner} onChange={(name, val) => this.setState({ newOwner: val })} />
+      <AddressInput address={this.state.newOwner} onChange={(name, val) => onSetAddress(val)} />
     );
   }
 
