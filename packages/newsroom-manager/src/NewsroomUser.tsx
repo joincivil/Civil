@@ -113,7 +113,7 @@ export class NewsroomUserComponent extends React.Component<
     const message =
       this.props.type === UserTypes.EDITOR
         ? "Open MetaMask to remove a Civil Member"
-        : "Open MetaMask to remove a Civil Admin";
+        : "Open MetaMask to remove a Civil Officer";
     return (
       <MetaMaskModal
         waiting={false}
@@ -130,12 +130,12 @@ export class NewsroomUserComponent extends React.Component<
       return null;
     }
     const message =
-      this.props.type === UserTypes.EDITOR ? "Civil Member was not removed" : "Civil Admin was not removed";
+      this.props.type === UserTypes.EDITOR ? "Civil Member was not removed" : "Civil Officer was not removed";
 
     const denailMessage =
       this.props.type === UserTypes.EDITOR
         ? "To remove a Civil Member, you need to confirm the transaction in your MetaMask wallet."
-        : "To remove a Civil Admin, you need to confirm the transaction in your MetaMask wallet.";
+        : "To remove a Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
 
     return (
       <CivilContext.Consumer>
@@ -176,7 +176,7 @@ export class NewsroomUserComponent extends React.Component<
     const message =
       this.props.type === UserTypes.EDITOR
         ? "A Civil Member is being removed from the newsroom smart contract!"
-        : "A Civil Admin is being removed from the newsroom smart contract!";
+        : "A Civil Officer is being removed from the newsroom smart contract!";
 
     return (
       <Modal textAlign="left">
@@ -201,7 +201,7 @@ export class NewsroomUserComponent extends React.Component<
     const message =
       this.props.type === UserTypes.EDITOR
         ? "A Civil Member has been removed from the newsroom smart contract!"
-        : "A Civil Admin has been removed from the newsroom smart contract!";
+        : "A Civil Officer has been removed from the newsroom smart contract!";
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
