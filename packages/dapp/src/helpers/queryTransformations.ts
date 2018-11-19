@@ -79,6 +79,55 @@ export const LISTING_QUERY = gql`
   ${LISTING_FRAGMENT}
 `;
 
+export const CHALLENGE_QUERY = gql`
+  query($challengeID: Int!) {
+    challenge(id: $challengeID) {
+      challengeID
+      listingAddress
+      statement
+      rewardPool
+      challenger
+      resolved
+      stake
+      totalTokens
+      poll {
+        commitEndDate
+        revealEndDate
+        voteQuorum
+        votesFor
+        votesAgainst
+      }
+      requestAppealExpiry
+      lastUpdatedDateTs
+      appeal {
+        requester
+        appealFeePaid
+        appealPhaseExpiry
+        appealGranted
+        appealOpenToChallengeExpiry
+        statement
+        appealChallengeID
+        appealChallenge {
+          challengeID
+          statement
+          rewardPool
+          challenger
+          resolved
+          stake
+          totalTokens
+          poll {
+            commitEndDate
+            revealEndDate
+            voteQuorum
+            votesFor
+            votesAgainst
+          }
+        }
+      }
+    }
+  }
+`;
+
 export function transformGraphQLDataIntoNewsroom(listing: any, listingAddress: string): NewsroomWrapper {
   return {
     address: listingAddress,
