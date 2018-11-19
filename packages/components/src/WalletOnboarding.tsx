@@ -276,11 +276,11 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
     }
   }
 
-  private saveAddress = () => {
+  private saveAddress = async () => {
     if (!this.props.saveAddressToProfile) {
       return;
     }
-    this.props.saveAddressToProfile();
+    await this.props.saveAddressToProfile();
     this.setState({ justSaved: true });
   };
 }
