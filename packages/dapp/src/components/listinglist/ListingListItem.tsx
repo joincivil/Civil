@@ -53,6 +53,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   }
 
   public render(): JSX.Element {
+    console.log("renderListing");
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
     const isWhitelisted = listingExists && listingPhaseState.isWhitelisted;

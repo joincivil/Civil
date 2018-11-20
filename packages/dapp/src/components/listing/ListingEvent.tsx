@@ -39,10 +39,10 @@ class ListingEvent extends React.Component<ListingEventProps> {
         return this.renderApplicationEvent(wrappedEvent);
 
       case "_ApplicationWhitelisted":
-        return <WhitelistedEvent timestamp={wrappedEvent.timestamp} />;
+        return <WhitelistedEvent timestamp={wrappedEvent.timestamp * 1000} />;
 
       case "_ListingRemoved":
-        return <RejectedEvent timestamp={wrappedEvent.timestamp} />;
+        return <RejectedEvent timestamp={wrappedEvent.timestamp * 1000} />;
 
       case "_Challenge":
         return this.renderChallengeEvent(wrappedEvent);
@@ -62,7 +62,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
     const { deposit } = wrappedEvent.args;
     const bnDeposit = new BigNumber(deposit);
     const formattedDeposit = getFormattedTokenBalance(bnDeposit);
-    return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
+    return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp * 1000} deposit={formattedDeposit} />;
   }
 
   private renderChallengeEvent(wrappedEvent: any): JSX.Element {
@@ -70,7 +70,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
     const challengeURI = `/listing/${this.props.listing}/challenge/${challengeID.toString()}`;
     return (
       <ChallengeEvent
-        timestamp={(wrappedEvent as any).timestamp}
+        timestamp={(wrappedEvent as any).timestamp * 1000}
         challengeURI={challengeURI}
         challenger={challenger}
         challengeID={challengeID.toString()}
@@ -84,19 +84,19 @@ class ListingEvent extends React.Component<ListingEventProps> {
       ChallengeFailedEventComponent,
     ) as React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>;
 
-    return <ChallengeFailedComponent timestamp={wrappedEvent.timestamp} challengeID={challengeID} />;
+    return <ChallengeFailedComponent timestamp={wrappedEvent.timestamp * 1000} challengeID={challengeID} />;
   }
 
   private renderChallengeSucceededEvent(wrappedEvent: any): JSX.Element {
     const { challengeID } = wrappedEvent.args;
     const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
 
-    return <ChallengeSucceededComponent timestamp={wrappedEvent.timestamp} challengeID={challengeID} />;
+    return <ChallengeSucceededComponent timestamp={wrappedEvent.timestamp * 1000} challengeID={challengeID} />;
   }
 
   private renderUnsupportedEvent(wrappedEvent: any): JSX.Element {
     const props = {
-      timestamp: wrappedEvent.timestamp,
+      timestamp: wrappedEvent.timestamp * 1000,
       title: wrappedEvent.event,
     };
 

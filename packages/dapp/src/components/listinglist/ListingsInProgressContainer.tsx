@@ -59,7 +59,7 @@ class ListingsInProgressContainer extends React.Component<
         <Query
           query={LISTINGS_QUERY}
           variables={{ activeChallenge: true, currentApplication: true }}
-          pollInterval={1000}
+          pollInterval={30000}
         >
           {({ loading, error, data }: any): JSX.Element => {
             if (loading && !data) {

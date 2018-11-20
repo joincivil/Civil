@@ -30,7 +30,7 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
   public render(): JSX.Element {
     if (this.props.useGraphQL) {
       return (
-        <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true }} pollInterval={1000}>
+        <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true }} pollInterval={30000}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
               return <></>;
