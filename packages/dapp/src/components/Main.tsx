@@ -13,7 +13,7 @@ import {
   initializeGovernmentParamSubscription,
   initializeConstitution,
 } from "../helpers/government";
-import { initializeChallengeSubscriptions, initializeSubscriptions } from "../helpers/listingEvents";
+import { initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import ContractPage from "./ContractPage";
@@ -29,6 +29,7 @@ import Parameterizer from "./Parameterizer";
 import Government from "./council/Government";
 import SubmitChallengePage from "./listing/SubmitChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
+import { initialize } from "../redux/actionCreators/ui";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -48,7 +49,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       await initializeConstitution(this.props.dispatch!);
       await initializeProposalsSubscriptions(this.props.dispatch!);
       await initializeGovernmentParamSubscription(this.props.dispatch!);
-      await initializeSubscriptions(this.props.dispatch!);
+      await this.props.dispatch!(await initialize());
     } catch (err) {
       if (err.message !== CivilErrors.UnsupportedNetwork) {
         throw err;

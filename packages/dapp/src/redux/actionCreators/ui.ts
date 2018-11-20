@@ -17,8 +17,18 @@ export const addOrUpdateUIState = (key: string, value: any): AnyAction => {
   };
 };
 
+export const initialize = async (): Promise<any> => {
+  return async (dispatch: Dispatch<any>, getState: any): Promise<undefined> => {
+    const { useGraphQL } = getState();
+    if (!useGraphQL) {
+      await initializeSubscriptions(dispatch);
+    }
+    return undefined;
+  };
+};
+
 export const toggleUseGraphQL = async (): Promise<any> => {
-  return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
+  return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction | undefined> => {
     const { useGraphQL } = getState();
 
     if (!useGraphQL) {
