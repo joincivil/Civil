@@ -28,7 +28,7 @@ export const initialize = async (): Promise<any> => {
 };
 
 export const toggleUseGraphQL = async (): Promise<any> => {
-  return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction | undefined> => {
+  return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
     const { useGraphQL } = getState();
 
     if (!useGraphQL) {
