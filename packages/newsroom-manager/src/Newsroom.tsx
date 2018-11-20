@@ -413,13 +413,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
-
   };
 
   private setRoles = (address: EthAddress): void => {
     this.props.dispatch!(getIsOwner(address, this.props.civil!));
     this.props.dispatch!(getIsEditor(address, this.props.civil!));
-  }
+  };
 
   private getCharterFromLocalStorage = (): Partial<CharterData> | undefined => {
     try {
