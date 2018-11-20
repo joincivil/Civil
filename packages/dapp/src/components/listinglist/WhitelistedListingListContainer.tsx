@@ -30,7 +30,7 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
   public render(): JSX.Element {
     if (this.props.useGraphQL) {
       return (
-        <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }} pollInterval={1000}>
+        <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }} pollInterval={10000}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
               return <></>;
