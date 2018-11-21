@@ -124,7 +124,10 @@ export function isAwaitingAppealRequest(listingData: ListingData): boolean {
       return false;
     } else {
       const requestAppealExpiryDate = new Date(listingData.challenge.requestAppealExpiry.toNumber() * 1000);
-      return requestAppealExpiryDate > new Date() && is0x0Address(listingData.challenge!.appeal!.requester);
+      return (
+        requestAppealExpiryDate > new Date() &&
+        (!listingData.challenge!.appeal || is0x0Address(listingData.challenge!.appeal!.requester))
+      );
     }
   } else {
     return false;
