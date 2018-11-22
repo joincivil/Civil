@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { findIndex } from "lodash";
+import { find, findIndex, findLastIndex } from "lodash";
 import styled from "styled-components";
 import { isValidAddress } from "ethereumjs-util";
 import { colors, StepHeader, StepProps, StepDescription, QuestionToolTip } from "@joincivil/components";
@@ -30,10 +30,6 @@ export interface CreateCharterPartOneExternalProps extends StepProps {
 export interface CreateCharterPartOneProps extends CreateCharterPartOneExternalProps {
   owners: UserData[];
   editors: UserData[];
-}
-
-export interface CreateCharterPartOneState {
-  newUser?: Partial<UserData>;
 }
 
 const LogoFormWrap = styled.div`
@@ -84,22 +80,10 @@ const AddRosterMember = styled.a`
   box-shadow: none !important;
 `;
 
-class CreateCharterPartOneComponent extends React.Component<
-  CreateCharterPartOneProps & DispatchProp<any>,
-  CreateCharterPartOneState
-> {
-  constructor(props: CreateCharterPartOneProps) {
-    super(props);
-    this.state = {};
-  }
-
+class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOneProps & DispatchProp<any>> {
   public render(): JSX.Element {
     const charter = this.props.charter;
-
     const contractUsers = this.props.owners.concat(this.props.editors);
-    const nonRosterContractUsers = contractUsers.filter(
-      user => findIndex(charter.roster, { ethAddress: user.rosterData.ethAddress }) === -1,
-    );
 
     return (
       <>
@@ -198,45 +182,25 @@ class CreateCharterPartOneComponent extends React.Component<
             Select the participants in your WordPress newsroom you want to add your roster and include any relevant
             credentials.
           </p>
-          {(charter.roster || []).map(member => {
+          {(charter.roster || []).map((member, i) => {
+            const contractUser = find(contractUsers, user => user.rosterData.ethAddress === member.ethAddress);
             return (
               <RosterMember
                 newsroomAddress={this.props.address!}
-                key={member.ethAddress}
-                user={{ rosterData: member }}
-                onRoster={true}
-                onContract={findIndex(contractUsers, user => user.rosterData.ethAddress === member.ethAddress) !== -1}
+                key={i}
+                user={{
+                  rosterData: member,
+                  isCmsUser: contractUser && contractUser.isCmsUser,
+                  username: contractUser && contractUser.username,
+                }}
+                onContract={!!contractUser}
                 updateRosterMember={this.rosterMemberUpdate}
               />
             );
           })}
-          {nonRosterContractUsers.map(user => {
-            return (
-              <RosterMember
-                newsroomAddress={this.props.address!}
-                key={user.rosterData.ethAddress}
-                user={user}
-                onRoster={false}
-                onContract={true}
-                updateRosterMember={this.rosterMemberUpdate}
-              />
-            );
-          })}
-          {this.state.newUser ? (
-            <RosterMember
-              newsroomAddress={this.props.address!}
-              key={"new"}
-              user={this.state.newUser as any}
-              onRoster={true}
-              onContract={false}
-              updateRosterMember={this.rosterMemberUpdate}
-              newUser={true}
-            />
-          ) : (
-            <AddRosterMember href="#" onClick={this.addRosterMember}>
-              Add Additional Roster Member
-            </AddRosterMember>
-          )}
+          <AddRosterMember href="#" onClick={this.addRosterMember}>
+            Add Additional Roster Member
+          </AddRosterMember>
         </FormSection>
       </>
     );
@@ -261,42 +225,36 @@ class CreateCharterPartOneComponent extends React.Component<
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
-    this.setState({ newUser: { rosterData: {} } });
+    this.props.updateCharter({
+      ...this.props.charter,
+      roster: (this.props.charter.roster || []).concat({} as RosterMemberInterface),
+    });
   };
 
-  private rosterMemberUpdate = (onRoster: boolean, member: Partial<RosterMemberInterface>, newUser?: boolean) => {
-    if (newUser) {
-      if (member.ethAddress && isValidAddress(member.ethAddress)) {
-        // new member ready to go, clear state for another new member and continue to adding to roster
-        this.setState({ newUser: undefined });
-      } else {
-        // unsaved new member
-        this.setState({ newUser: { rosterData: member } });
-        return;
-      }
-    }
-
+  private rosterMemberUpdate = (
+    oldVal: Partial<RosterMemberInterface>,
+    newVal: Partial<RosterMemberInterface>,
+    deleteMember?: boolean,
+  ) => {
     let roster = (this.props.charter.roster || []).slice();
-    let memberIndex;
-    if (newUser) {
-      memberIndex = -1;
-    } else {
-      memberIndex = findIndex(roster, rosterMember => rosterMember.ethAddress === member.ethAddress);
-    }
-    const wasOnRoster = memberIndex !== -1;
 
-    if (wasOnRoster) {
-      if (onRoster) {
-        roster[memberIndex] = member as RosterMemberInterface;
-      } else {
-        roster.splice(memberIndex, 1);
-      }
+    if (
+      newVal.ethAddress &&
+      oldVal.ethAddress !== newVal.ethAddress &&
+      find(roster, rosterMember => rosterMember.ethAddress === newVal.ethAddress)
+    ) {
+      // Address being updated to an address already on roster, an edge-case that would put UI in a weird state, a pain to handle, so just alert for now and don't apply change.
+      alert('Wallet address "' + newVal.ethAddress + '" already exists your newsroom roster.');
+      return;
+    }
+
+    const key = oldVal.ethAddress ? "ethAddress" : "name";
+    const memberIndex = findIndex(roster, rosterMember => rosterMember[key] === oldVal[key]);
+
+    if (deleteMember) {
+      roster.splice(memberIndex, 1);
     } else {
-      if (onRoster) {
-        roster = roster.concat(member as RosterMemberInterface);
-      } else {
-        return;
-      }
+      roster[memberIndex] = newVal as RosterMemberInterface;
     }
 
     this.props.updateCharter({
