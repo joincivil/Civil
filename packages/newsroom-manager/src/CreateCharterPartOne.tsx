@@ -1,8 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { find, findIndex, findLastIndex } from "lodash";
+import { find, findIndex } from "lodash";
 import styled from "styled-components";
-import { isValidAddress } from "ethereumjs-util";
 import { colors, StepHeader, StepProps, StepDescription, QuestionToolTip } from "@joincivil/components";
 import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
@@ -225,9 +224,10 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
+    const newMember = {};
     this.props.updateCharter({
       ...this.props.charter,
-      roster: (this.props.charter.roster || []).concat({} as RosterMemberInterface),
+      roster: (this.props.charter.roster || []).concat(newMember as RosterMemberInterface),
     });
   };
 
@@ -236,7 +236,7 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
     newVal: Partial<RosterMemberInterface>,
     deleteMember?: boolean,
   ) => {
-    let roster = (this.props.charter.roster || []).slice();
+    const roster = (this.props.charter.roster || []).slice();
 
     if (
       newVal.ethAddress &&

@@ -35,9 +35,8 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
   dispatch: any,
   getState: any,
 ): Promise<void> => {
-  const state = getState();
   const newsroom = await civil.newsroomAtUntrusted(address);
-  await newsroom.editors().forEach(async val => {
+  newsroom.editors().forEach(val => {
     dispatch(initContractMember(address, val));
     dispatch(addEditor(address, val));
   });
@@ -49,7 +48,7 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
 ): Promise<AnyAction> => {
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
-  wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
+  wrapper.data.owners.forEach((userAddress: EthAddress) => {
     dispatch(initContractMember(address, userAddress));
   });
   return dispatch(updateNewsroom(address, { wrapper, newsroom }));
@@ -158,7 +157,7 @@ export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any,
   const newsroom = newsrooms.get(address);
   const wrapper = await newsroom.newsroom!.getNewsroomWrapper();
   // might have additional owners now, so:
-  wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
+  wrapper.data.owners.forEach((userAddress: EthAddress) => {
     dispatch(initContractMember(address, userAddress));
   });
   return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
