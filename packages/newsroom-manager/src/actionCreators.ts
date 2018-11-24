@@ -157,6 +157,10 @@ export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any,
   const { newsrooms }: StateWithNewsroom = getState();
   const newsroom = newsrooms.get(address);
   const wrapper = await newsroom.newsroom!.getNewsroomWrapper();
+  // might have additional owners now, so:
+  wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
+    dispatch(initContractMember(address, userAddress));
+  });
   return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
 };
 
