@@ -152,15 +152,15 @@ export const updateCharter = (address: EthAddress, charter: Partial<CharterData>
   );
 };
 
-export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
+export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any) => {
   const { newsrooms }: StateWithNewsroom = getState();
   const newsroom = newsrooms.get(address);
   const wrapper = await newsroom.newsroom!.getNewsroomWrapper();
+  await dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
   // might have additional owners now, so:
   wrapper.data.owners.forEach((userAddress: EthAddress) => {
     dispatch(initContractMember(address, userAddress));
   });
-  return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
 };
 
 export const addGetCmsUserDataForAddress = (func: (address: EthAddress) => Promise<CmsUserData>): AnyAction => {
