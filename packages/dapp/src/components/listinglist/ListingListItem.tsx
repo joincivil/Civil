@@ -53,6 +53,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   }
 
   public render(): JSX.Element {
+    console.log("renderListing");
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
     const isWhitelisted = listingExists && listingPhaseState.isWhitelisted;
@@ -96,14 +97,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       try {
         challengeStatementSummary = JSON.parse(this.props.challengeStatement as string).summary;
       } catch (ex) {
-        // TODO: clean this up once new charter format is in
-        console.log("something bad: ", ex);
-        try {
-          challengeStatementSummary = this.props.challengeStatement.summary;
-        } catch (ex1) {
-          // TODO: clean this up once new charter format is in
-          console.log("something worse: ", ex1);
-        }
+        challengeStatementSummary = this.props.challengeStatement.summary;
       }
     }
 

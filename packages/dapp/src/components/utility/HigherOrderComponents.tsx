@@ -19,6 +19,8 @@ import { setupRejectedListingLatestChallengeSubscription } from "../../redux/act
 import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
 import { State } from "../../redux/reducers";
+import { Query } from "react-apollo";
+import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
 
 const StyledPartialChallengeResultsHeader = styled.p`
   & > span {
@@ -27,6 +29,10 @@ const StyledPartialChallengeResultsHeader = styled.p`
     font-size: 0.9em;
   }
 `;
+
+export interface GraphQLizableComponentProps {
+  useGraphQL: boolean;
+}
 
 export interface ListingContainerProps {
   listingAddress: EthAddress;
@@ -95,8 +101,12 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
     | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
-  const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
+  const mapStateToProps = (
+    state: State,
+    ownProps: TOriginalProps,
+  ): TOriginalProps & ChallengeContainerReduxProps & GraphQLizableComponentProps => {
     const { challenges, challengesFetching } = state.networkDependent;
+    const { useGraphQL } = state;
     let challengeData;
     let challengeID = ownProps.challengeID;
     if (challengeID) {
@@ -110,11 +120,11 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
     // Can't use spread here b/c of TS issue with spread and generics
     // https://github.com/Microsoft/TypeScript/pull/13288
     // tslint:disable-next-line:prefer-object-spread
-    return Object.assign({}, ownProps, { challengeID, challengeData, challengeDataRequestStatus });
+    return Object.assign({}, ownProps, { challengeID, challengeData, challengeDataRequestStatus, useGraphQL });
   };
 
   class HOChallengeResultsContainer extends React.Component<
-    TOriginalProps & ChallengeContainerReduxProps & DispatchProp<any>
+    TOriginalProps & ChallengeContainerReduxProps & GraphQLizableComponentProps & DispatchProp<any>
   > {
     public componentDidMount(): void {
       this.ensureHasChallengeData();
@@ -125,21 +135,52 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
     }
 
     public render(): JSX.Element | null {
-      if (!this.props.challengeData) {
-        return null;
+      if (this.props.useGraphQL) {
+        return (
+          <Query query={CHALLENGE_QUERY} variables={{ challengeID: this.props.challengeID }}>
+            {({ loading, error, data }: any): JSX.Element | null => {
+              if (loading) {
+                return null;
+              }
+              if (error) {
+                return null;
+              }
+              const challenge = transformGraphQLDataIntoChallenge(data.challenge);
+              const challengeResultsProps = getChallengeResultsProps({
+                listingAddress: data.challenge.listingAddress,
+                challengeID: new BigNumber(this.props.challengeID!),
+                challenge: challenge!,
+              });
+              return (
+                <>
+                  <PresentationComponent {...challengeResultsProps} {...this.props} />
+                </>
+              );
+            }}
+          </Query>
+        );
+      } else {
+        if (!this.props.challengeData) {
+          return null;
+        }
+
+        const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+
+        return (
+          <>
+            <PresentationComponent {...challengeResultsProps} {...this.props} />
+          </>
+        );
       }
-
-      const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
-
-      return (
-        <>
-          <PresentationComponent {...challengeResultsProps} {...this.props} />
-        </>
-      );
     }
 
     private ensureHasChallengeData = (): void => {
-      if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
+      if (
+        !this.props.useGraphQL &&
+        this.props.challengeID &&
+        !this.props.challengeData &&
+        !this.props.challengeDataRequestStatus
+      ) {
         this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
       }
     };

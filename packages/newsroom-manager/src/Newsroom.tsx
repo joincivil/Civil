@@ -213,6 +213,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (newProps.address && !this.props.address) {
       await this.hydrateNewsroom(newProps.address);
     }
+    if ((newProps.address || this.props.address) && newProps.account !== this.props.account) {
+      this.setRoles(newProps.address || this.props.address!);
+    }
   }
 
   public renderManager(): JSX.Element | null {
@@ -409,6 +412,10 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
+    this.setRoles(address);
+  };
+
+  private setRoles = (address: EthAddress): void => {
     this.props.dispatch!(getIsOwner(address, this.props.civil!));
     this.props.dispatch!(getIsEditor(address, this.props.civil!));
   };
