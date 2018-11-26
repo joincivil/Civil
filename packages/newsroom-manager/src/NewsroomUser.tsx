@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   colors,
+  fonts,
   Modal,
   Button,
   TransactionButtonNoModal,
@@ -38,13 +39,18 @@ const Wrapper: StyledComponentClass<{}, "div"> = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
 `;
 
+const Address = styled.p`
+  font-family: ${fonts.MONOSPACE};
+  letter-spacing: -0.15px;
+`;
+
 const NameSection = styled.div`
-  margin-right: 80px;
-  width: 120px;
+  margin-right: 20px;
+  width: 180px;
 `;
 
 const ButtonWrapper = styled.div`
-  width: 72px;
+  min-width: 72px;
   margin-left: 15px;
 `;
 
@@ -233,7 +239,7 @@ export class NewsroomUserComponent extends React.Component<
           </NameSection>
           <div>
             <FormSubhead>Wallet Address</FormSubhead>
-            <p>{this.props.address}</p>
+            <Address>{this.props.address}</Address>
           </div>
           <ButtonWrapper>
             {this.props.address !== this.props.profileWalletAddress &&
