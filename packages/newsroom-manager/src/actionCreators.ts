@@ -23,7 +23,7 @@ export enum uiActions {
 }
 
 export enum userActions {
-  ADD_USER = "ADD_USER",
+  STORE_USER_DATA = "STORE_USER_DATA",
 }
 
 export enum governmentActions {
@@ -35,14 +35,9 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
   dispatch: any,
   getState: any,
 ): Promise<void> => {
-  const state = getState();
   const newsroom = await civil.newsroomAtUntrusted(address);
-  await newsroom.editors().forEach(async val => {
-    const getCmsUserDataForAddress = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS);
-    if (getCmsUserDataForAddress && !state.newsroomUsers.get(val)) {
-      const userData = await getCmsUserDataForAddress(val);
-      dispatch(addUser(address, val, userData));
-    }
+  newsroom.editors().forEach(val => {
+    dispatch(initContractMember(address, val));
     dispatch(addEditor(address, val));
   });
 };
@@ -53,16 +48,9 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
 ): Promise<AnyAction> => {
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
-  const state = getState();
-  const getCmsUserDataForAddress = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS);
-  if (getCmsUserDataForAddress) {
-    wrapper.data.owners.forEach(async (userAddress: EthAddress): Promise<void> => {
-      if (!state.newsroomUsers.get(userAddress)) {
-        const userData = await getCmsUserDataForAddress(userAddress);
-        dispatch(addUser(address, userAddress, userData));
-      }
-    });
-  }
+  wrapper.data.owners.forEach((userAddress: EthAddress) => {
+    dispatch(initContractMember(address, userAddress));
+  });
   return dispatch(updateNewsroom(address, { wrapper, newsroom }));
 };
 
@@ -164,11 +152,15 @@ export const updateCharter = (address: EthAddress, charter: Partial<CharterData>
   );
 };
 
-export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
+export const fetchNewsroom = (address: EthAddress): any => async (dispatch: any, getState: any) => {
   const { newsrooms }: StateWithNewsroom = getState();
   const newsroom = newsrooms.get(address);
   const wrapper = await newsroom.newsroom!.getNewsroomWrapper();
-  return dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
+  await dispatch(updateNewsroom(address, { ...newsroom, wrapper }));
+  // might have additional owners now, so:
+  wrapper.data.owners.forEach((userAddress: EthAddress) => {
+    dispatch(initContractMember(address, userAddress));
+  });
 };
 
 export const addGetCmsUserDataForAddress = (func: (address: EthAddress) => Promise<CmsUserData>): AnyAction => {
@@ -185,15 +177,16 @@ export const addPersistCharter = (func: (charter: Partial<CharterData>) => void)
   };
 };
 
-export const addUser = (newsroomAddress: EthAddress, address: EthAddress, userData: CmsUserData): any => (
+export const ensureUserOnRoster = (newsroomAddress: EthAddress, address: EthAddress, userData?: CmsUserData): any => (
   dispatch: any,
   getState: any,
-): AnyAction => {
-  const { newsrooms }: StateWithNewsroom = getState();
+) => {
+  const { newsrooms, newsroomUsers }: StateWithNewsroom = getState();
   const charter = (newsrooms.get(newsroomAddress) || {}).charter || {};
   let roster = charter.roster || [];
   if (findIndex(roster, member => member.ethAddress === address) === -1) {
-    roster = roster.concat(makeUserObject(address, userData).rosterData as RosterMember);
+    const user = makeUserObject(address, userData || newsroomUsers.get(address));
+    roster = roster.concat(user.rosterData as RosterMember);
     dispatch(
       updateCharter(newsroomAddress, {
         ...charter,
@@ -201,14 +194,33 @@ export const addUser = (newsroomAddress: EthAddress, address: EthAddress, userDa
       }),
     );
   }
+};
 
-  return dispatch({
-    type: userActions.ADD_USER,
+export const storeUserData = (newsroomAddress: EthAddress, address: EthAddress, userData: CmsUserData): AnyAction => {
+  return {
+    type: userActions.STORE_USER_DATA,
     data: {
       address,
       userData,
     },
-  });
+  };
+};
+
+/* Ensures we have fetched and stored data for this user (if possible) and added to roster. */
+export const initContractMember = (newsroomAddress: EthAddress, userAddress: EthAddress): any => async (
+  dispatch: any,
+  getState: any,
+) => {
+  const state = getState();
+  let userData = state.newsroomUsers.get(userAddress);
+
+  const getCmsUserDataForAddress = state.newsroomUi.get(uiActions.GET_CMS_USER_DATA_FOR_ADDRESS);
+  if (!userData && getCmsUserDataForAddress) {
+    userData = await getCmsUserDataForAddress(userAddress);
+    dispatch(storeUserData(newsroomAddress, userAddress, userData));
+  }
+
+  dispatch(ensureUserOnRoster(newsroomAddress, userAddress, userData));
 };
 
 export const addConstitutionUri = (uri: string): AnyAction => {

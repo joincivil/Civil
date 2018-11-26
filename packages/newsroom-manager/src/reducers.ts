@@ -89,7 +89,7 @@ export function newsroomUsers(
   action: AnyAction,
 ): Map<EthAddress, CmsUserData> {
   switch (action.type) {
-    case userActions.ADD_USER:
+    case userActions.STORE_USER_DATA:
       return state.set(action.data.address, action.data.userData);
     default:
       return state;

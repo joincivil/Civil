@@ -5,7 +5,6 @@ import {
   colors,
   DetailTransactionButton,
   fonts,
-  QuestionToolTip,
   StepDescription,
   StepHeader,
   StepFormSection,
@@ -23,7 +22,7 @@ import styled from "styled-components";
 import { fetchNewsroom } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser, UserTypes } from "./NewsroomUser";
-import { FormTitle } from "./styledComponents";
+import { FormTitle, QuestionToolTip } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { getUserObject } from "./utils";
 import { UserData } from "./types";
@@ -84,11 +83,6 @@ const AddButton = styled(BorderlessButton)`
 
 const Description = styled(StepDescription)`
   font-size: 14px;
-`;
-
-const QuestionToolTipWrapper = styled.span`
-  position: relative;
-  top: 3px;
 `;
 
 class CompleteYourProfileComponent extends React.Component<
@@ -315,13 +309,11 @@ class CompleteYourProfileComponent extends React.Component<
         <Description>
           Add additional officers and members to your newsroom smart contract. You will need their public wallet
           addresses. This step is optional, but recommended.
-          <QuestionToolTipWrapper>
-            <QuestionToolTip
-              explainerText={
-                "If you lose access to your wallet, only a Civil Officer can add you back to the smart contract with a new address. You can always add Officers and Members later."
-              }
-            />
-          </QuestionToolTipWrapper>
+          <QuestionToolTip
+            explainerText={
+              "If you lose access to your wallet, only a Civil Officer can add you back to the smart contract with a new address. You can always add Officers and Members later."
+            }
+          />
         </Description>
         <StepFormSection>
           <FormTitleSection>

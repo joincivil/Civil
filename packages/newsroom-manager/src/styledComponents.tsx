@@ -1,4 +1,14 @@
-import { colors, fonts, Button, ButtonProps, TextInput, TextareaInput, InputProps } from "@joincivil/components";
+import {
+  colors,
+  fonts,
+  Button,
+  ButtonProps,
+  TextInput,
+  TextareaInput,
+  InputProps,
+  QuestionToolTip as _QuestionToolTip,
+  ToolTipProps,
+} from "@joincivil/components";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
 import styled, { StyledComponentClass } from "styled-components";
@@ -91,4 +101,9 @@ export const StyledTextareaInput: StyledComponentClass<InputProps, any> = styled
     right: 15px;
     text-align: right;
   }
+`;
+
+export const QuestionToolTip: StyledComponentClass<ToolTipProps, any> = styled(_QuestionToolTip)`
+  position: relative;
+  top: 2px;
 `;
