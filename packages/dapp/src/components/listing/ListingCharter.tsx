@@ -3,6 +3,7 @@ import * as sanitizeHtml from "sanitize-html";
 import styled from "styled-components";
 import { fonts, colors } from "@joincivil/components";
 import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
+import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 import ListingCharterRosterMember from "./ListingCharterRosterMember";
 
 export interface ListingCharterProps {
@@ -49,19 +50,19 @@ class ListingCharter extends React.Component<ListingCharterProps> {
       <Wrapper>
         <Mission>
           <CharterHeading>Our Mission</CharterHeading>
-          {this.plainTextToPs(charter.mission.purpose)}
+          {renderPTagsFromLineBreaks(charter.mission.purpose)}
 
           <CharterSubHeading>Ownership Structure</CharterSubHeading>
-          {this.plainTextToPs(charter.mission.structure)}
+          {renderPTagsFromLineBreaks(charter.mission.structure)}
 
           <CharterSubHeading>Current or Intended Revenue Sources</CharterSubHeading>
-          {this.plainTextToPs(charter.mission.revenue)}
+          {renderPTagsFromLineBreaks(charter.mission.revenue)}
 
           <CharterSubHeading>Potential Conflicts of Interest</CharterSubHeading>
-          {this.plainTextToPs(charter.mission.encumbrances)}
+          {renderPTagsFromLineBreaks(charter.mission.encumbrances)}
 
           <CharterSubHeading>Additional Information</CharterSubHeading>
-          {this.plainTextToPs(charter.mission.miscellaneous)}
+          {renderPTagsFromLineBreaks(charter.mission.miscellaneous)}
         </Mission>
 
         <CharterHeading>Team</CharterHeading>
@@ -70,14 +71,6 @@ class ListingCharter extends React.Component<ListingCharterProps> {
         ))}
       </Wrapper>
     );
-  }
-
-  /* Input plain text with possible line breaks, output as <p> tags. */
-  private plainTextToPs = (text: string): JSX.Element => {
-    if (!text) {
-      return <></>
-    }
-    return <>{text.split("\n").filter(line => !!line).map((line, i) => <p key={i}>{line}</p>)}</>;
   }
 }
 

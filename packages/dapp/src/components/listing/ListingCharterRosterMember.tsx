@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { fonts, colors } from "@joincivil/components";
 import { RosterMember } from "@joincivil/core";
+import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 
 export interface ListingCharterRosterMemberProps {
   member: RosterMember;
@@ -97,27 +98,12 @@ class ListingCharterRosterMember extends React.Component<
             </Twitter>
           )}
           <Bio>
-            {this.plainTextToPs(member.bio)}
+            {renderPTagsFromLineBreaks(member.bio)}
           </Bio>
         </Text>
       </Wrapper>
     );
   }
-
-  /* Input plain text with possible line breaks, output as <p> tags. */
-  private plainTextToPs = (text: string): JSX.Element => {
-    if (!text) {
-      return <></>;
-    }
-    return (
-      <>
-        {text
-          .split("\n")
-          .filter(line => !!line)
-          .map((line, i) => <p key={i}>{line}</p>)}
-      </>
-    );
-  };
 }
 
 export default ListingCharterRosterMember;

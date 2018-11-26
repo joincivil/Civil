@@ -1,3 +1,4 @@
+import * as React from "react";
 import { EthAddress } from "@joincivil/typescript-types";
 import { BigNumber } from "bignumber.js";
 import { Parameters, GovernmentParameters } from "./civilHelpers";
@@ -133,3 +134,17 @@ export function getFormattedParameterValue(parameterName: string, parameterValue
 
   return value;
 }
+
+export function renderPTagsFromLineBreaks(text: string): JSX.Element {
+  if (!text) {
+    return <></>;
+  }
+  return (
+    <>
+      {text
+        .split("\n")
+        .filter(line => !!line)
+        .map((line, i) => <p key={i}>{line}</p>)}
+    </>
+  );
+};
