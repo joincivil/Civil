@@ -31,7 +31,8 @@ export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>):
     parameterizer.propIDsInApplicationPhase(),
     parameterizer.propIDsInChallengeCommitPhase(),
     parameterizer.propIDsInChallengeRevealPhase(),
-    parameterizer.propIDsToProcess(),
+    // TODO(dankins): temporary change to fix CPU spiking until we can fix the root cause
+    // parameterizer.propIDsToProcess(),
     parameterizer.propIDsForResolvedChallenges(),
   ).subscribe(async (propID: string) => {
     const paramName = await parameterizer.getPropName(propID);
