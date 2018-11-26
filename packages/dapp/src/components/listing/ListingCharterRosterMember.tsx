@@ -7,9 +7,6 @@ import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 export interface ListingCharterRosterMemberProps {
   member: RosterMember;
 }
-export interface ListingCharterRosterMemberState {
-  bioExpanded: boolean;
-}
 
 const Wrapper = styled.div`
   display: flex;
@@ -61,20 +58,10 @@ const Bio = styled.div`
   margin-top: 6px;
 `;
 
-// TODO(toby) temporary til we have one designed/picked
-const DEFAULT_AVATAR_URL = "https://i.imgur.com/cQx23vk.jpg";
+// From gravatar for now
+const DEFAULT_AVATAR_URL = "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y&s=250";
 
-class ListingCharterRosterMember extends React.Component<
-  ListingCharterRosterMemberProps,
-  ListingCharterRosterMemberState
-> {
-  constructor(props: ListingCharterRosterMemberProps) {
-    super(props);
-    this.state = {
-      bioExpanded: false, // ch2679 (300 chars)
-    };
-  }
-
+class ListingCharterRosterMember extends React.Component<ListingCharterRosterMemberProps> {
   public render(): JSX.Element {
     const { member } = this.props;
 
