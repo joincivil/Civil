@@ -11,11 +11,10 @@ import {
   ModalHeading,
   TransactionButtonInnerProps,
   ClipLoader,
-  QuestionToolTip,
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
 import styled, { StyledComponentClass } from "styled-components";
-import { TertiaryButton as _TertiaryButton, FormSubhead } from "./styledComponents";
+import { TertiaryButton as _TertiaryButton, FormSubhead, QuestionToolTip } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { connect, DispatchProp } from "react-redux";
 import { CivilContext, CivilContextValue } from "./CivilContext";
