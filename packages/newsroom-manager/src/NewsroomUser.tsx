@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   colors,
+  fonts,
   Modal,
   Button,
   TransactionButtonNoModal,
@@ -14,7 +15,7 @@ import {
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
 import styled, { StyledComponentClass } from "styled-components";
-import { TertiaryButton as _TertiaryButton, FormSubhead } from "./styledComponents";
+import { TertiaryButton as _TertiaryButton, FormSubhead, QuestionToolTip } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { connect, DispatchProp } from "react-redux";
 import { CivilContext, CivilContextValue } from "./CivilContext";
@@ -38,13 +39,18 @@ const Wrapper: StyledComponentClass<{}, "div"> = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
 `;
 
+const Address = styled.p`
+  font-family: ${fonts.MONOSPACE};
+  letter-spacing: -0.15px;
+`;
+
 const NameSection = styled.div`
-  margin-right: 80px;
-  width: 120px;
+  margin-right: 20px;
+  width: 180px;
 `;
 
 const ButtonWrapper = styled.div`
-  width: 72px;
+  min-width: 72px;
   margin-left: 15px;
 `;
 
@@ -222,11 +228,18 @@ export class NewsroomUserComponent extends React.Component<
         <Wrapper>
           <NameSection>
             <FormSubhead>Name</FormSubhead>
-            <p>{this.props.name || "Could not find a user with that address"}</p>
+            <p>
+              {this.props.name || (
+                <>
+                  <i>unknown address</i>
+                  <QuestionToolTip explainerText="No WordPress user was found with this address. If the owner of this address does have an account on your site, they will need to add it to their profile in order to use the Civil Publisher." />
+                </>
+              )}
+            </p>
           </NameSection>
           <div>
             <FormSubhead>Wallet Address</FormSubhead>
-            <p>{this.props.address}</p>
+            <Address>{this.props.address}</Address>
           </div>
           <ButtonWrapper>
             {this.props.address !== this.props.profileWalletAddress &&
