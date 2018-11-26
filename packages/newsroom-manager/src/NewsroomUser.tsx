@@ -11,6 +11,7 @@ import {
   ModalHeading,
   TransactionButtonInnerProps,
   ClipLoader,
+  QuestionToolTip,
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
 import styled, { StyledComponentClass } from "styled-components";
@@ -222,7 +223,14 @@ export class NewsroomUserComponent extends React.Component<
         <Wrapper>
           <NameSection>
             <FormSubhead>Name</FormSubhead>
-            <p>{this.props.name || "Could not find a user with that address"}</p>
+            <p>
+              {this.props.name || (
+                <>
+                  <i>unknown address</i>
+                  <QuestionToolTip explainerText="No WordPress user was found with this address. If the owner of this address does have an account on your site, they will need to add it to their profile in order to use the Civil Publisher." />
+                </>
+              )}
+            </p>
           </NameSection>
           <div>
             <FormSubhead>Wallet Address</FormSubhead>
