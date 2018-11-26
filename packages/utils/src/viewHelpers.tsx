@@ -147,4 +147,4 @@ export function renderPTagsFromLineBreaks(text: string): JSX.Element {
         .map((line, i) => <p key={i}>{line}</p>)}
     </>
   );
-};
+}

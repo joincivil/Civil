@@ -103,7 +103,13 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
 
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
               <ListingDetailNewsroomDek>{newsroomDescription}</ListingDetailNewsroomDek>
-              {newsroomUrl && <ButtonWrap><Button size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">Visit Newsroom 🡭</Button></ButtonWrap>}
+              {newsroomUrl && (
+                <ButtonWrap>
+                  <Button size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
+                    Visit Newsroom 🡭
+                  </Button>
+                </ButtonWrap>
+              )}
             </LeftShark>
 
             <RightShark>
