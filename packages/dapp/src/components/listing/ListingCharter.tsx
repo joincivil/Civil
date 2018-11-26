@@ -24,9 +24,15 @@ class ListingCharter extends React.Component<ListingCharterProps> {
     }
 
     return <>
-      {Object.keys(charter.mission).map(key => <div key={key}>
+      {charter.mission && Object.keys(charter.mission).map(key => <div key={key}>
         <h3>{key[0].toUpperCase() + key.substr(1)}</h3>
         <p>{charter.mission[key]}</p>
+      </div>)}
+
+      <h2>Team</h2>
+      {charter.roster && charter.roster.map((rosterMember, i) => <div key={i}>
+        <h3>{rosterMember.name}</h3>
+        <p>{rosterMember.bio}</p>
       </div>)}
     </>;
   }
