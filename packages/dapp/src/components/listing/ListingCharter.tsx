@@ -14,7 +14,6 @@ class ListingCharter extends React.Component<ListingCharterProps> {
     if (!charter || !listing || !listing.data) {
       return <></>;
     }
-
     // TODO(toby) remove legacy `charter.charter` after transition
     if ((charter as any).charter) {
       const cleanNewsroomCharter = sanitizeHtml((charter as any).charter, {
@@ -22,15 +21,18 @@ class ListingCharter extends React.Component<ListingCharterProps> {
       });
       return <div dangerouslySetInnerHTML={{ __html: cleanNewsroomCharter }} />;
     }
+    if (typeof charter !== "object" || !charter.mission || !charter.roster) {
+      return <p style={{ color: "red" }}>Error: Newsroom charter is in an invalid format</p>;
+    }
 
     return <>
-      {charter.mission && Object.keys(charter.mission).map(key => <div key={key}>
+      {Object.keys(charter.mission).map(key => <div key={key}>
         <h3>{key[0].toUpperCase() + key.substr(1)}</h3>
         <p>{charter.mission[key]}</p>
       </div>)}
 
       <h2>Team</h2>
-      {charter.roster && charter.roster.map((rosterMember, i) => <div key={i}>
+      {charter.roster.map((rosterMember, i) => <div key={i}>
         <h3>{rosterMember.name}</h3>
         <p>{rosterMember.bio}</p>
       </div>)}
