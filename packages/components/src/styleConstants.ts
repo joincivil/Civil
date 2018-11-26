@@ -17,6 +17,7 @@ export const colors = {
     CIVIL_RED: "#FF0C1A", // Civil-wide accent color
     CIVIL_RED_FADED: "#FF0C1A", // Civil-wide accent color
     CIVIL_RED_VERY_FADED: "rgba(255, 12, 26, 0.10)", // Civil-wide accent color
+    CIVIL_GRAY_0: "#3F3C39",
     CIVIL_GRAY_1: "#5A5653",
     CIVIL_GRAY_2: "#7D7373", // Civil-wide accent color
     CIVIL_GRAY_3: "#C4C2C0",
