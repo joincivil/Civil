@@ -55,23 +55,22 @@ const ListingHeader: React.SFC<ListingHeaderProps> = props => {
   if (props.charter) {
     // TODO(toby) remove legacy `desc` after transition
     newsroomDescription = props.charter.tagline || (props.charter as any).desc;
-
-    const registryURLData = getRegistryURLData(props.listingPhaseState);
-    const registryURLParameter = registryURLData[0];
-    const registryLinkText = registryURLData[1];
-
-    const headerProps: ListingDetailHeaderProps = {
-      newsroomName: props.newsroom.data.name,
-      newsroomDescription,
-      owner: props.listing.data.owner,
-      registryURL: `/registry/${registryURLParameter}`,
-      registryLinkText,
-      unstakedDeposit: getFormattedTokenBalance(props.listing.data.unstakedDeposit),
-      ...props.listingPhaseState,
-    };
-    return <>{props.listing.data && <ListingDetailHeader {...headerProps} />}</>;
   }
-  return <></>;
+
+  const registryURLData = getRegistryURLData(props.listingPhaseState);
+  const registryURLParameter = registryURLData[0];
+  const registryLinkText = registryURLData[1];
+
+  const headerProps: ListingDetailHeaderProps = {
+    newsroomName: props.newsroom.data.name,
+    newsroomDescription,
+    owner: props.listing.data.owner,
+    registryURL: `/registry/${registryURLParameter}`,
+    registryLinkText,
+    unstakedDeposit: getFormattedTokenBalance(props.listing.data.unstakedDeposit),
+    ...props.listingPhaseState,
+  };
+  return <>{props.listing.data && <ListingDetailHeader {...headerProps} />}</>;
 };
 
 export default ListingHeader;
