@@ -51,19 +51,13 @@ function getRegistryURLData(listingPhaseState: any): [string, string] {
 }
 
 const ListingHeader: React.SFC<ListingHeaderProps> = props => {
-  let newsroomDescription = "";
-  if (props.charter) {
-    // TODO(toby) remove legacy `desc` after transition
-    newsroomDescription = props.charter.tagline || (props.charter as any).desc;
-  }
-
   const registryURLData = getRegistryURLData(props.listingPhaseState);
   const registryURLParameter = registryURLData[0];
   const registryLinkText = registryURLData[1];
 
   const headerProps: ListingDetailHeaderProps = {
     newsroomName: props.newsroom.data.name,
-    newsroomDescription,
+    charter: props.charter,
     owner: props.listing.data.owner,
     registryURL: `/registry/${registryURLParameter}`,
     registryLinkText,

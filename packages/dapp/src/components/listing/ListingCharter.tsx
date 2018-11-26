@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as sanitizeHtml from "sanitize-html";
 import styled from "styled-components";
-import { fonts, colors } from "@joincivil/components";
+import { fonts, colors, Button, buttonSizes } from "@joincivil/components";
 import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 import ListingCharterRosterMember from "./ListingCharterRosterMember";
@@ -27,6 +27,13 @@ const CharterSubHeading = styled.h3`
 `;
 const Mission = styled.div`
   margin-bottom: 40px;
+`;
+
+const VisitNewsroomWrapper = styled.div`
+  padding-top: 32px;
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  line-height: 32px;
+  text-align: right;
 `;
 
 class ListingCharter extends React.Component<ListingCharterProps> {
@@ -69,6 +76,10 @@ class ListingCharter extends React.Component<ListingCharterProps> {
         {charter.roster.map((rosterMember, i) => (
           <ListingCharterRosterMember key={i} member={rosterMember} />
         ))}
+
+        <VisitNewsroomWrapper>
+          <Button size={buttonSizes.MEDIUM_WIDE} href={charter.newsroomUrl} target="_blank">Visit Newsroom 🡭</Button>
+        </VisitNewsroomWrapper>
       </Wrapper>
     );
   }

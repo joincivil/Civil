@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CharterData } from "@joincivil/core";
 import { colors, fonts } from "./styleConstants";
 import { Button, buttonSizes } from "./Button";
 import {
@@ -47,6 +48,11 @@ const RightShark = styled.div`
   width: 485px;
 `;
 
+const ButtonWrap = styled.div`
+  line-height: 32px;
+  margin-top: 40px;
+`;
+
 const StyledRegistryLinkContainer = styled.div`
   padding: 0 0 43px;
 
@@ -57,7 +63,7 @@ const StyledRegistryLinkContainer = styled.div`
 
 export interface ListingDetailHeaderProps {
   newsroomName: string;
-  newsroomDescription: string;
+  charter?: CharterData;
   registryURL?: string;
   registryLinkText?: string;
   owner: string;
@@ -79,6 +85,14 @@ export interface ListingDetailHeaderProps {
 
 export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps> {
   public render(): JSX.Element {
+    let newsroomDescription = "";
+    let newsroomUrl = "";
+    if (this.props.charter) {
+      // TODO(toby) remove legacy `desc` after transition
+      newsroomDescription = this.props.charter.tagline || (this.props.charter as any).desc;
+      newsroomUrl = this.props.charter.newsroomUrl;
+    }
+
     return (
       <ListingDetailOuter>
         <StyledListingDetailHeader>
@@ -88,8 +102,8 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
               {this.renderPhaseLabel()}
 
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
-              <ListingDetailNewsroomDek>{this.props.newsroomDescription}</ListingDetailNewsroomDek>
-              <Button size={buttonSizes.MEDIUM}>Support Our Work</Button>
+              <ListingDetailNewsroomDek>{newsroomDescription}</ListingDetailNewsroomDek>
+              {newsroomUrl && <ButtonWrap><Button size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">Visit Newsroom 🡭</Button></ButtonWrap>}
             </LeftShark>
 
             <RightShark>
