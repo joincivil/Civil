@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
@@ -31,10 +31,10 @@ export interface ListingReduxProps {
   isUserNewsroomOwner?: boolean;
   listingDataRequestStatus?: any;
   listingPhaseState?: any;
+  charter?: CharterData;
   parameters: any;
   govtParameters: any;
   constitutionURI: string;
-  charter: any;
 }
 
 class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
@@ -152,7 +152,7 @@ const makeMapStateToProps = () => {
     }
     let charter;
     if (newsroom && newsroom.data.charterHeader) {
-      charter = content.get(newsroom.data.charterHeader.uri);
+      charter = content.get(newsroom.data.charterHeader.uri) as CharterData;
     }
     const expiry = getListingExpiry(state, ownProps);
     const listingPhaseState = getListingPhaseState(ownProps.listing);

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/components";
-import { EthAddress, ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 export interface ListingHeaderProps {
@@ -8,7 +8,7 @@ export interface ListingHeaderProps {
   listing: ListingWrapper;
   userAccount?: EthAddress;
   listingPhaseState: any;
-  charter?: any;
+  charter?: CharterData;
 }
 
 function getRegistryURLData(listingPhaseState: any): [string, string] {
@@ -53,12 +53,8 @@ function getRegistryURLData(listingPhaseState: any): [string, string] {
 const ListingHeader: React.SFC<ListingHeaderProps> = props => {
   let newsroomDescription = "";
   if (props.charter) {
-    try {
-      // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-      newsroomDescription = (props.charter.content as any).desc;
-    } catch (ex) {
-      console.error("charter not formatted correctly");
-    }
+    // TODO(toby) remove legacy `desc` after transition
+    newsroomDescription = props.charter.tagline || (props.charter as any).desc;
 
     const registryURLData = getRegistryURLData(props.listingPhaseState);
     const registryURLParameter = registryURLData[0];

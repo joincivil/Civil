@@ -1,29 +1,34 @@
 import * as React from "react";
 import * as sanitizeHtml from "sanitize-html";
-import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 
 export interface ListingCharterProps {
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
-  charter?: any;
+  charter?: CharterData;
 }
 
 class ListingCharter extends React.Component<ListingCharterProps> {
   public render(): JSX.Element {
-    let cleanNewsroomCharter = "";
-    if (this.props.charter) {
-      // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-      const newsroomCharter = this.props.charter.charter;
-
-      cleanNewsroomCharter = sanitizeHtml(newsroomCharter, {
-        allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
-      });
+    const { charter, listing } = this.props;
+    if (!charter || !listing || !listing.data) {
+      return <></>;
     }
 
-    return (
-      (this.props.listing &&
-        this.props.listing.data && <div dangerouslySetInnerHTML={{ __html: cleanNewsroomCharter }} />) || <></>
-    );
+    // TODO(toby) remove legacy `charter.charter` after transition
+    if ((charter as any).charter) {
+      const cleanNewsroomCharter = sanitizeHtml((charter as any).charter, {
+        allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
+      });
+      return <div dangerouslySetInnerHTML={{ __html: cleanNewsroomCharter }} />;
+    }
+
+    return <>
+      {Object.keys(charter.mission).map(key => <div key={key}>
+        <h3>{key[0].toUpperCase() + key.substr(1)}</h3>
+        <p>{charter.mission[key]}</p>
+      </div>)}
+    </>;
   }
 }
 
