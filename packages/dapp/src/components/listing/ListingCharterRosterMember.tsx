@@ -84,9 +84,7 @@ class ListingCharterRosterMember extends React.Component<ListingCharterRosterMem
               @{twitterHandle}
             </Twitter>
           )}
-          <Bio>
-            {renderPTagsFromLineBreaks(member.bio)}
-          </Bio>
+          <Bio>{renderPTagsFromLineBreaks(member.bio)}</Bio>
         </Text>
       </Wrapper>
     );
