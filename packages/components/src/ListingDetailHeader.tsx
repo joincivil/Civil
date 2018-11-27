@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { CharterData } from "@joincivil/core";
 import { colors, fonts } from "./styleConstants";
+import { TwitterIcon, FacebookIcon } from "./icons";
 import { Button, buttonSizes } from "./Button";
 import {
   AwaitingApprovalStatusLabel,
@@ -48,17 +49,35 @@ const RightShark = styled.div`
   width: 485px;
 `;
 
-const ButtonWrap = styled.div`
-  line-height: 32px;
-  margin-top: 40px;
-`;
-
 const StyledRegistryLinkContainer = styled.div`
   padding: 0 0 43px;
 
   & a {
     color: ${colors.basic.WHITE}B3;
   }
+`;
+
+const NewsroomLinks = styled.div`
+  display: flex;
+  margin-top: 40px;
+`;
+const VisitNewsroomButtonWrap = styled.div`
+  line-height: 32px;
+  width: 50%;
+`;
+const FollowNewsroom = styled.div`
+  display: inline-block;
+  width: 50%;
+`;
+const FollowNewsroomHeading = styled.h5`
+  margin-bottom: 10px;
+  font: 500 14px/14px ${fonts.SANS_SERIF};
+  letter-spacing: 1px;
+  color: ${colors.basic.WHITE};
+  text-transform: uppercase;
+`;
+const FollowNewsroomLink = styled.a`
+  margin-right: 20px;
 `;
 
 export interface ListingDetailHeaderProps {
@@ -103,13 +122,34 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
 
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
               <ListingDetailNewsroomDek>{newsroomDescription}</ListingDetailNewsroomDek>
-              {newsroomUrl && (
-                <ButtonWrap>
-                  <Button size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
-                    Visit Newsroom 🡭
-                  </Button>
-                </ButtonWrap>
-              )}
+
+              <NewsroomLinks>
+                {newsroomUrl && (
+                  <VisitNewsroomButtonWrap>
+                    <Button size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
+                      Visit Newsroom 🡭
+                    </Button>
+                  </VisitNewsroomButtonWrap>
+                )}
+
+                {this.props.charter &&
+                  this.props.charter.socialUrls &&
+                  (this.props.charter.socialUrls.facebook || this.props.charter.socialUrls.twitter) && (
+                    <FollowNewsroom>
+                      <FollowNewsroomHeading>Follow Newsroom</FollowNewsroomHeading>
+                      {this.props.charter.socialUrls.twitter && (
+                        <FollowNewsroomLink href={this.props.charter.socialUrls.twitter} target="_blank">
+                          <TwitterIcon />
+                        </FollowNewsroomLink>
+                      )}
+                      {this.props.charter.socialUrls.facebook && (
+                        <FollowNewsroomLink href={this.props.charter.socialUrls.facebook} target="_blank">
+                          <FacebookIcon />
+                        </FollowNewsroomLink>
+                      )}
+                    </FollowNewsroom>
+                  )}
+              </NewsroomLinks>
             </LeftShark>
 
             <RightShark>

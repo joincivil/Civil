@@ -4,7 +4,7 @@ exports[`Storyshots Listing Details Header Accepting Votes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-dNLxif dEjSUO",
+      "class": "sc-hEsumM bMFlIf",
     },
     "children": Array [
       Object {
@@ -12,22 +12,22 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-TOsTZ byDfzs",
+              "class": "sc-hmzhuo dppoxI",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-kgAjT lgENDQ",
+                  "class": "sc-frDJqD dihAhr",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hmzhuo cWTwYG",
+                      "class": "sc-jbKcbu ciCQvv",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-frDJqD jrJdgS",
+                          "class": "sc-dNLxif jvYNF",
                         },
                         "children": Array [
                           Object {
@@ -47,7 +47,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -62,7 +62,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -77,25 +77,48 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-hqyNC WvwGx",
+                                    "class": "sc-bbmXgH haoUo",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                        "href": "https://civil.co",
-                                        "target": "_blank",
+                                        "class": "sc-gGBfsJ kOICvL",
                                       },
                                       "children": Array [
                                         Object {
-                                          "data": "Visit Newsroom 🡭",
+                                          "attribs": Object {
+                                            "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                            "href": "https://civil.co",
+                                            "target": "_blank",
+                                          },
+                                          "children": Array [
+                                            Object {
+                                              "data": "Visit Newsroom 🡭",
+                                              "next": null,
+                                              "parent": [Circular],
+                                              "prev": null,
+                                              "type": "text",
+                                            },
+                                          ],
+                                          "name": "a",
+                                          "namespace": "http://www.w3.org/1999/xhtml",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
-                                          "type": "text",
+                                          "type": "tag",
+                                          "x-attribsNamespace": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
+                                          "x-attribsPrefix": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
                                         },
                                       ],
-                                      "name": "a",
+                                      "name": "div",
                                       "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
@@ -103,13 +126,9 @@ initialize {
                                       "type": "tag",
                                       "x-attribsNamespace": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                       "x-attribsPrefix": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                     },
                                   ],
@@ -158,7 +177,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-cJSrbW eBIUzJ",
+                              "class": "sc-kvZOFW bqbuIB",
                             },
                             "children": Array [
                               Object {
@@ -173,7 +192,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -188,25 +207,48 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-hqyNC WvwGx",
+                                  "class": "sc-bbmXgH haoUo",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                      "href": "https://civil.co",
-                                      "target": "_blank",
+                                      "class": "sc-gGBfsJ kOICvL",
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Visit Newsroom 🡭",
+                                        "attribs": Object {
+                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                          "href": "https://civil.co",
+                                          "target": "_blank",
+                                        },
+                                        "children": Array [
+                                          Object {
+                                            "data": "Visit Newsroom 🡭",
+                                            "next": null,
+                                            "parent": [Circular],
+                                            "prev": null,
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "name": "a",
+                                        "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
-                                        "type": "text",
+                                        "type": "tag",
+                                        "x-attribsNamespace": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                        "x-attribsPrefix": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
                                       },
                                     ],
-                                    "name": "a",
+                                    "name": "div",
                                     "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
@@ -214,13 +256,9 @@ initialize {
                                     "type": "tag",
                                     "x-attribsNamespace": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                     "x-attribsPrefix": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                   },
                                 ],
@@ -284,7 +322,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-ksYbfQ liXEmj",
+                              "class": "sc-hqyNC famPzs",
                             },
                             "children": Array [
                               Object {
@@ -299,25 +337,48 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-hqyNC WvwGx",
+                                "class": "sc-bbmXgH haoUo",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                    "href": "https://civil.co",
-                                    "target": "_blank",
+                                    "class": "sc-gGBfsJ kOICvL",
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Visit Newsroom 🡭",
+                                      "attribs": Object {
+                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                        "href": "https://civil.co",
+                                        "target": "_blank",
+                                      },
+                                      "children": Array [
+                                        Object {
+                                          "data": "Visit Newsroom 🡭",
+                                          "next": null,
+                                          "parent": [Circular],
+                                          "prev": null,
+                                          "type": "text",
+                                        },
+                                      ],
+                                      "name": "a",
+                                      "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
-                                      "type": "text",
+                                      "type": "tag",
+                                      "x-attribsNamespace": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
+                                      "x-attribsPrefix": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
                                     },
                                   ],
-                                  "name": "a",
+                                  "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": null,
                                   "parent": [Circular],
@@ -325,13 +386,9 @@ initialize {
                                   "type": "tag",
                                   "x-attribsNamespace": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                 },
                               ],
@@ -351,7 +408,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -410,25 +467,48 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-hqyNC WvwGx",
+                              "class": "sc-bbmXgH haoUo",
                             },
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                  "href": "https://civil.co",
-                                  "target": "_blank",
+                                  "class": "sc-gGBfsJ kOICvL",
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Visit Newsroom 🡭",
+                                    "attribs": Object {
+                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                      "href": "https://civil.co",
+                                      "target": "_blank",
+                                    },
+                                    "children": Array [
+                                      Object {
+                                        "data": "Visit Newsroom 🡭",
+                                        "next": null,
+                                        "parent": [Circular],
+                                        "prev": null,
+                                        "type": "text",
+                                      },
+                                    ],
+                                    "name": "a",
+                                    "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
-                                    "type": "text",
+                                    "type": "tag",
+                                    "x-attribsNamespace": Object {
+                                      "class": undefined,
+                                      "href": undefined,
+                                      "target": undefined,
+                                    },
+                                    "x-attribsPrefix": Object {
+                                      "class": undefined,
+                                      "href": undefined,
+                                      "target": undefined,
+                                    },
                                   },
                                 ],
-                                "name": "a",
+                                "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": null,
                                 "parent": [Circular],
@@ -436,13 +516,9 @@ initialize {
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "class": undefined,
-                                  "href": undefined,
-                                  "target": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
-                                  "href": undefined,
-                                  "target": undefined,
                                 },
                               },
                             ],
@@ -452,7 +528,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -469,7 +545,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -539,7 +615,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-kvZOFW bHpKbg",
+                            "class": "sc-jqCOkK icpiMj",
                           },
                           "children": Array [
                             Object {
@@ -889,7 +965,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-kvZOFW bHpKbg",
+                          "class": "sc-jqCOkK icpiMj",
                         },
                         "children": Array [
                           Object {
@@ -1220,7 +1296,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-frDJqD jrJdgS",
+                            "class": "sc-dNLxif jvYNF",
                           },
                           "children": Array [
                             Object {
@@ -1240,7 +1316,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -1255,7 +1331,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-ksYbfQ liXEmj",
+                                    "class": "sc-hqyNC famPzs",
                                   },
                                   "children": Array [
                                     Object {
@@ -1270,25 +1346,48 @@ initialize {
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": Object {
                                     "attribs": Object {
-                                      "class": "sc-hqyNC WvwGx",
+                                      "class": "sc-bbmXgH haoUo",
                                     },
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                          "href": "https://civil.co",
-                                          "target": "_blank",
+                                          "class": "sc-gGBfsJ kOICvL",
                                         },
                                         "children": Array [
                                           Object {
-                                            "data": "Visit Newsroom 🡭",
+                                            "attribs": Object {
+                                              "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                              "href": "https://civil.co",
+                                              "target": "_blank",
+                                            },
+                                            "children": Array [
+                                              Object {
+                                                "data": "Visit Newsroom 🡭",
+                                                "next": null,
+                                                "parent": [Circular],
+                                                "prev": null,
+                                                "type": "text",
+                                              },
+                                            ],
+                                            "name": "a",
+                                            "namespace": "http://www.w3.org/1999/xhtml",
                                             "next": null,
                                             "parent": [Circular],
                                             "prev": null,
-                                            "type": "text",
+                                            "type": "tag",
+                                            "x-attribsNamespace": Object {
+                                              "class": undefined,
+                                              "href": undefined,
+                                              "target": undefined,
+                                            },
+                                            "x-attribsPrefix": Object {
+                                              "class": undefined,
+                                              "href": undefined,
+                                              "target": undefined,
+                                            },
                                           },
                                         ],
-                                        "name": "a",
+                                        "name": "div",
                                         "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
@@ -1296,13 +1395,9 @@ initialize {
                                         "type": "tag",
                                         "x-attribsNamespace": Object {
                                           "class": undefined,
-                                          "href": undefined,
-                                          "target": undefined,
                                         },
                                         "x-attribsPrefix": Object {
                                           "class": undefined,
-                                          "href": undefined,
-                                          "target": undefined,
                                         },
                                       },
                                     ],
@@ -1351,7 +1446,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -1366,7 +1461,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -1381,25 +1476,48 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-hqyNC WvwGx",
+                                    "class": "sc-bbmXgH haoUo",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                        "href": "https://civil.co",
-                                        "target": "_blank",
+                                        "class": "sc-gGBfsJ kOICvL",
                                       },
                                       "children": Array [
                                         Object {
-                                          "data": "Visit Newsroom 🡭",
+                                          "attribs": Object {
+                                            "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                            "href": "https://civil.co",
+                                            "target": "_blank",
+                                          },
+                                          "children": Array [
+                                            Object {
+                                              "data": "Visit Newsroom 🡭",
+                                              "next": null,
+                                              "parent": [Circular],
+                                              "prev": null,
+                                              "type": "text",
+                                            },
+                                          ],
+                                          "name": "a",
+                                          "namespace": "http://www.w3.org/1999/xhtml",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
-                                          "type": "text",
+                                          "type": "tag",
+                                          "x-attribsNamespace": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
+                                          "x-attribsPrefix": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
                                         },
                                       ],
-                                      "name": "a",
+                                      "name": "div",
                                       "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
@@ -1407,13 +1525,9 @@ initialize {
                                       "type": "tag",
                                       "x-attribsNamespace": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                       "x-attribsPrefix": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                     },
                                   ],
@@ -1477,7 +1591,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -1492,25 +1606,48 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-hqyNC WvwGx",
+                                  "class": "sc-bbmXgH haoUo",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                      "href": "https://civil.co",
-                                      "target": "_blank",
+                                      "class": "sc-gGBfsJ kOICvL",
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Visit Newsroom 🡭",
+                                        "attribs": Object {
+                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                          "href": "https://civil.co",
+                                          "target": "_blank",
+                                        },
+                                        "children": Array [
+                                          Object {
+                                            "data": "Visit Newsroom 🡭",
+                                            "next": null,
+                                            "parent": [Circular],
+                                            "prev": null,
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "name": "a",
+                                        "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
-                                        "type": "text",
+                                        "type": "tag",
+                                        "x-attribsNamespace": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                        "x-attribsPrefix": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
                                       },
                                     ],
-                                    "name": "a",
+                                    "name": "div",
                                     "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
@@ -1518,13 +1655,9 @@ initialize {
                                     "type": "tag",
                                     "x-attribsNamespace": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                     "x-attribsPrefix": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                   },
                                 ],
@@ -1544,7 +1677,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -1603,25 +1736,48 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-hqyNC WvwGx",
+                                "class": "sc-bbmXgH haoUo",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                    "href": "https://civil.co",
-                                    "target": "_blank",
+                                    "class": "sc-gGBfsJ kOICvL",
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Visit Newsroom 🡭",
+                                      "attribs": Object {
+                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                        "href": "https://civil.co",
+                                        "target": "_blank",
+                                      },
+                                      "children": Array [
+                                        Object {
+                                          "data": "Visit Newsroom 🡭",
+                                          "next": null,
+                                          "parent": [Circular],
+                                          "prev": null,
+                                          "type": "text",
+                                        },
+                                      ],
+                                      "name": "a",
+                                      "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
-                                      "type": "text",
+                                      "type": "tag",
+                                      "x-attribsNamespace": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
+                                      "x-attribsPrefix": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
                                     },
                                   ],
-                                  "name": "a",
+                                  "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": null,
                                   "parent": [Circular],
@@ -1629,13 +1785,9 @@ initialize {
                                   "type": "tag",
                                   "x-attribsNamespace": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                 },
                               ],
@@ -1645,7 +1797,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -1662,7 +1814,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": "sc-cJSrbW eBIUzJ",
+                                    "class": "sc-kvZOFW bqbuIB",
                                   },
                                   "children": Array [
                                     Object {
@@ -1844,7 +1996,7 @@ exports[`Storyshots Listing Details Header In Application 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-dNLxif dEjSUO",
+      "class": "sc-hEsumM bMFlIf",
     },
     "children": Array [
       Object {
@@ -1852,22 +2004,22 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-TOsTZ byDfzs",
+              "class": "sc-hmzhuo dppoxI",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-kgAjT lgENDQ",
+                  "class": "sc-frDJqD dihAhr",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hmzhuo cWTwYG",
+                      "class": "sc-jbKcbu ciCQvv",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-frDJqD jrJdgS",
+                          "class": "sc-dNLxif jvYNF",
                         },
                         "children": Array [
                           Object {
@@ -1887,7 +2039,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -1902,7 +2054,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -1917,25 +2069,48 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-hqyNC WvwGx",
+                                    "class": "sc-bbmXgH haoUo",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                        "href": "https://civil.co",
-                                        "target": "_blank",
+                                        "class": "sc-gGBfsJ kOICvL",
                                       },
                                       "children": Array [
                                         Object {
-                                          "data": "Visit Newsroom 🡭",
+                                          "attribs": Object {
+                                            "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                            "href": "https://civil.co",
+                                            "target": "_blank",
+                                          },
+                                          "children": Array [
+                                            Object {
+                                              "data": "Visit Newsroom 🡭",
+                                              "next": null,
+                                              "parent": [Circular],
+                                              "prev": null,
+                                              "type": "text",
+                                            },
+                                          ],
+                                          "name": "a",
+                                          "namespace": "http://www.w3.org/1999/xhtml",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
-                                          "type": "text",
+                                          "type": "tag",
+                                          "x-attribsNamespace": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
+                                          "x-attribsPrefix": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
                                         },
                                       ],
-                                      "name": "a",
+                                      "name": "div",
                                       "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
@@ -1943,13 +2118,9 @@ initialize {
                                       "type": "tag",
                                       "x-attribsNamespace": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                       "x-attribsPrefix": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                     },
                                   ],
@@ -1998,7 +2169,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-cJSrbW eBIUzJ",
+                              "class": "sc-kvZOFW bqbuIB",
                             },
                             "children": Array [
                               Object {
@@ -2013,7 +2184,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -2028,25 +2199,48 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-hqyNC WvwGx",
+                                  "class": "sc-bbmXgH haoUo",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                      "href": "https://civil.co",
-                                      "target": "_blank",
+                                      "class": "sc-gGBfsJ kOICvL",
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Visit Newsroom 🡭",
+                                        "attribs": Object {
+                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                          "href": "https://civil.co",
+                                          "target": "_blank",
+                                        },
+                                        "children": Array [
+                                          Object {
+                                            "data": "Visit Newsroom 🡭",
+                                            "next": null,
+                                            "parent": [Circular],
+                                            "prev": null,
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "name": "a",
+                                        "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
-                                        "type": "text",
+                                        "type": "tag",
+                                        "x-attribsNamespace": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                        "x-attribsPrefix": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
                                       },
                                     ],
-                                    "name": "a",
+                                    "name": "div",
                                     "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
@@ -2054,13 +2248,9 @@ initialize {
                                     "type": "tag",
                                     "x-attribsNamespace": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                     "x-attribsPrefix": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                   },
                                 ],
@@ -2124,7 +2314,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-ksYbfQ liXEmj",
+                              "class": "sc-hqyNC famPzs",
                             },
                             "children": Array [
                               Object {
@@ -2139,25 +2329,48 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-hqyNC WvwGx",
+                                "class": "sc-bbmXgH haoUo",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                    "href": "https://civil.co",
-                                    "target": "_blank",
+                                    "class": "sc-gGBfsJ kOICvL",
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Visit Newsroom 🡭",
+                                      "attribs": Object {
+                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                        "href": "https://civil.co",
+                                        "target": "_blank",
+                                      },
+                                      "children": Array [
+                                        Object {
+                                          "data": "Visit Newsroom 🡭",
+                                          "next": null,
+                                          "parent": [Circular],
+                                          "prev": null,
+                                          "type": "text",
+                                        },
+                                      ],
+                                      "name": "a",
+                                      "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
-                                      "type": "text",
+                                      "type": "tag",
+                                      "x-attribsNamespace": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
+                                      "x-attribsPrefix": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
                                     },
                                   ],
-                                  "name": "a",
+                                  "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": null,
                                   "parent": [Circular],
@@ -2165,13 +2378,9 @@ initialize {
                                   "type": "tag",
                                   "x-attribsNamespace": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                 },
                               ],
@@ -2191,7 +2400,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -2250,25 +2459,48 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-hqyNC WvwGx",
+                              "class": "sc-bbmXgH haoUo",
                             },
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                  "href": "https://civil.co",
-                                  "target": "_blank",
+                                  "class": "sc-gGBfsJ kOICvL",
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Visit Newsroom 🡭",
+                                    "attribs": Object {
+                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                      "href": "https://civil.co",
+                                      "target": "_blank",
+                                    },
+                                    "children": Array [
+                                      Object {
+                                        "data": "Visit Newsroom 🡭",
+                                        "next": null,
+                                        "parent": [Circular],
+                                        "prev": null,
+                                        "type": "text",
+                                      },
+                                    ],
+                                    "name": "a",
+                                    "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
-                                    "type": "text",
+                                    "type": "tag",
+                                    "x-attribsNamespace": Object {
+                                      "class": undefined,
+                                      "href": undefined,
+                                      "target": undefined,
+                                    },
+                                    "x-attribsPrefix": Object {
+                                      "class": undefined,
+                                      "href": undefined,
+                                      "target": undefined,
+                                    },
                                   },
                                 ],
-                                "name": "a",
+                                "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": null,
                                 "parent": [Circular],
@@ -2276,13 +2508,9 @@ initialize {
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "class": undefined,
-                                  "href": undefined,
-                                  "target": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
-                                  "href": undefined,
-                                  "target": undefined,
                                 },
                               },
                             ],
@@ -2292,7 +2520,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -2309,7 +2537,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -2379,7 +2607,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-kvZOFW bHpKbg",
+                            "class": "sc-jqCOkK icpiMj",
                           },
                           "children": Array [
                             Object {
@@ -2729,7 +2957,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-kvZOFW bHpKbg",
+                          "class": "sc-jqCOkK icpiMj",
                         },
                         "children": Array [
                           Object {
@@ -3060,7 +3288,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-frDJqD jrJdgS",
+                            "class": "sc-dNLxif jvYNF",
                           },
                           "children": Array [
                             Object {
@@ -3080,7 +3308,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -3095,7 +3323,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-ksYbfQ liXEmj",
+                                    "class": "sc-hqyNC famPzs",
                                   },
                                   "children": Array [
                                     Object {
@@ -3110,25 +3338,48 @@ initialize {
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": Object {
                                     "attribs": Object {
-                                      "class": "sc-hqyNC WvwGx",
+                                      "class": "sc-bbmXgH haoUo",
                                     },
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                          "href": "https://civil.co",
-                                          "target": "_blank",
+                                          "class": "sc-gGBfsJ kOICvL",
                                         },
                                         "children": Array [
                                           Object {
-                                            "data": "Visit Newsroom 🡭",
+                                            "attribs": Object {
+                                              "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                              "href": "https://civil.co",
+                                              "target": "_blank",
+                                            },
+                                            "children": Array [
+                                              Object {
+                                                "data": "Visit Newsroom 🡭",
+                                                "next": null,
+                                                "parent": [Circular],
+                                                "prev": null,
+                                                "type": "text",
+                                              },
+                                            ],
+                                            "name": "a",
+                                            "namespace": "http://www.w3.org/1999/xhtml",
                                             "next": null,
                                             "parent": [Circular],
                                             "prev": null,
-                                            "type": "text",
+                                            "type": "tag",
+                                            "x-attribsNamespace": Object {
+                                              "class": undefined,
+                                              "href": undefined,
+                                              "target": undefined,
+                                            },
+                                            "x-attribsPrefix": Object {
+                                              "class": undefined,
+                                              "href": undefined,
+                                              "target": undefined,
+                                            },
                                           },
                                         ],
-                                        "name": "a",
+                                        "name": "div",
                                         "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
@@ -3136,13 +3387,9 @@ initialize {
                                         "type": "tag",
                                         "x-attribsNamespace": Object {
                                           "class": undefined,
-                                          "href": undefined,
-                                          "target": undefined,
                                         },
                                         "x-attribsPrefix": Object {
                                           "class": undefined,
-                                          "href": undefined,
-                                          "target": undefined,
                                         },
                                       },
                                     ],
@@ -3191,7 +3438,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -3206,7 +3453,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -3221,25 +3468,48 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-hqyNC WvwGx",
+                                    "class": "sc-bbmXgH haoUo",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                        "href": "https://civil.co",
-                                        "target": "_blank",
+                                        "class": "sc-gGBfsJ kOICvL",
                                       },
                                       "children": Array [
                                         Object {
-                                          "data": "Visit Newsroom 🡭",
+                                          "attribs": Object {
+                                            "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                            "href": "https://civil.co",
+                                            "target": "_blank",
+                                          },
+                                          "children": Array [
+                                            Object {
+                                              "data": "Visit Newsroom 🡭",
+                                              "next": null,
+                                              "parent": [Circular],
+                                              "prev": null,
+                                              "type": "text",
+                                            },
+                                          ],
+                                          "name": "a",
+                                          "namespace": "http://www.w3.org/1999/xhtml",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
-                                          "type": "text",
+                                          "type": "tag",
+                                          "x-attribsNamespace": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
+                                          "x-attribsPrefix": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
                                         },
                                       ],
-                                      "name": "a",
+                                      "name": "div",
                                       "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
@@ -3247,13 +3517,9 @@ initialize {
                                       "type": "tag",
                                       "x-attribsNamespace": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                       "x-attribsPrefix": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                     },
                                   ],
@@ -3317,7 +3583,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -3332,25 +3598,48 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-hqyNC WvwGx",
+                                  "class": "sc-bbmXgH haoUo",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                      "href": "https://civil.co",
-                                      "target": "_blank",
+                                      "class": "sc-gGBfsJ kOICvL",
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Visit Newsroom 🡭",
+                                        "attribs": Object {
+                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                          "href": "https://civil.co",
+                                          "target": "_blank",
+                                        },
+                                        "children": Array [
+                                          Object {
+                                            "data": "Visit Newsroom 🡭",
+                                            "next": null,
+                                            "parent": [Circular],
+                                            "prev": null,
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "name": "a",
+                                        "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
-                                        "type": "text",
+                                        "type": "tag",
+                                        "x-attribsNamespace": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                        "x-attribsPrefix": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
                                       },
                                     ],
-                                    "name": "a",
+                                    "name": "div",
                                     "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
@@ -3358,13 +3647,9 @@ initialize {
                                     "type": "tag",
                                     "x-attribsNamespace": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                     "x-attribsPrefix": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                   },
                                 ],
@@ -3384,7 +3669,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -3443,25 +3728,48 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-hqyNC WvwGx",
+                                "class": "sc-bbmXgH haoUo",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                    "href": "https://civil.co",
-                                    "target": "_blank",
+                                    "class": "sc-gGBfsJ kOICvL",
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Visit Newsroom 🡭",
+                                      "attribs": Object {
+                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                        "href": "https://civil.co",
+                                        "target": "_blank",
+                                      },
+                                      "children": Array [
+                                        Object {
+                                          "data": "Visit Newsroom 🡭",
+                                          "next": null,
+                                          "parent": [Circular],
+                                          "prev": null,
+                                          "type": "text",
+                                        },
+                                      ],
+                                      "name": "a",
+                                      "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
-                                      "type": "text",
+                                      "type": "tag",
+                                      "x-attribsNamespace": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
+                                      "x-attribsPrefix": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
                                     },
                                   ],
-                                  "name": "a",
+                                  "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": null,
                                   "parent": [Circular],
@@ -3469,13 +3777,9 @@ initialize {
                                   "type": "tag",
                                   "x-attribsNamespace": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                 },
                               ],
@@ -3485,7 +3789,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -3502,7 +3806,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": "sc-cJSrbW eBIUzJ",
+                                    "class": "sc-kvZOFW bqbuIB",
                                   },
                                   "children": Array [
                                     Object {
@@ -3684,7 +3988,7 @@ exports[`Storyshots Listing Details Header No phase label 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-dNLxif dEjSUO",
+      "class": "sc-hEsumM bMFlIf",
     },
     "children": Array [
       Object {
@@ -3692,27 +3996,27 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-TOsTZ byDfzs",
+              "class": "sc-hmzhuo dppoxI",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-kgAjT lgENDQ",
+                  "class": "sc-frDJqD dihAhr",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hmzhuo cWTwYG",
+                      "class": "sc-jbKcbu ciCQvv",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-frDJqD jrJdgS",
+                          "class": "sc-dNLxif jvYNF",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-cJSrbW eBIUzJ",
+                              "class": "sc-kvZOFW bqbuIB",
                             },
                             "children": Array [
                               Object {
@@ -3727,7 +4031,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -3742,7 +4046,222 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-hqyNC WvwGx",
+                                  "class": "sc-bbmXgH haoUo",
+                                },
+                                "children": Array [
+                                  Object {
+                                    "attribs": Object {
+                                      "class": "sc-gGBfsJ kOICvL",
+                                    },
+                                    "children": Array [
+                                      Object {
+                                        "attribs": Object {
+                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                          "href": "https://civil.co",
+                                          "target": "_blank",
+                                        },
+                                        "children": Array [
+                                          Object {
+                                            "data": "Visit Newsroom 🡭",
+                                            "next": null,
+                                            "parent": [Circular],
+                                            "prev": null,
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "name": "a",
+                                        "namespace": "http://www.w3.org/1999/xhtml",
+                                        "next": null,
+                                        "parent": [Circular],
+                                        "prev": null,
+                                        "type": "tag",
+                                        "x-attribsNamespace": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                        "x-attribsPrefix": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                      },
+                                    ],
+                                    "name": "div",
+                                    "namespace": "http://www.w3.org/1999/xhtml",
+                                    "next": null,
+                                    "parent": [Circular],
+                                    "prev": null,
+                                    "type": "tag",
+                                    "x-attribsNamespace": Object {
+                                      "class": undefined,
+                                    },
+                                    "x-attribsPrefix": Object {
+                                      "class": undefined,
+                                    },
+                                  },
+                                ],
+                                "name": "div",
+                                "namespace": "http://www.w3.org/1999/xhtml",
+                                "next": null,
+                                "parent": [Circular],
+                                "prev": [Circular],
+                                "type": "tag",
+                                "x-attribsNamespace": Object {
+                                  "class": undefined,
+                                },
+                                "x-attribsPrefix": Object {
+                                  "class": undefined,
+                                },
+                              },
+                              "parent": [Circular],
+                              "prev": [Circular],
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                              },
+                            },
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                            },
+                          },
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-hqyNC famPzs",
+                            },
+                            "children": Array [
+                              Object {
+                                "data": "Civil is the decentralized marketplace for sustainable journalism.",
+                                "next": null,
+                                "parent": [Circular],
+                                "prev": null,
+                                "type": "text",
+                              },
+                            ],
+                            "name": "p",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": Object {
+                              "attribs": Object {
+                                "class": "sc-bbmXgH haoUo",
+                              },
+                              "children": Array [
+                                Object {
+                                  "attribs": Object {
+                                    "class": "sc-gGBfsJ kOICvL",
+                                  },
+                                  "children": Array [
+                                    Object {
+                                      "attribs": Object {
+                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                        "href": "https://civil.co",
+                                        "target": "_blank",
+                                      },
+                                      "children": Array [
+                                        Object {
+                                          "data": "Visit Newsroom 🡭",
+                                          "next": null,
+                                          "parent": [Circular],
+                                          "prev": null,
+                                          "type": "text",
+                                        },
+                                      ],
+                                      "name": "a",
+                                      "namespace": "http://www.w3.org/1999/xhtml",
+                                      "next": null,
+                                      "parent": [Circular],
+                                      "prev": null,
+                                      "type": "tag",
+                                      "x-attribsNamespace": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
+                                      "x-attribsPrefix": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
+                                    },
+                                  ],
+                                  "name": "div",
+                                  "namespace": "http://www.w3.org/1999/xhtml",
+                                  "next": null,
+                                  "parent": [Circular],
+                                  "prev": null,
+                                  "type": "tag",
+                                  "x-attribsNamespace": Object {
+                                    "class": undefined,
+                                  },
+                                  "x-attribsPrefix": Object {
+                                    "class": undefined,
+                                  },
+                                },
+                              ],
+                              "name": "div",
+                              "namespace": "http://www.w3.org/1999/xhtml",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": [Circular],
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                              },
+                            },
+                            "parent": [Circular],
+                            "prev": Object {
+                              "attribs": Object {
+                                "class": "sc-kvZOFW bqbuIB",
+                              },
+                              "children": Array [
+                                Object {
+                                  "data": "The Civil Times",
+                                  "next": null,
+                                  "parent": [Circular],
+                                  "prev": null,
+                                  "type": "text",
+                                },
+                              ],
+                              "name": "h1",
+                              "namespace": "http://www.w3.org/1999/xhtml",
+                              "next": [Circular],
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                              },
+                            },
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                            },
+                          },
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-bbmXgH haoUo",
+                            },
+                            "children": Array [
+                              Object {
+                                "attribs": Object {
+                                  "class": "sc-gGBfsJ kOICvL",
                                 },
                                 "children": Array [
                                   Object {
@@ -3782,171 +4301,13 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": null,
                                 "parent": [Circular],
-                                "prev": [Circular],
+                                "prev": null,
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "class": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
-                                },
-                              },
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          Object {
-                            "attribs": Object {
-                              "class": "sc-ksYbfQ liXEmj",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Civil is the decentralized marketplace for sustainable journalism.",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "p",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "attribs": Object {
-                                "class": "sc-hqyNC WvwGx",
-                              },
-                              "children": Array [
-                                Object {
-                                  "attribs": Object {
-                                    "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                    "href": "https://civil.co",
-                                    "target": "_blank",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Visit Newsroom 🡭",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "a",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
-                                  },
-                                },
-                              ],
-                              "name": "div",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "The Civil Times",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "h1",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "class": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "class": undefined,
-                            },
-                          },
-                          Object {
-                            "attribs": Object {
-                              "class": "sc-hqyNC WvwGx",
-                            },
-                            "children": Array [
-                              Object {
-                                "attribs": Object {
-                                  "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                  "href": "https://civil.co",
-                                  "target": "_blank",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "Visit Newsroom 🡭",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "a",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                  "href": undefined,
-                                  "target": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                  "href": undefined,
-                                  "target": undefined,
                                 },
                               },
                             ],
@@ -3956,7 +4317,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -3973,7 +4334,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -4018,7 +4379,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-kvZOFW bHpKbg",
+                            "class": "sc-jqCOkK icpiMj",
                           },
                           "children": Array [
                             Object {
@@ -4368,7 +4729,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-kvZOFW bHpKbg",
+                          "class": "sc-jqCOkK icpiMj",
                         },
                         "children": Array [
                           Object {
@@ -4699,12 +5060,12 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-frDJqD jrJdgS",
+                            "class": "sc-dNLxif jvYNF",
                           },
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -4719,7 +5080,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -4734,7 +5095,222 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-hqyNC WvwGx",
+                                    "class": "sc-bbmXgH haoUo",
+                                  },
+                                  "children": Array [
+                                    Object {
+                                      "attribs": Object {
+                                        "class": "sc-gGBfsJ kOICvL",
+                                      },
+                                      "children": Array [
+                                        Object {
+                                          "attribs": Object {
+                                            "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                            "href": "https://civil.co",
+                                            "target": "_blank",
+                                          },
+                                          "children": Array [
+                                            Object {
+                                              "data": "Visit Newsroom 🡭",
+                                              "next": null,
+                                              "parent": [Circular],
+                                              "prev": null,
+                                              "type": "text",
+                                            },
+                                          ],
+                                          "name": "a",
+                                          "namespace": "http://www.w3.org/1999/xhtml",
+                                          "next": null,
+                                          "parent": [Circular],
+                                          "prev": null,
+                                          "type": "tag",
+                                          "x-attribsNamespace": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
+                                          "x-attribsPrefix": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
+                                        },
+                                      ],
+                                      "name": "div",
+                                      "namespace": "http://www.w3.org/1999/xhtml",
+                                      "next": null,
+                                      "parent": [Circular],
+                                      "prev": null,
+                                      "type": "tag",
+                                      "x-attribsNamespace": Object {
+                                        "class": undefined,
+                                      },
+                                      "x-attribsPrefix": Object {
+                                        "class": undefined,
+                                      },
+                                    },
+                                  ],
+                                  "name": "div",
+                                  "namespace": "http://www.w3.org/1999/xhtml",
+                                  "next": null,
+                                  "parent": [Circular],
+                                  "prev": [Circular],
+                                  "type": "tag",
+                                  "x-attribsNamespace": Object {
+                                    "class": undefined,
+                                  },
+                                  "x-attribsPrefix": Object {
+                                    "class": undefined,
+                                  },
+                                },
+                                "parent": [Circular],
+                                "prev": [Circular],
+                                "type": "tag",
+                                "x-attribsNamespace": Object {
+                                  "class": undefined,
+                                },
+                                "x-attribsPrefix": Object {
+                                  "class": undefined,
+                                },
+                              },
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                              },
+                            },
+                            Object {
+                              "attribs": Object {
+                                "class": "sc-hqyNC famPzs",
+                              },
+                              "children": Array [
+                                Object {
+                                  "data": "Civil is the decentralized marketplace for sustainable journalism.",
+                                  "next": null,
+                                  "parent": [Circular],
+                                  "prev": null,
+                                  "type": "text",
+                                },
+                              ],
+                              "name": "p",
+                              "namespace": "http://www.w3.org/1999/xhtml",
+                              "next": Object {
+                                "attribs": Object {
+                                  "class": "sc-bbmXgH haoUo",
+                                },
+                                "children": Array [
+                                  Object {
+                                    "attribs": Object {
+                                      "class": "sc-gGBfsJ kOICvL",
+                                    },
+                                    "children": Array [
+                                      Object {
+                                        "attribs": Object {
+                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                          "href": "https://civil.co",
+                                          "target": "_blank",
+                                        },
+                                        "children": Array [
+                                          Object {
+                                            "data": "Visit Newsroom 🡭",
+                                            "next": null,
+                                            "parent": [Circular],
+                                            "prev": null,
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "name": "a",
+                                        "namespace": "http://www.w3.org/1999/xhtml",
+                                        "next": null,
+                                        "parent": [Circular],
+                                        "prev": null,
+                                        "type": "tag",
+                                        "x-attribsNamespace": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                        "x-attribsPrefix": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                      },
+                                    ],
+                                    "name": "div",
+                                    "namespace": "http://www.w3.org/1999/xhtml",
+                                    "next": null,
+                                    "parent": [Circular],
+                                    "prev": null,
+                                    "type": "tag",
+                                    "x-attribsNamespace": Object {
+                                      "class": undefined,
+                                    },
+                                    "x-attribsPrefix": Object {
+                                      "class": undefined,
+                                    },
+                                  },
+                                ],
+                                "name": "div",
+                                "namespace": "http://www.w3.org/1999/xhtml",
+                                "next": null,
+                                "parent": [Circular],
+                                "prev": [Circular],
+                                "type": "tag",
+                                "x-attribsNamespace": Object {
+                                  "class": undefined,
+                                },
+                                "x-attribsPrefix": Object {
+                                  "class": undefined,
+                                },
+                              },
+                              "parent": [Circular],
+                              "prev": Object {
+                                "attribs": Object {
+                                  "class": "sc-kvZOFW bqbuIB",
+                                },
+                                "children": Array [
+                                  Object {
+                                    "data": "The Civil Times",
+                                    "next": null,
+                                    "parent": [Circular],
+                                    "prev": null,
+                                    "type": "text",
+                                  },
+                                ],
+                                "name": "h1",
+                                "namespace": "http://www.w3.org/1999/xhtml",
+                                "next": [Circular],
+                                "parent": [Circular],
+                                "prev": null,
+                                "type": "tag",
+                                "x-attribsNamespace": Object {
+                                  "class": undefined,
+                                },
+                                "x-attribsPrefix": Object {
+                                  "class": undefined,
+                                },
+                              },
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                              },
+                            },
+                            Object {
+                              "attribs": Object {
+                                "class": "sc-bbmXgH haoUo",
+                              },
+                              "children": Array [
+                                Object {
+                                  "attribs": Object {
+                                    "class": "sc-gGBfsJ kOICvL",
                                   },
                                   "children": Array [
                                     Object {
@@ -4774,171 +5350,13 @@ initialize {
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": null,
                                   "parent": [Circular],
-                                  "prev": [Circular],
+                                  "prev": null,
                                   "type": "tag",
                                   "x-attribsNamespace": Object {
                                     "class": undefined,
                                   },
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
-                                  },
-                                },
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            Object {
-                              "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
-                              },
-                              "children": Array [
-                                Object {
-                                  "data": "Civil is the decentralized marketplace for sustainable journalism.",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "text",
-                                },
-                              ],
-                              "name": "p",
-                              "namespace": "http://www.w3.org/1999/xhtml",
-                              "next": Object {
-                                "attribs": Object {
-                                  "class": "sc-hqyNC WvwGx",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "attribs": Object {
-                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                      "href": "https://civil.co",
-                                      "target": "_blank",
-                                    },
-                                    "children": Array [
-                                      Object {
-                                        "data": "Visit Newsroom 🡭",
-                                        "next": null,
-                                        "parent": [Circular],
-                                        "prev": null,
-                                        "type": "text",
-                                      },
-                                    ],
-                                    "name": "a",
-                                    "namespace": "http://www.w3.org/1999/xhtml",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "tag",
-                                    "x-attribsNamespace": Object {
-                                      "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
-                                    },
-                                    "x-attribsPrefix": Object {
-                                      "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
-                                    },
-                                  },
-                                ],
-                                "name": "div",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": [Circular],
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "parent": [Circular],
-                              "prev": Object {
-                                "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
-                                },
-                                "children": Array [
-                                  Object {
-                                    "data": "The Civil Times",
-                                    "next": null,
-                                    "parent": [Circular],
-                                    "prev": null,
-                                    "type": "text",
-                                  },
-                                ],
-                                "name": "h1",
-                                "namespace": "http://www.w3.org/1999/xhtml",
-                                "next": [Circular],
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "class": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "class": undefined,
-                                },
-                              },
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "class": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "class": undefined,
-                              },
-                            },
-                            Object {
-                              "attribs": Object {
-                                "class": "sc-hqyNC WvwGx",
-                              },
-                              "children": Array [
-                                Object {
-                                  "attribs": Object {
-                                    "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                    "href": "https://civil.co",
-                                    "target": "_blank",
-                                  },
-                                  "children": Array [
-                                    Object {
-                                      "data": "Visit Newsroom 🡭",
-                                      "next": null,
-                                      "parent": [Circular],
-                                      "prev": null,
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "name": "a",
-                                  "namespace": "http://www.w3.org/1999/xhtml",
-                                  "next": null,
-                                  "parent": [Circular],
-                                  "prev": null,
-                                  "type": "tag",
-                                  "x-attribsNamespace": Object {
-                                    "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
-                                  },
-                                  "x-attribsPrefix": Object {
-                                    "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                 },
                               ],
@@ -4948,7 +5366,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -4965,7 +5383,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": "sc-cJSrbW eBIUzJ",
+                                    "class": "sc-kvZOFW bqbuIB",
                                   },
                                   "children": Array [
                                     Object {
@@ -5122,7 +5540,7 @@ exports[`Storyshots Listing Details Header Revealing Votes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-dNLxif dEjSUO",
+      "class": "sc-hEsumM bMFlIf",
     },
     "children": Array [
       Object {
@@ -5130,22 +5548,22 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-TOsTZ byDfzs",
+              "class": "sc-hmzhuo dppoxI",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-kgAjT lgENDQ",
+                  "class": "sc-frDJqD dihAhr",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hmzhuo cWTwYG",
+                      "class": "sc-jbKcbu ciCQvv",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-frDJqD jrJdgS",
+                          "class": "sc-dNLxif jvYNF",
                         },
                         "children": Array [
                           Object {
@@ -5165,7 +5583,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -5180,7 +5598,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -5195,25 +5613,48 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-hqyNC WvwGx",
+                                    "class": "sc-bbmXgH haoUo",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                        "href": "https://civil.co",
-                                        "target": "_blank",
+                                        "class": "sc-gGBfsJ kOICvL",
                                       },
                                       "children": Array [
                                         Object {
-                                          "data": "Visit Newsroom 🡭",
+                                          "attribs": Object {
+                                            "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                            "href": "https://civil.co",
+                                            "target": "_blank",
+                                          },
+                                          "children": Array [
+                                            Object {
+                                              "data": "Visit Newsroom 🡭",
+                                              "next": null,
+                                              "parent": [Circular],
+                                              "prev": null,
+                                              "type": "text",
+                                            },
+                                          ],
+                                          "name": "a",
+                                          "namespace": "http://www.w3.org/1999/xhtml",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
-                                          "type": "text",
+                                          "type": "tag",
+                                          "x-attribsNamespace": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
+                                          "x-attribsPrefix": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
                                         },
                                       ],
-                                      "name": "a",
+                                      "name": "div",
                                       "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
@@ -5221,13 +5662,9 @@ initialize {
                                       "type": "tag",
                                       "x-attribsNamespace": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                       "x-attribsPrefix": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                     },
                                   ],
@@ -5276,7 +5713,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-cJSrbW eBIUzJ",
+                              "class": "sc-kvZOFW bqbuIB",
                             },
                             "children": Array [
                               Object {
@@ -5291,7 +5728,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -5306,25 +5743,48 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-hqyNC WvwGx",
+                                  "class": "sc-bbmXgH haoUo",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                      "href": "https://civil.co",
-                                      "target": "_blank",
+                                      "class": "sc-gGBfsJ kOICvL",
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Visit Newsroom 🡭",
+                                        "attribs": Object {
+                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                          "href": "https://civil.co",
+                                          "target": "_blank",
+                                        },
+                                        "children": Array [
+                                          Object {
+                                            "data": "Visit Newsroom 🡭",
+                                            "next": null,
+                                            "parent": [Circular],
+                                            "prev": null,
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "name": "a",
+                                        "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
-                                        "type": "text",
+                                        "type": "tag",
+                                        "x-attribsNamespace": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                        "x-attribsPrefix": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
                                       },
                                     ],
-                                    "name": "a",
+                                    "name": "div",
                                     "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
@@ -5332,13 +5792,9 @@ initialize {
                                     "type": "tag",
                                     "x-attribsNamespace": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                     "x-attribsPrefix": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                   },
                                 ],
@@ -5402,7 +5858,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-ksYbfQ liXEmj",
+                              "class": "sc-hqyNC famPzs",
                             },
                             "children": Array [
                               Object {
@@ -5417,25 +5873,48 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-hqyNC WvwGx",
+                                "class": "sc-bbmXgH haoUo",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                    "href": "https://civil.co",
-                                    "target": "_blank",
+                                    "class": "sc-gGBfsJ kOICvL",
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Visit Newsroom 🡭",
+                                      "attribs": Object {
+                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                        "href": "https://civil.co",
+                                        "target": "_blank",
+                                      },
+                                      "children": Array [
+                                        Object {
+                                          "data": "Visit Newsroom 🡭",
+                                          "next": null,
+                                          "parent": [Circular],
+                                          "prev": null,
+                                          "type": "text",
+                                        },
+                                      ],
+                                      "name": "a",
+                                      "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
-                                      "type": "text",
+                                      "type": "tag",
+                                      "x-attribsNamespace": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
+                                      "x-attribsPrefix": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
                                     },
                                   ],
-                                  "name": "a",
+                                  "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": null,
                                   "parent": [Circular],
@@ -5443,13 +5922,9 @@ initialize {
                                   "type": "tag",
                                   "x-attribsNamespace": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                 },
                               ],
@@ -5469,7 +5944,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -5528,25 +6003,48 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-hqyNC WvwGx",
+                              "class": "sc-bbmXgH haoUo",
                             },
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                  "href": "https://civil.co",
-                                  "target": "_blank",
+                                  "class": "sc-gGBfsJ kOICvL",
                                 },
                                 "children": Array [
                                   Object {
-                                    "data": "Visit Newsroom 🡭",
+                                    "attribs": Object {
+                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                      "href": "https://civil.co",
+                                      "target": "_blank",
+                                    },
+                                    "children": Array [
+                                      Object {
+                                        "data": "Visit Newsroom 🡭",
+                                        "next": null,
+                                        "parent": [Circular],
+                                        "prev": null,
+                                        "type": "text",
+                                      },
+                                    ],
+                                    "name": "a",
+                                    "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
-                                    "type": "text",
+                                    "type": "tag",
+                                    "x-attribsNamespace": Object {
+                                      "class": undefined,
+                                      "href": undefined,
+                                      "target": undefined,
+                                    },
+                                    "x-attribsPrefix": Object {
+                                      "class": undefined,
+                                      "href": undefined,
+                                      "target": undefined,
+                                    },
                                   },
                                 ],
-                                "name": "a",
+                                "name": "div",
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": null,
                                 "parent": [Circular],
@@ -5554,13 +6052,9 @@ initialize {
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "class": undefined,
-                                  "href": undefined,
-                                  "target": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
-                                  "href": undefined,
-                                  "target": undefined,
                                 },
                               },
                             ],
@@ -5570,7 +6064,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -5587,7 +6081,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -5657,7 +6151,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-kvZOFW bHpKbg",
+                            "class": "sc-jqCOkK icpiMj",
                           },
                           "children": Array [
                             Object {
@@ -6007,7 +6501,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-kvZOFW bHpKbg",
+                          "class": "sc-jqCOkK icpiMj",
                         },
                         "children": Array [
                           Object {
@@ -6338,7 +6832,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-frDJqD jrJdgS",
+                            "class": "sc-dNLxif jvYNF",
                           },
                           "children": Array [
                             Object {
@@ -6358,7 +6852,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -6373,7 +6867,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-ksYbfQ liXEmj",
+                                    "class": "sc-hqyNC famPzs",
                                   },
                                   "children": Array [
                                     Object {
@@ -6388,25 +6882,48 @@ initialize {
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": Object {
                                     "attribs": Object {
-                                      "class": "sc-hqyNC WvwGx",
+                                      "class": "sc-bbmXgH haoUo",
                                     },
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                          "href": "https://civil.co",
-                                          "target": "_blank",
+                                          "class": "sc-gGBfsJ kOICvL",
                                         },
                                         "children": Array [
                                           Object {
-                                            "data": "Visit Newsroom 🡭",
+                                            "attribs": Object {
+                                              "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                              "href": "https://civil.co",
+                                              "target": "_blank",
+                                            },
+                                            "children": Array [
+                                              Object {
+                                                "data": "Visit Newsroom 🡭",
+                                                "next": null,
+                                                "parent": [Circular],
+                                                "prev": null,
+                                                "type": "text",
+                                              },
+                                            ],
+                                            "name": "a",
+                                            "namespace": "http://www.w3.org/1999/xhtml",
                                             "next": null,
                                             "parent": [Circular],
                                             "prev": null,
-                                            "type": "text",
+                                            "type": "tag",
+                                            "x-attribsNamespace": Object {
+                                              "class": undefined,
+                                              "href": undefined,
+                                              "target": undefined,
+                                            },
+                                            "x-attribsPrefix": Object {
+                                              "class": undefined,
+                                              "href": undefined,
+                                              "target": undefined,
+                                            },
                                           },
                                         ],
-                                        "name": "a",
+                                        "name": "div",
                                         "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
@@ -6414,13 +6931,9 @@ initialize {
                                         "type": "tag",
                                         "x-attribsNamespace": Object {
                                           "class": undefined,
-                                          "href": undefined,
-                                          "target": undefined,
                                         },
                                         "x-attribsPrefix": Object {
                                           "class": undefined,
-                                          "href": undefined,
-                                          "target": undefined,
                                         },
                                       },
                                     ],
@@ -6469,7 +6982,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-cJSrbW eBIUzJ",
+                                "class": "sc-kvZOFW bqbuIB",
                               },
                               "children": Array [
                                 Object {
@@ -6484,7 +6997,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -6499,25 +7012,48 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-hqyNC WvwGx",
+                                    "class": "sc-bbmXgH haoUo",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                        "href": "https://civil.co",
-                                        "target": "_blank",
+                                        "class": "sc-gGBfsJ kOICvL",
                                       },
                                       "children": Array [
                                         Object {
-                                          "data": "Visit Newsroom 🡭",
+                                          "attribs": Object {
+                                            "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                            "href": "https://civil.co",
+                                            "target": "_blank",
+                                          },
+                                          "children": Array [
+                                            Object {
+                                              "data": "Visit Newsroom 🡭",
+                                              "next": null,
+                                              "parent": [Circular],
+                                              "prev": null,
+                                              "type": "text",
+                                            },
+                                          ],
+                                          "name": "a",
+                                          "namespace": "http://www.w3.org/1999/xhtml",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
-                                          "type": "text",
+                                          "type": "tag",
+                                          "x-attribsNamespace": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
+                                          "x-attribsPrefix": Object {
+                                            "class": undefined,
+                                            "href": undefined,
+                                            "target": undefined,
+                                          },
                                         },
                                       ],
-                                      "name": "a",
+                                      "name": "div",
                                       "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
@@ -6525,13 +7061,9 @@ initialize {
                                       "type": "tag",
                                       "x-attribsNamespace": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                       "x-attribsPrefix": Object {
                                         "class": undefined,
-                                        "href": undefined,
-                                        "target": undefined,
                                       },
                                     },
                                   ],
@@ -6595,7 +7127,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-ksYbfQ liXEmj",
+                                "class": "sc-hqyNC famPzs",
                               },
                               "children": Array [
                                 Object {
@@ -6610,25 +7142,48 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-hqyNC WvwGx",
+                                  "class": "sc-bbmXgH haoUo",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                      "href": "https://civil.co",
-                                      "target": "_blank",
+                                      "class": "sc-gGBfsJ kOICvL",
                                     },
                                     "children": Array [
                                       Object {
-                                        "data": "Visit Newsroom 🡭",
+                                        "attribs": Object {
+                                          "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                          "href": "https://civil.co",
+                                          "target": "_blank",
+                                        },
+                                        "children": Array [
+                                          Object {
+                                            "data": "Visit Newsroom 🡭",
+                                            "next": null,
+                                            "parent": [Circular],
+                                            "prev": null,
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "name": "a",
+                                        "namespace": "http://www.w3.org/1999/xhtml",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
-                                        "type": "text",
+                                        "type": "tag",
+                                        "x-attribsNamespace": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
+                                        "x-attribsPrefix": Object {
+                                          "class": undefined,
+                                          "href": undefined,
+                                          "target": undefined,
+                                        },
                                       },
                                     ],
-                                    "name": "a",
+                                    "name": "div",
                                     "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": null,
                                     "parent": [Circular],
@@ -6636,13 +7191,9 @@ initialize {
                                     "type": "tag",
                                     "x-attribsNamespace": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                     "x-attribsPrefix": Object {
                                       "class": undefined,
-                                      "href": undefined,
-                                      "target": undefined,
                                     },
                                   },
                                 ],
@@ -6662,7 +7213,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-cJSrbW eBIUzJ",
+                                  "class": "sc-kvZOFW bqbuIB",
                                 },
                                 "children": Array [
                                   Object {
@@ -6721,25 +7272,48 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-hqyNC WvwGx",
+                                "class": "sc-bbmXgH haoUo",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
-                                    "href": "https://civil.co",
-                                    "target": "_blank",
+                                    "class": "sc-gGBfsJ kOICvL",
                                   },
                                   "children": Array [
                                     Object {
-                                      "data": "Visit Newsroom 🡭",
+                                      "attribs": Object {
+                                        "class": "sc-htoDjs ixXLWo sc-gzVnrw jzNDuJ",
+                                        "href": "https://civil.co",
+                                        "target": "_blank",
+                                      },
+                                      "children": Array [
+                                        Object {
+                                          "data": "Visit Newsroom 🡭",
+                                          "next": null,
+                                          "parent": [Circular],
+                                          "prev": null,
+                                          "type": "text",
+                                        },
+                                      ],
+                                      "name": "a",
+                                      "namespace": "http://www.w3.org/1999/xhtml",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
-                                      "type": "text",
+                                      "type": "tag",
+                                      "x-attribsNamespace": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
+                                      "x-attribsPrefix": Object {
+                                        "class": undefined,
+                                        "href": undefined,
+                                        "target": undefined,
+                                      },
                                     },
                                   ],
-                                  "name": "a",
+                                  "name": "div",
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": null,
                                   "parent": [Circular],
@@ -6747,13 +7321,9 @@ initialize {
                                   "type": "tag",
                                   "x-attribsNamespace": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
-                                    "href": undefined,
-                                    "target": undefined,
                                   },
                                 },
                               ],
@@ -6763,7 +7333,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-ksYbfQ liXEmj",
+                                  "class": "sc-hqyNC famPzs",
                                 },
                                 "children": Array [
                                   Object {
@@ -6780,7 +7350,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": "sc-cJSrbW eBIUzJ",
+                                    "class": "sc-kvZOFW bqbuIB",
                                   },
                                   "children": Array [
                                     Object {
