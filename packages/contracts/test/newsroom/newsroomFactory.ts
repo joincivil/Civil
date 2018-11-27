@@ -3,7 +3,7 @@ import { DecodedLogEntry } from "@joincivil/typescript-types";
 import { isDeployedBytecodeEqual } from "@joincivil/utils";
 import * as chai from "chai";
 import { bufferToHex, sha3 } from "ethereumjs-util";
-import { REVERTED } from "../utils/constants";
+import { REVERTED, NEWSROOM_ROLE_EDITOR } from "../utils/constants";
 import { configureProviders } from "../utils/contractutils";
 import ethApi from "../utils/getethapi";
 
@@ -94,6 +94,12 @@ contract("NewsroomFactory", accounts => {
 
     await expect(multisig.getOwners()).to.eventually.have.members(OWNERS);
   });
+
+  it("makes the owner also an editor", async () => {
+    const OWNERS = [owner];
+    const { newsroom } = await createNewsroom(OWNERS);
+    expect(await newsroom.hasRole(owner, NEWSROOM_ROLE_EDITOR)).to.be.true();
+  })
 
   it("sets proper required", async () => {
     const OWNERS = [owner, secondOwner, thirdOwner];
