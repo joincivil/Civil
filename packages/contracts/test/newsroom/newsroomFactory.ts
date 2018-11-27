@@ -99,7 +99,7 @@ contract("NewsroomFactory", accounts => {
     const OWNERS = [owner];
     const { newsroom } = await createNewsroom(OWNERS);
     expect(await newsroom.hasRole(owner, NEWSROOM_ROLE_EDITOR)).to.be.true();
-  })
+  });
 
   it("sets proper required", async () => {
     const OWNERS = [owner, secondOwner, thirdOwner];
