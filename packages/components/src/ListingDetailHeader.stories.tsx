@@ -1,6 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
+import { CharterData } from "@joincivil/core";
 import { ListingDetailHeader, ListingDetailHeaderProps } from "./ListingDetailHeader";
 
 const StyledDiv = styled.div`
@@ -16,11 +17,16 @@ const Container: React.StatelessComponent = ({ children }) => (
   </StyledDiv>
 );
 
+const charter = {
+  tagline: "Civil is the decentralized marketplace for sustainable journalism.",
+  newsroomUrl: "https://civil.co",
+};
+
 storiesOf("Listing Details Header", module)
   .add("No phase label", () => {
     const props: ListingDetailHeaderProps = {
       newsroomName: "The Civil Times",
-      newsroomDescription: "Civil is the decentralized marketplace for sustainable journalism.",
+      charter: charter as CharterData,
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       isInApplication: false,
@@ -36,7 +42,7 @@ storiesOf("Listing Details Header", module)
   .add("In Application", () => {
     const props: ListingDetailHeaderProps = {
       newsroomName: "The Civil Times",
-      newsroomDescription: "Civil is the decentralized marketplace for sustainable journalism.",
+      charter: charter as CharterData,
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       isInApplication: true,
@@ -52,7 +58,7 @@ storiesOf("Listing Details Header", module)
   .add("Accepting Votes", () => {
     const props: ListingDetailHeaderProps = {
       newsroomName: "The Civil Times",
-      newsroomDescription: "Civil is the decentralized marketplace for sustainable journalism.",
+      charter: charter as CharterData,
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       isInApplication: false,
@@ -68,7 +74,7 @@ storiesOf("Listing Details Header", module)
   .add("Revealing Votes", () => {
     const props: ListingDetailHeaderProps = {
       newsroomName: "The Civil Times",
-      newsroomDescription: "Civil is the decentralized marketplace for sustainable journalism.",
+      charter: charter as CharterData,
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       isInApplication: false,
