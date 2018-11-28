@@ -121,6 +121,10 @@ contract Newsroom is ACL {
     _addRole(who, role);
   }
 
+  function addEditor(address who) external requireRole(ROLE_EDITOR) {
+    _addRole(who, ROLE_EDITOR);
+  }
+
   /**
   @notice Removes a string-based role from the specific address, requires ROLE_EDITOR to use
   */
