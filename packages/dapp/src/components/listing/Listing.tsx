@@ -38,6 +38,9 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
             if (error) {
               return <p>Error :</p>;
             }
+            if (!data.listing) {
+              return <p>Error: Listing data not found</p>;
+            }
             const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
             const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
             return <ListingRedux listingAddress={listingAddress} newsroom={newsroom} listing={listing} />;
