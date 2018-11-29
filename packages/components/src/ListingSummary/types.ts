@@ -4,6 +4,7 @@ export interface ListingSummaryComponentProps {
   listingAddress?: EthAddress;
   name?: string;
   description?: string;
+  logoURL?: string;
   listingDetailURL?: string;
   challengeID?: string;
   challengeStatementSummary?: string;

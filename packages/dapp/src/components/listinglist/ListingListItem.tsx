@@ -75,6 +75,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       // TODO(toby) remove legacy `desc` after transition
       description = this.props.charter.tagline || (this.props.charter as any).desc;
     }
+    const logoURL = this.props.charter && this.props.charter.logoUrl;
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
     const challenge = listingData.challenge;
     const pollData = challenge && challenge.poll;
@@ -106,6 +107,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       ...newsroomData,
       listingAddress,
       description,
+      logoURL,
       listingDetailURL,
       ...listingPhaseState,
       challengeID,
