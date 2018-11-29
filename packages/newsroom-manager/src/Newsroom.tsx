@@ -400,10 +400,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private isDisabled = (): boolean => {
+    const onRequiredNetwork =
+      !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.props.currentNetwork!);
     return (
       this.props.disabled ||
       !this.props.civil ||
-      !this.props.requiredNetwork!.includes(this.props.currentNetwork!) ||
+      !onRequiredNetwork ||
       !this.props.account ||
       !!this.props.userNotOnContract
     );

@@ -200,7 +200,7 @@ class SignConstitutionComponent extends React.Component<
         <StepFormSection>
           <h4>Civil Constitution</h4>
           <StepDescription>Please read and sign the Civil Constitution below</StepDescription>
-          <StyledLegalIframe src={this.props.government!.get("constitutionUri")} />
+          {this.props.government && <StyledLegalIframe src={this.props.government.get("constitutionUri")} />}
           <p>
             <CheckWrapper>
               <Checkbox
