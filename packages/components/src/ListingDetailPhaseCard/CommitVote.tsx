@@ -210,6 +210,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
         buttonText="Commit Max"
         icon={<>CVL</>}
         value={this.props.numTokens}
+        onChange={this.setNumTokens}
         onButtonClick={() => this.props.onCommitMaxTokens()}
       />
     );
@@ -229,6 +230,10 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     }
 
     return null;
+  };
+
+  private setNumTokens = (name: string, value: string | null): void => {
+    this.props.onInputChange({ numTokens: value });
   };
 
   private setVoteToRemain = (): void => {
