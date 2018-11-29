@@ -262,8 +262,9 @@ class SignConstitutionComponent extends React.Component<
             },
         transaction: async (): Promise<EthSignedMessage> => {
           this.setState({ isWaitingSignatureOpen: true });
+          const constitutionHash = this.props.government ? this.props.government!.get("constitutionHash") : "[NONE]";
           return civil.signMessage(
-            prepareConstitutionSignMessage(this.props.newsroomAdress!, this.props.government!.get("constitutionHash")),
+            prepareConstitutionSignMessage(this.props.newsroomAdress!, constitutionHash),
           );
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
