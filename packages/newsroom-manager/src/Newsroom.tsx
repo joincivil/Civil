@@ -71,6 +71,7 @@ export interface NewsroomExternalProps {
   logoUrl?: string;
   metamaskEnabled?: boolean;
   signConstitutionStep?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
+  initialStep?: number;
   enable(): void;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
   persistCharter?(charter: Partial<CharterData>): Promise<void>;
@@ -173,17 +174,21 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   constructor(props: NewsroomProps) {
     super(props);
     let currentStep = props.address ? 1 : 0;
-    try {
-      if (localStorage.newsroomOnBoardingLastSeen) {
-        currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
+    if (typeof props.initialStep !== "undefined") {
+      currentStep = props.initialStep;
+    } else {
+      try {
+        if (localStorage.newsroomOnBoardingLastSeen) {
+          currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
 
-        // @TODO Temporary cause of infinite loop in sign constitution step
-        if (this.props.signConstitutionStep && currentStep === 4) {
-          currentStep--;
+          // @TODO Temporary cause of infinite loop in sign constitution step
+          if (this.props.signConstitutionStep && currentStep === 4) {
+            currentStep--;
+          }
         }
+      } catch (e) {
+        console.error("Failed to load step index", e);
       }
-    } catch (e) {
-      console.error("Failed to load step index", e);
     }
 
     this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
