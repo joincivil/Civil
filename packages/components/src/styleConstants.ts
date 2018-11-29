@@ -33,3 +33,7 @@ export const fonts = {
   SANS_SERIF: `"Libre Franklin", sans-serif`,
   MONOSPACE: `"SF Mono", "Segoe UI Mono", "Roboto Mono", "Ubuntu Mono", Menlo, Courier, monospace;`,
 };
+
+export const mediaQueries = {
+  MOBILE: "@media only screen and (min-width: 320px) and (max-width: 1030px)",
+};
