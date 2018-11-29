@@ -7,7 +7,7 @@ import {
   StyledNavMenuContainer,
   StyledNavMenuResponsiveContainer,
   StyledMobileNavMenu,
-  StyledVisibileIfLoggedInLink,
+  StyledVisibleIfLoggedInLink,
 } from "./styledComponents";
 import {
   NavLinkRegistryText,
@@ -49,13 +49,13 @@ const NavMenuLinksComponent: React.SFC = props => {
           <NavLinkWhitePaperText />
         </NavLink>
       </NavDropDown>
-      <StyledVisibileIfLoggedInLink>
+      <StyledVisibleIfLoggedInLink>
         <NavAccent>
           <NavLink to="/dashboard">
             <NavLinkDashboardText />
           </NavLink>
         </NavAccent>
-      </StyledVisibileIfLoggedInLink>
+      </StyledVisibleIfLoggedInLink>
     </>
   );
 };

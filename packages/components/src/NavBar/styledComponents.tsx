@@ -298,7 +298,7 @@ export const StyledMobileNavMenu = styled.div`
   }
 `;
 
-export const StyledVisibileIfLoggedInLink = styled.span`
+export const StyledVisibleIfLoggedInLink = styled.span`
   ${mediaQueries.MOBILE} {
     display: none;
   }
