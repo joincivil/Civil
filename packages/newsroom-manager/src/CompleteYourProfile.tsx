@@ -19,7 +19,7 @@ import { EthAddress, NewsroomRoles } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
-import { fetchNewsroom } from "./actionCreators";
+import { fetchNewsroom, addAndHydrateEditor, addAndHydrateOwner } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { NewsroomUser, UserTypes } from "./NewsroomUser";
 import { FormTitle, QuestionToolTip } from "./styledComponents";
@@ -396,7 +396,11 @@ class CompleteYourProfileComponent extends React.Component<
           return this.state.addEditor ? this.addEditor() : this.addOwner();
         },
         postTransaction: result => {
-          this.props.dispatch!(fetchNewsroom(this.props.address!));
+          if (this.state.addEditor) {
+            this.props.dispatch!(addAndHydrateEditor(this.props.address!, this.state.newEditor));
+          } else {
+            this.props.dispatch!(addAndHydrateOwner(this.props.address!, this.state.newOwner));
+          }
           this.setState({
             modalOpen: false,
             completeModalOpen: true,
