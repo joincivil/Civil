@@ -26,6 +26,7 @@ contract NewsroomFactory is Factory {
   {
     address wallet = multisigFactory.create(initialOwners, initialRequired);
     newsroom = new Newsroom(name, charterUri, charterHash);
+    newsroom.addEditor(msg.sender);
     newsroom.transferOwnership(wallet);
     register(newsroom);
   }

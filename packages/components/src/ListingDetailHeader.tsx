@@ -1,7 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CharterData } from "@joincivil/core";
 import { colors, fonts } from "./styleConstants";
+import { TwitterIcon, FacebookIcon } from "./icons";
 import { Button, buttonSizes } from "./Button";
 import {
   AwaitingApprovalStatusLabel,
@@ -55,9 +57,32 @@ const StyledRegistryLinkContainer = styled.div`
   }
 `;
 
+const NewsroomLinks = styled.div`
+  display: flex;
+  margin-top: 40px;
+`;
+const VisitNewsroomButtonWrap = styled.div`
+  line-height: 32px;
+  width: 50%;
+`;
+const FollowNewsroom = styled.div`
+  display: inline-block;
+  width: 50%;
+`;
+const FollowNewsroomHeading = styled.h5`
+  margin-bottom: 10px;
+  font: 500 14px/14px ${fonts.SANS_SERIF};
+  letter-spacing: 1px;
+  color: ${colors.basic.WHITE};
+  text-transform: uppercase;
+`;
+const FollowNewsroomLink = styled.a`
+  margin-right: 20px;
+`;
+
 export interface ListingDetailHeaderProps {
   newsroomName: string;
-  newsroomDescription: string;
+  charter?: CharterData;
   registryURL?: string;
   registryLinkText?: string;
   owner: string;
@@ -79,6 +104,14 @@ export interface ListingDetailHeaderProps {
 
 export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps> {
   public render(): JSX.Element {
+    let newsroomDescription = "";
+    let newsroomUrl = "";
+    if (this.props.charter) {
+      // TODO(toby) remove legacy `desc` after transition
+      newsroomDescription = this.props.charter.tagline || (this.props.charter as any).desc;
+      newsroomUrl = this.props.charter.newsroomUrl;
+    }
+
     return (
       <ListingDetailOuter>
         <StyledListingDetailHeader>
@@ -88,8 +121,35 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
               {this.renderPhaseLabel()}
 
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
-              <ListingDetailNewsroomDek>{this.props.newsroomDescription}</ListingDetailNewsroomDek>
-              <Button size={buttonSizes.MEDIUM}>Support Our Work</Button>
+              <ListingDetailNewsroomDek>{newsroomDescription}</ListingDetailNewsroomDek>
+
+              <NewsroomLinks>
+                {newsroomUrl && (
+                  <VisitNewsroomButtonWrap>
+                    <Button size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
+                      Visit Newsroom 🡭
+                    </Button>
+                  </VisitNewsroomButtonWrap>
+                )}
+
+                {this.props.charter &&
+                  this.props.charter.socialUrls &&
+                  (this.props.charter.socialUrls.facebook || this.props.charter.socialUrls.twitter) && (
+                    <FollowNewsroom>
+                      <FollowNewsroomHeading>Follow Newsroom</FollowNewsroomHeading>
+                      {this.props.charter.socialUrls.twitter && (
+                        <FollowNewsroomLink href={this.props.charter.socialUrls.twitter} target="_blank">
+                          <TwitterIcon />
+                        </FollowNewsroomLink>
+                      )}
+                      {this.props.charter.socialUrls.facebook && (
+                        <FollowNewsroomLink href={this.props.charter.socialUrls.facebook} target="_blank">
+                          <FacebookIcon />
+                        </FollowNewsroomLink>
+                      )}
+                    </FollowNewsroom>
+                  )}
+              </NewsroomLinks>
             </LeftShark>
 
             <RightShark>
