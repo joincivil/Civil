@@ -4,7 +4,7 @@ exports[`Storyshots Listing Summary Card 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iGPElx kBnhvn",
+      "class": "sc-kasBVs kQNmja",
     },
     "children": Array [
       Object {
@@ -761,7 +761,7 @@ exports[`Storyshots Listing Summary Card Grid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iGPElx kBnhvn",
+      "class": "sc-kasBVs kQNmja",
     },
     "children": Array [
       Object {
@@ -769,7 +769,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-jXQZqI hKwyBA",
+              "class": "sc-iGPElx giysFX",
             },
             "children": Array [
               Object {
@@ -26405,7 +26405,7 @@ exports[`Storyshots Listing Summary Card Rejected 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iGPElx kBnhvn",
+      "class": "sc-kasBVs kQNmja",
     },
     "children": Array [
       Object {
