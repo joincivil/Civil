@@ -50,7 +50,6 @@ class CreateNewsroom extends React.Component<
             onNewsroomCreated={this.onCreated}
             account={this.props.userAccount}
             currentNetwork={this.props.networkName}
-            requiredNetwork="rinkeby|ganache"
             theme={DEFAULT_BUTTON_THEME}
             metamaskEnabled={this.state.metamaskEnabled}
             enable={async () => {
