@@ -18,7 +18,7 @@ export const WarningIcon: React.SFC<WarningIconProps> = props => {
       viewBox={`0 0 ${width} ${height}`}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-358.000000, -112.000000)" fill={color}>
           <g transform="translate(0.000000, 68.000000)">
             <g transform="translate(358.000000, 44.000000)">

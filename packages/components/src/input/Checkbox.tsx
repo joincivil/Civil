@@ -70,7 +70,7 @@ export interface CheckboxProps {
 export const Checkbox = (props: CheckboxProps) => {
   return (
     <Container locked={props.locked}>
-      <input onClick={props.onClick} checked={props.checked} type="checkbox" />
+      <input onClick={props.onClick} checked={props.checked} onChange={() => {}} type="checkbox" />
       <Box locked={props.locked} />
     </Container>
   );
