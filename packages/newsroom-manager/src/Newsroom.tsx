@@ -32,6 +32,7 @@ import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
+import { SignConstitution } from "./SignConstitution";
 import { ApplyToTCR } from "./ApplyToTCR";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
@@ -69,6 +70,7 @@ export interface NewsroomExternalProps {
   newsroomUrl?: string;
   logoUrl?: string;
   metamaskEnabled?: boolean;
+  signConstitutionStep?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
   enable(): void;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
   persistCharter?(charter: Partial<CharterData>): Promise<void>;
@@ -174,6 +176,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     try {
       if (localStorage.newsroomOnBoardingLastSeen) {
         currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
+
+        // @TODO Temporary cause of infinite loop in sign constitution step
+        if (this.props.signConstitutionStep && currentStep === 4) {
+          currentStep--;
+        }
       }
     } catch (e) {
       console.error("Failed to load step index", e);
@@ -346,6 +353,34 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             >
               <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
             </Step>
+            {this.props.signConstitutionStep ? (
+              <Step
+                title={"Sign the Constitution"}
+                disabled={!this.props.address && !this.state.charterPartTwoComplete}
+                complete={!!this.props.charterUri}
+                renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                  return (
+                    <>
+                      <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                        Back
+                      </SecondaryButton>
+                      <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
+                        Next
+                      </Button>
+                    </>
+                  );
+                }}
+              >
+                <SignConstitution
+                  newsroomAdress={this.props.address}
+                  ipfs={this.props.ipfs}
+                  charter={this.props.charter}
+                  updateCharter={this.updateCharter}
+                />
+              </Step>
+            ) : (
+              <></>
+            )}
             <Step
               title={"Apply to the Registry"}
               disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}

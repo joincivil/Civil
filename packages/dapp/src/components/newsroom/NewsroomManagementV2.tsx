@@ -33,6 +33,7 @@ export default class NewsroomManagement extends React.Component<NewsroomManageme
         address={this.props.match.params.newsroomAddress}
         theme={DEFAULT_BUTTON_THEME}
         metamaskEnabled={this.state.metamaskEnabled}
+        signConstitutionStep={true}
         enable={async () => {
           if ((window as any).ethereum) {
             await (window as any).ethereum.enable();
