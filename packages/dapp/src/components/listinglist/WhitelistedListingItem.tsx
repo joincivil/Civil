@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { CharterData } from "@joincivil/core";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
@@ -39,12 +40,8 @@ class WhitelistedListingItem extends React.Component<
     const listingData = listing!.data;
     let description = "";
     if (charter) {
-      try {
-        // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-        description = charter.desc;
-      } catch (ex) {
-        console.error("charter not formatted correctly");
-      }
+      // TODO(toby) remove legacy `desc` after transition
+      description = charter.tagline || (charter as any).desc;
     }
     const challenge = listingData.challenge;
     const challengeID = challenge && listingData.challengeID.toString();
@@ -114,7 +111,7 @@ const makeMapStateToProps = () => {
     let challengeStatement;
     let appealStatement;
     if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
-      charter = content.get(ownProps.newsroom.data.charterHeader.uri);
+      charter = content.get(ownProps.newsroom.data.charterHeader.uri) as CharterData;
     }
     if (ownProps.listing && ownProps.listing.data.challenge) {
       challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);

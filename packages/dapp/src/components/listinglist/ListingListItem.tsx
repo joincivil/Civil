@@ -3,7 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
 import { State } from "../../redux/reducers";
 import { getListingPhaseState } from "../../selectors";
-import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
@@ -22,7 +22,7 @@ export interface ListingListItemOwnProps {
 
 export interface ListingListItemReduxProps {
   listingPhaseState?: any;
-  charter?: any;
+  charter?: CharterData;
   challengeStatement?: any;
   appealStatement?: any;
 }
@@ -72,17 +72,10 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const listingData = listing!.data;
     let description = "";
     if (this.props.charter) {
-      try {
-        // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-        description = (this.props.charter.content as any).desc;
-      } catch (ex) {
-        try {
-          description = (this.props.charter as any).desc;
-        } catch (ex1) {
-          console.error("charter not formatted correctly. charter: ", this.props.charter);
-        }
-      }
+      // TODO(toby) remove legacy `desc` after transition
+      description = this.props.charter.tagline || (this.props.charter as any).desc;
     }
+    const logoURL = this.props.charter && this.props.charter.logoUrl;
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
     const challenge = listingData.challenge;
     const pollData = challenge && challenge.poll;
@@ -114,6 +107,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       ...newsroomData,
       listingAddress,
       description,
+      logoURL,
       listingDetailURL,
       ...listingPhaseState,
       challengeID,
@@ -137,21 +131,13 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
 }
 
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
-  const { listingAddress, newsroom, listingPhaseState } = props;
+  const { listingAddress, newsroom, listingPhaseState, charter } = props;
   const newsroomData = newsroom!.data;
   const listingDetailURL = `/listing/${listingAddress}`;
   let description = "";
-  if (props.charter) {
-    try {
-      // TODO(jon): This is a temporary patch to handle the older charter format. It's needed while we're in transition to the newer schema and should be updated once the dapp is updated to properly handle the new charter
-      description = (props.charter!.content as any).desc;
-    } catch (ex) {
-      try {
-        description = (props.charter as any).desc;
-      } catch (ex1) {
-        console.error("charter not formatted correctly. charter: ", props.charter);
-      }
-    }
+  if (charter) {
+    // TODO(toby) remove legacy `desc` after transition
+    description = charter.tagline || (charter as any).desc;
   }
 
   const listingViewProps = {
@@ -178,7 +164,7 @@ const mapStateToProps = (
   let challengeStatement;
   let appealStatement;
   if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
-    charter = content.get(ownProps.newsroom.data.charterHeader.uri);
+    charter = content.get(ownProps.newsroom.data.charterHeader.uri) as CharterData;
   }
   if (ownProps.listing && ownProps.listing.data.challenge) {
     challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
