@@ -142,7 +142,7 @@ class SignConstitutionComponent extends React.Component<
     }
     const message = "Your signature was not created";
 
-    const denailMessage =
+    const denialMessage =
       "To sign the constitution, you need to confirm in your MetaMask wallet. You will not be able to proceed without signing the constitution.";
 
     return (
@@ -151,7 +151,7 @@ class SignConstitutionComponent extends React.Component<
           <MetaMaskModal
             waiting={false}
             denied={true}
-            denialText={denailMessage}
+            denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
             denialRestartTransactions={this.getTransactions(value.civil!, true)}
           >
@@ -169,7 +169,7 @@ class SignConstitutionComponent extends React.Component<
     }
     const message = "Your charter was not saved to your newsroom smart contract.";
 
-    const denailMessage =
+    const denialMessage =
       "To save your charter to your newsroom smart contract, you need to confirm in your MetaMask wallet. You will not be able to proceed without saving.";
 
     return (
@@ -178,7 +178,7 @@ class SignConstitutionComponent extends React.Component<
           <MetaMaskModal
             waiting={false}
             denied={true}
-            denialText={denailMessage}
+            denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
             denialRestartTransactions={this.getPublishTransaction(value.civil!)}
           >

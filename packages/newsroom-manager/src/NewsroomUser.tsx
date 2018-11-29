@@ -138,7 +138,7 @@ export class NewsroomUserComponent extends React.Component<
     const message =
       this.props.type === UserTypes.EDITOR ? "Civil Member was not removed" : "Civil Officer was not removed";
 
-    const denailMessage =
+    const denialMessage =
       this.props.type === UserTypes.EDITOR
         ? "To remove a Civil Member, you need to confirm the transaction in your MetaMask wallet."
         : "To remove a Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
@@ -149,7 +149,7 @@ export class NewsroomUserComponent extends React.Component<
           <MetaMaskModal
             waiting={false}
             denied={true}
-            denialText={denailMessage}
+            denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
             denialRestartTransactions={this.getTransaction(true)}
           >
