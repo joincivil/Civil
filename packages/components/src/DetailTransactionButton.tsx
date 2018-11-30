@@ -176,13 +176,9 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public isDisabled(): boolean {
-    const onRequiredNetwork = !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.state.currentNetwork);
-    return (
-      this.props.disabled ||
-      !this.props.civil ||
-      !this.state.currentAccount ||
-      !onRequiredNetwork
-    );
+    const onRequiredNetwork =
+      !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.state.currentNetwork);
+    return this.props.disabled || !this.props.civil || !this.state.currentAccount || !onRequiredNetwork;
   }
 
   public renderNoMetaMask(): JSX.Element {

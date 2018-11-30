@@ -263,9 +263,7 @@ class SignConstitutionComponent extends React.Component<
         transaction: async (): Promise<EthSignedMessage> => {
           this.setState({ isWaitingSignatureOpen: true });
           const constitutionHash = this.props.government ? this.props.government!.get("constitutionHash") : "[NONE]";
-          return civil.signMessage(
-            prepareConstitutionSignMessage(this.props.newsroomAdress!, constitutionHash),
-          );
+          return civil.signMessage(prepareConstitutionSignMessage(this.props.newsroomAdress!, constitutionHash));
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
           const { signature, message, signer } = sig;
@@ -298,7 +296,8 @@ class SignConstitutionComponent extends React.Component<
           this.setState({ isWaitingPublishModalOpen: true });
           const charter = JSON.stringify(this.props.charter);
 
-          let uri, contentHash;
+          let uri;
+          let contentHash;
           if (this.props.ipfs) {
             const files = await this.props.ipfs!.add(toBuffer(charter), {
               hash: "keccak-256",

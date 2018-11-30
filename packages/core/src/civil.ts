@@ -1,5 +1,5 @@
 import { currentNetwork, detectProvider, EthApi, ProviderBackport, Web310Provider } from "@joincivil/ethapi";
-import { EthAddress, EthSignedMessage, TxHash, Uri } from "@joincivil/typescript-types";
+import { EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
@@ -7,7 +7,7 @@ import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 import { CivilTransactionReceipt, FallbackProvider, TwoStepEthTransaction } from ".";
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
-import { IpfsStorageHeader, IPFSProvider } from "./content/ipfsprovider";
+import { IPFSProvider } from "./content/ipfsprovider";
 import { Artifact, artifacts } from "./contracts/generated/artifacts";
 import { Newsroom } from "./contracts/newsroom";
 import { UserGroups } from "./contracts/proof-of-use/usergroups";
@@ -229,7 +229,7 @@ export class Civil {
    * @returns StorageHeader with info about published content
    */
   public async publishContent(content: string, options: object): Promise<StorageHeader> {
-    return await this.contentProvider.put(content, options);
+    return this.contentProvider.put(content, options);
   }
 
   public async getContent(header: StorageHeader): Promise<ContentData | undefined> {
