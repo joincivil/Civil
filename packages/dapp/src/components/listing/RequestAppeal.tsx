@@ -20,6 +20,7 @@ import {
   hasTransactionStatusModals,
   TransactionStatusModalContentMap,
 } from "../utility/TransactionStatusModalsHOC";
+import ScrollToTopOnMount from "../utility/ScrollToTop";
 
 export interface RequestAppealPageProps {
   match: any;
@@ -137,6 +138,7 @@ class RequestAppealComponent extends React.Component<
 
     return (
       <>
+        <ScrollToTopOnMount />
         {isInsufficientBalance &&
           appealFee && <InsufficientBalanceSnackBar minDeposit={appealFee} buyCVLURL="https://civil.co" />}
         <RequestAppealStatementComponent {...props} />
