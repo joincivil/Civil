@@ -34,6 +34,7 @@ import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
 import { SignConstitution } from "./SignConstitution";
 import { ApplyToTCR } from "./ApplyToTCR";
+import { ApplyToTCRPlaceholder } from "./ApplyToTCRPlaceholder";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 
@@ -70,7 +71,7 @@ export interface NewsroomExternalProps {
   newsroomUrl?: string;
   logoUrl?: string;
   metamaskEnabled?: boolean;
-  signConstitutionStep?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
+  allSteps?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
   initialStep?: number;
   enable(): void;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
@@ -182,7 +183,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
 
           // @TODO Temporary cause of infinite loop in sign constitution step
-          if (this.props.signConstitutionStep && currentStep === 4) {
+          if (this.props.allSteps && currentStep === 4) {
             currentStep--;
           }
         }
@@ -358,7 +359,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             >
               <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
             </Step>
-            {this.props.signConstitutionStep ? (
+            {this.props.allSteps ? (
               <Step
                 title={"Sign the Constitution"}
                 disabled={!this.props.address && !this.state.charterPartTwoComplete}
@@ -390,7 +391,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               title={"Apply to the Registry"}
               disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
             >
-              <ApplyToTCR address={this.props.address} />
+              {this.props.allSteps ? (
+                <ApplyToTCR address={this.props.address} />
+              ) : (
+                <ApplyToTCRPlaceholder address={this.props.address} />
+              )}
             </Step>
           </StepProcessTopNav>
         </CivilContext.Provider>
