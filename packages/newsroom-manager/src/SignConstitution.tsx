@@ -297,12 +297,21 @@ class SignConstitutionComponent extends React.Component<
         transaction: async () => {
           this.setState({ isWaitingPublishModalOpen: true });
           const charter = JSON.stringify(this.props.charter);
-          const files = await this.props.ipfs!.add(toBuffer(charter), {
-            hash: "keccak-256",
-            pin: true,
-          });
-          const hash = hashContent(charter);
-          return this.props.newsroom.updateRevisionURIAndHash(0, `ipfs://${files[0].path}`, hash);
+
+          let uri, contentHash;
+          if (this.props.ipfs) {
+            const files = await this.props.ipfs!.add(toBuffer(charter), {
+              hash: "keccak-256",
+              pin: true,
+            });
+            contentHash = hashContent(charter);
+            uri = `ipfs://${files[0].path}`;
+          } else {
+            const header = await civil.publishContent(charter, { hash: "keccak-256" });
+            uri = header.uri;
+            contentHash = header.contentHash;
+          }
+          return this.props.newsroom.updateRevisionURIAndHash(0, uri, contentHash);
         },
         handleTransactionHash: (hash: TxHash) => {
           this.setState({ isWaitingPublishModalOpen: false });

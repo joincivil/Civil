@@ -7,7 +7,7 @@ import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
 import { CivilTransactionReceipt, FallbackProvider, TwoStepEthTransaction } from ".";
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
-import { IPFSProvider } from "./content/ipfsprovider";
+import { IpfsStorageHeader, IPFSProvider } from "./content/ipfsprovider";
 import { Artifact, artifacts } from "./contracts/generated/artifacts";
 import { Newsroom } from "./contracts/newsroom";
 import { UserGroups } from "./contracts/proof-of-use/usergroups";
@@ -225,11 +225,11 @@ export class Civil {
   /**
    * Stores content on a content provider (defaults to IPFS)
    * @param content The the data that you want to store, in the future, probably a JSON
-   * @returns A URI that points to the content
+   * @param options Options to be passed to the provider
+   * @returns StorageHeader with info about published content
    */
-  public async publishContent(content: string): Promise<Uri> {
-    const { uri } = await this.contentProvider.put(content);
-    return uri;
+  public async publishContent(content: string, options: object): Promise<StorageHeader> {
+    return await this.contentProvider.put(content, options);
   }
 
   public async getContent(header: StorageHeader): Promise<ContentData | undefined> {
