@@ -27,7 +27,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
   constructor(props: NavProps) {
     super(props);
 
-    this.state = { isOpen: false };
+    this.state = { isUserDrawerOpen: false };
   }
 
   public render(): JSX.Element {
@@ -65,13 +65,13 @@ export class NavBar extends React.Component<NavProps, NavState> {
               </CvlContainer>
               <AvatarContainer>
                 <UserAvatar />
-                <Arrow isOpen={this.state.isOpen} />
+                <Arrow isOpen={this.state.isUserDrawerOpen} />
               </AvatarContainer>
             </NavUser>
           </NavInner>
 
           {this.props.userAccount &&
-            this.state.isOpen && (
+            this.state.isUserDrawerOpen && (
               <NavDrawer
                 balance={this.props.balance}
                 votingBalance={this.props.votingBalance}
@@ -83,6 +83,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
                 buyCvlUrl={this.props.buyCvlUrl}
                 useGraphQL={this.props.useGraphQL}
                 onLoadingPrefToggled={this.props.onLoadingPrefToggled}
+                handleOutsideClick={this.hideUserDrawer}
               />
             )}
         </NavOuter>
@@ -91,6 +92,10 @@ export class NavBar extends React.Component<NavProps, NavState> {
   }
 
   private toggle = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+    this.setState({ isUserDrawerOpen: !this.state.isUserDrawerOpen });
+  };
+
+  private hideUserDrawer = () => {
+    this.setState({ isUserDrawerOpen: false });
   };
 }
