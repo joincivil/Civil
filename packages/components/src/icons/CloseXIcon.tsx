@@ -16,7 +16,7 @@ export const CloseXIcon: React.SFC<CloseXIconProps> = props => {
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
       <path
         fill={color}
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M20.571 18.657l6.01-6.01 1.415 1.414-6.01 6.01 6.01 6.01-1.415 1.415-6.01-6.01-6.01 6.01-1.415-1.415 6.01-6.01-6.01-6.01 1.415-1.415 6.01 6.01z"
       />
     </svg>
