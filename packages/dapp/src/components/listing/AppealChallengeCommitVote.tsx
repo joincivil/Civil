@@ -195,7 +195,7 @@ class AppealChallengeCommitVote extends React.Component<
     const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
 
     const props: ReviewVoteProps = {
-      newsroomName: (this.props.newsroom && this.props.newsroom.data.name) || "this newsroom",
+      newsroomName: "this newsroom",
       listingDetailURL,
       challengeID: this.props.appealChallengeID.toString(),
       open: this.state.isReviewVoteModalOpen,

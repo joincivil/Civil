@@ -12,9 +12,9 @@ import {
   getListingPhaseState,
   makeGetListing,
   makeGetListingAddressByChallengeID,
-  makeGetChallengeState,
   makeGetUserChallengeData,
   makeGetUnclaimedRewardAmount,
+  getChallengeState,
 } from "../../selectors";
 import { WinningChallengeResults } from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
@@ -259,7 +259,6 @@ export const ActivityListItem = connect(makeMapStateToProps)(ActivityListItemCom
 
 const makeChallengeMapStateToProps = () => {
   const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
-  const getChallengeState = makeGetChallengeState();
   const getUserChallengeData = makeGetUserChallengeData();
   const getUnclaimedRewardAmount = makeGetUnclaimedRewardAmount();
 
@@ -268,7 +267,7 @@ const makeChallengeMapStateToProps = () => {
     const challenge = getChallenge(state, ownProps);
     const userChallengeData = getUserChallengeData(state, ownProps);
     const unclaimedRewardAmountBN = getUnclaimedRewardAmount(state, ownProps);
-    const challengeState = getChallengeState(state, ownProps);
+    const challengeState = getChallengeState(challenge!);
     const { even, user } = ownProps;
 
     let unclaimedRewardAmount = "";
