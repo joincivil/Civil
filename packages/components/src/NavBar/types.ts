@@ -13,7 +13,7 @@ export interface NavProps {
 }
 
 export interface NavState {
-  isOpen: boolean;
+  isUserDrawerOpen: boolean;
 }
 
 export interface NavArrowProps {

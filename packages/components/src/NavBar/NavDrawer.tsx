@@ -44,6 +44,7 @@ export interface NavDrawerProps {
   buyCvlUrl?: string;
   useGraphQL: boolean;
   onLoadingPrefToggled(): void;
+  handleOutsideClick(): void;
 }
 
 class NavDrawerComponent extends React.Component<NavDrawerProps> {
@@ -139,13 +140,23 @@ export class NavDrawer extends React.Component<NavDrawerProps> {
 
   public componentDidMount(): void {
     document.body.appendChild(this.bucket);
+    document.addEventListener("mousedown", this.handleClick, false);
   }
 
   public componentWillUnmount(): void {
     document.body.removeChild(this.bucket);
+    document.removeEventListener("mousedown", this.handleClick, false);
   }
 
   public render(): React.ReactPortal {
     return ReactDOM.createPortal(<NavDrawerComponent {...this.props} />, this.bucket);
   }
+
+  private handleClick = (event: any) => {
+    if (this.bucket.contains(event.target)) {
+      return;
+    }
+
+    this.props.handleOutsideClick();
+  };
 }

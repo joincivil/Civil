@@ -35,11 +35,12 @@ export interface ListingReduxProps {
   parameters: any;
   govtParameters: any;
   constitutionURI: string;
+  useGraphQL: boolean;
 }
 
 class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
   public async componentDidUpdate(): Promise<void> {
-    if (!this.props.listing && !this.props.listingDataRequestStatus) {
+    if (!this.props.listing && !this.props.listingDataRequestStatus && !this.props.useGraphQL) {
       this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
     }
     if (this.props.newsroom) {
@@ -48,7 +49,9 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
   }
 
   public async componentDidMount(): Promise<void> {
-    this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress));
+    if (!this.props.useGraphQL) {
+      this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress));
+    }
     if (this.props.newsroom) {
       this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
     }
@@ -144,6 +147,7 @@ const makeMapStateToProps = () => {
   const getListingExpiry = makeGetListingExpiry();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
     const { listingsFetching, user, parameters, govtParameters, constitution, content } = state.networkDependent;
+    const { useGraphQL } = state;
     const constitutionURI = constitution.get("uri");
     const newsroom = ownProps.newsroom;
     let listingDataRequestStatus;
@@ -167,6 +171,7 @@ const makeMapStateToProps = () => {
       govtParameters,
       constitutionURI,
       charter,
+      useGraphQL,
     };
   };
   return mapStateToProps;

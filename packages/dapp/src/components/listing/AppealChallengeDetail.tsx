@@ -6,7 +6,6 @@ import {
   AppealChallengeData,
   ChallengeData,
   EthAddress,
-  NewsroomWrapper,
   UserChallengeData,
 } from "@joincivil/core";
 import BigNumber from "bignumber.js";
@@ -16,7 +15,6 @@ import AppealChallengeResolve from "./AppealChallengeResolve";
 
 export interface AppealChallengeDetailProps {
   listingAddress: EthAddress;
-  newsroom?: NewsroomWrapper;
   challengeID: BigNumber;
   challenge: ChallengeData;
   appealChallengeID: BigNumber;
