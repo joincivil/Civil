@@ -127,7 +127,7 @@ contract AddressRegistry {
 
         require(listing.owner == msg.sender, "Sender is not owner of listing");
         require(_amount <= listing.unstakedDeposit, "Cannot withdraw more than current unstaked deposit");
-        if (listing.challengeID != 0) { // ok to withdraw entire unstakedDeposit when challenge active as described here: https://github.com/skmgoldin/tcr/issues/55
+        if (listing.challengeID == 0 || challenges[listing.challengeID].resolved) { // ok to withdraw entire unstakedDeposit when challenge active as described here: https://github.com/skmgoldin/tcr/issues/55
           require(listing.unstakedDeposit - _amount >= parameterizer.get("minDeposit"), "Withdrawal prohibitied as it would put Listing unstaked deposit below minDeposit");
         }
 
