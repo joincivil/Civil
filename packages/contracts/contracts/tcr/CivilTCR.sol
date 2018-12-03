@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.24;
 
 import "./RestrictedAddressRegistry.sol";
 import "../interfaces/IGovernment.sol";
@@ -27,7 +27,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   event _GovernmentTransfered(address newGovernment);
 
   modifier onlyGovernmentController {
-    require(msg.sender == government.getGovernmentController());
+    require(msg.sender == government.getGovernmentController(), "sender was not the Government Controller");
     _;
   }
 
@@ -35,7 +35,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   @notice modifier that checks that the sender of a message is the Appellate entity set by the Government
   */
   modifier onlyAppellate {
-    require(msg.sender == government.getAppellate());
+    require(msg.sender == government.getAppellate(), "sender was not the Appellate");
     _;
   }
 
@@ -76,9 +76,9 @@ contract CivilTCR is RestrictedAddressRegistry {
     TokenTelemetryI tele
   ) public RestrictedAddressRegistry(token, address(plcr), address(param), "CivilTCR")
   {
-    require(address(govt) != 0);
-    require(govt.getGovernmentController() != 0);
-    require(address(tele) != 0);
+    require(address(govt) != 0, "govt address was zero");
+    require(govt.getGovernmentController() != 0, "govt.getGovernmentController address was 0");
+    require(address(tele) != 0, "tele address was 0");
     civilVoting = plcr;
     government = govt;
     telemetry = tele;
@@ -117,9 +117,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function requestAppeal(address listingAddress, string data) external {
     Listing storage listing = listings[listingAddress];
-    require(voting.pollEnded(listing.challengeID));
-    require(challengeRequestAppealExpiries[listing.challengeID] > now); // "Request Appeal Phase" active
-    require(appeals[listing.challengeID].requester == address(0));
+    require(voting.pollEnded(listing.challengeID), "Poll for listing challenge has not ended");
+    require(challengeRequestAppealExpiries[listing.challengeID] > now, "Request Appeal phase is over"); // "Request Appeal Phase" active
+    require(appeals[listing.challengeID].requester == address(0), "Appeal for this challenge has already been made");
 
     uint appealFee = government.get("appealFee");
     Appeal storage appeal = appeals[listing.challengeID];
@@ -127,7 +127,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.appealFeePaid = appealFee;
     appeal.appealPhaseExpiry = now.add(government.get("judgeAppealLen"));
     telemetry.onTokensUsed(msg.sender, appealFee);
-    require(token.transferFrom(msg.sender, this, appealFee));
+    require(token.transferFrom(msg.sender, this, appealFee), "Token transfer failed");
     emit _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender, data);
   }
 
@@ -154,8 +154,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   function grantAppeal(address listingAddress, string data) external onlyAppellate {
     Listing storage listing = listings[listingAddress];
     Appeal storage appeal = appeals[listing.challengeID];
-    require(appeal.appealPhaseExpiry > now); // "Judge Appeal Phase" active
-    require(!appeal.appealGranted); // don't grant twice
+    require(appeal.appealPhaseExpiry > now, "Judge Appeal phase not active"); // "Judge Appeal Phase" active
+    require(!appeal.appealGranted, "Appeal has already been granted"); // don't grant twice
 
     appeal.appealGranted = true;
     appeal.appealOpenToChallengeExpiry = now.add(parameterizer.get("challengeAppealLen"));
@@ -170,7 +170,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   Emits `_GovernmentTransfered` if successful.
   */
   function transferGovernment(IGovernment newGovernment) external onlyGovernmentController {
-    require(address(newGovernment) != 0);
+    require(address(newGovernment) != address(0), "New Government address is 0");
     government = newGovernment;
     emit _GovernmentTransfered(newGovernment);
   }
@@ -211,7 +211,7 @@ contract CivilTCR is RestrictedAddressRegistry {
       // appeal granted. override decision of voters.
       resolveOverturnedChallenge(listingAddress);
       // return appeal fee to appeal requester
-      require(token.transfer(appeal.requester, appeal.appealFeePaid));
+      require(token.transfer(appeal.requester, appeal.appealFeePaid), "Token transfer failed");
     } else {
       // appeal fee is split between original winning voters and challenger
       Challenge storage challenge = challenges[listing.challengeID];
@@ -268,9 +268,9 @@ contract CivilTCR is RestrictedAddressRegistry {
   function challengeGrantedAppeal(address listingAddress, string data) public returns (uint challengeID) {
     Listing storage listing = listings[listingAddress];
     Appeal storage appeal = appeals[listing.challengeID];
-    require(appeal.appealGranted);
-    require(appeal.appealChallengeID == 0);
-    require(appeal.appealOpenToChallengeExpiry > now);
+    require(appeal.appealGranted, "Appeal not granted");
+    require(appeal.appealChallengeID == 0, "Appeal already challenged");
+    require(appeal.appealOpenToChallengeExpiry > now, "Appeal no longer open to challenge");
 
     uint pollID = voting.startPoll(
       government.get("appealVotePercentage"),
@@ -290,7 +290,7 @@ contract CivilTCR is RestrictedAddressRegistry {
 
     appeal.appealChallengeID = pollID;
 
-    require(token.transferFrom(msg.sender, this, appeal.appealFeePaid));
+    require(token.transferFrom(msg.sender, this, appeal.appealFeePaid), "Token transfer failed");
     emit _GrantedAppealChallenged(listingAddress, listing.challengeID, pollID, data);
     return pollID;
   }
@@ -324,11 +324,11 @@ contract CivilTCR is RestrictedAddressRegistry {
     if (voting.isPassed(appealChallengeID)) { // Case: vote passed, appeal challenge succeeded, overturn appeal
       appeal.overturned = true;
       super.resolveChallenge(listingAddress);
-      require(token.transfer(appealChallenge.challenger, reward));
+      require(token.transfer(appealChallenge.challenger, reward), "Token transfer failed");
       emit _GrantedAppealOverturned(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     } else { // Case: vote not passed, appeal challenge failed, confirm appeal
       resolveOverturnedChallenge(listingAddress);
-      require(token.transfer(appeal.requester, reward));
+      require(token.transfer(appeal.requester, reward), "Token transfer failed");
       emit _GrantedAppealConfirmed(listingAddress, challengeID, appealChallengeID, appealChallenge.rewardPool, appealChallenge.totalTokens);
     }
   }
@@ -341,8 +341,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function claimReward(uint _challengeID, uint _salt) public {
     // Ensures the voter has not already claimed tokens and challenge results have been processed
-    require(challenges[_challengeID].tokenClaims[msg.sender] == false);
-    require(challenges[_challengeID].resolved == true);
+    require(challenges[_challengeID].tokenClaims[msg.sender] == false, "Reward already claimed");
+    require(challenges[_challengeID].resolved == true, "Challenge not yet resolved");
 
     uint voterTokens = getNumChallengeTokens(msg.sender, _challengeID, _salt);
     uint reward = voterReward(msg.sender, _challengeID, _salt);
@@ -355,7 +355,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     // Ensures a voter cannot claim tokens again
     challenges[_challengeID].tokenClaims[msg.sender] = true;
 
-    require(token.transfer(msg.sender, reward));
+    require(token.transfer(msg.sender, reward), "Token transfer failed");
 
     emit _RewardClaimed(_challengeID, reward, msg.sender);
   }
@@ -383,7 +383,8 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function determineReward(uint challengeID) public view returns (uint) {
     // a challenge is overturned if an appeal for it was granted, but the appeal itself was not overturned
-    require(!challenges[challengeID].resolved && voting.pollEnded(challengeID));
+    require(!challenges[challengeID].resolved, "Challenge already resolved");
+    require(voting.pollEnded(challengeID), "Poll for challenge has not ended");
     bool challengeOverturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
     // Edge case, nobody voted, give all tokens to the challenger.
     if (challengeOverturned) {
@@ -465,7 +466,7 @@ contract CivilTCR is RestrictedAddressRegistry {
     } else { // original vote succeded (challenge failed), this should de-list listing
       resetListing(listingAddress);
       // Transfer the reward to the challenger
-      require(token.transfer(challenge.challenger, reward));
+      require(token.transfer(challenge.challenger, reward), "Token transfer failed");
 
       emit _FailedChallengeOverturned(listingAddress, challengeID, challenge.rewardPool, challenge.totalTokens);
     } 
@@ -479,7 +480,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function challengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
-    require(challengeExists(listingAddress));
+    require(challengeExists(listingAddress), "Challenge does not exist for listing");
     if (challengeRequestAppealExpiries[challengeID] > now) {
       return false;
     }
@@ -496,7 +497,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   function appealCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
     Appeal appeal = appeals[challengeID];
-    require(challengeExists(listingAddress));
+    require(challengeExists(listingAddress), "Challenge does not exist for listing");
     if (appeal.appealPhaseExpiry == 0) {
       return false;
     }
@@ -515,7 +516,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   function appealChallengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
     Appeal appeal = appeals[challengeID];
-    require(challengeExists(listingAddress));
+    require(challengeExists(listingAddress), "Challenge does not exist for listing");
     if (appeal.appealChallengeID == 0) {
       return false;
     }
