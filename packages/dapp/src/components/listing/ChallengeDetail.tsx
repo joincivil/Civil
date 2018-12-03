@@ -9,7 +9,6 @@ import {
   EthAddress,
   UserChallengeData,
   WrappedChallengeData,
-  NewsroomWrapper,
   didUserCommit,
 } from "@joincivil/core";
 import {
@@ -29,13 +28,12 @@ import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import BigNumber from "bignumber.js";
 import { State } from "../../redux/reducers";
 import {
-  makeGetChallengeState,
   makeGetAppealChallengeState,
   makeGetListingAddressByChallengeID,
   makeGetUserChallengeData,
   makeGetUserAppealChallengeData,
-  getNewsroom,
   getIsMemberOfAppellate,
+  getChallengeState,
 } from "../../selectors";
 import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 import { fetchSalt } from "../../helpers/salt";
@@ -76,7 +74,6 @@ export interface ChallengeDetailContainerProps {
 }
 
 export interface ChallengeContainerReduxProps {
-  newsroom?: NewsroomWrapper;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
   challengeDataRequestStatus?: any;
@@ -107,7 +104,6 @@ export interface ChallengeDetailProps {
   votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
-  newsroom: NewsroomWrapper;
 }
 
 export interface ChallengeVoteState {
@@ -169,11 +165,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
     const canShowAppealChallengeRewardsFrom =
       didUserCommit(userAppealChallengeData) && challenge.appeal!.appealChallenge!.resolved;
+    const inCanRequestAppeal = canRequestAppeal(challenge);
+
     return (
       <>
         {inCommitPhase && this.renderCommitStage()}
         {inRevealPhase && this.renderRevealStage()}
-        {canRequestAppeal(challenge) && this.renderRequestAppealStage()}
+        {inCanRequestAppeal && this.renderRequestAppealStage()}
         {canShowResult && this.renderVoteResult()}
         {appealExists && this.renderAppeal()}
         {canShowRewardsForm && !inCommitPhase && !inRevealPhase && this.renderRewardsDetail()}
@@ -201,7 +199,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     return (
       <AppealDetail
         listingAddress={this.props.listingAddress}
-        newsroom={this.props.newsroom}
         appeal={challenge.appeal!}
         challengeID={this.props.challengeID}
         challenge={challenge}
@@ -301,7 +298,6 @@ class ChallengeContainer extends React.Component<
     }
     return (
       <ChallengeDetail
-        newsroom={this.props.newsroom!}
         listingAddress={this.props.listingAddress}
         challengeID={this.props.challengeID}
         challenge={challenge}
@@ -327,7 +323,6 @@ class ChallengeContainer extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getChallengeState = makeGetChallengeState();
   const getAppealChallengeState = makeGetAppealChallengeState();
   const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
   const getUserChallengeData = makeGetUserChallengeData();
@@ -339,13 +334,17 @@ const makeMapStateToProps = () => {
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
     const {
       challengesFetching,
+      challenges,
       user,
       parameters,
       govtParameters,
       councilMultisigTransactions,
     } = state.networkDependent;
     let txIdToConfirm;
-    const challengeData = ownProps.challengeData;
+    let challengeData = ownProps.challengeData;
+    if (!challengeData) {
+      challengeData = challenges.get(ownProps.challengeID.toString());
+    }
     if (
       challengeData &&
       challengeData.challenge &&
@@ -358,18 +357,12 @@ const makeMapStateToProps = () => {
         txIdToConfirm = councilMultisigTransactions.get(key).id;
       }
     }
-    const newsroomState = getNewsroom(state, ownProps);
     const challengeID = ownProps.challengeID;
     let listingAddress: string | undefined = ownProps.listingAddress;
     if (!listingAddress) {
       listingAddress = getListingAddressByChallengeID(state, ownProps);
     }
     const userAcct = user.account;
-
-    let newsroomWrapper;
-    if (newsroomState) {
-      newsroomWrapper = newsroomState.wrapper;
-    }
 
     const userChallengeData = getUserChallengeData(state, ownProps);
     const userAppealChallengeData = getUserAppealChallengeData(state, ownProps);
@@ -381,11 +374,10 @@ const makeMapStateToProps = () => {
     const isMemberOfAppellate = getIsMemberOfAppellate(state);
 
     return {
-      newsroom: newsroomWrapper,
       challengeData,
       userChallengeData,
       userAppealChallengeData,
-      challengeState: getChallengeState(state, ownProps),
+      challengeState: getChallengeState(challengeData),
       appealChallengeState: getAppealChallengeState(state, ownProps),
       challengeDataRequestStatus,
       user: userAcct.account,

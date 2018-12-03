@@ -428,29 +428,27 @@ export const makeGetListingExpiry = () => {
   });
 };
 
-export const makeGetChallengeState = () => {
-  return createSelector([getChallenge], challengeData => {
-    const challenge = challengeData && challengeData.challenge;
-    const isResolved = challenge && challenge.resolved;
-    const inCommitPhase = challenge && isChallengeInCommitStage(challenge);
-    const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
-    const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
-    const isAwaitingAppealJudgment = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
-    const canAppealBeResolved = challenge && challenge.appeal && getCanAppealBeResolved(challenge.appeal);
-    const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
-    const didChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
+export const getChallengeState = (challengeData: WrappedChallengeData) => {
+  const challenge = challengeData && challengeData.challenge;
+  const isResolved = challenge && challenge.resolved;
+  const inCommitPhase = challenge && isChallengeInCommitStage(challenge);
+  const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
+  const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
+  const isAwaitingAppealJudgment = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
+  const canAppealBeResolved = challenge && challenge.appeal && getCanAppealBeResolved(challenge.appeal);
+  const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
+  const didChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
 
-    return {
-      isResolved,
-      inCommitPhase,
-      inRevealPhase,
-      canResolveChallenge,
-      isAwaitingAppealJudgment,
-      isAwaitingAppealChallenge,
-      canAppealBeResolved,
-      didChallengeSucceed,
-    };
-  });
+  return {
+    isResolved,
+    inCommitPhase,
+    inRevealPhase,
+    canResolveChallenge,
+    isAwaitingAppealJudgment,
+    isAwaitingAppealChallenge,
+    canAppealBeResolved,
+    didChallengeSucceed,
+  };
 };
 
 export const makeGetAppealChallengeState = () => {

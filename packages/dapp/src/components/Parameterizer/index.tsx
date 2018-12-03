@@ -37,6 +37,7 @@ import {
   ProcessProposal,
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
+
 import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../redux/reducers";
 import ListingDiscourse from "../listing/ListingDiscourse";
@@ -48,6 +49,8 @@ import {
   updateReparameterizationProp,
 } from "../../apis/civilTCR";
 import { getIsMemberOfAppellate } from "../../selectors";
+import ScrollToTopOnMount from "../utility/ScrollToTop";
+
 import { amountParams, durationParams, percentParams } from "./constants";
 import { Parameter } from "./Parameter";
 import ChallengeContainer from "./ChallengeProposalDetail";
@@ -168,6 +171,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
     return (
       <>
+        <ScrollToTopOnMount />
         <GridRow>
           <StyledTitle>Civil Registry Parameters</StyledTitle>
           <StyledDescriptionP>

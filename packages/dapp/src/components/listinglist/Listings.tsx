@@ -12,12 +12,15 @@ import {
   RejectedNewsroomsTabText,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+
 import { getCivil } from "../../helpers/civilInstance";
 import * as heroImgUrl from "../images/img-hero-listings.png";
-import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
-import RejectedListingListContainer from "./RejectedListingListContainer";
+import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { State } from "../../redux/reducers";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
+
+import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
+import RejectedListingListContainer from "./RejectedListingListContainer";
 import ListingsInProgressContainer from "./ListingsInProgressContainer";
 
 const TABS: string[] = ["whitelisted", "in-progress", "rejected"];
@@ -57,6 +60,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     }
     return (
       <>
+        <ScrollToTopOnMount />
         {hero}
         {!this.props.loadingFinished && "loading..."}
         {this.props.loadingFinished && (

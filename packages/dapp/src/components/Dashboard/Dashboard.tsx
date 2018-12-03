@@ -1,6 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 import { UserDashboardHeader } from "@joincivil/components";
+
+import ScrollToTopOnMount from "../utility/ScrollToTop";
+
 import UserInfoSummary from "./UserInfoSummary";
 import DashboardActivity from "./DashboardActivity";
 
@@ -19,6 +22,7 @@ export interface DashboardProps {
 export const Dashboard: React.SFC<DashboardProps> = props => {
   return (
     <>
+      <ScrollToTopOnMount />
       <UserDashboardHeader>
         <UserInfoSummary />
       </UserDashboardHeader>

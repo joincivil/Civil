@@ -82,9 +82,13 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
+interface AppealCommitCardKeyState {
+  key: number;
+}
+
 class AppealChallengeCommitVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
-  ChallengeVoteState
+  ChallengeVoteState & AppealCommitCardKeyState
 > {
   constructor(props: any) {
     super(props);
@@ -93,6 +97,7 @@ class AppealChallengeCommitVote extends React.Component<
       voteOption: undefined,
       salt: fetchSalt(this.props.challengeID, this.props.user),
       numTokens: undefined,
+      key: new Date().valueOf(),
     };
   }
 
@@ -158,6 +163,7 @@ class AppealChallengeCommitVote extends React.Component<
       onReviewVote: this.handleReviewVote,
       appealChallengeID: this.props.appealChallengeID.toString(),
       appealGranted: this.props.appeal.appealGranted,
+      key: this.state.key,
     };
 
     return (
@@ -189,7 +195,7 @@ class AppealChallengeCommitVote extends React.Component<
     const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
 
     const props: ReviewVoteProps = {
-      newsroomName: (this.props.newsroom && this.props.newsroom.data.name) || "this newsroom",
+      newsroomName: "this newsroom",
       listingDetailURL,
       challengeID: this.props.appealChallengeID.toString(),
       open: this.state.isReviewVoteModalOpen,
@@ -280,7 +286,7 @@ class AppealChallengeCommitVote extends React.Component<
 
   private handleCommitVoteSuccessClose = () => {
     this.props.updateTransactionStatusModalsState({ isTransactionSuccessModalOpen: false });
-    this.setState({ isReviewVoteModalOpen: false });
+    this.setState({ isReviewVoteModalOpen: false, key: new Date().valueOf() });
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
