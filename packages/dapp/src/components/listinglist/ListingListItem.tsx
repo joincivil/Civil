@@ -35,6 +35,9 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const { listing } = this.props;
     if (listing && listing.data.challenge) {
       this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      if (listing.data.challenge.appeal) {
+        this.props.dispatch!(await getBareContent(listing.data.challenge.appeal.appealStatementURI!));
+      }
     }
   }
 
@@ -43,6 +46,9 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       const { listing } = this.props;
       if (listing && listing.data.challenge) {
         this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+        if (listing.data.challenge.appeal) {
+          this.props.dispatch!(await getBareContent(listing.data.challenge.appeal.appealStatementURI!));
+        }
       }
     }
     if (prevProps.newsroom !== this.props.newsroom) {
@@ -95,8 +101,16 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     }
 
     const appeal = challenge && challenge.appeal;
-    const appealStatementSummary =
-      this.props.appealStatement && JSON.parse(this.props.appealStatement as string).summary;
+
+    let appealStatementSummary;
+    if (this.props.appealStatement) {
+      try {
+        appealStatementSummary = JSON.parse(this.props.appealStatement as string).summary;
+      } catch (ex) {
+        appealStatementSummary = this.props.appealStatement.summary;
+      }
+    }
+
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
