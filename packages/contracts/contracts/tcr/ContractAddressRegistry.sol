@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.24;
 
 import "./AddressRegistry.sol";
 
@@ -7,7 +7,7 @@ contract ContractAddressRegistry is AddressRegistry {
   modifier onlyContract(address contractAddress) {
     uint size;
     assembly { size := extcodesize(contractAddress) }
-    require(size > 0);
+    require(size > 0, "Address is not a contract");
     _;
   }
 
