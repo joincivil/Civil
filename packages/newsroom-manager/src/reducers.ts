@@ -49,6 +49,10 @@ export function newsrooms(
         ...state.get(action.data.address),
         editors: editors.concat([action.data.editor]),
       });
+    case newsroomActions.ADD_OWNER:
+      newsroom = state.get(action.data.address);
+      newsroom.wrapper.data.owners = [...newsroom.wrapper.data.owners, action.data.owner];
+      return state.set(action.data.address, newsroom);
     case newsroomActions.REMOVE_EDITOR:
       newsroom = state.get(action.data.address);
       editors = newsroom.editors || [];

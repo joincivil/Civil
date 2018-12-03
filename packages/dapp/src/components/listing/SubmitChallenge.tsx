@@ -20,6 +20,7 @@ import {
   hasTransactionStatusModals,
   TransactionStatusModalContentMap,
 } from "../utility/TransactionStatusModalsHOC";
+import ScrollToTopOnMount from "../utility/ScrollToTop";
 
 export interface SubmitChallengePageProps {
   match: any;
@@ -144,6 +145,7 @@ class SubmitChallengeComponent extends React.Component<
 
     return (
       <>
+        <ScrollToTopOnMount />
         {isInsufficientBalance &&
           minDeposit && <InsufficientBalanceSnackBar minDeposit={minDeposit!} buyCVLURL="https://civil.co" />}
         <SubmitChallengeStatementComponent {...props} />

@@ -10,6 +10,7 @@ export enum newsroomActions {
   UPDATE_NEWSROOM = "UPDATE_NEWSROOM",
   CHANGE_NAME = "CHANGE_NAME",
   ADD_EDITOR = "ADD_EDITOR",
+  ADD_OWNER = "ADD_OWNER",
   REMOVE_EDITOR = "REMOVE_EDITOR",
   SET_IS_OWNER = "SET_IS_OWNER",
   SET_IS_EDITOR = "SET_IS_EDITOR",
@@ -93,6 +94,16 @@ export const addEditor = (address: EthAddress, editor: EthAddress): AnyAction =>
     data: {
       address,
       editor,
+    },
+  };
+};
+
+export const addOwner = (address: EthAddress, owner: EthAddress): AnyAction => {
+  return {
+    type: newsroomActions.ADD_OWNER,
+    data: {
+      address,
+      owner,
     },
   };
 };
@@ -221,6 +232,22 @@ export const initContractMember = (newsroomAddress: EthAddress, userAddress: Eth
   }
 
   dispatch(ensureUserOnRoster(newsroomAddress, userAddress, userData));
+};
+
+export const addAndHydrateEditor = (newsroomAddress: EthAddress, editorAddress: EthAddress): any => async (
+  dispatch: any,
+  getState: any,
+) => {
+  dispatch(addEditor(newsroomAddress, editorAddress));
+  return dispatch(initContractMember(newsroomAddress, editorAddress));
+};
+
+export const addAndHydrateOwner = (newsroomAddress: EthAddress, ownerAddress: EthAddress): any => async (
+  dispatch: any,
+  getState: any,
+) => {
+  dispatch(addOwner(newsroomAddress, ownerAddress));
+  return dispatch(initContractMember(newsroomAddress, ownerAddress));
 };
 
 export const addConstitutionUri = (uri: string): AnyAction => {

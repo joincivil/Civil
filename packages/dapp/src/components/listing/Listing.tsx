@@ -1,16 +1,20 @@
 import * as React from "react";
-import ListingReduxContainer from "./ListingReduxContainer";
-import ListingRedux from "./ListingRedux";
-import { State } from "../../redux/reducers";
 import { connect } from "react-redux";
 import { Query } from "react-apollo";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-manager";
+
+import { State } from "../../redux/reducers";
 import {
   LISTING_QUERY,
   transformGraphQLDataIntoNewsroom,
   transformGraphQLDataIntoListing,
 } from "../../helpers/queryTransformations";
+import ScrollToTopOnMount from "../utility/ScrollToTop";
+
+import ListingReduxContainer from "./ListingReduxContainer";
+import ListingRedux from "./ListingRedux";
+
 export interface ListingPageProps {
   match: any;
   listingAddress: EthAddress;
@@ -43,12 +47,22 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
             }
             const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
             const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
-            return <ListingRedux listingAddress={listingAddress} newsroom={newsroom} listing={listing} />;
+            return (
+              <>
+                <ScrollToTopOnMount />
+                <ListingRedux listingAddress={listingAddress} newsroom={newsroom} listing={listing} />
+              </>
+            );
           }}
         </Query>
       );
     } else {
-      return <ListingReduxContainer listingAddress={listingAddress} />;
+      return (
+        <>
+          <ScrollToTopOnMount />
+          <ListingReduxContainer listingAddress={listingAddress} />
+        </>
+      );
     }
   }
 }

@@ -59,7 +59,7 @@ contract MultiSigWallet {
   }
 
   modifier transactionExists(uint transactionId) {
-    require(transactions[transactionId].destination != 0);
+    require(transactions[transactionId].destination != address(0));
     _;
   }
 
@@ -79,7 +79,7 @@ contract MultiSigWallet {
   }
 
   modifier notNull(address verifiedAddress) {
-    require(verifiedAddress != 0);
+    require(verifiedAddress != address(0));
     _;
   }
 
@@ -112,7 +112,7 @@ contract MultiSigWallet {
     validRequirement(initialOwners.length, initialRequired)
   {
     for (uint i = 0; i < initialOwners.length; i++) {
-      require(!isOwner[initialOwners[i]] && initialOwners[i] != 0);
+      require(!isOwner[initialOwners[i]] && initialOwners[i] != address(0));
       isOwner[initialOwners[i]] = true;
     }
     owners = initialOwners;
