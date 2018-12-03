@@ -12,6 +12,11 @@ export interface NewsroomManagementState {
 }
 
 export default class NewsroomManagement extends React.Component<NewsroomManagementProps, NewsroomManagementState> {
+  constructor(props: NewsroomManagementProps) {
+    super(props);
+    this.state = {};
+  }
+
   public async componentDidMount(): Promise<void> {
     if ((window as any).ethereum && (window as any).ethereum.isEnabled) {
       const metamaskEnabled = await (window as any).ethereum.isEnabled();
@@ -28,6 +33,7 @@ export default class NewsroomManagement extends React.Component<NewsroomManageme
         address={this.props.match.params.newsroomAddress}
         theme={DEFAULT_BUTTON_THEME}
         metamaskEnabled={this.state.metamaskEnabled}
+        allSteps={true}
         enable={async () => {
           if ((window as any).ethereum) {
             await (window as any).ethereum.enable();

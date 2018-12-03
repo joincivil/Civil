@@ -142,7 +142,7 @@ class SignConstitutionComponent extends React.Component<
     }
     const message = "Your signature was not created";
 
-    const denailMessage =
+    const denialMessage =
       "To sign the constitution, you need to confirm in your MetaMask wallet. You will not be able to proceed without signing the constitution.";
 
     return (
@@ -151,7 +151,7 @@ class SignConstitutionComponent extends React.Component<
           <MetaMaskModal
             waiting={false}
             denied={true}
-            denialText={denailMessage}
+            denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
             denialRestartTransactions={this.getTransactions(value.civil!, true)}
           >
@@ -169,7 +169,7 @@ class SignConstitutionComponent extends React.Component<
     }
     const message = "Your charter was not saved to your newsroom smart contract.";
 
-    const denailMessage =
+    const denialMessage =
       "To save your charter to your newsroom smart contract, you need to confirm in your MetaMask wallet. You will not be able to proceed without saving.";
 
     return (
@@ -178,7 +178,7 @@ class SignConstitutionComponent extends React.Component<
           <MetaMaskModal
             waiting={false}
             denied={true}
-            denialText={denailMessage}
+            denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
             denialRestartTransactions={this.getPublishTransaction(value.civil!)}
           >
@@ -200,7 +200,7 @@ class SignConstitutionComponent extends React.Component<
         <StepFormSection>
           <h4>Civil Constitution</h4>
           <StepDescription>Please read and sign the Civil Constitution below</StepDescription>
-          <StyledLegalIframe src={this.props.government!.get("constitutionUri")} />
+          {this.props.government && <StyledLegalIframe src={this.props.government.get("constitutionUri")} />}
           <p>
             <CheckWrapper>
               <Checkbox
@@ -262,9 +262,8 @@ class SignConstitutionComponent extends React.Component<
             },
         transaction: async (): Promise<EthSignedMessage> => {
           this.setState({ isWaitingSignatureOpen: true });
-          return civil.signMessage(
-            prepareConstitutionSignMessage(this.props.newsroomAdress!, this.props.government!.get("constitutionHash")),
-          );
+          const constitutionHash = this.props.government ? this.props.government!.get("constitutionHash") : "[NONE]";
+          return civil.signMessage(prepareConstitutionSignMessage(this.props.newsroomAdress!, constitutionHash));
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
           const { signature, message, signer } = sig;
@@ -280,6 +279,9 @@ class SignConstitutionComponent extends React.Component<
           this.setState({ isWaitingSignatureOpen: false });
           if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
             this.setState({ metaMaskRejectionModal: true });
+          } else {
+            console.error("Transaction failed:", err);
+            alert("Transaction failed: " + err.message);
           }
         },
       },
@@ -293,12 +295,22 @@ class SignConstitutionComponent extends React.Component<
         transaction: async () => {
           this.setState({ isWaitingPublishModalOpen: true });
           const charter = JSON.stringify(this.props.charter);
-          const files = await this.props.ipfs!.add(toBuffer(charter), {
-            hash: "keccak-256",
-            pin: true,
-          });
-          const hash = hashContent(charter);
-          return this.props.newsroom.updateRevisionURIAndHash(0, `ipfs://${files[0].path}`, hash);
+
+          let uri;
+          let contentHash;
+          if (this.props.ipfs) {
+            const files = await this.props.ipfs!.add(toBuffer(charter), {
+              hash: "keccak-256",
+              pin: true,
+            });
+            contentHash = hashContent(charter);
+            uri = `ipfs://${files[0].path}`;
+          } else {
+            const header = await civil.publishContent(charter, { hash: "keccak-256" });
+            uri = header.uri;
+            contentHash = header.contentHash;
+          }
+          return this.props.newsroom.updateRevisionURIAndHash(0, uri, contentHash);
         },
         handleTransactionHash: (hash: TxHash) => {
           this.setState({ isWaitingPublishModalOpen: false });
@@ -310,6 +322,9 @@ class SignConstitutionComponent extends React.Component<
           this.setState({ isWaitingPublishModalOpen: false });
           if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
             this.setState({ metaMaskPublishRejectionModal: true });
+          } else {
+            console.error("Transaction failed:", err);
+            alert("Transaction failed: " + err.message);
           }
         },
       },
