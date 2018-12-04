@@ -1,7 +1,11 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { TabProps } from "./Tab";
+
 import { colors } from "../styleConstants";
+import { ExpandDownArrow } from "../icons";
+
+import { TabProps } from "./Tab";
+import { StyledTabNav, StyledNav, StyledResponsiveTabsToggleButton, TabContainer } from "./TabsStyled";
 
 export interface TabsProps {
   activeIndex?: number;
@@ -15,22 +19,13 @@ export interface TabsProps {
 
 export interface TabsState {
   activeIndex: number;
+  isResponsiveTabsetVisible: boolean;
 }
-
-const StyledNav = styled.nav`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_3};
-`;
-
-const TabContainer = styled.ul`
-  display: flex;
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-`;
 
 export class Tabs extends React.Component<TabsProps, TabsState> {
   public static getDerivedStateFromProps(nextProps: TabsProps, prevState: TabsState): TabsState {
     return {
+      ...prevState,
       activeIndex: typeof nextProps.activeIndex === "number" ? nextProps.activeIndex : prevState.activeIndex,
     };
   }
@@ -39,6 +34,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
     super(props);
     this.state = {
       activeIndex: props.activeIndex || 0,
+      isResponsiveTabsetVisible: false,
     };
   }
 
@@ -47,6 +43,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
       return React.cloneElement(child as React.ReactElement<TabProps>, {
         index,
         isActive: this.state.activeIndex === index,
+        isResponsiveAndVisible: this.state.isResponsiveTabsetVisible,
         onClick: this.handleClick,
         TabComponent: this.props.TabComponent,
       });
@@ -66,6 +63,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
     const TabComponentOrnamental = styled(this.props.TabComponent || "span")`
       cursor: default;
     `;
+    const arrowColor = this.state.isResponsiveTabsetVisible ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2;
 
     return (
       <div>
@@ -75,15 +73,27 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
             {this.renderTabs()}
             {this.props.TabsNavAfter && <TabComponentOrnamental>{this.props.TabsNavAfter}</TabComponentOrnamental>}
           </TabContainer>
+
+          <StyledResponsiveTabsToggleButton
+            isExpanded={this.state.isResponsiveTabsetVisible}
+            onClick={this.toggleResponsiveVisible}
+          >
+            <ExpandDownArrow color={arrowColor} opacity={1} />
+          </StyledResponsiveTabsToggleButton>
         </TabsNavComponent>
         <div>{this.renderContent()}</div>
       </div>
     );
   }
+
   private handleClick = (index: number) => {
     this.setState({ activeIndex: index });
     if (this.props.onActiveTabChange) {
       this.props.onActiveTabChange(index);
     }
+  };
+
+  private toggleResponsiveVisible = () => {
+    this.setState({ isResponsiveTabsetVisible: !this.state.isResponsiveTabsetVisible });
   };
 }

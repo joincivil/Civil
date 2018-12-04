@@ -1,6 +1,30 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts, mediaQueries } from "../styleConstants";
+import { HeroProps } from "./Hero";
+
+export const HeroOuter = styled.div`
+  background-color: ${colors.primary.BLACK};
+  background-image: ${(props: HeroProps) => (props.backgroundImage ? "url(" + props.backgroundImage + ")" : "none")};
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 70px 15px;
+
+  ${mediaQueries.MOBILE} {
+    display: none;
+  }
+`;
+
+export const HeroInner = styled.div`
+  align-items: center;
+  color: ${colors.basic.WHITE};
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 850px;
+  text-align: center;
+  width: 100%;
+`;
 
 export const HeroLabel = styled.span`
   display: block;

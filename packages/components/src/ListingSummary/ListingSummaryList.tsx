@@ -2,13 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { ListingSummaryComponentProps } from "./types";
 import { ListingSummaryComponent } from "./ListingSummary";
-
-export const StyledListingSummaryList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  width: 1200px;
-`;
+import { StyledListingSummaryList } from "./styledComponents";
 
 export interface ListingSummaryListProps {
   listings: ListingSummaryComponentProps[];

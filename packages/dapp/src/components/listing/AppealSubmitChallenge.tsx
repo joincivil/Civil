@@ -6,6 +6,7 @@ import { AppealDecisionCard, ModalContent, ModalUnorderedList, ModalListItem } f
 
 import { approveForChallengeGrantedAppeal, challengeGrantedAppeal } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
+// import ScrollToTopOnMount from "../utility/ScrollToTop";
 
 import { AppealDetailProps } from "./AppealDetail";
 
