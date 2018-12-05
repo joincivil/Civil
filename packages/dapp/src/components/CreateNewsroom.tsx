@@ -50,9 +50,10 @@ class CreateNewsroom extends React.Component<
             onNewsroomCreated={this.onCreated}
             account={this.props.userAccount}
             currentNetwork={this.props.networkName}
-            requiredNetwork="rinkeby|ganache"
             theme={DEFAULT_BUTTON_THEME}
             metamaskEnabled={this.state.metamaskEnabled}
+            allSteps={true}
+            initialStep={0}
             enable={async () => {
               if ((window as any).ethereum) {
                 await (window as any).ethereum.enable();

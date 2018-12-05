@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.24;
 
 import "../zeppelin-solidity/ownership/Ownable.sol";
 
@@ -8,7 +8,7 @@ contract RestrictedAddressRegistry is ContractAddressRegistry {
 
   modifier onlyContractOwner(address _contractAddress) {
     Ownable ownedContract = Ownable(_contractAddress);
-    require(ownedContract.owner() == msg.sender);
+    require(ownedContract.owner() == msg.sender, "Sender is not owner of contract");
     _;
   }
 

@@ -32,7 +32,9 @@ import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 import { CompleteYourProfile } from "./CompleteYourProfile";
 import { NameAndAddress } from "./NameAndAddress";
+import { SignConstitution } from "./SignConstitution";
 import { ApplyToTCR } from "./ApplyToTCR";
+import { ApplyToTCRPlaceholder } from "./ApplyToTCRPlaceholder";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 
@@ -69,6 +71,8 @@ export interface NewsroomExternalProps {
   newsroomUrl?: string;
   logoUrl?: string;
   metamaskEnabled?: boolean;
+  allSteps?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
+  initialStep?: number;
   enable(): void;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
   persistCharter?(charter: Partial<CharterData>): Promise<void>;
@@ -171,12 +175,21 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   constructor(props: NewsroomProps) {
     super(props);
     let currentStep = props.address ? 1 : 0;
-    try {
-      if (localStorage.newsroomOnBoardingLastSeen) {
-        currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
+    if (typeof props.initialStep !== "undefined") {
+      currentStep = props.initialStep;
+    } else {
+      try {
+        if (localStorage.newsroomOnBoardingLastSeen) {
+          currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
+
+          // @TODO Temporary cause of infinite loop in sign constitution step
+          if (this.props.allSteps && currentStep === 4) {
+            currentStep--;
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load step index", e);
       }
-    } catch (e) {
-      console.error("Failed to load step index", e);
     }
 
     this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
@@ -346,11 +359,43 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             >
               <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
             </Step>
+            {this.props.allSteps ? (
+              <Step
+                title={"Sign the Constitution"}
+                disabled={!this.props.address && !this.state.charterPartTwoComplete}
+                complete={!!this.props.charterUri}
+                renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+                  return (
+                    <>
+                      <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                        Back
+                      </SecondaryButton>
+                      <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
+                        Next
+                      </Button>
+                    </>
+                  );
+                }}
+              >
+                <SignConstitution
+                  newsroomAdress={this.props.address}
+                  ipfs={this.props.ipfs}
+                  charter={this.props.charter}
+                  updateCharter={this.updateCharter}
+                />
+              </Step>
+            ) : (
+              <></>
+            )}
             <Step
               title={"Apply to the Registry"}
               disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
             >
-              <ApplyToTCR address={this.props.address} />
+              {this.props.allSteps ? (
+                <ApplyToTCR address={this.props.address} />
+              ) : (
+                <ApplyToTCRPlaceholder address={this.props.address} />
+              )}
             </Step>
           </StepProcessTopNav>
         </CivilContext.Provider>
@@ -400,10 +445,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private isDisabled = (): boolean => {
+    const onRequiredNetwork =
+      !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.props.currentNetwork!);
     return (
       this.props.disabled ||
       !this.props.civil ||
-      !this.props.requiredNetwork!.includes(this.props.currentNetwork!) ||
+      !onRequiredNetwork ||
       !this.props.account ||
       !!this.props.userNotOnContract
     );

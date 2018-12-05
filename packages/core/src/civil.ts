@@ -1,5 +1,5 @@
 import { currentNetwork, detectProvider, EthApi, ProviderBackport, Web310Provider } from "@joincivil/ethapi";
-import { EthAddress, EthSignedMessage, TxHash, Uri } from "@joincivil/typescript-types";
+import { EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
@@ -225,11 +225,11 @@ export class Civil {
   /**
    * Stores content on a content provider (defaults to IPFS)
    * @param content The the data that you want to store, in the future, probably a JSON
-   * @returns A URI that points to the content
+   * @param options Options to be passed to the provider
+   * @returns StorageHeader with info about published content
    */
-  public async publishContent(content: string): Promise<Uri> {
-    const { uri } = await this.contentProvider.put(content);
-    return uri;
+  public async publishContent(content: string, options: object): Promise<StorageHeader> {
+    return this.contentProvider.put(content, options);
   }
 
   public async getContent(header: StorageHeader): Promise<ContentData | undefined> {

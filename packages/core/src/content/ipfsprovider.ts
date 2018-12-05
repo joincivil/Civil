@@ -27,8 +27,8 @@ export class IPFSProvider implements ContentProvider {
     return (await ipfsAsync.get(uri)).reduce((acc, file) => acc + file.content.toString("utf8"), "");
   }
 
-  public async put(content: string): Promise<IpfsStorageHeader> {
-    const files = await ipfsAsync.add(Buffer.from(content));
+  public async put(content: string, options?: { hash: string }): Promise<IpfsStorageHeader> {
+    const files = await ipfsAsync.add(Buffer.from(content), options);
     await ipfsAsync.pin(files[0].hash);
     return {
       uri: this.scheme() + "://" + files[0].path,

@@ -1,5 +1,5 @@
 // solium-disable
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.24;
 
 import "../installed_contracts/EIP20Interface.sol";
 import "../installed_contracts/Parameterizer.sol";
@@ -61,9 +61,9 @@ contract AddressRegistry {
     @param _token The address where the ERC20 token contract is deployed
     */
     constructor(address _token, address _voting, address _parameterizer, string _name) public {
-        require(_token != 0);
-        require(_voting != 0);
-        require(_parameterizer != 0);
+        require(_token != 0, "_token address is 0");
+        require(_voting != 0, "_voting address is 0");
+        require(_parameterizer != 0, "_parameterizer address is 0");
 
         token = EIP20Interface(_token);
         voting = PLCRVoting(_voting);
@@ -83,9 +83,9 @@ contract AddressRegistry {
     @param _data        Extra data relevant to the application. Think IPFS hashes.
     */
     function apply(address listingAddress, uint _amount, string _data) public {
-        require(!isWhitelisted(listingAddress));
-        require(!appWasMade(listingAddress));
-        require(_amount >= parameterizer.get("minDeposit"));
+        require(!isWhitelisted(listingAddress), "Listing already whitelisted");
+        require(!appWasMade(listingAddress), "Application already made for this address");
+        require(_amount >= parameterizer.get("minDeposit"), "Deposit amount not above minDeposit");
 
         // Sets owner
         Listing storage listing = listings[listingAddress];
@@ -96,7 +96,7 @@ contract AddressRegistry {
         listing.unstakedDeposit = _amount;
 
         // Transfers tokens from user to Registry contract
-        require(token.transferFrom(listing.owner, this, _amount));
+        require(token.transferFrom(listing.owner, this, _amount), "Token transfer failed");
 
         emit _Application(listingAddress, _amount, listing.applicationExpiry, _data, msg.sender);
     }
@@ -109,10 +109,10 @@ contract AddressRegistry {
     function deposit(address listingAddress, uint _amount) external {
         Listing storage listing = listings[listingAddress];
 
-        require(listing.owner == msg.sender);
+        require(listing.owner == msg.sender, "Sender is not owner of Listing");
 
         listing.unstakedDeposit += _amount;
-        require(token.transferFrom(msg.sender, this, _amount));
+        require(token.transferFrom(msg.sender, this, _amount), "Token transfer failed");
 
         emit _Deposit(listingAddress, _amount, listing.unstakedDeposit, msg.sender);
     }
@@ -125,12 +125,12 @@ contract AddressRegistry {
     function withdraw(address listingAddress, uint _amount) external {
         Listing storage listing = listings[listingAddress];
 
-        require(listing.owner == msg.sender);
-        require(_amount <= listing.unstakedDeposit);
-        require(listing.unstakedDeposit - _amount >= parameterizer.get("minDeposit"));
+        require(listing.owner == msg.sender, "Sender is not owner of listing");
+        require(_amount <= listing.unstakedDeposit, "Cannot withdraw more than current unstaked deposit");
+        require(listing.unstakedDeposit - _amount >= parameterizer.get("minDeposit"), "Withdrawal prohibitied as it would put Listing unstaked deposit below minDeposit");
 
         listing.unstakedDeposit -= _amount;
-        require(token.transfer(msg.sender, _amount));
+        require(token.transfer(msg.sender, _amount), "Token transfer failed");
 
         emit _Withdrawal(listingAddress, _amount, listing.unstakedDeposit, msg.sender);
     }
@@ -143,11 +143,11 @@ contract AddressRegistry {
     function exit(address listingAddress) external {
         Listing storage listing = listings[listingAddress];
 
-        require(msg.sender == listing.owner);
-        require(isWhitelisted(listingAddress));
+        require(msg.sender == listing.owner, "Sender is not owner of listing");
+        require(isWhitelisted(listingAddress), "Listing must be whitelisted to be exited");
 
         // Cannot exit during ongoing challenge
-        require(listing.challengeID == 0 || challenges[listing.challengeID].resolved);
+        require(listing.challengeID == 0 || challenges[listing.challengeID].resolved, "Listing must not have an active challenge to be exited");
 
         // Remove listingHash & return tokens
         resetListing(listingAddress);
@@ -170,9 +170,9 @@ contract AddressRegistry {
         uint minDeposit = parameterizer.get("minDeposit");
 
         // Listing must be in apply stage or already on the whitelist
-        require(appWasMade(listingAddress) || listing.whitelisted);
+        require(appWasMade(listingAddress) || listing.whitelisted, "Listing must be in application phase or already whitelisted to be challenged");
         // Prevent multiple challenges
-        require(listing.challengeID == 0 || challenges[listing.challengeID].resolved);
+        require(listing.challengeID == 0 || challenges[listing.challengeID].resolved, "Listing must not have active challenge to be challenged");
 
         if (listing.unstakedDeposit < minDeposit) {
             // Not enough tokens, listingHash auto-delisted
@@ -204,7 +204,7 @@ contract AddressRegistry {
         listing.unstakedDeposit -= minDeposit;
 
         // Takes tokens from challenger
-        require(token.transferFrom(msg.sender, this, minDeposit));
+        require(token.transferFrom(msg.sender, this, minDeposit), "Token transfer failed");
 
         var (commitEndDate, revealEndDate,) = voting.pollMap(pollID);
 
@@ -251,8 +251,8 @@ contract AddressRegistry {
     */
     function claimReward(uint _challengeID, uint _salt) public {
         // Ensures the voter has not already claimed tokens and challenge results have been processed
-        require(challenges[_challengeID].tokenClaims[msg.sender] == false);
-        require(challenges[_challengeID].resolved == true);
+        require(challenges[_challengeID].tokenClaims[msg.sender] == false, "Reward already claimed");
+        require(challenges[_challengeID].resolved == true, "Challenge not yet resolved");
 
         uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt);
         uint reward = voterReward(msg.sender, _challengeID, _salt);
@@ -265,7 +265,7 @@ contract AddressRegistry {
         // Ensures a voter cannot claim tokens again
         challenges[_challengeID].tokenClaims[msg.sender] = true;
 
-        require(token.transfer(msg.sender, reward));
+        require(token.transfer(msg.sender, reward), "Token transfer failed");
 
         emit _RewardClaimed(_challengeID, reward, msg.sender);
     }
@@ -278,7 +278,7 @@ contract AddressRegistry {
     */
     function claimRewards(uint[] _challengeIDs, uint[] _salts) public {
         // make sure the array lengths are the same
-        require(_challengeIDs.length == _salts.length);
+        require(_challengeIDs.length == _salts.length, "Mismatch in length of _challengeIDs and _salts parameters");
 
         // loop through arrays, claiming each individual vote reward
         for (uint i = 0; i < _challengeIDs.length; i++) {
@@ -360,7 +360,7 @@ contract AddressRegistry {
     function challengeCanBeResolved(address listingAddress) view public returns (bool) {
         uint challengeID = listings[listingAddress].challengeID;
 
-        require(challengeExists(listingAddress));
+        require(challengeExists(listingAddress), "Challenge does not exist for Listing");
 
         return voting.pollEnded(challengeID);
     }
@@ -370,7 +370,8 @@ contract AddressRegistry {
     @param _challengeID The challengeID to determine a reward for
     */
     function determineReward(uint _challengeID) public view returns (uint) {
-        require(!challenges[_challengeID].resolved && voting.pollEnded(_challengeID));
+        require(!challenges[_challengeID].resolved, "Challenge already resolved");
+        require(voting.pollEnded(_challengeID), "Poll for challenge has not ended");
 
         // Edge case, nobody voted, give all tokens to the challenger.
         if (voting.getTotalNumberOfTokensForWinningOption(_challengeID) == 0) {
@@ -424,7 +425,7 @@ contract AddressRegistry {
         else {
             resetListing(listingAddress);
             // Transfer the reward to the challenger
-            require(token.transfer(challenges[challengeID].challenger, reward));
+            require(token.transfer(challenges[challengeID].challenger, reward), "Token transfer failure");
 
             emit _ChallengeSucceeded(listingAddress, challengeID, challenges[challengeID].rewardPool, challenges[challengeID].totalTokens);
         }
@@ -462,7 +463,7 @@ contract AddressRegistry {
 
         // Transfers any remaining balance back to the owner
         if (unstakedDeposit > 0){
-            require(token.transfer(owner, unstakedDeposit));
+            require(token.transfer(owner, unstakedDeposit), "Token transfer failure");
         }
     }
 }

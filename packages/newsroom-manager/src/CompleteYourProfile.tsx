@@ -126,7 +126,7 @@ class CompleteYourProfileComponent extends React.Component<
       ? "Your new Civil Member was not added"
       : "Your new Civil Officer was not added";
 
-    const denailMessage = this.state.addEditor
+    const denialMessage = this.state.addEditor
       ? "To add a new Civil Member, you need to confirm the transaction in your MetaMask wallet."
       : "To add a new Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
 
@@ -136,7 +136,7 @@ class CompleteYourProfileComponent extends React.Component<
           <MetaMaskModal
             waiting={false}
             denied={true}
-            denialText={denailMessage}
+            denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
             denialRestartTransactions={this.getTransaction(true)}
           >

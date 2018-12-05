@@ -23,14 +23,25 @@ class WhitelistedListingItem extends React.Component<
     const { listing } = this.props;
     if (listing && listing.data.challenge) {
       this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      if (listing.data.challenge.appeal) {
+        this.props.dispatch!(await getBareContent(listing.data.challenge.appeal.appealStatementURI!));
+      }
     }
   }
 
-  public async componentDidUpdate(prevProps: ListingListItemOwnProps & WhitelistedCardReduxProps): Promise<void> {
+  public async componentDidUpdate(prevProps: ListingListItemOwnProps & ListingListItemReduxProps): Promise<void> {
     if (prevProps.listing !== this.props.listing) {
       const { listing } = this.props;
       if (listing && listing.data.challenge) {
         this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+        if (listing.data.challenge.appeal) {
+          this.props.dispatch!(await getBareContent(listing.data.challenge.appeal.appealStatementURI!));
+        }
+      }
+    }
+    if (prevProps.newsroom !== this.props.newsroom) {
+      if (this.props.newsroom) {
+        this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
       }
     }
   }
@@ -61,8 +72,16 @@ class WhitelistedListingItem extends React.Component<
     const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
 
     const appeal = challenge && challenge.appeal;
-    const appealStatementSummary =
-      this.props.appealStatement && JSON.parse(this.props.appealStatement as string).summary;
+
+    let appealStatementSummary;
+    if (this.props.appealStatement) {
+      try {
+        appealStatementSummary = JSON.parse(this.props.appealStatement as string).summary;
+      } catch (ex) {
+        appealStatementSummary = this.props.appealStatement.summary;
+      }
+    }
+
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
 
