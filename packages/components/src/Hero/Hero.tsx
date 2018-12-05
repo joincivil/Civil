@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors } from "../styleConstants";
 import { HeroOuter, HeroInner } from "./styledComponents";
 
 export interface HeroProps {

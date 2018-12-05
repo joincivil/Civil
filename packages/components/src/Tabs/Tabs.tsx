@@ -5,7 +5,7 @@ import { colors } from "../styleConstants";
 import { ExpandDownArrow } from "../icons";
 
 import { TabProps } from "./Tab";
-import { StyledTabNav, StyledNav, StyledResponsiveTabsToggleButton, TabContainer } from "./TabsStyled";
+import { StyledNav, StyledResponsiveTabsToggleButton, TabContainer } from "./TabsStyled";
 
 export interface TabsProps {
   activeIndex?: number;
