@@ -2,7 +2,8 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { CharterData } from "@joincivil/core";
-import { colors, fonts } from "./styleConstants";
+
+import { colors, fonts, mediaQueries } from "./styleConstants";
 import { TwitterIcon, FacebookIcon } from "./icons";
 import { Button, buttonSizes } from "./Button";
 import {
@@ -13,6 +14,7 @@ import {
   AwaitingDecisionStatusLabel,
   AwaitingAppealChallengeStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
+import { StyledContentRow, StyledLeftContentWell, StyledRightContentWell } from "./Layout";
 
 const ListingDetailOuter = styled.div`
   background: ${colors.primary.BLACK};
@@ -30,23 +32,24 @@ const ListingDetailNewsroomName = styled.h1`
   font: 200 48px/40px ${fonts.SERIF};
   letter-spacing: -0.19px;
   margin: 0 0 18px;
+
+  ${mediaQueries.MOBILE} {
+    font-size: 32px;
+    letter-spacing: -0.12px;
+    line-height: 36px;
+  }
 `;
 
 const ListingDetailNewsroomDek = styled.p`
   font: normal 21px/35px ${fonts.SANS_SERIF};
   margin: 0 0 35px;
-`;
 
-const GridRow = styled.div`
-  display: flex;
-  width: 1200px;
-`;
-const LeftShark = styled.div`
-  width: 695px;
-`;
-const RightShark = styled.div`
-  margin-left: 15px;
-  width: 485px;
+  ${mediaQueries.MOBILE} {
+    font-size: 16px;
+    letter-spacing: -0.11px;
+    line-height: 26px;
+    margin: 0 0 32px;
+  }
 `;
 
 const StyledRegistryLinkContainer = styled.div`
@@ -61,14 +64,25 @@ const NewsroomLinks = styled.div`
   display: flex;
   margin-top: 40px;
 `;
+
 const VisitNewsroomButtonWrap = styled.div`
   line-height: 32px;
   width: 50%;
+
+  ${mediaQueries.MOBILE} {
+    width: 100%;
+  }
 `;
+
 const FollowNewsroom = styled.div`
   display: inline-block;
   width: 50%;
+
+  ${mediaQueries.MOBILE} {
+    width: 100%;
+  }
 `;
+
 const FollowNewsroomHeading = styled.h5`
   margin-bottom: 10px;
   font: 500 14px/14px ${fonts.SANS_SERIF};
@@ -76,6 +90,7 @@ const FollowNewsroomHeading = styled.h5`
   color: ${colors.basic.WHITE};
   text-transform: uppercase;
 `;
+
 const FollowNewsroomLink = styled.a`
   margin-right: 20px;
 `;
@@ -115,8 +130,8 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
     return (
       <ListingDetailOuter>
         <StyledListingDetailHeader>
-          <GridRow>
-            <LeftShark>
+          <StyledContentRow>
+            <StyledLeftContentWell>
               {this.renderRegistryLink()}
               {this.renderPhaseLabel()}
 
@@ -150,9 +165,9 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
                     </FollowNewsroom>
                   )}
               </NewsroomLinks>
-            </LeftShark>
+            </StyledLeftContentWell>
 
-            <RightShark>
+            <StyledRightContentWell>
               <dl>
                 <dt>Owner</dt>
                 <dd>{this.props.owner}</dd>
@@ -160,8 +175,8 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
                 <dt>Unstaked Deposit</dt>
                 <dd>{this.props.unstakedDeposit}</dd>
               </dl>
-            </RightShark>
-          </GridRow>
+            </StyledRightContentWell>
+          </StyledContentRow>
         </StyledListingDetailHeader>
       </ListingDetailOuter>
     );

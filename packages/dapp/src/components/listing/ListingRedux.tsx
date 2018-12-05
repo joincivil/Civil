@@ -12,8 +12,15 @@ import ListingChallengeStatement from "./ListingChallengeStatement";
 import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
-import { GridRow, LeftShark, RightShark, ListingTabContent } from "./styledComponents";
-import { Tabs, Tab, StyledTab } from "@joincivil/components";
+import { ListingTabContent } from "./styledComponents";
+import {
+  Tabs,
+  Tab,
+  StyledTab,
+  StyledContentRow,
+  StyledLeftContentWell,
+  StyledRightContentWell,
+} from "@joincivil/components";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 
 export interface ListingPageComponentProps {
@@ -75,8 +82,21 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
             />
           </>
         )}
-        <GridRow>
-          <LeftShark>
+        <StyledContentRow reverseDirection={true}>
+          <StyledRightContentWell offsetTop={-100}>
+            {listingExistsAsNewsroom && (
+              <ListingPhaseActions
+                listing={this.props.listing!}
+                expiry={this.props.expiry}
+                listingPhaseState={this.props.listingPhaseState}
+                parameters={this.props.parameters}
+                govtParameters={this.props.govtParameters}
+                constitutionURI={this.props.constitutionURI}
+              />
+            )}
+          </StyledRightContentWell>
+
+          <StyledLeftContentWell>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
             <Tabs TabComponent={StyledTab}>
@@ -119,21 +139,8 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                   </Tab>
                 )) || <></>}
             </Tabs>
-          </LeftShark>
-
-          <RightShark>
-            {listingExistsAsNewsroom && (
-              <ListingPhaseActions
-                listing={this.props.listing!}
-                expiry={this.props.expiry}
-                listingPhaseState={this.props.listingPhaseState}
-                parameters={this.props.parameters}
-                govtParameters={this.props.govtParameters}
-                constitutionURI={this.props.constitutionURI}
-              />
-            )}
-          </RightShark>
-        </GridRow>
+          </StyledLeftContentWell>
+        </StyledContentRow>
       </>
     );
   }

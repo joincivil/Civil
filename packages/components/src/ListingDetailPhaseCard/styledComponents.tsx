@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts } from "../styleConstants";
+
+import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps, ButtonTheme, DEFAULT_BUTTON_THEME } from "../Button";
 
 const BACKGROUND_ACCENT_COLORS: any = {
@@ -16,6 +17,11 @@ export const StyledListingDetailPhaseCardContainer = styled.div`
   padding: 30px 0 50px;
   position: relative;
   width: 485px;
+
+  ${mediaQueries.MOBILE} {
+    padding: 7px 0;
+    width: auto;
+  }
 `;
 
 export interface StyledListingDetailPhaseCardSectionProps {
@@ -35,6 +41,12 @@ export const StyledListingDetailPhaseCardSection: StyledComponentClass<
 
   &:nth-child(1) {
     border-top: 0;
+  }
+
+  ${mediaQueries.MOBILE} {
+    padding-left: 16px;
+    padding-right: 16px;
+    width: auto;
   }
 `;
 
