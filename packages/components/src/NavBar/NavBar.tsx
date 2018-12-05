@@ -31,13 +31,15 @@ export class NavBar extends React.Component<NavProps, NavState> {
   }
 
   public render(): JSX.Element {
-    let accountInfo = (
-      <span>
-        <UserCvlBalance>{this.props.balance}</UserCvlBalance>
-        <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
-      </span>
-    );
-    if (!this.props.userAccount) {
+    let accountInfo;
+    if (this.props.userAccount) {
+      accountInfo = (
+        <span>
+          <UserCvlBalance>{this.props.balance}</UserCvlBalance>
+          <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
+        </span>
+      );
+    } else {
       accountInfo = (
         <>
           <LogInButton onClick={this.props.onLogin} size={buttonSizes.SMALL}>
