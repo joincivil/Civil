@@ -32,7 +32,7 @@ const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => 
       <NavBar
         balance={props.balance}
         votingBalance={props.votingBalance}
-        userAccount={getFormattedEthAddress(props.userAccount)}
+        userAccount={props.userAccount && getFormattedEthAddress(props.userAccount)}
         buyCvlUrl="https://civil.co/cvl/"
         userRevealVotesCount={props.userChallengesWithUnrevealedVotes!.count()}
         userClaimRewardsCount={props.userChallengesWithUnclaimedRewards!.count()}
@@ -60,19 +60,19 @@ const mapStateToProps = (state: State): NavBarProps => {
   const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
   const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
   const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
-
   let balance = "loading...";
-  if (user.account && user.account.balance) {
-    balance = getFormattedTokenBalance(user.account.balance);
-  }
-
   let votingBalance = "";
-  if (user.account && user.account.votingBalance) {
-    votingBalance = getFormattedTokenBalance(user.account.votingBalance);
-  }
+  let userAccount;
 
-  let userAccount = "";
-  if (user.account && user.account.account) {
+  if (user.account && user.account.account && user.account.account !== "") {
+    if (user.account.balance) {
+      balance = getFormattedTokenBalance(user.account.balance);
+    }
+
+    if (user.account.votingBalance) {
+      votingBalance = getFormattedTokenBalance(user.account.votingBalance);
+    }
+
     userAccount = user.account.account;
   }
 

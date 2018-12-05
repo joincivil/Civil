@@ -16,7 +16,7 @@ export interface DetailTransactionButtonProps {
   civil?: Civil;
   transactions: Transaction[];
   estimateFunctions?: Array<() => Promise<number>>;
-  requiredNetwork: string;
+  requiredNetwork?: string;
   Button?: React.StatelessComponent<TransactionButtonInnerProps>;
   noModal?: boolean;
   disabled?: boolean;
@@ -176,12 +176,9 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public isDisabled(): boolean {
-    return (
-      this.props.disabled ||
-      !this.props.civil ||
-      !this.state.currentAccount ||
-      !this.props.requiredNetwork.includes(this.state.currentNetwork)
-    );
+    const onRequiredNetwork =
+      !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.state.currentNetwork);
+    return this.props.disabled || !this.props.civil || !this.state.currentAccount || !onRequiredNetwork;
   }
 
   public renderNoMetaMask(): JSX.Element {
@@ -210,7 +207,7 @@ export class DetailTransactionButton extends React.Component<
       <DetailSection>
         <SmallHeader>MetaMask is on the wrong network</SmallHeader>
         <SmallText>
-          Please change your network to the {this.props.requiredNetwork.replace(/^\w/, c => c.toUpperCase())} Network
+          Please change your network to the {this.props.requiredNetwork!.replace(/^\w/, c => c.toUpperCase())} Network
           before proceeding
         </SmallText>
       </DetailSection>
@@ -253,7 +250,7 @@ export class DetailTransactionButton extends React.Component<
       return this.renderNoMetaMask();
     } else if (!this.state.currentAccount) {
       return this.renderMetaMaskLocked();
-    } else if (this.props.requiredNetwork !== this.state.currentNetwork) {
+    } else if (this.props.requiredNetwork && this.props.requiredNetwork !== this.state.currentNetwork) {
       return this.renderWrongNetwork();
     } else {
       return this.renderTransactionDetails();

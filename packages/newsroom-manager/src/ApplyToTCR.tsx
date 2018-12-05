@@ -1,8 +1,9 @@
 import * as React from "react";
-import { StepHeader, StepFormSection, BorderlessButton, WaitForApply, buttonSizes } from "@joincivil/components";
+import { StepHeader, StepFormSection, TransactionButton } from "@joincivil/components";
 import styled from "styled-components";
 import { EthAddress } from "@joincivil/core";
 import { connect } from "react-redux";
+import { CivilContext, CivilContextValue } from "./CivilContext";
 
 export interface ApplyToTCRProps {
   address?: EthAddress;
@@ -16,20 +17,6 @@ const FormSectionInner = styled("div")`
   margin: 16px -38px;
 `;
 
-const LearnMoreButton = styled(BorderlessButton)`
-  margin-left: 0;
-  padding-left: 0;
-`;
-
-const P = styled("p")`
-  font-size: 14px;
-`;
-
-const H = styled("h4")`
-  color: #000;
-  margin-bottom: 0;
-`;
-
 export class ApplyToTCRComponent extends React.Component<ApplyToTCRProps> {
   public render(): JSX.Element {
     return (
@@ -37,25 +24,59 @@ export class ApplyToTCRComponent extends React.Component<ApplyToTCRProps> {
         <StepHeader>Apply to the Civil Registry</StepHeader>
         <StepFormSection>
           <FormSectionInner>
-            <WaitForApply />
-            <P>
-              Your current newsroom application is saved. Thank you for filling out your newsroom application. We are
-              launching the Civil Registry soon and you will need to come back to complete your newsroom application
-              once that happens.
-            </P>
-            <P>You are able to edit your application at any time before submission.</P>
-            <P>
-              You'll recieve a notification message in your WordPress dashboard when you are able to apply to the
-              Registry.
-            </P>
-            <hr />
-            <H>What is the Civil Registry?</H>
-            <LearnMoreButton
-              href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360017687131-What-is-the-Civil-Registry-"
-              size={buttonSizes.SMALL}
-            >
-              Learn More
-            </LearnMoreButton>
+            <CivilContext.Consumer>
+              {(value: CivilContextValue) => {
+                return (
+                  <>
+                    <TransactionButton
+                      transactions={[
+                        {
+                          transaction: async () => {
+                            const multisigAddr = await this.props.newsroom.getMultisigAddress();
+                            const tcr = await value.civil!.tcrSingletonTrusted();
+                            const parameterizer = await tcr.getParameterizer();
+                            const minDeposit = await parameterizer.getParameterValue("minDeposit");
+                            const token = await tcr.getToken();
+                            return token.transfer(multisigAddr, minDeposit.mul(2));
+                          },
+                        },
+                      ]}
+                    >
+                      Send CVL to Multisig
+                    </TransactionButton>
+                    <TransactionButton
+                      transactions={[
+                        {
+                          transaction: async () => {
+                            const multisigAddr = await this.props.newsroom.getMultisigAddress();
+                            const tcr = await value.civil!.tcrSingletonTrustedMultisigSupport(multisigAddr);
+                            const parameterizer = await tcr.getParameterizer();
+                            const minDeposit = await parameterizer.getParameterValue("minDeposit");
+                            const token = await tcr.getToken();
+                            const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddr);
+                            if (approvedTokens.lessThan(minDeposit)) {
+                              return token.approveSpender(tcr.address, minDeposit);
+                            }
+                            return;
+                          },
+                        },
+                        {
+                          transaction: async () => {
+                            const multisigAddr = await this.props.newsroom.getMultisigAddress();
+                            const tcr = await value.civil!.tcrSingletonTrustedMultisigSupport(multisigAddr);
+                            const parameterizer = await tcr.getParameterizer();
+                            const deposit = await parameterizer.getParameterValue("minDeposit");
+                            return tcr.apply(this.props.address!, deposit, "");
+                          },
+                        },
+                      ]}
+                    >
+                      Apply to TCR
+                    </TransactionButton>
+                  </>
+                );
+              }}
+            </CivilContext.Consumer>
           </FormSectionInner>
         </StepFormSection>
       </>
