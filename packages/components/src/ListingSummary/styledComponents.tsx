@@ -1,9 +1,21 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { SectionHeading } from "../Heading";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts, mediaQueries } from "../styleConstants";
 import { InvertedButton } from "../Button";
 import { StyledBaseStatus } from "../ApplicationPhaseStatusLabels";
+
+export const StyledListingSummaryList = styled.div`
+  display: flex
+  flex-wrap: wrap;
+  margin: 0 auto;
+  width: 1200px;
+
+  ${mediaQueries.MOBILE} {
+    display: block;
+    width: auto;
+  }
+`;
 
 export const StyledListingSummaryContainer = styled.div`
   margin: 0 30px 48px 0;
@@ -11,6 +23,15 @@ export const StyledListingSummaryContainer = styled.div`
 
   &:nth-child(3n + 3) {
     margin-right: 0;
+  }
+
+  ${mediaQueries.MOBILE} {
+    width: auto;
+    margin: 0 16px 31px;
+
+    &:nth-child(3n + 3) {
+      margin-right: 16px;
+    }
   }
 `;
 

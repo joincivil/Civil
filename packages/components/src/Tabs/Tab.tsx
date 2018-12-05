@@ -5,6 +5,7 @@ import { fonts } from "../styleConstants";
 export interface TabProps {
   title: string | JSX.Element;
   isActive?: boolean;
+  isResponsiveAndVisible?: boolean;
   index?: number;
   children: React.ReactChild;
   TabComponent?: any;
@@ -13,6 +14,7 @@ export interface TabProps {
 
 export interface TabComponentProps {
   isActive?: boolean;
+  isResponsiveAndVisible?: boolean;
   onClick?(e: any): void;
 }
 
@@ -47,7 +49,11 @@ export class Tab extends React.Component<TabProps> {
     const TabComponent = this.props.TabComponent || StyledLi;
 
     return (
-      <TabComponent isActive={this.props.isActive} onClick={this.onClick}>
+      <TabComponent
+        isActive={this.props.isActive}
+        isResponsiveAndVisible={this.props.isResponsiveAndVisible}
+        onClick={this.onClick}
+      >
         {this.props.title}
       </TabComponent>
     );

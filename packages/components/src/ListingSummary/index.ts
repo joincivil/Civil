@@ -4,3 +4,4 @@ export * from "./ListingSummaryApproved";
 export * from "./ListingSummaryUnderChallenge";
 export * from "./ListingSummaryReadyToUpdate";
 export * from "./ListingSummaryRejected";
+export { StyledListingSummaryList } from "./styledComponents";
