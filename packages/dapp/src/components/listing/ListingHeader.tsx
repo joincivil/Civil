@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/components";
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, getFormattedEthAddress } from "@joincivil/utils";
 
 export interface ListingHeaderProps {
   newsroom: NewsroomWrapper;
@@ -58,7 +58,7 @@ const ListingHeader: React.SFC<ListingHeaderProps> = props => {
   const headerProps: ListingDetailHeaderProps = {
     newsroomName: props.newsroom.data.name,
     charter: props.charter,
-    owner: props.listing.data.owner,
+    owner: getFormattedEthAddress(props.listing.data.owner),
     registryURL: `/registry/${registryURLParameter}`,
     registryLinkText,
     unstakedDeposit: getFormattedTokenBalance(props.listing.data.unstakedDeposit),

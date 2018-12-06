@@ -1,19 +1,9 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { Heading } from "@joincivil/components";
+import { Heading, mediaQueries } from "@joincivil/components";
 
-export const GridRow = styled.div`
-  display: flex;
-  margin: 0 auto;
-  padding: 0 0 200px;
-  width: 1200px;
-`;
-export const LeftShark = styled.div`
-  width: 695px;
-`;
 export const RightShark = styled.div`
   margin: -100px 0 0 15px;
-  width: 485px;
 `;
 
 export const ListingTabHeading = Heading.withComponent("h3").extend`
@@ -27,6 +17,11 @@ export const ListingTabContent = styled.div`
   line-height: 33px;
   padding: 40px 0 0;
   width: 635px;
+
+  ${mediaQueries.MOBILE} {
+    padding: 40px 0;
+    width: auto;
+  }
 
   & p {
     font-size: inherit;
