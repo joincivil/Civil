@@ -9,6 +9,7 @@ import ListingHeader from "./ListingHeader";
 import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
+import EmailSignup from "./EmailSignup";
 import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
@@ -94,6 +95,8 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                 constitutionURI={this.props.constitutionURI}
               />
             )}
+
+            <EmailSignup />
           </StyledRightContentWell>
 
           <StyledLeftContentWell>
