@@ -4,6 +4,7 @@ export * from "./ArticleIndexIcon";
 export * from "./ArticleIndexPanelIcon";
 export * from "./ArticleSignIcon";
 export * from "./ArticleSignPanelIcon";
+export * from "./BellIcon";
 export * from "./CvlToken";
 export * from "./ClockIcon";
 export * from "./CloseXIcon";
