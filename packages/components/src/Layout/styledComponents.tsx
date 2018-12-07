@@ -21,10 +21,12 @@ export const StyledMainContainer = styled.div`
 export const StyledContentRow = styled.div`
   display: flex;
   flex-direction: ${(props: ContentRowProps) => (props.reverseDirection ? "row-reverse" : "row")};
+  margin: 0 auto;
   width: 1200px;
 
   ${mediaQueries.MOBILE} {
     display: block;
+    margin: 0;
     width: auto;
   }
 `;
