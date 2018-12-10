@@ -264,143 +264,152 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               this.setState({ currentStep: newIndex });
             }}
           >
-            <Step
-              title={"Create newsroom"}
-              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-                return (
-                  <Button disabled={!this.props.address} onClick={args.goNext} size={buttonSizes.MEDIUM}>
-                    Next
-                  </Button>
-                );
-              }}
-              complete={!!this.props.address}
-            >
-              <NameAndAddress
-                userIsOwner={this.props.userIsOwner}
-                onNewsroomCreated={this.onNewsroomCreated}
-                name={this.props.name}
-                address={this.props.address}
-                txHash={this.props.txHash}
-                onContractDeployStarted={this.props.onContractDeployStarted}
-              />
-            </Step>
-            <Step
-              disabled={!this.props.address}
-              title={"Add accounts"}
-              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-                return (
-                  <>
-                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                      Back
-                    </SecondaryButton>
-                    <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
-                      Next
-                    </Button>
-                  </>
-                );
-              }}
-              complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
-            >
-              <CompleteYourProfile
-                userIsOwner={this.props.userIsOwner}
-                userIsEditor={this.props.userIsEditor}
-                address={this.props.address}
-                renderUserSearch={this.props.renderUserSearch}
-                profileWalletAddress={this.props.profileWalletAddress}
-              />
-            </Step>
-            <Step
-              title={"Create Registry profile"}
-              disabled={!this.props.address || !this.props.userIsOwner}
-              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-                return (
-                  <>
-                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                      Back
-                    </SecondaryButton>
-                    <Button
-                      onClick={args.goNext}
-                      size={buttonSizes.MEDIUM}
-                      disabled={!this.state.charterPartOneComplete}
-                    >
-                      Next
-                    </Button>
-                  </>
-                );
-              }}
-              complete={this.state.charterPartOneComplete}
-            >
-              <CreateCharterPartOne
-                address={this.props.address}
-                charter={this.props.charter}
-                updateCharter={this.updateCharter}
-              />
-            </Step>
-            <Step
-              title={"Write your charter"}
-              disabled={(!this.props.address && !this.state.charterPartOneComplete) || !this.props.userIsOwner}
-              renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-                return (
-                  <>
-                    <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                      Back
-                    </SecondaryButton>
-                    <Button
-                      onClick={args.goNext}
-                      size={buttonSizes.MEDIUM}
-                      disabled={!this.state.charterPartTwoComplete}
-                    >
-                      Next
-                    </Button>
-                  </>
-                );
-              }}
-              complete={this.state.charterPartTwoComplete}
-            >
-              <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
-            </Step>
-            {this.props.allSteps ? (
-              <Step
-                title={"Sign the Constitution"}
-                disabled={!this.props.address && !this.state.charterPartTwoComplete}
-                complete={!!this.props.charterUri}
-                renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-                  return (
-                    <>
-                      <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                        Back
-                      </SecondaryButton>
-                      <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
-                        Next
-                      </Button>
-                    </>
-                  );
-                }}
-              >
-                <SignConstitution
-                  newsroomAdress={this.props.address}
-                  ipfs={this.props.ipfs}
-                  charter={this.props.charter}
-                  updateCharter={this.updateCharter}
-                />
-              </Step>
-            ) : (
-              <></>
-            )}
-            <Step
-              title={"Apply to the Registry"}
-              disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
-            >
-              {this.props.allSteps ? (
-                <ApplyToTCR address={this.props.address} />
-              ) : (
-                <ApplyToTCRPlaceholder address={this.props.address} />
-              )}
-            </Step>
+            {...this.renderSteps()}
           </StepProcessTopNav>
         </CivilContext.Provider>
       </>
     );
+  }
+
+  public renderSteps(): Array<JSX.Element> {
+    const baseSteps = [
+      (<Step
+        title={"Create newsroom"}
+        renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+          return (
+            <Button disabled={!this.props.address} onClick={args.goNext} size={buttonSizes.MEDIUM}>
+              Next
+            </Button>
+          );
+        }}
+        complete={!!this.props.address}
+      >
+        <NameAndAddress
+          userIsOwner={this.props.userIsOwner}
+          onNewsroomCreated={this.onNewsroomCreated}
+          name={this.props.name}
+          address={this.props.address}
+          txHash={this.props.txHash}
+          onContractDeployStarted={this.props.onContractDeployStarted}
+        />
+      </Step>),
+        (<Step
+          disabled={!this.props.address}
+          title={"Add accounts"}
+          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+            return (
+              <>
+                <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                  Back
+                </SecondaryButton>
+                <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
+                  Next
+                </Button>
+              </>
+            );
+          }}
+          complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
+        >
+          <CompleteYourProfile
+            userIsOwner={this.props.userIsOwner}
+            userIsEditor={this.props.userIsEditor}
+            address={this.props.address}
+            renderUserSearch={this.props.renderUserSearch}
+            profileWalletAddress={this.props.profileWalletAddress}
+          />
+        </Step>),
+        (<Step
+          title={"Create Registry profile"}
+          disabled={!this.props.address || !this.props.userIsOwner}
+          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+            return (
+              <>
+                <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                  Back
+                </SecondaryButton>
+                <Button
+                  onClick={args.goNext}
+                  size={buttonSizes.MEDIUM}
+                  disabled={!this.state.charterPartOneComplete}
+                >
+                  Next
+                </Button>
+              </>
+            );
+          }}
+          complete={this.state.charterPartOneComplete}
+        >
+          <CreateCharterPartOne
+            address={this.props.address}
+            charter={this.props.charter}
+            updateCharter={this.updateCharter}
+          />
+        </Step>),
+        (<Step
+          title={"Write your charter"}
+          disabled={(!this.props.address && !this.state.charterPartOneComplete) || !this.props.userIsOwner}
+          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+            return (
+              <>
+                <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                  Back
+                </SecondaryButton>
+                <Button
+                  onClick={args.goNext}
+                  size={buttonSizes.MEDIUM}
+                  disabled={!this.state.charterPartTwoComplete}
+                >
+                  Next
+                </Button>
+              </>
+            );
+          }}
+          complete={this.state.charterPartTwoComplete}
+        >
+          <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
+        </Step>)
+    ];
+    if (this.props.allSteps) {
+      baseSteps.push(
+        (<Step
+          title={"Sign the Constitution"}
+          disabled={!this.props.address && !this.state.charterPartTwoComplete}
+          complete={!!this.props.charterUri}
+          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+            return (
+              <>
+                <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+                  Back
+                </SecondaryButton>
+                <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
+                  Next
+                </Button>
+              </>
+            );
+          }}
+        >
+          <SignConstitution
+            newsroomAdress={this.props.address}
+            ipfs={this.props.ipfs}
+            charter={this.props.charter}
+            updateCharter={this.updateCharter}
+          />
+        </Step>)
+      );
+    }
+    baseSteps.push(
+      (<Step
+        title={"Apply to the Registry"}
+        disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
+      >
+        {this.props.allSteps ? (
+          <ApplyToTCR address={this.props.address} />
+        ) : (
+          <ApplyToTCRPlaceholder address={this.props.address} />
+        )}
+      </Step>)
+    );
+    return baseSteps;
   }
 
   public render(): JSX.Element {

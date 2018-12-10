@@ -72,13 +72,18 @@ Switch.defaultProps = {
 
 export interface SlideCheckboxProps {
   checked: boolean;
+  locked?: boolean;
   onClick(): void;
 }
 
 export const SlideCheckbox = (props: SlideCheckboxProps) => {
   return (
     <Switch>
-      <input onClick={props.onClick} checked={props.checked} type="checkbox" />
+      <input onClick={() => {
+        if (!props.locked) {
+          props.onClick();
+        }
+      }} checked={props.checked} type="checkbox" />
       <Slider />
     </Switch>
   );
