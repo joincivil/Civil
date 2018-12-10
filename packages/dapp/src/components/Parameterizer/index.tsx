@@ -154,7 +154,6 @@ export interface ParameterizerProps {
   [Parameters.pDispensationPct]: BigNumber;
   [Parameters.voteQuorum]: BigNumber;
   [Parameters.pVoteQuorum]: BigNumber;
-  [Parameters.pProcessBy]: BigNumber;
   [Parameters.challengeAppealLen]: BigNumber;
   [Parameters.challengeAppealCommitLen]: BigNumber;
   [Parameters.challengeAppealRevealLen]: BigNumber;

@@ -72,6 +72,29 @@ contract("Registry", accounts => {
       // when challenge ends, should be able to withdraw origDeposit - new minDeposit
     });
 
+    it("should be able to withdraw unstakedDeposit from a listing that is locked in a challenge", async () => {
+      // Whitelist, then challenge
+      await utils.addToWhitelist(listing13, minDeposit.mul(2), applicant, registry);
+      await registry.challenge(listing13, "", { from: challenger });
+
+      // Attempt to withdraw; should succeed
+      await expect(registry.withdraw(listing13, minDeposit, { from: applicant })).to.eventually.be.fulfilled(
+        "Applicant should have been able to withdraw unstakedDeposit from a challenged listing",
+      );
+    });
+
+    it("should not be able to withdraw unstakedDeposit+1 from a listing that is locked in a challenge", async () => {
+      // Whitelist, then challenge
+      await utils.addToWhitelist(listing13, minDeposit.mul(2), applicant, registry);
+      await registry.challenge(listing13, "", { from: challenger });
+
+      // Attempt to withdraw; should succeed
+      await expect(registry.withdraw(listing13, minDeposit.add(1), { from: applicant })).to.eventually.be.rejectedWith(
+        REVERTED,
+        "Applicant should not have been able to withdraw unstakedDeposit+1 from a challenged listing",
+      );
+    });
+
     it("should not withdraw tokens if user making withdrawal is not listing owner", async () => {
       // Whitelist, then challenge
       await utils.addToWhitelist(listing13, minDeposit, applicant, registry);

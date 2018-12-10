@@ -9,7 +9,6 @@ export const durationParams: string[] = [
   Parameters.pCommitStageLen,
   Parameters.revealStageLen,
   Parameters.pRevealStageLen,
-  Parameters.pProcessBy,
   Parameters.challengeAppealLen,
   Parameters.challengeAppealCommitLen,
   Parameters.challengeAppealRevealLen,
