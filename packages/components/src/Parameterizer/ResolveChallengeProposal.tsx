@@ -10,7 +10,7 @@ import {
   StyledSection,
   StyledMetaName,
   StyledMetaValue,
-} from "./styledComponents";
+} from "./ParameterizerStyledComponents";
 import {
   ResolveChallengeProposalDescriptionText,
   CreateProposalParamNameLabelText,

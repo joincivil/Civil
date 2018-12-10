@@ -6,4 +6,5 @@ export * from "./ChallengeProposalRevealVote";
 export * from "./ChallengeProposalReviewVote";
 export * from "./ResolveChallengeProposal";
 export * from "./ProcessProposal";
-export { StyledParameterizerContainer } from "./styledComponents";
+export * from "./ParameterizerTableCell";
+export { StyledParameterizerContainer } from "./ParameterizerStyledComponents";

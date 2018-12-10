@@ -10,5 +10,6 @@ export interface TableCellProps {
   colSpan?: number;
   padding?: number;
   rowSpan?: number;
+  StyledTableCellComponent?: any;
   width?: string;
 }
