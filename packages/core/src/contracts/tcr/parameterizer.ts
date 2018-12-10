@@ -33,6 +33,9 @@ export const enum Parameters {
   pDispensationPct = "pDispensationPct",
   voteQuorum = "voteQuorum",
   pVoteQuorum = "pVoteQuorum",
+  challengeAppealLen = "challengeAppealLen",
+  challengeAppealCommitLen = "challengeAppealCommitLen",
+  challengeAppealRevealLen = "challengeAppealRevealLen",
 }
 
 /**
