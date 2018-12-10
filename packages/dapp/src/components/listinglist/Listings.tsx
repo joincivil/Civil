@@ -1,5 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { Helmet } from "react-helmet";
+
 import {
   Hero,
   HomepageHero,
@@ -72,6 +74,9 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
           >
             <Tab title={<ApprovedNewsroomsTabText />}>
               <StyledPageContent>
+                <Helmet>
+                  <title>The Civil Registry - Participate in credible, trustworthy journalism</title>
+                </Helmet>
                 <StyledListingCopy>
                   All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
                   review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
@@ -86,6 +91,9 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             </Tab>
             <Tab title={<RejectedNewsroomsTabText />}>
               <StyledPageContent>
+                <Helmet>
+                  <title>Rejected Newsrooms - The Civil Registry</title>
+                </Helmet>
                 <StyledListingCopy>
                   Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil
                   Constitution. Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.

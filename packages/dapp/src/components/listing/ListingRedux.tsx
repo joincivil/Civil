@@ -1,18 +1,8 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
+import { Helmet } from "react-helmet";
 
-import ListingOwnerActions from "./ListingOwnerActions";
-import ListingDiscourse from "./ListingDiscourse";
-import ListingHistory from "./ListingHistory";
-import ListingHeader from "./ListingHeader";
-import ListingCharter from "./ListingCharter";
-import ListingPhaseActions from "./ListingPhaseActions";
-import ListingChallengeStatement from "./ListingChallengeStatement";
-import { State } from "../../redux/reducers";
-import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
-import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
-import { ListingTabContent } from "./styledComponents";
+import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 import {
   Tabs,
   Tab,
@@ -21,7 +11,20 @@ import {
   StyledLeftContentWell,
   StyledRightContentWell,
 } from "@joincivil/components";
+
+import { State } from "../../redux/reducers";
+import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
+import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
 import { getContent } from "../../redux/actionCreators/newsrooms";
+
+import ListingOwnerActions from "./ListingOwnerActions";
+import ListingDiscourse from "./ListingDiscourse";
+import ListingHistory from "./ListingHistory";
+import ListingHeader from "./ListingHeader";
+import ListingCharter from "./ListingCharter";
+import ListingPhaseActions from "./ListingPhaseActions";
+import ListingChallengeStatement from "./ListingChallengeStatement";
+import { ListingTabContent } from "./styledComponents";
 
 export interface ListingPageComponentProps {
   listingAddress: EthAddress;
@@ -73,6 +76,10 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
       <>
         {listingExistsAsNewsroom && (
           <>
+            <Helmet>
+              <title>{newsroom!.data.name} - The Civil Registry</title>
+            </Helmet>
+
             <ListingHeader
               userAccount={this.props.userAccount}
               listing={listing!}
