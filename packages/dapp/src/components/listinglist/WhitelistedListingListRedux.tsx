@@ -16,9 +16,16 @@ export interface WhitelistedListingsListReduxReduxProps {
 class WhitelistedListingListRedux extends React.Component<WhitelistedListingsListReduxReduxProps> {
   public render(): JSX.Element {
     if (this.props.whitelistedListings.count()) {
-      return (
-        <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={this.props.whitelistedListings} />
-      );
+      const predicate = (newsroomListing?: NewsroomListing) => {
+        const listing = newsroomListing && newsroomListing.listing;
+        return !!listing && !!listing.data && !!listing.data.challenge && !listing.data.challengeID.isZero();
+      };
+
+      const challengedListings = this.props.whitelistedListings.filter(predicate).toSet();
+      const unchallengedListings = this.props.whitelistedListings.filterNot(predicate).toSet();
+      const groupedListings = challengedListings.concat(unchallengedListings).toSet();
+
+      return <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />;
     }
 
     return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
