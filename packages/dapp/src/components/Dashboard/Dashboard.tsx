@@ -1,5 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
+import { Helmet } from "react-helmet";
+
 import { UserDashboardHeader } from "@joincivil/components";
 
 import ScrollToTopOnMount from "../utility/ScrollToTop";
@@ -22,6 +24,9 @@ export interface DashboardProps {
 export const Dashboard: React.SFC<DashboardProps> = props => {
   return (
     <>
+      <Helmet>
+        <title>My Dashboard - The Civil Registry</title>
+      </Helmet>
       <ScrollToTopOnMount />
       <UserDashboardHeader>
         <UserInfoSummary />

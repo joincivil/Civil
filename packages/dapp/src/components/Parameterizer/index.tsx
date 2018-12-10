@@ -2,6 +2,8 @@ import * as React from "react";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "bignumber.js";
+import { Helmet } from "react-helmet";
+
 import { TwoStepEthTransaction, ParamProposalState } from "@joincivil/core";
 import {
   colors,
@@ -205,6 +207,9 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     return (
       <>
         <ScrollToTopOnMount />
+        <Helmet>
+          <title>Registry Parameters - The Civil Registry</title>
+        </Helmet>
         <GridRow>
           <StyledTitle>Civil Registry Parameters</StyledTitle>
           <StyledDescriptionP>
