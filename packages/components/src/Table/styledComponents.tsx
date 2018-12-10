@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts, mediaQueries } from "../styleConstants";
 import { TableProps, TableCellProps } from "./types";
 
 export const StyledTableCell = styled.td`
@@ -22,6 +22,12 @@ export const StyledTable = styled.table`
   & ${StyledTableCell} {
     border-width: ${(props: TableProps) => props.borderWidth || "1px 0"};
   }
+
+  ${mediaQueries.MOBILE} {
+    font-size: 14px;
+    letter-spacing: -0.09px;
+    line-height: 17px;
+  }
 `;
 
 export const StyledTableHeader = styled.th`
@@ -33,6 +39,10 @@ export const StyledTableHeader = styled.th`
   letter-spacing: -0.11px;
   padding: 20px 16px;
   text-align: ${(props: TableCellProps) => props.align || "left"};
+
+  ${mediaQueries.MOBILE} {
+    display: none;
+  }
 `;
 
 export interface StyledTabAccentTextProps {
@@ -46,12 +56,14 @@ export const StyledTableAccentText = styled.span`
 `;
 
 export const StyledTableRow = styled.tr`
-  &:hover ${StyledTableCell} {
-    background-color: ${colors.accent.CIVIL_BLUE};
-    color: ${colors.basic.WHITE};
-  }
+  ${mediaQueries.HOVER} {
+    &:hover ${StyledTableCell} {
+      background-color: ${colors.accent.CIVIL_BLUE};
+      color: ${colors.basic.WHITE};
+    }
 
-  &:hover ${StyledTableAccentText} {
-    color: ${colors.basic.WHITE};
+    &:hover ${StyledTableAccentText} {
+      color: ${colors.basic.WHITE};
+    }
   }
 `;

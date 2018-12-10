@@ -6,11 +6,13 @@ import { TwoStepEthTransaction, ParamProposalState } from "@joincivil/core";
 import {
   colors,
   fonts,
+  mediaQueries,
   Table,
   Tr,
   Th,
   Tabs,
   Tab,
+  StyledContentRow,
   StyledParameterizerContainer,
   StyledDashboardSubTab,
   MinDepositLabelText,
@@ -55,20 +57,21 @@ import { amountParams, durationParams, percentParams } from "./constants";
 import { Parameter } from "./Parameter";
 import ChallengeContainer from "./ChallengeProposalDetail";
 
-const GridRow = styled.div`
-  display: flex;
-  margin: 40px auto 0;
-  padding: 0 0 20px;
-  width: 1200px;
+const GridRow = styled(StyledContentRow)`
+  padding-top: 71px;
 
-  & ~ & {
-    margin-top: 0;
+  ${mediaQueries.MOBILE} {
+    padding-top: 42px;
   }
 `;
 
 const GridRowStatic = styled.div`
   margin: 0 auto;
   width: 1200px;
+
+  ${mediaQueries.MOBILE} {
+    width: auto;
+  }
 `;
 
 const StyledTabContainer = styled.div`
@@ -78,6 +81,15 @@ const StyledTabContainer = styled.div`
 const StyledTabComponent = styled(StyledDashboardSubTab)`
   font-size: 18px;
   line-height: 21px;
+
+  ${mediaQueries.MOBILE} {
+    font-size: 16px;
+    line-height: 19px;
+
+    &:first-of-type {
+      margin: 0 16px;
+    }
+  }
 `;
 
 const StyledTitle = styled.div`
@@ -89,6 +101,14 @@ const StyledTitle = styled.div`
   line-height: 40px;
   letter-spacing: -0.19px;
   width: 350px;
+
+  ${mediaQueries.MOBILE} {
+    font-size: 32px;
+    letter-spacing: -0.3px;
+    line-height: 36px;
+    margin: 0 16px 16px;
+    width: auto;
+  }
 `;
 
 const StyledDescriptionP = styled.p`
@@ -97,6 +117,14 @@ const StyledDescriptionP = styled.p`
   line-height: 33px;
   letter-spacing: -0.12px;
   width: 730px;
+
+  ${mediaQueries.MOBILE} {
+    font-size: 16px;
+    line-height: 26px;
+    margin-left: 16px;
+    margin-right: 16px;
+    width: auto;
+  }
 `;
 
 const StyledP = styled.p`
@@ -105,6 +133,12 @@ const StyledP = styled.p`
   line-height: 20px;
   letter-spacing: -0.11px;
   max-width: 730px;
+
+  ${mediaQueries.MOBILE} {
+    line-height: 26px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
 `;
 
 export interface ParameterizerProps {
@@ -181,7 +215,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
             rules as the Civil platform evolves.
           </StyledDescriptionP>
         </GridRow>
-        <GridRow>
+        <StyledContentRow>
           <Tabs TabComponent={StyledTabComponent}>
             <Tab title="Current Parameters">
               <StyledTabContainer>
@@ -268,7 +302,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
               </StyledTabContainer>
             </Tab>
           </Tabs>
-        </GridRow>
+        </StyledContentRow>
 
         <GridRowStatic>
           <ListingDiscourse />
