@@ -51,9 +51,18 @@ class WhitelistedListingListContainer extends React.Component<WhitelistedListing
               return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
             }
 
+            const predicate = (newsroomListing?: NewsroomListing) => {
+              const listing = newsroomListing && newsroomListing.listing;
+              return !!listing && !!listing.data && !!listing.data.challenge && !listing.data.challengeID.isZero();
+            };
+
+            const challengedListings = map.filter(predicate).toSet();
+            const unchallengedListings = map.filterNot(predicate).toSet();
+            const groupedListings = challengedListings.concat(unchallengedListings).toSet();
+
             return (
               <>
-                <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={map} />
+                <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
               </>
             );
           }}
