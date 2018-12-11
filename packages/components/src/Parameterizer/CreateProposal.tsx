@@ -12,7 +12,7 @@ import {
   StyledMetaName,
   StyledMetaValue,
   MetaSingleLine,
-} from "./styledComponents";
+} from "./ParameterizerStyledComponents";
 import {
   CreateProposalHeaderText,
   CreateProposalDescriptionText,

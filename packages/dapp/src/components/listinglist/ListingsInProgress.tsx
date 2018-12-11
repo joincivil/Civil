@@ -1,5 +1,8 @@
 import * as React from "react";
+import { Helmet } from "react-helmet";
 import { Set } from "immutable";
+
+import { NewsroomListing } from "@joincivil/core";
 import {
   Tabs,
   Tab,
@@ -14,10 +17,10 @@ import {
   ListingSummaryReadyToUpdateComponent,
 } from "@joincivil/components";
 
+import { StyledListingCopy } from "../utility/styledComponents";
+
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
-import { StyledListingCopy } from "../utility/styledComponents";
-import { NewsroomListing } from "@joincivil/core";
 
 export interface ListingProps {
   match?: any;
@@ -82,6 +85,9 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
       >
         <Tab title={newApplicationsTab}>
           <>
+            <Helmet>
+              <title>New Applications - The Civil Registry</title>
+            </Helmet>
             <StyledListingCopy>
               New applications are subject to Civil community review for alignment with the Civil Constitution. By
               participating in our governance, you can help curate high-quality, trustworthy journalism.
@@ -91,6 +97,10 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
         </Tab>
         <Tab title={underChallengeTab}>
           <>
+            <Helmet>
+              <title>Newsrooms Under Challenge - The Civil Registry</title>
+            </Helmet>
+
             <StyledListingCopy>
               Applications “under challenge” require the Civil community vote to remain on the Registry due to a
               potential breach of the Civil Constitution. Help us curate high quality, trustworthy journalism, and earn
@@ -101,6 +111,9 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
         </Tab>
         <Tab title={appealToCouncilTab}>
           <>
+            <Helmet>
+              <title>Newsrooms Under Appeal - The Civil Registry</title>
+            </Helmet>
             <StyledListingCopy>
               Appeal to the Civil Council has been requested for these Newsrooms. The Civil Council will review whether
               these Newsrooms breached the Civil Constitution, and a decision will be announced X days after the appeal
@@ -111,6 +124,9 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
         </Tab>
         <Tab title={challengeCouncilAppealTab}>
           <>
+            <Helmet>
+              <title>Newsrooms Under Appeal Challenge - The Civil Registry</title>
+            </Helmet>
             <StyledListingCopy>
               Newsrooms under “Challenge Council Appeal” require the Civil community's vote to veto the Council decision
               in order to remain on the Registry. Help us curate high quality, trustworthy journalism, and earn CVL
@@ -121,6 +137,9 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
         </Tab>
         <Tab title={readyToUpdateTab}>
           <>
+            <Helmet>
+              <title>Newsrooms Ready To Update - The Civil Registry</title>
+            </Helmet>
             <StyledListingCopy>
               The Civil community has spoken and the vote results are in. However, in order for the decision to take
               effect, the status of the newsroom must be updated. Thank you for helping the community curate

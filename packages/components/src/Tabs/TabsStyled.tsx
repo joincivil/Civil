@@ -27,6 +27,7 @@ export const StyledTabNav = styled.div`
     position: relative;
 
     & > ul {
+      display: block;
       justify-content: left;
     }
   }
@@ -58,10 +59,6 @@ export const TabContainer = styled.ul`
   list-style: none;
   margin: 0 auto;
   padding: 0;
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-  }
 `;
 
 export const StyledTabLarge = styled.li`

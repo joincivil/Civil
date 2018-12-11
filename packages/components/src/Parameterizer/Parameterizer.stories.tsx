@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
-import { StyledParameterizerContainer } from "./styledComponents";
+import { StyledParameterizerContainer } from "./ParameterizerStyledComponents";
 import { CreateProposal } from "./CreateProposal";
 
 const StyledDiv = styled.div`

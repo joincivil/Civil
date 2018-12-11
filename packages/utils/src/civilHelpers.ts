@@ -85,7 +85,6 @@ export enum Parameters {
   pDispensationPct = "pDispensationPct",
   voteQuorum = "voteQuorum",
   pVoteQuorum = "pVoteQuorum",
-  pProcessBy = "pProcessBy",
   challengeAppealLen = "challengeAppealLen",
   challengeAppealCommitLen = "challengeAppealCommitLen",
   challengeAppealRevealLen = "challengeAppealRevealLen",
