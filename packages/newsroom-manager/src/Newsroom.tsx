@@ -271,7 +271,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     );
   }
 
-  public renderSteps(): Array<JSX.Element> {
+  public renderSteps(): JSX.Element[] {
     const baseSteps = [
       <Step
         title={"Create newsroom"}
