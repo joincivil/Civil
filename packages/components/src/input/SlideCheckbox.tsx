@@ -79,11 +79,15 @@ export interface SlideCheckboxProps {
 export const SlideCheckbox = (props: SlideCheckboxProps) => {
   return (
     <Switch>
-      <input onClick={() => {
-        if (!props.locked) {
-          props.onClick();
-        }
-      }} checked={props.checked} type="checkbox" />
+      <input
+        onClick={() => {
+          if (!props.locked) {
+            props.onClick();
+          }
+        }}
+        checked={props.checked}
+        type="checkbox"
+      />
       <Slider />
     </Switch>
   );
