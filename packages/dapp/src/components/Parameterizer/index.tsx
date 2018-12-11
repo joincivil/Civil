@@ -36,7 +36,6 @@ import {
   JudgeAppealLenLabelText,
   AppealFeeLabelText,
   AppealVotePercentageLabelText,
-  CreateProposal,
   ChallengeProposal,
   ProcessProposal,
 } from "@joincivil/components";
@@ -46,10 +45,8 @@ import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../redux/reducers";
 import ListingDiscourse from "../listing/ListingDiscourse";
 import {
-  approveForProposeReparameterization,
   approveForProposalChallenge,
   challengeReparameterization,
-  proposeReparameterization,
   updateReparameterizationProp,
 } from "../../apis/civilTCR";
 import { getIsMemberOfAppellate } from "../../selectors";
@@ -57,6 +54,7 @@ import ScrollToTopOnMount from "../utility/ScrollToTop";
 
 import { amountParams, durationParams, percentParams } from "./constants";
 import { Parameter } from "./Parameter";
+import CreateProposal from "./CreateProposal";
 import ChallengeContainer from "./ChallengeProposalDetail";
 
 const GridRow = styled(StyledContentRow)`
@@ -339,15 +337,11 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
         parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
         parameterDisplayUnits={this.getParameterDisplayUnits(this.state.createProposalParameterName!)}
+        createProposalParameterName={this.state.createProposalParameterName!}
         parameterProposalValue={this.state.createProposalNewValue!}
         proposalDeposit={proposalMinDeposit}
-        transactions={[
-          { transaction: approveForProposeReparameterization },
-          { transaction: this.proposeReparameterization, postExecuteTransactions: this.hideCreateProposal },
-        ]}
         handleClose={this.hideCreateProposal}
         handleUpdateProposalValue={this.updateProposalNewValue}
-        postExecuteTransactions={this.hideProposalAction}
       />
     );
   };
@@ -494,14 +488,6 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     }
 
     return label;
-  };
-
-  private proposeReparameterization = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    let newValue: BigNumber = new BigNumber(this.state.createProposalNewValue!);
-    if (amountParams.includes(this.state.createProposalParameterName!)) {
-      newValue = newValue.mul(1e18);
-    }
-    return proposeReparameterization(this.state.createProposalParameterName!, newValue);
   };
 
   private challengeProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
