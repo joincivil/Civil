@@ -21,8 +21,8 @@ When voting within the Civil ecosystem, it's important to know what the vote opt
 
 A "passed" vote is one in which the percentage of YES (1) votes is greater than the `voteQuorum` for the poll.
 
-* A vote of YES (1) on a `CHALLENGE` poll means that you "agree with the challenger" that the application/listing should be removed.
-* A vote of NO (0) on a `CHALLENGE` poll means that you "do not agree with the challenger" and believe the application/listing should be whitelisted.
+* A vote of YES (1) on a `CHALLENGE` poll means that you "do not agree with the challenger" and believe the application/listing should be whitelisted.
+* A vote of NO (0) on a `CHALLENGE` poll means that you "agree with the challenger" that the application/listing should be removed.
 * A vote of YES (1) on an `APPEAL CHALLENGE` poll means that you "agree with the appeal challenger" that the granted appeal should be overturned.
 * A vote of NO (0) on an `APPEAL CHALLENGE` poll means that you "agree with the appellate" and that their decision should stand.
 
