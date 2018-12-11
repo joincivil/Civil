@@ -4,7 +4,7 @@ import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "bignumber.js";
 import { Helmet } from "react-helmet";
 
-import { TwoStepEthTransaction, ParamProposalState } from "@joincivil/core";
+import { ParamProposalState } from "@joincivil/core";
 import {
   colors,
   fonts,
@@ -36,14 +36,12 @@ import {
   JudgeAppealLenLabelText,
   AppealFeeLabelText,
   AppealVotePercentageLabelText,
-  ProcessProposal,
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
 
 import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../redux/reducers";
 import ListingDiscourse from "../listing/ListingDiscourse";
-import { updateReparameterizationProp } from "../../apis/civilTCR";
 import { getIsMemberOfAppellate } from "../../selectors";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 
@@ -52,6 +50,7 @@ import { Parameter } from "./Parameter";
 import CreateProposal from "./CreateProposal";
 import ChallengeProposal from "./ChallengeProposal";
 import ChallengeContainer from "./ChallengeProposalDetail";
+import ProcessProposal from "./ProcessProposal";
 
 const GridRow = styled(StyledContentRow)`
   padding-top: 71px;
@@ -361,13 +360,12 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   private renderUpdateParam = (): JSX.Element => {
     return (
       <ProcessProposal
+        challengeProposalID={this.state.challengeProposalID!}
         parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
         parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
         parameterProposalValue={this.state.createProposalNewValue!}
         parameterNewValue={this.state.challengeProposalNewValue!}
-        transactions={[{ transaction: this.updateProposal, postExecuteTransactions: this.hideProposalAction }]}
         handleClose={this.hideProposalAction}
-        postExecuteTransactions={this.hideProposalAction}
       />
     );
   };
@@ -483,10 +481,6 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     }
 
     return label;
-  };
-
-  private updateProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return updateReparameterizationProp(this.state.challengeProposalID!.toString());
   };
 }
 
