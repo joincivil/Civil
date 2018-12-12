@@ -141,7 +141,7 @@ export class EthApi {
     try {
       signature = (await this.rpc("personal_sign", messageHex, signerAccount, "")).result;
     } catch (e) {
-      if (e.message === "Error: MetaMask Message Signature: User denied message signature.") {
+      if (e.message.toLowerCase().includes("user denied")) {
         throw e; // rethrow the metamask error to be handled in ui
       } else {
         signature = (await this.rpc("eth_sign", signerAccount, messageHex)).result;
