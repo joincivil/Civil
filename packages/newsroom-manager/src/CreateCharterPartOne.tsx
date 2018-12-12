@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { Set } from "immutable";
 import { find, findIndex } from "lodash";
 import styled from "styled-components";
 import { colors, StepHeader, StepProps, StepDescription, QuestionToolTip } from "@joincivil/components";

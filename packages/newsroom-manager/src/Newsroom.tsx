@@ -13,7 +13,6 @@ import {
 } from "@joincivil/components";
 import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
-import { Set } from "immutable";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";

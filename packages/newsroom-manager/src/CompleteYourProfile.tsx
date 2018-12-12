@@ -15,7 +15,6 @@ import {
   Modal,
   Button,
 } from "@joincivil/components";
-import { Set } from "immutable";
 import { EthAddress, NewsroomRoles } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
