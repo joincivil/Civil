@@ -36,6 +36,7 @@ Slider.defaultProps = {
 };
 
 const Switch = styled.label`
+  box-sizing: content-box;
   position: relative;
   display: inline-block;
   width: 32px;
