@@ -36,6 +36,7 @@ export const EmailSignup: React.SFC<EmailSignupProps> = props => {
         placeholder="Email address"
         onChange={props.onChange}
         name="EmailSignupTextInput"
+        type="email"
       />
 
       <StyledEmailSignupCopy>

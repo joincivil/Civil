@@ -78,7 +78,7 @@ export interface InputGroupProps {
 }
 
 export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> = (props: any) => {
-  const { label, append, prepend, placeholder, ...inputProps } = props;
+  const { label, append, prepend, placeholder, noAppendPadding, ...inputProps } = props;
   const Input = props.inputComponent || TextInput;
 
   return (
@@ -87,7 +87,7 @@ export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> 
       <StyledInputGroup>
         {prepend && <InputGroupPrepend>{props.prepend}</InputGroupPrepend>}
         <Input noLabel={true} {...inputProps} />
-        {append && <InputGroupAppend noPadding={props.noAppendPadding}>{props.append}</InputGroupAppend>}
+        {append && <InputGroupAppend noPadding={noAppendPadding}>{props.append}</InputGroupAppend>}
       </StyledInputGroup>
     </StyledInputGroupContainer>
   );

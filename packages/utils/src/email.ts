@@ -2,12 +2,14 @@ import * as querystring from "querystring";
 
 // TODO(jorgelo): Drop this into a configuration.
 const SIGNUP_ENDPOINT = "https://us-central1-civil-media.cloudfunctions.net/addToSendgrid";
+export const TCR_SENDGRID_LIST_ID = "5353193";
 
 export async function addToMailingList(email: string, listId: string): Promise<void> {
   const query = {
     email,
     list_id: listId,
   };
+
   const url = SIGNUP_ENDPOINT + "?" + querystring.stringify(query);
 
   console.log("Requesting: ", { url });

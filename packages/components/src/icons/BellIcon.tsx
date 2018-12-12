@@ -20,7 +20,7 @@ export const BellIcon: React.SFC<BellIconProps> = props => {
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-869.000000, -1137.000000)" fill={props.color || colors.primary.BLACK}>
           <g transform="translate(829.000000, 1096.000000)">
             <g transform="translate(40.000000, 41.000000)">
