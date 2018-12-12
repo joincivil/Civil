@@ -4,7 +4,7 @@ exports[`Storyshots check box checkbox 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-krDsej kSrcPc",
+      "class": "sc-krDsej kDdzLH",
     },
     "children": Array [
       Object {
@@ -120,7 +120,7 @@ exports[`Storyshots check box slide check box 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-TFwJa gkPCEV",
+      "class": "sc-TFwJa hkLxiY",
     },
     "children": Array [
       Object {
