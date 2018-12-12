@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/dev-utils",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Utilities shared between Civil packages",
   "private": true,
   "main": "build/src/index.js",
@@ -34,9 +34,9 @@
     "web3-provider-engine": "^14.0.6"
   },
   "devDependencies": {
-    "@joincivil/tslint-rules": "^2.6.3",
-    "@joincivil/typescript-types": "^1.2.4",
-    "@joincivil/typescript-typings": "^1.2.4",
+    "@joincivil/tslint-rules": "^2.6.4",
+    "@joincivil/typescript-types": "^1.2.5",
+    "@joincivil/typescript-typings": "^1.2.5",
     "@types/argparse": "^1.0.33",
     "@types/chai": "^4.1.1",
     "@types/chai-as-promised": "^7.1.0",
