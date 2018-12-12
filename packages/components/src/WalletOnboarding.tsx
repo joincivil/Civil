@@ -262,12 +262,6 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
-            {this.props.profileUrl && (
-              <WalletAction>
-                {this.state.justSaved && "Saved. "}
-                <a href={this.props.profileUrl}>Open Profile</a>
-              </WalletAction>
-            )}
           </Wrapper>
         );
       }

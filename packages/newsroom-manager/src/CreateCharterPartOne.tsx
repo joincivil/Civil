@@ -275,7 +275,9 @@ const mapStateToProps = (
 ): CreateCharterPartOneProps => {
   const newsroom = state.newsrooms.get(ownProps.address || "") || { wrapper: { data: {} } };
   const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(getUserObject.bind(null, state));
-  const editors: UserData[] = ((newsroom.editors && newsroom.editors.toArray()) || []).map(getUserObject.bind(null, state));
+  const editors: UserData[] = ((newsroom.editors && newsroom.editors.toArray()) || []).map(
+    getUserObject.bind(null, state),
+  );
 
   return {
     ...ownProps,
