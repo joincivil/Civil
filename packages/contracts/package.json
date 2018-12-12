@@ -1,7 +1,7 @@
 {
   "name": "@joincivil/contracts",
   "private": true,
-  "version": "4.6.5",
+  "version": "4.7.0",
   "description": "Smart Contracts needed to make the ecosystem work",
   "scripts": {
     "build": "run-s compile build:stripArtifacts",
@@ -35,12 +35,12 @@
   "devDependencies": {
     "@0xproject/sol-cov": "^2.0.0",
     "@0xproject/subproviders": "^1.0.0",
-    "@joincivil/dev-utils": "^1.4.5",
+    "@joincivil/dev-utils": "^1.5.0",
     "@joincivil/doxity": "^0.0.1",
-    "@joincivil/ethapi": "^0.2.5",
-    "@joincivil/tslint-rules": "^2.6.4",
-    "@joincivil/typescript-types": "^1.2.5",
-    "@joincivil/utils": "^1.7.5",
+    "@joincivil/ethapi": "^0.3.0",
+    "@joincivil/tslint-rules": "^2.7.0",
+    "@joincivil/typescript-types": "^1.3.0",
+    "@joincivil/utils": "^1.8.0",
     "@ledgerhq/hw-app-eth": "^4.24.0",
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
