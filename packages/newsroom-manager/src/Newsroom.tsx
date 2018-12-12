@@ -13,6 +13,7 @@ import {
 } from "@joincivil/components";
 import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
+import { Set } from "immutable";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
@@ -502,6 +503,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalPro
   const userIsOwner = newsroom.isOwner;
   const userIsEditor = newsroom.isEditor;
   const userNotOnContract = !!ownProps.address && userIsOwner === false && userIsEditor === false;
+  const editors = newsroom.editors ? newsroom.editors.toArray() : [];
 
   const charterUri = newsroom.wrapper.data.charterHeader && newsroom.wrapper.data.charterHeader.uri;
   return {
@@ -513,7 +515,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalPro
     userIsEditor,
     userNotOnContract,
     owners: newsroom.wrapper.data.owners || [],
-    editors: newsroom.editors || [],
+    editors,
     charter: newsroom.charter || {},
   };
 };
