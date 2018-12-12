@@ -2,7 +2,7 @@ import * as React from "react";
 import { BigNumber } from "bignumber.js";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Table, Tr, Td, StyledTableAccentText } from "@joincivil/components";
+import { Table, Tr, Td, ParameterizerTd, StyledTableAccentText } from "@joincivil/components";
 import { getFormattedParameterValue } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../redux/reducers";
@@ -26,16 +26,18 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
   public render(): JSX.Element {
     return (
       <Tr>
-        <Td>{this.props.parameterDisplayName}</Td>
-        <Td>{this.getFormattedValue(this.props.parameterValue)}</Td>
-        <Td accent padding={0}>
+        <ParameterizerTd data-mobile-th="Current Parameter">{this.props.parameterDisplayName}</ParameterizerTd>
+        <ParameterizerTd data-mobile-th="Current Value">
+          {this.getFormattedValue(this.props.parameterValue)}
+        </ParameterizerTd>
+        <ParameterizerTd accent padding={0}>
           <Table borderWidth="0" width="100%">
             <tbody>
               {this.props.canShowCreateProposal && this.renderCreateProposalAction()}
               {!!this.props.parameterProposals.count() && this.renderProposals()}
             </tbody>
           </Table>
-        </Td>
+        </ParameterizerTd>
       </Tr>
     );
   }

@@ -346,7 +346,7 @@ initialize {
                             "attribs": Object {
                               "class": "sc-kjoXOD cDntCe",
                               "name": "EmailSignupTextInput",
-                              "type": "text",
+                              "type": "email",
                             },
                             "children": Array [],
                             "name": "input",
@@ -513,7 +513,7 @@ initialize {
                               "attribs": Object {
                                 "class": "sc-kjoXOD cDntCe",
                                 "name": "EmailSignupTextInput",
-                                "type": "text",
+                                "type": "email",
                               },
                               "children": Array [],
                               "name": "input",
@@ -738,7 +738,7 @@ initialize {
                           "attribs": Object {
                             "class": "sc-kjoXOD cDntCe",
                             "name": "EmailSignupTextInput",
-                            "type": "text",
+                            "type": "email",
                           },
                           "children": Array [],
                           "name": "input",
@@ -905,7 +905,7 @@ initialize {
                             "attribs": Object {
                               "class": "sc-kjoXOD cDntCe",
                               "name": "EmailSignupTextInput",
-                              "type": "text",
+                              "type": "email",
                             },
                             "children": Array [],
                             "name": "input",
@@ -1415,7 +1415,7 @@ initialize {
                         "attribs": Object {
                           "class": "sc-kjoXOD cDntCe",
                           "name": "EmailSignupTextInput",
-                          "type": "text",
+                          "type": "email",
                         },
                         "children": Array [],
                         "name": "input",
@@ -1582,7 +1582,7 @@ initialize {
                           "attribs": Object {
                             "class": "sc-kjoXOD cDntCe",
                             "name": "EmailSignupTextInput",
-                            "type": "text",
+                            "type": "email",
                           },
                           "children": Array [],
                           "name": "input",
@@ -2200,7 +2200,7 @@ initialize {
                           "attribs": Object {
                             "class": "sc-kjoXOD cDntCe",
                             "name": "EmailSignupTextInput",
-                            "type": "text",
+                            "type": "email",
                           },
                           "children": Array [],
                           "name": "input",
@@ -2367,7 +2367,7 @@ initialize {
                             "attribs": Object {
                               "class": "sc-kjoXOD cDntCe",
                               "name": "EmailSignupTextInput",
-                              "type": "text",
+                              "type": "email",
                             },
                             "children": Array [],
                             "name": "input",

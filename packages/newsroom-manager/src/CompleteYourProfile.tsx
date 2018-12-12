@@ -474,7 +474,9 @@ const mapStateToProps = (
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(getUserObject.bind(null, state));
-  const editors: UserData[] = (newsroom.editors || []).map(getUserObject.bind(null, state));
+  const editors: UserData[] = ((newsroom.editors && newsroom.editors.toArray()) || []).map(
+    getUserObject.bind(null, state),
+  );
   return {
     ...ownProps,
     address,

@@ -90,6 +90,10 @@ export class EthApi {
     return blockNumberPromise();
   }
 
+  public async getConfirmations(startBlock: number): Promise<number> {
+    return (await this.getLatestBlockNumber()) - startBlock;
+  }
+
   public async getCode(address: EthAddress): Promise<string> {
     const getCodeAsync = promisify<string>(this.web3.eth.getCode.bind(this.web3.eth));
     return getCodeAsync(address);
@@ -182,7 +186,7 @@ export class EthApi {
    */
   public async awaitReceipt<R extends DecodedTransactionReceipt | Web3.TransactionReceipt = Web3.TransactionReceipt>(
     txHash: TxHash,
-    blockConfirmations?: number /* = 12 */,
+    blockConfirmations: number = 0, // wait till the api says the current block is confirmed
   ): Promise<R> {
     while (true) {
       const receipt = await this.getReceipt<R>(txHash);
@@ -193,18 +197,19 @@ export class EthApi {
       }
 
       this.checkForEvmException(receipt);
-
-      if (blockConfirmations) {
-        throw new Error("Not implemented yet");
-        /*
-        try {
-          await this.nodeStream.awaitConfirmations(receipt.blockHash, blockConfirmations);
-        } catch (e) {
-          debug("Failed to get block confirmations, tx got back into mempool", e);
-          continue;
-        }*/
-      }
+      await this.awaitConfirmations(receipt.blockNumber, blockConfirmations);
       return receipt;
+    }
+  }
+
+  public async awaitConfirmations(startblock: number, confirmations: number): Promise<void> {
+    while (true) {
+      const confirmationsSoFar = await this.getConfirmations(startblock);
+      if (confirmationsSoFar >= confirmations) {
+        return;
+      } else {
+        await delay(POLL_MILLISECONDS);
+      }
     }
   }
 

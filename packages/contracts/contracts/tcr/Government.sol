@@ -24,12 +24,12 @@ contract Government is IGovernment {
   event _NewConstProposalFailed(bytes32 constHash, string constURI);
 
   modifier onlyGovernmentController {
-    require(msg.sender == governmentController);
+    require(msg.sender == governmentController, "Sender is not Government Controller");
     _;
   }
 
   modifier onlyAppellate {
-    require(msg.sender == appellate);
+    require(msg.sender == appellate, "Sender is not Appellate");
     _;
   }
 
@@ -82,8 +82,8 @@ contract Government is IGovernment {
     string constURI
   ) public
   {
-    require(appellateAddr != 0);
-    require(governmentControllerAddr != 0);
+    require(appellateAddr != 0, "appellateAddr address is 0");
+    require(governmentControllerAddr != 0, "governmentControllerAddr is 0");
     appellate = appellateAddr;
     governmentController = governmentControllerAddr;
     voting = PLCRVoting(plcrAddr);
@@ -132,11 +132,11 @@ contract Government is IGovernment {
     bytes32 propID = keccak256(_name, _value);
 
     if (keccak256(_name) == keccak256("appealVotePercentage") || keccak256(_name) == keccak256("appealChallengeVoteDispensationPct")) {
-      require(_value <= 100);
+      require(_value <= 100, "Percentage parameters must be less than or equal to 100");
     }
 
-    require(!propExists(propID)); // Forbid duplicate proposals
-    require(get(_name) != _value); // Forbid NOOP reparameterizations
+    require(!propExists(propID), "Proposed reparameterization already exists"); // Forbid duplicate proposals
+    require(get(_name) != _value, "Proposed reparameterization would not change parameter value"); // Forbid NOOP reparameterizations
 
     //start poll
     uint pollID = voting.startPoll(
@@ -164,7 +164,7 @@ contract Government is IGovernment {
   @param _newConstURI the URI of the proposed constitution
   */
   function proposeNewConstitution(bytes32 _newConstHash, string _newConstURI) public onlyAppellate {
-    require(activeConstProp.processBy == 0); // no active proposal
+    require(activeConstProp.processBy == 0, "New Constitution proposal already active"); // no active proposal
     //start poll
     uint pollID = voting.startPoll(
       get("appealVotePercentage"),
@@ -285,7 +285,7 @@ contract Government is IGovernment {
   @param newAppellate address of entity that will be made the Appellate
   */
   function setAppellate(address newAppellate) external onlyGovernmentController {
-    require(newAppellate != 0);
+    require(newAppellate != 0, "newAppellate address must not be 0");
     appellate = newAppellate;
     emit _AppellateSet(newAppellate);
   }

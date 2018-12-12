@@ -12,6 +12,7 @@ export const StyledTabCount = styled.span`
   padding: 3px 10px;
 `;
 
+/* Primary Tab styles used on the Registry page */
 export const StyledTabNav = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   height: 76px;
@@ -24,9 +25,11 @@ export const StyledTabNav = styled.div`
 
   ${mediaQueries.MOBILE} {
     height: auto;
+    margin-bottom: 30px;
     position: relative;
 
     & > ul {
+      display: block;
       justify-content: left;
     }
   }
@@ -58,10 +61,6 @@ export const TabContainer = styled.ul`
   list-style: none;
   margin: 0 auto;
   padding: 0;
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-  }
 `;
 
 export const StyledTabLarge = styled.li`
@@ -129,13 +128,27 @@ export const StyledTabLarge = styled.li`
   }
 `;
 
+/* Secondary Tab styles used on the Registry page */
 export const StyledSquarePillTabNav = styled.div`
   display: flex;
   justify-content: center;
   margin: 30px auto 50px;
   width: 100%;
+
+  ${mediaQueries.MOBILE} {
+    height: auto;
+    margin: 30px 22px 20px;
+    width: auto;
+    position: relative;
+
+    & > ul {
+      display: block;
+      width: 100%;
+    }
+  }
 `;
 
+/* Secondary Tab styles used on the Registry page */
 export const StyledSquarePillTab = styled.li`
   background-color: ${(props: TabComponentProps) =>
     props.isActive ? colors.accent.CIVIL_BLUE_FADED_2 : "transparent"};
@@ -163,6 +176,20 @@ export const StyledSquarePillTab = styled.li`
   & ${StyledTabCount} {
     background-color: ${(props: TabComponentProps) =>
       props.isActive ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_GRAY_3};
+  }
+
+  ${mediaQueries.MOBILE} {
+    border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    border-width: 1px 1px 0;
+    border-collapse: collapse;
+    display: ${(props: TabComponentProps) => (props.isActive || props.isResponsiveAndVisible ? "block" : "none")};
+    padding: 20px 16px;
+    margin: 0;
+    text-align: center;
+
+    &:last-of-type {
+      border-bottom-width: 1px;
+    }
   }
 `;
 
