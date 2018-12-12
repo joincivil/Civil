@@ -1,18 +1,9 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { EthAddress, TwoStepEthTransaction, UserChallengeData, ParamPropChallengeData } from "@joincivil/core";
-import {
-  ChallengeProposalRevealVote,
-  LoadingIndicator,
-  ModalHeading,
-  ModalContent,
-  ModalOrderedList,
-  ModalListItem,
-  ModalListItemTypes,
-  ResolveChallengeProposal,
-} from "@joincivil/components";
+import { ResolveChallengeProposal } from "@joincivil/components";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
-import { revealVote, resolveReparameterizationChallenge } from "../../apis/civilTCR";
+import { resolveReparameterizationChallenge } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../redux/reducers";
 import {
@@ -22,18 +13,8 @@ import {
   getIsMemberOfAppellate,
 } from "../../selectors";
 import { fetchAndAddParameterProposalChallengeData } from "../../redux/actionCreators/parameterizer";
-import { fetchSalt } from "../../helpers/salt";
-import { fetchVote } from "../../helpers/vote";
 import ChallengeProposalCommitVote from "./ChallengeProposalCommitVote";
-
-enum ModalContentEventNames {
-  IN_PROGRESS_APPROVE_VOTING_RIGHTS = "IN_PROGRESS:APPROVE_VOTING_RIGHTS",
-  IN_PROGRESS_COMMIT_VOTE = "IN_PROGRESS:COMMIT_VOTE",
-  IN_PROGRESS_REVEAL_VOTE = "IN_PROGRESS:REVEAL_VOTE",
-  IN_PROGRESS_RESOLVE_CHALLENGE = "IN_PROGRESS:RESOLVE_CHALLENGE",
-  IN_PROGRESS_APPROVE_FOR_APPEAL = "IN_PROGRESS:APPROVE_FOR_APPEAL",
-  IN_PROGRESS_REQUEST_APPEAL = "IN_PROGRESS:REQUEST_APPEAL",
-}
+import ChallengeProposalRevealVote from "./ChallengeProposalRevealVote";
 
 export interface ChallengeDetailContainerProps {
   challengeID: BigNumber;
@@ -85,22 +66,7 @@ export interface ChallengeVoteState {
 
 // A container encapsultes the Commit Vote, Reveal Vote and Rewards phases for a Challenge.
 // @TODO(jon): Clean this up... by maybe separating into separate containers for each phase card component
-class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState> {
-  constructor(props: any) {
-    super(props);
-    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
-    let voteOption;
-    if (fetchedVote) {
-      voteOption = fetchedVote.toString();
-    }
-    this.state = {
-      isReviewVoteModalOpen: false,
-      voteOption,
-      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
-      numTokens: undefined,
-    };
-  }
-
+class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   public render(): JSX.Element {
     const { inCommitPhase, inRevealPhase } = this.props.challengeState;
     return (
@@ -152,8 +118,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
       votingTokenBalance,
       tokenBalanceDisplay,
       votingTokenBalanceDisplay,
-      salt: this.state.salt,
-      numTokens: this.state.numTokens,
       handleClose,
       propID: this.props.propID,
       parameterDisplayName,
@@ -171,54 +135,23 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const challenge = this.props.challenge;
     const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;
-    const revealVoteProgressModal = this.renderRevealVoteProgressModal();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE]: revealVoteProgressModal,
-    };
-    const transactions = [
-      { transaction: this.revealVoteOnChallenge, progressEventName: ModalContentEventNames.IN_PROGRESS_REVEAL_VOTE },
-    ];
 
     if (!challenge) {
       return null;
     }
 
-    return (
-      <ChallengeProposalRevealVote
-        handleClose={this.props.handleClose}
-        parameterDisplayName={this.props.parameterDisplayName}
-        parameterCurrentValue={this.props.parameterCurrentValue}
-        parameterProposalValue={this.props.parameterProposalValue}
-        challengeID={this.props.challengeID.toString()}
-        endTime={endTime}
-        phaseLength={phaseLength}
-        challenger={challenge!.challenger.toString()}
-        rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-        stake={getFormattedTokenBalance(challenge!.stake)}
-        voteOption={this.state.voteOption}
-        salt={this.state.salt}
-        onInputChange={this.updateCommitVoteState}
-        userHasRevealedVote={userHasRevealedVote}
-        userHasCommittedVote={userHasCommittedVote}
-        modalContentComponents={modalContentComponents}
-        transactions={transactions}
-        postExecuteTransactions={this.props.handleClose}
-      />
-    );
-  }
+    const props = {
+      ...this.props,
+      endTime,
+      phaseLength,
+      userHasRevealedVote,
+      userHasCommittedVote,
+      challenger: challenge!.challenger.toString(),
+      rewardPool: getFormattedTokenBalance(challenge!.rewardPool),
+      stake: getFormattedTokenBalance(challenge!.stake),
+    };
 
-  private renderRevealVoteProgressModal(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transaction in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Revealing Vote</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
+    return <ChallengeProposalRevealVote {...props} />;
   }
 
   private renderResolveStage = (): JSX.Element => {
@@ -257,20 +190,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         postExecuteTransactions={this.props.handleClose}
       />
     );
-  };
-
-  private updateCommitVoteState = (data: any, callback?: () => void): void => {
-    if (callback) {
-      this.setState({ ...data }, callback);
-    } else {
-      this.setState({ ...data });
-    }
-  };
-
-  private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
-    return revealVote(this.props.challengeID, voteOption, salt);
   };
 
   private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
