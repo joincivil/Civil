@@ -2,7 +2,6 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { EthAddress, TwoStepEthTransaction, UserChallengeData, ParamPropChallengeData } from "@joincivil/core";
 import {
-  ChallengeProposalCommitVote,
   ChallengeProposalRevealVote,
   LoadingIndicator,
   ModalHeading,
@@ -10,12 +9,10 @@ import {
   ModalOrderedList,
   ModalListItem,
   ModalListItemTypes,
-  ChallengeProposalReviewVote,
-  ChallengeProposalReviewVoteProps,
   ResolveChallengeProposal,
 } from "@joincivil/components";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
-import { commitVote, approveVotingRights, revealVote, resolveReparameterizationChallenge } from "../../apis/civilTCR";
+import { revealVote, resolveReparameterizationChallenge } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
 import { State } from "../../redux/reducers";
 import {
@@ -26,7 +23,8 @@ import {
 } from "../../selectors";
 import { fetchAndAddParameterProposalChallengeData } from "../../redux/actionCreators/parameterizer";
 import { fetchSalt } from "../../helpers/salt";
-import { fetchVote, saveVote } from "../../helpers/vote";
+import { fetchVote } from "../../helpers/vote";
+import ChallengeProposalCommitVote from "./ChallengeProposalCommitVote";
 
 enum ModalContentEventNames {
   IN_PROGRESS_APPROVE_VOTING_RIGHTS = "IN_PROGRESS:APPROVE_VOTING_RIGHTS",
@@ -141,62 +139,30 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     const props = {
       endTime,
       phaseLength,
+      challenge: challenge!,
       challenger: challenge!.challenger.toString(),
-      challengeID: this.props.challengeID.toString(),
+      challengeID: this.props.challengeID,
+      challengeState: this.props.challengeState,
+      user: this.props.user,
       rewardPool: getFormattedTokenBalance(challenge!.rewardPool),
       stake: getFormattedTokenBalance(challenge!.stake),
       userHasCommittedVote,
-      onInputChange: this.updateCommitVoteState,
-      onCommitMaxTokens: () => this.commitMaxTokens(),
-      onReviewVote: this.handleReviewVote,
       tokenBalance,
+      votingBalance: this.props.votingBalance,
       votingTokenBalance,
       tokenBalanceDisplay,
       votingTokenBalanceDisplay,
       salt: this.state.salt,
       numTokens: this.state.numTokens,
       handleClose,
+      propID: this.props.propID,
       parameterDisplayName,
       parameterCurrentValue,
       parameterProposalValue,
+      isMemberOfAppellate: this.props.isMemberOfAppellate,
     };
 
-    return (
-      <>
-        <ChallengeProposalCommitVote {...props} />
-        {this.renderReviewVoteModal()}
-      </>
-    );
-  }
-
-  private renderApproveVotingRightsProgress(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transactions in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Approving Voting Rights</ModalListItem>
-          <ModalListItem type={ModalListItemTypes.FADED}>Committing Vote</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
-  }
-
-  private renderCommitVoteProgress(): JSX.Element {
-    return (
-      <>
-        <LoadingIndicator height={100} />
-        <ModalHeading>Transactions in progress</ModalHeading>
-        <ModalOrderedList>
-          <ModalListItem>Requesting Voting Rights</ModalListItem>
-          <ModalListItem type={ModalListItemTypes.STRONG}>Committing Vote</ModalListItem>
-        </ModalOrderedList>
-        <ModalContent>This can take 1-3 minutes. Please don't close the tab.</ModalContent>
-        <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
-      </>
-    );
+    return <ChallengeProposalCommitVote {...props} />;
   }
 
   private renderRevealStage(): JSX.Element | null {
@@ -255,51 +221,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     );
   }
 
-  private renderReviewVoteModal(): JSX.Element {
-    if (!this.props.parameters) {
-      return <></>;
-    }
-
-    const { challenge } = this.props;
-    const requestVotingRightsProgressModal = this.renderApproveVotingRightsProgress();
-    const commitVoteProgressModal = this.renderCommitVoteProgress();
-    const modalContentComponents = {
-      [ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS]: requestVotingRightsProgressModal,
-      [ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE]: commitVoteProgressModal,
-    };
-    const transactions = [
-      {
-        transaction: this.approveVotingRights,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_APPROVE_VOTING_RIGHTS,
-      },
-      {
-        transaction: this.commitVoteOnChallenge,
-        progressEventName: ModalContentEventNames.IN_PROGRESS_COMMIT_VOTE,
-      },
-    ];
-
-    const proposalURL = `https://${window.location.hostname}/parameterizer/${this.props.propID}`;
-
-    const props: ChallengeProposalReviewVoteProps = {
-      parameterName: this.props.parameterDisplayName,
-      proposalURL,
-      challengeID: this.props.challengeID.toString(),
-      open: this.state.isReviewVoteModalOpen,
-      salt: this.state.salt,
-      numTokens: this.state.numTokens,
-      voteOption: this.state.voteOption,
-      userAccount: this.props.user,
-      commitEndDate: challenge.poll.commitEndDate.toNumber(),
-      revealEndDate: challenge.poll.revealEndDate.toNumber(),
-      transactions,
-      modalContentComponents,
-      postExecuteTransactions: this.closeReviewModalAndChallengeDrawer,
-      handleClose: this.closeReviewVoteModal,
-    };
-
-    return <ChallengeProposalReviewVote {...props} />;
-  }
-
   private renderResolveStage = (): JSX.Element => {
     let totalVotes = "";
     let votesFor = "";
@@ -338,39 +259,12 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
     );
   };
 
-  private commitMaxTokens(): void {
-    let numTokens: BigNumber;
-    if (!this.props.votingBalance!.isZero()) {
-      numTokens = this.props.votingBalance!;
-    } else {
-      numTokens = this.props.balance!.add(this.props.votingBalance!);
-    }
-    const numTokensString = numTokens
-      .div(1e18)
-      .toFixed(2)
-      .toString();
-    this.setState(() => ({ numTokens: numTokensString }));
-  }
-
   private updateCommitVoteState = (data: any, callback?: () => void): void => {
     if (callback) {
       this.setState({ ...data }, callback);
     } else {
       this.setState({ ...data });
     }
-  };
-
-  private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return approveVotingRights(numTokens);
-  };
-
-  private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    saveVote(this.props.challengeID, this.props.user, voteOption);
-    return commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };
 
   private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -381,20 +275,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
 
   private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
     return resolveReparameterizationChallenge(this.props.propID!.toString());
-  };
-
-  private handleReviewVote = () => {
-    this.setState({ isReviewVoteModalOpen: true });
-  };
-
-  private closeReviewVoteModal = () => {
-    this.setState({ isReviewVoteModalOpen: false });
-  };
-
-  private closeReviewModalAndChallengeDrawer = () => {
-    this.setState({ isReviewVoteModalOpen: false }, () => {
-      this.props.handleClose();
-    });
   };
 }
 

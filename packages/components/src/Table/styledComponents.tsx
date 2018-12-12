@@ -1,6 +1,13 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
+
 import { colors, fonts, mediaQueries } from "../styleConstants";
+import {
+  StyledDurationContainer,
+  StyledCountdownLabel,
+  StyledCountdownLabelWarn,
+} from "../PhaseCountdown/TextCountdownTimer";
+
 import { TableProps, TableCellProps } from "./types";
 
 export const StyledTableCell = styled.td`
@@ -59,11 +66,22 @@ export const StyledTableRow = styled.tr`
   ${mediaQueries.HOVER} {
     &:hover ${StyledTableCell} {
       background-color: ${colors.accent.CIVIL_BLUE};
-      color: ${colors.basic.WHITE};
+      color: ${colors.basic.WHITE} !important;
     }
 
-    &:hover ${StyledTableAccentText} {
-      color: ${colors.basic.WHITE};
+    &:hover
+      ${StyledTableAccentText},
+      &:hover
+      ${StyledDurationContainer},
+      &:hover
+      ${StyledCountdownLabel},
+      &:hover
+      ${StyledCountdownLabelWarn} {
+      color: ${colors.basic.WHITE} !important;
+    }
+
+    &:hover svg g {
+      fill: ${colors.basic.WHITE} !important;
     }
   }
 `;

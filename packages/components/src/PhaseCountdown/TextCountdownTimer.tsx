@@ -11,16 +11,16 @@ const StyledCountdownTimerContainer = styled.div`
   margin: 0 0 16px;
 `;
 
-const StyledDurationContainer = styled.span`
+export const StyledDurationContainer = styled.span`
   color: ${colors.accent.CIVIL_BLUE};
 `;
 const StyledIconContainer = styled.span`
   margin-right: 12px;
 `;
-const StyledCountdownLabel = styled.span`
+export const StyledCountdownLabel = styled.span`
   color: ${colors.accent.CIVIL_BLUE};
 `;
-const StyledCountdownLabelWarn = styled(StyledCountdownLabel)`
+export const StyledCountdownLabelWarn = styled(StyledCountdownLabel)`
   color: ${colors.accent.CIVIL_RED};
 `;
 const StyledExpiry = styled.div`
