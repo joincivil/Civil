@@ -9,6 +9,7 @@
   "private": false,
   "scripts": {
     "build": "tsc",
+    "build:watch": "tsc -w",
     "lint": "tslint --project ./",
     "clean": "rimraf build/",
     "prepublish": "run-s build",

@@ -25,28 +25,49 @@ class CreateCharterPartTwoComponent extends React.Component<CreateCharterPartTwo
       <>
         <StepHeader>Write your charter</StepHeader>
         <StepDescription>
-          Add your Newsroom’s mission to the charter. This will also be included on your smart contract and shown on
-          your listing page in the Civil Registry.
+          Civil’s Registry is based on transparency and trust, so we ask newsrooms to be as open and clear as possible
+          in answering the following questions. The aim is to ensure the Civil community is able to make an informed
+          decision about new applicants and uphold the highest standards of journalism. We ask that any newsroom
+          applying to the registry provide the information below to the best of their ability.
+        </StepDescription>
+        <StepDescription>
+          {/*TODO: link "Civil Registry" to registry once it's launch*/}
+          This information will also be included on your smart contract and shown on your listing page in the Civil
+          Registry.{" "}
+          <strong>
+            Note that the information you provide will be public on the platform and used by the Civil community as the
+            basis for accepting or rejecting your newsroom. We recommend reviewing the{" "}
+            <a href="https://civil.co/constitution/" target="blank">
+              Constitution
+            </a>{" "}
+            closely to familiarize yourself with Civil’s code of ethics before filling it out.
+          </strong>{" "}
+          You can change or amend this charter at any time.
         </StepDescription>
 
         <FormSection>
           <FormTitle>Identify your newsroom's journalistic mission.</FormTitle>
 
-          <FormSubhead>Your newsroom's mission or purpose.</FormSubhead>
+          <p>Suggested length for answers: 250 words or about 2 paragraphs.</p>
+
+          <FormSubhead>Please describe your newsroom's mission or purpose.</FormSubhead>
           <Textarea
             name="purpose"
             value={(this.props.charter.mission && this.props.charter.mission.purpose) || ""}
             onChange={this.missionInputChange}
           />
 
-          <FormSubhead>Your newsroom's ownership structure.</FormSubhead>
+          <FormSubhead>What is your newsroom's ownership structure? (e.g. non-profit, for-profit, co-op)</FormSubhead>
           <Textarea
             name="structure"
             value={(this.props.charter.mission && this.props.charter.mission.structure) || ""}
             onChange={this.missionInputChange}
           />
 
-          <FormSubhead>What are your newsroom's current or planned revenue sources?</FormSubhead>
+          <FormSubhead>
+            What are your newsroom's current or planned revenue sources? (ex: membership, subscriptions, advertising,
+            sponsored content, promoted links)
+          </FormSubhead>
           <Textarea
             name="revenue"
             value={(this.props.charter.mission && this.props.charter.mission.revenue) || ""}
@@ -54,8 +75,8 @@ class CreateCharterPartTwoComponent extends React.Component<CreateCharterPartTwo
           />
 
           <FormSubhead>
-            Are there any encumbrances on your ability to report independently that the Civil community should be aware
-            of?
+            Does anything get in the way of your ability to report independently? Are there any conflicts of interest
+            that voters should be aware of?
           </FormSubhead>
           <Textarea
             name="encumbrances"
