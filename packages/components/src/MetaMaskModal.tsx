@@ -90,6 +90,7 @@ export interface MetaMaskModalProps {
   waiting: boolean;
   denied?: boolean;
   signing?: boolean;
+  bodyText?: string;
   denialText?: string;
   denialRestartTransactions?: Transaction[];
   cancelTransaction?(): void;
@@ -120,7 +121,7 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
   let paragraph;
   if (props.signing) {
     paragraph = !props.waiting ? (
-      <ModalP> MetaMask will open a new window and request a signature.</ModalP>
+      <ModalP>{props.bodyText || "MetaMask will open a new window and request a signature."}</ModalP>
     ) : (
       <ModalP>
         You need to sign this message in your wallet. MetaMask will open a new window to confirm. If you don't see it,
@@ -133,7 +134,9 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
     );
   } else {
     paragraph = !props.waiting ? (
-      <ModalP> MetaMask will open a new window for you to confirm this transaction with your wallet.</ModalP>
+      <ModalP>
+        {props.bodyText || "MetaMask will open a new window for you to confirm this transaction with your wallet."}
+      </ModalP>
     ) : (
       <ModalP>
         This transaction needs to be confirmed in your wallet. MetaMask will open a new window for you to confirm. If
