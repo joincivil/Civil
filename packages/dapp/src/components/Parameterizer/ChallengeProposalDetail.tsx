@@ -1,10 +1,10 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { EthAddress, TwoStepEthTransaction, UserChallengeData, ParamPropChallengeData } from "@joincivil/core";
-import { ResolveChallengeProposal } from "@joincivil/components";
-import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
-import { resolveReparameterizationChallenge } from "../../apis/civilTCR";
 import BigNumber from "bignumber.js";
+
+import { EthAddress, UserChallengeData, ParamPropChallengeData } from "@joincivil/core";
+import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
+
 import { State } from "../../redux/reducers";
 import {
   makeGetParameterProposalChallengeState,
@@ -13,8 +13,10 @@ import {
   getIsMemberOfAppellate,
 } from "../../selectors";
 import { fetchAndAddParameterProposalChallengeData } from "../../redux/actionCreators/parameterizer";
+
 import ChallengeProposalCommitVote from "./ChallengeProposalCommitVote";
 import ChallengeProposalRevealVote from "./ChallengeProposalRevealVote";
+import ChallengeProposalResolve from "./ChallengeProposalResolve";
 
 export interface ChallengeDetailContainerProps {
   challengeID: BigNumber;
@@ -176,24 +178,18 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
       .toFixed(0);
 
     return (
-      <ResolveChallengeProposal
-        parameterDisplayName={this.props.parameterDisplayName}
-        parameterCurrentValue={this.props.parameterCurrentValue}
-        parameterNewValue={this.props.parameterProposalValue}
+      <ChallengeProposalResolve
+        {...this.props}
+        challengeID={this.props.challengeID.toString()}
+        parameterNewValue={this.props.parameterProposalValue.toString()}
         totalVotes={totalVotes}
         votesFor={votesFor}
         votesAgainst={votesAgainst}
         percentFor={percentFor}
         percentAgainst={percentAgainst}
-        transactions={[{ transaction: this.resolveChallenge }]}
         handleClose={this.props.handleClose}
-        postExecuteTransactions={this.props.handleClose}
       />
     );
-  };
-
-  private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return resolveReparameterizationChallenge(this.props.propID!.toString());
   };
 }
 
