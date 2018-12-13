@@ -69,14 +69,11 @@ export const StyledTableRow = styled.tr`
       color: ${colors.basic.WHITE} !important;
     }
 
-    &:hover
-      ${StyledTableAccentText},
-      &:hover
-      ${StyledDurationContainer},
-      &:hover
-      ${StyledCountdownLabel},
-      &:hover
-      ${StyledCountdownLabelWarn} {
+    // prettier-ignore
+    &:hover ${StyledTableAccentText},
+    &:hover ${StyledDurationContainer},
+    &:hover ${StyledCountdownLabel},
+    &:hover ${StyledCountdownLabelWarn} {
       color: ${colors.basic.WHITE} !important;
     }
 
