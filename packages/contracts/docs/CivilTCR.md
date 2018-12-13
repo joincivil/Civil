@@ -6,7 +6,7 @@ The CivilTCR is a Token Curated Registry based on [Mike Goldin's / AdChain's ori
 * Only the owner of the contract can apply on its behalf
 * After the challenge voting has ended, users can appeal (by staking tokens) to have the appellate entity consider overturning the result of a challenge
 * If the appellate overturns the challenge result, that decision can be challenged by users as well (by matching the deposit in the previous step), which begins another vote that requires a supermajority in favor in order to veto the granted appeal.
-* When a challenge result is overturned (the appellate granted an appeal and the appeal was either not challenged or survived the appeal challenge) the winnings for the challenge go to the original losers (e.g.: a Challenger wins a challenge 61%-39%. The Newsroom appeals the result and the appellate grants the appeal, which goes unchallenged. When the challenge is resovled, the Newsroom receives the challenge reward, with the remainder able to be claimed by the voters who were part of the original 39% minority).
+* When a challenge result is overturned (the appellate granted an appeal and the appeal was either not challenged or survived the appeal challenge) the winnings for the challenge go to the original losers (e.g.: a Challenger wins a challenge 61%-39%. The Newsroom appeals the result and the appellate grants the appeal, which goes unchallenged. When the challenge is resolved, the Newsroom receives the challenge reward, with the remainder able to be claimed by the voters who were part of the original 39% minority).
 
 A flow-chart detailing the application/listing lifecycle is included at the bottom of this page.
 

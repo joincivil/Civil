@@ -102,6 +102,8 @@ yarn test
 
 We've added a helper command to assist you if you want to develop using the front-end and a local ganache. Just 3 simple commands.
 
+First, however, you may want to add your own address (e.g. MetaMask account) to our config file so that you are distributed tokens/ETH properly and change the Appellate and GovernmentController addresses. This is especially useful if your MetaMask account is not the same as one of you ganache accounts (all ganache accounts are given tokens by default). Config file can be found at `packages/contracts/conf/config.json`.
+
 From the root directory:
 
 ```bash
