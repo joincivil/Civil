@@ -186,7 +186,7 @@ export class EthApi {
    */
   public async awaitReceipt<R extends DecodedTransactionReceipt | Web3.TransactionReceipt = Web3.TransactionReceipt>(
     txHash: TxHash,
-    blockConfirmations: number = 0, // wait till the api says the current block is confirmed
+    blockConfirmations: number = 1, // wait till the api says the current block is confirmed
   ): Promise<R> {
     while (true) {
       const receipt = await this.getReceipt<R>(txHash);
