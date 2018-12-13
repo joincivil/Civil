@@ -32,6 +32,7 @@ const Box = styled.span`
 const Container = styled<ContainerProps, "label">("label")`
   position: relative;
   display: inline-block;
+  box-sizing: content-box;
   width: 20px;
   height: 20px;
   input {

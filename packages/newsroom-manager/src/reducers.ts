@@ -1,4 +1,4 @@
-import { Map } from "immutable";
+import { Map, Set } from "immutable";
 import { AnyAction } from "redux";
 import { NewsroomWrapper, EthAddress, CharterData } from "@joincivil/core";
 import { newsroomActions, uiActions, userActions, governmentActions } from "./actionCreators";
@@ -8,7 +8,7 @@ export interface NewsroomState {
   address: EthAddress;
   wrapper: NewsroomWrapper;
   newsroom?: any;
-  editors?: EthAddress[];
+  editors?: Set<EthAddress>;
   isOwner?: boolean;
   isEditor?: boolean;
   charter?: Partial<CharterData>;
@@ -23,7 +23,7 @@ export interface StateWithNewsroom {
 
 export function newsrooms(
   state: Map<string, NewsroomState> = Map<string, NewsroomState>({
-    "": { editors: [], wrapper: { data: {} } },
+    "": { editors: Set(), wrapper: { data: {} } },
   }),
   action: AnyAction,
 ): Map<string, NewsroomState> {
@@ -44,10 +44,10 @@ export function newsrooms(
       return state.set(action.data.address, newsroom);
     case newsroomActions.ADD_EDITOR:
       newsroom = state.get(action.data.address);
-      editors = newsroom.editors || [];
+      editors = newsroom.editors || Set<EthAddress>();
       return state.set(action.data.address, {
         ...state.get(action.data.address),
-        editors: editors.concat([action.data.editor]),
+        editors: editors.add(action.data.editor),
       });
     case newsroomActions.ADD_OWNER:
       newsroom = state.get(action.data.address);
@@ -55,12 +55,10 @@ export function newsrooms(
       return state.set(action.data.address, newsroom);
     case newsroomActions.REMOVE_EDITOR:
       newsroom = state.get(action.data.address);
-      editors = newsroom.editors || [];
-      const index = editors.indexOf(action.data.editor);
-      editors.splice(index, 1);
+      editors = newsroom.editors || Set<EthAddress>();
       return state.set(action.data.address, {
-        ...state.get(action.data.address),
-        editors,
+        ...newsroom,
+        editors: editors.delete(action.data.editor),
       });
     case newsroomActions.SET_IS_OWNER:
       return state.set(action.data.address, {
