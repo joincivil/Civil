@@ -18,7 +18,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-bhlBdH kHFluQ",
+                  "class": "sc-bhlBdH bPuFlR",
                 },
                 "children": Array [
                   Object {
@@ -263,7 +263,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bhlBdH kHFluQ",
+                    "class": "sc-bhlBdH bPuFlR",
                   },
                   "children": Array [
                     Object {
@@ -675,7 +675,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bhlBdH kHFluQ",
+                      "class": "sc-bhlBdH bPuFlR",
                     },
                     "children": Array [
                       Object {
@@ -1118,7 +1118,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bhlBdH kHFluQ",
+                  "class": "sc-bhlBdH bPuFlR",
                 },
                 "children": Array [
                   Object {
@@ -1530,7 +1530,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bhlBdH kHFluQ",
+                    "class": "sc-bhlBdH bPuFlR",
                   },
                   "children": Array [
                     Object {
@@ -1954,7 +1954,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bhlBdH kHFluQ",
+                    "class": "sc-bhlBdH bPuFlR",
                   },
                   "children": Array [
                     Object {
@@ -2218,7 +2218,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bhlBdH kHFluQ",
+                  "class": "sc-bhlBdH bPuFlR",
                 },
                 "children": Array [
                   Object {
@@ -2632,7 +2632,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bhlBdH kHFluQ",
+                    "class": "sc-bhlBdH bPuFlR",
                   },
                   "children": Array [
                     Object {
@@ -3046,7 +3046,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bhlBdH kHFluQ",
+                      "class": "sc-bhlBdH bPuFlR",
                     },
                     "children": Array [
                       Object {
