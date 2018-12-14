@@ -1365,12 +1365,13 @@
     "@types/node" "*"
     "@types/react" "*"
 
-"@types/react-redux@^5.0.19":
-  version "5.0.21"
-  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.21.tgz#98a3a371dfc22c894889f660d7515717639d20f4"
+"@types/react-redux@^6.0.11":
+  version "6.0.11"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-6.0.11.tgz#d872254bbcba42465195a5475f40b22502b0407d"
+  integrity sha512-I3POoeGGwNqZjbK7TfnPJS2C51TFvT0atQPz4M+xpVTrLMjsX37AAfcTF3XUOTnmxHsryEjwJN9r/ScGwSXdtg==
   dependencies:
     "@types/react" "*"
-    redux "^3.6.0"
+    redux "^4.0.0"
 
 "@types/react-router-dom@^4.2.5":
   version "4.3.1"
@@ -12923,7 +12924,7 @@ redux@*, redux@^4.0.0:
     loose-envify "^1.4.0"
     symbol-observable "^1.2.0"
 
-redux@^3.6.0, redux@^3.7.2:
+redux@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
@@ -14279,6 +14280,7 @@ style-loader@^0.20.3:
 styled-components@^3.2.3, styled-components@^3.2.5:
   version "3.2.5"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-3.2.5.tgz#b5d5d7d618ab240ff10602b5ca5886b8db3d0a0d"
+  integrity sha1-tdXX1hirJA/xBgK1yliGuNs9Cg0=
   dependencies:
     buffer "^5.0.3"
     css-to-react-native "^2.0.3"
