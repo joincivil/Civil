@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/utils",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Utils shared between multiple Civil packages",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
