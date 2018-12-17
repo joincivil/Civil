@@ -673,14 +673,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   public async addArchiveToMultisig(data: TxDataAll, hex: string, gas: number): Promise<TxDataAll> {
-    const address = await this.multisigProxy.getMultisigAddress();
-    const contract = await Multisig.atUntrusted(this.ethApi, address!);
-    const multiSigData = await contract.getRawTransaction(this.address, this.ethApi.toBigNumber(0), data.data!);
-    const length = bufferToHex(setLengthLeft(toBuffer(multiSigData.data!.length), 8));
+    const multiSigAddress = await this.multisigProxy.getMultisigAddress();
+    const contract = await Multisig.atUntrusted(this.ethApi, multiSigAddress!);
+    const multiSigTxData = await contract.getRawTransaction(this.address, this.ethApi.toBigNumber(0), data.data!);
+    const length = bufferToHex(setLengthLeft(toBuffer(multiSigTxData.data!.length), 8));
     const extra = hex.substr(2) + length.substr(2);
-    multiSigData.gas = gas;
-    multiSigData.data = multiSigData.data + extra;
-    return multiSigData;
+    multiSigTxData.gas = gas;
+    multiSigTxData.data = multiSigTxData.data + extra;
+    return multiSigTxData;
   }
 
   public async publishWithArchive(
