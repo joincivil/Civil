@@ -34,18 +34,25 @@ export class NavBar extends React.Component<NavProps, NavState> {
     let accountInfo;
     if (this.props.userAccount) {
       accountInfo = (
-        <span>
-          <UserCvlBalance>{this.props.balance}</UserCvlBalance>
-          <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
-        </span>
+        <CvlContainer>
+          <CvlToken />
+          <span>
+            <UserCvlBalance>{this.props.balance}</UserCvlBalance>
+            <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
+          </span>
+          <AvatarContainer>
+            <UserAvatar />
+            <Arrow isOpen={this.state.isUserDrawerOpen} />
+          </AvatarContainer>
+        </CvlContainer>
       );
     } else {
       accountInfo = (
-        <>
+        <CvlContainer>
           <LogInButton onClick={this.props.onLogin} size={buttonSizes.SMALL}>
             Log In
           </LogInButton>
-        </>
+        </CvlContainer>
       );
     }
     return (
@@ -58,18 +65,9 @@ export class NavBar extends React.Component<NavProps, NavState> {
           </NavLogo>
 
           <NavInner>
-            <NavMenu />
+            <NavMenu isLoggedIn={!!this.props.userAccount} />
 
-            <NavUser onClick={ev => this.toggle()}>
-              <CvlContainer>
-                <CvlToken />
-                {accountInfo}
-              </CvlContainer>
-              <AvatarContainer>
-                <UserAvatar />
-                <Arrow isOpen={this.state.isUserDrawerOpen} />
-              </AvatarContainer>
-            </NavUser>
+            <NavUser onClick={ev => this.toggle()}>{accountInfo}</NavUser>
           </NavInner>
 
           {this.props.userAccount &&
