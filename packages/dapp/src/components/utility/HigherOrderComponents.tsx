@@ -234,7 +234,7 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
 
     public render(): JSX.Element | null {
       if (!this.props.challengeData) {
-        return null;
+        return <></>;
       }
 
       const challenge = this.props.challengeData.challenge;
@@ -454,8 +454,9 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
   const mapStateToProps = (
     state: State,
     ownProps: ChallengeContainerProps,
-  ): ChallengeContainerReduxProps & ChallengeContainerProps => {
+  ): ChallengeContainerReduxProps & ChallengeContainerProps & GraphQLizableComponentProps => {
     const { challenges, challengesFetching } = state.networkDependent;
+    const { useGraphQL } = state;
     let challengeData;
     const challengeID = ownProps.challengeID;
     if (challengeID) {
@@ -469,12 +470,13 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
       challengeID: challengeID!.toString(),
       challengeData,
       challengeDataRequestStatus,
+      useGraphQL,
       ...ownProps,
     };
   };
 
   class HOChallengePhaseContainer extends React.Component<
-    TChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
+    TChallengeContainerProps & ChallengeContainerReduxProps & GraphQLizableComponentProps & DispatchProp<any>
   > {
     public componentDidUpdate(): void {
       if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
@@ -483,19 +485,45 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
     }
 
     public render(): JSX.Element | undefined {
-      if (!this.props.challengeData) {
-        return;
-      }
+      if (this.props.useGraphQL) {
+        return (
+          <Query query={CHALLENGE_QUERY} variables={{ challengeID: this.props.challengeID }}>
+            {({ loading, error, data }: any): JSX.Element | null => {
+              if (loading) {
+                return null;
+              }
+              if (error) {
+                return null;
+              }
+              const challenge = transformGraphQLDataIntoChallenge(data.challenge);
+              return (
+                <>
+                  <PhaseCardComponent
+                    {...this.props}
+                    challenger={challenge!.challenger.toString()}
+                    rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+                    stake={getFormattedTokenBalance(challenge!.stake)}
+                  />
+                </>
+              );
+            }}
+          </Query>
+        );
+      } else {
+        if (!this.props.challengeData) {
+          return <></>;
+        }
 
-      const challenge = this.props.challengeData.challenge;
-      return (
-        <PhaseCardComponent
-          challenger={challenge!.challenger.toString()}
-          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-          stake={getFormattedTokenBalance(challenge!.stake)}
-          {...this.props}
-        />
-      );
+        const challenge = this.props.challengeData.challenge;
+        return (
+          <PhaseCardComponent
+            challenger={challenge!.challenger.toString()}
+            rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+            stake={getFormattedTokenBalance(challenge!.stake)}
+            {...this.props}
+          />
+        );
+      }
     }
   }
 
