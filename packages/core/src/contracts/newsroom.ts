@@ -679,7 +679,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const length = bufferToHex(setLengthLeft(toBuffer(multiSigData.data!.length), 8));
     const extra = hex.substr(2) + length.substr(2);
     multiSigData.gas = gas;
-    multiSigData.data = multiSigData + extra;
+    multiSigData.data = multiSigData.data + extra;
     return multiSigData;
   }
 
