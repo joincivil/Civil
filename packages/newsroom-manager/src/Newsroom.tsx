@@ -463,7 +463,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
-    this.initCharter();
+    await this.initCharter();
   };
 
   private setRoles = (address: EthAddress): void => {
