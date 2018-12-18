@@ -58,7 +58,7 @@ export interface PhaseCountdownReduxProps {
   govtParameters: any;
 }
 
-const getChallengeResultsProps = (challengeData: WrappedChallengeData): ChallengeResultsProps => {
+export const getChallengeResultsProps = (challengeData: WrappedChallengeData): ChallengeResultsProps => {
   let totalVotes = "";
   let votesFor = "";
   let votesAgainst = "";
@@ -381,6 +381,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       state: State,
       ownProps: TOriginalProps & ChallengeContainerProps,
     ): TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps => {
+      // console.log("HOC ownPros: ", ownProps);
       const { challenges, challengesFetching } = state.networkDependent;
       const challengeID = getLatestChallengeSucceededChallengeID(state, ownProps);
       let challengeData;
@@ -440,6 +441,30 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 
   return connect(makeMapStateToProps)(HOChallengeResultsContainer);
 };
+
+// export const connectGraphQLLatestChallengeSucceededResults = <TOriginalProps extends ListingContainerProps>(
+//   PresentationComponent:
+//     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
+//     | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
+// ) => {
+//   class HOChallengeResultsContainer extends React.Component<
+//     TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
+//   > {
+//     public render(): JSX.Element | null {
+//       console.log("this.props: ", this.props);
+//       const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+//       const challengeID = this.props.challengeID && this.props.challengeID.toString();
+
+//       return (
+//         <>
+//           <PresentationComponent {...challengeResultsProps} challengeID={challengeID} {...this.props} />
+//         </>
+//       );
+//     }
+//   }
+
+//   return HOChallengeResultsContainer;
+// };
 
 /**
  * Generates a HO-Component Container for that gets the Challenge data
