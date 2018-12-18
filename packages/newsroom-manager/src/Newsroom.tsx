@@ -226,7 +226,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (newProps.address && !this.props.address) {
       await this.hydrateNewsroom(newProps.address);
     }
-    if ((newProps.address || this.props.address) && newProps.account !== this.props.account) {
+    if (this.props.newsroom && newProps.account !== this.props.account) {
       this.setRoles(newProps.address || this.props.address!);
     }
   }
