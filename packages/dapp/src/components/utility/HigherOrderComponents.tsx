@@ -21,6 +21,7 @@ import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
 import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
+import { getChallengeResultsProps } from "../../helpers/transforms";
 
 const StyledPartialChallengeResultsHeader = styled.p`
   & > span {
@@ -57,38 +58,6 @@ export interface PhaseCountdownReduxProps {
   parameters: any;
   govtParameters: any;
 }
-
-export const getChallengeResultsProps = (challengeData: WrappedChallengeData): ChallengeResultsProps => {
-  let totalVotes = "";
-  let votesFor = "";
-  let votesAgainst = "";
-  let percentFor = "";
-  let percentAgainst = "";
-
-  if (challengeData) {
-    const challenge = challengeData.challenge;
-    const totalVotesBN = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    totalVotes = getFormattedTokenBalance(totalVotesBN);
-    votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    percentFor = challenge.poll.votesFor
-      .div(totalVotesBN)
-      .mul(100)
-      .toFixed(0);
-    percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotesBN)
-      .mul(100)
-      .toFixed(0);
-  }
-
-  return {
-    totalVotes,
-    votesFor,
-    votesAgainst,
-    percentFor,
-    percentAgainst,
-  };
-};
 
 /**
  * Generates a HO-Component Container for Challenge Succeeded/Failed Event
@@ -381,7 +350,6 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       state: State,
       ownProps: TOriginalProps & ChallengeContainerProps,
     ): TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps => {
-      // console.log("HOC ownPros: ", ownProps);
       const { challenges, challengesFetching } = state.networkDependent;
       const challengeID = getLatestChallengeSucceededChallengeID(state, ownProps);
       let challengeData;
@@ -441,30 +409,6 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 
   return connect(makeMapStateToProps)(HOChallengeResultsContainer);
 };
-
-// export const connectGraphQLLatestChallengeSucceededResults = <TOriginalProps extends ListingContainerProps>(
-//   PresentationComponent:
-//     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
-//     | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
-// ) => {
-//   class HOChallengeResultsContainer extends React.Component<
-//     TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
-//   > {
-//     public render(): JSX.Element | null {
-//       console.log("this.props: ", this.props);
-//       const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
-//       const challengeID = this.props.challengeID && this.props.challengeID.toString();
-
-//       return (
-//         <>
-//           <PresentationComponent {...challengeResultsProps} challengeID={challengeID} {...this.props} />
-//         </>
-//       );
-//     }
-//   }
-
-//   return HOChallengeResultsContainer;
-// };
 
 /**
  * Generates a HO-Component Container for that gets the Challenge data

@@ -70,7 +70,9 @@ export const LISTING_FRAGMENT = gql`
     appExpiry
     approvalDate
     challengeID
-
+    challenge {
+      ...ChallengeFragment
+    }
     prevChallenge {
       ...ChallengeFragment
     }
@@ -116,7 +118,6 @@ export function transformGraphQLDataIntoNewsroom(listing: any, listingAddress: s
   };
 }
 export function transformGraphQLDataIntoListing(listing: any, listingAddress: string): ListingWrapper {
-  console.log("transformGraphQLDataIntoListing: ", listing);
   return {
     address: listingAddress,
     data: {
@@ -126,9 +127,17 @@ export function transformGraphQLDataIntoListing(listing: any, listingAddress: st
       unstakedDeposit: new BigNumber(listing.unstakedDeposit),
       challengeID: new BigNumber(listing.challengeID),
       challenge: transformGraphQLDataIntoChallenge(listing.challenge),
+      prevChallengeID: transformGraphQLDataIntoPrevChallengeID(listing.prevChallenge),
       prevChallenge: transformGraphQLDataIntoChallenge(listing.prevChallenge),
     },
   };
+}
+export function transformGraphQLDataIntoPrevChallengeID(queryChallengeData: any): BigNumber | undefined {
+  if (queryChallengeData) {
+    return new BigNumber(queryChallengeData.challengeID);
+  } else {
+    return undefined;
+  }
 }
 
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {

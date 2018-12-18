@@ -21,7 +21,6 @@ class ListingList extends React.Component<ListingListOwnProps> {
         {this.props.listings &&
           this.props.listings.map(l => {
             index++;
-            console.log("l: ", l);
             return (
               <ListingListItem
                 listingAddress={l!.listing.address}

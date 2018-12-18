@@ -146,6 +146,7 @@ export interface ListingData {
   unstakedDeposit: BigNumber;
   challengeID: BigNumber;
   challenge?: ChallengeData;
+  prevChallengeID?: BigNumber;
   prevChallenge?: ChallengeData;
 }
 
