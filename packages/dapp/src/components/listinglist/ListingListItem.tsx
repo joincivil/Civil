@@ -6,13 +6,10 @@ import { getListingPhaseState } from "../../selectors";
 import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 import { ListingSummaryComponent, ListingSummaryRejectedComponent } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import {
-  ListingContainerProps,
-  connectLatestChallengeSucceededResults,
-  getChallengeResultsProps,
-} from "../utility/HigherOrderComponents";
+import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
+import { getChallengeResultsProps } from "../../helpers/transforms";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -171,11 +168,7 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
     )(ListingSummaryRejectedComponent);
     return <ListingSummaryRejected {...listingViewProps} />;
   } else {
-    const challengeResultsProps = getChallengeResultsProps({
-      listingAddress: listingAddress!,
-      challengeID: data.prevChallengeID!,
-      challenge: data.prevChallenge!,
-    });
+    const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
     return (
       <ListingSummaryRejectedComponent
         challengeID={data.prevChallengeID!.toString()}

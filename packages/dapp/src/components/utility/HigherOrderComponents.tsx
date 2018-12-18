@@ -115,11 +115,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
                 return null;
               }
               const challenge = transformGraphQLDataIntoChallenge(data.challenge);
-              const challengeResultsProps = getChallengeResultsProps({
-                listingAddress: data.challenge.listingAddress,
-                challengeID: new BigNumber(this.props.challengeID!),
-                challenge: challenge!,
-              });
+              const challengeResultsProps = getChallengeResultsProps(challenge!);
               return (
                 <>
                   <PresentationComponent {...challengeResultsProps} {...this.props} />
@@ -133,7 +129,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
           return null;
         }
 
-        const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+        const challengeResultsProps = getChallengeResultsProps(this.props.challengeData.challenge);
 
         return (
           <>
@@ -381,7 +377,9 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     }
 
     public render(): JSX.Element | null {
-      const challengeResultsProps = getChallengeResultsProps(this.props.challengeData!);
+      const challengeResultsProps = getChallengeResultsProps(
+        this.props.challengeData && this.props.challengeData.challenge,
+      );
       const challengeID = this.props.challengeID && this.props.challengeID.toString();
 
       return (
