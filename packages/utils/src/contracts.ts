@@ -32,13 +32,13 @@ export function estimateRawHex(hex: string): number {
     h = hex.substr(2);
   }
   const bytes = h.match(/.{2}/g) || [];
-  return (
+  return Math.floor(
     bytes.reduce((acc, item) => {
       if (item === "00") {
         return acc + 4;
       } else {
         return acc + 68;
       }
-    }, 0) * 1.15
+    }, 0) * 1.15,
   );
 }
