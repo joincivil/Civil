@@ -4,6 +4,7 @@ import { TCR_SENDGRID_LIST_ID, addToMailingList } from "@joincivil/utils";
 
 export interface EmailSignupState {
   email: string;
+  errorMessage: string;
 }
 
 class EmailSignup extends React.Component<{}, EmailSignupState> {
@@ -11,6 +12,7 @@ class EmailSignup extends React.Component<{}, EmailSignupState> {
     super(props);
     this.state = {
       email: "",
+      errorMessage: "",
     };
   }
   public render(): JSX.Element {
@@ -28,8 +30,10 @@ class EmailSignup extends React.Component<{}, EmailSignupState> {
 
     try {
       await addToMailingList(email, TCR_SENDGRID_LIST_ID);
+      this.setState({ email: "" });
     } catch (err) {
       console.error("Error adding to mailing list:", { err });
+      this.setState({ errorMessage: err });
     }
   };
 }
