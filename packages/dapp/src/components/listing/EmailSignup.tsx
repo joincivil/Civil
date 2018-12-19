@@ -16,7 +16,10 @@ class EmailSignup extends React.Component<{}, EmailSignupState> {
     };
   }
   public render(): JSX.Element {
-    return <EmailSignupComponent onChange={this.onEmailSignupChange} onSubmit={this.onEmailSignupSubmit} />;
+    const { email } = this.state;
+    return (
+      <EmailSignupComponent onChange={this.onEmailSignupChange} onSubmit={this.onEmailSignupSubmit} email={email} />
+    );
   }
 
   private onEmailSignupChange = (name: string, value: string): void => {

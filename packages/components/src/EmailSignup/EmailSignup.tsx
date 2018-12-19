@@ -7,6 +7,7 @@ import { InputGroup } from "../input";
 import { StyledEmailSignupContainer, StyledEmailSignupTitle, StyledEmailSignupCopy } from "./EmailStyledComponents";
 
 export interface EmailSignupProps {
+  email?: string;
   onChange(key: string, value: string): void;
   onSubmit(): void;
 }
@@ -17,6 +18,8 @@ export const EmailSignup: React.SFC<EmailSignupProps> = props => {
       Sign Up
     </Button>
   );
+
+  const { email } = props;
 
   return (
     <StyledEmailSignupContainer>
@@ -36,7 +39,8 @@ export const EmailSignup: React.SFC<EmailSignupProps> = props => {
         placeholder="Email address"
         onChange={props.onChange}
         name="EmailSignupTextInput"
-        type="email"
+        type="text"
+        value={email}
       />
 
       <StyledEmailSignupCopy>
