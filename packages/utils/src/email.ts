@@ -12,16 +12,13 @@ export async function addToMailingList(email: string, listId: string): Promise<v
 
   const url = SIGNUP_ENDPOINT + "?" + querystring.stringify(query);
 
-  console.log("Requesting: ", { url });
   try {
     const res = await fetch(url);
 
     const body: any = await res.json();
-
-    console.log("Got body:", { body });
   } catch (err) {
-    // TODO(jorgelo): Log error somewere on error?
-    console.error("Got error:", { err });
+    // TODO(jorgelo): Log error somewhere on error?
+    // console.error("Error:", { err });
     throw err;
   }
 }
