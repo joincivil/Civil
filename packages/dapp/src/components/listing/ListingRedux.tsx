@@ -2,22 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Helmet } from "react-helmet";
 
-<<<<<<< HEAD
-import ListingOwnerActions from "./ListingOwnerActions";
-import ListingDiscourse from "./ListingDiscourse";
-import ListingHistory from "./ListingHistory";
-import ListingHeader from "./ListingHeader";
-import ListingCharter from "./ListingCharter";
-import ListingPhaseActions from "./ListingPhaseActions";
-import ListingChallengeStatement from "./ListingChallengeStatement";
-import EmailSignup from "./EmailSignup";
-import { State } from "../../redux/reducers";
-import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
-import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
-import { ListingTabContent } from "./styledComponents";
-=======
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
->>>>>>> origin
 import {
   Tabs,
   Tab,
@@ -31,7 +16,7 @@ import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
 import { getContent } from "../../redux/actionCreators/newsrooms";
-
+import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
