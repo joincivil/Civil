@@ -2,7 +2,13 @@ import * as React from "react";
 import { compose } from "redux";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { AppealDecisionCard, ModalContent, ModalUnorderedList, ModalListItem } from "@joincivil/components";
+import {
+  AppealDecisionCard,
+  ModalContent,
+  ModalUnorderedList,
+  ModalListItem,
+  SubmitChallengeSuccessIcon,
+} from "@joincivil/components";
 
 import { approveForChallengeGrantedAppeal, challengeGrantedAppeal } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
@@ -56,7 +62,11 @@ const transactionErrorContent = {
 
 const transactionSuccessContent = {
   [TransactionTypes.CHALLENGE_APPEAL]: [
-    "Your appeal challenge was submitted",
+    "",
+    <>
+      <SubmitChallengeSuccessIcon />
+      <div>This granted appeal has now been challenged</div>
+    </>,
     <>
       <ModalContent>
         This challenge is now accepting votes. To prevent decision bias, all votes will be hidden using a secret phrase,
