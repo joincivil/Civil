@@ -79,11 +79,11 @@ contract("Parameterizer", accounts => {
 
       await parameterizer.processProposal(propID);
 
-      const voterAliceReward = await parameterizer.voterReward.call(voterAlice, challengeID, "420");
+      const voterAliceReward = await parameterizer.voterReward.call(voterAlice, challengeID);
       await parameterizer.claimReward(challengeID, { from: voterAlice });
       await voting.withdrawVotingRights("10", { from: voterAlice });
 
-      const voterBobReward = await parameterizer.voterReward.call(voterBob, challengeID, "420");
+      const voterBobReward = await parameterizer.voterReward.call(voterBob, challengeID);
       await parameterizer.claimReward(challengeID, { from: voterBob });
       await voting.withdrawVotingRights("20", { from: voterBob });
 
