@@ -9,6 +9,7 @@ import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
+import { getChallengeResultsProps } from "../../helpers/transforms";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -59,7 +60,6 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   }
 
   public render(): JSX.Element {
-    console.log("renderListing");
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
     const isWhitelisted = listingExists && listingPhaseState.isWhitelisted;
@@ -145,7 +145,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
 }
 
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
-  const { listingAddress, newsroom, listingPhaseState, charter } = props;
+  const { listingAddress, newsroom, listingPhaseState, charter, listing } = props;
   const newsroomData = newsroom!.data;
   const listingDetailURL = `/listing/${listingAddress}`;
   let description = "";
@@ -161,12 +161,22 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
     listingDetailURL,
     ...listingPhaseState,
   };
-
-  const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
-    connectLatestChallengeSucceededResults,
-  )(ListingSummaryRejectedComponent);
-
-  return <ListingSummaryRejected {...listingViewProps} />;
+  const data = listing!.data!;
+  if (!data.prevChallenge) {
+    const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
+      connectLatestChallengeSucceededResults,
+    )(ListingSummaryRejectedComponent);
+    return <ListingSummaryRejected {...listingViewProps} />;
+  } else {
+    const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
+    return (
+      <ListingSummaryRejectedComponent
+        challengeID={data.prevChallengeID!.toString()}
+        {...challengeResultsProps}
+        {...listingViewProps}
+      />
+    );
+  }
 };
 
 const mapStateToProps = (

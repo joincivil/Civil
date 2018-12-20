@@ -192,22 +192,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       }
     }
 
-    this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
-
     this.state = {
       currentStep,
     };
-
-    if (props.getPersistedCharter) {
-      props
-        .getPersistedCharter()
-        .then(charter => {
-          if (charter) {
-            this.updateCharter(this.defaultCharterValues(charter));
-          }
-        })
-        .catch();
-    }
   }
 
   public async componentDidMount(): Promise<void> {
@@ -226,7 +213,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (newProps.address && !this.props.address) {
       await this.hydrateNewsroom(newProps.address);
     }
-    if ((newProps.address || this.props.address) && newProps.account !== this.props.account) {
+    if (this.props.newsroom && newProps.account !== this.props.account) {
       this.setRoles(newProps.address || this.props.address!);
     }
   }
@@ -451,6 +438,21 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   };
 
+  private async initCharter(): Promise<void> {
+    this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
+
+    if (this.props.getPersistedCharter) {
+      try {
+        const charter = await this.props.getPersistedCharter();
+        if (charter) {
+          this.updateCharter(this.defaultCharterValues(charter));
+        }
+      } catch (e) {
+        console.error("Failed to load persisted charter", e);
+      }
+    }
+  }
+
   private isDisabled = (): boolean => {
     const onRequiredNetwork =
       !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.props.currentNetwork!);
@@ -467,6 +469,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
+    await this.initCharter();
   };
 
   private setRoles = (address: EthAddress): void => {

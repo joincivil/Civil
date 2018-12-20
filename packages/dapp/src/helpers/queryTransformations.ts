@@ -73,6 +73,9 @@ export const LISTING_FRAGMENT = gql`
     challenge {
       ...ChallengeFragment
     }
+    prevChallenge {
+      ...ChallengeFragment
+    }
   }
   ${CHALLENGE_FRAGMENT}
 `;
@@ -124,8 +127,17 @@ export function transformGraphQLDataIntoListing(listing: any, listingAddress: st
       unstakedDeposit: new BigNumber(listing.unstakedDeposit),
       challengeID: new BigNumber(listing.challengeID),
       challenge: transformGraphQLDataIntoChallenge(listing.challenge),
+      prevChallengeID: transformGraphQLDataIntoPrevChallengeID(listing.prevChallenge),
+      prevChallenge: transformGraphQLDataIntoChallenge(listing.prevChallenge),
     },
   };
+}
+export function transformGraphQLDataIntoPrevChallengeID(queryChallengeData: any): BigNumber | undefined {
+  if (queryChallengeData) {
+    return new BigNumber(queryChallengeData.challengeID);
+  } else {
+    return undefined;
+  }
 }
 
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
