@@ -35,8 +35,9 @@ contract PLCRVoting {
         uint voteQuorum;	    /// number of votes required for a proposal to pass
         uint votesFor;		    /// tally of votes supporting proposal
         uint votesAgainst;      /// tally of votes countering proposal
-        mapping(address => bool) didCommit;  /// indicates whether an address committed a vote for this poll
+        mapping(address => bool) didCommit;   /// indicates whether an address committed a vote for this poll
         mapping(address => bool) didReveal;   /// indicates whether an address revealed a vote for this poll
+        mapping(address => uint) voteOptions; /// stores the voteOption of an address that revealed
     }
 
     // ============
@@ -58,7 +59,7 @@ contract PLCRVoting {
     @param _token The address where the ERC20 token contract is deployed
     */
     constructor(address _token) public {
-        require(_token != 0);
+        require(_token != address(0) && address(token) == address(0), "Provided address is invalid. Must be non-zero and storage not set.");
 
         token = EIP20Interface(_token);
         pollNonce = INITIAL_POLL_NONCE;
@@ -74,9 +75,9 @@ contract PLCRVoting {
     @param _numTokens The number of votingTokens desired in exchange for ERC20 tokens
     */
     function requestVotingRights(uint _numTokens) public {
-        require(token.balanceOf(msg.sender) >= _numTokens);
+        require(token.balanceOf(msg.sender) >= _numTokens, "Msg sender does not have enough balance.");
         voteTokenBalance[msg.sender] += _numTokens;
-        require(token.transferFrom(msg.sender, this, _numTokens));
+        require(token.transferFrom(msg.sender, this, _numTokens), "Msg sender must first approve the PLCRVoting contract to transferFrom.");
         emit _VotingRightsGranted(_numTokens, msg.sender);
     }
 
@@ -86,9 +87,9 @@ contract PLCRVoting {
     */
     function withdrawVotingRights(uint _numTokens) external {
         uint availableTokens = voteTokenBalance[msg.sender].sub(getLockedTokens(msg.sender));
-        require(availableTokens >= _numTokens);
+        require(availableTokens >= _numTokens, "Msg sender is requesting more tokens than available.");
         voteTokenBalance[msg.sender] -= _numTokens;
-        require(token.transfer(msg.sender, _numTokens));
+        require(token.transfer(msg.sender, _numTokens), "Error while transferring tokens to msg sender.");
         emit _VotingRightsWithdrawn(_numTokens, msg.sender);
     }
 
@@ -97,8 +98,8 @@ contract PLCRVoting {
     @param _pollID Integer identifier associated with the target poll
     */
     function rescueTokens(uint _pollID) public {
-        require(isExpired(pollMap[_pollID].revealEndDate));
-        require(dllMap[msg.sender].contains(_pollID));
+        require(isExpired(pollMap[_pollID].revealEndDate), "The poll revealEndDate has not expired.");
+        require(dllMap[msg.sender].contains(_pollID), "Msg sender has not participated in this poll.");
 
         dllMap[msg.sender].remove(_pollID);
         emit _TokensRescued(_pollID, msg.sender);
@@ -127,7 +128,7 @@ contract PLCRVoting {
     @param _prevPollID The ID of the poll that the user has voted the maximum number of tokens in which is still less than or equal to numTokens
     */
     function commitVote(uint _pollID, bytes32 _secretHash, uint _numTokens, uint _prevPollID) public {
-        require(commitPeriodActive(_pollID));
+        require(commitPeriodActive(_pollID), "Commit period is not active.");
 
         // if msg.sender doesn't have enough voting rights,
         // request for enough voting rights
@@ -137,14 +138,14 @@ contract PLCRVoting {
         }
 
         // make sure msg.sender has enough voting rights
-        require(voteTokenBalance[msg.sender] >= _numTokens);
+        require(voteTokenBalance[msg.sender] >= _numTokens, "Msg sender does not have enough voting rights.");
         // prevent user from committing to zero node placeholder
-        require(_pollID != 0);
+        require(_pollID != 0, "Poll must not be zero.");
         // prevent user from committing a secretHash of 0
-        require(_secretHash != 0);
+        require(_secretHash != 0, "Secret hash must not be zero.");
 
         // Check if _prevPollID exists in the user's DLL or if _prevPollID is 0
-        require(_prevPollID == 0 || dllMap[msg.sender].contains(_prevPollID));
+        require(_prevPollID == 0 || dllMap[msg.sender].contains(_prevPollID), "Previous poll must either be zero or msg sender must have participated in the poll.");
 
         uint nextPollID = dllMap[msg.sender].getNext(_prevPollID);
 
@@ -153,7 +154,7 @@ contract PLCRVoting {
             nextPollID = dllMap[msg.sender].getNext(_pollID);
         }
 
-        require(validPosition(_prevPollID, nextPollID, msg.sender, _numTokens));
+        require(validPosition(_prevPollID, nextPollID, msg.sender, _numTokens), "Invalid positioning of DLL.");
         dllMap[msg.sender].insert(_prevPollID, _pollID, nextPollID);
 
         bytes32 UUID = attrUUID(msg.sender, _pollID);
@@ -210,7 +211,7 @@ contract PLCRVoting {
         require(revealPeriodActive(_pollID));
         require(pollMap[_pollID].didCommit[msg.sender]);                         // make sure user has committed a vote for this poll
         require(!pollMap[_pollID].didReveal[msg.sender]);                        // prevent user from revealing multiple times
-        require(keccak256(_voteOption, _salt) == getCommitHash(msg.sender, _pollID)); // compare resultant hash from inputs to original commitHash
+        require(keccak256(abi.encodePacked(_voteOption, _salt)) == getCommitHash(msg.sender, _pollID)); // compare resultant hash from inputs to original commitHash
 
         uint numTokens = getNumTokens(msg.sender, _pollID);
 
@@ -222,6 +223,7 @@ contract PLCRVoting {
 
         dllMap[msg.sender].remove(_pollID); // remove the node referring to this vote upon reveal
         pollMap[_pollID].didReveal[msg.sender] = true;
+        pollMap[_pollID].voteOptions[msg.sender] = _voteOption;
 
         emit _VoteRevealed(_pollID, numTokens, pollMap[_pollID].votesFor, pollMap[_pollID].votesAgainst, _voteOption, msg.sender, _salt);
     }
@@ -244,19 +246,18 @@ contract PLCRVoting {
     }
 
     /**
-    @param _pollID Integer identifier associated with target poll
-    @param _salt Arbitrarily chosen integer used to generate secretHash
-    @return correctVotes Number of tokens voted for winning option
+    @param _voter           Address of voter who voted in the majority bloc
+    @param _pollID          Integer identifier associated with target poll
+    @return correctVotes    Number of tokens voted for winning option
     */
-    function getNumPassingTokens(address _voter, uint _pollID, uint _salt) public constant returns (uint correctVotes) {
+    function getNumPassingTokens(address _voter, uint _pollID) public constant returns (uint correctVotes) {
         require(pollEnded(_pollID));
         require(pollMap[_pollID].didReveal[_voter]);
 
         uint winningChoice = isPassed(_pollID) ? 1 : 0;
-        bytes32 winnerHash = keccak256(winningChoice, _salt);
-        bytes32 commitHash = getCommitHash(_voter, _pollID);
+        uint voterVoteOption = pollMap[_pollID].voteOptions[_voter];
 
-        require(winnerHash == commitHash);
+        require(voterVoteOption == winningChoice, "Voter revealed, but not in the majority");
 
         return getNumTokens(_voter, _pollID);
     }
@@ -440,28 +441,28 @@ contract PLCRVoting {
     */
     function getInsertPointForNumTokens(address _voter, uint _numTokens, uint _pollID)
     constant public returns (uint prevNode) {
-      // Get the last node in the list and the number of tokens in that node
-      uint nodeID = getLastNode(_voter);
-      uint tokensInNode = getNumTokens(_voter, nodeID);
+        // Get the last node in the list and the number of tokens in that node
+        uint nodeID = getLastNode(_voter);
+        uint tokensInNode = getNumTokens(_voter, nodeID);
 
-      // Iterate backwards through the list until reaching the root node
-      while(nodeID != 0) {
-        // Get the number of tokens in the current node
-        tokensInNode = getNumTokens(_voter, nodeID);
-        if(tokensInNode <= _numTokens) { // We found the insert point!
-          if(nodeID == _pollID) {
-            // This is an in-place update. Return the prev node of the node being updated
+        // Iterate backwards through the list until reaching the root node
+        while(nodeID != 0) {
+            // Get the number of tokens in the current node
+            tokensInNode = getNumTokens(_voter, nodeID);
+            if(tokensInNode <= _numTokens) { // We found the insert point!
+                if(nodeID == _pollID) {
+                    // This is an in-place update. Return the prev node of the node being updated
+                    nodeID = dllMap[_voter].getPrev(nodeID);
+                }
+                // Return the insert point
+                return nodeID; 
+            }
+            // We did not find the insert point. Continue iterating backwards through the list
             nodeID = dllMap[_voter].getPrev(nodeID);
-          }
-          // Return the insert point
-          return nodeID;
         }
-        // We did not find the insert point. Continue iterating backwards through the list
-        nodeID = dllMap[_voter].getPrev(nodeID);
-      }
 
-      // The list is empty, or a smaller value than anything else in the list is being inserted
-      return nodeID;
+        // The list is empty, or a smaller value than anything else in the list is being inserted
+        return nodeID;
     }
 
     // ----------------
@@ -483,6 +484,6 @@ contract PLCRVoting {
     @return UUID Hash which is deterministic from _user and _pollID
     */
     function attrUUID(address _user, uint _pollID) public pure returns (bytes32 UUID) {
-        return keccak256(_user, _pollID);
+        return keccak256(abi.encodePacked(_user, _pollID));
     }
 }

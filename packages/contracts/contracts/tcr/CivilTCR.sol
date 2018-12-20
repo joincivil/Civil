@@ -480,7 +480,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function challengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
-    require(challengeExists(listingAddress), "Challenge does not exist for listing");
+    require(challengeExists(listingAddress), "Challenge does not exist for Listing");
     if (challengeRequestAppealExpiries[challengeID] > now) {
       return false;
     }
@@ -497,7 +497,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   function appealCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
     Appeal appeal = appeals[challengeID];
-    require(challengeExists(listingAddress), "Challenge does not exist for listing");
+    require(challengeExists(listingAddress), "Challenge does not exist for Listing");
     if (appeal.appealPhaseExpiry == 0) {
       return false;
     }
@@ -516,7 +516,7 @@ contract CivilTCR is RestrictedAddressRegistry {
   function appealChallengeCanBeResolved(address listingAddress) view public returns (bool canBeResolved) {
     uint challengeID = listings[listingAddress].challengeID;
     Appeal appeal = appeals[challengeID];
-    require(challengeExists(listingAddress), "Challenge does not exist for listing");
+    require(challengeExists(listingAddress), "Challenge does not exist for Listing");
     if (appeal.appealChallengeID == 0) {
       return false;
     }
