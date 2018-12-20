@@ -37,7 +37,7 @@ contract("Registry", accounts => {
 
       const hasClaimedBefore = await registry.tokenClaims(pollID, voterAlice);
       expect(hasClaimedBefore).to.be.false("tokenClaims should have been false before tokens claimed");
-      await registry.claimReward(pollID, "420", { from: voterAlice });
+      await registry.claimReward(pollID, { from: voterAlice });
 
       const hasClaimedAfter = await registry.tokenClaims(pollID, voterAlice);
       expect(hasClaimedAfter).to.be.true("tokenClaims should have been true after tokens claimed");

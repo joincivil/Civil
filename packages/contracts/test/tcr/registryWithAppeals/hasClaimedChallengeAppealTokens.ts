@@ -55,7 +55,7 @@ contract("Registry", accounts => {
       const hasClaimedBefore = await registry.tokenClaims(appealChallengePollID, voterBob);
       expect(hasClaimedBefore).to.be.false("tokenClaims should have been false for unclaimed reward 2");
 
-      await registry.claimReward(appealChallengePollID, "1337", { from: voterBob });
+      await registry.claimReward(appealChallengePollID, { from: voterBob });
 
       const hasClaimedAfter = await registry.tokenClaims(appealChallengePollID, voterBob);
       expect(hasClaimedAfter).to.be.true(

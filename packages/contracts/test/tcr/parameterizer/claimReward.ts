@@ -44,7 +44,7 @@ contract("Parameterizer", accounts => {
 
       await parameterizer.processProposal(propID);
 
-      await parameterizer.claimReward(challengeID, "420", { from: voterAlice });
+      await parameterizer.claimReward(challengeID, { from: voterAlice });
       await voting.withdrawVotingRights("10", { from: voterAlice });
 
       const voterAliceFinalBalance = await token.balanceOf.call(voterAlice);
@@ -80,11 +80,11 @@ contract("Parameterizer", accounts => {
       await parameterizer.processProposal(propID);
 
       const voterAliceReward = await parameterizer.voterReward.call(voterAlice, challengeID, "420");
-      await parameterizer.claimReward(challengeID, "420", { from: voterAlice });
+      await parameterizer.claimReward(challengeID, { from: voterAlice });
       await voting.withdrawVotingRights("10", { from: voterAlice });
 
       const voterBobReward = await parameterizer.voterReward.call(voterBob, challengeID, "420");
-      await parameterizer.claimReward(challengeID, "420", { from: voterBob });
+      await parameterizer.claimReward(challengeID, { from: voterBob });
       await voting.withdrawVotingRights("20", { from: voterBob });
 
       // TODO: do better than approximately.
@@ -114,7 +114,7 @@ contract("Parameterizer", accounts => {
       await voting.revealVote(challengeID, "1", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.pRevealStageLength + 1);
 
-      await expect(parameterizer.claimReward(challengeID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
+      await expect(parameterizer.claimReward(challengeID, { from: voterAlice })).to.eventually.be.rejectedWith(
         REVERTED,
       );
 

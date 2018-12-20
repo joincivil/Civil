@@ -52,7 +52,7 @@ contract("Registry with Appeals", accounts => {
 
       await registry.updateStatus(newsroomAddress);
 
-      await expect(registry.claimReward(appealChallengePollID, "1337", { from: voterBob })).to.eventually.be.fulfilled(
+      await expect(registry.claimReward(appealChallengePollID, { from: voterBob })).to.eventually.be.fulfilled(
         "should have allowed voter in appeal challenge poll to claim reward after appeal challenge resolved",
       );
     });
@@ -117,7 +117,7 @@ contract("Registry with Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       const balanceBeforeClaiming = await token.balanceOf(voterBob);
-      await expect(registry.claimReward(appealChallengePollID, "1337", { from: voterBob })).to.eventually.be.fulfilled(
+      await expect(registry.claimReward(appealChallengePollID, { from: voterBob })).to.eventually.be.fulfilled(
         "should have allowed voter in appeal challenge poll to claim reward after appeal challenge resolved",
       );
       const balanceAfterClaiming = await token.balanceOf(voterBob);
@@ -152,7 +152,7 @@ contract("Registry with Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       const balanceBeforeClaiming = await token.balanceOf(voterBob);
-      await expect(registry.claimReward(appealChallengePollID, "1337", { from: voterBob })).to.eventually.be.fulfilled(
+      await expect(registry.claimReward(appealChallengePollID, { from: voterBob })).to.eventually.be.fulfilled(
         "should have allowed voter in appeal challenge poll to claim reward after appeal challenge resolved",
       );
       const balanceAfterClaiming = await token.balanceOf(voterBob);
@@ -191,7 +191,7 @@ contract("Registry with Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       const balanceBeforeClaiming = await token.balanceOf(voterBob);
-      await expect(registry.claimReward(appealChallengePollID, "1337", { from: voterBob })).to.eventually.be.fulfilled(
+      await expect(registry.claimReward(appealChallengePollID, { from: voterBob })).to.eventually.be.fulfilled(
         "should have allowed voter in appeal challenge poll to claim reward after appeal challenge resolved",
       );
       const balanceAfterClaiming = await token.balanceOf(voterBob);
@@ -208,9 +208,7 @@ contract("Registry with Appeals", accounts => {
       await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       const nonPollID = "666";
-      await expect(registry.claimReward(nonPollID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
-        REVERTED,
-      );
+      await expect(registry.claimReward(nonPollID, { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
     });
   });
 });

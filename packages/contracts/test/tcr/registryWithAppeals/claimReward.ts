@@ -54,7 +54,7 @@ contract("Registry with Appeals", accounts => {
 
       // Alice claims reward
       const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
-      await registry.claimReward(pollID, "420", { from: voterAlice });
+      await registry.claimReward(pollID, { from: voterAlice });
 
       // Alice withdraws her voting rights
       await voting.withdrawVotingRights("500", { from: voterAlice });
@@ -72,9 +72,7 @@ contract("Registry with Appeals", accounts => {
       await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       const nonPollID = "666";
-      await expect(registry.claimReward(nonPollID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
-        REVERTED,
-      );
+      await expect(registry.claimReward(nonPollID, { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should revert if provided salt is incorrect", async () => {
@@ -109,7 +107,7 @@ contract("Registry with Appeals", accounts => {
       // Update status
       await registry.updateStatus(newsroomAddress, { from: applicant });
 
-      await expect(registry.claimReward(pollID, "421", { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
+      await expect(registry.claimReward(pollID, { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should not transfer tokens if msg.sender has already claimed tokens for a challenge", async () => {
@@ -134,9 +132,9 @@ contract("Registry with Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       // Claim reward
-      await registry.claimReward(pollID, "420", { from: voterAlice });
+      await registry.claimReward(pollID, { from: voterAlice });
 
-      await expect(registry.claimReward(pollID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
+      await expect(registry.claimReward(pollID, { from: voterAlice })).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have been able to call claimReward twice",
       );
@@ -170,7 +168,7 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await expect(registry.claimReward(pollID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
+      await expect(registry.claimReward(pollID, { from: voterAlice })).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have been able to claimReward for unresolved challenge",
       );
@@ -205,7 +203,7 @@ contract("Registry with Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       // Claim reward
-      await expect(registry.claimReward(pollID, "42", { from: voterAlice })).to.be.rejectedWith(
+      await expect(registry.claimReward(pollID, { from: voterAlice })).to.be.rejectedWith(
         REVERTED,
         "should have reverted since voter commit hash does not match winning hash for salt",
       );
@@ -239,7 +237,7 @@ contract("Registry with Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       // Claim reward
-      await expect(registry.claimReward(pollID, "32", { from: voterBob })).to.be.fulfilled(
+      await expect(registry.claimReward(pollID, { from: voterBob })).to.be.fulfilled(
         "should have allowed minority voter to claim reward",
       );
 

@@ -337,15 +337,14 @@ contract CivilTCR is RestrictedAddressRegistry {
   @dev Called by a voter to claim their reward for each completed vote. Someone must call 
   updateStatus() before this can be called.
   @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
-  @param _salt        The salt of a voter's commit hash in the given poll
   */
-  function claimReward(uint _challengeID, uint _salt) public {
+  function claimReward(uint _challengeID) public {
     // Ensures the voter has not already claimed tokens and challenge results have been processed
     require(challenges[_challengeID].tokenClaims[msg.sender] == false, "Reward already claimed");
     require(challenges[_challengeID].resolved == true, "Challenge not yet resolved");
 
-    uint voterTokens = getNumChallengeTokens(msg.sender, _challengeID, _salt);
-    uint reward = voterReward(msg.sender, _challengeID, _salt);
+    uint voterTokens = getNumChallengeTokens(msg.sender, _challengeID);
+    uint reward = voterReward(msg.sender, _challengeID);
 
     // Subtracts the voter's information to preserve the participation ratios
     // of other voters compared to the remaining pool of rewards
@@ -365,15 +364,14 @@ contract CivilTCR is RestrictedAddressRegistry {
   or the losing side if the challenge has been overturned
   @param voter The Voter to check
   @param challengeID The PLCR pollID of the challenge to check
-  @param salt The salt of a voter's commit hash in the given poll
   */
-  function getNumChallengeTokens(address voter, uint challengeID, uint salt) internal view returns (uint) {
+  function getNumChallengeTokens(address voter, uint challengeID) internal view returns (uint) {
     // a challenge is overturned if an appeal for it was granted, but the appeal itself was not overturned
     bool challengeOverturned = appeals[challengeID].appealGranted && !appeals[challengeID].overturned;
     if (challengeOverturned) {
-      return civilVoting.getNumLosingTokens(voter, challengeID, salt);
+      return civilVoting.getNumLosingTokens(voter, challengeID);
     } else {
-      return voting.getNumPassingTokens(voter, challengeID, salt);
+      return voting.getNumPassingTokens(voter, challengeID);
     }
   }
 
@@ -406,19 +404,17 @@ contract CivilTCR is RestrictedAddressRegistry {
   appeal was granted and possible overturned via appeal challenge.
   @param voter The address of the voter whose reward balance is to be returned
   @param challengeID The pollID of the challenge a reward balance is being queried for
-  @param salt The salt of the voter's commit hash in the given poll
   @return The uint indicating the voter's reward
   */
   function voterReward(
     address voter,
-    uint challengeID,
-    uint salt
+    uint challengeID
   ) public view returns (uint)
   {
     Challenge challenge = challenges[challengeID];
     uint totalTokens = challenge.totalTokens;
     uint rewardPool = challenge.rewardPool;
-    uint voterTokens = getNumChallengeTokens(voter, challengeID, salt);
+    uint voterTokens = getNumChallengeTokens(voter, challengeID);
     return (voterTokens.mul(rewardPool)).div(totalTokens);
   }
 

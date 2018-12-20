@@ -39,7 +39,7 @@ contract("Registry With Appeals", accounts => {
       const reward = utils.getChallengeReward();
       expect(unstakedDeposit).to.be.bignumber.equal(new BigNumber(minDeposit).add(reward));
       const voterBalanceBeforeClaiming = await token.balanceOf(voter);
-      await registry.claimReward(pollID, "420", { from: voter });
+      await registry.claimReward(pollID, { from: voter });
       const voterBalanceAfterClaiming = await token.balanceOf(voter);
       expect(voterBalanceAfterClaiming).to.be.bignumber.equal(
         voterBalanceBeforeClaiming.add(utils.getTotalVoterReward()),
@@ -61,7 +61,7 @@ contract("Registry With Appeals", accounts => {
         challengerBalanceBefore.add(minDeposit).add(utils.getChallengeReward()),
       );
       const voterBalanceBeforeClaiming = await token.balanceOf(voter);
-      await registry.claimReward(pollID, "420", { from: voter });
+      await registry.claimReward(pollID, { from: voter });
       const voterBalanceAfterClaiming = await token.balanceOf(voter);
       expect(voterBalanceAfterClaiming).to.be.bignumber.equal(
         voterBalanceBeforeClaiming.add(utils.getTotalVoterReward()),
@@ -81,7 +81,7 @@ contract("Registry With Appeals", accounts => {
       const reward = utils.getChallengeReward();
       expect(unstakedDeposit).to.be.bignumber.equal(new BigNumber(minDeposit).add(reward).add(halfAppeal));
       const voterBalanceBeforeClaiming = await token.balanceOf(voter);
-      await registry.claimReward(pollID, "420", { from: voter });
+      await registry.claimReward(pollID, { from: voter });
       const voterBalanceAfterClaiming = await token.balanceOf(voter);
       expect(voterBalanceAfterClaiming).to.be.bignumber.equal(
         voterBalanceBeforeClaiming.add(utils.getTotalVoterReward()).add(halfAppeal),
@@ -104,7 +104,7 @@ contract("Registry With Appeals", accounts => {
         challengerBalanceBefore.add(minDeposit).add(utils.getChallengeReward().add(halfAppeal)),
       );
       const voterBalanceBeforeClaiming = await token.balanceOf(voter);
-      await registry.claimReward(pollID, "420", { from: voter });
+      await registry.claimReward(pollID, { from: voter });
       const voterBalanceAfterClaiming = await token.balanceOf(voter);
       expect(voterBalanceAfterClaiming).to.be.bignumber.equal(
         voterBalanceBeforeClaiming.add(utils.getTotalVoterReward().add(halfAppeal)),
@@ -133,7 +133,7 @@ contract("Registry With Appeals", accounts => {
         new BigNumber(minDeposit).add(reward).add(utils.getTotalVoterReward()), // add voter reward since there are no "winning voters" now, so everything goes to challenge winner
         "listing should have received reward",
       );
-      await expect(registry.claimReward(pollID, "420", { from: voter })).to.eventually.be.rejectedWith(REVERTED);
+      await expect(registry.claimReward(pollID, { from: voter })).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("correct rewards when: challenge unsuccessful, granted appeal", async () => {
@@ -161,7 +161,7 @@ contract("Registry With Appeals", accounts => {
           .add(utils.getChallengeReward())
           .add(utils.getTotalVoterReward()),
       );
-      await expect(registry.claimReward(pollID, "420", { from: voter })).to.eventually.be.rejectedWith(REVERTED);
+      await expect(registry.claimReward(pollID, { from: voter })).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("correct rewards when: challenge success, granted appeal, appeal challenge success", async () => {
@@ -186,10 +186,10 @@ contract("Registry With Appeals", accounts => {
       const challengerBalanceAfter = await token.balanceOf(challenger);
       const challenger2BalanceAfter = await token.balanceOf(challenger2);
       const appealerBalanceAfter = await token.balanceOf(appealer);
-      await registry.claimReward(pollID, "420", { from: voter });
+      await registry.claimReward(pollID, { from: voter });
       const voterBalanceAfter = await token.balanceOf(voter);
       expect(voterBalanceAfter).to.be.bignumber.equal(voterBalanceBefore.add(utils.getTotalVoterReward()));
-      await registry.claimReward(pollID2, "123", { from: voter2 });
+      await registry.claimReward(pollID2, { from: voter2 });
       const voter2BalanceAfter = await token.balanceOf(voter2);
       expect(voter2BalanceAfter).to.be.bignumber.equal(
         voter2BalanceBefore.add(utils.getTotalAppealChallengeVoterReward()),
@@ -228,10 +228,10 @@ contract("Registry With Appeals", accounts => {
       const challengerBalanceAfter = await token.balanceOf(challenger);
       const challenger2BalanceAfter = await token.balanceOf(challenger2);
       const appealerBalanceAfter = await token.balanceOf(appealer);
-      await expect(registry.claimReward(pollID, "420", { from: voter })).to.eventually.be.rejectedWith(REVERTED);
+      await expect(registry.claimReward(pollID, { from: voter })).to.eventually.be.rejectedWith(REVERTED);
       const voterBalanceAfter = await token.balanceOf(voter);
       expect(voterBalanceAfter).to.be.bignumber.equal(voterBalanceBefore);
-      await registry.claimReward(pollID2, "123", { from: voter2 });
+      await registry.claimReward(pollID2, { from: voter2 });
       const voter2BalanceAfter = await token.balanceOf(voter2);
       expect(voter2BalanceAfter).to.be.bignumber.equal(
         voter2BalanceBefore.add(utils.getTotalAppealChallengeVoterReward()),
@@ -269,10 +269,10 @@ contract("Registry With Appeals", accounts => {
       const voterBalanceBefore = await token.balanceOf(voter);
       const voter2BalanceBefore = await token.balanceOf(voter2);
       await registry.updateStatus(newsroomAddress);
-      await registry.claimReward(pollID, "420", { from: voter });
+      await registry.claimReward(pollID, { from: voter });
 
       const voterBalanceAfter = await token.balanceOf(voter);
-      await registry.claimReward(pollID2, "123", { from: voter2 });
+      await registry.claimReward(pollID2, { from: voter2 });
       const voter2BalanceAfter = await token.balanceOf(voter2);
       const challengerBalanceAfter = await token.balanceOf(challenger);
       const challenger2BalanceAfter = await token.balanceOf(challenger2);
@@ -314,11 +314,11 @@ contract("Registry With Appeals", accounts => {
       const voterBalanceBefore = await token.balanceOf(voter);
       const voter2BalanceBefore = await token.balanceOf(voter2);
       await registry.updateStatus(newsroomAddress);
-      await expect(registry.claimReward(pollID, "420", { from: voter })).to.eventually.be.rejectedWith(REVERTED);
+      await expect(registry.claimReward(pollID, { from: voter })).to.eventually.be.rejectedWith(REVERTED);
 
       const voterBalanceAfter = await token.balanceOf(voter);
       expect(voterBalanceAfter).to.be.bignumber.equal(voterBalanceBefore);
-      await registry.claimReward(pollID2, "123", { from: voter2 });
+      await registry.claimReward(pollID2, { from: voter2 });
       const voter2BalanceAfter = await token.balanceOf(voter2);
       const challengerBalanceAfter = await token.balanceOf(challenger);
       const challenger2BalanceAfter = await token.balanceOf(challenger2);

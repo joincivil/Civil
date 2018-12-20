@@ -36,18 +36,16 @@ contract CivilPLCRVoting is PLCRVoting {
 
   /**
   @param _pollID Integer identifier associated with target poll
-  @param _salt Arbitrarily chosen integer used to generate secretHash
   @return correctVotes Number of tokens voted for losing option
   */
-  function getNumLosingTokens(address _voter, uint _pollID, uint _salt) public view returns (uint correctVotes) {
+  function getNumLosingTokens(address _voter, uint _pollID) public view returns (uint correctVotes) {
     require(pollEnded(_pollID));
     require(pollMap[_pollID].didReveal[_voter]);
 
     uint losingChoice = isPassed(_pollID) ? 0 : 1;
-    bytes32 loserHash = keccak256(losingChoice, _salt);
-    bytes32 commitHash = getCommitHash(_voter, _pollID);
+    uint voterVoteOption = pollMap[_pollID].voteOptions[_voter];
 
-    require(loserHash == commitHash);
+    require(voterVoteOption == losingChoice, "Voter revealed, but not in the minority");
 
     return getNumTokens(_voter, _pollID);
   }

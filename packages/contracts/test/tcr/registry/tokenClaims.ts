@@ -40,7 +40,7 @@ contract("Registry", accounts => {
         "The voter is purported to have claimed " + "their reward, when in fact they have not",
       );
 
-      await registry.claimReward(pollID, "420", { from: voter });
+      await registry.claimReward(pollID, { from: voter });
 
       const finalHasClaimed = await registry.tokenClaims(pollID, voter);
       expect(finalHasClaimed).to.be.true(

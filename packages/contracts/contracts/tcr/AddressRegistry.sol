@@ -249,15 +249,14 @@ contract AddressRegistry {
     @dev                Called by a voter to claim their reward for each completed vote. Someone
                         must call updateStatus() before this can be called.
     @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
-    @param _salt        The salt of a voter's commit hash in the given poll
     */
-    function claimReward(uint _challengeID, uint _salt) public {
+    function claimReward(uint _challengeID) public {
         // Ensures the voter has not already claimed tokens and challenge results have been processed
         require(challenges[_challengeID].tokenClaims[msg.sender] == false, "Reward already claimed");
         require(challenges[_challengeID].resolved == true, "Challenge not yet resolved");
 
-        uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID, _salt);
-        uint reward = voterReward(msg.sender, _challengeID, _salt);
+        uint voterTokens = voting.getNumPassingTokens(msg.sender, _challengeID);
+        uint reward = voterReward(msg.sender, _challengeID);
 
         // Subtracts the voter's information to preserve the participation ratios
         // of other voters compared to the remaining pool of rewards
@@ -276,15 +275,11 @@ contract AddressRegistry {
     @dev                 Called by a voter to claim their rewards for each completed vote. Someone
                          must call updateStatus() before this can be called.
     @param _challengeIDs The PLCR pollIDs of the challenges rewards are being claimed for
-    @param _salts        The salts of a voter's commit hashes in the given polls
     */
-    function claimRewards(uint[] _challengeIDs, uint[] _salts) public {
-        // make sure the array lengths are the same
-        require(_challengeIDs.length == _salts.length, "Mismatch in length of _challengeIDs and _salts parameters");
-
+    function claimRewards(uint[] _challengeIDs) public {
         // loop through arrays, claiming each individual vote reward
         for (uint i = 0; i < _challengeIDs.length; i++) {
-            claimReward(_challengeIDs[i], _salts[i]);
+            claimReward(_challengeIDs[i]);
         }
     }
 
@@ -296,14 +291,13 @@ contract AddressRegistry {
     @dev                Calculates the provided voter's token reward for the given poll.
     @param _voter       The address of the voter whose reward balance is to be returned
     @param _challengeID The pollID of the challenge a reward balance is being queried for
-    @param _salt        The salt of the voter's commit hash in the given poll
     @return             The uint indicating the voter's reward
     */
-    function voterReward(address _voter, uint _challengeID, uint _salt)
+    function voterReward(address _voter, uint _challengeID)
     public view returns (uint) {
         uint totalTokens = challenges[_challengeID].totalTokens;
         uint rewardPool = challenges[_challengeID].rewardPool;
-        uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID, _salt);
+        uint voterTokens = voting.getNumPassingTokens(_voter, _challengeID);
         return (voterTokens * rewardPool) / totalTokens;
     }
 
