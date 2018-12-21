@@ -51,7 +51,7 @@ contract("Registry", accounts => {
       await registry.updateStatus(listing8, { from: applicant });
 
       // Alice claims reward
-      const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
+      const aliceVoterReward = await registry.voterReward(voterAlice, pollID);
       await registry.claimReward(pollID, { from: voterAlice });
 
       // Alice withdraws her voting rights
@@ -86,7 +86,7 @@ contract("Registry", accounts => {
       await registry.updateStatus(listing8, { from: applicant });
 
       // Alice claims reward
-      const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
+      const aliceVoterReward = await registry.voterReward(voterAlice, pollID);
       await registry.claimReward(pollID, { from: voterAlice });
 
       // Alice withdraws her voting rights
@@ -129,9 +129,9 @@ contract("Registry", accounts => {
       await registry.updateStatus(listing11, { from: applicant });
 
       // Claim reward
-      await registry.claimReward(pollID, "420", { from: voterAlice });
+      await registry.claimReward(pollID, { from: voterAlice });
 
-      await expect(registry.claimReward(pollID, "420", { from: voterAlice })).to.eventually.be.rejectedWith(
+      await expect(registry.claimReward(pollID, { from: voterAlice })).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have been able to call claimReward twice",
       );

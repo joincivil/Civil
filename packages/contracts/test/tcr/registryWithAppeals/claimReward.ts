@@ -53,7 +53,7 @@ contract("Registry with Appeals", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       // Alice claims reward
-      const aliceVoterReward = await registry.voterReward(voterAlice, pollID, "420");
+      const aliceVoterReward = await registry.voterReward(voterAlice, pollID);
       await registry.claimReward(pollID, { from: voterAlice });
 
       // Alice withdraws her voting rights
@@ -73,41 +73,6 @@ contract("Registry with Appeals", accounts => {
 
       const nonPollID = "666";
       await expect(registry.claimReward(nonPollID, { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
-    });
-
-    it("should revert if provided salt is incorrect", async () => {
-      const applicantStartingBalance = await token.balanceOf(applicant);
-      const aliceStartBal = await token.balanceOf(voterAlice);
-      await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
-
-      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
-
-      // Alice is so committed
-      await utils.commitVote(voting, pollID, "0", "500", "420", voterAlice);
-      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
-
-      // Alice is so revealing
-      await voting.revealVote(pollID, "0", "420", { from: voterAlice });
-      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-
-      const applicantFinalBalance = await token.balanceOf(applicant);
-      const aliceFinalBalance = await token.balanceOf(voterAlice);
-      const expectedBalance = applicantStartingBalance.sub(minDeposit);
-
-      expect(applicantFinalBalance).to.be.bignumber.equal(
-        expectedBalance,
-        "applicants final balance should be what they started with minus the minDeposit",
-      );
-      expect(aliceFinalBalance).to.be.bignumber.equal(
-        aliceStartBal.sub(utils.toBaseTenBigNumber(500)),
-        "alices final balance should be exactly the same as her starting balance",
-      );
-
-      await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1);
-      // Update status
-      await registry.updateStatus(newsroomAddress, { from: applicant });
-
-      await expect(registry.claimReward(pollID, { from: voterAlice })).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should not transfer tokens if msg.sender has already claimed tokens for a challenge", async () => {

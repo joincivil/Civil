@@ -8,7 +8,7 @@ utils.configureProviders(PLCRVoting);
 configureChai(chai);
 const expect = chai.expect;
 
-contract("Registry", accounts => {
+contract("Registry with appeals", accounts => {
   describe("Function: voterReward", () => {
     const [JAB, applicant, challenger, voterAlice, voterBob] = accounts;
     const minDeposit = utils.toBaseTenBigNumber(utils.paramConfig.minDeposit);
@@ -45,7 +45,7 @@ contract("Registry", accounts => {
 
       await registry.updateStatus(newsroomAddress);
 
-      expect(await registry.voterReward(voterAlice, pollID, "42")).to.be.bignumber.equal(
+      expect(await registry.voterReward(voterAlice, pollID)).to.be.bignumber.equal(
         0,
         "should have returned false since voter commit hash does not match winning hash for salt",
       );
@@ -76,7 +76,7 @@ contract("Registry", accounts => {
         await registry.updateStatus(newsroomAddress);
 
         // Claim reward
-        const bobReward = await registry.voterReward(voterBob, pollID, "32");
+        const bobReward = await registry.voterReward(voterBob, pollID);
         const expectedBobReward = utils
           .toBaseTenBigNumber(utils.paramConfig.minDeposit)
           .mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(100));
@@ -106,12 +106,12 @@ contract("Registry", accounts => {
       await registry.updateStatus(newsroomAddress);
 
       // Claim reward
-      expect(registry.voterReward(voterBob, pollID, "32")).to.eventually.be.bignumber.equal(
+      expect(registry.voterReward(voterBob, pollID)).to.eventually.be.bignumber.equal(
         0,
         "minority voter should not have any reward since appeal not granted",
       );
 
-      const aliceReward = await registry.voterReward(voterAlice, pollID, "42");
+      const aliceReward = await registry.voterReward(voterAlice, pollID);
       const expectedAliceReward = utils
         .toBaseTenBigNumber(utils.paramConfig.minDeposit)
         .mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(100))
