@@ -194,10 +194,12 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
       const message = transactionErrorContent![this.state.transactionType!];
 
       return (
-        <ProgressModalContentError hideModal={() => this.closeAllModals()}>
-          <ModalHeading>{message[0]}</ModalHeading>
-          {message[1]}
-        </ProgressModalContentError>
+        <Modal width={558} textAlign="center">
+          <ProgressModalContentError hideModal={() => this.closeAllModals()}>
+            <ModalHeading>{message[0]}</ModalHeading>
+            {message[1]}
+          </ProgressModalContentError>
+        </Modal>
       );
     }
 
