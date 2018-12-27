@@ -257,9 +257,11 @@ contract PLCRVoting {
         uint winningChoice = isPassed(_pollID) ? 1 : 0;
         uint voterVoteOption = pollMap[_pollID].voteOptions[_voter];
 
-        require(voterVoteOption == winningChoice, "Voter revealed, but not in the majority");
-
-        return getNumTokens(_voter, _pollID);
+        if (voterVoteOption == winningChoice) {
+          return getNumTokens(_voter, _pollID);
+        } else {
+          return 0;
+        }
     }
 
     // ==================

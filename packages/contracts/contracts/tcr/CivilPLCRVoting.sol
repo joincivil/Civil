@@ -45,9 +45,11 @@ contract CivilPLCRVoting is PLCRVoting {
     uint losingChoice = isPassed(_pollID) ? 0 : 1;
     uint voterVoteOption = pollMap[_pollID].voteOptions[_voter];
 
-    require(voterVoteOption == losingChoice, "Voter revealed, but not in the minority");
-
-    return getNumTokens(_voter, _pollID);
+    if(voterVoteOption == losingChoice) {
+      return getNumTokens(_voter, _pollID);
+    } else {
+      return 0;
+    }
   }
 
   /**
