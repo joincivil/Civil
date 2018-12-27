@@ -232,10 +232,9 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
   /**
    * Claims reward associated with challenge
    * @param challengeID ID of challenge to claim reward of
-   * @param salt Salt for user's vote on specified challenge
    */
-  public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.claimReward.sendTransactionAsync(challengeID, salt));
+  public async claimReward(challengeID: BigNumber): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.ethApi, await this.instance.claimReward.sendTransactionAsync(challengeID));
   }
 
   /**
@@ -262,12 +261,12 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param salt Salt of vote associated with voter for specified challenge
    * @param voter Voter of which to check reward
    */
-  public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
+  public async voterReward(challengeID: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
       who = await requireAccount(this.ethApi).toPromise();
     }
-    return this.instance.voterReward.callAsync(who, challengeID, salt);
+    return this.instance.voterReward.callAsync(who, challengeID);
   }
 
   /**

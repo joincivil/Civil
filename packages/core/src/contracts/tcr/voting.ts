@@ -285,12 +285,12 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param pollID ID of poll to check
    * @param salt Salt used by voter for this poll
    */
-  public async getNumPassingTokens(pollID: BigNumber, salt: BigNumber, voter: EthAddress): Promise<BigNumber> {
-    return this.instance.getNumPassingTokens.callAsync(voter, pollID, salt);
+  public async getNumPassingTokens(pollID: BigNumber, voter: EthAddress): Promise<BigNumber> {
+    return this.instance.getNumPassingTokens.callAsync(voter, pollID);
   }
 
-  public async getNumLosingTokens(pollID: BigNumber, salt: BigNumber, voter: EthAddress): Promise<BigNumber> {
-    return this.instance.getNumLosingTokens.callAsync(voter, pollID, salt);
+  public async getNumLosingTokens(pollID: BigNumber, voter: EthAddress): Promise<BigNumber> {
+    return this.instance.getNumLosingTokens.callAsync(voter, pollID);
   }
 
   public async getNumTokens(pollID: BigNumber, voter: EthAddress): Promise<BigNumber> {

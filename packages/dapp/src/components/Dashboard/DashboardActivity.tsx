@@ -195,8 +195,7 @@ class DashboardActivity extends React.Component<
 
   private multiClaim = async (): Promise<TwoStepEthTransaction | void> => {
     const challengeIDs = this.getChallengesToProcess(this.state.challengesToClaim);
-    const salts = this.getSalts(this.state.challengesToClaim);
-    return multiClaimRewards(challengeIDs, salts);
+    return multiClaimRewards(challengeIDs);
   };
 
   private multiRescue = async (): Promise<TwoStepEthTransaction | void> => {
@@ -215,19 +214,6 @@ class DashboardActivity extends React.Component<
       .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
         if (challengeToProcess[1][0]) {
           return new BigNumber(challengeToProcess[0]);
-        }
-        return;
-      })
-      .filter(item => !!item) as BigNumber[];
-    return challengesToProcess;
-  };
-
-  private getSalts = (challengeObj: ChallengesToProcess): BigNumber[] => {
-    const challengesToCheck = Object.entries(challengeObj);
-    const challengesToProcess: BigNumber[] = challengesToCheck
-      .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
-        if (challengeToProcess[1][0]) {
-          return challengeToProcess[1][1];
         }
         return;
       })

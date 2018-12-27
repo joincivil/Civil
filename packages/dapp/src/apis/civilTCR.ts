@@ -286,21 +286,16 @@ export async function updateGovernmentParameter(
   return govt.set(paramName, newValueBN);
 }
 
-export async function multiClaimRewards(
-  challengeIDs: BigNumber[],
-  salts: BigNumber[],
-): Promise<TwoStepEthTransaction | void> {
+export async function multiClaimRewards(challengeIDs: BigNumber[]): Promise<TwoStepEthTransaction | void> {
   const ids = challengeIDs.map(ensureWeb3BigNumber);
-  const saltz = salts.map(ensureWeb3BigNumber);
   const tcr = await getTCR();
-  return tcr.multiClaimReward(ids, saltz);
+  return tcr.multiClaimReward(ids);
 }
 
-export async function claimRewards(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction | void> {
+export async function claimRewards(challengeID: BigNumber): Promise<TwoStepEthTransaction | void> {
   const tcr = await getTCR();
   const challengeIDBN = ensureWeb3BigNumber(challengeID);
-  const saltBN = ensureWeb3BigNumber(salt);
-  return tcr.claimReward(challengeIDBN, saltBN);
+  return tcr.claimReward(challengeIDBN);
 }
 
 export async function rescueTokens(challengeID: BigNumber): Promise<TwoStepEthTransaction | void> {

@@ -586,12 +586,12 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @param salt Salt of vote associated with voter for specified challenge
    * @param voter Voter of which to check reward
    */
-  public async voterReward(challengeID: BigNumber, salt: BigNumber, voter?: EthAddress): Promise<BigNumber> {
+  public async voterReward(challengeID: BigNumber, voter?: EthAddress): Promise<BigNumber> {
     let who = voter;
     if (!who) {
       who = await requireAccount(this.ethApi).toPromise();
     }
-    return this.instance.voterReward.callAsync(who, challengeID, salt);
+    return this.instance.voterReward.callAsync(who, challengeID);
   }
 
   /**
@@ -732,18 +732,16 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   /**
    * Claims reward associated with challenge
    * @param challengeID ID of challenge to claim reward of
-   * @param salt Salt for user's vote on specified challenge
    */
-  public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.claimReward.sendTransactionAsync(challengeID, salt);
+  public async claimReward(challengeID: BigNumber): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.claimReward.sendTransactionAsync(challengeID);
   }
 
   /**
    * Claims multiple rewards associated with challenges
    * @param challengeIDs IDs of challenges to claim rewards of
-   * @param salts Salts for user's votes on specified challenges
    */
-  public async multiClaimReward(challengeIDs: BigNumber[], salts: BigNumber[]): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.claimRewards.sendTransactionAsync(challengeIDs, salts);
+  public async multiClaimReward(challengeIDs: BigNumber[]): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.claimRewards.sendTransactionAsync(challengeIDs);
   }
 }

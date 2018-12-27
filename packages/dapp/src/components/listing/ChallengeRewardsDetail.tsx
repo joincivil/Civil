@@ -84,7 +84,7 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
   }
 
   private claimRewards = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return claimRewards(this.props.challengeID, this.props.userChallengeData!.salt!);
+    return claimRewards(this.props.challengeID);
   };
 
   private rescueTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
