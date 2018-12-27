@@ -45,7 +45,7 @@ contract CivilPLCRVoting is PLCRVoting {
     uint losingChoice = isPassed(_pollID) ? 0 : 1;
     uint voterVoteOption = pollMap[_pollID].voteOptions[_voter];
 
-    if(voterVoteOption == losingChoice) {
+    if (voterVoteOption == losingChoice) {
       return getNumTokens(_voter, _pollID);
     } else {
       return 0;
