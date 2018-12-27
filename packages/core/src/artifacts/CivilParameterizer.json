@@ -566,5 +566,18 @@
             "type": "event"
         }
     ],
-    "networks": {}
+    "networks": {
+        "4": {
+            "events": {},
+            "links": {},
+            "address": "0x22de10edfa5d8d3d3aec4d457f878bb6d77fadca",
+            "transactionHash": "0x14a48db92a77f372d72ba03ea8a163a242e4a34d777d8452bfab84a1e627df11"
+        },
+        "50": {
+            "events": {},
+            "links": {},
+            "address": "0x45738a3ab3ec37062fde3520d8e27557a8aacb08",
+            "transactionHash": "0x6cd4af0297f971cb79bbad502b1800f934d024ecd9fbe30cbf9a7f942cd9e611"
+        }
+    }
 }

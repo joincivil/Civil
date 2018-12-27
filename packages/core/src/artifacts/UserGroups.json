@@ -214,5 +214,54 @@
             "type": "function"
         }
     ],
-    "networks": {}
+    "networks": {
+        "4": {
+            "events": {
+                "0x1e1eb493f03d7e6045456f8961e896546c4786b21a3383556a9823355547d96e": {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "name": "rootA",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "name": "rootB",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "GroupsMerged",
+                    "type": "event"
+                }
+            },
+            "links": {},
+            "address": "0xdef33849568b9be6336e72557e010707895fc938",
+            "transactionHash": "0xad8edb640205fb535413a982e2545b77123ad88bd63820e37864fe41565e65f1"
+        },
+        "50": {
+            "events": {
+                "0x1e1eb493f03d7e6045456f8961e896546c4786b21a3383556a9823355547d96e": {
+                    "anonymous": false,
+                    "inputs": [
+                        {
+                            "indexed": true,
+                            "name": "rootA",
+                            "type": "address"
+                        },
+                        {
+                            "indexed": true,
+                            "name": "rootB",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "GroupsMerged",
+                    "type": "event"
+                }
+            },
+            "links": {},
+            "address": "0x94ae454f7fcb03c26abd991941d7e14c4938dc83",
+            "transactionHash": "0xc8aeeab40705f93d51e3d4f8596533cb1883753aa1c77bfdcc1418c4a7b2a72f"
+        }
+    }
 }

@@ -142,5 +142,18 @@
             "type": "function"
         }
     ],
-    "networks": {}
+    "networks": {
+        "4": {
+            "events": {},
+            "links": {},
+            "address": "0x4b345e6aee27af180357e1861413a22e3bae3ec7",
+            "transactionHash": "0x20f21b556a5335a41e779c13182e3ea67eb0dd5c6a5579b4af5c20ab67938cf9"
+        },
+        "50": {
+            "events": {},
+            "links": {},
+            "address": "0x6d94a31756ad8679157043751bec2712925ef85c",
+            "transactionHash": "0xa8a9ec8aa954b07776e91b5a66d05a196c8bcb86a04f4a06192933bc791254d2"
+        }
+    }
 }

@@ -35,5 +35,18 @@
             "type": "function"
         }
     ],
-    "networks": {}
+    "networks": {
+        "4": {
+            "events": {},
+            "links": {},
+            "address": "0x164adbf054c28e31ef369c289f440007e409cf7f",
+            "transactionHash": "0xa4dbccf432e49378ae8231e0b25887ff7a172b125dd594027d18cc87039f4d67"
+        },
+        "50": {
+            "events": {},
+            "links": {},
+            "address": "0x72ed87a6fcf819b205df694b42e6d49d0d3e1d39",
+            "transactionHash": "0xca004f8445ee99b026d3d4d5a3dd2f843f7e70ffdc36ac6e7063fcd3e70a94b1"
+        }
+    }
 }

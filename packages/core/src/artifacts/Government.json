@@ -554,5 +554,18 @@
             "type": "function"
         }
     ],
-    "networks": {}
+    "networks": {
+        "4": {
+            "events": {},
+            "links": {},
+            "address": "0x59a10fe044d96ec9233a8d336ce1d988012b5fe2",
+            "transactionHash": "0xe3bb9391f049609d52d09f4914bfcb33e01d5bbc7ea1c78ff873b47591075889"
+        },
+        "50": {
+            "events": {},
+            "links": {},
+            "address": "0x558b378b0a693c5d4f68589f37121c139420c8a6",
+            "transactionHash": "0x9a97c7ca300934b5ae07115c9926718cb8330b4d4d959239bbbf64d18748401a"
+        }
+    }
 }
