@@ -56,6 +56,7 @@ const ListingHeader: React.SFC<ListingHeaderProps> = props => {
   const registryLinkText = registryURLData[1];
 
   const headerProps: ListingDetailHeaderProps = {
+    listingAddress: getFormattedEthAddress(props.listing.address),
     newsroomName: props.newsroom.data.name,
     charter: props.charter,
     owner: getFormattedEthAddress(props.listing.data.owner),
