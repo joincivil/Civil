@@ -1,11 +1,17 @@
 import * as React from "react";
 
-export const GreenCheckMark = (): JSX.Element => {
+export interface GreenCheckMarkProps {
+  height?: number;
+  width?: number;
+}
+
+export const GreenCheckMark: React.SFC<GreenCheckMarkProps> = props => {
+  const width = (props.width || 26).toString();
+  const height = (props.height || 26).toString();
+
   return (
-    <svg height="26" viewBox="0 0 26 26" width="26" xmlns="http://www.w3.org/2000/svg">
-      <g>
-        <circle fill="#30e8bd" id="a" cx="12" cy="12" r="12" />
-      </g>
+    <svg width={width} height={height} viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
+      <circle fill="#30e8bd" cx="12" cy="12" r="12" />
       <g fill="none" fillRule="evenodd" transform="translate(1 1)">
         <g fill="#fff">
           <path
