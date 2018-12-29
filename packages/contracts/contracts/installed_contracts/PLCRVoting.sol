@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.19;
 import "./EIP20Interface.sol";
 import "./DLL.sol";
 import "./AttributeStore.sol";
@@ -257,11 +257,9 @@ contract PLCRVoting {
         uint winningChoice = isPassed(_pollID) ? 1 : 0;
         uint voterVoteOption = pollMap[_pollID].voteOptions[_voter];
 
-        if (voterVoteOption == winningChoice) {
-          return getNumTokens(_voter, _pollID);
-        } else {
-          return 0;
-        }
+        require(voterVoteOption == winningChoice, "Voter revealed, but not in the majority");
+
+        return getNumTokens(_voter, _pollID);
     }
 
     // ==================
@@ -487,5 +485,9 @@ contract PLCRVoting {
     */
     function attrUUID(address _user, uint _pollID) public pure returns (bytes32 UUID) {
         return keccak256(abi.encodePacked(_user, _pollID));
+    }
+
+    function dumbFunction() public view returns (uint) {
+      revert("u stink");
     }
 }

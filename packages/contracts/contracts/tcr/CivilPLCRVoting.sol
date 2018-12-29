@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.19;
 
 import "../installed_contracts/PLCRVoting.sol";
 import "../proof-of-use/telemetry/TokenTelemetryI.sol";
@@ -48,7 +48,7 @@ contract CivilPLCRVoting is PLCRVoting {
     if (voterVoteOption == losingChoice) {
       return getNumTokens(_voter, _pollID);
     } else {
-      return 0;
+      revert("Msg sender not part of minority 888");
     }
   }
 

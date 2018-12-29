@@ -1,6 +1,7 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
+import { REVERTED } from "../../utils/constants";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 utils.configureProviders(PLCRVoting);
@@ -26,7 +27,44 @@ contract("Registry with appeals", accounts => {
       newsroomAddress = testNewsroom.address;
     });
 
-    it("cannot call for majority voter if challenge is overturned", async () => {
+    it("cannot call for majority voter if challenge is overturned 1", async () => {
+      await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
+
+      // Challenge
+      const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
+
+      await utils.commitVote(voting, pollID, "0", "50", "42", voterAlice);
+      await utils.commitVote(voting, pollID, "1", "5", "42", voterBob);
+      await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
+
+      await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
+      await voting.revealVote(pollID, "1", "42  ", { from: voterBob });
+      await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+
+      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
+      await utils.advanceEvmTime(waitTime);
+
+      await registry.updateStatus(newsroomAddress);
+
+      const numPassingTokens = await voting.getNumPassingTokens(voterAlice, pollID);
+      const numLosingTokens = await voting.getNumLosingTokens(voterAlice, pollID);
+
+      console.log("numPassingTokens: ", numPassingTokens);
+      console.log("numLosingTokens: ", numLosingTokens);
+
+      // await expect(registry.voterReward(voterAlice, pollID)).to.eventually.be.rejectedWith(
+      //   REVERTED,
+      //   "should have reverted",
+      // );
+      expect(await registry.voterReward(voterAlice, pollID)).to.be.bignumber.equal(
+        0,
+        "should have returned false since voter commit hash does not match winning hash for salt",
+      );
+    });
+
+    it("cannot call for majority voter if challenge is overturned 2", async () => {
       await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
 
       // Challenge
@@ -45,6 +83,16 @@ contract("Registry with appeals", accounts => {
 
       await registry.updateStatus(newsroomAddress);
 
+      const numPassingTokens = await voting.getNumPassingTokens(voterAlice, pollID);
+      const numLosingTokens = await voting.getNumLosingTokens(voterAlice, pollID);
+
+      console.log("numPassingTokens: ", numPassingTokens);
+      console.log("numLosingTokens: ", numLosingTokens);
+
+      // await expect(registry.voterReward(voterAlice, pollID)).to.eventually.be.rejectedWith(
+      //   REVERTED,
+      //   "should have reverted",
+      // );
       expect(await registry.voterReward(voterAlice, pollID)).to.be.bignumber.equal(
         0,
         "should have returned false since voter commit hash does not match winning hash for salt",
