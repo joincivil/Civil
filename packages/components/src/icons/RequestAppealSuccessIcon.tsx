@@ -1,34 +1,28 @@
 import * as React from "react";
+import { colors } from "../styleConstants";
 
-export interface RequestAppealSuccessIconProps {
-  height?: number;
-  width?: number;
-}
-
-export const RequestAppealSuccessIcon: React.SFC<RequestAppealSuccessIconProps> = props => {
-  const width = (props.width || 100).toString();
-  const height = (props.height || 100).toString();
+export const RequestAppealSuccessIcon: React.SFC = props => {
+  const width = "100";
+  const height = "100";
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-670.000000, -234.000000)">
           <g transform="translate(670.000000, 234.000000)">
-            <circle fill="#30E8BD" fill-rule="nonzero" cx="50" cy="50" r="50" />
+            <circle fill={colors.accent.CIVIL_TEAL} fillRule="nonzero" cx="50" cy="50" r="50" />
             <g transform="translate(74.000000, 71.000000)">
               <g>
                 <g>
                   <path
                     d="M12,0 C5.4,0 0,5.4 0,12 C0,18.6 5.4,24 12,24 C18.6,24 24,18.6 24,12 C24,5.4 18.6,0 12,0 L12,0 Z"
-                    id="Path"
-                    stroke="#FFFFFF"
+                    stroke={colors.basic.WHITE}
                     stroke-width="3"
-                    fill="#FFFFFF"
+                    fill={colors.basic.WHITE}
                   />
                   <path
                     d="M12,0 C5.4,0 0,5.4 0,12 C0,18.6 5.4,24 12,24 C18.6,24 24,18.6 24,12 C24,5.4 18.6,0 12,0 L12,0 Z M9.6,18 L3.6,12 L5.28,10.32 L9.6,14.64 L18.72,5.52 L20.4,7.2 L9.6,18 L9.6,18 Z"
-                    id="Shape"
-                    fill="#2B56FF"
+                    fill={colors.accent.CIVIL_BLUE}
                   />
                 </g>
               </g>
