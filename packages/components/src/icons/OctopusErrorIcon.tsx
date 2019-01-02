@@ -1,13 +1,8 @@
 import * as React from "react";
 
-export interface OctopusErrorIconProps {
-  height?: number;
-  width?: number;
-}
-
-export const OctopusErrorIcon: React.SFC<OctopusErrorIconProps> = props => {
-  const width = (props.width || 74).toString();
-  const height = (props.height || 73).toString();
+export const OctopusErrorIcon: React.SFC = props => {
+  const width = "74";
+  const height = "73";
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>

@@ -1,14 +1,9 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export interface CommitVoteSuccessIconProps {
-  height?: number;
-  width?: number;
-}
-
-export const CommitVoteSuccessIcon: React.SFC<CommitVoteSuccessIconProps> = props => {
-  const width = (props.width || 100).toString();
-  const height = (props.height || 100).toString();
+export const CommitVoteSuccessIcon: React.SFC = props => {
+  const width = "100";
+  const height = "100";
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
