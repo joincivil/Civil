@@ -14,15 +14,15 @@ export const SubmitChallengeSuccessIcon: React.SFC<SubmitChallengeSuccessIconPro
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
       <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%">
-          <stop stop-color={colors.primary.BLACK} stop-opacity="0" offset="0%" />
-          <stop stop-color={colors.primary.BLACK} stop-opacity="0" offset="95%" />
-          <stop stop-color={colors.primary.BLACK} stop-opacity="0.04" offset="100%" />
+          <stop stopColor={colors.primary.BLACK} stopOpacity="0" offset="0%" />
+          <stop stopColor={colors.primary.BLACK} stopOpacity="0" offset="95%" />
+          <stop stopColor={colors.primary.BLACK} stopOpacity="0.04" offset="100%" />
         </linearGradient>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%">
-          <stop stop-color={colors.basic.WHITE} stop-opacity="0.8" offset="0%" />
-          <stop stop-color={colors.basic.WHITE} stop-opacity="0.4" offset="4.9360058%" />
-          <stop stop-color={colors.basic.WHITE} stop-opacity="0" offset="20%" />
-          <stop stop-color={colors.basic.WHITE} stop-opacity="0" offset="100%" />
+          <stop stopColor={colors.basic.WHITE} stopOpacity="0.8" offset="0%" />
+          <stop stopColor={colors.basic.WHITE} stopOpacity="0.4" offset="4.9360058%" />
+          <stop stopColor={colors.basic.WHITE} stopOpacity="0" offset="20%" />
+          <stop stopColor={colors.basic.WHITE} stopOpacity="0" offset="100%" />
         </linearGradient>
         <rect x="0" y="0" width="558" height="657" />
         <filter x="-12.9%" y="-7.3%" width="125.8%" height="121.9%" filterUnits="objectBoundingBox">
@@ -50,14 +50,14 @@ export const SubmitChallengeSuccessIcon: React.SFC<SubmitChallengeSuccessIconPro
           </feMerge>
         </filter>
       </defs>
-      <g stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-229.000000, -60.000000)">
           <g>
             <g>
-              <use fill="black" fill-opacity="1" filter="url(#filter-4)" href="#path-3" />
+              <use fill="black" fillOpacity="1" filter="url(#filter-4)" href="#path-3" />
               <rect
                 stroke="url(#linearGradient-1)"
-                stroke-width="0.5"
+                strokeWidth="0.5"
                 stroke-linejoin="square"
                 fill={colors.basic.WHITE}
                 fillRule="evenodd"
@@ -68,7 +68,7 @@ export const SubmitChallengeSuccessIcon: React.SFC<SubmitChallengeSuccessIconPro
               />
               <rect
                 stroke="url(#linearGradient-2)"
-                stroke-width="0.5"
+                strokeWidth="0.5"
                 stroke-linejoin="square"
                 x="0.25"
                 y="0.25"
@@ -101,7 +101,7 @@ export const SubmitChallengeSuccessIcon: React.SFC<SubmitChallengeSuccessIconPro
                     <path
                       d="M12,0 C5.4,0 0,5.4 0,12 C0,18.6 5.4,24 12,24 C18.6,24 24,18.6 24,12 C24,5.4 18.6,0 12,0 L12,0 Z"
                       stroke={colors.basic.WHITE}
-                      stroke-width="3"
+                      strokeWidth="3"
                       fill={colors.basic.WHITE}
                     />
                     <path
