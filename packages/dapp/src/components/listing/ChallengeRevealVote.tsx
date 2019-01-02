@@ -2,7 +2,13 @@ import * as React from "react";
 import { compose } from "redux";
 import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { ChallengeRevealVoteCard, ModalContent, ModalUnorderedList, ModalListItem } from "@joincivil/components";
+import {
+  ChallengeRevealVoteCard,
+  ModalContent,
+  ModalUnorderedList,
+  ModalListItem,
+  RevealVoteSuccessIcon,
+} from "@joincivil/components";
 import { getLocalDateTimeStrings, getFormattedTokenBalance } from "@joincivil/utils";
 import { revealVote } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
@@ -101,6 +107,7 @@ class ChallengeRevealVote extends React.Component<
           voteOption={this.state.voteOption}
           salt={this.state.salt}
           onInputChange={this.updateCommitVoteState}
+          onMobileTransactionClick={this.props.onMobileTransactionClick}
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
           transactions={transactions}
@@ -113,7 +120,10 @@ class ChallengeRevealVote extends React.Component<
     const endTime = getLocalDateTimeStrings(this.props.challenge.poll.revealEndDate.toNumber());
     return {
       [TransactionTypes.REVEAL_VOTE]: [
-        "Thanks for confirming your vote.",
+        <>
+          <RevealVoteSuccessIcon />
+          <div>Thanks for confirming your vote.</div>
+        </>,
         <>
           <ModalContent>
             We are still waiting for all voters to confirm their votes. Please check back after{" "}

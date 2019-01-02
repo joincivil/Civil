@@ -18,6 +18,18 @@ export const ModalContent = styled.p`
   line-height: 24px;
 `;
 
+export const ModalContentInsetContainer = styled.div`
+  background: ${colors.accent.CIVIL_GRAY_4};
+  margin: 24px -35px 32px;
+  padding: 20px 40px;
+  text-align: left;
+
+  & ${ModalContent} {
+    font-size: 16px;
+    line-height: 26px;
+  }
+`;
+
 export const ModalStepLabel = styled.div`
   color: ${colors.primary.CIVIL_GRAY_2};
   font-size: 14px;
@@ -53,6 +65,18 @@ export enum ModalListItemTypes {
   FADED = "faded",
   STRONG = "strong",
 }
+
+export const StyledModalErrorContainer = styled.div`
+  align-items: center;
+  display: flex;
+  background: ${colors.accent.CIVIL_RED_VERY_FADED};
+  border-radius: 50%;
+  justify-content: center;
+  height: 100px;
+  margin: 0 auto;
+  text-align: center;
+  width: 100px;
+`;
 
 const ModalListItemStyles: ModalListItemColorsProps = {
   [ModalListItemTypes.FADED]: [colors.accent.CIVIL_GRAY_3, "italic", "normal"],

@@ -270,6 +270,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={!!this.props.address}
+        key="createNewsroom"
       >
         <NameAndAddress
           userIsOwner={this.props.userIsOwner}
@@ -296,6 +297,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
+        key="nameAndAddress"
       >
         <CompleteYourProfile
           userIsOwner={this.props.userIsOwner}
@@ -321,6 +323,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.state.charterPartOneComplete}
+        key="createCharterPartOne"
       >
         <CreateCharterPartOne
           address={this.props.address}
@@ -344,6 +347,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.state.charterPartTwoComplete}
+        key="createCharterPartTwo"
       >
         <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
       </Step>,
@@ -366,6 +370,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               </>
             );
           }}
+          key="signConstitution"
         >
           <SignConstitution
             newsroomAdress={this.props.address}
@@ -380,6 +385,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <Step
         title={"Apply to the Registry"}
         disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
+        key="applyToRegistry"
       >
         {this.props.allSteps ? (
           <ApplyToTCR address={this.props.address} />

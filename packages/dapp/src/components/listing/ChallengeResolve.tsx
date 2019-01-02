@@ -55,6 +55,7 @@ const transactionStatusModalConfig = {
 
 export interface ChallengeResolveProps extends ChallengeContainerProps {
   listingAddress: EthAddress;
+  onMobileTransactionClick(): any;
 }
 
 const ChallengeResolveCard = compose(connectChallengePhase, connectChallengeResults)(
@@ -75,6 +76,7 @@ class ChallengeResolve extends React.Component<ChallengeResolveProps & InjectedT
         listingAddress={this.props.listingAddress}
         challengeID={this.props.challengeID}
         transactions={transactions}
+        onMobileTransactionClick={this.props.onMobileTransactionClick}
       />
     );
   }

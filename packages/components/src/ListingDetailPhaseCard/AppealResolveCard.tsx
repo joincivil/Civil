@@ -50,7 +50,13 @@ export const AppealResolveCard: React.StatelessComponent<
           This challenge is complete. To update this Newsroom's status on the Civil Registry, please{" "}
           <a href="#">resolve this appeal</a>.
         </CTACopy>
-        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Appeal</TransactionButtonNoModal>
+        <TransactionButtonNoModal
+          transactions={props.transactions!}
+          disabledOnMobile={true}
+          onMobileClick={props.onMobileTransactionClick}
+        >
+          Resolve Appeal
+        </TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />
