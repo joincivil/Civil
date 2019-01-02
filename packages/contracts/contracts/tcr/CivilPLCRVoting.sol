@@ -45,11 +45,9 @@ contract CivilPLCRVoting is PLCRVoting {
     uint losingChoice = isPassed(_pollID) ? 0 : 1;
     uint voterVoteOption = pollMap[_pollID].voteOptions[_voter];
 
-    if (voterVoteOption == losingChoice) {
-      return getNumTokens(_voter, _pollID);
-    } else {
-      revert("Msg sender not part of minority 888");
-    }
+    require (voterVoteOption == losingChoice, "Voter revealed, but not in minority");
+
+    return getNumTokens(_voter, _pollID);
   }
 
   /**

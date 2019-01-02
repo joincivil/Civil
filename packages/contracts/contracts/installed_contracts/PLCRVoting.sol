@@ -486,8 +486,4 @@ contract PLCRVoting {
     function attrUUID(address _user, uint _pollID) public pure returns (bytes32 UUID) {
         return keccak256(abi.encodePacked(_user, _pollID));
     }
-
-    function dumbFunction() public view returns (uint) {
-      revert("u stink");
-    }
 }
