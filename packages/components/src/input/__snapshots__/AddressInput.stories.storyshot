@@ -4,12 +4,12 @@ exports[`Storyshots AddressInput invalid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "civil-input-error sc-gJWqzi eRMkPi",
+      "class": "civil-input-error sc-fjmCvl ikvlEF",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-jzgbtB bVIbzX",
+          "class": "sc-hGoxap ocSkP",
         },
         "children": Array [
           Object {
@@ -24,7 +24,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-gJWqzi eRMkPi",
+            "class": "sc-fjmCvl ikvlEF",
             "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",
@@ -36,7 +36,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-fhYwyz erQLMi",
+              "class": "sc-laTMn eCFQcW",
             },
             "children": Array [
               Object {
@@ -92,7 +92,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-gJWqzi eRMkPi",
+          "class": "sc-fjmCvl ikvlEF",
           "label": "Wallet Address",
           "name": "EditorWalletInput",
           "placeholder": "Enter Wallet Address",
@@ -104,7 +104,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-fhYwyz erQLMi",
+            "class": "sc-laTMn eCFQcW",
           },
           "children": Array [
             Object {
@@ -131,7 +131,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-jzgbtB bVIbzX",
+            "class": "sc-hGoxap ocSkP",
           },
           "children": Array [
             Object {
@@ -175,7 +175,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-fhYwyz erQLMi",
+          "class": "sc-laTMn eCFQcW",
         },
         "children": Array [
           Object {
@@ -192,7 +192,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-gJWqzi eRMkPi",
+            "class": "sc-fjmCvl ikvlEF",
             "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",
@@ -206,7 +206,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-jzgbtB bVIbzX",
+              "class": "sc-hGoxap ocSkP",
             },
             "children": Array [
               Object {
@@ -299,12 +299,12 @@ exports[`Storyshots AddressInput valid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": " sc-gJWqzi eRMkPi",
+      "class": " sc-fjmCvl ikvlEF",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-gJWqzi eRMkPi",
+          "class": "sc-fjmCvl ikvlEF",
           "label": "Wallet Address",
           "name": "EditorWalletInput",
           "placeholder": "Enter Wallet Address",
@@ -316,7 +316,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-fhYwyz erQLMi",
+            "class": "sc-laTMn eCFQcW",
           },
           "children": Array [
             Object {
@@ -362,7 +362,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-fhYwyz erQLMi",
+          "class": "sc-laTMn eCFQcW",
         },
         "children": Array [
           Object {
@@ -379,7 +379,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-gJWqzi eRMkPi",
+            "class": "sc-fjmCvl ikvlEF",
             "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",

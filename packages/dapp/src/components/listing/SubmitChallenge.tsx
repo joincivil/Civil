@@ -10,6 +10,7 @@ import {
   SnackBar,
   SubmitChallengeStatement as SubmitChallengeStatementComponent,
   SubmitChallengeStatementProps,
+  SubmitChallengeSuccessIcon,
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
@@ -200,7 +201,10 @@ class SubmitChallengeComponent extends React.Component<
     return {
       [TransactionTypes.APPROVE_FOR_CHALLENGE]: [undefined, undefined],
       [TransactionTypes.CHALLENGE_LISTING]: [
-        "This Newsroom is now under challenge",
+        <>
+          <SubmitChallengeSuccessIcon />
+          <div>This Newsroom is now under challenge</div>
+        </>,
         <>
           <ModalContent>
             This challenge is now accepting votes. The CVL token-holding community will have the next{" "}

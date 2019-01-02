@@ -15,6 +15,8 @@ import {
   StyledCardClose,
   StyledCardFront,
   StyledCardBack,
+  StyledVisibleOnDesktop,
+  StyledVisibleOnMobile,
   FormHeader,
   FormCopy,
   FullWidthButton,
@@ -56,7 +58,7 @@ export class ChallengeCommitVoteCard extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <StyledCardStage width="485">
+      <StyledCardStage>
         <StyledCard flipped={this.state.flipped}>
           <StyledCardFront>
             <StyledListingDetailPhaseCardContainer>
@@ -90,9 +92,16 @@ export class ChallengeCommitVoteCard extends React.Component<
               <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
                 {this.renderCommitVoteCallout()}
 
-                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-                  {this.renderCommitVoteButtonText()}
-                </FullWidthButton>
+                <StyledVisibleOnDesktop>
+                  <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+                    {this.renderCommitVoteButtonText()}
+                  </FullWidthButton>
+                </StyledVisibleOnDesktop>
+                <StyledVisibleOnMobile>
+                  <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
+                    {this.renderCommitVoteButtonText()}
+                  </FullWidthButton>
+                </StyledVisibleOnMobile>
               </StyledListingDetailPhaseCardSection>
 
               <NeedHelp />

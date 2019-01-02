@@ -85,7 +85,13 @@ export const AppealChallengeResolveCard: React.SFC<
           This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
           appeal.
         </CTACopy>
-        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Appeal Challenge</TransactionButtonNoModal>
+        <TransactionButtonNoModal
+          transactions={props.transactions!}
+          disabledOnMobile={true}
+          onMobileClick={props.onMobileTransactionClick}
+        >
+          Resolve Appeal Challenge
+        </TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />
