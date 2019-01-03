@@ -80,6 +80,7 @@
     "@types/classnames": "^2.2.3",
     "apollo-storybook-react": "^0.1.8",
     "classnames": "^2.2.5",
+    "graphql-tag": "^2.10.0",
     "graphql-tools": "^4.0.3",
     "lodash": "^4.17.10",
     "react-add-to-calendar": "^0.1.5",

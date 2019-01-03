@@ -3,17 +3,26 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors } from "./styleConstants";
 import gql from "graphql-tag";
 
-import { Mutation } from "react-apollo";
+import { Mutation, MutationFn } from "react-apollo";
 
-const signup = gql`
-  mutation($email: String) {
-    authSignupEmailSend(email: $email)
+const signupMutation = gql`
+  mutation($email: String, $application: String) {
+    authSignupEmailSendForApplication(email: $email, application: $application)
   }
 `;
 
-export interface LoginComponentProps {}
+export enum AuthApplicationEnum {
+  DEFAULT = "DEFAULT",
+  NEWSROOM = "NEWSROOM",
+  STOREFRONT = "STOREFRONT",
+}
+
+export interface LoginComponentProps {
+  applicationType?: AuthApplicationEnum;
+}
+
 export interface LoginComponentState {
-  email?: string;
+  email: string;
 }
 
 export class LoginComponent extends React.Component<LoginComponentProps, LoginComponentState> {
@@ -26,7 +35,7 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
 
   public render(): JSX.Element {
     return (
-      <Mutation mutation={signup}>
+      <Mutation mutation={signupMutation}>
         {(signup, { loading, error, data }) => {
           return (
             <>
@@ -52,7 +61,7 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
     );
   }
 
-  private submit(event: any, mutation: Function) {
+  private submit(event: any, mutation: MutationFn): void {
     event.preventDefault();
     mutation({ variables: { email: this.state.email } });
   }

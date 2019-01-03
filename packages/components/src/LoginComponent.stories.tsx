@@ -12,8 +12,9 @@ const typeDefs = `
   }
 
   type Mutation {
-    authSignupEmailSend(
+    authSignupEmailSendForApplication(
       email: String
+      application: String
     ): String
   }
 
@@ -33,7 +34,7 @@ const mocks = {
   },
   Mutation: () => {
     return {
-      authSignupEmailSend: (email: string) => {
+      authSignupEmailSendForApplication: (email: string, application: string) => {
         return "success";
       },
     };
