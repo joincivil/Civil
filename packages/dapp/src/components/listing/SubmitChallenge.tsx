@@ -78,7 +78,7 @@ const transactionRejectionContent = {
 
 const transactionErrorContent = {
   [TransactionTypes.APPROVE_FOR_CHALLENGE]: [
-    "The was an problem with submitting your challenge",
+    "There was an problem with submitting your challenge",
     <>
       <ModalContent>Please check the following and retry your transaction</ModalContent>
       <ModalUnorderedList>
