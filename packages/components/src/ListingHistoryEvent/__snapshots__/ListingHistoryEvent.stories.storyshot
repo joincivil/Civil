@@ -4,7 +4,11 @@ exports[`Storyshots Listing History Event Default 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD
       "class": "sc-iBEsjs cRqFBE",
+=======
+      "class": "sc-chbbiW ijlSDS",
+>>>>>>> origin/master
     },
     "children": Array [],
     "name": "div",
@@ -49,7 +53,11 @@ exports[`Storyshots Listing History Event History Events Timelime 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD
       "class": "sc-iBEsjs cRqFBE",
+=======
+      "class": "sc-chbbiW ijlSDS",
+>>>>>>> origin/master
     },
     "children": Array [],
     "name": "div",

@@ -17,6 +17,8 @@ import {
   StyledCardClose,
   StyledCardFront,
   StyledCardBack,
+  StyledVisibleOnDesktop,
+  StyledVisibleOnMobile,
   FormHeader,
   FormCopy,
   FullWidthButton,
@@ -104,9 +106,16 @@ export class AppealChallengeCommitVoteCard extends React.Component<
 
               <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
                 {this.renderCommitVoteCallout()}
-                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-                  Submit My Vote
-                </FullWidthButton>
+                <StyledVisibleOnDesktop>
+                  <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+                    {this.renderCommitVoteButtonText()}
+                  </FullWidthButton>
+                </StyledVisibleOnDesktop>
+                <StyledVisibleOnMobile>
+                  <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
+                    {this.renderCommitVoteButtonText()}
+                  </FullWidthButton>
+                </StyledVisibleOnMobile>
               </StyledListingDetailPhaseCardSection>
 
               <NeedHelp />
@@ -170,5 +179,12 @@ export class AppealChallengeCommitVoteCard extends React.Component<
         </FormCopy>
       </>
     );
+  };
+
+  private renderCommitVoteButtonText = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return <>Change My Vote</>;
+    }
+    return <>Ready To Commit My Vote</>;
   };
 }

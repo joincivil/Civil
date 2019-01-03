@@ -93,6 +93,7 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
           percentAgainst={percentAgainst.toString()}
           transactions={transactions}
           txIdToConfirm={this.props.txIdToConfirm}
+          onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>
     );

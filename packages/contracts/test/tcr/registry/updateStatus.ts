@@ -18,6 +18,8 @@ contract("Registry", accounts => {
     const listing24 = "0x0000000000000000000000000000000000000024";
     const listing25 = "0x0000000000000000000000000000000000000025";
     const listing26 = "0x0000000000000000000000000000000000000026";
+    const listing27 = "0x0000000000000000000000000000000000000027";
+    const listing28 = "0x0000000000000000000000000000000000000028";
     let registry: any;
     let voting: any;
 
@@ -33,6 +35,16 @@ contract("Registry", accounts => {
 
       const [, isWhitelisted] = await registry.listings(listing21);
       expect(isWhitelisted).to.be.true("Listing should have been whitelisted");
+    });
+
+    it("should whitelist 2 listings via updateStatuses if apply stage ended without a challenge for both", async () => {
+      await registry.apply(listing27, minDeposit, "", { from: applicant });
+      await registry.apply(listing28, minDeposit, "", { from: applicant });
+      await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
+
+      await expect(registry.updateStatuses([listing27, listing28], { from: applicant })).to.eventually.be.fulfilled(
+        "should have updated statuses for multiple applications",
+      );
     });
 
     it("should not whitelist a listing that is still pending an application", async () => {

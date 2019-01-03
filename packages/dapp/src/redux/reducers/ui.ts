@@ -15,6 +15,8 @@ export function useGraphQL(state: boolean = true, action: AnyAction): boolean {
   switch (action.type) {
     case uiActions.TOGGLE_USE_GRAPH_QL:
       return !state;
+    case uiActions.DISABLE_GRAPHL_QL:
+      return false;
     default:
       return state;
   }

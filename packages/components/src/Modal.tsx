@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import styled from "styled-components";
+import { mediaQueries } from "./styleConstants";
 
 interface ToggleDisplayEl {
   visible: boolean;
@@ -35,6 +36,10 @@ const ModalInner = styled.div`
   max-width: ${(props: ModalInnerProps) => props.width || 400}px;
   padding: ${(props: ModalInnerProps) => props.padding || "35px 35px 50px 35px"};
   background: #fff;
+
+  ${mediaQueries.MOBILE} {
+    max-width: 100%;
+  }
 `;
 
 export interface ModalPropsAndState {

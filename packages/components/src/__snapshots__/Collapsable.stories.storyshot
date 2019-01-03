@@ -1354,7 +1354,11 @@ initialize {
                 "data": "Hello ",
                 "next": Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-dwztqd QtCiH",
+=======
+                    "class": "sc-bOCYYb VOzcM",
+>>>>>>> origin/master
                   },
                   "children": Array [],
                   "name": "div",
@@ -1376,7 +1380,11 @@ initialize {
               },
               Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-dwztqd QtCiH",
+=======
+                  "class": "sc-bOCYYb VOzcM",
+>>>>>>> origin/master
                 },
                 "children": Array [],
                 "name": "div",
@@ -1489,7 +1497,11 @@ initialize {
                   "data": "Hello ",
                   "next": Object {
                     "attribs": Object {
+<<<<<<< HEAD
                       "class": "sc-dwztqd QtCiH",
+=======
+                      "class": "sc-bOCYYb VOzcM",
+>>>>>>> origin/master
                     },
                     "children": Array [],
                     "name": "div",
@@ -1511,7 +1523,11 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-dwztqd QtCiH",
+=======
+                    "class": "sc-bOCYYb VOzcM",
+>>>>>>> origin/master
                   },
                   "children": Array [],
                   "name": "div",

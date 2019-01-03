@@ -4,12 +4,20 @@ exports[`Storyshots AddressInput invalid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD
       "class": "civil-input-error sc-kjoXOD cDntCe",
+=======
+      "class": "civil-input-error sc-CtfFt egCvfc",
+>>>>>>> origin/master
     },
     "children": Array [
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-gisBJw bpZUtB",
+=======
+          "class": "sc-bMvGRv kOyWuO",
+>>>>>>> origin/master
         },
         "children": Array [
           Object {
@@ -24,7 +32,11 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-kjoXOD cDntCe",
+=======
+            "class": "sc-CtfFt egCvfc",
+>>>>>>> origin/master
             "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",
@@ -36,7 +48,11 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-caSCKo fPqEIq",
+=======
+              "class": "sc-rBLzX bFypNv",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
@@ -92,7 +108,11 @@ initialize {
       },
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-kjoXOD cDntCe",
+=======
+          "class": "sc-CtfFt egCvfc",
+>>>>>>> origin/master
           "label": "Wallet Address",
           "name": "EditorWalletInput",
           "placeholder": "Enter Wallet Address",
@@ -104,7 +124,11 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-caSCKo fPqEIq",
+=======
+            "class": "sc-rBLzX bFypNv",
+>>>>>>> origin/master
           },
           "children": Array [
             Object {
@@ -131,7 +155,11 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-gisBJw bpZUtB",
+=======
+            "class": "sc-bMvGRv kOyWuO",
+>>>>>>> origin/master
           },
           "children": Array [
             Object {
@@ -175,7 +203,11 @@ initialize {
       },
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-caSCKo fPqEIq",
+=======
+          "class": "sc-rBLzX bFypNv",
+>>>>>>> origin/master
         },
         "children": Array [
           Object {
@@ -192,7 +224,11 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-kjoXOD cDntCe",
+=======
+            "class": "sc-CtfFt egCvfc",
+>>>>>>> origin/master
             "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",
@@ -206,7 +242,11 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-gisBJw bpZUtB",
+=======
+              "class": "sc-bMvGRv kOyWuO",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
@@ -299,12 +339,20 @@ exports[`Storyshots AddressInput valid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD
       "class": " sc-kjoXOD cDntCe",
+=======
+      "class": " sc-CtfFt egCvfc",
+>>>>>>> origin/master
     },
     "children": Array [
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-kjoXOD cDntCe",
+=======
+          "class": "sc-CtfFt egCvfc",
+>>>>>>> origin/master
           "label": "Wallet Address",
           "name": "EditorWalletInput",
           "placeholder": "Enter Wallet Address",
@@ -316,7 +364,11 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-caSCKo fPqEIq",
+=======
+            "class": "sc-rBLzX bFypNv",
+>>>>>>> origin/master
           },
           "children": Array [
             Object {
@@ -362,7 +414,11 @@ initialize {
       },
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-caSCKo fPqEIq",
+=======
+          "class": "sc-rBLzX bFypNv",
+>>>>>>> origin/master
         },
         "children": Array [
           Object {
@@ -379,7 +435,11 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-kjoXOD cDntCe",
+=======
+            "class": "sc-CtfFt egCvfc",
+>>>>>>> origin/master
             "label": "Wallet Address",
             "name": "EditorWalletInput",
             "placeholder": "Enter Wallet Address",

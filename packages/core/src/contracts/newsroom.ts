@@ -520,7 +520,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async recoverArchiveTx(tx: Transaction): Promise<string> {
     const inflate = promisify<string>(zlib.inflate);
     const txDataLength = parseInt(addHexPrefix(tx.input.substr(tx.input.length - 16)), 16);
-    const content = addHexPrefix(tx.input.substr(txDataLength, tx.input.length - 16));
+    const content = addHexPrefix(tx.input.substring(txDataLength, tx.input.length - 16));
     return (await inflate(toBuffer(content))).toString();
   }
 
@@ -673,14 +673,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   }
 
   public async addArchiveToMultisig(data: TxDataAll, hex: string, gas: number): Promise<TxDataAll> {
-    const address = await this.multisigProxy.getMultisigAddress();
-    const contract = await Multisig.atUntrusted(this.ethApi, address!);
-    const multiSigData = await contract.getRawTransaction(address!, this.ethApi.toBigNumber(0), data.data!);
-    const length = bufferToHex(setLengthLeft(toBuffer(multiSigData.data!.length), 8));
+    const multiSigAddress = await this.multisigProxy.getMultisigAddress();
+    const contract = await Multisig.atUntrusted(this.ethApi, multiSigAddress!);
+    const multiSigTxData = await contract.getRawTransaction(this.address, this.ethApi.toBigNumber(0), data.data!);
+    const length = bufferToHex(setLengthLeft(toBuffer(multiSigTxData.data!.length), 8));
     const extra = hex.substr(2) + length.substr(2);
-    multiSigData.gas = gas;
-    multiSigData.data = multiSigData + extra;
-    return multiSigData;
+    multiSigTxData.gas = gas;
+    multiSigTxData.data = multiSigTxData.data + extra;
+    return multiSigTxData;
   }
 
   public async publishWithArchive(

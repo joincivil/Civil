@@ -48,11 +48,15 @@ Best place to start hacking would be to use the [`@joincivil/core`][core-url] an
 If you're itching to dwelve deeper inside, [**help wanted**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
 and [**good first issue**](https://github.com/joincivil/Civil/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) labels are good places to get started and learn the architecture.
 
+## Dev Setup
+
 ### Install dependencies
 
 This project is using [yarn workspaces](https://yarnpkg.com/lang/en/docs/workspaces/). They require `yarn >= 1.0` to work properly.
 
 Set up all dependencies:
+
+from the root directory:
 
 ```bash
 yarn install
@@ -88,18 +92,38 @@ Tests in Civil's ecosystem require the use of [Ganache](https://github.com/truff
 yarn ganache
 ```
 
-some of the packages - most notably [`@joincivil/core`][core-url] depend on already deployed singletons. Our ganache is set-up to be deterministic and thus when you migrate contracts locally, singletons will have the same addresses as the artifacts.
-
-```bash
-cd packages/contracts
-yarn migrate --network=ganache
-```
-
 Finally run all the tests in the main repository:
 
 ```bash
 yarn test
 ```
+
+### Easy Setup with front-end
+
+We've added a helper command to assist you if you want to develop using the front-end and a local ganache. Just 3 simple commands.
+
+First, however, you may want to add your own address (e.g. MetaMask account) to our config file so that you are distributed tokens/ETH properly and change the Appellate and GovernmentController addresses. This is especially useful if your MetaMask account is not the same as one of you ganache accounts (all ganache accounts are given tokens by default). Config file can be found at `packages/contracts/conf/config.json`.
+
+From the root directory:
+
+```bash
+yarn ganache
+```
+
+Once that is running, in another terminal, from the root directory:
+
+```bash
+yarn preparelocally
+```
+
+After that completes:
+
+```bash
+cd packages/dapp
+yarn start
+```
+
+Now you have the dapp front-end running at `localhost:3000`. Make sure to select `localhost 8545` in metamask to interact with the dapp.
 
 ### Run commands in all packages
 

@@ -4,6 +4,7 @@ import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   ChallengeCommitVoteCard,
+  CommitVoteSuccessIcon,
   ModalContent,
   ModalUnorderedList,
   ModalListItem,
@@ -35,7 +36,10 @@ const multiStepTransactionLabels = {
 const transactionSuccessContent = {
   [TransactionTypes.APPROVE_VOTING_RIGHTS]: [undefined, undefined],
   [TransactionTypes.COMMIT_VOTE]: [
-    "Your vote was committed!",
+    <>
+      <CommitVoteSuccessIcon />
+      <div>Your vote was committed!</div>
+    </>,
     <>
       <ModalContent>
         Please keep your secret phrase safe. You will need it to confirm your vote. Votes can not be counted and rewards
@@ -131,6 +135,7 @@ class ChallengeCommitVote extends React.Component<
       onInputChange: this.updateCommitVoteState,
       onCommitMaxTokens: () => this.commitMaxTokens(),
       onReviewVote: this.handleReviewVote,
+      onMobileTransactionClick: this.props.onMobileTransactionClick,
       tokenBalance,
       votingTokenBalance,
       tokenBalanceDisplay,

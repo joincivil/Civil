@@ -37,3 +37,15 @@ export const getTCR = async () => {
   }
   return tcr;
 };
+
+export const isGraphQLSupportedOnNetwork = (network: string): boolean => {
+  if (network === "1") {
+    // mainnet
+    return false; // TODO: should be true once production tcr is deployed with graphql support
+  } else if (network === "4") {
+    // rinkeby
+    return true;
+  } else {
+    return false;
+  }
+};

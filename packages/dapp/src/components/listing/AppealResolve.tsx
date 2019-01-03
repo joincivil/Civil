@@ -77,6 +77,7 @@ class AppealResolve extends React.Component<AppealDetailProps & InjectedTransact
           percentAgainst={percentAgainst.toString()}
           appealGranted={appealGranted}
           transactions={transactions}
+          onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>
     );

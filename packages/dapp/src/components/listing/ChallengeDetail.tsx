@@ -71,6 +71,7 @@ export interface ChallengeDetailContainerProps {
   appealChallengeID?: BigNumber;
   showNotFoundMessage?: boolean;
   listingPhaseState?: any;
+  onMobileTransactionClick?(): any;
 }
 
 export interface ChallengeContainerReduxProps {
@@ -104,6 +105,7 @@ export interface ChallengeDetailProps {
   votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
+  onMobileTransactionClick?(): any;
 }
 
 export interface ChallengeVoteState {
@@ -211,6 +213,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         user={this.props.user}
         isMemberOfAppellate={this.props.isMemberOfAppellate}
         txIdToConfirm={this.props.txIdToConfirm}
+        onMobileTransactionClick={this.props.onMobileTransactionClick}
       />
     );
   }
@@ -240,6 +243,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
           rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
           stake={getFormattedTokenBalance(challenge!.stake)}
           requestAppealURI={requestAppealURI}
+          onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>
     );
@@ -313,6 +317,7 @@ class ChallengeContainer extends React.Component<
         govtParameters={this.props.govtParameters}
         isMemberOfAppellate={this.props.isMemberOfAppellate}
         txIdToConfirm={this.props.txIdToConfirm}
+        onMobileTransactionClick={this.props.onMobileTransactionClick}
       />
     );
   }

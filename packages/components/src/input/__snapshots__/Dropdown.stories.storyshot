@@ -4,7 +4,11 @@ exports[`Storyshots Dropdown Dropdown 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD
       "class": "sc-fBuWsC jpUFCm",
+=======
+      "class": "sc-bnXvFD iNnfbJ",
+>>>>>>> origin/master
     },
     "children": Array [
       Object {

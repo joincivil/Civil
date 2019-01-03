@@ -4,17 +4,29 @@ exports[`Storyshots Hero Homepage 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD
       "class": "sc-btzYZH hETCdK",
+=======
+      "class": "sc-cJSrbW cqqnwg",
+>>>>>>> origin/master
     },
     "children": Array [
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-lhVmIH jtOayX",
+=======
+          "class": "sc-ksYbfQ hwANrk",
+>>>>>>> origin/master
         },
         "children": Array [
           Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-bYSBpT iXPmng",
+=======
+              "class": "sc-hmzhuo jBiwdr",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
@@ -29,7 +41,11 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-elJkPf juxfZs",
+=======
+                "class": "sc-frDJqD dgqulC",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
@@ -44,7 +60,11 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-jtRfpW gTcMUu",
+=======
+                  "class": "sc-kvZOFW jwscEX",
+>>>>>>> origin/master
                   "href": "#",
                 },
                 "children": Array [
@@ -76,7 +96,11 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
+<<<<<<< HEAD
                       "class": "sc-kTUwUJ dVrbuH",
+=======
+                      "class": "sc-hqyNC krlPAA",
+>>>>>>> origin/master
                     },
                     "children": Array [
                       Object {
@@ -152,7 +176,11 @@ initialize {
           },
           Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-elJkPf juxfZs",
+=======
+              "class": "sc-frDJqD dgqulC",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
@@ -167,7 +195,11 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-jtRfpW gTcMUu",
+=======
+                "class": "sc-kvZOFW jwscEX",
+>>>>>>> origin/master
                 "href": "#",
               },
               "children": Array [
@@ -199,7 +231,11 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-kTUwUJ dVrbuH",
+=======
+                    "class": "sc-hqyNC krlPAA",
+>>>>>>> origin/master
                   },
                   "children": Array [
                     Object {
@@ -256,7 +292,11 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-bYSBpT iXPmng",
+=======
+                "class": "sc-hmzhuo jBiwdr",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
@@ -290,7 +330,11 @@ initialize {
           },
           Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-jtRfpW gTcMUu",
+=======
+              "class": "sc-kvZOFW jwscEX",
+>>>>>>> origin/master
               "href": "#",
             },
             "children": Array [
@@ -322,7 +366,11 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-kTUwUJ dVrbuH",
+=======
+                  "class": "sc-hqyNC krlPAA",
+>>>>>>> origin/master
                 },
                 "children": Array [
                   Object {
@@ -367,7 +415,11 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-elJkPf juxfZs",
+=======
+                "class": "sc-frDJqD dgqulC",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
@@ -384,7 +436,11 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-bYSBpT iXPmng",
+=======
+                  "class": "sc-hmzhuo jBiwdr",
+>>>>>>> origin/master
                 },
                 "children": Array [
                   Object {
@@ -444,7 +500,11 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-kTUwUJ dVrbuH",
+=======
+                "class": "sc-hqyNC krlPAA",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
@@ -477,7 +537,11 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-jtRfpW gTcMUu",
+=======
+                "class": "sc-kvZOFW jwscEX",
+>>>>>>> origin/master
                 "href": "#",
               },
               "children": Array [
@@ -495,7 +559,11 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-elJkPf juxfZs",
+=======
+                  "class": "sc-frDJqD dgqulC",
+>>>>>>> origin/master
                 },
                 "children": Array [
                   Object {
@@ -512,7 +580,11 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-bYSBpT iXPmng",
+=======
+                    "class": "sc-hmzhuo jBiwdr",
+>>>>>>> origin/master
                   },
                   "children": Array [
                     Object {
@@ -566,7 +638,11 @@ initialize {
           },
           Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-kTUwUJ dVrbuH",
+=======
+              "class": "sc-hqyNC krlPAA",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
@@ -607,7 +683,11 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-jtRfpW gTcMUu",
+=======
+                  "class": "sc-kvZOFW jwscEX",
+>>>>>>> origin/master
                   "href": "#",
                 },
                 "children": Array [
@@ -625,7 +705,11 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-elJkPf juxfZs",
+=======
+                    "class": "sc-frDJqD dgqulC",
+>>>>>>> origin/master
                   },
                   "children": Array [
                     Object {
@@ -642,7 +726,11 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+<<<<<<< HEAD
                       "class": "sc-bYSBpT iXPmng",
+=======
+                      "class": "sc-hmzhuo jBiwdr",
+>>>>>>> origin/master
                     },
                     "children": Array [
                       Object {
@@ -708,7 +796,11 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-kTUwUJ dVrbuH",
+=======
+                "class": "sc-hqyNC krlPAA",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
@@ -743,7 +835,11 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-jtRfpW gTcMUu",
+=======
+                    "class": "sc-kvZOFW jwscEX",
+>>>>>>> origin/master
                     "href": "#",
                   },
                   "children": Array [
@@ -761,7 +857,11 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+<<<<<<< HEAD
                       "class": "sc-elJkPf juxfZs",
+=======
+                      "class": "sc-frDJqD dgqulC",
+>>>>>>> origin/master
                     },
                     "children": Array [
                       Object {
@@ -778,7 +878,11 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
+<<<<<<< HEAD
                         "class": "sc-bYSBpT iXPmng",
+=======
+                        "class": "sc-hmzhuo jBiwdr",
+>>>>>>> origin/master
                       },
                       "children": Array [
                         Object {
