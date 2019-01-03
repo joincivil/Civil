@@ -58,10 +58,12 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
   public render(): JSX.Element {
     let newsroomDescription = "";
     let newsroomUrl = "";
+    let logoURL;
     if (this.props.charter) {
       // TODO(toby) remove legacy `desc` after transition
       newsroomDescription = this.props.charter.tagline || (this.props.charter as any).desc;
       newsroomUrl = this.props.charter.newsroomUrl;
+      logoURL = this.props.charter.logoUrl;
     }
 
     return (
@@ -71,9 +73,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
           {this.renderPhaseLabel()}
 
           <StyledContentRow>
-            <StyledNewsroomIcon>
-              {this.props.logoURL && <StyledNewsroomLogo src={this.props.logoURL} />}
-            </StyledNewsroomIcon>
+            <StyledNewsroomIcon>{logoURL && <StyledNewsroomLogo src={logoURL} />}</StyledNewsroomIcon>
             <div>
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
 
