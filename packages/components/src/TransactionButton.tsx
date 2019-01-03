@@ -1,4 +1,5 @@
 import * as React from "react";
+import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
@@ -8,6 +9,7 @@ import {
   ProgressModalContentSuccess,
   ProgressModalContentError,
 } from "./ProgressModalContent";
+import { mediaQueries } from "./styleConstants";
 
 export interface TransactionButtonState {
   name: string;
@@ -39,10 +41,28 @@ export interface Transaction {
 export interface TransactionButtonProps {
   transactions: Transaction[];
   disabled?: boolean;
+  disabledOnMobile?: boolean;
   Button?: React.StatelessComponent<TransactionButtonInnerProps>;
   preExecuteTransactions?(): any;
   postExecuteTransactions?(): any;
+  onMobileClick?(): any;
 }
+
+const StyledVisibleOnDesktop = styled.div`
+  display: block;
+
+  ${mediaQueries.MOBILE} {
+    display: none;
+  }
+`;
+
+const StyledVisibleOnMobile = styled.div`
+  display: none;
+
+  ${mediaQueries.MOBILE} {
+    display: block;
+  }
+`;
 
 export enum progressModalStates {
   IN_PROGRESS = "IN_PROGRESS",
@@ -135,6 +155,25 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
 
   public render(): JSX.Element {
     const ButtonComponent = this.props.Button || PrimaryTransactionButton;
+    const MobileButtonComponent = this.props.Button || Button;
+
+    // Some responsive css trickery to
+    if (this.props.disabledOnMobile) {
+      return (
+        <>
+          <StyledVisibleOnDesktop>
+            {this.state.error}
+            <ButtonComponent step={this.state.step} onClick={this.onClick} disabled={this.state.disableButton}>
+              {this.props.children}
+            </ButtonComponent>
+          </StyledVisibleOnDesktop>
+          <StyledVisibleOnMobile>
+            <MobileButtonComponent onClick={this.onMobileClick}>{this.props.children}</MobileButtonComponent>
+          </StyledVisibleOnMobile>
+        </>
+      );
+    }
+
     return (
       <>
         {this.state.error}
@@ -150,6 +189,12 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
       setImmediate(() => this.props.preExecuteTransactions!());
     }
     return this.executeTransactions(this.props.transactions.slice().reverse());
+  };
+
+  private onMobileClick = () => {
+    if (this.props.onMobileClick) {
+      this.props.onMobileClick();
+    }
   };
 
   private executeTransactions = async (transactions: Transaction[]): Promise<any> => {

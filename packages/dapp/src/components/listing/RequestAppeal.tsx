@@ -9,6 +9,7 @@ import {
   ModalListItem,
   RequestAppealStatement as RequestAppealStatementComponent,
   RequestAppealStatementProps,
+  RequestAppealSuccessIcon,
   SnackBar,
 } from "@joincivil/components";
 import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
@@ -198,7 +199,10 @@ class RequestAppealComponent extends React.Component<
     return {
       [TransactionTypes.APPROVE_FOR_APPEAL_REQUEST]: [undefined, undefined],
       [TransactionTypes.REQUEST_APPEAL]: [
-        "Your Request for Appeal was Submitted",
+        <>
+          <RequestAppealSuccessIcon />
+          <div>Your Request for Appeal was Submitted</div>
+        </>,
         <>
           <ModalContent>
             The Civil Council has {this.props.judgeAppealLen} to review the vote. They will publish at least one public

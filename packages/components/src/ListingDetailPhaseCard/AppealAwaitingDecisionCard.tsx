@@ -37,7 +37,15 @@ const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProp
   if (props.txIdToConfirm) {
     text = "Confirm Appeal";
   }
-  return <TransactionButtonNoModal transactions={props.transactions!}>{text}</TransactionButtonNoModal>;
+  return (
+    <TransactionButtonNoModal
+      transactions={props.transactions!}
+      disabledOnMobile={true}
+      onMobileClick={props.onMobileTransactionClick}
+    >
+      {text}
+    </TransactionButtonNoModal>
+  );
 };
 
 export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {

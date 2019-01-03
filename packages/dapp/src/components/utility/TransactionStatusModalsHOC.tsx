@@ -4,6 +4,7 @@ import {
   buttonSizes,
   MetaMaskModal,
   Modal,
+  ModalContentInsetContainer,
   ModalHeading,
   ModalStepLabel,
   ProgressModalContentError,
@@ -112,14 +113,9 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
       const onClick = this.handleTransactionSuccessButtonClick || this.closeAllModals;
 
       return (
-        <Modal>
-          <ModalHeading>
-            <strong>
-              Success!<br />
-              {successContent[0]}
-            </strong>
-          </ModalHeading>
-          {successContent[1]}
+        <Modal width={558} textAlign="center">
+          <ModalHeading>{successContent[0]}</ModalHeading>
+          <ModalContentInsetContainer>{successContent[1]}</ModalContentInsetContainer>
           <Button size={buttonSizes.MEDIUM} onClick={onClick}>
             Ok, got it
           </Button>
@@ -155,7 +151,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         (multiStepTransactionLabels && multiStepTransactionLabels[this.state.transactionType!]) || "1 of 1";
       const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
       return (
-        <Modal>
+        <Modal width={558} textAlign="center">
           <ProgressModalContentInProgress>
             <ModalStepLabel>{stepLabel}</ModalStepLabel>
             <ModalHeading>{transactionLabel}</ModalHeading>
@@ -198,10 +194,12 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
       const message = transactionErrorContent![this.state.transactionType!];
 
       return (
-        <ProgressModalContentError hideModal={() => this.closeAllModals()}>
-          <ModalHeading>{message[0]}</ModalHeading>
-          {message[1]}
-        </ProgressModalContentError>
+        <Modal width={558} textAlign="center">
+          <ProgressModalContentError hideModal={() => this.closeAllModals()}>
+            <ModalHeading>{message[0]}</ModalHeading>
+            {message[1]}
+          </ProgressModalContentError>
+        </Modal>
       );
     }
 

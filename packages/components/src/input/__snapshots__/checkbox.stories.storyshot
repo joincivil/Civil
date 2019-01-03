@@ -4,7 +4,7 @@ exports[`Storyshots check box checkbox 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-krDsej kDdzLH",
+      "class": "sc-jVODtj bjpQcU",
     },
     "children": Array [
       Object {
@@ -16,7 +16,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-bHwgHz hUDCxU",
+            "class": "sc-gPWkxV fvdzKo",
           },
           "children": Array [],
           "name": "span",
@@ -44,7 +44,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-bHwgHz hUDCxU",
+          "class": "sc-gPWkxV fvdzKo",
         },
         "children": Array [],
         "name": "span",
@@ -120,7 +120,7 @@ exports[`Storyshots check box slide check box 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-TFwJa hkLxiY",
+      "class": "sc-fzsDOv cCvHOk",
     },
     "children": Array [
       Object {
@@ -132,7 +132,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-fjmCvl cLFuxn",
+            "class": "sc-eMigcr hWcLJw",
           },
           "children": Array [],
           "name": "span",
@@ -160,7 +160,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-fjmCvl cLFuxn",
+          "class": "sc-eMigcr hWcLJw",
         },
         "children": Array [],
         "name": "span",

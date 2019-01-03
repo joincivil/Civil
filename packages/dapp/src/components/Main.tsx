@@ -7,7 +7,7 @@ import { connect, DispatchProp } from "react-redux";
 import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
 import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
 import { addUser } from "../redux/actionCreators/userAccount";
-import { getCivil } from "../helpers/civilInstance";
+import { getCivil, isGraphQLSupportedOnNetwork } from "../helpers/civilInstance";
 import {
   initializeGovernment,
   initializeGovernmentParamSubscription,
@@ -29,7 +29,7 @@ import Parameterizer from "./Parameterizer";
 import Government from "./council/Government";
 import SubmitChallengePage from "./listing/SubmitChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
-import { initialize } from "../redux/actionCreators/ui";
+import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -41,6 +41,9 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
     this.props.dispatch!(setNetwork(network.toString()));
+    if (!isGraphQLSupportedOnNetwork(network.toString())) {
+      this.props.dispatch!(disableGraphQL());
+    }
 
     await civil.accountStream.first().forEach(this.onAccountUpdated.bind(this, civil));
     try {

@@ -192,22 +192,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       }
     }
 
-    this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
-
     this.state = {
       currentStep,
     };
-
-    if (props.getPersistedCharter) {
-      props
-        .getPersistedCharter()
-        .then(charter => {
-          if (charter) {
-            this.updateCharter(this.defaultCharterValues(charter));
-          }
-        })
-        .catch();
-    }
   }
 
   public async componentDidMount(): Promise<void> {
@@ -226,7 +213,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (newProps.address && !this.props.address) {
       await this.hydrateNewsroom(newProps.address);
     }
-    if ((newProps.address || this.props.address) && newProps.account !== this.props.account) {
+    if (this.props.newsroom && newProps.account !== this.props.account) {
       this.setRoles(newProps.address || this.props.address!);
     }
   }
@@ -283,6 +270,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={!!this.props.address}
+        key="createNewsroom"
       >
         <NameAndAddress
           userIsOwner={this.props.userIsOwner}
@@ -309,6 +297,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
+        key="nameAndAddress"
       >
         <CompleteYourProfile
           userIsOwner={this.props.userIsOwner}
@@ -334,6 +323,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.state.charterPartOneComplete}
+        key="createCharterPartOne"
       >
         <CreateCharterPartOne
           address={this.props.address}
@@ -357,6 +347,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.state.charterPartTwoComplete}
+        key="createCharterPartTwo"
       >
         <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
       </Step>,
@@ -379,6 +370,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               </>
             );
           }}
+          key="signConstitution"
         >
           <SignConstitution
             newsroomAdress={this.props.address}
@@ -393,6 +385,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <Step
         title={"Apply to the Registry"}
         disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
+        key="applyToRegistry"
       >
         {this.props.allSteps ? (
           <ApplyToTCR address={this.props.address} />
@@ -445,6 +438,21 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   };
 
+  private async initCharter(): Promise<void> {
+    this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
+
+    if (this.props.getPersistedCharter) {
+      try {
+        const charter = await this.props.getPersistedCharter();
+        if (charter) {
+          this.updateCharter(this.defaultCharterValues(charter));
+        }
+      } catch (e) {
+        console.error("Failed to load persisted charter", e);
+      }
+    }
+  }
+
   private isDisabled = (): boolean => {
     const onRequiredNetwork =
       !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.props.currentNetwork!);
@@ -461,6 +469,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
+    await this.initCharter();
   };
 
   private setRoles = (address: EthAddress): void => {

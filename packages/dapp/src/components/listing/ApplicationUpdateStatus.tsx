@@ -8,6 +8,7 @@ import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from 
 
 export interface ApplicationUpdateStatusProps {
   listingAddress: EthAddress;
+  onMobileTransactionClick(): any;
 }
 
 enum TransactionTypes {
@@ -51,7 +52,12 @@ class ApplicationUpdateStatus extends React.Component<
   }
 
   public render(): JSX.Element {
-    return <InApplicationResolveCard transactions={this.getTransactions()} />;
+    return (
+      <InApplicationResolveCard
+        transactions={this.getTransactions()}
+        onMobileTransactionClick={this.props.onMobileTransactionClick}
+      />
+    );
   }
 
   // Transactions

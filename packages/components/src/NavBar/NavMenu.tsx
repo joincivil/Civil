@@ -23,7 +23,11 @@ import { NavLink } from "./NavLink";
 import { NavDropDown } from "./NavDropDown";
 import { NavMenuResponsiveToggleButton } from "./NavMenuResponsiveToggleButton";
 
-const NavMenuLinksComponent: React.SFC = props => {
+export interface NavMenuLinksComponentProps {
+  isLoggedIn: boolean;
+}
+
+const NavMenuLinksComponent: React.SFC<NavMenuLinksComponentProps> = props => {
   return (
     <>
       <NavLink to="/registry">
@@ -50,17 +54,19 @@ const NavMenuLinksComponent: React.SFC = props => {
         </NavLink>
       </NavDropDown>
       <StyledVisibleIfLoggedInLink>
-        <NavAccent>
-          <NavLink to="/dashboard">
-            <NavLinkDashboardText />
-          </NavLink>
-        </NavAccent>
+        {props.isLoggedIn && (
+          <NavAccent>
+            <NavLink to="/dashboard">
+              <NavLinkDashboardText />
+            </NavLink>
+          </NavAccent>
+        )}
       </StyledVisibleIfLoggedInLink>
     </>
   );
 };
 
-class NavMenuResponsiveDrawer extends React.Component<NavMenuState> {
+class NavMenuResponsiveDrawer extends React.Component<NavMenuState & NavMenuLinksComponentProps> {
   public bucket: HTMLDivElement = document.createElement("div");
 
   public componentDidMount(): void {
@@ -88,8 +94,8 @@ class NavMenuResponsiveDrawer extends React.Component<NavMenuState> {
   }
 }
 
-export class NavMenu extends React.Component<{}, NavMenuState> {
-  constructor(props: {}) {
+export class NavMenu extends React.Component<NavMenuLinksComponentProps, NavMenuState> {
+  constructor(props: NavMenuLinksComponentProps) {
     super(props);
     this.state = {
       isResponsiveDrawerOpen: false,
@@ -100,14 +106,17 @@ export class NavMenu extends React.Component<{}, NavMenuState> {
     return (
       <>
         <StyledNavMenuContainer>
-          <NavMenuLinksComponent />
+          <NavMenuLinksComponent isLoggedIn={this.props.isLoggedIn} />
         </StyledNavMenuContainer>
         <NavMenuResponsiveToggleButton
           isResponsiveDrawerOpen={this.state.isResponsiveDrawerOpen}
           onClick={() => this.toggleResponsiveMenuDrawer()}
         />
         <StyledNavMenuResponsiveContainer>
-          <NavMenuResponsiveDrawer isResponsiveDrawerOpen={this.state.isResponsiveDrawerOpen} />
+          <NavMenuResponsiveDrawer
+            isResponsiveDrawerOpen={this.state.isResponsiveDrawerOpen}
+            isLoggedIn={this.props.isLoggedIn}
+          />
         </StyledNavMenuResponsiveContainer>
       </>
     );
