@@ -4,17 +4,17 @@ exports[`Storyshots Email Signup Component Email Signup 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hEsumM wQrhD",
+      "class": "sc-feJyhm eRueso",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-jnlKLf eNXFUQ",
+          "class": "sc-ktHwxA fCUdBs",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-fYxtnH enrYxU",
+              "class": "sc-cIShpX fLylxe",
             },
             "children": Array [
               Object {
@@ -314,7 +314,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-tilXH jdpfNx",
+                "class": "sc-kafWEX iMsFNR",
               },
               "children": Array [
                 Object {
@@ -329,24 +329,24 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-TOsTZ hTUzgL",
+                  "class": "sc-hmzhuo fHDQQT",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-kgAjT dEtpIP",
+                      "class": "sc-frDJqD fuzXnF",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": " sc-kjoXOD cDntCe",
+                          "class": " sc-cJSrbW gMcwYI",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kjoXOD cDntCe",
+                              "class": "sc-cJSrbW gMcwYI",
                               "name": "EmailSignupTextInput",
-                              "type": "email",
+                              "type": "text",
                             },
                             "children": Array [],
                             "name": "input",
@@ -371,12 +371,12 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-ksYbfQ dVFBwh",
+                            "class": "sc-hqyNC fVjjYB",
                           },
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-hmzhuo VbXvE",
+                                "class": "sc-jbKcbu hiSUcD",
                               },
                               "children": Array [
                                 Object {
@@ -448,12 +448,12 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-ksYbfQ dVFBwh",
+                          "class": "sc-hqyNC fVjjYB",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-hmzhuo VbXvE",
+                              "class": "sc-jbKcbu hiSUcD",
                             },
                             "children": Array [
                               Object {
@@ -506,14 +506,14 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": " sc-kjoXOD cDntCe",
+                            "class": " sc-cJSrbW gMcwYI",
                           },
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-kjoXOD cDntCe",
+                                "class": "sc-cJSrbW gMcwYI",
                                 "name": "EmailSignupTextInput",
-                                "type": "email",
+                                "type": "text",
                               },
                               "children": Array [],
                               "name": "input",
@@ -574,7 +574,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-tilXH jdpfNx",
+                    "class": "sc-kafWEX iMsFNR",
                   },
                   "children": Array [
                     Object {
@@ -706,7 +706,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-tilXH jdpfNx",
+              "class": "sc-kafWEX iMsFNR",
             },
             "children": Array [
               Object {
@@ -721,24 +721,24 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-TOsTZ hTUzgL",
+                "class": "sc-hmzhuo fHDQQT",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-kgAjT dEtpIP",
+                    "class": "sc-frDJqD fuzXnF",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": " sc-kjoXOD cDntCe",
+                        "class": " sc-cJSrbW gMcwYI",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kjoXOD cDntCe",
+                            "class": "sc-cJSrbW gMcwYI",
                             "name": "EmailSignupTextInput",
-                            "type": "email",
+                            "type": "text",
                           },
                           "children": Array [],
                           "name": "input",
@@ -763,12 +763,12 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-ksYbfQ dVFBwh",
+                          "class": "sc-hqyNC fVjjYB",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-hmzhuo VbXvE",
+                              "class": "sc-jbKcbu hiSUcD",
                             },
                             "children": Array [
                               Object {
@@ -840,12 +840,12 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-ksYbfQ dVFBwh",
+                        "class": "sc-hqyNC fVjjYB",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-hmzhuo VbXvE",
+                            "class": "sc-jbKcbu hiSUcD",
                           },
                           "children": Array [
                             Object {
@@ -898,14 +898,14 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": " sc-kjoXOD cDntCe",
+                          "class": " sc-cJSrbW gMcwYI",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kjoXOD cDntCe",
+                              "class": "sc-cJSrbW gMcwYI",
                               "name": "EmailSignupTextInput",
-                              "type": "email",
+                              "type": "text",
                             },
                             "children": Array [],
                             "name": "input",
@@ -966,7 +966,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-tilXH jdpfNx",
+                  "class": "sc-kafWEX iMsFNR",
                 },
                 "children": Array [
                   Object {
@@ -1079,7 +1079,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-fYxtnH enrYxU",
+                "class": "sc-cIShpX fLylxe",
               },
               "children": Array [
                 Object {
@@ -1398,24 +1398,24 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-TOsTZ hTUzgL",
+              "class": "sc-hmzhuo fHDQQT",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-kgAjT dEtpIP",
+                  "class": "sc-frDJqD fuzXnF",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": " sc-kjoXOD cDntCe",
+                      "class": " sc-cJSrbW gMcwYI",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kjoXOD cDntCe",
+                          "class": "sc-cJSrbW gMcwYI",
                           "name": "EmailSignupTextInput",
-                          "type": "email",
+                          "type": "text",
                         },
                         "children": Array [],
                         "name": "input",
@@ -1440,12 +1440,12 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-ksYbfQ dVFBwh",
+                        "class": "sc-hqyNC fVjjYB",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-hmzhuo VbXvE",
+                            "class": "sc-jbKcbu hiSUcD",
                           },
                           "children": Array [
                             Object {
@@ -1517,12 +1517,12 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-ksYbfQ dVFBwh",
+                      "class": "sc-hqyNC fVjjYB",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-hmzhuo VbXvE",
+                          "class": "sc-jbKcbu hiSUcD",
                         },
                         "children": Array [
                           Object {
@@ -1575,14 +1575,14 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": " sc-kjoXOD cDntCe",
+                        "class": " sc-cJSrbW gMcwYI",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kjoXOD cDntCe",
+                            "class": "sc-cJSrbW gMcwYI",
                             "name": "EmailSignupTextInput",
-                            "type": "email",
+                            "type": "text",
                           },
                           "children": Array [],
                           "name": "input",
@@ -1643,7 +1643,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-tilXH jdpfNx",
+                "class": "sc-kafWEX iMsFNR",
               },
               "children": Array [
                 Object {
@@ -1746,7 +1746,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-tilXH jdpfNx",
+                "class": "sc-kafWEX iMsFNR",
               },
               "children": Array [
                 Object {
@@ -1763,7 +1763,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-fYxtnH enrYxU",
+                  "class": "sc-cIShpX fLylxe",
                 },
                 "children": Array [
                   Object {
@@ -2090,7 +2090,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-tilXH jdpfNx",
+              "class": "sc-kafWEX iMsFNR",
             },
             "children": Array [
               Object {
@@ -2183,24 +2183,24 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-TOsTZ hTUzgL",
+                "class": "sc-hmzhuo fHDQQT",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-kgAjT dEtpIP",
+                    "class": "sc-frDJqD fuzXnF",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": " sc-kjoXOD cDntCe",
+                        "class": " sc-cJSrbW gMcwYI",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kjoXOD cDntCe",
+                            "class": "sc-cJSrbW gMcwYI",
                             "name": "EmailSignupTextInput",
-                            "type": "email",
+                            "type": "text",
                           },
                           "children": Array [],
                           "name": "input",
@@ -2225,12 +2225,12 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-ksYbfQ dVFBwh",
+                          "class": "sc-hqyNC fVjjYB",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-hmzhuo VbXvE",
+                              "class": "sc-jbKcbu hiSUcD",
                             },
                             "children": Array [
                               Object {
@@ -2302,12 +2302,12 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-ksYbfQ dVFBwh",
+                        "class": "sc-hqyNC fVjjYB",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-hmzhuo VbXvE",
+                            "class": "sc-jbKcbu hiSUcD",
                           },
                           "children": Array [
                             Object {
@@ -2360,14 +2360,14 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": " sc-kjoXOD cDntCe",
+                          "class": " sc-cJSrbW gMcwYI",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kjoXOD cDntCe",
+                              "class": "sc-cJSrbW gMcwYI",
                               "name": "EmailSignupTextInput",
-                              "type": "email",
+                              "type": "text",
                             },
                             "children": Array [],
                             "name": "input",
@@ -2430,7 +2430,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-tilXH jdpfNx",
+                  "class": "sc-kafWEX iMsFNR",
                 },
                 "children": Array [
                   Object {
@@ -2447,7 +2447,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-fYxtnH enrYxU",
+                    "class": "sc-cIShpX fLylxe",
                   },
                   "children": Array [
                     Object {

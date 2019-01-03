@@ -4,11 +4,7 @@ exports[`Storyshots QuestionToolTip tooltip 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-isBZXS gUFRMw",
-=======
-      "class": "sc-dBAPYN jTOAWW",
->>>>>>> origin/master
+      "class": "sc-jHXLhC dpqlVe",
     },
     "children": Array [
       Object {

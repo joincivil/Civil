@@ -4,11 +4,7 @@ exports[`Storyshots Review Vote Review Vote Modal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-dKEPtC iMpMpm",
-=======
-      "class": "sc-dvpmds eaiGwR",
->>>>>>> origin/master
+      "class": "sc-bOCYYb jdUcPV",
     },
     "children": Array [
       Object {

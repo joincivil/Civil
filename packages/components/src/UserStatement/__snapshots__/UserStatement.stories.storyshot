@@ -4,11 +4,7 @@ exports[`Storyshots User Statement Forms Submit Appeal Statement 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-dvpmds iVSPHS",
-=======
-      "class": "sc-fgrSAo fyOLYz",
->>>>>>> origin/master
+      "class": "sc-cNQqM jZpNwm",
     },
     "children": Array [
       Object {
@@ -66,11 +62,7 @@ exports[`Storyshots User Statement Forms Submit Challenge Statement 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-dvpmds iVSPHS",
-=======
-      "class": "sc-fgrSAo fyOLYz",
->>>>>>> origin/master
+      "class": "sc-cNQqM jZpNwm",
     },
     "children": Array [
       Object {

@@ -4,11 +4,7 @@ exports[`Storyshots Application Phase Countdown Timer Progress Bar Timers 1`] = 
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-jHZirH fQJEvi",
-=======
-      "class": "sc-dKEPtC hKprTs",
->>>>>>> origin/master
+      "class": "sc-fgrSAo gYGQpm",
     },
     "children": Array [],
     "name": "div",
@@ -53,11 +49,7 @@ exports[`Storyshots Application Phase Countdown Timer Text Timers 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-jHZirH fQJEvi",
-=======
-      "class": "sc-dKEPtC hKprTs",
->>>>>>> origin/master
+      "class": "sc-fgrSAo gYGQpm",
     },
     "children": Array [],
     "name": "div",
@@ -102,11 +94,7 @@ exports[`Storyshots Application Phase Countdown Timer Two Phase Progress Bar Tim
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-jHZirH fQJEvi",
-=======
-      "class": "sc-dKEPtC hKprTs",
->>>>>>> origin/master
+      "class": "sc-fgrSAo gYGQpm",
     },
     "children": Array [],
     "name": "div",

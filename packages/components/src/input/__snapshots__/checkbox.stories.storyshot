@@ -4,11 +4,7 @@ exports[`Storyshots check box checkbox 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-jqCOkK cmAjMY",
-=======
-      "class": "sc-jVODtj bjpQcU",
->>>>>>> origin/master
+      "class": "sc-jnlKLf kmjiTc",
     },
     "children": Array [
       Object {
@@ -20,11 +16,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-<<<<<<< HEAD
-            "class": "sc-dNLxif kmwhql",
-=======
-            "class": "sc-gPWkxV fvdzKo",
->>>>>>> origin/master
+            "class": "sc-gGBfsJ bsPLd",
           },
           "children": Array [],
           "name": "span",
@@ -52,11 +44,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-<<<<<<< HEAD
-          "class": "sc-dNLxif kmwhql",
-=======
-          "class": "sc-gPWkxV fvdzKo",
->>>>>>> origin/master
+          "class": "sc-gGBfsJ bsPLd",
         },
         "children": Array [],
         "name": "span",
@@ -132,11 +120,7 @@ exports[`Storyshots check box slide check box 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-jbKcbu kQbUxw",
-=======
-      "class": "sc-fzsDOv cCvHOk",
->>>>>>> origin/master
+      "class": "sc-bbmXgH jDelDV",
     },
     "children": Array [
       Object {
@@ -148,11 +132,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-<<<<<<< HEAD
-            "class": "sc-hqyNC cYwOBk",
-=======
-            "class": "sc-eMigcr hWcLJw",
->>>>>>> origin/master
+            "class": "sc-uJMKN bDNqpu",
           },
           "children": Array [],
           "name": "span",
@@ -180,11 +160,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-<<<<<<< HEAD
-          "class": "sc-hqyNC cYwOBk",
-=======
-          "class": "sc-eMigcr hWcLJw",
->>>>>>> origin/master
+          "class": "sc-uJMKN bDNqpu",
         },
         "children": Array [],
         "name": "span",

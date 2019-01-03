@@ -4,11 +4,7 @@ exports[`Storyshots Parameterizer Create Proposal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD
-      "class": "sc-iIHjhz efwbkG",
-=======
-      "class": "sc-isBZXS drwUbd",
->>>>>>> origin/master
+      "class": "sc-dwztqd bXjzri",
     },
     "children": Array [
       Object {
