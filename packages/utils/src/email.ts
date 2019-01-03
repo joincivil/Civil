@@ -15,7 +15,10 @@ export async function addToMailingList(email: string, listId: string): Promise<v
   try {
     const res = await fetch(url);
 
-    const body: any = await res.json();
+    // TODO(jorgelo): Do something with the error response
+    // const body: any = await res.json();
+
+    await res.json();
   } catch (err) {
     // TODO(jorgelo): Log error somewhere on error?
     // console.error("Error:", { err });
