@@ -2,6 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import StoryRouter from "storybook-react-router";
+import { CharterData } from "@joincivil/core";
 import { ListingSummaryComponentProps } from "./types";
 import { ListingSummaryComponent } from "./ListingSummary";
 import { ListingSummaryRejectedComponent } from "./ListingSummaryRejected";
@@ -22,38 +23,50 @@ const newsroomData: ListingSummaryComponentProps[] = [
   {
     listingAddress: "0x0a",
     name: "Block Club Chicago",
-    description:
-      "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+    charter: {
+      tagline:
+        "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+    } as CharterData,
   },
   {
     listingAddress: "0x0b",
     name: "Cannabis Wire",
-    description:
-      "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+    charter: {
+      tagline:
+        "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+    } as CharterData,
   },
   {
     listingAddress: "0x0c",
     name: "Documented",
-    description:
-      "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+    charter: {
+      tagline:
+        "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+    } as CharterData,
   },
   {
     listingAddress: "0x0d",
     name: "Block Club Chicago",
-    description:
-      "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+    charter: {
+      tagline:
+        "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
+    } as CharterData,
   },
   {
     listingAddress: "0x0e",
     name: "Cannabis Wire",
-    description:
-      "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+    charter: {
+      tagline:
+        "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
+    } as CharterData,
   },
   {
     listingAddress: "0x0f",
     name: "Documented",
-    description:
-      "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+    charter: {
+      tagline:
+        "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
+    } as CharterData,
   },
 ];
 
