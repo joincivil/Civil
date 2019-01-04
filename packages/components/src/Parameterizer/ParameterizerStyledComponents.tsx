@@ -32,8 +32,9 @@ export const StyledCreateProposalOuter = styled.div`
   bottom 0;
   left: 0;
   position: fixed;
+  overflow-y: scroll;
   right: 0;
-  top: 0;
+  top: 56px;
 
   & ${StyledCreateProposalContainer},
   & ${StyledChallengeProposalContainer} {

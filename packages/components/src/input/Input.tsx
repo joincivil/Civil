@@ -129,6 +129,7 @@ export interface InputProps {
   noLabel?: boolean;
   readOnly?: boolean;
   inputRef?: any;
+  type?: string;
   onBlur?(ev: any): void;
   onFocus?(ev: any): void;
   onKeyPress?(ev: any): void;

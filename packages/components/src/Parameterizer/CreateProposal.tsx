@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { InputGroup } from "../input";
-import { TransactionButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import {
   StyledCreateProposalOuter,
   StyledCreateProposalContainer,
@@ -29,13 +29,16 @@ export interface CreateProposalProps {
   parameterProposalValue: string;
   proposalDeposit: string;
   transactions?: any[];
-  modalContentComponents?: any;
   handleClose(): void;
   handleUpdateProposalValue(name: string, value: string): void;
   postExecuteTransactions?(): any;
 }
 
-export class CreateProposal extends React.Component<CreateProposalProps> {
+export interface CreateProposalState {
+  parameterProposalValue: string;
+}
+
+export class CreateProposal extends React.Component<CreateProposalProps, CreateProposalState> {
   public bucket: HTMLDivElement = document.createElement("div");
 
   public componentDidMount(): void {
@@ -93,13 +96,12 @@ export class CreateProposal extends React.Component<CreateProposalProps> {
                 </StyledMetaName>
                 <StyledMetaValue>{this.props.proposalDeposit}</StyledMetaValue>
               </MetaSingleLine>
-              <TransactionButton
+              <TransactionButtonNoModal
                 transactions={this.props.transactions!}
-                modalContentComponents={this.props.modalContentComponents}
                 postExecuteTransactions={this.props.postExecuteTransactions}
               >
                 Confirm With Metamask
-              </TransactionButton>
+              </TransactionButtonNoModal>
             </StyledSection>
           </StyledCreateProposalContent>
         </StyledCreateProposalContainer>
