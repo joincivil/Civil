@@ -1,6 +1,5 @@
 import { EthAddress } from "@joincivil/core";
 import { Newsroom } from "@joincivil/newsroom-manager";
-import { DEFAULT_BUTTON_THEME } from "@joincivil/components";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
@@ -50,7 +49,6 @@ class CreateNewsroom extends React.Component<
             onNewsroomCreated={this.onCreated}
             account={this.props.userAccount}
             currentNetwork={this.props.networkName}
-            theme={DEFAULT_BUTTON_THEME}
             metamaskEnabled={this.state.metamaskEnabled}
             allSteps={true}
             initialStep={0}
