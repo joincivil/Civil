@@ -2,7 +2,6 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import StoryRouter from "storybook-react-router";
-import { CharterData } from "@joincivil/core";
 import { ListingSummaryComponentProps } from "./types";
 import { ListingSummaryComponent } from "./ListingSummary";
 import { ListingSummaryRejectedComponent } from "./ListingSummaryRejected";
@@ -26,7 +25,7 @@ const newsroomData: ListingSummaryComponentProps[] = [
     charter: {
       tagline:
         "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
-    } as CharterData,
+    } as any,
   },
   {
     listingAddress: "0x0b",
@@ -34,7 +33,7 @@ const newsroomData: ListingSummaryComponentProps[] = [
     charter: {
       tagline:
         "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
-    } as CharterData,
+    } as any,
   },
   {
     listingAddress: "0x0c",
@@ -42,7 +41,7 @@ const newsroomData: ListingSummaryComponentProps[] = [
     charter: {
       tagline:
         "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
-    } as CharterData,
+    } as any,
   },
   {
     listingAddress: "0x0d",
@@ -50,7 +49,7 @@ const newsroomData: ListingSummaryComponentProps[] = [
     charter: {
       tagline:
         "Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and essential coverage of Chicago's diverse neighborhoods.",
-    } as CharterData,
+    } as any,
   },
   {
     listingAddress: "0x0e",
@@ -58,7 +57,7 @@ const newsroomData: ListingSummaryComponentProps[] = [
     charter: {
       tagline:
         "Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigation into the complexities that come with legaliation.",
-    } as CharterData,
+    } as any,
   },
   {
     listingAddress: "0x0f",
@@ -66,7 +65,7 @@ const newsroomData: ListingSummaryComponentProps[] = [
     charter: {
       tagline:
         "Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpartisan publication.",
-    } as CharterData,
+    } as any,
   },
 ];
 
