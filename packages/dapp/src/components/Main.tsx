@@ -30,6 +30,7 @@ import Government from "./council/Government";
 import SubmitChallengePage from "./listing/SubmitChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
+import AccountRouter from "./Account";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -112,6 +113,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/account" component={AccountRouter} />
         </Switch>
       </StyledMainContainer>
     );
