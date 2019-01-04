@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Newsroom } from "@joincivil/newsroom-manager";
-import { DEFAULT_BUTTON_THEME } from "@joincivil/components";
 import { getCivil } from "../../helpers/civilInstance";
 
 export interface NewsroomManagementProps {
@@ -31,7 +30,6 @@ export default class NewsroomManagement extends React.Component<NewsroomManageme
       <Newsroom
         civil={civil}
         address={this.props.match.params.newsroomAddress}
-        theme={DEFAULT_BUTTON_THEME}
         metamaskEnabled={this.state.metamaskEnabled}
         allSteps={true}
         enable={async () => {
