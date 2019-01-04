@@ -76,12 +76,6 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   private renderListing = (): JSX.Element => {
     const { listingAddress, listing, newsroom, listingPhaseState } = this.props;
     const listingData = listing!.data;
-    let description = "";
-    if (this.props.charter) {
-      // TODO(toby) remove legacy `desc` after transition
-      description = this.props.charter.tagline || (this.props.charter as any).desc;
-    }
-    const logoURL = this.props.charter && this.props.charter.logoUrl;
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
     const challenge = listingData.challenge;
     const pollData = challenge && challenge.poll;
@@ -120,9 +114,8 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const listingViewProps = {
       ...newsroomData,
       listingAddress,
-      description,
-      logoURL,
       listingDetailURL,
+      charter: this.props.charter,
       ...listingPhaseState,
       challengeID,
       challengeStatementSummary,
@@ -148,15 +141,10 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
   const { listingAddress, newsroom, listingPhaseState, charter, listing } = props;
   const newsroomData = newsroom!.data;
   const listingDetailURL = `/listing/${listingAddress}`;
-  let description = "";
-  if (charter) {
-    // TODO(toby) remove legacy `desc` after transition
-    description = charter.tagline || (charter as any).desc;
-  }
 
   const listingViewProps = {
     ...newsroomData,
-    description,
+    charter,
     listingAddress,
     listingDetailURL,
     ...listingPhaseState,

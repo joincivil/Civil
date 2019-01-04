@@ -10,12 +10,19 @@ import DepositOrStakeAmount from "./DepositOrStakeAmount";
 import NewsroomTagline from "./NewsroomTagline";
 
 const NewsroomInfo: React.SFC<ListingSummaryComponentProps> = props => {
+  let description = "";
+  if (props.charter) {
+    // TODO(toby) remove legacy `desc` after transition
+    description = props.charter.tagline || (props.charter as any).desc;
+  }
+  const logoURL = props.charter && props.charter.logoUrl;
+
   return (
     <StyledListingSummaryTop>
-      <NewsroomIcon>{props.logoURL && <NewsroomLogo src={props.logoURL} />}</NewsroomIcon>
+      <NewsroomIcon>{logoURL && <NewsroomLogo src={logoURL} />}</NewsroomIcon>
       <div>
         <StyledListingSummaryNewsroomName>{props.name}</StyledListingSummaryNewsroomName>
-        <NewsroomTagline description={props.description} />
+        <NewsroomTagline description={description} />
         <DepositOrStakeAmount {...props} />
       </div>
     </StyledListingSummaryTop>
