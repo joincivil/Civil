@@ -74,7 +74,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   }
 
   private renderListing = (): JSX.Element => {
-    const { listingAddress, listing, newsroom, listingPhaseState } = this.props;
+    const { listingAddress, listing, newsroom, listingPhaseState, charter } = this.props;
     const listingData = listing!.data;
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
     const challenge = listingData.challenge;
@@ -115,7 +115,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       ...newsroomData,
       listingAddress,
       listingDetailURL,
-      charter: this.props.charter,
+      charter,
       ...listingPhaseState,
       challengeID,
       challengeStatementSummary,
