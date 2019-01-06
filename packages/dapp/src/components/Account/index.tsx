@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
+import * as SignIn from "./SignIn";
 
 export default class AccountRouter extends React.Component<RouteComponentProps> {
   // constructor(props: any) {
@@ -13,7 +14,8 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
     return (
       <>
         <Switch>
-          <Route path={`${match.path}/signin`} component={() => <>cool</>} />
+          <Route path={`${match.path}/signin`} component={SignIn} />
+          <Route path={`${match.path}/register`} component={() => <>cool</>} />
         </Switch>
       </>
     );
