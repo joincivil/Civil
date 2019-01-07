@@ -25,8 +25,7 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>, network: 
   const current = await civil.currentBlock();
   const civilGenesisBlock = getDefaultFromBlock(network);
 
-  const initialLoadObservable =
-    tcr.allEventsFromBlock(civilGenesisBlock, current);
+  const initialLoadObservable = tcr.allEventsFromBlock(civilGenesisBlock, current);
 
   initialListingSubscriptions = initialLoadObservable.subscribe(
     async (listing: ListingWrapper) => {
@@ -40,9 +39,9 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>, network: 
     () => {
       dispatch(setLoadingFinished());
       currentListingSubscriptions = tcr.allEventsFromBlock(current).subscribe(async (listing: ListingWrapper) => {
-      await getNewsroom(dispatch, listing.address);
-      setupListingCallback(listing, dispatch);
-      dispatch(addListing(listing));
+        await getNewsroom(dispatch, listing.address);
+        setupListingCallback(listing, dispatch);
+        dispatch(addListing(listing));
       });
     },
   );

@@ -44,7 +44,10 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @returns currently active polls (by id)
    */
-  public activePolls(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()), toBlock?: number): Observable<BigNumber> {
+  public activePolls(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    toBlock?: number,
+  ): Observable<BigNumber> {
     return this.instance
       ._PollCreatedStream({}, { fromBlock, toBlock })
       .map(e => e.args.pollID)
@@ -65,7 +68,10 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
     return this.instance._VoteCommittedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
   }
 
-  public balanceUpdate(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()), user: EthAddress): Observable<BigNumber> {
+  public balanceUpdate(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    user: EthAddress,
+  ): Observable<BigNumber> {
     return this.instance
       ._VotingRightsGrantedStream({ voter: user }, { fromBlock })
       .merge(this.instance._VotingRightsWithdrawnStream({ voter: user }, { fromBlock }))

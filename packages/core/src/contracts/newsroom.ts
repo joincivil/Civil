@@ -204,7 +204,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" for only new events
    * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public content(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<EthContentHeader> {
+  public content(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<EthContentHeader> {
     return this.instance
       .ContentPublishedStream({}, { fromBlock })
       .map(e => e.args.contentId)
@@ -528,7 +530,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const myContentId = this.ethApi.toBigNumber(contentId);
     const myRevisionId = this.ethApi.toBigNumber(revisionId);
     return this.instance
-      .RevisionUpdatedStream({ contentId: myContentId, revisionId: myRevisionId }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
+      .RevisionUpdatedStream(
+        { contentId: myContentId, revisionId: myRevisionId },
+        { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
+      )
       .concatMap(async item => {
         const transaction = await this.ethApi.getTransaction(item.transactionHash);
         return this.recoverArchiveTx(transaction);

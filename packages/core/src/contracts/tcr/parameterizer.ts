@@ -103,7 +103,9 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals propIDs
    */
-  public propIDsInApplicationPhase(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<string> {
+  public propIDsInApplicationPhase(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<string> {
     return this.instance
       ._ReparameterizationProposalStream({}, { fromBlock })
       .map(e => e.args.propID)
@@ -116,7 +118,9 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals in Challenge Commit Phase propIDs
    */
-  public propIDsInChallengeCommitPhase(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<string> {
+  public propIDsInChallengeCommitPhase(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<string> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
@@ -129,14 +133,18 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns currently active proposals in Challenge Reveal Phase propIDs
    */
-  public propIDsInChallengeRevealPhase(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<string> {
+  public propIDsInChallengeRevealPhase(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<string> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
       .map(e => e.args.propID)
       .concatFilter(async propID => this.isPropInChallengeRevealPhase(propID));
   }
 
-  public propIDsInChallenge(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<string> {
+  public propIDsInChallenge(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<string> {
     return this.instance._NewChallengeStream({}, { fromBlock }).map(e => e.args.propID);
   }
 
@@ -147,7 +155,9 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that can be updated
    */
-  public propIDsToProcess(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<string> {
+  public propIDsToProcess(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<string> {
     const applicationsToProcess = this.instance
       ._ReparameterizationProposalStream({}, { fromBlock })
       .map(e => e.args.propID)
@@ -183,7 +193,9 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that have been challenged and resolved
    */
-  public propIDsForResolvedChallenges(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<EthAddress> {
+  public propIDsForResolvedChallenges(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<EthAddress> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
       .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
