@@ -302,7 +302,7 @@ const makeChallengeMapStateToProps = () => {
       unclaimedRewardAmount,
       even,
       user,
-      listingDataRequestStatus
+      listingDataRequestStatus,
     };
   };
 
