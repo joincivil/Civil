@@ -4,18 +4,40 @@ import styled from "styled-components";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import { LoginComponent } from "./LoginComponent";
+import { LoginComponent, AuthApplicationEnum } from "./LoginComponent";
 
 const typeDefs = `
+  type User {
+    uid: String
+    email: String
+    ethAddress: String
+  }
+
+  type AuthLoginResponse {
+    token: String
+    refreshToken: String
+    uid: String
+  }
+
   type Query {
-    helloWorld: String
+    currentUser: User
   }
 
   type Mutation {
+
     authSignupEmailSendForApplication(
       email: String
       application: String
     ): String
+
+    authSignupEmailConfirm(
+      signupJWT: String!
+    ): AuthLoginResponse
+
+    authSignupEmailSend(
+      emailAddress: String!
+    ): String
+
   }
 
   schema {
@@ -27,8 +49,8 @@ const typeDefs = `
 const mocks = {
   Query: () => {
     return {
-      helloWorld: () => {
-        return "Hello from Apollo!!";
+      currentUser: () => {
+        return "cool";
       },
     };
   },
@@ -41,12 +63,6 @@ const mocks = {
   },
 };
 
-const QUERY = gql`
-  query hello {
-    helloWorld
-  }
-`;
-
 storiesOf("Login", module)
   .addDecorator(
     apolloStorybookDecorator({
@@ -55,5 +71,5 @@ storiesOf("Login", module)
     }),
   )
   .add("LoginComponent", () => {
-    return <LoginComponent />;
+    return <LoginComponent applicationType={AuthApplicationEnum.DEFAULT} />;
   });

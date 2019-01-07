@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
-import * as SignIn from "./SignIn";
+import SignIn from "./SignIn";
+import Register from "./Register";
+import Home from "./Home";
 
 export default class AccountRouter extends React.Component<RouteComponentProps> {
   // constructor(props: any) {
@@ -15,7 +17,8 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       <>
         <Switch>
           <Route path={`${match.path}/signin`} component={SignIn} />
-          <Route path={`${match.path}/register`} component={() => <>cool</>} />
+          <Route path={`${match.path}/register`} component={Register} />
+          <Route path={`${match.path}`} exact={true} component={Home} />
         </Switch>
       </>
     );

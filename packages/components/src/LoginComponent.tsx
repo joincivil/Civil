@@ -6,8 +6,8 @@ import gql from "graphql-tag";
 import { Mutation, MutationFn } from "react-apollo";
 
 const signupMutation = gql`
-  mutation($email: String, $application: String) {
-    authSignupEmailSendForApplication(email: $email, application: $application)
+  mutation($emailAddress: String!) {
+    authSignupEmailSend(emailAddress: $emailAddress)
   }
 `;
 
@@ -18,18 +18,18 @@ export enum AuthApplicationEnum {
 }
 
 export interface LoginComponentProps {
-  applicationType?: AuthApplicationEnum;
+  applicationType: AuthApplicationEnum;
 }
 
 export interface LoginComponentState {
-  email: string;
+  emailAddress: string;
 }
 
 export class LoginComponent extends React.Component<LoginComponentProps, LoginComponentState> {
   constructor(props: LoginComponentProps) {
     super(props);
     this.state = {
-      email: "",
+      emailAddress: "",
     };
   }
 
@@ -45,8 +45,8 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
                   placeholder="Email address"
                   type="text"
                   name="email"
-                  value={this.state.email}
-                  onChange={event => this.setState({ email: event.target.value })}
+                  value={this.state.emailAddress}
+                  onChange={event => this.setState({ emailAddress: event.target.value })}
                 />
                 <input type="submit" value="Confirm" />
               </form>
@@ -63,6 +63,10 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
 
   private submit(event: any, mutation: MutationFn): void {
     event.preventDefault();
-    mutation({ variables: { email: this.state.email } });
+
+    const { emailAddress } = this.state;
+    const { applicationType } = this.props;
+
+    mutation({ variables: { emailAddress, application: applicationType } });
   }
 }
