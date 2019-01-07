@@ -1,5 +1,5 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
 import BigNumber from "bignumber.js";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
@@ -18,6 +18,7 @@ import {
 } from "../../selectors";
 import { WinningChallengeResults } from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
+import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 
 export interface ActivityListItemOwnProps {
   listingAddress?: string;
@@ -28,6 +29,7 @@ export interface ActivityListItemOwnProps {
   challengeState?: any;
   challengeID?: string;
   user?: string;
+  listingDataRequestStatus?: any;
 }
 
 export interface ChallengeActivityListItemOwnProps {
@@ -48,8 +50,20 @@ export interface ActivityListItemReduxProps {
 }
 
 class ActivityListItemComponent extends React.Component<
-  ActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemReduxProps
+  ActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemReduxProps & DispatchProp<any>
 > {
+  public async componentDidUpdate(): Promise<void> {
+    if (!this.props.listing && !this.props.listingDataRequestStatus) {
+      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
+    }
+  }
+
+  public async componentDidMount(): Promise<void> {
+    if (!this.props.listing && !this.props.listingDataRequestStatus) {
+      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
+    }
+  }
+
   public render(): JSX.Element {
     const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
     if (listing && listing.data && newsroom && listingPhaseState) {
@@ -269,6 +283,11 @@ const makeChallengeMapStateToProps = () => {
     const unclaimedRewardAmountBN = getUnclaimedRewardAmount(state, ownProps);
     const challengeState = getChallengeState(challenge!);
     const { even, user } = ownProps;
+    const { listingsFetching } = state.networkDependent;
+    let listingDataRequestStatus;
+    if (listingAddress) {
+      listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
+    }
 
     let unclaimedRewardAmount = "";
     if (unclaimedRewardAmountBN) {
@@ -283,6 +302,7 @@ const makeChallengeMapStateToProps = () => {
       unclaimedRewardAmount,
       even,
       user,
+      listingDataRequestStatus
     };
   };
 
