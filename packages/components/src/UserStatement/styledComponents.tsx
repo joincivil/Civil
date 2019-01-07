@@ -159,6 +159,10 @@ export const SectionActions = styled.div`
   }
 `;
 
+export const StyledErrorMessage = styled.span`
+  color: ${colors.accent.CIVIL_RED};
+`;
+
 export const PullRight = styled.div`
   text-align: right;
 `;
