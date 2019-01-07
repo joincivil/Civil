@@ -44,7 +44,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @returns currently active polls (by id)
    */
-  public activePolls(fromBlock: number | "latest" = getDefaultFromBlock(), toBlock?: number): Observable<BigNumber> {
+  public activePolls(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()), toBlock?: number): Observable<BigNumber> {
     return this.instance
       ._PollCreatedStream({}, { fromBlock, toBlock })
       .map(e => e.args.pollID)
@@ -58,14 +58,14 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param user pollIDs of polls the user has committed votes for
    */
   public votesCommitted(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     user?: EthAddress,
     toBlock?: number,
   ): Observable<BigNumber> {
     return this.instance._VoteCommittedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
   }
 
-  public balanceUpdate(fromBlock: number | "latest" = getDefaultFromBlock(), user: EthAddress): Observable<BigNumber> {
+  public balanceUpdate(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()), user: EthAddress): Observable<BigNumber> {
     return this.instance
       ._VotingRightsGrantedStream({ voter: user }, { fromBlock })
       .merge(this.instance._VotingRightsWithdrawnStream({ voter: user }, { fromBlock }))
@@ -171,7 +171,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   public async getRevealedVote(pollID: BigNumber, voter: EthAddress): Promise<BigNumber | undefined> {
     if (await this.didRevealVote(voter, pollID)) {
       const reveal = await this.instance
-        ._VoteRevealedStream({ pollID, voter }, { fromBlock: getDefaultFromBlock() })
+        ._VoteRevealedStream({ pollID, voter }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
         .first()
         .toPromise();
       return reveal.args.choice;
@@ -200,7 +200,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   > {
     if (await this.didRevealVote(voter, pollID)) {
       const reveal = await this.instance
-        ._VoteRevealedStream({ pollID, voter }, { fromBlock: getDefaultFromBlock() })
+        ._VoteRevealedStream({ pollID, voter }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
         .first()
         .toPromise();
 

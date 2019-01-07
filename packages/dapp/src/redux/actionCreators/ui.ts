@@ -22,9 +22,9 @@ export const addOrUpdateUIState = (key: string, value: any): AnyAction => {
 
 export const initialize = async (): Promise<any> => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<undefined> => {
-    const { useGraphQL } = getState();
+    const { useGraphQL, network } = getState();
     if (!useGraphQL) {
-      await initializeSubscriptions(dispatch);
+      await initializeSubscriptions(dispatch, network);
     }
     return undefined;
   };
@@ -46,7 +46,7 @@ export const toggleUseGraphQL = async (): Promise<any> => {
         dispatch(clearAllListingData());
       } else {
         // going to web3 loading
-        await initializeSubscriptions(dispatch);
+        await initializeSubscriptions(dispatch, network);
       }
       return dispatch(toggleUseGraphQLSimple());
     } else {

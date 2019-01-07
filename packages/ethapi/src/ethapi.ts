@@ -74,6 +74,10 @@ export class EthApi {
     return this.networkObservable;
   }
 
+  public network(): number {
+    return Number.parseInt(this.web3.currentProvider.networkVersion, 10);
+  }
+
   public async getGasPrice(): Promise<BigNumber> {
     const gp = promisify<BigNumber>(this.web3.eth.getGasPrice.bind(this.web3.eth));
     return gp();

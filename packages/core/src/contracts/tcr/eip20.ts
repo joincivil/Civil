@@ -57,7 +57,7 @@ export class EIP20 extends BaseWrapper<EIP20Contract> {
     return this.multisigProxy.approve.sendTransactionAsync(spender, numTokens);
   }
 
-  public balanceUpdate(fromBlock: number | "latest" = getDefaultFromBlock(), user: EthAddress): Observable<BigNumber> {
+  public balanceUpdate(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()), user: EthAddress): Observable<BigNumber> {
     return this.instance
       .TransferStream({ _from: user }, { fromBlock })
       .merge(this.instance.TransferStream({ _to: user }, { fromBlock }))
