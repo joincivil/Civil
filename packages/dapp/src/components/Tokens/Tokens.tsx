@@ -16,7 +16,7 @@ export interface TokenProps {
   history: any;
 }
 
-export const Account: React.SFC<TokenProps> = props => {
+export const Tokens: React.SFC<TokenProps> = props => {
   return (
     <>
       <Helmet>

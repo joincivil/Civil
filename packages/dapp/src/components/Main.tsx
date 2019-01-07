@@ -16,7 +16,7 @@ import {
 import { initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
-import { Account } from "./Account";
+import { Tokens } from "./Tokens";
 import ContractPage from "./ContractPage";
 import Contracts from "./Contracts";
 import CreateNewsroom from "./CreateNewsroom";
@@ -113,7 +113,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/account" component={Account} />
+          <Route path="/tokens" component={Tokens} />
         </Switch>
       </StyledMainContainer>
     );

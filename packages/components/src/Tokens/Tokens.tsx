@@ -1,7 +1,7 @@
 import * as React from "react";
-import { StyledTokenHeaderOuter, StyledTokenHeader } from "./TokenStyledComponents";
+import { StyledTokenHeaderOuter, StyledTokenHeader } from "./TokensStyledComponents";
 
-export const UserAccountHeader: React.StatelessComponent = props => {
+export const UserTokenAccountHeader: React.StatelessComponent = props => {
   return (
     <StyledTokenHeaderOuter>
       <StyledTokenHeader>{props.children}</StyledTokenHeader>
