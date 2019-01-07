@@ -3,7 +3,12 @@ import { compose } from "redux";
 import { ListingWrapper } from "@joincivil/core";
 import ChallengeDetailContainer from "./ChallengeDetail";
 import ChallengeResolve from "./ChallengeResolve";
-import { InApplicationCard, RejectedCard as RejectedCardComponent } from "@joincivil/components";
+import {
+  InApplicationCard,
+  RejectedCard as RejectedCardComponent,
+  Modal,
+  ProgressModalContentMobileUnsupported,
+} from "@joincivil/components";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
@@ -17,7 +22,16 @@ export interface ListingPhaseActionsProps {
   listingPhaseState: any;
 }
 
-class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
+export interface ListingPhaseActionsState {
+  isNoMobileTransactionVisible: boolean;
+}
+
+class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, ListingPhaseActionsState> {
+  constructor(props: ListingPhaseActionsProps) {
+    super(props);
+    this.state = { isNoMobileTransactionVisible: false };
+  }
+
   public render(): JSX.Element {
     const listing = this.props.listing;
     const {
@@ -49,28 +63,44 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
                     challengeID: this.props.listing.data.challengeID,
                     challenge: this.props.listing.data.challenge!,
                   }}
+                  onMobileTransactionClick={this.showNoMobileTransactionsModal}
                 />
               )}
           </>
         )}
+
+        {this.renderNoMobileTransactions()}
       </>
     );
   }
 
   private renderCanWhitelist = (): JSX.Element => {
-    return <ApplicationUpdateStatus listingAddress={this.props.listing!.address} />;
+    return (
+      <ApplicationUpdateStatus
+        listingAddress={this.props.listing!.address}
+        onMobileTransactionClick={this.showNoMobileTransactionsModal}
+      />
+    );
   };
 
   private renderCanResolve(): JSX.Element {
     return (
-      <ChallengeResolve listingAddress={this.props.listing.address} challengeID={this.props.listing.data.challengeID} />
+      <ChallengeResolve
+        listingAddress={this.props.listing.address}
+        challengeID={this.props.listing.data.challengeID}
+        onMobileTransactionClick={this.showNoMobileTransactionsModal}
+      />
     );
   }
 
   private renderApplicationWhitelisted(): JSX.Element {
     return (
       <>
-        <WhitelistedDetail listingAddress={this.props.listing.address} constitutionURI={this.props.constitutionURI} />
+        <WhitelistedDetail
+          listingAddress={this.props.listing.address}
+          constitutionURI={this.props.constitutionURI}
+          onMobileTransactionClick={this.showNoMobileTransactionsModal}
+        />
       </>
     );
   }
@@ -98,9 +128,30 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps> {
           phaseLength={phaseLength}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
+          onMobileTransactionClick={this.showNoMobileTransactionsModal}
         />
       </>
     );
+  }
+
+  private showNoMobileTransactionsModal = (): void => {
+    this.setState({ isNoMobileTransactionVisible: true });
+  };
+
+  private hideNoMobileTransactionsModal = (): void => {
+    this.setState({ isNoMobileTransactionVisible: false });
+  };
+
+  private renderNoMobileTransactions(): JSX.Element {
+    if (this.state.isNoMobileTransactionVisible) {
+      return (
+        <Modal textAlign="center">
+          <ProgressModalContentMobileUnsupported hideModal={this.hideNoMobileTransactionsModal} />
+        </Modal>
+      );
+    }
+
+    return <></>;
   }
 }
 

@@ -7,6 +7,7 @@ export interface ListingDetailPhaseCardComponentProps {
   transactions?: any[];
   constitutionURI?: string;
   modalContentComponents?: any;
+  onMobileTransactionClick?(): any;
 }
 
 export interface PhaseWithExpiryProps {

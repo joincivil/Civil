@@ -16,6 +16,7 @@ export interface ToolTipProps {
   className?: string; // for use as styled component
   width?: number;
   theme?: ToolTipTheme;
+  onClick?(e: React.MouseEvent): void;
 }
 
 export interface ToolTipState {
@@ -124,6 +125,7 @@ export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {
         innerRef={(el: HTMLDivElement) => (this.divEl = el)}
         onMouseLeave={this.onMouseLeave}
         onMouseEnter={this.onMouseEnter}
+        onClick={this.props.onClick}
       >
         {tip}
         {hitBox}

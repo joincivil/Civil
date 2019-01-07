@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { TransactionButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import {
   StyledCreateProposalOuter,
   StyledChallengeProposalContainer,
@@ -72,13 +72,12 @@ export class ProcessProposal extends React.Component<ProcessProposalProps> {
             </StyledSection>
 
             <StyledSection>
-              <TransactionButton
+              <TransactionButtonNoModal
                 transactions={this.props.transactions!}
-                modalContentComponents={this.props.modalContentComponents}
                 postExecuteTransactions={this.props.postExecuteTransactions}
               >
                 Confirm With Metamask
-              </TransactionButton>
+              </TransactionButtonNoModal>
             </StyledSection>
           </StyledCreateProposalContent>
         </StyledChallengeProposalContainer>

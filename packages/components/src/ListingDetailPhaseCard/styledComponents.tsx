@@ -176,7 +176,11 @@ export const StyledCardStage: StyledComponentClass<StyledCardStageProps, "div"> 
   "div",
 )`
   perspective: 800px;
-  width: ${props => (props.width ? props.width + "px" : "")};
+  width: ${props => (props.width ? props.width + "px" : "485")};
+
+  &{mediaQueries.MOBILE} {
+    width: auto;
+  }
 
   & ${StyledListingDetailPhaseCardContainer} {
     box-shadow: none;
@@ -326,4 +330,20 @@ export const StyledButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 23px;
+`;
+
+export const StyledVisibleOnDesktop = styled.div`
+  display: block;
+
+  ${mediaQueries.MOBILE} {
+    display: none;
+  }
+`;
+
+export const StyledVisibleOnMobile = styled.div`
+  display: none;
+
+  ${mediaQueries.MOBILE} {
+    display: block;
+  }
 `;

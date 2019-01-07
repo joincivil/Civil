@@ -111,6 +111,7 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
           appealChallengeVotesAgainst={appealChallengeVotesAgainst}
           appealChallengePercentFor={appealChallengePercentFor.toString()}
           appealChallengePercentAgainst={appealChallengePercentAgainst.toString()}
+          onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>
     );

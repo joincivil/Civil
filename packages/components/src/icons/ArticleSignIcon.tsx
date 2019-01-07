@@ -2,12 +2,14 @@ import * as React from "react";
 
 export interface ArticleSignIconProps {
   color?: string;
+  size?: number;
 }
 
 export const ArticleSignIcon = (props: ArticleSignIconProps): JSX.Element => {
   const color = props.color || "#444444";
+  const size = props.size || 24;
   return (
-    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg width={`${size}px`} height={`${size}px`} viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
       <defs />
       <g id="Visual---Iteration-1.1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g id="17---Post-Page---Default-View" transform="translate(-1294.000000, -46.000000)">

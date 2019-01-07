@@ -28,6 +28,7 @@ export interface AppealDetailProps {
   votingBalance: BigNumber;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
+  onMobileTransactionClick?(): any;
 }
 
 class AppealDetail extends React.Component<AppealDetailProps> {
@@ -58,6 +59,7 @@ class AppealDetail extends React.Component<AppealDetailProps> {
               balance={this.props.balance}
               votingBalance={this.props.votingBalance}
               user={this.props.user}
+              onMobileTransactionClick={this.props.onMobileTransactionClick}
             />
           )}
         {canAppealBeResolved && !appeal.appealChallenge && this.renderCanResolve()}

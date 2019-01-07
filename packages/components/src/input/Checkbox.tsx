@@ -35,6 +35,8 @@ const Container = styled<ContainerProps, "label">("label")`
   box-sizing: content-box;
   width: 20px;
   height: 20px;
+  vertical-align: bottom;
+
   input {
     display: none;
   }
@@ -55,11 +57,13 @@ const Container = styled<ContainerProps, "label">("label")`
   }
 `;
 
+export const DEFAULT_CHECKBOX_THEME = {
+  checkboxInactiveColor: colors.accent.CIVIL_GRAY_2,
+  checkboxActiveColor: colors.accent.CIVIL_BLUE,
+};
+
 Container.defaultProps = {
-  theme: {
-    checkboxInactiveColor: colors.accent.CIVIL_GRAY_2,
-    checkboxActiveColor: colors.accent.CIVIL_BLUE,
-  },
+  theme: DEFAULT_CHECKBOX_THEME,
 };
 
 export interface CheckboxProps {

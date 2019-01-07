@@ -10,6 +10,7 @@ import { ListingContainerProps } from "../utility/HigherOrderComponents";
 export interface WhitelistedCardSubmitChallengeProps {
   listingAddress: EthAddress;
   constitutionURI?: string;
+  onMobileTransactionClick(): any;
 }
 
 class WhitelistedDetail extends React.Component<
@@ -27,6 +28,7 @@ class WhitelistedDetail extends React.Component<
           whitelistedTimestamp={this.props.whitelistedTimestamp}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
+          onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>
     );

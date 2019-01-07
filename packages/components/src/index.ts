@@ -48,3 +48,4 @@ export * from "./RegistryEmpty";
 export * from "./Layout";
 export * from "./SnackBar";
 export * from "./DAppMessageContent";
+export * from "./EmailSignup";
