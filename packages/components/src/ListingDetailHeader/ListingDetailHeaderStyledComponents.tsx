@@ -13,12 +13,21 @@ export const StyledListingDetailHeader = styled.div`
   color: ${colors.basic.WHITE};
   font-family: ${fonts.SANS_SERIF};
   padding: 24px 0 62px;
+
+  ${mediaQueries.MOBILE} {
+    padding: 30px 20px 42px;
+  }
 `;
 
 export const StyledNewsroomIcon = styled.figure`
   margin: 0 30px 0 0;
   min-width: 130px;
-  padding-top: 47px;
+  padding-top: 50px;
+
+  ${mediaQueries.MOBILE} {
+    margin: 45px auto;
+    padding: 0;
+  }
 `;
 
 export const StyledNewsroomLogo = styled.img`
@@ -31,9 +40,66 @@ export const StyledNewsroomLogo = styled.img`
 
 export const StyledEthereumInfoToggle = styled.div`
   color: ${colors.basic.WHITE};
+  cursor: pointer;
   font-size: 12px;
+  font-weight: bold;
   line-height: 15px;
   text-transform: uppercase;
+`;
+
+export interface ExpandArrowProps {
+  isOpen?: boolean;
+}
+
+export const StyledEthereumInfo: StyledComponentClass<ExpandArrowProps, "dl"> = styled<ExpandArrowProps, "dl">("dl")`
+  height: ${props => (!props.isOpen ? "0px" : "auto")};
+  margin: 0 0 20px;
+  max-width: 680px;
+  overflow: hidden;
+  transition: height 0.25s;
+`;
+
+export const ExpandArrow: StyledComponentClass<ExpandArrowProps, "div"> = styled<ExpandArrowProps, "div">("div")`
+  display: inline-block;
+  border-bottom: 2px solid ${colors.basic.WHITE};
+  border-left: 2px solid ${colors.basic.WHITE};
+  height: 8px;
+  margin-left: 6px;
+  transform: ${props => (props.isOpen ? "rotate(135deg)" : "rotate(-45deg)")};
+  transition: transform 0.25s;
+  width: 8px;
+`;
+
+export const StyledEthereumTerm = styled.dt`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  display: inline-block;
+  font-size: 14px;
+  line-height: 17px;
+  padding: 10px 0;
+  width: 23%;
+
+  ${mediaQueries.MOBILE} {
+    padding: 10px 0 78px;
+    vertical-align: top;
+    width: 44%;
+  }
+`;
+
+export const StyledEthereumValue = styled.dd`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  display: inline-block;
+  font-family: ${fonts.MONOSPACE};
+  font-size: 15px;
+  letter-spacing: -0.11px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0 0 10px;
+  width: 77%;
+
+  ${mediaQueries.MOBILE} {
+    padding: 10px 0;
+    width: 46%;
+  }
 `;
 
 export const ListingDetailNewsroomName = styled.h1`
@@ -50,6 +116,8 @@ export const ListingDetailNewsroomName = styled.h1`
 
 export const ListingDetailNewsroomDek = styled.p`
   font: normal 21px/35px ${fonts.SANS_SERIF};
+  font-weight: 300;
+  letter-spacing: -0.11px;
   margin: 0 0 35px;
 
   ${mediaQueries.MOBILE} {

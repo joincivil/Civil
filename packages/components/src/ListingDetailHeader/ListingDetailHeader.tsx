@@ -13,6 +13,8 @@ import {
   AwaitingDecisionStatusLabel,
   AwaitingAppealChallengeStatusLabel,
 } from "../ApplicationPhaseStatusLabels";
+import { QuestionToolTip } from "../QuestionToolTip";
+import { colors } from "../styleConstants";
 
 import {
   ListingDetailOuter,
@@ -20,14 +22,18 @@ import {
   StyledNewsroomIcon,
   StyledNewsroomLogo,
   StyledEthereumInfoToggle,
+  StyledEthereumInfo,
   ListingDetailNewsroomName,
   ListingDetailNewsroomDek,
   StyledRegistryLinkContainer,
   NewsroomLinks,
   VisitNewsroomButtonWrap,
+  StyledEthereumTerm,
+  StyledEthereumValue,
   FollowNewsroom,
   FollowNewsroomHeading,
   FollowNewsroomLink,
+  ExpandArrow,
 } from "./ListingDetailHeaderStyledComponents";
 
 export interface ListingDetailHeaderProps {
@@ -54,7 +60,18 @@ export interface ListingDetailHeaderProps {
   canListingAppealChallengeBeResolved?: boolean;
 }
 
-export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps> {
+export interface ListingDetailHeaderState {
+  isEthereumInfoVisible: boolean;
+}
+
+export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps, ListingDetailHeaderState> {
+  constructor(props: ListingDetailHeaderProps) {
+    super(props);
+    this.state = {
+      isEthereumInfoVisible: false,
+    };
+  }
+
   public render(): JSX.Element {
     let newsroomDescription = "";
     let newsroomUrl = "";
@@ -66,25 +83,46 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
       logoURL = this.props.charter.logoUrl;
     }
 
+    const toolTipTheme = {
+      toolTipColorEnabled: colors.accent.CIVIL_GRAY_4,
+    };
+
     return (
       <ListingDetailOuter>
         <StyledListingDetailHeader>
           {this.renderRegistryLink()}
-          {this.renderPhaseLabel()}
 
           <StyledContentRow>
             <StyledNewsroomIcon>{logoURL && <StyledNewsroomLogo src={logoURL} />}</StyledNewsroomIcon>
             <div>
+              {this.renderPhaseLabel()}
+
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
 
-              <StyledEthereumInfoToggle>Ethereum Info</StyledEthereumInfoToggle>
-              <dl>
-                <dt>Contract Address</dt>
-                <dd>{this.props.listingAddress}</dd>
+              <StyledEthereumInfoToggle onClick={this.toggleEthereumInfoDisplay}>
+                Ethereum Info <ExpandArrow isOpen={this.state.isEthereumInfoVisible} />
+              </StyledEthereumInfoToggle>
+              <StyledEthereumInfo isOpen={this.state.isEthereumInfoVisible}>
+                <StyledEthereumTerm>
+                  Contract Address
+                  <QuestionToolTip
+                    explainerText={"The Ethereum Address for this Newsroom's Smart Contract"}
+                    positionBottom={true}
+                    theme={toolTipTheme}
+                  />
+                </StyledEthereumTerm>
+                <StyledEthereumValue>{this.props.listingAddress}</StyledEthereumValue>
 
-                <dt>Owner Address</dt>
-                <dd>{this.props.owner}</dd>
-              </dl>
+                <StyledEthereumTerm>
+                  Owner Address
+                  <QuestionToolTip
+                    explainerText={"The Ethereum Address for the Owner of this Newsroom's Smart Contract"}
+                    positionBottom={true}
+                    theme={toolTipTheme}
+                  />
+                </StyledEthereumTerm>
+                <StyledEthereumValue>{this.props.owner}</StyledEthereumValue>
+              </StyledEthereumInfo>
 
               <ListingDetailNewsroomDek>{newsroomDescription}</ListingDetailNewsroomDek>
 
@@ -121,6 +159,10 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
       </ListingDetailOuter>
     );
   }
+
+  private toggleEthereumInfoDisplay = (): void => {
+    this.setState({ isEthereumInfoVisible: !this.state.isEthereumInfoVisible });
+  };
 
   private renderRegistryLink(): JSX.Element | undefined {
     if (!this.props.registryURL) {
