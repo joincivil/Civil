@@ -65,7 +65,6 @@ const ListingHeader: React.SFC<ListingHeaderProps> = props => {
     unstakedDeposit: getFormattedTokenBalance(props.listing.data.unstakedDeposit),
     ...props.listingPhaseState,
   };
-  console.log(headerProps);
   return <>{props.listing.data && <ListingDetailHeader {...headerProps} />}</>;
 };
 
