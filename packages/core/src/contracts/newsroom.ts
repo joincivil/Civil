@@ -193,7 +193,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   //#region streams
   public editors(): Observable<EthAddress> {
     return this.instance
-      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: getDefaultFromBlock() })
+      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
       .map(e => e.args.grantee)
       .concatFilter(async e => this.isEditor(e));
   }
@@ -204,7 +204,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" for only new events
    * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public content(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<EthContentHeader> {
+  public content(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<EthContentHeader> {
     return this.instance
       .ContentPublishedStream({}, { fromBlock })
       .map(e => e.args.contentId)
@@ -220,7 +222,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public revisions(
     contentId?: number | BigNumber | undefined,
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<EthContentHeader> {
     const myContentId = contentId ? this.ethApi.toBigNumber(contentId) : undefined;
     return this.instance.RevisionUpdatedStream({ contentId: myContentId }, { fromBlock }).concatMap(async e => {
@@ -239,7 +241,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" to only listen for new events
    * @returns Name history of this Newsroom
    */
-  public nameChanges(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<string> {
+  public nameChanges(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<string> {
     return this.instance.NameChangedStream({}, { fromBlock }).map(e => e.args.newName);
   }
   //#endregion
@@ -528,7 +530,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const myContentId = this.ethApi.toBigNumber(contentId);
     const myRevisionId = this.ethApi.toBigNumber(revisionId);
     return this.instance
-      .RevisionUpdatedStream({ contentId: myContentId, revisionId: myRevisionId }, { fromBlock: getDefaultFromBlock() })
+      .RevisionUpdatedStream(
+        { contentId: myContentId, revisionId: myRevisionId },
+        { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
+      )
       .concatMap(async item => {
         const transaction = await this.ethApi.getTransaction(item.transactionHash);
         return this.recoverArchiveTx(transaction);

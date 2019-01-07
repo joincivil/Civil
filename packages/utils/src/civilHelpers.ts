@@ -43,12 +43,13 @@ export function prepareConstitutionSignMessage(newsroomAddress: EthAddress, cons
 }
 
 // TODO(jon): Update this to support the proper blocks by network
-export function getDefaultFromBlock(network: number = 4): number {
+export function getDefaultFromBlock(network: number): number {
   // A map of the network id to its corresponding default fromBlock, which
   // could be the TCR genesis block or possibly the geneis block of the
   // first Newsroom contract on that network
   const defaultFromBlocks: { [index: string]: number } = {
     4: 2848355,
+    50: 0,
   };
   return defaultFromBlocks[network.toString()];
 }

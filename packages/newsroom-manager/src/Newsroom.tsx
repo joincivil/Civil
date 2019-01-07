@@ -241,7 +241,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           value={{
             civil: this.props.civil,
             currentNetwork: this.props.currentNetwork,
-            requiredNetwork: this.props.requiredNetwork || "rinkeby",
+            requiredNetwork: this.props.requiredNetwork || "rinkeby|ganache",
             account: this.props.account,
           }}
         >
