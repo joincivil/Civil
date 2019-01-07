@@ -10,11 +10,14 @@ import {
   StyledListingDetailPhaseCardSection,
   StyledPhaseKicker,
   StyledPhaseDisplayName,
+  StyledVisibleOnDesktop,
+  StyledVisibleOnMobile,
   CTACopy,
 } from "./styledComponents";
 import { ChallangeCouncilToolTipText } from "./textComponents";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { TransactionButtonNoModal } from "../TransactionButton";
+import { Button, buttonSizes } from "../Button";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { NeedHelp } from "./NeedHelp";
@@ -27,6 +30,27 @@ export const AppealDecisionCard: React.SFC<
     AppealDecisionProps &
     ChallengeResultsProps
 > = props => {
+  const renderSubmitChallengeButton = (): JSX.Element => {
+    if (props.submitAppealChallengeURI) {
+      return (
+        <>
+          <StyledVisibleOnDesktop>
+            <Button size={buttonSizes.MEDIUM} to={props.submitAppealChallengeURI}>
+              Submit a Challenge
+            </Button>
+          </StyledVisibleOnDesktop>
+          <StyledVisibleOnMobile>
+            <Button size={buttonSizes.MEDIUM} onClick={props.onMobileTransactionClick}>
+              Submit a Challenge
+            </Button>
+          </StyledVisibleOnMobile>
+        </>
+      );
+    }
+
+    return <TransactionButtonNoModal transactions={props.transactions!}>Submit a Challenge</TransactionButtonNoModal>;
+  };
+
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
@@ -68,7 +92,8 @@ export const AppealDecisionCard: React.SFC<
           If you believe this newsroom does not align with the Civil Constitution, you may challenge the Council’s
           decision.
         </CTACopy>
-        <TransactionButtonNoModal transactions={props.transactions!}>Submit a Challenge</TransactionButtonNoModal>
+
+        {renderSubmitChallengeButton()}
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp />

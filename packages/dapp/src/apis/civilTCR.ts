@@ -82,10 +82,10 @@ export async function applyToTCR(address: EthAddress, multisigAddress?: EthAddre
   return tcr.apply(address, deposit, "");
 }
 
-export async function challengeGrantedAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function challengeGrantedAppeal(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
-  return tcr.challengeGrantedAppeal(address);
+  return tcr.challengeGrantedAppeal(address, data);
 }
 
 export async function challengeListing(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {

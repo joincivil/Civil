@@ -26,6 +26,7 @@ const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props =>
         The Civil Council has {decisionText} the appeal.{" "}
         {props.appealGranted && "Read more about their methodology and how they’ve come to this decision."}
       </FormCopy>
+
       {props.appealGranted && <Button size={buttonSizes.MEDIUM_WIDE}>Read about this decision</Button>}
     </StyledInner>
   );
