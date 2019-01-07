@@ -15,7 +15,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(DLL, Parameterizer);
     await deployer.link(AttributeStore, Parameterizer);
 
-    const parameterizerConfig = config.paramDefaults;
+    const parameterizerConfig = config.nets[network].paramDefaults;
     let tokenAddress;
     if (network === MAIN_NETWORK) {
       tokenAddress = config.nets[network].TokenAddress;

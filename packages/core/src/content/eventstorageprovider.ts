@@ -21,7 +21,7 @@ export class EventStorageProvider implements ContentProvider {
     // TODO(ritave): If the hash doesn't exist, this will never finish
     //               Add web3.filter.get to abi-gen, not only watch
     return (await this.eventStorage())
-      .StringStoredStream({ dataHash: what.contentHash }, { fromBlock: getDefaultFromBlock() })
+      .StringStoredStream({ dataHash: what.contentHash }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
       .first() // Closes the stream on first event
       .map(event => event.args.data)
       .toPromise();
