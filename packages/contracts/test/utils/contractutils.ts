@@ -43,7 +43,7 @@ configureProviders(
 );
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
-export const paramConfig = config.paramDefaults;
+export const paramConfig = config.nets.ganache.paramDefaults; // always ganache when testing
 
 export function findEvent<T = any>(tx: any, eventName: string): DecodedLogEntry<T> | undefined {
   return tx.logs.find((log: any) => log.event === eventName);
@@ -292,7 +292,7 @@ async function createTestCivilTCRInstance(
     }
     return approveRegistryFor(addresses.slice(1));
   }
-  const parameterizerConfig = config.paramDefaults;
+  const parameterizerConfig = config.nets.ganache.paramDefaults; // always ganache when testing
   const tokenAddress = await parameterizer.token();
   const plcrAddress = await parameterizer.voting();
   const parameterizerAddress = await parameterizer.address;
@@ -358,7 +358,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
     }
     return approveParameterizerFor(addresses.slice(1));
   }
-  const parameterizerConfig = config.paramDefaults;
+  const parameterizerConfig = config.nets.ganache.paramDefaults; // always ganache when testing
 
   const params = [
     parameterizerConfig.minDeposit,
