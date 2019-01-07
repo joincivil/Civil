@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { CharterData } from "@joincivil/core";
 
-import { colors, fonts, mediaQueries } from "./styleConstants";
-import { TwitterIcon, FacebookIcon } from "./icons";
-import { Button, buttonSizes } from "./Button";
+import { TwitterIcon, FacebookIcon } from "../icons";
+import { Button, buttonSizes } from "../Button";
+import { StyledContentRow } from "../Layout";
 import {
   AwaitingApprovalStatusLabel,
   CommitVoteStatusLabel,
@@ -13,89 +12,33 @@ import {
   ReadyToCompleteStatusLabel,
   AwaitingDecisionStatusLabel,
   AwaitingAppealChallengeStatusLabel,
-} from "./ApplicationPhaseStatusLabels";
-import { StyledContentRow, StyledLeftContentWell, StyledRightContentWell } from "./Layout";
+} from "../ApplicationPhaseStatusLabels";
+import { QuestionToolTip } from "../QuestionToolTip";
+import { colors } from "../styleConstants";
 
-const ListingDetailOuter = styled.div`
-  background: ${colors.primary.BLACK};
-  display: flex;
-  justify-content: center;
-`;
-
-const StyledListingDetailHeader = styled.div`
-  color: ${colors.basic.WHITE};
-  font-family: ${fonts.SANS_SERIF};
-  padding: 24px 0 62px;
-`;
-
-const ListingDetailNewsroomName = styled.h1`
-  font: 200 48px/40px ${fonts.SERIF};
-  letter-spacing: -0.19px;
-  margin: 0 0 18px;
-
-  ${mediaQueries.MOBILE} {
-    font-size: 32px;
-    letter-spacing: -0.12px;
-    line-height: 36px;
-  }
-`;
-
-const ListingDetailNewsroomDek = styled.p`
-  font: normal 21px/35px ${fonts.SANS_SERIF};
-  margin: 0 0 35px;
-
-  ${mediaQueries.MOBILE} {
-    font-size: 16px;
-    letter-spacing: -0.11px;
-    line-height: 26px;
-    margin: 0 0 32px;
-  }
-`;
-
-const StyledRegistryLinkContainer = styled.div`
-  padding: 0 0 43px;
-
-  & a {
-    color: ${colors.basic.WHITE}B3;
-  }
-`;
-
-const NewsroomLinks = styled.div`
-  display: flex;
-  margin-top: 40px;
-`;
-
-const VisitNewsroomButtonWrap = styled.div`
-  line-height: 32px;
-  width: 50%;
-
-  ${mediaQueries.MOBILE} {
-    width: 100%;
-  }
-`;
-
-const FollowNewsroom = styled.div`
-  display: inline-block;
-  width: 50%;
-
-  ${mediaQueries.MOBILE} {
-    width: 100%;
-  }
-`;
-
-const FollowNewsroomHeading = styled.h5`
-  margin-bottom: 10px;
-  font: 500 14px/14px ${fonts.SANS_SERIF};
-  letter-spacing: 1px;
-  color: ${colors.basic.WHITE};
-  text-transform: uppercase;
-`;
-
-const FollowNewsroomLink = styled.a`
-  margin-right: 20px;
-`;
+import {
+  ListingDetailOuter,
+  StyledListingDetailHeader,
+  StyledNewsroomIcon,
+  StyledNewsroomLogo,
+  StyledEthereumInfoToggle,
+  StyledEthereumInfo,
+  ListingDetailNewsroomName,
+  ListingDetailNewsroomDek,
+  StyledRegistryLinkContainer,
+  NewsroomLinks,
+  VisitNewsroomButtonWrap,
+  StyledEthereumTerm,
+  StyledEthereumValue,
+  FollowNewsroom,
+  FollowNewsroomHeading,
+  FollowNewsroomLink,
+  ExpandArrow,
+} from "./ListingDetailHeaderStyledComponents";
 
 export interface ListingDetailHeaderProps {
+  listingAddress: string;
+  logoURL?: string;
   newsroomName: string;
   charter?: CharterData;
   registryURL?: string;
@@ -117,25 +60,70 @@ export interface ListingDetailHeaderProps {
   canListingAppealChallengeBeResolved?: boolean;
 }
 
-export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps> {
+export interface ListingDetailHeaderState {
+  isEthereumInfoVisible: boolean;
+}
+
+export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps, ListingDetailHeaderState> {
+  constructor(props: ListingDetailHeaderProps) {
+    super(props);
+    this.state = {
+      isEthereumInfoVisible: false,
+    };
+  }
+
   public render(): JSX.Element {
     let newsroomDescription = "";
     let newsroomUrl = "";
+    let logoURL;
     if (this.props.charter) {
       // TODO(toby) remove legacy `desc` after transition
       newsroomDescription = this.props.charter.tagline || (this.props.charter as any).desc;
       newsroomUrl = this.props.charter.newsroomUrl;
+      logoURL = this.props.charter.logoUrl;
     }
+
+    const toolTipTheme = {
+      toolTipColorEnabled: colors.accent.CIVIL_GRAY_4,
+    };
 
     return (
       <ListingDetailOuter>
         <StyledListingDetailHeader>
+          {this.renderRegistryLink()}
+
           <StyledContentRow>
-            <StyledLeftContentWell>
-              {this.renderRegistryLink()}
+            <StyledNewsroomIcon>{logoURL && <StyledNewsroomLogo src={logoURL} />}</StyledNewsroomIcon>
+            <div>
               {this.renderPhaseLabel()}
 
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
+
+              <StyledEthereumInfoToggle onClick={this.toggleEthereumInfoDisplay}>
+                Ethereum Info <ExpandArrow isOpen={this.state.isEthereumInfoVisible} />
+              </StyledEthereumInfoToggle>
+              <StyledEthereumInfo isOpen={this.state.isEthereumInfoVisible}>
+                <StyledEthereumTerm>
+                  Contract Address
+                  <QuestionToolTip
+                    explainerText={"The Ethereum Address for this Newsroom's Smart Contract"}
+                    positionBottom={true}
+                    theme={toolTipTheme}
+                  />
+                </StyledEthereumTerm>
+                <StyledEthereumValue>{this.props.listingAddress}</StyledEthereumValue>
+
+                <StyledEthereumTerm>
+                  Owner Address
+                  <QuestionToolTip
+                    explainerText={"The Ethereum Address for the Owner of this Newsroom's Smart Contract"}
+                    positionBottom={true}
+                    theme={toolTipTheme}
+                  />
+                </StyledEthereumTerm>
+                <StyledEthereumValue>{this.props.owner}</StyledEthereumValue>
+              </StyledEthereumInfo>
+
               <ListingDetailNewsroomDek>{newsroomDescription}</ListingDetailNewsroomDek>
 
               <NewsroomLinks>
@@ -165,22 +153,16 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
                     </FollowNewsroom>
                   )}
               </NewsroomLinks>
-            </StyledLeftContentWell>
-
-            <StyledRightContentWell>
-              <dl>
-                <dt>Owner</dt>
-                <dd>{this.props.owner}</dd>
-
-                <dt>Unstaked Deposit</dt>
-                <dd>{this.props.unstakedDeposit}</dd>
-              </dl>
-            </StyledRightContentWell>
+            </div>
           </StyledContentRow>
         </StyledListingDetailHeader>
       </ListingDetailOuter>
     );
   }
+
+  private toggleEthereumInfoDisplay = (): void => {
+    this.setState({ isEthereumInfoVisible: !this.state.isEthereumInfoVisible });
+  };
 
   private renderRegistryLink(): JSX.Element | undefined {
     if (!this.props.registryURL) {

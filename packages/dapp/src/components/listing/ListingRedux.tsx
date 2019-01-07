@@ -16,7 +16,7 @@ import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
 import { getContent } from "../../redux/actionCreators/newsrooms";
-
+import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
@@ -101,6 +101,8 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
                 constitutionURI={this.props.constitutionURI}
               />
             )}
+
+            <EmailSignup />
           </StyledRightContentWell>
 
           <StyledLeftContentWell>

@@ -25,6 +25,7 @@ const charter = {
 storiesOf("Listing Details Header", module)
   .add("No phase label", () => {
     const props: ListingDetailHeaderProps = {
+      listingAddress: "0x0",
       newsroomName: "The Civil Times",
       charter: charter as CharterData,
       owner: "0x0",
@@ -41,6 +42,7 @@ storiesOf("Listing Details Header", module)
   })
   .add("In Application", () => {
     const props: ListingDetailHeaderProps = {
+      listingAddress: "0x0",
       newsroomName: "The Civil Times",
       charter: charter as CharterData,
       owner: "0x0",
@@ -57,6 +59,7 @@ storiesOf("Listing Details Header", module)
   })
   .add("Accepting Votes", () => {
     const props: ListingDetailHeaderProps = {
+      listingAddress: "0x0",
       newsroomName: "The Civil Times",
       charter: charter as CharterData,
       owner: "0x0",
@@ -73,6 +76,7 @@ storiesOf("Listing Details Header", module)
   })
   .add("Revealing Votes", () => {
     const props: ListingDetailHeaderProps = {
+      listingAddress: "0x0",
       newsroomName: "The Civil Times",
       charter: charter as CharterData,
       owner: "0x0",
