@@ -6,7 +6,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 
 const client = new ApolloClient({
-  uri: "https://graphql.staging.civil.app/v1/query",
+  uri: "http://localhost:8080/v1/query",
 });
 
 export const App = (): JSX.Element => {

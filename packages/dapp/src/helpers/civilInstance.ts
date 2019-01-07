@@ -45,6 +45,8 @@ export const isGraphQLSupportedOnNetwork = (network: string): boolean => {
   } else if (network === "4") {
     // rinkeby
     return true;
+  } else if (network === "50") {
+    return true;
   } else {
     return false;
   }
