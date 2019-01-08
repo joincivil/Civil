@@ -53,19 +53,17 @@ class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokens
 
   private approveDeposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
-    return approve(numTokens);
+    return approve(numTokens, this.props.listing.data.owner);
   };
 
   private deposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
-    return depositTokens(this.props.listingAddress, numTokens);
+    return depositTokens(this.props.listingAddress, numTokens, this.props.listing.data.owner);
   };
 
-  private updateViewState = (event: any): void => {
-    const paramName = event.target.getAttribute("name");
-    const val = event.target.value;
+  private updateViewState = (name: string, value: string): void => {
     const newState = {};
-    newState[paramName] = val;
+    newState[name] = value;
     this.setState(newState);
   };
 }
@@ -112,16 +110,14 @@ class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawToke
 
   private withdraw = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
-    return withdrawTokens(this.props.listingAddress, numTokens);
+    return withdrawTokens(this.props.listingAddress, numTokens, this.props.listing.data.owner);
   };
 
   // @TODO(jon): I know this is gross and not very DRY, but this will be refactored
   // when we have Redux and a canonical store for the app
-  private updateViewState = (event: any): void => {
-    const paramName = event.target.getAttribute("name");
-    const val = event.target.value;
+  private updateViewState = (name: string, value: string): void => {
     const newState = {};
-    newState[paramName] = val;
+    newState[name] = value;
     this.setState(newState);
   };
 }

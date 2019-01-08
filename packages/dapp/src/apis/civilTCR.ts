@@ -26,6 +26,13 @@ export async function approveForApply(multisigAddress?: EthAddress): Promise<Two
   return approve(minDeposit, multisigAddress);
 }
 
+export async function approveForDeposit(
+  amount: number | BigNumber,
+  multisigAddress?: EthAddress,
+): Promise<TwoStepEthTransaction | void> {
+  return approve(amount, multisigAddress);
+}
+
 export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
@@ -115,10 +122,11 @@ export async function commitVote(
 
 export async function depositTokens(
   address: EthAddress,
-  numTokens: number | BigNumber,
+  numTokens: BigNumber,
+  multisigAddress?: EthAddress,
 ): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
-  const tcr = await civil.tcrSingletonTrusted();
+  const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   return tcr.deposit(address, ensureWeb3BigNumber(numTokens));
 }
 
@@ -244,9 +252,10 @@ export async function revealVote(
 export async function withdrawTokens(
   address: EthAddress,
   numTokens: number | BigNumber,
+  multisigAddress?: EthAddress,
 ): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
-  const tcr = await civil.tcrSingletonTrusted();
+  const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   return tcr.withdraw(address, ensureWeb3BigNumber(numTokens));
 }
 
