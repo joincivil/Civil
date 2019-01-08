@@ -93,7 +93,7 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
 
             <SectionForm>
               <SectionFormHeader>
-                Write 1-2 sentences about why you’re challenging this newsroom (required)
+                Write 1-2 sentences about why you’re appealing this challenge (required)
               </SectionFormHeader>
               <SectionFormCopyHelper>Max character limit: {SUMMARY_MAX_LENGTH.toString()}</SectionFormCopyHelper>
 
