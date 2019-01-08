@@ -116,6 +116,10 @@ class DashboardActivity extends React.Component<
     const revealVoteTabTitle = <RevealVoteDashboardTabTitle count={userChallengesWithUnrevealedVotes!.count()} />;
     const claimRewardsTabTitle = <ClaimRewardsDashboardTabTitle count={userChallengesWithUnclaimedRewards!.count()} />;
     const rescueTokensTabTitle = <RescueTokensDashboardTabTitle count={userChallengesWithRescueTokens!.count()} />;
+
+    const isClaimRewardsButtonDisabled = !this.state.challengesToClaim.length;
+    const isRescueTokensButtonDisabled = !this.state.challengesToRescue.length;
+
     return (
       <Tabs
         TabComponent={StyledDashboardSubTab}
@@ -139,7 +143,12 @@ class DashboardActivity extends React.Component<
               toggleChallengeSelect={this.setChallengesToMultiClaim}
             />
             <StyledBatchButtonContainer>
-              <TransactionButton transactions={[{ transaction: this.multiClaim }]}>Claim Rewards</TransactionButton>
+              <TransactionButton
+                disabled={isClaimRewardsButtonDisabled}
+                transactions={[{ transaction: this.multiClaim }]}
+              >
+                Claim Rewards
+              </TransactionButton>
             </StyledBatchButtonContainer>
           </>
         </Tab>
@@ -154,7 +163,12 @@ class DashboardActivity extends React.Component<
               toggleChallengeSelect={this.setChallengesToMultiRescue}
             />
             <StyledBatchButtonContainer>
-              <TransactionButton transactions={[{ transaction: this.multiRescue }]}>Rescue Tokens</TransactionButton>
+              <TransactionButton
+                disabled={isRescueTokensButtonDisabled}
+                transactions={[{ transaction: this.multiRescue }]}
+              >
+                Rescue Tokens
+              </TransactionButton>
             </StyledBatchButtonContainer>
           </>
         </Tab>
