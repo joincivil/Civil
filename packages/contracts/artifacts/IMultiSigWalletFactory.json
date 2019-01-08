@@ -1,0 +1,31 @@
+{
+    "contractName": "IMultiSigWalletFactory",
+    "bytecode": "0x",
+    "deployedBytecode": "0x",
+    "abi": [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_owners",
+                    "type": "address[]"
+                },
+                {
+                    "name": "_required",
+                    "type": "uint256"
+                }
+            ],
+            "name": "create",
+            "outputs": [
+                {
+                    "name": "wallet",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "networks": {}
+}

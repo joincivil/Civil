@@ -5,7 +5,6 @@ import "../proof-of-use/telemetry/TokenTelemetryI.sol";
 
 /**
 @title Partial-Lock-Commit-Reveal Voting scheme with ERC20 tokens
-@author Team: Aspyn Palatnick, Cem Ozer, Yorke Rhodes
 */
 contract CivilPLCRVoting is PLCRVoting {
 
@@ -22,16 +21,14 @@ contract CivilPLCRVoting is PLCRVoting {
   }
 
   /**
-  @notice Reveals vote with choice and secret salt used in generating commitHash to attribute committed tokens
-  @param _pollID Integer identifier associated with target poll
-  @param _voteOption Vote choice used to generate commitHash for associated poll
-  @param _salt Secret number used to generate commitHash for associated poll
-  @dev Differs from base implementation in that it records use of token in mapping for "proof of use"
+    @notice Loads _numTokens ERC20 tokens into the voting contract for one-to-one voting rights
+    @dev Assumes that msg.sender has approved voting contract to spend on their behalf
+    @param _numTokens The number of votingTokens desired in exchange for ERC20 tokens
+    @dev Differs from base implementation in that it records use of token in mapping for "proof of use"
   */
-  function revealVote(uint _pollID, uint _voteOption, uint _salt) public {
-    super.revealVote(_pollID, _voteOption, _salt);
-    uint numTokens = getNumTokens(msg.sender, _pollID);
-    telemetry.onTokensUsed(msg.sender, numTokens);
+  function requestVotingRights(uint _numTokens) public {
+    super.requestVotingRights(_numTokens);
+    telemetry.onRequestVotingRights(msg.sender, voteTokenBalance[msg.sender]);
   }
 
   /**

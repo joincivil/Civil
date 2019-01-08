@@ -1,9 +1,9 @@
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   const NewsroomFactory = artifacts.require("NewsroomFactory");
-  const UserGroups = artifacts.require("UserGroups");
   const CreateNewsroomInGroup = artifacts.require("CreateNewsroomInGroup");
+  const CivilTokenController = artifacts.require("CivilTokenController");
 
   deployer.then(async () => {
-    await deployer.deploy(CreateNewsroomInGroup, NewsroomFactory.address, UserGroups.address);
+    await deployer.deploy(CreateNewsroomInGroup, NewsroomFactory.address, CivilTokenController.address);
   });
 };
