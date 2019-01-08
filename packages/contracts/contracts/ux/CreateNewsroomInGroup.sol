@@ -1,27 +1,26 @@
 pragma solidity ^0.4.23;
 
 import "../newsroom/NewsroomFactory.sol";
-import "../proof-of-use/groups/UserGroups.sol";
+import "../token/CivilTokenController.sol";
 
 contract CreateNewsroomInGroup {
   NewsroomFactory factory;
-  UserGroups groups;
+  CivilTokenController controller;
 
-  constructor(NewsroomFactory _factory, UserGroups _groups) {
+  constructor(NewsroomFactory _factory, CivilTokenController _controller) public {
     factory = _factory;
-    groups = _groups;
+    controller = _controller;
   }
 
   function create(string name, string charterUri, bytes32 charterHash, address[] initialOwners, uint initialRequired)
     public
     returns (Newsroom newsroom)
   {
-    require(initialOwners.length > 0);
+    require(initialOwners.length > 0, "initialOwners must have at least one member");
 
     newsroom = factory.create(name, charterUri, charterHash, initialOwners, initialRequired);
 
-    groups.allowInGroupTransfersAll(initialOwners);
     // Multisig
-    groups.allowInGroupTransfers(initialOwners[0], newsroom.owner());
+    controller.addToNewsroomMultisigs(newsroom.owner());
   }
 }

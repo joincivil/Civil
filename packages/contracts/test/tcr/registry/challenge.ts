@@ -5,7 +5,7 @@ import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const Parameterizer = artifacts.require("CivilParameterizer");
-const Token = artifacts.require("EIP20");
+const Token = artifacts.require("CVLToken");
 utils.configureProviders(Parameterizer, Token);
 
 configureChai(chai);
