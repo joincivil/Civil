@@ -1,10 +1,11 @@
 import * as React from "react";
+import { StyledSideModuleHeader } from "./TokensStyledComponents";
 
 export const TokenWelcomeText: React.SFC = props => <>Hello and welcome!</>;
 
-export const TokenSetupTextPrimary: React.SFC = props => <>Let's get you setup to buy, and send CVL tokens.</>;
+export const TokenSetupText: React.SFC = props => <>Let's get you setup to buy, and send CVL tokens.</>;
 
-export const TokenCompleteStepsPromptText: React.SFC = props => (
+export const TokenCompleteStepsHelpText: React.SFC = props => (
   <>
     Please complete the steps below. If you need help, email <a href="mailto:support@civil.co">support@civil.co</a>{" "}
   </>
@@ -39,8 +40,18 @@ export const TokenVerifyBtnText: React.SFC = props => <>Complete Your Eligibilit
 
 export const TokenBuyBtnText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
 
-export const TokenQuestionsHeaderText: React.SFC = props => <>Ask Questions</>;
+export const TokenQuestionsHeaderText: React.SFC = props => (
+  <StyledSideModuleHeader>Ask Questions</StyledSideModuleHeader>
+);
 
-export const TokenAskQuestionText: React.SFC = props => <>Ask a question online</>;
+export const TokenAskQuestionText: React.SFC = props => (
+  <>
+    <a href="">Ask a question online</a>
+  </>
+);
 
-export const TokenFAQText: React.SFC = props => <>Read our Frequently Asked Questions (FAQ) for general help</>;
+export const TokenFAQText: React.SFC = props => (
+  <>
+    Read our <a href="">Frequently Asked Questions (FAQ)</a> for general help
+  </>
+);

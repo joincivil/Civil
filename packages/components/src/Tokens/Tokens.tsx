@@ -1,10 +1,15 @@
 import * as React from "react";
-import { StyledTokenHeaderOuter, StyledTokenHeader } from "./TokensStyledComponents";
+import { TokenAccountOuter, TokenAccountInner } from "./TokensStyledComponents";
+import { UserTokenAccountHeader } from "./TokensAccountHeader";
+import { UserTokenAccountHelp } from "./TokensAccountHelp";
 
-export const UserTokenAccountHeader: React.StatelessComponent = props => {
+export const UserTokenAccount: React.StatelessComponent = props => {
   return (
-    <StyledTokenHeaderOuter>
-      <StyledTokenHeader>{props.children}</StyledTokenHeader>
-    </StyledTokenHeaderOuter>
+    <TokenAccountOuter>
+      <TokenAccountInner>
+        <UserTokenAccountHeader />
+        <UserTokenAccountHelp />
+      </TokenAccountInner>
+    </TokenAccountOuter>
   );
 };
