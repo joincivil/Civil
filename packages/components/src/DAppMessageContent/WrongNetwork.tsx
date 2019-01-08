@@ -9,23 +9,19 @@ export interface WrongNetworkComponentProps {
 }
 
 export const WrongNetworkComponent: React.SFC<WrongNetworkComponentProps> = props => {
-    return (
-      <>
-        <StyledLargeModalText>
-          <b>Change your network.</b>{" "}
-          Looks like you’re using an unsupported Ethereum network. Make sure you're using the{" "}
-          <b>{props.requiredNetworkNiceName}</b>.
-        </StyledLargeModalText>
-        <StyledSmallModalText>
-          <a
-            href={props.helpUrlBase + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-"}
-            target="_blank"
-          >
-            Read this tutorial
-          </a>{" "}
-          to switch networks in MetaMask <MetaMaskIcon />
-        </StyledSmallModalText>
-        <MetaMaskMockImage src={metaMaskNetworkSwitchUrl} />
+  return (
+    <>
+      <StyledLargeModalText>
+        <b>Change your network.</b> Looks like you’re using an unsupported Ethereum network. Make sure you're using the{" "}
+        <b>{props.requiredNetworkNiceName}</b>.
+      </StyledLargeModalText>
+      <StyledSmallModalText>
+        <a href={props.helpUrlBase + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-"} target="_blank">
+          Read this tutorial
+        </a>{" "}
+        to switch networks in MetaMask <MetaMaskIcon />
+      </StyledSmallModalText>
+      <MetaMaskMockImage src={metaMaskNetworkSwitchUrl} />
     </>
   );
 };
