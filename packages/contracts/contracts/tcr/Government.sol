@@ -1,7 +1,6 @@
 pragma solidity ^0.4.24;
 import "../interfaces/IGovernment.sol";
 import "../installed_contracts/PLCRVoting.sol";
-import "../installed_contracts/EIP20Interface.sol";
 import "../zeppelin-solidity/math/SafeMath.sol";
 
 /**

@@ -3,11 +3,11 @@
 import { approveEverything, config, inTesting } from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
 
-const Token = artifacts.require("EIP20");
+const Token = artifacts.require("CVLToken");
 const DLL = artifacts.require("DLL");
 const AttributeStore = artifacts.require("AttributeStore");
+const CivilTokenController = artifacts.require("CivilTokenController");
 
-const UserGroups = artifacts.require("UserGroups");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
 module.exports = (deployer: any, network: string, accounts: string[]) => {
@@ -21,7 +21,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     } else {
       tokenAddress = Token.address;
     }
-    await deployer.deploy(PLCRVoting, tokenAddress, UserGroups.address);
+    await deployer.deploy(PLCRVoting, tokenAddress, CivilTokenController.address);
 
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), PLCRVoting.address);
