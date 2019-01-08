@@ -3,7 +3,7 @@ import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
-const Token = artifacts.require("EIP20.sol");
+const Token = artifacts.require("CVLToken.sol");
 utils.configureProviders(Token);
 
 configureChai(chai);

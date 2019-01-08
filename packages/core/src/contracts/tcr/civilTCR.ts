@@ -29,7 +29,7 @@ import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 import { Challenge } from "./challenge";
 import { Council } from "./council";
-import { EIP20 } from "./eip20";
+import { CVLToken } from "./cvltoken";
 import { Government } from "./government";
 import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
@@ -132,15 +132,15 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   /**
    * Get Token instance used with this TCR
    */
-  public async getToken(): Promise<EIP20> {
+  public async getToken(): Promise<CVLToken> {
     if (this.multisigProxy.multisigEnabled) {
-      return EIP20.atUntrusted(
+      return CVLToken.atUntrusted(
         this.ethApi,
         await this.getTokenAddress(),
         await this.multisigProxy.getMultisigAddress(),
       );
     } else {
-      return EIP20.atUntrusted(this.ethApi, await this.getTokenAddress());
+      return CVLToken.atUntrusted(this.ethApi, await this.getTokenAddress());
     }
   }
 
