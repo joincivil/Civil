@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../redux/reducers";
-import { getFormattedTokenBalance, getFormattedEthAddress, isNetworkSupported } from "@joincivil/utils";
+import { getFormattedTokenBalance, getFormattedEthAddress } from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
 import {
@@ -10,7 +10,7 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { NavBar, NavErrorBar } from "@joincivil/components";
+import { NavBar } from "@joincivil/components";
 import { toggleUseGraphQL } from "../redux/actionCreators/ui";
 
 export interface NavBarProps {
@@ -26,7 +26,6 @@ export interface NavBarProps {
 }
 
 const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => {
-  const shouldRenderErrorBar = !isNetworkSupported(props.network);
   return (
     <>
       <NavBar
@@ -48,7 +47,6 @@ const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => 
           props.dispatch!(await toggleUseGraphQL());
         }}
       />
-      {shouldRenderErrorBar && <NavErrorBar />}
     </>
   );
 };
