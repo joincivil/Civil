@@ -266,6 +266,30 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   public renderSteps(): JSX.Element[] {
     const baseSteps = [
       <Step
+      title={"Create Registry profile"}
+      disabled={!this.props.address || !this.props.userIsOwner}
+      renderButtons={(args: RenderButtonsArgs): JSX.Element => {
+        return (
+          <>
+            <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
+              Back
+            </SecondaryButton>
+            <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.state.charterPartOneComplete}>
+              Next
+            </Button>
+          </>
+        );
+      }}
+      complete={this.state.charterPartOneComplete}
+      key="createCharterPartOne"
+    >
+      <CreateCharterPartOne
+        address={this.props.address}
+        charter={this.props.charter}
+        updateCharter={this.updateCharter}
+      />
+    </Step>,
+      <Step
         title={"Create newsroom"}
         renderButtons={(args: RenderButtonsArgs): JSX.Element => {
           return (
@@ -310,30 +334,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           address={this.props.address}
           renderUserSearch={this.props.renderUserSearch}
           profileWalletAddress={this.props.profileWalletAddress}
-        />
-      </Step>,
-      <Step
-        title={"Create Registry profile"}
-        disabled={!this.props.address || !this.props.userIsOwner}
-        renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-          return (
-            <>
-              <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                Back
-              </SecondaryButton>
-              <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.state.charterPartOneComplete}>
-                Next
-              </Button>
-            </>
-          );
-        }}
-        complete={this.state.charterPartOneComplete}
-        key="createCharterPartOne"
-      >
-        <CreateCharterPartOne
-          address={this.props.address}
-          charter={this.props.charter}
-          updateCharter={this.updateCharter}
         />
       </Step>,
       <Step
