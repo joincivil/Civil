@@ -63,6 +63,7 @@ export interface RevealVoteProps {
 
 export interface AppealDecisionProps {
   appealGranted: boolean;
+  submitAppealChallengeURI?: string;
 }
 
 export interface AppealChallengePhaseProps {

@@ -1,9 +1,9 @@
 // solium-disable
 pragma solidity ^0.4.24;
 
-import "../installed_contracts/EIP20Interface.sol";
 import "../installed_contracts/Parameterizer.sol";
 import "../installed_contracts/PLCRVoting.sol";
+import "../zeppelin-solidity/token/ERC20/IERC20.sol";
 import "../zeppelin-solidity/math/SafeMath.sol";
 
 contract AddressRegistry {
@@ -51,7 +51,7 @@ contract AddressRegistry {
     mapping(address => Listing) public listings;
 
     // Global Variables
-    EIP20Interface public token;
+    IERC20 public token;
     PLCRVoting public voting;
     Parameterizer public parameterizer;
     string public name;
@@ -65,7 +65,7 @@ contract AddressRegistry {
         require(_voting != 0, "_voting address is 0");
         require(_parameterizer != 0, "_parameterizer address is 0");
 
-        token = EIP20Interface(_token);
+        token = IERC20(_token);
         voting = PLCRVoting(_voting);
         parameterizer = Parameterizer(_parameterizer);
         name = _name;

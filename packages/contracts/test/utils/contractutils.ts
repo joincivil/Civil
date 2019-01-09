@@ -13,7 +13,8 @@ import ethApi from "./getethapi";
 // We would need to update ALL the tests, this is a workaround
 export { advanceEvmTime } from "@joincivil/dev-utils";
 
-const Token = artifacts.require("tokens/eip20/EIP20");
+const NoOpTokenController = artifacts.require("NoOpTokenController");
+const Token = artifacts.require("CVLToken");
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const CivilParameterizer = artifacts.require("CivilParameterizer");
@@ -24,9 +25,7 @@ const CivilTCR = artifacts.require("CivilTCR");
 const Government = artifacts.require("Government");
 const Newsroom = artifacts.require("Newsroom");
 const DummyTokenTelemetry = artifacts.require("DummyTokenTelemetry");
-const Whitelist = artifacts.require("Whitelist");
-const UserGroups = artifacts.require("UserGroups");
-const DummyContributionProxy = artifacts.require("DummyContributionProxy");
+
 configureProviders(
   PLCRVoting,
   CivilParameterizer,
@@ -36,14 +35,11 @@ configureProviders(
   CivilTCR,
   Government,
   Newsroom,
-  Whitelist,
-  UserGroups,
-  DummyContributionProxy,
   DummyTokenTelemetry,
 );
 
 const config = JSON.parse(fs.readFileSync("./conf/config.json").toString());
-export const paramConfig = config.paramDefaults;
+export const paramConfig = config.nets.ganache.paramDefaults; // always ganache when testing
 
 export function findEvent<T = any>(tx: any, eventName: string): DecodedLogEntry<T> | undefined {
   return tx.logs.find((log: any) => log.event === eventName);
@@ -249,7 +245,8 @@ async function giveTokensTo(
 }
 
 async function createAndDistributeToken(totalSupply: BigNumber, decimals: string, addresses: string[]): Promise<any> {
-  const token = await Token.new(totalSupply, "TestCoin", decimals, "TEST");
+  const controller = await NoOpTokenController.new();
+  const token = await Token.new(totalSupply, "TestCoin", decimals, "TEST", controller.address);
   await giveTokensTo(totalSupply, addresses, addresses, token);
   return token;
 }
@@ -292,11 +289,10 @@ async function createTestCivilTCRInstance(
     }
     return approveRegistryFor(addresses.slice(1));
   }
-  const parameterizerConfig = config.paramDefaults;
+  const parameterizerConfig = config.nets.ganache.paramDefaults; // always ganache when testing
   const tokenAddress = await parameterizer.token();
   const plcrAddress = await parameterizer.voting();
   const parameterizerAddress = await parameterizer.address;
-  const telemetryAddress = await telemetry.address;
   const token = await Token.at(tokenAddress);
   const government = await Government.new(
     appellateEntity,
@@ -314,13 +310,7 @@ async function createTestCivilTCRInstance(
     parameterizerConfig.constitutionURI,
   );
 
-  const registry = await CivilTCR.new(
-    tokenAddress,
-    plcrAddress,
-    parameterizerAddress,
-    government.address,
-    telemetryAddress,
-  );
+  const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);
 
   await approveRegistryFor(accounts.slice(0, 8));
   return registry;
@@ -358,7 +348,7 @@ async function createTestParameterizerInstance(accounts: string[], token: any, p
     }
     return approveParameterizerFor(addresses.slice(1));
   }
-  const parameterizerConfig = config.paramDefaults;
+  const parameterizerConfig = config.nets.ganache.paramDefaults; // always ganache when testing
 
   const params = [
     parameterizerConfig.minDeposit,
@@ -418,15 +408,4 @@ export async function createDummyNewsrom(from?: string): Promise<any> {
 export function configureProviders(...contracts: any[]): void {
   // TODO(ritave): Use our own contracts
   contracts.forEach(contract => contract.setProvider(ethApi.currentProvider));
-}
-
-export async function setUpUserGroups(
-  tokensPerUsd: number,
-  owner: string,
-): Promise<{ whitelist: any; userGroups: any; contributionProxy: any }> {
-  const contributionProxy = await DummyContributionProxy.new(tokensPerUsd);
-  const whitelist = await Whitelist.new();
-  await whitelist.addAddressToWhitelist(owner);
-  const userGroups = await UserGroups.new(whitelist.address, contributionProxy.address);
-  return { whitelist, userGroups, contributionProxy };
 }

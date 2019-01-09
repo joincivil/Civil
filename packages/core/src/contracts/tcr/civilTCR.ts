@@ -29,7 +29,7 @@ import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 import { Challenge } from "./challenge";
 import { Council } from "./council";
-import { EIP20 } from "./eip20";
+import { CVLToken } from "./cvltoken";
 import { Government } from "./government";
 import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
@@ -132,15 +132,15 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   /**
    * Get Token instance used with this TCR
    */
-  public async getToken(): Promise<EIP20> {
+  public async getToken(): Promise<CVLToken> {
     if (this.multisigProxy.multisigEnabled) {
-      return EIP20.atUntrusted(
+      return CVLToken.atUntrusted(
         this.ethApi,
         await this.getTokenAddress(),
         await this.multisigProxy.getMultisigAddress(),
       );
     } else {
-      return EIP20.atUntrusted(this.ethApi, await this.getTokenAddress());
+      return CVLToken.atUntrusted(this.ethApi, await this.getTokenAddress());
     }
   }
 
@@ -159,7 +159,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently listings as new events get triggered
    */
   public allEventsExceptWhitelistFromBlock(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return Observable.merge(
@@ -239,7 +239,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently listings as new events get triggered
    */
   public allEventsFromBlock(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return Observable.merge(
@@ -258,7 +258,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently whitelisted addresses
    */
   public whitelistedListings(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -274,7 +274,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns listings currently in application stage
    */
   public listingsInApplicationStage(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -290,7 +290,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns addresses ready to be whitelisted
    */
   public readyToBeWhitelistedListings(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -307,7 +307,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in commit vote phase
    */
   public currentChallengedCommitVotePhaseListings(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -324,7 +324,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in reveal vote phase
    */
   public currentChallengedRevealVotePhaseListings(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -341,7 +341,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in request appeal phase
    */
   public listingsAwaitingAppealRequest(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -352,7 +352,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   }
 
   public listingsWithChallengeToResolve(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -369,7 +369,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in appeal phase
    */
   public listingsAwaitingAppealJudgment(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -386,7 +386,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in appeal phase
    */
   public listingsAwaitingAppealChallenge(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -403,7 +403,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in appeal phase
    */
   public listingsInAppealChallengeCommitPhase(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -420,7 +420,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in appeal phase
    */
   public listingsInAppealChallengeRevealPhase(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -437,7 +437,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in appeal phase
    */
   public listingsWithAppealToResolve(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -454,7 +454,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently challenged addresses in appeal phase
    */
   public rejectedListings(
-    fromBlock: number | "latest" = getDefaultFromBlock(),
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
     toBlock?: number,
   ): Observable<ListingWrapper> {
     return this.instance
@@ -466,14 +466,14 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public allApplicationsEver(): Observable<ListingWrapper> {
     return this.instance
-      ._ApplicationStream({}, { fromBlock: getDefaultFromBlock() })
+      ._ApplicationStream({}, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
       .map(e => new Listing(this.ethApi, this.instance, e.args.listingAddress))
       .concatMap(async l => l.getListingWrapper());
   }
 
   public challengesStartedByUser(user: EthAddress): Observable<BigNumber> {
     return this.instance
-      ._ChallengeStream({ challenger: user }, { fromBlock: getDefaultFromBlock() })
+      ._ChallengeStream({ challenger: user }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
       .map(e => e.args.challengeID);
   }
 
@@ -496,11 +496,11 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async getChallengeIDForPollID(pollID: BigNumber): Promise<BigNumber> {
     const challengeStream = this.instance._ChallengeStream(
       { challengeID: pollID },
-      { fromBlock: getDefaultFromBlock() },
+      { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
     );
     const appealChallengeStream = this.instance._GrantedAppealChallengedStream(
       { appealChallengeID: pollID },
-      { fromBlock: getDefaultFromBlock() },
+      { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
     );
     const event = await challengeStream
       .merge(appealChallengeStream)
@@ -570,7 +570,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public async getRewardClaimed(challengeID: BigNumber, user: EthAddress): Promise<BigNumber> {
     const reward = await this.instance
-      ._RewardClaimedStream({ challengeID, voter: user }, { fromBlock: getDefaultFromBlock() })
+      ._RewardClaimedStream({ challengeID, voter: user }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
       .first()
       .toPromise();
     return reward.args.reward;

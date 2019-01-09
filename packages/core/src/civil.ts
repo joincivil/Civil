@@ -10,7 +10,6 @@ import { ContentProvider, ContentProviderCreator } from "./content/contentprovid
 import { IPFSProvider } from "./content/ipfsprovider";
 import { Artifact, artifacts } from "./contracts/generated/artifacts";
 import { Newsroom } from "./contracts/newsroom";
-import { UserGroups } from "./contracts/proof-of-use/usergroups";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
 import { ContentData, StorageHeader } from "./types";
@@ -203,10 +202,6 @@ export class Civil {
    */
   public async tcrSingletonTrustedMultisigSupport(multisigAddress?: EthAddress): Promise<CivilTCR> {
     return CivilTCR.singletonMultisigProxy(this.ethApi, this.contentProvider, multisigAddress);
-  }
-
-  public async userGroupsSingletonTrusted(): Promise<UserGroups> {
-    return UserGroups.singleton(this.ethApi);
   }
 
   /**

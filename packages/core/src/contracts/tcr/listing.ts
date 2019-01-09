@@ -47,7 +47,7 @@ export class Listing {
   //#region EventStreams
 
   public applications(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._Application>> {
     return this.tcrInstance._ApplicationStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Application>(this.ethApi, e);
@@ -55,7 +55,7 @@ export class Listing {
   }
 
   public challenges(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._Challenge>> {
     return this.tcrInstance._ChallengeStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Challenge>(this.ethApi, e);
@@ -63,7 +63,7 @@ export class Listing {
   }
 
   public deposits(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._Deposit>> {
     return this.tcrInstance._DepositStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Deposit>(this.ethApi, e);
@@ -71,7 +71,7 @@ export class Listing {
   }
 
   public withdrawls(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._Withdrawal>> {
     return this.tcrInstance._WithdrawalStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._Withdrawal>(this.ethApi, e);
@@ -79,7 +79,7 @@ export class Listing {
   }
 
   public whitelisteds(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationWhitelisted>> {
     return this.tcrInstance
       ._ApplicationWhitelistedStream({ listingAddress: this.listingAddress }, { fromBlock })
@@ -89,7 +89,7 @@ export class Listing {
   }
 
   public applicationRemoveds(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>> {
     return this.tcrInstance._ApplicationRemovedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ApplicationRemoved>(this.ethApi, e);
@@ -97,7 +97,7 @@ export class Listing {
   }
 
   public listingRemoveds(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._ListingRemoved>> {
     return this.tcrInstance._ListingRemovedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ListingRemoved>(this.ethApi, e);
@@ -105,7 +105,7 @@ export class Listing {
   }
 
   public failedChallenges(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>> {
     return this.tcrInstance._ChallengeFailedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ChallengeFailed>(this.ethApi, e);
@@ -113,7 +113,7 @@ export class Listing {
   }
 
   public successfulChallenges(
-    fromBlock: number = getDefaultFromBlock(),
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>> {
     return this.tcrInstance._ChallengeSucceededStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
       return createTimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded>(this.ethApi, e);

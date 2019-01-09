@@ -29,6 +29,7 @@ import NewsroomManagement from "./newsroom/NewsroomManagementV2";
 import Parameterizer from "./Parameterizer";
 import Government from "./council/Government";
 import SubmitChallengePage from "./listing/SubmitChallenge";
+import SubmitAppealChallengePage from "./listing/SubmitAppealChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 
@@ -104,6 +105,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/contract/:contract" component={ContractPage} />
           <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
           <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
+          <Route path="/listing/:listing/submit-appeal-challenge" component={SubmitAppealChallengePage} />
           <Route path="/listing/:listing/request-appeal" component={RequestAppealPage} />
           <Route path="/listing/:listing" component={Listing} />
           <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />

@@ -74,6 +74,10 @@ export class EthApi {
     return this.networkObservable;
   }
 
+  public network(): number {
+    return Number.parseInt(this.web3.currentProvider.networkVersion, 10);
+  }
+
   public async getGasPrice(): Promise<BigNumber> {
     const gp = promisify<BigNumber>(this.web3.eth.getGasPrice.bind(this.web3.eth));
     return gp();
@@ -186,7 +190,7 @@ export class EthApi {
    */
   public async awaitReceipt<R extends DecodedTransactionReceipt | Web3.TransactionReceipt = Web3.TransactionReceipt>(
     txHash: TxHash,
-    blockConfirmations: number = 1, // wait till the api says the current block is confirmed
+    blockConfirmations: number = this.network() === 50 ? 0 : 1, // wait till the api says the current block is confirmed
   ): Promise<R> {
     while (true) {
       const receipt = await this.getReceipt<R>(txHash);

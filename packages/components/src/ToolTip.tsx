@@ -6,6 +6,8 @@ import { colors, fonts } from "./styleConstants";
 export interface ToolTipTheme {
   toolTipDefaultWidth?: number;
   toolTipTextAlign?: string;
+  toolTipColorEnabled?: string;
+  toolTipColorDisabled?: string;
 }
 
 export interface ToolTipProps {

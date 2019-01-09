@@ -4,7 +4,7 @@ import * as utils from "../../utils/contractutils";
 import { BigNumber } from "bignumber.js";
 import { REVERTED } from "../../utils/constants";
 
-const Token = artifacts.require("EIP20");
+const Token = artifacts.require("CVLToken");
 configureChai(chai);
 const expect = chai.expect;
 

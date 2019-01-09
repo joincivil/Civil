@@ -2,17 +2,15 @@
 
 import BN from "bignumber.js";
 import { config } from "./utils";
-import { MAIN_NETWORK, RINKEBY } from "./utils/consts";
+import { MAIN_NETWORK } from "./utils/consts";
 
-const Token = artifacts.require("EIP20");
+const MessagesAndCodes = artifacts.require("MessagesAndCodes");
+const CivilTokenController = artifacts.require("CivilTokenController");
+const NoOpTokenController = artifacts.require("NoOpTokenController");
+const Token = artifacts.require("CVLToken");
 
 const BASE_10 = 10;
 
-const teammates = process.env.TEAMMATES;
-let teammatesSplit: any;
-if (teammates) {
-  teammatesSplit = teammates!.split(",");
-}
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   const totalSupply = new BN("100000000000000000000000000", BASE_10);
   const decimals = "18";
@@ -33,17 +31,31 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     }
     return giveTokensTo(addresses.slice(1), originalCount);
   }
+
+  deployer.deploy(MessagesAndCodes);
+  deployer.link(MessagesAndCodes, CivilTokenController);
+
   deployer.then(async () => {
-    if (network === RINKEBY) {
-      await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      const allAccounts = teammatesSplit.concat(config.nets[network].tokenHolders);
-      if (teammatesSplit) {
-        return giveTokensTo(allAccounts, allAccounts.length);
+    let tokenName = "CVL";
+    let symbol = "CVL";
+    let giveTo: string[] = [];
+    if (network !== MAIN_NETWORK) {
+      tokenName = "TestCvl";
+      symbol = "TESTCVL";
+
+      const teammates = process.env.TEAMMATES;
+      let teammatesSplit: string[] = [];
+      if (teammates) {
+        teammatesSplit = teammates!.split(",");
       }
-    } else if (network !== MAIN_NETWORK) {
-      await deployer.deploy(Token, totalSupply, "TestCvl", decimals, "TESTCVL");
-      const allAccounts = accounts.concat(config.nets[network].tokenHolders);
-      return giveTokensTo(allAccounts, allAccounts.length);
+      giveTo = accounts.concat(config.nets[network].tokenHolders, teammatesSplit);
+    }
+
+    const controller = await deployer.deploy(NoOpTokenController);
+    await deployer.deploy(CivilTokenController);
+    await deployer.deploy(Token, totalSupply, tokenName, decimals, symbol, controller.address);
+    if (giveTo.length > 0) {
+      await giveTokensTo(giveTo, giveTo.length);
     }
   });
 };

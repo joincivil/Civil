@@ -43,7 +43,7 @@ export const InsufficientCVLForChallenge: React.SFC<InsufficientCVLProps & BuyCV
 export const InsufficientCVLForAppeal: React.SFC<InsufficientCVLProps & BuyCVLButtonProps> = props => {
   return (
     <InsufficientCVL buyCVLURL={props.buyCVLURL}>
-      <InsufficientCVLForAppealText minDeposit={props.minDeposit} />
+      <InsufficientCVLForAppealText appealFee={props.appealFee} />
     </InsufficientCVL>
   );
 };
@@ -51,7 +51,7 @@ export const InsufficientCVLForAppeal: React.SFC<InsufficientCVLProps & BuyCVLBu
 export const InsufficientCVLForAppealChallenge: React.SFC<InsufficientCVLProps & BuyCVLButtonProps> = props => {
   return (
     <InsufficientCVL buyCVLURL={props.buyCVLURL}>
-      <InsufficientCVLForAppealChallengeText minDeposit={props.minDeposit} />
+      <InsufficientCVLForAppealChallengeText appealFee={props.appealFee} />
     </InsufficientCVL>
   );
 };

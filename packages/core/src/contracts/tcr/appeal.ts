@@ -58,7 +58,7 @@ export class Appeal {
       const appealRequestedEvent = await this.tcrInstance
         ._AppealRequestedStream(
           { challengeID: this.challengeId },
-          { fromBlock: getDefaultFromBlock(), toBlock: currentBlock },
+          { fromBlock: getDefaultFromBlock(this.ethApi.network()), toBlock: currentBlock },
         )
         .first()
         .toPromise();

@@ -6,7 +6,7 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
-const Token = artifacts.require("EIP20");
+const Token = artifacts.require("CVLToken");
 utils.configureProviders(Token);
 
 contract("Registry", accounts => {
