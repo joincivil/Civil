@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { Button } from "../Button";
 
@@ -47,7 +47,7 @@ export const MainContentFooter = styled.div`
 
 export const TokenHeaderOuter = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  padding: 30px 30px 0;
+  padding: 30px 30px 10px;
   width: 100%;
 `;
 

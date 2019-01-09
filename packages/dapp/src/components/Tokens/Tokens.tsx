@@ -2,28 +2,17 @@ import * as React from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 
+import { UserTokenAccount } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 
-const StyledTokenActivityContainer = styled.div`
-  box-sizing: border-box;
-  padding: 0 0 200px 396px;
-  margin: -318px auto 0;
-  width: 1200px;
-`;
-
-export interface TokenProps {
-  match?: any;
-  history: any;
-}
-
-export const Tokens: React.SFC<TokenProps> = props => {
+export const Tokens: React.SFC = props => {
   return (
     <>
       <Helmet>
         <title>Token Account - The Civil Registry</title>
       </Helmet>
       <ScrollToTopOnMount />
-      <StyledTokenActivityContainer>User Tokens</StyledTokenActivityContainer>
+      <UserTokenAccount />
     </>
   );
 };
