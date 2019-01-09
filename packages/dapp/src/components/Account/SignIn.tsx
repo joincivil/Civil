@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AuthApplicationEnum, LoginComponent } from "@joincivil/components";
+import { AuthApplicationEnum, LoginComponent, AuthLoginResponse } from "@joincivil/components";
 
 const { STOREFRONT } = AuthApplicationEnum;
 
@@ -12,7 +12,7 @@ export default class AccountSignIn extends React.Component {
     );
   }
 
-  public handleSignIn(token: string): void {
+  public handleSignIn(): void {
     console.log("Got a token:", { token });
   }
 }
