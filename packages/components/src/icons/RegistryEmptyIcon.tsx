@@ -1,16 +1,11 @@
 import * as React from "react";
 
-export interface RegistryEmptyProps {
-  height?: number;
-  width?: number;
-}
-
-export const RegistryEmptyIcon: React.SFC<RegistryEmptyProps> = props => {
-  const width = (props.width || 350).toString();
-  const height = (props.height || 155).toString();
+export const RegistryEmptyIcon: React.SFC = props => {
+  const width = "350";
+  const height = "155";
 
   return (
-    <svg width={width} height={height} viewBox="0 0 350 155" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <rect y="140" width="350" height="3" fill="#E9E9EA" />
         <rect strokeWidth="3" x="78.5" y="1.5" width="193" height="152" fill="#FFF" stroke="#C4C2C0" />
