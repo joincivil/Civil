@@ -4,6 +4,7 @@ import { TextareaInput } from "../input";
 import { buttonSizes, SecondaryButton } from "../Button";
 import { TransactionButtonNoModal } from "../TransactionButton";
 import {
+  StyledErrorMessage,
   StyledUserStatementHeaderOuter,
   StyledUserStatementHeader,
   StatementHeaderHeading,
@@ -163,9 +164,7 @@ export class SubmitChallengeStatement extends React.Component<
                   Confirm and Deposit CVL
                 </TransactionButtonNoModal>
 
-                <SectionFormCopyHelper>
-                  This will pop up a separate MetaMask window to confirm your transactions.
-                </SectionFormCopyHelper>
+                <SectionFormCopyHelper>{this.renderHelperMessage()}</SectionFormCopyHelper>
               </PullRight>
             </SectionActions>
           </StyledUserStatementBody>
@@ -181,6 +180,14 @@ export class SubmitChallengeStatement extends React.Component<
     const details = document.createElement("div");
     details.innerHTML = detailsValue.toString("html");
     return !summaryValue || !summaryValue.length || !citeConstitution.innerText.length || !details.innerText.length;
+  };
+
+  private renderHelperMessage = (): JSX.Element => {
+    if (this.isFormInvalid()) {
+      return <StyledErrorMessage>Please check that all fields have been filled out</StyledErrorMessage>;
+    }
+
+    return <>This will pop up a separate MetaMask window to confirm your transactions.</>;
   };
 
   private handleSummaryValueChange = (name: string, summaryValue: string) => {

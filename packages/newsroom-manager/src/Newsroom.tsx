@@ -10,6 +10,8 @@ import {
   Button,
   SecondaryButton,
   buttonSizes,
+  DEFAULT_BUTTON_THEME,
+  DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
 import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
@@ -118,7 +120,10 @@ const Heading = styled(ManagerHeading)`
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
   public static defaultProps = {
-    theme: {},
+    theme: {
+      ...DEFAULT_BUTTON_THEME,
+      ...DEFAULT_CHECKBOX_THEME,
+    },
   };
 
   private persistCharter = debounce(
@@ -236,7 +241,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           value={{
             civil: this.props.civil,
             currentNetwork: this.props.currentNetwork,
-            requiredNetwork: this.props.requiredNetwork || "rinkeby",
+            requiredNetwork: this.props.requiredNetwork || "rinkeby|ganache",
             account: this.props.account,
           }}
         >
@@ -270,6 +275,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={!!this.props.address}
+        key="createNewsroom"
       >
         <NameAndAddress
           userIsOwner={this.props.userIsOwner}
@@ -296,6 +302,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
+        key="nameAndAddress"
       >
         <CompleteYourProfile
           userIsOwner={this.props.userIsOwner}
@@ -321,6 +328,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.state.charterPartOneComplete}
+        key="createCharterPartOne"
       >
         <CreateCharterPartOne
           address={this.props.address}
@@ -344,6 +352,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           );
         }}
         complete={this.state.charterPartTwoComplete}
+        key="createCharterPartTwo"
       >
         <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
       </Step>,
@@ -366,6 +375,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               </>
             );
           }}
+          key="signConstitution"
         >
           <SignConstitution
             newsroomAdress={this.props.address}
@@ -380,6 +390,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <Step
         title={"Apply to the Registry"}
         disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
+        key="applyToRegistry"
       >
         {this.props.allSteps ? (
           <ApplyToTCR address={this.props.address} />

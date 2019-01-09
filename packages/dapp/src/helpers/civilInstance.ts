@@ -48,4 +48,8 @@ export const isGraphQLSupportedOnNetwork = (network: string): boolean => {
   } else {
     return false;
   }
+
+  /*else if (network === "50") { - ADD THIS when testing with graphql locally
+    return true;
+  } */
 };

@@ -1,10 +1,9 @@
-import { EthAddress, AppealData } from "@joincivil/core";
+import { EthAddress, AppealData, CharterData } from "@joincivil/core";
 
 export interface ListingSummaryComponentProps {
   listingAddress?: EthAddress;
   name?: string;
-  description?: string;
-  logoURL?: string;
+  charter?: CharterData;
   listingDetailURL?: string;
   challengeID?: string;
   challengeStatementSummary?: string;

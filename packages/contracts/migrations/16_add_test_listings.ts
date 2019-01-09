@@ -1,7 +1,7 @@
 module.exports = (deployer: any, network: string, accounts: string[]) => {
   const Newsroom = artifacts.require("Newsroom");
   const CivilTCR = artifacts.require("CivilTCR");
-  const Token = artifacts.require("EIP20");
+  const Token = artifacts.require("CVLToken");
 
   deployer.then(async () => {
     if (network === "ganache") {

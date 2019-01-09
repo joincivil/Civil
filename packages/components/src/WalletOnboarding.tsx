@@ -160,11 +160,14 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
       return (
         <Wrapper>
           <ManagerSectionHeading>MetaMask not enabled</ManagerSectionHeading>
-          <p>Press this button to enable metamask for this domain</p>
+          <p>Press this button to enable MetaMask for this domain.</p>
           <p>
             <LargeishButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.props.enable()}>
               Enable
             </LargeishButton>
+          </p>
+          <p>
+            If you do not see the MetaMask popup, please click the <MetaMaskIcon /> icon in your browser address bar.
           </p>
         </Wrapper>
       );

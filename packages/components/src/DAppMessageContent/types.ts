@@ -1,5 +1,6 @@
 export interface InsufficientCVLProps {
-  minDeposit: string;
+  minDeposit?: string;
+  appealFee?: string;
 }
 
 export interface BuyCVLButtonProps {

@@ -17,7 +17,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       }
     }
 
-    const parameterizerConfig = config.paramDefaults;
+    const parameterizerConfig = config.nets[network].paramDefaults;
     // const estimate = web3.eth.estimateGas({ data: Government.bytecode });
     // console.log("Government gas cost estimate: " + estimate);
 

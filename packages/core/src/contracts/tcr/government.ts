@@ -45,7 +45,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
   /**
    * Gets an unending stream of parameters being set
    */
-  public getParameterSet(fromBlock: number | "latest" = getDefaultFromBlock()): Observable<Param> {
+  public getParameterSet(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<Param> {
     return this.instance._ParameterSetStream({}, { fromBlock }).map(e => {
       return {
         paramName: e.args.name,

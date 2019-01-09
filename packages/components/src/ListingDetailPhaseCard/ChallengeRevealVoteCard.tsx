@@ -15,6 +15,8 @@ import {
   StyledCardClose,
   StyledCardFront,
   StyledCardBack,
+  StyledVisibleOnDesktop,
+  StyledVisibleOnMobile,
   FormHeader,
   FormCopy,
   FullWidthButton,
@@ -52,7 +54,7 @@ export class ChallengeRevealVoteCard extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <StyledCardStage width="485">
+      <StyledCardStage>
         <StyledCard flipped={this.state.flipped}>
           <StyledCardFront>
             <StyledListingDetailPhaseCardContainer>
@@ -144,9 +146,16 @@ export class ChallengeRevealVoteCard extends React.Component<
           <FormCopy>
             Confirm with your secret phrase and earn CVL tokens should the challenge results end in your favor.
           </FormCopy>
-          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-            Reveal My Vote
-          </FullWidthButton>
+          <StyledVisibleOnDesktop>
+            <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+              Reveal My Vote
+            </FullWidthButton>
+          </StyledVisibleOnDesktop>
+          <StyledVisibleOnMobile>
+            <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
+              Reveal My Vote
+            </FullWidthButton>
+          </StyledVisibleOnMobile>
         </>
       );
     }

@@ -12,6 +12,7 @@ After creation the Newsroom is owned by the Board of Directors which is represen
 */
 contract NewsroomFactory is Factory {
   IMultiSigWalletFactory public multisigFactory;
+  mapping (address => address) public multisigNewsrooms;
 
   function NewsroomFactory(address multisigFactoryAddr) public {
     multisigFactory = IMultiSigWalletFactory(multisigFactoryAddr);
@@ -28,6 +29,7 @@ contract NewsroomFactory is Factory {
     newsroom = new Newsroom(name, charterUri, charterHash);
     newsroom.addEditor(msg.sender);
     newsroom.transferOwnership(wallet);
+    multisigNewsrooms[wallet] = newsroom;
     register(newsroom);
   }
 }

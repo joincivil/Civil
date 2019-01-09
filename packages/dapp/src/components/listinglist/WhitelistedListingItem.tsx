@@ -49,11 +49,6 @@ class WhitelistedListingItem extends React.Component<
   public render(): JSX.Element {
     const { listingAddress, listing, newsroom, listingPhaseState, charter } = this.props;
     const listingData = listing!.data;
-    let description = "";
-    if (charter) {
-      // TODO(toby) remove legacy `desc` after transition
-      description = charter.tagline || (charter as any).desc;
-    }
     const challenge = listingData.challenge;
     const challengeID = challenge && listingData.challengeID.toString();
     let challengeStatementSummary;
@@ -97,7 +92,7 @@ class WhitelistedListingItem extends React.Component<
     const listingViewProps = {
       ...newsroomData,
       listingAddress,
-      description,
+      charter,
       listingDetailURL,
       ...listingPhaseState,
       challengeID,

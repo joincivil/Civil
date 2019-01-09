@@ -26,6 +26,7 @@ export interface AppealChallengeDetailProps {
   user: any;
   balance: BigNumber;
   votingBalance: BigNumber;
+  onMobileTransactionClick?(): any;
 }
 
 export interface ChallengeVoteState {

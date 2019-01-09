@@ -18,7 +18,9 @@ const Wrapper = styled.div`
 
 export class QuestionToolTip extends React.Component<ToolTipProps> {
   public render(): JSX.Element {
-    const color = this.props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK;
+    const colorEnabled = (this.props.theme && this.props.theme.toolTipColorEnabled) || colors.primary.BLACK;
+    const colorDisabled = (this.props.theme && this.props.theme.toolTipColorDisabled) || colors.accent.CIVIL_GRAY_4;
+    const color = this.props.disabled ? colorDisabled : colorEnabled;
     return (
       <Outer>
         <ToolTip {...this.props}>

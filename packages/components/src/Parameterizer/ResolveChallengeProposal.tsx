@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { TransactionButton } from "../TransactionButton";
+import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import {
   StyledCreateProposalOuter,
@@ -23,7 +23,6 @@ export interface ResolveChallengeProposalProps {
   parameterCurrentValue: string;
   parameterNewValue: string;
   transactions?: any[];
-  modalContentComponents?: any;
   handleClose(): void;
   postExecuteTransactions?(): any;
 }
@@ -83,13 +82,12 @@ export class ResolveChallengeProposal extends React.Component<ResolveChallengePr
             </StyledSection>
 
             <StyledSection>
-              <TransactionButton
+              <TransactionButtonNoModal
                 transactions={this.props.transactions!}
-                modalContentComponents={this.props.modalContentComponents}
                 postExecuteTransactions={this.props.postExecuteTransactions}
               >
                 Confirm With Metamask
-              </TransactionButton>
+              </TransactionButtonNoModal>
             </StyledSection>
           </StyledCreateProposalContent>
         </StyledChallengeProposalContainer>

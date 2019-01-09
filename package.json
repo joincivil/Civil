@@ -1,9 +1,7 @@
 {
   "private": true,
   "homepage": "https://joincivil.github.io/civil",
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
     "build": "lerna run build --sort",
     "watch": "lerna run --parallel build:watch",
@@ -17,11 +15,15 @@
     "lerna:run": "lerna run",
     "prepare": "lerna run prepare --no-sort",
     "ganache": "run-p ganache:raw 'lerna:run --scope @joincivil/contracts migrate:ganache'",
-    "ganache:raw": "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
+    "ganache:raw":
+      "ganache-cli -p 8545 --networkId 50 -d -m \"${npm_package_config_mnemonic}\" --noVMErrorsOnRPCResponse",
     "migrate": "lerna run --scope @joincivil/contracts migrate:ganache",
     "serve:dapp": "cd ./packages/dapp && serve -s build",
     "publish:docs": "ncp ./packages/dapp/build/ ./docs/",
-    "publish:artifacts": "ncp ./packages/contracts/build/artifacts/CivilTCR.json ./packages/core/src/artifacts/CivilTCR.json && ncp ./packages/contracts/build/artifacts/CivilPLCRVoting.json ./packages/core/src/artifacts/CivilPLCRVoting.json && ncp ./packages/contracts/build/artifacts/CivilParameterizer.json ./packages/core/src/artifacts/CivilParameterizer.json && ncp ./packages/contracts/build/artifacts/EIP20.json ./packages/core/src/artifacts/EIP20.json && ncp ./packages/contracts/build/artifacts/EventStorage.json ./packages/core/src/artifacts/EventStorage.json && ncp ./packages/contracts/build/artifacts/Government.json ./packages/core/src/artifacts/Government.json && ncp ./packages/contracts/build/artifacts/MultiSigWallet.json ./packages/core/src/artifacts/MultiSigWallet.json && ncp ./packages/contracts/build/artifacts/Newsroom.json ./packages/core/src/artifacts/Newsroom.json && ncp ./packages/contracts/build/artifacts/NewsroomFactory.json ./packages/core/src/artifacts/NewsroomFactory.json && ncp ./packages/contracts/build/artifacts/UserGroups.json ./packages/core/src/artifacts/UserGroups.json && ncp ./packages/contracts/build/artifacts/GroupTokenController.json ./packages/core/src/artifacts/GroupTokenController.json && ncp ./packages/contracts/build/artifacts/CreateNewsroomInGroup.json ./packages/core/src/artifacts/CreateNewsroomInGroup.json",
+    "publish:artifacts-dev":
+      "ncp ./packages/contracts/build/artifacts/CivilTCR.json ./packages/core/src/artifacts/CivilTCR.json && ncp ./packages/contracts/build/artifacts/CivilPLCRVoting.json ./packages/core/src/artifacts/CivilPLCRVoting.json && ncp ./packages/contracts/build/artifacts/CivilParameterizer.json ./packages/core/src/artifacts/CivilParameterizer.json && ncp ./packages/contracts/build/artifacts/CVLToken.json ./packages/core/src/artifacts/CVLToken.json && ncp ./packages/contracts/build/artifacts/EventStorage.json ./packages/core/src/artifacts/EventStorage.json && ncp ./packages/contracts/build/artifacts/Government.json ./packages/core/src/artifacts/Government.json && ncp ./packages/contracts/build/artifacts/MultiSigWallet.json ./packages/core/src/artifacts/MultiSigWallet.json && ncp ./packages/contracts/build/artifacts/Newsroom.json ./packages/core/src/artifacts/Newsroom.json && ncp ./packages/contracts/build/artifacts/NewsroomFactory.json ./packages/core/src/artifacts/NewsroomFactory.json && ncp ./packages/contracts/build/artifacts/CivilTokenController.json ./packages/core/src/artifacts/CivilTokenController.json && ncp ./packages/contracts/build/artifacts/CreateNewsroomInGroup.json ./packages/core/src/artifacts/CreateNewsroomInGroup.json && ncp ./packages/contracts/build/artifacts/NoOpTokenController.json ./packages/core/src/artifacts/NoOpTokenController.json",
+    "publish:artifacts":
+      "ncp ./packages/contracts/artifacts/CivilTCR.json ./packages/core/src/artifacts/CivilTCR.json && ncp ./packages/contracts/artifacts/CivilPLCRVoting.json ./packages/core/src/artifacts/CivilPLCRVoting.json && ncp ./packages/contracts/artifacts/CivilParameterizer.json ./packages/core/src/artifacts/CivilParameterizer.json && ncp ./packages/contracts/artifacts/CVLToken.json ./packages/core/src/artifacts/CVLToken.json && ncp ./packages/contracts/artifacts/EventStorage.json ./packages/core/src/artifacts/EventStorage.json && ncp ./packages/contracts/artifacts/Government.json ./packages/core/src/artifacts/Government.json && ncp ./packages/contracts/artifacts/MultiSigWallet.json ./packages/core/src/artifacts/MultiSigWallet.json && ncp ./packages/contracts/artifacts/Newsroom.json ./packages/core/src/artifacts/Newsroom.json && ncp ./packages/contracts/artifacts/NewsroomFactory.json ./packages/core/src/artifacts/NewsroomFactory.json && ncp ./packages/contracts/artifacts/CivilTokenController.json ./packages/core/src/artifacts/CivilTokenController.json && ncp ./packages/contracts/artifacts/CreateNewsroomInGroup.json ./packages/core/src/artifacts/CreateNewsroomInGroup.json && ncp ./packages/contracts/artifacts/NoOpTokenController.json ./packages/core/src/artifacts/NoOpTokenController.json",
     "preparelocally": "run-s migrate publish:artifacts build:core"
   },
   "config": {

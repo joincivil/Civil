@@ -7,6 +7,7 @@ export interface ListingDetailPhaseCardComponentProps {
   transactions?: any[];
   constitutionURI?: string;
   modalContentComponents?: any;
+  onMobileTransactionClick?(): any;
 }
 
 export interface PhaseWithExpiryProps {
@@ -62,6 +63,7 @@ export interface RevealVoteProps {
 
 export interface AppealDecisionProps {
   appealGranted: boolean;
+  submitAppealChallengeURI?: string;
 }
 
 export interface AppealChallengePhaseProps {

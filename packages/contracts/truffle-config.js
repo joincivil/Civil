@@ -1,3 +1,4 @@
+const path = require("path");
 async function ledgerEthereumNodeJsClientFactoryAsync() {
   const Eth = require("@ledgerhq/hw-app-eth").default;
   const TransportNodeHid = require("@ledgerhq/hw-transport-node-hid").default;
@@ -6,11 +7,14 @@ async function ledgerEthereumNodeJsClientFactoryAsync() {
   return ledgerEthClient;
 }
 
+console.log("INIT_CWD", __dirname);
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
   migrations_directory: "build/migrations",
   test_directory: "build/test",
+  contracts_build_directory: path.join(__dirname, process.env.CONTRACT_BUILDS_DIRECTORY || "./build/contracts"),
   solc: {
     optimizer: {
       enabled: true,
@@ -33,10 +37,21 @@ module.exports = {
         var infuraProvider = require("@joincivil/dev-utils").mnemonicProvider;
         var mnemonic = process.env.MNEMONIC;
         var infura_key = process.env.INFURA_KEY;
-        // HDWalletProvider doesn't support signing transactions which is nessecary for group creation
+        // HDWalletProvider doesn't support signing transactions which is necessary for group creation
         return infuraProvider(mnemonic, "https://rinkeby.infura.io/" + infura_key);
       },
       network_id: 4,
+      gasPrice: "20000000000",
+    },
+    ropsten: {
+      provider: function() {
+        var infuraProvider = require("@joincivil/dev-utils").mnemonicProvider;
+        var mnemonic = process.env.MNEMONIC;
+        var infura_key = process.env.INFURA_KEY;
+        // HDWalletProvider doesn't support signing transactions which is nessecary for group creation
+        return infuraProvider(mnemonic, "https://ropsten.infura.io/" + infura_key);
+      },
+      network_id: 5,
       gasPrice: "20000000000",
     },
     ledgerMainnet: {

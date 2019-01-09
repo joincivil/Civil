@@ -3,8 +3,8 @@ pragma solidity ^0.4.24;
 import "./RestrictedAddressRegistry.sol";
 import "../interfaces/IGovernment.sol";
 import "./CivilPLCRVoting.sol";
-import "../proof-of-use/telemetry/TokenTelemetryI.sol";
 import "./CivilParameterizer.sol";
+import "../zeppelin-solidity/token/ERC20/IERC20.sol";
 
 /**
 @title CivilTCR - Token Curated Registry with Appeallate Functionality and Restrictions on Application
@@ -41,7 +41,6 @@ contract CivilTCR is RestrictedAddressRegistry {
 
   CivilPLCRVoting public civilVoting;
   IGovernment public government;
-  TokenTelemetryI public telemetry;
 
   /*
   @notice this struct handles the state of an appeal. It is first initialized
@@ -69,19 +68,16 @@ contract CivilTCR is RestrictedAddressRegistry {
   @param govt IGovernment contract
   */
   constructor(
-    EIP20Interface token,
+    IERC20 token,
     CivilPLCRVoting plcr,
     CivilParameterizer param,
-    IGovernment govt,
-    TokenTelemetryI tele
+    IGovernment govt
   ) public RestrictedAddressRegistry(token, address(plcr), address(param), "CivilTCR")
   {
     require(address(govt) != 0, "govt address was zero");
     require(govt.getGovernmentController() != 0, "govt.getGovernmentController address was 0");
-    require(address(tele) != 0, "tele address was 0");
     civilVoting = plcr;
     government = govt;
-    telemetry = tele;
   }
 
   // --------------------
@@ -96,7 +92,6 @@ contract CivilTCR is RestrictedAddressRegistry {
   */
   function apply(address listingAddress, uint amount, string data) public {
     super.apply(listingAddress, amount, data);
-    telemetry.onTokensUsed(msg.sender, parameterizer.get("minDeposit"));
   }
 
   /**
@@ -126,7 +121,6 @@ contract CivilTCR is RestrictedAddressRegistry {
     appeal.requester = msg.sender;
     appeal.appealFeePaid = appealFee;
     appeal.appealPhaseExpiry = now.add(government.get("judgeAppealLen"));
-    telemetry.onTokensUsed(msg.sender, appealFee);
     require(token.transferFrom(msg.sender, this, appealFee), "Token transfer failed");
     emit _AppealRequested(listingAddress, listing.challengeID, appealFee, msg.sender, data);
   }

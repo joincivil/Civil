@@ -2,17 +2,15 @@ import * as React from "react";
 
 export interface ArticleIndexIconProps {
   color?: string;
-  height?: number;
-  width?: number;
+  size?: number;
 }
 
 export const ArticleIndexIcon = (props: ArticleIndexIconProps): JSX.Element => {
   const color = props.color || "#444";
-  const width = (props.width || 24).toString();
-  const height = (props.height || 24).toString();
+  const size = (props.size || 24).toString();
 
   return (
-    <svg width={width} height={height} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-1348 -46)translate(160 32)translate(1070 11)translate(118 3)">
           <g opacity="0.3">
