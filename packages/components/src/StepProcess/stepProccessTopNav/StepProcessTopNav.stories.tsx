@@ -3,8 +3,19 @@ import * as React from "react";
 import styled from "styled-components";
 import { Button, SecondaryButton } from "../../Button";
 
-import { StepProcessTopNav } from "./StepProcessTopNav";
+import { StepProcessTopNav, ContentProps } from "./StepProcessTopNav";
 import { Step, RenderButtonsArgs } from "./Step";
+
+export interface StepThingProps extends ContentProps {
+  children: string;
+}
+
+const StepThing = (props: StepThingProps): JSX.Element => {
+return (<div>
+  {props.children}
+  <button onClick={() => props.goNext!()}>next</button>
+</div>);
+}
 
 storiesOf("StepProcessTopNav", module)
   .add("StepProcessTopNav step 1", () => {
@@ -12,92 +23,38 @@ storiesOf("StepProcessTopNav", module)
       <StepProcessTopNav>
         <Step
           title={"Step 1"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 2"}
           disabled={true}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 3"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 4"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 5"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 6"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 7"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-              </>
-            );
-          }}
-        >
+       >
           <p>Content</p>
         </Step>
       </StepProcessTopNav>
@@ -216,13 +173,6 @@ storiesOf("StepProcessTopNav", module)
       <StepProcessTopNav>
         <Step
           title={"Step 1"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <div>
             <p>Content</p>
@@ -259,14 +209,6 @@ storiesOf("StepProcessTopNav", module)
         <Step
           title={"Step 2"}
           disabled={true}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <div>
             <p>Content</p>
@@ -302,67 +244,54 @@ storiesOf("StepProcessTopNav", module)
         </Step>
         <Step
           title={"Step 3"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 4"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
         >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 5"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
-        >
+       >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 6"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
-              </>
-            );
-          }}
-        >
+       >
           <p>Content</p>
         </Step>
         <Step
           title={"Step 7"}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-              </>
-            );
-          }}
-        >
+       >
           <p>Content</p>
+        </Step>
+      </StepProcessTopNav>
+    );
+  }).add("passes go next to content", () => {
+    return (
+      <StepProcessTopNav activeIndex={2}>
+        <Step complete={true} title={"Step 1"}>
+          <StepThing>Content</StepThing>
+        </Step>
+        <Step title={"Step 2"} complete={true}>
+          <StepThing>Content</StepThing>
+        </Step>
+        <Step title={"Step 3"}>
+          <StepThing>Content</StepThing>
+        </Step>
+        <Step title={"Step 4"}>
+          <StepThing>Content</StepThing>
+        </Step>
+        <Step title={"Step 5"}>
+          <StepThing>Content</StepThing>
+        </Step>
+        <Step title={"Step 6"}>
+          <StepThing>Content</StepThing>
+        </Step>
+        <Step title={"Step 7"}>
+          <StepThing>Content</StepThing>
         </Step>
       </StepProcessTopNav>
     );

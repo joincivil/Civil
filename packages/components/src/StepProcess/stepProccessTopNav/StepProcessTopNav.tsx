@@ -9,6 +9,11 @@ export interface StepsProps {
   onActiveTabChange?(activeIndex: number): void;
 }
 
+export interface ContentProps {
+  goNext?(): void;
+  goPrevious?(): void;
+}
+
 export interface StepProcessTopNavState {
   activeIndex: number;
   startPosition?: number;
@@ -89,19 +94,9 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
     const children = this.props.children;
     const { activeIndex } = this.state;
     if (children[activeIndex]) {
-      return children[activeIndex].props.children;
-    }
-  }
-
-  public renderButtons(): JSX.Element | undefined {
-    const children = this.props.children;
-    const { activeIndex } = this.state;
-    if (children[activeIndex] && children[activeIndex].props.renderButtons) {
-      return children[activeIndex].props.renderButtons!({
+      return React.cloneElement(children[activeIndex].props.children as React.ReactElement<ContentProps>, {
         goNext: this.goNext,
         goPrevious: this.goPrevious,
-        index: this.state.activeIndex,
-        stepsLength: children.length,
       });
     }
   }
@@ -113,7 +108,6 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
           <StyledContainer>{this.renderTabs()}</StyledContainer>
         </StyledNav>
         <MainSection>{this.renderContent()}</MainSection>
-        <ButtonSection>{this.renderButtons()}</ButtonSection>
       </div>
     );
   }

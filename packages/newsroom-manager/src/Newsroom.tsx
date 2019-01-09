@@ -28,7 +28,7 @@ import {
   getNewsroom,
   updateCharter,
 } from "./actionCreators";
-import { CreateCharterPartOne } from "./CreateCharterPartOne";
+import { NewsroomProfile } from "./NewsroomProfile";
 import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
 import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
@@ -267,37 +267,17 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     const baseSteps = [
       <Step
       title={"Create Registry profile"}
-      disabled={!this.props.address || !this.props.userIsOwner}
-      renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-        return (
-          <>
-            <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-              Back
-            </SecondaryButton>
-            <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.state.charterPartOneComplete}>
-              Next
-            </Button>
-          </>
-        );
-      }}
+      disabled={!this.props.userIsOwner}
       complete={this.state.charterPartOneComplete}
       key="createCharterPartOne"
     >
-      <CreateCharterPartOne
-        address={this.props.address}
+      <NewsroomProfile
         charter={this.props.charter}
         updateCharter={this.updateCharter}
       />
     </Step>,
       <Step
         title={"Create newsroom"}
-        renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-          return (
-            <Button disabled={!this.props.address} onClick={args.goNext} size={buttonSizes.MEDIUM}>
-              Next
-            </Button>
-          );
-        }}
         complete={!!this.props.address}
         key="createNewsroom"
       >
@@ -313,18 +293,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <Step
         disabled={!this.props.address}
         title={"Add accounts"}
-        renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-          return (
-            <>
-              <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                Back
-              </SecondaryButton>
-              <Button onClick={args.goNext} size={buttonSizes.MEDIUM}>
-                Next
-              </Button>
-            </>
-          );
-        }}
         complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
         key="nameAndAddress"
       >
@@ -339,18 +307,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <Step
         title={"Write your charter"}
         disabled={(!this.props.address && !this.state.charterPartOneComplete) || !this.props.userIsOwner}
-        renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-          return (
-            <>
-              <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                Back
-              </SecondaryButton>
-              <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.state.charterPartTwoComplete}>
-                Next
-              </Button>
-            </>
-          );
-        }}
         complete={this.state.charterPartTwoComplete}
         key="createCharterPartTwo"
       >
@@ -363,18 +319,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           title={"Sign the Constitution"}
           disabled={!this.props.address && !this.state.charterPartTwoComplete}
           complete={!!this.props.charterUri}
-          renderButtons={(args: RenderButtonsArgs): JSX.Element => {
-            return (
-              <>
-                <SecondaryButton size={buttonSizes.MEDIUM} onClick={args.goPrevious}>
-                  Back
-                </SecondaryButton>
-                <Button onClick={args.goNext} size={buttonSizes.MEDIUM} disabled={!this.props.charterUri}>
-                  Next
-                </Button>
-              </>
-            );
-          }}
           key="signConstitution"
         >
           <SignConstitution

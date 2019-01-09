@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { colors, StepHeader, StepProps, StepDescription, QuestionToolTip } from "@joincivil/components";
 import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
-import { RosterMember } from "./RosterMember";
 import {
   FormSection,
   FormTitle,
@@ -15,20 +14,14 @@ import {
   HelperText,
   StyledTextInput,
   StyledTextareaInput,
-} from "./styledComponents";
-import { StateWithNewsroom } from "./reducers";
-import { getUserObject } from "./utils";
-import { UserData } from "./types";
+} from "../styledComponents";
+import { StateWithNewsroom } from "../reducers";
+import { getUserObject } from "../utils";
+import { UserData } from "../types";
 
-export interface CreateCharterPartOneExternalProps extends StepProps {
+export interface NewsroomBioProps extends StepProps {
   charter: Partial<CharterData>;
-  address?: EthAddress;
   updateCharter(charter: Partial<CharterData>): void;
-}
-
-export interface CreateCharterPartOneProps extends CreateCharterPartOneExternalProps {
-  owners: UserData[];
-  editors: UserData[];
 }
 
 const LogoFormWrap = styled.div`
@@ -79,11 +72,9 @@ const AddRosterMember = styled.a`
   box-shadow: none !important;
 `;
 
-class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOneProps & DispatchProp<any>> {
+export class NewsroomBio extends React.Component<NewsroomBioProps> {
   public render(): JSX.Element {
     const charter = this.props.charter;
-    const contractUsers = this.props.owners.concat(this.props.editors);
-
     return (
       <>
         <StepHeader>Create your Newsroom Registry profile</StepHeader>
@@ -198,22 +189,3 @@ class CreateCharterPartOneComponent extends React.Component<CreateCharterPartOne
     return !!url && !isValidHttpUrl(url);
   };
 }
-
-const mapStateToProps = (
-  state: StateWithNewsroom,
-  ownProps: CreateCharterPartOneExternalProps,
-): CreateCharterPartOneProps => {
-  const newsroom = state.newsrooms.get(ownProps.address || "") || { wrapper: { data: {} } };
-  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(getUserObject.bind(null, state));
-  const editors: UserData[] = ((newsroom.editors && newsroom.editors.toArray()) || []).map(
-    getUserObject.bind(null, state),
-  );
-
-  return {
-    ...ownProps,
-    owners,
-    editors,
-  };
-};
-
-export const CreateCharterPartOne = connect(mapStateToProps)(CreateCharterPartOneComponent);
