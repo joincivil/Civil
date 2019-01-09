@@ -20,18 +20,16 @@ export const RevealVoteSuccessIcon: React.SFC = props => {
           points="41.9 33 34.205 40.10875 31.1 37.24875 29 39.1875 34.205 44 44 34.93875"
         />
         <g transform="translate(70, 79)">
-          <g>
-            <path
-              d="M9,0 C4.05,0 0,4.05 0,9 C0,13.95 4.05,18 9,18 C13.95,18 18,13.95 18,9 C18,4.05 13.95,0 9,0 L9,0 Z"
-              stroke={colors.basic.WHITE}
-              stroke-width="3"
-              fill={colors.basic.WHITE}
-            />
-            <path
-              d="M9,0 C4.05,0 0,4.05 0,9 C0,13.95 4.05,18 9,18 C13.95,18 18,13.95 18,9 C18,4.05 13.95,0 9,0 L9,0 Z M7.2,13.5 L2.7,9 L3.96,7.74 L7.2,10.98 L14.04,4.14 L15.3,5.4 L7.2,13.5 L7.2,13.5 Z"
-              fill={colors.accent.CIVIL_BLUE}
-            />
-          </g>
+          <path
+            d="M9,0 C4.05,0 0,4.05 0,9 C0,13.95 4.05,18 9,18 C13.95,18 18,13.95 18,9 C18,4.05 13.95,0 9,0 L9,0 Z"
+            stroke={colors.basic.WHITE}
+            stroke-width="3"
+            fill={colors.basic.WHITE}
+          />
+          <path
+            d="M9,0 C4.05,0 0,4.05 0,9 C0,13.95 4.05,18 9,18 C13.95,18 18,13.95 18,9 C18,4.05 13.95,0 9,0 L9,0 Z M7.2,13.5 L2.7,9 L3.96,7.74 L7.2,10.98 L14.04,4.14 L15.3,5.4 L7.2,13.5 L7.2,13.5 Z"
+            fill={colors.accent.CIVIL_BLUE}
+          />
         </g>
       </g>
     </svg>
