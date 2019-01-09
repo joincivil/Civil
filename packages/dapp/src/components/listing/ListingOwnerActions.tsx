@@ -132,7 +132,7 @@ class ExitListing extends React.Component<OwnerListingViewProps> {
   }
 
   private exitListing = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return exitListing(this.props.listingAddress);
+    return exitListing(this.props.listingAddress, this.props.listing.data.owner);
   };
 }
 
