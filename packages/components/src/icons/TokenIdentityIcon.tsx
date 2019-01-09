@@ -2,7 +2,7 @@ import * as React from "react";
 import { colors } from "../styleConstants";
 import { CircleBorder } from "./IconsStyledComponents";
 
-export const TokenIdentityIcon = (): JSX.Element => {
+export const TokenIdentityIcon: React.SFC = props => {
   return (
     <CircleBorder>
       <svg width="18" height="21" viewBox="0 0 18 21" xmlns="http://www.w3.org/2000/svg">
