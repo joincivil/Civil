@@ -136,9 +136,9 @@ export async function appealChallenge(address: EthAddress, data: string = ""): P
   return tcr.requestAppeal(address, data);
 }
 
-export async function exitListing(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function exitListing(address: EthAddress, multisigAddress?: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
-  const tcr = await civil.tcrSingletonTrusted();
+  const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   return tcr.exitListing(address);
 }
 
