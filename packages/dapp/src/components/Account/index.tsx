@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
-import SignIn from "./SignIn";
-import Register from "./Register";
-import Home from "./Home";
+import { AccountSignIn } from "./SignIn";
+import { AccountRegister } from "./Register";
+import { AccountHome } from "./Home";
 import { AccountVerifyToken, AccountVerifyTokenProps, AuthLoginResponse } from "./VerifyToken";
 
 export default class AccountRouter extends React.Component<RouteComponentProps> {
@@ -16,15 +16,15 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
     return (
       <>
         <Switch>
-          <Route path={`${match.path}/signin`} component={SignIn} />
-          <Route path={`${match.path}/register`} component={Register} />
+          <Route path={`${match.path}/signin`} component={AccountSignIn} />
+          <Route path={`${match.path}/register`} component={AccountRegister} />
           <Route
             path={`${match.path}/verify-token/:token`}
             component={(props: AccountVerifyTokenProps) => (
               <AccountVerifyToken {...props} onAuthentication={this.handleOnAuthentication} />
             )}
           />
-          <Route path={`${match.path}`} exact={true} component={Home} />
+          <Route path={`${match.path}`} exact={true} component={AccountHome} />
         </Switch>
       </>
     );

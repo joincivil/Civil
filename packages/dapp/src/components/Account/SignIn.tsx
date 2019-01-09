@@ -1,9 +1,9 @@
 import * as React from "react";
-import { AuthApplicationEnum, LoginComponent, AuthLoginResponse } from "@joincivil/components";
+import { AuthApplicationEnum, LoginComponent } from "@joincivil/components";
 
 const { STOREFRONT } = AuthApplicationEnum;
 
-export default class AccountSignIn extends React.Component {
+export class AccountSignIn extends React.Component {
   public render(): JSX.Element {
     return (
       <>
@@ -13,6 +13,6 @@ export default class AccountSignIn extends React.Component {
   }
 
   public handleSignIn(): void {
-    console.log("Got a token:", { token });
+    // console.log("Got a token:", { token });
   }
 }

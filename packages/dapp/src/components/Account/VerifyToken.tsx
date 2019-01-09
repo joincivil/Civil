@@ -14,7 +14,7 @@ const verifyTokenMutation = gql`
   }
 `;
 
-interface AuthLoginResponse {
+export interface AuthLoginResponse {
   token: string;
   refreshToken: string;
   uid: string;
@@ -33,13 +33,13 @@ interface VerifyTokenState {
   errorMessage: string | null;
 }
 
-export class AccountVerifyToken extends React.Component<VerifyTokenProps, VerifyTokenState> {
+export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps, VerifyTokenState> {
   public state = {
     hasValidated: false,
     errorMessage: null,
   };
 
-  constructor(props: VerifyTokenProps) {
+  constructor(props: AccountVerifyTokenProps) {
     super(props);
   }
 
