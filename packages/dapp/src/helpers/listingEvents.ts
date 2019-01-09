@@ -3,7 +3,7 @@ import { addNewsroom } from "@joincivil/newsroom-manager";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
 import { Dispatch } from "react-redux";
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 import {
   addChallenge,
   addUserAppealChallengeData,
@@ -16,19 +16,17 @@ import { getCivil, getTCR } from "./civilInstance";
 
 const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
-const civilGenesisBlock = getDefaultFromBlock();
 let initialListingSubscriptions: Subscription | undefined;
 let currentListingSubscriptions: Subscription | undefined;
 
-export async function initializeSubscriptions(dispatch: Dispatch<any>): Promise<void> {
+export async function initializeSubscriptions(dispatch: Dispatch<any>, network: number): Promise<void> {
   const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
+  const civilGenesisBlock = getDefaultFromBlock(network);
 
-  const initialLoadObservable = Observable.merge(
-    tcr.listingsInApplicationStage(civilGenesisBlock, current),
-    tcr.whitelistedListings(civilGenesisBlock, current),
-  );
+  const initialLoadObservable = tcr.allEventsFromBlock(civilGenesisBlock, current);
+
   initialListingSubscriptions = initialLoadObservable.subscribe(
     async (listing: ListingWrapper) => {
       await getNewsroom(dispatch, listing.address);
@@ -81,7 +79,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
   const tcr = await getTCR();
   challengeSubscription = tcr
     .getVoting()
-    .votesCommitted(civilGenesisBlock, user)
+    .votesCommitted(undefined, user)
     .subscribe(async (pollID: BigNumber) => {
       const challengeId = await tcr.getChallengeIDForPollID(pollID);
       const wrappedChallenge = await tcr.getChallengeData(challengeId);

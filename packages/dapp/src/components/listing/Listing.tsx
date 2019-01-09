@@ -34,7 +34,7 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
     const listingAddress = this.props.listingAddress;
     if (this.props.useGraphQl) {
       return (
-        <Query query={LISTING_QUERY} variables={{ addr: listingAddress }}>
+        <Query query={LISTING_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
               return <p />;

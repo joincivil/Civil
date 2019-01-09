@@ -53,7 +53,7 @@ export class Challenge {
 
   public async getListingIdForChallenge(): Promise<EthAddress> {
     const challengeEvent = await this.tcrInstance
-      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: getDefaultFromBlock() })
+      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
       .first()
       .toPromise();
     return challengeEvent.args.listingAddress;
@@ -61,7 +61,7 @@ export class Challenge {
 
   private async getChallengeURI(): Promise<EthAddress> {
     const challengeEvent = await this.tcrInstance
-      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: getDefaultFromBlock() })
+      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
       .first()
       .toPromise();
     return challengeEvent.args.data;

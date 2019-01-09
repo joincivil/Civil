@@ -12,7 +12,7 @@ const defaultContext: CivilContextValue = {
   civil: undefined,
   account: undefined,
   currentNetwork: undefined,
-  requiredNetwork: "rinkeby",
+  requiredNetwork: "rinkeby|ganache",
 };
 
 export const CivilContext = React.createContext(defaultContext);

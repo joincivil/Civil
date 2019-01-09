@@ -3,7 +3,7 @@
 import { approveEverything, config, inTesting } from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
 
-const Token = artifacts.require("EIP20");
+const Token = artifacts.require("CVLToken");
 const DLL = artifacts.require("DLL");
 const AttributeStore = artifacts.require("AttributeStore");
 
@@ -15,7 +15,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(DLL, Parameterizer);
     await deployer.link(AttributeStore, Parameterizer);
 
-    const parameterizerConfig = config.paramDefaults;
+    const parameterizerConfig = config.nets[network].paramDefaults;
     let tokenAddress;
     if (network === MAIN_NETWORK) {
       tokenAddress = config.nets[network].TokenAddress;
@@ -42,6 +42,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.appealChallengeCommitStageLength,
       parameterizerConfig.appealChallengeRevealStageLength,
     ]);
+
     if (inTesting(network)) {
       await approveEverything(accounts, Token.at(tokenAddress), Parameterizer.address);
     }

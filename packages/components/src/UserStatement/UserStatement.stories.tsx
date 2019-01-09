@@ -1,4 +1,5 @@
 import { storiesOf } from "@storybook/react";
+import StoryRouter from "storybook-react-router";
 import * as React from "react";
 import styled from "styled-components";
 import { SubmitChallengeStatement, SubmitChallengeStatementProps } from "./SubmitChallengeStatement";
@@ -18,6 +19,7 @@ const Container: React.StatelessComponent = ({ children }) => (
 );
 
 storiesOf("User Statement Forms", module)
+  .addDecorator(StoryRouter())
   .add("Submit Challenge Statement", () => {
     const updateStatementValue = (name: string, value: any) => {
       console.log("update statement", name, value);

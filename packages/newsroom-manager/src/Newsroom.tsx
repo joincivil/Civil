@@ -10,6 +10,8 @@ import {
   Button,
   SecondaryButton,
   buttonSizes,
+  DEFAULT_BUTTON_THEME,
+  DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
 import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
@@ -118,7 +120,10 @@ const Heading = styled(ManagerHeading)`
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
   public static defaultProps = {
-    theme: {},
+    theme: {
+      ...DEFAULT_BUTTON_THEME,
+      ...DEFAULT_CHECKBOX_THEME,
+    },
   };
 
   private persistCharter = debounce(
@@ -236,7 +241,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           value={{
             civil: this.props.civil,
             currentNetwork: this.props.currentNetwork,
-            requiredNetwork: this.props.requiredNetwork || "rinkeby",
+            requiredNetwork: this.props.requiredNetwork || "rinkeby|ganache",
             account: this.props.account,
           }}
         >

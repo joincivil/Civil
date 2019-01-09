@@ -7,7 +7,7 @@ configureChai(chai);
 const expect = chai.expect;
 
 const Parameterizer = artifacts.require("CivilParameterizer");
-const Token = artifacts.require("EIP20");
+const Token = artifacts.require("CVLToken");
 utils.configureProviders(Parameterizer, Token);
 
 contract("Registry With Appeals", accounts => {
