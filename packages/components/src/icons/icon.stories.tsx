@@ -8,10 +8,11 @@ import {
   ArticleIndexPanelIcon,
   ArticleSignIcon,
   ArticleSignPanelIcon,
-  CvlToken,
+  BellIcon,
   ClockIcon,
   CloseXIcon,
   CommitVoteSuccessIcon,
+  CvlToken,
   ExpandDownArrow,
   FacebookIcon,
   GreenCheckMark,
@@ -24,18 +25,18 @@ import {
   OctopusErrorIcon,
   RegistryEmptyIcon,
   RejectedNewsroomsIcon,
-  RevealVoteSuccessIcon,
   RequestAppealSuccessIcon,
+  RevealVoteSuccessIcon,
   SubmitChallengeSuccessIcon,
   TwitterIcon,
-  WarningIcon,
   WaitForApply,
+  WarningIcon,
 } from "./index";
 
 const StyledDiv = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 400px;
 `;
 
@@ -84,10 +85,10 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("CVLToken", () => {
+  .add("BellIcon", () => {
     return (
       <Container>
-        <CvlToken />
+        <BellIcon />
       </Container>
     );
   })
@@ -98,7 +99,7 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("CLoseXIcon", () => {
+  .add("CloseXIcon", () => {
     return (
       <Container>
         <CloseXIcon />
@@ -109,6 +110,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <CommitVoteSuccessIcon />
+      </Container>
+    );
+  })
+  .add("CVLToken", () => {
+    return (
+      <Container>
+        <CvlToken />
       </Container>
     );
   })
@@ -196,17 +204,17 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("RevealVoteSuccessIcon", () => {
-    return (
-      <Container>
-        <RevealVoteSuccessIcon />
-      </Container>
-    );
-  })
   .add("RequestAppealSuccessIcon", () => {
     return (
       <Container>
         <RequestAppealSuccessIcon />
+      </Container>
+    );
+  })
+  .add("RevealVoteSuccessIcon", () => {
+    return (
+      <Container>
+        <RevealVoteSuccessIcon />
       </Container>
     );
   })
@@ -224,17 +232,17 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("WarningIcon", () => {
-    return (
-      <Container>
-        <WarningIcon />
-      </Container>
-    );
-  })
   .add("WaitForApply", () => {
     return (
       <Container>
         <WaitForApply />
+      </Container>
+    );
+  })
+  .add("WarningIcon", () => {
+    return (
+      <Container>
+        <WarningIcon />
       </Container>
     );
   });
