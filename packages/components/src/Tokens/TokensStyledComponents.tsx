@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
-import { Button } from "../Button";
+import { Button, ButtonProps } from "../Button";
 
 export const TokenAccountOuter = styled.div`
   background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
@@ -16,7 +16,7 @@ export const TokenAccountInner = styled.div`
   width: 1200px;
 `;
 
-export const TokenButtons = styled(Button)`
+export const TokenButtons: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   border-radius: 1px;
   font-size: 13px;
   font-weight: 800;
