@@ -2,12 +2,14 @@ import * as React from "react";
 import {
   TokenAccountOuter,
   TokenAccountInner,
-  TokenColumns,
-  PrimaryContentColumn,
-  SecondaryContentColumn,
+  FlexColumns,
+  FlexColumnsPrimary,
+  FlexColumnsPrimaryModule,
+  FlexColumnsSecondary,
+  FlexColumnsSecondaryModule,
 } from "./TokensStyledComponents";
 import { UserTokenAccountHeader } from "./TokensAccountHeader";
-import { UserTokenAccountStages } from "./TokensAccountStages";
+import { UserTokenAccountRequirements } from "./TokensAccountRequirements";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
 
 export const UserTokenAccount: React.StatelessComponent = props => {
@@ -15,14 +17,18 @@ export const UserTokenAccount: React.StatelessComponent = props => {
     <TokenAccountOuter>
       <TokenAccountInner>
         <UserTokenAccountHeader />
-        <TokenColumns>
-          <PrimaryContentColumn>
-            <UserTokenAccountStages />
-          </PrimaryContentColumn>
-          <SecondaryContentColumn>
-            <UserTokenAccountHelp />
-          </SecondaryContentColumn>
-        </TokenColumns>
+        <FlexColumns>
+          <FlexColumnsPrimary>
+            <FlexColumnsPrimaryModule>
+              <UserTokenAccountRequirements />
+            </FlexColumnsPrimaryModule>
+          </FlexColumnsPrimary>
+          <FlexColumnsSecondary>
+            <FlexColumnsSecondaryModule>
+              <UserTokenAccountHelp />
+            </FlexColumnsSecondaryModule>
+          </FlexColumnsSecondary>
+        </FlexColumns>
       </TokenAccountInner>
     </TokenAccountOuter>
   );
