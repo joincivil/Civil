@@ -1,6 +1,13 @@
 import * as React from "react";
-import { TokenAccountOuter, TokenAccountInner } from "./TokensStyledComponents";
+import {
+  TokenAccountOuter,
+  TokenAccountInner,
+  TokenColumns,
+  PrimaryContentColumn,
+  SecondaryContentColumn,
+} from "./TokensStyledComponents";
 import { UserTokenAccountHeader } from "./TokensAccountHeader";
+import { UserTokenAccountStages } from "./TokensAccountStages";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
 
 export const UserTokenAccount: React.StatelessComponent = props => {
@@ -8,7 +15,14 @@ export const UserTokenAccount: React.StatelessComponent = props => {
     <TokenAccountOuter>
       <TokenAccountInner>
         <UserTokenAccountHeader />
-        <UserTokenAccountHelp />
+        <TokenColumns>
+          <PrimaryContentColumn>
+            <UserTokenAccountStages />
+          </PrimaryContentColumn>
+          <SecondaryContentColumn>
+            <UserTokenAccountHelp />
+          </SecondaryContentColumn>
+        </TokenColumns>
       </TokenAccountInner>
     </TokenAccountOuter>
   );

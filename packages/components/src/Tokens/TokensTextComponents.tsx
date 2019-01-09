@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyledSideModuleHeader } from "./TokensStyledComponents";
+import { SideModuleHeader } from "./TokensStyledComponents";
 
 export const TokenWelcomeText: React.SFC = props => <>Hello and welcome!</>;
 
@@ -40,9 +40,7 @@ export const TokenVerifyBtnText: React.SFC = props => <>Complete Your Eligibilit
 
 export const TokenBuyBtnText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
 
-export const TokenQuestionsHeaderText: React.SFC = props => (
-  <StyledSideModuleHeader>Ask Questions</StyledSideModuleHeader>
-);
+export const TokenQuestionsHeaderText: React.SFC = props => <SideModuleHeader>Ask Questions</SideModuleHeader>;
 
 export const TokenAskQuestionText: React.SFC = props => (
   <>

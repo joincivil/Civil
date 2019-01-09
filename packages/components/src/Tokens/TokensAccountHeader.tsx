@@ -1,24 +1,19 @@
 import * as React from "react";
-import {
-  StyledTokenHeaderOuter,
-  StyledTokenHeader,
-  StyledTokenSetupText,
-  StyledTokenHelpText,
-} from "./TokensStyledComponents";
+import { TokenHeaderOuter, TokenHeader, TokenSetup, TokenHelp } from "./TokensStyledComponents";
 import { TokenWelcomeText, TokenSetupText, TokenCompleteStepsHelpText } from "./TokensTextComponents";
 
 export const UserTokenAccountHeader: React.StatelessComponent = props => {
   return (
-    <StyledTokenHeaderOuter>
-      <StyledTokenHeader>
+    <TokenHeaderOuter>
+      <TokenHeader>
         <TokenWelcomeText />
-      </StyledTokenHeader>
-      <StyledTokenSetupText>
+      </TokenHeader>
+      <TokenSetup>
         <TokenSetupText />
-      </StyledTokenSetupText>
-      <StyledTokenHelpText>
+      </TokenSetup>
+      <TokenHelp>
         <TokenCompleteStepsHelpText />
-      </StyledTokenHelpText>
-    </StyledTokenHeaderOuter>
+      </TokenHelp>
+    </TokenHeaderOuter>
   );
 };

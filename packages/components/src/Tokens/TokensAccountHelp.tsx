@@ -1,19 +1,19 @@
 import * as React from "react";
-import { StyledTokenSideModule, StyledSideModuleText } from "./TokensStyledComponents";
+import { TokenSideModule, SideModuleContent } from "./TokensStyledComponents";
 import { TokenQuestionsHeaderText, TokenAskQuestionText, TokenFAQText } from "./TokensTextComponents";
 import { Collapsable } from "../Collapsable";
 
 export const UserTokenAccountHelp: React.StatelessComponent = props => {
   return (
-    <StyledTokenSideModule>
+    <TokenSideModule>
       <Collapsable header={<TokenQuestionsHeaderText />} open={true}>
-        <StyledSideModuleText>
+        <SideModuleContent>
           <TokenAskQuestionText />
-        </StyledSideModuleText>
-        <StyledSideModuleText>
+        </SideModuleContent>
+        <SideModuleContent>
           <TokenFAQText />
-        </StyledSideModuleText>
+        </SideModuleContent>
       </Collapsable>
-    </StyledTokenSideModule>
+    </TokenSideModule>
   );
 };
