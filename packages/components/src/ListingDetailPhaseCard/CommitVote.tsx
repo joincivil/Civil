@@ -95,7 +95,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
 
           <StyledOneTokenOneVote>
             <OneTokenOneVoteText />
-            <QuestionToolTip explainerText={OneTokenOneVoteTooltipText} positionBottom={true} />
+            <QuestionToolTip explainerText={<OneTokenOneVoteTooltipText />} positionBottom={true} />
           </StyledOneTokenOneVote>
 
           {this.renderTokenBalance()}
