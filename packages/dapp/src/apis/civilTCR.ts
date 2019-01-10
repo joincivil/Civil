@@ -100,6 +100,12 @@ export async function challengeGrantedAppeal(address: EthAddress, data: string =
   return tcr.challengeGrantedAppeal(address, data);
 }
 
+export async function challengeListing(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  return tcr.challenge(address, data);
+}
+
 export async function challengeListingWithUri(address: EthAddress, uri: string = ""): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
