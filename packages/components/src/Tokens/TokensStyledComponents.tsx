@@ -111,13 +111,15 @@ export const TokenSetup = styled.p`
 
 export const TokenRequirement = styled.div`
   margin: 0 30px 0 50px;
-  padding: 5px 20px 60px 35px;
+  padding: 5px 20px 40px 35px;
   position: relative;
 
   h3 {
+    color: ${colors.accent.CIVIL_GRAY_1};
     font-family: ${fonts.SANS_SERIF};
-    font-size: 19px;
-    line-height: 32px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 33px;
     margin: 0 0 5px;
   }
 
@@ -145,8 +147,7 @@ export const TokenRequirementIcon = styled.div`
 `;
 
 export const TokenRequirementFooter = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   display: flex;
   justify-content: center;
-  padding: 35px 30px 15px;
+  padding: 15px 30px;
 `;

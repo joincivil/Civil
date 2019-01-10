@@ -1,35 +1,20 @@
 import * as React from "react";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
-import { TokenBtns, TokenRequirementIcon, TokenRequirementFooter } from "./TokensStyledComponents";
+import { TokenBtns, TokenRequirementIcon } from "./TokensStyledComponents";
 import {
-  TokenConnectWalletHeaderText,
-  TokenConnectWalletInfoText,
-  TokenConnectWalletBtnText,
   TokenQuizHeaderText,
   TokenQuizInfoText,
   TokenQuizBtnText,
   TokenVerifyHeaderText,
   TokenVerifyInfoText,
   TokenVerifyBtnText,
-  TokenBuyBtnText,
 } from "./TokensTextComponents";
-import { TokenAddWalletIcon } from "../icons/TokenAddWalletIcon";
 import { TokenIdentityIcon } from "../icons/TokenIdentityIcon";
 import { TokenTutorialIcon } from "../icons/TokenTutorialIcon";
 
-export const UserTokenAccountRequirements: React.StatelessComponent = props => {
+export const UserTokenAccountVerify: React.StatelessComponent = props => {
   return (
     <>
-      <UserTokenAccountRequirement>
-        <TokenRequirementIcon>
-          <TokenAddWalletIcon />
-        </TokenRequirementIcon>
-        <TokenConnectWalletHeaderText />
-        <TokenConnectWalletInfoText />
-        <TokenBtns>
-          <TokenConnectWalletBtnText />
-        </TokenBtns>
-      </UserTokenAccountRequirement>
       <UserTokenAccountRequirement>
         <TokenRequirementIcon>
           <TokenTutorialIcon />
@@ -50,11 +35,6 @@ export const UserTokenAccountRequirements: React.StatelessComponent = props => {
           <TokenVerifyBtnText />
         </TokenBtns>
       </UserTokenAccountRequirement>
-      <TokenRequirementFooter>
-        <TokenBtns>
-          <TokenBuyBtnText />
-        </TokenBtns>
-      </TokenRequirementFooter>
     </>
   );
 };

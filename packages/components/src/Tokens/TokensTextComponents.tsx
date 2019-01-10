@@ -12,7 +12,7 @@ export const TokenConnectWalletInfoText: React.SFC = props => (
 
 export const TokenConnectWalletBtnText: React.SFC = props => <>Sign up or Log in to your wallet</>;
 
-export const TokenQuizHeaderText: React.SFC = props => <h3>Take the Civil Quiz</h3>;
+export const TokenQuizHeaderText: React.SFC = props => <h3>Take the Civil Tutorial</h3>;
 
 export const TokenQuizInfoText: React.SFC = props => (
   <p>
@@ -21,9 +21,18 @@ export const TokenQuizInfoText: React.SFC = props => (
   </p>
 );
 
-export const TokenQuizBtnText: React.SFC = props => <>Take the Civil Quiz</>;
+export const TokenVerifySectionHeaderText: React.SFC = props => <h3>Let’s verify your eligibility</h3>;
 
-export const TokenVerifyHeaderText: React.SFC = props => <h3>Verify for eligibility</h3>;
+export const TokenVerifySectionInfoText: React.SFC = props => (
+  <p>
+    Before you can use, buy, and send CVL tokens, you must complete these verification requirements. These steps are
+    required to ensure that all CVL token holders are legitimate users, learn about the Registry and how to use tokens.
+  </p>
+);
+
+export const TokenQuizBtnText: React.SFC = props => <>Start the Civil Tutorial</>;
+
+export const TokenVerifyHeaderText: React.SFC = props => <h3>Verify Your Identity</h3>;
 
 export const TokenVerifyInfoText: React.SFC = props => (
   <p>
@@ -32,7 +41,7 @@ export const TokenVerifyInfoText: React.SFC = props => (
   </p>
 );
 
-export const TokenVerifyBtnText: React.SFC = props => <>Complete Your Eligibility</>;
+export const TokenVerifyBtnText: React.SFC = props => <>Verify for Eligibility</>;
 
 export const TokenBuyBtnText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
 

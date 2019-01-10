@@ -9,7 +9,9 @@ import {
   FlexColumnsSecondaryModule,
 } from "./TokensStyledComponents";
 import { UserTokenAccountHeader } from "./TokensAccountHeader";
-import { UserTokenAccountRequirements } from "./TokensAccountRequirements";
+import { UserTokenAccountSignup } from "./TokensAccountSignup";
+import { UserTokenAccountVerify } from "./TokensAccountVerify";
+import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
 
 export const UserTokenAccount: React.StatelessComponent = props => {
@@ -20,7 +22,13 @@ export const UserTokenAccount: React.StatelessComponent = props => {
         <FlexColumns>
           <FlexColumnsPrimary>
             <FlexColumnsPrimaryModule>
-              <UserTokenAccountRequirements />
+              <UserTokenAccountSignup />
+            </FlexColumnsPrimaryModule>
+            <FlexColumnsPrimaryModule>
+              <UserTokenAccountVerify />
+            </FlexColumnsPrimaryModule>
+            <FlexColumnsPrimaryModule>
+              <UserTokenAccountBuy />
             </FlexColumnsPrimaryModule>
           </FlexColumnsPrimary>
           <FlexColumnsSecondary>
