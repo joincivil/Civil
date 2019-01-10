@@ -4,9 +4,19 @@ import gql from "graphql-tag";
 
 import { Mutation } from "react-apollo";
 
-const verifyTokenMutation = gql`
+const verifySigninTokenMutation = gql`
   mutation($loginJWT: String!) {
     authSignupEmailConfirm(loginJWT: $loginJWT) {
+      token
+      refreshToken
+      uid
+    }
+  }
+`;
+
+const verifyLoginTokenMutation = gql`
+  mutation($loginJWT: String!) {
+    authLoginEmailConfirm(loginJWT: $loginJWT) {
       token
       refreshToken
       uid
@@ -25,7 +35,8 @@ interface VerifyTokenParams {
 }
 
 export interface AccountVerifyTokenProps extends RouteComponentProps {
-  onAuthentication(arg0: AuthLoginResponse): void;
+  isNewUser: boolean;
+  onAuthentication(arg0: AuthLoginResponse, arg1: boolean): void;
 }
 
 interface VerifyTokenState {
@@ -45,10 +56,13 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
 
   public render(): JSX.Element {
     const { token: loginJWT } = this.props.match.params as VerifyTokenParams;
+    const { isNewUser } = this.props;
+
+    const verifyMutation = isNewUser ? verifyLoginTokenMutation : verifySigninTokenMutation;
 
     return (
       <>
-        <Mutation mutation={verifyTokenMutation}>
+        <Mutation mutation={verifyMutation}>
           {(verifyToken, { loading, error, data }) => (
             <button
               onClick={async () => {

@@ -1,7 +1,6 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
-import { colors } from "./styleConstants";
 import gql from "graphql-tag";
+import { RouteComponentProps } from "react-router-dom";
 
 import { Mutation, MutationFn } from "react-apollo";
 
@@ -11,22 +10,36 @@ const signupMutation = gql`
   }
 `;
 
+const loginMutation = gql`
+  mutation($emailAddress: String!) {
+    authLoginEmailSend(emailAddress: $emailAddress)
+  }
+`;
+
 export enum AuthApplicationEnum {
   DEFAULT = "DEFAULT",
   NEWSROOM = "NEWSROOM",
   STOREFRONT = "STOREFRONT",
 }
 
-export interface LoginComponentProps {
-  applicationType: AuthApplicationEnum;
+export interface AuthSignupEmailSendResult {
+  data: {
+    authSignupEmailSend: string;
+  };
 }
 
-export interface LoginComponentState {
+export interface AccountEmailAuthProps extends RouteComponentProps {
+  applicationType: AuthApplicationEnum;
+  isNewUser: boolean;
+  onEmailSend(isNewUser: boolean): void;
+}
+
+export interface AccountEmailAuthState {
   emailAddress: string;
 }
 
-export class LoginComponent extends React.Component<LoginComponentProps, LoginComponentState> {
-  constructor(props: LoginComponentProps) {
+export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, AccountEmailAuthState> {
+  constructor(props: AccountEmailAuthProps) {
     super(props);
     this.state = {
       emailAddress: "",
@@ -34,13 +47,16 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
   }
 
   public render(): JSX.Element {
+    const { isNewUser } = this.props;
+
+    const emailMutation = isNewUser ? signupMutation : loginMutation;
     return (
-      <Mutation mutation={signupMutation}>
-        {(signup, { loading, error, data }) => {
+      <Mutation mutation={emailMutation}>
+        {(sendEmail, { loading, error, data }) => {
           return (
             <>
               <h3>Let's Get Started</h3>
-              <form onSubmit={event => this.submit(event, signup)}>
+              <form onSubmit={async event => this.submit(event, sendEmail)}>
                 <input
                   placeholder="Email address"
                   type="text"
@@ -65,10 +81,20 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
     event.preventDefault();
 
     const { emailAddress } = this.state;
-    const { applicationType } = this.props;
+    const { applicationType, onEmailSend, isNewUser } = this.props;
 
-    const res = await mutation({ variables: { emailAddress, application: applicationType } });
+    const {
+      data: { authSignupEmailSend },
+    } = (await mutation({
+      variables: { emailAddress, application: applicationType },
+    })) as AuthSignupEmailSendResult;
 
-    console.log("submit:", res);
+    if (authSignupEmailSend === "ok") {
+      onEmailSend(isNewUser);
+      return;
+    }
+
+    alert("Error:" + authSignupEmailSend);
+    return;
   }
 }
