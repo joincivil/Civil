@@ -50,10 +50,8 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   }
 
   public renderError(error: any): JSX.Element {
-    // const { isNewUser } = this.props;
-    // const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
-
     const errorText = error.graphQLErrors.map((e: any) => e.message).join(" ,");
+
     return <>{errorText}</>;
   }
 
@@ -72,8 +70,8 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
               <span>{error && this.renderError(error)}</span>
               <button
                 onClick={async () => {
+                  // TODO(jorgelo): Execute this on load (It's not as straightforward as I wished to do this).
                   const res: any = await verifyToken({ variables: { loginJWT } });
-
                   const authResponse: AuthLoginResponse = res.data[resultKey];
 
                   onAuthentication(authResponse, isNewUser);

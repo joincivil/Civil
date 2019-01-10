@@ -17,6 +17,15 @@ export interface AuthLoginResponse {
   uid: string;
 }
 
+// export const authRes = {
+//   token:
+//     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NDcyMzkyOTAsImlzcyI6IkNpdmlsIiwic3ViIjoiMTU0NDhlNzAtY2I2OS00OWJlLTg5MTMtNTBjMGQxNzZjYWJmIn0.Oc4gVOhGtGblcjxMfZYYjcvC6gOB-QS4r0y5g6WPX0w",
+//   refreshToken:
+//     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJyZWZyZXNoIiwiaWF0IjoxNTQ3MTUyODkwLCJpc3MiOiJDaXZpbCIsInN1YiI6IjE1NDQ4ZTcwLWNiNjktNDliZS04OTEzLTUwYzBkMTc2Y2FiZiJ9.Ot1xDIemV1d-m7mnxWRmx_jIwDeG7HxuhKo7YbxCWTw",
+//   uid: "15448e70-cb69-49be-8913-50c0d176cabf",
+//   __typename: "AuthLoginResponse",
+// };
+
 export default class AccountRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
     const { match } = this.props;
