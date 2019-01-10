@@ -51,6 +51,7 @@ import {
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
 import { ui, useGraphQL } from "./ui";
+import { session } from "./session";
 import { Set, List, Map } from "immutable";
 import {
   TimestampedEvent,
@@ -186,4 +187,5 @@ export default combineReducers({
   networkName,
   ui,
   useGraphQL,
+  session,
 });
