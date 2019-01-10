@@ -19,7 +19,7 @@ export const RevealVoteSuccessIcon: React.SFC = props => {
           fillRule="nonzero"
           points="41.9 33 34.205 40.10875 31.1 37.24875 29 39.1875 34.205 44 44 34.93875"
         />
-        <g transform="translate(70, 79)">
+        <g transform="translate(70 79)">
           <path
             d="M9,0 C4.05,0 0,4.05 0,9 C0,13.95 4.05,18 9,18 C13.95,18 18,13.95 18,9 C18,4.05 13.95,0 9,0 L9,0 Z"
             stroke={colors.basic.WHITE}

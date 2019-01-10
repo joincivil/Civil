@@ -2,8 +2,8 @@ import * as React from "react";
 import { colors } from "../styleConstants";
 
 export interface WaitForApplyProps {
-  height?: string;
-  width?: string;
+  height?: number;
+  width?: number;
 }
 
 export const WaitForApply: React.SFC<WaitForApplyProps> = props => {

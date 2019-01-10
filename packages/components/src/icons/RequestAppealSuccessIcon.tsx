@@ -9,7 +9,7 @@ export const RequestAppealSuccessIcon: React.SFC = props => {
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <circle fill={colors.accent.CIVIL_TEAL} fillRule="nonzero" cx="50" cy="50" r="50" />
-        <g transform="translate(74, 71)">
+        <g transform="translate(74 71)">
           <path
             d="M12,0 C5.4,0 0,5.4 0,12 C0,18.6 5.4,24 12,24 C18.6,24 24,18.6 24,12 C24,5.4 18.6,0 12,0 L12,0 Z"
             stroke={colors.basic.WHITE}
@@ -21,7 +21,7 @@ export const RequestAppealSuccessIcon: React.SFC = props => {
             fill={colors.accent.CIVIL_BLUE}
           />
         </g>
-        <g transform="translate(27, 29)" fill={colors.primary.BLACK} fillRule="nonzero">
+        <g transform="translate(27 29)" fill={colors.primary.BLACK} fillRule="nonzero">
           <path d="M1,0 L39,0 C39.5522847,-4.02567223e-15 40,0.44771525 40,1 L40,52 C40,52.5522847 39.5522847,53 39,53 L1,53 C0.44771525,53 6.76353751e-17,52.5522847 0,52 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 Z M1.73913043,1.63076923 L1.73913043,51.3692308 L38.2608696,51.3692308 L38.2608696,1.63076923 L1.73913043,1.63076923 Z" />
           <rect x="6" y="13" width="11" height="2" />
           <rect x="6" y="19" width="14" height="2" />
@@ -31,7 +31,7 @@ export const RequestAppealSuccessIcon: React.SFC = props => {
           <polygon points="6 43 33 43 33 45 6 45" />
           <rect x="6" y="7" width="10" height="2" />
         </g>
-        <g transform="translate(45, 19)" fillRule="nonzero">
+        <g transform="translate(45 19)" fillRule="nonzero">
           <ellipse fill={colors.accent.CIVIL_TEAL} cx="16.5" cy="16.5" rx="15.5" ry="16.5" />
           <path
             d="M33.0555556,16.0657183 C32.5338444,16.0657183 32.1111111,16.4882122 32.1111111,17.0096279 C32.1111111,25.3371756 25.3322667,32.1121809 17,32.1121809 C8.66773333,32.1121809 1.88888889,25.3371756 1.88888889,17.0096279 C1.88888889,8.68208015 8.66773333,1.90707488 17,1.90707488 C20.4664889,1.90707488 23.7531556,3.06883877 26.4206444,5.20320707 L23.5472667,5.97268215 C23.0433111,6.10747243 22.7444889,6.62549 22.8793556,7.12878258 C22.9923111,7.55052137 23.3742444,7.82878591 23.7913111,7.82878591 C23.8721556,7.82878591 23.9545111,7.81821412 24.0361111,7.79669299 L28.5974,6.57527401 C29.0008667,6.46729076 29.2974222,6.0806654 29.2974222,5.66345737 L29.2974222,0.943909562 C29.2974222,0.42249392 28.8746889,0 28.3529778,0 C27.8312667,0 27.4085333,0.42249392 27.4085333,0.943909562 L27.4085333,3.57968262 C24.4422222,1.27314522 20.8185778,0.0192557551 17,0.0192557551 C7.6262,0.0192557551 0,7.64113669 0,17.0096279 C0,26.3781191 7.6262,34 17,34 C26.3738,34 34,26.3781191 34,17.0096279 C34,16.4882122 33.5772667,16.0657183 33.0555556,16.0657183 Z"
