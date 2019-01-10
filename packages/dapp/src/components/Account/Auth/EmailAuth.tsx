@@ -1,7 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { RouteComponentProps } from "react-router-dom";
-
+import { AuthApplicationEnum, AuthLoginResponse } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 
 const signupMutation = gql`
@@ -15,12 +15,6 @@ const loginMutation = gql`
     authLoginEmailSend(emailAddress: $emailAddress)
   }
 `;
-
-export enum AuthApplicationEnum {
-  DEFAULT = "DEFAULT",
-  NEWSROOM = "NEWSROOM",
-  STOREFRONT = "STOREFRONT",
-}
 
 export interface AuthSignupEmailSendResult {
   data: {
@@ -68,8 +62,6 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
               </form>
 
               {loading && <span>loading...</span>}
-
-              <pre>{JSON.stringify(data)}</pre>
             </>
           );
         }}
@@ -83,18 +75,20 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     const { emailAddress } = this.state;
     const { applicationType, onEmailSend, isNewUser } = this.props;
 
-    const {
-      data: { authSignupEmailSend },
-    } = (await mutation({
-      variables: { emailAddress, application: applicationType },
-    })) as AuthSignupEmailSendResult;
+    const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
 
-    if (authSignupEmailSend === "ok") {
+    const res: any = await mutation({
+      variables: { emailAddress, application: applicationType },
+    });
+
+    const authResponse: string = res.data[resultKey];
+
+    if (authResponse === "ok") {
       onEmailSend(isNewUser);
       return;
     }
 
-    alert("Error:" + authSignupEmailSend);
+    alert("Error:" + authResponse);
     return;
   }
 }
