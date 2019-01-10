@@ -45,7 +45,6 @@ export interface RequestAppealStatementProps {
 
 export interface RequestAppealStatementState {
   summaryValue: string;
-  citeConstitutionValue: any;
   detailsValue: any;
 }
 
@@ -56,7 +55,6 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
     super(props);
     this.state = {
       summaryValue: "",
-      citeConstitutionValue: RichTextEditor.createEmptyValue(),
       detailsValue: RichTextEditor.createEmptyValue(),
     };
   }
@@ -93,35 +91,16 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
 
             <SectionForm>
               <SectionFormHeader>
-                Write 1-2 sentences about why you’re challenging this newsroom (required)
+                Write 1-2 sentences about why you’re appealing this challenge (required)
               </SectionFormHeader>
               <SectionFormCopyHelper>Max character limit: {SUMMARY_MAX_LENGTH.toString()}</SectionFormCopyHelper>
 
               <StyledTextareaContainer>
                 <TextareaInput
-                  name="challenge_statement_summary"
+                  name="request_appeal_statement_summary"
                   value={this.state.summaryValue}
                   onChange={this.handleSummaryValueChange}
                   maxLength={SUMMARY_MAX_LENGTH.toString()}
-                />
-              </StyledTextareaContainer>
-            </SectionForm>
-
-            <SectionForm>
-              <SectionFormHeader>
-                Please cite the section or principles of the Civil Constitution that you believe the Newsroom has
-                violated. (required)
-              </SectionFormHeader>
-              <SectionFormCopyHelper>
-                <StyledLink href={this.props.constitutionURI} target="_blank">
-                  See Civil Constitution
-                </StyledLink>
-              </SectionFormCopyHelper>
-
-              <StyledTextareaContainer>
-                <RichTextEditor
-                  value={this.state.citeConstitutionValue}
-                  onChange={this.handleCiteConstitutionValueChange}
                 />
               </StyledTextareaContainer>
             </SectionForm>
@@ -169,12 +148,10 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
   }
 
   private isFormInvalid = (): boolean => {
-    const { summaryValue, citeConstitutionValue, detailsValue } = this.state;
-    const citeConstitution = document.createElement("div");
-    citeConstitution.innerHTML = citeConstitutionValue.toString("html");
+    const { summaryValue, detailsValue } = this.state;
     const details = document.createElement("div");
     details.innerHTML = detailsValue.toString("html");
-    return !summaryValue || !summaryValue.length || !citeConstitution.innerText.length || !details.innerText.length;
+    return !summaryValue || !summaryValue.length || !details.innerText.length;
   };
 
   private renderHelperMessage = (): JSX.Element => {
@@ -187,11 +164,6 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
   private handleSummaryValueChange = (name: string, summaryValue: string) => {
     this.setState({ summaryValue });
     this.props.updateStatementValue("summary", summaryValue);
-  };
-
-  private handleCiteConstitutionValueChange = (citeConstitutionValue: any) => {
-    this.setState({ citeConstitutionValue });
-    this.props.updateStatementValue("citeConstitution", citeConstitutionValue);
   };
 
   private handleDetailsValueChange = (detailsValue: any) => {
