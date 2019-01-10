@@ -72,7 +72,7 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
     console.log("handleOnAuthentication", { authResult });
   }
 
-  public handleAuthEmail = (isNewUser: boolean): void => {
+  public handleAuthEmail = (isNewUser: boolean, emailAddress: string): void => {
     const {
       match: { path: basePath },
       history,
@@ -80,6 +80,9 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
 
     const newPath = basePath + `/auth/${isNewUser ? "signup" : "login"}/check-email`;
 
-    history.push(newPath);
+    history.push({
+      pathname: newPath,
+      state: { emailAddress },
+    });
   };
 }

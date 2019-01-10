@@ -1,7 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { RouteComponentProps } from "react-router-dom";
-import { AuthApplicationEnum, AuthLoginResponse } from "../index";
+import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 
 const signupMutation = gql`
@@ -25,7 +25,7 @@ export interface AuthSignupEmailSendResult {
 export interface AccountEmailAuthProps extends RouteComponentProps {
   applicationType: AuthApplicationEnum;
   isNewUser: boolean;
-  onEmailSend(isNewUser: boolean): void;
+  onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
 export interface AccountEmailAuthState {
@@ -75,7 +75,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     const { emailAddress } = this.state;
     const { applicationType, onEmailSend, isNewUser } = this.props;
 
-    const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
+    const resultKey = isNewUser ? "authSignupEmailSend" : "authLoginEmailSend";
 
     const res: any = await mutation({
       variables: { emailAddress, application: applicationType },
@@ -84,10 +84,11 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     const authResponse: string = res.data[resultKey];
 
     if (authResponse === "ok") {
-      onEmailSend(isNewUser);
+      onEmailSend(isNewUser, emailAddress);
       return;
     }
 
+    console.log({ res, authResponse });
     alert("Error:" + authResponse);
     return;
   }
