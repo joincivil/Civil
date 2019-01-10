@@ -45,7 +45,6 @@ interface RequestAppealReduxProps {
 
 interface RequestAppealState {
   appealStatementSummaryValue?: string;
-  appealStatementCiteConstitutionValue?: any;
   appealStatementDetailsValue?: any;
 }
 
@@ -220,14 +219,9 @@ class RequestAppealComponent extends React.Component<
 
   // Transactions
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    const {
-      appealStatementSummaryValue,
-      appealStatementCiteConstitutionValue,
-      appealStatementDetailsValue,
-    } = this.state;
+    const { appealStatementSummaryValue, appealStatementDetailsValue } = this.state;
     const jsonToSave = {
       summary: appealStatementSummaryValue,
-      citeConstitution: appealStatementCiteConstitutionValue.toString("html"),
       details: appealStatementDetailsValue.toString("html"),
     };
     return appealChallenge(this.props.listingAddress, JSON.stringify(jsonToSave));

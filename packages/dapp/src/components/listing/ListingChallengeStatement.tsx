@@ -25,6 +25,7 @@ export interface ListingChallengeStatementProps {
 export interface ListingChallengeStatementReduxProps {
   appealStatement: any;
   challengeStatement?: any;
+  appealChallengeStatement?: any;
 }
 
 class ListingChallengeStatement extends React.Component<
@@ -50,6 +51,7 @@ class ListingChallengeStatement extends React.Component<
       <>
         {this.renderChallengeStatement()}
         {this.renderAppealStatement()}
+        {this.renderAppealChallengeStatement()}
       </>
     );
   }
@@ -71,9 +73,6 @@ class ListingChallengeStatement extends React.Component<
     }
     const parsed = JSON.parse(this.props.appealStatement);
     const summary = parsed.summary;
-    const cleanCiteConstitution = sanitizeHtml(parsed.citeConstitution, {
-      allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
-    });
     const cleanDetails = sanitizeHtml(parsed.details, {
       allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
     });
@@ -85,10 +84,6 @@ class ListingChallengeStatement extends React.Component<
         <StyledChallengeStatementSection>
           <b>Summary</b>
           <div>{summary}</div>
-        </StyledChallengeStatementSection>
-        <StyledChallengeStatementSection>
-          <b>Evidence From Civil Constitution</b>
-          <div dangerouslySetInnerHTML={{ __html: cleanCiteConstitution }} />
         </StyledChallengeStatementSection>
         <StyledChallengeStatementSection>
           <b>Additional Details</b>
@@ -137,6 +132,36 @@ class ListingChallengeStatement extends React.Component<
       </StyledChallengeStatementComponent>
     );
   };
+
+  private renderAppealChallengeStatement = (): JSX.Element => {
+    if (!this.props.appealChallengeStatement) {
+      return <></>;
+    }
+    const parsed = JSON.parse(this.props.appealChallengeStatement);
+    const summary = parsed.summary || "";
+    const cleanDetails = parsed.details
+      ? sanitizeHtml(parsed.details, {
+          allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
+        })
+      : "";
+    return (
+      <StyledChallengeStatementComponent>
+        <ListingTabHeading>Newsroom listing is under challenge</ListingTabHeading>
+        <p>
+          Should the granted appeal be overturned? Read the challenger’s statement below and vote with your CVL tokens.
+        </p>
+        <ListingTabHeading>Appeal Challenge Statement</ListingTabHeading>
+        <StyledChallengeStatementSection>
+          <b>Summary</b>
+          <div>{summary}</div>
+        </StyledChallengeStatementSection>
+        <StyledChallengeStatementSection>
+          <b>Additional Details</b>
+          <div dangerouslySetInnerHTML={{ __html: cleanDetails }} />
+        </StyledChallengeStatementSection>
+      </StyledChallengeStatementComponent>
+    );
+  };
 }
 
 const mapToStateToProps = (
@@ -147,17 +172,23 @@ const mapToStateToProps = (
   const { content } = state.networkDependent;
   let challengeStatement: any = "";
   let appealStatement: any = "";
+  let appealChallengeStatement: any = "";
   if (challenge) {
     challengeStatement = content.get(challenge.challenge.challengeStatementURI!);
 
     if (challenge.challenge.appeal) {
       appealStatement = content.get(challenge.challenge.appeal.appealStatementURI!);
+
+      if (challenge.challenge.appeal.appealChallenge) {
+        appealChallengeStatement = content.get(challenge.challenge.appeal.appealChallenge.appealChallengeStatementURI!);
+      }
     }
   }
   return {
     ...ownProps,
     challengeStatement,
     appealStatement,
+    appealChallengeStatement,
   };
 };
 

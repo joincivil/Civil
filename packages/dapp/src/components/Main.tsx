@@ -32,6 +32,7 @@ import SubmitChallengePage from "./listing/SubmitChallenge";
 import SubmitAppealChallengePage from "./listing/SubmitAppealChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
+import WrongNetwork from "./WrongNetwork";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -117,6 +118,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/tokens" component={Tokens} />
         </Switch>
+        <WrongNetwork />
       </StyledMainContainer>
     );
   }
