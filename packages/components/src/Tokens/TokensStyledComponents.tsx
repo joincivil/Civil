@@ -91,6 +91,7 @@ export const FlexColumnsSecondaryModule = styled.div`
 export const TokenHeaderOuter = styled.div`
   font-family: ${fonts.SANS_SERIF};
   padding: 30px 30px 10px;
+  text-align: center;
   width: 100%;
 `;
 
@@ -108,22 +109,10 @@ export const TokenSetup = styled.p`
   margin-bottom: 60px;
 `;
 
-export const TokenHelp = styled.p`
-  color: ${colors.primary.BLACK};
-  font-size: 16px;
-  line-height: 26px;
-  margin-bottom: 15px;
-`;
-
 export const TokenRequirement = styled.div`
-  border-left: 2px solid ${colors.accent.CIVIL_BLUE};
   margin: 0 30px 0 50px;
   padding: 5px 20px 60px 35px;
   position: relative;
-
-  &:last-of-type {
-    border-left: 2px solid transparent;
-  }
 
   h3 {
     font-family: ${fonts.SANS_SERIF};
@@ -141,9 +130,17 @@ export const TokenRequirement = styled.div`
 `;
 
 export const TokenRequirementIcon = styled.div`
+  align-items: center;
+  background-color: ${colors.basic.WHITE};
+  border: 1px solid ${colors.accent.CIVIL_BLUE};
+  border-radius: 50%;
+  display: flex;
+  height: 38px;
+  justify-content: center;
   left: -21px;
   position: absolute;
   top: 0;
+  width: 38px;
   z-index: 1;
 `;
 

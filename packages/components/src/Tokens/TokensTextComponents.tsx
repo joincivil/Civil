@@ -4,13 +4,7 @@ export const TokenWelcomeText: React.SFC = props => <>Hello and welcome!</>;
 
 export const TokenSetupText: React.SFC = props => <>Let's get you setup to buy, and send CVL tokens.</>;
 
-export const TokenCompleteStepsHelpText: React.SFC = props => (
-  <>
-    Please complete the steps below. If you need help, email <a href="mailto:support@civil.co">support@civil.co</a>{" "}
-  </>
-);
-
-export const TokenConnectWalletHeaderText: React.SFC = props => <h3>Sign up and connect your digital wallet</h3>;
+export const TokenConnectWalletHeaderText: React.SFC = props => <h3>Sign up and connect your crypto wallet</h3>;
 
 export const TokenConnectWalletInfoText: React.SFC = props => (
   <p>Use your wallet to safely store your cryptocurrencies like ETH and CVL tokens.</p>
@@ -21,7 +15,10 @@ export const TokenConnectWalletBtnText: React.SFC = props => <>Sign up or Log in
 export const TokenQuizHeaderText: React.SFC = props => <h3>Take the Civil Quiz</h3>;
 
 export const TokenQuizInfoText: React.SFC = props => (
-  <p>Learn how to safely and securely store and use CVL tokens on the platform, and then take a short quiz.</p>
+  <p>
+    Complete this short walkthrough about storing and using CVL tokens on Civil. This is a standard procedure to help
+    inform you of best practices with using tokens.
+  </p>
 );
 
 export const TokenQuizBtnText: React.SFC = props => <>Take the Civil Quiz</>;
@@ -30,8 +27,8 @@ export const TokenVerifyHeaderText: React.SFC = props => <h3>Verify for eligibil
 
 export const TokenVerifyInfoText: React.SFC = props => (
   <p>
-    Verify your identity for compliance requirements and risk evaluation. This is to help prevent identity theft, money
-    laundering, and business fraud.
+    Verify for eligibility to buy CVL tokens from the Civil Media Company. This is required to prevent identity theft,
+    money laundering, and business fraud.
   </p>
 );
 

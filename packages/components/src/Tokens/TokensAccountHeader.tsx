@@ -1,6 +1,6 @@
 import * as React from "react";
-import { TokenHeaderOuter, TokenHeader, TokenSetup, TokenHelp } from "./TokensStyledComponents";
-import { TokenWelcomeText, TokenSetupText, TokenCompleteStepsHelpText } from "./TokensTextComponents";
+import { TokenHeaderOuter, TokenHeader, TokenSetup } from "./TokensStyledComponents";
+import { TokenWelcomeText, TokenSetupText } from "./TokensTextComponents";
 
 export const UserTokenAccountHeader: React.StatelessComponent = props => {
   return (
@@ -11,9 +11,6 @@ export const UserTokenAccountHeader: React.StatelessComponent = props => {
       <TokenSetup>
         <TokenSetupText />
       </TokenSetup>
-      <TokenHelp>
-        <TokenCompleteStepsHelpText />
-      </TokenHelp>
     </TokenHeaderOuter>
   );
 };
