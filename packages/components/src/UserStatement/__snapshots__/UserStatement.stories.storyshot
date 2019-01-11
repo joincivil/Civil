@@ -4,7 +4,7 @@ exports[`Storyshots User Statement Forms Submit Appeal Statement 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-blIhvV vRWvf",
+      "class": "sc-bYTsla jrgSjL",
     },
     "children": Array [
       Object {
@@ -62,7 +62,7 @@ exports[`Storyshots User Statement Forms Submit Challenge Statement 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-blIhvV vRWvf",
+      "class": "sc-bYTsla jrgSjL",
     },
     "children": Array [
       Object {

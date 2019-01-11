@@ -6,14 +6,14 @@ import {
   TokenConnectWalletInfoText,
   TokenConnectWalletBtnText,
 } from "./TokensTextComponents";
-import { TokenAddWalletIcon } from "../icons/TokenAddWalletIcon";
+import { TokenWalletIcon } from "../icons/TokenWalletIcon";
 
 export const UserTokenAccountSignup: React.StatelessComponent = props => {
   return (
     <>
       <UserTokenAccountRequirement>
         <TokenRequirementIcon>
-          <TokenAddWalletIcon />
+          <TokenWalletIcon />
         </TokenRequirementIcon>
         <TokenConnectWalletHeaderText />
         <TokenConnectWalletInfoText />

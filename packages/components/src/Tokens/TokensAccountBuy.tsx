@@ -1,15 +1,16 @@
 import * as React from "react";
-import { TokenBtns, TokenRequirementFooter } from "./TokensStyledComponents";
-import { TokenBuyBtnText } from "./TokensTextComponents";
+import { TokenBtns, TokenBuySection } from "./TokensStyledComponents";
+import { TokenBuyText, TokenBuyBtnText } from "./TokensTextComponents";
 
 export const UserTokenAccountBuy: React.StatelessComponent = props => {
   return (
     <>
-      <TokenRequirementFooter>
+      <TokenBuySection>
+        <TokenBuyText />
         <TokenBtns>
           <TokenBuyBtnText />
         </TokenBtns>
-      </TokenRequirementFooter>
+      </TokenBuySection>
     </>
   );
 };

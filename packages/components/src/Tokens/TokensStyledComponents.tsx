@@ -21,7 +21,6 @@ export const TokenBtns: StyledComponentClass<ButtonProps, "button"> = styled(But
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.3px;
-  padding: 15px 45px;
   text-transform: none;
 `;
 
@@ -109,9 +108,32 @@ export const TokenSetup = styled.p`
   margin-bottom: 60px;
 `;
 
+export const TokenAccountSectionHeader = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin: 0 0 30px;
+  padding: 0 25px 30px;
+
+  h3 {
+    color: ${colors.primary.BLACK};
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 32px;
+    margin: 0 0 8px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0;
+  }
+`;
+
 export const TokenRequirement = styled.div`
   margin: 0 30px 0 50px;
-  padding: 5px 20px 40px 35px;
+  padding: 5px 20px 20px 35px;
   position: relative;
 
   h3 {
@@ -124,6 +146,7 @@ export const TokenRequirement = styled.div`
   }
 
   p {
+    color: ${colors.accent.CIVIL_GRAY_1};
     font-family: ${fonts.SANS_SERIF};
     font-size: 16px;
     line-height: 26px;
@@ -146,8 +169,14 @@ export const TokenRequirementIcon = styled.div`
   z-index: 1;
 `;
 
-export const TokenRequirementFooter = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 15px 30px;
+export const TokenBuySection = styled.div`
+  padding: 0 30px 5px;
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 16px;
+    line-height: 19px;
+    margin: 0 0 15px;
+  }
 `;

@@ -1,7 +1,9 @@
 import * as React from "react";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
-import { TokenBtns, TokenRequirementIcon } from "./TokensStyledComponents";
+import { TokenBtns, TokenRequirementIcon, TokenAccountSectionHeader } from "./TokensStyledComponents";
 import {
+  TokenVerifySectionHeaderText,
+  TokenVerifySectionInfoText,
   TokenQuizHeaderText,
   TokenQuizInfoText,
   TokenQuizBtnText,
@@ -9,15 +11,19 @@ import {
   TokenVerifyInfoText,
   TokenVerifyBtnText,
 } from "./TokensTextComponents";
-import { TokenIdentityIcon } from "../icons/TokenIdentityIcon";
-import { TokenTutorialIcon } from "../icons/TokenTutorialIcon";
+import { VerifyIdentityIcon } from "../icons/VerifyIdentityIcon";
+import { CivilTutorialIcon } from "../icons/CivilTutorialIcon";
 
 export const UserTokenAccountVerify: React.StatelessComponent = props => {
   return (
     <>
+      <TokenAccountSectionHeader>
+        <TokenVerifySectionHeaderText />
+        <TokenVerifySectionInfoText />
+      </TokenAccountSectionHeader>
       <UserTokenAccountRequirement>
         <TokenRequirementIcon>
-          <TokenTutorialIcon />
+          <CivilTutorialIcon />
         </TokenRequirementIcon>
         <TokenQuizHeaderText />
         <TokenQuizInfoText />
@@ -27,7 +33,7 @@ export const UserTokenAccountVerify: React.StatelessComponent = props => {
       </UserTokenAccountRequirement>
       <UserTokenAccountRequirement>
         <TokenRequirementIcon>
-          <TokenIdentityIcon />
+          <VerifyIdentityIcon />
         </TokenRequirementIcon>
         <TokenVerifyHeaderText />
         <TokenVerifyInfoText />
