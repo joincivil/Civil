@@ -71,6 +71,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     const listing = this.props.listing;
     const newsroom = this.props.newsroom;
     const listingExistsAsNewsroom = listing && newsroom;
+    const activeTab = listing && listing.data.challenge ? 1 : 0;
 
     return (
       <>
@@ -108,7 +109,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
           <StyledLeftContentWell>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
-            <Tabs TabComponent={StyledTab}>
+            <Tabs TabComponent={StyledTab} activeIndex={activeTab}>
               {(listingExistsAsNewsroom && (
                 <Tab title="About">
                   <ListingTabContent>

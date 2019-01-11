@@ -120,27 +120,57 @@ export class Listing {
     });
   }
 
+  public touchedAndRemoves(
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._TouchAndRemoved>> {
+    return this.tcrInstance._TouchAndRemovedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
+      return createTimestampedEvent<CivilTCR.LogEvents._TouchAndRemoved>(this.ethApi, e);
+    });
+  }
+
+  public appealGranteds(
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._AppealGranted>> {
+    return this.tcrInstance._AppealGrantedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
+      return createTimestampedEvent<CivilTCR.LogEvents._AppealGranted>(this.ethApi, e);
+    });
+  }
+
+  public appealRequesteds(
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._AppealRequested>> {
+    return this.tcrInstance._AppealRequestedStream({ listingAddress: this.listingAddress }, { fromBlock }).map(e => {
+      return createTimestampedEvent<CivilTCR.LogEvents._AppealRequested>(this.ethApi, e);
+    });
+  }
+
   public compositeObservables(start: number = 0): Observable<any> {
+    const appealGranteds = this.appealGranteds(start);
+    const appealRequesteds = this.appealRequesteds(start);
+    const applicationRemoveds = this.applicationRemoveds(start);
     const applications = this.applications(start);
     const challenges = this.challenges(start);
     const deposits = this.deposits(start);
-    const withdrawls = this.withdrawls(start);
-    const whitelisteds = this.whitelisteds(start);
-    const applicationRemoveds = this.applicationRemoveds(start);
-    const listingRemoveds = this.listingRemoveds(start);
     const failedChallenges = this.failedChallenges(start);
+    const listingRemoveds = this.listingRemoveds(start);
     const successfulChallenges = this.successfulChallenges(start);
+    const touchedAndRemoves = this.touchedAndRemoves(start);
+    const whitelisteds = this.whitelisteds(start);
+    const withdrawls = this.withdrawls(start);
 
     return Observable.merge(
+      appealGranteds,
+      appealRequesteds,
+      applicationRemoveds,
       applications,
       challenges,
       deposits,
-      withdrawls,
-      whitelisteds,
-      applicationRemoveds,
-      listingRemoveds,
       failedChallenges,
+      listingRemoveds,
       successfulChallenges,
+      touchedAndRemoves,
+      whitelisteds,
+      withdrawls,
     );
   }
   public compositeEventsSubscription(start: number = 0): Subscription {
