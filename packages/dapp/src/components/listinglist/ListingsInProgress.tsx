@@ -102,7 +102,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             </Helmet>
 
             <StyledListingCopy>
-              Applications “under challenge” require the Civil community vote to remain on the Registry due to a
+              Applications “under challenge” require the Civil community's vote to remain on the Registry due to a
               potential breach of the Civil Constitution. Help us curate high quality, trustworthy journalism, and earn
               CVL tokens when you vote.
             </StyledListingCopy>
@@ -128,9 +128,9 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
               <title>Newsrooms Under Appeal Challenge - The Civil Registry</title>
             </Helmet>
             <StyledListingCopy>
-              Newsrooms under “Challenge Council Appeal” require the Civil community's vote to veto the Council decision
-              in order to remain on the Registry. Help us curate high quality, trustworthy journalism, and earn CVL
-              tokens when you vote.
+              Newsrooms under “Challenge Council Appeal” have been granted appeals by the Civil Council, which can be
+              challenged and subsequently vetoed by the Civil community's vote. Help us curate high quality, trustworthy
+              journalism, and earn CVL tokens when you vote.
             </StyledListingCopy>
             {this.renderUnderAppealChallenge()}
           </>

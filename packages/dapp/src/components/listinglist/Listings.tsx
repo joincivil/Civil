@@ -43,7 +43,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
     const { listingType } = this.props.match.params;
     let activeIndex = 0;
-    let hero;
     const civil = getCivil();
     const minDeposit =
       (this.props.parameters &&
@@ -53,17 +52,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
-    if (activeIndex === 0) {
-      hero = (
-        <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero textUrl="https://civil.co" buttonUrl="/createNewsroom" minDeposit={minDeposit} />
-        </Hero>
-      );
-    }
     return (
       <>
         <ScrollToTopOnMount />
-        {hero}
+        <Hero backgroundImage={heroImgUrl}>
+          <HomepageHero textUrl="https://civil.co" buttonUrl="/createNewsroom" minDeposit={minDeposit} />
+        </Hero>
         {!this.props.loadingFinished && "loading..."}
         {this.props.loadingFinished && (
           <Tabs
