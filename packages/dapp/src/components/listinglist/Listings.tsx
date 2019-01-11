@@ -34,6 +34,7 @@ export interface ListingProps {
 
 export interface ListingReduxProps {
   parameters: any;
+  govtParameters: any;
   error: undefined | string;
   loadingFinished: boolean;
   useGraphQL: boolean;
@@ -80,7 +81,11 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             </Tab>
             <Tab title={<ApplicationsInProgressTabText />}>
               <StyledPageContent>
-                <ListingsInProgressContainer match={this.props.match} history={this.props.history} />
+                <ListingsInProgressContainer
+                  match={this.props.match}
+                  history={this.props.history}
+                  govtParameters={this.props.govtParameters}
+                />
               </StyledPageContent>
             </Tab>
             <Tab title={<RejectedNewsroomsTabText />}>
@@ -108,11 +113,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { parameters } = state.networkDependent;
+  const { parameters, govtParameters } = state.networkDependent;
   const useGraphQL = state.useGraphQL;
   return {
     ...ownProps,
     parameters,
+    govtParameters,
     error: undefined,
     loadingFinished: true,
     useGraphQL,

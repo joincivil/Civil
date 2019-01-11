@@ -16,7 +16,9 @@ import {
   ListingSummaryUnderChallengeComponent,
   ListingSummaryReadyToUpdateComponent,
 } from "@joincivil/components";
+import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
 
+import { getCivil } from "../../helpers/civilInstance";
 import { StyledListingCopy } from "../utility/styledComponents";
 
 import ListingList from "./ListingList";
@@ -39,6 +41,7 @@ export interface ListingsInProgressProps {
   appealChallengeRevealPhaseListings: Set<NewsroomListing>;
   resolveChallengeListings: Set<NewsroomListing>;
   resolveAppealListings: Set<NewsroomListing>;
+  govtParameters: any;
 }
 
 const TABS: string[] = [
@@ -75,6 +78,14 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
     const appealToCouncilTab = <AppealToCouncilTabTitle count={consideringAppeal.count()} />;
     const challengeCouncilAppealTab = <ChallengeCouncilAppealTabTitle count={appealChallenge.count()} />;
     const readyToUpdateTab = <ReadyToUpdateTabTitle count={readyToUpdate.count()} />;
+
+    const civil = getCivil();
+    const judgeAppealLenDisplay =
+      this.props.govtParameters[GovernmentParameters.judgeAppealLen] &&
+      getFormattedParameterValue(
+        GovernmentParameters.judgeAppealLen,
+        civil.toBigNumber(this.props.govtParameters[GovernmentParameters.judgeAppealLen].toString()),
+      );
 
     return (
       <Tabs
@@ -116,8 +127,8 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             </Helmet>
             <StyledListingCopy>
               Appeal to the Civil Council has been requested for these Newsrooms. The Civil Council will review whether
-              these Newsrooms breached the Civil Constitution, and a decision will be announced X days after the appeal
-              is granted.
+              these Newsrooms breached the Civil Constitution, and a decision will be announced {judgeAppealLenDisplay}{" "}
+              after the appeal is requested.
             </StyledListingCopy>
             {this.renderUnderAppeal()}
           </>
