@@ -60,15 +60,8 @@ class AppealChallengeRevealVote extends React.Component<
 > {
   constructor(props: AppealChallengeDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
-    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
-    let voteOption;
-    if (fetchedVote) {
-      voteOption = fetchedVote.toString();
-    }
     this.state = {
       isReviewVoteModalOpen: false,
-      voteOption,
-      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
     };
   }
@@ -136,6 +129,9 @@ class AppealChallengeRevealVote extends React.Component<
       .mul(100)
       .toFixed(0);
 
+    const voteOption = this.getVoteOption();
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
+
     return (
       <>
         <AppealChallengeRevealVoteCard
@@ -148,8 +144,8 @@ class AppealChallengeRevealVote extends React.Component<
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
           stake={stake}
-          voteOption={this.state.voteOption}
-          salt={this.state.salt}
+          voteOption={voteOption}
+          salt={salt}
           totalVotes={getFormattedTokenBalance(totalVotes)}
           votesFor={votesFor}
           votesAgainst={votesAgainst}
@@ -216,9 +212,19 @@ class AppealChallengeRevealVote extends React.Component<
     ];
   };
 
+  private getVoteOption(): string | undefined {
+    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
+    return voteOption;
+  }
+
   private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    const voteOption: BigNumber = new BigNumber(this.getVoteOption() as string);
+    const saltStr = fetchSalt(this.props.challengeID, this.props.user);
+    const salt: BigNumber = new BigNumber(saltStr as string);
     return revealVote(this.props.challengeID, voteOption, salt);
   };
 

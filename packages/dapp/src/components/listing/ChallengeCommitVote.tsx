@@ -99,7 +99,6 @@ class ChallengeCommitVote extends React.Component<
     this.state = {
       isReviewVoteModalOpen: false,
       voteOption: undefined,
-      salt: fetchSalt(this.props.challengeID, this.props.user),
       numTokens: undefined,
       key: new Date().valueOf(),
     };
@@ -124,6 +123,7 @@ class ChallengeCommitVote extends React.Component<
     if (!challenge) {
       return null;
     }
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
     const props = {
       endTime,
       phaseLength,
@@ -140,7 +140,7 @@ class ChallengeCommitVote extends React.Component<
       votingTokenBalance,
       tokenBalanceDisplay,
       votingTokenBalanceDisplay,
-      salt: this.state.salt,
+      salt,
       numTokens: this.state.numTokens,
       key: this.state.key,
     };
@@ -174,13 +174,14 @@ class ChallengeCommitVote extends React.Component<
 
     const { challenge } = this.props;
     const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
 
     const props: ReviewVoteProps = {
       newsroomName: "this newsroom",
       listingDetailURL,
       challengeID: this.props.challengeID.toString(),
       open: this.state.isReviewVoteModalOpen!,
-      salt: this.state.salt,
+      salt,
       numTokens: this.state.numTokens,
       voteOption: this.state.voteOption,
       userAccount: this.props.user,
@@ -269,7 +270,8 @@ class ChallengeCommitVote extends React.Component<
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    const saltStr = fetchSalt(this.props.challengeID, this.props.user);
+    const salt: BigNumber = new BigNumber(saltStr as string);
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     saveVote(this.props.challengeID, this.props.user, voteOption);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);

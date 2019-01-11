@@ -233,6 +233,12 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   };
 
   private setNumTokens = (name: string, value: string | null): void => {
+    let cleanValue = value && parseFloat(value);
+    if (cleanValue) {
+      cleanValue = Math.abs(cleanValue as number);
+      this.props.onInputChange({ numTokens: cleanValue });
+      return;
+    }
     this.props.onInputChange({ numTokens: value });
   };
 
