@@ -59,6 +59,7 @@ enum TransactionTypes {
 
 const transactionLabels = {
   [TransactionTypes.APPROVE_FOR_CHALLENGE]: "Approve for Challenge",
+  [TransactionTypes.PUBLISH_CONTENT]: "Publish Statement",
   [TransactionTypes.CHALLENGE_LISTING]: "Challenge Listing",
 };
 
@@ -200,6 +201,7 @@ class SubmitChallengeComponent extends React.Component<
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: false,
+            isIPFSUploadModalOpen: false,
             transactionType: TransactionTypes.CHALLENGE_LISTING,
           });
           return this.challenge();
@@ -234,6 +236,7 @@ class SubmitChallengeComponent extends React.Component<
             You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge
             deposit.
           </ModalContent>
+          <ModalContent>It may take a few minutes for the listing to appear as challenged.</ModalContent>
         </>,
       ],
     };

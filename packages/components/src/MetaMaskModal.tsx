@@ -168,7 +168,9 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
   }
 
   let image;
-  if (props.denied) {
+  if (props.ipfsPost) {
+    image = undefined;
+  } else if (props.denied) {
     image = <MainImg src={confirmButton} />;
   } else {
     image = (

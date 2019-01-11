@@ -155,7 +155,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
       return (
         <MetaMaskModal ipfsPost={true} waiting={true}>
           <ModalStepLabel>{stepLabel}</ModalStepLabel>
-          <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+          <ModalHeading>Posting to IPFS</ModalHeading>
         </MetaMaskModal>
       );
     }
