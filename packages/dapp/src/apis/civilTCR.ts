@@ -100,6 +100,21 @@ export async function challengeGrantedAppeal(address: EthAddress, data: string =
   return tcr.challengeGrantedAppeal(address, data);
 }
 
+export async function requestAppealWithUri(address: EthAddress, uri: string = ""): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  return tcr.requestAppealWithURI(address, uri);
+}
+
+export async function challengeGrantedAppealWithUri(
+  address: EthAddress,
+  uri: string = "",
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  return tcr.challengeGrantedAppealWithURI(address, uri);
+}
+
 export async function challengeListing(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
@@ -139,12 +154,6 @@ export async function depositTokens(
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   return tcr.deposit(address, ensureWeb3BigNumber(numTokens));
-}
-
-export async function appealChallenge(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
-  const civil = getCivil();
-  const tcr = await civil.tcrSingletonTrusted();
-  return tcr.requestAppeal(address, data);
 }
 
 export async function exitListing(address: EthAddress, multisigAddress?: EthAddress): Promise<TwoStepEthTransaction> {
