@@ -52,7 +52,10 @@ interface ListingPageComponentState {
   activeTab: number;
 }
 
-class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps, ListingPageComponentState> {
+class ListingPageComponent extends React.Component<
+  ListingReduxProps & DispatchProp<any> & ListingPageComponentProps,
+  ListingPageComponentState
+> {
   constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
     super(props);
     this.state = { activeTab: 0 };
@@ -175,7 +178,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
 
   private onTabChange = (newActiveTab: number): void => {
     this.setState({ activeTab: newActiveTab });
-  }
+  };
 }
 
 const makeMapStateToProps = () => {
