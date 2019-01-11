@@ -187,7 +187,6 @@ class SubmitChallengeComponent extends React.Component<
             isIPFSUploadModalOpen: true,
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: false,
-            isIPFSUploadModalOpen: false,
             transactionType: TransactionTypes.PUBLISH_CONTENT,
           });
           return this.postChallengeStatement();
