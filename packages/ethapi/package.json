@@ -24,7 +24,7 @@
   "homepage": "https://github.com/joincivil/Civil",
   "dependencies": {
     "@joincivil/utils": "^1.8.2",
-    "bignumber.js": "^5.0.0",
+    "bignumber.js": "^8.0.1",
     "debug": "^4.1.0",
     "ethereumjs-util": "^5.2.0",
     "lodash": "^4.17.10",

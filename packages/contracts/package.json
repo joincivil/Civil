@@ -59,7 +59,7 @@
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^10.12.0",
     "@types/underscore": "^1.8.6",
-    "bignumber.js": "~5.0.0",
+    "bignumber.js": "~8.0.1",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-bignumber": "^2.0.2",

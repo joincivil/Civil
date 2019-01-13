@@ -52,7 +52,7 @@
   "dependencies": {
     "@joincivil/ethapi": "^0.3.3",
     "@joincivil/utils": "^1.8.2",
-    "bignumber.js": "~5.0.0",
+    "bignumber.js": "~8.0.1",
     "debug": "^4.1.0",
     "ethereumjs-util": "^5.2.0",
     "events": "^3.0.0",
