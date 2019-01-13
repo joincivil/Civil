@@ -13,7 +13,7 @@ export const ModalWrapper = styled.div`
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1;
+  z-index: 2;
 `;
 
 export const ModalInner = styled.div`

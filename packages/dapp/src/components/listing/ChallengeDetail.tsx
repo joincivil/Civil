@@ -36,9 +36,7 @@ import {
   getChallengeState,
 } from "../../selectors";
 import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
-import { fetchSalt } from "../../helpers/salt";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
-import { fetchVote } from "../../helpers/vote";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
@@ -111,7 +109,6 @@ export interface ChallengeDetailProps {
 export interface ChallengeVoteState {
   isReviewVoteModalOpen?: boolean;
   voteOption?: string;
-  salt?: string;
   numTokens?: string;
   requestAppealSummaryValue?: string;
   requestAppealCiteConstitutionValue?: any;
@@ -129,34 +126,7 @@ export interface ProgressModalPropsState {
 
 // A container encapsultes the Commit Vote, Reveal Vote and Rewards phases for a Challenge.
 // @TODO(jon): Clean this up... by maybe separating into separate containers for each phase card component
-class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState & ProgressModalPropsState> {
-  constructor(props: any) {
-    super(props);
-    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
-    let voteOption;
-    if (fetchedVote) {
-      voteOption = fetchedVote.toString();
-    }
-    this.state = {
-      isReviewVoteModalOpen: false,
-      voteOption,
-      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
-      numTokens: undefined,
-    };
-  }
-
-  public componentDidMount(): void {
-    if (!this.state.numTokens && this.props.balance && this.props.votingBalance) {
-      this.setInitNumTokens();
-    }
-  }
-
-  public componentDidUpdate(prevProps: ChallengeDetailProps): void {
-    if (!this.state.numTokens && (this.props.balance && this.props.votingBalance)) {
-      this.setInitNumTokens();
-    }
-  }
-
+class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   public render(): JSX.Element {
     const { challenge, userChallengeData, userAppealChallengeData } = this.props;
     const { inCommitPhase, inRevealPhase } = this.props.challengeState;
@@ -180,20 +150,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail()}
       </>
     );
-  }
-
-  private setInitNumTokens(): void {
-    let initNumTokens: BigNumber;
-    if (!this.props.votingBalance!.isZero()) {
-      initNumTokens = this.props.votingBalance!;
-    } else {
-      initNumTokens = this.props.balance!.add(this.props.votingBalance!);
-    }
-    const initNumTokensString = initNumTokens
-      .div(1e18)
-      .toFixed(2)
-      .toString();
-    this.setState(() => ({ numTokens: initNumTokensString }));
   }
 
   private renderAppeal(): JSX.Element {
