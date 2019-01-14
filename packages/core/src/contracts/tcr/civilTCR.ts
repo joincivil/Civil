@@ -701,6 +701,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return this.multisigProxy.challengeGrantedAppeal.sendTransactionAsync(listingAddress, data);
   }
 
+  public async challengeGrantedAppealWithURI(
+    listingAddress: EthAddress,
+    uri: string = "",
+  ): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.challengeGrantedAppeal.sendTransactionAsync(listingAddress, uri);
+  }
+
   /**
    * This is a low-level call and assumes you stored your content on your own
    * Challenges an application or whitelisted listing
