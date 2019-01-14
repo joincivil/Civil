@@ -71,7 +71,12 @@ class ListingChallengeStatement extends React.Component<
     if (!this.props.appealStatement) {
       return <></>;
     }
-    const parsed = JSON.parse(this.props.appealStatement);
+    let parsed = this.props.appealStatement;
+    try {
+      parsed = JSON.parse(this.props.appealStatement);
+    } catch (ex) {
+      console.warn("unable to parse appeal statement, possibly already parsed. ex: ", ex);
+    }
     const summary = parsed.summary;
     const cleanDetails = sanitizeHtml(parsed.details, {
       allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
@@ -97,7 +102,12 @@ class ListingChallengeStatement extends React.Component<
     if (!this.props.challengeStatement) {
       return <></>;
     }
-    const parsed = JSON.parse(this.props.challengeStatement);
+    let parsed = this.props.challengeStatement;
+    try {
+      parsed = JSON.parse(this.props.challengeStatement);
+    } catch (ex) {
+      console.warn("unable to parse challenge statement, possibly already parsed. ex: ", ex);
+    }
     const summary = parsed.summary || "";
     const cleanCiteConstitution = parsed.citeConstitution
       ? sanitizeHtml(parsed.citeConstitution, {
@@ -137,7 +147,12 @@ class ListingChallengeStatement extends React.Component<
     if (!this.props.appealChallengeStatement) {
       return <></>;
     }
-    const parsed = JSON.parse(this.props.appealChallengeStatement);
+    let parsed = this.props.appealChallengeStatement;
+    try {
+      parsed = JSON.parse(this.props.appealChallengeStatement);
+    } catch (ex) {
+      console.warn("unable to parse appeal challenge  statement, possibly already parsed. ex: ", ex);
+    }
     const summary = parsed.summary || "";
     const cleanDetails = parsed.details
       ? sanitizeHtml(parsed.details, {
@@ -168,7 +183,14 @@ const mapToStateToProps = (
   state: State,
   ownProps: ListingChallengeStatementProps,
 ): ListingChallengeStatementProps & ListingChallengeStatementReduxProps => {
-  const challenge = getChallengeByListingAddress(state, ownProps);
+  let challenge = getChallengeByListingAddress(state, ownProps);
+  if (!challenge) {
+    challenge = {
+      challenge: ownProps.listing!.data.challenge!,
+      listingAddress: ownProps.listingAddress,
+      challengeID: ownProps.listing!.data.challengeID,
+    };
+  }
   const { content } = state.networkDependent;
   let challengeStatement: any = "";
   let appealStatement: any = "";
