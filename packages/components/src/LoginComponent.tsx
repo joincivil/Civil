@@ -68,7 +68,5 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
     const { applicationType } = this.props;
 
     const res = await mutation({ variables: { emailAddress, application: applicationType } });
-
-    console.log("submit:", res);
   }
 }

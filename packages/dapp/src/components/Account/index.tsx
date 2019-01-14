@@ -79,10 +79,9 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
     );
   }
   public handleOnAuthentication = (authResult: any, isNewUser: boolean): void => {
-    console.log("handleOnAuthentication", { authResult });
-
     // Set the session.
     setSession(authResult);
+    // TODO(jorgelo): Flush the local apollo cache here.
   };
 
   public handleAuthEmail = (isNewUser: boolean, emailAddress: string): void => {

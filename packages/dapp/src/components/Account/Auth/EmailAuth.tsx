@@ -88,7 +88,6 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       return;
     }
 
-    console.log({ res, authResponse });
     alert("Error:" + authResponse);
     return;
   }
