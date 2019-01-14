@@ -48,7 +48,19 @@ export interface ListingReduxProps {
   useGraphQL: boolean;
 }
 
-class ListingPageComponent extends React.Component<ListingReduxProps & DispatchProp<any> & ListingPageComponentProps> {
+interface ListingPageComponentState {
+  activeTab: number;
+}
+
+class ListingPageComponent extends React.Component<
+  ListingReduxProps & DispatchProp<any> & ListingPageComponentProps,
+  ListingPageComponentState
+> {
+  constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
+    super(props);
+    this.state = { activeTab: 0 };
+  }
+
   public async componentDidUpdate(): Promise<void> {
     if (!this.props.listing && !this.props.listingDataRequestStatus && !this.props.useGraphQL) {
       this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
@@ -65,6 +77,12 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
     if (this.props.newsroom) {
       this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
     }
+  }
+
+  public componentWillMount(): void {
+    const listing = this.props.listing;
+    const activeTab = listing && listing.data.challenge ? 1 : 0;
+    this.setState({ activeTab });
   }
 
   public render(): JSX.Element {
@@ -108,7 +126,7 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
           <StyledLeftContentWell>
             {!listingExistsAsNewsroom && this.renderListingNotFound()}
 
-            <Tabs TabComponent={StyledTab}>
+            <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTab} onActiveTabChange={this.onTabChange}>
               {(listingExistsAsNewsroom && (
                 <Tab title="About">
                   <ListingTabContent>
@@ -157,6 +175,10 @@ class ListingPageComponent extends React.Component<ListingReduxProps & DispatchP
   private renderListingNotFound(): JSX.Element {
     return <>NOT FOUND</>;
   }
+
+  private onTabChange = (newActiveTab: number): void => {
+    this.setState({ activeTab: newActiveTab });
+  };
 }
 
 const makeMapStateToProps = () => {
