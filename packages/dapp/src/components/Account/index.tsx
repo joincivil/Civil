@@ -4,6 +4,7 @@ import { AccountEmailAuth } from "./Auth/EmailAuth";
 import { AccountHome } from "./Home";
 import { AccountEmailSent } from "./Auth/EmailSent";
 import { AccountVerifyToken, AccountVerifyTokenProps } from "./VerifyToken";
+import { setSession } from "../../helpers/apolloClient";
 
 export enum AuthApplicationEnum {
   DEFAULT = "DEFAULT",
@@ -77,9 +78,12 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       </>
     );
   }
-  public handleOnAuthentication(authResult: any, isNewUser: boolean): void {
+  public handleOnAuthentication = (authResult: any, isNewUser: boolean): void => {
     console.log("handleOnAuthentication", { authResult });
-  }
+
+    // Set the session.
+    setSession(authResult);
+  };
 
   public handleAuthEmail = (isNewUser: boolean, emailAddress: string): void => {
     const {
