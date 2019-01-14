@@ -73,6 +73,9 @@ class ListingPageComponent extends React.Component<
   public async componentDidMount(): Promise<void> {
     if (!this.props.useGraphQL) {
       this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress));
+      if (!this.props.listing && !this.props.listingDataRequestStatus) {
+        this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
+      }
     }
     if (this.props.newsroom) {
       this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
@@ -141,7 +144,7 @@ class ListingPageComponent extends React.Component<
 
               <Tab title="Discussions">
                 <ListingTabContent>
-                  <ListingChallengeStatement listingAddress={this.props.listingAddress} />
+                  <ListingChallengeStatement listingAddress={this.props.listingAddress} listing={this.props.listing} />
 
                   <p>
                     Use this space to discuss, ask questions, or cheer on the newsmakers. If you have questions, check

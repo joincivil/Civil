@@ -223,7 +223,7 @@ export class Civil {
    * @param options Options to be passed to the provider
    * @returns StorageHeader with info about published content
    */
-  public async publishContent(content: string, options: object): Promise<StorageHeader> {
+  public async publishContent(content: string, options?: object): Promise<StorageHeader> {
     return this.contentProvider.put(content, options);
   }
 
