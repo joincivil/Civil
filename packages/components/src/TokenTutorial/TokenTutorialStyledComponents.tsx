@@ -1,7 +1,49 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
-import { InvertedButton, ButtonProps } from "../Button";
+import { Button, InvertedButton, ButtonProps } from "../Button";
+
+export const WelcomeSlideBtns: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+  border-radius: 1px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  padding: 15px 15px;
+  text-transform: none;
+  width: 170px;
+`;
+
+export const WelcomeSlide = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  letter-spacing: -0.87px;
+  max-width: 500px;
+  padding: 20px;
+  text-align: center;
+
+  svg {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 39px;
+    margin: 0 0 10px;
+    width: 100%;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 19px;
+    line-height: 32px;
+    margin: 0 0 30px;
+    width: 100%;
+  }
+`;
 
 export const TutorialIntro = styled.div`
   font-family: ${fonts.SANS_SERIF};
