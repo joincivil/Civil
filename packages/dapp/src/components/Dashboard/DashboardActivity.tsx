@@ -30,6 +30,7 @@ import {
 } from "../../selectors";
 import ActivityList from "./ActivityList";
 import ReclaimTokens from "./ReclaimTokens";
+import DepositTokens from "./DepositTokens";
 
 const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
 
@@ -175,6 +176,7 @@ class DashboardActivity extends React.Component<
         <Tab title={<SubTabReclaimTokensText />}>
           <>
             <ReclaimTokens />
+            <DepositTokens />
           </>
         </Tab>
       </Tabs>

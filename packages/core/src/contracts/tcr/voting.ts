@@ -91,6 +91,14 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   }
 
   /**
+   * Deposits tokens into voting contract (thus requesting voting rights)
+   * @param numTokens number of tokens to deposit into voting contract
+   */
+  public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.ethApi, await this.instance.requestVotingRights.sendTransactionAsync(numTokens));
+  }
+
+  /**
    * Checks whether or not a user can rescue tokens from a poll by trying to estimate gas cost of the transaction.
    * If estimate succeeds, it should be true. If the estimate fails, it means the transaction would result in an EVM
    * exception and should be false.
