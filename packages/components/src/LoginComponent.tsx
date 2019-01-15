@@ -67,6 +67,6 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
     const { emailAddress } = this.state;
     const { applicationType } = this.props;
 
-    const res = await mutation({ variables: { emailAddress, application: applicationType } });
+    mutation({ variables: { emailAddress, application: applicationType } });
   }
 }
