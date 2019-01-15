@@ -59,12 +59,12 @@ export class LoginComponent extends React.Component<LoginComponentProps, LoginCo
     );
   }
 
-  private async submit(event: any, mutation: MutationFn): Promise<void> {
+  private submit(event: any, mutation: MutationFn): void {
     event.preventDefault();
 
     const { emailAddress } = this.state;
     const { applicationType } = this.props;
 
-    mutation({ variables: { emailAddress, application: applicationType } });
+    mutation({ variables: { emailAddress, application: applicationType } }).catch(err => console.error);
   }
 }

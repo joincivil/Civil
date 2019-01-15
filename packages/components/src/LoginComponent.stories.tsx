@@ -1,8 +1,5 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
-import styled from "styled-components";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import apolloStorybookDecorator from "apollo-storybook-react";
 import { LoginComponent, AuthApplicationEnum } from "./LoginComponent";
 
