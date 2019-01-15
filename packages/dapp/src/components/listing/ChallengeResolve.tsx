@@ -16,7 +16,7 @@ import {
 } from "../utility/HigherOrderComponents";
 
 enum TransactionTypes {
-  RESOLVE_CHALLENGE = "RESOLVE_CHALLENG",
+  RESOLVE_CHALLENGE = "RESOLVE_CHALLENGE",
 }
 
 const transactionLabels = {

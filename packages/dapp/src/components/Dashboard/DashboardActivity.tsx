@@ -1,9 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import styled from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
-import { EthAddress, TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress } from "@joincivil/core";
 import {
   Tabs,
   Tab,
@@ -13,13 +13,11 @@ import {
   ClaimRewardsDashboardTabTitle,
   RescueTokensDashboardTabTitle,
   StyledDashboardSubTab,
-  StyledDashboardActivityDescription,
   SubTabReclaimTokensText,
-  ClaimRewardsDescriptionText,
-  RescueTokensDescriptionText,
-  TransactionButton,
+  Modal,
+  ProgressModalContentMobileUnsupported,
 } from "@joincivil/components";
-import { multiClaimRewards, rescueTokensInMultiplePolls } from "../../apis/civilTCR";
+
 import { State } from "../../redux/reducers";
 import {
   getUserChallengesWithUnclaimedRewards,
@@ -28,8 +26,11 @@ import {
   getChallengesStartedByUser,
   getChallengesVotedOnByUser,
 } from "../../selectors";
+
 import ActivityList from "./ActivityList";
 import ReclaimTokens from "./ReclaimTokens";
+import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
+import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 
 const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
 
@@ -53,20 +54,50 @@ export interface ChallengesToProcess {
 }
 
 export interface DashboardActivityState {
-  challengesToClaim: ChallengesToProcess;
-  challengesToRescue: ChallengesToProcess;
+  isNoMobileTransactionVisible: boolean;
 }
 
 const StyledTabsComponent = styled.div`
   margin-left: 26px;
 `;
 
-const StyledBatchButtonContainer = styled.div`
+export const StyledBatchButtonContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
   padding: 12px 0 36px;
 `;
+
+// We're storing which challenges to multi-claim in the state of this component, because
+// the user can select which rewards to batch
+// @TODO(jon: Clean this up. Maybe this gets put into redux, or we create a more
+// explicit type that describes this object that gets checked and that type has a field
+// called something like `isSelected` so this code is a bit clearer
+export const getChallengesToProcess = (challengeObj: ChallengesToProcess): BigNumber[] => {
+  const challengesToCheck = Object.entries(challengeObj);
+  const challengesToProcess: BigNumber[] = challengesToCheck
+    .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
+      if (challengeToProcess[1][0]) {
+        return new BigNumber(challengeToProcess[0]);
+      }
+      return;
+    })
+    .filter(item => !!item) as BigNumber[];
+  return challengesToProcess;
+};
+
+export const getSalts = (challengeObj: ChallengesToProcess): BigNumber[] => {
+  const challengesToCheck = Object.entries(challengeObj);
+  const challengesToProcess: BigNumber[] = challengesToCheck
+    .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
+      if (challengeToProcess[1][0]) {
+        return challengeToProcess[1][1];
+      }
+      return;
+    })
+    .filter(item => !!item) as BigNumber[];
+  return challengesToProcess;
+};
 
 class DashboardActivity extends React.Component<
   DashboardActivityProps & DashboardActivityReduxProps,
@@ -75,8 +106,7 @@ class DashboardActivity extends React.Component<
   constructor(props: DashboardActivityProps & DashboardActivityReduxProps) {
     super(props);
     this.state = {
-      challengesToClaim: {},
-      challengesToRescue: {},
+      isNoMobileTransactionVisible: false,
     };
   }
 
@@ -117,137 +147,60 @@ class DashboardActivity extends React.Component<
     const claimRewardsTabTitle = <ClaimRewardsDashboardTabTitle count={userChallengesWithUnclaimedRewards!.count()} />;
     const rescueTokensTabTitle = <RescueTokensDashboardTabTitle count={userChallengesWithRescueTokens!.count()} />;
 
-    const isClaimRewardsButtonDisabled = !this.state.challengesToClaim.length;
-    const isRescueTokensButtonDisabled = !this.state.challengesToRescue.length;
-
     return (
-      <Tabs
-        TabComponent={StyledDashboardSubTab}
-        TabsNavComponent={StyledTabsComponent}
-        onActiveTabChange={this.onSubTabChange}
-      >
-        <Tab title={allVotesTabTitle}>
-          <ActivityList challenges={currentUserChallengesVotedOn} />
-        </Tab>
-        <Tab title={revealVoteTabTitle}>
-          <ActivityList challenges={userChallengesWithUnrevealedVotes} />
-        </Tab>
-        <Tab title={claimRewardsTabTitle}>
-          <>
-            <StyledDashboardActivityDescription>
-              <ClaimRewardsDescriptionText />
-            </StyledDashboardActivityDescription>
-            <ActivityList
+      <>
+        <Tabs TabComponent={StyledDashboardSubTab} TabsNavComponent={StyledTabsComponent}>
+          <Tab title={allVotesTabTitle}>
+            <ActivityList challenges={currentUserChallengesVotedOn} />
+          </Tab>
+          <Tab title={revealVoteTabTitle}>
+            <ActivityList challenges={userChallengesWithUnrevealedVotes} />
+          </Tab>
+          <Tab title={claimRewardsTabTitle}>
+            <ChallengesWithRewardsToClaim
               challenges={userChallengesWithUnclaimedRewards}
-              resolvedChallenges={true}
-              toggleChallengeSelect={this.setChallengesToMultiClaim}
+              onMobileTransactionClick={this.showNoMobileTransactionsModal}
             />
-            <StyledBatchButtonContainer>
-              <TransactionButton
-                disabled={isClaimRewardsButtonDisabled}
-                transactions={[{ transaction: this.multiClaim }]}
-              >
-                Claim Rewards
-              </TransactionButton>
-            </StyledBatchButtonContainer>
-          </>
-        </Tab>
-        <Tab title={rescueTokensTabTitle}>
-          <>
-            <StyledDashboardActivityDescription>
-              <RescueTokensDescriptionText />
-            </StyledDashboardActivityDescription>
-            <ActivityList
-              challenges={userChallengesWithRescueTokens}
-              resolvedChallenges={true}
-              toggleChallengeSelect={this.setChallengesToMultiRescue}
+          </Tab>
+          <Tab title={rescueTokensTabTitle}>
+            <ChallengesWithTokensToRescue
+              challenges={userChallengesWithUnclaimedRewards}
+              onMobileTransactionClick={this.showNoMobileTransactionsModal}
             />
-            <StyledBatchButtonContainer>
-              <TransactionButton
-                disabled={isRescueTokensButtonDisabled}
-                transactions={[{ transaction: this.multiRescue }]}
-              >
-                Rescue Tokens
-              </TransactionButton>
-            </StyledBatchButtonContainer>
-          </>
-        </Tab>
-        <Tab title={<SubTabReclaimTokensText />}>
-          <>
-            <ReclaimTokens />
-          </>
-        </Tab>
-      </Tabs>
+          </Tab>
+          <Tab title={<SubTabReclaimTokensText />}>
+            <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
+          </Tab>
+        </Tabs>
+        {this.renderNoMobileTransactions()}
+      </>
     );
   };
 
   private onTabChange = (activeIndex: number = 0): void => {
     const tabName = TABS[activeIndex];
     this.props.history.push(`/dashboard/${tabName}`);
-    this.resetMultiClaimRescue();
   };
 
-  private onSubTabChange = (activeIndex: number = 0): void => {
-    this.resetMultiClaimRescue();
+  private showNoMobileTransactionsModal = (): void => {
+    this.setState({ isNoMobileTransactionVisible: true });
   };
 
-  private setChallengesToMultiClaim = (challengeID: string, isSelected: boolean, salt: BigNumber): void => {
-    this.setState(() => ({
-      challengesToClaim: { ...this.state.challengesToClaim, [challengeID]: [isSelected, salt] },
-    }));
+  private hideNoMobileTransactionsModal = (): void => {
+    this.setState({ isNoMobileTransactionVisible: false });
   };
 
-  private setChallengesToMultiRescue = (challengeID: string, isSelected: boolean, salt: BigNumber): void => {
-    this.setState(() => ({
-      challengesToRescue: { ...this.state.challengesToRescue, [challengeID]: [isSelected, salt] },
-    }));
-  };
+  private renderNoMobileTransactions(): JSX.Element {
+    if (this.state.isNoMobileTransactionVisible) {
+      return (
+        <Modal textAlign="center">
+          <ProgressModalContentMobileUnsupported hideModal={this.hideNoMobileTransactionsModal} />
+        </Modal>
+      );
+    }
 
-  private resetMultiClaimRescue = (): void => {
-    this.setState(() => ({ challengesToClaim: {}, challengesToRescue: {} }));
-  };
-
-  private multiClaim = async (): Promise<TwoStepEthTransaction | void> => {
-    const challengeIDs = this.getChallengesToProcess(this.state.challengesToClaim);
-    const salts = this.getSalts(this.state.challengesToClaim);
-    return multiClaimRewards(challengeIDs, salts);
-  };
-
-  private multiRescue = async (): Promise<TwoStepEthTransaction | void> => {
-    const challengeIDs = this.getChallengesToProcess(this.state.challengesToRescue);
-    return rescueTokensInMultiplePolls(challengeIDs);
-  };
-
-  // We're storing which challenges to multi-claim in the state of this component, because
-  // the user can select which rewards to batch
-  // @TODO(jon: Clean this up. Maybe this gets put into redux, or we create a more
-  // explicit type that describes this object that gets checked and that type has a field
-  // called something like `isSelected` so this code is a bit clearer
-  private getChallengesToProcess = (challengeObj: ChallengesToProcess): BigNumber[] => {
-    const challengesToCheck = Object.entries(challengeObj);
-    const challengesToProcess: BigNumber[] = challengesToCheck
-      .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
-        if (challengeToProcess[1][0]) {
-          return new BigNumber(challengeToProcess[0]);
-        }
-        return;
-      })
-      .filter(item => !!item) as BigNumber[];
-    return challengesToProcess;
-  };
-
-  private getSalts = (challengeObj: ChallengesToProcess): BigNumber[] => {
-    const challengesToCheck = Object.entries(challengeObj);
-    const challengesToProcess: BigNumber[] = challengesToCheck
-      .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
-        if (challengeToProcess[1][0]) {
-          return challengeToProcess[1][1];
-        }
-        return;
-      })
-      .filter(item => !!item) as BigNumber[];
-    return challengesToProcess;
-  };
+    return <></>;
+  }
 }
 
 const mapStateToProps = (
