@@ -12,12 +12,6 @@ export enum AuthApplicationEnum {
   STOREFRONT = "STOREFRONT",
 }
 
-export interface AuthLoginResponse {
-  token: string;
-  refreshToken: string;
-  uid: string;
-}
-
 export default class AccountRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
     const { match } = this.props;

@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import gql from "graphql-tag";
 import { ExecuteOnMount } from "@joincivil/components";
 import { Mutation } from "react-apollo";
-import { AuthLoginResponse } from "./index";
+import { AuthLoginResponse } from "../../helpers/apolloClient";
 
 const verifySignUpTokenMutation = gql`
   mutation($loginJWT: String!) {

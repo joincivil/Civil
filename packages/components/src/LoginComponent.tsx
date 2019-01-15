@@ -1,6 +1,4 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
-import { colors } from "./styleConstants";
 import gql from "graphql-tag";
 
 import { Mutation, MutationFn } from "react-apollo";
