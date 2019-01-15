@@ -651,7 +651,18 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     hash: string,
     signature: string = "",
   ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
-    if (!(await this.isEditor()) && (await this.isOwner())) {
+    if (contentId === 0) {
+      await this.requireOwner();
+      return this.twoStepOrMulti(
+        await this.multisigProxy.updateRevision.sendTransactionAsync(
+          this.ethApi.toBigNumber(contentId),
+          uri,
+          hash,
+          signature,
+        ),
+        findRevisionId,
+      );
+    } else if (!(await this.isEditor()) && (await this.isOwner())) {
       return this.twoStepOrMulti(
         await this.multisigProxy.updateRevision.sendTransactionAsync(
           this.ethApi.toBigNumber(contentId),
@@ -663,7 +674,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       );
     } else {
       await this.requireEditor();
-
       return createTwoStepTransaction(
         this.ethApi,
         await this.instance.updateRevision.sendTransactionAsync(
