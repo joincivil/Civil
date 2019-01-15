@@ -1,0 +1,154 @@
+{
+    "contractName": "Managed",
+    "bytecode": "0x608060405260008054600160a060020a031916331790556103a8806100256000396000f30060806040526004361061008d5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416632d06177a8114610092578063715018a6146100b55780638da5cb5b146100ca578063ac18de43146100fb578063c56a3e881461011c578063f281e7d114610145578063f2fde38b14610166578063fdff9b4d14610187575b600080fd5b34801561009e57600080fd5b506100b3600160a060020a03600435166101a8565b005b3480156100c157600080fd5b506100b36101e6565b3480156100d657600080fd5b506100df610252565b60408051600160a060020a039092168252519081900360200190f35b34801561010757600080fd5b506100b3600160a060020a0360043516610261565b34801561012857600080fd5b50610131610299565b604080519115158252519081900360200190f35b34801561015157600080fd5b50610131600160a060020a03600435166102a9565b34801561017257600080fd5b506100b3600160a060020a03600435166102c7565b34801561019357600080fd5b50610131600160a060020a03600435166102ea565b600054600160a060020a031633146101bf57600080fd5b600160a060020a03166000908152600160208190526040909120805460ff19169091179055565b600054600160a060020a031633146101fd57600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031681565b600054600160a060020a0316331461027857600080fd5b600160a060020a03166000908152600160205260409020805460ff19169055565b60006102a4336102a9565b905090565b600160a060020a031660009081526001602052604090205460ff1690565b600054600160a060020a031633146102de57600080fd5b6102e7816102ff565b50565b60016020526000908152604090205460ff1681565b600160a060020a038116151561031457600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820857ede70e317fc03c266a267a7047d1df819bc8bacb0177900580c4f2c5fd3050029",
+    "deployedBytecode": "0x60806040526004361061008d5763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416632d06177a8114610092578063715018a6146100b55780638da5cb5b146100ca578063ac18de43146100fb578063c56a3e881461011c578063f281e7d114610145578063f2fde38b14610166578063fdff9b4d14610187575b600080fd5b34801561009e57600080fd5b506100b3600160a060020a03600435166101a8565b005b3480156100c157600080fd5b506100b36101e6565b3480156100d657600080fd5b506100df610252565b60408051600160a060020a039092168252519081900360200190f35b34801561010757600080fd5b506100b3600160a060020a0360043516610261565b34801561012857600080fd5b50610131610299565b604080519115158252519081900360200190f35b34801561015157600080fd5b50610131600160a060020a03600435166102a9565b34801561017257600080fd5b506100b3600160a060020a03600435166102c7565b34801561019357600080fd5b50610131600160a060020a03600435166102ea565b600054600160a060020a031633146101bf57600080fd5b600160a060020a03166000908152600160208190526040909120805460ff19169091179055565b600054600160a060020a031633146101fd57600080fd5b60008054604051600160a060020a03909116917ff8df31144d9c2f0f6b59d69b8b98abd5459d07f2742c4df920b25aae33c6482091a26000805473ffffffffffffffffffffffffffffffffffffffff19169055565b600054600160a060020a031681565b600054600160a060020a0316331461027857600080fd5b600160a060020a03166000908152600160205260409020805460ff19169055565b60006102a4336102a9565b905090565b600160a060020a031660009081526001602052604090205460ff1690565b600054600160a060020a031633146102de57600080fd5b6102e7816102ff565b50565b60016020526000908152604090205460ff1681565b600160a060020a038116151561031457600080fd5b60008054604051600160a060020a03808516939216917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e091a36000805473ffffffffffffffffffffffffffffffffffffffff1916600160a060020a03929092169190911790555600a165627a7a72305820857ede70e317fc03c266a267a7047d1df819bc8bacb0177900580c4f2c5fd3050029",
+    "abi": [
+        {
+            "constant": false,
+            "inputs": [],
+            "name": "renounceOwnership",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "owner",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "_newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "transferOwnership",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "",
+                    "type": "address"
+                }
+            ],
+            "name": "managers",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "previousOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipRenounced",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": true,
+                    "name": "previousOwner",
+                    "type": "address"
+                },
+                {
+                    "indexed": true,
+                    "name": "newOwner",
+                    "type": "address"
+                }
+            ],
+            "name": "OwnershipTransferred",
+            "type": "event"
+        },
+        {
+            "constant": true,
+            "inputs": [
+                {
+                    "name": "managerAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "checkManagerStatus",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": true,
+            "inputs": [],
+            "name": "isManager",
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool"
+                }
+            ],
+            "payable": false,
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "managerAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "addManager",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "managerAddress",
+                    "type": "address"
+                }
+            ],
+            "name": "removeManager",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "networks": {}
+}

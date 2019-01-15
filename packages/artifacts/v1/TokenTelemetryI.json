@@ -1,0 +1,26 @@
+{
+    "contractName": "TokenTelemetryI",
+    "bytecode": "0x",
+    "deployedBytecode": "0x",
+    "abi": [
+        {
+            "constant": false,
+            "inputs": [
+                {
+                    "name": "user",
+                    "type": "address"
+                },
+                {
+                    "name": "tokenAmount",
+                    "type": "uint256"
+                }
+            ],
+            "name": "onRequestVotingRights",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "networks": {}
+}
