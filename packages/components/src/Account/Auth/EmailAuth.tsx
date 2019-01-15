@@ -1,6 +1,5 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { RouteComponentProps } from "react-router-dom";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 
@@ -22,7 +21,7 @@ export interface AuthSignupEmailSendResult {
   };
 }
 
-export interface AccountEmailAuthProps extends RouteComponentProps {
+export interface AccountEmailAuthProps {
   applicationType: AuthApplicationEnum;
   isNewUser: boolean;
   onEmailSend(isNewUser: boolean, emailAddress: string): void;

@@ -1,10 +1,8 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import { LoginComponent, AuthApplicationEnum } from "./LoginComponent";
+import { AccountEmailAuth, AuthApplicationEnum } from "../";
 
 const typeDefs = `
   type User {
@@ -56,20 +54,31 @@ const mocks = {
   },
   Mutation: () => {
     return {
+      authSignupEmailSend: (email: string) => {
+        return "ok";
+      },
       authSignupEmailSendForApplication: (email: string, application: string) => {
-        return "success";
+        return "ok";
       },
     };
   },
 };
 
-storiesOf("Login", module)
+storiesOf("Account", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,
       mocks,
     }),
   )
-  .add("LoginComponent", () => {
-    return <LoginComponent applicationType={AuthApplicationEnum.DEFAULT} />;
+  .add("AccountEmailAuth", () => {
+    return (
+      <AccountEmailAuth
+        applicationType={AuthApplicationEnum.DEFAULT}
+        isNewUser={true}
+        onEmailSend={() => {
+          alert("email sent");
+        }}
+      />
+    );
   });

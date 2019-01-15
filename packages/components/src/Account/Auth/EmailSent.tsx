@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 
-interface AccountEmailSentProps extends RouteComponentProps {
+export interface AccountEmailSentProps extends RouteComponentProps {
   isNewUser: boolean;
 }
 

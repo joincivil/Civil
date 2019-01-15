@@ -34,7 +34,7 @@ export interface AccountVerifyTokenProps extends RouteComponentProps {
   onAuthentication(loginResponse: AuthLoginResponse, isNewUser: boolean): void;
 }
 
-interface VerifyTokenState {
+export interface VerifyTokenState {
   hasValidated: boolean;
   errorMessage: string | null;
 }

@@ -1,5 +1,6 @@
 export * from "./containers";
 export * from "./input";
+export * from "./Account";
 export * from "./Button";
 export * from "./CivilLogo";
 export * from "./FullscreenModal";
@@ -49,5 +50,4 @@ export * from "./Layout";
 export * from "./SnackBar";
 export * from "./DAppMessageContent";
 export * from "./EmailSignup";
-export * from "./LoginComponent";
 export * from "./Tokens";

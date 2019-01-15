@@ -12,21 +12,21 @@ export interface AuthLoginResponse {
 
 let client: ApolloClient<NormalizedCacheObject>;
 
-const SESSION_KEY = "session";
+const SESSION_KEY = "apollo_session";
 
-export function getSession(): AuthLoginResponse | null {
+export function getApolloSession(): AuthLoginResponse | null {
   return fetchItem(SESSION_KEY);
 }
 
-export function setSession(session: AuthLoginResponse): void {
+export function setApolloSession(session: AuthLoginResponse): void {
   setItem(SESSION_KEY, session);
 }
 
-export function clearSession(): void {
+export function clearApolloSession(): void {
   setItem(SESSION_KEY, null);
 }
 
-export function getClient(httpLinkOptions: HttpLink.Options): ApolloClient<NormalizedCacheObject> {
+export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient<NormalizedCacheObject> {
   if (client) {
     return client;
   }
@@ -34,7 +34,7 @@ export function getClient(httpLinkOptions: HttpLink.Options): ApolloClient<Norma
   const httpLink = createHttpLink(httpLinkOptions);
 
   const authLink = setContext((_: any, { headers }: { headers: any }) => {
-    const authInfo = getSession();
+    const authInfo = getApolloSession();
 
     const token = authInfo ? authInfo.token : null;
 
