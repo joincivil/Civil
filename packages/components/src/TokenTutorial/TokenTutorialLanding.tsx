@@ -3,7 +3,7 @@ import {
   TutorialIntro,
   TutorialTime,
   TutorialSkipSection,
-  TakeQuizBtns,
+  TakeQuizBtn,
   TutorialTopic,
   LaunchTopic,
 } from "./TokenTutorialStyledComponents";
@@ -13,10 +13,9 @@ import {
   TutorialTimeText,
   TutorialSkipText,
   TutorialSkipBtnText,
-  TutorialTopic1Text,
-  TutorialTopic2Text,
-  TutorialTopic3Text,
 } from "./TokenTutorialTextComponents";
+import { TutorialContent } from "./TutorialContent";
+import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 
 export const TokenTutorialLanding: React.StatelessComponent = props => {
   return (
@@ -30,25 +29,22 @@ export const TokenTutorialLanding: React.StatelessComponent = props => {
       </TutorialIntro>
       <TutorialSkipSection>
         <TutorialSkipText />
-        <TakeQuizBtns>
+        <TakeQuizBtn>
           <TutorialSkipBtnText />
-        </TakeQuizBtns>
+        </TakeQuizBtn>
       </TutorialSkipSection>
-      <TutorialTopic>
-        <LaunchTopic>
-          <TutorialTopic1Text />
-        </LaunchTopic>
-      </TutorialTopic>
-      <TutorialTopic>
-        <LaunchTopic>
-          <TutorialTopic2Text />
-        </LaunchTopic>
-      </TutorialTopic>
-      <TutorialTopic>
-        <LaunchTopic>
-          <TutorialTopic3Text />
-        </LaunchTopic>
-      </TutorialTopic>
+      {TutorialContent.map(topic => (
+        <TutorialTopic>
+          <LaunchTopic>
+            <div>
+              {topic.icon}
+              <h3>{topic.name}</h3>
+              <p>{topic.description}</p>
+            </div>
+            <DisclosureArrowIcon />
+          </LaunchTopic>
+        </TutorialTopic>
+      ))}
     </>
   );
 };

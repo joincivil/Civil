@@ -96,7 +96,7 @@ export const TutorialSkipSection = styled.div`
   }
 `;
 
-export const TakeQuizBtns: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const TakeQuizBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
   background-color: transparent;
   border-radius: 0;
   font-size: 14px;
@@ -114,10 +114,24 @@ export const TutorialTopic = styled.div`
 `;
 
 export const LaunchTopic = styled.a`
+  align-items: center;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   cursor: pointer;
-  display: block;
+  display: flex;
+  justify-content: space-between;
   padding: 30px;
+
+  & > div {
+    margin-right: 50px;
+    padding-left: 75px;
+    position: relative;
+
+    svg {
+      left: 0;
+      position: absolute
+      top: 5px;
+    }
+  }
 
   h3 {
     color: ${colors.accent.CIVIL_BLUE};
