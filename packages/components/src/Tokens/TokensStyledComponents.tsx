@@ -19,7 +19,7 @@ export const TokenAccountInner = styled.div`
 export const TokenBtns: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   border-radius: 1px;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.3px;
   text-transform: none;
 `;
@@ -117,7 +117,7 @@ export const TokenAccountSectionHeader = styled.div`
     color: ${colors.primary.BLACK};
     font-family: ${fonts.SANS_SERIF};
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 32px;
     margin: 0 0 8px;
   }
