@@ -2,24 +2,17 @@ import * as React from "react";
 
 export interface ExecuteOnMountProps {
   onDidMount(): any;
-  onError(err: any): any;
 }
 
 export class ExecuteOnMount extends React.Component<ExecuteOnMountProps> {
   public async componentDidMount(): Promise<void> {
-    const { onDidMount, onError } = this.props;
+    const { onDidMount } = this.props;
 
     if (!onDidMount) {
       return;
     }
 
-    try {
-      await onDidMount();
-    } catch (err) {
-      if (onError) {
-        onError(err);
-      }
-    }
+    onDidMount();
   }
 
   public render(): JSX.Element {

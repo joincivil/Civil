@@ -76,9 +76,6 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
                   onAuthentication(authResponse, isNewUser);
                   console.log({ authResponse });
                 }}
-                onError={(err: any) => {
-                  console.error(err);
-                }}
               />
             </>
           )}
