@@ -352,6 +352,13 @@ export async function withdrawVotingRights(numTokens: BigNumber): Promise<TwoSte
   return voting.withdrawVotingRights(numTokensBN);
 }
 
+export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
+  const tcr = await getTCR();
+  const voting = tcr.getVoting();
+  const numTokensBN = ensureWeb3BigNumber(numTokens);
+  return voting.requestVotingRights(numTokensBN);
+}
+
 export async function signMessage(message: string): Promise<EthSignedMessage> {
   const civil = getCivil();
   return civil.signMessage(message);

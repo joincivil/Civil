@@ -231,7 +231,7 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
           }
 
           if (currTransaction.postTransaction) {
-            setImmediate(() => currTransaction.postTransaction!(receipt));
+            currTransaction.postTransaction!(receipt);
           }
         }
 
