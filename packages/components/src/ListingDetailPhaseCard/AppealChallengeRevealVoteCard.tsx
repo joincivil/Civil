@@ -79,6 +79,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                 <ChallengePhaseDetail
                   challengeID={this.props.challengeID}
                   challenger={this.props.challenger}
+                  isViewingUserChallenger={this.props.isViewingUserChallenger}
                   rewardPool={this.props.rewardPool}
                   stake={this.props.stake}
                 />

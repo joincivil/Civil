@@ -5,6 +5,7 @@ import {
   StyledListingSummaryContainer,
   StyledListingSummary,
   StyledListingSummarySection,
+  StyledChallengeResultsHeader,
   ChallengeResultsContain,
 } from "./styledComponents";
 import NewsroomInfo from "./NewsroomInfo";
@@ -13,6 +14,7 @@ import SummaryActionButton from "./SummaryActionButton";
 export const ListingSummaryRejectedComponent: React.SFC<
   ListingSummaryComponentProps & ChallengeResultsProps
 > = props => {
+  const challengeIDDisplay = props.challengeID ? `#${props.challengeID}` : "";
   return (
     <StyledListingSummaryContainer>
       <StyledListingSummary hasTopPadding={true}>
@@ -20,7 +22,8 @@ export const ListingSummaryRejectedComponent: React.SFC<
 
         <ChallengeResultsContain>
           <ChallengeResults
-            headerText={`Challenge #${props.challengeID} Results`}
+            headerText={`Challenge ${challengeIDDisplay} Results`}
+            styledHeaderComponent={StyledChallengeResultsHeader}
             totalVotes={props.totalVotes}
             votesFor={props.votesFor}
             votesAgainst={props.votesAgainst}

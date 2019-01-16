@@ -98,6 +98,7 @@ class ChallengeRevealVote extends React.Component<
           phaseLength={phaseLength}
           secondaryPhaseLength={secondaryPhaseLength}
           challenger={challenge!.challenger.toString()}
+          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
           rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
           stake={getFormattedTokenBalance(challenge!.stake)}
           voteOption={voteOption}

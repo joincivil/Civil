@@ -52,6 +52,7 @@ export const AppealChallengeResolveCard: React.SFC<
         <ChallengePhaseDetail
           challengeID={props.challengeID}
           challenger={props.challenger}
+          isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
         />
@@ -73,20 +74,21 @@ export const AppealChallengeResolveCard: React.SFC<
 
       <StyledListingDetailPhaseCardSection>
         <ChallengeResults
-          headerText="Appeal Challenge Results"
+          headerText={`Appeal Challenge #${props.appealChallengeID} Results`}
           totalVotes={props.appealChallengeTotalVotes}
           votesFor={props.appealChallengeVotesFor}
           votesAgainst={props.appealChallengeVotesAgainst}
           percentFor={props.appealChallengePercentFor}
           percentAgainst={props.appealChallengePercentAgainst}
           didChallengeSucceed={props.didAppealChallengeSucceed}
+          isAppealChallenge={true}
         />
       </StyledListingDetailPhaseCardSection>
 
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
-          This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
-          appeal.
+          This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this appeal
+          challenge.
         </CTACopy>
         <TransactionButtonNoModal
           transactions={props.transactions!}

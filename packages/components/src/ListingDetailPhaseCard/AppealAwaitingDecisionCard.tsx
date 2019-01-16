@@ -68,6 +68,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
         <ChallengePhaseDetail
           challengeID={props.challengeID}
           challenger={props.challenger}
+          isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
         />

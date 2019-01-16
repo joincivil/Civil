@@ -68,6 +68,7 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
       .div(totalVotes)
       .mul(100)
       .toFixed(0);
+    const didChallengeSucceed = challenge.poll.votesAgainst.greaterThan(challenge.poll.votesFor);
 
     const transactions = this.getTransactions();
 
@@ -82,6 +83,7 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
           phaseLength={phaseLength}
           challengeID={this.props.challengeID.toString()}
           challenger={challenge!.challenger.toString()}
+          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
           rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
           stake={getFormattedTokenBalance(challenge!.stake)}
           requester={requester}
@@ -91,6 +93,7 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
           votesAgainst={votesAgainst}
           percentFor={percentFor.toString()}
           percentAgainst={percentAgainst.toString()}
+          didChallengeSucceed={didChallengeSucceed}
           transactions={transactions}
           txIdToConfirm={this.props.txIdToConfirm}
           onMobileTransactionClick={this.props.onMobileTransactionClick}

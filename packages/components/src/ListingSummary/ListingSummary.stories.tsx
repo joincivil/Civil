@@ -101,11 +101,11 @@ storiesOf("Listing Summary", module)
           <ListingSummaryRejectedComponent
             {...newsroom}
             totalVotes={totalVotes}
-            votesFor={votesFor}
-            votesAgainst={votesAgainst}
-            percentFor={percentFor}
-            percentAgainst={percentAgainst}
-            didChallengeSucceed={didChallengeSucceed}
+            votesFor={votesAgainst}
+            votesAgainst={votesFor}
+            percentFor={percentAgainst}
+            percentAgainst={percentFor}
+            didChallengeSucceed={!didChallengeSucceed}
           />
         )}
       </Container>

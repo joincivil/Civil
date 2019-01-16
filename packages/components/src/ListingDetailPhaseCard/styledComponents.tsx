@@ -104,6 +104,13 @@ export const MetaItemValue = styled.div`
   text-overflow: ellipsis;
 `;
 
+export const MetaItemValueEthAddress = styled(MetaItemValue)`
+  font-family: ${fonts.MONOSPACE};
+  font-size: 15px;
+  letter-spacing: -0.11px;
+  line-height: 20px;
+`;
+
 export const MetaItemValueLong = styled(MetaItemValue)`
   font-size: 16px;
 `;

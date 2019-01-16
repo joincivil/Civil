@@ -69,6 +69,7 @@ export const AppealDecisionCard: React.SFC<
         <ChallengePhaseDetail
           challengeID={props.challengeID}
           challenger={props.challenger}
+          isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
         />

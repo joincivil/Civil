@@ -27,6 +27,7 @@ export const AppealResolveCard: React.StatelessComponent<
         <ChallengePhaseDetail
           challengeID={props.challengeID}
           challenger={props.challenger}
+          isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
         />
