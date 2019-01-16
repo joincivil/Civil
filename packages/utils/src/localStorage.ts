@@ -13,5 +13,9 @@ export function fetchItem(key: string): any {
 }
 
 export function setItem(key: string, value: any): void {
-  localStorage.setItem(key, JSON.stringify(value));
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (err) {
+    console.error("Error calling localStorage.setItem", err);
+  }
 }

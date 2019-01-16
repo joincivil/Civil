@@ -29,6 +29,7 @@ export interface AccountEmailAuthProps {
 
 export interface AccountEmailAuthState {
   emailAddress: string;
+  errorMessage: string | null;
 }
 
 export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, AccountEmailAuthState> {
@@ -36,11 +37,13 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     super(props);
     this.state = {
       emailAddress: "",
+      errorMessage: null,
     };
   }
 
   public render(): JSX.Element {
     const { isNewUser } = this.props;
+    const { errorMessage } = this.state;
 
     const emailMutation = isNewUser ? signupMutation : loginMutation;
     return (
@@ -49,6 +52,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
           return (
             <>
               <h3>Let's Get Started</h3>
+              {errorMessage && <span>Error: {errorMessage}</span>}
               <form onSubmit={async event => this.submit(event, sendEmail)}>
                 <input
                   placeholder="Email address"
@@ -87,7 +91,8 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       return;
     }
 
-    alert("Error:" + authResponse);
+    this.setState({ errorMessage: authResponse });
+
     return;
   }
 }

@@ -1,0 +1,14 @@
+{
+  "name": "@joincivil/artifacts",
+  "version": "1.0.0",
+  "description": "Civil Ethereum smart contract artifacts",
+  "scripts": {},
+  "author": "The Civil Media Company",
+  "bugs": {
+    "url": "https://github.com/joincivil/Civil/issues"
+  },
+  "homepage": "https://github.com/joincivil/Civil",
+  "license": "LGPL-2.1",
+  "devDependencies": {},
+  "dependencies": {}
+}

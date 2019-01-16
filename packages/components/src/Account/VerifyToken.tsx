@@ -1,9 +1,9 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import gql from "graphql-tag";
-
+import { ExecuteOnMount } from "@joincivil/components";
 import { Mutation } from "react-apollo";
-import { AuthLoginResponse } from "./index";
+import { AuthLoginResponse } from "../../helpers/apolloClient";
 
 const verifySignUpTokenMutation = gql`
   mutation($loginJWT: String!) {
@@ -68,17 +68,15 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
           {(verifyToken, { loading, error, data }) => (
             <>
               <span>{error && this.renderError(error)}</span>
-              <button
-                onClick={async () => {
-                  // TODO(jorgelo): Execute this on load (It's not as straightforward as I wished to do this).
+              <ExecuteOnMount
+                onDidMount={async () => {
                   const res: any = await verifyToken({ variables: { loginJWT } });
                   const authResponse: AuthLoginResponse = res.data[resultKey];
 
                   onAuthentication(authResponse, isNewUser);
+                  console.log({ authResponse });
                 }}
-              >
-                Test Token
-              </button>
+              />
             </>
           )}
         </Mutation>

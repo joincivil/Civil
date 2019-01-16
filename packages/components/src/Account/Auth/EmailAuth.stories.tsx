@@ -1,6 +1,5 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
-import styled from "styled-components";
 import apolloStorybookDecorator from "apollo-storybook-react";
 import { AccountEmailAuth, AuthApplicationEnum } from "../";
 

@@ -36,13 +36,17 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient
   const authLink = setContext((_: any, { headers }: { headers: any }) => {
     const authInfo = getApolloSession();
 
-    const token = authInfo ? authInfo.token : null;
+    if (authInfo) {
+      return {
+        headers: {
+          ...headers,
+          authorization: `Bearer ${authInfo.token}`,
+        },
+      };
+    }
 
     return {
-      headers: {
-        ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      },
+      headers,
     };
   });
 

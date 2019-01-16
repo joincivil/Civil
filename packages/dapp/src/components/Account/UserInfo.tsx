@@ -27,7 +27,7 @@ export class UserInfo extends React.Component {
             return "Loading...";
           }
           if (error) {
-            return `Error! ${error.message}`;
+            return `Error! ${JSON.stringify(error)}`;
           }
 
           return JSON.stringify(data);
