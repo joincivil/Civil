@@ -1,12 +1,11 @@
 import * as React from "react";
 import { TutorialWelcomeScreens } from "./TutorialWelcomeScreens";
-import { TokenTutorialLanding } from "./TokenTutorialLanding";
+import { TutorialContainer } from "./TokenTutorialStyledComponents";
 
 export const TokenTutorial: React.StatelessComponent = props => {
   return (
-    <>
+    <TutorialContainer>
       <TutorialWelcomeScreens />
-      <TokenTutorialLanding />
-    </>
+    </TutorialContainer>
   );
 };

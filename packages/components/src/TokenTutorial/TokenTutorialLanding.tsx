@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  TutorialLandingContainer,
   TutorialIntro,
   TutorialTime,
   TutorialSkipSection,
@@ -23,7 +24,7 @@ import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 
 export const TokenTutorialLanding: React.StatelessComponent = props => {
   return (
-    <>
+    <TutorialLandingContainer>
       <TutorialIntro>
         <TutorialIntroText />
         <TutorialTime>
@@ -56,6 +57,6 @@ export const TokenTutorialLanding: React.StatelessComponent = props => {
           </TopicProgress>
         </TutorialTopic>
       ))}
-    </>
+    </TutorialLandingContainer>
   );
 };

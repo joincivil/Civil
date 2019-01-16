@@ -3,6 +3,17 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton, ButtonProps } from "../Button";
 
+export const TutorialContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const TutorialLandingContainer = styled.div`
+  max-width: 730px;
+`;
+
 export const WelcomeSlideBtns: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   border-radius: 1px;
   font-size: 13px;
