@@ -17,3 +17,11 @@ export const TutorialSkipText: React.SFC = props => (
 );
 
 export const TutorialSkipBtnText: React.SFC = props => <>Take the quiz</>;
+
+export interface TutorialProgressTextProps {
+  questions: number;
+}
+
+export const TutorialProgressText: React.SFC<TutorialProgressTextProps> = props => (
+  <>You have {props.questions} questions left</>
+);

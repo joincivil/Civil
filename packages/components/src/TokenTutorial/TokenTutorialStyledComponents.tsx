@@ -110,7 +110,7 @@ export const TakeQuizBtn: StyledComponentClass<ButtonProps, "button"> = styled(I
 export const TutorialTopic = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   font-family: ${fonts.SANS_SERIF};
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 `;
 
 export const LaunchTopic = styled.a`
@@ -147,4 +147,31 @@ export const LaunchTopic = styled.a`
     line-height: 26px;
     margin: 0;
   }
+`;
+
+export const TopicProgress = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_2};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 13px;
+  line-height: 16px;
+  padding: 20px 30px;
+
+  b {
+    letter-spacing: 0.88px;
+    font-size: 14px;
+    line-height: 14px;
+  }
+`;
+
+export const TutorialProgressBars = styled.div`
+  align-items: center;
+  display: flex;
+  padding: 15px 0 5px;
+`;
+
+export const TutorialProgressBar = styled.div`
+  background-color: ${colors.accent.CIVIL_GRAY_4};
+  height: 5px;
+  margin-right: 5px;
+  width: 100px;
 `;

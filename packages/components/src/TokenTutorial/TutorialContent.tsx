@@ -8,14 +8,36 @@ export const TutorialContent = [
     name: "Topic 1: How to use Civil tokens",
     description: "Learn about CVL tokens and their intended uses within the Civil network.",
     icon: <NetworkIcon />,
-    sections: [
+    tutorialIntro: [
       {
-        type: "tutorial",
+        header: "TKTKT",
         content: "TKTKT",
       },
+    ],
+    tutorials: [
       {
-        type: "question",
-        question: "TKTKT",
+        header: "TKTKT",
+        content: "TKTKT",
+      },
+    ],
+    questions: [
+      {
+        question: "TKTK",
+        options: "",
+      },
+      {
+        question: "TKTK",
+        options: "",
+      },
+      {
+        question: "TKTK",
+        options: "",
+      },
+    ],
+    completed: [
+      {
+        header: "TKTKT",
+        content: "TKTKT",
       },
     ],
   },
@@ -23,14 +45,32 @@ export const TutorialContent = [
     name: "Topic 2: Purchasing, storing, using Civil tokens",
     description: "Learn basic concepts of ETH, gas, digital wallets, keys, and recovery seed phrases.",
     icon: <TokenWalletIcon height={48} width={42} />,
-    sections: [
+    tutorialIntro: [
       {
-        type: "tutorial",
+        header: "TKTKT",
         content: "TKTKT",
       },
+    ],
+    tutorials: [
       {
-        type: "question",
-        question: "TKTKT",
+        header: "TKTKT",
+        content: "TKTKT",
+      },
+    ],
+    questions: [
+      {
+        question: "TKTK",
+        options: "",
+      },
+      {
+        question: "TKTK",
+        options: "",
+      },
+    ],
+    completed: [
+      {
+        header: "TKTKT",
+        content: "TKTKT",
       },
     ],
   },
@@ -38,14 +78,36 @@ export const TutorialContent = [
     name: "Topic 3: Things to consider before buying Civil tokens",
     description: "Learn about token price trends, token design, and potential risks.",
     icon: <TrendsIcon />,
-    sections: [
+    tutorialIntro: [
       {
-        type: "tutorial",
+        header: "TKTKT",
         content: "TKTKT",
       },
+    ],
+    tutorials: [
       {
-        type: "question",
-        question: "TKTKT",
+        header: "TKTKT",
+        content: "TKTKT",
+      },
+    ],
+    questions: [
+      {
+        question: "TKTK",
+        options: "",
+      },
+      {
+        question: "TKTK",
+        options: "",
+      },
+      {
+        question: "TKTK",
+        options: "",
+      },
+    ],
+    completed: [
+      {
+        header: "TKTKT",
+        content: "TKTKT",
       },
     ],
   },
