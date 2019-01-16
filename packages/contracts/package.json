@@ -8,7 +8,7 @@
     "build:createDocsFolder": "mkdirp ./build/docs",
     "build:stripArtifacts":
       "node ../dev-utils/build/scripts/strip-artifacts.js \"build/contracts/**/*.json\" build/artifacts",
-    "build:stable": "node ../dev-utils/build/scripts/strip-artifacts.js \"artifacts/**/*.json\" artifacts",
+    "build:stable": "node ../dev-utils/build/scripts/strip-artifacts.js \"../artifacts/v1/**/*.json\" ../artifacts/v1/",
     "compile": "run-p --aggregate-output compile:*",
     "compile:typescript": "tsc",
     "compile:solidity": "truffle compile",
@@ -21,15 +21,15 @@
     "coverage:report:lcov": "istanbul report lcov",
     "migrate": "truffle migrate",
     "migrate:ganache": "run-s 'migrate --reset --network=ganache' build:stripArtifacts",
-    "migrate:rinkeby": "CONTRACT_BUILDS_DIRECTORY=\"./artifacts\" run-s 'migrate --network=rinkeby' build:stable",
+    "migrate:rinkeby": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --network=rinkeby' build:stable",
     "migrate:rinkeby:reset":
-      "CONTRACT_BUILDS_DIRECTORY=\"./artifacts\" run-s 'migrate --reset --network=rinkeby' build:stable",
-    "migrate:ropsten": "CONTRACT_BUILDS_DIRECTORY=\"./artifacts\" run-s 'migrate --network=ropsten' build:stable",
+      "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network=rinkeby' build:stable",
+    "migrate:ropsten": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --network=ropsten' build:stable",
     "migrate:ropsten:reset":
-      "CONTRACT_BUILDS_DIRECTORY=\"./artifacts\" run-s 'migrate --reset --network=ropsten' build:stable",
-    "migrate:mainnet": "CONTRACT_BUILDS_DIRECTORY=\"./artifacts\" run-s 'migrate --network=rinkeby' build:stable",
+      "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network=ropsten' build:stable",
+    "migrate:mainnet": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --network=mainnet' build:stable",
     "migrate:mainnet:reset":
-      "CONTRACT_BUILDS_DIRECTORY=\"./artifacts\" run-s 'migrate --reset --network=ropsten' build:stable",
+      "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network=mainnet' build:stable",
 
     "migrate:ledgerMainnet": "run-s 'migrate --network=ledgerMainnet' build:stripArtifacts",
     "test": "truffle test --network ganache",

@@ -31,6 +31,7 @@ import ActivityList from "./ActivityList";
 import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
+import DepositTokens from "./DepositTokens";
 
 const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
 
@@ -169,7 +170,10 @@ class DashboardActivity extends React.Component<
             />
           </Tab>
           <Tab title={<SubTabReclaimTokensText />}>
-            <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
+            <>
+              <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
+              <DepositTokens />
+            </>
           </Tab>
         </Tabs>
         {this.renderNoMobileTransactions()}
