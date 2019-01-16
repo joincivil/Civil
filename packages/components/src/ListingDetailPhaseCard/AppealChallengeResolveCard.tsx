@@ -26,6 +26,7 @@ export interface AppealChallengeResultsProps {
   appealChallengeVotesAgainst: string;
   appealChallengePercentFor: string;
   appealChallengePercentAgainst: string;
+  didAppealChallengeSucceed: boolean;
 }
 
 export const AppealChallengeResolveCard: React.SFC<
@@ -64,6 +65,7 @@ export const AppealChallengeResolveCard: React.SFC<
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
+          didChallengeSucceed={props.didChallengeSucceed}
         />
       </StyledListingDetailPhaseCardSection>
 
@@ -77,6 +79,7 @@ export const AppealChallengeResolveCard: React.SFC<
           votesAgainst={props.appealChallengeVotesAgainst}
           percentFor={props.appealChallengePercentFor}
           percentAgainst={props.appealChallengePercentAgainst}
+          didChallengeSucceed={props.didAppealChallengeSucceed}
         />
       </StyledListingDetailPhaseCardSection>
 

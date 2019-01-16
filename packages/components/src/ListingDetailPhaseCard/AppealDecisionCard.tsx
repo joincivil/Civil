@@ -82,6 +82,7 @@ export const AppealDecisionCard: React.SFC<
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
+          didChallengeSucceed={props.didChallengeSucceed}
         />
       </StyledListingDetailPhaseCardSection>
 

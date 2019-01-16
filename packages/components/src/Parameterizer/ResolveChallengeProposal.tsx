@@ -78,6 +78,7 @@ export class ResolveChallengeProposal extends React.Component<ResolveChallengePr
                 votesAgainst={this.props.votesAgainst}
                 percentFor={this.props.percentFor}
                 percentAgainst={this.props.percentAgainst}
+                didChallengeSucceed={this.props.didChallengeSucceed}
               />
             </StyledSection>
 

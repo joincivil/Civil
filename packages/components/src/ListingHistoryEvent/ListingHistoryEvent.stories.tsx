@@ -52,6 +52,7 @@ storiesOf("Listing History Event", module)
               votesAgainst="20.00 CVL"
               percentFor="20"
               percentAgainst="80"
+              didChallengeSucceed={true}
             />
             <ChallengeFailedEvent
               timestamp={timestamp}
@@ -60,6 +61,7 @@ storiesOf("Listing History Event", module)
               votesAgainst="80.00 CVL"
               percentFor="20"
               percentAgainst="80"
+              didChallengeSucceed={false}
             />
             <ChallengeEvent
               timestamp={timestamp}

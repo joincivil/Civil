@@ -8,6 +8,7 @@ export const getChallengeResultsProps = (challengeData?: ChallengeData): Challen
   let votesAgainst = "";
   let percentFor = "";
   let percentAgainst = "";
+  let didChallengeSucceed;
 
   if (challengeData) {
     const totalVotesBN = challengeData.poll.votesAgainst.add(challengeData.poll.votesFor);
@@ -22,9 +23,11 @@ export const getChallengeResultsProps = (challengeData?: ChallengeData): Challen
       .div(totalVotesBN)
       .mul(100)
       .toFixed(0);
+    didChallengeSucceed = challengeData.poll.votesAgainst.greaterThan(challengeData.poll.votesFor);
   }
 
   return {
+    didChallengeSucceed,
     totalVotes,
     votesFor,
     votesAgainst,
