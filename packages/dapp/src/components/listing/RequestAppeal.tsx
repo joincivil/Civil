@@ -14,7 +14,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
-import { approveForAppeal, appealChallenge } from "../../apis/civilTCR";
+import { approveForAppeal, publishContent, requestAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
 import {
   InjectedTransactionStatusModalProps,
@@ -46,21 +46,25 @@ interface RequestAppealReduxProps {
 interface RequestAppealState {
   appealStatementSummaryValue?: string;
   appealStatementDetailsValue?: any;
+  appealStatementUri?: string;
 }
 
 enum TransactionTypes {
   APPROVE_FOR_APPEAL_REQUEST = "APPROVE_FOR_APPEAL_REQUEST",
   REQUEST_APPEAL = "REQUEST_APPEAL",
+  PUBLISH_CONTENT = "PUBLISH_CONTENT",
 }
 
 const transactionLabels = {
   [TransactionTypes.APPROVE_FOR_APPEAL_REQUEST]: "Approve for Appeal Request",
+  [TransactionTypes.PUBLISH_CONTENT]: "Publish Statement",
   [TransactionTypes.REQUEST_APPEAL]: "Appeal Request",
 };
 
 const multiStepTransactionLabels = {
-  [TransactionTypes.APPROVE_FOR_APPEAL_REQUEST]: "1 of 2",
-  [TransactionTypes.REQUEST_APPEAL]: "2 of 2",
+  [TransactionTypes.APPROVE_FOR_APPEAL_REQUEST]: "1 of 3",
+  [TransactionTypes.PUBLISH_CONTENT]: "2 of 3",
+  [TransactionTypes.REQUEST_APPEAL]: "3 of 3",
 };
 
 const transactionRejectionContent = {
@@ -134,6 +138,7 @@ class RequestAppealComponent extends React.Component<
       judgeAppealLen,
       updateStatementValue: this.updateStatement,
       transactions,
+      postExecuteTransactions: this.onSubmitAppealSuccess,
     };
 
     return (
@@ -161,6 +166,7 @@ class RequestAppealComponent extends React.Component<
             isTransactionSuccessModalOpen: false,
             isTransactionErrorModalOpen: false,
             isTransactionRejectionModalOpen: false,
+            isIPFSUploadModalOpen: false,
             transactionType: TransactionTypes.APPROVE_FOR_APPEAL_REQUEST,
           });
           return approveForAppeal();
@@ -176,9 +182,27 @@ class RequestAppealComponent extends React.Component<
       {
         transaction: async () => {
           this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isIPFSUploadModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.PUBLISH_CONTENT,
+          });
+          return this.postAppealStatement();
+        },
+        postTransaction: async (receipt: any) => {
+          this.setState({ appealStatementUri: receipt.uri });
+        },
+      },
+      {
+        transaction: async () => {
+          this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: false,
+            isTransactionErrorModalOpen: false,
+            isTransactionRejectionModalOpen: false,
+            isIPFSUploadModalOpen: false,
             transactionType: TransactionTypes.REQUEST_APPEAL,
           });
           return this.appeal();
@@ -192,6 +216,14 @@ class RequestAppealComponent extends React.Component<
         handleTransactionError: this.props.handleTransactionError,
       },
     ];
+  };
+
+  private onSubmitAppealSuccess = (): void => {
+    this.props.updateTransactionStatusModalsState({
+      isWaitingTransactionModalOpen: false,
+      isTransactionProgressModalOpen: false,
+      isTransactionSuccessModalOpen: true,
+    });
   };
 
   private getTransactionSuccessContent = (): TransactionStatusModalContentMap => {
@@ -218,13 +250,17 @@ class RequestAppealComponent extends React.Component<
   };
 
   // Transactions
-  private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
+
+  private postAppealStatement = async (): Promise<any> => {
     const { appealStatementSummaryValue, appealStatementDetailsValue } = this.state;
     const jsonToSave = {
       summary: appealStatementSummaryValue,
       details: appealStatementDetailsValue.toString("html"),
     };
-    return appealChallenge(this.props.listingAddress, JSON.stringify(jsonToSave));
+    return publishContent(JSON.stringify(jsonToSave));
+  };
+  private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return requestAppealWithUri(this.props.listingAddress, this.state.appealStatementUri!);
   };
 }
 

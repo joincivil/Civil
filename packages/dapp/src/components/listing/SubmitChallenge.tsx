@@ -14,7 +14,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
-import { approveForChallenge, challengeListing } from "../../apis/civilTCR";
+import { approveForChallenge, publishContent, challengeListingWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
 import {
   InjectedTransactionStatusModalProps,
@@ -48,21 +48,25 @@ interface SubmitChallengeState {
   challengeStatementSummaryValue?: string;
   challengeStatementCiteConstitutionValue?: any;
   challengeStatementDetailsValue?: any;
+  challengeStatementUri?: string;
 }
 
 enum TransactionTypes {
   APPROVE_FOR_CHALLENGE = "APPROVE_FOR_CHALLENGE",
   CHALLENGE_LISTING = "CHALLENGE_LISTING",
+  PUBLISH_CONTENT = "PUBLISH_CONTENT",
 }
 
 const transactionLabels = {
   [TransactionTypes.APPROVE_FOR_CHALLENGE]: "Approve for Challenge",
+  [TransactionTypes.PUBLISH_CONTENT]: "Publish Statement",
   [TransactionTypes.CHALLENGE_LISTING]: "Challenge Listing",
 };
 
 const multiStepTransactionLabels = {
-  [TransactionTypes.APPROVE_FOR_CHALLENGE]: "1 of 2",
-  [TransactionTypes.CHALLENGE_LISTING]: "2 of 2",
+  [TransactionTypes.APPROVE_FOR_CHALLENGE]: "1 of 3",
+  [TransactionTypes.PUBLISH_CONTENT]: "2 of 3",
+  [TransactionTypes.CHALLENGE_LISTING]: "3 of 3",
 };
 
 const transactionRejectionContent = {
@@ -179,9 +183,25 @@ class SubmitChallengeComponent extends React.Component<
       {
         transaction: async () => {
           this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isIPFSUploadModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.PUBLISH_CONTENT,
+          });
+          return this.postChallengeStatement();
+        },
+        postTransaction: async (receipt: any) => {
+          this.setState({ challengeStatementUri: receipt.uri });
+        },
+      },
+      {
+        transaction: async () => {
+          this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: false,
+            isIPFSUploadModalOpen: false,
             transactionType: TransactionTypes.CHALLENGE_LISTING,
           });
           return this.challenge();
@@ -216,6 +236,7 @@ class SubmitChallengeComponent extends React.Component<
             You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge
             deposit.
           </ModalContent>
+          <ModalContent>It may take a few minutes for the listing to appear as challenged.</ModalContent>
         </>,
       ],
     };
@@ -240,7 +261,7 @@ class SubmitChallengeComponent extends React.Component<
   };
 
   // Transactions
-  private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
+  private postChallengeStatement = async (): Promise<any> => {
     const {
       challengeStatementSummaryValue,
       challengeStatementCiteConstitutionValue,
@@ -251,7 +272,11 @@ class SubmitChallengeComponent extends React.Component<
       citeConstitution: challengeStatementCiteConstitutionValue.toString("html"),
       details: challengeStatementDetailsValue.toString("html"),
     };
-    return challengeListing(this.props.listingAddress, JSON.stringify(jsonToSave));
+    return publishContent(JSON.stringify(jsonToSave));
+  };
+
+  private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
+    return challengeListingWithUri(this.props.listingAddress, this.state.challengeStatementUri!);
   };
 }
 
@@ -290,7 +315,7 @@ const mapStateToProps = (
   }
   let balance;
   let isInsufficientBalance = false;
-  if (user) {
+  if (user && user.account && user.account.balance) {
     balance = civil.toBigNumber(user.account.balance);
     isInsufficientBalance = balance.lt(civil.toBigNumber(parameters[Parameters.minDeposit]));
   }

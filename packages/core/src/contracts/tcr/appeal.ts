@@ -36,7 +36,10 @@ export class Appeal {
       const appealChallengeInstance = new AppealChallenge(this.ethApi, this.tcrInstance, appealChallengeID);
       appealChallenge = await appealChallengeInstance.getAppealChallengeData();
     }
-    const appealStatementURI = await this.getAppealURI();
+    let appealStatementURI;
+    if (!appealPhaseExpiry.isZero()) {
+      appealStatementURI = await this.getAppealURI();
+    }
     const appealTxData = await this.tcrInstance.grantAppeal.getRaw(this.listingAddress, "", { gas: 0 });
     return {
       requester,

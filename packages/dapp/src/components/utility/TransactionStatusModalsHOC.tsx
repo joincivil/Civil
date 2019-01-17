@@ -27,6 +27,7 @@ export interface TransactionStatusModalState {
   isTransactionSuccessModalOpen?: boolean;
   isTransactionErrorModalOpen?: boolean;
   isTransactionRejectionModalOpen?: boolean;
+  isIPFSUploadModalOpen?: boolean;
   transactionType?: number | string;
 }
 
@@ -93,6 +94,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
           />
           {this.renderAwaitingTransactionModal()}
           {this.renderTransactionProgressModal()}
+          {this.renderIPFSUploadProgressModal()}
           {this.renderTransactionSuccessModal()}
           {this.renderTransactionErrorModal()}
           {this.renderTransactionRejectionModal(this.transactions, cancelTransaction)}
@@ -137,6 +139,23 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         <MetaMaskModal waiting={true}>
           <ModalStepLabel>{stepLabel}</ModalStepLabel>
           <ModalHeading>Waiting for you to confirm in MetaMask</ModalHeading>
+        </MetaMaskModal>
+      );
+    }
+
+    public renderIPFSUploadProgressModal(): JSX.Element | null {
+      if (!this.state.isIPFSUploadModalOpen) {
+        return null;
+      }
+      const { transactionLabels, multiStepTransactionLabels } = this.transactionStatusModalConfig;
+      const transactionLabel = transactionLabels![this.state.transactionType!];
+      const stepLabelText =
+        (multiStepTransactionLabels && multiStepTransactionLabels[this.state.transactionType!]) || "1 of 1";
+      const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
+      return (
+        <MetaMaskModal ipfsPost={true} waiting={true}>
+          <ModalStepLabel>{stepLabel}</ModalStepLabel>
+          <ModalHeading>Posting to IPFS</ModalHeading>
         </MetaMaskModal>
       );
     }
