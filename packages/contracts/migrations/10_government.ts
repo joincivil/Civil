@@ -34,8 +34,6 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
       parameterizerConfig.govtPDeposit,
       parameterizerConfig.govtPCommitStageLength,
       parameterizerConfig.govtPRevealStageLength,
-      parameterizerConfig.constitutionHash,
-      parameterizerConfig.constitutionURI,
     );
   });
 };

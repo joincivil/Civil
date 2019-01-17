@@ -306,8 +306,6 @@ async function createTestCivilTCRInstance(
     parameterizerConfig.govtPDeposit,
     parameterizerConfig.govtPCommitStageLength,
     parameterizerConfig.govtPRevealStageLength,
-    parameterizerConfig.constitutionHash,
-    parameterizerConfig.constitutionURI,
   );
 
   const registry = await CivilTCR.new(tokenAddress, plcrAddress, parameterizerAddress, government.address);

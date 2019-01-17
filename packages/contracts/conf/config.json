@@ -24,9 +24,7 @@
         "appealSupermajorityPercentage": 66,
         "appealChallengeVoteDispensationPct": 66,
         "govtPCommitStageLength": 86400,
-        "govtPRevealStageLength": 86400,
-        "constitutionURI": "http://madeupURL.com",
-        "constitutionHash": "0x3595a4bac2650127ce23cf4cbb67c6bd3cf311de5dc84d4bfc35efb5f99505d2"
+        "govtPRevealStageLength": 86400
       }
     },
     "rinkeby": {
@@ -53,9 +51,7 @@
         "appealSupermajorityPercentage": 66,
         "appealChallengeVoteDispensationPct": 66,
         "govtPCommitStageLength": 86400,
-        "govtPRevealStageLength": 86400,
-        "constitutionURI": "http://madeupURL.com",
-        "constitutionHash": "0x3595a4bac2650127ce23cf4cbb67c6bd3cf311de5dc84d4bfc35efb5f99505d2"
+        "govtPRevealStageLength": 86400
       },
       "AppellateAddress": "0xafd9717b7af755d7f1b99d32e11351c803b2bf0c",
       "GovernmentControllerAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
@@ -85,9 +81,7 @@
         "appealSupermajorityPercentage": 66,
         "appealChallengeVoteDispensationPct": 66,
         "govtPCommitStageLength": 120,
-        "govtPRevealStageLength": 120,
-        "constitutionURI": "http://madeupURL.com",
-        "constitutionHash": "0x3595a4bac2650127ce23cf4cbb67c6bd3cf311de5dc84d4bfc35efb5f99505d2"
+        "govtPRevealStageLength": 120
       },
       "tokenHolders": ["0xcec56f1d4dc439e298d5f8b6ff3aa6be58cd6fdf", "0xbf9059ddf9e1954e0956f41bc757c411be602560"],
       "AppellateAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",
