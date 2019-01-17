@@ -1,34 +1,41 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors } from "./styleConstants";
+import { colors, fonts } from "./styleConstants";
+
+interface ModalWrapperProps {
+  solidBackground?: boolean;
+}
 
 export const ModalWrapper = styled.div`
+  align-items: center;
+  background-color: ${(props: ModalWrapperProps) =>
+    props.solidBackground ? colors.basic.WHITE : "rgba(0, 0, 0, 0.4)"};
+  bottom: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  bottom: 0;
   left: 0;
+  position: fixed;
+  overflow: auto;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
   z-index: 2;
 `;
 
 export const ModalInner = styled.div`
-  min-width: 250px;
+  align-items: center;
   background-color: ${colors.basic.WHITE};
-  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin: auto;
+  border: ${(props: ModalWrapperProps) => (props.solidBackground ? "none" : "1px solid " + colors.accent.CIVIL_GRAY_4)};
   display: flex;
   flex-direction: column;
-  align-items: center;
+  font-family: ${fonts.SANS_SERIF};
   justify-content: space-around;
-  font-family: "Libre Franklin", sans-serif;
+  margin: auto;
+  min-width: 250px;
 `;
 
 export interface FullScreenModalProps {
+  solidBackground?: boolean;
   open: boolean;
   dismissOnOutsideClick?: boolean;
   className?: string;
@@ -68,8 +75,8 @@ export class FullScreenModal extends React.Component<FullScreenModalProps> {
     }
 
     return ReactDom.createPortal(
-      <ModalWrapper>
-        <ModalInner>{this.props.children}</ModalInner>
+      <ModalWrapper solidBackground={this.props.solidBackground}>
+        <ModalInner solidBackground={this.props.solidBackground}>{this.props.children}</ModalInner>
       </ModalWrapper>,
       this.el,
     );

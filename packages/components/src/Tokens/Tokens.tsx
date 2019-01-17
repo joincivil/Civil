@@ -22,10 +22,10 @@ export const UserTokenAccount: React.StatelessComponent = props => {
         <FlexColumns>
           <FlexColumnsPrimary>
             <FlexColumnsPrimaryModule>
-              <UserTokenAccountSignup />
+              <UserTokenAccountSignup step={"completed"} />
             </FlexColumnsPrimaryModule>
             <FlexColumnsPrimaryModule>
-              <UserTokenAccountVerify />
+              <UserTokenAccountVerify step={"active"} open={false} />
             </FlexColumnsPrimaryModule>
             <FlexColumnsPrimaryModule>
               <UserTokenAccountBuy />

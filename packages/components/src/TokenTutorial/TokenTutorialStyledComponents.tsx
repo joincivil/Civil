@@ -7,6 +7,7 @@ export const TutorialContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
+  padding: 75px;
   width: 100%;
 `;
 

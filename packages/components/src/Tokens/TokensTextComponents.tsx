@@ -11,25 +11,28 @@ export const TokenConnectWalletText: React.SFC = props => (
   </>
 );
 
-export const TokenConnectWalletCompletedText: React.SFC = props => (
-  <h3>Your crypto wallet is connected</h3>
-);
+export const TokenConnectWalletCompletedText: React.SFC = props => <h3>Your crypto wallet is connected</h3>;
 
 export const TokenConnectWalletBtnText: React.SFC = props => <>Sign up or Log in to your wallet</>;
 
 export const TokenVerifySectionText: React.SFC = props => (
   <>
     <h3>Let’s verify your eligibility</h3>
-    <p>Before you can use, buy, and send CVL tokens, you must complete these verification requirements. These steps are
-    required to ensure that all CVL token holders are legitimate users, learn about the Registry and how to use tokens.</p>
+    <p>
+      Before you can use, buy, and send CVL tokens, you must complete these verification requirements. These steps are
+      required to ensure that all CVL token holders are legitimate users, learn about the Registry and how to use
+      tokens.
+    </p>
   </>
 );
 
 export const TokenQuizSectionText: React.SFC = props => (
   <>
     <h3>Take the Civil Tutorial</h3>
-    <p>Complete this short walkthrough about storing and using CVL tokens on Civil. This is a standard procedure to help
-    inform you of best practices with using tokens.</p>
+    <p>
+      Complete this short walkthrough about storing and using CVL tokens on Civil. This is a standard procedure to help
+      inform you of best practices with using tokens.
+    </p>
   </>
 );
 
@@ -45,8 +48,10 @@ export const TokenQuizCompletedText: React.SFC = props => (
 export const TokenVerifyText: React.SFC = props => (
   <>
     <h3>Verify Your Identity</h3>
-    <p>Verify for eligibility to buy CVL tokens from the Civil Media Company. This is required to prevent identity theft,
-    money laundering, and business fraud.</p>
+    <p>
+      Verify for eligibility to buy CVL tokens from the Civil Media Company. This is required to prevent identity theft,
+      money laundering, and business fraud.
+    </p>
   </>
 );
 

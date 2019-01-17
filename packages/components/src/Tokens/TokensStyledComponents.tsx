@@ -3,6 +3,10 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps } from "../Button";
 
+export interface TokenRequirementStyleProps {
+  step?: string;
+}
+
 export const TokenAccountOuter = styled.div`
   background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
   display: flex;
@@ -133,16 +137,19 @@ export const TokenAccountSectionHeader = styled.div`
 
 export const TokenRequirement = styled.div`
   margin: 0 30px 0 50px;
-  padding: 5px 20px 20px 35px;
+  padding: ${(props: TokenRequirementStyleProps) =>
+    props.step === "completed" ? "0 20px 0 35px" : "5px 20px 20px 35px"};
   position: relative;
 
   h3 {
-    color: ${colors.accent.CIVIL_GRAY_1};
+    color: ${(props: TokenRequirementStyleProps) =>
+      props.step === "completed" ? colors.primary.BLACK : colors.accent.CIVIL_GRAY_1};
     font-family: ${fonts.SANS_SERIF};
     font-size: 18px;
-    font-weight: 600;
+    font-weight: ${(props: TokenRequirementStyleProps) => (props.step === "completed" ? "400" : "600")};
+    ${(props: TokenRequirementStyleProps) => (props.step === "completed" ? "letter-spacing: -0.12px;" : "")};
     line-height: 33px;
-    margin: 0 0 5px;
+    margin: ${(props: TokenRequirementStyleProps) => (props.step === "completed" ? "0" : "0 0 5px")};
   }
 
   p {
@@ -157,7 +164,8 @@ export const TokenRequirement = styled.div`
 export const TokenRequirementIcon = styled.div`
   align-items: center;
   background-color: ${colors.basic.WHITE};
-  border: 1px solid ${colors.accent.CIVIL_BLUE};
+  border: ${(props: TokenRequirementStyleProps) =>
+    props.step === "disabled" ? "1px solid" + colors.accent.CIVIL_GRAY_3 : "1px solid" + colors.accent.CIVIL_BLUE};
   border-radius: 50%;
   display: flex;
   height: 38px;
@@ -166,6 +174,13 @@ export const TokenRequirementIcon = styled.div`
   position: absolute;
   top: 0;
   width: 38px;
+  z-index: 1;
+`;
+
+export const TokenCheckIcon = styled.div`
+  left: -21px;
+  position: absolute;
+  top: 0;
   z-index: 1;
 `;
 
