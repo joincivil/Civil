@@ -4,9 +4,11 @@ import { Set } from "immutable";
 import { State } from "../../redux/reducers";
 import ListingsInProgress from "./ListingsInProgress";
 import { NewsroomListing } from "@joincivil/core";
+
 export interface ListingProps {
   match?: any;
   history?: any;
+  govtParameters: any;
 }
 
 export interface ListingReduxProps {
