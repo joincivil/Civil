@@ -103,9 +103,9 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
   }
 
   private getTransactions = (): any[] | undefined => {
-    const { isAwaitingAppealJudgment } = this.props.challengeState;
+    const { isAwaitingAppealJudgement } = this.props.challengeState;
     let transactions;
-    if (isAwaitingAppealJudgment && this.props.isMemberOfAppellate) {
+    if (isAwaitingAppealJudgement && this.props.isMemberOfAppellate) {
       if (this.props.txIdToConfirm) {
         transactions = [
           {

@@ -96,6 +96,8 @@ class ChallengeRevealVote extends React.Component<
     const voteOption = this.getVoteOption();
     const salt = fetchSalt(this.props.challengeID, this.props.user);
 
+    console.log(voteOption, salt, this.props);
+
     return (
       <>
         <ChallengeRevealVoteCard
