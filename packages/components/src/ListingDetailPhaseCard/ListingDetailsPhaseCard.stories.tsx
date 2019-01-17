@@ -51,6 +51,7 @@ const votesFor = "73000";
 const votesAgainst = "27000";
 const percentFor = "73";
 const percentAgainst = "27";
+const didChallengeSucceed = false;
 
 const tokenBalance = 10000;
 let commitVoteState = {
@@ -192,6 +193,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
           />
         )}
@@ -212,6 +214,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
           />
         )}
@@ -236,6 +239,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
           />
         )}
       </Container>
@@ -259,6 +263,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
           />
         )}
@@ -282,6 +287,7 @@ storiesOf("Listing Details Phase Card", module)
             percentFor={percentFor}
             percentAgainst={percentAgainst}
             appealGranted={true}
+            didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
           />
         )}
@@ -303,6 +309,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
           />
         )}
@@ -337,6 +344,7 @@ storiesOf("Listing Details Phase Card", module)
             percentAgainst={percentAgainst}
             appealChallengeID={appealChallengeID}
             appealGranted={true}
+            didChallengeSucceed={didChallengeSucceed}
             onReviewVote={noop}
           />
         )}
@@ -363,6 +371,7 @@ storiesOf("Listing Details Phase Card", module)
             votesFor={votesFor}
             votesAgainst={votesAgainst}
             percentFor={percentFor}
+            didChallengeSucceed={didChallengeSucceed}
             percentAgainst={percentAgainst}
             appealChallengeID={appealChallengeID}
             appealGranted={true}
@@ -391,6 +400,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
             appealChallengeID={appealChallengeID}
             appealGranted={true}
             userHasCommittedVote={true}
@@ -420,6 +430,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
             appealChallengeID={appealChallengeID}
             appealGranted={true}
             userHasCommittedVote={true}
@@ -444,6 +455,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
             appealChallengeTotalVotes={totalVotes}
             appealChallengeVotesFor={votesFor}
             appealChallengeVotesAgainst={votesAgainst}
@@ -451,6 +463,7 @@ storiesOf("Listing Details Phase Card", module)
             appealChallengePercentAgainst={percentAgainst}
             transactions={[]}
             appealChallengeID={appealChallengeID}
+            didAppealChallengeSucceed={didChallengeSucceed}
           />
         )}
       </Container>
@@ -474,6 +487,7 @@ storiesOf("Listing Details Phase Card", module)
             votesAgainst={votesAgainst}
             percentFor={percentFor}
             percentAgainst={percentAgainst}
+            didChallengeSucceed={didChallengeSucceed}
           />
         )}
       </Container>

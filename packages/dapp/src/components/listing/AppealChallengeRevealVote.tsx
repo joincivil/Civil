@@ -54,15 +54,20 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
+interface AppealRevealCardKeyState {
+  key: number;
+}
+
 class AppealChallengeRevealVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
-  ChallengeVoteState
+  ChallengeVoteState & AppealRevealCardKeyState
 > {
   constructor(props: AppealChallengeDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
       isReviewVoteModalOpen: false,
       numTokens: undefined,
+      key: new Date().valueOf(),
     };
   }
 
@@ -72,6 +77,7 @@ class AppealChallengeRevealVote extends React.Component<
     this.props.setTransactionStatusModalConfig({
       transactionSuccessContent,
     });
+    this.props.setHandleTransactionSuccessButtonClick(this.handleRevealVoteSuccessClose);
   }
 
   public render(): JSX.Element | null {
@@ -128,6 +134,7 @@ class AppealChallengeRevealVote extends React.Component<
       .div(totalVotes)
       .mul(100)
       .toFixed(0);
+    const didChallengeSucceed = challenge.poll.votesAgainst.greaterThan(challenge.poll.votesFor);
 
     const voteOption = this.getVoteOption();
     const salt = fetchSalt(this.props.challengeID, this.props.user);
@@ -140,6 +147,7 @@ class AppealChallengeRevealVote extends React.Component<
           secondaryPhaseLength={secondaryPhaseLength}
           challengeID={this.props.challengeID.toString()}
           challenger={challenger}
+          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
           rewardPool={rewardPool}
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
@@ -151,11 +159,13 @@ class AppealChallengeRevealVote extends React.Component<
           votesAgainst={votesAgainst}
           percentFor={percentFor.toString()}
           percentAgainst={percentAgainst.toString()}
+          didChallengeSucceed={didChallengeSucceed}
           onInputChange={this.updateCommitVoteState}
           transactions={transactions}
           appealChallengeID={this.props.appealChallengeID.toString()}
           appealGranted={this.props.appeal.appealGranted}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
+          key={this.state.key}
         />
       </>
     );
@@ -180,6 +190,11 @@ class AppealChallengeRevealVote extends React.Component<
         </>,
       ],
     };
+  };
+
+  private handleRevealVoteSuccessClose = (): void => {
+    this.props.updateTransactionStatusModalsState({ isTransactionSuccessModalOpen: false });
+    this.setState({ isReviewVoteModalOpen: false, key: new Date().valueOf() });
   };
 
   private getTransactions = (): any => {

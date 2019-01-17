@@ -14,6 +14,7 @@ export const ChallengeSucceededEvent: React.StatelessComponent<ChallengeComplete
         votesAgainst={props.votesAgainst}
         percentFor={props.percentFor}
         percentAgainst={props.percentAgainst}
+        didChallengeSucceed={props.didChallengeSucceed}
       />
     </ListingHistoryEvent>
   );
