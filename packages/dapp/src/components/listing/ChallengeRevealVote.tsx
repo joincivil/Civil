@@ -54,15 +54,20 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
+interface RevealCardKeyState {
+  key: number;
+}
+
 class ChallengeRevealVote extends React.Component<
   ChallengeDetailProps & InjectedTransactionStatusModalProps,
-  ChallengeVoteState
+  ChallengeVoteState & RevealCardKeyState
 > {
   constructor(props: ChallengeDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
       isReviewVoteModalOpen: false,
       numTokens: undefined,
+      key: new Date().valueOf(),
     };
   }
 
@@ -72,6 +77,7 @@ class ChallengeRevealVote extends React.Component<
     this.props.setTransactionStatusModalConfig({
       transactionSuccessContent,
     });
+    this.props.setHandleTransactionSuccessButtonClick(this.handleRevealVoteSuccessClose);
   }
 
   public render(): JSX.Element | null {
@@ -108,6 +114,7 @@ class ChallengeRevealVote extends React.Component<
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
           transactions={transactions}
+          key={this.state.key}
         />
       </>
     );
@@ -171,6 +178,11 @@ class ChallengeRevealVote extends React.Component<
         handleTransactionError: this.props.handleTransactionError,
       },
     ];
+  };
+
+  private handleRevealVoteSuccessClose = (): void => {
+    this.props.updateTransactionStatusModalsState({ isTransactionSuccessModalOpen: false });
+    this.setState({ isReviewVoteModalOpen: false, key: new Date().valueOf() });
   };
 
   private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {

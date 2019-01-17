@@ -54,15 +54,20 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
+interface AppealRevealCardKeyState {
+  key: number;
+}
+
 class AppealChallengeRevealVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
-  ChallengeVoteState
+  ChallengeVoteState & AppealRevealCardKeyState
 > {
   constructor(props: AppealChallengeDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
       isReviewVoteModalOpen: false,
       numTokens: undefined,
+      key: new Date().valueOf(),
     };
   }
 
@@ -72,6 +77,7 @@ class AppealChallengeRevealVote extends React.Component<
     this.props.setTransactionStatusModalConfig({
       transactionSuccessContent,
     });
+    this.props.setHandleTransactionSuccessButtonClick(this.handleRevealVoteSuccessClose);
   }
 
   public render(): JSX.Element | null {
@@ -159,6 +165,7 @@ class AppealChallengeRevealVote extends React.Component<
           appealChallengeID={this.props.appealChallengeID.toString()}
           appealGranted={this.props.appeal.appealGranted}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
+          key={this.state.key}
         />
       </>
     );
@@ -183,6 +190,11 @@ class AppealChallengeRevealVote extends React.Component<
         </>,
       ],
     };
+  };
+
+  private handleRevealVoteSuccessClose = (): void => {
+    this.props.updateTransactionStatusModalsState({ isTransactionSuccessModalOpen: false });
+    this.setState({ isReviewVoteModalOpen: false, key: new Date().valueOf() });
   };
 
   private getTransactions = (): any => {
