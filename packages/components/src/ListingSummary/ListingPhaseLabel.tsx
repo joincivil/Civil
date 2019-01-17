@@ -42,7 +42,6 @@ const ListingPhaseLabel: React.SFC<ListingSummaryComponentProps> = props => {
   ) {
     return <ReadyToCompleteStatusLabel />;
   } else if (isAwaitingAppealJudgement) {
-    console.log("awaiting appeal judgement");
     return <AwaitingDecisionStatusLabel />;
   } else if (isAwaitingAppealChallenge) {
     return <AwaitingAppealChallengeStatusLabel />;
