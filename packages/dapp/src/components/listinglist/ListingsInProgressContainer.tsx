@@ -30,10 +30,13 @@ import ListingsInProgress from "./ListingsInProgress";
 export interface ListingsInProgressProps {
   match?: any;
   history?: any;
+  govtParameters: any;
 }
+
 export interface ListingsInProgressContainerReduxProps {
   useGraphQL: boolean;
 }
+
 export interface ListingsInProgressState {
   increment: number;
 }

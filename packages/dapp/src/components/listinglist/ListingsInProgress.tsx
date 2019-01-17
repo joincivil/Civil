@@ -16,7 +16,9 @@ import {
   ListingSummaryUnderChallengeComponent,
   ListingSummaryReadyToUpdateComponent,
 } from "@joincivil/components";
+import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
 
+import { getCivil } from "../../helpers/civilInstance";
 import { StyledListingCopy } from "../utility/styledComponents";
 
 import ListingList from "./ListingList";
@@ -39,6 +41,7 @@ export interface ListingsInProgressProps {
   appealChallengeRevealPhaseListings: Set<NewsroomListing>;
   resolveChallengeListings: Set<NewsroomListing>;
   resolveAppealListings: Set<NewsroomListing>;
+  govtParameters: any;
 }
 
 const TABS: string[] = [
@@ -76,6 +79,14 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
     const challengeCouncilAppealTab = <ChallengeCouncilAppealTabTitle count={appealChallenge.count()} />;
     const readyToUpdateTab = <ReadyToUpdateTabTitle count={readyToUpdate.count()} />;
 
+    const civil = getCivil();
+    const judgeAppealLenDisplay =
+      this.props.govtParameters[GovernmentParameters.judgeAppealLen] &&
+      getFormattedParameterValue(
+        GovernmentParameters.judgeAppealLen,
+        civil.toBigNumber(this.props.govtParameters[GovernmentParameters.judgeAppealLen].toString()),
+      );
+
     return (
       <Tabs
         activeIndex={activeIndex}
@@ -102,7 +113,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             </Helmet>
 
             <StyledListingCopy>
-              Applications “under challenge” require the Civil community vote to remain on the Registry due to a
+              Applications “under challenge” require the Civil community's vote to remain on the Registry due to a
               potential breach of the Civil Constitution. Help us curate high quality, trustworthy journalism, and earn
               CVL tokens when you vote.
             </StyledListingCopy>
@@ -116,8 +127,8 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             </Helmet>
             <StyledListingCopy>
               Appeal to the Civil Council has been requested for these Newsrooms. The Civil Council will review whether
-              these Newsrooms breached the Civil Constitution, and a decision will be announced X days after the appeal
-              is granted.
+              these Newsrooms breached the Civil Constitution, and a decision will be announced {judgeAppealLenDisplay}{" "}
+              after the appeal is requested.
             </StyledListingCopy>
             {this.renderUnderAppeal()}
           </>
@@ -128,9 +139,9 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
               <title>Newsrooms Under Appeal Challenge - The Civil Registry</title>
             </Helmet>
             <StyledListingCopy>
-              Newsrooms under “Challenge Council Appeal” require the Civil community's vote to veto the Council decision
-              in order to remain on the Registry. Help us curate high quality, trustworthy journalism, and earn CVL
-              tokens when you vote.
+              Newsrooms under “Challenge Council Appeal” have been granted appeals by the Civil Council, which can be
+              challenged and subsequently vetoed by the Civil community's vote. Help us curate high quality, trustworthy
+              journalism, and earn CVL tokens when you vote.
             </StyledListingCopy>
             {this.renderUnderAppealChallenge()}
           </>
