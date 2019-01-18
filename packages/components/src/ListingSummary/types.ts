@@ -23,7 +23,6 @@ export interface ListingSummaryComponentProps {
   canListingAppealBeResolved?: boolean;
   isInAppealChallengeCommitPhase?: boolean;
   isInAppealChallengeRevealPhase?: boolean;
-  isAwaitingAppealJudgment?: boolean;
   isWhitelisted?: boolean;
   isUnderChallenge?: boolean;
   canListingAppealChallengeBeResolved?: boolean;

@@ -149,6 +149,7 @@ class AppealChallengeCommitVote extends React.Component<
       secondaryPhaseLength,
       challengeID: this.props.challengeID.toString(),
       challenger,
+      isViewingUserChallenger: challenge!.challenger.toString() === this.props.user,
       rewardPool,
       stake,
       userHasCommittedVote,

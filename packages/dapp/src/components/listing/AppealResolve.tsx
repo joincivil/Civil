@@ -68,6 +68,7 @@ class AppealResolve extends React.Component<AppealDetailProps & InjectedTransact
         <AppealResolveCard
           challengeID={this.props.challengeID.toString()}
           challenger={challenge!.challenger.toString()}
+          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
           rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
           stake={getFormattedTokenBalance(challenge!.stake)}
           totalVotes={getFormattedTokenBalance(totalVotes)}

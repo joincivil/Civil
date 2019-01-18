@@ -69,3 +69,9 @@ export const VotesPerTokenTotal = styled(VotesPerTokenVote)`
 `;
 
 export const VotesPerTokenCount = styled.div``;
+
+export const StyledExplainerText = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 14px;
+  line-height: 20px;
+`;

@@ -40,7 +40,6 @@ export interface ListingSummaryReadyToUpdateComponentProps {
   canListingAppealBeResolved?: boolean;
   isInAppealChallengeCommitPhase?: boolean;
   isInAppealChallengeRevealPhase?: boolean;
-  isAwaitingAppealJudgment?: boolean;
   isWhitelisted?: boolean;
   isUnderChallenge?: boolean;
   canListingAppealChallengeBeResolved?: boolean;
@@ -90,7 +89,7 @@ export class ListingSummaryReadyToUpdateComponent extends React.Component<Listin
       inChallengeCommitVotePhase,
       inChallengeRevealPhase,
       isAwaitingAppealRequest,
-      isAwaitingAppealJudgment,
+      isAwaitingAppealJudgement,
       isAwaitingAppealChallenge,
     } = this.props;
     if (isInApplication) {
@@ -101,7 +100,7 @@ export class ListingSummaryReadyToUpdateComponent extends React.Component<Listin
       expiry = this.props.revealEndDate;
     } else if (isAwaitingAppealRequest) {
       expiry = this.props.requestAppealExpiry;
-    } else if (isAwaitingAppealJudgment) {
+    } else if (isAwaitingAppealJudgement) {
       expiry = this.props.appealPhaseExpiry;
     } else if (isAwaitingAppealChallenge) {
       expiry = this.props.appealOpenToChallengeExpiry;
