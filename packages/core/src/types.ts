@@ -5,7 +5,6 @@ import {
   EthAddress,
   Hex,
   TxHash,
-  TxDataAll,
 } from "@joincivil/typescript-types";
 import BigNumber from "bignumber.js";
 import { CivilLogs } from "./contracts/generated/events";
