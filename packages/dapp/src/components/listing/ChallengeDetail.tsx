@@ -10,6 +10,7 @@ import {
   UserChallengeData,
   WrappedChallengeData,
   didUserCommit,
+  TxDataAll,
 } from "@joincivil/core";
 import {
   ChallengeRequestAppealCard,
@@ -35,7 +36,7 @@ import {
   getIsMemberOfAppellate,
   getChallengeState,
 } from "../../selectors";
-import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
+import { fetchAndAddChallengeData, fetchAndAddGrantAppealTx } from "../../redux/actionCreators/challenges";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
 
 const withChallengeResults = (
@@ -85,6 +86,8 @@ export interface ChallengeContainerReduxProps {
   govtParameters: any;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
+  grantAppealTxDataFetching?: boolean;
+  grantAppealTxData?: TxDataAll;
 }
 
 export interface ChallengeDetailProps {
@@ -247,6 +250,9 @@ class ChallengeContainer extends React.Component<
     if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
     }
+    if (!this.props.grantAppealTxData && !this.props.grantAppealTxDataFetching) {
+      this.props.dispatch!(fetchAndAddGrantAppealTx(this.props.listingAddress));
+    }
   }
 
   public render(): JSX.Element | null {
@@ -300,19 +306,18 @@ const makeMapStateToProps = () => {
       parameters,
       govtParameters,
       councilMultisigTransactions,
+      grantAppealTxs,
+      grantAppealTxsFetching,
     } = state.networkDependent;
     let txIdToConfirm;
     let challengeData = ownProps.challengeData;
     if (!challengeData) {
       challengeData = challenges.get(ownProps.challengeID.toString());
     }
-    if (
-      challengeData &&
-      challengeData.challenge &&
-      challengeData.challenge.appeal &&
-      challengeData.challenge.appeal.appealTxData
-    ) {
-      const txData = challengeData.challenge.appeal.appealTxData.data!;
+    const grantAppealTxDataFetching = grantAppealTxsFetching.get(ownProps.listingAddress);
+    const grantAppealTx = grantAppealTxs.get(ownProps.listingAddress);
+    if (challengeData && challengeData.challenge && challengeData.challenge.appeal && grantAppealTx) {
+      const txData = grantAppealTx.data!;
       const key = txData.substring(0, 74);
       if (councilMultisigTransactions.has(key)) {
         txIdToConfirm = councilMultisigTransactions.get(key).id;
@@ -348,6 +353,7 @@ const makeMapStateToProps = () => {
       govtParameters,
       isMemberOfAppellate,
       txIdToConfirm,
+      grantAppealTxDataFetching,
       ...ownProps,
     };
   };

@@ -5,7 +5,7 @@ import { getDefaultFromBlock } from "@joincivil/utils";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { AppealData } from "../../types";
 import { AppealChallenge } from "./appealChallenge";
-import { EthAddress } from "@joincivil/typescript-types";
+import { EthAddress, TxDataAll } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:appeal");
 
@@ -40,7 +40,6 @@ export class Appeal {
     if (!appealPhaseExpiry.isZero()) {
       appealStatementURI = await this.getAppealURI();
     }
-    const appealTxData = await this.tcrInstance.grantAppeal.getRaw(this.listingAddress, "", { gas: 0 });
     return {
       requester,
       appealFeePaid,
@@ -48,7 +47,6 @@ export class Appeal {
       appealGranted,
       appealOpenToChallengeExpiry,
       appealChallengeID,
-      appealTxData,
       appealChallenge,
       appealStatementURI,
     };

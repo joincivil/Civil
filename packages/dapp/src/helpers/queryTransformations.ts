@@ -173,7 +173,6 @@ export function transformGraphQLDataIntoAppeal(queryAppealData: any): AppealData
       appealGranted: queryAppealData.appealGranted,
       appealOpenToChallengeExpiry: new BigNumber(queryAppealData.appealOpenToChallengeExpiry),
       appealChallengeID: new BigNumber(queryAppealData.appealChallengeID),
-      appealTxData: undefined,
       appealChallenge: transformGraphQLDataIntoAppealChallenge(queryAppealData.appealChallenge),
       appealStatementURI: queryAppealData.statement,
     };
