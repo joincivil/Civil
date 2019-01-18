@@ -1,9 +1,9 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import gql from "graphql-tag";
-import { ExecuteOnMount } from "@joincivil/components";
+import { ExecuteOnMount } from "../";
 import { Mutation } from "react-apollo";
-import { AuthLoginResponse } from "../../helpers/apolloClient";
+import { AuthLoginResponse } from "./";
 
 const verifySignUpTokenMutation = gql`
   mutation($loginJWT: String!) {
