@@ -5,7 +5,6 @@ import { getDefaultFromBlock } from "@joincivil/utils";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { AppealData } from "../../types";
 import { AppealChallenge } from "./appealChallenge";
-import { EthAddress } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:appeal");
 
