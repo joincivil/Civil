@@ -63,7 +63,7 @@ export const FlexColumnsSecondary = styled.div`
 
 export const FlexColumnsSecondaryModule = styled.div`
   background-color: ${colors.basic.WHITE};
-  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   font-family: ${fonts.SANS_SERIF};
   margin-bottom: 30px;
   padding: 20px 30px;
@@ -93,7 +93,7 @@ export const FlexColumnsSecondaryModule = styled.div`
 
 export const TokenHeaderOuter = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  padding: 30px 30px 10px;
+  padding: 30px 30px 40px;
   text-align: center;
   width: 100%;
 `;
