@@ -1,15 +1,17 @@
 import * as React from "react";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
-import { TokenBtns, TokenRequirementIcon, TokenAccountSectionHeader } from "./TokensStyledComponents";
+import { TokenBtns, TokenRequirementIcon, TokenAccountSectionHeader, CloseBtn } from "./TokensStyledComponents";
 import { TokenVerifySectionText, TokenQuizSectionText, TokenQuizBtnText } from "./TokensTextComponents";
 import { CivilTutorialIcon } from "../icons/CivilTutorialIcon";
-import { FullScreenModal } from "../FullscreenModal";
+import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
 import { TokenTutorial } from "../TokenTutorial";
 import { colors } from "../styleConstants";
+import { CloseXIcon } from "../icons";
 
-export interface TokenAccountVerify {
+export interface TokenAccountVerify extends FullScreenModalProps {
   step?: string;
-  open?: boolean;
+  handleClose(): void;
+  handleOpen(): void;
 }
 
 export const UserTokenAccountVerify: React.StatelessComponent<TokenAccountVerify> = props => {
@@ -30,10 +32,13 @@ export const UserTokenAccountVerify: React.StatelessComponent<TokenAccountVerify
           <CivilTutorialIcon />
         </TokenRequirementIcon>
         <TokenQuizSectionText />
-        <TokenBtns>
+        <TokenBtns onClick={props.handleOpen}>
           <TokenQuizBtnText />
         </TokenBtns>
         <FullScreenModal open={props.open || false} solidBackground={true}>
+          <CloseBtn onClick={props.handleClose}>
+            <CloseXIcon color={colors.accent.CIVIL_GRAY_3} />
+          </CloseBtn>
           <TokenTutorial />
         </FullScreenModal>
       </UserTokenAccountRequirement>

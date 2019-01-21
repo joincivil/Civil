@@ -3,7 +3,7 @@ import * as ReactDom from "react-dom";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "./styleConstants";
 
-interface ModalWrapperProps {
+export interface ModalWrapperProps {
   solidBackground?: boolean;
 }
 

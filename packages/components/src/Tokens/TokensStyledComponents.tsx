@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, ButtonProps } from "../Button";
+import { Button, ButtonProps, InvertedButton } from "../Button";
 
 export interface TokenRequirementStyleProps {
   step?: string;
@@ -193,5 +193,27 @@ export const TokenBuySection = styled.div`
     font-size: 16px;
     line-height: 19px;
     margin: 0 0 15px;
+  }
+`;
+
+export const CloseBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+  border: none;
+  padding: 0;
+  height: 40px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 40px;
+
+  svg path {
+    transition: fill 0.2s ease;
+  }
+
+  &:hover {
+    background-color: transparent;
+
+    svg path {
+      fill: ${colors.accent.CIVIL_BLUE};
+    }
   }
 `;
