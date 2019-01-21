@@ -14,7 +14,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
-import { approveForChallengeGrantedAppeal, challengeGrantedAppeal } from "../../apis/civilTCR";
+import { approveForChallengeGrantedAppeal, publishContent, challengeGrantedAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
 import {
   InjectedTransactionStatusModalProps,
@@ -47,23 +47,26 @@ interface SubmitAppealChallengeReduxProps {
 
 interface SubmitAppealChallengeState {
   challengeStatementSummaryValue?: string;
-  challengeStatementCiteConstitutionValue?: any;
   challengeStatementDetailsValue?: any;
+  appealChallengeStatementUri?: string;
 }
 
 enum TransactionTypes {
   APPROVE_CHALLENGE_APPEAL = "APPROVE_CHALLENGE_APPEAL",
   CHALLENGE_APPEAL = "CHALLENGE_APPEAL",
+  PUBLISH_CONTENT = "PUBLISH_CONTENT",
 }
 
 const transactionLabels = {
   [TransactionTypes.APPROVE_CHALLENGE_APPEAL]: "Approve Challenge Appeal",
+  [TransactionTypes.PUBLISH_CONTENT]: "Publish Statement",
   [TransactionTypes.CHALLENGE_APPEAL]: "Challenge Appeal",
 };
 
 const multiStepTransactionLabels = {
-  [TransactionTypes.APPROVE_CHALLENGE_APPEAL]: "1 of 2",
-  [TransactionTypes.CHALLENGE_APPEAL]: "2 of 2",
+  [TransactionTypes.APPROVE_CHALLENGE_APPEAL]: "1 of 3",
+  [TransactionTypes.PUBLISH_CONTENT]: "2 of 3",
+  [TransactionTypes.CHALLENGE_APPEAL]: "2 of 3",
 };
 
 const denialSuffix = ", you need to confirm the transaction in your MetaMask wallet.";
@@ -182,6 +185,21 @@ class SubmitAppealChallengeComponent extends React.Component<
       {
         transaction: async () => {
           this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isIPFSUploadModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.PUBLISH_CONTENT,
+          });
+          return this.postAppealChallengeStatement();
+        },
+        postTransaction: async (receipt: any) => {
+          this.setState({ appealChallengeStatementUri: receipt.uri });
+        },
+      },
+      {
+        transaction: async () => {
+          this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: false,
@@ -252,19 +270,18 @@ class SubmitAppealChallengeComponent extends React.Component<
   };
 
   // Transactions
-  private challengeGrantedAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    const {
-      challengeStatementSummaryValue,
-      challengeStatementCiteConstitutionValue,
-      challengeStatementDetailsValue,
-    } = this.state;
+
+  private postAppealChallengeStatement = async (): Promise<any> => {
+    const { challengeStatementSummaryValue, challengeStatementDetailsValue } = this.state;
     const jsonToSave = {
       summary: challengeStatementSummaryValue,
-      citeConstitution: challengeStatementCiteConstitutionValue.toString("html"),
       details: challengeStatementDetailsValue.toString("html"),
     };
+    return publishContent(JSON.stringify(jsonToSave));
+  };
 
-    return challengeGrantedAppeal(this.props.listingAddress, JSON.stringify(jsonToSave));
+  private challengeGrantedAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
+    return challengeGrantedAppealWithUri(this.props.listingAddress, this.state.appealChallengeStatementUri!);
   };
 }
 

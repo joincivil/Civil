@@ -10,6 +10,7 @@ import {
   UserChallengeData,
   WrappedChallengeData,
   didUserCommit,
+  TxDataAll,
 } from "@joincivil/core";
 import {
   ChallengeRequestAppealCard,
@@ -35,10 +36,8 @@ import {
   getIsMemberOfAppellate,
   getChallengeState,
 } from "../../selectors";
-import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
-import { fetchSalt } from "../../helpers/salt";
+import { fetchAndAddChallengeData, fetchAndAddGrantAppealTx } from "../../redux/actionCreators/challenges";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
-import { fetchVote } from "../../helpers/vote";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
@@ -87,6 +86,8 @@ export interface ChallengeContainerReduxProps {
   govtParameters: any;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
+  grantAppealTxDataFetching?: boolean;
+  grantAppealTxData?: TxDataAll;
 }
 
 export interface ChallengeDetailProps {
@@ -111,7 +112,6 @@ export interface ChallengeDetailProps {
 export interface ChallengeVoteState {
   isReviewVoteModalOpen?: boolean;
   voteOption?: string;
-  salt?: string;
   numTokens?: string;
   requestAppealSummaryValue?: string;
   requestAppealCiteConstitutionValue?: any;
@@ -129,34 +129,7 @@ export interface ProgressModalPropsState {
 
 // A container encapsultes the Commit Vote, Reveal Vote and Rewards phases for a Challenge.
 // @TODO(jon): Clean this up... by maybe separating into separate containers for each phase card component
-class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVoteState & ProgressModalPropsState> {
-  constructor(props: any) {
-    super(props);
-    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
-    let voteOption;
-    if (fetchedVote) {
-      voteOption = fetchedVote.toString();
-    }
-    this.state = {
-      isReviewVoteModalOpen: false,
-      voteOption,
-      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
-      numTokens: undefined,
-    };
-  }
-
-  public componentDidMount(): void {
-    if (!this.state.numTokens && this.props.balance && this.props.votingBalance) {
-      this.setInitNumTokens();
-    }
-  }
-
-  public componentDidUpdate(prevProps: ChallengeDetailProps): void {
-    if (!this.state.numTokens && (this.props.balance && this.props.votingBalance)) {
-      this.setInitNumTokens();
-    }
-  }
-
+class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   public render(): JSX.Element {
     const { challenge, userChallengeData, userAppealChallengeData } = this.props;
     const { inCommitPhase, inRevealPhase } = this.props.challengeState;
@@ -180,20 +153,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps, ChallengeVot
         {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail()}
       </>
     );
-  }
-
-  private setInitNumTokens(): void {
-    let initNumTokens: BigNumber;
-    if (!this.props.votingBalance!.isZero()) {
-      initNumTokens = this.props.votingBalance!;
-    } else {
-      initNumTokens = this.props.balance!.add(this.props.votingBalance!);
-    }
-    const initNumTokensString = initNumTokens
-      .div(1e18)
-      .toFixed(2)
-      .toString();
-    this.setState(() => ({ numTokens: initNumTokensString }));
   }
 
   private renderAppeal(): JSX.Element {
@@ -291,6 +250,9 @@ class ChallengeContainer extends React.Component<
     if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
     }
+    if (!this.props.grantAppealTxData && !this.props.grantAppealTxDataFetching) {
+      this.props.dispatch!(fetchAndAddGrantAppealTx(this.props.listingAddress));
+    }
   }
 
   public render(): JSX.Element | null {
@@ -344,19 +306,18 @@ const makeMapStateToProps = () => {
       parameters,
       govtParameters,
       councilMultisigTransactions,
+      grantAppealTxs,
+      grantAppealTxsFetching,
     } = state.networkDependent;
     let txIdToConfirm;
     let challengeData = ownProps.challengeData;
     if (!challengeData) {
       challengeData = challenges.get(ownProps.challengeID.toString());
     }
-    if (
-      challengeData &&
-      challengeData.challenge &&
-      challengeData.challenge.appeal &&
-      challengeData.challenge.appeal.appealTxData
-    ) {
-      const txData = challengeData.challenge.appeal.appealTxData.data!;
+    const grantAppealTxDataFetching = grantAppealTxsFetching.get(ownProps.listingAddress);
+    const grantAppealTx = grantAppealTxs.get(ownProps.listingAddress);
+    if (challengeData && challengeData.challenge && challengeData.challenge.appeal && grantAppealTx) {
+      const txData = grantAppealTx.data!;
       const key = txData.substring(0, 74);
       if (councilMultisigTransactions.has(key)) {
         txIdToConfirm = councilMultisigTransactions.get(key).id;
@@ -392,6 +353,7 @@ const makeMapStateToProps = () => {
       govtParameters,
       isMemberOfAppellate,
       txIdToConfirm,
+      grantAppealTxDataFetching,
       ...ownProps,
     };
   };

@@ -144,6 +144,7 @@ export const StyledListingChallengeOrAppealStatement = styled.div`
 `;
 
 export const ChallengeResultsContain = styled.div`
+  font-family: ${fonts.SANS_SERIF};
   padding: 25px 22px 50px;
 `;
 
@@ -191,4 +192,11 @@ export const MetaItemLabel = styled.div`
   line-height: 15px;
   margin-bottom: 5px;
   text-transform: uppercase;
+`;
+
+export const StyledChallengeResultsHeader = styled.h4`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 16px;
+  line-height: 19px;
+  margin: 0 0 6px;
 `;

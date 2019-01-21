@@ -1,15 +1,21 @@
 import * as React from "react";
 import { compose } from "redux";
 import {
+  AppealGrantedEvent,
+  AppealRequestedEvent,
   ApplicationEvent,
   ChallengeEvent,
   ChallengeCompletedEventProps,
   ChallengeFailedEvent as ChallengeFailedEventComponent,
   ChallengeSucceededEvent as ChallengeSucceededEventComponent,
-  ListingHistoryEvent as ListingHistoryEventComponent,
+  DepositEvent,
+  GrantedAppealChallengedEvent,
   ListingHistoryEventTimestampProps,
+  ListingWithdrawnEvent,
   RejectedEvent,
+  TouchAndRemovedEvent,
   WhitelistedEvent,
+  WithdrawalEvent,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
@@ -31,18 +37,24 @@ class ListingEvent extends React.Component<ListingEventProps> {
     super(props);
   }
 
-  public render(): JSX.Element {
+  public render(): JSX.Element | null {
     const wrappedEvent = this.props.event;
 
     switch (wrappedEvent.event) {
+      case "_AppealGranted":
+        return <AppealGrantedEvent timestamp={wrappedEvent.timestamp * 1000} />;
+
+      case "_AppealRequested":
+        return <AppealRequestedEvent timestamp={wrappedEvent.timestamp * 1000} />;
+
       case "_Application":
         return this.renderApplicationEvent(wrappedEvent);
 
+      case "_ApplicationRemoved":
+        return <RejectedEvent timestamp={wrappedEvent.timestamp * 1000} />;
+
       case "_ApplicationWhitelisted":
         return <WhitelistedEvent timestamp={wrappedEvent.timestamp * 1000} />;
-
-      case "_ListingRemoved":
-        return <RejectedEvent timestamp={wrappedEvent.timestamp * 1000} />;
 
       case "_Challenge":
         return this.renderChallengeEvent(wrappedEvent);
@@ -53,9 +65,41 @@ class ListingEvent extends React.Component<ListingEventProps> {
       case "_ChallengeSucceeded":
         return this.renderChallengeSucceededEvent(wrappedEvent);
 
+      case "_Deposit":
+        return this.renderDepositEvent(wrappedEvent);
+
+      case "_GrantedAppealChallenged":
+        return <GrantedAppealChallengedEvent timestamp={wrappedEvent.timestamp * 1000} />;
+
+      case "_ListingRemoved":
+        return <RejectedEvent timestamp={wrappedEvent.timestamp * 1000} />;
+
+      case "_ListingWithdrawn":
+        return <ListingWithdrawnEvent timestamp={wrappedEvent.timestamp * 1000} />;
+
+      case "_TouchAndRemoved":
+        return <TouchAndRemovedEvent timestamp={wrappedEvent.timestamp * 1000} />;
+
+      case "_Withdrawal":
+        return this.renderWithdrawalEvent(wrappedEvent);
+
       default:
-        return this.renderUnsupportedEvent(wrappedEvent);
+        return null;
     }
+  }
+
+  private renderWithdrawalEvent(wrappedEvent: any): JSX.Element {
+    const { withdrew } = wrappedEvent.args;
+    const bnDeposit = new BigNumber(withdrew);
+    const formattedDeposit = getFormattedTokenBalance(bnDeposit);
+    return <WithdrawalEvent timestamp={(wrappedEvent as any).timestamp * 1000} deposit={formattedDeposit} />;
+  }
+
+  private renderDepositEvent(wrappedEvent: any): JSX.Element {
+    const { added } = wrappedEvent.args;
+    const bnDeposit = new BigNumber(added);
+    const formattedDeposit = getFormattedTokenBalance(bnDeposit);
+    return <DepositEvent timestamp={(wrappedEvent as any).timestamp * 1000} deposit={formattedDeposit} />;
   }
 
   private renderApplicationEvent(wrappedEvent: any): JSX.Element {
@@ -92,15 +136,6 @@ class ListingEvent extends React.Component<ListingEventProps> {
     const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
 
     return <ChallengeSucceededComponent timestamp={wrappedEvent.timestamp * 1000} challengeID={challengeID} />;
-  }
-
-  private renderUnsupportedEvent(wrappedEvent: any): JSX.Element {
-    const props = {
-      timestamp: wrappedEvent.timestamp * 1000,
-      title: wrappedEvent.event,
-    };
-
-    return <ListingHistoryEventComponent {...props} />;
   }
 }
 

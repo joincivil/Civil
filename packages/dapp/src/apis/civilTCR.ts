@@ -1,4 +1,4 @@
-import { EthAddress, TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TwoStepEthTransaction, StorageHeader } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { CivilErrors, getVoteSaltHash } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
@@ -8,6 +8,11 @@ export function ensureWeb3BigNumber(num: number | BigNumber): any {
   const tNum = typeof num === "number" ? num : num.toNumber();
   const civil = getCivil();
   return civil.toBigNumber(tNum);
+}
+
+export async function publishContent(content: string): Promise<StorageHeader> {
+  const civil = getCivil();
+  return civil.publishContent(content);
 }
 
 export async function approveForChallenge(): Promise<TwoStepEthTransaction | void> {
@@ -24,6 +29,13 @@ export async function approveForApply(multisigAddress?: EthAddress): Promise<Two
   const parameterizer = await tcr.getParameterizer();
   const minDeposit = await parameterizer.getParameterValue("minDeposit");
   return approve(minDeposit, multisigAddress);
+}
+
+export async function approveForDeposit(
+  amount: number | BigNumber,
+  multisigAddress?: EthAddress,
+): Promise<TwoStepEthTransaction | void> {
+  return approve(amount, multisigAddress);
 }
 
 export async function approveForAppeal(): Promise<TwoStepEthTransaction | void> {
@@ -88,10 +100,31 @@ export async function challengeGrantedAppeal(address: EthAddress, data: string =
   return tcr.challengeGrantedAppeal(address, data);
 }
 
+export async function requestAppealWithUri(address: EthAddress, uri: string = ""): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  return tcr.requestAppealWithURI(address, uri);
+}
+
+export async function challengeGrantedAppealWithUri(
+  address: EthAddress,
+  uri: string = "",
+): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  return tcr.challengeGrantedAppealWithURI(address, uri);
+}
+
 export async function challengeListing(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
   return tcr.challenge(address, data);
+}
+
+export async function challengeListingWithUri(address: EthAddress, uri: string = ""): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  return tcr.challengeWithURI(address, uri);
 }
 
 export async function commitVote(
@@ -115,22 +148,17 @@ export async function commitVote(
 
 export async function depositTokens(
   address: EthAddress,
-  numTokens: number | BigNumber,
+  numTokens: BigNumber,
+  multisigAddress?: EthAddress,
 ): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
-  const tcr = await civil.tcrSingletonTrusted();
+  const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   return tcr.deposit(address, ensureWeb3BigNumber(numTokens));
 }
 
-export async function appealChallenge(address: EthAddress, data: string = ""): Promise<TwoStepEthTransaction> {
+export async function exitListing(address: EthAddress, multisigAddress?: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
-  const tcr = await civil.tcrSingletonTrusted();
-  return tcr.requestAppeal(address, data);
-}
-
-export async function exitListing(address: EthAddress): Promise<TwoStepEthTransaction> {
-  const civil = getCivil();
-  const tcr = await civil.tcrSingletonTrusted();
+  const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   return tcr.exitListing(address);
 }
 
@@ -244,9 +272,10 @@ export async function revealVote(
 export async function withdrawTokens(
   address: EthAddress,
   numTokens: number | BigNumber,
+  multisigAddress?: EthAddress,
 ): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
-  const tcr = await civil.tcrSingletonTrusted();
+  const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   return tcr.withdraw(address, ensureWeb3BigNumber(numTokens));
 }
 
@@ -321,6 +350,13 @@ export async function withdrawVotingRights(numTokens: BigNumber): Promise<TwoSte
   const voting = tcr.getVoting();
   const numTokensBN = ensureWeb3BigNumber(numTokens);
   return voting.withdrawVotingRights(numTokensBN);
+}
+
+export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
+  const tcr = await getTCR();
+  const voting = tcr.getVoting();
+  const numTokensBN = ensureWeb3BigNumber(numTokens);
+  return voting.requestVotingRights(numTokensBN);
 }
 
 export async function signMessage(message: string): Promise<EthSignedMessage> {

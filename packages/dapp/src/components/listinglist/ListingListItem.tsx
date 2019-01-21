@@ -105,11 +105,17 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       }
     }
 
-    const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry;
-    const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry;
+    const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry.toNumber();
+    const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry.toNumber();
 
     const newsroomData = newsroom!.data;
     const listingDetailURL = `/listing/${listingAddress}`;
+
+    let challengeResultsProps = {};
+
+    if (listingPhaseState.isAwaitingAppealRequest || listingPhaseState.isAwaitingAppealJudgement) {
+      challengeResultsProps = getChallengeResultsProps(challenge!);
+    }
 
     const listingViewProps = {
       ...newsroomData,
@@ -129,6 +135,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       appealOpenToChallengeExpiry,
       unstakedDeposit,
       challengeStake,
+      ...challengeResultsProps,
     };
 
     const ListingSummaryItem = this.props.ListingItemComponent || ListingSummaryComponent;

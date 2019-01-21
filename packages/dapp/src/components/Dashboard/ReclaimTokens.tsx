@@ -1,12 +1,19 @@
 import * as React from "react";
+import { compose } from "redux";
 import { connect } from "react-redux";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
 import { Set } from "immutable";
-import { TwoStepEthTransaction } from "@joincivil/core";
-import { StyledDashboardActivityDescription, TransactionButton, InputGroup } from "@joincivil/components";
+import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import {
+  StyledDashboardActivityDescription,
+  TransactionButtonNoModal,
+  InputGroup,
+  ModalContent,
+} from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
+import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { getUserChallengesWithRescueTokens } from "../../selectors";
 import { withdrawVotingRights } from "../../apis/civilTCR";
 import { FormGroup } from "../utility/FormElements";
@@ -15,23 +22,72 @@ const StyledContainer = styled.div`
   padding: 0 24px;
 `;
 
+enum TransactionTypes {
+  WITHDRAW_VOTING_RIGHTS = "WITHDRAW_VOTING_RIGHTS",
+}
+
+const transactionLabels = {
+  [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: "Transfer Voting Tokens to Available Balance",
+};
+
+const transactionSuccessContent = {
+  [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
+    "You have successfully transfered your voting tokens",
+    <ModalContent>
+      Tokens in your Available Balance can be used for applying to The Civil Registry or challenging newsrooms
+    </ModalContent>,
+  ],
+};
+
+const transactionRejectionContent = {
+  [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
+    "Your tokens were not transfered",
+    "To transfer your tokens, you need to confirm the transaction in your MetaMask wallet.",
+  ],
+};
+
+const transactionErrorContent = {
+  [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
+    "The was an problem with transfering your tokens",
+    <ModalContent>Please retry your transaction</ModalContent>,
+  ],
+};
+
+const transactionStatusModalConfig = {
+  transactionLabels,
+  transactionSuccessContent,
+  transactionRejectionContent,
+  transactionErrorContent,
+};
+
+export interface ReclaimTokenProps {
+  onMobileTransactionClick?(): any;
+}
+
 export interface ReclaimTokenReduxProps {
   numUserChallengesWithRescueTokens: number;
   votingBalance: BigNumber;
 }
 
-export interface ReclaimTokensState {
+interface ReclaimTokensState {
   numTokens?: string;
   isReclaimAmountValid?: boolean;
 }
 
-class ReclaimTokensComponent extends React.Component<ReclaimTokenReduxProps, ReclaimTokensState> {
-  constructor(props: any) {
+class ReclaimTokensComponent extends React.Component<
+  ReclaimTokenProps & ReclaimTokenReduxProps & InjectedTransactionStatusModalProps,
+  ReclaimTokensState
+> {
+  constructor(props: ReclaimTokenReduxProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
       numTokens: "0",
       isReclaimAmountValid: true,
     };
+  }
+
+  public componentWillMount(): void {
+    this.props.setTransactions(this.getTransactions());
   }
 
   public render(): JSX.Element {
@@ -55,19 +111,51 @@ class ReclaimTokensComponent extends React.Component<ReclaimTokenReduxProps, Rec
           </FormGroup>
 
           <FormGroup>
-            <TransactionButton
+            <TransactionButtonNoModal
               disabled={!!this.props.numUserChallengesWithRescueTokens}
-              transactions={[{ transaction: this.reclaimTokens }]}
+              transactions={this.getTransactions()}
+              disabledOnMobile={true}
+              onMobileClick={this.props.onMobileTransactionClick}
             >
               Transfer
-            </TransactionButton>
+            </TransactionButtonNoModal>
           </FormGroup>
         </StyledContainer>
       </>
     );
   }
 
-  private reclaimTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
+  private getTransactions = (): any[] => {
+    return [
+      {
+        transaction: async () => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.WITHDRAW_VOTING_RIGHTS,
+          });
+          return this.withdrawVotingRights();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        postTransaction: () => {
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: true,
+          });
+        },
+        handleTransactionError: this.props.handleTransactionError,
+      },
+    ];
+  };
+
+  private withdrawVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return withdrawVotingRights(numTokens);
   };
@@ -91,4 +179,6 @@ const mapStateToProps = (state: State): ReclaimTokenReduxProps => {
   };
 };
 
-export default connect(mapStateToProps)(ReclaimTokensComponent);
+export default compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
+  ReclaimTokensComponent,
+) as React.ComponentClass<ReclaimTokenProps>;

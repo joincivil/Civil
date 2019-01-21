@@ -16,6 +16,7 @@ import {
 import { initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
+import { Tokens } from "./Tokens";
 import ContractPage from "./ContractPage";
 import Contracts from "./Contracts";
 import CreateNewsroom from "./CreateNewsroom";
@@ -31,6 +32,7 @@ import SubmitChallengePage from "./listing/SubmitChallenge";
 import SubmitAppealChallengePage from "./listing/SubmitAppealChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
+import WrongNetwork from "./WrongNetwork";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
@@ -114,7 +116,9 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/tokens" component={Tokens} />
         </Switch>
+        <WrongNetwork />
       </StyledMainContainer>
     );
   }

@@ -31,7 +31,6 @@ export interface AppealChallengeDetailProps {
 
 export interface ChallengeVoteState {
   voteOption?: string;
-  salt?: string;
   numTokens?: string;
   isReviewVoteModalOpen: boolean;
 }

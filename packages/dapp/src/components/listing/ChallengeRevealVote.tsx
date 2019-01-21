@@ -54,22 +54,20 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
+interface RevealCardKeyState {
+  key: number;
+}
+
 class ChallengeRevealVote extends React.Component<
   ChallengeDetailProps & InjectedTransactionStatusModalProps,
-  ChallengeVoteState
+  ChallengeVoteState & RevealCardKeyState
 > {
   constructor(props: ChallengeDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
-    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
-    let voteOption;
-    if (fetchedVote) {
-      voteOption = fetchedVote.toString();
-    }
     this.state = {
       isReviewVoteModalOpen: false,
-      voteOption,
-      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
       numTokens: undefined,
+      key: new Date().valueOf(),
     };
   }
 
@@ -79,6 +77,7 @@ class ChallengeRevealVote extends React.Component<
     this.props.setTransactionStatusModalConfig({
       transactionSuccessContent,
     });
+    this.props.setHandleTransactionSuccessButtonClick(this.handleRevealVoteSuccessClose);
   }
 
   public render(): JSX.Element | null {
@@ -94,6 +93,9 @@ class ChallengeRevealVote extends React.Component<
       return null;
     }
 
+    const voteOption = this.getVoteOption();
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
+
     return (
       <>
         <ChallengeRevealVoteCard
@@ -102,18 +104,29 @@ class ChallengeRevealVote extends React.Component<
           phaseLength={phaseLength}
           secondaryPhaseLength={secondaryPhaseLength}
           challenger={challenge!.challenger.toString()}
+          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
           rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
           stake={getFormattedTokenBalance(challenge!.stake)}
-          voteOption={this.state.voteOption}
-          salt={this.state.salt}
+          voteOption={voteOption}
+          salt={salt}
           onInputChange={this.updateCommitVoteState}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
           transactions={transactions}
+          key={this.state.key}
         />
       </>
     );
+  }
+
+  private getVoteOption(): string | undefined {
+    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
+    return voteOption;
   }
 
   private getTransactionSuccessContent = (): TransactionStatusModalContentMap => {
@@ -167,9 +180,15 @@ class ChallengeRevealVote extends React.Component<
     ];
   };
 
+  private handleRevealVoteSuccessClose = (): void => {
+    this.props.updateTransactionStatusModalsState({ isTransactionSuccessModalOpen: false });
+    this.setState({ isReviewVoteModalOpen: false, key: new Date().valueOf() });
+  };
+
   private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    const voteOption: BigNumber = new BigNumber(this.getVoteOption() as string);
+    const saltStr = fetchSalt(this.props.challengeID, this.props.user);
+    const salt: BigNumber = new BigNumber(saltStr as string);
     return revealVote(this.props.challengeID, voteOption, salt);
   };
 

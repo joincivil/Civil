@@ -38,6 +38,8 @@ import {
   challengesVotedOnByUser,
   challengesStartedByUser,
   challengeUserData,
+  grantAppealTxs,
+  grantAppealTxsFetching,
 } from "./challenges";
 import {
   government,
@@ -61,6 +63,7 @@ import {
   MultisigTransaction,
   EthContentHeader,
   ContentData,
+  TxDataAll,
 } from "@joincivil/core";
 import { currentUserNewsrooms, content, contentFetched } from "./newsrooms";
 import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
@@ -111,6 +114,8 @@ export interface NetworkDependentState {
   challengesVotedOnByUser: Map<string, Set<string>>;
   challengesStartedByUser: Map<string, Set<string>>;
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
+  grantAppealTxs: Map<string, TxDataAll>;
+  grantAppealTxsFetching: Map<string, boolean>;
   appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
   constitution: Map<string, string>;
@@ -157,6 +162,8 @@ const networkDependentReducers = combineReducers({
   challengesVotedOnByUser,
   challengesStartedByUser,
   challengeUserData,
+  grantAppealTxs,
+  grantAppealTxsFetching,
   appealChallengeUserData,
   government,
   constitution,

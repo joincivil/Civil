@@ -100,7 +100,6 @@ class AppealChallengeCommitVote extends React.Component<
     this.state = {
       isReviewVoteModalOpen: false,
       voteOption: undefined,
-      salt: fetchSalt(this.props.challengeID, this.props.user),
       numTokens: undefined,
       key: new Date().valueOf(),
     };
@@ -127,6 +126,7 @@ class AppealChallengeCommitVote extends React.Component<
     const votingTokenBalanceDisplay = this.props.votingBalance
       ? getFormattedTokenBalance(this.props.votingBalance)
       : "";
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
 
     const userHasCommittedVote =
       this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserCommit;
@@ -149,6 +149,7 @@ class AppealChallengeCommitVote extends React.Component<
       secondaryPhaseLength,
       challengeID: this.props.challengeID.toString(),
       challenger,
+      isViewingUserChallenger: challenge!.challenger.toString() === this.props.user,
       rewardPool,
       stake,
       userHasCommittedVote,
@@ -162,7 +163,7 @@ class AppealChallengeCommitVote extends React.Component<
       votingTokenBalance,
       tokenBalanceDisplay,
       votingTokenBalanceDisplay,
-      salt: this.state.salt,
+      salt,
       numTokens: this.state.numTokens,
       onInputChange: this.updateCommitVoteState,
       onReviewVote: this.handleReviewVote,
@@ -200,12 +201,14 @@ class AppealChallengeCommitVote extends React.Component<
 
     const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
 
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
+
     const props: ReviewVoteProps = {
       newsroomName: "this newsroom",
       listingDetailURL,
       challengeID: this.props.appealChallengeID.toString(),
       open: this.state.isReviewVoteModalOpen,
-      salt: this.state.salt,
+      salt,
       numTokens: this.state.numTokens,
       voteOption: this.state.voteOption,
       userAccount: this.props.user,
@@ -302,7 +305,8 @@ class AppealChallengeCommitVote extends React.Component<
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    const saltStr = fetchSalt(this.props.challengeID, this.props.user);
+    const salt: BigNumber = new BigNumber(saltStr as string);
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     saveVote(this.props.challengeID, this.props.user, voteOption);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);

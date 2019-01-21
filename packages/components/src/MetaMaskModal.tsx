@@ -90,6 +90,7 @@ export interface MetaMaskModalProps {
   waiting: boolean;
   denied?: boolean;
   signing?: boolean;
+  ipfsPost?: boolean;
   bodyText?: string;
   denialText?: string;
   denialRestartTransactions?: Transaction[];
@@ -98,28 +99,36 @@ export interface MetaMaskModalProps {
 }
 
 export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props => {
-  const buttonSection = !props.waiting ? (
-    <ButtonContainer>
-      <IB onClick={props.cancelTransaction}>Cancel</IB>
-      {props.denied ? (
-        <TransactionButtonNoModal transactions={props.denialRestartTransactions!} Button={MetaMaskLogoButton}>
-          {" "}
-          Try Again{" "}
-        </TransactionButtonNoModal>
-      ) : (
-        <MetaMaskLogoButton onClick={props.startTransaction!}>Open MetaMask</MetaMaskLogoButton>
-      )}
-    </ButtonContainer>
-  ) : (
-    <ButtonContainer>
-      <WaitingButton>
-        <SpanWithMargin>Waiting for confirmation</SpanWithMargin>
-        <ClipLoader size={19} />
-      </WaitingButton>
-    </ButtonContainer>
-  );
+  let buttonSection;
+  if (props.ipfsPost) {
+  } else if (!props.waiting) {
+    buttonSection = (
+      <ButtonContainer>
+        <IB onClick={props.cancelTransaction}>Cancel</IB>
+        {props.denied ? (
+          <TransactionButtonNoModal transactions={props.denialRestartTransactions!} Button={MetaMaskLogoButton}>
+            {" "}
+            Try Again{" "}
+          </TransactionButtonNoModal>
+        ) : (
+          <MetaMaskLogoButton onClick={props.startTransaction!}>Open MetaMask</MetaMaskLogoButton>
+        )}
+      </ButtonContainer>
+    );
+  } else {
+    buttonSection = (
+      <ButtonContainer>
+        <WaitingButton>
+          <SpanWithMargin>Waiting for confirmation</SpanWithMargin>
+          <ClipLoader size={19} />
+        </WaitingButton>
+      </ButtonContainer>
+    );
+  }
   let paragraph;
-  if (props.signing) {
+  if (props.ipfsPost) {
+    paragraph = <ModalP>Your statement is being uploaded to IPFS</ModalP>;
+  } else if (props.signing) {
     paragraph = !props.waiting ? (
       <ModalP>{props.bodyText || "MetaMask will open a new window and request a signature."}</ModalP>
     ) : (
@@ -158,13 +167,18 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
     );
   }
 
-  const image = props.denied ? (
-    <MainImg src={confirmButton} />
-  ) : (
-    <ImgWrapperFull>
-      <img width={512} height={248} src={props.signing ? signImage : metaMaskModalUrl} />
-    </ImgWrapperFull>
-  );
+  let image;
+  if (props.ipfsPost) {
+    image = undefined;
+  } else if (props.denied) {
+    image = <MainImg src={confirmButton} />;
+  } else {
+    image = (
+      <ImgWrapperFull>
+        <img width={512} height={248} src={props.signing ? signImage : metaMaskModalUrl} />
+      </ImgWrapperFull>
+    );
+  }
 
   return (
     <Modal width={560} padding={"8px 26px 0 26px"}>

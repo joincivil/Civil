@@ -52,20 +52,18 @@ class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokens
   }
 
   private approveDeposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
-    return approve(numTokens);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    return approve(numTokens, this.props.listing.data.owner);
   };
 
   private deposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
-    return depositTokens(this.props.listingAddress, numTokens);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    return depositTokens(this.props.listingAddress, numTokens, this.props.listing.data.owner);
   };
 
-  private updateViewState = (event: any): void => {
-    const paramName = event.target.getAttribute("name");
-    const val = event.target.value;
+  private updateViewState = (name: string, value: string): void => {
     const newState = {};
-    newState[paramName] = val;
+    newState[name] = value;
     this.setState(newState);
   };
 }
@@ -111,17 +109,15 @@ class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawToke
   // };
 
   private withdraw = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
-    return withdrawTokens(this.props.listingAddress, numTokens);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    return withdrawTokens(this.props.listingAddress, numTokens, this.props.listing.data.owner);
   };
 
   // @TODO(jon): I know this is gross and not very DRY, but this will be refactored
   // when we have Redux and a canonical store for the app
-  private updateViewState = (event: any): void => {
-    const paramName = event.target.getAttribute("name");
-    const val = event.target.value;
+  private updateViewState = (name: string, value: string): void => {
     const newState = {};
-    newState[paramName] = val;
+    newState[name] = value;
     this.setState(newState);
   };
 }
@@ -136,7 +132,7 @@ class ExitListing extends React.Component<OwnerListingViewProps> {
   }
 
   private exitListing = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return exitListing(this.props.listingAddress);
+    return exitListing(this.props.listingAddress, this.props.listing.data.owner);
   };
 }
 

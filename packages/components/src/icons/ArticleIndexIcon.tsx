@@ -6,19 +6,19 @@ export interface ArticleIndexIconProps {
 }
 
 export const ArticleIndexIcon = (props: ArticleIndexIconProps): JSX.Element => {
-  const color = props.color || "#444";
-  const size = (props.size || 24).toString();
+  const color = props.color || "#444444";
+  const size = props.size || 24;
 
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-        <polygon points="0 0 24 0 24 24 0 24" opacity="0.3" />
+    <svg width={size} height={size} viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" fillRule="evenodd">
+        <path d="m0 0h24v24h-24z" opacity=".3" />
         <path
-          d="M19 13.91L17 15.792 17 9 12 9 12 5.101 5 5.101 5 20 9.694 20 11.69 22 4.99 22C3.89 22 3 21.1 3 20L3.083 4.981C3.083 3.881 3.973 2.981 5.073 2.981L13.073 2.981 19 9.104 19 13.91Z"
-          fillRule="nonzero"
+          d="m10.0732422 0 5.9267578 6.11658537v10.88536583c0 1.0989268-.9 1.9980488-2 1.9980488h-12.01c-1.1 0-1.99-.899122-1.99-1.9980488l.08324219-15.00390242c0-1.09892683.89-1.99804878 1.99-1.99804878zm-8.0732422 17.0019512h12v-10.98926827h-5v-3.89512195h-7zm2.5-6.0126829 3.5-3.99609757 3.5 3.99609757h-2.23125v3.9780488h-2.5375v-3.9780488z"
           fill={color}
+          fillRule="nonzero"
+          transform="translate(4 3)"
         />
-        <polygon fillRule="nonzero" points="20.6 15 15.47 20.17 13.4 18.09 12 19.5 15.47 23 22 16.41" fill={color} />
       </g>
     </svg>
   );

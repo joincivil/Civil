@@ -1,6 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { ListingWrapper } from "@joincivil/core";
+import styled from "styled-components";
 import ChallengeDetailContainer from "./ChallengeDetail";
 import ChallengeResolve from "./ChallengeResolve";
 import {
@@ -12,6 +13,10 @@ import {
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
+
+const StyledContainer = styled.div`
+  margin: 0 0 80px;
+`;
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
@@ -48,7 +53,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
         {isRejected && (!challenge || challenge.resolved) && this.renderRejected()}
         {isInApplication && this.renderApplicationPhase()}
         {listing.data && (
-          <>
+          <StyledContainer>
             {canBeWhitelisted && this.renderCanWhitelist()}
             {canResolveChallenge && this.renderCanResolve()}
 
@@ -66,7 +71,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
                   onMobileTransactionClick={this.showNoMobileTransactionsModal}
                 />
               )}
-          </>
+          </StyledContainer>
         )}
 
         {this.renderNoMobileTransactions()}

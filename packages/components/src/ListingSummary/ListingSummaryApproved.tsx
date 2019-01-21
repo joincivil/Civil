@@ -60,7 +60,7 @@ export class ListingSummaryApprovedComponent extends React.Component<ListingSumm
       inChallengeCommitVotePhase,
       inChallengeRevealPhase,
       isAwaitingAppealRequest,
-      isAwaitingAppealJudgment,
+      isAwaitingAppealJudgement,
       isAwaitingAppealChallenge,
     } = this.props;
     if (isInApplication) {
@@ -71,7 +71,7 @@ export class ListingSummaryApprovedComponent extends React.Component<ListingSumm
       expiry = this.props.revealEndDate;
     } else if (isAwaitingAppealRequest) {
       expiry = this.props.requestAppealExpiry;
-    } else if (isAwaitingAppealJudgment) {
+    } else if (isAwaitingAppealJudgement) {
       expiry = this.props.appealPhaseExpiry;
     } else if (isAwaitingAppealChallenge) {
       expiry = this.props.appealOpenToChallengeExpiry;

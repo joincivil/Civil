@@ -34,6 +34,7 @@ export interface ListingProps {
 
 export interface ListingReduxProps {
   parameters: any;
+  govtParameters: any;
   error: undefined | string;
   loadingFinished: boolean;
   useGraphQL: boolean;
@@ -43,7 +44,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
     const { listingType } = this.props.match.params;
     let activeIndex = 0;
-    let hero;
     const civil = getCivil();
     const minDeposit =
       (this.props.parameters &&
@@ -53,17 +53,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
-    if (activeIndex === 0) {
-      hero = (
-        <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero textUrl="https://civil.co" buttonUrl="/createNewsroom" minDeposit={minDeposit} />
-        </Hero>
-      );
-    }
     return (
       <>
         <ScrollToTopOnMount />
-        {hero}
+        <Hero backgroundImage={heroImgUrl}>
+          <HomepageHero textUrl="https://civil.co" buttonUrl="/createNewsroom" minDeposit={minDeposit} />
+        </Hero>
         {!this.props.loadingFinished && "loading..."}
         {this.props.loadingFinished && (
           <Tabs
@@ -86,7 +81,11 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             </Tab>
             <Tab title={<ApplicationsInProgressTabText />}>
               <StyledPageContent>
-                <ListingsInProgressContainer match={this.props.match} history={this.props.history} />
+                <ListingsInProgressContainer
+                  match={this.props.match}
+                  history={this.props.history}
+                  govtParameters={this.props.govtParameters}
+                />
               </StyledPageContent>
             </Tab>
             <Tab title={<RejectedNewsroomsTabText />}>
@@ -114,11 +113,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { parameters } = state.networkDependent;
+  const { parameters, govtParameters } = state.networkDependent;
   const useGraphQL = state.useGraphQL;
   return {
     ...ownProps,
     parameters,
+    govtParameters,
     error: undefined,
     loadingFinished: true,
     useGraphQL,

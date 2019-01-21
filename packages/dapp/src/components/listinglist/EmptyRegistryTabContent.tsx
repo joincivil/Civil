@@ -63,7 +63,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     ),
   },
   [REGISTRY_PHASE_TAB_TYPES.UNDER_APPEAL_CHALLENGE]: {
-    header: "There are no newsrooms with granted appeals under appeal at this time",
+    header: "There are no newsrooms with granted appeals at this time",
     copy: (
       <>
         You can <Link to="/registry/in-progress/under-appeal">view listings under appeal</Link> or{" "}

@@ -7,9 +7,12 @@ export interface ChallengeResultsProps {
   votesAgainst: string;
   percentFor: string;
   percentAgainst: string;
+  didChallengeSucceed?: boolean;
+  isAppealChallenge?: boolean;
   headerText?: string;
   noHeader?: boolean;
-  styledHeaderComponent?: React.StatelessComponent;
+  noExplainerText?: boolean;
+  styledHeaderComponent?: React.ComponentClass;
   collapsable?: boolean;
   open?: boolean;
 }

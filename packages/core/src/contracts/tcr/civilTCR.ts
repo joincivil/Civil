@@ -34,6 +34,7 @@ import { Government } from "./government";
 import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
 import { Voting } from "./voting";
+import { TxDataAll } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:tcr");
 
@@ -483,6 +484,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return new Listing(this.ethApi, this.instance, listingAddress);
   }
 
+  public async getRawGrantAppealTxData(listingAddress: EthAddress): Promise<TxDataAll> {
+    return this.instance.grantAppeal.getRaw(listingAddress, "", { gas: 0 });
+  }
+
   /*
    * It is possible to have a pollID without knowing if it corresponds to a challenge or an appeal challenge
    * (e.g., if you subscribed to an event stream on the voting contract)
@@ -699,6 +704,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     data: string = "",
   ): Promise<MultisigProxyTransaction> {
     return this.multisigProxy.challengeGrantedAppeal.sendTransactionAsync(listingAddress, data);
+  }
+
+  public async challengeGrantedAppealWithURI(
+    listingAddress: EthAddress,
+    uri: string = "",
+  ): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.challengeGrantedAppeal.sendTransactionAsync(listingAddress, uri);
   }
 
   /**

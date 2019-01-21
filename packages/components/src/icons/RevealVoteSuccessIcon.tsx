@@ -6,7 +6,7 @@ export const RevealVoteSuccessIcon: React.SFC = props => {
   const height = "100";
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 100 100">
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <circle fill={colors.accent.CIVIL_TEAL} fillRule="nonzero" cx="50" cy="50" r="50" />
         <path
@@ -23,7 +23,7 @@ export const RevealVoteSuccessIcon: React.SFC = props => {
           <path
             d="M9,0 C4.05,0 0,4.05 0,9 C0,13.95 4.05,18 9,18 C13.95,18 18,13.95 18,9 C18,4.05 13.95,0 9,0 L9,0 Z"
             stroke={colors.basic.WHITE}
-            stroke-width="3"
+            strokeWidth="3"
             fill={colors.basic.WHITE}
           />
           <path
