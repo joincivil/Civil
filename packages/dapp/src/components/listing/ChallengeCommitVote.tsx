@@ -128,6 +128,7 @@ class ChallengeCommitVote extends React.Component<
       endTime,
       phaseLength,
       challenger: challenge!.challenger.toString(),
+      isViewingUserChallenger: challenge!.challenger.toString() === this.props.user,
       challengeID: this.props.challengeID.toString(),
       rewardPool: getFormattedTokenBalance(challenge!.rewardPool),
       stake: getFormattedTokenBalance(challenge!.stake),

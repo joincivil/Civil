@@ -46,6 +46,7 @@ export interface ChallengeContainerProps {
 export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData;
   challengeDataRequestStatus?: any;
+  user: EthAddress;
 }
 
 export interface PhaseCountdownTimerProps {
@@ -74,7 +75,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
     state: State,
     ownProps: TOriginalProps,
   ): TOriginalProps & ChallengeContainerReduxProps & GraphQLizableComponentProps => {
-    const { challenges, challengesFetching } = state.networkDependent;
+    const { challenges, challengesFetching, user } = state.networkDependent;
     const { useGraphQL } = state;
     let challengeData;
     let challengeID = ownProps.challengeID;
@@ -86,10 +87,17 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID as string);
     }
+    const userAcct = user.account;
     // Can't use spread here b/c of TS issue with spread and generics
     // https://github.com/Microsoft/TypeScript/pull/13288
     // tslint:disable-next-line:prefer-object-spread
-    return Object.assign({}, ownProps, { challengeID, challengeData, challengeDataRequestStatus, useGraphQL });
+    return Object.assign({}, ownProps, {
+      challengeID,
+      challengeData,
+      challengeDataRequestStatus,
+      useGraphQL,
+      user: userAcct.account,
+    });
   };
 
   class HOChallengeResultsContainer extends React.Component<
@@ -168,7 +176,7 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
     state: State,
     ownProps: ChallengeContainerProps,
   ): ChallengeContainerReduxProps & ChallengeContainerProps => {
-    const { challenges, challengesFetching } = state.networkDependent;
+    const { challenges, challengesFetching, user } = state.networkDependent;
     let challengeData;
     const challengeID = ownProps.challengeID;
     if (challengeID) {
@@ -178,9 +186,11 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
+    const userAcct = user.account;
     return {
       challengeData,
       challengeDataRequestStatus,
+      user: userAcct.account,
       ...ownProps,
     };
   };
@@ -346,7 +356,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       state: State,
       ownProps: TOriginalProps & ChallengeContainerProps,
     ): TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps => {
-      const { challenges, challengesFetching } = state.networkDependent;
+      const { challenges, challengesFetching, user } = state.networkDependent;
       const challengeID = getLatestChallengeSucceededChallengeID(state, ownProps);
       let challengeData;
       let challengeDataRequestStatus;
@@ -354,10 +364,15 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
         challengeData = challenges.get(challengeID.toString());
         challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
       }
+      const userAcct = user.account;
       // Can't use spread here b/c of TS issue with spread and generics
       // https://github.com/Microsoft/TypeScript/pull/13288
       // tslint:disable-next-line:prefer-object-spread
-      return Object.assign({}, { challengeData, challengeID, challengeDataRequestStatus }, ownProps);
+      return Object.assign(
+        {},
+        { challengeData, challengeID, challengeDataRequestStatus, user: userAcct.account },
+        ownProps,
+      );
     };
 
     return mapStateToProps;
@@ -422,7 +437,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
     state: State,
     ownProps: ChallengeContainerProps,
   ): ChallengeContainerReduxProps & ChallengeContainerProps & GraphQLizableComponentProps => {
-    const { challenges, challengesFetching } = state.networkDependent;
+    const { challenges, challengesFetching, user } = state.networkDependent;
     const { useGraphQL } = state;
     let challengeData;
     const challengeID = ownProps.challengeID;
@@ -433,10 +448,12 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
     if (challengeID) {
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
+    const userAcct = user.account;
     return {
       challengeID: challengeID!.toString(),
       challengeData,
       challengeDataRequestStatus,
+      user: userAcct.account,
       useGraphQL,
       ...ownProps,
     };
@@ -468,6 +485,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
                   <PhaseCardComponent
                     {...this.props}
                     challenger={challenge!.challenger.toString()}
+                    isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
                     rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
                     stake={getFormattedTokenBalance(challenge!.stake)}
                   />
@@ -485,6 +503,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
         return (
           <PhaseCardComponent
             challenger={challenge!.challenger.toString()}
+            isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
             rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
             stake={getFormattedTokenBalance(challenge!.stake)}
             {...this.props}

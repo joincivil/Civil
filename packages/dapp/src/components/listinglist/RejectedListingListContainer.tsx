@@ -48,7 +48,7 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
             );
 
             if (!map.count()) {
-              return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
+              return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
             }
 
             return (

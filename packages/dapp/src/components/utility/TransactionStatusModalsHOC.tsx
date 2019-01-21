@@ -97,7 +97,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
           {this.renderIPFSUploadProgressModal()}
           {this.renderTransactionSuccessModal()}
           {this.renderTransactionErrorModal()}
-          {this.renderTransactionRejectionModal(this.transactions, cancelTransaction)}
+          {this.renderTransactionRejectionModal(cancelTransaction)}
         </>
       );
     }
@@ -179,10 +179,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
       );
     }
 
-    public renderTransactionRejectionModal(
-      transactions: any[],
-      cancelTransaction: (() => void) | undefined,
-    ): JSX.Element | null {
+    public renderTransactionRejectionModal(cancelTransaction: (() => void) | undefined): JSX.Element | null {
       if (!this.state.isTransactionRejectionModalOpen) {
         return null;
       }

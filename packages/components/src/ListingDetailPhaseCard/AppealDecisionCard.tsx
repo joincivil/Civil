@@ -69,6 +69,7 @@ export const AppealDecisionCard: React.SFC<
         <ChallengePhaseDetail
           challengeID={props.challengeID}
           challenger={props.challenger}
+          isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
         />
@@ -82,6 +83,7 @@ export const AppealDecisionCard: React.SFC<
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
+          didChallengeSucceed={props.didChallengeSucceed}
         />
       </StyledListingDetailPhaseCardSection>
 

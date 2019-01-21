@@ -4,7 +4,7 @@
 import * as Web3 from "web3";
 
 {{#each files}}
-import * as {{capitalize this.name}}Artifact from "../../artifacts/{{capitalize this.name}}.json";
+import * as {{capitalize this.name}}Artifact from "@joincivil/artifacts/v1/{{capitalize this.name}}.json";
 {{/each}}
 
 export interface Artifact {

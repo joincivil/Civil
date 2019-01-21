@@ -3,6 +3,7 @@ import { getLocalDateTimeStrings } from "@joincivil/utils";
 import { HollowGreenCheck, HollowRedNoGood } from "../icons";
 import { TextCountdownTimer } from "../PhaseCountdown/";
 import { ListingSummaryComponentProps } from "./types";
+import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import {
   MetaRow,
   MetaItemValue,
@@ -11,6 +12,8 @@ import {
   StyledListingSummary,
   StyledListingSummarySection,
   StyledAppealJudgementContainer,
+  StyledChallengeResultsHeader,
+  ChallengeResultsContain,
 } from "./styledComponents";
 import { ApplicationPhaseEndedLabelText, ApprovedLabelText, ChallengeEndedLabelText } from "./textComponents";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
@@ -18,7 +21,11 @@ import ListingPhaseLabel from "./ListingPhaseLabel";
 import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
 
-export class ListingSummaryUnderChallengeComponent extends React.Component<ListingSummaryComponentProps> {
+export interface ListingSummaryUnderChallengeComponentProps
+  extends ListingSummaryComponentProps,
+    Partial<ChallengeResultsProps> {}
+
+export class ListingSummaryUnderChallengeComponent extends React.Component<ListingSummaryUnderChallengeComponentProps> {
   public render(): JSX.Element {
     const { challengeID, challengeStatementSummary, appealStatementSummary } = this.props;
 
@@ -31,12 +38,15 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
 
           <NewsroomInfo {...this.props} />
 
+          {this.renderChallengeResults()}
+
           <StyledListingSummarySection>
             <ChallengeOrAppealStatementSummary
               challengeID={challengeID}
               challengeStatementSummary={challengeStatementSummary}
               appealStatementSummary={appealStatementSummary}
             />
+
             {this.renderPhaseCountdownOrTimestamp()}
 
             <SummaryActionButton {...this.props} />
@@ -53,7 +63,7 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
       inChallengeCommitVotePhase,
       inChallengeRevealPhase,
       isAwaitingAppealRequest,
-      isAwaitingAppealJudgment,
+      isAwaitingAppealJudgement,
       isAwaitingAppealChallenge,
     } = this.props;
     if (isInApplication) {
@@ -64,7 +74,7 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
       expiry = this.props.revealEndDate;
     } else if (isAwaitingAppealRequest) {
       expiry = this.props.requestAppealExpiry;
-    } else if (isAwaitingAppealJudgment) {
+    } else if (isAwaitingAppealJudgement) {
       expiry = this.props.appealPhaseExpiry;
     } else if (isAwaitingAppealChallenge) {
       expiry = this.props.appealOpenToChallengeExpiry;
@@ -155,5 +165,39 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
     }
 
     return <StyledAppealJudgementContainer>{decisionText}</StyledAppealJudgementContainer>;
+  };
+
+  private renderChallengeResults = (): JSX.Element => {
+    const {
+      isAwaitingAppealRequest,
+      isAwaitingAppealJudgement,
+      challengeID,
+      totalVotes,
+      votesFor,
+      votesAgainst,
+      percentFor,
+      percentAgainst,
+      didChallengeSucceed,
+    } = this.props;
+
+    if (isAwaitingAppealRequest || isAwaitingAppealJudgement) {
+      const challengeIDDisplay = !!challengeID ? `#${challengeID}` : "";
+      return (
+        <ChallengeResultsContain>
+          <ChallengeResults
+            headerText={`Challenge ${challengeIDDisplay} Results`}
+            styledHeaderComponent={StyledChallengeResultsHeader}
+            totalVotes={totalVotes!}
+            votesFor={votesFor!}
+            votesAgainst={votesAgainst!}
+            percentFor={percentFor!}
+            percentAgainst={percentAgainst!}
+            didChallengeSucceed={didChallengeSucceed!}
+          />
+        </ChallengeResultsContain>
+      );
+    }
+
+    return <></>;
   };
 }

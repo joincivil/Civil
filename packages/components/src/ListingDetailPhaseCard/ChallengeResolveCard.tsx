@@ -31,6 +31,7 @@ export const ChallengeResolveCard: React.StatelessComponent<
         <ChallengePhaseDetail
           challengeID={props.challengeID}
           challenger={props.challenger}
+          isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
         />
@@ -44,6 +45,7 @@ export const ChallengeResolveCard: React.StatelessComponent<
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
+          didChallengeSucceed={props.didChallengeSucceed}
         />
       </StyledListingDetailPhaseCardSection>
 
