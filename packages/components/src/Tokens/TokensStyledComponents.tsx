@@ -201,14 +201,15 @@ export const CloseBtn: StyledComponentClass<ButtonProps, "button"> = styled(Inve
   padding: 0;
   height: 40px;
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 50px;
+  top: 45px;
   width: 40px;
 
   svg path {
     transition: fill 0.2s ease;
   }
 
+  &:focus,
   &:hover {
     background-color: transparent;
 

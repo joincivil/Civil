@@ -57,6 +57,22 @@ export const WelcomeSlide = styled.div`
   }
 `;
 
+export const SlideProgress = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 30px;
+  width: 100%;
+
+  svg {
+    margin: 0 15px 0 0;
+
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+`;
+
 export const TutorialIntro = styled.div`
   font-family: ${fonts.SANS_SERIF};
   margin-bottom: 12px;

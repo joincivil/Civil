@@ -19,7 +19,7 @@ export const ModalWrapper = styled.div`
   overflow: auto;
   right: 0;
   top: 0;
-  z-index: 2;
+  z-index: ${(props: ModalWrapperProps) => (props.solidBackground ? "9999999" : "2")};
 `;
 
 export const ModalInner = styled.div`
