@@ -9,6 +9,7 @@ import {
   ArticleSignIcon,
   ArticleSignPanelIcon,
   BellIcon,
+  CivilTutorialIcon,
   ClockIcon,
   CloseXIcon,
   CommitVoteSuccessIcon,
@@ -28,7 +29,9 @@ import {
   RequestAppealSuccessIcon,
   RevealVoteSuccessIcon,
   SubmitChallengeSuccessIcon,
+  TokenWalletIcon,
   TwitterIcon,
+  VerifyIdentityIcon,
   WaitForApply,
   WarningIcon,
 } from "./index";
@@ -89,6 +92,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <BellIcon />
+      </Container>
+    );
+  })
+  .add("CivilTutorialIcon", () => {
+    return (
+      <Container>
+        <CivilTutorialIcon />
       </Container>
     );
   })
@@ -225,10 +235,24 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
+  .add("TokenWalletIcon", () => {
+    return (
+      <Container>
+        <TokenWalletIcon />
+      </Container>
+    );
+  })
   .add("TwitterIcon", () => {
     return (
       <Container>
         <TwitterIcon />
+      </Container>
+    );
+  })
+  .add("VerifyIdentityIcon", () => {
+    return (
+      <Container>
+        <VerifyIdentityIcon />
       </Container>
     );
   })

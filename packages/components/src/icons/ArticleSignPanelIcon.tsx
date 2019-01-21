@@ -3,17 +3,15 @@ import { colors } from "../styleConstants";
 
 export interface ArticleSignPanelProps {
   color?: string;
-  height?: number;
-  width?: number;
+  size?: number;
 }
 
 export const ArticleSignPanelIcon: React.SFC<ArticleSignPanelProps> = props => {
   const color = props.color || colors.primary.BLACK;
-  const width = (props.width || 20).toString();
-  const height = (props.height || 20).toString();
+  const size = (props.size || 20).toString();
 
   return (
-    <svg width={width} height={height} viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" fillRule="evenodd" opacity=".3">
         <path d="m0 0h20v20h-20z" />
         <g fill={color} fillRule="nonzero" transform="translate(1.667 1.667)">

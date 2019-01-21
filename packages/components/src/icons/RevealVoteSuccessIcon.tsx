@@ -2,11 +2,8 @@ import * as React from "react";
 import { colors } from "../styleConstants";
 
 export const RevealVoteSuccessIcon: React.SFC = props => {
-  const width = "100";
-  const height = "100";
-
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 100 100">
+    <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <circle fill={colors.accent.CIVIL_TEAL} fillRule="nonzero" cx="50" cy="50" r="50" />
         <path

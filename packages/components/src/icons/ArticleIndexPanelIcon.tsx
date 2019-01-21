@@ -1,19 +1,17 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export interface ArticleIndexPanelProps {
+export interface ArticleIndexPanelIconProps {
   color?: string;
-  height?: number;
-  width?: number;
+  size?: number;
 }
 
-export const ArticleIndexPanelIcon: React.SFC<ArticleIndexPanelProps> = props => {
+export const ArticleIndexPanelIcon: React.SFC<ArticleIndexPanelIconProps> = props => {
   const color = props.color || colors.primary.BLACK;
-  const width = (props.width || 18).toString();
-  const height = (props.height || 18).toString();
+  const size = (props.size || 18).toString();
 
   return (
-    <svg width={width} height={height} viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" fillRule="evenodd">
         <path d="m0 0h18v18h-18z" opacity=".3" />
         <g fill={color} fillOpacity=".5" fillRule="nonzero">

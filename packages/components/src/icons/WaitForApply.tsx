@@ -2,13 +2,13 @@ import * as React from "react";
 import { colors } from "../styleConstants";
 
 export interface WaitForApplyProps {
-  height?: number;
-  width?: number;
+  height?: string;
+  width?: string;
 }
 
 export const WaitForApply: React.SFC<WaitForApplyProps> = props => {
-  const width = (props.width || 54).toString();
-  const height = (props.height || 54).toString();
+  const width = props.width || "54";
+  const height = props.height || "54";
 
   return (
     <svg width={width} height={height} viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg">

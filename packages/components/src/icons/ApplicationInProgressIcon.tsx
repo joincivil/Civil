@@ -2,15 +2,14 @@ import * as React from "react";
 import { colors } from "../styleConstants";
 
 export interface ApplicationInProgressProps {
-  color?: string;
-  height?: number;
-  width?: number;
+  height?: string;
+  width?: string;
 }
 
 export const ApplicationInProgressIcon: React.SFC<ApplicationInProgressProps> = props => {
-  const color = props.color || colors.primary.CIVIL_GRAY_2;
-  const width = (props.width || 19).toString();
-  const height = (props.height || 18).toString();
+  const color = colors.primary.CIVIL_GRAY_2;
+  const width = props.width || "19";
+  const height = props.height || "18";
 
   return (
     <svg width={width} height={height} viewBox="0 0 19 18" xmlns="http://www.w3.org/2000/svg">

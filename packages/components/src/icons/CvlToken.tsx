@@ -1,19 +1,11 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export interface CvlTokenProps {
-  color?: string;
-  height?: number;
-  width?: number;
-}
-
-export const CvlToken: React.SFC<CvlTokenProps> = props => {
-  const color = props.color || colors.basic.WHITE;
-  const width = (props.width || 32).toString();
-  const height = (props.height || 33).toString();
+export const CvlToken: React.SFC = props => {
+  const color = colors.basic.WHITE;
 
   return (
-    <svg width={width} height={height} viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg">
+    <svg width="32" height="33" viewBox="0 0 32 33" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(1 1)" fill="none" fillRule="evenodd">
         <ellipse stroke={color} cx="17" cy="15.5" rx="13" ry="15.5" />
         <path
