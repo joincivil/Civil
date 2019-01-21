@@ -1,9 +1,17 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export const RegistryEmptyIcon: React.SFC = props => {
+export interface RegistryEmptyProps {
+  height?: number;
+  width?: number;
+}
+
+export const RegistryEmptyIcon: React.SFC<RegistryEmptyProps> = props => {
+  const width = (props.width || 350).toString();
+  const height = (props.height || 155).toString();
+
   return (
-    <svg width="350" height="155" viewBox="0 0 350 155" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} viewBox="0 0 350 155" xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <rect y="140" width="350" height="3" fill={colors.accent.CIVIL_GRAY_4} />
         <rect

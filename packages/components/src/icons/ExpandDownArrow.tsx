@@ -3,9 +3,9 @@ import { colors } from "../styleConstants";
 
 export interface ExpandDownArrowProps {
   color?: string;
-  width?: number;
   height?: number;
   opacity?: number;
+  width?: number;
 }
 
 export const ExpandDownArrow: React.SFC<ExpandDownArrowProps> = props => {

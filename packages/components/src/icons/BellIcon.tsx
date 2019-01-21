@@ -2,9 +2,9 @@ import * as React from "react";
 import { colors } from "../styleConstants";
 
 export interface BellIconProps {
+  color?: string;
   height?: number;
   width?: number;
-  color?: string;
 }
 
 export const BellIcon: React.SFC<BellIconProps> = props => {
