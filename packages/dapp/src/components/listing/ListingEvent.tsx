@@ -20,16 +20,10 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
 import { BigNumber } from "bignumber.js";
-import { connect } from "react-redux";
-import { State } from "../../redux/reducers";
 
 export interface ListingEventProps {
   event: any;
   listing: string;
-}
-
-export interface ListingEventReduxProps {
-  useGraphQL: boolean;
 }
 
 const challengeCompletedEventContainer = (WrappedComponent: React.StatelessComponent<ChallengeCompletedEventProps>) => {
@@ -38,30 +32,29 @@ const challengeCompletedEventContainer = (WrappedComponent: React.StatelessCompo
   )(WrappedComponent);
 };
 
-class ListingEvent extends React.Component<ListingEventProps & ListingEventReduxProps> {
+class ListingEvent extends React.Component<ListingEventProps> {
   constructor(props: any) {
     super(props);
   }
 
   public render(): JSX.Element | null {
-    const scale = this.props.useGraphQL ? 1000 : 1;
     const wrappedEvent = this.props.event;
 
     switch (wrappedEvent.event) {
       case "_AppealGranted":
-        return <AppealGrantedEvent timestamp={wrappedEvent.timestamp * scale} />;
+        return <AppealGrantedEvent timestamp={wrappedEvent.timestamp} />;
 
       case "_AppealRequested":
-        return <AppealRequestedEvent timestamp={wrappedEvent.timestamp * scale} />;
+        return <AppealRequestedEvent timestamp={wrappedEvent.timestamp} />;
 
       case "_Application":
         return this.renderApplicationEvent(wrappedEvent);
 
       case "_ApplicationRemoved":
-        return <RejectedEvent timestamp={wrappedEvent.timestamp * scale} />;
+        return <RejectedEvent timestamp={wrappedEvent.timestamp} />;
 
       case "_ApplicationWhitelisted":
-        return <WhitelistedEvent timestamp={wrappedEvent.timestamp * scale} />;
+        return <WhitelistedEvent timestamp={wrappedEvent.timestamp} />;
 
       case "_Challenge":
         return this.renderChallengeEvent(wrappedEvent);
@@ -76,16 +69,16 @@ class ListingEvent extends React.Component<ListingEventProps & ListingEventRedux
         return this.renderDepositEvent(wrappedEvent);
 
       case "_GrantedAppealChallenged":
-        return <GrantedAppealChallengedEvent timestamp={wrappedEvent.timestamp * scale} />;
+        return <GrantedAppealChallengedEvent timestamp={wrappedEvent.timestamp} />;
 
       case "_ListingRemoved":
-        return <RejectedEvent timestamp={wrappedEvent.timestamp * scale} />;
+        return <RejectedEvent timestamp={wrappedEvent.timestamp} />;
 
       case "_ListingWithdrawn":
-        return <ListingWithdrawnEvent timestamp={wrappedEvent.timestamp * scale} />;
+        return <ListingWithdrawnEvent timestamp={wrappedEvent.timestamp} />;
 
       case "_TouchAndRemoved":
-        return <TouchAndRemovedEvent timestamp={wrappedEvent.timestamp * scale} />;
+        return <TouchAndRemovedEvent timestamp={wrappedEvent.timestamp} />;
 
       case "_Withdrawal":
         return this.renderWithdrawalEvent(wrappedEvent);
@@ -96,36 +89,32 @@ class ListingEvent extends React.Component<ListingEventProps & ListingEventRedux
   }
 
   private renderWithdrawalEvent(wrappedEvent: any): JSX.Element {
-    const scale = this.props.useGraphQL ? 1000 : 1;
     const { withdrew } = wrappedEvent.args;
     const bnDeposit = new BigNumber(withdrew);
     const formattedDeposit = getFormattedTokenBalance(bnDeposit);
-    return <WithdrawalEvent timestamp={(wrappedEvent as any).timestamp * scale} deposit={formattedDeposit} />;
+    return <WithdrawalEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderDepositEvent(wrappedEvent: any): JSX.Element {
-    const scale = this.props.useGraphQL ? 1000 : 1;
     const { added } = wrappedEvent.args;
     const bnDeposit = new BigNumber(added);
     const formattedDeposit = getFormattedTokenBalance(bnDeposit);
-    return <DepositEvent timestamp={(wrappedEvent as any).timestamp * scale} deposit={formattedDeposit} />;
+    return <DepositEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderApplicationEvent(wrappedEvent: any): JSX.Element {
-    const scale = this.props.useGraphQL ? 1000 : 1;
     const { deposit } = wrappedEvent.args;
     const bnDeposit = new BigNumber(deposit);
     const formattedDeposit = getFormattedTokenBalance(bnDeposit);
-    return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp * scale} deposit={formattedDeposit} />;
+    return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderChallengeEvent(wrappedEvent: any): JSX.Element {
-    const scale = this.props.useGraphQL ? 1000 : 1;
     const { challengeID, challenger } = wrappedEvent.args;
     const challengeURI = `/listing/${this.props.listing}/challenge/${challengeID.toString()}`;
     return (
       <ChallengeEvent
-        timestamp={(wrappedEvent as any).timestamp * scale}
+        timestamp={(wrappedEvent as any).timestamp}
         challengeURI={challengeURI}
         challenger={challenger}
         challengeID={challengeID.toString()}
@@ -134,29 +123,20 @@ class ListingEvent extends React.Component<ListingEventProps & ListingEventRedux
   }
 
   private renderChallengeFailedEvent(wrappedEvent: any): JSX.Element {
-    const scale = this.props.useGraphQL ? 1000 : 1;
     const { challengeID } = wrappedEvent.args;
     const ChallengeFailedComponent = challengeCompletedEventContainer(
       ChallengeFailedEventComponent,
     ) as React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>;
 
-    return <ChallengeFailedComponent timestamp={wrappedEvent.timestamp * scale} challengeID={challengeID} />;
+    return <ChallengeFailedComponent timestamp={wrappedEvent.timestamp} challengeID={challengeID} />;
   }
 
   private renderChallengeSucceededEvent(wrappedEvent: any): JSX.Element {
-    const scale = this.props.useGraphQL ? 1000 : 1;
     const { challengeID } = wrappedEvent.args;
     const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
 
-    return <ChallengeSucceededComponent timestamp={wrappedEvent.timestamp * scale} challengeID={challengeID} />;
+    return <ChallengeSucceededComponent timestamp={wrappedEvent.timestamp} challengeID={challengeID} />;
   }
 }
 
-const mapToStateToProps = (state: State, ownProps: ListingEventProps): ListingEventProps & ListingEventReduxProps => {
-  return {
-    ...ownProps,
-    useGraphQL: state.useGraphQL,
-  };
-};
-
-export default connect(mapToStateToProps)(ListingEvent);
+export default ListingEvent;

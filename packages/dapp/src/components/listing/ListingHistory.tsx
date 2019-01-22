@@ -83,7 +83,7 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
     const date = new Date(event.creationDate).getTime() / 1000;
     return {
       event: "_" + event.governanceEventType,
-      timestamp: date,
+      timestamp: date * 1000,
       args,
     };
   };
