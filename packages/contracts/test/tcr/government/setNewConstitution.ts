@@ -4,7 +4,6 @@ import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
 const Government = artifacts.require("Government");
-const PLCRVoting = artifacts.require("PLCRVoting");
 
 utils.configureProviders(Government);
 configureChai(chai);
@@ -12,7 +11,7 @@ const expect = chai.expect;
 
 contract("Government", accounts => {
   describe("Function: proposeReparameterization", () => {
-    const [JAB, troll, nobody, voter] = accounts;
+    const [JAB, troll] = accounts;
     let registry: any;
     let government: any;
     beforeEach(async () => {
