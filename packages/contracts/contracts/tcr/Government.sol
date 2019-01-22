@@ -17,10 +17,7 @@ contract Government is IGovernment {
   event _ProposalPassed(bytes32 propId, uint pollID);
   event _ProposalExpired(bytes32 propId, uint pollID);
   event _ProposalFailed(bytes32 propId, uint pollID);
-  event _NewConstProposal(bytes32 proposedHash, string proposedURI, uint pollID);
-  event _NewConstProposalPassed(bytes32 constHash, string constURI);
-  event _NewConstProposalExpired(bytes32 constHash, string constURI);
-  event _NewConstProposalFailed(bytes32 constHash, string constURI);
+  event _NewConstSet(bytes32 proposedHash, string proposedURI);
 
   modifier onlyGovernmentController {
     require(msg.sender == governmentController, "Sender is not Government Controller");
@@ -41,20 +38,12 @@ contract Government is IGovernment {
     uint value;
   }
 
-  struct NewConstProposal {
-    uint pollID;
-    bytes32 newConstHash;
-    string newConstURI;
-    uint processBy;
-  }
-
   address public appellate;
   address public governmentController;
   bytes32 public constitutionHash;
   string public constitutionURI;
   mapping(bytes32 => uint) public params;
   mapping(bytes32 => GovtParamProposal) public proposals;
-  NewConstProposal activeConstProp;
 
   // Global Variables
   PLCRVoting public voting;
@@ -158,29 +147,14 @@ contract Government is IGovernment {
   }
 
     /**
-  @notice propose a new constitution to be voted on.
-  @param _newConstHash the hash of the proposed constitution
-  @param _newConstURI the URI of the proposed constitution
+  @notice set a new constitution
+  @param _newConstHash the hash of the new constitution
+  @param _newConstURI the URI of the new constitution
   */
-  function proposeNewConstitution(bytes32 _newConstHash, string _newConstURI) public onlyAppellate {
-    require(activeConstProp.processBy == 0, "New Constitution proposal already active"); // no active proposal
-    //start poll
-    uint pollID = voting.startPoll(
-      get("appealVotePercentage"),
-      get("govtPCommitStageLen"),
-      get("govtPRevealStageLen")
-    );
-    // attach name and value to pollID
-    activeConstProp = NewConstProposal({
-      pollID: pollID,
-      newConstHash: _newConstHash,
-      newConstURI: _newConstURI,
-      processBy: now.add(get("govtPCommitStageLen"))
-        .add(get("govtPRevealStageLen"))
-        .add(PROCESSBY)
-    });
-
-    emit _NewConstProposal(_newConstHash, _newConstURI, pollID);
+  function setNewConstitution(bytes32 _newConstHash, string _newConstURI) public onlyAppellate {
+    constitutionHash = _newConstHash;
+    constitutionURI = _newConstURI;
+    emit _NewConstSet(_newConstHash, _newConstURI);
   }
 
   /**
@@ -190,17 +164,6 @@ contract Government is IGovernment {
   function processProposal(bytes32 _propID) public {
     if (propCanBeResolved(_propID)) {
       resolveProposal(_propID);
-    } else {
-      revert();
-    }
-  }
-
-  /**
-  @notice try to process a constitution change proposal
-  */
-  function processConstChangeProp() public {
-    if (constChangePropCanBeResolved()) {
-      resolveConstChangeProp();
     } else {
       revert();
     }
@@ -234,25 +197,6 @@ contract Government is IGovernment {
     delete proposals[_propID];
   }
 
-
-  /**
-  @dev resolves a vote for a proposed constitution change
-  */
-  function resolveConstChangeProp() private {
-    if (voting.isPassed(activeConstProp.pollID)) { // The challenge failed
-      if (activeConstProp.processBy > now) {
-        constitutionHash = activeConstProp.newConstHash;
-        constitutionURI = activeConstProp.newConstURI;
-        emit _NewConstProposalPassed(activeConstProp.newConstHash, activeConstProp.newConstURI);
-      } else {
-        emit _NewConstProposalExpired(activeConstProp.newConstHash, activeConstProp.newConstURI);
-      }
-    } else { // The challenge succeeded or nobody voted
-      emit _NewConstProposalFailed(activeConstProp.newConstHash, activeConstProp.newConstURI);
-    }
-    delete activeConstProp;
-  }
-
   /**
   @notice Determines whether the provided proposal ID can be resolved
   @param _propID The ID of proposal to inspect
@@ -261,10 +205,6 @@ contract Government is IGovernment {
     GovtParamProposal memory prop = proposals[_propID];
 
     return (prop.pollID > 0 && voting.pollEnded(prop.pollID));
-  }
-
-  function constChangePropCanBeResolved() view public returns (bool) {
-    return (activeConstProp.pollID > 0 && voting.pollEnded(activeConstProp.pollID));
   }
 
   /**
