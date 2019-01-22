@@ -15,11 +15,9 @@ contract("Government", accounts => {
     const [JAB, troll, nobody, voter] = accounts;
     let registry: any;
     let government: any;
-    let voting: any;
     beforeEach(async () => {
       registry = await utils.createAllCivilTCRInstance(accounts, JAB);
       government = await Government.at(await registry.government());
-      voting = await PLCRVoting.at(await registry.voting());
     });
 
     it("should be possible for JAB to set new constitution value", async () => {
