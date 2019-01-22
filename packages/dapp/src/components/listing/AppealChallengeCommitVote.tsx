@@ -305,11 +305,12 @@ class AppealChallengeCommitVote extends React.Component<
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const saltStr = fetchSalt(this.props.challengeID, this.props.user);
+    const pollID = this.props.appealChallengeID ? this.props.appealChallengeID : this.props.challengeID;
+    const saltStr = fetchSalt(pollID, this.props.user);
     const salt: BigNumber = new BigNumber(saltStr as string);
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    saveVote(this.props.challengeID, this.props.user, voteOption);
-    return commitVote(this.props.challengeID, voteOption, salt, numTokens);
+    saveVote(pollID, this.props.user, voteOption);
+    return commitVote(pollID, voteOption, salt, numTokens);
   };
 }
 
