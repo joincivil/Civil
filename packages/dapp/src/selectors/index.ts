@@ -242,8 +242,12 @@ export const getUserChallengesWithUnclaimedRewards = createSelector(
     }
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
-        const { didUserReveal, didUserCollect, isVoterWinner } = challengeData!.get(user.account.account);
-        return !!didUserReveal && !!isVoterWinner && !didUserCollect;
+        try {
+          const { didUserReveal, didUserCollect, isVoterWinner } = challengeData!.get(user.account.account);
+          return !!didUserReveal && !!isVoterWinner && !didUserCollect;
+        } catch (ex) {
+          return false;
+        }
       })
       .keySeq()
       .toSet() as Set<string>;
@@ -279,15 +283,19 @@ export const makeGetUnclaimedRewardAmount = () => {
 export const getUserChallengesWithUnrevealedVotes = createSelector(
   [getChallenges, getChallengeUserData, getUser],
   (challenges, challengeUserData, user) => {
-    if (!challengeUserData || !user.account) {
+    if (!challengeUserData || !user || !user.account) {
       return;
     }
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
-        const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
-        const challenge = challenges.get(challengeID!);
-        const inRevealPhase = challenge && isChallengeInRevealStage(challenge.challenge);
-        return !!didUserCommit && !didUserReveal && inRevealPhase;
+        try {
+          const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
+          const challenge = challenges.get(challengeID!);
+          const inRevealPhase = challenge && isChallengeInRevealStage(challenge.challenge);
+          return !!didUserCommit && !didUserReveal && inRevealPhase;
+        } catch (ex) {
+          return false;
+        }
       })
       .keySeq()
       .toSet() as Set<string>;
@@ -297,15 +305,19 @@ export const getUserChallengesWithUnrevealedVotes = createSelector(
 export const getUserChallengesWithRescueTokens = createSelector(
   [getChallenges, getChallengeUserData, getUser],
   (challenges, challengeUserData, user) => {
-    if (!challengeUserData || !user.account) {
+    if (!challengeUserData || !user || !user.account) {
       return;
     }
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
-        const { didUserCommit, didUserReveal, didUserRescue } = challengeData!.get(user.account.account);
-        const challenge = challenges.get(challengeID!);
-        const isResolved = challenge && challenge.challenge.resolved;
-        return !!didUserCommit && !didUserReveal && isResolved && !didUserRescue;
+        try {
+          const { didUserCommit, didUserReveal, didUserRescue } = challengeData!.get(user.account.account);
+          const challenge = challenges.get(challengeID!);
+          const isResolved = challenge && challenge.challenge.resolved;
+          return !!didUserCommit && !didUserReveal && isResolved && !didUserRescue;
+        } catch (ex) {
+          return false;
+        }
       })
       .keySeq()
       .toSet() as Set<string>;
@@ -314,13 +326,17 @@ export const getUserChallengesWithRescueTokens = createSelector(
 
 export const getUserTotalClaimedRewards = createSelector([getChallengeUserData, getUser], (challengeUserData, user) => {
   const initTotal = new BigNumber(0);
-  if (!challengeUserData || !user.account) {
+  if (!challengeUserData || !user || !user.account) {
     return initTotal;
   }
   return challengeUserData
     .filter((challengeData, challengeID, iter): boolean => {
-      const { didUserCollect, didCollectAmount } = challengeData!.get(user.account.account);
-      return !!didUserCollect && !!didCollectAmount;
+      try {
+        const { didUserCollect, didCollectAmount } = challengeData!.get(user.account.account);
+        return !!didUserCollect && !!didCollectAmount;
+      } catch (ex) {
+        return false;
+      }
     })
     .map((challengeData, challengeID, iter): BigNumber => challengeData!.get(user.account.account).didCollectAmount!)
     .reduce((reduction, value, key, iter) => {
