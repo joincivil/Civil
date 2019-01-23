@@ -9,11 +9,15 @@ import {
   ArticleSignIcon,
   ArticleSignPanelIcon,
   BellIcon,
+  BookreaderIcon,
+  BrainIcon,
   CivilTutorialIcon,
   ClockIcon,
   CloseXIcon,
   CommitVoteSuccessIcon,
   CvlToken,
+  DisclosureArrowIcon,
+  ExamIcon,
   ExpandDownArrow,
   FacebookIcon,
   GreenCheckMark,
@@ -22,6 +26,7 @@ import {
   HollowRedNoGood,
   MetaMaskSideIcon,
   MetaMaskFrontIcon,
+  NetworkIcon,
   NorthEastArrow,
   OctopusErrorIcon,
   RegistryEmptyIcon,
@@ -30,6 +35,7 @@ import {
   RevealVoteSuccessIcon,
   SubmitChallengeSuccessIcon,
   TokenWalletIcon,
+  TrendsIcon,
   TwitterIcon,
   VerifyIdentityIcon,
   WaitForApply,
@@ -95,6 +101,20 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
+  .add("BookreaderIcon", () => {
+    return (
+      <Container>
+        <BookreaderIcon />
+      </Container>
+    );
+  })
+  .add("BrainIcon", () => {
+    return (
+      <Container>
+        <BrainIcon />
+      </Container>
+    );
+  })
   .add("CivilTutorialIcon", () => {
     return (
       <Container>
@@ -127,6 +147,20 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <CvlToken />
+      </Container>
+    );
+  })
+  .add("DisclosureArrowIcon", () => {
+    return (
+      <Container>
+        <DisclosureArrowIcon />
+      </Container>
+    );
+  })
+  .add("ExamIcon", () => {
+    return (
+      <Container>
+        <ExamIcon />
       </Container>
     );
   })
@@ -186,6 +220,13 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
+  .add("NetworkIcon", () => {
+    return (
+      <Container>
+        <NetworkIcon />
+      </Container>
+    );
+  })
   .add("NorthEastArrow", () => {
     return (
       <Container>
@@ -239,6 +280,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <TokenWalletIcon />
+      </Container>
+    );
+  })
+  .add("TrendsIcon", () => {
+    return (
+      <Container>
+        <TrendsIcon />
       </Container>
     );
   })
