@@ -8,10 +8,12 @@ import {
   ArticleIndexPanelIcon,
   ArticleSignIcon,
   ArticleSignPanelIcon,
-  CvlToken,
+  BellIcon,
+  CivilTutorialIcon,
   ClockIcon,
   CloseXIcon,
   CommitVoteSuccessIcon,
+  CvlToken,
   ExpandDownArrow,
   FacebookIcon,
   GreenCheckMark,
@@ -24,18 +26,20 @@ import {
   OctopusErrorIcon,
   RegistryEmptyIcon,
   RejectedNewsroomsIcon,
-  RevealVoteSuccessIcon,
   RequestAppealSuccessIcon,
+  RevealVoteSuccessIcon,
   SubmitChallengeSuccessIcon,
+  TokenWalletIcon,
   TwitterIcon,
-  WarningIcon,
+  VerifyIdentityIcon,
   WaitForApply,
+  WarningIcon,
 } from "./index";
 
 const StyledDiv = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 400px;
 `;
 
@@ -84,10 +88,17 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("CVLToken", () => {
+  .add("BellIcon", () => {
     return (
       <Container>
-        <CvlToken />
+        <BellIcon />
+      </Container>
+    );
+  })
+  .add("CivilTutorialIcon", () => {
+    return (
+      <Container>
+        <CivilTutorialIcon />
       </Container>
     );
   })
@@ -98,7 +109,7 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("CLoseXIcon", () => {
+  .add("CloseXIcon", () => {
     return (
       <Container>
         <CloseXIcon />
@@ -109,6 +120,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <CommitVoteSuccessIcon />
+      </Container>
+    );
+  })
+  .add("CVLToken", () => {
+    return (
+      <Container>
+        <CvlToken />
       </Container>
     );
   })
@@ -196,17 +214,17 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("RevealVoteSuccessIcon", () => {
-    return (
-      <Container>
-        <RevealVoteSuccessIcon />
-      </Container>
-    );
-  })
   .add("RequestAppealSuccessIcon", () => {
     return (
       <Container>
         <RequestAppealSuccessIcon />
+      </Container>
+    );
+  })
+  .add("RevealVoteSuccessIcon", () => {
+    return (
+      <Container>
+        <RevealVoteSuccessIcon />
       </Container>
     );
   })
@@ -217,6 +235,13 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
+  .add("TokenWalletIcon", () => {
+    return (
+      <Container>
+        <TokenWalletIcon />
+      </Container>
+    );
+  })
   .add("TwitterIcon", () => {
     return (
       <Container>
@@ -224,10 +249,10 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("WarningIcon", () => {
+  .add("VerifyIdentityIcon", () => {
     return (
       <Container>
-        <WarningIcon />
+        <VerifyIdentityIcon />
       </Container>
     );
   })
@@ -235,6 +260,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <WaitForApply />
+      </Container>
+    );
+  })
+  .add("WarningIcon", () => {
+    return (
+      <Container>
+        <WarningIcon />
       </Container>
     );
   });
