@@ -34,6 +34,7 @@ import { Government } from "./government";
 import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
 import { Voting } from "./voting";
+import { TxDataAll } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:tcr");
 
@@ -481,6 +482,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
 
   public getListing(listingAddress: EthAddress): Listing {
     return new Listing(this.ethApi, this.instance, listingAddress);
+  }
+
+  public async getRawGrantAppealTxData(listingAddress: EthAddress): Promise<TxDataAll> {
+    return this.instance.grantAppeal.getRaw(listingAddress, "", { gas: 0 });
   }
 
   /*

@@ -8,10 +8,16 @@ import {
   ArticleIndexPanelIcon,
   ArticleSignIcon,
   ArticleSignPanelIcon,
-  CvlToken,
+  BellIcon,
+  BookreaderIcon,
+  BrainIcon,
+  CivilTutorialIcon,
   ClockIcon,
   CloseXIcon,
   CommitVoteSuccessIcon,
+  CvlToken,
+  DisclosureArrowIcon,
+  ExamIcon,
   ExpandDownArrow,
   FacebookIcon,
   GreenCheckMark,
@@ -20,22 +26,26 @@ import {
   HollowRedNoGood,
   MetaMaskSideIcon,
   MetaMaskFrontIcon,
+  NetworkIcon,
   NorthEastArrow,
   OctopusErrorIcon,
   RegistryEmptyIcon,
   RejectedNewsroomsIcon,
-  RevealVoteSuccessIcon,
   RequestAppealSuccessIcon,
+  RevealVoteSuccessIcon,
   SubmitChallengeSuccessIcon,
+  TokenWalletIcon,
+  TrendsIcon,
   TwitterIcon,
-  WarningIcon,
+  VerifyIdentityIcon,
   WaitForApply,
+  WarningIcon,
 } from "./index";
 
 const StyledDiv = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 400px;
 `;
 
@@ -84,10 +94,31 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("CVLToken", () => {
+  .add("BellIcon", () => {
     return (
       <Container>
-        <CvlToken />
+        <BellIcon />
+      </Container>
+    );
+  })
+  .add("BookreaderIcon", () => {
+    return (
+      <Container>
+        <BookreaderIcon />
+      </Container>
+    );
+  })
+  .add("BrainIcon", () => {
+    return (
+      <Container>
+        <BrainIcon />
+      </Container>
+    );
+  })
+  .add("CivilTutorialIcon", () => {
+    return (
+      <Container>
+        <CivilTutorialIcon />
       </Container>
     );
   })
@@ -98,7 +129,7 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("CLoseXIcon", () => {
+  .add("CloseXIcon", () => {
     return (
       <Container>
         <CloseXIcon />
@@ -109,6 +140,27 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <CommitVoteSuccessIcon />
+      </Container>
+    );
+  })
+  .add("CVLToken", () => {
+    return (
+      <Container>
+        <CvlToken />
+      </Container>
+    );
+  })
+  .add("DisclosureArrowIcon", () => {
+    return (
+      <Container>
+        <DisclosureArrowIcon />
+      </Container>
+    );
+  })
+  .add("ExamIcon", () => {
+    return (
+      <Container>
+        <ExamIcon />
       </Container>
     );
   })
@@ -168,6 +220,13 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
+  .add("NetworkIcon", () => {
+    return (
+      <Container>
+        <NetworkIcon />
+      </Container>
+    );
+  })
   .add("NorthEastArrow", () => {
     return (
       <Container>
@@ -196,17 +255,17 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("RevealVoteSuccessIcon", () => {
-    return (
-      <Container>
-        <RevealVoteSuccessIcon />
-      </Container>
-    );
-  })
   .add("RequestAppealSuccessIcon", () => {
     return (
       <Container>
         <RequestAppealSuccessIcon />
+      </Container>
+    );
+  })
+  .add("RevealVoteSuccessIcon", () => {
+    return (
+      <Container>
+        <RevealVoteSuccessIcon />
       </Container>
     );
   })
@@ -217,6 +276,20 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
+  .add("TokenWalletIcon", () => {
+    return (
+      <Container>
+        <TokenWalletIcon />
+      </Container>
+    );
+  })
+  .add("TrendsIcon", () => {
+    return (
+      <Container>
+        <TrendsIcon />
+      </Container>
+    );
+  })
   .add("TwitterIcon", () => {
     return (
       <Container>
@@ -224,10 +297,10 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
-  .add("WarningIcon", () => {
+  .add("VerifyIdentityIcon", () => {
     return (
       <Container>
-        <WarningIcon />
+        <VerifyIdentityIcon />
       </Container>
     );
   })
@@ -235,6 +308,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <WaitForApply />
+      </Container>
+    );
+  })
+  .add("WarningIcon", () => {
+    return (
+      <Container>
+        <WarningIcon />
       </Container>
     );
   });

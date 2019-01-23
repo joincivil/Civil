@@ -7,7 +7,7 @@ export const UserTokenAccountBuy: React.StatelessComponent = props => {
     <>
       <TokenBuySection>
         <TokenBuyText />
-        <TokenBtns>
+        <TokenBtns disabled={true}>
           <TokenBuyBtnText />
         </TokenBtns>
       </TokenBuySection>

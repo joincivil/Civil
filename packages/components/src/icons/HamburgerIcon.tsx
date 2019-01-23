@@ -13,7 +13,7 @@ export const HamburgerIcon: React.SFC<HamburgerIconProps> = props => {
   const height = (props.height || 42).toString();
 
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
+    <svg width={width} height={height} viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
       <path fill={color} fillRule="evenodd" d="M12 26h18v-2H12v2zm0-8h18v-2H12v2z" />
     </svg>
   );

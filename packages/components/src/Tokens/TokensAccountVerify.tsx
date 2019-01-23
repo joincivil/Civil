@@ -1,46 +1,56 @@
 import * as React from "react";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
-import { TokenBtns, TokenRequirementIcon, TokenAccountSectionHeader } from "./TokensStyledComponents";
-import {
-  TokenVerifySectionHeaderText,
-  TokenVerifySectionInfoText,
-  TokenQuizHeaderText,
-  TokenQuizInfoText,
-  TokenQuizBtnText,
-  TokenVerifyHeaderText,
-  TokenVerifyInfoText,
-  TokenVerifyBtnText,
-} from "./TokensTextComponents";
-import { VerifyIdentityIcon } from "../icons/VerifyIdentityIcon";
+import { TokenBtns, TokenRequirementIcon, TokenAccountSectionHeader, CloseBtn } from "./TokensStyledComponents";
+import { TokenVerifySectionText, TokenQuizSectionText, TokenQuizBtnText } from "./TokensTextComponents";
 import { CivilTutorialIcon } from "../icons/CivilTutorialIcon";
+import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
+import { TokenTutorial } from "../TokenTutorial";
+import { colors } from "../styleConstants";
+import { CloseXIcon } from "../icons";
 
-export const UserTokenAccountVerify: React.StatelessComponent = props => {
+export interface TokenAccountVerify extends FullScreenModalProps {
+  step?: string;
+  handleClose(): void;
+  handleOpen(): void;
+}
+
+export const UserTokenAccountVerify: React.StatelessComponent<TokenAccountVerify> = props => {
+  let quizSection;
+  if (props.step === "disabled") {
+    quizSection = (
+      <UserTokenAccountRequirement step={props.step}>
+        <TokenRequirementIcon step={props.step}>
+          <CivilTutorialIcon color={colors.accent.CIVIL_GRAY_3} />
+        </TokenRequirementIcon>
+        <TokenQuizSectionText />
+      </UserTokenAccountRequirement>
+    );
+  } else {
+    quizSection = (
+      <UserTokenAccountRequirement step={props.step}>
+        <TokenRequirementIcon step={props.step}>
+          <CivilTutorialIcon />
+        </TokenRequirementIcon>
+        <TokenQuizSectionText />
+        <TokenBtns onClick={props.handleOpen}>
+          <TokenQuizBtnText />
+        </TokenBtns>
+        <FullScreenModal open={props.open || false} solidBackground={true}>
+          <CloseBtn onClick={props.handleClose}>
+            <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
+          </CloseBtn>
+          <TokenTutorial />
+        </FullScreenModal>
+      </UserTokenAccountRequirement>
+    );
+  }
+
   return (
     <>
       <TokenAccountSectionHeader>
-        <TokenVerifySectionHeaderText />
-        <TokenVerifySectionInfoText />
+        <TokenVerifySectionText />
       </TokenAccountSectionHeader>
-      <UserTokenAccountRequirement>
-        <TokenRequirementIcon>
-          <CivilTutorialIcon />
-        </TokenRequirementIcon>
-        <TokenQuizHeaderText />
-        <TokenQuizInfoText />
-        <TokenBtns>
-          <TokenQuizBtnText />
-        </TokenBtns>
-      </UserTokenAccountRequirement>
-      <UserTokenAccountRequirement>
-        <TokenRequirementIcon>
-          <VerifyIdentityIcon />
-        </TokenRequirementIcon>
-        <TokenVerifyHeaderText />
-        <TokenVerifyInfoText />
-        <TokenBtns>
-          <TokenVerifyBtnText />
-        </TokenBtns>
-      </UserTokenAccountRequirement>
+      {quizSection}
     </>
   );
 };

@@ -308,7 +308,7 @@ const mapStateToProps = (
   if (parameters && Object.keys(parameters).length) {
     challengeAppealCommitLen = getFormattedParameterValue(
       Parameters.challengeAppealCommitLen,
-      civil.toBigNumber(parameters[challengeAppealCommitLen]),
+      civil.toBigNumber(parameters[Parameters.challengeAppealCommitLen]),
     );
     challengeAppealRevealLen = getFormattedParameterValue(
       Parameters.challengeAppealRevealLen,
@@ -318,18 +318,18 @@ const mapStateToProps = (
   if (govtParameters && Object.keys(govtParameters).length) {
     appealFee = getFormattedParameterValue(
       GovernmentParameters.appealFee,
-      civil.toBigNumber(parameters[GovernmentParameters.appealFee]),
+      civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]),
     );
     appealVotePercentage = getFormattedParameterValue(
       GovernmentParameters.appealVotePercentage,
-      civil.toBigNumber(parameters[GovernmentParameters.appealVotePercentage]),
+      civil.toBigNumber(govtParameters[GovernmentParameters.appealVotePercentage]),
     );
   }
   let balance;
   let isInsufficientBalance = false;
   if (user) {
     balance = civil.toBigNumber(user.account.balance);
-    isInsufficientBalance = balance.lt(civil.toBigNumber(parameters[GovernmentParameters.appealFee]));
+    isInsufficientBalance = balance.lt(civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]));
   }
 
   return {

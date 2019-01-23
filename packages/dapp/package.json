@@ -15,7 +15,6 @@
     "@types/redux": "^3.6.0",
     "@types/sanitize-html": "^1.14.0",
     "@types/storejs": "^2.0.2",
-    "apollo-boost": "^0.1.16",
     "bignumber.js": "~5.0.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",

@@ -52,12 +52,12 @@ class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokens
   }
 
   private approveDeposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return approve(numTokens, this.props.listing.data.owner);
   };
 
   private deposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return depositTokens(this.props.listingAddress, numTokens, this.props.listing.data.owner);
   };
 
@@ -109,7 +109,7 @@ class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawToke
   // };
 
   private withdraw = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return withdrawTokens(this.props.listingAddress, numTokens, this.props.listing.data.owner);
   };
 
