@@ -81,10 +81,13 @@ export const TransactionButtonText: React.SFC = props => {
 export const SaltPhraseToolTipText: React.SFC = props => {
   return (
     <>
-      <p>You were given a four word secret phrase when you committed your vote earlier. Please reenter it here.</p>
       <p>
-        Note that you may have saved your secret phrase in your calendar event or written down for safekeeping. If you
-        lose your secret phrase, your vote is lost. Unfortunately, we can not recover it for you.
+        Your vote will be hidden, using this secret phrase. You will need to enter this secret phrase when you confirm
+        your vote during the reveal phase of this challenge.
+      </p>
+      <p>
+        Be sure to record your secret phrase for safekeeping. If you lose your secret phrase, your vote is lost.
+        Unfortunately, we can not recover it for you.
       </p>
     </>
   );

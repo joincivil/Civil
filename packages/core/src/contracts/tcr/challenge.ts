@@ -35,7 +35,7 @@ export class Challenge {
     if (!listingAddress) {
       listingAddress = await this.getListingIdForChallenge();
     }
-    const appealInstance = new Appeal(this.ethApi, this.tcrInstance, this.challengeId, listingAddress);
+    const appealInstance = new Appeal(this.ethApi, this.tcrInstance, this.challengeId);
     const appeal = await appealInstance.getAppealData();
 
     return {

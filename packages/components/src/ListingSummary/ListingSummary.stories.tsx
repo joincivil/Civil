@@ -17,6 +17,7 @@ const votesFor = "73000";
 const votesAgainst = "27000";
 const percentFor = "73";
 const percentAgainst = "27";
+const didChallengeSucceed = false;
 
 const newsroomData: ListingSummaryComponentProps[] = [
   {
@@ -100,10 +101,11 @@ storiesOf("Listing Summary", module)
           <ListingSummaryRejectedComponent
             {...newsroom}
             totalVotes={totalVotes}
-            votesFor={votesFor}
-            votesAgainst={votesAgainst}
-            percentFor={percentFor}
-            percentAgainst={percentAgainst}
+            votesFor={votesAgainst}
+            votesAgainst={votesFor}
+            percentFor={percentAgainst}
+            percentAgainst={percentFor}
+            didChallengeSucceed={!didChallengeSucceed}
           />
         )}
       </Container>

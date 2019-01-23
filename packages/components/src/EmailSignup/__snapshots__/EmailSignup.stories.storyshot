@@ -4,17 +4,17 @@ exports[`Storyshots Email Signup Component Email Signup 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hAnkBK bhEUof",
+      "class": "sc-bJTOcE gpygtd",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-iIHjhz jvDxng",
+          "class": "sc-dKEPtC jPRqKk",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-jHZirH hCDQBe",
+              "class": "sc-dBAPYN iieHsm",
             },
             "children": Array [
               Object {
@@ -314,7 +314,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-isBZXS cAdBFu",
+                "class": "sc-dvpmds kJgiTk",
               },
               "children": Array [
                 Object {
@@ -574,7 +574,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-isBZXS cAdBFu",
+                    "class": "sc-dvpmds kJgiTk",
                   },
                   "children": Array [
                     Object {
@@ -706,7 +706,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-isBZXS cAdBFu",
+              "class": "sc-dvpmds kJgiTk",
             },
             "children": Array [
               Object {
@@ -966,7 +966,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-isBZXS cAdBFu",
+                  "class": "sc-dvpmds kJgiTk",
                 },
                 "children": Array [
                   Object {
@@ -1079,7 +1079,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jHZirH hCDQBe",
+                "class": "sc-dBAPYN iieHsm",
               },
               "children": Array [
                 Object {
@@ -1643,7 +1643,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-isBZXS cAdBFu",
+                "class": "sc-dvpmds kJgiTk",
               },
               "children": Array [
                 Object {
@@ -1746,7 +1746,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-isBZXS cAdBFu",
+                "class": "sc-dvpmds kJgiTk",
               },
               "children": Array [
                 Object {
@@ -1763,7 +1763,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jHZirH hCDQBe",
+                  "class": "sc-dBAPYN iieHsm",
                 },
                 "children": Array [
                   Object {
@@ -2090,7 +2090,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-isBZXS cAdBFu",
+              "class": "sc-dvpmds kJgiTk",
             },
             "children": Array [
               Object {
@@ -2430,7 +2430,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-isBZXS cAdBFu",
+                  "class": "sc-dvpmds kJgiTk",
                 },
                 "children": Array [
                   Object {
@@ -2447,7 +2447,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jHZirH hCDQBe",
+                    "class": "sc-dBAPYN iieHsm",
                   },
                   "children": Array [
                     Object {

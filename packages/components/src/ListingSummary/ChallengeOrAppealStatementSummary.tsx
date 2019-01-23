@@ -3,18 +3,26 @@ import { ChallengeOrAppealStatementSummaryProps } from "./types";
 import { StyledListingChallengeOrAppealStatement } from "./styledComponents";
 
 const ChallengeOrAppealStatementSummary: React.SFC<ChallengeOrAppealStatementSummaryProps> = props => {
-  const { challengeID, challengeStatementSummary } = props;
-  if (!challengeID || !challengeStatementSummary) {
-    return null;
+  const { challengeID, challengeStatementSummary, appealStatementSummary } = props;
+  if (challengeStatementSummary) {
+    const challengeIDDisplay = challengeID ? `#${challengeID}` : "";
+    return (
+      <StyledListingChallengeOrAppealStatement>
+        <b>Challenge {challengeIDDisplay} Summary</b>
+        <br />
+        {challengeStatementSummary}
+      </StyledListingChallengeOrAppealStatement>
+    );
+  } else if (appealStatementSummary) {
+    return (
+      <StyledListingChallengeOrAppealStatement>
+        <b>Appeal Summary</b>
+        <br />
+        {appealStatementSummary}
+      </StyledListingChallengeOrAppealStatement>
+    );
   }
-
-  return (
-    <StyledListingChallengeOrAppealStatement>
-      <b>Challenge #{challengeID} Summary</b>
-      <br />
-      {challengeStatementSummary}
-    </StyledListingChallengeOrAppealStatement>
-  );
+  return null;
 };
 
 export default ChallengeOrAppealStatementSummary;

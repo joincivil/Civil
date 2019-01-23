@@ -8,6 +8,7 @@ import {
   VotesPerTokenContainer,
   VotesPerTokenCount,
   VotesPerTokenTotal,
+  StyledExplainerText,
 } from "./styledComponents";
 import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
 import { VoteTypeSummaryRow } from "./VoteTypeSummaryRow";
@@ -23,13 +24,37 @@ const StyledInner = styled.div`
   padding-top: 14px;
 `;
 
+const ExplainerText: React.SFC<ChallengeResultsProps> = props => {
+  let explainerText;
+
+  if (props.didChallengeSucceed) {
+    if (props.isAppealChallenge) {
+      explainerText = "This granted appeal has been overturned by the Civil Community.";
+    } else {
+      explainerText =
+        "This newsroom has been rejected by the Civil Community, on the grounds that it is in violation of the Civil Constitution.";
+    }
+  } else {
+    if (props.isAppealChallenge) {
+      explainerText = "This granted appeal has been upheld by the Civil Community.";
+    } else {
+      explainerText =
+        "This newsroom has been accepted by the Civil Community, on the grounds that it adheres to the Civil Constitution.";
+    }
+  }
+  return <StyledExplainerText>{explainerText}</StyledExplainerText>;
+};
+
 const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = props => {
   const Header = props.styledHeaderComponent || DefaultHeader;
   const defaultHeaderText = props.challengeID ? `Challenge ${props.challengeID} Results` : "Challenge Results";
+  const explainerText = !props.noExplainerText && <ExplainerText {...props} />;
   return (
     <>
       {!props.noHeader && <Header>{props.headerText || defaultHeaderText}</Header>}
       {props.noHeader && <StyledInner />}
+
+      {explainerText}
 
       <VoteTypeSummaryContainer>
         <VoteTypeSummaryRow

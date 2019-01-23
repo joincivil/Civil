@@ -4,7 +4,7 @@ exports[`Storyshots Buttons Button 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cNnxps faijaq",
+      "class": "sc-imDfJI gisBQL",
     },
     "children": Array [
       Object {
@@ -776,7 +776,7 @@ exports[`Storyshots Buttons DarkButton 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cNnxps faijaq",
+      "class": "sc-imDfJI gisBQL",
     },
     "children": Array [
       Object {
@@ -851,7 +851,7 @@ exports[`Storyshots Buttons InvertedButton 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cNnxps faijaq",
+      "class": "sc-imDfJI gisBQL",
     },
     "children": Array [
       Object {
@@ -926,7 +926,7 @@ exports[`Storyshots Buttons SecondaryButton 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cNnxps faijaq",
+      "class": "sc-imDfJI gisBQL",
     },
     "children": Array [
       Object {
@@ -1001,7 +1001,7 @@ exports[`Storyshots Buttons sizes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cNnxps faijaq",
+      "class": "sc-imDfJI gisBQL",
     },
     "children": Array [
       Object {

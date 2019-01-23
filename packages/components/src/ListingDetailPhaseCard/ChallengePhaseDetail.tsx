@@ -1,6 +1,7 @@
 import * as React from "react";
+import { getFormattedEthAddress } from "@joincivil/utils";
 import { ChallengePhaseProps } from "./types";
-import { MetaRow, MetaItem, MetaItemValue, MetaItemValueLong, MetaItemLabel } from "./styledComponents";
+import { MetaRow, MetaItem, MetaItemValue, MetaItemValueEthAddress, MetaItemLabel } from "./styledComponents";
 import { RewardPoolToolTipText, DepositsToolTipText } from "./textComponents";
 import { QuestionToolTip } from "../QuestionToolTip";
 
@@ -10,7 +11,7 @@ export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps>
       <MetaRow>
         <MetaItem>
           <MetaItemLabel>{props.isViewingUserChallenger ? "You are the challenger" : "Challenger"}</MetaItemLabel>
-          <MetaItemValueLong>{props.challenger}</MetaItemValueLong>
+          <MetaItemValueEthAddress>{getFormattedEthAddress(props.challenger)}</MetaItemValueEthAddress>
         </MetaItem>
       </MetaRow>
       <MetaRow>

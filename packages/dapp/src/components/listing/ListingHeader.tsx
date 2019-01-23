@@ -28,7 +28,7 @@ function getRegistryURLData(listingPhaseState: any): [string, string] {
   ) {
     urlArg = "in-progress/under-challenge";
     label = "Newsrooms Under Challenge";
-  } else if (listingPhaseState.isAwaitingAppealJudgment || listingPhaseState.isAwaitingAppealChallenge) {
+  } else if (listingPhaseState.isAwaitingAppealJudgement || listingPhaseState.isAwaitingAppealChallenge) {
     urlArg = "in-progress/under-appeal";
     label = "Newsrooms Under Appeal";
   } else if (listingPhaseState.isInAppealChallengeRevealPhase || listingPhaseState.isInAppealChallengeCommitPhase) {

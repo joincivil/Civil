@@ -242,8 +242,12 @@ export const getUserChallengesWithUnclaimedRewards = createSelector(
     }
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
-        const { didUserReveal, didUserCollect, isVoterWinner } = challengeData!.get(user.account.account);
-        return !!didUserReveal && !!isVoterWinner && !didUserCollect;
+        try {
+          const { didUserReveal, didUserCollect, isVoterWinner } = challengeData!.get(user.account.account);
+          return !!didUserReveal && !!isVoterWinner && !didUserCollect;
+        } catch (ex) {
+          return false;
+        }
       })
       .keySeq()
       .toSet() as Set<string>;
@@ -279,15 +283,19 @@ export const makeGetUnclaimedRewardAmount = () => {
 export const getUserChallengesWithUnrevealedVotes = createSelector(
   [getChallenges, getChallengeUserData, getUser],
   (challenges, challengeUserData, user) => {
-    if (!challengeUserData || !user.account) {
+    if (!challengeUserData || !user || !user.account) {
       return;
     }
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
-        const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
-        const challenge = challenges.get(challengeID!);
-        const inRevealPhase = challenge && isChallengeInRevealStage(challenge.challenge);
-        return !!didUserCommit && !didUserReveal && inRevealPhase;
+        try {
+          const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
+          const challenge = challenges.get(challengeID!);
+          const inRevealPhase = challenge && isChallengeInRevealStage(challenge.challenge);
+          return !!didUserCommit && !didUserReveal && inRevealPhase;
+        } catch (ex) {
+          return false;
+        }
       })
       .keySeq()
       .toSet() as Set<string>;
@@ -297,15 +305,19 @@ export const getUserChallengesWithUnrevealedVotes = createSelector(
 export const getUserChallengesWithRescueTokens = createSelector(
   [getChallenges, getChallengeUserData, getUser],
   (challenges, challengeUserData, user) => {
-    if (!challengeUserData || !user.account) {
+    if (!challengeUserData || !user || !user.account) {
       return;
     }
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
-        const { didUserCommit, didUserReveal, didUserRescue } = challengeData!.get(user.account.account);
-        const challenge = challenges.get(challengeID!);
-        const isResolved = challenge && challenge.challenge.resolved;
-        return !!didUserCommit && !didUserReveal && isResolved && !didUserRescue;
+        try {
+          const { didUserCommit, didUserReveal, didUserRescue } = challengeData!.get(user.account.account);
+          const challenge = challenges.get(challengeID!);
+          const isResolved = challenge && challenge.challenge.resolved;
+          return !!didUserCommit && !didUserReveal && isResolved && !didUserRescue;
+        } catch (ex) {
+          return false;
+        }
       })
       .keySeq()
       .toSet() as Set<string>;
@@ -314,13 +326,17 @@ export const getUserChallengesWithRescueTokens = createSelector(
 
 export const getUserTotalClaimedRewards = createSelector([getChallengeUserData, getUser], (challengeUserData, user) => {
   const initTotal = new BigNumber(0);
-  if (!challengeUserData || !user.account) {
+  if (!challengeUserData || !user || !user.account) {
     return initTotal;
   }
   return challengeUserData
     .filter((challengeData, challengeID, iter): boolean => {
-      const { didUserCollect, didCollectAmount } = challengeData!.get(user.account.account);
-      return !!didUserCollect && !!didCollectAmount;
+      try {
+        const { didUserCollect, didCollectAmount } = challengeData!.get(user.account.account);
+        return !!didUserCollect && !!didCollectAmount;
+      } catch (ex) {
+        return false;
+      }
     })
     .map((challengeData, challengeID, iter): BigNumber => challengeData!.get(user.account.account).didCollectAmount!)
     .reduce((reduction, value, key, iter) => {
@@ -434,7 +450,7 @@ export const getChallengeState = (challengeData: WrappedChallengeData) => {
   const inCommitPhase = challenge && isChallengeInCommitStage(challenge);
   const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
   const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
-  const isAwaitingAppealJudgment = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
+  const isAwaitingAppealJudgement = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
   const canAppealBeResolved = challenge && challenge.appeal && getCanAppealBeResolved(challenge.appeal);
   const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
   const didChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
@@ -444,7 +460,7 @@ export const getChallengeState = (challengeData: WrappedChallengeData) => {
     inCommitPhase,
     inRevealPhase,
     canResolveChallenge,
-    isAwaitingAppealJudgment,
+    isAwaitingAppealJudgement,
     isAwaitingAppealChallenge,
     canAppealBeResolved,
     didChallengeSucceed,
@@ -458,7 +474,7 @@ export const makeGetAppealChallengeState = () => {
     const inCommitPhase = challenge && isChallengeInCommitStage(challenge);
     const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
     const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
-    const isAwaitingAppealJudgment = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
+    const isAwaitingAppealJudgement = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
     const canAppealBeResolved = challenge && challenge.appeal && getCanAppealBeResolved(challenge.appeal);
     const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
     const didChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
@@ -468,7 +484,7 @@ export const makeGetAppealChallengeState = () => {
       inCommitPhase,
       inRevealPhase,
       canResolveChallenge,
-      isAwaitingAppealJudgment,
+      isAwaitingAppealJudgement,
       isAwaitingAppealChallenge,
       canAppealBeResolved,
       didChallengeSucceed,
@@ -514,7 +530,7 @@ export const getListingPhaseState = (listing?: ListingWrapper) => {
   const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
   const didListingChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
 
-  const isAwaitingAppealJudgment = getIsListingAwaitingAppealJudgement(listingData);
+  const isAwaitingAppealJudgement = getIsListingAwaitingAppealJudgement(listingData);
   const canListingAppealBeResolved = appeal && getCanAppealBeResolved(appeal);
 
   const isAwaitingAppealChallenge = getIsListingAwaitingAppealChallenge(listingData);
@@ -538,7 +554,7 @@ export const getListingPhaseState = (listing?: ListingWrapper) => {
     isUnderChallenge,
     isRejected,
     didListingChallengeSucceed,
-    isAwaitingAppealJudgment,
+    isAwaitingAppealJudgement,
     isAwaitingAppealChallenge,
     canListingAppealBeResolved,
     isInAppealChallengeCommitPhase,

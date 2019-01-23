@@ -72,6 +72,8 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
       .mul(100)
       .toFixed(0);
 
+    const didChallengeSucceed = challenge.poll.votesAgainst.greaterThan(challenge.poll.votesFor);
+
     const appealChallengeTotalVotes = this.props.appealChallenge.poll.votesAgainst.add(
       this.props.appealChallenge.poll.votesFor,
     );
@@ -85,6 +87,11 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
       .div(appealChallengeTotalVotes)
       .mul(100)
       .toFixed(0);
+
+    const didAppealChallengeSucceed = this.props.appealChallenge.poll.votesAgainst.greaterThan(
+      this.props.appealChallenge.poll.votesFor,
+    );
+
     const challenger = challenge.challenger.toString();
     const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
     const stake = getFormattedTokenBalance(challenge.stake);
@@ -96,6 +103,7 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
         <AppealChallengeResolveCard
           challengeID={this.props.challengeID.toString()}
           challenger={challenger}
+          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
           rewardPool={rewardPool}
           stake={stake}
           appealChallengeID={this.props.appealChallengeID.toString()}
@@ -106,11 +114,13 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
           votesAgainst={votesAgainst}
           percentFor={percentFor.toString()}
           percentAgainst={percentAgainst.toString()}
+          didChallengeSucceed={didChallengeSucceed}
           appealChallengeTotalVotes={getFormattedTokenBalance(appealChallengeTotalVotes)}
           appealChallengeVotesFor={appealChallengeVotesFor}
           appealChallengeVotesAgainst={appealChallengeVotesAgainst}
           appealChallengePercentFor={appealChallengePercentFor.toString()}
           appealChallengePercentAgainst={appealChallengePercentAgainst.toString()}
+          didAppealChallengeSucceed={didAppealChallengeSucceed}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>
