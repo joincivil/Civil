@@ -1,33 +1,24 @@
 import * as React from "react";
-import {
-  TutorialTopicTitle,
-  TutorialFooter,
-  TutorialBtn,
-  TutorialInvertedBtn,
-  TutorialTopProgress,
-  TutorialTopProgressBar,
-} from "./TutorialStyledComponents";
-import { SkipToQuizBtnText, LetsGoBtnText } from "./TutorialTextComponents";
+import { TutorialTopicTitle, TutorialTopicInfo, TutorialInvertedBtn } from "./TutorialStyledComponents";
+import { SkipToQuizBtnText } from "./TutorialTextComponents";
+import { TutorialFooter } from "./TutorialFooter";
+import { TutorialProgress } from "./TutorialProgress";
 
-export interface TutorialTopicIntroPropps {
-  tutorialTopicTitle?: string;
+export interface TutorialTopicIntroProps {
+  headerText?: string | JSX.Element;
+  infoText?: string | JSX.Element;
 }
 
-export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroPropps> = props => {
+export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProps> = props => {
   return (
     <>
-      <TutorialTopProgress>
-        <TutorialTopProgressBar />
-      </TutorialTopProgress>
-      <TutorialTopicTitle>{props.tutorialTopicTitle}</TutorialTopicTitle>
+      <TutorialProgress />
+      <TutorialTopicTitle>{props.headerText}</TutorialTopicTitle>
+      <TutorialTopicInfo>{props.infoText}</TutorialTopicInfo>
       <TutorialInvertedBtn>
         <SkipToQuizBtnText />
       </TutorialInvertedBtn>
-      <TutorialFooter>
-        <TutorialBtn>
-          <LetsGoBtnText />
-        </TutorialBtn>
-      </TutorialFooter>
+      <TutorialFooter />
     </>
   );
 };
