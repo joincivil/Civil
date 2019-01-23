@@ -13,6 +13,7 @@ import {
   transformGraphQLDataIntoListing,
   transformGraphQLDataIntoNewsroom,
 } from "../../helpers/queryTransformations";
+import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import { NewsroomListing } from "@joincivil/core";
 
 export interface RejectedListingsListContainerReduxProps {
@@ -33,10 +34,10 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
         <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true }} pollInterval={30000}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
-              return <></>;
+              return <>Loading ...</>;
             }
             if (error) {
-              return <p>Error :</p>;
+              return <ErrorLoadingDataMsg />;
             }
             const map = Set<NewsroomListing>(
               data.listings.map((listing: any) => {

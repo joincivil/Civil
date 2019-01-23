@@ -4,7 +4,7 @@ exports[`Storyshots Collapsable closed 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hAnkBK fdBudr",
+      "class": "sc-glUWqk jEhZQb",
     },
     "children": Array [
       Object {
@@ -435,7 +435,7 @@ exports[`Storyshots Collapsable disabled 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hAnkBK fdBudr",
+      "class": "sc-glUWqk jEhZQb",
     },
     "children": Array [
       Object {
@@ -884,7 +884,7 @@ exports[`Storyshots Collapsable open 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hAnkBK fdBudr",
+      "class": "sc-glUWqk jEhZQb",
     },
     "children": Array [
       Object {
@@ -1339,7 +1339,7 @@ exports[`Storyshots Collapsable with custom arrow 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hAnkBK fdBudr",
+      "class": "sc-glUWqk jEhZQb",
     },
     "children": Array [
       Object {
@@ -1354,7 +1354,7 @@ initialize {
                 "data": "Hello ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bTiqRo dTmoSa",
+                    "class": "sc-gjAXCV cmHEtC",
                   },
                   "children": Array [],
                   "name": "div",
@@ -1376,7 +1376,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bTiqRo dTmoSa",
+                  "class": "sc-gjAXCV cmHEtC",
                 },
                 "children": Array [],
                 "name": "div",
@@ -1489,7 +1489,7 @@ initialize {
                   "data": "Hello ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bTiqRo dTmoSa",
+                      "class": "sc-gjAXCV cmHEtC",
                     },
                     "children": Array [],
                     "name": "div",
@@ -1511,7 +1511,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-bTiqRo dTmoSa",
+                    "class": "sc-gjAXCV cmHEtC",
                   },
                   "children": Array [],
                   "name": "div",
@@ -1608,7 +1608,7 @@ exports[`Storyshots Collapsable with open text 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hAnkBK fdBudr",
+      "class": "sc-glUWqk jEhZQb",
     },
     "children": Array [
       Object {

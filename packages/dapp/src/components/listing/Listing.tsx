@@ -11,6 +11,9 @@ import {
   transformGraphQLDataIntoListing,
 } from "../../helpers/queryTransformations";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
+import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
+import LoadingMsg from "../utility/LoadingMsg";
+import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
 import ListingReduxContainer from "./ListingReduxContainer";
 import ListingRedux from "./ListingRedux";
@@ -37,13 +40,13 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
         <Query query={LISTING_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading) {
-              return <p />;
+              return <LoadingMsg />;
             }
             if (error) {
-              return <p>Error :</p>;
+              return <ErrorLoadingDataMsg />;
             }
             if (!data.listing) {
-              return <p>Error: Listing data not found</p>;
+              return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
             }
             const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
             const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
