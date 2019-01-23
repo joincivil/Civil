@@ -64,11 +64,14 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
             return <p>Error :(</p>;
           }
 
-          return data.governanceEvents.map((event: any, i: number) => {
-            return (
-              <ListingEvent key={i} event={this.transformGraphQlEvent(event)} listing={this.props.listingAddress} />
-            );
-          });
+          return data.governanceEvents
+            .slice()
+            .reverse()
+            .map((event: any, i: number) => {
+              return (
+                <ListingEvent key={i} event={this.transformGraphQlEvent(event)} listing={this.props.listingAddress} />
+              );
+            });
         }}
       </Query>
     );
