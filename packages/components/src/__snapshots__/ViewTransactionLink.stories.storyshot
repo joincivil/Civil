@@ -4,7 +4,7 @@ exports[`Storyshots viewTransactionLink link 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-ugnQR dOwYUS",
+      "class": "sc-fyjhYU bwErzZ",
       "href": "https://rinkeby.etherscan.io/tx/0x90cf2411cac2a4d4873332bcf60bed49e62d7d4021120c3de0749eba8f6168af",
       "target": "_blank",
     },
@@ -21,8 +21,8 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-jqCOkK gSrYrQ",
                 "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
+                "fill": "#23282d",
                 "fill-rule": "evenodd",
               },
               "children": Array [],
@@ -33,13 +33,13 @@ initialize {
               "prev": null,
               "type": "tag",
               "x-attribsNamespace": Object {
-                "class": undefined,
                 "d": undefined,
+                "fill": undefined,
                 "fill-rule": undefined,
               },
               "x-attribsPrefix": Object {
-                "class": undefined,
                 "d": undefined,
+                "fill": undefined,
                 "fill-rule": undefined,
               },
             },
@@ -77,8 +77,8 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-jqCOkK gSrYrQ",
               "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
+              "fill": "#23282d",
               "fill-rule": "evenodd",
             },
             "children": Array [],
@@ -89,13 +89,13 @@ initialize {
             "prev": null,
             "type": "tag",
             "x-attribsNamespace": Object {
-              "class": undefined,
               "d": undefined,
+              "fill": undefined,
               "fill-rule": undefined,
             },
             "x-attribsPrefix": Object {
-              "class": undefined,
               "d": undefined,
+              "fill": undefined,
               "fill-rule": undefined,
             },
           },
