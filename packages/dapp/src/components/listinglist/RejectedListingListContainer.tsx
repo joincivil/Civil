@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { ListingSummaryApprovedComponent } from "@joincivil/components";
+import { ListingSummaryRejectedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { State } from "../../redux/reducers";
 import RejectedListingListRedux from "./RejectedListingListRedux";
@@ -54,7 +54,7 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
 
             return (
               <>
-                <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={map} />
+                <ListingList ListingItemComponent={ListingSummaryRejectedComponent} listings={map} />
               </>
             );
           }}

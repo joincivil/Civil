@@ -26,7 +26,7 @@ export function isVotePassed(pollData: PollData): boolean {
   }
   const votesFor = pollData.votesFor.toNumber();
   const votesAgainst = pollData.votesAgainst.toNumber();
-  const votesAgainstTimes100 = votesAgainst * 100;
+  const votesForTimes100 = votesFor * 100;
   const quorum = pollData.voteQuorum.toNumber();
-  return votesAgainstTimes100 > quorum * (votesFor + votesAgainst);
+  return votesForTimes100 <= quorum * (votesFor + votesAgainst);
 }
