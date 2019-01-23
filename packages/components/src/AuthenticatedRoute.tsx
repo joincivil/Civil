@@ -34,8 +34,6 @@ export const AuthenticatedRoute = ({
 }: AuthenticatedRouteProps) => {
   const auth = getApolloSession();
 
-  console.log("AuthenticatedRoute:", { auth });
-
   const hasAuthToken = !!(auth && auth.token);
 
   if (onlyAllowUnauthenicated === hasAuthToken) {
