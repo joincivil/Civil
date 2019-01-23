@@ -238,7 +238,7 @@ class AppealChallengeRevealVote extends React.Component<
 
   private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.getVoteOption() as string);
-    const pollID = this.props.appealChallengeID ? this.props.appealChallengeID : this.props.challengeID;
+    const pollID = this.props.appealChallengeID;
     const saltStr = fetchSalt(pollID, this.props.user);
     const salt: BigNumber = new BigNumber(saltStr as string);
     return revealVote(pollID, voteOption, salt);
