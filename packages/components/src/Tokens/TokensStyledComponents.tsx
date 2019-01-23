@@ -1,7 +1,11 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, ButtonProps } from "../Button";
+import { Button, ButtonProps, InvertedButton } from "../Button";
+
+export interface TokenRequirementStyleProps {
+  step?: string;
+}
 
 export const TokenAccountOuter = styled.div`
   background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
@@ -19,7 +23,7 @@ export const TokenAccountInner = styled.div`
 export const TokenBtns: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   border-radius: 1px;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: 0.3px;
   text-transform: none;
 `;
@@ -59,7 +63,7 @@ export const FlexColumnsSecondary = styled.div`
 
 export const FlexColumnsSecondaryModule = styled.div`
   background-color: ${colors.basic.WHITE};
-  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   font-family: ${fonts.SANS_SERIF};
   margin-bottom: 30px;
   padding: 20px 30px;
@@ -89,7 +93,7 @@ export const FlexColumnsSecondaryModule = styled.div`
 
 export const TokenHeaderOuter = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  padding: 30px 30px 10px;
+  padding: 30px 30px 40px;
   text-align: center;
   width: 100%;
 `;
@@ -117,7 +121,7 @@ export const TokenAccountSectionHeader = styled.div`
     color: ${colors.primary.BLACK};
     font-family: ${fonts.SANS_SERIF};
     font-size: 20px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 32px;
     margin: 0 0 8px;
   }
@@ -133,16 +137,19 @@ export const TokenAccountSectionHeader = styled.div`
 
 export const TokenRequirement = styled.div`
   margin: 0 30px 0 50px;
-  padding: 5px 20px 20px 35px;
+  padding: ${(props: TokenRequirementStyleProps) =>
+    props.step === "completed" ? "0 20px 0 35px" : "5px 20px 20px 35px"};
   position: relative;
 
   h3 {
-    color: ${colors.accent.CIVIL_GRAY_1};
+    color: ${(props: TokenRequirementStyleProps) =>
+      props.step === "completed" ? colors.primary.BLACK : colors.accent.CIVIL_GRAY_1};
     font-family: ${fonts.SANS_SERIF};
     font-size: 18px;
-    font-weight: 600;
+    font-weight: ${(props: TokenRequirementStyleProps) => (props.step === "completed" ? "400" : "600")};
+    ${(props: TokenRequirementStyleProps) => (props.step === "completed" ? "letter-spacing: -0.12px;" : "")};
     line-height: 33px;
-    margin: 0 0 5px;
+    margin: ${(props: TokenRequirementStyleProps) => (props.step === "completed" ? "0" : "0 0 5px")};
   }
 
   p {
@@ -157,7 +164,8 @@ export const TokenRequirement = styled.div`
 export const TokenRequirementIcon = styled.div`
   align-items: center;
   background-color: ${colors.basic.WHITE};
-  border: 1px solid ${colors.accent.CIVIL_BLUE};
+  border: ${(props: TokenRequirementStyleProps) =>
+    props.step === "disabled" ? "1px solid" + colors.accent.CIVIL_GRAY_3 : "1px solid" + colors.accent.CIVIL_BLUE};
   border-radius: 50%;
   display: flex;
   height: 38px;
@@ -166,6 +174,13 @@ export const TokenRequirementIcon = styled.div`
   position: absolute;
   top: 0;
   width: 38px;
+  z-index: 1;
+`;
+
+export const TokenCheckIcon = styled.div`
+  left: -21px;
+  position: absolute;
+  top: 0;
   z-index: 1;
 `;
 
@@ -178,5 +193,28 @@ export const TokenBuySection = styled.div`
     font-size: 16px;
     line-height: 19px;
     margin: 0 0 15px;
+  }
+`;
+
+export const CloseBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+  border: none;
+  padding: 0;
+  height: 40px;
+  position: absolute;
+  right: 50px;
+  top: 45px;
+  width: 40px;
+
+  svg path {
+    transition: fill 0.2s ease;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: transparent;
+
+    svg path {
+      fill: ${colors.accent.CIVIL_BLUE};
+    }
   }
 `;

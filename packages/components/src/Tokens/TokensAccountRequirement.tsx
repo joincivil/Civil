@@ -1,6 +1,10 @@
 import * as React from "react";
 import { TokenRequirement } from "./TokensStyledComponents";
 
-export const UserTokenAccountRequirement: React.StatelessComponent = props => {
-  return <TokenRequirement>{props.children}</TokenRequirement>;
+export interface TokenAccountRequirementProps {
+  step?: string;
+}
+
+export const UserTokenAccountRequirement: React.StatelessComponent<TokenAccountRequirementProps> = props => {
+  return <TokenRequirement step={props.step}>{props.children}</TokenRequirement>;
 };
