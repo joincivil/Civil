@@ -11,22 +11,19 @@ import { NewsroomListing } from "@joincivil/core";
 
 export interface RejectedListingsListReduxReduxProps {
   rejectedListings: Set<NewsroomListing>;
+  loadingFinished: boolean;
 }
 
-class RejectedListingListRedux extends React.Component<RejectedListingsListReduxReduxProps> {
-  public render(): JSX.Element {
-    if (this.props.rejectedListings.count()) {
-      return (
-        <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={this.props.rejectedListings} />
-      );
-    }
-
-    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
+const RejectedListingListRedux: React.SFC<RejectedListingsListReduxReduxProps> = props => {
+  if (props.rejectedListings.count()) {
+    return <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={props.rejectedListings} />;
   }
-}
+
+  return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
+};
 
 const mapStateToProps = (state: State): RejectedListingsListReduxReduxProps => {
-  const { rejectedListings, listings } = state.networkDependent;
+  const { rejectedListings, listings, loadingFinished } = state.networkDependent;
   const { newsrooms } = state;
   const rejectedNewsroomListings = rejectedListings
     .map(l => {
@@ -38,6 +35,7 @@ const mapStateToProps = (state: State): RejectedListingsListReduxReduxProps => {
     .toSet();
   return {
     rejectedListings: rejectedNewsroomListings,
+    loadingFinished,
   };
 };
 

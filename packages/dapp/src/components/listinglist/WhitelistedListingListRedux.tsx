@@ -11,29 +11,28 @@ import { NewsroomListing } from "@joincivil/core";
 
 export interface WhitelistedListingsListReduxReduxProps {
   whitelistedListings: Set<NewsroomListing>;
+  loadingFinished: boolean;
 }
 
-class WhitelistedListingListRedux extends React.Component<WhitelistedListingsListReduxReduxProps> {
-  public render(): JSX.Element {
-    if (this.props.whitelistedListings.count()) {
-      const predicate = (newsroomListing?: NewsroomListing) => {
-        const listing = newsroomListing && newsroomListing.listing;
-        return !!listing && !!listing.data && !!listing.data.challenge && !listing.data.challengeID.isZero();
-      };
+const WhitelistedListingListRedux: React.SFC<WhitelistedListingsListReduxReduxProps> = props => {
+  if (props.whitelistedListings.count()) {
+    const predicate = (newsroomListing?: NewsroomListing) => {
+      const listing = newsroomListing && newsroomListing.listing;
+      return !!listing && !!listing.data && !!listing.data.challenge && !listing.data.challengeID.isZero();
+    };
 
-      const challengedListings = this.props.whitelistedListings.filter(predicate).toSet();
-      const unchallengedListings = this.props.whitelistedListings.filterNot(predicate).toSet();
-      const groupedListings = challengedListings.concat(unchallengedListings).toSet();
+    const challengedListings = props.whitelistedListings.filter(predicate).toSet();
+    const unchallengedListings = props.whitelistedListings.filterNot(predicate).toSet();
+    const groupedListings = challengedListings.concat(unchallengedListings).toSet();
 
-      return <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />;
-    }
-
-    return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
+    return <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />;
   }
-}
+
+  return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
+};
 
 const mapStateToProps = (state: State): WhitelistedListingsListReduxReduxProps => {
-  const { whitelistedListings, listings } = state.networkDependent;
+  const { whitelistedListings, listings, loadingFinished } = state.networkDependent;
   const { newsrooms } = state;
   const whitelistedNewsroomListings = whitelistedListings
     .map(l => {
@@ -45,6 +44,7 @@ const mapStateToProps = (state: State): WhitelistedListingsListReduxReduxProps =
     .toSet();
   return {
     whitelistedListings: whitelistedNewsroomListings,
+    loadingFinished,
   };
 };
 

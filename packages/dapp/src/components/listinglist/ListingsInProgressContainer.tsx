@@ -25,6 +25,7 @@ import {
   getNextTimerExpiry,
   NewsroomListing,
 } from "@joincivil/core";
+import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import ListingsInProgress from "./ListingsInProgress";
 
 export interface ListingsInProgressProps {
@@ -66,10 +67,10 @@ class ListingsInProgressContainer extends React.Component<
         >
           {({ loading, error, data }: any): JSX.Element => {
             if (loading && !data) {
-              return <></>;
+              return <>Loading...</>;
             }
             if (error) {
-              return <p>Error :</p>;
+              return <ErrorLoadingDataMsg />;
             }
             const map = Set<any>(data.listings);
             const allListings: Set<NewsroomListing> = map

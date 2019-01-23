@@ -16,6 +16,8 @@ import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
 import { getContent } from "../../redux/actionCreators/newsrooms";
+import LoadingMsg from "../utility/LoadingMsg";
+import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
@@ -46,6 +48,7 @@ export interface ListingReduxProps {
   govtParameters: any;
   constitutionURI: string;
   useGraphQL: boolean;
+  loadingFinished: boolean;
 }
 
 interface ListingPageComponentState {
@@ -93,54 +96,48 @@ class ListingPageComponent extends React.Component<
     const newsroom = this.props.newsroom;
     const listingExistsAsNewsroom = listing && newsroom;
 
+    if (!listingExistsAsNewsroom) {
+      return <>{this.renderLoadingOrListingNotFound()}</>;
+    }
+
     return (
       <>
-        {listingExistsAsNewsroom && (
-          <>
-            <Helmet>
-              <title>{newsroom!.data.name} - The Civil Registry</title>
-            </Helmet>
+        <Helmet>
+          <title>{newsroom!.data.name} - The Civil Registry</title>
+        </Helmet>
 
-            <ListingHeader
-              userAccount={this.props.userAccount}
-              listing={listing!}
-              newsroom={newsroom!}
-              listingPhaseState={this.props.listingPhaseState}
-              charter={this.props.charter}
-            />
-          </>
-        )}
+        <ListingHeader
+          userAccount={this.props.userAccount}
+          listing={listing!}
+          newsroom={newsroom!}
+          listingPhaseState={this.props.listingPhaseState}
+          charter={this.props.charter}
+        />
+
         <StyledContentRow reverseDirection={true}>
           <StyledRightContentWell offsetTop={-100}>
-            {listingExistsAsNewsroom && (
-              <ListingPhaseActions
-                listing={this.props.listing!}
-                expiry={this.props.expiry}
-                listingPhaseState={this.props.listingPhaseState}
-                parameters={this.props.parameters}
-                govtParameters={this.props.govtParameters}
-                constitutionURI={this.props.constitutionURI}
-              />
-            )}
-
+            <ListingPhaseActions
+              listing={this.props.listing!}
+              expiry={this.props.expiry}
+              listingPhaseState={this.props.listingPhaseState}
+              parameters={this.props.parameters}
+              govtParameters={this.props.govtParameters}
+              constitutionURI={this.props.constitutionURI}
+            />
             <EmailSignup />
           </StyledRightContentWell>
 
           <StyledLeftContentWell>
-            {!listingExistsAsNewsroom && this.renderListingNotFound()}
-
             <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTab} onActiveTabChange={this.onTabChange}>
-              {(listingExistsAsNewsroom && (
-                <Tab title="About">
-                  <ListingTabContent>
-                    <ListingCharter
-                      listing={this.props.listing!}
-                      newsroom={this.props.newsroom!}
-                      charter={this.props.charter}
-                    />
-                  </ListingTabContent>
-                </Tab>
-              )) || <></>}
+              <Tab title="About">
+                <ListingTabContent>
+                  <ListingCharter
+                    listing={this.props.listing!}
+                    newsroom={this.props.newsroom!}
+                    charter={this.props.charter}
+                  />
+                </ListingTabContent>
+              </Tab>
 
               <Tab title="Discussions">
                 <ListingTabContent>
@@ -175,8 +172,11 @@ class ListingPageComponent extends React.Component<
     );
   }
 
-  private renderListingNotFound(): JSX.Element {
-    return <>NOT FOUND</>;
+  private renderLoadingOrListingNotFound(): JSX.Element {
+    if (!this.props.loadingFinished && !this.props.useGraphQL) {
+      return <LoadingMsg />;
+    }
+    return <ErrorNotFoundMsg>We could not find this Newsroom Listing</ErrorNotFoundMsg>;
   }
 
   private onTabChange = (newActiveTab: number): void => {
@@ -187,7 +187,15 @@ class ListingPageComponent extends React.Component<
 const makeMapStateToProps = () => {
   const getListingExpiry = makeGetListingExpiry();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
-    const { listingsFetching, user, parameters, govtParameters, constitution, content } = state.networkDependent;
+    const {
+      listingsFetching,
+      user,
+      parameters,
+      govtParameters,
+      constitution,
+      content,
+      loadingFinished,
+    } = state.networkDependent;
     const { useGraphQL } = state;
     const constitutionURI = constitution.get("uri");
     const newsroom = ownProps.newsroom;
@@ -213,6 +221,7 @@ const makeMapStateToProps = () => {
       constitutionURI,
       charter,
       useGraphQL,
+      loadingFinished,
     };
   };
   return mapStateToProps;
