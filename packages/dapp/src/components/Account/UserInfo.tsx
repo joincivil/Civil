@@ -13,7 +13,6 @@ const userQuery = gql`
       kycStatus
       quizPayload
       quizStatus
-      isTokenFoundryRegistered
     }
   }
 `;

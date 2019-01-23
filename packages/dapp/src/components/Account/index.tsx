@@ -1,6 +1,12 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
-import { AccountEmailAuth, AccountEmailSent, AccountVerifyToken, AccountVerifyTokenProps } from "@joincivil/components";
+import {
+  AccountEmailAuth,
+  AccountEmailSent,
+  AccountVerifyToken,
+  AccountVerifyTokenProps,
+  AuthenticatedRoute,
+} from "@joincivil/components";
 import { setApolloSession } from "@joincivil/utils";
 import { AccountHome } from "./Home";
 
@@ -11,7 +17,8 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       <>
         <Switch>
           {/* Login Routes */}
-          <Route
+          <AuthenticatedRoute
+            redirectTo="/token"
             path={`${match.path}/auth/login`}
             exact={true}
             component={(props: any) => (
