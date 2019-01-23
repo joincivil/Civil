@@ -58,7 +58,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * An unending stream of all pollIDs of polls the user has committed votes on
    * @param fromBlock Starting block in history for events concerning new polls
    *                  Set to "latest" for only new events
-   * @param user pollIDs of polls the user has committed votes for
+   * @param user the user to check
    */
   public votesCommitted(
     fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
@@ -66,6 +66,34 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
     toBlock?: number,
   ): Observable<BigNumber> {
     return this.instance._VoteCommittedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
+  }
+
+  /**
+   * An unending stream of all pollIDs of polls the user has revealed votes on
+   * @param fromBlock Starting block in history for events concerning new polls
+   *                  Set to "latest" for only new events
+   * @param user the user to check
+   */
+  public votesRevealed(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    user?: EthAddress,
+    toBlock?: number,
+  ): Observable<BigNumber> {
+    return this.instance._VoteRevealedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
+  }
+
+  /**
+   * An unending stream of all pollIDs of polls the user has rescued votes on
+   * @param fromBlock Starting block in history for events concerning new polls
+   *                  Set to "latest" for only new events
+   * @param user the user to check
+   */
+  public votesRescued(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    user?: EthAddress,
+    toBlock?: number,
+  ): Observable<BigNumber> {
+    return this.instance._TokensRescuedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
   }
 
   public balanceUpdate(
