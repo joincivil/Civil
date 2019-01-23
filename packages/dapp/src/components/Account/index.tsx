@@ -1,16 +1,8 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
-import { AccountEmailAuth } from "./Auth/EmailAuth";
+import { AccountEmailAuth, AccountEmailSent, AccountVerifyToken, AccountVerifyTokenProps } from "@joincivil/components";
+import { setApolloSession } from "@joincivil/utils";
 import { AccountHome } from "./Home";
-import { AccountEmailSent } from "./Auth/EmailSent";
-import { AccountVerifyToken, AccountVerifyTokenProps } from "./VerifyToken";
-import { setSession } from "../../helpers/apolloClient";
-
-export enum AuthApplicationEnum {
-  DEFAULT = "DEFAULT",
-  NEWSROOM = "NEWSROOM",
-  STOREFRONT = "STOREFRONT",
-}
 
 export default class AccountRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
@@ -65,7 +57,7 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
   }
   public handleOnAuthentication = (authResult: any, isNewUser: boolean): void => {
     // Set the session.
-    setSession(authResult);
+    setApolloSession(authResult);
     // TODO(jorgelo): Flush the local apollo cache here.
   };
 

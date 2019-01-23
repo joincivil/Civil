@@ -12,7 +12,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-dxgOiQ jxKGzX",
+              "class": "sc-Rmtcm eCAMHQ",
             },
             "children": Array [
               Object {
@@ -27,7 +27,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-ckVGcZ krbzab",
+                "class": "sc-bRBYWo bQJLlS",
               },
               "children": Array [
                 Object {
@@ -63,7 +63,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-ckVGcZ krbzab",
+              "class": "sc-bRBYWo bQJLlS",
             },
             "children": Array [
               Object {
@@ -80,7 +80,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-dxgOiQ jxKGzX",
+                "class": "sc-Rmtcm eCAMHQ",
               },
               "children": Array [
                 Object {
