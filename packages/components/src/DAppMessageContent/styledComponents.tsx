@@ -60,3 +60,15 @@ export const StyledSmallModalText = styled.p`
     text-decoration: none;
   }
 `;
+
+export const StyledErrorIconContainer = styled.div`
+  align-items: center;
+  display: flex;
+  background: ${colors.accent.CIVIL_RED_VERY_FADED};
+  border-radius: 50%;
+  justify-content: center;
+  height: 100px;
+  margin: 0 auto 40px;
+  text-align: center;
+  width: 100px;
+`;
