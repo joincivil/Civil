@@ -35,7 +35,7 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^4.0.0",
-    "rxjs": "^5.5.7",
+    "rxjs": "^6.3.3",
     "sanitize-html": "^1.18.2",
     "semantic-ui-react": "~0.82.0",
     "sort-by": "^1.2.0",
