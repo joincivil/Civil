@@ -57,7 +57,6 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
     return (
       <Query query={LISTING_QUERY} variables={{ addr: this.props.listingAddress }}>
         {({ loading, error, data }: any): JSX.Element => {
-          console.log("history data: ", data);
           if (loading) {
             return <p>Loading...</p>;
           }
@@ -84,7 +83,7 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
     const date = new Date(event.creationDate).getTime() / 1000;
     return {
       event: "_" + event.governanceEventType,
-      timestamp: date,
+      timestamp: date * 1000,
       args,
     };
   };

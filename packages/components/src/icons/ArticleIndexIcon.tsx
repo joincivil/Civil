@@ -6,10 +6,11 @@ export interface ArticleIndexIconProps {
 }
 
 export const ArticleIndexIcon = (props: ArticleIndexIconProps): JSX.Element => {
-  const color = props.color || "#444444";
+  const color = props.color || "#444";
   const size = props.size || 24;
+
   return (
-    <svg width={`${size}px`} height={`${size}px`} viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" fillRule="evenodd">
         <path d="m0 0h24v24h-24z" opacity=".3" />
         <path
