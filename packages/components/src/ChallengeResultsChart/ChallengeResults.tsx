@@ -32,14 +32,14 @@ const ExplainerText: React.SFC<ChallengeResultsProps> = props => {
       explainerText = "This granted appeal has been overturned by the Civil Community.";
     } else {
       explainerText =
-        "This newsroom has been rejected by the Civil Community, on the grounds that it is in violation of the Civil Constitution.";
+        "The Civil Community has voted to rejected this newsroom, on the grounds that it is in violation of the Civil Constitution.";
     }
   } else {
     if (props.isAppealChallenge) {
       explainerText = "This granted appeal has been upheld by the Civil Community.";
     } else {
       explainerText =
-        "This newsroom has been accepted by the Civil Community, on the grounds that it adheres to the Civil Constitution.";
+        "The Civil Community has voted to accept this newsroom, on the grounds that it adheres to the Civil Constitution.";
     }
   }
   return <StyledExplainerText>{explainerText}</StyledExplainerText>;
