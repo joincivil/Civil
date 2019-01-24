@@ -7,6 +7,8 @@ export interface SaltInputProps {
   label?: string;
   placeholder?: string;
   salt?: string;
+  invalid?: boolean;
+  invalidMessage?: string;
   onChange(name: string, value: string): void;
 }
 
@@ -28,10 +30,20 @@ export class SaltInput extends React.Component<SaltInputProps, SaltInputState> {
   }
 
   public render(): JSX.Element {
-    const { name, label, placeholder } = this.props;
+    const { name, label, placeholder, invalid, invalidMessage } = this.props;
     const { value } = this.state;
 
-    return <TextInput label={label} placeholder={placeholder} name={name} onChange={this.handleChange} value={value} />;
+    const inputProps = {
+      name,
+      label,
+      placeholder,
+      invalid,
+      invalidMessage,
+      value,
+      onChange: this.handleChange,
+    };
+
+    return <TextInput {...inputProps} />;
   }
 
   private handleChange = (name: string, value: string): void => {

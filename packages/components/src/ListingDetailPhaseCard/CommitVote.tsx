@@ -36,9 +36,7 @@ import {
 } from "./textComponents";
 
 export interface CommitVoteState {
-  voteOption?: number;
   numTokensError?: string;
-  saltError?: string;
 }
 
 export interface CommitVoteStepState {
@@ -49,16 +47,14 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
   constructor(props: CommitVoteProps) {
     super(props);
     this.state = {
-      voteOption: undefined,
       numTokensError: undefined,
-      saltError: undefined,
       displayStep: 0,
     };
   }
 
   public render(): JSX.Element {
     const canReview =
-      this.state.voteOption !== undefined &&
+      this.props.voteOption !== undefined &&
       this.props.numTokens &&
       typeof parseInt(this.props.numTokens, 10) === "number";
     return (
@@ -77,7 +73,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
           </VoteOptionsContainer>
 
           <Button
-            disabled={this.state.voteOption === undefined}
+            disabled={this.props.voteOption === undefined}
             onClick={() => this.setState({ displayStep: 1 })}
             size={buttonSizes.MEDIUM}
             theme={buttonTheme}
@@ -129,34 +125,29 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
 
   private renderVoteButton = (options: any): JSX.Element => {
     let buttonText;
-    let onClick;
-    if (options.voteOption === 1) {
+    const { voteOption } = options;
+    const ButtonComponent = this.props.voteOption === voteOption ? Button : DarkButton;
+    const onClick = () => {
+      this.props.onInputChange({ voteOption });
+    };
+    if (voteOption === "1") {
       buttonText = (
         <>
           ✔ <WhitelistActionText />
         </>
       );
-      onClick = this.setVoteToRemain;
     } else if (options.voteOption === 0) {
       buttonText = (
         <>
           ✖ <RemoveActionText />
         </>
       );
-      onClick = this.setVoteToRemove;
-    }
-    if (this.state.voteOption === options.voteOption) {
-      return (
-        <Button onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
-          {buttonText}
-        </Button>
-      );
     }
 
     return (
-      <DarkButton onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
+      <ButtonComponent onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
         {buttonText}
-      </DarkButton>
+      </ButtonComponent>
     );
   };
 
@@ -240,19 +231,5 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       return;
     }
     this.props.onInputChange({ numTokens: value });
-  };
-
-  private setVoteToRemain = (): void => {
-    // A "remain" vote is a vote that doesn't support the
-    // challenge, so `voteOption === 1`
-    this.props.onInputChange({ voteOption: "1" });
-    this.setState(() => ({ voteOption: 1 }));
-  };
-
-  private setVoteToRemove = (): void => {
-    // A "remove" vote is a vote that supports the
-    // challenge, so `voteOption === 0`
-    this.props.onInputChange({ voteOption: "0" });
-    this.setState(() => ({ voteOption: 0 }));
   };
 }

@@ -71,6 +71,8 @@ class AppealChallengeRevealVote extends React.Component<
   constructor(props: AppealChallengeDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
+      voteOption: this.getVoteOption(),
+      salt: fetchSalt(this.props.appealChallengeID, this.props.user),
       isReviewVoteModalOpen: false,
       numTokens: undefined,
       key: new Date().valueOf(),
@@ -98,36 +100,7 @@ class AppealChallengeRevealVote extends React.Component<
     const phaseLength = this.props.parameters[Parameters.challengeAppealRevealLen];
     const secondaryPhaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
 
-    const transactions = [
-      {
-        transaction: async () => {
-          this.props.updateTransactionStatusModalsState({
-            isWaitingTransactionModalOpen: true,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: false,
-            transactionType: TransactionTypes.REVEAL_VOTE,
-          });
-          return this.revealVoteOnChallenge();
-        },
-        handleTransactionHash: (txHash: TxHash) => {
-          this.props.updateTransactionStatusModalsState({
-            isWaitingTransactionModalOpen: false,
-            isTransactionProgressModalOpen: true,
-          });
-        },
-        postTransaction: () => {
-          this.props.updateTransactionStatusModalsState({
-            isWaitingTransactionModalOpen: false,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: true,
-          });
-        },
-        handleTransactionError: this.props.handleTransactionError,
-      },
-    ];
-
-    const voteOption = this.getVoteOption();
-    const salt = fetchSalt(this.props.challengeID, this.props.user);
+    const transactions = this.getTransactions();
 
     const AppealChallengeRevealVoteCard = compose<
       React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeRevealVoteCardProps>>
@@ -142,9 +115,9 @@ class AppealChallengeRevealVote extends React.Component<
           challengeID={this.props.challengeID.toString()}
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
-          voteOption={voteOption}
-          salt={salt}
-          onInputChange={this.updateCommitVoteState}
+          voteOption={this.state.voteOption}
+          salt={this.state.salt}
+          onInputChange={this.updateRevealVoteState}
           transactions={transactions}
           appealChallengeID={this.props.appealChallengeID.toString()}
           appealGranted={this.props.appeal.appealGranted}
@@ -221,14 +194,13 @@ class AppealChallengeRevealVote extends React.Component<
   }
 
   private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.getVoteOption() as string);
     const pollID = this.props.appealChallengeID;
-    const saltStr = fetchSalt(pollID, this.props.user);
-    const salt: BigNumber = new BigNumber(saltStr as string);
+    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
+    const salt: BigNumber = new BigNumber(this.state.salt as string);
     return revealVote(pollID, voteOption, salt);
   };
 
-  private updateCommitVoteState = (data: any, callback?: () => void): void => {
+  private updateRevealVoteState = (data: any, callback?: () => void): void => {
     if (callback) {
       this.setState({ ...data }, callback);
     } else {
