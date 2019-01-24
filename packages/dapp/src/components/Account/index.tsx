@@ -17,7 +17,7 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       <>
         <Switch>
           {/* Login Routes */}
-          <AuthenticatedRoute onlyAllowUnauthenicated redirectTo="/account" path={`${match.path}/auth`}>
+          <AuthenticatedRoute onlyAllowUnauthenticated redirectTo="/account" path={`${match.path}/auth`}>
             <Route
               redirectTo="/account"
               path={`${match.path}/auth/login`}

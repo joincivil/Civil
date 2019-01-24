@@ -6,7 +6,7 @@ import { Query } from "react-apollo";
 
 export interface AuthenticatedRouteProps extends RouteProps {
   redirectTo: string;
-  onlyAllowUnauthenicated?: boolean;
+  onlyAllowUnauthenticated?: boolean;
 }
 
 const userQuery = gql`
@@ -27,14 +27,14 @@ const userQuery = gql`
 export const AuthenticatedRoute = ({
   component: Component,
   redirectTo,
-  onlyAllowUnauthenicated = false,
+  onlyAllowUnauthenticated = false,
   ...otherProps
 }: AuthenticatedRouteProps) => {
   const auth = getApolloSession();
 
   const hasAuthToken = auth !== null && auth.token !== null;
 
-  if (onlyAllowUnauthenicated === hasAuthToken) {
+  if (onlyAllowUnauthenticated === hasAuthToken) {
     return <Redirect to={redirectTo} />;
   }
 
@@ -46,7 +46,7 @@ export const AuthenticatedRoute = ({
             return null;
           }
 
-          if (error && !onlyAllowUnauthenicated) {
+          if (error && !onlyAllowUnauthenticated) {
             return <Redirect to={redirectTo} />;
           }
 
@@ -64,5 +64,5 @@ export const AuthenticatedRoute = ({
 };
 
 export const UnauthenticatedRoute = (props: AuthenticatedRouteProps) => (
-  <AuthenticatedRoute onlyAllowUnauthenicated={true} {...props} />
+  <AuthenticatedRoute onlyAllowUnauthenticated={true} {...props} />
 );
