@@ -32,7 +32,7 @@ export const AuthenticatedRoute = ({
 }: AuthenticatedRouteProps) => {
   const auth = getApolloSession();
 
-  const hasAuthToken = !!(auth && auth.token);
+  const hasAuthToken = auth !== null && auth.token !== null;
 
   if (onlyAllowUnauthenicated === hasAuthToken) {
     return <Redirect to={redirectTo} />;
