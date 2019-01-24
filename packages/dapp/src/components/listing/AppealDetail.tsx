@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { AppealData, ChallengeData, EthAddress, UserChallengeData } from "@joincivil/core";
+import { AppealData, ChallengeData, EthAddress, NewsroomWrapper, UserChallengeData } from "@joincivil/core";
 import BigNumber from "bignumber.js";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 import AppealAwaitingDecision from "./AppealAwaitingDecision";
@@ -16,6 +16,7 @@ const StyledDiv = styled.div`
 
 export interface AppealDetailProps {
   listingAddress: EthAddress;
+  newsroom?: NewsroomWrapper,
   appeal: AppealData;
   challengeID: BigNumber;
   challenge: ChallengeData;

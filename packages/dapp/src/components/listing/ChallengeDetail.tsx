@@ -8,6 +8,7 @@ import {
   ChallengeData,
   EthAddress,
   UserChallengeData,
+  NewsroomWrapper,
   WrappedChallengeData,
   didUserCommit,
   TxDataAll,
@@ -65,6 +66,7 @@ const StyledChallengeResults = styled.div`
 
 export interface ChallengeDetailContainerProps {
   listingAddress: EthAddress;
+  newsroom?: NewsroomWrapper;
   challengeData?: WrappedChallengeData;
   challengeID: BigNumber;
   appealChallengeID?: BigNumber;
@@ -92,6 +94,7 @@ export interface ChallengeContainerReduxProps {
 
 export interface ChallengeDetailProps {
   listingAddress: EthAddress;
+  newsroom?: NewsroomWrapper;
   challengeID: BigNumber;
   challenge: ChallengeData;
   challengeState: any;
@@ -160,6 +163,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     return (
       <AppealDetail
         listingAddress={this.props.listingAddress}
+        newsroom={this.props.newsroom}
         appeal={challenge.appeal!}
         challengeID={this.props.challengeID}
         challenge={challenge}
@@ -265,6 +269,7 @@ class ChallengeContainer extends React.Component<
     return (
       <ChallengeDetail
         listingAddress={this.props.listingAddress}
+        newsroom={this.props.newsroom}
         challengeID={this.props.challengeID}
         challenge={challenge}
         userChallengeData={this.props.userChallengeData}

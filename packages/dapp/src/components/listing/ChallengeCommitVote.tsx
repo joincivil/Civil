@@ -176,9 +176,10 @@ class ChallengeCommitVote extends React.Component<
     const { challenge } = this.props;
     const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
     const salt = fetchSalt(this.props.challengeID, this.props.user);
+    console.log(this.props);
 
     const props: ReviewVoteProps = {
-      newsroomName: "this newsroom",
+      newsroomName: this.props.newsroom && this.props.newsroom.data.name || "this newsroom",
       listingDetailURL,
       challengeID: this.props.challengeID.toString(),
       open: this.state.isReviewVoteModalOpen!,
