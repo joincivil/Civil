@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TutorialCompletedHeader, TutorialCompletedP } from "./TutorialStyledComponents";
+import { TutorialCompletedHeader, TutorialCompletedP, TutorialContentWrap } from "./TutorialStyledComponents";
 import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 import { TutorialFooter } from "./TutorialFooter";
 import { TutorialProgress } from "./TutorialProgress";
@@ -13,9 +13,11 @@ export const TutorialTopicCompleted: React.StatelessComponent<TutorialTopicCompl
   return (
     <>
       <TutorialProgress />
-      <HollowGreenCheck width={50} height={50} />
-      <TutorialCompletedHeader>{props.completedHeader}</TutorialCompletedHeader>
-      <TutorialCompletedP>{props.completedText}</TutorialCompletedP>
+      <TutorialContentWrap>
+        <HollowGreenCheck width={50} height={50} />
+        <TutorialCompletedHeader>{props.completedHeader}</TutorialCompletedHeader>
+        <TutorialCompletedP>{props.completedText}</TutorialCompletedP>
+      </TutorialContentWrap>
       <TutorialFooter />
     </>
   );

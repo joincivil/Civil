@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TutorialQuizName, TutorialQuizQuestion } from "./TutorialStyledComponents";
+import { TutorialQuizName, TutorialQuizQuestion, TutorialContentWrap } from "./TutorialStyledComponents";
 import { TutorialFooter } from "./TutorialFooter";
 import { TutorialProgress } from "./TutorialProgress";
 import { TutorialRadio } from "./TutorialRadio";
@@ -16,13 +16,15 @@ export const TutorialQuestion: React.StatelessComponent<TutorialQuestionProps> =
   return (
     <>
       <TutorialProgress />
-      <TutorialQuizName>{props.quizName}</TutorialQuizName>
-      <TutorialQuizQuestion>{props.question}</TutorialQuizQuestion>
-      <div>
-        <RadioInput name="" label="" onChange="">
-          <TutorialRadio value="">{props.optionText}</TutorialRadio>
-        </RadioInput>
-      </div>
+      <TutorialContentWrap>
+        <TutorialQuizName>{props.quizName}</TutorialQuizName>
+        <TutorialQuizQuestion>{props.question}</TutorialQuizQuestion>
+        <div>
+          <RadioInput name="" label="" onChange="">
+            <TutorialRadio value="">{props.optionText}</TutorialRadio>
+          </RadioInput>
+        </div>
+      </TutorialContentWrap>
       <TutorialFooter />
     </>
   );

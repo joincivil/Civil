@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TutorialTopicTitle, TutorialTopicInfo, TutorialInvertedBtn } from "./TutorialStyledComponents";
+import { TutorialTopicTitle, TutorialTopicInfo, TutorialInvertedBtn, TutorialContentWrap } from "./TutorialStyledComponents";
 import { SkipToQuizBtnText } from "./TutorialTextComponents";
 import { TutorialFooter } from "./TutorialFooter";
 import { TutorialProgress } from "./TutorialProgress";
@@ -13,11 +13,13 @@ export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProp
   return (
     <>
       <TutorialProgress />
-      <TutorialTopicTitle>{props.headerText}</TutorialTopicTitle>
-      <TutorialTopicInfo>{props.infoText}</TutorialTopicInfo>
-      <TutorialInvertedBtn>
-        <SkipToQuizBtnText />
-      </TutorialInvertedBtn>
+      <TutorialContentWrap>
+        <TutorialTopicTitle>{props.headerText}</TutorialTopicTitle>
+        <TutorialTopicInfo>{props.infoText}</TutorialTopicInfo>
+        <TutorialInvertedBtn>
+          <SkipToQuizBtnText />
+        </TutorialInvertedBtn>
+      </TutorialContentWrap>
       <TutorialFooter />
     </>
   );

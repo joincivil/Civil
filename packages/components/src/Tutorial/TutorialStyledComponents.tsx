@@ -8,6 +8,32 @@ export const TutorialProgressContain = styled.div`
   width: 100%;
 `;
 
+export const TutorialContentWrap = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  margin: 0 auto 50px;
+  max-width: 710px;
+
+  svg {
+    display: block;
+    margin: 0 auto;
+  }
+`;
+
+export const TutorialSlideContent = styled.div`
+  margin: 0 auto;
+  max-width: 540px;
+
+  h2 {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 33px;
+  }
+`;
+
 export const TutorialProgressBar = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   border-radius: 3px;
@@ -16,17 +42,29 @@ export const TutorialProgressBar = styled.div`
 `;
 
 export const TutorialTopicTitle = styled.div`
-  font-family: ${fonts.SANS_SERIF};
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: -0.87px;
+  line-height: 39px;
+
+  b {
+    font-weight: 800;
+  }
 `;
 
 export const TutorialTopicInfo = styled.div`
-  font-family: ${fonts.SANS_SERIF};
+  font-size: 21px;
+  font-weight: 300;
+  letter-spacing: -0.11px;
+  line-height: 31px;
 `;
 
 export const TutorialFooterContain = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
-  padding: 30px 0;
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  width: calc(100% - 60px);
 `;
 
 export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
@@ -47,20 +85,6 @@ export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = 
   padding: 12px;
   text-transform: none;
   width: 160px;
-`;
-
-export const TutorialSlideHeader = styled.div`
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 24px;
-  line-height: 29px;
-  max-width: 540px;
-`;
-
-export const TutorialSlideP = styled.p`
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 18px;
-  line-height: 33px;
-  max-width: 540px;
 `;
 
 export const TutorialQuizName = styled.h2`
@@ -99,13 +123,24 @@ export const TutorialCompletedP = styled.p`
 export const TutorialOptionBox = styled.div`
   border: 1px solid ${colors.accent.CIVIL_BLUE};
   border-radius: 3px;
+  cursor: pointer;
   margin-bottom: 15px;
-  padding: 5px;
+  padding: 8px 15px;
+  transition: border .2s ease;
+  width: 100%;
+
+  input {
+    margin: 0 15px 0 0;
+  }
 
   span {
     color: ${colors.accent.CIVIL_GRAY_0};
     font-family: ${fonts.SANS_SERIF};
     font-size: 16px;
     line-height: 26px;
+  }
+
+  &:hover {
+    border: 1px solid ${colors.accent.CIVIL_GRAY_1};
   }
 `;

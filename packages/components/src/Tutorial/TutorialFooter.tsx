@@ -9,8 +9,8 @@ export interface TutorialFooterProps {
 export const TutorialFooter: React.StatelessComponent<TutorialFooterProps> = props => {
   return (
     <TutorialFooterContain>
-      <TutorialInvertedBtn>{props.btn1Text}</TutorialInvertedBtn>
-      <TutorialBtn>{props.btn2Text}</TutorialBtn>
+      <TutorialInvertedBtn>{props.btn1Text || "Back"}</TutorialInvertedBtn>
+      <TutorialBtn>{props.btn2Text || "Continue"}</TutorialBtn>
     </TutorialFooterContain>
   );
 };
