@@ -126,7 +126,7 @@ export const TutorialOptionBox = styled.div`
   cursor: pointer;
   margin-bottom: 15px;
   padding: 8px 15px;
-  transition: border .2s ease;
+  transition: border 0.2s ease;
   width: 100%;
 
   input {

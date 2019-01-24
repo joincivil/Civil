@@ -141,13 +141,18 @@ export const TutorialTopic = styled.div`
   margin-bottom: 15px;
 `;
 
-export const LaunchTopic = styled.a`
+export const LaunchTopic: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
   align-items: center;
+  border: none;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  letter-spacing: 0;
   padding: 30px;
+  text-align: left;
+  text-transform: none;
+  width: 100%;
 
   & > div {
     margin-right: 50px;
@@ -174,6 +179,15 @@ export const LaunchTopic = styled.a`
     font-size: 16px;
     line-height: 26px;
     margin: 0;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: transparent;
+
+    svg g {
+      fill: ${colors.accent.CIVIL_GRAY_1};
+    }
   }
 `;
 
@@ -202,4 +216,9 @@ export const TutorialProgressBar = styled.div`
   height: 5px;
   margin-right: 5px;
   width: 100px;
+`;
+
+export const TutorialContain = styled.div`
+  display: block;
+  width: 100%;
 `;

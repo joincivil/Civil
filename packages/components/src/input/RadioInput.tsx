@@ -59,6 +59,7 @@ const RadioDiv = styled.div`
   > div {
     display: flex;
     flex-direction: rows;
+    flex-wrap: wrap;
   }
 `;
 export const RadioInput: React.StatelessComponent<RadioInputProps> = props => {

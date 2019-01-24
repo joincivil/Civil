@@ -22,7 +22,11 @@ import {
 import { TutorialContent } from "./TutorialContent";
 import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 
-export const TokenTutorialLanding: React.StatelessComponent = props => {
+export interface TokenTutorialLandingProps {
+  onClick?(index: number): void;
+}
+
+export const TokenTutorialLanding: React.StatelessComponent<TokenTutorialLandingProps> = props => {
   return (
     <TutorialLandingContainer>
       <TutorialIntro>
@@ -38,9 +42,9 @@ export const TokenTutorialLanding: React.StatelessComponent = props => {
           <TutorialSkipBtnText />
         </TakeQuizBtn>
       </TutorialSkipSection>
-      {TutorialContent.map(topic => (
+      {TutorialContent.map((topic, idx) => (
         <TutorialTopic>
-          <LaunchTopic>
+          <LaunchTopic data-quiz-id={idx} onClick={props.onClick}>
             <div>
               {topic.icon}
               <h3>{topic.name}</h3>

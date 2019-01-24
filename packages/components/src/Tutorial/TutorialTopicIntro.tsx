@@ -1,5 +1,10 @@
 import * as React from "react";
-import { TutorialTopicTitle, TutorialTopicInfo, TutorialInvertedBtn, TutorialContentWrap } from "./TutorialStyledComponents";
+import {
+  TutorialTopicTitle,
+  TutorialTopicInfo,
+  TutorialInvertedBtn,
+  TutorialContentWrap,
+} from "./TutorialStyledComponents";
 import { SkipToQuizBtnText } from "./TutorialTextComponents";
 import { TutorialFooter } from "./TutorialFooter";
 import { TutorialProgress } from "./TutorialProgress";

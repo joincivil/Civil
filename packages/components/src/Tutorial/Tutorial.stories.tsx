@@ -38,11 +38,11 @@ storiesOf("Tutorial", module)
   .add("Tutorial Info", () => {
     return <TutorialInfo content={tutorial.tutorialContent} />;
   })
-  .add("Tutorial Question", () => {
+  /*.add("Tutorial Question", () => {
     return (
-      <TutorialQuestion quizName={tutorial.quizName} question={tutorial.question} optionText={tutorial.optionText} />
+      <TutorialQuestion quizName={tutorial.quizName} question={tutorial.question} options={tutorial.optionText} />
     );
-  })
+  })*/
   .add("Tutorial Topic Intro", () => {
     return (
       <TutorialTopicIntro headerText={tutorial.tutorialTopicIntroHeader} infoText={tutorial.tutorialTopicIntroInfo} />

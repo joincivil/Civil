@@ -5,14 +5,19 @@ import { TutorialProgress } from "./TutorialProgress";
 import { TutorialRadio } from "./TutorialRadio";
 import { RadioInput } from "../input";
 
+interface Options {
+  text?: string;
+  result?: string;
+}
+
 export interface TutorialQuestionProps {
   quizName?: string | JSX.Element;
   question?: string;
-  optionText?: string;
-  optionResult?: string;
+  options?: Options[];
 }
 
 export const TutorialQuestion: React.StatelessComponent<TutorialQuestionProps> = props => {
+  const options = props.options || [];
   return (
     <>
       <TutorialProgress />
@@ -21,7 +26,7 @@ export const TutorialQuestion: React.StatelessComponent<TutorialQuestionProps> =
         <TutorialQuizQuestion>{props.question}</TutorialQuizQuestion>
         <div>
           <RadioInput name="" label="" onChange="">
-            <TutorialRadio value="">{props.optionText}</TutorialRadio>
+            {options.map(option => <TutorialRadio value="">{option.text}</TutorialRadio>)}
           </RadioInput>
         </div>
       </TutorialContentWrap>

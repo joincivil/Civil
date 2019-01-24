@@ -26,12 +26,10 @@ export const TutorialContent = [
     name: "Topic 1: How to use Civil tokens",
     description: "Learn about CVL tokens and their intended uses within the Civil network.",
     icon: <NetworkIcon />,
-    tutorialIntro: [
-      {
-        header: "Topic 1: How to use Civil tokens",
-        content: "TKTKT",
-      },
-    ],
+    tutorialIntro: {
+      header: "Topic 1: How to use Civil tokens",
+      content: "TKTKT",
+    },
     tutorials: [
       {
         content: <Topic1Tutorial1 />,
@@ -123,24 +121,20 @@ export const TutorialContent = [
         ],
       },
     ],
-    completed: [
-      {
-        header: "Nice! You’ve completed Topic 1",
-        content:
-          "Buying tokens, like any financial decision, is a risk. The price of tokens can fluctuate depending on various factors. It’ a good rule of thumb to look at the team behind the token – the founders, the advisors – as well as the token design and its supply.  It’s also important to diversify your portfolio across many investment vehicles – crypto assets and non-crypto assets.",
-      },
-    ],
+    completed: {
+      header: "Nice! You’ve completed Topic 1",
+      content:
+        "Buying tokens, like any financial decision, is a risk. The price of tokens can fluctuate depending on various factors. It’ a good rule of thumb to look at the team behind the token – the founders, the advisors – as well as the token design and its supply.  It’s also important to diversify your portfolio across many investment vehicles – crypto assets and non-crypto assets.",
+    },
   },
   {
     name: "Topic 2: Purchasing, storing, using Civil tokens",
     description: "Learn basic concepts of ETH, gas, digital wallets, keys, and recovery seed phrases.",
     icon: <TokenWalletIcon height={48} width={42} />,
-    tutorialIntro: [
-      {
-        header: "Topic 2: Purchasing, storing, using Civil tokens",
-        content: "TKTKT",
-      },
-    ],
+    tutorialIntro: {
+      header: "Topic 2: Purchasing, storing, using Civil tokens",
+      content: "TKTKT",
+    },
     tutorials: [
       {
         content: <Topic2Tutorial1 />,
@@ -247,23 +241,19 @@ export const TutorialContent = [
         ],
       },
     ],
-    completed: [
-      {
-        header: "Nice! You’ve completed Topic 2",
-        content: "TKTKT",
-      },
-    ],
+    completed: {
+      header: "Nice! You’ve completed Topic 2",
+      content: "TKTKT",
+    },
   },
   {
     name: "Topic 3: Things to consider before buying Civil tokens",
     description: "Learn about token price trends, token design, and potential risks.",
     icon: <TrendsIcon />,
-    tutorialIntro: [
-      {
-        header: "Topic 3: Things to consider before buying Civil tokens",
-        content: "TKTKT",
-      },
-    ],
+    tutorialIntro: {
+      header: "Topic 3: Things to consider before buying Civil tokens",
+      content: "TKTKT",
+    },
     tutorials: [
       {
         content: <Topic3Tutorial1 />,
@@ -328,11 +318,9 @@ export const TutorialContent = [
         ],
       },
     ],
-    completed: [
-      {
-        header: "Nice! You’ve completed Topic 3",
-        content: "TKTKT",
-      },
-    ],
+    completed: {
+      header: "Nice! You’ve completed Topic 3",
+      content: "TKTKT",
+    },
   },
 ];

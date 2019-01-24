@@ -2,47 +2,64 @@ import * as React from "react";
 import { WelcomeSlide, WelcomeSlideBtns, SlideProgress } from "./TokenTutorialStyledComponents";
 import { WelcomeScreenContent } from "./WelcomeScreenContent";
 import { TokenTutorialLanding } from "./TokenTutorialLanding";
+import { TokenTutorialQuiz } from "./TokenTutorialQuiz";
 import { colors } from "../styleConstants";
 
 export interface TutorialWelcomeScreensState {
-  activeIdx: number;
+  activeWelcomeIdx: number;
+  activeTutorialIdx: number;
+  tutorialActive: boolean;
 }
 
 export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeScreensState> {
   public constructor(props: any) {
     super(props);
-    this.state = { activeIdx: 0 };
+    this.state = { activeWelcomeIdx: 0, activeTutorialIdx: 0, tutorialActive: true };
   }
 
   public render(): JSX.Element {
-    const activeIdx = this.state.activeIdx;
+    const activeWelcomeIdx = this.state.activeWelcomeIdx;
+    const activeTutorialIdx = this.state.activeTutorialIdx;
+    const tutorialActive = this.state.tutorialActive;
     let progressColor;
 
-    if (activeIdx < WelcomeScreenContent.length) {
+    if (activeWelcomeIdx < WelcomeScreenContent.length) {
       return (
         <WelcomeSlide>
-          {WelcomeScreenContent[activeIdx].icon}
-          <h2>{WelcomeScreenContent[activeIdx].title}</h2>
-          <p>{WelcomeScreenContent[activeIdx].description}</p>
+          {WelcomeScreenContent[activeWelcomeIdx].icon}
+          <h2>{WelcomeScreenContent[activeWelcomeIdx].title}</h2>
+          <p>{WelcomeScreenContent[activeWelcomeIdx].description}</p>
           <SlideProgress>
             {WelcomeScreenContent.map((x, idx) => (
               <svg height="10" width="10">
-                {idx === activeIdx
+                {idx === activeWelcomeIdx
                   ? (progressColor = colors.accent.CIVIL_BLUE)
                   : (progressColor = colors.accent.CIVIL_GRAY_4)}
                 <circle cx="5" cy="5" r="5" stroke="none" stroke-width="0" fill={progressColor} />
               </svg>
             ))}
           </SlideProgress>
-          <WelcomeSlideBtns onClick={() => this.next()}>{WelcomeScreenContent[activeIdx].btn}</WelcomeSlideBtns>
+          <WelcomeSlideBtns onClick={() => this.welcomeNext()}>
+            {WelcomeScreenContent[activeWelcomeIdx].btn}
+          </WelcomeSlideBtns>
         </WelcomeSlide>
       );
-    } else {
-      return <TokenTutorialLanding />;
+    } else if (tutorialActive) {
+      return <TokenTutorialQuiz quizId={activeTutorialIdx} />;
     }
+
+    return <TokenTutorialLanding onClick={() => this.openTutorial()} />;
   }
 
-  private next = () => {
-    this.setState({ activeIdx: this.state.activeIdx + 1 });
+  private openTutorial = () => {
+    this.setState({ activeTutorialIdx: 0 });
+  };
+
+  private tutorialNext = () => {
+    this.setState({ activeTutorialIdx: this.state.activeTutorialIdx + 1 });
+  };
+
+  private welcomeNext = () => {
+    this.setState({ activeWelcomeIdx: this.state.activeWelcomeIdx + 1 });
   };
 }
