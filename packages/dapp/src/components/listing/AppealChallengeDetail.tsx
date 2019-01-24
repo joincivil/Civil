@@ -32,6 +32,7 @@ export interface AppealChallengeDetailProps {
 export interface ChallengeVoteState {
   voteOption?: string;
   numTokens?: string;
+  salt?: string;
   isReviewVoteModalOpen: boolean;
 }
 
@@ -54,7 +55,7 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
   }
 
   private renderRevealStage(): JSX.Element {
-    return <AppealChallengeRevealVote {...this.props} />;
+    return <AppealChallengeRevealVote {...this.props} key={this.props.user} />;
   }
 
   private renderResolveAppealChallenge(): JSX.Element {
