@@ -3,14 +3,20 @@ import { ChallengeOrAppealStatementSummaryProps } from "./types";
 import { StyledListingChallengeOrAppealStatement } from "./styledComponents";
 
 const ChallengeOrAppealStatementSummary: React.SFC<ChallengeOrAppealStatementSummaryProps> = props => {
-  const { challengeID, challengeStatementSummary, appealStatementSummary } = props;
-  if (challengeStatementSummary) {
-    const challengeIDDisplay = challengeID ? `#${challengeID}` : "";
+  const {
+    challengeID,
+    challengeStatementSummary,
+    appealStatementSummary,
+    appealChallengeID,
+    appealChallengeStatementSummary,
+  } = props;
+  if (appealChallengeStatementSummary) {
+    const appealChallengeIDDisplay = appealChallengeID ? `#${appealChallengeID}` : "";
     return (
       <StyledListingChallengeOrAppealStatement>
-        <b>Challenge {challengeIDDisplay} Summary</b>
+        <b>Challenge {appealChallengeIDDisplay} Summary</b>
         <br />
-        {challengeStatementSummary}
+        {appealChallengeStatementSummary}
       </StyledListingChallengeOrAppealStatement>
     );
   } else if (appealStatementSummary) {
@@ -19,6 +25,15 @@ const ChallengeOrAppealStatementSummary: React.SFC<ChallengeOrAppealStatementSum
         <b>Appeal Summary</b>
         <br />
         {appealStatementSummary}
+      </StyledListingChallengeOrAppealStatement>
+    );
+  } else if (challengeStatementSummary) {
+    const challengeIDDisplay = challengeID ? `#${challengeID}` : "";
+    return (
+      <StyledListingChallengeOrAppealStatement>
+        <b>Challenge {challengeIDDisplay} Summary</b>
+        <br />
+        {challengeStatementSummary}
       </StyledListingChallengeOrAppealStatement>
     );
   }

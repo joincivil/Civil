@@ -1,5 +1,5 @@
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { ChallengeData } from "@joincivil/core";
+import { ChallengeData, didChallengeSucceed as getDidChallengeSucceed } from "@joincivil/core";
 import { ChallengeResultsProps } from "@joincivil/components";
 
 export const getChallengeResultsProps = (challengeData?: ChallengeData): ChallengeResultsProps => {
@@ -8,7 +8,7 @@ export const getChallengeResultsProps = (challengeData?: ChallengeData): Challen
   let votesAgainst = "";
   let percentFor = "";
   let percentAgainst = "";
-  let didChallengeSucceed;
+  let didChallengeSucceed = false;
 
   if (challengeData) {
     const totalVotesBN = challengeData.poll.votesAgainst.add(challengeData.poll.votesFor);
@@ -23,7 +23,7 @@ export const getChallengeResultsProps = (challengeData?: ChallengeData): Challen
       .div(totalVotesBN)
       .mul(100)
       .toFixed(0);
-    didChallengeSucceed = challengeData.poll.votesAgainst.greaterThan(challengeData.poll.votesFor);
+    didChallengeSucceed = getDidChallengeSucceed(challengeData);
   }
 
   return {
