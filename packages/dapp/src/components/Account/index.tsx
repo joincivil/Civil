@@ -17,46 +17,48 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       <>
         <Switch>
           {/* Login Routes */}
-          <AuthenticatedRoute
-            redirectTo="/token"
-            path={`${match.path}/auth/login`}
-            exact={true}
-            component={(props: any) => (
-              <AccountEmailAuth isNewUser={false} {...props} onEmailSend={this.handleAuthEmail} />
-            )}
-          />
-          <Route
-            path={`${match.path}/auth/login/check-email`}
-            component={(props: any) => <AccountEmailSent {...props} isNewUser={false} />}
-          />
-          <Route
-            path={`${match.path}/auth/login/verify-token/:token`}
-            exact
-            component={(props: AccountVerifyTokenProps) => (
-              <AccountVerifyToken isNewUser={false} {...props} onAuthentication={this.handleOnAuthentication} />
-            )}
-          />
+          <AuthenticatedRoute onlyAllowUnauthenicated redirectTo="/account" path={`${match.path}/auth`}>
+            <Route
+              redirectTo="/account"
+              path={`${match.path}/auth/login`}
+              exact={true}
+              component={(props: any) => (
+                <AccountEmailAuth isNewUser={false} {...props} onEmailSend={this.handleAuthEmail} />
+              )}
+            />
+            <Route
+              path={`${match.path}/auth/login/check-email`}
+              component={(props: any) => <AccountEmailSent {...props} isNewUser={false} />}
+            />
+            <Route
+              path={`${match.path}/auth/login/verify-token/:token`}
+              exact
+              component={(props: AccountVerifyTokenProps) => (
+                <AccountVerifyToken isNewUser={false} {...props} onAuthentication={this.handleOnAuthentication} />
+              )}
+            />
 
-          {/* SignUp Routes */}
-          <Route
-            path={`${match.path}/auth/signup`}
-            exact={true}
-            component={(props: any) => (
-              <AccountEmailAuth isNewUser={true} {...props} onEmailSend={this.handleAuthEmail} />
-            )}
-          />
-          <Route
-            path={`${match.path}/auth/signup/check-email`}
-            exact
-            component={(props: any) => <AccountEmailSent {...props} isNewUser={true} />}
-          />
-          <Route
-            path={`${match.path}/auth/signup/verify-token/:token`}
-            exact
-            component={(props: AccountVerifyTokenProps) => (
-              <AccountVerifyToken isNewUser={true} {...props} onAuthentication={this.handleOnAuthentication} />
-            )}
-          />
+            {/* SignUp Routes */}
+            <Route
+              path={`${match.path}/auth/signup`}
+              exact={true}
+              component={(props: any) => (
+                <AccountEmailAuth isNewUser={true} {...props} onEmailSend={this.handleAuthEmail} />
+              )}
+            />
+            <Route
+              path={`${match.path}/auth/signup/check-email`}
+              exact
+              component={(props: any) => <AccountEmailSent {...props} isNewUser={true} />}
+            />
+            <Route
+              path={`${match.path}/auth/signup/verify-token/:token`}
+              exact
+              component={(props: AccountVerifyTokenProps) => (
+                <AccountVerifyToken isNewUser={true} {...props} onAuthentication={this.handleOnAuthentication} />
+              )}
+            />
+          </AuthenticatedRoute>
           <Route path={`${match.path}`} exact={true} component={AccountHome} />
         </Switch>
       </>

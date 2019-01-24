@@ -1,14 +1,12 @@
 import * as React from "react";
-import { BrowserRouter as Router, Route, RouteProps, Redirect } from "react-router-dom";
+import { Route, RouteProps, Redirect } from "react-router-dom";
 import { getApolloSession } from "@joincivil/utils";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 export interface AuthenticatedRouteProps extends RouteProps {
-  component: React.ComponentType;
   redirectTo: string;
   onlyAllowUnauthenicated?: boolean;
-  children?: any[];
 }
 
 const userQuery = gql`
@@ -30,7 +28,7 @@ export const AuthenticatedRoute = ({
   component: Component,
   redirectTo,
   onlyAllowUnauthenicated = false,
-  ...other
+  ...otherProps
 }: AuthenticatedRouteProps) => {
   const auth = getApolloSession();
 
@@ -41,20 +39,27 @@ export const AuthenticatedRoute = ({
   }
 
   return (
-    <Query query={userQuery}>
-      {({ loading, error, data }) => {
-        if (loading) {
-          return "Loading....";
-        }
+    <Route {...otherProps}>
+      <Query query={userQuery}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return null;
+          }
 
-        console.log({ error });
-        if (error) {
-          return <Redirect to={redirectTo} />;
-        }
+          if (error) {
+            return <Redirect to={redirectTo} />;
+          }
 
-        return <Component {...other} />;
-      }}
-    </Query>
+          if (Component) {
+            // TODO(jorgelo): Get the line below working without the ts-ignore
+            // @ts-ignore
+            return <Component {...otherProps} />;
+          }
+
+          return null;
+        }}
+      </Query>
+    </Route>
   );
 };
 
