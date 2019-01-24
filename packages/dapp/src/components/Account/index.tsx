@@ -59,7 +59,12 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
               )}
             />
           </AuthenticatedRoute>
-          <Route path={`${match.path}`} exact={true} component={AccountHome} />
+          <AuthenticatedRoute
+            redirectTo={`${match.path}/auth/login`}
+            path={`${match.path}`}
+            exact={true}
+            component={AccountHome}
+          />
         </Switch>
       </>
     );

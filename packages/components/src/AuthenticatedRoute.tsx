@@ -46,7 +46,7 @@ export const AuthenticatedRoute = ({
             return null;
           }
 
-          if (error) {
+          if (error && !onlyAllowUnauthenicated) {
             return <Redirect to={redirectTo} />;
           }
 
