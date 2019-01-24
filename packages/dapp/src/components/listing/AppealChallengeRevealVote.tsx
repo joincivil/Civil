@@ -212,7 +212,7 @@ class AppealChallengeRevealVote extends React.Component<
   };
 
   private getVoteOption(): string | undefined {
-    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    const fetchedVote = fetchVote(this.props.appealChallengeID, this.props.user);
     let voteOption;
     if (fetchedVote) {
       voteOption = fetchedVote.toString();
