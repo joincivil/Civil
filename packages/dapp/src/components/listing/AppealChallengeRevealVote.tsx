@@ -72,7 +72,7 @@ class AppealChallengeRevealVote extends React.Component<
     super(props);
     this.state = {
       voteOption: this.getVoteOption(),
-      salt: fetchSalt(this.props.challengeID, this.props.user),
+      salt: fetchSalt(this.props.appealChallengeID, this.props.user),
       isReviewVoteModalOpen: false,
       numTokens: undefined,
       key: new Date().valueOf(),
