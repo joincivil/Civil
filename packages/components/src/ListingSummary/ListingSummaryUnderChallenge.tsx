@@ -159,6 +159,8 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
       inChallengeCommitVotePhase,
       inChallengeRevealPhase,
       isAwaitingAppealRequest,
+      isAwaitingAppealJudgement,
+      isAwaitingAppealChallenge,
       isInAppealChallengeCommitPhase,
       isInAppealChallengeRevealPhase,
     } = this.props;
@@ -167,6 +169,8 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
       inChallengeCommitVotePhase ||
       inChallengeRevealPhase ||
       isAwaitingAppealRequest ||
+      isAwaitingAppealJudgement ||
+      isAwaitingAppealChallenge ||
       isInAppealChallengeCommitPhase ||
       isInAppealChallengeRevealPhase
     ) {
