@@ -18,14 +18,6 @@ const StyledDashboardActivityItemIcon = styled.div`
   width: 50px;
 `;
 
-const IconPlaceHolder = styled.figure`
-  background: ${colors.accent.CIVIL_GRAY_4};
-  height: 52px;
-  margin: 0;
-  padding: 0;
-  width: 52px;
-`;
-
 const StyledDashboardActivityItemDetails = styled.div`
   flex-grow: 1;
   font-size: 14px;
