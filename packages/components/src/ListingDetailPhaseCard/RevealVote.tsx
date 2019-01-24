@@ -11,6 +11,11 @@ export interface RevealVoteState {
 }
 
 export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState> {
+  constructor(props: RevealVoteProps) {
+    super(props);
+    this.state = { saltError: undefined };
+  }
+
   public render(): JSX.Element {
     const canReveal = this.props.voteOption !== undefined && !this.state.saltError;
     return (
