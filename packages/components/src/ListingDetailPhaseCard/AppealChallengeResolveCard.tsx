@@ -29,14 +29,14 @@ export interface AppealChallengeResultsProps {
   didAppealChallengeSucceed: boolean;
 }
 
-export const AppealChallengeResolveCard: React.SFC<
-  ListingDetailPhaseCardComponentProps &
-    ChallengePhaseProps &
-    ChallengeResultsProps &
-    AppealDecisionProps &
-    AppealChallengePhaseProps &
-    AppealChallengeResultsProps
-> = props => {
+export type AppealChallengeResolveCardProps = ListingDetailPhaseCardComponentProps &
+  ChallengePhaseProps &
+  ChallengeResultsProps &
+  AppealDecisionProps &
+  AppealChallengePhaseProps &
+  AppealChallengeResultsProps;
+
+export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardProps> = props => {
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>

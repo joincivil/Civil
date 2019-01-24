@@ -3,7 +3,8 @@ import { compose } from "redux";
 import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  AppealChallengeCommitVoteCard,
+  AppealChallengeCommitVoteCard as AppealChallengeCommitVoteCardComponent,
+  AppealChallengeCommitVoteCardProps,
   CommitVoteSuccessIcon,
   ModalContent,
   ModalUnorderedList,
@@ -15,6 +16,11 @@ import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
 import { commitVote, approveVotingRights } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
+import {
+  ChallengeContainerProps,
+  connectChallengePhase,
+  connectChallengeResults,
+} from "../utility/HigherOrderComponents";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { AppealChallengeDetailProps, ChallengeVoteState } from "./AppealChallengeDetail";
 
@@ -111,15 +117,12 @@ class AppealChallengeCommitVote extends React.Component<
   }
 
   public render(): JSX.Element | null {
-    const { challenge, appealChallenge } = this.props;
+    const { appealChallenge } = this.props;
 
     const endTime = appealChallenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
     const secondaryPhaseLength = this.props.parameters[Parameters.challengeAppealRevealLen];
 
-    const challenger = challenge.challenger.toString();
-    const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
-    const stake = getFormattedTokenBalance(challenge.stake);
     const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
     const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
     const tokenBalanceDisplay = this.props.balance ? getFormattedTokenBalance(this.props.balance) : "";
@@ -131,33 +134,12 @@ class AppealChallengeCommitVote extends React.Component<
     const userHasCommittedVote =
       this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserCommit;
 
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-
     const props = {
       endTime,
       phaseLength,
       secondaryPhaseLength,
       challengeID: this.props.challengeID.toString(),
-      challenger,
-      isViewingUserChallenger: challenge!.challenger.toString() === this.props.user,
-      rewardPool,
-      stake,
       userHasCommittedVote,
-      totalVotes: getFormattedTokenBalance(totalVotes),
-      votesFor,
-      votesAgainst,
-      percentFor: percentFor.toString(),
-      percentAgainst: percentAgainst.toString(),
       onCommitMaxTokens: () => this.commitMaxTokens(),
       tokenBalance,
       votingTokenBalance,
@@ -172,6 +154,10 @@ class AppealChallengeCommitVote extends React.Component<
       key: this.state.key,
       onMobileTransactionClick: this.props.onMobileTransactionClick,
     };
+
+    const AppealChallengeCommitVoteCard = compose<
+      React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeCommitVoteCardProps>>
+    >(connectChallengePhase, connectChallengeResults)(AppealChallengeCommitVoteCardComponent);
 
     return (
       <>

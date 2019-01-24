@@ -2,9 +2,18 @@ import * as React from "react";
 import { compose } from "redux";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { AppealAwaitingDecisionCard, ModalContent } from "@joincivil/components";
+import {
+  AppealAwaitingDecisionCard as AppealAwaitingDecisionCardComponent,
+  AppealAwaitingDecisionCardProps,
+  ModalContent,
+} from "@joincivil/components";
 
 import { confirmAppeal, grantAppeal } from "../../apis/civilTCR";
+import {
+  ChallengeContainerProps,
+  connectChallengePhase,
+  connectChallengeResults,
+} from "../utility/HigherOrderComponents";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 import { AppealDetailProps } from "./AppealDetail";
@@ -52,48 +61,26 @@ const transactionStatusModalConfig = {
 class AwaitingAppealDecision extends React.Component<AppealDetailProps & InjectedTransactionStatusModalProps> {
   public render(): JSX.Element {
     const appeal = this.props.appeal;
-    const challenge = this.props.challenge;
     const requester = appeal.requester.toString();
     const appealFeePaid = getFormattedTokenBalance(appeal.appealFeePaid);
-    const endTime = appeal.appealPhaseExpiry.toNumber();
     const phaseLength = this.props.govtParameters.judgeAppealLen;
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const didChallengeSucceed = challenge.poll.votesAgainst.greaterThan(challenge.poll.votesFor);
-
     const transactions = this.getTransactions();
 
     if (transactions) {
       this.props.setTransactions(transactions);
     }
 
+    const AppealAwaitingDecisionCard = compose<
+      React.ComponentClass<ChallengeContainerProps & Partial<AppealAwaitingDecisionCardProps>>
+    >(connectChallengePhase, connectChallengeResults)(AppealAwaitingDecisionCardComponent);
+
     return (
       <>
         <AppealAwaitingDecisionCard
-          endTime={endTime}
-          phaseLength={phaseLength}
           challengeID={this.props.challengeID.toString()}
-          challenger={challenge!.challenger.toString()}
-          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
-          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-          stake={getFormattedTokenBalance(challenge!.stake)}
+          phaseLength={phaseLength}
           requester={requester}
           appealFeePaid={appealFeePaid}
-          totalVotes={getFormattedTokenBalance(totalVotes)}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor.toString()}
-          percentAgainst={percentAgainst.toString()}
-          didChallengeSucceed={didChallengeSucceed}
           transactions={transactions}
           txIdToConfirm={this.props.txIdToConfirm}
           onMobileTransactionClick={this.props.onMobileTransactionClick}

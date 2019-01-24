@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
 
-import { ListingSummaryApprovedComponent } from "@joincivil/components";
+import { ListingSummaryRejectedComponent } from "@joincivil/components";
 
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
@@ -16,7 +16,7 @@ export interface RejectedListingsListReduxReduxProps {
 
 const RejectedListingListRedux: React.SFC<RejectedListingsListReduxReduxProps> = props => {
   if (props.rejectedListings.count()) {
-    return <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={props.rejectedListings} />;
+    return <ListingList ListingItemComponent={ListingSummaryRejectedComponent} listings={props.rejectedListings} />;
   }
 
   return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
