@@ -40,6 +40,7 @@ export interface CommitVoteProps {
   votingTokenBalance: number;
   tokenBalanceDisplay: string;
   votingTokenBalanceDisplay: string;
+  voteOption?: string;
   salt?: string;
   numTokens?: string;
   userHasCommittedVote?: boolean;
@@ -53,8 +54,8 @@ export interface CommitVoteProps {
 
 export interface RevealVoteProps {
   newsroomName?: string;
-  salt: string | undefined;
-  voteOption: string | undefined;
+  salt?: string;
+  voteOption?: string;
   transactions: any[];
   modalContentComponents?: any;
   onInputChange(propsData: any, validateFn?: () => boolean): void;
