@@ -26,6 +26,18 @@ export const TutorialProgressText: React.SFC<TutorialProgressTextProps> = props 
   <>You have {props.questions} questions left</>
 );
 
+export const Topic1Intro: React.SFC = props => (
+  <>
+    <p>
+      <b>You’ll learn</b>
+    </p>
+    <p>What is Civil, and what makes us different?</p>
+    <p>How does a Newsroom join the Civil network?</p>
+    <p>What are Civil tokens (CVL)?</p>
+    <p>What is the Civil Registry?</p>
+  </>
+);
+
 export const Topic1Tutorial1: React.SFC = props => (
   <>
     <h2>What is Civil?</h2>

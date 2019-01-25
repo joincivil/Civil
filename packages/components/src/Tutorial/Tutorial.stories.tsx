@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import { TutorialInfo } from "./TutorialInfo";
-import { TutorialQuestion } from "./TutorialQuestion";
+// import { TutorialQuestion } from "./TutorialQuestion";
 import { TutorialTopicIntro } from "./TutorialTopicIntro";
 import { TutorialTopicCompleted } from "./TutorialTopicCompleted";
 
@@ -36,16 +36,21 @@ const tutorial = {
 
 storiesOf("Tutorial", module)
   .add("Tutorial Info", () => {
-    return <TutorialInfo content={tutorial.tutorialContent} />;
+    return <TutorialInfo content={tutorial.tutorialContent} activeSlide={1} totalSlides={3} />;
   })
   /*.add("Tutorial Question", () => {
     return (
-      <TutorialQuestion quizName={tutorial.quizName} question={tutorial.question} options={tutorial.optionText} />
+      <TutorialQuestion quizName={tutorial.quizName} question={tutorial.question} options={tutorial.optionText} activeSlide={1} totalSlides={3} />
     );
   })*/
   .add("Tutorial Topic Intro", () => {
     return (
-      <TutorialTopicIntro headerText={tutorial.tutorialTopicIntroHeader} infoText={tutorial.tutorialTopicIntroInfo} />
+      <TutorialTopicIntro
+        headerText={tutorial.tutorialTopicIntroHeader}
+        infoText={tutorial.tutorialTopicIntroInfo}
+        activeSlide={0}
+        totalSlides={0}
+      />
     );
   })
   .add("Tutorial Topic Completed", () => {

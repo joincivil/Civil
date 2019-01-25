@@ -3,6 +3,7 @@ import { TrendsIcon } from "../icons/TrendsIcon";
 import { NetworkIcon } from "../icons/NetworkIcon";
 import { TokenWalletIcon } from "../icons/TokenWalletIcon";
 import {
+  Topic1Intro,
   Topic1Tutorial1,
   Topic1Tutorial2,
   Topic1Tutorial3,
@@ -28,7 +29,7 @@ export const TutorialContent = [
     icon: <NetworkIcon />,
     tutorialIntro: {
       header: "Topic 1: How to use Civil tokens",
-      content: "TKTKT",
+      content: <Topic1Intro />,
     },
     tutorials: [
       {

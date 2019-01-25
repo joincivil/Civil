@@ -1,16 +1,10 @@
 import * as React from "react";
-import { TutorialFooterContain, TutorialBtn, TutorialInvertedBtn } from "./TutorialStyledComponents";
+import { TutorialFooterFull, TutorialFooterWrap } from "./TutorialStyledComponents";
 
-export interface TutorialFooterProps {
-  btn1Text?: string | JSX.Element;
-  btn2Text?: string | JSX.Element;
-}
-
-export const TutorialFooter: React.StatelessComponent<TutorialFooterProps> = props => {
+export const TutorialFooter: React.StatelessComponent = props => {
   return (
-    <TutorialFooterContain>
-      <TutorialInvertedBtn>{props.btn1Text || "Back"}</TutorialInvertedBtn>
-      <TutorialBtn>{props.btn2Text || "Continue"}</TutorialBtn>
-    </TutorialFooterContain>
+    <TutorialFooterFull>
+      <TutorialFooterWrap>{props.children}</TutorialFooterWrap>
+    </TutorialFooterFull>
   );
 };

@@ -1,16 +1,18 @@
 import * as React from "react";
-import { TutorialProgressContain, TutorialProgressBar } from "./TutorialStyledComponents";
+import { TutorialProgressContain, TutorialProgressBar, TutorialProgressBarActive } from "./TutorialStyledComponents";
 
 export interface TutorialProgressProps {
-  activeIdx?: number;
-  total?: number;
+  activeSlide: number;
+  totalSlides: number;
 }
 
 export const TutorialProgress: React.StatelessComponent<TutorialProgressProps> = props => {
   return (
     <>
       <TutorialProgressContain>
-        <TutorialProgressBar />
+        <TutorialProgressBar>
+          <TutorialProgressBarActive activeSlide={props.activeSlide} totalSlides={props.totalSlides} />
+        </TutorialProgressBar>
       </TutorialProgressContain>
     </>
   );

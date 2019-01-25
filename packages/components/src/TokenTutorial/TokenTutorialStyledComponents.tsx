@@ -4,14 +4,11 @@ import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton, ButtonProps } from "../Button";
 
 export const TutorialContainer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  padding: 75px;
   width: 100%;
 `;
 
 export const TutorialLandingContainer = styled.div`
+  margin: 0 auto;
   max-width: 730px;
 `;
 
@@ -30,6 +27,7 @@ export const WelcomeSlide = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   letter-spacing: -0.87px;
+  margin: 0 auto;
   max-width: 500px;
   padding: 20px;
   text-align: center;

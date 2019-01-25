@@ -14,7 +14,7 @@ export interface TutorialWelcomeScreensState {
 export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeScreensState> {
   public constructor(props: any) {
     super(props);
-    this.state = { activeWelcomeIdx: 0, activeTutorialIdx: 0, tutorialActive: true };
+    this.state = { activeWelcomeIdx: 0, activeTutorialIdx: 0, tutorialActive: false };
   }
 
   public render(): JSX.Element {
@@ -53,10 +53,7 @@ export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeS
 
   private openTutorial = () => {
     this.setState({ activeTutorialIdx: 0 });
-  };
-
-  private tutorialNext = () => {
-    this.setState({ activeTutorialIdx: this.state.activeTutorialIdx + 1 });
+    this.setState({ tutorialActive: true });
   };
 
   private welcomeNext = () => {

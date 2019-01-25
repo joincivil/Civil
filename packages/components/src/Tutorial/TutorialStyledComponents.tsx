@@ -3,15 +3,37 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton, ButtonProps } from "../Button";
 
+export interface TutorialProgressBarProps {
+  activeSlide: number;
+  totalSlides: number;
+}
+
 export const TutorialProgressContain = styled.div`
   padding: 20px 0;
   width: 100%;
+`;
+
+export const TutorialProgressBar = styled.div`
+  background-color: ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 3px;
+  height: 6px;
+  margin: 0 auto;
+  max-width: 900px;
+  width: 100%;
+`;
+
+export const TutorialProgressBarActive = styled.div`
+  background-color: ${colors.accent.CIVIL_BLUE};
+  border-radius: 3px;
+  height: 6px;
+  width: ${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}%;
 `;
 
 export const TutorialContentWrap = styled.div`
   font-family: ${fonts.SANS_SERIF};
   margin: 0 auto 50px;
   max-width: 710px;
+  min-height: 500px;
 
   svg {
     display: block;
@@ -28,17 +50,11 @@ export const TutorialSlideContent = styled.div`
     line-height: 29px;
   }
 
-  p {
+  p,
+  li {
     font-size: 18px;
     line-height: 33px;
   }
-`;
-
-export const TutorialProgressBar = styled.div`
-  background-color: ${colors.accent.CIVIL_GRAY_4};
-  border-radius: 3px;
-  height: 6px;
-  width: 100%;
 `;
 
 export const TutorialTopicTitle = styled.div`
@@ -59,12 +75,19 @@ export const TutorialTopicInfo = styled.div`
   line-height: 31px;
 `;
 
-export const TutorialFooterContain = styled.div`
+export const TutorialFooterFull = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   display: flex;
+  justify-content: center;
+  padding: 40px 20px 50px;
+  width: 100%;
+`;
+
+export const TutorialFooterWrap = styled.div`
+  display: flex;
   justify-content: space-between;
-  padding: 30px;
-  width: calc(100% - 60px);
+  max-width: 900px;
+  width: 100%;
 `;
 
 export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
@@ -78,6 +101,7 @@ export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(B
 `;
 
 export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+  background-color: transparent;
   border-radius: 1px;
   font-size: 14px;
   font-weight: 700;
