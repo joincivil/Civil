@@ -168,8 +168,6 @@ export const SmallNewsroomLogo = styled.img`
   height: 52px;
   min-width: 52px;
   min-height: 52px;
-  max-width: 52px;
-  max-heigh: 52px;
   object-fit: cover;
 `;
 
