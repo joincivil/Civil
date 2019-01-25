@@ -8,12 +8,8 @@ const userQuery = gql`
       uid
       email
       ethAddress
-      onfidoApplicantId
-      onfidoCheckID
-      kycStatus
       quizPayload
       quizStatus
-      isTokenFoundryRegistered
     }
   }
 `;

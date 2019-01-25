@@ -38,6 +38,12 @@
     }
   ],
   "networks": {
+    "1": {
+      "events": {},
+      "links": {},
+      "address": "0xe649d7dbefa1111f0614d418ff06e895313cba6a",
+      "transactionHash": "0xfe7934cadf19f7ea6ba329b04dc63e2268e1295a59a18569bfb4686b706e4914"
+    },
     "4": {
       "events": {},
       "links": {},

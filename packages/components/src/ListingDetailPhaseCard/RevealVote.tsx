@@ -7,20 +7,17 @@ import { WhitelistActionText, RemoveActionText, VoteCallToActionText, RevealVote
 import { RevealVoteProps } from "./types";
 
 export interface RevealVoteState {
-  voteOption?: number;
   saltError?: string;
 }
 
 export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState> {
   constructor(props: RevealVoteProps) {
     super(props);
-    this.state = {
-      voteOption: this.props.voteOption ? Number.parseInt(this.props.voteOption, 10) : undefined,
-    };
+    this.state = { saltError: undefined };
   }
 
   public render(): JSX.Element {
-    const canReveal = this.state.voteOption !== undefined && !this.state.saltError;
+    const canReveal = this.props.voteOption !== undefined && !this.state.saltError;
     return (
       <>
         <FormQuestion>
@@ -28,12 +25,19 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
         </FormQuestion>
 
         <VoteOptionsContainer>
-          {this.renderVoteButton({ voteOption: 1 })}
+          {this.renderVoteButton({ voteOption: "1" })}
           <StyledOrText>or</StyledOrText>
-          {this.renderVoteButton({ voteOption: 0 })}
+          {this.renderVoteButton({ voteOption: "0" })}
         </VoteOptionsContainer>
 
-        <SaltInput salt={this.props.salt} label="Enter your salt" name="salt" onChange={this.onChange} />
+        <SaltInput
+          salt={this.props.salt}
+          label="Enter your salt"
+          name="salt"
+          onChange={this.onChange}
+          invalid={!!this.state.saltError}
+          invalidMessage={this.state.saltError}
+        />
 
         <TransactionButtonNoModal
           transactions={this.props.transactions}
@@ -48,49 +52,30 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
 
   private renderVoteButton = (options: any): JSX.Element => {
     let buttonText;
-    let onClick;
-    if (options.voteOption === 1) {
+    const { voteOption } = options;
+    const ButtonComponent = this.props.voteOption === voteOption ? Button : DarkButton;
+    const onClick = () => {
+      this.props.onInputChange({ voteOption });
+    };
+    if (voteOption === "1") {
       buttonText = (
         <>
           ✔ <WhitelistActionText />
         </>
       );
-      onClick = this.setVoteToRemain;
-    } else if (options.voteOption === 0) {
+    } else if (voteOption === "0") {
       buttonText = (
         <>
           ✖ <RemoveActionText />
         </>
       );
-      onClick = this.setVoteToRemove;
-    }
-    if (this.state.voteOption === options.voteOption) {
-      return (
-        <Button onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
-          {buttonText}
-        </Button>
-      );
     }
 
     return (
-      <DarkButton onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
+      <ButtonComponent onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
         {buttonText}
-      </DarkButton>
+      </ButtonComponent>
     );
-  };
-
-  private setVoteToRemain = (): void => {
-    // A "remain" vote is a vote that doesn't support the
-    // challenge, so `voteOption === 1`
-    this.props.onInputChange({ voteOption: "1" });
-    this.setState(() => ({ voteOption: 1 }));
-  };
-
-  private setVoteToRemove = (): void => {
-    // A "remove" vote is a vote that supports the
-    // challenge, so `voteOption === 0`
-    this.props.onInputChange({ voteOption: "0" });
-    this.setState(() => ({ voteOption: 0 }));
   };
 
   private validateSalt = (): boolean => {
