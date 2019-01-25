@@ -17,12 +17,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(DLL, CivilTCR);
     await deployer.link(AttributeStore, CivilTCR);
 
-    let tokenAddress;
-    if (network === MAIN_NETWORK) {
-      tokenAddress = config.nets[network].TokenAddress;
-    } else {
-      tokenAddress = Token.address;
-    }
+    const tokenAddress = Token.address;
 
     // const estimate = web3.eth.estimateGas({ data: CivilTCR.bytecode });
     // console.log("CivilTCR gas cost estimate: " + estimate);

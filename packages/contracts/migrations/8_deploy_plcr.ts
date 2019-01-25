@@ -15,12 +15,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(DLL, PLCRVoting);
     await deployer.link(AttributeStore, PLCRVoting);
 
-    let tokenAddress;
-    if (network === MAIN_NETWORK) {
-      tokenAddress = config.nets[network].TokenAddress;
-    } else {
-      tokenAddress = Token.address;
-    }
+    const tokenAddress = Token.address;
     await deployer.deploy(PLCRVoting, tokenAddress, CivilTokenController.address);
 
     if (inTesting(network)) {

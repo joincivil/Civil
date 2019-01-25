@@ -2,32 +2,33 @@
   "nets": {
     "mainnet": {
       "paramDefaults": {
-        "minDeposit": 100000000000000000000,
-        "pMinDeposit": 1000000000000000000000,
+        "minDeposit": 5000000000000000000000,
+        "pMinDeposit": 50000000000000000000000,
         "applyStageLength": 86400,
         "pApplyStageLength": 86400,
-        "commitStageLength": 86400,
-        "pCommitStageLength": 86400,
-        "revealStageLength": 86400,
-        "pRevealStageLength": 86400,
+        "commitStageLength": 864000,
+        "pCommitStageLength": 864000,
+        "revealStageLength": 604800,
+        "pRevealStageLength": 604800,
         "dispensationPct": 50,
         "pDispensationPct": 50,
         "voteQuorum": 50,
         "pVoteQuorum": 50,
-        "pProcessBy": 86400,
-        "appealFeeAmount": 100000000000000000000,
-        "challengeAppealLength": 86400,
-        "requestAppealPhaseLength": 86400,
+        "appealFeeAmount": 5000000000000000000000,
+        "challengeAppealLength": 604800,
+        "requestAppealPhaseLength": 259200,
         "judgeAppealPhaseLength": 345600,
-        "appealChallengeCommitStageLength": 86400,
-        "appealChallengeRevealStageLength": 86400,
+        "appealChallengeCommitStageLength": 864000,
+        "appealChallengeRevealStageLength": 604800,
         "appealSupermajorityPercentage": 66,
         "appealChallengeVoteDispensationPct": 66,
-        "govtPCommitStageLength": 86400,
-        "govtPRevealStageLength": 86400,
-        "constitutionURI": "http://madeupURL.com",
-        "constitutionHash": "0x3595a4bac2650127ce23cf4cbb67c6bd3cf311de5dc84d4bfc35efb5f99505d2"
-      }
+        "govtPCommitStageLength": 864000,
+        "govtPRevealStageLength": 604800,
+        "constitutionURI": "ipfs://zb34W7r8jmpKj13xrTa3npapGpEpms8iPkUWeVyJPjsH7WYN2",
+        "constitutionHash": "0x3eaf99d3f9ad31d76d9c685655db55bf81211042841887d37c3643e12226b726"
+      },
+      "AppellateAddress": "0x52166e838ef51e3728d6679890e81cd37d945a54",
+      "GovernmentControllerAddress": "0xfe6eee8911d866f3196d9cb003ee0af50d1875c1"
     },
     "rinkeby": {
       "paramDefaults": {

@@ -16,12 +16,7 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     await deployer.link(AttributeStore, Parameterizer);
 
     const parameterizerConfig = config.nets[network].paramDefaults;
-    let tokenAddress;
-    if (network === MAIN_NETWORK) {
-      tokenAddress = config.nets[network].TokenAddress;
-    } else {
-      tokenAddress = Token.address;
-    }
+    const tokenAddress = Token.address;
 
     // const estimate = web3.eth.estimateGas({ data: Parameterizer.bytecode });
     // console.log("Parameterizer gas cost estimate: " + estimate);
