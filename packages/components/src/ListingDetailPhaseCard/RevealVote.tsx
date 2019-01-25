@@ -2,11 +2,7 @@ import * as React from "react";
 import { SaltInput } from "../input/";
 import { TransactionButtonNoModal } from "../TransactionButton";
 import { FormQuestion, StyledOrText, VoteOptionsContainer } from "./styledComponents";
-import {
-  VoteCallToActionText,
-  AppealChallengeVoteCallToActionText,
-  RevealVoteButtonText,
-} from "./textComponents";
+import { VoteCallToActionText, AppealChallengeVoteCallToActionText, RevealVoteButtonText } from "./textComponents";
 import { RevealVoteProps } from "./types";
 import VoteButton from "./VoteButton";
 
