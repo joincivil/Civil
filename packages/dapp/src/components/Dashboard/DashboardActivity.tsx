@@ -25,6 +25,7 @@ import {
   getUserChallengesWithRescueTokens,
   getChallengesStartedByUser,
   getChallengesVotedOnByUser,
+  getUserAppealChallengesWithRescueTokens,
 } from "../../selectors";
 
 import ActivityList from "./ActivityList";
@@ -165,7 +166,7 @@ class DashboardActivity extends React.Component<
           </Tab>
           <Tab title={rescueTokensTabTitle}>
             <ChallengesWithTokensToRescue
-              challenges={userChallengesWithUnclaimedRewards}
+              challenges={userChallengesWithRescueTokens}
               onMobileTransactionClick={this.showNoMobileTransactionsModal}
             />
           </Tab>
@@ -216,7 +217,13 @@ const mapStateToProps = (
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
   const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
   const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
-  const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state);
+
+  // console.log("getUserChallengesWithRescueTokens(state): ", getUserChallengesWithRescueTokens(state));
+  console.log("getUserAppealChallengesWithRescueTokens(state): ", getUserAppealChallengesWithRescueTokens(state));
+
+  const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state)!.merge(
+    getUserAppealChallengesWithRescueTokens(state)!.toArray(),
+  );
 
   return {
     currentUserNewsrooms,

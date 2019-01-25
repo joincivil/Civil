@@ -181,8 +181,10 @@ export interface ChallengeData {
 export interface UserChallengeData {
   didUserCommit?: boolean;
   didUserReveal?: boolean;
+  canUserReveal?: boolean;
   didUserCollect?: boolean;
   didUserRescue?: boolean;
+  canUserRescue?: boolean;
   didCollectAmount?: BigNumber;
   isVoterWinner?: boolean;
   salt?: BigNumber;
