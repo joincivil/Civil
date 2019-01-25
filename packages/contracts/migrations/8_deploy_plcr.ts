@@ -1,7 +1,6 @@
 /* global artifacts */
 
-import { approveEverything, config, inTesting } from "./utils";
-import { MAIN_NETWORK } from "./utils/consts";
+import { approveEverything, inTesting } from "./utils";
 
 const Token = artifacts.require("CVLToken");
 const DLL = artifacts.require("DLL");
