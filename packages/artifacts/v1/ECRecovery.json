@@ -6,6 +6,12 @@
     "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a723058207908cba412f3804a638418afca8c553575433d1929b9fbfed8c7d69eed359dc60029",
   "abi": [],
   "networks": {
+    "1": {
+      "events": {},
+      "links": {},
+      "address": "0x944712803bc20ac97464a5130f624f125d1fa4c2",
+      "transactionHash": "0xbf6d7c02c5a9d008b5b7c5dbfa76dc08bb0d5f16dd492ffb10bd98115e4aab2a"
+    },
     "4": {
       "events": {},
       "links": {},

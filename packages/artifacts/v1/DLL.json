@@ -177,6 +177,12 @@
     }
   ],
   "networks": {
+    "1": {
+      "events": {},
+      "links": {},
+      "address": "0x739f1745e415782861373c5ff1a6dc56d2d41451",
+      "transactionHash": "0x3df1e3ecf9e6df6c8e4a96431cf90e855940819003e8278765923f017e9311c3"
+    },
     "4": {
       "events": {},
       "links": {},

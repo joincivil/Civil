@@ -54,6 +54,17 @@ module.exports = {
       network_id: 5,
       gasPrice: "20000000000",
     },
+    mainnet: {
+      provider: function() {
+        var infuraProvider = require("@joincivil/dev-utils").mnemonicProvider;
+        var mnemonic = process.env.MNEMONIC;
+        var infura_key = process.env.INFURA_KEY;
+        // HDWalletProvider doesn't support signing transactions which is necessary for group creation
+        return infuraProvider(mnemonic, "https://mainnet.infura.io/v3/" + infura_key);
+      },
+      network_id: 1,
+      gasPrice: "10000000000",
+    },
     ledgerMainnet: {
       provider: function() {
         var ledgerProvider = require("@joincivil/dev-utils").ledgerProvider;
