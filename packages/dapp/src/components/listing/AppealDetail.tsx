@@ -16,7 +16,7 @@ const StyledDiv = styled.div`
 
 export interface AppealDetailProps {
   listingAddress: EthAddress;
-  newsroom?: NewsroomWrapper,
+  newsroom?: NewsroomWrapper;
   appeal: AppealData;
   challengeID: BigNumber;
   challenge: ChallengeData;

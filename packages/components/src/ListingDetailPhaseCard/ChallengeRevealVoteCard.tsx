@@ -113,7 +113,6 @@ export class ChallengeRevealVoteCard extends React.Component<
                   voteOption={this.props.voteOption}
                   onInputChange={this.props.onInputChange}
                   transactions={this.props.transactions}
-                  modalContentComponents={this.props.modalContentComponents}
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>

@@ -1,10 +1,14 @@
 import * as React from "react";
-import { buttonSizes, Button, DarkButton } from "../Button";
 import { SaltInput } from "../input/";
 import { TransactionButtonNoModal } from "../TransactionButton";
-import { FormQuestion, StyledOrText, VoteOptionsContainer, buttonTheme } from "./styledComponents";
-import { WhitelistActionText, RemoveActionText, VoteCallToActionText, RevealVoteButtonText } from "./textComponents";
+import { FormQuestion, StyledOrText, VoteOptionsContainer } from "./styledComponents";
+import {
+  VoteCallToActionText,
+  AppealChallengeVoteCallToActionText,
+  RevealVoteButtonText,
+} from "./textComponents";
 import { RevealVoteProps } from "./types";
+import VoteButton from "./VoteButton";
 
 export interface RevealVoteState {
   saltError?: string;
@@ -18,21 +22,24 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
 
   public render(): JSX.Element {
     const canReveal = this.props.voteOption !== undefined && !this.state.saltError;
+    const DefaultCTATextComponent = this.props.isAppealChallenge
+      ? AppealChallengeVoteCallToActionText
+      : VoteCallToActionText;
     return (
       <>
         <FormQuestion>
-          {this.props.children || <VoteCallToActionText newsroomName={this.props.newsroomName} />}
+          {this.props.children || <DefaultCTATextComponent newsroomName={this.props.newsroomName} />}
         </FormQuestion>
 
         <VoteOptionsContainer>
-          {this.renderVoteButton({ voteOption: "1" })}
+          <VoteButton buttonVoteOptionValue="1" {...this.props} />
           <StyledOrText>or</StyledOrText>
-          {this.renderVoteButton({ voteOption: "0" })}
+          <VoteButton buttonVoteOptionValue="0" {...this.props} />
         </VoteOptionsContainer>
 
         <SaltInput
           salt={this.props.salt}
-          label="Enter your salt"
+          label="Enter your secret phrase"
           name="salt"
           onChange={this.onChange}
           invalid={!!this.state.saltError}
@@ -49,34 +56,6 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
       </>
     );
   }
-
-  private renderVoteButton = (options: any): JSX.Element => {
-    let buttonText;
-    const { voteOption } = options;
-    const ButtonComponent = this.props.voteOption === voteOption ? Button : DarkButton;
-    const onClick = () => {
-      this.props.onInputChange({ voteOption });
-    };
-    if (voteOption === "1") {
-      buttonText = (
-        <>
-          ✔ <WhitelistActionText />
-        </>
-      );
-    } else if (voteOption === "0") {
-      buttonText = (
-        <>
-          ✖ <RemoveActionText />
-        </>
-      );
-    }
-
-    return (
-      <ButtonComponent onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
-        {buttonText}
-      </ButtonComponent>
-    );
-  };
 
   private validateSalt = (): boolean => {
     let isValid = true;

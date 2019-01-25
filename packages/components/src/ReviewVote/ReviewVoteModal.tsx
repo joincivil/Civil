@@ -12,6 +12,7 @@ import {
   ReviewVoteCopyText,
   SaltLabelText,
   ReviewVoteDecisionText,
+  AppealChallengeReviewVoteDecisionText,
   ReviewVoteDepositedCVLLabelText,
   ReviewVoteMyAddressLabelText,
   ConfirmVotesHeaderText,
@@ -51,6 +52,7 @@ export interface ReviewVoteProps extends FullScreenModalProps {
   newsroomName: string;
   listingDetailURL: string;
   challengeID: string;
+  isAppealChallenge?: boolean;
   numTokens?: string;
   voteOption?: string;
   salt?: string;
@@ -161,7 +163,14 @@ export const ReviewVote: React.StatelessComponent<ReviewVoteProps> = props => {
                   <MetaItemLabel>Challenge ID {props.challengeID}</MetaItemLabel>
 
                   <MetaItemValue>
-                    <ReviewVoteDecisionText voteOption={props.voteOption} newsroomName={props.newsroomName} />
+                    {props.isAppealChallenge ? (
+                      <AppealChallengeReviewVoteDecisionText
+                        voteOption={props.voteOption}
+                        newsroomName={props.newsroomName}
+                      />
+                    ) : (
+                      <ReviewVoteDecisionText voteOption={props.voteOption} newsroomName={props.newsroomName} />
+                    )}
                   </MetaItemValue>
                 </MetaRow>
                 <MetaRow>

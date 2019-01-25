@@ -179,7 +179,7 @@ class ChallengeCommitVote extends React.Component<
     console.log(this.props);
 
     const props: ReviewVoteProps = {
-      newsroomName: this.props.newsroom && this.props.newsroom.data.name || "this newsroom",
+      newsroomName: (this.props.newsroom && this.props.newsroom.data.name) || "this newsroom",
       listingDetailURL,
       challengeID: this.props.challengeID.toString(),
       open: this.state.isReviewVoteModalOpen!,
