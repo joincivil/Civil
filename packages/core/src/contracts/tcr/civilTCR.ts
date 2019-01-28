@@ -35,7 +35,6 @@ import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
 import { Voting } from "./voting";
 import { TxDataAll } from "@joincivil/typescript-types";
-import { isChallengeInRevealStage, isChallengeInCommitStage } from "../../utils/listingDataHelpers/challengeHelper";
 import { isInCommitStage, isInRevealStage } from "../../utils/listingDataHelpers/pollHelper";
 
 const debug = Debug("civil:tcr");

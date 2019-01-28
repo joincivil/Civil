@@ -303,12 +303,10 @@ const makeChallengeMapStateToProps = () => {
     // const challengeState = getChallengeState(challenge!);
     const { even, user } = ownProps;
     const { listingsFetching, challenges, appealChallengeIDsToChallengeIDs } = state.networkDependent;
-    console.log("challenges: ", challenges);
     const parentChallengeID = appealChallengeIDsToChallengeIDs.get(ownProps.challengeID);
     const listingAddress = challenges.get(parentChallengeID)
       ? challenges.get(parentChallengeID)!.listingAddress
       : "unknown";
-    console.log("listingAddress: ", listingAddress);
     let listingDataRequestStatus;
     if (listingAddress) {
       listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
