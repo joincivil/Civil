@@ -9,6 +9,7 @@ import {
   addUserAppealChallengeData,
   addUserChallengeData,
   addUserChallengeStarted,
+  linkAppealChallengeToChallenge,
 } from "../redux/actionCreators/challenges";
 import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
 import { addUserNewsroom, addContent } from "../redux/actionCreators/newsrooms";
@@ -97,6 +98,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
       if (!pollID.equals(challengeId)) {
         const appealChallengeUserData = await tcr.getUserChallengeData(pollID, user);
         dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
+        dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
       }
     });
 

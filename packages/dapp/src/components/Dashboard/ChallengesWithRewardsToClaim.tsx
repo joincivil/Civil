@@ -55,6 +55,7 @@ const transactionStatusModalConfig = {
 
 export interface ChallengesWithRewardsToClaimProps {
   challenges: any;
+  appealChallenges: any;
   onMobileTransactionClick?(): any;
 }
 
@@ -82,7 +83,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
   }
 
   public render(): JSX.Element {
-    const isClaimRewardsButtonDisabled = !this.state.challengesToClaim.length;
+    const isClaimRewardsButtonDisabled = this.isEmpty(this.state.challengesToClaim);
     const transactions = this.getTransactions();
 
     return (
@@ -92,6 +93,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
         </StyledDashboardActivityDescription>
         <ActivityList
           challenges={this.props.challenges}
+          appealChallenges={this.props.appealChallenges}
           resolvedChallenges={true}
           toggleChallengeSelect={this.setChallengesToMultiClaim}
         />
@@ -138,6 +140,15 @@ class ChallengesWithRewardsToClaim extends React.Component<
       },
     ];
   };
+
+  private isEmpty(obj: any): boolean {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+    return true;
+  }
 
   private setChallengesToMultiClaim = (challengeID: string, isSelected: boolean, salt: BigNumber): void => {
     this.setState(() => ({

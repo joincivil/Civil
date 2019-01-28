@@ -35,6 +35,7 @@ import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
 import { Voting } from "./voting";
 import { TxDataAll } from "@joincivil/typescript-types";
+import { isInCommitStage, isInRevealStage } from "../../utils/listingDataHelpers/pollHelper";
 
 const debug = Debug("civil:tcr");
 
@@ -544,13 +545,17 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let didUserCommit;
     let didUserReveal;
     let didUserCollect;
-    let didUserRescue;
+    let didUserRescue = false;
     let didCollectAmount;
     let isVoterWinner;
     let salt;
     let numTokens;
     let choice;
-    const resolved = (await this.instance.challenges.callAsync(challengeID))[2];
+    const [, , resolved] = await this.instance.challenges.callAsync(challengeID);
+    const pollData = await this.voting.getPoll(challengeID);
+    let canUserReveal;
+    let canUserRescue;
+    let canUserCollect;
     if (user) {
       didUserCommit = await this.voting.didCommitVote(user, challengeID);
       if (didUserCommit) {
@@ -562,11 +567,18 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
             numTokens = reveal!.args.numTokens;
             choice = reveal!.args.choice;
             didUserCollect = await this.instance.tokenClaims.callAsync(challengeID, user);
+            isVoterWinner = await this.voting.isVoterWinner(challengeID, user);
+            canUserCollect = isVoterWinner && !didUserCollect;
           } else {
-            didUserRescue = !(await this.voting.canRescueTokens(user, challengeID));
+            didUserRescue =
+              !(await this.voting.canRescueTokens(user, challengeID)) &&
+              !(await isInCommitStage(pollData)) &&
+              !(await isInRevealStage(pollData));
           }
-          isVoterWinner = await this.voting.isVoterWinner(challengeID, user);
+        } else {
+          canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
         }
+        canUserRescue = !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
       }
     }
 
@@ -577,8 +589,11 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     return {
       didUserCommit,
       didUserReveal,
+      canUserReveal,
       didUserCollect,
+      canUserCollect,
       didUserRescue,
+      canUserRescue,
       didCollectAmount,
       isVoterWinner,
       salt,

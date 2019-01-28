@@ -15,6 +15,18 @@ export function challenges(
   }
 }
 
+export function appealChallengeIDsToChallengeIDs(
+  state: Map<string, string> = Map<string, string>(),
+  action: AnyAction,
+): Map<string, string> {
+  switch (action.type) {
+    case challengeActions.LINK_APPEAL_CHALLENGE_TO_CHALLENGE:
+      return state.set(action.data.appealChallengeID.toString(), action.data.challengeID.toString());
+    default:
+      return state;
+  }
+}
+
 export function grantAppealTxs(
   state: Map<string, TxDataAll> = Map<string, TxDataAll>(),
   action: AnyAction,

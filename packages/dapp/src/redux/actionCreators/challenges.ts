@@ -16,6 +16,7 @@ export enum challengeActions {
   FETCH_GRANT_APPEAL_TX = "FETCH_GRANT_APPEAL_TX",
   FETCH_AND_ADD_CHALLENGE_DATA = "FETCH_AND_ADD_CHALLENGE_DATA",
   FETCH_AND_ADD_GRANT_APPEAL_TX = "FETCH_AND_ADD_GRANT_APPEAL_TX",
+  LINK_APPEAL_CHALLENGE_TO_CHALLENGE = "LINK_APPEAL_CHALLENGE_TO_CHALLENGE",
 }
 
 export const addGrantAppealTx = (listingAddress: EthAddress, txData: TxDataAll): AnyAction => {
@@ -90,6 +91,16 @@ export const fetchChallengeComplete = (challengeID: string): AnyAction => {
     data: {
       challengeID,
       isFetching: false,
+    },
+  };
+};
+
+export const linkAppealChallengeToChallenge = (appealChallengeID: string, challengeID: string): AnyAction => {
+  return {
+    type: challengeActions.LINK_APPEAL_CHALLENGE_TO_CHALLENGE,
+    data: {
+      appealChallengeID,
+      challengeID,
     },
   };
 };
