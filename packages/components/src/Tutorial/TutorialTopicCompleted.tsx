@@ -10,7 +10,7 @@ import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 export interface TutorialTopicCompletedProps {
   completedHeader?: string | JSX.Element;
   completedText?: string | JSX.Element;
-  onClick?(e: any): void;
+  onClickNext?(e: any): void;
 }
 
 export const TutorialTopicCompleted: React.StatelessComponent<TutorialTopicCompletedProps> = props => {
@@ -19,7 +19,7 @@ export const TutorialTopicCompleted: React.StatelessComponent<TutorialTopicCompl
       <HollowGreenCheck width={50} height={50} />
       <TutorialCompletedHeader>{props.completedHeader}</TutorialCompletedHeader>
       <TutorialCompletedP>{props.completedText}</TutorialCompletedP>
-      <TutorialBtn>Continue on to Topic 2</TutorialBtn>
+      <TutorialBtn onClick={props.onClickNext}>Continue on to Topic 2</TutorialBtn>
     </TutorialContentWrap>
   );
 };

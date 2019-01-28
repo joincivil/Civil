@@ -45,7 +45,7 @@ export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeS
         </WelcomeSlide>
       );
     } else if (tutorialActive) {
-      return <TokenTutorialQuiz quizId={activeTutorialIdx} />;
+      return <TokenTutorialQuiz topicIdx={activeTutorialIdx} />;
     }
 
     return <TokenTutorialLanding onClick={() => this.openTutorial()} />;

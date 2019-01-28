@@ -12,8 +12,8 @@ export interface TutorialInfoProps {
   activeSlide: number;
   totalSlides: number;
   content?: string | JSX.Element;
-  onClick1?(e: any): void;
-  onClick2?(e: any): void;
+  onClickPrev?(e: any): void;
+  onClickNext?(e: any): void;
 }
 
 export const TutorialInfo: React.StatelessComponent<TutorialInfoProps> = props => {
@@ -24,8 +24,8 @@ export const TutorialInfo: React.StatelessComponent<TutorialInfoProps> = props =
         <TutorialSlideContent>{props.content}</TutorialSlideContent>
       </TutorialContentWrap>
       <TutorialFooter>
-        <TutorialInvertedBtn onClick={props.onClick1}>Back</TutorialInvertedBtn>
-        <TutorialBtn onClick={props.onClick2}>Continue</TutorialBtn>
+        <TutorialInvertedBtn onClick={props.onClickPrev}>Back</TutorialInvertedBtn>
+        <TutorialBtn onClick={props.onClickNext}>Continue</TutorialBtn>
       </TutorialFooter>
     </>
   );

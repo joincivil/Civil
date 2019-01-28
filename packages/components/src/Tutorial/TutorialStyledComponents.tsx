@@ -42,7 +42,7 @@ export const TutorialContentWrap = styled.div`
 `;
 
 export const TutorialSlideContent = styled.div`
-  margin: 0 auto;
+  margin: 0 auto 100px;
   max-width: 540px;
 
   h2 {
@@ -77,9 +77,11 @@ export const TutorialTopicInfo = styled.div`
 
 export const TutorialFooterFull = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
+  bottom: 0;
   display: flex;
   justify-content: center;
   padding: 40px 20px 50px;
+  position: fixed;
   width: 100%;
 `;
 
@@ -147,24 +149,29 @@ export const TutorialCompletedP = styled.p`
 export const TutorialOptionBox = styled.div`
   border: 1px solid ${colors.accent.CIVIL_BLUE};
   border-radius: 3px;
-  cursor: pointer;
   margin-bottom: 15px;
-  padding: 8px 15px;
-  transition: border 0.2s ease;
+  position: relative;
+  transition: background-color 0.2s ease;
   width: 100%;
 
   input {
-    margin: 0 15px 0 0;
+    cursor: pointer;
+    left: 15px;
+    position: absolute;
+    top: 10px;
   }
 
-  span {
+  label {
     color: ${colors.accent.CIVIL_GRAY_0};
+    cursor: pointer;
+    display: block;
     font-family: ${fonts.SANS_SERIF};
     font-size: 16px;
     line-height: 26px;
+    padding: 8px 15px 8px 40px;
   }
 
   &:hover {
-    border: 1px solid ${colors.accent.CIVIL_GRAY_1};
+    background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
   }
 `;

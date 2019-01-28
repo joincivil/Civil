@@ -181,11 +181,7 @@ export const LaunchTopic: StyledComponentClass<ButtonProps, "button"> = styled(I
 
   &:focus,
   &:hover {
-    background-color: transparent;
-
-    svg g {
-      fill: ${colors.accent.CIVIL_GRAY_1};
-    }
+    background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
   }
 `;
 

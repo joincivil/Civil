@@ -26,6 +26,7 @@ export const TutorialContent = [
   {
     name: "Topic 1: How to use Civil tokens",
     description: "Learn about CVL tokens and their intended uses within the Civil network.",
+    quizId: "topic1",
     icon: <NetworkIcon />,
     tutorialIntro: {
       header: "Topic 1: How to use Civil tokens",
@@ -54,72 +55,63 @@ export const TutorialContent = [
         options: [
           {
             text: "The Civil White Paper",
-            result: "",
           },
           {
             text: "The Civil Constitution",
-            result: "correct",
           },
           {
             text: "The Civil Registry",
-            result: "",
           },
         ],
+        answer: "The Civil Constitution",
       },
       {
         question: "Which of these actions are required for newsrooms to gain access to the Civil Registry?",
         options: [
           {
             text: "Complete a Newsroom application",
-            result: "",
           },
           {
             text: "Sign the Civil Constitution",
-            result: "",
           },
           {
             text: "Stake deposit of Civil tokens",
-            result: "",
           },
           {
             text: "All of the above",
-            result: "correct",
           },
         ],
+        answer: "All of the above",
       },
       {
         question: "Which of the following best illustrates the purpose of Civil tokens?",
         options: [
           {
             text: "Civil tokens are used to apply, challenge, vote or appeal in community governance decisions.",
-            result: "correct",
           },
           {
             text: "Civil tokens are used to invest in newsrooms.",
-            result: "",
           },
           {
             text: "Civil tokens are used to publish articles on the Civil platform.",
-            result: "",
           },
         ],
+        answer: "Civil tokens are used to apply, challenge, vote or appeal in community governance decisions.",
       },
       {
         question: "What is the best way to earn Civil tokens on the Civil Registry?",
         options: [
           {
             text: "By participating in all the challenges and appeals",
-            result: "",
           },
           {
             text: "By voting among the majority in a community decision",
-            result: "",
           },
           {
             text: "All of the above",
-            result: "correct",
           },
         ],
+        answer: "All of the above",
       },
     ],
     completed: {
@@ -131,6 +123,7 @@ export const TutorialContent = [
   {
     name: "Topic 2: Purchasing, storing, using Civil tokens",
     description: "Learn basic concepts of ETH, gas, digital wallets, keys, and recovery seed phrases.",
+    quizId: "topic2",
     icon: <TokenWalletIcon height={48} width={42} />,
     tutorialIntro: {
       header: "Topic 2: Purchasing, storing, using Civil tokens",
@@ -169,35 +162,32 @@ export const TutorialContent = [
         options: [
           {
             text: "The gas fee is returned to Sally because the transaction didn’t go through.",
-            result: "",
           },
           {
             text:
               "The gas is not returned to Sally, but is paid to miners who must validate and execute the transaction regardless if it fails or succeeds.",
-            result: "correct",
           },
           {
             text: "I don’t know what gas is.",
-            result: "",
           },
         ],
+        answer:
+          "The gas is not returned to Sally, but is paid to miners who must validate and execute the transaction regardless if it fails or succeeds.",
       },
       {
         question: "What is the best way to store your seed phrase to ensure the security of your account?",
         options: [
           {
             text: "Copy the seed phrase into a document and email it to yourself.",
-            result: "",
           },
           {
             text: "Save the seed phrase in a document, store in the cloud.",
-            result: "",
           },
           {
             text: "Write down the seed phrase on two duplicate pieces of paper and store in two different places.",
-            result: "correct",
           },
         ],
+        answer: "Write down the seed phrase on two duplicate pieces of paper and store in two different places.",
       },
       {
         question:
@@ -205,13 +195,12 @@ export const TutorialContent = [
         options: [
           {
             text: "Hardware wallet or “cold wallet”",
-            result: "correct",
           },
           {
             text: "Software wallet or “hot wallet”",
-            result: "",
           },
         ],
+        answer: "Hardware wallet or “cold wallet”",
       },
       {
         question:
@@ -219,13 +208,12 @@ export const TutorialContent = [
         options: [
           {
             text: "Hardware wallet or “cold wallet”",
-            result: "",
           },
           {
             text: "Software wallet or “hot wallet”",
-            result: "correct",
           },
         ],
+        answer: "Software wallet or “hot wallet”",
       },
       {
         question:
@@ -233,13 +221,12 @@ export const TutorialContent = [
         options: [
           {
             text: "Hardware wallet or “cold wallet”",
-            result: "",
           },
           {
             text: "Software wallet or “hot wallet”",
-            result: "correct",
           },
         ],
+        answer: "Software wallet or “hot wallet”",
       },
     ],
     completed: {
@@ -250,6 +237,7 @@ export const TutorialContent = [
   {
     name: "Topic 3: Things to consider before buying Civil tokens",
     description: "Learn about token price trends, token design, and potential risks.",
+    quizId: "topic3",
     icon: <TrendsIcon />,
     tutorialIntro: {
       header: "Topic 3: Things to consider before buying Civil tokens",
@@ -272,51 +260,45 @@ export const TutorialContent = [
         options: [
           {
             text: "Civil token prices fluctuate based on how well the stock market is doing.",
-            result: "",
           },
           {
             text: "Civil token prices fluctuate based on total demand and circulating supply of tokens in the market.",
-            result: "correct",
           },
           {
             text: "Civil token prices fluctuate based on the speed of Ethereum network traffic.",
-            result: "",
           },
         ],
+        answer: "Civil token prices fluctuate based on total demand and circulating supply of tokens in the market.",
       },
       {
         question: "Which of the following is important when purchasing a token?",
         options: [
           {
             text: "Network value of a token",
-            result: "",
           },
           {
             text: "Purpose or usage of the token",
-            result: "correct",
           },
           {
             text: "Amount of money spent by others on tokens",
-            result: "",
           },
         ],
+        answer: "Purpose or usage of the token",
       },
       {
         question: "How much is safe to consider spending on Civil tokens?",
         options: [
           {
             text: "A maximum of half of one paycheck",
-            result: "",
           },
           {
             text: "1% of your total net worth, if not an accredited investor",
-            result: "",
           },
           {
             text: "No more than you can afford to lose if Civil tokens lost all value",
-            result: "correct",
           },
         ],
+        answer: "No more than you can afford to lose if Civil tokens lost all value",
       },
     ],
     completed: {

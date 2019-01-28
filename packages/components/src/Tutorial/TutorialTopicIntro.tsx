@@ -15,7 +15,7 @@ export interface TutorialTopicIntroProps {
   totalSlides: number;
   headerText?: string | JSX.Element;
   infoText?: string | JSX.Element;
-  onClick?(e: any): void;
+  onClickNext?(e: any): void;
 }
 
 export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProps> = props => {
@@ -30,7 +30,7 @@ export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProp
         </TutorialInvertedBtn>
       </TutorialContentWrap>
       <TutorialFooter>
-        <TutorialBtn onClick={props.onClick}>Let’s go</TutorialBtn>
+        <TutorialBtn onClick={props.onClickNext}>Let’s go</TutorialBtn>
       </TutorialFooter>
     </>
   );
