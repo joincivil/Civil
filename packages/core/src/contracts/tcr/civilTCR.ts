@@ -478,6 +478,20 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       .map(e => e.args.challengeID);
   }
 
+  /**
+   * An unending stream of all pollIDs of polls the user has collected rewards on
+   * @param fromBlock Starting block in history for events concerning new polls
+   *                  Set to "latest" for only new events
+   * @param user the user to check
+   */
+  public rewardsCollected(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    user?: EthAddress,
+    toBlock?: number,
+  ): Observable<BigNumber> {
+    return this.instance._RewardClaimedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.challengeID);
+  }
+
   //#endregion
 
   public getListing(listingAddress: EthAddress): Listing {

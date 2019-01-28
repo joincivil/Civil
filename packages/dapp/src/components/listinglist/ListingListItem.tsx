@@ -75,6 +75,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   }
 
   private renderListing = (): JSX.Element => {
+    // @TODO(jon): DRY up this code along with `ListingListItem.tsx` as much code is duplicated and forgetting to update in one place causes issues
     const { listingAddress, listing, newsroom, listingPhaseState, charter } = this.props;
     const listingData = listing!.data;
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
