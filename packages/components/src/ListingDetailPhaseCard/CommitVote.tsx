@@ -1,6 +1,8 @@
 import * as React from "react";
-import { buttonSizes, Button, DarkButton, InvertedButton } from "../Button";
+import { buttonSizes, Button, InvertedButton } from "../Button";
 import { CurrencyInputWithButton } from "../input/";
+import { QuestionToolTip } from "../QuestionToolTip";
+
 import { CommitVoteProps } from "./types";
 import {
   FormQuestion,
@@ -17,13 +19,10 @@ import {
   StyledButtonsContainer,
   StyledAppMessage,
 } from "./styledComponents";
-import { QuestionToolTip } from "../QuestionToolTip";
-
 import {
   CommitVoteReviewButtonText,
-  WhitelistActionText,
-  RemoveActionText,
   VoteCallToActionText,
+  AppealChallengeVoteCallToActionText,
   AvailableTokenBalanceText,
   AvailableTokenBalanceTooltipText,
   VotingTokenBalanceText,
@@ -34,6 +33,7 @@ import {
   CommitVoteInsufficientTokensText,
   CommitVoteMaxTokensWarningText,
 } from "./textComponents";
+import VoteButton from "./VoteButton";
 
 export interface CommitVoteState {
   numTokensError?: string;
@@ -57,19 +57,22 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       this.props.voteOption !== undefined &&
       this.props.numTokens &&
       typeof parseInt(this.props.numTokens, 10) === "number";
+    const DefaultCTATextComponent = this.props.isAppealChallenge
+      ? AppealChallengeVoteCallToActionText
+      : VoteCallToActionText;
     return (
       <>
         <StyledStep visible={this.state.displayStep === 0}>
           <StyledStepLabel>Step 1 of 2</StyledStepLabel>
 
           <FormQuestion>
-            {this.props.children || <VoteCallToActionText newsroomName={this.props.newsroomName} />}
+            {this.props.children || <DefaultCTATextComponent newsroomName={this.props.newsroomName} />}
           </FormQuestion>
 
           <VoteOptionsContainer>
-            {this.renderVoteButton({ voteOption: 1 })}
+            <VoteButton buttonVoteOptionValue="1" {...this.props} />
             <StyledOrText>or</StyledOrText>
-            {this.renderVoteButton({ voteOption: 0 })}
+            <VoteButton buttonVoteOptionValue="0" {...this.props} />
           </VoteOptionsContainer>
 
           <Button
@@ -122,34 +125,6 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
       </>
     );
   }
-
-  private renderVoteButton = (options: any): JSX.Element => {
-    let buttonText;
-    const { voteOption } = options;
-    const ButtonComponent = this.props.voteOption === voteOption ? Button : DarkButton;
-    const onClick = () => {
-      this.props.onInputChange({ voteOption });
-    };
-    if (voteOption === "1") {
-      buttonText = (
-        <>
-          ✔ <WhitelistActionText />
-        </>
-      );
-    } else if (options.voteOption === 0) {
-      buttonText = (
-        <>
-          ✖ <RemoveActionText />
-        </>
-      );
-    }
-
-    return (
-      <ButtonComponent onClick={onClick} size={buttonSizes.MEDIUM} theme={buttonTheme}>
-        {buttonText}
-      </ButtonComponent>
-    );
-  };
 
   private renderTokenBalance = (): JSX.Element => {
     let tokenBalanceLabel: JSX.Element;

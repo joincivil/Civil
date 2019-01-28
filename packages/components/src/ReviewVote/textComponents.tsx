@@ -1,5 +1,10 @@
 import * as React from "react";
-import { WhitelistActionText, RemoveActionText } from "../ListingDetailPhaseCard/textComponents";
+import {
+  WhitelistActionText,
+  RemoveActionText,
+  OverturnActionText,
+  UpholdActionText,
+} from "../ListingDetailPhaseCard/textComponents";
 
 // Review Vote modal
 export const ReviewVoteHeaderTitleText: React.SFC = props => {
@@ -33,7 +38,7 @@ export const SaltLabelText: React.SFC = props => {
 };
 
 export interface ReviewVoteDecisionTextProps {
-  newsroomName: string;
+  newsroomName?: string;
   voteOption?: string;
 }
 
@@ -44,8 +49,20 @@ export const ReviewVoteDecisionText: React.SFC<ReviewVoteDecisionTextProps> = pr
   const voteText = props.voteOption === "0" ? <RemoveActionText /> : <WhitelistActionText />;
   return (
     <>
-      I voted for {props.newsroomName} to be <b>{voteText}</b> {props.voteOption === "0" ? "from" : "in"} the Civil
-      Registry
+      I voted for {props.newsroomName || "this newsroom"} to be <b>{voteText}</b>{" "}
+      {props.voteOption === "0" ? "from" : "in"} the Civil Registry
+    </>
+  );
+};
+
+export const AppealChallengeReviewVoteDecisionText: React.SFC<ReviewVoteDecisionTextProps> = props => {
+  if (!props.voteOption) {
+    return <></>;
+  }
+  const voteText = props.voteOption === "1" ? <OverturnActionText /> : <UpholdActionText />;
+  return (
+    <>
+      I voted for the Granted Appeal for {props.newsroomName || "this newsroom"} to be <b>{voteText}</b>
     </>
   );
 };

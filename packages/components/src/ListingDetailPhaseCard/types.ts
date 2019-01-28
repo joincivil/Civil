@@ -6,7 +6,6 @@ export interface ListingDetailPhaseCardComponentProps {
   listingAddress?: EthAddress;
   transactions?: any[];
   constitutionURI?: string;
-  modalContentComponents?: any;
   onMobileTransactionClick?(): any;
 }
 
@@ -34,32 +33,30 @@ export interface ChallengePhaseProps {
   userHasRevealedVote?: boolean;
 }
 
-export interface CommitVoteProps {
+export interface VoteBaseProps {
   newsroomName?: string;
+  isAppealChallenge?: boolean;
+  salt?: string;
+  voteOption?: string;
+  onInputChange(propsData: any, validateFn?: () => boolean): void;
+  postExecuteTransactions?(): any;
+}
+
+export interface CommitVoteProps extends VoteBaseProps {
   tokenBalance: number;
   votingTokenBalance: number;
   tokenBalanceDisplay: string;
   votingTokenBalanceDisplay: string;
-  voteOption?: string;
-  salt?: string;
   numTokens?: string;
   userHasCommittedVote?: boolean;
   userHasRevealedVote?: boolean;
   buttonText?: string | JSX.Element;
   onCommitMaxTokens(): void;
-  onInputChange(propsData: any, validateFn?: () => boolean): void;
   onReviewVote(): void;
-  postExecuteTransactions?(): any;
 }
 
-export interface RevealVoteProps {
-  newsroomName?: string;
-  salt?: string;
-  voteOption?: string;
+export interface RevealVoteProps extends VoteBaseProps {
   transactions: any[];
-  modalContentComponents?: any;
-  onInputChange(propsData: any, validateFn?: () => boolean): void;
-  postExecuteTransactions?(): any;
 }
 
 export interface AppealDecisionProps {

@@ -10,6 +10,12 @@ export const WhitelistActionText: React.SFC = props => <>accepted</>;
 // Text for removing action. Used in buttons and calls to action
 export const RemoveActionText: React.SFC = props => <>removed</>;
 
+// Text for upholding granted appeal action. Used in buttons and calls to action
+export const UpholdActionText: React.SFC = props => <>upheld</>;
+
+// Text for overturning granted appeal  action. Used in buttons and calls to action
+export const OverturnActionText: React.SFC = props => <>overturned</>;
+
 // Call to action text. Used on Commit Vote form
 export interface VoteCallToActionTextProps {
   newsroomName?: string;
@@ -31,6 +37,22 @@ export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props 
   );
 };
 
+export const AppealChallengeVoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props => {
+  return (
+    <>
+      Should the Civil Council's granted appeal be{" "}
+      <b>
+        <UpholdActionText />
+      </b>{" "}
+      or{" "}
+      <b>
+        <OverturnActionText />
+      </b>{" "}
+      ?
+    </>
+  );
+};
+
 // Label for Commit Vote num tokens form
 export const CommitVoteNumTokensLabelText: React.SFC = props => {
   return <>Enter amount of tokens to vote. 1 vote equals 1 token </>;
@@ -46,6 +68,15 @@ export const CommitVoteCalloutCopyText: React.SFC = props => {
     <>
       Evaluate whether the Newsroom is in violation of the Civil Constitution and cast your vote accordingly. Voters
       will never lose tokens for participating in a vote.
+    </>
+  );
+};
+
+export const AppealChallengeCommitVoteCalloutCopyText: React.SFC = props => {
+  return (
+    <>
+      Evaluate whether the Granted Appeal should be upheld or overturned and cast your vote accordingly. Voters will
+      never lose tokens for participating in a vote.
     </>
   );
 };

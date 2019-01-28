@@ -121,11 +121,11 @@ export class AppealChallengeRevealVoteCard extends React.Component<
               <StyledListingDetailPhaseCardSection>
                 <StyledPhaseKicker>Appeal Challenge ID {this.props.appealChallengeID}</StyledPhaseKicker>
                 <RevealVote
+                  isAppealChallenge={true}
                   salt={this.props.salt}
                   voteOption={this.props.voteOption}
                   onInputChange={this.props.onInputChange}
                   transactions={this.props.transactions}
-                  modalContentComponents={this.props.modalContentComponents}
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
