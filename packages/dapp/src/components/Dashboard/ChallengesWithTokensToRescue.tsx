@@ -86,9 +86,6 @@ class ChallengesWithTokensToRescue extends React.Component<
   }
 
   public render(): JSX.Element {
-    console.log("this.state.challengesToRescue: ", this.state.challengesToRescue);
-    console.log("this.state.challengesToRescue.length: ", this.state.challengesToRescue.length);
-    console.log("this.state.challengesToRescue.isEmpty(): ", this.isEmpty(this.state.challengesToRescue));
     const isRescueTokensButtonDisabled = this.isEmpty(this.state.challengesToRescue);
     const transactions = this.getTransactions();
 

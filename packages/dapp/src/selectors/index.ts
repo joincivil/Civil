@@ -347,23 +347,38 @@ export const getUserChallengesWithRescueTokens = createSelector(
   },
 );
 
+export const getUserAppealChallengesWithUnrevealedVotes = createSelector(
+  [getAppealChallengeUserData, getUser],
+  (challengeUserData, user) => {
+    if (!challengeUserData || !user || !user.account) {
+      return;
+    }
+    return challengeUserData
+      .filter((challengeData, challengeID, iter): boolean => {
+        try {
+          const { didUserCommit, didUserReveal, canUserReveal } = challengeData!.get(user.account.account);
+          return !!didUserCommit && !didUserReveal && canUserReveal!;
+        } catch (ex) {
+          return false;
+        }
+      })
+      .keySeq()
+      .toSet() as Set<string>;
+  },
+);
+
 export const getUserAppealChallengesWithRescueTokens = createSelector(
   [getAppealChallengeUserData, getUser],
   (challengeUserData, user) => {
     if (!challengeUserData || !user || !user.account) {
       return;
     }
-    console.log("appealChallengeUserData: ", challengeUserData);
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
         try {
           const { didUserCommit, didUserReveal, didUserRescue, canUserRescue } = challengeData!.get(
             user.account.account,
           );
-          console.log("didUserCommit: ", didUserCommit);
-          console.log("didUserReveal: ", didUserReveal);
-          console.log("didUserRescue: ", didUserRescue);
-          console.log("canUserRescue: ", canUserRescue);
           return !!didUserCommit && !didUserReveal && canUserRescue! && !didUserRescue;
         } catch (ex) {
           return false;

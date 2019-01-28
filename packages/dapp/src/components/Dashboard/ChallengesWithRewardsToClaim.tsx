@@ -55,6 +55,7 @@ const transactionStatusModalConfig = {
 
 export interface ChallengesWithRewardsToClaimProps {
   challenges: any;
+  appealChallenges: any;
   onMobileTransactionClick?(): any;
 }
 
@@ -92,6 +93,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
         </StyledDashboardActivityDescription>
         <ActivityList
           challenges={this.props.challenges}
+          appealChallenges={this.props.appealChallenges}
           resolvedChallenges={true}
           toggleChallengeSelect={this.setChallengesToMultiClaim}
         />

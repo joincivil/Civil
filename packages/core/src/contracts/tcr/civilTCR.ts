@@ -556,6 +556,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     const pollData = await this.voting.getPoll(challengeID);
     let canUserReveal;
     let canUserRescue;
+    let canUserCollect;
     if (user) {
       didUserCommit = await this.voting.didCommitVote(user, challengeID);
       if (didUserCommit) {
@@ -567,13 +568,14 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
             numTokens = reveal!.args.numTokens;
             choice = reveal!.args.choice;
             didUserCollect = await this.instance.tokenClaims.callAsync(challengeID, user);
+            isVoterWinner = await this.voting.isVoterWinner(challengeID, user);
+            canUserCollect = isVoterWinner && !didUserCollect;
           } else {
             didUserRescue =
               !(await this.voting.canRescueTokens(user, challengeID)) &&
               !(await isInCommitStage(pollData)) &&
               !(await isInRevealStage(pollData));
           }
-          isVoterWinner = await this.voting.isVoterWinner(challengeID, user);
         } else {
           canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
         }
@@ -590,6 +592,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       didUserReveal,
       canUserReveal,
       didUserCollect,
+      canUserCollect,
       didUserRescue,
       canUserRescue,
       didCollectAmount,
