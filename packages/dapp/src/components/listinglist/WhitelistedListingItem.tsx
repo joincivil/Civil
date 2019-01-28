@@ -7,6 +7,7 @@ import { State } from "../../redux/reducers";
 import { getListingPhaseState, makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps } from "./ListingListItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
+import { getChallengeResultsProps } from "../../helpers/transforms";
 
 export interface WhitelistedCardReduxProps extends ListingListItemReduxProps {
   whitelistedTimestamp?: number;
@@ -87,6 +88,17 @@ class WhitelistedListingItem extends React.Component<
       whitelistedTimestamp = this.props.queryData.listing.approvalDate;
     }
 
+    let challengeResultsProps = {};
+
+    if (
+      listingPhaseState.isAwaitingAppealRequest ||
+      listingPhaseState.isAwaitingAppealJudgement ||
+      listingPhaseState.isInAppealChallengeCommitPhase ||
+      listingPhaseState.isInAppealChallengeRevealPhase
+    ) {
+      challengeResultsProps = getChallengeResultsProps(challenge!);
+    }
+
     const ListingSummaryItem = this.props.ListingItemComponent || ListingSummaryApprovedComponent;
 
     const listingViewProps = {
@@ -106,6 +118,7 @@ class WhitelistedListingItem extends React.Component<
       unstakedDeposit,
       challengeStake,
       whitelistedTimestamp,
+      ...challengeResultsProps,
     };
 
     return <ListingSummaryItem {...listingViewProps} />;
