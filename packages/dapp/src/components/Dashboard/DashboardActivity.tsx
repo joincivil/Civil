@@ -48,6 +48,7 @@ export interface DashboardActivityReduxProps {
   userChallengesWithUnclaimedRewards?: Set<string>;
   userChallengesWithUnrevealedVotes?: Set<string>;
   userChallengesWithRescueTokens?: Set<string>;
+  userAppealChallengesWithRescueTokens?: Set<string>;
   userAccount: EthAddress;
 }
 
@@ -76,6 +77,7 @@ export const StyledBatchButtonContainer = styled.div`
 // explicit type that describes this object that gets checked and that type has a field
 // called something like `isSelected` so this code is a bit clearer
 export const getChallengesToProcess = (challengeObj: ChallengesToProcess): BigNumber[] => {
+  console.log("getChallengesToProcess");
   const challengesToCheck = Object.entries(challengeObj);
   const challengesToProcess: BigNumber[] = challengesToCheck
     .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
@@ -143,11 +145,16 @@ class DashboardActivity extends React.Component<
       userChallengesWithUnclaimedRewards,
       userChallengesWithUnrevealedVotes,
       userChallengesWithRescueTokens,
+      userAppealChallengesWithRescueTokens,
     } = this.props;
     const allVotesTabTitle = <AllChallengesDashboardTabTitle count={currentUserChallengesVotedOn.count()} />;
     const revealVoteTabTitle = <RevealVoteDashboardTabTitle count={userChallengesWithUnrevealedVotes!.count()} />;
     const claimRewardsTabTitle = <ClaimRewardsDashboardTabTitle count={userChallengesWithUnclaimedRewards!.count()} />;
-    const rescueTokensTabTitle = <RescueTokensDashboardTabTitle count={userChallengesWithRescueTokens!.count()} />;
+    const rescueTokensTabTitle = (
+      <RescueTokensDashboardTabTitle
+        count={userChallengesWithRescueTokens!.count() + userAppealChallengesWithRescueTokens!.count()}
+      />
+    );
 
     return (
       <>
@@ -167,6 +174,7 @@ class DashboardActivity extends React.Component<
           <Tab title={rescueTokensTabTitle}>
             <ChallengesWithTokensToRescue
               challenges={userChallengesWithRescueTokens}
+              appealChallenges={userAppealChallengesWithRescueTokens}
               onMobileTransactionClick={this.showNoMobileTransactionsModal}
             />
           </Tab>
@@ -219,11 +227,11 @@ const mapStateToProps = (
   const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
 
   // console.log("getUserChallengesWithRescueTokens(state): ", getUserChallengesWithRescueTokens(state));
-  console.log("getUserAppealChallengesWithRescueTokens(state): ", getUserAppealChallengesWithRescueTokens(state));
+  // console.log("getUserAppealChallengesWithRescueTokens(state): ", getUserAppealChallengesWithRescueTokens(state));
 
-  const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state)!.merge(
-    getUserAppealChallengesWithRescueTokens(state)!.toArray(),
-  );
+  const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state);
+  const userAppealChallengesWithRescueTokens = getUserAppealChallengesWithRescueTokens(state);
+  console.log("userAppealChallengesWithRescueTokens: ", userAppealChallengesWithRescueTokens);
 
   return {
     currentUserNewsrooms,
@@ -232,6 +240,7 @@ const mapStateToProps = (
     userChallengesWithUnclaimedRewards,
     userChallengesWithUnrevealedVotes,
     userChallengesWithRescueTokens,
+    userAppealChallengesWithRescueTokens,
     userAccount: user.account.account,
     ...ownProps,
   };
