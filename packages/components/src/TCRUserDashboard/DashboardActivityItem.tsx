@@ -2,6 +2,8 @@ import * as React from "react";
 import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { buttonSizes, InvertedButton } from "../Button";
+import { CharterData } from "@joincivil/core";
+import { SmallNewsroomLogo } from "../ListingSummary/styledComponents";
 
 const StyledDashboardActivityItem = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -14,14 +16,6 @@ const StyledDashboardActivityItem = styled.div`
 const StyledDashboardActivityItemIcon = styled.div`
   margin-right: 16px;
   width: 50px;
-`;
-
-const IconPlaceHolder = styled.figure`
-  background: ${colors.accent.CIVIL_GRAY_4};
-  height: 52px;
-  margin: 0;
-  padding: 0;
-  width: 52px;
 `;
 
 const StyledDashboardActivityItemDetails = styled.div`
@@ -49,6 +43,7 @@ const StyledButtonHelperText = styled.div`
 
 export interface DashboardActivityItemProps {
   newsroomName: string;
+  charter?: CharterData;
   listingDetailURL: string;
   buttonText: string;
   buttonHelperText?: string | JSX.Element;
@@ -62,7 +57,9 @@ export const DashboardActivityItem: React.SFC<DashboardActivityItemProps> = prop
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>
         {props.toggleSelect && ItemCheckbox(props)}
-        {!props.toggleSelect && <IconPlaceHolder />}
+        {!props.toggleSelect &&
+          props.charter &&
+          props.charter.logoUrl && <SmallNewsroomLogo src={props.charter.logoUrl} />}
       </StyledDashboardActivityItemIcon>
 
       <StyledDashboardActivityItemDetails>
