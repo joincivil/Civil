@@ -32,7 +32,7 @@ export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>):
     parameterizer.propIDsInChallengeCommitPhase(),
     parameterizer.propIDsInChallengeRevealPhase(),
     // TODO(dankins): temporary change to fix CPU spiking until we can fix the root cause
-    // parameterizer.propIDsToProcess(),
+    parameterizer.propIDsToProcess(),
     parameterizer.propIDsForResolvedChallenges(),
   ).subscribe(async (propID: string) => {
     const paramName = await parameterizer.getPropName(propID);
@@ -107,8 +107,8 @@ async function setupParamProposalCallback(paramProposal: any, isInit: boolean, d
 
   const now = Date.now();
   const nextExpiry = await getNextTimerExpiry(paramProposal, dispatch);
-  if (nextExpiry > 0) {
-    const delay = nextExpiry - now;
+  const delay = nextExpiry - now;
+  if (delay > 0) {
     paramProposalTimeouts.set(
       paramProposal.id,
       setTimeout(dispatch, delay, checkAndUpdateParameterProposalState(paramProposal.id)),
