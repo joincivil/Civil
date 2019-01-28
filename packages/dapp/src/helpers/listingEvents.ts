@@ -87,21 +87,15 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
     .getVoting()
     .votesCommitted(undefined, user)
     .subscribe(async (pollID: BigNumber) => {
-      console.log("vote committed pollID: " + pollID);
       const challengeId = await tcr.getChallengeIDForPollID(pollID);
       const wrappedChallenge = await tcr.getChallengeData(challengeId);
-      console.log("got challenge for pollID: " + pollID);
       dispatch(addChallenge(wrappedChallenge));
       const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
-      console.log("got user challenge data: ", challengeUserData);
       dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
 
       // if the challenge ID corresponds to an appeal challenge, get any user data for it
       if (!pollID.equals(challengeId)) {
-        console.log("found one with diff");
         const appealChallengeUserData = await tcr.getUserChallengeData(pollID, user);
-        console.log("add user appeal challenge data for pollID: " + pollID);
-        console.log("and that data is: ", appealChallengeUserData);
         dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
       }
     });
