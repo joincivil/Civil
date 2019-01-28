@@ -40,6 +40,7 @@ import {
   challengeUserData,
   grantAppealTxs,
   grantAppealTxsFetching,
+  appealChallengeIDsToChallengeIDs,
 } from "./challenges";
 import {
   government,
@@ -116,6 +117,7 @@ export interface NetworkDependentState {
   challengeUserData: Map<string, Map<string, UserChallengeData>>;
   grantAppealTxs: Map<string, TxDataAll>;
   grantAppealTxsFetching: Map<string, boolean>;
+  appealChallengeIDsToChallengeIDs: Map<string, string>;
   appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
   constitution: Map<string, string>;
@@ -164,6 +166,7 @@ const networkDependentReducers = combineReducers({
   challengeUserData,
   grantAppealTxs,
   grantAppealTxsFetching,
+  appealChallengeIDsToChallengeIDs,
   appealChallengeUserData,
   government,
   constitution,

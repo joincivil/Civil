@@ -157,9 +157,6 @@ class ChallengesWithTokensToRescue extends React.Component<
   };
 
   private setChallengesToMultiRescue = (challengeID: string, isSelected: boolean, salt: BigNumber): void => {
-    console.log("set challenges to multi rescue. challengeID: ", challengeID);
-    console.log("set challenges to multi rescue. isSelected: ", isSelected);
-    console.log("set challenges to multi rescue. salt: ", salt);
     this.setState(() => ({
       challengesToRescue: { ...this.state.challengesToRescue, [challengeID]: [isSelected, new BigNumber(0)] },
     }));

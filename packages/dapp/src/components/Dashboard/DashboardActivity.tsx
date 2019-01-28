@@ -77,7 +77,6 @@ export const StyledBatchButtonContainer = styled.div`
 // explicit type that describes this object that gets checked and that type has a field
 // called something like `isSelected` so this code is a bit clearer
 export const getChallengesToProcess = (challengeObj: ChallengesToProcess): BigNumber[] => {
-  console.log("getChallengesToProcess");
   const challengesToCheck = Object.entries(challengeObj);
   const challengesToProcess: BigNumber[] = challengesToCheck
     .map((challengeToProcess: [string, [boolean, BigNumber]]) => {
@@ -226,12 +225,8 @@ const mapStateToProps = (
   const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
   const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
 
-  // console.log("getUserChallengesWithRescueTokens(state): ", getUserChallengesWithRescueTokens(state));
-  // console.log("getUserAppealChallengesWithRescueTokens(state): ", getUserAppealChallengesWithRescueTokens(state));
-
   const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state);
   const userAppealChallengesWithRescueTokens = getUserAppealChallengesWithRescueTokens(state);
-  console.log("userAppealChallengesWithRescueTokens: ", userAppealChallengesWithRescueTokens);
 
   return {
     currentUserNewsrooms,
