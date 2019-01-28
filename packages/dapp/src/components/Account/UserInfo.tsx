@@ -17,18 +17,21 @@ const userQuery = gql`
 export class UserInfo extends React.Component {
   public render(): JSX.Element {
     return (
-      <Query query={userQuery}>
-        {({ loading, error, data }) => {
-          if (loading) {
-            return "Loading...";
-          }
-          if (error) {
-            return `Error! ${JSON.stringify(error)}`;
-          }
+      <>
+        <h1>Account Home</h1>
+        <Query query={userQuery}>
+          {({ loading, error, data }) => {
+            if (loading) {
+              return "Loading...";
+            }
+            if (error) {
+              return `Error! ${JSON.stringify(error)}`;
+            }
 
-          return JSON.stringify(data);
-        }}
-      </Query>
+            return JSON.stringify(data);
+          }}
+        </Query>
+      </>
     );
   }
 }

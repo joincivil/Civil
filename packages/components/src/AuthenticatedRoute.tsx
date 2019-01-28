@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Route, RouteProps, Redirect } from "react-router-dom";
-import { getApolloSession } from "@joincivil/utils";
+import { getApolloSession, clearApolloSession } from "@joincivil/utils";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import { ApolloError } from "apollo-client";
+import { get } from "lodash";
 
 export interface AuthenticatedRouteProps extends RouteProps {
   redirectTo: string;
@@ -29,9 +31,9 @@ export const AuthenticatedRoute = ({
 }: AuthenticatedRouteProps) => {
   const auth = getApolloSession();
 
-  const hasAuthToken = auth !== null && auth.token !== null;
+  const hasAuthToken = auth && auth.token;
 
-  if (onlyAllowUnauthenticated === hasAuthToken) {
+  if (!hasAuthToken && !onlyAllowUnauthenticated) {
     return <Redirect to={redirectTo} />;
   }
 
@@ -41,6 +43,10 @@ export const AuthenticatedRoute = ({
         {({ loading, error, data }) => {
           if (loading) {
             return null;
+          }
+
+          if (get(error)) {
+            clearApolloSession();
           }
 
           if (error && !onlyAllowUnauthenticated) {
