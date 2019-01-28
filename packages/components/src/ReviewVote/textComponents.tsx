@@ -59,7 +59,7 @@ export const AppealChallengeReviewVoteDecisionText: React.SFC<ReviewVoteDecision
   if (!props.voteOption) {
     return <></>;
   }
-  const voteText = props.voteOption === "0" ? <OverturnActionText /> : <UpholdActionText />;
+  const voteText = props.voteOption === "1" ? <OverturnActionText /> : <UpholdActionText />;
   return (
     <>
       I voted for the Granted Appeal for {props.newsroomName || "this newsroom"} to be <b>{voteText}</b>

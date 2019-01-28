@@ -16,9 +16,9 @@ const VoteButton: React.SFC<VoteButtonProps> = props => {
     props.onInputChange({ voteOption: props.buttonVoteOptionValue });
   };
   if (props.buttonVoteOptionValue === "1") {
-    buttonText = <>✔ {props.isAppealChallenge ? <UpholdActionText /> : <WhitelistActionText />}</>;
+    buttonText = <>✔ {props.isAppealChallenge ? <OverturnActionText /> : <WhitelistActionText />}</>;
   } else if (props.buttonVoteOptionValue === "0") {
-    buttonText = <>✖ {props.isAppealChallenge ? <OverturnActionText /> : <RemoveActionText />}</>;
+    buttonText = <>✖ {props.isAppealChallenge ? <UpholdActionText /> : <RemoveActionText />}</>;
   }
 
   return (
