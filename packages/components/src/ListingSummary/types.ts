@@ -1,5 +1,9 @@
 import { EthAddress, AppealData, CharterData } from "@joincivil/core";
 
+export interface ListingSummaryComponentViewProps {
+  listingSummaryActionDetails?: JSX.Element;
+}
+
 export interface ListingSummaryComponentProps {
   listingAddress?: EthAddress;
   name?: string;
@@ -17,7 +21,6 @@ export interface ListingSummaryComponentProps {
   isAwaitingAppealRequest?: boolean;
   didListingChallengeSucceed?: boolean;
   canResolveChallenge?: boolean;
-  canResolveAppealChallenge?: boolean;
   isAwaitingAppealJudgement?: boolean;
   isAwaitingAppealChallenge?: boolean;
   canListingAppealBeResolved?: boolean;
@@ -26,19 +29,23 @@ export interface ListingSummaryComponentProps {
   isWhitelisted?: boolean;
   isUnderChallenge?: boolean;
   canListingAppealChallengeBeResolved?: boolean;
+  whitelistedTimestamp?: number;
   appExpiry?: number;
   commitEndDate?: number;
   revealEndDate?: number;
   requestAppealExpiry?: number;
   appealPhaseExpiry?: number;
   appealOpenToChallengeExpiry?: number;
-  whitelistedTimestamp?: number;
   unstakedDeposit?: string;
   challengeStake?: string;
   appealChallengeCommitEndDate?: number;
   appealChallengeRevealEndDate?: number;
   appealChallengeID?: string;
   appealChallengeStatementSummary?: string;
+}
+
+export interface WhitelistedSummaryComponentProps {
+  whitelistedTimestamp?: number;
 }
 
 export interface ChallengeOrAppealStatementSummaryProps {
