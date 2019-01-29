@@ -1,7 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
-import { Button, SecondaryButton } from "../../Button";
 
 import { StepProcessTopNavNoButtons, ContentProps } from "./StepProcessTopNavNoButtons";
 import { StepNoButtons } from "./Step";

@@ -4,22 +4,22 @@ exports[`Storyshots QuestionToolTip tooltip 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-jGFFOr kQWQFv",
+      "class": "sc-dOkuiw bxkDwV",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-jwKygS hwYnHw",
+          "class": "sc-cmTdod ecRMJe",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-iELTvK krknIP",
+              "class": "sc-feJyhm kORZQg",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-btzYZH kXOWtO",
+                  "class": "sc-jwKygS kWByKi",
                 },
                 "children": Array [
                   Object {

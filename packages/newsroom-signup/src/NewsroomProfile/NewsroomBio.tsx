@@ -1,12 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import {
-  colors,
-  fonts,
-  StepProps,
-  QuestionToolTip,
-  Collapsable,
-} from "@joincivil/components";
+import { colors, fonts, StepProps, QuestionToolTip, Collapsable } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import {

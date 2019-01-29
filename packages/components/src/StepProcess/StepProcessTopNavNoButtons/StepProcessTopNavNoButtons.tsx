@@ -30,17 +30,6 @@ const MainSection = styled.div`
   padding: 45px 0;
 `;
 
-const ButtonSection = styled.div`
-  border-top: 1px solid rgb(233, 233, 234);
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  padding: 25px;
-  & > button {
-    margin-left: 15px;
-  }
-`;
-
 export class StepProcessTopNavNoButtons extends React.Component<StepsProps, StepProcessTopNavState> {
   public buttonContainer?: HTMLDivElement;
   public navContainer?: HTMLDivElement;
