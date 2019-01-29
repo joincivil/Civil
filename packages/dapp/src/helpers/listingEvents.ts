@@ -3,12 +3,13 @@ import { addNewsroom } from "@joincivil/newsroom-manager";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
 import { Dispatch } from "react-redux";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 import {
   addChallenge,
   addUserAppealChallengeData,
   addUserChallengeData,
   addUserChallengeStarted,
+  linkAppealChallengeToChallenge,
 } from "../redux/actionCreators/challenges";
 import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
 import { addUserNewsroom, addContent } from "../redux/actionCreators/newsrooms";
@@ -67,16 +68,22 @@ export function clearListingSubscriptions(): any {
 }
 
 let challengeSubscription: Subscription;
+let newChallengeActionsSubscription: Subscription;
 let challengeStartedSubscription: Subscription;
 export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
   if (challengeSubscription) {
     challengeSubscription.unsubscribe();
+  }
+  if (newChallengeActionsSubscription) {
+    newChallengeActionsSubscription.unsubscribe();
   }
   if (challengeStartedSubscription) {
     challengeStartedSubscription.unsubscribe();
   }
 
   const tcr = await getTCR();
+  const civil = getCivil();
+  const current = await civil.currentBlock();
   challengeSubscription = tcr
     .getVoting()
     .votesCommitted(undefined, user)
@@ -91,8 +98,25 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
       if (!pollID.equals(challengeId)) {
         const appealChallengeUserData = await tcr.getUserChallengeData(pollID, user);
         dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
+        dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
       }
     });
+
+  newChallengeActionsSubscription = Observable.merge(
+    tcr.getVoting().votesRevealed(current, user),
+    tcr.getVoting().votesRescued(current, user),
+    tcr.rewardsCollected(current, user),
+  ).subscribe(async (pollID: BigNumber) => {
+    const challengeId = await tcr.getChallengeIDForPollID(pollID);
+    const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
+    dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
+
+    // if the challenge ID corresponds to an appeal challenge, get any user data for it
+    if (!pollID.equals(challengeId)) {
+      const appealChallengeUserData = await tcr.getUserChallengeData(pollID, user);
+      dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
+    }
+  });
 
   challengeStartedSubscription = tcr.challengesStartedByUser(user).subscribe(async (challengeId: BigNumber) => {
     const wrappedChallenge = await tcr.getChallengeData(challengeId);

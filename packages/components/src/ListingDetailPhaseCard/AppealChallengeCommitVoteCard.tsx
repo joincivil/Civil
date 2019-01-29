@@ -25,7 +25,7 @@ import {
 } from "./styledComponents";
 import {
   CommitVoteCalloutHeaderText,
-  CommitVoteCalloutCopyText,
+  AppealChallengeCommitVoteCalloutCopyText,
   CommitVoteAlreadyVotedHeaderText,
   CommitVoteAlreadyVotedCopyText,
   CommitVoteToolTipText,
@@ -135,10 +135,12 @@ export class AppealChallengeCommitVoteCard extends React.Component<
               <StyledListingDetailPhaseCardSection>
                 <StyledPhaseKicker>Appeal Challenge ID {this.props.appealChallengeID}</StyledPhaseKicker>
                 <CommitVote
+                  isAppealChallenge={true}
                   tokenBalance={this.props.tokenBalance}
                   votingTokenBalance={this.props.votingTokenBalance}
                   tokenBalanceDisplay={this.props.tokenBalanceDisplay}
                   votingTokenBalanceDisplay={this.props.votingTokenBalanceDisplay}
+                  voteOption={this.props.voteOption}
                   salt={this.props.salt}
                   numTokens={this.props.numTokens}
                   onInputChange={this.props.onInputChange}
@@ -177,7 +179,7 @@ export class AppealChallengeCommitVoteCard extends React.Component<
           <CommitVoteCalloutHeaderText />
         </FormHeader>
         <FormCopy>
-          <CommitVoteCalloutCopyText />
+          <AppealChallengeCommitVoteCalloutCopyText />
         </FormCopy>
       </>
     );

@@ -163,6 +163,14 @@ export const NewsroomLogo = styled.img`
   object-fit: cover;
 `;
 
+export const SmallNewsroomLogo = styled.img`
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  object-fit: cover;
+`;
+
 export const MetaRow = styled.div`
   margin: 16px 0;
 `;

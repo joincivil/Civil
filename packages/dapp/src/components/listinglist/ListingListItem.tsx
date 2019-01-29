@@ -26,6 +26,7 @@ export interface ListingListItemReduxProps {
   charter?: CharterData;
   challengeStatement?: any;
   appealStatement?: any;
+  appealChallengeStatement?: any;
 }
 
 class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
@@ -74,6 +75,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
   }
 
   private renderListing = (): JSX.Element => {
+    // @TODO(jon): DRY up this code along with `ListingListItem.tsx` as much code is duplicated and forgetting to update in one place causes issues
     const { listingAddress, listing, newsroom, listingPhaseState, charter } = this.props;
     const listingData = listing!.data;
     const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
@@ -105,6 +107,26 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       }
     }
 
+    let appealChallengeCommitEndDate;
+    let appealChallengeRevealEndDate;
+    let appealPollData;
+    let appealChallengeID;
+    if (appeal && appeal.appealChallenge) {
+      appealChallengeID = appeal.appealChallengeID.toString();
+      appealPollData = appeal.appealChallenge.poll;
+      appealChallengeCommitEndDate = appealPollData && appealPollData.commitEndDate.toNumber();
+      appealChallengeRevealEndDate = appealPollData && appealPollData.revealEndDate.toNumber();
+    }
+
+    let appealChallengeStatementSummary;
+    if (this.props.appealChallengeStatement) {
+      try {
+        appealChallengeStatementSummary = JSON.parse(this.props.appealChallengeStatement as string).summary;
+      } catch (ex) {
+        appealChallengeStatementSummary = this.props.appealChallengeStatement.summary;
+      }
+    }
+
     const appealPhaseExpiry = appeal && appeal.appealPhaseExpiry.toNumber();
     const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry.toNumber();
 
@@ -113,7 +135,12 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
 
     let challengeResultsProps = {};
 
-    if (listingPhaseState.isAwaitingAppealRequest || listingPhaseState.isAwaitingAppealJudgement) {
+    if (
+      listingPhaseState.isAwaitingAppealRequest ||
+      listingPhaseState.isAwaitingAppealJudgement ||
+      listingPhaseState.isInAppealChallengeCommitPhase ||
+      listingPhaseState.isInAppealChallengeRevealPhase
+    ) {
       challengeResultsProps = getChallengeResultsProps(challenge!);
     }
 
@@ -133,9 +160,13 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
       requestAppealExpiry,
       appealPhaseExpiry,
       appealOpenToChallengeExpiry,
+      appealChallengeCommitEndDate,
+      appealChallengeRevealEndDate,
       unstakedDeposit,
       challengeStake,
       ...challengeResultsProps,
+      appealChallengeID,
+      appealChallengeStatementSummary,
     };
 
     const ListingSummaryItem = this.props.ListingItemComponent || ListingSummaryComponent;
@@ -182,6 +213,7 @@ const mapStateToProps = (
   let charter;
   let challengeStatement;
   let appealStatement;
+  let appealChallengeStatement;
   if (ownProps.newsroom && ownProps.newsroom.data.charterHeader) {
     charter = content.get(ownProps.newsroom.data.charterHeader.uri) as CharterData;
   }
@@ -189,13 +221,21 @@ const mapStateToProps = (
     challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
     if (ownProps.listing.data.challenge.appeal) {
       appealStatement = content.get(ownProps.listing.data.challenge.appeal.appealStatementURI!);
+
+      if (ownProps.listing.data.challenge.appeal.appealChallenge) {
+        appealChallengeStatement = content.get(
+          ownProps.listing.data.challenge.appeal.appealChallenge.appealChallengeStatementURI!,
+        );
+      }
     }
   }
+
   return {
     listingPhaseState: getListingPhaseState(ownProps.listing),
     charter,
     challengeStatement,
     appealStatement,
+    appealChallengeStatement,
     ...ownProps,
   };
 };

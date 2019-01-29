@@ -106,7 +106,6 @@ export class ChallengeProposalRevealVote extends React.Component<TChallengePropo
                 salt={this.props.salt}
                 onInputChange={this.props.onInputChange}
                 transactions={this.props.transactions}
-                modalContentComponents={this.props.modalContentComponents}
                 postExecuteTransactions={this.props.postExecuteTransactions}
               >
                 Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?

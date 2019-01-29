@@ -5,7 +5,7 @@ import {
   StyledListingDetailPhaseCardSectionHeader,
   FormCopy,
 } from "./styledComponents";
-import { buttonSizes, Button } from "../Button";
+import { buttonSizes, InvertedButton } from "../Button";
 import { Collapsable } from "../Collapsable";
 
 export interface AppealDecisionDetailProps {
@@ -27,7 +27,7 @@ const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props =>
         {props.appealGranted && "Read more about their methodology and how they’ve come to this decision."}
       </FormCopy>
 
-      {props.appealGranted && <Button size={buttonSizes.MEDIUM_WIDE}>Read about this decision</Button>}
+      {props.appealGranted && <InvertedButton size={buttonSizes.MEDIUM_WIDE}>Read about this decision</InvertedButton>}
     </StyledInner>
   );
 };

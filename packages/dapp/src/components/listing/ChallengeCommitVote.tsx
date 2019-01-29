@@ -142,6 +142,7 @@ class ChallengeCommitVote extends React.Component<
       tokenBalanceDisplay,
       votingTokenBalanceDisplay,
       salt,
+      voteOption: this.state.voteOption,
       numTokens: this.state.numTokens,
       key: this.state.key,
     };
@@ -178,7 +179,7 @@ class ChallengeCommitVote extends React.Component<
     const salt = fetchSalt(this.props.challengeID, this.props.user);
 
     const props: ReviewVoteProps = {
-      newsroomName: "this newsroom",
+      newsroomName: (this.props.newsroom && this.props.newsroom.data.name) || "this newsroom",
       listingDetailURL,
       challengeID: this.props.challengeID.toString(),
       open: this.state.isReviewVoteModalOpen!,

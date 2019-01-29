@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import { ListingWrapper } from "@joincivil/core";
+import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import styled from "styled-components";
 import ChallengeDetailContainer from "./ChallengeDetail";
 import ChallengeResolve from "./ChallengeResolve";
@@ -20,6 +20,7 @@ const StyledContainer = styled.div`
 
 export interface ListingPhaseActionsProps {
   listing: ListingWrapper;
+  newsroom: NewsroomWrapper;
   expiry?: number;
   parameters: any;
   govtParameters: any;
@@ -63,6 +64,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
                 <ChallengeDetailContainer
                   challengeID={this.props.listing.data.challengeID}
                   listingAddress={this.props.listing.address}
+                  newsroom={this.props.newsroom}
                   challengeData={{
                     listingAddress: this.props.listing.address,
                     challengeID: this.props.listing.data.challengeID,

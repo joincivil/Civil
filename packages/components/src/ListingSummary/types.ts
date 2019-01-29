@@ -37,12 +37,16 @@ export interface ListingSummaryComponentProps {
   challengeStake?: string;
   appealChallengeCommitEndDate?: number;
   appealChallengeRevealEndDate?: number;
+  appealChallengeID?: string;
+  appealChallengeStatementSummary?: string;
 }
 
 export interface ChallengeOrAppealStatementSummaryProps {
   challengeID?: string;
   challengeStatementSummary?: string;
   appealStatementSummary?: string;
+  appealChallengeID?: string;
+  appealChallengeStatementSummary?: string;
 }
 
 export interface NewsroomTaglineProps {

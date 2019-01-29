@@ -118,6 +118,7 @@ class ListingPageComponent extends React.Component<
           <StyledRightContentWell offsetTop={-100}>
             <ListingPhaseActions
               listing={this.props.listing!}
+              newsroom={this.props.newsroom!}
               expiry={this.props.expiry}
               listingPhaseState={this.props.listingPhaseState}
               parameters={this.props.parameters}

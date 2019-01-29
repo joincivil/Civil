@@ -38,7 +38,9 @@ export class ProgressBarCountdownTimerComponent extends React.Component<
   }
 
   private renderExpiry = (): JSX.Element => {
-    const [expiryDateString, expiryTimeString] = getLocalDateTimeStrings(this.props.endTime);
+    const [expiryDateString, expiryTimeString] = this.props.endTime
+      ? getLocalDateTimeStrings(parseInt(this.props.endTime.toString(), 10))
+      : ["", ""];
     return (
       <ProgressBarCopy>
         Newsroom listing {this.props.secondsRemaining! > 0 ? "is" : "was"} {this.props.flavorText} until{" "}

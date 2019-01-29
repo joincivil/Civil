@@ -3,16 +3,22 @@ import { compose } from "redux";
 import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  AppealChallengeRevealVoteCard,
+  AppealChallengeRevealVoteCard as AppealChallengeRevealVoteCardComponent,
+  AppealChallengeRevealVoteCardProps,
   ModalContent,
   ModalUnorderedList,
   ModalListItem,
   RevealVoteSuccessIcon,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings, getFormattedTokenBalance, Parameters } from "@joincivil/utils";
+import { getLocalDateTimeStrings, Parameters } from "@joincivil/utils";
 import { revealVote } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";
+import {
+  ChallengeContainerProps,
+  connectChallengePhase,
+  connectChallengeResults,
+} from "../utility/HigherOrderComponents";
 import {
   InjectedTransactionStatusModalProps,
   hasTransactionStatusModals,
@@ -65,6 +71,8 @@ class AppealChallengeRevealVote extends React.Component<
   constructor(props: AppealChallengeDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
+      voteOption: this.getVoteOption(),
+      salt: fetchSalt(this.props.appealChallengeID, this.props.user),
       isReviewVoteModalOpen: false,
       numTokens: undefined,
       key: new Date().valueOf(),
@@ -81,7 +89,7 @@ class AppealChallengeRevealVote extends React.Component<
   }
 
   public render(): JSX.Element | null {
-    const { challenge, appealChallenge } = this.props;
+    const { appealChallenge } = this.props;
 
     const userHasRevealedVote =
       this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserReveal;
@@ -92,52 +100,11 @@ class AppealChallengeRevealVote extends React.Component<
     const phaseLength = this.props.parameters[Parameters.challengeAppealRevealLen];
     const secondaryPhaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
 
-    const challenger = challenge.challenger.toString();
-    const rewardPool = getFormattedTokenBalance(challenge.rewardPool);
-    const stake = getFormattedTokenBalance(challenge.stake);
+    const transactions = this.getTransactions();
 
-    const transactions = [
-      {
-        transaction: async () => {
-          this.props.updateTransactionStatusModalsState({
-            isWaitingTransactionModalOpen: true,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: false,
-            transactionType: TransactionTypes.REVEAL_VOTE,
-          });
-          return this.revealVoteOnChallenge();
-        },
-        handleTransactionHash: (txHash: TxHash) => {
-          this.props.updateTransactionStatusModalsState({
-            isWaitingTransactionModalOpen: false,
-            isTransactionProgressModalOpen: true,
-          });
-        },
-        postTransaction: () => {
-          this.props.updateTransactionStatusModalsState({
-            isWaitingTransactionModalOpen: false,
-            isTransactionProgressModalOpen: false,
-            isTransactionSuccessModalOpen: true,
-          });
-        },
-        handleTransactionError: this.props.handleTransactionError,
-      },
-    ];
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const didChallengeSucceed = challenge.poll.votesAgainst.greaterThan(challenge.poll.votesFor);
-
-    const voteOption = this.getVoteOption();
-    const salt = fetchSalt(this.props.challengeID, this.props.user);
+    const AppealChallengeRevealVoteCard = compose<
+      React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeRevealVoteCardProps>>
+    >(connectChallengePhase, connectChallengeResults)(AppealChallengeRevealVoteCardComponent);
 
     return (
       <>
@@ -146,21 +113,11 @@ class AppealChallengeRevealVote extends React.Component<
           phaseLength={phaseLength}
           secondaryPhaseLength={secondaryPhaseLength}
           challengeID={this.props.challengeID.toString()}
-          challenger={challenger}
-          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
-          rewardPool={rewardPool}
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
-          stake={stake}
-          voteOption={voteOption}
-          salt={salt}
-          totalVotes={getFormattedTokenBalance(totalVotes)}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor.toString()}
-          percentAgainst={percentAgainst.toString()}
-          didChallengeSucceed={didChallengeSucceed}
-          onInputChange={this.updateCommitVoteState}
+          voteOption={this.state.voteOption}
+          salt={this.state.salt}
+          onInputChange={this.updateRevealVoteState}
           transactions={transactions}
           appealChallengeID={this.props.appealChallengeID.toString()}
           appealGranted={this.props.appeal.appealGranted}
@@ -228,7 +185,7 @@ class AppealChallengeRevealVote extends React.Component<
   };
 
   private getVoteOption(): string | undefined {
-    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    const fetchedVote = fetchVote(this.props.appealChallengeID, this.props.user);
     let voteOption;
     if (fetchedVote) {
       voteOption = fetchedVote.toString();
@@ -237,14 +194,13 @@ class AppealChallengeRevealVote extends React.Component<
   }
 
   private revealVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.getVoteOption() as string);
     const pollID = this.props.appealChallengeID;
-    const saltStr = fetchSalt(pollID, this.props.user);
-    const salt: BigNumber = new BigNumber(saltStr as string);
+    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
+    const salt: BigNumber = new BigNumber(this.state.salt as string);
     return revealVote(pollID, voteOption, salt);
   };
 
-  private updateCommitVoteState = (data: any, callback?: () => void): void => {
+  private updateRevealVoteState = (data: any, callback?: () => void): void => {
     if (callback) {
       this.setState({ ...data }, callback);
     } else {

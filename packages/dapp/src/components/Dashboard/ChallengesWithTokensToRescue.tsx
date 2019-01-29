@@ -58,6 +58,7 @@ const transactionStatusModalConfig = {
 
 export interface ChallengesWithTokensToRescueProps {
   challenges: any;
+  appealChallenges: any;
   onMobileTransactionClick?(): any;
 }
 
@@ -85,7 +86,7 @@ class ChallengesWithTokensToRescue extends React.Component<
   }
 
   public render(): JSX.Element {
-    const isRescueTokensButtonDisabled = !this.state.challengesToRescue.length;
+    const isRescueTokensButtonDisabled = this.isEmpty(this.state.challengesToRescue);
     const transactions = this.getTransactions();
 
     return (
@@ -95,6 +96,7 @@ class ChallengesWithTokensToRescue extends React.Component<
         </StyledDashboardActivityDescription>
         <ActivityList
           challenges={this.props.challenges}
+          appealChallenges={this.props.appealChallenges}
           resolvedChallenges={true}
           toggleChallengeSelect={this.setChallengesToMultiRescue}
         />
@@ -110,6 +112,15 @@ class ChallengesWithTokensToRescue extends React.Component<
         </StyledBatchButtonContainer>
       </>
     );
+  }
+
+  private isEmpty(obj: any): boolean {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   private getTransactions = (): any[] => {

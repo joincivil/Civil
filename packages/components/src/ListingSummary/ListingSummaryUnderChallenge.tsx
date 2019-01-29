@@ -11,7 +11,8 @@ import {
   StyledListingSummaryContainer,
   StyledListingSummary,
   StyledListingSummarySection,
-  StyledAppealJudgementContainer,
+  StyledBaseResultsBanner,
+  StyledRejectedResultsBanner,
   StyledChallengeResultsHeader,
   ChallengeResultsContain,
 } from "./styledComponents";
@@ -27,11 +28,20 @@ export interface ListingSummaryUnderChallengeComponentProps
 
 export class ListingSummaryUnderChallengeComponent extends React.Component<ListingSummaryUnderChallengeComponentProps> {
   public render(): JSX.Element {
-    const { challengeID, challengeStatementSummary, appealStatementSummary } = this.props;
+    const {
+      challengeID,
+      challengeStatementSummary,
+      appealStatementSummary,
+      appealChallengeID,
+      appealChallengeStatementSummary,
+      appeal,
+    } = this.props;
+
+    const hasTopPadding = !(appeal && appeal.appealGranted);
 
     return (
       <StyledListingSummaryContainer>
-        <StyledListingSummary hasTopPadding={true}>
+        <StyledListingSummary hasTopPadding={hasTopPadding}>
           {this.renderAppealJudgement()}
 
           <ListingPhaseLabel {...this.props} />
@@ -45,6 +55,8 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
               challengeID={challengeID}
               challengeStatementSummary={challengeStatementSummary}
               appealStatementSummary={appealStatementSummary}
+              appealChallengeID={appealChallengeID}
+              appealChallengeStatementSummary={appealChallengeStatementSummary}
             />
 
             {this.renderPhaseCountdownOrTimestamp()}
@@ -65,6 +77,8 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
       isAwaitingAppealRequest,
       isAwaitingAppealJudgement,
       isAwaitingAppealChallenge,
+      isInAppealChallengeCommitPhase,
+      isInAppealChallengeRevealPhase,
     } = this.props;
     if (isInApplication) {
       expiry = this.props.appExpiry;
@@ -78,11 +92,20 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
       expiry = this.props.appealPhaseExpiry;
     } else if (isAwaitingAppealChallenge) {
       expiry = this.props.appealOpenToChallengeExpiry;
+    } else if (isInAppealChallengeCommitPhase) {
+      expiry = this.props.appealChallengeCommitEndDate;
+    } else if (isInAppealChallengeRevealPhase) {
+      expiry = this.props.appealChallengeRevealEndDate;
     }
 
-    const warn = this.props.inChallengeCommitVotePhase || this.props.inChallengeRevealPhase;
+    const warn =
+      inChallengeCommitVotePhase ||
+      inChallengeRevealPhase ||
+      isInAppealChallengeCommitPhase ||
+      isInAppealChallengeRevealPhase;
 
     if (expiry) {
+      expiry = parseInt(expiry.toString(), 10);
       return <TextCountdownTimer endTime={expiry!} warn={warn} />;
     }
 
@@ -132,8 +155,26 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
   };
 
   private renderPhaseCountdownOrTimestamp = (): JSX.Element | undefined => {
-    const { isInApplication, inChallengeCommitVotePhase, inChallengeRevealPhase, isAwaitingAppealRequest } = this.props;
-    if (isInApplication || inChallengeCommitVotePhase || inChallengeRevealPhase || isAwaitingAppealRequest) {
+    const {
+      isInApplication,
+      inChallengeCommitVotePhase,
+      inChallengeRevealPhase,
+      isAwaitingAppealRequest,
+      isAwaitingAppealJudgement,
+      isAwaitingAppealChallenge,
+      isInAppealChallengeCommitPhase,
+      isInAppealChallengeRevealPhase,
+    } = this.props;
+    if (
+      isInApplication ||
+      inChallengeCommitVotePhase ||
+      inChallengeRevealPhase ||
+      isAwaitingAppealRequest ||
+      isAwaitingAppealJudgement ||
+      isAwaitingAppealChallenge ||
+      isInAppealChallengeCommitPhase ||
+      isInAppealChallengeRevealPhase
+    ) {
       return this.renderPhaseCountdown();
     } else {
       return this.renderTimestamp();
@@ -151,26 +192,28 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
     // Challenge succeeded (newsroom rejected) and appeal was granted, so newsroom is accepted
     if (didListingChallengeSucceed) {
       decisionText = (
-        <>
+        <StyledBaseResultsBanner>
           <HollowGreenCheck /> Appeal granted to accept Newsroom
-        </>
+        </StyledBaseResultsBanner>
       );
       // Challenge failed (newsroom accepted) and appeal was granted, so newsroom is rejected
     } else {
       decisionText = (
-        <>
+        <StyledRejectedResultsBanner>
           <HollowRedNoGood /> Appeal granted to reject Newsroom
-        </>
+        </StyledRejectedResultsBanner>
       );
     }
 
-    return <StyledAppealJudgementContainer>{decisionText}</StyledAppealJudgementContainer>;
+    return decisionText;
   };
 
   private renderChallengeResults = (): JSX.Element => {
     const {
       isAwaitingAppealRequest,
       isAwaitingAppealJudgement,
+      isInAppealChallengeCommitPhase,
+      isInAppealChallengeRevealPhase,
       challengeID,
       totalVotes,
       votesFor,
@@ -180,7 +223,12 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
       didChallengeSucceed,
     } = this.props;
 
-    if (isAwaitingAppealRequest || isAwaitingAppealJudgement) {
+    if (
+      isAwaitingAppealRequest ||
+      isAwaitingAppealJudgement ||
+      isInAppealChallengeCommitPhase ||
+      isInAppealChallengeRevealPhase
+    ) {
       const challengeIDDisplay = !!challengeID ? `#${challengeID}` : "";
       return (
         <ChallengeResultsContain>

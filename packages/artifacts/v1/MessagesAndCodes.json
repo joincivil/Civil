@@ -149,6 +149,12 @@
     }
   ],
   "networks": {
+    "1": {
+      "events": {},
+      "links": {},
+      "address": "0x99Ed479b711f1Dec9377d8a1C63Bfa2D51486954",
+      "transactionHash": "0xe85b40dbc84b9be09b08dda29965050057754e3b003115fc353dbe342c4e0e51"
+    },
     "4": {
       "events": {},
       "links": {},
