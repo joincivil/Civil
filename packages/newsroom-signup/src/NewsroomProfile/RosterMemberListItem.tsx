@@ -57,7 +57,7 @@ const StyledButton = styled(BorderlessButton)`
   justify-self: flex-end;
 `;
 
-export class RosterMemberListItem extends React.Component<RosterMemberListItemProps, {}> {
+export class RosterMemberListItem extends React.Component<RosterMemberListItemProps> {
   public render(): JSX.Element {
     return (
       <StyledLi>

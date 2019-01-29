@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, StepHeader, StepDescription, BorderlessButton, Button, buttonSizes } from "@joincivil/components";
+import { colors, BorderlessButton, Button, buttonSizes } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";

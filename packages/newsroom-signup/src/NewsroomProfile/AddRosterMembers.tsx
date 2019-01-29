@@ -3,16 +3,14 @@ import { LearnMoreButton } from "./LearnMoreButton";
 import {
   StyledHr,
   FormSection,
-  FormTitle,
-  FormSubhead,
   SectionHeader,
   SectionDescription,
   StepSectionCounter,
 } from "../styledComponents";
 import { CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
-import { colors, InvertedButton, BorderlessButton, buttonSizes } from "@joincivil/components";
+import { InvertedButton, BorderlessButton, buttonSizes } from "@joincivil/components";
 import { RosterMember } from "./RosterMember";
-import { find, findIndex } from "lodash";
+import { findIndex } from "lodash";
 import styled from "styled-components";
 import { RosterMemberListItem } from "./RosterMemberListItem";
 

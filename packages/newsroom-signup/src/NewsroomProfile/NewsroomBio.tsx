@@ -1,17 +1,13 @@
 import * as React from "react";
-import { connect, DispatchProp } from "react-redux";
-import { find, findIndex } from "lodash";
 import styled from "styled-components";
 import {
   colors,
   fonts,
-  StepHeader,
   StepProps,
-  StepDescription,
   QuestionToolTip,
   Collapsable,
 } from "@joincivil/components";
-import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { CharterData } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import {
   FormSection,
@@ -26,9 +22,6 @@ import {
   SectionDescription,
   StepSectionCounter,
 } from "../styledComponents";
-import { StateWithNewsroom } from "../reducers";
-import { getUserObject } from "../utils";
-import { UserData } from "../types";
 import { LearnMoreButton } from "./LearnMoreButton";
 
 export interface NewsroomBioProps extends StepProps {
@@ -41,28 +34,6 @@ const LogoFormWrap = styled.div`
   justify-content: space-between;
   margin-top: -4px;
 `;
-const LogoURLWrap = styled.div`
-  flex-grow: 2;
-  margin-right: 15px;
-  padding-right: 15px;
-  border-right: 1px solid ${colors.accent.CIVIL_GRAY_4};
-`;
-const LogoURLInput = styled(StyledTextInput)`
-  &,
-  input {
-    margin-bottom: 0;
-  }
-`;
-const LogoImgWrap = styled.div`
-  position: relative;
-  width: 100px;
-`;
-const LogoImg = styled.img`
-  position: absolute;
-  width: 100px;
-  height: auto;
-  top: -50%;
-`;
 
 const NewsroomURLInput = styled(StyledTextInput)`
   max-width: 400px;
@@ -70,18 +41,6 @@ const NewsroomURLInput = styled(StyledTextInput)`
 const TaglineTextarea = styled(StyledTextareaInput)`
   height: 80px;
   margin: -4px 0 0;
-`;
-
-const AddRosterMember = styled.a`
-  display: block;
-  cursor: pointer;
-  padding: 22px 0 22px 30px;
-  text-decoration: none;
-  font-weight: bold;
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  outline: none !important;
-  box-shadow: none !important;
 `;
 
 const SmallParagraph = styled.p`

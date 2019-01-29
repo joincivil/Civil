@@ -4,12 +4,6 @@ import {
   colors,
   StepProcessTopNavNoButtons,
   StepNoButtons,
-  ManagerHeading,
-  WalletOnboarding,
-  RenderButtonsArgs,
-  Button,
-  SecondaryButton,
-  buttonSizes,
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
@@ -29,7 +23,6 @@ import {
   updateCharter,
 } from "./actionCreators";
 import { NewsroomProfile } from "./NewsroomProfile";
-import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
 // import { NameAndAddress } from "./NameAndAddress";
@@ -111,10 +104,6 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
 
 const ErrorP = styled.p`
   color: ${colors.accent.CIVIL_RED};
-`;
-
-const Heading = styled(ManagerHeading)`
-  color: ${(props: { disabled: boolean }) => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.BLACK)};
 `;
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
@@ -226,7 +215,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (!hasInjectedProvider()) {
       return null;
     }
-    const disabled = this.isDisabled();
     return (
       <>
         {this.props.userNotOnContract && (
@@ -367,18 +355,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       }
     }
   }
-
-  private isDisabled = (): boolean => {
-    const onRequiredNetwork =
-      !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.props.currentNetwork!);
-    return (
-      this.props.disabled ||
-      !this.props.civil ||
-      !onRequiredNetwork ||
-      !this.props.account ||
-      !!this.props.userNotOnContract
-    );
-  };
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));

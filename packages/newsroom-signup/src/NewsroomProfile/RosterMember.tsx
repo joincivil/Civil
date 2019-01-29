@@ -1,8 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { isValidAddress } from "ethereumjs-util";
-import { colors, buttonSizes, ToolTip } from "@joincivil/components";
-import { EthAddress, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { colors } from "@joincivil/components";
+import { RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import styled from "styled-components";
 import {
@@ -12,7 +11,6 @@ import {
   HelperText,
   StyledTextInput,
   StyledTextareaInput,
-  TertiaryButton,
 } from "../styledComponents";
 import { StateWithNewsroom } from "../reducers";
 import { UserData } from "../types";
@@ -26,39 +24,6 @@ const Wrapper = styled.div`
   padding: 20px 0;
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
 `;
-
-const DisplayName = styled(FormSubhead)`
-  display: inline-block;
-  font-weight: bold;
-  margin: 0 10px 0 0;
-`;
-const Username = styled.span`
-  color: #72777c;
-  margin-right: 10px;
-`;
-
-const AvatarWrap = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-  width: 24px;
-  height: 24px;
-`;
-const AvatarImg = styled.img`
-  width: 100%;
-  height: 100%;
-`;
-const _NoAvatar = styled.div`
-  display: inline-block;
-  width: 24px;
-  height: 21px;
-  padding-top: 3px;
-  text-align: center;
-  font-weight: bold;
-  background-color: ${colors.accent.CIVIL_GRAY_4};
-  color: ${colors.accent.CIVIL_GRAY_2};
-`;
-const noAvatar = <_NoAvatar>?</_NoAvatar>;
 
 const Input = styled(StyledTextInput)`
   margin: -8px 0 -20px;

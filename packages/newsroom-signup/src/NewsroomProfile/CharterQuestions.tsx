@@ -1,11 +1,10 @@
 import * as React from "react";
-import { connect, DispatchProp } from "react-redux";
+import { DispatchProp } from "react-redux";
 import styled from "styled-components";
-import { StepHeader, StepProps, StepDescription, TextareaInput } from "@joincivil/components";
+import { StepProps, TextareaInput } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import {
   FormSection,
-  FormTitle,
   FormSubhead,
   SectionHeader,
   SectionDescription,
