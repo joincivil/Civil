@@ -245,7 +245,6 @@ class ChallengeCommitVote extends React.Component<
   };
 
   private updateCommitVoteState = (data: any, callback?: () => void): void => {
-    console.log("updating state", data);
     if (callback) {
       this.setState({ ...data }, callback);
     } else {
