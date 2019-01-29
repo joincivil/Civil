@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "baseUrl": "src/",
+    "outDir": "build/",
+    "sourceMap": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "strictPropertyInitialization": false
+  },
+  "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts"],
+  "include": ["./**/*.ts", "./**/*.tsx"],
+  "types": ["react", "jest"]
+}
