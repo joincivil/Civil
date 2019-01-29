@@ -220,6 +220,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
           filters.executed || false,
         ),
       )
+      .filter(ids => !!ids)
       .concatMap(ids => Observable.from(ids))
       .concatMap(async id => this.transaction(id.toNumber()));
   }
