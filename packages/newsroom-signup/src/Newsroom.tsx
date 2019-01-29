@@ -2,8 +2,8 @@ import { hasInjectedProvider } from "@joincivil/ethapi";
 import {
   ButtonTheme,
   colors,
-  StepProcessTopNav,
-  Step,
+  StepProcessTopNavNoButtons,
+  StepNoButtons,
   ManagerHeading,
   WalletOnboarding,
   RenderButtonsArgs,
@@ -243,7 +243,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-          <StepProcessTopNav
+          <StepProcessTopNavNoButtons
             activeIndex={this.state.currentStep}
             onActiveTabChange={(newIndex: number) => {
               try {
@@ -255,7 +255,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             }}
           >
             {this.renderSteps()}
-          </StepProcessTopNav>
+          </StepProcessTopNavNoButtons>
         </CivilContext.Provider>
       </>
     );
@@ -263,14 +263,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   public renderSteps(): JSX.Element[] {
     const baseSteps = [
-      <Step
+      <StepNoButtons
         title={"Registry Profile"}
         disabled={!this.props.userIsOwner}
         complete={this.state.charterPartOneComplete}
         key="createCharterPartOne"
       >
         <NewsroomProfile charter={this.props.charter} updateCharter={this.updateCharter} />
-      </Step>,
+      </StepNoButtons>,
       // <Step
       //   title={"Create newsroom"}
       //   complete={!!this.props.address}
@@ -302,7 +302,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     ];
     if (this.props.allSteps) {
       baseSteps.push(
-        <Step
+        <StepNoButtons
           title={"Sign the Constitution"}
           disabled={!this.props.address && !this.state.charterPartTwoComplete}
           complete={!!this.props.charterUri}
@@ -314,11 +314,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             charter={this.props.charter}
             updateCharter={this.updateCharter}
           />
-        </Step>,
+        </StepNoButtons>,
       );
     }
     baseSteps.push(
-      <Step
+      <StepNoButtons
         title={"Apply to the Registry"}
         disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
         key="applyToRegistry"
@@ -328,7 +328,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         ) : (
           <ApplyToTCRPlaceholder address={this.props.address} />
         )}
-      </Step>,
+      </StepNoButtons>,
     );
     return baseSteps;
   }

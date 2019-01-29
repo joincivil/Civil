@@ -4,17 +4,17 @@ exports[`Storyshots Email Signup Component Email Signup 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bTiqRo knZELJ",
+      "class": "sc-bIKvTM cwuHYH",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-dKEPtC jPRqKk",
+          "class": "sc-iFUGim jyIxRM",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-dBAPYN iieHsm",
+              "class": "sc-cNQqM kCOyNV",
             },
             "children": Array [
               Object {
@@ -182,7 +182,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dvpmds kJgiTk",
+                "class": "sc-clBsIJ jwhNIK",
               },
               "children": Array [
                 Object {
@@ -249,7 +249,8 @@ initialize {
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG ioVkma",
+                                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                                    "theme": "[object Object]",
                                     "type": "button",
                                   },
                                   "children": Array [
@@ -269,10 +270,12 @@ initialize {
                                   "type": "tag",
                                   "x-attribsNamespace": Object {
                                     "class": undefined,
+                                    "theme": undefined,
                                     "type": undefined,
                                   },
                                   "x-attribsPrefix": Object {
                                     "class": undefined,
+                                    "theme": undefined,
                                     "type": undefined,
                                   },
                                 },
@@ -326,7 +329,8 @@ initialize {
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG ioVkma",
+                                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                                  "theme": "[object Object]",
                                   "type": "button",
                                 },
                                 "children": Array [
@@ -346,10 +350,12 @@ initialize {
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "class": undefined,
+                                  "theme": undefined,
                                   "type": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
+                                  "theme": undefined,
                                   "type": undefined,
                                 },
                               },
@@ -442,7 +448,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-dvpmds kJgiTk",
+                    "class": "sc-clBsIJ jwhNIK",
                   },
                   "children": Array [
                     Object {
@@ -574,7 +580,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-dvpmds kJgiTk",
+              "class": "sc-clBsIJ jwhNIK",
             },
             "children": Array [
               Object {
@@ -641,7 +647,8 @@ initialize {
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG ioVkma",
+                                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                                  "theme": "[object Object]",
                                   "type": "button",
                                 },
                                 "children": Array [
@@ -661,10 +668,12 @@ initialize {
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "class": undefined,
+                                  "theme": undefined,
                                   "type": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
+                                  "theme": undefined,
                                   "type": undefined,
                                 },
                               },
@@ -718,7 +727,8 @@ initialize {
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-cSHVUG fYaJzf sc-jzJRlG ioVkma",
+                                "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                                "theme": "[object Object]",
                                 "type": "button",
                               },
                               "children": Array [
@@ -738,10 +748,12 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "class": undefined,
+                                "theme": undefined,
                                 "type": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "class": undefined,
+                                "theme": undefined,
                                 "type": undefined,
                               },
                             },
@@ -834,7 +846,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-dvpmds kJgiTk",
+                  "class": "sc-clBsIJ jwhNIK",
                 },
                 "children": Array [
                   Object {
@@ -947,7 +959,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-dBAPYN iieHsm",
+                "class": "sc-cNQqM kCOyNV",
               },
               "children": Array [
                 Object {
@@ -1186,7 +1198,8 @@ initialize {
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-cSHVUG fYaJzf sc-jzJRlG ioVkma",
+                                "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                                "theme": "[object Object]",
                                 "type": "button",
                               },
                               "children": Array [
@@ -1206,10 +1219,12 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "class": undefined,
+                                "theme": undefined,
                                 "type": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "class": undefined,
+                                "theme": undefined,
                                 "type": undefined,
                               },
                             },
@@ -1263,7 +1278,8 @@ initialize {
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-cSHVUG fYaJzf sc-jzJRlG ioVkma",
+                              "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                              "theme": "[object Object]",
                               "type": "button",
                             },
                             "children": Array [
@@ -1283,10 +1299,12 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "class": undefined,
+                              "theme": undefined,
                               "type": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "class": undefined,
+                              "theme": undefined,
                               "type": undefined,
                             },
                           },
@@ -1379,7 +1397,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dvpmds kJgiTk",
+                "class": "sc-clBsIJ jwhNIK",
               },
               "children": Array [
                 Object {
@@ -1482,7 +1500,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-dvpmds kJgiTk",
+                "class": "sc-clBsIJ jwhNIK",
               },
               "children": Array [
                 Object {
@@ -1499,7 +1517,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-dBAPYN iieHsm",
+                  "class": "sc-cNQqM kCOyNV",
                 },
                 "children": Array [
                   Object {
@@ -1694,7 +1712,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-dvpmds kJgiTk",
+              "class": "sc-clBsIJ jwhNIK",
             },
             "children": Array [
               Object {
@@ -1839,7 +1857,8 @@ initialize {
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG ioVkma",
+                                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                                  "theme": "[object Object]",
                                   "type": "button",
                                 },
                                 "children": Array [
@@ -1859,10 +1878,12 @@ initialize {
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "class": undefined,
+                                  "theme": undefined,
                                   "type": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "class": undefined,
+                                  "theme": undefined,
                                   "type": undefined,
                                 },
                               },
@@ -1916,7 +1937,8 @@ initialize {
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-cSHVUG fYaJzf sc-jzJRlG ioVkma",
+                                "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                                "theme": "[object Object]",
                                 "type": "button",
                               },
                               "children": Array [
@@ -1936,10 +1958,12 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "class": undefined,
+                                "theme": undefined,
                                 "type": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "class": undefined,
+                                "theme": undefined,
                                 "type": undefined,
                               },
                             },
@@ -2034,7 +2058,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-dvpmds kJgiTk",
+                  "class": "sc-clBsIJ jwhNIK",
                 },
                 "children": Array [
                   Object {
@@ -2051,7 +2075,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-dBAPYN iieHsm",
+                    "class": "sc-cNQqM kCOyNV",
                   },
                   "children": Array [
                     Object {
