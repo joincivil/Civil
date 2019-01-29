@@ -24,12 +24,11 @@ export interface TutorialQuestionProps {
   totalSlides: number;
   quizName: string | JSX.Element;
   quizId: string;
-  question?: string;
+  question: string;
   options: Options[];
   answer: string;
-  onClickPrev?(e: any): void;
-  onClickNext?(e: any): void;
-  onClickCheck?(e: any): void;
+  onClickPrev(e: any): void;
+  onClickNext(e: any): void;
 }
 
 export interface TutorialQuestionStates {

@@ -66,7 +66,7 @@ export class TokenTutorialLanding extends React.Component<{}, TokenTutorialLandi
 
         {TutorialContent.map((topic, idx) => (
           <TutorialTopic key={idx}>
-            <LaunchTopic data-quiz-id={idx} onClick={() => this.openTutorial(idx)}>
+            <LaunchTopic onClick={() => this.openTutorial(idx)}>
               <div>
                 {topic.icon}
                 <h3>{topic.name}</h3>

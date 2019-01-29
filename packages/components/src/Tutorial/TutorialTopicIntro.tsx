@@ -13,10 +13,10 @@ import { TutorialProgress } from "./TutorialProgress";
 export interface TutorialTopicIntroProps {
   activeSlide: number;
   totalSlides: number;
-  headerText?: string | JSX.Element;
-  infoText?: string | JSX.Element;
-  onClickNext?(e: any): void;
-  onClickSkipTutorial?(e: any): void;
+  headerText: string | JSX.Element;
+  infoText: string | JSX.Element;
+  onClickNext(e: any): void;
+  onClickSkipTutorial(e: any): void;
 }
 
 export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProps> = props => {

@@ -69,11 +69,11 @@ export const Topic1Tutorial1: React.SFC = props => (
       free press is essential to a fair and just society.
     </p>
     <p>
-      Our community-run model providing members a say and share in the project's operations and long-term evolution.
+      Our community-run model providing members a say and share in the project’s operations and long-term evolution.
     </p>
     <p>
       More than 125 journalists representing 18 independent newsrooms, from Chicago to Singapore, are already part of
-      the Civil community. And we're just getting started!
+      the Civil community. And we’re just getting started!
     </p>
   </>
 );
@@ -124,7 +124,7 @@ export const Topic1Tutorial4: React.SFC = props => (
         ERC20 protocol
       </a>. It’s a value stored in a decentralized database that’s managed by Civil’s smart contracts, which allows the
       Civil network to interact with the Civil token. Civil tokens are the software that bridges the Civil network with
-      the Ethereum blockchain, and it's what enables our community ownership model.
+      the Ethereum blockchain, and it’s what enables our community ownership model.
     </p>
     <p>
       When you buy Civil tokens, you’re signaling that you wish to participate in and contribute to Civil’s community.
@@ -199,7 +199,7 @@ export const Topic2Tutorial2: React.SFC = props => (
     </p>
     <p>
       On Civil, we will provide recommended gas amounts to make this process easier (like the post office recommending
-      the right postage at time of shipment), but it's important you understand the mechanics involved.
+      the right postage at time of shipment), but it’s important you understand the mechanics involved.
     </p>
   </>
 );
@@ -212,7 +212,7 @@ export const Topic2Tutorial3: React.SFC = props => (
       products and information, though, only you and you alone can control your token wallet. Not even The Civil Media
       Company can retrieve your tokens if they become lost.{" "}
       <b>
-        This is what makes decentralized technologies so secure and strong for data privacy, but it's also why it's so
+        This is what makes decentralized technologies so secure and strong for data privacy, but it’s also why it’s so
         important to learn how it all works.
       </b>
     </p>
@@ -222,7 +222,7 @@ export const Topic2Tutorial3: React.SFC = props => (
       stories on the Civil network.
     </p>
     <p>
-      You'll need an Ethereum wallet-enabled browser such as{" "}
+      You’ll need an Ethereum wallet-enabled browser such as{" "}
       <a href="https://www.google.com/chrome/" target="_blank">
         Chrome
       </a>,{" "}
@@ -244,10 +244,10 @@ export const Topic2Tutorial3: React.SFC = props => (
 
 export const Topic2Tutorial4: React.SFC = props => (
   <>
-    <h2>What is a hardware wallet or a 'cold wallet'?</h2>
+    <h2>What is a hardware wallet or a ‘cold wallet’?</h2>
     <p>
-      A hardware wallet is a kind of token wallet, and it's one of the most secure ways to store Civil tokens and other
-      cryptocurrencies. A hardware wallet (also sometimes called a 'cold wallet') is a small device that plugs into your
+      A hardware wallet is a kind of token wallet, and it’s one of the most secure ways to store Civil tokens and other
+      cryptocurrencies. A hardware wallet (also sometimes called a ‘cold wallet’) is a small device that plugs into your
       computer via USB. When not in use, a hardware wallet should be unplugged from your computer and stored somewhere
       safe. Among the most well-known hardware wallets is the brand{" "}
       <a href="https://trezor.io/" target="_blank">
@@ -255,7 +255,7 @@ export const Topic2Tutorial4: React.SFC = props => (
       </a>.
     </p>
     <p>
-      Reminder: While the most secure, it's most important to take good care of your hardware wallet because if you
+      Reminder: While the most secure, it’s most important to take good care of your hardware wallet because if you
       forget your passwords and your seed phrase, your tokens will be irretrievably lost. Remember that the Civil Media
       Company does not store any of your wallet information.
     </p>
@@ -264,9 +264,9 @@ export const Topic2Tutorial4: React.SFC = props => (
 
 export const Topic2Tutorial5: React.SFC = props => (
   <>
-    <h2>What is a software wallet or a 'hot wallet'?</h2>
+    <h2>What is a software wallet or a ‘hot wallet’?</h2>
     <p>
-      A software wallet (also sometimes called a 'hot wallet') is a kind of token wallet, describes any wallet address
+      A software wallet (also sometimes called a ‘hot wallet’) is a kind of token wallet, describes any wallet address
       that stores its cryptocurrency on an online exchange, as opposed to stored offsite. While having the wallet
       connected to the exchange makes it less likely you will lose your login information, the risk is higher that you
       could be hacked and your currency taken, as has been the case on some exchanges in the past.{" "}
@@ -276,15 +276,15 @@ export const Topic2Tutorial5: React.SFC = props => (
       is a software wallet that we support and recommend.
     </p>
     <p>
-      Best practices recommend storing small quantities of crypto-currency in a software wallet or 'hot wallet' for
+      Best practices recommend storing small quantities of crypto-currency in a software wallet or ‘hot wallet’ for
       frequent transactions. However, for larger quantities of crypto-currency, it is safer to store them in a hardware
       wallet or{" "}
       <a href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360016464892-What-is-a-hot-wallet-#" target="_blank">
-        'cold wallet'
+        ‘cold wallet’
       </a>.
     </p>
     <p>
-      Note: It's extremely common to have multiple wallets to manage your tokens. The same way you have a bank website,
+      Note: It’s extremely common to have multiple wallets to manage your tokens. The same way you have a bank website,
       an ATM, a credit card, a checkbook and physical cash in your wallet — these are all different ways to access,
       withdraw, transfer, spend, receive and monitor funds. Token wallets are not dissimilar, and hardware wallets and
       software wallets have equal advantages and disadvantages in terms of accessibility, security, and liquidity that
@@ -303,7 +303,7 @@ export const Topic2Tutorial6: React.SFC = props => (
     <p>
       This unique address acts as your identity or account number on the Ethereum blockchain. We use your public wallet
       address to sign, index and archive posts within the Civil Publisher, and to apply, challenge, vote and appeal
-      within the Civil Registry. It's also where Civil tokens and ETH are sent to or from in order to transmit funds,
+      within the Civil Registry. It’s also where Civil tokens and ETH are sent to or from in order to transmit funds,
       pay for transactions, or earn rewards.
     </p>
   </>
@@ -313,7 +313,7 @@ export const Topic2Tutorial7: React.SFC = props => (
   <>
     <h2>What is a private key?</h2>
     <p>
-      Your private key gives direct access to and control of your token wallet. It's like a very powerful password,
+      Your private key gives direct access to and control of your token wallet. It’s like a very powerful password,
       except it cannot be recovered if lost and it should not be shared with anyone. <b>Be extremely careful</b> with
       your private keys and the “seed phrases” you might also be using in systems like MetaMask. Do not ever store them
       on a computer or email them anywhere, not even to yourself.
@@ -325,7 +325,7 @@ export const Topic2Tutorial7: React.SFC = props => (
     </p>
     <p>
       <i>
-        Don't ever even type or copy or duplicate private keys or seed phrases onto a keyboard, keypad, clipboard,
+        Don’t ever even type or copy or duplicate private keys or seed phrases onto a keyboard, keypad, clipboard,
         scanner or printer. Do write them down on a piece of paper and keep it in a safe, memorable place.
       </i>
     </p>
@@ -350,12 +350,12 @@ export const Topic2Tutorial8: React.SFC = props => (
     </p>
     <p>
       Similar to the private key, <b>be extremely careful</b> with your seed phrase. Do not save it on a computer or
-      email it anywhere, not even to yourself. Don't even type or save the recovery seed online. In short, do not save
+      email it anywhere, not even to yourself. Don’t even type or save the recovery seed online. In short, do not save
       it in a digital format. Do write your seed phase down on paper and keep it in a safe, memorable place (two copies
       are best).
     </p>
     <p>
-      If you lose the private key of the wallet holding your tokens and don't have your seed phrase, you won’t be able
+      If you lose the private key of the wallet holding your tokens and don’t have your seed phrase, you won’t be able
       to recover your tokens.
     </p>
   </>
@@ -385,7 +385,7 @@ export const Topic3Tutorial2: React.SFC = props => (
         You should buy Civil tokens only because you wish to participate in our community-run project for journalism.
       </b>{" "}
       That said, like any financial decision, it is important to do your research before buying. Make sure you
-      understand how the Civil token works conceptually, and how the mechanics should affect the price over time. It's
+      understand how the Civil token works conceptually, and how the mechanics should affect the price over time. It’s
       also a good idea to{" "}
       <a href="https://civil.co/our-team/" target="_blank">
         learn more about the project team at Civil
@@ -400,7 +400,7 @@ export const Topic3Tutorial3: React.SFC = props => (
     <p>
       There are no guaranteed outcomes or guaranteed returns with Civil tokens. While the value of Civil tokens may
       increase over time, you also must be prepared to lose some or all of their value. Maintaining your financial
-      stability is crucial. Don't buy more Civil tokens than you can afford to lose, and think carefully before you
+      stability is crucial. Don’t buy more Civil tokens than you can afford to lose, and think carefully before you
       borrow against credit cards, bank loans or personal loans in order to buy Civil tokens.
     </p>
   </>

@@ -11,9 +11,9 @@ import { TutorialProgress } from "./TutorialProgress";
 export interface TutorialInfoProps {
   activeSlide: number;
   totalSlides: number;
-  content?: string | JSX.Element;
-  onClickPrev?(e: any): void;
-  onClickNext?(e: any): void;
+  content: string | JSX.Element;
+  onClickPrev(e: any): void;
+  onClickNext(e: any): void;
 }
 
 export const TutorialInfo: React.StatelessComponent<TutorialInfoProps> = props => {

@@ -8,10 +8,10 @@ import {
 import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 
 export interface TutorialTopicCompletedProps {
-  completedHeader?: string | JSX.Element;
-  completedText?: string | JSX.Element;
-  continueBtnText?: string | JSX.Element;
-  onClickNextTopic?(e: any): void;
+  completedHeader: string | JSX.Element;
+  completedText: string | JSX.Element;
+  continueBtnText: string;
+  onClickNextTopic(e: any): void;
 }
 
 export const TutorialTopicCompleted: React.StatelessComponent<TutorialTopicCompletedProps> = props => {
