@@ -80,6 +80,7 @@ export class ListingSummaryApprovedComponent extends React.Component<ListingSumm
     const warn = this.props.inChallengeCommitVotePhase || this.props.inChallengeRevealPhase;
 
     if (expiry) {
+      expiry = parseInt(expiry.toString(), 10);
       return <TextCountdownTimer endTime={expiry!} warn={warn} />;
     }
 

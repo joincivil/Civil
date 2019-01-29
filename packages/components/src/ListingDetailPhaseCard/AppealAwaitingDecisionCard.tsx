@@ -49,7 +49,6 @@ const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProp
 };
 
 export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
-  const localDateTime = getLocalDateTimeStrings(props.endTime);
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
