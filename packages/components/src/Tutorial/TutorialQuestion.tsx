@@ -16,7 +16,7 @@ import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 import { HollowRedNoGood } from "../icons/HollowRedNoGood";
 
 export interface Options {
-  text?: string;
+  text: string;
 }
 
 export interface TutorialQuestionProps {

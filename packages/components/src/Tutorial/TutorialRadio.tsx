@@ -3,8 +3,8 @@ import { TutorialOptionBox } from "./TutorialStyledComponents";
 
 export interface TutorialOptionProps {
   onChange?: any;
-  value?: any;
-  id?: string;
+  value: any;
+  id: string;
   name?: string;
 }
 
