@@ -3,10 +3,9 @@ import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
 import { StepHeader, StepProps, StepDescription, TextareaInput } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
-import { FormSection, FormTitle, FormSubhead } from "./styledComponents";
-import { StateWithNewsroom } from "./reducers";
-
-export interface CreateCharterPartTwoProps extends StepProps {
+import { FormSection, FormTitle, FormSubhead, SectionHeader, SectionDescription, StyledHr, StepSectionCounter } from "../styledComponents";
+import { LearnMoreButton } from "./LearnMoreButton";
+export interface CharterQuestionsProps extends StepProps {
   charter: Partial<CharterData>;
   updateCharter(charter: Partial<CharterData>): void;
 }
@@ -15,39 +14,23 @@ const Textarea = styled(TextareaInput)`
   height: 140px;
 `;
 
-class CreateCharterPartTwoComponent extends React.Component<CreateCharterPartTwoProps & DispatchProp<any>> {
-  constructor(props: CreateCharterPartTwoProps) {
+export class CharterQuestions extends React.Component<CharterQuestionsProps & DispatchProp<any>> {
+  constructor(props: CharterQuestionsProps) {
     super(props);
   }
 
   public render(): JSX.Element {
     return (
       <>
-        <StepHeader>Write your charter</StepHeader>
-        <StepDescription>
-          Civil’s Registry is based on transparency and trust, so we ask newsrooms to be as open and clear as possible
-          in answering the following questions. The aim is to ensure the Civil community is able to make an informed
-          decision about new applicants and uphold the highest standards of journalism. We ask that any newsroom
-          applying to the registry provide the information below to the best of their ability.
-        </StepDescription>
-        <StepDescription>
-          {/*TODO: link "Civil Registry" to registry once it's launch*/}
-          This information will also be included on your smart contract and shown on your listing page in the Civil
-          Registry.{" "}
-          <strong>
-            Note that the information you provide will be public on the platform and used by the Civil community as the
-            basis for accepting or rejecting your newsroom. We recommend reviewing the{" "}
-            <a href="https://civil.co/constitution/" target="blank">
-              Constitution
-            </a>{" "}
-            closely to familiarize yourself with Civil’s code of ethics before filling it out.
-          </strong>{" "}
-          You can change or amend this charter at any time.
-        </StepDescription>
+        <SectionHeader>Now, add your team to the Newsroom Roster</SectionHeader>
+        <SectionDescription>
+          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public Registry Profile.
+        </SectionDescription>
+        <LearnMoreButton/>
+        <StyledHr/>
+        <StepSectionCounter>Step 2 of 4: Roster</StepSectionCounter>
 
         <FormSection>
-          <FormTitle>Identify your newsroom's journalistic mission.</FormTitle>
-
           <p>Suggested length for answers: 250 words or about 2 paragraphs.</p>
 
           <FormSubhead>Please describe your newsroom's mission or purpose.</FormSubhead>
@@ -108,11 +91,3 @@ class CreateCharterPartTwoComponent extends React.Component<CreateCharterPartTwo
     });
   };
 }
-
-const mapStateToProps = (state: StateWithNewsroom, ownProps: CreateCharterPartTwoProps): CreateCharterPartTwoProps => {
-  return {
-    ...ownProps,
-  };
-};
-
-export const CreateCharterPartTwo = connect(mapStateToProps)(CreateCharterPartTwoComponent);

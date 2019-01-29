@@ -38,7 +38,7 @@ const StyledContainer = styled.ul`
 
 const MainSection = styled.div`
   background-color: #fff;
-  padding: 45px 115px;
+  padding: 45px 0;
 `;
 
 const ButtonSection = styled.div`

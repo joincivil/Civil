@@ -13,17 +13,35 @@ import {
 import * as React from "react"; // needed to export styled components
 import styled, { StyledComponentClass } from "styled-components";
 
+export const SectionHeader = styled.h2`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: -0.17px;
+  line-height: 30px;
+  text-align: center;
+`;
+
+export const SectionDescription = styled.p`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: ${colors.primary.CIVIL_GRAY_1};
+`;
+
 export const FormSection = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding-top: 10px;
   padding-bottom: 40px;
 `;
 
 export const FormTitle = styled.h4`
-  font-size: 16px;
+  font-size: 20px;
   color: #000;
   font-family: ${fonts.SANS_SERIF};
-  margin-right: 15px;
+  line-height: 32px;
+  font-weight: bold;
+  magin-bottom: 10px;
 `;
 
 export interface FormSubheadProps {
@@ -49,6 +67,7 @@ export const FormSubhead = styled<FormSubheadProps, "h4">("h4")`
 export const FormRow = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 export const FormRowItem = styled.div`
   flex: 1;
@@ -106,4 +125,20 @@ export const StyledTextareaInput: StyledComponentClass<InputProps, any> = styled
 export const QuestionToolTip: StyledComponentClass<ToolTipProps, any> = styled(_QuestionToolTip)`
   position: relative;
   top: 2px;
+`;
+
+export const StepSectionCounter = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 20px;
+  opacity: 0.87;
+  margin-bottom: 10px;
+`;
+
+export const StyledHr = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  heigth: 0;
+  margin-top: 35px;
+  margin-bottom: 25px;
 `;

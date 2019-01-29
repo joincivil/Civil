@@ -29,11 +29,10 @@ import {
   updateCharter,
 } from "./actionCreators";
 import { NewsroomProfile } from "./NewsroomProfile";
-import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
 import { Welcome } from "./Welcome";
 import { CivilContext } from "./CivilContext";
-import { CompleteYourProfile } from "./CompleteYourProfile";
-import { NameAndAddress } from "./NameAndAddress";
+// import { CompleteYourProfile } from "./CompleteYourProfile";
+// import { NameAndAddress } from "./NameAndAddress";
 import { SignConstitution } from "./SignConstitution";
 import { ApplyToTCR } from "./ApplyToTCR";
 import { ApplyToTCRPlaceholder } from "./ApplyToTCRPlaceholder";
@@ -87,8 +86,8 @@ export interface NewsroomExternalProps {
 
 export interface NewsroomProps extends NewsroomExternalProps {
   charter: Partial<CharterData>;
-  owners: string[];
-  editors: string[];
+  // owners: string[];
+  // editors: string[];
   name?: string;
   newsroom?: any;
   userIsOwner?: boolean;
@@ -103,7 +102,7 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   max-width: 845px;
-
+  margin: auto;
   &,
   & p {
     font-size: 14px;
@@ -236,7 +235,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             contact a newsroom officer in order to be added.
           </ErrorP>
         )}
-        <Heading disabled={disabled}>Newsroom Application</Heading>
         <CivilContext.Provider
           value={{
             civil: this.props.civil,
@@ -266,7 +264,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   public renderSteps(): JSX.Element[] {
     const baseSteps = [
       <Step
-      title={"Create Registry profile"}
+      title={"Registry Profile"}
       disabled={!this.props.userIsOwner}
       complete={this.state.charterPartOneComplete}
       key="createCharterPartOne"
@@ -276,42 +274,34 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         updateCharter={this.updateCharter}
       />
     </Step>,
-      <Step
-        title={"Create newsroom"}
-        complete={!!this.props.address}
-        key="createNewsroom"
-      >
-        <NameAndAddress
-          userIsOwner={this.props.userIsOwner}
-          onNewsroomCreated={this.onNewsroomCreated}
-          name={this.props.name}
-          address={this.props.address}
-          txHash={this.props.txHash}
-          onContractDeployStarted={this.props.onContractDeployStarted}
-        />
-      </Step>,
-      <Step
-        disabled={!this.props.address}
-        title={"Add accounts"}
-        complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
-        key="nameAndAddress"
-      >
-        <CompleteYourProfile
-          userIsOwner={this.props.userIsOwner}
-          userIsEditor={this.props.userIsEditor}
-          address={this.props.address}
-          renderUserSearch={this.props.renderUserSearch}
-          profileWalletAddress={this.props.profileWalletAddress}
-        />
-      </Step>,
-      <Step
-        title={"Write your charter"}
-        disabled={(!this.props.address && !this.state.charterPartOneComplete) || !this.props.userIsOwner}
-        complete={this.state.charterPartTwoComplete}
-        key="createCharterPartTwo"
-      >
-        <CreateCharterPartTwo charter={this.props.charter} updateCharter={this.updateCharter} />
-      </Step>,
+      // <Step
+      //   title={"Create newsroom"}
+      //   complete={!!this.props.address}
+      //   key="createNewsroom"
+      // >
+      //   <NameAndAddress
+      //     userIsOwner={this.props.userIsOwner}
+      //     onNewsroomCreated={this.onNewsroomCreated}
+      //     name={this.props.name}
+      //     address={this.props.address}
+      //     txHash={this.props.txHash}
+      //     onContractDeployStarted={this.props.onContractDeployStarted}
+      //   />
+      // </Step>,
+      // <Step
+      //   disabled={!this.props.address}
+      //   title={"Add accounts"}
+      //   complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
+      //   key="nameAndAddress"
+      // >
+      //   <CompleteYourProfile
+      //     userIsOwner={this.props.userIsOwner}
+      //     userIsEditor={this.props.userIsEditor}
+      //     address={this.props.address}
+      //     renderUserSearch={this.props.renderUserSearch}
+      //     profileWalletAddress={this.props.profileWalletAddress}
+      //   />
+      // </Step>,
     ];
     if (this.props.allSteps) {
       baseSteps.push(
@@ -350,25 +340,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
-          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} helpUrlBase={this.props.helpUrlBase!} />}
-          {this.props.showWalletOnboarding && (
-            <WalletOnboarding
-              noProvider={!hasInjectedProvider()}
-              notEnabled={this.props.civil && !this.props.metamaskEnabled}
-              enable={this.props.enable}
-              walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
-              wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
-              requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
-              metamaskWalletAddress={this.props.account}
-              profileUrl={this.props.profileUrl}
-              helpUrl={this.props.helpUrl}
-              helpUrlBase={this.props.helpUrlBase}
-              profileAddressSaving={this.props.profileAddressSaving}
-              profileWalletAddress={this.props.profileWalletAddress}
-              saveAddressToProfile={this.props.saveAddressToProfile}
-            />
-          )}
-
           {this.renderManager()}
         </Wrapper>
       </ThemeProvider>
@@ -439,7 +410,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private updateCharter = (charter: Partial<CharterData>): void => {
-    this.props.dispatch!(updateCharter(this.props.address!, charter));
+    this.props.dispatch!(updateCharter(this.props.address || "", charter));
     this.checkCharterCompletion();
   };
 
@@ -457,22 +428,22 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomProps => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
-  const userIsOwner = newsroom.isOwner;
-  const userIsEditor = newsroom.isEditor;
-  const userNotOnContract = !!ownProps.address && userIsOwner === false && userIsEditor === false;
-  const editors = newsroom.editors ? newsroom.editors.toArray() : [];
+  // const userIsOwner = newsroom.isOwner;
+  // const userIsEditor = newsroom.isEditor;
+  // const userNotOnContract = !!ownProps.address && userIsOwner === false && userIsEditor === false;
+  // const editors = newsroom.editors ? newsroom.editors.toArray() : [];
 
-  const charterUri = newsroom.wrapper.data.charterHeader && newsroom.wrapper.data.charterHeader.uri;
+  // const charterUri = newsroom.wrapper.data.charterHeader && newsroom.wrapper.data.charterHeader.uri;
   return {
     ...ownProps,
-    charterUri,
+    // charterUri,
     newsroom: newsroom.newsroom,
-    name: newsroom.wrapper.data.name,
-    userIsOwner,
-    userIsEditor,
-    userNotOnContract,
-    owners: newsroom.wrapper.data.owners || [],
-    editors,
+    // name: newsroom.wrapper.data.name,
+    // userIsOwner,
+    // userIsEditor,
+    // userNotOnContract,
+    // owners: newsroom.wrapper.data.owners || [],
+    // editors,
     charter: newsroom.charter || {},
   };
 };

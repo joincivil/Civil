@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { find, findIndex } from "lodash";
 import styled from "styled-components";
-import { colors, StepHeader, StepProps, StepDescription, QuestionToolTip } from "@joincivil/components";
+import { colors, fonts, StepHeader, StepProps, StepDescription, QuestionToolTip, Collapsable } from "@joincivil/components";
 import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import {
@@ -14,10 +14,14 @@ import {
   HelperText,
   StyledTextInput,
   StyledTextareaInput,
+  SectionHeader,
+  SectionDescription,
+  StepSectionCounter,
 } from "../styledComponents";
 import { StateWithNewsroom } from "../reducers";
 import { getUserObject } from "../utils";
 import { UserData } from "../types";
+import { LearnMoreButton } from "./LearnMoreButton";
 
 export interface NewsroomBioProps extends StepProps {
   charter: Partial<CharterData>;
@@ -72,32 +76,71 @@ const AddRosterMember = styled.a`
   box-shadow: none !important;
 `;
 
+const SmallParagraph = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 24px;
+`;
+
+const CollapsableHeader = styled.h4`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 32px;
+  margin: 0;
+`;
+
+const StyledCollapsable = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin: 25px 0;
+  padding: 17px 7px;
+`;
+
 export class NewsroomBio extends React.Component<NewsroomBioProps> {
   public render(): JSX.Element {
     const charter = this.props.charter;
     return (
       <>
-        <StepHeader>Create your Newsroom Registry profile</StepHeader>
-        <StepDescription>
+        <SectionHeader>Create your Newsroom Registry profile</SectionHeader>
+        <SectionDescription>
           Civil is based on transparency so we ask you to provide the following information to the best of your ability.
-        </StepDescription>
-
+        </SectionDescription>
+        <LearnMoreButton/>
+        <StyledCollapsable>
+          <Collapsable open={false} header={<CollapsableHeader> Where will this profile be viewable?</CollapsableHeader>}>
+            <SmallParagraph>The information provided will help the Civil network assess your newsrooms compliance with the Civil Constitution and may be the basis for a challenge if warranted</SmallParagraph>
+          </Collapsable>
+        </StyledCollapsable>
+        <SmallParagraph>
+          To create your Newsroom Registry Profile, you will complete 4 steps:<br/>
+          Newsroom Details, Roster, Charter, and Signing.
+        </SmallParagraph>
+        <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
         <FormSection>
-          <FormTitle>Newsroom Profile</FormTitle>
-          <p>Enter your newsroom profile details.</p>
-
+          <FormTitle>First, tell us about your Newsroom</FormTitle>
+          <SmallParagraph>Enter your newsroom details below.</SmallParagraph>
+          <div>
+            <FormSubhead>Newsroom Name</FormSubhead>
+            <NewsroomURLInput
+              name="name"
+              value={charter.name || ""}
+              onChange={this.charterInputChange}
+            />
+          </div>
           <div>
             <FormSubhead>
               Logo
               <QuestionToolTip
                 explainerText={
-                  "You need to add a URL to a logo or image. If you set a Site Icon in your WordPress dashboard under Appearance > Customize > Site Identity it will be used here. We recommend the image be square and at minimum 300 x 300 pixels."
+                  "You need to add a URL to a logo or image."
                 }
               />
             </FormSubhead>
             <LogoFormWrap>
-              <LogoURLWrap>
-                <LogoURLInput
+                <NewsroomURLInput
                   noLabel
                   name="logoUrl"
                   value={charter.logoUrl || ""}
@@ -105,8 +148,6 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
                   invalid={this.invalidUrlInput(charter.logoUrl)}
                   invalidMessage={"Invalid URL"}
                 />
-              </LogoURLWrap>
-              <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
             </LogoFormWrap>
             <HelperText style={{ marginTop: 4 }}>Must be image URL</HelperText>
           </div>
@@ -163,6 +204,7 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
               </div>
             </FormRowItem>
           </FormRow>
+          <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
         </FormSection>
       </>
     );
