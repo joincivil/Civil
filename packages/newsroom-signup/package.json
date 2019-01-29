@@ -1,5 +1,5 @@
 {
-  "name": "@joincivil/newsroom-manager",
+  "name": "@joincivil/newsroom-signup",
   "version": "1.7.4",
   "description": "ui for managing a newsroom contract",
   "main": "build/index.js",
