@@ -2,7 +2,15 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { find, findIndex } from "lodash";
 import styled from "styled-components";
-import { colors, fonts, StepHeader, StepProps, StepDescription, QuestionToolTip, Collapsable } from "@joincivil/components";
+import {
+  colors,
+  fonts,
+  StepHeader,
+  StepProps,
+  StepDescription,
+  QuestionToolTip,
+  Collapsable,
+} from "@joincivil/components";
 import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import {
@@ -108,14 +116,20 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
         <SectionDescription>
           Civil is based on transparency so we ask you to provide the following information to the best of your ability.
         </SectionDescription>
-        <LearnMoreButton/>
+        <LearnMoreButton />
         <StyledCollapsable>
-          <Collapsable open={false} header={<CollapsableHeader> Where will this profile be viewable?</CollapsableHeader>}>
-            <SmallParagraph>The information provided will help the Civil network assess your newsrooms compliance with the Civil Constitution and may be the basis for a challenge if warranted</SmallParagraph>
+          <Collapsable
+            open={false}
+            header={<CollapsableHeader> Where will this profile be viewable?</CollapsableHeader>}
+          >
+            <SmallParagraph>
+              The information provided will help the Civil network assess your newsrooms compliance with the Civil
+              Constitution and may be the basis for a challenge if warranted
+            </SmallParagraph>
           </Collapsable>
         </StyledCollapsable>
         <SmallParagraph>
-          To create your Newsroom Registry Profile, you will complete 4 steps:<br/>
+          To create your Newsroom Registry Profile, you will complete 4 steps:<br />
           Newsroom Details, Roster, Charter, and Signing.
         </SmallParagraph>
         <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
@@ -124,30 +138,22 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
           <SmallParagraph>Enter your newsroom details below.</SmallParagraph>
           <div>
             <FormSubhead>Newsroom Name</FormSubhead>
-            <NewsroomURLInput
-              name="name"
-              value={charter.name || ""}
-              onChange={this.charterInputChange}
-            />
+            <NewsroomURLInput name="name" value={charter.name || ""} onChange={this.charterInputChange} />
           </div>
           <div>
             <FormSubhead>
               Logo
-              <QuestionToolTip
-                explainerText={
-                  "You need to add a URL to a logo or image."
-                }
-              />
+              <QuestionToolTip explainerText={"You need to add a URL to a logo or image."} />
             </FormSubhead>
             <LogoFormWrap>
-                <NewsroomURLInput
-                  noLabel
-                  name="logoUrl"
-                  value={charter.logoUrl || ""}
-                  onChange={this.charterInputChange}
-                  invalid={this.invalidUrlInput(charter.logoUrl)}
-                  invalidMessage={"Invalid URL"}
-                />
+              <NewsroomURLInput
+                noLabel
+                name="logoUrl"
+                value={charter.logoUrl || ""}
+                onChange={this.charterInputChange}
+                invalid={this.invalidUrlInput(charter.logoUrl)}
+                invalidMessage={"Invalid URL"}
+              />
             </LogoFormWrap>
             <HelperText style={{ marginTop: 4 }}>Must be image URL</HelperText>
           </div>

@@ -42,8 +42,7 @@ const ModalInner = styled.div`
       return "max-width: 100%; width: 100%; height: 100%; overflow: scroll;";
     }
     return "";
-  }}
-  ${mediaQueries.MOBILE} {
+  }} ${mediaQueries.MOBILE} {
     max-width: 100%;
   }
 `;

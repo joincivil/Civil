@@ -19,9 +19,7 @@ import { UserData } from "../types";
 
 export interface RosterMemberProps {
   user: UserData;
-  updateRosterMember(
-    newVal: Partial<RosterMemberInterface>,
-  ): void;
+  updateRosterMember(newVal: Partial<RosterMemberInterface>): void;
 }
 
 const Wrapper = styled.div`
@@ -105,17 +103,9 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
         />
         <HelperText>Maximum of 1000 characters</HelperText>
         <FormSubhead optional>Public Wallet Address</FormSubhead>
-        <Input
-          name="ethAddress"
-          value={user.rosterData.ethAddress || ""}
-          onChange={this.rosterInputChange}
-        />
+        <Input name="ethAddress" value={user.rosterData.ethAddress || ""} onChange={this.rosterInputChange} />
         <FormSubhead optional>Email Address</FormSubhead>
-        <Input
-          name="email"
-          value={(user.rosterData.socialUrls || {}).email}
-          onChange={this.rosterSocialInputChange}
-        />
+        <Input name="email" value={(user.rosterData.socialUrls || {}).email} onChange={this.rosterSocialInputChange} />
         <FormRow>
           <FormRowItem>
             <FormSubhead optional>Twitter URL</FormSubhead>
@@ -140,7 +130,6 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
             />
           </FormRowItem>
         </FormRow>
- 
       </Wrapper>
     );
   }

@@ -172,7 +172,7 @@ export const Button = styled(BaseButton)`
   background-color: ${props => props.theme.primaryButtonBackground};
   color: ${props => props.theme.primaryButtonColor};
   font-weight: ${props => props.theme.primaryButtonFontWeight};
-  text-transform: ${props => props.textTransform ? props.textTransform : props.theme.primaryButtonTextTransform};
+  text-transform: ${props => (props.textTransform ? props.textTransform : props.theme.primaryButtonTextTransform)};
   &:focus,
   &:active,
   &:hover {

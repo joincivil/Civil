@@ -1,6 +1,14 @@
 import * as React from "react";
 import { LearnMoreButton } from "./LearnMoreButton";
-import { StyledHr, FormSection, FormTitle, FormSubhead, SectionHeader, SectionDescription, StepSectionCounter } from "../styledComponents";
+import {
+  StyledHr,
+  FormSection,
+  FormTitle,
+  FormSubhead,
+  SectionHeader,
+  SectionDescription,
+  StepSectionCounter,
+} from "../styledComponents";
 import { CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { colors, InvertedButton, BorderlessButton, buttonSizes } from "@joincivil/components";
 import { RosterMember } from "./RosterMember";
@@ -48,31 +56,41 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       <>
         <SectionHeader>Now, add your team to the Newsroom Roster</SectionHeader>
         <SectionDescription>
-          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public Registry Profile.
+          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
+          Registry Profile.
         </SectionDescription>
-        <LearnMoreButton/>
-        <StyledHr/>
+        <LearnMoreButton />
+        <StyledHr />
         <FormSection>
           <LowerHeader>Newsroom Roster</LowerHeader>
           <LowerDescription>Add yourself, in addition to any staff or team members to your roster.</LowerDescription>
           <StyledCounter>Step 2 of 4: Roster</StyledCounter>
-            {
-              this.state.editingMember ?
-                (<RosterMember user={{rosterData: this.state.editingMember}} updateRosterMember={this.rosterMemberUpdate}/>) :
-                (<StyledUl>
-                  {(this.props.charter.roster || []).map((member, i) => {
-                    return (<RosterMemberListItem key={i} member={member} edit={() => this.editRosterMember(i)}/>);
-                  })}
-                </StyledUl>)
-
-            }
-            {this.state.editingMember ? (<>
-              <InvertedButton size={buttonSizes.MEDIUM} onClick={this.saveRosterMember}>Save</InvertedButton>
-              <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.setState({editingMember: null})}>Cancel</BorderlessButton>
-            </>) :
-            (<InvertedButton size={buttonSizes.MEDIUM_WIDE} onClick={this.addRosterMember}>
+          {this.state.editingMember ? (
+            <RosterMember
+              user={{ rosterData: this.state.editingMember }}
+              updateRosterMember={this.rosterMemberUpdate}
+            />
+          ) : (
+            <StyledUl>
+              {(this.props.charter.roster || []).map((member, i) => {
+                return <RosterMemberListItem key={i} member={member} edit={() => this.editRosterMember(i)} />;
+              })}
+            </StyledUl>
+          )}
+          {this.state.editingMember ? (
+            <>
+              <InvertedButton size={buttonSizes.MEDIUM} onClick={this.saveRosterMember}>
+                Save
+              </InvertedButton>
+              <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.setState({ editingMember: null })}>
+                Cancel
+              </BorderlessButton>
+            </>
+          ) : (
+            <InvertedButton size={buttonSizes.MEDIUM_WIDE} onClick={this.addRosterMember}>
               Add a profile
-            </InvertedButton>)}
+            </InvertedButton>
+          )}
         </FormSection>
       </>
     );
@@ -80,12 +98,12 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
-    this.setState({editingMember: {}});
+    this.setState({ editingMember: {} });
   };
 
   private rosterMemberUpdate = (newVal: Partial<RosterMemberInterface>): void => {
-    this.setState({editingMember: newVal});
-  }
+    this.setState({ editingMember: newVal });
+  };
 
   private saveRosterMember = () => {
     const roster = (this.props.charter.roster || []).slice();
@@ -102,11 +120,10 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       roster,
     });
 
-    this.setState({editingMember: null});
-  }
+    this.setState({ editingMember: null });
+  };
 
   private editRosterMember = (index: number) => {
-    this.setState({editingMember: this.props.charter.roster![index]});
-  }
-
+    this.setState({ editingMember: this.props.charter.roster![index] });
+  };
 }

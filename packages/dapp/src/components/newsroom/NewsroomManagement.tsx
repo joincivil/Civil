@@ -240,12 +240,10 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     }
     if (newsroom) {
       this.state.compositeSubscription.add(
-        newsroom
-          .revisions()
-          .subscribe((contentHeader: any) => {
-            console.log(contentHeader);
-            this.setState({ proposedArticleIds: this.state.proposedArticleIds.push(contentHeader.id) });
-          }),
+        newsroom.revisions().subscribe((contentHeader: any) => {
+          console.log(contentHeader);
+          this.setState({ proposedArticleIds: this.state.proposedArticleIds.push(contentHeader.id) });
+        }),
       );
 
       const multisigAddr = await newsroom.getMultisigAddress();

@@ -11,50 +11,37 @@ export interface StepThingProps extends ContentProps {
 }
 
 const StepThing = (props: StepThingProps): JSX.Element => {
-return (<div>
-  {props.children}
-  <button onClick={() => props.goNext!()}>next</button>
-</div>);
-}
+  return (
+    <div>
+      {props.children}
+      <button onClick={() => props.goNext!()}>next</button>
+    </div>
+  );
+};
 
 storiesOf("StepProcessTopNav", module)
   .add("StepProcessTopNav step 1", () => {
     return (
       <StepProcessTopNav>
-        <Step
-          title={"Step 1"}
-        >
+        <Step title={"Step 1"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 2"}
-          disabled={true}
-        >
+        <Step title={"Step 2"} disabled={true}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 3"}
-        >
+        <Step title={"Step 3"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 4"}
-        >
+        <Step title={"Step 4"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 5"}
-        >
+        <Step title={"Step 5"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 6"}
-        >
+        <Step title={"Step 6"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 7"}
-       >
+        <Step title={"Step 7"}>
           <p>Content</p>
         </Step>
       </StepProcessTopNav>
@@ -171,9 +158,7 @@ storiesOf("StepProcessTopNav", module)
   .add("scrolls to top", () => {
     return (
       <StepProcessTopNav>
-        <Step
-          title={"Step 1"}
-        >
+        <Step title={"Step 1"}>
           <div>
             <p>Content</p>
             <p>Content</p>
@@ -206,10 +191,7 @@ storiesOf("StepProcessTopNav", module)
             <p>Content</p>
           </div>
         </Step>
-        <Step
-          title={"Step 2"}
-          disabled={true}
-        >
+        <Step title={"Step 2"} disabled={true}>
           <div>
             <p>Content</p>
             <p>Content</p>
@@ -242,34 +224,25 @@ storiesOf("StepProcessTopNav", module)
             <p>Content</p>
           </div>
         </Step>
-        <Step
-          title={"Step 3"}
-        >
+        <Step title={"Step 3"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 4"}
-        >
+        <Step title={"Step 4"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 5"}
-       >
+        <Step title={"Step 5"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 6"}
-       >
+        <Step title={"Step 6"}>
           <p>Content</p>
         </Step>
-        <Step
-          title={"Step 7"}
-       >
+        <Step title={"Step 7"}>
           <p>Content</p>
         </Step>
       </StepProcessTopNav>
     );
-  }).add("passes go next to content", () => {
+  })
+  .add("passes go next to content", () => {
     return (
       <StepProcessTopNav activeIndex={2}>
         <Step complete={true} title={"Step 1"}>

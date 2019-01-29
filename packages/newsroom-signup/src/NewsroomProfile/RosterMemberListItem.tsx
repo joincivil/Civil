@@ -1,6 +1,6 @@
 import * as React from "react";
-import {RosterMember} from "@joincivil/core";
-import {colors, BorderlessButton, buttonSizes} from "@joincivil/components";
+import { RosterMember } from "@joincivil/core";
+import { colors, BorderlessButton, buttonSizes } from "@joincivil/components";
 import { FormSubhead } from "../styledComponents";
 import styled from "styled-components";
 
@@ -62,12 +62,14 @@ export class RosterMemberListItem extends React.Component<RosterMemberListItemPr
     return (
       <StyledLi>
         <AvatarWrap>
-          {this.props.member.avatarUrl ? (<AvatarImg src={this.props.member.avatarUrl}/>) : noAvatar}
+          {this.props.member.avatarUrl ? <AvatarImg src={this.props.member.avatarUrl} /> : noAvatar}
         </AvatarWrap>
         <DisplayName>{this.props.member.name}</DisplayName>
         <Role>{this.props.member.role}</Role>
         {this.props.member.ethAddress && <code>{this.props.member.ethAddress}</code>}
-        <StyledButton onClick={this.props.edit} size={buttonSizes.SMALL}>Edit</StyledButton>
+        <StyledButton onClick={this.props.edit} size={buttonSizes.SMALL}>
+          Edit
+        </StyledButton>
       </StyledLi>
     );
   }

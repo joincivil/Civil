@@ -264,16 +264,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   public renderSteps(): JSX.Element[] {
     const baseSteps = [
       <Step
-      title={"Registry Profile"}
-      disabled={!this.props.userIsOwner}
-      complete={this.state.charterPartOneComplete}
-      key="createCharterPartOne"
-    >
-      <NewsroomProfile
-        charter={this.props.charter}
-        updateCharter={this.updateCharter}
-      />
-    </Step>,
+        title={"Registry Profile"}
+        disabled={!this.props.userIsOwner}
+        complete={this.state.charterPartOneComplete}
+        key="createCharterPartOne"
+      >
+        <NewsroomProfile charter={this.props.charter} updateCharter={this.updateCharter} />
+      </Step>,
       // <Step
       //   title={"Create newsroom"}
       //   complete={!!this.props.address}
@@ -339,9 +336,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   public render(): JSX.Element {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <Wrapper>
-          {this.renderManager()}
-        </Wrapper>
+        <Wrapper>{this.renderManager()}</Wrapper>
       </ThemeProvider>
     );
   }

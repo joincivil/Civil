@@ -3,7 +3,15 @@ import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
 import { StepHeader, StepProps, StepDescription, TextareaInput } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
-import { FormSection, FormTitle, FormSubhead, SectionHeader, SectionDescription, StyledHr, StepSectionCounter } from "../styledComponents";
+import {
+  FormSection,
+  FormTitle,
+  FormSubhead,
+  SectionHeader,
+  SectionDescription,
+  StyledHr,
+  StepSectionCounter,
+} from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 export interface CharterQuestionsProps extends StepProps {
   charter: Partial<CharterData>;
@@ -24,10 +32,11 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps & Di
       <>
         <SectionHeader>Now, add your team to the Newsroom Roster</SectionHeader>
         <SectionDescription>
-          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public Registry Profile.
+          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
+          Registry Profile.
         </SectionDescription>
-        <LearnMoreButton/>
-        <StyledHr/>
+        <LearnMoreButton />
+        <StyledHr />
         <StepSectionCounter>Step 2 of 4: Roster</StepSectionCounter>
 
         <FormSection>

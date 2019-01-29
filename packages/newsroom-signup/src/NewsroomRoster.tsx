@@ -1,4 +1,5 @@
-{/* <FormSection>
+{
+  /* <FormSection>
 <FormTitle>Newsroom Roster</FormTitle>
 <p>
   Select the participants in your WordPress newsroom you want to add your roster and include any relevant
@@ -28,4 +29,5 @@
 
 
 
- */}
+ */
+}
