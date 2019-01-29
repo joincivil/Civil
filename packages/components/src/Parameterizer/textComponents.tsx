@@ -44,10 +44,22 @@ export const RequestAppealLenLabelText: React.SFC = props => <>Duration of Reque
 
 export const JudgeAppealLenLabelText: React.SFC = props => <>Duration of Judge Appeal Stage</>;
 
+export const GovtProposalCommitStageLenLabelText: React.SFC = props => (
+  <>Duration of Government Proposal Commit Vote Stage</>
+);
+
+export const GovtProposalRevealStageLenLabelText: React.SFC = props => (
+  <>Duration of Government Proposal Reveal Vote Stage</>
+);
+
 export const AppealFeeLabelText: React.SFC = props => <>Request Appeal Deposit</>;
 
 export const AppealVotePercentageLabelText: React.SFC = props => (
   <>Percentage of Votes Needed To Overturn a Granted Appeal</>
+);
+
+export const AppealVoteDispensationPctLabelText: React.SFC = props => (
+  <>Percentage of Stake Distributed To Appeal Challenge Winner</>
 );
 
 // Create Proposal

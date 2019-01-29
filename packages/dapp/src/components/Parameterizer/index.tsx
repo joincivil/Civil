@@ -36,6 +36,9 @@ import {
   JudgeAppealLenLabelText,
   AppealFeeLabelText,
   AppealVotePercentageLabelText,
+  GovtProposalCommitStageLenLabelText,
+  GovtProposalRevealStageLenLabelText,
+  AppealVoteDispensationPctLabelText,
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
 
@@ -159,6 +162,9 @@ export interface GovernmentParameterProps {
   [GovernmentParameters.judgeAppealLen]: BigNumber;
   [GovernmentParameters.appealFee]: BigNumber;
   [GovernmentParameters.appealVotePercentage]: BigNumber;
+  [GovernmentParameters.appealChallengeVoteDispensationPct]: BigNumber;
+  [GovernmentParameters.govtPCommitStageLen]: BigNumber;
+  [GovernmentParameters.govtPRevealStageLen]: BigNumber;
 }
 
 export interface ParameterizerPageProps {
@@ -453,12 +459,15 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       [Parameters.challengeAppealRevealLen]: ChallengeAppealRevealStageLenLabelText,
       [GovernmentParameters.requestAppealLen]: RequestAppealLenLabelText,
       [GovernmentParameters.judgeAppealLen]: JudgeAppealLenLabelText,
+      [GovernmentParameters.govtPCommitStageLen]: GovtProposalCommitStageLenLabelText,
+      [GovernmentParameters.govtPRevealStageLen]: GovtProposalRevealStageLenLabelText,
 
       [Parameters.dispensationPct]: DispensationPctLabelText,
       [Parameters.pDispensationPct]: ParamDispensationPctLabelText,
       [Parameters.voteQuorum]: VoteQuorumLabelText,
       [Parameters.pVoteQuorum]: ParamVoteQuorumLabelText,
       [GovernmentParameters.appealVotePercentage]: AppealVotePercentageLabelText,
+      [GovernmentParameters.appealChallengeVoteDispensationPct]: AppealVoteDispensationPctLabelText,
     };
 
     let DisplayName: React.SFC = props => <></>;
