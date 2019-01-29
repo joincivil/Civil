@@ -26,17 +26,25 @@ import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 export interface TokenTutorialLandingStates {
   activeTutorialIdx: number;
   tutorialActive: boolean;
+  skipTutorial: boolean;
+  activeSection: string;
 }
 
 export class TokenTutorialLanding extends React.Component<{}, TokenTutorialLandingStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { activeTutorialIdx: 0, tutorialActive: false };
+    this.state = { activeTutorialIdx: 0, tutorialActive: false, skipTutorial: false, activeSection: "intro" };
   }
 
   public render(): JSX.Element {
     if (this.state.tutorialActive) {
-      return <TokenTutorialQuiz topicIdx={this.state.activeTutorialIdx} />;
+      return (
+        <TokenTutorialQuiz
+          topicIdx={this.state.activeTutorialIdx}
+          skipTutorial={this.state.skipTutorial}
+          activeSection={this.state.activeSection}
+        />
+      );
     }
 
     return (
@@ -51,7 +59,7 @@ export class TokenTutorialLanding extends React.Component<{}, TokenTutorialLandi
 
         <TutorialSkipSection>
           <TutorialSkipText />
-          <TakeQuizBtn>
+          <TakeQuizBtn onClick={() => this.skipTutorial()}>
             <TutorialSkipBtnText />
           </TakeQuizBtn>
         </TutorialSkipSection>
@@ -78,6 +86,13 @@ export class TokenTutorialLanding extends React.Component<{}, TokenTutorialLandi
       </TutorialLandingContainer>
     );
   }
+
+  private skipTutorial = () => {
+    this.setState({ activeTutorialIdx: 0 });
+    this.setState({ tutorialActive: true });
+    this.setState({ skipTutorial: true });
+    this.setState({ activeSection: "quiz" });
+  };
 
   private openTutorial = (idx: number) => {
     this.setState({ activeTutorialIdx: idx });

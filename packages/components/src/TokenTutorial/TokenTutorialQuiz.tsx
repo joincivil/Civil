@@ -8,6 +8,8 @@ import { TutorialContain } from "./TokenTutorialStyledComponents";
 
 export interface TokenTutorialQuizProps {
   topicIdx: number;
+  activeSection: string;
+  skipTutorial: boolean;
 }
 
 export interface TokenTutorialQuizStates {
@@ -19,7 +21,7 @@ export interface TokenTutorialQuizStates {
 export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, TokenTutorialQuizStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { topicIdx: this.props.topicIdx, slideIdx: 0, activeSection: "intro" };
+    this.state = { topicIdx: this.props.topicIdx, slideIdx: 0, activeSection: this.props.activeSection };
   }
 
   public render(): JSX.Element {
@@ -90,6 +92,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
       case "tutorial":
         if (this.state.slideIdx === 0) {
           this.setState({ activeSection: "intro" });
+          this.setState({ slideIdx: 0 });
         } else {
           this.setState({ slideIdx: this.state.slideIdx - 1 });
         }
@@ -97,13 +100,14 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
       case "quiz":
         if (this.state.slideIdx === 0) {
           this.setState({ activeSection: "tutorial" });
+          this.setState({ slideIdx: TutorialContent[this.state.topicIdx].tutorials.length - 1 });
         } else {
           this.setState({ slideIdx: this.state.slideIdx - 1 });
         }
         break;
       case "completed":
         this.setState({ activeSection: "quiz" });
-        this.setState({ slideIdx: 0 });
+        this.setState({ slideIdx: TutorialContent[this.state.topicIdx].questions.length - 1 });
         break;
       default:
         this.setState({ activeSection: "intro" });
@@ -150,6 +154,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
   private nextTopic = () => {
     this.setState({ topicIdx: this.state.topicIdx + 1 });
     this.setState({ slideIdx: 0 });
-    this.setState({ activeSection: "intro" });
+
+    this.props.skipTutorial ? this.setState({ activeSection: "quiz" }) : this.setState({ activeSection: "intro" });
   };
 }
