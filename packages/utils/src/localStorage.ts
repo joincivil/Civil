@@ -19,3 +19,11 @@ export function setItem(key: string, value: any): void {
     console.error("Error calling localStorage.setItem", err);
   }
 }
+
+export function removeItem(key: string): void {
+  try {
+    localStorage.removeItem(key);
+  } catch (err) {
+    console.error("Error calling localStorage.removeItem", err);
+  }
+}
