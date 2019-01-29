@@ -48,10 +48,11 @@ export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeS
       return <TokenTutorialQuiz topicIdx={activeTutorialIdx} />;
     }
 
-    return <TokenTutorialLanding onClick={() => this.openTutorial()} />;
+    return <TokenTutorialLanding onClick={this.openTutorial} />;
   }
 
-  private openTutorial = () => {
+  private openTutorial = (ev: any) => {
+    // console.log(ev.currentTarget.getAttribute("data-quiz-id"));
     this.setState({ activeTutorialIdx: 0 });
     this.setState({ tutorialActive: true });
   };

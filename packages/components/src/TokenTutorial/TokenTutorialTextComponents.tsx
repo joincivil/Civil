@@ -38,6 +38,29 @@ export const Topic1Intro: React.SFC = props => (
   </>
 );
 
+export const Topic2Intro: React.SFC = props => (
+  <>
+    <p>
+      <b>You’ll learn</b>
+    </p>
+    <p>What is ETH? And what is gas?</p>
+    <p>What are all the different crypto wallets?</p>
+    <p>What are Public and Private Keys?</p>
+    <p>What is a recovery phrase (seed) and why is it important to secure it?</p>
+  </>
+);
+
+export const Topic3Intro: React.SFC = props => (
+  <>
+    <p>
+      <b>You’ll learn</b>
+    </p>
+    <p>How are Civil tokens valued over time - do prices fluctuate?</p>
+    <p>What factors should you take into consideration when buying Civil tokens?</p>
+    <p>How much is safe to consider spending on Civil tokens?</p>
+  </>
+);
+
 export const Topic1Tutorial1: React.SFC = props => (
   <>
     <h2>What is Civil?</h2>

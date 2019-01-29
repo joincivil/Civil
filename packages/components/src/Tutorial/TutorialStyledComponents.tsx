@@ -75,8 +75,17 @@ export const TutorialTopicInfo = styled.div`
   line-height: 31px;
 `;
 
+export interface TutorialFooterFullProps {
+  questionResult?: string;
+}
+
 export const TutorialFooterFull = styled.div`
-  background-color: ${colors.accent.CIVIL_GRAY_4};
+  background-color: ${(props: TutorialFooterFullProps) =>
+    props.questionResult === "correct"
+      ? "rgba(41,203,66,0.2)"
+      : props.questionResult === "incorrect"
+        ? "#FFE6E8"
+        : colors.accent.CIVIL_GRAY_4};
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -86,10 +95,43 @@ export const TutorialFooterFull = styled.div`
 `;
 
 export const TutorialFooterWrap = styled.div`
+  align-items: center;
   display: flex;
   justify-content: space-between;
   max-width: 900px;
   width: 100%;
+`;
+
+export const TurotialFooterLeft = styled.div`
+  align-items: flex-start;
+  display: flex;
+  font-family: ${fonts.SANS_SERIF};
+
+  svg {
+    margin-right: 15px;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
+    margin: 0 0 5px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0 0 25px;
+  }
+
+  span {
+    color: ${colors.accent.CIVIL_RED};
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+  }
 `;
 
 export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`

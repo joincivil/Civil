@@ -36,14 +36,16 @@ export const TokenTutorialLanding: React.StatelessComponent<TokenTutorialLanding
           <TutorialTimeText />
         </TutorialTime>
       </TutorialIntro>
+
       <TutorialSkipSection>
         <TutorialSkipText />
         <TakeQuizBtn>
           <TutorialSkipBtnText />
         </TakeQuizBtn>
       </TutorialSkipSection>
+
       {TutorialContent.map((topic, idx) => (
-        <TutorialTopic>
+        <TutorialTopic key={idx}>
           <LaunchTopic data-quiz-id={idx} onClick={props.onClick}>
             <div>
               {topic.icon}

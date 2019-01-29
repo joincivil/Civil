@@ -5,11 +5,15 @@ import {
   TutorialContentWrap,
   TutorialInvertedBtn,
   TutorialBtn,
+  TurotialFooterLeft,
 } from "./TutorialStyledComponents";
+import { IncorrectText, SelectCorrectText, CorrectText } from "./TutorialTextComponents";
 import { TutorialFooter } from "./TutorialFooter";
 import { TutorialProgress } from "./TutorialProgress";
 import { TutorialRadio } from "./TutorialRadio";
 import { RadioInput } from "../input";
+import { HollowGreenCheck } from "../icons/HollowGreenCheck";
+import { HollowRedNoGood } from "../icons/HollowRedNoGood";
 
 export interface Options {
   text?: string;
@@ -29,15 +33,15 @@ export interface TutorialQuestionProps {
 }
 
 export interface TutorialQuestionStates {
-  checkAnswerEnabled: boolean;
-  checkAnswerFinished: boolean;
+  checkAnswerDisabled: boolean;
   usersAnswerValue: string;
+  usersAnswerResult: string;
 }
 
 export class TutorialQuestion extends React.Component<TutorialQuestionProps, TutorialQuestionStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { checkAnswerEnabled: true, checkAnswerFinished: false, usersAnswerValue: "" };
+    this.state = { checkAnswerDisabled: true, usersAnswerValue: "", usersAnswerResult: "" };
   }
 
   public render(): JSX.Element {
@@ -61,14 +65,42 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
             </RadioInput>
           </div>
         </TutorialContentWrap>
-        <TutorialFooter>
-          <TutorialInvertedBtn onClick={this.props.onClickPrev}>Back</TutorialInvertedBtn>
-          {this.state.checkAnswerFinished ? (
-            <TutorialBtn onClick={this.props.onClickNext}>Continue</TutorialBtn>
+        <TutorialFooter questionResult={this.state.usersAnswerResult}>
+          {this.state.usersAnswerResult === "correct" ? (
+            <>
+              <TurotialFooterLeft>
+                <HollowGreenCheck width={50} height={50} />
+                <h3>
+                  <CorrectText />
+                </h3>
+              </TurotialFooterLeft>
+              <TutorialBtn onClick={this.props.onClickNext}>Continue</TutorialBtn>
+            </>
+          ) : this.state.usersAnswerResult === "incorrect" ? (
+            <>
+              <TurotialFooterLeft>
+                <HollowRedNoGood width={50} height={50} />
+                <div>
+                  <h3>
+                    <IncorrectText />
+                  </h3>
+                  <p>{this.props.answer}</p>
+                  <span>
+                    <SelectCorrectText />
+                  </span>
+                </div>
+              </TurotialFooterLeft>
+              <TutorialBtn disabled={this.state.checkAnswerDisabled} onClick={() => this.checkAnswer()}>
+                Check
+              </TutorialBtn>
+            </>
           ) : (
-            <TutorialBtn disabled={this.state.checkAnswerEnabled} onClick={() => this.checkAnswer()}>
-              Check
-            </TutorialBtn>
+            <>
+              <TutorialInvertedBtn onClick={this.props.onClickPrev}>Back</TutorialInvertedBtn>
+              <TutorialBtn disabled={this.state.checkAnswerDisabled} onClick={() => this.checkAnswer()}>
+                Check
+              </TutorialBtn>
+            </>
           )}
         </TutorialFooter>
       </>
@@ -76,15 +108,16 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
   }
 
   private enableCheckAnswerBtn = (ev: any) => {
-    this.setState({ checkAnswerEnabled: false });
+    this.setState({ checkAnswerDisabled: false });
     this.setState({ usersAnswerValue: ev.target.value });
   };
 
   private checkAnswer = () => {
     if (this.state.usersAnswerValue === this.props.answer) {
-      this.setState({ checkAnswerFinished: true });
+      this.setState({ usersAnswerResult: "correct" });
     } else {
-      console.log("wrong!");
+      this.setState({ usersAnswerResult: "incorrect" });
+      this.setState({ checkAnswerDisabled: true });
     }
   };
 }

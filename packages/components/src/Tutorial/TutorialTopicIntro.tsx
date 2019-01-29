@@ -16,6 +16,7 @@ export interface TutorialTopicIntroProps {
   headerText?: string | JSX.Element;
   infoText?: string | JSX.Element;
   onClickNext?(e: any): void;
+  onClickSkipTutorial?(e: any): void;
 }
 
 export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProps> = props => {
@@ -25,7 +26,7 @@ export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProp
       <TutorialContentWrap>
         <TutorialTopicTitle>{props.headerText}</TutorialTopicTitle>
         <TutorialTopicInfo>{props.infoText}</TutorialTopicInfo>
-        <TutorialInvertedBtn>
+        <TutorialInvertedBtn onClick={props.onClickSkipTutorial}>
           <SkipToQuizBtnText />
         </TutorialInvertedBtn>
       </TutorialContentWrap>

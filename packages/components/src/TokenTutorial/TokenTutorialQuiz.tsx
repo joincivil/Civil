@@ -11,6 +11,7 @@ export interface TokenTutorialQuizProps {
 }
 
 export interface TokenTutorialQuizStates {
+  topicIdx: number;
   activeSection: string;
   slideIdx: number;
 }
@@ -18,11 +19,11 @@ export interface TokenTutorialQuizStates {
 export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, TokenTutorialQuizStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { slideIdx: 0, activeSection: "intro" };
+    this.state = { topicIdx: this.props.topicIdx, slideIdx: 0, activeSection: "intro" };
   }
 
   public render(): JSX.Element {
-    const topicIdx = this.props.topicIdx;
+    const topicIdx = this.state.topicIdx;
     const slideIdx = this.state.slideIdx;
     const activeSection = this.state.activeSection;
 
@@ -34,6 +35,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
               headerText={TutorialContent[topicIdx].tutorialIntro.header}
               infoText={TutorialContent[topicIdx].tutorialIntro.content}
               onClickNext={() => this.next()}
+              onClickSkipTutorial={() => this.skipTutorial()}
               activeSlide={0}
               totalSlides={1}
             />
@@ -73,7 +75,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
             <TutorialTopicCompleted
               completedHeader={TutorialContent[topicIdx].completed.header}
               completedText={TutorialContent[topicIdx].completed.content}
-              onClickNext={() => this.nextTopic()}
+              onClickNextTopic={() => this.nextTopic()}
             />
           </TutorialContain>
         );
@@ -139,7 +141,14 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
     }
   };
 
+  private skipTutorial = () => {
+    this.setState({ slideIdx: 0 });
+    this.setState({ activeSection: "quiz" });
+  };
+
   private nextTopic = () => {
-    console.log("next topic");
+    this.setState({ topicIdx: this.state.topicIdx + 1 });
+    this.setState({ slideIdx: 0 });
+    this.setState({ activeSection: "intro" });
   };
 }
