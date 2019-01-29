@@ -75,6 +75,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
             <TutorialTopicCompleted
               completedHeader={TutorialContent[topicIdx].completed.header}
               completedText={TutorialContent[topicIdx].completed.content}
+              continueBtnText={TutorialContent[topicIdx].completed.btnText}
               onClickNextTopic={() => this.nextTopic()}
             />
           </TutorialContain>

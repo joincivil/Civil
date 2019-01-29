@@ -120,6 +120,7 @@ export const TutorialContent = [
       header: "Nice! You’ve completed Topic 1",
       content:
         "Buying tokens, like any financial decision, is a risk. The price of tokens can fluctuate depending on various factors. It’ a good rule of thumb to look at the team behind the token – the founders, the advisors – as well as the token design and its supply.  It’s also important to diversify your portfolio across many investment vehicles – crypto assets and non-crypto assets.",
+      btnText: "Continue on to Topic 2",
     },
   },
   {
@@ -234,6 +235,7 @@ export const TutorialContent = [
     completed: {
       header: "Nice! You’ve completed Topic 2",
       content: "TKTKT",
+      btnText: "Continue on to Topic 3",
     },
   },
   {
@@ -243,7 +245,7 @@ export const TutorialContent = [
     icon: <TrendsIcon />,
     tutorialIntro: {
       header: "Topic 3: Things to consider before buying Civil tokens",
-      content: <Topic2Intro />,
+      content: <Topic3Intro />,
     },
     tutorials: [
       {
@@ -304,8 +306,10 @@ export const TutorialContent = [
       },
     ],
     completed: {
-      header: "Nice! You’ve completed Topic 3",
-      content: "TKTKT",
+      header: "Congrats! You’ve completed the Civil tutorial",
+      content:
+        "You’ve verified that you understand Civil and token uses. Now, you can use CVL tokens on the Civil Registry. If you don't have any CVL tokens and want to be eligible to buy, you can verify your identity next, and then purchase.",
+      btnText: "Done",
     },
   },
 ];

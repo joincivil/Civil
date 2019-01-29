@@ -2,25 +2,20 @@ import * as React from "react";
 import { WelcomeSlide, WelcomeSlideBtns, SlideProgress } from "./TokenTutorialStyledComponents";
 import { WelcomeScreenContent } from "./WelcomeScreenContent";
 import { TokenTutorialLanding } from "./TokenTutorialLanding";
-import { TokenTutorialQuiz } from "./TokenTutorialQuiz";
 import { colors } from "../styleConstants";
 
 export interface TutorialWelcomeScreensState {
   activeWelcomeIdx: number;
-  activeTutorialIdx: number;
-  tutorialActive: boolean;
 }
 
 export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeScreensState> {
   public constructor(props: any) {
     super(props);
-    this.state = { activeWelcomeIdx: 0, activeTutorialIdx: 0, tutorialActive: false };
+    this.state = { activeWelcomeIdx: 0 };
   }
 
   public render(): JSX.Element {
     const activeWelcomeIdx = this.state.activeWelcomeIdx;
-    const activeTutorialIdx = this.state.activeTutorialIdx;
-    const tutorialActive = this.state.tutorialActive;
     let progressColor;
 
     if (activeWelcomeIdx < WelcomeScreenContent.length) {
@@ -44,18 +39,10 @@ export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeS
           </WelcomeSlideBtns>
         </WelcomeSlide>
       );
-    } else if (tutorialActive) {
-      return <TokenTutorialQuiz topicIdx={activeTutorialIdx} />;
     }
 
-    return <TokenTutorialLanding onClick={this.openTutorial} />;
+    return <TokenTutorialLanding />;
   }
-
-  private openTutorial = (ev: any) => {
-    // console.log(ev.currentTarget.getAttribute("data-quiz-id"));
-    this.setState({ activeTutorialIdx: 0 });
-    this.setState({ tutorialActive: true });
-  };
 
   private welcomeNext = () => {
     this.setState({ activeWelcomeIdx: this.state.activeWelcomeIdx + 1 });

@@ -1,4 +1,3 @@
-export * from "./Tutorial";
 export * from "./TutorialFooter";
 export * from "./TutorialInfo";
 export * from "./TutorialQuestion";
