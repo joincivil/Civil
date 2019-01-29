@@ -13,6 +13,7 @@ export interface AuthLoginResponse {
 let client: ApolloClient<NormalizedCacheObject>;
 
 const SESSION_KEY = "apollo_session";
+const NETWORK_KEY = "nework";
 
 export function getApolloSession(): AuthLoginResponse | null {
   return fetchItem(SESSION_KEY);
@@ -26,6 +27,14 @@ export function clearApolloSession(): void {
   setItem(SESSION_KEY, null);
 }
 
+export function getNetwork(): number | null {
+  return fetchItem(NETWORK_KEY);
+}
+
+export function setNetworkValue(network: number): void {
+  setItem(NETWORK_KEY, network);
+}
+
 export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient<NormalizedCacheObject> {
   if (client) {
     return client;
@@ -33,8 +42,23 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient
 
   const httpLink = createHttpLink(httpLinkOptions);
 
-  const authLink = setContext((_: any, { headers }: { headers: any }) => {
+  const authLink = setContext((_: any, { headers }: { headers: any; uri: any }) => {
     const authInfo = getApolloSession();
+    const network = getNetwork();
+    let uri = "https://graphql.staging.civil.app/v1/query";
+    if (network) {
+      switch (network) {
+        case 1:
+          uri = "https://graphql.civil.co/v1/query";
+          break;
+        case 4:
+          uri = "https://graphql.staging.civil.app/v1/query";
+          break;
+        case 50:
+          uri = "http://localhost:8080/v1/query";
+          break;
+      }
+    }
 
     if (authInfo) {
       return {
@@ -42,11 +66,13 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient
           ...headers,
           authorization: `Bearer ${authInfo.token}`,
         },
+        uri,
       };
     }
 
     return {
       headers,
+      uri,
     };
   });
 

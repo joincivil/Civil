@@ -1,5 +1,5 @@
 import { Civil, EthAddress } from "@joincivil/core";
-import { CivilErrors } from "@joincivil/utils";
+import { CivilErrors, setNetworkValue } from "@joincivil/utils";
 import { StyledMainContainer } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import * as React from "react";
@@ -45,7 +45,8 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
     this.props.dispatch!(setNetwork(network.toString()));
-    if (!isGraphQLSupportedOnNetwork(network.toString())) {
+    setNetworkValue(network);
+    if (!isGraphQLSupportedOnNetwork(network)) {
       this.props.dispatch!(disableGraphQL());
     }
 
