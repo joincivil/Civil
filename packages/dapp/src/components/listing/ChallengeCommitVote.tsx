@@ -142,6 +142,7 @@ class ChallengeCommitVote extends React.Component<
       tokenBalanceDisplay,
       votingTokenBalanceDisplay,
       salt,
+      voteOption: this.state.voteOption,
       numTokens: this.state.numTokens,
       key: this.state.key,
     };
@@ -176,7 +177,6 @@ class ChallengeCommitVote extends React.Component<
     const { challenge } = this.props;
     const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
     const salt = fetchSalt(this.props.challengeID, this.props.user);
-    console.log(this.props);
 
     const props: ReviewVoteProps = {
       newsroomName: (this.props.newsroom && this.props.newsroom.data.name) || "this newsroom",
@@ -245,6 +245,7 @@ class ChallengeCommitVote extends React.Component<
   };
 
   private updateCommitVoteState = (data: any, callback?: () => void): void => {
+    console.log("updating state", data);
     if (callback) {
       this.setState({ ...data }, callback);
     } else {
