@@ -29,9 +29,10 @@ interface VerifyTokenParams {
   token: string;
 }
 
-export interface AccountVerifyTokenProps extends RouteComponentProps {
+export interface AccountVerifyTokenProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
   onAuthentication(loginResponse: AuthLoginResponse, isNewUser: boolean): void;
+  token?: string;
 }
 
 export interface VerifyTokenState {
@@ -56,8 +57,8 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   }
 
   public render(): JSX.Element {
-    const { token: loginJWT } = this.props.match.params as VerifyTokenParams;
     const { isNewUser, onAuthentication } = this.props;
+    const loginJWT = this.props.token || (this.props.match!.params as VerifyTokenParams).token;
 
     const verifyMutation = isNewUser ? verifySignUpTokenMutation : verifyLoginTokenMutation;
     const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
