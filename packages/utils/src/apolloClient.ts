@@ -13,7 +13,7 @@ export interface AuthLoginResponse {
 let client: ApolloClient<NormalizedCacheObject>;
 
 const SESSION_KEY = "apollo_session";
-const NETWORK_KEY = "nework";
+const NETWORK_KEY = "network";
 
 export function getApolloSession(): AuthLoginResponse | null {
   const network = getNetwork();
