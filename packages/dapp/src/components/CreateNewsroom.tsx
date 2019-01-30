@@ -52,6 +52,7 @@ class CreateNewsroom extends React.Component<
             metamaskEnabled={this.state.metamaskEnabled}
             allSteps={true}
             authEnabled={true}
+            showWalletOnboarding={true}
             initialStep={0}
             enable={async () => {
               if ((window as any).ethereum) {

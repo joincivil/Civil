@@ -412,7 +412,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} helpUrlBase={this.props.helpUrlBase!} />}
             {this.props.showWalletOnboarding && (
               <WalletOnboarding
+                civil={this.props.civil}
                 noProvider={!hasInjectedProvider()}
+                requireAuth={this.props.authEnabled}
                 notEnabled={this.props.civil && !this.props.metamaskEnabled}
                 enable={this.props.enable}
                 walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
