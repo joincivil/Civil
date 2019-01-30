@@ -277,7 +277,7 @@ class SignConstitutionComponent extends React.Component<
         },
         handleTransactionError: (err: Error) => {
           this.setState({ isWaitingSignatureOpen: false });
-          if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
+          if (err.message.indexOf("Error: MetaMask Message Signature: User denied message signature.") !== -1) {
             this.setState({ metaMaskRejectionModal: true });
           } else {
             console.error("Transaction failed:", err);
@@ -320,7 +320,7 @@ class SignConstitutionComponent extends React.Component<
         },
         handleTransactionError: (err: Error) => {
           this.setState({ isWaitingPublishModalOpen: false });
-          if (err.message === "Error: MetaMask Message Signature: User denied message signature.") {
+          if (err.message.indexOf("Error: MetaMask Message Signature: User denied message signature.") !== -1) {
             this.setState({ metaMaskPublishRejectionModal: true });
           } else {
             console.error("Transaction failed:", err);
