@@ -1,10 +1,17 @@
 import * as React from "react";
-import { ListingSummaryComponentProps } from "./types";
+import {
+  ListingSummaryComponentProps,
+  ListingSummaryAppealChallengeResultsProps as AppealChallengeResultsProps,
+} from "./types";
 import { ChallengeResults as ChallengeResultsComponent, ChallengeResultsProps } from "../ChallengeResultsChart";
 
 export interface ListingSummaryChallengeResultsProps
   extends ListingSummaryComponentProps,
     Partial<ChallengeResultsProps> {}
+
+export interface ListingSummaryAppealChallengeResultsProps
+  extends ListingSummaryComponentProps,
+    Partial<AppealChallengeResultsProps> {}
 
 import { StyledChallengeResultsHeader, ChallengeResultsContain } from "./styledComponents";
 
@@ -14,9 +21,13 @@ const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props =
     canResolveChallenge,
     isAwaitingAppealRequest,
     isAwaitingAppealJudgement,
+    canListingAppealBeResolved,
+    isAwaitingAppealChallenge,
     isInAppealChallengeCommitPhase,
     isInAppealChallengeRevealPhase,
-    isAwaitingAppealChallenge,
+    isUnderChallenge,
+    isRejected,
+    canListingAppealChallengeBeResolved,
     challengeID,
     totalVotes,
     votesFor,
@@ -28,13 +39,16 @@ const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props =
 
   if (
     !(
+      canBeWhitelisted ||
+      canResolveChallenge ||
       isAwaitingAppealRequest ||
       isAwaitingAppealJudgement ||
+      canListingAppealBeResolved ||
+      isAwaitingAppealChallenge ||
       isInAppealChallengeCommitPhase ||
       isInAppealChallengeRevealPhase ||
-      isAwaitingAppealChallenge ||
-      canBeWhitelisted ||
-      canResolveChallenge
+      canListingAppealChallengeBeResolved ||
+      (isRejected && !isUnderChallenge)
     )
   ) {
     return null;
@@ -52,6 +66,40 @@ const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props =
         percentFor={percentFor!}
         percentAgainst={percentAgainst!}
         didChallengeSucceed={didChallengeSucceed!}
+      />
+    </ChallengeResultsContain>
+  );
+};
+
+export const AppealChallengeResults: React.SFC<ListingSummaryAppealChallengeResultsProps> = props => {
+  const {
+    canListingAppealChallengeBeResolved,
+    appealChallengeID,
+    appealChallengeTotalVotes,
+    appealChallengeVotesFor,
+    appealChallengeVotesAgainst,
+    appealChallengePercentFor,
+    appealChallengePercentAgainst,
+    didAppealChallengeSucceed,
+  } = props;
+
+  if (!canListingAppealChallengeBeResolved) {
+    return null;
+  }
+
+  const challengeIDDisplay = !!appealChallengeID ? `#${appealChallengeID}` : "";
+  return (
+    <ChallengeResultsContain>
+      <ChallengeResultsComponent
+        headerText={`Challenge ${challengeIDDisplay} Results`}
+        styledHeaderComponent={StyledChallengeResultsHeader}
+        totalVotes={appealChallengeTotalVotes!}
+        votesFor={appealChallengeVotesFor!}
+        votesAgainst={appealChallengeVotesAgainst!}
+        percentFor={appealChallengePercentFor!}
+        percentAgainst={appealChallengePercentAgainst!}
+        didChallengeSucceed={didAppealChallengeSucceed!}
+        isAppealChallenge={true}
       />
     </ChallengeResultsContain>
   );

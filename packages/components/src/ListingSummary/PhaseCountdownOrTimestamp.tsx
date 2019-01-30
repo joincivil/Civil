@@ -6,11 +6,7 @@ import { TextCountdownTimer } from "../PhaseCountdown";
 
 import { ListingSummaryComponentProps } from "./types";
 import { MetaRow, MetaItemValue, MetaItemLabel } from "./styledComponents";
-import {
-  ApplicationPhaseEndedLabelText,
-  ApprovedLabelText,
-  ChallengeEndedLabelText,
-} from "./textComponents";
+import { ApplicationPhaseEndedLabelText, ApprovedLabelText, ChallengeEndedLabelText } from "./textComponents";
 
 const PhaseCountdown: React.SFC<ListingSummaryComponentProps> = props => {
   let expiry: number | undefined;

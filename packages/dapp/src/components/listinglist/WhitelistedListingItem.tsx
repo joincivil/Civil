@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { WhitelistedSummaryActionDetails } from "@joincivil/components";
 import { State } from "../../redux/reducers";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps, ListingItemBaseComponent } from "./ListingListItem";
@@ -12,10 +11,7 @@ export interface WhitelistedCardReduxProps {
 const WhitelistedListingItem: React.SFC<
   ListingListItemOwnProps & ListingListItemReduxProps & WhitelistedCardReduxProps
 > = props => {
-  const listingSummaryActionDetails = props.listingPhaseState.isUnderChallenge && (
-    <WhitelistedSummaryActionDetails whitelistedTimestamp={props.whitelistedTimestamp} />
-  );
-  return <ListingItemBaseComponent listingSummaryActionDetails={listingSummaryActionDetails} {...props} />;
+  return <ListingItemBaseComponent {...props} whitelistedTimestamp={props.whitelistedTimestamp} />;
 };
 
 const makeMapStateToProps = () => {

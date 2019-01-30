@@ -6,4 +6,3 @@ export * from "./ListingSummaryReadyToUpdate";
 export * from "./ListingSummaryRejected";
 export * from "./types";
 export { StyledListingSummaryList } from "./styledComponents";
-export * from "./SummaryActionDetails";

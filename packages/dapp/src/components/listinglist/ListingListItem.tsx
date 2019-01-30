@@ -5,7 +5,7 @@ import { State } from "../../redux/reducers";
 import { getListingPhaseState } from "../../selectors";
 import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 import {
-  ListingSummaryComponentViewProps,
+  ListingSummaryComponentProps,
   ListingSummaryComponent,
   ListingSummaryRejectedComponent,
 } from "@joincivil/components";
@@ -13,7 +13,7 @@ import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
-import { getChallengeResultsProps } from "../../helpers/transforms";
+import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -33,10 +33,10 @@ export interface ListingListItemReduxProps {
   appealChallengeStatement?: any;
 }
 
-export const ListingItemBaseComponent: React.SFC<
-  ListingListItemOwnProps & ListingListItemReduxProps & ListingSummaryComponentViewProps
-> = props => {
-  const { listingAddress, listing, newsroom, listingPhaseState, charter, listingSummaryActionDetails } = props;
+export const transformListingSummaryViewProps = (
+  props: ListingListItemOwnProps & ListingListItemReduxProps & Partial<ListingSummaryComponentProps>,
+) => {
+  const { listingAddress, listing, newsroom, listingPhaseState, charter } = props;
   const listingData = listing!.data;
   const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
   const challenge = listingData.challenge;
@@ -71,9 +71,10 @@ export const ListingItemBaseComponent: React.SFC<
   let appealChallengeRevealEndDate;
   let appealPollData;
   let appealChallengeID;
-  if (appeal && appeal.appealChallenge) {
-    appealChallengeID = appeal.appealChallengeID.toString();
-    appealPollData = appeal.appealChallenge.poll;
+  const appealChallenge = appeal && appeal.appealChallenge;
+  if (appealChallenge) {
+    appealChallengeID = appeal!.appealChallengeID.toString();
+    appealPollData = appealChallenge.poll;
     appealChallengeCommitEndDate = appealPollData && appealPollData.commitEndDate.toNumber();
     appealChallengeRevealEndDate = appealPollData && appealPollData.revealEndDate.toNumber();
   }
@@ -108,7 +109,7 @@ export const ListingItemBaseComponent: React.SFC<
   } = listingPhaseState;
 
   if (
-    isAwaitingAppealRequest ||
+    (challenge && isAwaitingAppealRequest) ||
     isAwaitingAppealJudgement ||
     isAwaitingAppealChallenge ||
     isInAppealChallengeCommitPhase ||
@@ -121,7 +122,13 @@ export const ListingItemBaseComponent: React.SFC<
     challengeResultsProps = getChallengeResultsProps(challenge!);
   }
 
-  const listingViewProps = {
+  let appealChallengeResultsProps;
+
+  if (appealChallenge && canListingAppealChallengeBeResolved) {
+    appealChallengeResultsProps = getAppealChallengeResultsProps(appealChallenge!);
+  }
+
+  return {
     ...newsroomData,
     listingAddress,
     listingDetailURL,
@@ -142,28 +149,24 @@ export const ListingItemBaseComponent: React.SFC<
     unstakedDeposit,
     challengeStake,
     ...challengeResultsProps,
+    ...appealChallengeResultsProps,
     appealChallengeID,
     appealChallengeStatementSummary,
-    listingSummaryActionDetails,
   };
+};
 
+export const ListingItemBaseComponent: React.SFC<
+  ListingListItemOwnProps & ListingListItemReduxProps & Partial<ListingSummaryComponentProps>
+> = props => {
   const ListingSummaryItem = props.ListingItemComponent || ListingSummaryComponent;
+  const listingViewProps = transformListingSummaryViewProps(props);
 
   return <ListingSummaryItem {...listingViewProps} />;
 };
 
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
-  const { listingAddress, newsroom, listingPhaseState, charter, listing } = props;
-  const newsroomData = newsroom!.data;
-  const listingDetailURL = `/listing/${listingAddress}`;
-
-  const listingViewProps = {
-    ...newsroomData,
-    charter,
-    listingAddress,
-    listingDetailURL,
-    ...listingPhaseState,
-  };
+  const { listing } = props;
+  const listingViewProps = transformListingSummaryViewProps(props);
 
   const data = listing!.data!;
   if (!data.prevChallenge) {
@@ -176,8 +179,8 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
     return (
       <ListingSummaryRejectedComponent
         challengeID={data.prevChallengeID!.toString()}
-        {...challengeResultsProps}
         {...listingViewProps}
+        {...challengeResultsProps}
       />
     );
   }

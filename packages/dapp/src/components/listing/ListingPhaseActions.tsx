@@ -2,6 +2,7 @@ import * as React from "react";
 import { compose } from "redux";
 import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import styled from "styled-components";
+import { getChallengeResultsProps } from "../../helpers/transforms";
 import ChallengeDetailContainer from "./ChallengeDetail";
 import ChallengeResolve from "./ChallengeResolve";
 import {
@@ -9,6 +10,7 @@ import {
   RejectedCard as RejectedCardComponent,
   Modal,
   ProgressModalContentMobileUnsupported,
+  ChallengeResultsProps,
 } from "@joincivil/components";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
@@ -113,11 +115,17 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderRejected(): JSX.Element {
-    const RejectedCard = compose<React.ComponentClass<ListingContainerProps & {}>>(
-      connectLatestChallengeSucceededResults,
-    )(RejectedCardComponent);
+    const data = this.props.listing!.data!;
+    if (!data.prevChallenge) {
+      const RejectedCard = compose<React.ComponentClass<ListingContainerProps & {}>>(
+        connectLatestChallengeSucceededResults,
+      )(RejectedCardComponent);
 
-    return <RejectedCard listingAddress={this.props.listing.address} />;
+      return <RejectedCard listingAddress={this.props.listing.address} />;
+    } else {
+      const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!) as ChallengeResultsProps;
+      return <RejectedCardComponent {...challengeResultsProps} />;
+    }
   }
 
   private renderApplicationPhase(): JSX.Element | null {

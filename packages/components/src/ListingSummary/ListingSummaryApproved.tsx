@@ -22,11 +22,7 @@ export interface ListingSummaryApprovedComponentProps
 
 export class ListingSummaryApprovedComponent extends React.Component<ListingSummaryApprovedComponentProps> {
   public render(): JSX.Element {
-    const {
-      challengeID,
-      canListingAppealBeResolved,
-      canListingAppealChallengeBeResolved,
-    } = this.props;
+    const { challengeID, canListingAppealBeResolved, canListingAppealChallengeBeResolved } = this.props;
 
     let banner;
 

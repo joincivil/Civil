@@ -1,11 +1,7 @@
 import * as React from "react";
 import { ListingSummaryComponentProps } from "./types";
 import { ChallengeResultsProps } from "../ChallengeResultsChart";
-import {
-  StyledListingSummaryContainer,
-  StyledListingSummary,
-  StyledListingSummarySection,
-} from "./styledComponents";
+import { StyledListingSummaryContainer, StyledListingSummary, StyledListingSummarySection } from "./styledComponents";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
 import ListingPhaseLabel from "./ListingPhaseLabel";
 import NewsroomInfo from "./NewsroomInfo";
@@ -18,32 +14,30 @@ export interface ListingSummaryUnderChallengeComponentProps
   extends ListingSummaryComponentProps,
     Partial<ChallengeResultsProps> {}
 
-export class ListingSummaryUnderChallengeComponent extends React.Component<ListingSummaryUnderChallengeComponentProps> {
-  public render(): JSX.Element {
-    const { appeal } = this.props;
+export const ListingSummaryUnderChallengeComponent: React.SFC<ListingSummaryUnderChallengeComponentProps> = props => {
+  const { appeal } = props;
 
-    const hasTopPadding = !(appeal && appeal.appealGranted);
+  const hasTopPadding = !(appeal && appeal.appealGranted);
 
-    return (
-      <StyledListingSummaryContainer>
-        <StyledListingSummary hasTopPadding={hasTopPadding}>
-          <AppealJudgementBanner {...this.props} />
+  return (
+    <StyledListingSummaryContainer>
+      <StyledListingSummary hasTopPadding={hasTopPadding}>
+        <AppealJudgementBanner {...props} />
 
-          <ListingPhaseLabel {...this.props} />
+        <ListingPhaseLabel {...props} />
 
-          <NewsroomInfo {...this.props} />
+        <NewsroomInfo {...props} />
 
-          <ChallengeResults {...this.props} />
+        <ChallengeResults {...props} />
 
-          <StyledListingSummarySection>
-            <ChallengeOrAppealStatementSummary {...this.props} />
+        <StyledListingSummarySection>
+          <ChallengeOrAppealStatementSummary {...props} />
 
-            <PhaseCountdownOrTimestamp {...this.props} />
+          <PhaseCountdownOrTimestamp {...props} />
 
-            <SummaryActionButton {...this.props} />
-          </StyledListingSummarySection>
-        </StyledListingSummary>
-      </StyledListingSummaryContainer>
-    );
-  }
-}
+          <SummaryActionButton {...props} />
+        </StyledListingSummarySection>
+      </StyledListingSummary>
+    </StyledListingSummaryContainer>
+  );
+};
