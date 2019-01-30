@@ -33,7 +33,11 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
               path={`${match.path}/auth/login/verify-token/:token`}
               exact
               component={(props: AccountVerifyTokenProps) => (
-                <AccountVerifyToken isNewUser={false} {...props} onAuthenticationContinue={this.handleOnAuthenticationContinue} />
+                <AccountVerifyToken
+                  isNewUser={false}
+                  onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                  {...props}
+                />
               )}
             />
 
@@ -54,7 +58,11 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
               path={`${match.path}/auth/signup/verify-token/:token`}
               exact
               component={(props: AccountVerifyTokenProps) => (
-                <AccountVerifyToken isNewUser={true} {...props} onAuthenticationContinue={this.handleOnAuthenticationContinue} />
+                <AccountVerifyToken
+                  isNewUser={true}
+                  onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                  {...props}
+                />
               )}
             />
           </AuthenticatedRoute>

@@ -48,7 +48,13 @@ export class AuthWrapper extends React.Component<AuthWrapperProps, AuthWrapperSt
     }
 
     if (this.state.token) {
-      return <AccountVerifyToken isNewUser={true} token={this.state.token} onAuthenticationContinue={this.onAuthenticationContinue} />;
+      return (
+        <AccountVerifyToken
+          isNewUser={true}
+          token={this.state.token}
+          onAuthenticationContinue={this.onAuthenticationContinue}
+        />
+      );
     }
 
     if (this.state.magicEmailSent) {
