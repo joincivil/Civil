@@ -16,19 +16,27 @@ const SESSION_KEY = "apollo_session";
 const NETWORK_KEY = "nework";
 
 export function getApolloSession(): AuthLoginResponse | null {
-  return fetchItem(SESSION_KEY);
+  const network = getNetwork();
+  return fetchItem(SESSION_KEY + "-" + network);
 }
 
 export function setApolloSession(session: AuthLoginResponse): void {
-  setItem(SESSION_KEY, session);
+  const network = getNetwork();
+  setItem(SESSION_KEY + "-" + network, session);
 }
 
 export function clearApolloSession(): void {
-  setItem(SESSION_KEY, null);
+  const network = getNetwork();
+  setItem(SESSION_KEY + "-" + network, null);
 }
 
-export function getNetwork(): number | null {
-  return fetchItem(NETWORK_KEY);
+export function getNetwork(): number {
+  const network = fetchItem(NETWORK_KEY);
+  if (network) {
+    return network;
+  } else {
+    return 4; // TODO: change to 1
+  }
 }
 
 export function setNetworkValue(network: number): void {
@@ -43,21 +51,19 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient
   const httpLink = createHttpLink(httpLinkOptions);
 
   const authLink = setContext((_: any, { headers }: { headers: any; uri: any }) => {
-    const authInfo = getApolloSession();
     const network = getNetwork();
-    let uri = "https://graphql.staging.civil.app/v1/query";
-    if (network) {
-      switch (network) {
-        case 1:
-          uri = "https://graphql.civil.co/v1/query";
-          break;
-        case 4:
-          uri = "https://graphql.staging.civil.app/v1/query";
-          break;
-        case 50:
-          uri = "http://localhost:8080/v1/query";
-          break;
-      }
+    const authInfo = getApolloSession();
+    let uri = "";
+    switch (network) {
+      case 1:
+        uri = "https://graphql.civil.co/v1/query";
+        break;
+      case 4:
+        uri = "https://graphql.staging.civil.app/v1/query";
+        break;
+      case 50:
+        uri = "http://localhost:8080/v1/query";
+        break;
     }
 
     if (authInfo) {
