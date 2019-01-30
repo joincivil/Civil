@@ -1,8 +1,6 @@
 import * as React from "react";
-import gql from "graphql-tag";
-import { Newsroom } from "@joincivil/core";
 import { AccountEmailSent, AccountEmailAuth, AccountVerifyToken, AuthApplicationEnum } from "@joincivil/components";
-import { getApolloSession, setApolloSession, isLoggedIn } from "@joincivil/utils";
+import { isLoggedIn } from "@joincivil/utils";
 
 export interface AuthWrapperProps {
   authEnabled?: boolean;

@@ -32,8 +32,8 @@ interface VerifyTokenParams {
 
 export interface AccountVerifyTokenProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
-  onAuthenticationContinue(isNewUser: boolean): void;
   token?: string;
+  onAuthenticationContinue(isNewUser: boolean): void;
 }
 
 export interface VerifyTokenState {

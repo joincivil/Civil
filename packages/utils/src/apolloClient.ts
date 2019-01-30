@@ -5,6 +5,8 @@ import { createHttpLink, HttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { onError } from "apollo-link-error";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
+import { EthAddress } from "@joincivil/core";
+import { EthSignedMessage } from "@joincivil/typescript-types";
 import { fetchItem, setItem, removeItem } from "./localStorage";
 
 export interface AuthLoginResponse {
@@ -137,5 +139,31 @@ export async function isLoggedIn(): Promise<boolean> {
     return !res.errors && !!res.data;
   } catch {
     return false;
+  }
+}
+
+const setEthAddressMutation = gql`
+  mutation($input: UserSignatureInput!) {
+    userSetEthAddress(input: $input)
+  }
+`;
+export async function userSetEthAddress(sig: EthSignedMessage): Promise<EthAddress> {
+  if (!client || !getApolloSession()) {
+    throw Error("Apollo client not initialized or user not logged in");
+  }
+
+  const input = { ...sig };
+  delete input.rawMessage; // gql endpoint doesn't want this and errors out
+
+  const res = await client.mutate({
+    mutation: setEthAddressMutation,
+    variables: { input },
+  });
+
+  if (res.data.userSetEthAddress === "ok") {
+    return sig.signer;
+  } else {
+    console.error("Failed to validate and save ETH address. Response:", res);
+    throw Error("Failed to validate and save ETH address");
   }
 }
