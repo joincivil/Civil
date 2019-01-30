@@ -18,7 +18,11 @@ export interface UserTokenAccountStates {
   isTutorialModalOpen: boolean;
 }
 
-export class UserTokenAccount extends React.Component<{}, UserTokenAccountStates> {
+export interface UserTokenAccountProps {
+  user?: any;
+}
+
+export class UserTokenAccount extends React.Component<UserTokenAccountProps, UserTokenAccountStates> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -27,6 +31,10 @@ export class UserTokenAccount extends React.Component<{}, UserTokenAccountStates
   }
 
   public render(): JSX.Element | null {
+    const { user } = this.props;
+
+    const accountSignupStep = user ? "completed" : "incomplete";
+
     return (
       <TokenAccountOuter>
         <TokenAccountInner>
@@ -34,7 +42,7 @@ export class UserTokenAccount extends React.Component<{}, UserTokenAccountStates
           <FlexColumns>
             <FlexColumnsPrimary>
               <FlexColumnsPrimaryModule>
-                <UserTokenAccountSignup step={"completed"} />
+                <UserTokenAccountSignup step={accountSignupStep} />
               </FlexColumnsPrimaryModule>
               <FlexColumnsPrimaryModule>
                 <UserTokenAccountVerify

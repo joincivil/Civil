@@ -1,9 +1,8 @@
 import * as React from "react";
-import styled from "styled-components";
 import { Helmet } from "react-helmet";
-
 import { UserTokenAccount } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
+import { LoadUser } from "../Account/LoadUser";
 
 export const Tokens: React.SFC = props => {
   return (
@@ -12,7 +11,15 @@ export const Tokens: React.SFC = props => {
         <title>Token Account - The Civil Registry</title>
       </Helmet>
       <ScrollToTopOnMount />
-      <UserTokenAccount />
+      <LoadUser>
+        {({ loading, user }: any) => {
+          if (loading) {
+            return "loading..";
+          }
+
+          return <UserTokenAccount user={user} />;
+        }}
+      </LoadUser>
     </>
   );
 };

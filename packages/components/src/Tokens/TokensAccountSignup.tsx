@@ -10,7 +10,7 @@ import { TokenWalletIcon } from "../icons/TokenWalletIcon";
 import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 
 export interface TokenRequirementProps {
-  step?: string;
+  step?: "completed" | "incomplete";
 }
 
 export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementProps> = props => {
