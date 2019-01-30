@@ -25,6 +25,8 @@
     "apollo-link-context": "^1.0.12",
     "apollo-link-http": "^1.5.9",
     "chai": "^4.1.2",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.9.2",
     "mocha": "^5.0.1",
     "react": "^16.2.0",
     "typescript": "<2.9.0"

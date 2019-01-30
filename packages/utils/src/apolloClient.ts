@@ -1,5 +1,6 @@
+import gql from "graphql-tag";
 import { ApolloClient } from "apollo-client";
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink } from "apollo-link";
 import { createHttpLink, HttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { onError } from "apollo-link-error";
@@ -110,13 +111,31 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient
   });
 
   client = new ApolloClient({
-    link: ApolloLink.from([
-      errorLink,
-      authLink,
-      httpLink,
-    ]),
+    link: ApolloLink.from([errorLink, authLink, httpLink]),
     cache: new InMemoryCache(),
   });
 
   return client;
+}
+
+const loggedInQuery = gql`
+  query {
+    currentUser {
+      uid
+    }
+  }
+`;
+export async function isLoggedIn(): Promise<boolean> {
+  if (!client || !getApolloSession()) {
+    return false;
+  }
+
+  try {
+    const res = await client.query({
+      query: loggedInQuery,
+    });
+    return !res.errors && !!res.data;
+  } catch {
+    return false;
+  }
 }

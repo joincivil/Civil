@@ -8,6 +8,7 @@ export function fetchItem(key: string): any {
 
     return JSON.parse(item);
   } catch (err) {
+    console.error("Error calling or parsing result from localStorage.getItem", err);
     return undefined;
   }
 }
