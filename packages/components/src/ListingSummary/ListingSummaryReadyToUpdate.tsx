@@ -1,11 +1,7 @@
 import * as React from "react";
 import { ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ListingSummaryComponentProps } from "./types";
-import {
-  StyledListingSummaryContainer,
-  StyledListingSummary,
-  StyledListingSummarySection,
-} from "./styledComponents";
+import { StyledListingSummaryContainer, StyledListingSummary, StyledListingSummarySection } from "./styledComponents";
 import ChallengeResults, { AppealChallengeResults } from "./ChallengeResults";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
 import NewsroomInfo from "./NewsroomInfo";
