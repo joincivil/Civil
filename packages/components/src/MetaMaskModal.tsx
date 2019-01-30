@@ -2,6 +2,8 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import {
   Modal,
+  Button,
+  buttonSizes,
   BorderlessButton,
   ClipLoader,
   TransactionButtonNoModal,
@@ -87,7 +89,8 @@ const SpanWithMargin = styled.span`
 `;
 
 export interface MetaMaskModalProps {
-  waiting: boolean;
+  waiting?: boolean;
+  alert?: boolean;
   denied?: boolean;
   signing?: boolean;
   ipfsPost?: boolean;
@@ -101,6 +104,14 @@ export interface MetaMaskModalProps {
 export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props => {
   let buttonSection;
   if (props.ipfsPost) {
+  } else if (props.alert) {
+    buttonSection = (
+      <ButtonContainer>
+        <Button onClick={props.cancelTransaction} size={buttonSizes.MEDIUM}>
+          OK
+        </Button>
+      </ButtonContainer>
+    );
   } else if (!props.waiting) {
     buttonSection = (
       <ButtonContainer>
@@ -119,7 +130,7 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
     buttonSection = (
       <ButtonContainer>
         <WaitingButton>
-          <SpanWithMargin>Waiting for confirmation</SpanWithMargin>
+          <SpanWithMargin>Waiting for {props.signing ? "signature" : "confirmation"}</SpanWithMargin>
           <ClipLoader size={19} />
         </WaitingButton>
       </ButtonContainer>
@@ -168,7 +179,7 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
   }
 
   let image;
-  if (props.ipfsPost) {
+  if (props.ipfsPost || props.alert) {
     image = undefined;
   } else if (props.denied) {
     image = <MainImg src={confirmButton} />;
