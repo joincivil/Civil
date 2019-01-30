@@ -96,6 +96,9 @@ export enum GovernmentParameters {
   judgeAppealLen = "judgeAppealLen",
   appealFee = "appealFee",
   appealVotePercentage = "appealVotePercentage",
+  appealChallengeVoteDispensationPct = "appealChallengeVoteDispensationPct",
+  govtPCommitStageLen = "govtPCommitStageLen",
+  govtPRevealStageLen = "govtPRevealStageLen",
 }
 
 export const supportedNetworks: number[] = [

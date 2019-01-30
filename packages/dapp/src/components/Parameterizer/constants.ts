@@ -14,6 +14,8 @@ export const durationParams: string[] = [
   Parameters.challengeAppealRevealLen,
   GovernmentParameters.requestAppealLen,
   GovernmentParameters.judgeAppealLen,
+  GovernmentParameters.govtPCommitStageLen,
+  GovernmentParameters.govtPRevealStageLen,
 ];
 
 export const percentParams: string[] = [
@@ -22,4 +24,5 @@ export const percentParams: string[] = [
   Parameters.voteQuorum,
   Parameters.pVoteQuorum,
   GovernmentParameters.appealVotePercentage,
+  GovernmentParameters.appealChallengeVoteDispensationPct,
 ];
