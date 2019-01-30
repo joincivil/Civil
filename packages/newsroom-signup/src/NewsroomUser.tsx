@@ -112,7 +112,7 @@ export class NewsroomUserComponent extends React.Component<
     super(props);
     this.state = {};
   }
-  public renderPreMetamMask(): JSX.Element | null {
+  public renderPreMetaMask(): JSX.Element | null {
     if (!this.state.isPreTransactionModalOpen) {
       return null;
     }
@@ -249,7 +249,7 @@ export class NewsroomUserComponent extends React.Component<
           </ButtonWrapper>
         </Wrapper>
         {this.renderProgressModal()}
-        {this.renderPreMetamMask()}
+        {this.renderPreMetaMask()}
         {this.renderMetaMaskRejectionModal()}
         {this.renderCompleteModal()}
         {this.renderAwaitingTransactionModal()}

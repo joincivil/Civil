@@ -1,8 +1,8 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
 import BigNumber from "bignumber.js";
-import { ListingWrapper, WrappedChallengeData, UserChallengeData } from "@joincivil/core";
+import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
@@ -18,6 +18,8 @@ import {
 } from "../../selectors";
 import { WinningChallengeResults } from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
+import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
+import { getContent } from "../../redux/actionCreators/newsrooms";
 
 export interface ActivityListItemOwnProps {
   listingAddress?: string;
@@ -28,6 +30,7 @@ export interface ActivityListItemOwnProps {
   challengeState?: any;
   challengeID?: string;
   user?: string;
+  listingDataRequestStatus?: any;
 }
 
 export interface ChallengeActivityListItemOwnProps {
@@ -42,16 +45,35 @@ export interface ResolvedChallengeActivityListItemProps {
 
 export interface ActivityListItemReduxProps {
   newsroom?: NewsroomState;
+  charter?: CharterData;
   listing?: ListingWrapper;
   listingPhaseState?: any;
   challengeState?: any;
 }
 
 class ActivityListItemComponent extends React.Component<
-  ActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemReduxProps
+  ActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemReduxProps & DispatchProp<any>
 > {
+  public async componentDidUpdate(): Promise<void> {
+    if (!this.props.listing && !this.props.listingDataRequestStatus) {
+      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
+    }
+    if (this.props.newsroom) {
+      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+    }
+  }
+
+  public async componentDidMount(): Promise<void> {
+    if (!this.props.listing && !this.props.listingDataRequestStatus) {
+      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
+    }
+    if (this.props.newsroom) {
+      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+    }
+  }
+
   public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom, listingPhaseState } = this.props;
+    const { listingAddress: address, listing, newsroom, listingPhaseState, charter } = this.props;
     if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
       let listingDetailURL = `/listing/${address}`;
@@ -61,6 +83,7 @@ class ActivityListItemComponent extends React.Component<
       const buttonTextTuple = this.getButtonText();
       const props = {
         newsroomName: newsroomData.name,
+        charter,
         listingDetailURL,
         buttonText: buttonTextTuple[0],
         buttonHelperText: buttonTextTuple[1],
@@ -235,10 +258,13 @@ const makeMapStateToProps = () => {
     ownProps: ActivityListItemOwnProps,
   ): ActivityListItemReduxProps & ActivityListItemOwnProps => {
     const { newsrooms } = state;
-    const { user } = state.networkDependent;
+    const { user, content } = state.networkDependent;
     const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
     const listing = getListing(state, ownProps);
-
+    let charter;
+    if (newsroom && newsroom.wrapper.data.charterHeader) {
+      charter = content.get(newsroom.wrapper.data.charterHeader.uri) as CharterData;
+    }
     let userAcct = ownProps.user;
     if (!userAcct) {
       userAcct = user.account.account;
@@ -246,6 +272,7 @@ const makeMapStateToProps = () => {
 
     return {
       newsroom,
+      charter,
       listing,
       listingPhaseState: getListingPhaseState(listing),
       ...ownProps,
@@ -269,6 +296,11 @@ const makeChallengeMapStateToProps = () => {
     const unclaimedRewardAmountBN = getUnclaimedRewardAmount(state, ownProps);
     const challengeState = getChallengeState(challenge!);
     const { even, user } = ownProps;
+    const { listingsFetching } = state.networkDependent;
+    let listingDataRequestStatus;
+    if (listingAddress) {
+      listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
+    }
 
     let unclaimedRewardAmount = "";
     if (unclaimedRewardAmountBN) {
@@ -283,6 +315,7 @@ const makeChallengeMapStateToProps = () => {
       unclaimedRewardAmount,
       even,
       user,
+      listingDataRequestStatus,
     };
   };
 

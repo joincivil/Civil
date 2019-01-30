@@ -65,7 +65,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   }
 
   public render(): JSX.Element {
-    console.log(this.state.proposedArticleIds);
     return (
       <PageView>
         <ViewModule>
@@ -79,7 +78,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
           ProposedArticleIds:
           <ul>
             {this.state.proposedArticleIds.map(id => {
-              console.log(id);
               const articleAddress = "/article/" + this.props.match.params.newsroomAddress + "/" + id;
               return (
                 <li key={id}>
@@ -241,7 +239,6 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     if (newsroom) {
       this.state.compositeSubscription.add(
         newsroom.revisions().subscribe((contentHeader: any) => {
-          console.log(contentHeader);
           this.setState({ proposedArticleIds: this.state.proposedArticleIds.push(contentHeader.id) });
         }),
       );
