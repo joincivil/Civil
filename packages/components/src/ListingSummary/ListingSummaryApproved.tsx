@@ -24,10 +24,6 @@ export class ListingSummaryApprovedComponent extends React.Component<ListingSumm
   public render(): JSX.Element {
     const {
       challengeID,
-      challengeStatementSummary,
-      appealStatementSummary,
-      appealChallengeStatementSummary,
-      canResolveChallenge,
       canListingAppealBeResolved,
       canListingAppealChallengeBeResolved,
     } = this.props;

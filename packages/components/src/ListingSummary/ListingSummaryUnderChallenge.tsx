@@ -5,8 +5,6 @@ import {
   StyledListingSummaryContainer,
   StyledListingSummary,
   StyledListingSummarySection,
-  StyledBaseResultsBanner,
-  StyledRejectedResultsBanner,
 } from "./styledComponents";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
 import ListingPhaseLabel from "./ListingPhaseLabel";
@@ -22,14 +20,7 @@ export interface ListingSummaryUnderChallengeComponentProps
 
 export class ListingSummaryUnderChallengeComponent extends React.Component<ListingSummaryUnderChallengeComponentProps> {
   public render(): JSX.Element {
-    const {
-      challengeID,
-      challengeStatementSummary,
-      appealStatementSummary,
-      appealChallengeID,
-      appealChallengeStatementSummary,
-      appeal,
-    } = this.props;
+    const { appeal } = this.props;
 
     const hasTopPadding = !(appeal && appeal.appealGranted);
 

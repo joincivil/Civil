@@ -1,23 +1,15 @@
 import * as React from "react";
-import { EthAddress, AppealData } from "@joincivil/core";
-import { getLocalDateTimeStrings } from "@joincivil/utils";
 import { HollowGreenCheck, HollowRedNoGood } from "../icons";
-import { TextCountdownTimer } from "../PhaseCountdown/";
-import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
+import { ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ListingSummaryComponentProps } from "./types";
-import { ApplicationPhaseEndedLabelText, ApprovedLabelText, ChallengeEndedLabelText } from "./textComponents";
 import {
   StyledListingSummaryContainer,
   StyledListingSummary,
   StyledListingSummarySection,
   StyledBaseResultsBanner,
   StyledRejectedResultsBanner,
-  MetaRow,
-  MetaItemValue,
-  MetaItemLabel,
-  StyledChallengeResultsHeader,
-  ChallengeResultsContain,
 } from "./styledComponents";
+import ChallengeResults from "./ChallengeResults";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
 import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
@@ -28,8 +20,6 @@ export interface ListingSummaryReadyToUpdateComponentProps
 
 export class ListingSummaryReadyToUpdateComponent extends React.Component<ListingSummaryReadyToUpdateComponentProps> {
   public render(): JSX.Element {
-    const { challengeID, challengeStatementSummary, appealStatementSummary } = this.props;
-
     return (
       <StyledListingSummaryContainer>
         <StyledListingSummary>
@@ -37,9 +27,10 @@ export class ListingSummaryReadyToUpdateComponent extends React.Component<Listin
 
           <NewsroomInfo {...this.props} />
 
-          {this.renderChallengeResults()}
+          <ChallengeResults {...this.props} />
 
           <StyledListingSummarySection>
+            <ChallengeOrAppealStatementSummary {...this.props} />
             <SummaryActionButton {...this.props} />
           </StyledListingSummarySection>
         </StyledListingSummary>
@@ -93,39 +84,4 @@ export class ListingSummaryReadyToUpdateComponent extends React.Component<Listin
     return decisionText;
   };
 
-  private renderChallengeResults = (): JSX.Element => {
-    const {
-      canBeWhitelisted,
-      canResolveChallenge,
-      canListingAppealBeResolved,
-      canListingAppealChallengeBeResolved,
-      challengeID,
-      totalVotes,
-      votesFor,
-      votesAgainst,
-      percentFor,
-      percentAgainst,
-      didListingChallengeSucceed,
-    } = this.props;
-
-    if (canBeWhitelisted || canResolveChallenge || canListingAppealBeResolved || canListingAppealChallengeBeResolved) {
-      const challengeIDDisplay = !!challengeID ? `#${challengeID}` : "";
-      return (
-        <ChallengeResultsContain>
-          <ChallengeResults
-            headerText={`Challenge ${challengeIDDisplay} Results`}
-            styledHeaderComponent={StyledChallengeResultsHeader}
-            totalVotes={totalVotes!}
-            votesFor={votesFor!}
-            votesAgainst={votesAgainst!}
-            percentFor={percentFor!}
-            percentAgainst={percentAgainst!}
-            didChallengeSucceed={didListingChallengeSucceed!}
-          />
-        </ChallengeResultsContain>
-      );
-    }
-
-    return <></>;
-  };
 }

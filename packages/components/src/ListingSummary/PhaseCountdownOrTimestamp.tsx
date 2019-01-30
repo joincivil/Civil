@@ -10,7 +10,6 @@ import {
   ApplicationPhaseEndedLabelText,
   ApprovedLabelText,
   ChallengeEndedLabelText,
-  UnderChallengeBannerText,
 } from "./textComponents";
 
 const PhaseCountdown: React.SFC<ListingSummaryComponentProps> = props => {
