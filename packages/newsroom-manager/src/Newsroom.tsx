@@ -28,6 +28,7 @@ import {
   getNewsroom,
   updateCharter,
 } from "./actionCreators";
+import { AuthWrapper } from "./AuthWrapper";
 import { CreateCharterPartOne } from "./CreateCharterPartOne";
 import { CreateCharterPartTwo } from "./CreateCharterPartTwo";
 import { Welcome } from "./Welcome";
@@ -74,6 +75,7 @@ export interface NewsroomExternalProps {
   logoUrl?: string;
   metamaskEnabled?: boolean;
   allSteps?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
+  authEnabled?: boolean; // @TODO temporary until we add apollo provider to WP plugin version or split this from that
   initialStep?: number;
   enable(): void;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
@@ -405,28 +407,34 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   public render(): JSX.Element {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <Wrapper>
-          {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} helpUrlBase={this.props.helpUrlBase!} />}
-          {this.props.showWalletOnboarding && (
-            <WalletOnboarding
-              noProvider={!hasInjectedProvider()}
-              notEnabled={this.props.civil && !this.props.metamaskEnabled}
-              enable={this.props.enable}
-              walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
-              wrongNetwork={this.props.civil && this.props.currentNetwork !== this.props.requiredNetwork}
-              requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
-              metamaskWalletAddress={this.props.account}
-              profileUrl={this.props.profileUrl}
-              helpUrl={this.props.helpUrl}
-              helpUrlBase={this.props.helpUrlBase}
-              profileAddressSaving={this.props.profileAddressSaving}
-              profileWalletAddress={this.props.profileWalletAddress}
-              saveAddressToProfile={this.props.saveAddressToProfile}
-            />
-          )}
+        <AuthWrapper authEnabled={this.props.authEnabled}>
+          <Wrapper>
+            {this.props.showWelcome && <Welcome helpUrl={this.props.helpUrl!} helpUrlBase={this.props.helpUrlBase!} />}
+            {this.props.showWalletOnboarding && (
+              <WalletOnboarding
+                noProvider={!hasInjectedProvider()}
+                notEnabled={this.props.civil && !this.props.metamaskEnabled}
+                enable={this.props.enable}
+                walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
+                wrongNetwork={
+                  this.props.civil &&
+                  !!this.props.requiredNetwork &&
+                  this.props.currentNetwork !== this.props.requiredNetwork
+                }
+                requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
+                metamaskWalletAddress={this.props.account}
+                profileUrl={this.props.profileUrl}
+                helpUrl={this.props.helpUrl}
+                helpUrlBase={this.props.helpUrlBase}
+                profileAddressSaving={this.props.profileAddressSaving}
+                profileWalletAddress={this.props.profileWalletAddress}
+                saveAddressToProfile={this.props.saveAddressToProfile}
+              />
+            )}
 
-          {this.renderManager()}
-        </Wrapper>
+            {this.renderManager()}
+          </Wrapper>
+        </AuthWrapper>
       </ThemeProvider>
     );
   }
