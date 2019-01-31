@@ -114,12 +114,13 @@ export const TokenSetup = styled.p`
 
 export const TokenAccountSectionHeader = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  font-family: ${fonts.SANS_SERIF};
   margin: 0 0 30px;
   padding: 0 25px 30px;
+  text-align: center;
 
   h3 {
     color: ${colors.primary.BLACK};
-    font-family: ${fonts.SANS_SERIF};
     font-size: 20px;
     font-weight: 700;
     line-height: 32px;
@@ -128,9 +129,9 @@ export const TokenAccountSectionHeader = styled.div`
 
   p {
     color: ${colors.accent.CIVIL_GRAY_0};
-    font-family: ${fonts.SANS_SERIF};
-    font-size: 14px;
-    line-height: 22px;
+    font-size: 18px;
+    letter-spacing: -0.12px;
+    line-height: 33px;
     margin: 0;
   }
 `;
@@ -185,14 +186,47 @@ export const TokenCheckIcon = styled.div`
 `;
 
 export const TokenBuySection = styled.div`
+  font-family: ${fonts.SANS_SERIF};
   padding: 0 30px 5px;
+
+  h3 {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 26px;
+    margin: 0;
+  }
 
   p {
     color: ${colors.accent.CIVIL_GRAY_1};
-    font-family: ${fonts.SANS_SERIF};
-    font-size: 16px;
-    line-height: 19px;
+    font-size: 18px;
+    letter-spacing: -0.12px;
+    line-height: 33px;
     margin: 0 0 15px;
+  }
+`;
+
+export const TokenAirswapSection = styled.div`
+  margin-bottom: 50px;
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 14px;
+    line-height: 22px;
+  }
+`;
+
+export const TokenFAQCollapse = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  font-family: ${fonts.SANS_SERIF};
+  padding: 20px 30px;
+
+  h3 {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 26px;
+    margin: 0;
   }
 `;
 

@@ -17,21 +17,24 @@ export const TokenConnectWalletBtnText: React.SFC = props => <>Sign up or Log in
 
 export const TokenVerifySectionText: React.SFC = props => (
   <>
-    <h3>Let’s verify your eligibility</h3>
+    <h3>Take the Civil Tutorial</h3>
     <p>
-      Before you can use, buy, and send CVL tokens, you must complete these verification requirements. These steps are
-      required to ensure that all CVL token holders are legitimate users, learn about the Registry and how to use
-      tokens.
+      Before you can use Civil tokens, you must complete a tutorial to ensure you understand how to use Civil tokens and
+      how the Registry works.
     </p>
   </>
 );
 
 export const TokenQuizSectionText: React.SFC = props => (
   <>
-    <h3>Take the Civil Tutorial</h3>
+    <h3>Civil Tutorial</h3>
     <p>
-      Complete this short walkthrough about storing and using CVL tokens on Civil. This is a standard procedure to help
-      inform you of best practices with using tokens.
+      Complete a walkthrough and answering a series of questions about Civil and how to use Civil tokens (CVL). This is
+      a standard procedure to help inform you of best practices with purchasing and using tokens.
+    </p>
+    <p>
+      It will take about 30 minutes to complete. If at any point you answer incorrectly, don’t worry. You will be able
+      to answer the questions again.
     </p>
   </>
 );
@@ -57,11 +60,39 @@ export const TokenVerifyText: React.SFC = props => (
 
 export const TokenVerifyBtnText: React.SFC = props => <>Verify for Eligibility</>;
 
-export const TokenBuyText: React.SFC = props => (
+export const TokenBuyTextDisabled: React.SFC = props => (
   <p>Once you’ve completed the above steps, you will be eligible to buy CVL tokens.</p>
 );
 
-export const TokenBuyBtnText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
+export const TokenBuyBtnDisabledText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
+
+export const TokenBuyBtnText: React.SFC = props => <>Buy CVL in Airswap</>;
+
+export const TokenBuyText: React.SFC = props => (
+  <p>
+    To buy CVL tokens, you must buy ETH and then you will be able to buy CVL from an exchange. You can’t use USD to
+    directly buy a CVL token – currencies need to be converted into ETH first.
+  </p>
+);
+
+export const TokenAirswapText: React.SFC = props => (
+  <>
+    <h3>Once you have ETH in your digital wallet, you will be able to buy CVL tokens from Airswap.</h3>
+    <p>
+      To buy tokens, you’ll be using Airswap which is an independent company. Airswap is a secure decentralized token
+      exchange where you can buy and sell tokens on Ethereum blockchain. Airswap does not charge any of its own fees on
+      each trade.
+    </p>
+  </>
+);
+
+export const TokenETHFAQQuestion1Text: React.SFC = props => <h3>Why do I need ETH?</h3>;
+
+export const TokenETHFAQQuestion2Text: React.SFC = props => <h3>How do I buy ETH?</h3>;
+
+export const TokenETHFAQQuestion3Text: React.SFC = props => <h3>How long does it take to buy ETH?</h3>;
+
+export const TokenETHFAQQuestion4Text: React.SFC = props => <h3>What else will I need to use ETH for?</h3>;
 
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
 
