@@ -20,6 +20,7 @@ import { Tokens } from "./Tokens";
 import ContractPage from "./ContractPage";
 import Contracts from "./Contracts";
 import CreateNewsroom from "./CreateNewsroom";
+import SignUpNewsroom from "./SignUpNewsroom";
 import { Dashboard } from "./Dashboard";
 import ChallengePage from "./listing/Challenge";
 import Listing from "./listing/Listing";
@@ -114,7 +115,8 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
           <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
           <Route path="/parameterizer" component={Parameterizer} />
-          <Route path="/create-newsroom" component={CreateNewsroom} />
+          <Route path="/createNewsroom" component={CreateNewsroom} />
+          <Route path="/signupNewsroom" component={SignUpNewsroom} />
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
           <Route path="/dashboard" component={Dashboard} />
