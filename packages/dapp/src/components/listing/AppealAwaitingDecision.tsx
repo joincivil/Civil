@@ -58,6 +58,10 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
+const AppealAwaitingDecisionCard = compose<
+  React.ComponentClass<ChallengeContainerProps & Partial<AppealAwaitingDecisionCardProps>>
+>(connectChallengePhase, connectChallengeResults)(AppealAwaitingDecisionCardComponent);
+
 class AwaitingAppealDecision extends React.Component<AppealDetailProps & InjectedTransactionStatusModalProps> {
   public render(): JSX.Element {
     const appeal = this.props.appeal;
@@ -70,10 +74,6 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
     if (transactions) {
       this.props.setTransactions(transactions);
     }
-
-    const AppealAwaitingDecisionCard = compose<
-      React.ComponentClass<ChallengeContainerProps & Partial<AppealAwaitingDecisionCardProps>>
-    >(connectChallengePhase, connectChallengeResults)(AppealAwaitingDecisionCardComponent);
 
     return (
       <>
