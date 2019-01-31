@@ -541,6 +541,67 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     };
   }
 
+  public async getUserAppealChallengeData(appealChallengeID: BigNumber, user: EthAddress): Promise<UserChallengeData> {
+    let didUserCommit;
+    let didUserReveal;
+    let didUserCollect;
+    let didUserRescue = false;
+    let didCollectAmount;
+    let isVoterWinner;
+    let salt;
+    let numTokens;
+    let choice;
+    const [, , resolved] = await this.instance.challenges.callAsync(appealChallengeID);
+    const pollData = await this.voting.getPoll(appealChallengeID);
+    let canUserReveal;
+    let canUserRescue;
+    let canUserCollect;
+    if (user) {
+      didUserCommit = await this.voting.didCommitVote(user, appealChallengeID);
+      if (didUserCommit) {
+        didUserReveal = await this.voting.didRevealVote(user, appealChallengeID);
+        if (resolved) {
+          if (didUserReveal) {
+            const reveal = await this.voting.getRevealedVoteEvent(appealChallengeID, user);
+            salt = reveal!.args.salt;
+            numTokens = reveal!.args.numTokens;
+            choice = reveal!.args.choice;
+            didUserCollect = await this.instance.tokenClaims.callAsync(appealChallengeID, user);
+            isVoterWinner = await this.voting.isVoterWinner(appealChallengeID, user);
+            canUserCollect = isVoterWinner && !didUserCollect;
+          } else {
+            didUserRescue =
+              !(await this.voting.canRescueTokens(user, appealChallengeID)) &&
+              !(await isInCommitStage(pollData)) &&
+              !(await isInRevealStage(pollData));
+          }
+        } else {
+          canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
+        }
+        canUserRescue = !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
+      }
+    }
+
+    if (didUserCollect) {
+      didCollectAmount = await this.getRewardClaimed(appealChallengeID, user);
+    }
+
+    return {
+      didUserCommit,
+      didUserReveal,
+      canUserReveal,
+      didUserCollect,
+      canUserCollect,
+      didUserRescue,
+      canUserRescue,
+      didCollectAmount,
+      isVoterWinner,
+      salt,
+      numTokens,
+      choice,
+    };
+  }
+
   public async getUserChallengeData(challengeID: BigNumber, user: EthAddress): Promise<UserChallengeData> {
     let didUserCommit;
     let didUserReveal;
