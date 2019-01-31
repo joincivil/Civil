@@ -2,7 +2,7 @@ import { ButtonTheme } from "./Button";
 import { LinkTheme } from "./ViewTransactionLink";
 import { StepHeaderTheme } from "./StepProcess";
 import { CheckboxTheme } from "./input";
-import { StepProcessTopNavTheme } from "./StepProcess/stepProccessTopNav";
+import { StepProcessTopNavTheme } from "./StepProcess/StepProcessTopNav";
 
 export interface Theme extends ButtonTheme, LinkTheme, StepHeaderTheme, CheckboxTheme, StepProcessTopNavTheme {
   sansSerifFont: string;

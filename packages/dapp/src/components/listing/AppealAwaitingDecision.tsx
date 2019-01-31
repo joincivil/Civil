@@ -65,6 +65,7 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
     const appealFeePaid = getFormattedTokenBalance(appeal.appealFeePaid);
     const phaseLength = this.props.govtParameters.judgeAppealLen;
     const transactions = this.getTransactions();
+    const endTime = parseInt(appeal.appealPhaseExpiry.toString(), 10);
 
     if (transactions) {
       this.props.setTransactions(transactions);
@@ -81,6 +82,7 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
           phaseLength={phaseLength}
           requester={requester}
           appealFeePaid={appealFeePaid}
+          endTime={endTime}
           transactions={transactions}
           txIdToConfirm={this.props.txIdToConfirm}
           onMobileTransactionClick={this.props.onMobileTransactionClick}

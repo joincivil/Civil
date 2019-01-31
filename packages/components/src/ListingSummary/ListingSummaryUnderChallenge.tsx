@@ -105,6 +105,7 @@ export class ListingSummaryUnderChallengeComponent extends React.Component<Listi
       isInAppealChallengeRevealPhase;
 
     if (expiry) {
+      expiry = parseInt(expiry.toString(), 10);
       return <TextCountdownTimer endTime={expiry!} warn={warn} />;
     }
 

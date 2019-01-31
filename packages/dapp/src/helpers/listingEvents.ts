@@ -1,5 +1,5 @@
 import { EthAddress, getNextTimerExpiry, ListingWrapper, StorageHeader } from "@joincivil/core";
-import { addNewsroom } from "@joincivil/newsroom-manager";
+import { addNewsroom } from "@joincivil/newsroom-signup";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
 import { Dispatch } from "react-redux";
