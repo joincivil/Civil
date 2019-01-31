@@ -551,7 +551,9 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let salt;
     let numTokens;
     let choice;
-    const [, , resolved] = await this.instance.challenges.callAsync(challengeID);
+    const challenge = new Challenge(this.ethApi, this.instance, challengeID);
+    const challengeData = await challenge.getChallengeData();
+    const resolved = challengeData.resolved;
     const pollData = await this.voting.getPoll(challengeID);
     let canUserReveal;
     let canUserRescue;
@@ -567,7 +569,19 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
             numTokens = reveal!.args.numTokens;
             choice = reveal!.args.choice;
             didUserCollect = await this.instance.tokenClaims.callAsync(challengeID, user);
-            isVoterWinner = await this.voting.isVoterWinner(challengeID, user);
+            if (challengeData.appeal && challengeData.appeal.appealGranted) {
+              if (
+                challengeData.appeal.appealChallenge &&
+                challengeData.appeal.appealChallenge.resolved &&
+                (await this.voting.isPollPassed(challengeData.appeal.appealChallengeID))
+              ) {
+                isVoterWinner = await this.voting.isVoterWinner(challengeID, user);
+              } else {
+                isVoterWinner = !(await this.voting.isVoterWinner(challengeID, user));
+              }
+            } else {
+              isVoterWinner = await this.voting.isVoterWinner(challengeID, user);
+            }
             canUserCollect = isVoterWinner && !didUserCollect;
           } else {
             didUserRescue =
