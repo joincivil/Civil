@@ -102,7 +102,7 @@ export const TutorialFooterWrap = styled.div`
   width: 100%;
 `;
 
-export const TurotialFooterLeft = styled.div`
+export const TutorialFooterLeft = styled.div`
   align-items: flex-start;
   display: flex;
   font-family: ${fonts.SANS_SERIF};

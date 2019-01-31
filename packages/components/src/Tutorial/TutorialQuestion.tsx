@@ -5,7 +5,7 @@ import {
   TutorialContentWrap,
   TutorialInvertedBtn,
   TutorialBtn,
-  TurotialFooterLeft,
+  TutorialFooterLeft,
 } from "./TutorialStyledComponents";
 import { IncorrectText, SelectCorrectText, CorrectText } from "./TutorialTextComponents";
 import { TutorialFooter } from "./TutorialFooter";
@@ -67,17 +67,17 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
         <TutorialFooter questionResult={this.state.usersAnswerResult}>
           {this.state.usersAnswerResult === "correct" ? (
             <>
-              <TurotialFooterLeft>
+              <TutorialFooterLeft>
                 <HollowGreenCheck width={50} height={50} />
                 <h3>
                   <CorrectText />
                 </h3>
-              </TurotialFooterLeft>
+              </TutorialFooterLeft>
               <TutorialBtn onClick={this.props.onClickNext}>Continue</TutorialBtn>
             </>
           ) : this.state.usersAnswerResult === "incorrect" ? (
             <>
-              <TurotialFooterLeft>
+              <TutorialFooterLeft>
                 <HollowRedNoGood width={50} height={50} />
                 <div>
                   <h3>
@@ -88,7 +88,7 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
                     <SelectCorrectText />
                   </span>
                 </div>
-              </TurotialFooterLeft>
+              </TutorialFooterLeft>
               <TutorialBtn disabled={this.state.checkAnswerDisabled} onClick={() => this.checkAnswer()}>
                 Check
               </TutorialBtn>
@@ -107,16 +107,14 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
   }
 
   private enableCheckAnswerBtn = (ev: any) => {
-    this.setState({ checkAnswerDisabled: false });
-    this.setState({ usersAnswerValue: ev.target.value });
+    this.setState({ checkAnswerDisabled: false, usersAnswerValue: ev.target.value });
   };
 
   private checkAnswer = () => {
     if (this.state.usersAnswerValue === this.props.answer) {
       this.setState({ usersAnswerResult: "correct" });
     } else {
-      this.setState({ usersAnswerResult: "incorrect" });
-      this.setState({ checkAnswerDisabled: true });
+      this.setState({ usersAnswerResult: "incorrect", checkAnswerDisabled: true });
     }
   };
 }

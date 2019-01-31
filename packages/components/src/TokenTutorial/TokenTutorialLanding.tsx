@@ -88,14 +88,10 @@ export class TokenTutorialLanding extends React.Component<{}, TokenTutorialLandi
   }
 
   private skipTutorial = () => {
-    this.setState({ activeTutorialIdx: 0 });
-    this.setState({ tutorialActive: true });
-    this.setState({ skipTutorial: true });
-    this.setState({ activeSection: "quiz" });
+    this.setState({ activeTutorialIdx: 0, tutorialActive: true, skipTutorial: true, activeSection: "quiz" });
   };
 
   private openTutorial = (idx: number) => {
-    this.setState({ activeTutorialIdx: idx });
-    this.setState({ tutorialActive: true });
+    this.setState({ activeTutorialIdx: idx, tutorialActive: true });
   };
 }
