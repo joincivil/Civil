@@ -1,5 +1,5 @@
 import { EthAddress } from "@joincivil/core";
-import { Newsroom } from "@joincivil/newsroom-manager";
+import { Newsroom } from "@joincivil/newsroom-signup";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
@@ -19,7 +19,7 @@ export interface CreateNewsroomReduxProps {
   userAccount: EthAddress;
 }
 
-class CreateNewsroom extends React.Component<
+class SignUpNewsroom extends React.Component<
   CreateNewsroomProps & CreateNewsroomReduxProps & DispatchProp<any>,
   CreateNewsroomState
 > {
@@ -65,7 +65,7 @@ class CreateNewsroom extends React.Component<
   }
 
   private onCreated = (address: EthAddress) => {
-    this.props.history.push("/mgmt/" + address);
+    return;
   };
 }
 
@@ -83,4 +83,4 @@ const mapStateToProps = (
   };
 };
 
-export default connect(mapStateToProps)(CreateNewsroom);
+export default connect(mapStateToProps)(SignUpNewsroom);

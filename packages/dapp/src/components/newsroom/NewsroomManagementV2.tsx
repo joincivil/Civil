@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Newsroom } from "@joincivil/newsroom-signup";
+import { Newsroom } from "@joincivil/newsroom-manager";
 import { getCivil } from "../../helpers/civilInstance";
 
 export interface NewsroomManagementProps {
