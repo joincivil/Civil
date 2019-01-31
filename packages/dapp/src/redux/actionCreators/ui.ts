@@ -39,7 +39,7 @@ export const disableGraphQL = (): AnyAction => {
 export const toggleUseGraphQL = async (): Promise<any> => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
     const { useGraphQL, network } = getState();
-    if (isGraphQLSupportedOnNetwork(network)) {
+    if (isGraphQLSupportedOnNetwork(parseInt(network, 10))) {
       if (!useGraphQL) {
         // going to graphQL loading
         clearListingSubscriptions();

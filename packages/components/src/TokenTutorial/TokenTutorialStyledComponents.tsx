@@ -4,14 +4,11 @@ import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton, ButtonProps } from "../Button";
 
 export const TutorialContainer = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  padding: 75px;
   width: 100%;
 `;
 
 export const TutorialLandingContainer = styled.div`
+  margin: 0 auto;
   max-width: 730px;
 `;
 
@@ -30,6 +27,7 @@ export const WelcomeSlide = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   letter-spacing: -0.87px;
+  margin: 0 auto;
   max-width: 500px;
   padding: 20px;
   text-align: center;
@@ -141,13 +139,18 @@ export const TutorialTopic = styled.div`
   margin-bottom: 15px;
 `;
 
-export const LaunchTopic = styled.a`
+export const LaunchTopic: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
   align-items: center;
+  border: none;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  letter-spacing: 0;
   padding: 30px;
+  text-align: left;
+  text-transform: none;
+  width: 100%;
 
   & > div {
     margin-right: 50px;
@@ -174,6 +177,11 @@ export const LaunchTopic = styled.a`
     font-size: 16px;
     line-height: 26px;
     margin: 0;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
   }
 `;
 
@@ -202,4 +210,9 @@ export const TutorialProgressBar = styled.div`
   height: 5px;
   margin-right: 5px;
   width: 100px;
+`;
+
+export const TutorialContain = styled.div`
+  display: block;
+  width: 100%;
 `;

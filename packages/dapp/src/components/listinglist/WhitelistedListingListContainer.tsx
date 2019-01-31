@@ -15,6 +15,7 @@ import {
   transformGraphQLDataIntoNewsroom,
 } from "../../helpers/queryTransformations";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
+import LoadingMsg from "../utility/LoadingMsg";
 
 export interface WhitelistedListingsListContainerReduxProps {
   useGraphQL: boolean;
@@ -34,7 +35,7 @@ const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContaine
       <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }} pollInterval={10000}>
         {({ loading, error, data }: any): JSX.Element => {
           if (loading) {
-            return <>Loading...</>;
+            return <LoadingMsg />;
           }
           if (error) {
             return <ErrorLoadingDataMsg />;

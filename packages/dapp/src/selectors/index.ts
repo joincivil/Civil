@@ -29,7 +29,7 @@ import {
   ParamPropChallengeData,
   NewsroomWrapper,
 } from "@joincivil/core";
-import { NewsroomState } from "@joincivil/newsroom-manager";
+import { NewsroomState } from "@joincivil/newsroom-signup";
 import { State } from "../redux/reducers";
 
 // @TODO(jon): Export this in reducers?

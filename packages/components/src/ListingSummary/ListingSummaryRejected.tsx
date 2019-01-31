@@ -1,37 +1,27 @@
 import * as React from "react";
-import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
+import { ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ListingSummaryComponentProps } from "./types";
-import {
-  StyledListingSummaryContainer,
-  StyledListingSummary,
-  StyledListingSummarySection,
-  StyledChallengeResultsHeader,
-  ChallengeResultsContain,
-} from "./styledComponents";
+import { StyledListingSummaryContainer, StyledListingSummary, StyledListingSummarySection } from "./styledComponents";
 import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
+import ChallengeResults, { AppealChallengeResults } from "./ChallengeResults";
+import AppealJudgementBanner from "./AppealJudgementBanner";
 
 export const ListingSummaryRejectedComponent: React.SFC<
   ListingSummaryComponentProps & ChallengeResultsProps
 > = props => {
-  const challengeIDDisplay = props.challengeID ? `#${props.challengeID}` : "";
+  const { appeal } = props;
+
+  const hasTopPadding = !(appeal && appeal.appealGranted);
   return (
     <StyledListingSummaryContainer>
-      <StyledListingSummary hasTopPadding={true}>
+      <StyledListingSummary hasTopPadding={hasTopPadding}>
+        <AppealJudgementBanner {...props} />
         <NewsroomInfo {...props} />
 
-        <ChallengeResultsContain>
-          <ChallengeResults
-            headerText={`Challenge ${challengeIDDisplay} Results`}
-            styledHeaderComponent={StyledChallengeResultsHeader}
-            totalVotes={props.totalVotes}
-            votesFor={props.votesFor}
-            votesAgainst={props.votesAgainst}
-            percentFor={props.percentFor}
-            percentAgainst={props.percentAgainst}
-            didChallengeSucceed={props.didChallengeSucceed}
-          />
-        </ChallengeResultsContain>
+        <ChallengeResults {...props} />
+        <AppealChallengeResults {...props} />
+
         <StyledListingSummarySection>
           <SummaryActionButton {...props} />
         </StyledListingSummarySection>
