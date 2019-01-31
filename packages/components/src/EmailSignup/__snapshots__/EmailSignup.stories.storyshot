@@ -4,17 +4,17 @@ exports[`Storyshots Email Signup Component Email Signup 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bTiqRo knZELJ",
+      "class": "sc-bEufUU kLGojI",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-dKEPtC jPRqKk",
+          "class": "sc-dBAPYN dsqAhi",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-dBAPYN iieHsm",
+              "class": "sc-dvpmds fESrKm",
             },
             "children": Array [
               Object {
@@ -182,7 +182,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dvpmds kJgiTk",
+                "class": "sc-dwztqd gddfpN",
               },
               "children": Array [
                 Object {
@@ -442,7 +442,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-dvpmds kJgiTk",
+                    "class": "sc-dwztqd gddfpN",
                   },
                   "children": Array [
                     Object {
@@ -574,7 +574,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-dvpmds kJgiTk",
+              "class": "sc-dwztqd gddfpN",
             },
             "children": Array [
               Object {
@@ -834,7 +834,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-dvpmds kJgiTk",
+                  "class": "sc-dwztqd gddfpN",
                 },
                 "children": Array [
                   Object {
@@ -947,7 +947,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-dBAPYN iieHsm",
+                "class": "sc-dvpmds fESrKm",
               },
               "children": Array [
                 Object {
@@ -1379,7 +1379,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dvpmds kJgiTk",
+                "class": "sc-dwztqd gddfpN",
               },
               "children": Array [
                 Object {
@@ -1482,7 +1482,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-dvpmds kJgiTk",
+                "class": "sc-dwztqd gddfpN",
               },
               "children": Array [
                 Object {
@@ -1499,7 +1499,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-dBAPYN iieHsm",
+                  "class": "sc-dvpmds fESrKm",
                 },
                 "children": Array [
                   Object {
@@ -1694,7 +1694,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-dvpmds kJgiTk",
+              "class": "sc-dwztqd gddfpN",
             },
             "children": Array [
               Object {
@@ -2034,7 +2034,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-dvpmds kJgiTk",
+                  "class": "sc-dwztqd gddfpN",
                 },
                 "children": Array [
                   Object {
@@ -2051,7 +2051,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-dBAPYN iieHsm",
+                    "class": "sc-dvpmds fESrKm",
                   },
                   "children": Array [
                     Object {
