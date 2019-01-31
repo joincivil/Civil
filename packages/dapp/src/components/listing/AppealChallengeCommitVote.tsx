@@ -146,6 +146,7 @@ class AppealChallengeCommitVote extends React.Component<
       tokenBalanceDisplay,
       votingTokenBalanceDisplay,
       salt,
+      voteOption: this.state.voteOption,
       numTokens: this.state.numTokens,
       onInputChange: this.updateCommitVoteState,
       onReviewVote: this.handleReviewVote,
