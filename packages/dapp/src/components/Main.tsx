@@ -1,5 +1,5 @@
 import { Civil, EthAddress } from "@joincivil/core";
-import { CivilErrors } from "@joincivil/utils";
+import { CivilErrors, setNetworkValue } from "@joincivil/utils";
 import { StyledMainContainer } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import * as React from "react";
@@ -20,6 +20,7 @@ import { Tokens } from "./Tokens";
 import ContractPage from "./ContractPage";
 import Contracts from "./Contracts";
 import CreateNewsroom from "./CreateNewsroom";
+import SignUpNewsroom from "./SignUpNewsroom";
 import { Dashboard } from "./Dashboard";
 import ChallengePage from "./listing/Challenge";
 import Listing from "./listing/Listing";
@@ -45,7 +46,8 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
     this.props.dispatch!(setNetwork(network.toString()));
-    if (!isGraphQLSupportedOnNetwork(network.toString())) {
+    setNetworkValue(network);
+    if (!isGraphQLSupportedOnNetwork(network)) {
       this.props.dispatch!(disableGraphQL());
     }
 
@@ -114,6 +116,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
           <Route path="/parameterizer" component={Parameterizer} />
           <Route path="/createNewsroom" component={CreateNewsroom} />
+          <Route path="/signupNewsroom" component={SignUpNewsroom} />
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
           <Route path="/dashboard" component={Dashboard} />

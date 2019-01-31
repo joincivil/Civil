@@ -23,6 +23,8 @@ export interface ButtonProps {
   href?: string;
   target?: string;
   fullWidth?: boolean;
+  width?: number;
+  textTransform?: string;
   onClick?(ev: any): void;
 }
 
@@ -122,7 +124,7 @@ export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
 
   if (to) {
     return (
-      <Link className={className + activeClass + disabledClass} to={to} ref={inputRef}>
+      <Link {...props} className={className + activeClass + disabledClass} to={to} ref={inputRef}>
         {children}
       </Link>
     );
@@ -130,7 +132,7 @@ export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
 
   if (href) {
     return (
-      <a className={className + activeClass + disabledClass} href={href} target={target} ref={inputRef}>
+      <a {...props} className={className + activeClass + disabledClass} href={href} target={target} ref={inputRef}>
         {children}
       </a>
     );
@@ -138,6 +140,7 @@ export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
 
   return (
     <button
+      {...props}
       className={className + activeClass + disabledClass}
       onClick={onClick}
       type="button"
@@ -161,6 +164,7 @@ const BaseButton = styled(ButtonComponent)`
   transition: background-color 500ms;
   outline: none;
   display: inline-block;
+  ${props => (props.width ? `width: ${props.width}px;` : "")};
   ${props => (props.fullWidth ? "width: 100%;" : "")};
 `;
 
@@ -168,7 +172,7 @@ export const Button = styled(BaseButton)`
   background-color: ${props => props.theme.primaryButtonBackground};
   color: ${props => props.theme.primaryButtonColor};
   font-weight: ${props => props.theme.primaryButtonFontWeight};
-  text-transform: ${props => props.theme.primaryButtonTextTransform};
+  text-transform: ${props => (props.textTransform ? props.textTransform : props.theme.primaryButtonTextTransform)};
   &:focus,
   &:active,
   &:hover {

@@ -23,7 +23,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/under-challenge">view new applications</Link> or{" "}
-        <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
       </>
     ),
   },
@@ -32,7 +32,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/in-progress/in-application">view new applications</Link> or{" "}
-        <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
       </>
     ),
   },
@@ -40,7 +40,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     header: "There are no new applications at this time",
     copy: (
       <>
-        You can <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        You can <Link to="/create-newsroom">apply to join the Civil Registry</Link>
       </>
     ),
   },
@@ -49,7 +49,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/in-progress/under-challenge">view new applications</Link> or{" "}
-        <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
       </>
     ),
   },
@@ -58,7 +58,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/in-progress/under-challenge">view listings under challenge</Link> or{" "}
-        <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
       </>
     ),
   },
@@ -67,7 +67,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/in-progress/under-appeal">view listings under appeal</Link> or{" "}
-        <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
       </>
     ),
   },
@@ -76,7 +76,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/in-progress/in-application">view new applications</Link> or{" "}
-        <Link to="/createNewsroom">apply to join the Civil Registry</Link>
+        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
       </>
     ),
   },
