@@ -10,14 +10,13 @@ try {
   civil = undefined;
 }
 
-storiesOf("Account/ETH", module)
-  .add("AccountEthAuth", () => {
-    return (
-      <AccountEthAuth
-        civil={civil!}
-        onAuthenticated={() => {
-          alert("authenticated successfully");
-        }}
-      />
-    );
-  });
+storiesOf("Account/ETH", module).add("AccountEthAuth", () => {
+  return (
+    <AccountEthAuth
+      civil={civil!}
+      onAuthenticated={() => {
+        alert("authenticated successfully");
+      }}
+    />
+  );
+});
