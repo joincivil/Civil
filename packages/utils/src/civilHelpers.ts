@@ -102,6 +102,7 @@ export enum GovernmentParameters {
 }
 
 export const supportedNetworks: number[] = [
+  1, // mainnet
   4, // rinkeby
   50, // ganache
 ];

@@ -2,6 +2,7 @@ import { Civil } from "@joincivil/core";
 import { CivilTCR } from "../../../core/build/src/contracts/tcr/civilTCR";
 import { detectProvider, INFURA_WEBSOCKET_HOSTS } from "@joincivil/ethapi";
 import * as WSProvider from "web3-providers-ws";
+import { supportedNetworks } from "@joincivil/utils";
 
 let civil: Civil;
 let tcr: CivilTCR;
@@ -38,18 +39,6 @@ export const getTCR = async () => {
   return tcr;
 };
 
-export const isGraphQLSupportedOnNetwork = (network: string): boolean => {
-  if (network === "1") {
-    // mainnet
-    return false; // TODO: should be true once production tcr is deployed with graphql support
-  } else if (network === "4") {
-    // rinkeby
-    return true;
-  } else {
-    return false;
-  }
-
-  /*else if (network === "50") { - ADD THIS when testing with graphql locally
-    return true;
-  } */
+export const isGraphQLSupportedOnNetwork = (network: number): boolean => {
+  return supportedNetworks.includes(network);
 };

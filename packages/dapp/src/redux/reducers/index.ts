@@ -67,7 +67,7 @@ import {
   TxDataAll,
 } from "@joincivil/core";
 import { currentUserNewsrooms, content, contentFetched } from "./newsrooms";
-import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
+import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-signup";
 import { networkActions } from "../actionCreators/network";
 import { Subscription } from "rxjs";
 
