@@ -36,7 +36,7 @@ const NavMenuLinksComponent: React.SFC<NavMenuLinksComponentProps> = props => {
       <NavLink to="/parameterizer">
         <NavLinkParameterizerText />
       </NavLink>
-      <NavLink to="/createNewsroom">
+      <NavLink to="/create-newsroom">
         <NavLinkCreateNewsroomText />
       </NavLink>
       <NavDropDown label="How Civil works">
