@@ -5,7 +5,7 @@ import { createHttpLink, HttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { onError } from "apollo-link-error";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { EthSignedMessage } from "@joincivil/typescript-types";
+import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
 import { fetchItem, setItem, removeItem } from "./localStorage";
 
 export interface AuthLoginResponse {
@@ -146,7 +146,7 @@ const setEthAddressMutation = gql`
     userSetEthAddress(input: $input)
   }
 `;
-export async function userSetEthAddress(sig: EthSignedMessage): Promise<string> {
+export async function userSetEthAddress(sig: EthSignedMessage): Promise<EthAddress> {
   if (!client || !getApolloSession()) {
     throw Error("Apollo client not initialized or user not logged in");
   }
