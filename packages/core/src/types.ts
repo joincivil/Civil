@@ -70,6 +70,7 @@ export interface ConstitutionSignature {
 }
 
 export interface CharterData {
+  name: string;
   logoUrl: string;
   newsroomUrl: string;
   tagline: string;

@@ -47,11 +47,11 @@ export const AwaitingAppealRequestLabel: React.SFC = props => {
 };
 
 export const AwaitingDecisionStatusLabel: React.SFC = props => {
-  return <StyledAwaitingStatuslabel>Awaiting Decision</StyledAwaitingStatuslabel>;
+  return <StyledAwaitingStatuslabel>Awaiting Appeal Decision</StyledAwaitingStatuslabel>;
 };
 
 export const AwaitingAppealChallengeStatusLabel: React.SFC = props => {
-  return <StyledAwaitingAppealStatuslabel>Challenge Council Appeal </StyledAwaitingAppealStatuslabel>;
+  return <StyledAwaitingAppealStatuslabel>Challenge Granted Appeal</StyledAwaitingAppealStatuslabel>;
 };
 
 export const CommitVoteStatusLabel: React.SFC = props => {

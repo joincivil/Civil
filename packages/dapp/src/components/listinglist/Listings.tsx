@@ -57,7 +57,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
       <>
         <ScrollToTopOnMount />
         <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero textUrl="https://civil.co" buttonUrl="/createNewsroom" minDeposit={minDeposit} />
+          <HomepageHero textUrl="https://civil.co" buttonUrl="/create-newsroom" minDeposit={minDeposit} />
         </Hero>
         {!this.props.loadingFinished && "loading..."}
         {this.props.loadingFinished && (

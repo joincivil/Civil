@@ -42,16 +42,16 @@ export function prepareConstitutionSignMessage(newsroomAddress: EthAddress, cons
   return `By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitution.\n\nNewsrooom Address:\n${newsroomAddress}\n\nConstitution Hash:\n${constitutionHash}`;
 }
 
-// TODO(jon): Update this to support the proper blocks by network
 export function getDefaultFromBlock(network: number): number {
   // A map of the network id to its corresponding default fromBlock, which
   // could be the TCR genesis block or possibly the geneis block of the
   // first Newsroom contract on that network
   const defaultFromBlocks: { [index: string]: number } = {
+    1: 6904575,
     4: 2848355,
     50: 0,
   };
-  return defaultFromBlocks[network.toString()];
+  return defaultFromBlocks[network.toString()] || 0;
 }
 
 const urlRegex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
@@ -96,9 +96,13 @@ export enum GovernmentParameters {
   judgeAppealLen = "judgeAppealLen",
   appealFee = "appealFee",
   appealVotePercentage = "appealVotePercentage",
+  appealChallengeVoteDispensationPct = "appealChallengeVoteDispensationPct",
+  govtPCommitStageLen = "govtPCommitStageLen",
+  govtPRevealStageLen = "govtPRevealStageLen",
 }
 
 export const supportedNetworks: number[] = [
+  1, // mainnet
   4, // rinkeby
   50, // ganache
 ];

@@ -1,16 +1,23 @@
 import * as React from "react";
-import { ChallengeOrAppealStatementSummaryProps } from "./types";
+import { ListingSummaryComponentProps, ChallengeOrAppealStatementSummaryProps } from "./types";
 import { StyledListingChallengeOrAppealStatement } from "./styledComponents";
 
-const ChallengeOrAppealStatementSummary: React.SFC<ChallengeOrAppealStatementSummaryProps> = props => {
+const ChallengeOrAppealStatementSummary: React.SFC<
+  ListingSummaryComponentProps & ChallengeOrAppealStatementSummaryProps
+> = props => {
   const {
     challengeID,
     challengeStatementSummary,
     appealStatementSummary,
     appealChallengeID,
     appealChallengeStatementSummary,
+    inChallengeCommitVotePhase,
+    inChallengeRevealPhase,
+    isAwaitingAppealJudgement,
+    isInAppealChallengeCommitPhase,
+    isInAppealChallengeRevealPhase,
   } = props;
-  if (appealChallengeStatementSummary) {
+  if (isInAppealChallengeCommitPhase || (isInAppealChallengeRevealPhase && appealChallengeStatementSummary)) {
     const appealChallengeIDDisplay = appealChallengeID ? `#${appealChallengeID}` : "";
     return (
       <StyledListingChallengeOrAppealStatement>
@@ -19,7 +26,7 @@ const ChallengeOrAppealStatementSummary: React.SFC<ChallengeOrAppealStatementSum
         {appealChallengeStatementSummary}
       </StyledListingChallengeOrAppealStatement>
     );
-  } else if (appealStatementSummary) {
+  } else if (isAwaitingAppealJudgement && appealStatementSummary) {
     return (
       <StyledListingChallengeOrAppealStatement>
         <b>Appeal Summary</b>
@@ -27,7 +34,7 @@ const ChallengeOrAppealStatementSummary: React.SFC<ChallengeOrAppealStatementSum
         {appealStatementSummary}
       </StyledListingChallengeOrAppealStatement>
     );
-  } else if (challengeStatementSummary) {
+  } else if (inChallengeCommitVotePhase || (inChallengeRevealPhase && challengeStatementSummary)) {
     const challengeIDDisplay = challengeID ? `#${challengeID}` : "";
     return (
       <StyledListingChallengeOrAppealStatement>

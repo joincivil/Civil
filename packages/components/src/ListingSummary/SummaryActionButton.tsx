@@ -30,7 +30,6 @@ const ButtonText: React.SFC<ListingSummaryComponentProps> = props => {
   } else if (
     props.canBeWhitelisted ||
     props.canResolveChallenge ||
-    props.canResolveAppealChallenge ||
     props.canListingAppealBeResolved ||
     props.canListingAppealChallengeBeResolved
   ) {
