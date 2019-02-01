@@ -835,7 +835,7 @@ initialize {
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-kgoBCf ikEghv sc-jzJRlG hvQAvg",
+          "class": "sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
           "theme": "[object Object]",
           "type": "button",
         },

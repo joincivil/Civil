@@ -45,6 +45,7 @@ export interface ButtonTheme {
   secondaryButtonHoverColor?: string;
   darkButtonBackground?: string;
   darkButtonColor?: string;
+  darkButtonHoverColor?: string;
   darkButtonHoverBackground?: string;
   darkButtonTextTransform?: string;
   borderlessButtonColor?: string;
@@ -79,6 +80,7 @@ const SECONDARY_BUTTON_DEFAULT_THEME = {
 const DARK_BUTTON_DEFAULT_THEME = {
   darkButtonBackground: colors.primary.BLACK,
   darkButtonColor: colors.basic.WHITE,
+  darkButtonHoverColor: colors.basic.WHITE,
   darkButtonHoverBackground: colors.accent.CIVIL_GRAY_1,
   darkButtonTextTransform: "none",
 };
@@ -230,6 +232,7 @@ export const DarkButton = styled(BaseButton)`
   &:focus,
   &:hover,
   &.active {
+    color: ${props => props.theme.darkButtonHoverColor};
     background-color: ${props => props.theme.darkButtonHoverBackground};
   }
 `;

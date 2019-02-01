@@ -1,7 +1,11 @@
 import * as React from "react";
 
-export const NorthEastArrow: React.SFC = props => {
-  const color = "#23282d";
+export interface NorthEastArrowProps {
+  color?: string;
+}
+
+export const NorthEastArrow: React.SFC<NorthEastArrowProps> = props => {
+  const color = props.color || "#23282d";
 
   return (
     <svg width="11" height="11" viewBox="0 0 11 11" xmlns="http://www.w3.org/2000/svg">

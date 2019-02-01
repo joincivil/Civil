@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 
 import { colors, fonts, mediaQueries } from "../styleConstants";
+import { DarkButton } from "../Button";
 
 export const ListingDetailOuter = styled.div`
   background: ${colors.primary.BLACK};
@@ -16,6 +17,19 @@ export const StyledListingDetailHeader = styled.div`
 
   ${mediaQueries.MOBILE} {
     padding: 30px 20px 42px;
+  }
+
+  & ${DarkButton} {
+    border: 1px solid ${colors.accent.CIVIL_GRAY_1};
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    line-height: 14px;
+    padding: 15px 21px;
+
+    svg {
+      margin: 0 0 -2px 3px;
+    }
   }
 `;
 
