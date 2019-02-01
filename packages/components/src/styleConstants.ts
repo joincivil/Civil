@@ -10,6 +10,7 @@ export const colors = {
     CIVIL_BLUE: "#2B56FF",
     CIVIL_BLUE_FADED: "#4066FF", // accent color associated with Newsmakers; use on black
     CIVIL_BLUE_VERY_FADED: "rgba(43, 86, 255, 0.5)",
+    CIVIL_BLUE_VERY_FADED_2: "rgba(43, 86, 255, 0.06)",
     CIVIL_BLUE_FADED_2: "#E9EEFF",
     CIVIL_TEAL: "#30E8BD",
     CIVIL_TEAL_FADED: "#97F3DE", // accent color associated with Citizens; use as a highlight in text
