@@ -115,7 +115,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
           <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
           <Route path="/parameterizer" component={Parameterizer} />
-          <Route path="/createNewsroom" component={CreateNewsroom} />
+          <Route path="/create-newsroom" component={CreateNewsroom} />
           <Route path="/signupNewsroom" component={SignUpNewsroom} />
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
