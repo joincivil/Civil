@@ -48,7 +48,7 @@ export function isInApplicationPhase(listingData: ListingData): boolean {
     return false;
   }
 
-  if (!listingData.challengeID.isZero()) {
+  if (!listingData.challengeID.isZero() || listingData.isWhitelisted) {
     return false;
   }
 
