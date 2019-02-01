@@ -53,3 +53,4 @@ export * from "./EmailSignup";
 export * from "./Tokens";
 export * from "./ExecuteOnMount";
 export * from "./AuthenticatedRoute";
+export * from "./EthAddressViewer";
