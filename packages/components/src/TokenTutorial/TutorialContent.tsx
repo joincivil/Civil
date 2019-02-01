@@ -2,113 +2,314 @@ import * as React from "react";
 import { TrendsIcon } from "../icons/TrendsIcon";
 import { NetworkIcon } from "../icons/NetworkIcon";
 import { TokenWalletIcon } from "../icons/TokenWalletIcon";
+import {
+  Topic1Intro,
+  Topic2Intro,
+  Topic3Intro,
+  Topic1Tutorial1,
+  Topic1Tutorial2,
+  Topic1Tutorial3,
+  Topic1Tutorial4,
+  Topic1Tutorial5,
+  Topic2Tutorial1,
+  Topic2Tutorial2,
+  Topic2Tutorial3,
+  Topic2Tutorial4,
+  Topic2Tutorial5,
+  Topic2Tutorial6,
+  Topic2Tutorial7,
+  Topic2Tutorial8,
+  Topic3Tutorial1,
+  Topic3Tutorial2,
+  Topic3Tutorial3,
+} from "./TokenTutorialTextComponents";
 
 export const TutorialContent = [
   {
     name: "Topic 1: How to use Civil tokens",
     description: "Learn about CVL tokens and their intended uses within the Civil network.",
+    quizId: "topic1",
     icon: <NetworkIcon />,
-    tutorialIntro: [
-      {
-        header: "TKTKT",
-        content: "TKTKT",
-      },
-    ],
+    tutorialIntro: {
+      header: "Topic 1: How to use Civil tokens",
+      content: <Topic1Intro />,
+    },
     tutorials: [
       {
-        header: "TKTKT",
-        content: "TKTKT",
+        content: <Topic1Tutorial1 />,
+      },
+      {
+        content: <Topic1Tutorial2 />,
+      },
+      {
+        content: <Topic1Tutorial3 />,
+      },
+      {
+        content: <Topic1Tutorial4 />,
+      },
+      {
+        content: <Topic1Tutorial5 />,
       },
     ],
     questions: [
       {
-        question: "TKTK",
-        options: "",
+        question: "Which of the following documents sets the standard for ethical journalism on Civil?",
+        options: [
+          {
+            text: "The Civil White Paper",
+          },
+          {
+            text: "The Civil Constitution",
+          },
+          {
+            text: "The Civil Registry",
+          },
+        ],
+        answer: "The Civil Constitution",
       },
       {
-        question: "TKTK",
-        options: "",
+        question: "Which of these actions are required for newsrooms to gain access to the Civil Registry?",
+        options: [
+          {
+            text: "Complete a Newsroom application",
+          },
+          {
+            text: "Sign the Civil Constitution",
+          },
+          {
+            text: "Stake deposit of Civil tokens",
+          },
+          {
+            text: "All of the above",
+          },
+        ],
+        answer: "All of the above",
       },
       {
-        question: "TKTK",
-        options: "",
+        question: "Which of the following best illustrates the purpose of Civil tokens?",
+        options: [
+          {
+            text: "Civil tokens are used to apply, challenge, vote or appeal in community governance decisions.",
+          },
+          {
+            text: "Civil tokens are used to invest in newsrooms.",
+          },
+          {
+            text: "Civil tokens are used to publish articles on the Civil platform.",
+          },
+        ],
+        answer: "Civil tokens are used to apply, challenge, vote or appeal in community governance decisions.",
+      },
+      {
+        question: "What is the best way to earn Civil tokens on the Civil Registry?",
+        options: [
+          {
+            text: "By participating in all the challenges and appeals",
+          },
+          {
+            text: "By voting among the majority in a community decision",
+          },
+          {
+            text: "All of the above",
+          },
+        ],
+        answer: "All of the above",
       },
     ],
-    completed: [
-      {
-        header: "TKTKT",
-        content: "TKTKT",
-      },
-    ],
+    completed: {
+      header: "Nice! You’ve completed Topic 1",
+      content:
+        "Buying tokens, like any financial decision, is a risk. The price of tokens can fluctuate depending on various factors. It’ a good rule of thumb to look at the team behind the token – the founders, the advisors – as well as the token design and its supply.  It’s also important to diversify your portfolio across many investment vehicles – crypto assets and non-crypto assets.",
+      btnText: "Continue on to Topic 2",
+    },
   },
   {
     name: "Topic 2: Purchasing, storing, using Civil tokens",
     description: "Learn basic concepts of ETH, gas, digital wallets, keys, and recovery seed phrases.",
+    quizId: "topic2",
     icon: <TokenWalletIcon height={48} width={42} />,
-    tutorialIntro: [
-      {
-        header: "TKTKT",
-        content: "TKTKT",
-      },
-    ],
+    tutorialIntro: {
+      header: "Topic 2: Purchasing, storing, using Civil tokens",
+      content: <Topic2Intro />,
+    },
     tutorials: [
       {
-        header: "TKTKT",
-        content: "TKTKT",
+        content: <Topic2Tutorial1 />,
+      },
+      {
+        content: <Topic2Tutorial2 />,
+      },
+      {
+        content: <Topic2Tutorial3 />,
+      },
+      {
+        content: <Topic2Tutorial4 />,
+      },
+      {
+        content: <Topic2Tutorial5 />,
+      },
+      {
+        content: <Topic2Tutorial6 />,
+      },
+      {
+        content: <Topic2Tutorial7 />,
+      },
+      {
+        content: <Topic2Tutorial8 />,
       },
     ],
     questions: [
       {
-        question: "TKTK",
-        options: "",
+        question:
+          "Sally sends a transaction on Ethereum with the gas limit set too low causing an “out of gas” error. As a result, her transaction failed. What happens to the gas fee that she spent on that transaction?",
+        options: [
+          {
+            text: "The gas fee is returned to Sally because the transaction didn’t go through.",
+          },
+          {
+            text:
+              "The gas is not returned to Sally, but is paid to miners who must validate and execute the transaction regardless if it fails or succeeds.",
+          },
+          {
+            text: "I don’t know what gas is.",
+          },
+        ],
+        answer:
+          "The gas is not returned to Sally, but is paid to miners who must validate and execute the transaction regardless if it fails or succeeds.",
       },
       {
-        question: "TKTK",
-        options: "",
+        question: "What is the best way to store your seed phrase to ensure the security of your account?",
+        options: [
+          {
+            text: "Copy the seed phrase into a document and email it to yourself.",
+          },
+          {
+            text: "Save the seed phrase in a document, store in the cloud.",
+          },
+          {
+            text: "Write down the seed phrase on two duplicate pieces of paper and store in two different places.",
+          },
+        ],
+        answer: "Write down the seed phrase on two duplicate pieces of paper and store in two different places.",
       },
-    ],
-    completed: [
       {
-        header: "TKTKT",
-        content: "TKTKT",
+        question:
+          "Select the type of wallet that allows you to perform this action: You personally sign all transactions while your private key is never exposed to the Internet.",
+        options: [
+          {
+            text: "Hardware wallet or “cold wallet”",
+          },
+          {
+            text: "Software wallet or “hot wallet”",
+          },
+        ],
+        answer: "Hardware wallet or “cold wallet”",
+      },
+      {
+        question:
+          "Select the type of wallet that allows you to perform this action: You personally sign all transactions while connected to the Internet.",
+        options: [
+          {
+            text: "Hardware wallet or “cold wallet”",
+          },
+          {
+            text: "Software wallet or “hot wallet”",
+          },
+        ],
+        answer: "Software wallet or “hot wallet”",
+      },
+      {
+        question:
+          "Select the type of wallet that allows you to perform this action: You do not hold the private key to your wallet, and your tokens are stored in a server connected to the Internet.",
+        options: [
+          {
+            text: "Hardware wallet or “cold wallet”",
+          },
+          {
+            text: "Software wallet or “hot wallet”",
+          },
+        ],
+        answer: "Software wallet or “hot wallet”",
       },
     ],
+    completed: {
+      header: "Nice! You’ve completed Topic 2",
+      content: "TKTKT",
+      btnText: "Continue on to Topic 3",
+    },
   },
   {
     name: "Topic 3: Things to consider before buying Civil tokens",
     description: "Learn about token price trends, token design, and potential risks.",
+    quizId: "topic3",
     icon: <TrendsIcon />,
-    tutorialIntro: [
-      {
-        header: "TKTKT",
-        content: "TKTKT",
-      },
-    ],
+    tutorialIntro: {
+      header: "Topic 3: Things to consider before buying Civil tokens",
+      content: <Topic3Intro />,
+    },
     tutorials: [
       {
-        header: "TKTKT",
-        content: "TKTKT",
+        content: <Topic3Tutorial1 />,
+      },
+      {
+        content: <Topic3Tutorial2 />,
+      },
+      {
+        content: <Topic3Tutorial3 />,
       },
     ],
     questions: [
       {
-        question: "TKTK",
-        options: "",
+        question: "Why do Civil token prices fluctuate?",
+        options: [
+          {
+            text: "Civil token prices fluctuate based on how well the stock market is doing.",
+          },
+          {
+            text: "Civil token prices fluctuate based on total demand and circulating supply of tokens in the market.",
+          },
+          {
+            text: "Civil token prices fluctuate based on the speed of Ethereum network traffic.",
+          },
+        ],
+        answer: "Civil token prices fluctuate based on total demand and circulating supply of tokens in the market.",
       },
       {
-        question: "TKTK",
-        options: "",
+        question: "Which of the following is important when purchasing a token?",
+        options: [
+          {
+            text: "Network value of a token",
+          },
+          {
+            text: "Purpose or usage of the token",
+          },
+          {
+            text: "Amount of money spent by others on tokens",
+          },
+        ],
+        answer: "Purpose or usage of the token",
       },
       {
-        question: "TKTK",
-        options: "",
+        question: "How much is safe to consider spending on Civil tokens?",
+        options: [
+          {
+            text: "A maximum of half of one paycheck",
+          },
+          {
+            text: "1% of your total net worth, if not an accredited investor",
+          },
+          {
+            text: "No more than you can afford to lose if Civil tokens lost all value",
+          },
+        ],
+        answer: "No more than you can afford to lose if Civil tokens lost all value",
       },
     ],
-    completed: [
-      {
-        header: "TKTKT",
-        content: "TKTKT",
-      },
-    ],
+    completed: {
+      header: "Congrats! You’ve completed the Civil tutorial",
+      content:
+        "You’ve verified that you understand Civil and token uses. Now, you can use CVL tokens on the Civil Registry. If you don't have any CVL tokens and want to be eligible to buy, you can verify your identity next, and then purchase.",
+      btnText: "Done",
+    },
   },
 ];

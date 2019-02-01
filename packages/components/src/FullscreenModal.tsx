@@ -32,6 +32,7 @@ export const ModalInner = styled.div`
   justify-content: space-around;
   margin: auto;
   min-width: 250px;
+  ${(props: ModalWrapperProps) => (props.solidBackground ? "width: 100%" : "")};
 `;
 
 export interface FullScreenModalProps {
