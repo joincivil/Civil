@@ -8,6 +8,8 @@ import { StyledEmailSignupContainer, StyledEmailSignupTitle, StyledEmailSignupCo
 
 export interface EmailSignupProps {
   email?: string;
+  errorMessage?: string;
+  isRequestPending?: boolean;
   onChange(key: string, value: string): void;
   onSubmit(): void;
 }
@@ -15,11 +17,11 @@ export interface EmailSignupProps {
 export const EmailSignup: React.SFC<EmailSignupProps> = props => {
   const SignUpButton = (
     <Button size={buttonSizes.SMALL} onClick={props.onSubmit}>
-      Sign Up
+      {!!props.isRequestPending ? "Saving" : "Sign Up"}
     </Button>
   );
 
-  const { email } = props;
+  const { email, errorMessage } = props;
 
   return (
     <StyledEmailSignupContainer>
@@ -41,6 +43,8 @@ export const EmailSignup: React.SFC<EmailSignupProps> = props => {
         name="EmailSignupTextInput"
         type="text"
         value={email}
+        invalid={!!errorMessage}
+        invalidMessage={errorMessage}
       />
 
       <StyledEmailSignupCopy>
