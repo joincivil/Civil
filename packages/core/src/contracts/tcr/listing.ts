@@ -128,6 +128,16 @@ export class Listing {
     });
   }
 
+  public appealChallenges(
+    fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
+  ): Observable<TimestampedEvent<CivilTCR.LogEvents._GrantedAppealChallenged>> {
+    return this.tcrInstance
+      ._GrantedAppealChallengedStream({ listingAddress: this.listingAddress }, { fromBlock })
+      .map(e => {
+        return createTimestampedEvent<CivilTCR.LogEvents._GrantedAppealChallenged>(this.ethApi, e);
+      });
+  }
+
   public appealGranteds(
     fromBlock: number = getDefaultFromBlock(this.ethApi.network()),
   ): Observable<TimestampedEvent<CivilTCR.LogEvents._AppealGranted>> {
@@ -145,6 +155,7 @@ export class Listing {
   }
 
   public compositeObservables(start: number = 0): Observable<any> {
+    const appealChallenges = this.appealChallenges(start);
     const appealGranteds = this.appealGranteds(start);
     const appealRequesteds = this.appealRequesteds(start);
     const applicationRemoveds = this.applicationRemoveds(start);
@@ -159,6 +170,7 @@ export class Listing {
     const withdrawls = this.withdrawls(start);
 
     return Observable.merge(
+      appealChallenges,
       appealGranteds,
       appealRequesteds,
       applicationRemoveds,
