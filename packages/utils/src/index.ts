@@ -9,3 +9,4 @@ export * from "./language";
 export * from "./localStorage";
 export * from "./salt";
 export * from "./viewHelpers";
+export * from "./etherscan";

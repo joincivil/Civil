@@ -21,6 +21,7 @@ import {
   UserAvatar,
   Arrow,
   LogInButton,
+  BalancesContainer,
 } from "./styledComponents";
 
 export class NavBar extends React.Component<NavProps, NavState> {
@@ -36,10 +37,10 @@ export class NavBar extends React.Component<NavProps, NavState> {
       accountInfo = (
         <CvlContainer>
           <CvlToken />
-          <span>
+          <BalancesContainer>
             <UserCvlBalance>{this.props.balance}</UserCvlBalance>
             <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
-          </span>
+          </BalancesContainer>
           <AvatarContainer>
             <UserAvatar />
             <Arrow isOpen={this.state.isUserDrawerOpen} />
@@ -50,7 +51,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
       accountInfo = (
         <CvlContainer>
           <LogInButton onClick={this.props.onLogin} size={buttonSizes.SMALL}>
-            Log In
+            Get Started
           </LogInButton>
         </CvlContainer>
       );
