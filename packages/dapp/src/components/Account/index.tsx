@@ -7,7 +7,6 @@ import {
   AccountVerifyTokenProps,
   AuthenticatedRoute,
 } from "@joincivil/components";
-import { setApolloSession } from "@joincivil/utils";
 import { AccountHome } from "./Home";
 
 export default class AccountRouter extends React.Component<RouteComponentProps> {
@@ -17,55 +16,56 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       <>
         <Switch>
           {/* Login Routes */}
-          <AuthenticatedRoute
-            onlyAllowUnauthenticated
-            redirectTo="/account"
-            path={`${match.path}/auth`}
-            component={() => (
-              <>
-                <Route
-                  redirectTo="/account"
-                  path={`${match.path}/auth/login`}
-                  exact={true}
-                  component={(props: any) => (
-                    <AccountEmailAuth isNewUser={false} {...props} onEmailSend={this.handleAuthEmail} />
-                  )}
+          <AuthenticatedRoute onlyAllowUnauthenticated redirectTo="/account" path={`${match.path}/auth`}>
+            <Route
+              redirectTo="/account"
+              path={`${match.path}/auth/login`}
+              exact={true}
+              component={(props: any) => (
+                <AccountEmailAuth isNewUser={false} {...props} onEmailSend={this.handleAuthEmail} />
+              )}
+            />
+            <Route
+              path={`${match.path}/auth/login/check-email`}
+              component={(props: any) => <AccountEmailSent {...props} isNewUser={false} />}
+            />
+            <Route
+              path={`${match.path}/auth/login/verify-token/:token`}
+              exact
+              component={(props: AccountVerifyTokenProps) => (
+                <AccountVerifyToken
+                  isNewUser={false}
+                  onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                  {...props}
                 />
-                <Route
-                  path={`${match.path}/auth/login/check-email`}
-                  component={(props: any) => <AccountEmailSent {...props} isNewUser={false} />}
-                />
-                <Route
-                  path={`${match.path}/auth/login/verify-token/:token`}
-                  exact
-                  component={(props: AccountVerifyTokenProps) => (
-                    <AccountVerifyToken isNewUser={false} {...props} onAuthentication={this.handleOnAuthentication} />
-                  )}
-                />
+              )}
+            />
 
-                {/* SignUp Routes */}
-                <Route
-                  path={`${match.path}/auth/signup`}
-                  exact={true}
-                  component={(props: any) => (
-                    <AccountEmailAuth isNewUser={true} {...props} onEmailSend={this.handleAuthEmail} />
-                  )}
+            {/* SignUp Routes */}
+            <Route
+              path={`${match.path}/auth/signup`}
+              exact={true}
+              component={(props: any) => (
+                <AccountEmailAuth isNewUser={true} {...props} onEmailSend={this.handleAuthEmail} />
+              )}
+            />
+            <Route
+              path={`${match.path}/auth/signup/check-email`}
+              exact
+              component={(props: any) => <AccountEmailSent {...props} isNewUser={true} />}
+            />
+            <Route
+              path={`${match.path}/auth/signup/verify-token/:token`}
+              exact
+              component={(props: AccountVerifyTokenProps) => (
+                <AccountVerifyToken
+                  isNewUser={true}
+                  onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                  {...props}
                 />
-                <Route
-                  path={`${match.path}/auth/signup/check-email`}
-                  exact
-                  component={(props: any) => <AccountEmailSent {...props} isNewUser={true} />}
-                />
-                <Route
-                  path={`${match.path}/auth/signup/verify-token/:token`}
-                  exact
-                  component={(props: AccountVerifyTokenProps) => (
-                    <AccountVerifyToken isNewUser={true} {...props} onAuthentication={this.handleOnAuthentication} />
-                  )}
-                />
-              </>
-            )}
-          />
+              )}
+            />
+          </AuthenticatedRoute>
           <AuthenticatedRoute
             redirectTo={`${match.path}/auth/login`}
             path={`${match.path}`}
@@ -76,10 +76,20 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       </>
     );
   }
-  public handleOnAuthentication = (authResult: any, isNewUser: boolean): void => {
-    // Set the session.
-    setApolloSession(authResult);
-    // TODO(jorgelo): Flush the local apollo cache here.
+
+  public handleOnAuthenticationContinue = (isNewUser: boolean): void => {
+    const {
+      match: { path: basePath },
+      history,
+    } = this.props;
+
+    history.push({
+      pathname: `${basePath}/account`,
+      state: {},
+    });
+
+    // TODO(tobek) or TODO(jorgelo) Do we need to flush cache to handle updated login state? Confirm. For now, refreshing will ensure we end up in the right place:
+    window.location.reload();
   };
 
   public handleAuthEmail = (isNewUser: boolean, emailAddress: string): void => {
