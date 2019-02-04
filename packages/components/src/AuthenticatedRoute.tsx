@@ -31,7 +31,7 @@ export const AuthenticatedRoute = ({
 
   const hasAuthToken = !!auth && !!auth.token;
 
-  if (!hasAuthToken && !onlyAllowUnauthenticated) {
+  if (onlyAllowUnauthenticated === hasAuthToken) {
     return <Redirect to={redirectTo} />;
   }
 
@@ -46,8 +46,6 @@ export const AuthenticatedRoute = ({
           if (error && !onlyAllowUnauthenticated) {
             return <Redirect to={redirectTo} />;
           }
-
-          console.log("AuthenticatedRoute", { data });
 
           if (Component) {
             // TODO(jorgelo): Get the line below working without the ts-ignore

@@ -29,8 +29,9 @@ export class UserInfo extends React.Component {
             }
 
             return <pre>{JSON.stringify(data, null, 2)}</pre>;
-        }}
-      </Query>
+          }}
+        </Query>
+      </>
     );
   }
 }
