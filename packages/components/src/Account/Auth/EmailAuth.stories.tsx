@@ -2,6 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
 import { AccountEmailAuth, AuthApplicationEnum } from "../";
+import StoryRouter from "storybook-react-router";
 
 const typeDefs = `
   type User {
@@ -70,6 +71,7 @@ storiesOf("Account", module)
       mocks,
     }),
   )
+  .addDecorator(StoryRouter())
   .add("AccountEmailAuth", () => {
     return (
       <AccountEmailAuth
