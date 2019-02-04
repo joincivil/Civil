@@ -43,10 +43,11 @@ export const AuthenticatedRoute = ({
             return null;
           }
 
-          //
           if (error && !onlyAllowUnauthenticated) {
             return <Redirect to={redirectTo} />;
           }
+
+          console.log("AuthenticatedRoute", { data });
 
           if (Component) {
             // TODO(jorgelo): Get the line below working without the ts-ignore
