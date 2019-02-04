@@ -7,7 +7,6 @@ import {
   AccountVerifyTokenProps,
   AuthenticatedRoute,
 } from "@joincivil/components";
-import { setApolloSession } from "@joincivil/utils";
 import { AccountHome } from "./Home";
 
 export default class AccountRouter extends React.Component<RouteComponentProps> {
@@ -34,7 +33,11 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
               path={`${match.path}/auth/login/verify-token/:token`}
               exact
               component={(props: AccountVerifyTokenProps) => (
-                <AccountVerifyToken isNewUser={false} {...props} onAuthentication={this.handleOnAuthentication} />
+                <AccountVerifyToken
+                  isNewUser={false}
+                  onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                  {...props}
+                />
               )}
             />
 
@@ -55,7 +58,11 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
               path={`${match.path}/auth/signup/verify-token/:token`}
               exact
               component={(props: AccountVerifyTokenProps) => (
-                <AccountVerifyToken isNewUser={true} {...props} onAuthentication={this.handleOnAuthentication} />
+                <AccountVerifyToken
+                  isNewUser={true}
+                  onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                  {...props}
+                />
               )}
             />
           </AuthenticatedRoute>
@@ -69,10 +76,20 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       </>
     );
   }
-  public handleOnAuthentication = (authResult: any, isNewUser: boolean): void => {
-    // Set the session.
-    setApolloSession(authResult);
-    // TODO(jorgelo): Flush the local apollo cache here.
+
+  public handleOnAuthenticationContinue = (isNewUser: boolean): void => {
+    const {
+      match: { path: basePath },
+      history,
+    } = this.props;
+
+    history.push({
+      pathname: `${basePath}/account`,
+      state: {},
+    });
+
+    // TODO(tobek) or TODO(jorgelo) Do we need to flush cache to handle updated login state? Confirm. For now, refreshing will ensure we end up in the right place:
+    window.location.reload();
   };
 
   public handleAuthEmail = (isNewUser: boolean, emailAddress: string): void => {

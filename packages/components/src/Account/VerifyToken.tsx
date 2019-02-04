@@ -1,8 +1,9 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import gql from "graphql-tag";
-import { ExecuteOnMount } from "../";
 import { Mutation } from "react-apollo";
+import { setApolloSession } from "@joincivil/utils";
+import { ExecuteOnMount, Button, buttonSizes } from "../";
 import { AuthLoginResponse } from "./";
 
 const verifySignUpTokenMutation = gql`
@@ -29,9 +30,10 @@ interface VerifyTokenParams {
   token: string;
 }
 
-export interface AccountVerifyTokenProps extends RouteComponentProps {
+export interface AccountVerifyTokenProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
-  onAuthentication(loginResponse: AuthLoginResponse, isNewUser: boolean): void;
+  token?: string;
+  onAuthenticationContinue(isNewUser: boolean): void;
 }
 
 export interface VerifyTokenState {
@@ -56,8 +58,8 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   }
 
   public render(): JSX.Element {
-    const { token: loginJWT } = this.props.match.params as VerifyTokenParams;
-    const { isNewUser, onAuthentication } = this.props;
+    const loginJWT = this.props.token || (this.props.match!.params as VerifyTokenParams).token;
+    const { isNewUser, onAuthenticationContinue } = this.props;
 
     const verifyMutation = isNewUser ? verifySignUpTokenMutation : verifyLoginTokenMutation;
     const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
@@ -67,16 +69,29 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
         <Mutation mutation={verifyMutation}>
           {(verifyToken, { loading, error, data }) => (
             <>
-              <span>{error && this.renderError(error)}</span>
               <ExecuteOnMount
                 onDidMount={async () => {
                   const res: any = await verifyToken({ variables: { loginJWT } });
                   const authResponse: AuthLoginResponse = res.data[resultKey];
-
-                  onAuthentication(authResponse, isNewUser);
-                  console.log({ authResponse });
+                  setApolloSession(authResponse);
+                  // TODO(jorgelo): Flush the local apollo cache here.
+                  this.setState({ hasValidated: true });
                 }}
               />
+
+              {this.state.hasValidated ? (
+                <>
+                  <h3>Email Address Confirmed!</h3>
+                  <p>Thanks for confirming your email address</p>
+                  <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => onAuthenticationContinue(isNewUser)}>
+                    Continue
+                  </Button>
+                </>
+              ) : (
+                <>Verifying email...</>
+              )}
+
+              <span>{error && this.renderError(error)}</span>
             </>
           )}
         </Mutation>
