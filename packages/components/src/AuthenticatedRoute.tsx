@@ -29,11 +29,7 @@ export const AuthenticatedRoute = ({
 }: AuthenticatedRouteProps) => {
   const auth = getApolloSession();
 
-<<<<<<< HEAD
-  const hasAuthToken = auth && auth.token;
-=======
   const hasAuthToken = !!auth && !!auth.token;
->>>>>>> origin/tobek/newsroom-auth
 
   if (!hasAuthToken && !onlyAllowUnauthenticated) {
     return <Redirect to={redirectTo} />;
