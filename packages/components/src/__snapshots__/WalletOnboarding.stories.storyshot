@@ -4,7 +4,7 @@ exports[`Storyshots Wallet Onboarding CMS profile vs. MetaMask address mismatch 
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-AnqlK gAvbsU",
+      "class": "sc-jvEmr jQMSVU",
     },
     "children": Array [
       Object {
@@ -39,7 +39,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-fKGOjr dVnEjO",
+              "class": "sc-fHSTwm htXYfZ",
             },
             "children": Array [
               Object {
@@ -54,7 +54,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kVrTmx esBSGj",
+                "class": "sc-dTLGrV gLgBjc",
               },
               "children": Array [
                 Object {
@@ -71,7 +71,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-fKGOjr dVnEjO",
+                    "class": "sc-fHSTwm htXYfZ",
                   },
                   "children": Array [
                     Object {
@@ -86,17 +86,17 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-kfGgVZ dmDvAX",
+                      "class": "sc-iQKALj diYAJJ",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-esjQYD dbHcCT",
+                          "class": "sc-bwCtUz kOxhXu",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-dNLxif eYQdhX",
+                              "class": "sc-fYxtnH hkKHkN",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -127,7 +127,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-dNLxif eYQdhX",
+                                "class": "sc-fYxtnH hkKHkN",
                                 "src": "test-file-stub",
                               },
                               "children": Array [],
@@ -169,12 +169,13 @@ initialize {
                       "data": " ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-iBmynh catJnO",
+                          "class": "sc-cCbXAZ dNeNnw",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                              "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                              "theme": "[object Object]",
                               "type": "button",
                             },
                             "children": Array [
@@ -194,10 +195,12 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "class": undefined,
+                              "theme": undefined,
                               "type": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "class": undefined,
+                              "theme": undefined,
                               "type": undefined,
                             },
                           },
@@ -300,7 +303,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-fKGOjr dVnEjO",
+            "class": "sc-fHSTwm htXYfZ",
           },
           "children": Array [
             Object {
@@ -315,7 +318,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-kVrTmx esBSGj",
+              "class": "sc-dTLGrV gLgBjc",
             },
             "children": Array [
               Object {
@@ -332,7 +335,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-fKGOjr dVnEjO",
+                  "class": "sc-fHSTwm htXYfZ",
                 },
                 "children": Array [
                   Object {
@@ -347,17 +350,17 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-kfGgVZ dmDvAX",
+                    "class": "sc-iQKALj diYAJJ",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-esjQYD dbHcCT",
+                        "class": "sc-bwCtUz kOxhXu",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-dNLxif eYQdhX",
+                            "class": "sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -388,7 +391,7 @@ initialize {
                           "parent": [Circular],
                           "prev": Object {
                             "attribs": Object {
-                              "class": "sc-dNLxif eYQdhX",
+                              "class": "sc-fYxtnH hkKHkN",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -430,12 +433,13 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-iBmynh catJnO",
+                        "class": "sc-cCbXAZ dNeNnw",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                            "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                            "theme": "[object Object]",
                             "type": "button",
                           },
                           "children": Array [
@@ -455,10 +459,12 @@ initialize {
                           "type": "tag",
                           "x-attribsNamespace": Object {
                             "class": undefined,
+                            "theme": undefined,
                             "type": undefined,
                           },
                           "x-attribsPrefix": Object {
                             "class": undefined,
+                            "theme": undefined,
                             "type": undefined,
                           },
                         },
@@ -561,7 +567,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-fKGOjr dVnEjO",
+          "class": "sc-fHSTwm htXYfZ",
         },
         "children": Array [
           Object {
@@ -576,7 +582,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-kVrTmx esBSGj",
+            "class": "sc-dTLGrV gLgBjc",
           },
           "children": Array [
             Object {
@@ -593,7 +599,7 @@ initialize {
             "data": " ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-fKGOjr dVnEjO",
+                "class": "sc-fHSTwm htXYfZ",
               },
               "children": Array [
                 Object {
@@ -608,17 +614,17 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kfGgVZ dmDvAX",
+                  "class": "sc-iQKALj diYAJJ",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-esjQYD dbHcCT",
+                      "class": "sc-bwCtUz kOxhXu",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -649,7 +655,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-dNLxif eYQdhX",
+                            "class": "sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -691,12 +697,13 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-iBmynh catJnO",
+                      "class": "sc-cCbXAZ dNeNnw",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                          "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                          "theme": "[object Object]",
                           "type": "button",
                         },
                         "children": Array [
@@ -716,10 +723,12 @@ initialize {
                         "type": "tag",
                         "x-attribsNamespace": Object {
                           "class": undefined,
+                          "theme": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
                           "class": undefined,
+                          "theme": undefined,
                           "type": undefined,
                         },
                       },
@@ -837,7 +846,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-kVrTmx esBSGj",
+          "class": "sc-dTLGrV gLgBjc",
         },
         "children": Array [
           Object {
@@ -854,7 +863,7 @@ initialize {
           "data": " ",
           "next": Object {
             "attribs": Object {
-              "class": "sc-fKGOjr dVnEjO",
+              "class": "sc-fHSTwm htXYfZ",
             },
             "children": Array [
               Object {
@@ -869,17 +878,17 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kfGgVZ dmDvAX",
+                "class": "sc-iQKALj diYAJJ",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-esjQYD dbHcCT",
+                    "class": "sc-bwCtUz kOxhXu",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -910,7 +919,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -952,12 +961,13 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-iBmynh catJnO",
+                    "class": "sc-cCbXAZ dNeNnw",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                        "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                        "theme": "[object Object]",
                         "type": "button",
                       },
                       "children": Array [
@@ -977,10 +987,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "class": undefined,
+                        "theme": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "class": undefined,
+                        "theme": undefined,
                         "type": undefined,
                       },
                     },
@@ -1029,7 +1041,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-fKGOjr dVnEjO",
+            "class": "sc-fHSTwm htXYfZ",
           },
           "children": Array [
             Object {
@@ -1115,7 +1127,7 @@ initialize {
         "data": " ",
         "next": Object {
           "attribs": Object {
-            "class": "sc-fKGOjr dVnEjO",
+            "class": "sc-fHSTwm htXYfZ",
           },
           "children": Array [
             Object {
@@ -1130,17 +1142,17 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-kfGgVZ dmDvAX",
+              "class": "sc-iQKALj diYAJJ",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-esjQYD dbHcCT",
+                  "class": "sc-bwCtUz kOxhXu",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -1171,7 +1183,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -1213,12 +1225,13 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-iBmynh catJnO",
+                  "class": "sc-cCbXAZ dNeNnw",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                      "theme": "[object Object]",
                       "type": "button",
                     },
                     "children": Array [
@@ -1238,10 +1251,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "class": undefined,
+                      "theme": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "class": undefined,
+                      "theme": undefined,
                       "type": undefined,
                     },
                   },
@@ -1286,7 +1301,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-kVrTmx esBSGj",
+            "class": "sc-dTLGrV gLgBjc",
           },
           "children": Array [
             Object {
@@ -1303,7 +1318,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-fKGOjr dVnEjO",
+              "class": "sc-fHSTwm htXYfZ",
             },
             "children": Array [
               Object {
@@ -1389,7 +1404,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-fKGOjr dVnEjO",
+          "class": "sc-fHSTwm htXYfZ",
         },
         "children": Array [
           Object {
@@ -1404,17 +1419,17 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-kfGgVZ dmDvAX",
+            "class": "sc-iQKALj diYAJJ",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-esjQYD dbHcCT",
+                "class": "sc-bwCtUz kOxhXu",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -1445,7 +1460,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -1487,12 +1502,13 @@ initialize {
             "data": " ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-iBmynh catJnO",
+                "class": "sc-cCbXAZ dNeNnw",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                    "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
@@ -1512,10 +1528,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                 },
@@ -1554,7 +1572,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-kVrTmx esBSGj",
+              "class": "sc-dTLGrV gLgBjc",
             },
             "children": Array [
               Object {
@@ -1571,7 +1589,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-fKGOjr dVnEjO",
+                "class": "sc-fHSTwm htXYfZ",
               },
               "children": Array [
                 Object {
@@ -1665,17 +1683,17 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-kfGgVZ dmDvAX",
+          "class": "sc-iQKALj diYAJJ",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-esjQYD dbHcCT",
+              "class": "sc-bwCtUz kOxhXu",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-dNLxif eYQdhX",
+                  "class": "sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -1706,7 +1724,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -1748,12 +1766,13 @@ initialize {
           "data": " ",
           "next": Object {
             "attribs": Object {
-              "class": "sc-iBmynh catJnO",
+              "class": "sc-cCbXAZ dNeNnw",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
@@ -1773,10 +1792,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
               },
@@ -1801,7 +1822,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-fKGOjr dVnEjO",
+            "class": "sc-fHSTwm htXYfZ",
           },
           "children": Array [
             Object {
@@ -1822,7 +1843,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kVrTmx esBSGj",
+                "class": "sc-dTLGrV gLgBjc",
               },
               "children": Array [
                 Object {
@@ -1839,7 +1860,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-fKGOjr dVnEjO",
+                  "class": "sc-fHSTwm htXYfZ",
                 },
                 "children": Array [
                   Object {
@@ -1943,12 +1964,13 @@ initialize {
         "data": " ",
         "next": Object {
           "attribs": Object {
-            "class": "sc-iBmynh catJnO",
+            "class": "sc-cCbXAZ dNeNnw",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
@@ -1968,10 +1990,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -1992,17 +2016,17 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-kfGgVZ dmDvAX",
+            "class": "sc-iQKALj diYAJJ",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-esjQYD dbHcCT",
+                "class": "sc-bwCtUz kOxhXu",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -2033,7 +2057,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -2075,7 +2099,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-fKGOjr dVnEjO",
+              "class": "sc-fHSTwm htXYfZ",
             },
             "children": Array [
               Object {
@@ -2096,7 +2120,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-kVrTmx esBSGj",
+                  "class": "sc-dTLGrV gLgBjc",
                 },
                 "children": Array [
                   Object {
@@ -2113,7 +2137,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-fKGOjr dVnEjO",
+                    "class": "sc-fHSTwm htXYfZ",
                   },
                   "children": Array [
                     Object {
@@ -2217,12 +2241,13 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-iBmynh catJnO",
+          "class": "sc-cCbXAZ dNeNnw",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+              "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
@@ -2242,10 +2267,12 @@ initialize {
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
           },
@@ -2260,17 +2287,17 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-kfGgVZ dmDvAX",
+              "class": "sc-iQKALj diYAJJ",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-esjQYD dbHcCT",
+                  "class": "sc-bwCtUz kOxhXu",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -2301,7 +2328,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -2343,7 +2370,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-fKGOjr dVnEjO",
+                "class": "sc-fHSTwm htXYfZ",
               },
               "children": Array [
                 Object {
@@ -2364,7 +2391,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-kVrTmx esBSGj",
+                    "class": "sc-dTLGrV gLgBjc",
                   },
                   "children": Array [
                     Object {
@@ -2381,7 +2408,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-fKGOjr dVnEjO",
+                      "class": "sc-fHSTwm htXYfZ",
                     },
                     "children": Array [
                       Object {
@@ -2534,7 +2561,7 @@ exports[`Storyshots Wallet Onboarding Connected 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-AnqlK gAvbsU",
+      "class": "sc-jvEmr jQMSVU",
     },
     "children": Array [
       Object {
@@ -2554,7 +2581,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-fKGOjr dVnEjO",
+            "class": "sc-fHSTwm htXYfZ",
           },
           "children": Array [
             Object {
@@ -2569,17 +2596,17 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-kfGgVZ dmDvAX",
+              "class": "sc-iQKALj diYAJJ",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-esjQYD dbHcCT",
+                  "class": "sc-bwCtUz kOxhXu",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -2610,7 +2637,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -2687,7 +2714,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-fKGOjr dVnEjO",
+          "class": "sc-fHSTwm htXYfZ",
         },
         "children": Array [
           Object {
@@ -2702,17 +2729,17 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-kfGgVZ dmDvAX",
+            "class": "sc-iQKALj diYAJJ",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-esjQYD dbHcCT",
+                "class": "sc-bwCtUz kOxhXu",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -2743,7 +2770,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -2835,17 +2862,17 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-kfGgVZ dmDvAX",
+          "class": "sc-iQKALj diYAJJ",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-esjQYD dbHcCT",
+              "class": "sc-bwCtUz kOxhXu",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-dNLxif eYQdhX",
+                  "class": "sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -2876,7 +2903,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -2924,7 +2951,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-fKGOjr dVnEjO",
+            "class": "sc-fHSTwm htXYfZ",
           },
           "children": Array [
             Object {
@@ -2987,17 +3014,17 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-kfGgVZ dmDvAX",
+            "class": "sc-iQKALj diYAJJ",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-esjQYD dbHcCT",
+                "class": "sc-bwCtUz kOxhXu",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -3028,7 +3055,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -3070,7 +3097,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-fKGOjr dVnEjO",
+              "class": "sc-fHSTwm htXYfZ",
             },
             "children": Array [
               Object {
@@ -3172,12 +3199,12 @@ exports[`Storyshots Wallet Onboarding Locked 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-AnqlK gAvbsU",
+      "class": "sc-jvEmr jQMSVU",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-hycgNl XteLZ",
+          "class": "sc-cmIlrE dYKRvx",
           "src": "test-file-stub",
         },
         "children": Array [],
@@ -3286,7 +3313,8 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                      "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                      "theme": "[object Object]",
                       "type": "button",
                     },
                     "children": Array [
@@ -3306,10 +3334,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "class": undefined,
+                      "theme": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "class": undefined,
+                      "theme": undefined,
                       "type": undefined,
                     },
                   },
@@ -3460,7 +3490,8 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                    "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
@@ -3480,10 +3511,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                 },
@@ -3512,7 +3545,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-hycgNl XteLZ",
+            "class": "sc-cmIlrE dYKRvx",
             "src": "test-file-stub",
           },
           "children": Array [],
@@ -3627,7 +3660,8 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
@@ -3647,10 +3681,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
               },
@@ -3690,7 +3726,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-hycgNl XteLZ",
+              "class": "sc-cmIlrE dYKRvx",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -3739,7 +3775,8 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
@@ -3759,10 +3796,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -3868,7 +3907,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-hycgNl XteLZ",
+                "class": "sc-cmIlrE dYKRvx",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -3908,7 +3947,8 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+              "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
@@ -3928,10 +3968,12 @@ initialize {
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
           },
@@ -4046,7 +4088,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hycgNl XteLZ",
+                  "class": "sc-cmIlrE dYKRvx",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -4128,7 +4170,7 @@ exports[`Storyshots Wallet Onboarding No Provider 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-AnqlK gAvbsU",
+      "class": "sc-jvEmr jQMSVU",
     },
     "children": Array [
       Object {
@@ -4171,7 +4213,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -4267,7 +4309,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -4349,7 +4391,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -4445,7 +4487,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -4578,7 +4620,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -4668,7 +4710,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -4764,7 +4806,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -4843,16 +4885,17 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                   "href": "https://metamask.io/",
                   "target": "_blank",
+                  "theme": "[object Object]",
                 },
                 "children": Array [
                   Object {
                     "data": "Open MetaMask.io ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-ekkqgF hApIHT",
+                        "class": "sc-ivVeuv iXIsSb",
                       },
                       "children": Array [
                         Object {
@@ -4927,7 +4970,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-ekkqgF hApIHT",
+                      "class": "sc-ivVeuv iXIsSb",
                     },
                     "children": Array [
                       Object {
@@ -5145,11 +5188,13 @@ initialize {
                   "class": undefined,
                   "href": undefined,
                   "target": undefined,
+                  "theme": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
                   "href": undefined,
                   "target": undefined,
+                  "theme": undefined,
                 },
               },
               Object {
@@ -5278,16 +5323,17 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                     "href": "https://metamask.io/",
                     "target": "_blank",
+                    "theme": "[object Object]",
                   },
                   "children": Array [
                     Object {
                       "data": "Open MetaMask.io ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-ekkqgF hApIHT",
+                          "class": "sc-ivVeuv iXIsSb",
                         },
                         "children": Array [
                           Object {
@@ -5362,7 +5408,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-ekkqgF hApIHT",
+                        "class": "sc-ivVeuv iXIsSb",
                       },
                       "children": Array [
                         Object {
@@ -5448,11 +5494,13 @@ initialize {
                     "class": undefined,
                     "href": undefined,
                     "target": undefined,
+                    "theme": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
                     "href": undefined,
                     "target": undefined,
+                    "theme": undefined,
                   },
                 },
                 "type": "tag",
@@ -6002,7 +6050,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -6098,7 +6146,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -6180,7 +6228,7 @@ initialize {
             "data": " ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -6276,7 +6324,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+              "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -6409,7 +6457,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -6499,7 +6547,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -6595,7 +6643,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -6674,16 +6722,17 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                 "href": "https://metamask.io/",
                 "target": "_blank",
+                "theme": "[object Object]",
               },
               "children": Array [
                 Object {
                   "data": "Open MetaMask.io ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-ekkqgF hApIHT",
+                      "class": "sc-ivVeuv iXIsSb",
                     },
                     "children": Array [
                       Object {
@@ -6758,7 +6807,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-ekkqgF hApIHT",
+                    "class": "sc-ivVeuv iXIsSb",
                   },
                   "children": Array [
                     Object {
@@ -6976,11 +7025,13 @@ initialize {
                 "class": undefined,
                 "href": undefined,
                 "target": undefined,
+                "theme": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
                 "href": undefined,
                 "target": undefined,
+                "theme": undefined,
               },
             },
             Object {
@@ -7109,16 +7160,17 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                   "href": "https://metamask.io/",
                   "target": "_blank",
+                  "theme": "[object Object]",
                 },
                 "children": Array [
                   Object {
                     "data": "Open MetaMask.io ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-ekkqgF hApIHT",
+                        "class": "sc-ivVeuv iXIsSb",
                       },
                       "children": Array [
                         Object {
@@ -7193,7 +7245,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-ekkqgF hApIHT",
+                      "class": "sc-ivVeuv iXIsSb",
                     },
                     "children": Array [
                       Object {
@@ -7279,11 +7331,13 @@ initialize {
                   "class": undefined,
                   "href": undefined,
                   "target": undefined,
+                  "theme": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
                   "href": undefined,
                   "target": undefined,
+                  "theme": undefined,
                 },
               },
               "type": "tag",
@@ -7828,16 +7882,17 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+              "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
               "href": "https://metamask.io/",
               "target": "_blank",
+              "theme": "[object Object]",
             },
             "children": Array [
               Object {
                 "data": "Open MetaMask.io ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-ekkqgF hApIHT",
+                    "class": "sc-ivVeuv iXIsSb",
                   },
                   "children": Array [
                     Object {
@@ -7912,7 +7967,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-ekkqgF hApIHT",
+                  "class": "sc-ivVeuv iXIsSb",
                 },
                 "children": Array [
                   Object {
@@ -8130,11 +8185,13 @@ initialize {
               "class": undefined,
               "href": undefined,
               "target": undefined,
+              "theme": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
               "href": undefined,
               "target": undefined,
+              "theme": undefined,
             },
           },
           Object {
@@ -8263,16 +8320,17 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                 "href": "https://metamask.io/",
                 "target": "_blank",
+                "theme": "[object Object]",
               },
               "children": Array [
                 Object {
                   "data": "Open MetaMask.io ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-ekkqgF hApIHT",
+                      "class": "sc-ivVeuv iXIsSb",
                     },
                     "children": Array [
                       Object {
@@ -8347,7 +8405,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-ekkqgF hApIHT",
+                    "class": "sc-ivVeuv iXIsSb",
                   },
                   "children": Array [
                     Object {
@@ -8433,11 +8491,13 @@ initialize {
                 "class": undefined,
                 "href": undefined,
                 "target": undefined,
+                "theme": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
                 "href": undefined,
                 "target": undefined,
+                "theme": undefined,
               },
             },
             "type": "tag",
@@ -8966,7 +9026,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -9062,7 +9122,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -9144,7 +9204,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -9240,7 +9300,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -9373,7 +9433,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -9463,7 +9523,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -9559,7 +9619,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -10158,16 +10218,17 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                 "href": "https://metamask.io/",
                 "target": "_blank",
+                "theme": "[object Object]",
               },
               "children": Array [
                 Object {
                   "data": "Open MetaMask.io ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-ekkqgF hApIHT",
+                      "class": "sc-ivVeuv iXIsSb",
                     },
                     "children": Array [
                       Object {
@@ -10242,7 +10303,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-ekkqgF hApIHT",
+                    "class": "sc-ivVeuv iXIsSb",
                   },
                   "children": Array [
                     Object {
@@ -10460,11 +10521,13 @@ initialize {
                 "class": undefined,
                 "href": undefined,
                 "target": undefined,
+                "theme": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
                 "href": undefined,
                 "target": undefined,
+                "theme": undefined,
               },
             },
             Object {
@@ -10593,16 +10656,17 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                   "href": "https://metamask.io/",
                   "target": "_blank",
+                  "theme": "[object Object]",
                 },
                 "children": Array [
                   Object {
                     "data": "Open MetaMask.io ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-ekkqgF hApIHT",
+                        "class": "sc-ivVeuv iXIsSb",
                       },
                       "children": Array [
                         Object {
@@ -10677,7 +10741,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-ekkqgF hApIHT",
+                      "class": "sc-ivVeuv iXIsSb",
                     },
                     "children": Array [
                       Object {
@@ -10763,11 +10827,13 @@ initialize {
                   "class": undefined,
                   "href": undefined,
                   "target": undefined,
+                  "theme": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
                   "href": undefined,
                   "target": undefined,
+                  "theme": undefined,
                 },
               },
               "type": "tag",
@@ -10808,7 +10874,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                        "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -10904,7 +10970,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -10986,7 +11052,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -11082,7 +11148,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -11215,7 +11281,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -11305,7 +11371,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -11401,7 +11467,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                        "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -12000,16 +12066,17 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                   "href": "https://metamask.io/",
                   "target": "_blank",
+                  "theme": "[object Object]",
                 },
                 "children": Array [
                   Object {
                     "data": "Open MetaMask.io ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-ekkqgF hApIHT",
+                        "class": "sc-ivVeuv iXIsSb",
                       },
                       "children": Array [
                         Object {
@@ -12084,7 +12151,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-ekkqgF hApIHT",
+                      "class": "sc-ivVeuv iXIsSb",
                     },
                     "children": Array [
                       Object {
@@ -12302,11 +12369,13 @@ initialize {
                   "class": undefined,
                   "href": undefined,
                   "target": undefined,
+                  "theme": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
                   "href": undefined,
                   "target": undefined,
+                  "theme": undefined,
                 },
               },
               Object {
@@ -12435,16 +12504,17 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                     "href": "https://metamask.io/",
                     "target": "_blank",
+                    "theme": "[object Object]",
                   },
                   "children": Array [
                     Object {
                       "data": "Open MetaMask.io ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-ekkqgF hApIHT",
+                          "class": "sc-ivVeuv iXIsSb",
                         },
                         "children": Array [
                           Object {
@@ -12519,7 +12589,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-ekkqgF hApIHT",
+                        "class": "sc-ivVeuv iXIsSb",
                       },
                       "children": Array [
                         Object {
@@ -12605,11 +12675,13 @@ initialize {
                     "class": undefined,
                     "href": undefined,
                     "target": undefined,
+                    "theme": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
                     "href": undefined,
                     "target": undefined,
+                    "theme": undefined,
                   },
                 },
                 "type": "tag",
@@ -12650,7 +12722,7 @@ initialize {
                       "data": " ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                          "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -12746,7 +12818,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                        "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -12828,7 +12900,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -12924,7 +12996,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -13057,7 +13129,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -13147,7 +13219,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                        "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -13243,7 +13315,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                          "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -13838,16 +13910,17 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                     "href": "https://metamask.io/",
                     "target": "_blank",
+                    "theme": "[object Object]",
                   },
                   "children": Array [
                     Object {
                       "data": "Open MetaMask.io ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-ekkqgF hApIHT",
+                          "class": "sc-ivVeuv iXIsSb",
                         },
                         "children": Array [
                           Object {
@@ -13922,7 +13995,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-ekkqgF hApIHT",
+                        "class": "sc-ivVeuv iXIsSb",
                       },
                       "children": Array [
                         Object {
@@ -14140,11 +14213,13 @@ initialize {
                     "class": undefined,
                     "href": undefined,
                     "target": undefined,
+                    "theme": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
                     "href": undefined,
                     "target": undefined,
+                    "theme": undefined,
                   },
                 },
                 Object {
@@ -14273,16 +14348,17 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                       "href": "https://metamask.io/",
                       "target": "_blank",
+                      "theme": "[object Object]",
                     },
                     "children": Array [
                       Object {
                         "data": "Open MetaMask.io ",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-ekkqgF hApIHT",
+                            "class": "sc-ivVeuv iXIsSb",
                           },
                           "children": Array [
                             Object {
@@ -14357,7 +14433,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-ekkqgF hApIHT",
+                          "class": "sc-ivVeuv iXIsSb",
                         },
                         "children": Array [
                           Object {
@@ -14443,11 +14519,13 @@ initialize {
                       "class": undefined,
                       "href": undefined,
                       "target": undefined,
+                      "theme": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "class": undefined,
                       "href": undefined,
                       "target": undefined,
+                      "theme": undefined,
                     },
                   },
                   "type": "tag",
@@ -14488,7 +14566,7 @@ initialize {
                         "data": " ",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                            "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -14584,7 +14662,7 @@ initialize {
                       "data": " ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                          "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -14666,7 +14744,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                        "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -14762,7 +14840,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -14895,7 +14973,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                        "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -14985,7 +15063,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                          "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -15081,7 +15159,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                            "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -15250,7 +15328,7 @@ exports[`Storyshots Wallet Onboarding Not Enabled 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-AnqlK gAvbsU",
+      "class": "sc-jvEmr jQMSVU",
     },
     "children": Array [
       Object {
@@ -15286,7 +15364,8 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
@@ -15306,10 +15385,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
               },
@@ -15323,7 +15404,7 @@ initialize {
                   "data": "If you do not see the MetaMask popup, please click the ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -15354,7 +15435,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -15391,7 +15472,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -15468,7 +15549,8 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
@@ -15488,10 +15570,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -15505,7 +15589,7 @@ initialize {
                 "data": "If you do not see the MetaMask popup, please click the ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -15536,7 +15620,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -15573,7 +15657,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -15652,7 +15736,8 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+              "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
@@ -15672,10 +15757,12 @@ initialize {
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
           },
@@ -15689,7 +15776,7 @@ initialize {
               "data": "If you do not see the MetaMask popup, please click the ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -15720,7 +15807,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -15757,7 +15844,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -15851,7 +15938,7 @@ initialize {
             "data": "If you do not see the MetaMask popup, please click the ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -15882,7 +15969,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+              "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -15919,7 +16006,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -15956,7 +16043,8 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
@@ -15976,10 +16064,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -16084,7 +16174,7 @@ exports[`Storyshots Wallet Onboarding Save address to CMS profile 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-AnqlK gAvbsU",
+      "class": "sc-jvEmr jQMSVU",
     },
     "children": Array [
       Object {
@@ -16117,7 +16207,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-fKGOjr dVnEjO",
+              "class": "sc-fHSTwm htXYfZ",
             },
             "children": Array [
               Object {
@@ -16132,17 +16222,17 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kfGgVZ dmDvAX",
+                "class": "sc-iQKALj diYAJJ",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-esjQYD dbHcCT",
+                    "class": "sc-bwCtUz kOxhXu",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -16173,7 +16263,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -16215,12 +16305,13 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-iBmynh catJnO",
+                    "class": "sc-cCbXAZ dNeNnw",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                        "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                        "theme": "[object Object]",
                         "type": "button",
                       },
                       "children": Array [
@@ -16240,10 +16331,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "class": undefined,
+                        "theme": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "class": undefined,
+                        "theme": undefined,
                         "type": undefined,
                       },
                     },
@@ -16316,7 +16409,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-fKGOjr dVnEjO",
+            "class": "sc-fHSTwm htXYfZ",
           },
           "children": Array [
             Object {
@@ -16331,17 +16424,17 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-kfGgVZ dmDvAX",
+              "class": "sc-iQKALj diYAJJ",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-esjQYD dbHcCT",
+                  "class": "sc-bwCtUz kOxhXu",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -16372,7 +16465,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -16414,12 +16507,13 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-iBmynh catJnO",
+                  "class": "sc-cCbXAZ dNeNnw",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                      "theme": "[object Object]",
                       "type": "button",
                     },
                     "children": Array [
@@ -16439,10 +16533,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "class": undefined,
+                      "theme": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "class": undefined,
+                      "theme": undefined,
                       "type": undefined,
                     },
                   },
@@ -16517,7 +16613,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-fKGOjr dVnEjO",
+          "class": "sc-fHSTwm htXYfZ",
         },
         "children": Array [
           Object {
@@ -16532,17 +16628,17 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-kfGgVZ dmDvAX",
+            "class": "sc-iQKALj diYAJJ",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-esjQYD dbHcCT",
+                "class": "sc-bwCtUz kOxhXu",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -16573,7 +16669,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -16615,12 +16711,13 @@ initialize {
             "data": " ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-iBmynh catJnO",
+                "class": "sc-cCbXAZ dNeNnw",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                    "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
@@ -16640,10 +16737,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                 },
@@ -16731,17 +16830,17 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-kfGgVZ dmDvAX",
+          "class": "sc-iQKALj diYAJJ",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-esjQYD dbHcCT",
+              "class": "sc-bwCtUz kOxhXu",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-dNLxif eYQdhX",
+                  "class": "sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -16772,7 +16871,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -16814,12 +16913,13 @@ initialize {
           "data": " ",
           "next": Object {
             "attribs": Object {
-              "class": "sc-iBmynh catJnO",
+              "class": "sc-cCbXAZ dNeNnw",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
@@ -16839,10 +16939,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
               },
@@ -16867,7 +16969,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-fKGOjr dVnEjO",
+            "class": "sc-fHSTwm htXYfZ",
           },
           "children": Array [
             Object {
@@ -16947,12 +17049,13 @@ initialize {
         "data": " ",
         "next": Object {
           "attribs": Object {
-            "class": "sc-iBmynh catJnO",
+            "class": "sc-cCbXAZ dNeNnw",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
@@ -16972,10 +17075,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -16996,17 +17101,17 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-kfGgVZ dmDvAX",
+            "class": "sc-iQKALj diYAJJ",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-esjQYD dbHcCT",
+                "class": "sc-bwCtUz kOxhXu",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-dNLxif eYQdhX",
+                    "class": "sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -17037,7 +17142,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -17079,7 +17184,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-fKGOjr dVnEjO",
+              "class": "sc-fHSTwm htXYfZ",
             },
             "children": Array [
               Object {
@@ -17159,12 +17264,13 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-iBmynh catJnO",
+          "class": "sc-cCbXAZ dNeNnw",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+              "class": "sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
@@ -17184,10 +17290,12 @@ initialize {
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
           },
@@ -17202,17 +17310,17 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-kfGgVZ dmDvAX",
+              "class": "sc-iQKALj diYAJJ",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-esjQYD dbHcCT",
+                  "class": "sc-bwCtUz kOxhXu",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -17243,7 +17351,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -17285,7 +17393,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-fKGOjr dVnEjO",
+                "class": "sc-fHSTwm htXYfZ",
               },
               "children": Array [
                 Object {
@@ -17414,7 +17522,7 @@ exports[`Storyshots Wallet Onboarding Save wallet to account 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-AnqlK gAvbsU",
+      "class": "sc-jvEmr jQMSVU",
     },
     "children": Array [
       Object {
@@ -17463,18 +17571,19 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                    "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-jRhVzh hgHOey",
+                        "class": "sc-hvvHee gkEhTg",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-dNLxif eYQdhX",
+                            "class": "sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -17519,12 +17628,12 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-jRhVzh hgHOey",
+                          "class": "sc-hvvHee gkEhTg",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-dNLxif eYQdhX",
+                              "class": "sc-fYxtnH hkKHkN",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -17585,10 +17694,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                 },
@@ -17600,18 +17711,19 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-jRhVzh hgHOey",
+                      "class": "sc-hvvHee gkEhTg",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -17656,12 +17768,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-jRhVzh hgHOey",
+                        "class": "sc-hvvHee gkEhTg",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-dNLxif eYQdhX",
+                            "class": "sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -17741,10 +17853,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
               },
@@ -17759,18 +17873,19 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                    "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-jRhVzh hgHOey",
+                        "class": "sc-hvvHee gkEhTg",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-dNLxif eYQdhX",
+                            "class": "sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -17815,12 +17930,12 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-jRhVzh hgHOey",
+                          "class": "sc-hvvHee gkEhTg",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-dNLxif eYQdhX",
+                              "class": "sc-fYxtnH hkKHkN",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -17883,10 +17998,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                 },
@@ -17955,18 +18072,19 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-jRhVzh hgHOey",
+                      "class": "sc-hvvHee gkEhTg",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -18011,12 +18129,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-jRhVzh hgHOey",
+                        "class": "sc-hvvHee gkEhTg",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-dNLxif eYQdhX",
+                            "class": "sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -18077,10 +18195,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
               },
@@ -18092,18 +18212,19 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-jRhVzh hgHOey",
+                    "class": "sc-hvvHee gkEhTg",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -18148,12 +18269,12 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jRhVzh hgHOey",
+                      "class": "sc-hvvHee gkEhTg",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -18233,10 +18354,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -18251,18 +18374,19 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-jRhVzh hgHOey",
+                      "class": "sc-hvvHee gkEhTg",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -18307,12 +18431,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-jRhVzh hgHOey",
+                        "class": "sc-hvvHee gkEhTg",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-dNLxif eYQdhX",
+                            "class": "sc-fYxtnH hkKHkN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -18375,10 +18499,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
               },
@@ -18449,18 +18575,19 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-jRhVzh hgHOey",
+                    "class": "sc-hvvHee gkEhTg",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -18505,12 +18632,12 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jRhVzh hgHOey",
+                      "class": "sc-hvvHee gkEhTg",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -18571,10 +18698,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -18586,18 +18715,19 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+              "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-jRhVzh hgHOey",
+                  "class": "sc-hvvHee gkEhTg",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-dNLxif eYQdhX",
+                      "class": "sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -18642,12 +18772,12 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jRhVzh hgHOey",
+                    "class": "sc-hvvHee gkEhTg",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -18727,10 +18857,12 @@ initialize {
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
           },
@@ -18745,18 +18877,19 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-hkbPbT gIUOTQ sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-cPuPxo dVWZPn sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-jRhVzh hgHOey",
+                    "class": "sc-hvvHee gkEhTg",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-dNLxif eYQdhX",
+                        "class": "sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -18801,12 +18934,12 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jRhVzh hgHOey",
+                      "class": "sc-hvvHee gkEhTg",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-dNLxif eYQdhX",
+                          "class": "sc-fYxtnH hkKHkN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -18869,10 +19002,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -18981,12 +19116,12 @@ exports[`Storyshots Wallet Onboarding Wrong Network 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-AnqlK gAvbsU",
+      "class": "sc-jvEmr jQMSVU",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-hycgNl XteLZ",
+          "class": "sc-cmIlrE dYKRvx",
           "src": "test-file-stub",
         },
         "children": Array [],
@@ -19032,7 +19167,7 @@ initialize {
                     "data": " to switch networks in MetaMask ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                        "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -19091,7 +19226,7 @@ initialize {
                   "data": " to switch networks in MetaMask ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -19136,7 +19271,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -19195,7 +19330,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -19275,7 +19410,8 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                      "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                      "theme": "[object Object]",
                       "type": "button",
                     },
                     "children": Array [
@@ -19295,10 +19431,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "class": undefined,
+                      "theme": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "class": undefined,
+                      "theme": undefined,
                       "type": undefined,
                     },
                   },
@@ -19386,7 +19524,7 @@ initialize {
                   "data": " to switch networks in MetaMask ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -19445,7 +19583,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -19490,7 +19628,7 @@ initialize {
               "data": " to switch networks in MetaMask ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -19549,7 +19687,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -19629,7 +19767,8 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                    "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                    "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
@@ -19649,10 +19788,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                    "theme": undefined,
                     "type": undefined,
                   },
                 },
@@ -19681,7 +19822,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-hycgNl XteLZ",
+            "class": "sc-cmIlrE dYKRvx",
             "src": "test-file-stub",
           },
           "children": Array [],
@@ -19733,7 +19874,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -19792,7 +19933,7 @@ initialize {
               "data": " to switch networks in MetaMask ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -19837,7 +19978,7 @@ initialize {
             "data": " to switch networks in MetaMask ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -19896,7 +20037,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+              "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -19976,7 +20117,8 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                  "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
@@ -19996,10 +20138,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
+                  "theme": undefined,
                   "type": undefined,
                 },
               },
@@ -20039,7 +20183,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-hycgNl XteLZ",
+              "class": "sc-cmIlrE dYKRvx",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -20088,7 +20232,8 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+                "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
@@ -20108,10 +20253,12 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
+                "theme": undefined,
                 "type": undefined,
               },
             },
@@ -20151,7 +20298,7 @@ initialize {
                   "data": " to switch networks in MetaMask ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -20210,7 +20357,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -20255,7 +20402,7 @@ initialize {
               "data": " to switch networks in MetaMask ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -20314,7 +20461,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -20397,7 +20544,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-hycgNl XteLZ",
+                "class": "sc-cmIlrE dYKRvx",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -20437,7 +20584,8 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-keFjpB guWYQM sc-cSHVUG fYaJzf sc-jzJRlG eNArmQ",
+              "class": "sc-hycgNl kyXfNV sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
@@ -20457,10 +20605,12 @@ initialize {
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
+              "theme": undefined,
               "type": undefined,
             },
           },
@@ -20509,7 +20659,7 @@ initialize {
                     "data": " to switch networks in MetaMask ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                        "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -20568,7 +20718,7 @@ initialize {
                   "data": " to switch networks in MetaMask ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                      "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -20613,7 +20763,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                    "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -20672,7 +20822,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-jvEmr kZyILN sc-dNLxif eYQdhX",
+                  "class": "sc-hdPSEv OMbTU sc-fYxtnH hkKHkN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -20755,7 +20905,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hycgNl XteLZ",
+                  "class": "sc-cmIlrE dYKRvx",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
