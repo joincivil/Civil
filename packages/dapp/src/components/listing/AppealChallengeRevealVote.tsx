@@ -64,6 +64,10 @@ interface AppealRevealCardKeyState {
   key: number;
 }
 
+const AppealChallengeRevealVoteCard = compose<
+  React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeRevealVoteCardProps>>
+>(connectChallengePhase, connectChallengeResults)(AppealChallengeRevealVoteCardComponent);
+
 class AppealChallengeRevealVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
   ChallengeVoteState & AppealRevealCardKeyState
@@ -101,10 +105,6 @@ class AppealChallengeRevealVote extends React.Component<
     const secondaryPhaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
 
     const transactions = this.getTransactions();
-
-    const AppealChallengeRevealVoteCard = compose<
-      React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeRevealVoteCardProps>>
-    >(connectChallengePhase, connectChallengeResults)(AppealChallengeRevealVoteCardComponent);
 
     return (
       <>

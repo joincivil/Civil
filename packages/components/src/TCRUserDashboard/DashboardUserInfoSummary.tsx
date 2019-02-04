@@ -13,7 +13,7 @@ import {
   ChallengesWonLabelText,
   RewardsClaimedLabelText,
 } from "./textComponents";
-import { Button } from "../Button";
+import { Button, buttonSizes } from "../Button";
 
 export interface DashboardUserInfoSummaryProps {
   userAccount: string;
@@ -69,11 +69,9 @@ export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInf
       </StyledUserInfoSection>
 
       <StyledUserInfoSection>
-        <StyledUserInfoSectionValue>
-          <Button href={props.buyCVLURL} target="_blank">
-            Buy CVL
-          </Button>
-        </StyledUserInfoSectionValue>
+        <Button size={buttonSizes.MEDIUM_WIDE} href={props.buyCVLURL} target="_blank">
+          Buy CVL Tokens
+        </Button>
       </StyledUserInfoSection>
     </StyledUserInfo>
   );

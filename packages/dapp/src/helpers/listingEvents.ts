@@ -96,7 +96,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
 
       // if the challenge ID corresponds to an appeal challenge, get any user data for it
       if (!pollID.equals(challengeId)) {
-        const appealChallengeUserData = await tcr.getUserChallengeData(pollID, user);
+        const appealChallengeUserData = await tcr.getUserAppealChallengeData(pollID, user);
         dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
         dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
       }

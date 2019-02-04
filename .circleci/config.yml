@@ -133,6 +133,18 @@ jobs:
                 command: |
                     kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:master-$CIRCLE_SHA1 --namespace staging
 
+    deploy-production:
+        <<: *defaults
+        docker:
+            - image: civilmedia/gcloud-node:latest
+        steps:
+            - attach_workspace:
+                at: /root
+            - deploy:
+                name: Update Kubernetes Deployment on PRODUCTION
+                command: |
+                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:master-$CIRCLE_SHA1 --namespace production
+
 workflows:
     version: 2
     nightly:
@@ -186,6 +198,14 @@ workflows:
                         only:
                             - master
             - deploy-staging:
+                context: gcp-common
+                requires:
+                    - push-containers
+                filters:
+                    branches:
+                        only:
+                            - master
+            - deploy-production:
                 context: gcp-common
                 requires:
                     - push-containers

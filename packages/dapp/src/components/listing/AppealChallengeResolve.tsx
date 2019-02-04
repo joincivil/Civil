@@ -59,6 +59,10 @@ export interface ChallengeResolveProps extends ChallengeContainerProps {
   listingAddress: EthAddress;
 }
 
+const AppealChallengeResolveCard = compose<
+  React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeResolveCardProps>>
+>(connectChallengePhase, connectChallengeResults)(AppealChallengeResolveCardComponent);
+
 // A container for the Challenge Resolve Card component
 class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps & InjectedTransactionStatusModalProps> {
   public componentWillMount(): void {
@@ -86,10 +90,6 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
     );
 
     const transactions = this.getTransactions();
-
-    const AppealChallengeResolveCard = compose<
-      React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeResolveCardProps>>
-    >(connectChallengePhase, connectChallengeResults)(AppealChallengeResolveCardComponent);
 
     return (
       <>

@@ -66,7 +66,7 @@ const transactionLabels = {
 const multiStepTransactionLabels = {
   [TransactionTypes.APPROVE_CHALLENGE_APPEAL]: "1 of 3",
   [TransactionTypes.PUBLISH_CONTENT]: "2 of 3",
-  [TransactionTypes.CHALLENGE_APPEAL]: "2 of 3",
+  [TransactionTypes.CHALLENGE_APPEAL]: "3 of 3",
 };
 
 const denialSuffix = ", you need to confirm the transaction in your MetaMask wallet.";
