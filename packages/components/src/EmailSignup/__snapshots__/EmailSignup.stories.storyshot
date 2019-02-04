@@ -4,17 +4,17 @@ exports[`Storyshots Email Signup Component Email Signup 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-jgVwMx eLOmDz",
+      "class": "sc-kWHCRG liZhQI",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-iFUGim jyIxRM",
+          "class": "sc-clBsIJ VCFcE",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cNQqM kCOyNV",
+              "class": "sc-iFUGim hStWRC",
             },
             "children": Array [
               Object {
@@ -182,7 +182,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-clBsIJ jwhNIK",
+                "class": "sc-cNQqM dVSsim",
               },
               "children": Array [
                 Object {
@@ -202,7 +202,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-gqjmRU XRKiQ",
+                      "class": "sc-gqjmRU jEMmEA",
                     },
                     "children": Array [
                       Object {
@@ -448,7 +448,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-clBsIJ jwhNIK",
+                    "class": "sc-cNQqM dVSsim",
                   },
                   "children": Array [
                     Object {
@@ -580,7 +580,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-clBsIJ jwhNIK",
+              "class": "sc-cNQqM dVSsim",
             },
             "children": Array [
               Object {
@@ -600,7 +600,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-gqjmRU XRKiQ",
+                    "class": "sc-gqjmRU jEMmEA",
                   },
                   "children": Array [
                     Object {
@@ -846,7 +846,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-clBsIJ jwhNIK",
+                  "class": "sc-cNQqM dVSsim",
                 },
                 "children": Array [
                   Object {
@@ -959,7 +959,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-cNQqM kCOyNV",
+                "class": "sc-iFUGim hStWRC",
               },
               "children": Array [
                 Object {
@@ -1151,7 +1151,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-gqjmRU XRKiQ",
+                  "class": "sc-gqjmRU jEMmEA",
                 },
                 "children": Array [
                   Object {
@@ -1397,7 +1397,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-clBsIJ jwhNIK",
+                "class": "sc-cNQqM dVSsim",
               },
               "children": Array [
                 Object {
@@ -1500,7 +1500,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-clBsIJ jwhNIK",
+                "class": "sc-cNQqM dVSsim",
               },
               "children": Array [
                 Object {
@@ -1517,7 +1517,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-cNQqM kCOyNV",
+                  "class": "sc-iFUGim hStWRC",
                 },
                 "children": Array [
                   Object {
@@ -1712,7 +1712,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-clBsIJ jwhNIK",
+              "class": "sc-cNQqM dVSsim",
             },
             "children": Array [
               Object {
@@ -1810,7 +1810,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-gqjmRU XRKiQ",
+                    "class": "sc-gqjmRU jEMmEA",
                   },
                   "children": Array [
                     Object {
@@ -2058,7 +2058,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-clBsIJ jwhNIK",
+                  "class": "sc-cNQqM dVSsim",
                 },
                 "children": Array [
                   Object {
@@ -2075,7 +2075,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-cNQqM kCOyNV",
+                    "class": "sc-iFUGim hStWRC",
                   },
                   "children": Array [
                     Object {
@@ -2250,6 +2250,1211 @@ initialize {
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 1,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;
+
+exports[`Storyshots Email Signup Component Email Signup Success 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "class": "sc-kWHCRG liZhQI",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {
+          "class": "sc-eMRERa NGKhu sc-clBsIJ VCFcE",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "height": "36",
+              "viewBox": "0 0 26 26",
+              "width": "36",
+              "xmlns": "http://www.w3.org/2000/svg",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "cx": "12",
+                  "cy": "12",
+                  "fill": "#30E8BD",
+                  "r": "12",
+                },
+                "children": Array [],
+                "name": "circle",
+                "namespace": "http://www.w3.org/2000/svg",
+                "next": Object {
+                  "attribs": Object {
+                    "d": "m9.464 17.092-3.466-3.415-1.156 1.138 4.622 4.553 9.904-9.756-1.155-1.138z",
+                    "fill": "#FFFFFF",
+                    "fill-rule": "evenodd",
+                    "transform": "translate(1 -1)",
+                  },
+                  "children": Array [],
+                  "name": "path",
+                  "namespace": "http://www.w3.org/2000/svg",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "d": undefined,
+                    "fill": undefined,
+                    "fill-rule": undefined,
+                    "transform": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "d": undefined,
+                    "fill": undefined,
+                    "fill-rule": undefined,
+                    "transform": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "cx": undefined,
+                  "cy": undefined,
+                  "fill": undefined,
+                  "r": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "cx": undefined,
+                  "cy": undefined,
+                  "fill": undefined,
+                  "r": undefined,
+                },
+              },
+              Object {
+                "attribs": Object {
+                  "d": "m9.464 17.092-3.466-3.415-1.156 1.138 4.622 4.553 9.904-9.756-1.155-1.138z",
+                  "fill": "#FFFFFF",
+                  "fill-rule": "evenodd",
+                  "transform": "translate(1 -1)",
+                },
+                "children": Array [],
+                "name": "path",
+                "namespace": "http://www.w3.org/2000/svg",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "cx": "12",
+                    "cy": "12",
+                    "fill": "#30E8BD",
+                    "r": "12",
+                  },
+                  "children": Array [],
+                  "name": "circle",
+                  "namespace": "http://www.w3.org/2000/svg",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "cx": undefined,
+                    "cy": undefined,
+                    "fill": undefined,
+                    "r": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "cx": undefined,
+                    "cy": undefined,
+                    "fill": undefined,
+                    "r": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "d": undefined,
+                  "fill": undefined,
+                  "fill-rule": undefined,
+                  "transform": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "d": undefined,
+                  "fill": undefined,
+                  "fill-rule": undefined,
+                  "transform": undefined,
+                },
+              },
+            ],
+            "name": "svg",
+            "namespace": "http://www.w3.org/2000/svg",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-iFUGim hStWRC",
+              },
+              "children": Array [
+                Object {
+                  "data": "Thanks for signing up!",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-cNQqM dVSsim",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Please check your email to confirm your subscription.",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-cNQqM dVSsim",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {},
+                      "children": Array [
+                        Object {
+                          "data": "Follow us on twitter for alerts ",
+                          "next": Object {
+                            "attribs": Object {
+                              "href": "https://twitter.com/CivilTCRalerts",
+                              "target": "_blank",
+                            },
+                            "children": Array [
+                              Object {
+                                "data": "@CivilTCRalerts",
+                                "next": null,
+                                "parent": [Circular],
+                                "prev": null,
+                                "type": "text",
+                              },
+                            ],
+                            "name": "a",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": [Circular],
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "href": undefined,
+                              "target": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "href": undefined,
+                              "target": undefined,
+                            },
+                          },
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                        Object {
+                          "attribs": Object {
+                            "href": "https://twitter.com/CivilTCRalerts",
+                            "target": "_blank",
+                          },
+                          "children": Array [
+                            Object {
+                              "data": "@CivilTCRalerts",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "text",
+                            },
+                          ],
+                          "name": "a",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": Object {
+                            "data": "Follow us on twitter for alerts ",
+                            "next": [Circular],
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "href": undefined,
+                            "target": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "href": undefined,
+                            "target": undefined,
+                          },
+                        },
+                      ],
+                      "name": "b",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {},
+                      "x-attribsPrefix": Object {},
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "height": undefined,
+              "viewBox": undefined,
+              "width": undefined,
+              "xmlns": "http://www.w3.org/2000/xmlns/",
+            },
+            "x-attribsPrefix": Object {
+              "height": undefined,
+              "viewBox": undefined,
+              "width": undefined,
+              "xmlns": "",
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-iFUGim hStWRC",
+            },
+            "children": Array [
+              Object {
+                "data": "Thanks for signing up!",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-cNQqM dVSsim",
+              },
+              "children": Array [
+                Object {
+                  "data": "Please check your email to confirm your subscription.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-cNQqM dVSsim",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {},
+                    "children": Array [
+                      Object {
+                        "data": "Follow us on twitter for alerts ",
+                        "next": Object {
+                          "attribs": Object {
+                            "href": "https://twitter.com/CivilTCRalerts",
+                            "target": "_blank",
+                          },
+                          "children": Array [
+                            Object {
+                              "data": "@CivilTCRalerts",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "text",
+                            },
+                          ],
+                          "name": "a",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "href": undefined,
+                            "target": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "href": undefined,
+                            "target": undefined,
+                          },
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                      Object {
+                        "attribs": Object {
+                          "href": "https://twitter.com/CivilTCRalerts",
+                          "target": "_blank",
+                        },
+                        "children": Array [
+                          Object {
+                            "data": "@CivilTCRalerts",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                        ],
+                        "name": "a",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "data": "Follow us on twitter for alerts ",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "href": undefined,
+                          "target": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "href": undefined,
+                          "target": undefined,
+                        },
+                      },
+                    ],
+                    "name": "b",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {},
+                    "x-attribsPrefix": Object {},
+                  },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": Object {
+              "attribs": Object {
+                "height": "36",
+                "viewBox": "0 0 26 26",
+                "width": "36",
+                "xmlns": "http://www.w3.org/2000/svg",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "cx": "12",
+                    "cy": "12",
+                    "fill": "#30E8BD",
+                    "r": "12",
+                  },
+                  "children": Array [],
+                  "name": "circle",
+                  "namespace": "http://www.w3.org/2000/svg",
+                  "next": Object {
+                    "attribs": Object {
+                      "d": "m9.464 17.092-3.466-3.415-1.156 1.138 4.622 4.553 9.904-9.756-1.155-1.138z",
+                      "fill": "#FFFFFF",
+                      "fill-rule": "evenodd",
+                      "transform": "translate(1 -1)",
+                    },
+                    "children": Array [],
+                    "name": "path",
+                    "namespace": "http://www.w3.org/2000/svg",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "d": undefined,
+                      "fill": undefined,
+                      "fill-rule": undefined,
+                      "transform": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "d": undefined,
+                      "fill": undefined,
+                      "fill-rule": undefined,
+                      "transform": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "cx": undefined,
+                    "cy": undefined,
+                    "fill": undefined,
+                    "r": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "cx": undefined,
+                    "cy": undefined,
+                    "fill": undefined,
+                    "r": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "d": "m9.464 17.092-3.466-3.415-1.156 1.138 4.622 4.553 9.904-9.756-1.155-1.138z",
+                    "fill": "#FFFFFF",
+                    "fill-rule": "evenodd",
+                    "transform": "translate(1 -1)",
+                  },
+                  "children": Array [],
+                  "name": "path",
+                  "namespace": "http://www.w3.org/2000/svg",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "cx": "12",
+                      "cy": "12",
+                      "fill": "#30E8BD",
+                      "r": "12",
+                    },
+                    "children": Array [],
+                    "name": "circle",
+                    "namespace": "http://www.w3.org/2000/svg",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "cx": undefined,
+                      "cy": undefined,
+                      "fill": undefined,
+                      "r": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "cx": undefined,
+                      "cy": undefined,
+                      "fill": undefined,
+                      "r": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "d": undefined,
+                    "fill": undefined,
+                    "fill-rule": undefined,
+                    "transform": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "d": undefined,
+                    "fill": undefined,
+                    "fill-rule": undefined,
+                    "transform": undefined,
+                  },
+                },
+              ],
+              "name": "svg",
+              "namespace": "http://www.w3.org/2000/svg",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "height": undefined,
+                "viewBox": undefined,
+                "width": undefined,
+                "xmlns": "http://www.w3.org/2000/xmlns/",
+              },
+              "x-attribsPrefix": Object {
+                "height": undefined,
+                "viewBox": undefined,
+                "width": undefined,
+                "xmlns": "",
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-cNQqM dVSsim",
+            },
+            "children": Array [
+              Object {
+                "data": "Please check your email to confirm your subscription.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "p",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-cNQqM dVSsim",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "Follow us on twitter for alerts ",
+                      "next": Object {
+                        "attribs": Object {
+                          "href": "https://twitter.com/CivilTCRalerts",
+                          "target": "_blank",
+                        },
+                        "children": Array [
+                          Object {
+                            "data": "@CivilTCRalerts",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                        ],
+                        "name": "a",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "href": undefined,
+                          "target": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "href": undefined,
+                          "target": undefined,
+                        },
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                    Object {
+                      "attribs": Object {
+                        "href": "https://twitter.com/CivilTCRalerts",
+                        "target": "_blank",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "@CivilTCRalerts",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "data": "Follow us on twitter for alerts ",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                    },
+                  ],
+                  "name": "b",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-iFUGim hStWRC",
+              },
+              "children": Array [
+                Object {
+                  "data": "Thanks for signing up!",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": Object {
+                "attribs": Object {
+                  "height": "36",
+                  "viewBox": "0 0 26 26",
+                  "width": "36",
+                  "xmlns": "http://www.w3.org/2000/svg",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "cx": "12",
+                      "cy": "12",
+                      "fill": "#30E8BD",
+                      "r": "12",
+                    },
+                    "children": Array [],
+                    "name": "circle",
+                    "namespace": "http://www.w3.org/2000/svg",
+                    "next": Object {
+                      "attribs": Object {
+                        "d": "m9.464 17.092-3.466-3.415-1.156 1.138 4.622 4.553 9.904-9.756-1.155-1.138z",
+                        "fill": "#FFFFFF",
+                        "fill-rule": "evenodd",
+                        "transform": "translate(1 -1)",
+                      },
+                      "children": Array [],
+                      "name": "path",
+                      "namespace": "http://www.w3.org/2000/svg",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "d": undefined,
+                        "fill": undefined,
+                        "fill-rule": undefined,
+                        "transform": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "d": undefined,
+                        "fill": undefined,
+                        "fill-rule": undefined,
+                        "transform": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "cx": undefined,
+                      "cy": undefined,
+                      "fill": undefined,
+                      "r": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "cx": undefined,
+                      "cy": undefined,
+                      "fill": undefined,
+                      "r": undefined,
+                    },
+                  },
+                  Object {
+                    "attribs": Object {
+                      "d": "m9.464 17.092-3.466-3.415-1.156 1.138 4.622 4.553 9.904-9.756-1.155-1.138z",
+                      "fill": "#FFFFFF",
+                      "fill-rule": "evenodd",
+                      "transform": "translate(1 -1)",
+                    },
+                    "children": Array [],
+                    "name": "path",
+                    "namespace": "http://www.w3.org/2000/svg",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "cx": "12",
+                        "cy": "12",
+                        "fill": "#30E8BD",
+                        "r": "12",
+                      },
+                      "children": Array [],
+                      "name": "circle",
+                      "namespace": "http://www.w3.org/2000/svg",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "cx": undefined,
+                        "cy": undefined,
+                        "fill": undefined,
+                        "r": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "cx": undefined,
+                        "cy": undefined,
+                        "fill": undefined,
+                        "r": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "d": undefined,
+                      "fill": undefined,
+                      "fill-rule": undefined,
+                      "transform": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "d": undefined,
+                      "fill": undefined,
+                      "fill-rule": undefined,
+                      "transform": undefined,
+                    },
+                  },
+                ],
+                "name": "svg",
+                "namespace": "http://www.w3.org/2000/svg",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "height": undefined,
+                  "viewBox": undefined,
+                  "width": undefined,
+                  "xmlns": "http://www.w3.org/2000/xmlns/",
+                },
+                "x-attribsPrefix": Object {
+                  "height": undefined,
+                  "viewBox": undefined,
+                  "width": undefined,
+                  "xmlns": "",
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-cNQqM dVSsim",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "Follow us on twitter for alerts ",
+                    "next": Object {
+                      "attribs": Object {
+                        "href": "https://twitter.com/CivilTCRalerts",
+                        "target": "_blank",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "@CivilTCRalerts",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                  Object {
+                    "attribs": Object {
+                      "href": "https://twitter.com/CivilTCRalerts",
+                      "target": "_blank",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "@CivilTCRalerts",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "data": "Follow us on twitter for alerts ",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                  },
+                ],
+                "name": "b",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "p",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-cNQqM dVSsim",
+              },
+              "children": Array [
+                Object {
+                  "data": "Please check your email to confirm your subscription.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": Object {
+                "attribs": Object {
+                  "class": "sc-iFUGim hStWRC",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Thanks for signing up!",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "height": "36",
+                    "viewBox": "0 0 26 26",
+                    "width": "36",
+                    "xmlns": "http://www.w3.org/2000/svg",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "cx": "12",
+                        "cy": "12",
+                        "fill": "#30E8BD",
+                        "r": "12",
+                      },
+                      "children": Array [],
+                      "name": "circle",
+                      "namespace": "http://www.w3.org/2000/svg",
+                      "next": Object {
+                        "attribs": Object {
+                          "d": "m9.464 17.092-3.466-3.415-1.156 1.138 4.622 4.553 9.904-9.756-1.155-1.138z",
+                          "fill": "#FFFFFF",
+                          "fill-rule": "evenodd",
+                          "transform": "translate(1 -1)",
+                        },
+                        "children": Array [],
+                        "name": "path",
+                        "namespace": "http://www.w3.org/2000/svg",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "d": undefined,
+                          "fill": undefined,
+                          "fill-rule": undefined,
+                          "transform": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "d": undefined,
+                          "fill": undefined,
+                          "fill-rule": undefined,
+                          "transform": undefined,
+                        },
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "cx": undefined,
+                        "cy": undefined,
+                        "fill": undefined,
+                        "r": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "cx": undefined,
+                        "cy": undefined,
+                        "fill": undefined,
+                        "r": undefined,
+                      },
+                    },
+                    Object {
+                      "attribs": Object {
+                        "d": "m9.464 17.092-3.466-3.415-1.156 1.138 4.622 4.553 9.904-9.756-1.155-1.138z",
+                        "fill": "#FFFFFF",
+                        "fill-rule": "evenodd",
+                        "transform": "translate(1 -1)",
+                      },
+                      "children": Array [],
+                      "name": "path",
+                      "namespace": "http://www.w3.org/2000/svg",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "cx": "12",
+                          "cy": "12",
+                          "fill": "#30E8BD",
+                          "r": "12",
+                        },
+                        "children": Array [],
+                        "name": "circle",
+                        "namespace": "http://www.w3.org/2000/svg",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "cx": undefined,
+                          "cy": undefined,
+                          "fill": undefined,
+                          "r": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "cx": undefined,
+                          "cy": undefined,
+                          "fill": undefined,
+                          "r": undefined,
+                        },
+                      },
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "d": undefined,
+                        "fill": undefined,
+                        "fill-rule": undefined,
+                        "transform": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "d": undefined,
+                        "fill": undefined,
+                        "fill-rule": undefined,
+                        "transform": undefined,
+                      },
+                    },
+                  ],
+                  "name": "svg",
+                  "namespace": "http://www.w3.org/2000/svg",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "height": undefined,
+                    "viewBox": undefined,
+                    "width": undefined,
+                    "xmlns": "http://www.w3.org/2000/xmlns/",
+                  },
+                  "x-attribsPrefix": Object {
+                    "height": undefined,
+                    "viewBox": undefined,
+                    "width": undefined,
+                    "xmlns": "",
                   },
                 },
                 "type": "tag",

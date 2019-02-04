@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors } from "../styleConstants";
-import { TextInput, InputLabel, InputProps } from "./Input";
+import { TextInput, InputLabel, InputProps, ErrorMessage } from "./Input";
 
 const StyledInputGroupContainer = styled.div`
   margin: 0 0 10px;
@@ -12,7 +12,7 @@ const StyledInputGroup = styled.div`
   box-sizing: border-box;
   display: flex;
   position: relative;
-  margin-top: 5px;
+  margin: 5px 0;
   width: 100%;
 
   & > div {
@@ -78,7 +78,7 @@ export interface InputGroupProps {
 }
 
 export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> = (props: any) => {
-  const { label, append, prepend, placeholder, noAppendPadding, ...inputProps } = props;
+  const { label, append, prepend, placeholder, noAppendPadding, invalid, invalidMessage, ...inputProps } = props;
   const Input = props.inputComponent || TextInput;
 
   return (
@@ -89,6 +89,7 @@ export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> 
         <Input noLabel={true} {...inputProps} />
         {append && <InputGroupAppend noPadding={noAppendPadding}>{props.append}</InputGroupAppend>}
       </StyledInputGroup>
+      {invalid && invalidMessage && <ErrorMessage>{invalidMessage}</ErrorMessage>}
     </StyledInputGroupContainer>
   );
 };
