@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Query } from "react-apollo";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
-import { NewsroomState } from "@joincivil/newsroom-manager";
+import { NewsroomState } from "@joincivil/newsroom-signup";
 
 import { State } from "../../redux/reducers";
 import {

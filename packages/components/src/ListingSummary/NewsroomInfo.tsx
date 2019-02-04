@@ -6,7 +6,6 @@ import {
   StyledListingSummaryTop,
   StyledListingSummaryNewsroomName,
 } from "./styledComponents";
-import DepositOrStakeAmount from "./DepositOrStakeAmount";
 import NewsroomTagline from "./NewsroomTagline";
 
 const NewsroomInfo: React.SFC<ListingSummaryComponentProps> = props => {
@@ -23,7 +22,6 @@ const NewsroomInfo: React.SFC<ListingSummaryComponentProps> = props => {
       <div>
         <StyledListingSummaryNewsroomName>{props.name}</StyledListingSummaryNewsroomName>
         <NewsroomTagline description={description} />
-        <DepositOrStakeAmount {...props} />
       </div>
     </StyledListingSummaryTop>
   );
