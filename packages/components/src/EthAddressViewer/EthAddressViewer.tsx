@@ -5,10 +5,10 @@ import { Button, InvertedButton, buttonSizes } from "../Button";
 import { NorthEastArrow } from "../icons";
 
 import {
-  StyledEthAdressViewer,
+  StyledEthAddressViewer,
   StyledDisplayName,
-  StyledEthAdressContainer,
-  StyledEthAdress,
+  StyledEthAddressContainer,
+  StyledEthAddress,
 } from "./StyledEthAddressViewer";
 
 export interface EthAddressViewerProps {
@@ -32,10 +32,10 @@ export const EthAddressViewer: React.SFC<EthAddressViewerProps> = props => {
   const etherscanURL = etherscanBaseURL && `${etherscanBaseURL}/address/${address.replace(/ /g, "")}`;
 
   return (
-    <StyledEthAdressViewer>
+    <StyledEthAddressViewer>
       <StyledDisplayName>{displayName}</StyledDisplayName>
-      <StyledEthAdressContainer>
-        <StyledEthAdress>{props.address}</StyledEthAdress>
+      <StyledEthAddressContainer>
+        <StyledEthAddress>{props.address}</StyledEthAddress>
         <Button
           size={buttonSizes.SMALL}
           onClick={() => {
@@ -49,7 +49,7 @@ export const EthAddressViewer: React.SFC<EthAddressViewerProps> = props => {
             Etherscan <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
           </InvertedButton>
         )}
-      </StyledEthAdressContainer>
-    </StyledEthAdressViewer>
+      </StyledEthAddressContainer>
+    </StyledEthAddressViewer>
   );
 };

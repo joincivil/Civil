@@ -4,7 +4,7 @@ import { Button, InvertedButton } from "../Button";
 
 import { colors, fonts, mediaQueries } from "../styleConstants";
 
-export const StyledEthAdressViewer = styled.div`
+export const StyledEthAddressViewer = styled.div`
   font-family: ${fonts.SANS_SERIF};
   margin: 0 0 30px;
 `;
@@ -18,7 +18,7 @@ export const StyledDisplayName = styled.div`
   margin: 0 0 10px;
 `;
 
-export const StyledEthAdressContainer = styled.div`
+export const StyledEthAddressContainer = styled.div`
   display: flex;
 
   ${mediaQueries.MOBILE} {
@@ -48,7 +48,7 @@ export const StyledEthAdressContainer = styled.div`
   }
 `;
 
-export const StyledEthAdress = styled.div`
+export const StyledEthAddress = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   color: ${colors.accent.CIVIL_GRAY_0};
   font-family: ${fonts.MONOSPACE};
