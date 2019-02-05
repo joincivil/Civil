@@ -286,16 +286,7 @@ export const makeGetUnclaimedRewardAmount = () => {
       if (!userChallengeData || !userChallengeData.numTokens || !challenge) {
         return;
       }
-      const challengeData = challenge.challenge;
-      let totalWinningVotes;
-      if (getDidChallengeSucceed(challengeData)) {
-        totalWinningVotes = challenge.challenge.poll.votesAgainst;
-      } else {
-        totalWinningVotes = challenge.challenge.poll.votesFor;
-      }
-      const userPercentOfWinningVotes = userChallengeData.numTokens.div(totalWinningVotes);
-      const unclaimedRewardAmount = challenge.challenge.rewardPool.mul(userPercentOfWinningVotes);
-      return unclaimedRewardAmount;
+      return userChallengeData.voterReward;
     },
   );
 };
