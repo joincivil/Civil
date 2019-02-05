@@ -64,11 +64,11 @@ const mapStateToProps = (state: State): NavBarProps => {
 
   if (user.account && user.account.account && user.account.account !== "") {
     if (user.account.balance) {
-      balance = getFormattedTokenBalance(user.account.balance);
+      balance = getFormattedTokenBalance(user.account.balance, true);
     }
 
     if (user.account.votingBalance) {
-      votingBalance = getFormattedTokenBalance(user.account.votingBalance);
+      votingBalance = getFormattedTokenBalance(user.account.votingBalance, true);
     }
 
     userAccount = user.account.account;

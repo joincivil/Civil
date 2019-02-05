@@ -151,9 +151,17 @@ class ChallengesWithRewardsToClaim extends React.Component<
   }
 
   private setChallengesToMultiClaim = (challengeID: string, isSelected: boolean, salt: BigNumber): void => {
-    this.setState(() => ({
-      challengesToClaim: { ...this.state.challengesToClaim, [challengeID]: [isSelected, salt] },
-    }));
+    if (isSelected) {
+      this.setState(() => ({
+        challengesToClaim: { ...this.state.challengesToClaim, [challengeID]: [isSelected, salt] },
+      }));
+    } else {
+      const newChallengesToClaim = this.state.challengesToClaim;
+      delete newChallengesToClaim[challengeID];
+      this.setState(() => ({
+        challengesToClaim: { ...newChallengesToClaim },
+      }));
+    }
   };
 
   private multiClaim = async (): Promise<TwoStepEthTransaction | void> => {

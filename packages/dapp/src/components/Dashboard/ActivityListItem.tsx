@@ -275,6 +275,7 @@ const makeMapStateToProps = () => {
       charter,
       listing,
       listingPhaseState: getListingPhaseState(listing),
+      user: userAcct,
       ...ownProps,
     };
   };
