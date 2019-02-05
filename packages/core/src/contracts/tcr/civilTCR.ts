@@ -679,7 +679,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       salt,
       numTokens,
       choice,
-      voterReward
+      voterReward,
     };
   }
 
