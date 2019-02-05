@@ -6,6 +6,7 @@ public static async singletonTrusted(ethApi: EthApi): Promise<{{contractName}}Co
   const networkId = (await currentNetwork(ethApi)).toString();
   const networkData = artifacts.{{contractName}}.networks[networkId];
   if (!networkData) {
+    debug("Failed to find network data for network ID " + networkId + ". Supported networks: " + Object.keys(artifacts.{{contractName}}.networks));
     return undefined;
   }
   return {{contractName}}Contract.atUntrusted(ethApi, networkData.address);
