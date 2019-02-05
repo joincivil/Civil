@@ -86,28 +86,35 @@ export const TokenAirswapText: React.SFC = props => (
   </>
 );
 
-export const TokenETHFAQQuestion1Text: React.SFC = props => <h3>Why do I need ETH?</h3>;
+export const TokenETHFAQQuestion1Text: React.SFC = props => <h3>What is Airswap?</h3>;
 
-export const TokenETHFAQQuestion2Text: React.SFC = props => <h3>How do I buy ETH?</h3>;
+export const TokenETHFAQQuestion2Text: React.SFC = props => (
+  <h3>Why do I need to “prove use” before selling my Civil tokens?</h3>
+);
 
-export const TokenETHFAQQuestion3Text: React.SFC = props => <h3>How long does it take to buy ETH?</h3>;
+export const TokenETHFAQQuestion3Text: React.SFC = props => <h3>Why do I need ETH?</h3>;
 
-export const TokenETHFAQQuestion4Text: React.SFC = props => <h3>What else will I need to use ETH for?</h3>;
+export const TokenETHFAQQuestion4Text: React.SFC = props => <h3>How do I buy ETH?</h3>;
+
+export const TokenETHFAQQuestion5Text: React.SFC = props => <h3>How long does it take to buy ETH?</h3>;
+
+export const TokenETHFAQQuestion6Text: React.SFC = props => <h3>What else will I need to use ETH for?</h3>;
 
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
 
-export const TokenAskQuestionText: React.SFC = props => (
-  <>
-    <p>
-      <a href="">Ask a question online</a>
-    </p>
-  </>
-);
+export interface TokenTextProps {
+  supportEmailAddress: string;
+  faqUrl: string;
+}
 
-export const TokenFAQText: React.SFC = props => (
+export const TokenFAQText: React.SFC<TokenTextProps> = props => (
   <>
     <p>
-      Read our <a href="">Frequently Asked Questions (FAQ)</a> for general help
+      For support inquiries, send email to{" "}
+      <a href={"mailto:" + props.supportEmailAddress}>{props.supportEmailAddress}</a>
+    </p>
+    <p>
+      Read our <a href={props.faqUrl}>Frequently Asked Questions (FAQ)</a> for general help
     </p>
   </>
 );

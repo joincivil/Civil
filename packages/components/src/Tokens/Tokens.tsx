@@ -4,15 +4,14 @@ import {
   TokenAccountInner,
   FlexColumns,
   FlexColumnsPrimary,
-  FlexColumnsPrimaryModule,
   FlexColumnsSecondary,
-  FlexColumnsSecondaryModule,
 } from "./TokensStyledComponents";
 import { UserTokenAccountHeader } from "./TokensAccountHeader";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
+import { UserTokenAccountProgress } from "./TokensAccountProgress";
 
 export interface UserTokenAccountStates {
   isTutorialModalOpen: boolean;
@@ -31,27 +30,22 @@ export class UserTokenAccount extends React.Component<{}, UserTokenAccountStates
       <TokenAccountOuter>
         <TokenAccountInner>
           <UserTokenAccountHeader />
+
           <FlexColumns>
             <FlexColumnsPrimary>
-              <FlexColumnsPrimaryModule>
-                <UserTokenAccountSignup step={"completed"} />
-              </FlexColumnsPrimaryModule>
-              <FlexColumnsPrimaryModule>
-                <UserTokenAccountVerify
-                  step={"active"}
-                  open={this.state.isTutorialModalOpen}
-                  handleClose={this.closeTutorialModal}
-                  handleOpen={this.openTutorialModal}
-                />
-              </FlexColumnsPrimaryModule>
-              <FlexColumnsPrimaryModule>
-                <UserTokenAccountBuy openAirSwap={this.openAirSwap} step={"active"} />
-              </FlexColumnsPrimaryModule>
+              <UserTokenAccountSignup step={"completed"} />
+              <UserTokenAccountVerify
+                step={"active"}
+                open={this.state.isTutorialModalOpen}
+                handleClose={this.closeTutorialModal}
+                handleOpen={this.openTutorialModal}
+              />
+              <UserTokenAccountBuy openAirSwap={this.openAirSwap} step={"active"} />
             </FlexColumnsPrimary>
+
             <FlexColumnsSecondary>
-              <FlexColumnsSecondaryModule>
-                <UserTokenAccountHelp />
-              </FlexColumnsSecondaryModule>
+              <UserTokenAccountProgress />
+              <UserTokenAccountHelp supportEmailAddress={"support@civil.co"} faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"} />
             </FlexColumnsSecondary>
           </FlexColumns>
         </TokenAccountInner>

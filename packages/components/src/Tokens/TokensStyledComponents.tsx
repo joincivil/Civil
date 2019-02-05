@@ -5,6 +5,7 @@ import { Button, ButtonProps, InvertedButton } from "../Button";
 
 export interface TokenRequirementStyleProps {
   step?: string;
+  padding?: boolean;
 }
 
 export const TokenAccountOuter = styled.div`
@@ -50,7 +51,7 @@ export const FlexColumnsPrimaryModule = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   background-color: ${colors.basic.WHITE};
   margin-bottom: 30px;
-  padding: 30px 0;
+  ${(props: TokenRequirementStyleProps) => (props.padding ? "padding: 30px 0" : "")};
 `;
 
 export const FlexColumnsSecondary = styled.div`
@@ -222,10 +223,10 @@ export const TokenFAQCollapse = styled.div`
   padding: 20px 30px;
 
   h3 {
-    color: ${colors.accent.CIVIL_GRAY_0};
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 26px;
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 32px;
     margin: 0;
   }
 `;

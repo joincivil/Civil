@@ -1,6 +1,12 @@
 import * as React from "react";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
-import { TokenBtns, TokenRequirementIcon, TokenAccountSectionHeader, CloseBtn } from "./TokensStyledComponents";
+import {
+  FlexColumnsPrimaryModule,
+  TokenBtns,
+  TokenRequirementIcon,
+  TokenAccountSectionHeader,
+  CloseBtn,
+} from "./TokensStyledComponents";
 import { TokenVerifySectionText, TokenQuizSectionText, TokenQuizBtnText } from "./TokensTextComponents";
 import { CivilTutorialIcon } from "../icons/CivilTutorialIcon";
 import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
@@ -46,11 +52,11 @@ export const UserTokenAccountVerify: React.StatelessComponent<TokenAccountVerify
   }
 
   return (
-    <>
+    <FlexColumnsPrimaryModule padding={true}>
       <TokenAccountSectionHeader>
         <TokenVerifySectionText />
       </TokenAccountSectionHeader>
       {quizSection}
-    </>
+    </FlexColumnsPrimaryModule>
   );
 };

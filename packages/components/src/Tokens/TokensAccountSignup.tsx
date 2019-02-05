@@ -1,38 +1,29 @@
 import * as React from "react";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
-import { TokenBtns, TokenRequirementIcon, TokenCheckIcon } from "./TokensStyledComponents";
-import {
-  TokenConnectWalletText,
-  TokenConnectWalletBtnText,
-  TokenConnectWalletCompletedText,
-} from "./TokensTextComponents";
+import { FlexColumnsPrimaryModule, TokenBtns, TokenRequirementIcon } from "./TokensStyledComponents";
+import { TokenConnectWalletText, TokenConnectWalletBtnText } from "./TokensTextComponents";
 import { TokenWalletIcon } from "../icons/TokenWalletIcon";
-import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 
 export interface TokenRequirementProps {
   step?: string;
 }
 
 export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementProps> = props => {
-  if (props.step === "completed") {
+  if (props.step === "active") {
     return (
-      <UserTokenAccountRequirement step={props.step}>
-        <TokenCheckIcon>
-          <HollowGreenCheck width={42} height={42} />
-        </TokenCheckIcon>
-        <TokenConnectWalletCompletedText />
-      </UserTokenAccountRequirement>
+      <FlexColumnsPrimaryModule padding={true}>
+        <UserTokenAccountRequirement>
+          <TokenRequirementIcon step={props.step}>
+            <TokenWalletIcon />
+          </TokenRequirementIcon>
+          <TokenConnectWalletText />
+          <TokenBtns>
+            <TokenConnectWalletBtnText />
+          </TokenBtns>
+        </UserTokenAccountRequirement>
+      </FlexColumnsPrimaryModule>
     );
   }
-  return (
-    <UserTokenAccountRequirement>
-      <TokenRequirementIcon step={props.step}>
-        <TokenWalletIcon />
-      </TokenRequirementIcon>
-      <TokenConnectWalletText />
-      <TokenBtns>
-        <TokenConnectWalletBtnText />
-      </TokenBtns>
-    </UserTokenAccountRequirement>
-  );
+
+  return <></>;
 };
