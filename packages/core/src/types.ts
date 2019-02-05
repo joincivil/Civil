@@ -192,6 +192,7 @@ export interface UserChallengeData {
   salt?: BigNumber;
   numTokens?: BigNumber;
   choice?: BigNumber;
+  voterReward?: BigNumber;
 }
 
 /**
