@@ -41,7 +41,15 @@ export function canRequestAppeal(challengeData: ChallengeData): boolean {
  * @param challengeData the ChallengeData to check
  */
 export function didChallengeSucceed(challengeData: ChallengeData): boolean {
-  return isVotePassed(challengeData.poll);
+  if (challengeData.appeal && challengeData.appeal.appealGranted) {
+    if (challengeData.appeal.appealChallenge && isVotePassed(challengeData.appeal.appealChallenge.poll)) {
+      return isVotePassed(challengeData.poll);
+    } else {
+      return !isVotePassed(challengeData.poll);
+    }
+  } else {
+    return isVotePassed(challengeData.poll);
+  }
 }
 
 /**
