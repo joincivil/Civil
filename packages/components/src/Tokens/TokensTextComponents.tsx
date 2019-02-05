@@ -1,4 +1,5 @@
 import * as React from "react";
+import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 
 export const TokenWelcomeText: React.SFC = props => <>Hello and welcome!</>;
 
@@ -11,7 +12,11 @@ export const TokenConnectWalletText: React.SFC = props => (
   </>
 );
 
-export const TokenConnectWalletCompletedText: React.SFC = props => <h3>Your crypto wallet is connected</h3>;
+export const TokenConnectWalletCompletedText: React.SFC = props => (
+  <h3>
+    <HollowGreenCheck />Wallet Connected
+  </h3>
+);
 
 export const TokenConnectWalletBtnText: React.SFC = props => <>Sign up or Log in to your wallet</>;
 
@@ -42,10 +47,9 @@ export const TokenQuizSectionText: React.SFC = props => (
 export const TokenQuizBtnText: React.SFC = props => <>Start the Civil Tutorial</>;
 
 export const TokenQuizCompletedText: React.SFC = props => (
-  <>
-    <h3>You’ve completed the Civil Tutorial</h3>
-    <p>You are eligible to use your CVL tokens on Civil.</p>
-  </>
+  <h3>
+    <HollowGreenCheck />Civil Tutorial Completed
+  </h3>
 );
 
 export const TokenVerifyText: React.SFC = props => (

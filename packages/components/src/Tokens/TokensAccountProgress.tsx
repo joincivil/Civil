@@ -1,11 +1,24 @@
 import * as React from "react";
-import { FlexColumnsSecondaryModule } from "./TokensStyledComponents";
+import { FlexColumnsSecondaryModule, TokenProgressContain } from "./TokensStyledComponents";
+import { TokenConnectWalletCompletedText, TokenQuizCompletedText } from "./TokensTextComponents";
+import { EthAddressViewer } from "../EthAddressViewer";
 
 export interface UserTokenAccountProgressProps {
-  supportEmailAddress?: string;
-  faqUrl?: string;
+  walletConnected?: boolean;
+  quizCompleted?: boolean;
+  userAccount: string;
 }
 
 export const UserTokenAccountProgress: React.StatelessComponent<UserTokenAccountProgressProps> = props => {
-  return <FlexColumnsSecondaryModule>wallet quiz</FlexColumnsSecondaryModule>;
+  return (
+    <FlexColumnsSecondaryModule>
+      <TokenProgressContain>
+        <TokenConnectWalletCompletedText />
+        <EthAddressViewer address={props.userAccount} displayName="Your Public Wallet Address" />
+      </TokenProgressContain>
+      <TokenProgressContain>
+        <TokenQuizCompletedText />
+      </TokenProgressContain>
+    </FlexColumnsSecondaryModule>
+  );
 };

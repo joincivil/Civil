@@ -217,6 +217,35 @@ export const TokenAirswapSection = styled.div`
   }
 `;
 
+export const TokenProgressContain = styled.div`
+  margin-bottom: 10px;
+
+  h3 {
+    color: ${colors.primary.BLACK};
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 26px;
+    margin: 0 0 8px;
+
+    svg {
+      margin-right: 8px;
+      vertical-align: text-bottom;
+    }
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_2};
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.14px;
+    line-height: 21px;
+  }
+
+  button {
+    display: none;
+  }
+`;
+
 export const TokenFAQCollapse = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   font-family: ${fonts.SANS_SERIF};

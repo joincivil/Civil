@@ -13,11 +13,17 @@ import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
 
+export interface UserTokenAccountProps {
+  supportEmailAddress: string;
+  faqUrl: string;
+  userAccount: string;
+}
+
 export interface UserTokenAccountStates {
   isTutorialModalOpen: boolean;
 }
 
-export class UserTokenAccount extends React.Component<{}, UserTokenAccountStates> {
+export class UserTokenAccount extends React.Component<UserTokenAccountProps, UserTokenAccountStates> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -44,8 +50,8 @@ export class UserTokenAccount extends React.Component<{}, UserTokenAccountStates
             </FlexColumnsPrimary>
 
             <FlexColumnsSecondary>
-              <UserTokenAccountProgress />
-              <UserTokenAccountHelp supportEmailAddress={"support@civil.co"} faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"} />
+              <UserTokenAccountProgress userAccount={this.props.userAccount} />
+              <UserTokenAccountHelp supportEmailAddress={this.props.supportEmailAddress} faqUrl={this.props.faqUrl} />
             </FlexColumnsSecondary>
           </FlexColumns>
         </TokenAccountInner>
