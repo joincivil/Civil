@@ -29,6 +29,14 @@ export const TokenBtns: StyledComponentClass<ButtonProps, "button"> = styled(But
   text-transform: none;
 `;
 
+export const TokenBtnsInverted: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+  border-radius: 1px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: none;
+`;
+
 export const FlexColumns = styled.div`
   display: flex;
 
@@ -190,16 +198,22 @@ export const TokenBuySection = styled.div`
   font-family: ${fonts.SANS_SERIF};
   padding: 0 30px 5px;
 
-  h3 {
-    color: ${colors.accent.CIVIL_GRAY_0};
+  h4 {
     font-size: 16px;
     font-weight: 700;
     line-height: 26px;
     margin: 0;
   }
 
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 32px;
+    margin: 0;
+  }
+
   p {
-    color: ${colors.accent.CIVIL_GRAY_1};
+    color: ${colors.accent.CIVIL_GRAY_0};
     font-size: 18px;
     letter-spacing: -0.12px;
     line-height: 33px;
@@ -207,13 +221,51 @@ export const TokenBuySection = styled.div`
   }
 `;
 
+export const TokenBuyIntro = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
+  padding: 0 0 15px;
+  margin: 0 0 25px;
+
+  span {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    display: block;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0 0 15px;
+  }
+`;
+
 export const TokenAirswapSection = styled.div`
-  margin-bottom: 50px;
+  padding: 0 30px;
+  text-align: center;
+
+  button {
+    diplay: block;
+    width: 100%;
+  }
+`;
+
+export const TokenConverterSection = styled.div`
+  padding: 40px 0 50px;
+`;
+
+export const TokenOrBreak = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin: 50px 0;
+  position: relative;
 
   p {
-    color: ${colors.accent.CIVIL_GRAY_0};
+    background-color: ${colors.basic.WHITE};
+    color: ${colors.accent.CIVIL_GRAY_3};
     font-size: 14px;
-    line-height: 22px;
+    left: calc(50% - 50px);
+    letter-spacing: 0.88px;
+    line-height: 1;
+    margin: 0;
+    position: absolute;
+    text-transform: uppercase;
+    top: -5px;
+    width: 100px;
   }
 `;
 

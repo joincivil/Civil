@@ -46,7 +46,11 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 handleClose={this.closeTutorialModal}
                 handleOpen={this.openTutorialModal}
               />
-              <UserTokenAccountBuy openAirSwap={this.openAirSwap} step={"active"} />
+              <UserTokenAccountBuy
+                openAirSwapExchange={this.openAirSwapExchange}
+                openAirSwapFoundation={this.openAirSwapFoundation}
+                step={"active"}
+              />
             </FlexColumnsPrimary>
 
             <FlexColumnsSecondary>
@@ -67,7 +71,11 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     this.setState({ isTutorialModalOpen: false });
   };
 
-  private openAirSwap = () => {
-    this.setState({ isTutorialModalOpen: false });
+  private openAirSwapExchange = () => {
+    console.log("open airswap");
+  };
+
+  private openAirSwapFoundation = () => {
+    console.log("open airswap");
   };
 }

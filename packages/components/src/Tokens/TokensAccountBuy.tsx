@@ -1,17 +1,30 @@
 import * as React from "react";
-import { FlexColumnsPrimaryModule, TokenBtns, TokenBuySection, TokenAirswapSection } from "./TokensStyledComponents";
+import {
+  FlexColumnsPrimaryModule,
+  TokenBtns,
+  TokenBtnsInverted,
+  TokenBuySection,
+  TokenBuyIntro,
+  TokenAirswapSection,
+  TokenConverterSection,
+  TokenOrBreak,
+} from "./TokensStyledComponents";
 import {
   TokenBuyText,
   TokenBuyTextDisabled,
-  TokenBuyBtnText,
+  TokenBuyFoundationBtnText,
   TokenBuyBtnDisabledText,
-  TokenAirswapText,
+  TokenAirswapFoundationText,
+  TokenAirswapExchangeText,
+  TokenBuyExchangeBtnText,
+  TokenOrText,
 } from "./TokensTextComponents";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 
 export interface TokenAccountBuyProps {
   step?: string;
-  openAirSwap(): void;
+  openAirSwapFoundation(): void;
+  openAirSwapExchange(): void;
 }
 
 export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps> = props => {
@@ -32,13 +45,25 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
       <>
         <FlexColumnsPrimaryModule padding={true}>
           <TokenBuySection>
-            <TokenBuyText />
+            <TokenBuyIntro>
+              <TokenBuyText />
+            </TokenBuyIntro>
 
             <TokenAirswapSection>
-              <TokenAirswapText />
-              <TokenBtns onClick={props.openAirSwap}>
-                <TokenBuyBtnText />
+              <TokenAirswapFoundationText />
+              <TokenConverterSection>[TKTK currency converter component]</TokenConverterSection>
+              <TokenBtns onClick={props.openAirSwapFoundation}>
+                <TokenBuyFoundationBtnText />
               </TokenBtns>
+
+              <TokenOrBreak>
+                <TokenOrText />
+              </TokenOrBreak>
+
+              <TokenAirswapExchangeText />
+              <TokenBtnsInverted onClick={props.openAirSwapExchange}>
+                <TokenBuyExchangeBtnText />
+              </TokenBtnsInverted>
             </TokenAirswapSection>
           </TokenBuySection>
         </FlexColumnsPrimaryModule>

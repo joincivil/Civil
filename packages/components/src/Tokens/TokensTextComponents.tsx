@@ -70,25 +70,41 @@ export const TokenBuyTextDisabled: React.SFC = props => (
 
 export const TokenBuyBtnDisabledText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
 
-export const TokenBuyBtnText: React.SFC = props => <>Buy CVL in Airswap</>;
+export const TokenBuyFoundationBtnText: React.SFC = props => <>Buy from Foundation in Airswap</>;
+
+export const TokenBuyExchangeBtnText: React.SFC = props => <>Buy from Exchange in Airswap</>;
 
 export const TokenBuyText: React.SFC = props => (
-  <p>
-    To buy CVL tokens, you must buy ETH and then you will be able to buy CVL from an exchange. You can’t use USD to
-    directly buy a CVL token – currencies need to be converted into ETH first.
-  </p>
+  <>
+    <p>
+      To buy Civil tokens (CVL), you must buy Ether (ETH) and then you will be able to buy CVL. You can’t use USD or
+      local currencies to directly buy a Civil token – currencies need to be converted into ETH first.
+    </p>
+    <span>
+      Please note, if you are a first-time ETH purchaser, it may take a few days to get ETH in your wallet. Learn more
+      about ETH below.
+    </span>
+  </>
 );
 
-export const TokenAirswapText: React.SFC = props => (
+export const TokenAirswapFoundationText: React.SFC = props => (
   <>
-    <h3>Once you have ETH in your digital wallet, you will be able to buy CVL tokens from Airswap.</h3>
+    <h3>Civil tokens from Civil Foundation</h3>
     <p>
-      To buy tokens, you’ll be using Airswap which is an independent company. Airswap is a secure decentralized token
-      exchange where you can buy and sell tokens on Ethereum blockchain. Airswap does not charge any of its own fees on
-      each trade.
+      Get a quote from the Civil Foundation. When buying from the Foundation, 100% net proceeds goes to funding worthy
+      journalism projects.
     </p>
   </>
 );
+
+export const TokenAirswapExchangeText: React.SFC = props => (
+  <>
+    <h4>Civil tokens from Exchange</h4>
+    <p>When buying from an exchange, the rate is based on market demand.</p>
+  </>
+);
+
+export const TokenOrText: React.SFC = props => <p>or</p>;
 
 export const TokenETHFAQQuestion1Text: React.SFC = props => <h3>What is Airswap?</h3>;
 
