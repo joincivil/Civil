@@ -17,6 +17,8 @@ export interface UserTokenAccountProps {
   supportEmailAddress: string;
   faqUrl: string;
   userAccount: string;
+  userLoggedIn: boolean;
+  userTutorialComplete: boolean;
 }
 
 export interface UserTokenAccountStates {
@@ -32,6 +34,14 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   }
 
   public render(): JSX.Element | null {
+    let loggedInState;
+    let tutorialState;
+    let buyState;
+
+    this.props.userLoggedIn ? (loggedInState = "completed") : (loggedInState = "active");
+    this.props.userTutorialComplete ? (tutorialState = "completed") : (tutorialState = "active");
+    this.props.userLoggedIn && this.props.userTutorialComplete ? (buyState = "active") : (buyState = "disabled");
+
     return (
       <TokenAccountOuter>
         <TokenAccountInner>
@@ -39,9 +49,9 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
           <FlexColumns>
             <FlexColumnsPrimary>
-              <UserTokenAccountSignup step={"completed"} />
+              <UserTokenAccountSignup step={loggedInState} />
               <UserTokenAccountVerify
-                step={"active"}
+                step={tutorialState}
                 open={this.state.isTutorialModalOpen}
                 handleClose={this.closeTutorialModal}
                 handleOpen={this.openTutorialModal}
@@ -49,12 +59,16 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
               <UserTokenAccountBuy
                 openAirSwapExchange={this.openAirSwapExchange}
                 openAirSwapFoundation={this.openAirSwapFoundation}
-                step={"active"}
+                step={buyState}
               />
             </FlexColumnsPrimary>
 
             <FlexColumnsSecondary>
-              <UserTokenAccountProgress userAccount={this.props.userAccount} />
+              <UserTokenAccountProgress
+                userAccount={this.props.userAccount}
+                logInComplete={this.props.userLoggedIn}
+                tutorialComplete={this.props.userTutorialComplete}
+              />
               <UserTokenAccountHelp supportEmailAddress={this.props.supportEmailAddress} faqUrl={this.props.faqUrl} />
             </FlexColumnsSecondary>
           </FlexColumns>

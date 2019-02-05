@@ -21,6 +21,8 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
       </Helmet>
       <ScrollToTopOnMount />
       <UserTokenAccount
+        userLoggedIn={true}
+        userTutorialComplete={false}
         userAccount={props.userAccount}
         supportEmailAddress={"support@civil.co"}
         faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
