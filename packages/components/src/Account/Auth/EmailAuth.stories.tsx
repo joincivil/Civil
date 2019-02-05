@@ -63,7 +63,7 @@ const mocks = {
   },
 };
 
-storiesOf("Account", module)
+storiesOf("Account/Email", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,

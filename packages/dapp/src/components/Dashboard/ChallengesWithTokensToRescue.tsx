@@ -154,9 +154,17 @@ class ChallengesWithTokensToRescue extends React.Component<
   };
 
   private setChallengesToMultiRescue = (challengeID: string, isSelected: boolean, salt: BigNumber): void => {
-    this.setState(() => ({
-      challengesToRescue: { ...this.state.challengesToRescue, [challengeID]: [isSelected, salt] },
-    }));
+    if (isSelected) {
+      this.setState(() => ({
+        challengesToRescue: { ...this.state.challengesToRescue, [challengeID]: [isSelected, salt] },
+      }));
+    } else {
+      const newChallengesToRescue = this.state.challengesToRescue;
+      delete newChallengesToRescue[challengeID];
+      this.setState(() => ({
+        challengesToRescue: { ...newChallengesToRescue },
+      }));
+    }
   };
 
   private multiRescue = async (): Promise<TwoStepEthTransaction | void> => {
