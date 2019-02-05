@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
-import { EthAddress, ListingWrapper, WrappedChallengeData } from "@joincivil/core";
+import { EthAddress, ListingWrapper, WrappedChallengeData, isVotePassed } from "@joincivil/core";
 import {
   colors,
   VoteTypeSummaryRowProps as PartialChallengeResultsProps,
@@ -222,7 +222,7 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
       let votesCount;
       let votesPercent;
 
-      if (challenge.poll.votesAgainst.greaterThan(challenge.poll.votesFor)) {
+      if (isVotePassed(challenge.poll)) {
         label = (
           <>
             Challenge Succeeded: Newsroom removed from Registry<br />
@@ -300,31 +300,56 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
       let endTime = 0;
       let totalSeconds = 0;
 
-      switch (this.props.phaseType) {
+      const { phaseType, challenge, parameters, govtParameters } = this.props;
+
+      switch (phaseType) {
         case PHASE_TYPE_NAMES.CHALLENGE_COMMIT_VOTE:
-          displayLabel = PHASE_TYPE_LABEL[this.props.phaseType];
-          flavorText = PHASE_TYPE_FLAVOR_TEXT[this.props.phaseType];
-          if (this.props.challenge) {
-            endTime = this.props.challenge.challenge.poll.commitEndDate.toNumber();
+          if (challenge) {
+            endTime = challenge.challenge.poll.commitEndDate.toNumber();
           }
-          totalSeconds = this.props.parameters.commitStageLen;
+          totalSeconds = parameters.commitStageLen;
           break;
         case PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE:
-          displayLabel = PHASE_TYPE_LABEL[this.props.phaseType];
-          flavorText = PHASE_TYPE_FLAVOR_TEXT[this.props.phaseType];
-          if (this.props.challenge) {
-            endTime = this.props.challenge.challenge.poll.revealEndDate.toNumber();
+          if (challenge) {
+            endTime = challenge.challenge.poll.revealEndDate.toNumber();
           }
-          totalSeconds = this.props.parameters.revealStageLen;
+          totalSeconds = parameters.revealStageLen;
           break;
         case PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_REQUEST:
-          displayLabel = PHASE_TYPE_LABEL[this.props.phaseType];
-          flavorText = PHASE_TYPE_FLAVOR_TEXT[this.props.phaseType];
-          if (this.props.challenge) {
-            endTime = this.props.challenge.challenge.requestAppealExpiry.toNumber();
+          if (challenge) {
+            endTime = challenge.challenge.requestAppealExpiry.toNumber();
           }
-          totalSeconds = this.props.parameters.revealStageLen;
+          totalSeconds = parameters.revealStageLen;
           break;
+        case PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_JUDGEMENT:
+          if (challenge && challenge.challenge.appeal) {
+            endTime = challenge.challenge.appeal.appealPhaseExpiry.toNumber();
+          }
+          totalSeconds = govtParameters.judgeAppealLen;
+          break;
+        case PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_CHALLENGE:
+          if (challenge && challenge.challenge.appeal) {
+            endTime = challenge.challenge.appeal.appealOpenToChallengeExpiry.toNumber();
+          }
+          totalSeconds = govtParameters.judgeAppealLen;
+          break;
+        case PHASE_TYPE_NAMES.APPEAL_CHALLENGE_COMMIT_VOTE:
+          if (challenge && challenge.challenge.appeal && challenge.challenge.appeal.appealChallenge) {
+            endTime = challenge.challenge.appeal.appealChallenge.poll.commitEndDate.toNumber();
+          }
+          totalSeconds = parameters.challengeAppealCommitLen;
+          break;
+        case PHASE_TYPE_NAMES.APPEAL_CHALLENGE_REVEAL_VOTE:
+          if (challenge && challenge.challenge.appeal && challenge.challenge.appeal.appealChallenge) {
+            endTime = challenge.challenge.appeal.appealChallenge.poll.revealEndDate.toNumber();
+          }
+          totalSeconds = parameters.challengeAppealRevealLen;
+          break;
+      }
+
+      if (phaseType) {
+        displayLabel = PHASE_TYPE_LABEL[this.props.phaseType] || "";
+        flavorText = PHASE_TYPE_FLAVOR_TEXT[this.props.phaseType] || "";
       }
 
       const props = {
