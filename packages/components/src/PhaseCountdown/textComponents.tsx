@@ -4,7 +4,7 @@ export const InApplicationPhaseLabelText: React.SFC = props => <>Awaiting Approv
 
 export const ChallengeCommitVotePhaseLabelText: React.SFC = props => <>Commit Vote</>;
 
-export const ChallengeRevealVotePhaseLabelText: React.SFC = props => <>Confirm Vote</>;
+export const ChallengeRevealVotePhaseLabelText: React.SFC = props => <>Reveal Vote</>;
 
 export const ChallengeAwaitingAppealRequestPhaseLabelText: React.SFC = props => <>Awaiting Appeal Request</>;
 
@@ -16,7 +16,7 @@ export const InApplicationFlavorText: React.SFC = props => <>until approval</>;
 
 export const ChallengeCommitVoteFlavorText: React.SFC = props => <>to commit votes</>;
 
-export const ChallengeRevealVoteFlavorText: React.SFC = props => <>to confirm votes</>;
+export const ChallengeRevealVoteFlavorText: React.SFC = props => <>to reveal votes</>;
 
 export const ChallengeAwaitingAppealRequestFlavorText: React.SFC = props => <>to request an appeal</>;
 
