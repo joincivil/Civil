@@ -1,6 +1,11 @@
 import * as React from "react";
 import { compose } from "redux";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import {
+  EthAddress,
+  TwoStepEthTransaction,
+  TxHash,
+  didAppealChallengeSucceed as getDidAppealChallengeSucceed,
+} from "@joincivil/core";
 import {
   AppealChallengeResolveCard as AppealChallengeResolveCardComponent,
   AppealChallengeResolveCardProps,
@@ -85,9 +90,7 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
       .mul(100)
       .toFixed(0);
 
-    const didAppealChallengeSucceed = this.props.appealChallenge.poll.votesAgainst.greaterThan(
-      this.props.appealChallenge.poll.votesFor,
-    );
+    const didAppealChallengeSucceed = getDidAppealChallengeSucceed(this.props.appealChallenge);
 
     const transactions = this.getTransactions();
 
