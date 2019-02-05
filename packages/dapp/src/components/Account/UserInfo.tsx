@@ -26,7 +26,7 @@ export class UserInfo extends React.Component {
             return `Error! ${JSON.stringify(error)}`;
           }
 
-          return JSON.stringify(data);
+          return <pre>{JSON.stringify(data, null, 2)}</pre>;
         }}
       </Query>
     );

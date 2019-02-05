@@ -1,8 +1,12 @@
+import gql from "graphql-tag";
 import { ApolloClient } from "apollo-client";
+import { ApolloLink } from "apollo-link";
 import { createHttpLink, HttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
+import { onError } from "apollo-link-error";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { fetchItem, setItem } from "./localStorage";
+import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
+import { fetchItem, setItem, removeItem } from "./localStorage";
 
 export interface AuthLoginResponse {
   token: string;
@@ -27,7 +31,7 @@ export function setApolloSession(session: AuthLoginResponse): void {
 
 export function clearApolloSession(): void {
   const network = getNetwork();
-  setItem(SESSION_KEY + "-" + network, null);
+  removeItem(SESSION_KEY + "-" + network);
 }
 
 export function getNetwork(): number {
@@ -82,10 +86,83 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient
     };
   });
 
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.map(({ message, locations, path }) => {
+        console.warn(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`);
+      });
+    }
+
+    if (networkError) {
+      // @ts-ignore: `networkError` type is incorrect - it's just set to `Error` but it in fact has various fields
+      const response = networkError.result;
+      if (response) {
+        if (response.errCode === "EXPIRED_TOKEN") {
+          // @TODO(tobek) Use refresh token to get a new JWT. Do we need to flush the cache?
+          clearApolloSession();
+          return;
+        } else if (response.errCode === "INVALID_TOKEN") {
+          // Something went wrong, just clear and assume logged out. @TODO(tobek) Do we need to flush cache?
+          clearApolloSession();
+          return;
+        }
+      }
+      console.warn(`[Network error]: ${networkError}`);
+    }
+  });
+
   client = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: ApolloLink.from([errorLink, authLink, httpLink]),
     cache: new InMemoryCache(),
   });
 
   return client;
+}
+
+const loggedInQuery = gql`
+  query {
+    currentUser {
+      uid
+    }
+  }
+`;
+export async function isLoggedIn(): Promise<boolean> {
+  if (!client || !getApolloSession()) {
+    return false;
+  }
+
+  try {
+    const res = await client.query({
+      query: loggedInQuery,
+    });
+    return !res.errors && !!res.data;
+  } catch {
+    return false;
+  }
+}
+
+const setEthAddressMutation = gql`
+  mutation($input: UserSignatureInput!) {
+    userSetEthAddress(input: $input)
+  }
+`;
+export async function userSetEthAddress(sig: EthSignedMessage): Promise<EthAddress> {
+  if (!client || !getApolloSession()) {
+    throw Error("Apollo client not initialized or user not logged in");
+  }
+
+  const input = { ...sig };
+  delete input.rawMessage; // gql endpoint doesn't want this and errors out
+
+  const res = await client.mutate({
+    mutation: setEthAddressMutation,
+    variables: { input },
+  });
+
+  if (res.data.userSetEthAddress === "ok") {
+    return sig.signer;
+  } else {
+    console.error("Failed to validate and save ETH address. Response:", res);
+    throw Error("Failed to validate and save ETH address");
+  }
 }

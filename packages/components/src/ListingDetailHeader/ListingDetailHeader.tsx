@@ -2,8 +2,8 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { CharterData } from "@joincivil/core";
 
-import { TwitterIcon, FacebookIcon } from "../icons";
-import { Button, buttonSizes } from "../Button";
+import { NorthEastArrow, TwitterIcon, FacebookIcon } from "../icons";
+import { DarkButton, buttonSizes } from "../Button";
 import { StyledContentRow } from "../Layout";
 import {
   AwaitingApprovalStatusLabel,
@@ -129,9 +129,9 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
               <NewsroomLinks>
                 {newsroomUrl && (
                   <VisitNewsroomButtonWrap>
-                    <Button size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
-                      Visit Newsroom 🡭
-                    </Button>
+                    <DarkButton size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
+                      {newsroomUrl} <NorthEastArrow color={colors.basic.WHITE} />
+                    </DarkButton>
                   </VisitNewsroomButtonWrap>
                 )}
 

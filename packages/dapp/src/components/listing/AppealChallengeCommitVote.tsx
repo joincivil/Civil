@@ -97,6 +97,10 @@ interface AppealCommitCardKeyState {
   key: number;
 }
 
+const AppealChallengeCommitVoteCard = compose<
+  React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeCommitVoteCardProps>>
+>(connectChallengePhase, connectChallengeResults)(AppealChallengeCommitVoteCardComponent);
+
 class AppealChallengeCommitVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
   ChallengeVoteState & AppealCommitCardKeyState
@@ -121,7 +125,6 @@ class AppealChallengeCommitVote extends React.Component<
 
     const endTime = appealChallenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
-    const secondaryPhaseLength = this.props.parameters[Parameters.challengeAppealRevealLen];
 
     const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
     const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
@@ -137,7 +140,6 @@ class AppealChallengeCommitVote extends React.Component<
     const props = {
       endTime,
       phaseLength,
-      secondaryPhaseLength,
       challengeID: this.props.challengeID.toString(),
       userHasCommittedVote,
       onCommitMaxTokens: () => this.commitMaxTokens(),
@@ -155,10 +157,6 @@ class AppealChallengeCommitVote extends React.Component<
       key: this.state.key,
       onMobileTransactionClick: this.props.onMobileTransactionClick,
     };
-
-    const AppealChallengeCommitVoteCard = compose<
-      React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeCommitVoteCardProps>>
-    >(connectChallengePhase, connectChallengeResults)(AppealChallengeCommitVoteCardComponent);
 
     return (
       <>

@@ -16,9 +16,11 @@ import {
 import { initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
+import { initializeContractAddresses } from "../helpers/contractAddresses";
 import { Tokens } from "./Tokens";
 import ContractPage from "./ContractPage";
 import Contracts from "./Contracts";
+import ContractAddresses from "./ContractAddresses";
 import CreateNewsroom from "./CreateNewsroom";
 import SignUpNewsroom from "./SignUpNewsroom";
 import { Dashboard } from "./Dashboard";
@@ -58,6 +60,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       await initializeConstitution(this.props.dispatch!);
       await initializeProposalsSubscriptions(this.props.dispatch!);
       await initializeGovernmentParamSubscription(this.props.dispatch!);
+      await initializeContractAddresses(this.props.dispatch!);
       await this.props.dispatch!(await initialize());
     } catch (err) {
       if (err.message !== CivilErrors.UnsupportedNetwork) {
@@ -107,6 +110,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/registry" component={Listings} />
           <Route path="/contracts" component={Contracts} />
           <Route path="/contract/:contract" component={ContractPage} />
+          <Route path="/contract-addresses" component={ContractAddresses} />
           <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
           <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
           <Route path="/listing/:listing/submit-appeal-challenge" component={SubmitAppealChallengePage} />
@@ -115,7 +119,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
           <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
           <Route path="/parameterizer" component={Parameterizer} />
-          <Route path="/createNewsroom" component={CreateNewsroom} />
+          <Route path="/create-newsroom" component={CreateNewsroom} />
           <Route path="/signupNewsroom" component={SignUpNewsroom} />
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />

@@ -2,7 +2,7 @@ import * as React from "react";
 import { DropDownContain, DropDownLabel, DropDownArrow, DropDownLinks } from "./styledComponents";
 
 export interface NavDropDownProps {
-  label: string;
+  label: string | JSX.Element;
 }
 
 export const NavDropDown: React.StatelessComponent<NavDropDownProps> = props => {

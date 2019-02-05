@@ -36,7 +36,7 @@ export const VoteTypeSummaryRow: React.StatelessComponent<VoteTypeSummaryRowProp
 
       <BreakdownBarContainer>
         <BreakdownBarPercentageLabel>
-          {props.votesPercent.indexOf("NaN") < 0 ? props.votesPercent : "0"}%
+          {props.votesPercent && (props.votesPercent.indexOf("NaN") < 0 ? props.votesPercent : "0")}%
         </BreakdownBarPercentageLabel>
         <BreakdownBarTotal>
           <BreakdownBarPercentage vote={props.voteType} percentage={props.votesPercent} />
