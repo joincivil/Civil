@@ -2,6 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import { EmailSignup } from "./EmailSignup";
+import { EmailSignupSuccess } from "./EmailSignupSuccess";
 import { TCR_SENDGRID_LIST_ID, addToMailingList } from "@joincivil/utils";
 
 const StyledDiv = styled.div`
@@ -31,10 +32,18 @@ async function onSubmit(): Promise<void> {
   }
 }
 
-storiesOf("Email Signup Component", module).add("Email Signup", () => {
-  return (
-    <Container>
-      <EmailSignup onChange={onChange} onSubmit={onSubmit} />
-    </Container>
-  );
-});
+storiesOf("Email Signup Component", module)
+  .add("Email Signup", () => {
+    return (
+      <Container>
+        <EmailSignup onChange={onChange} onSubmit={onSubmit} />
+      </Container>
+    );
+  })
+  .add("Email Signup Success", () => {
+    return (
+      <Container>
+        <EmailSignupSuccess />
+      </Container>
+    );
+  });

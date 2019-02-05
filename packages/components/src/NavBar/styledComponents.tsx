@@ -82,6 +82,13 @@ export const NavUser = styled.div`
 export const CvlContainer = styled.div`
   align-items: center;
   display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const BalancesContainer = styled.span`
+  display: inline-block;
+  flex-grow: 2;
 `;
 
 export const UserCvlBalance = styled.span`
@@ -299,6 +306,9 @@ export const StyledMobileNavMenu = styled.div`
 `;
 
 export const StyledVisibleIfLoggedInLink = styled.span`
+  display: inline-block;
+  margin: 0 15px;
+
   ${mediaQueries.MOBILE} {
     display: none;
   }
@@ -362,6 +372,7 @@ export const DropDownLinks = styled.div`
     display: block;
     margin: 0;
     padding: 15px 0;
+    white-space: nowrap;
     width: 100%;
     &:last-of-type {
       border-bottom: none;

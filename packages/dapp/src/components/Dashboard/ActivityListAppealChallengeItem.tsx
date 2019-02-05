@@ -3,7 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
 import BigNumber from "bignumber.js";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
-import { NewsroomState } from "@joincivil/newsroom-manager";
+import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
@@ -11,6 +11,7 @@ import {
   // getChallenge,
   getListingPhaseState,
   makeGetListing,
+  // makeGetUserAppealChallengeData,
   // makeGetListingAddressByAppealChallengeID,
   // makeGetUserChallengeData,
   // makeGetUnclaimedRewardAmount,
@@ -76,7 +77,7 @@ class ActivityListAppealChallengeItemComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom /*, listingPhaseState, charter*/ } = this.props;
+    const { listingAddress: address, listing, newsroom /*, listingPhaseState*/, charter } = this.props;
     if (listing && listing.data && newsroom /*&& listingPhaseState*/) {
       const newsroomData = newsroom.wrapper.data;
       let listingDetailURL = `/listing/${address}`;
@@ -84,9 +85,10 @@ class ActivityListAppealChallengeItemComponent extends React.Component<
         listingDetailURL = `/listing/${address}/challenge/${this.props.challenge.challengeID}`;
       }
       const buttonTextTuple = this.getButtonText();
+      console.log("challengeID: ", this.props.challengeID);
       const props = {
         newsroomName: newsroomData.name,
-        charter: undefined,
+        charter,
         listingDetailURL,
         buttonText: buttonTextTuple[0],
         buttonHelperText: buttonTextTuple[1],
@@ -278,6 +280,7 @@ const makeMapStateToProps = () => {
       charter,
       listing,
       listingPhaseState: getListingPhaseState(listing),
+      user: userAcct,
       ...ownProps,
     };
   };
@@ -289,7 +292,7 @@ export const ActivityListAppealChallengeItem = connect(makeMapStateToProps)(Acti
 
 const makeChallengeMapStateToProps = () => {
   // const getListingAddressByAppealChallengeID = makeGetListingAddressByAppealChallengeID();
-  // const getUserChallengeData = makeGetUserChallengeData();
+  // const getUserAppealChallengeData = makeGetUserAppealChallengeData();
   // const getUnclaimedRewardAmount = makeGetUnclaimedRewardAmount();
 
   const mapStateToProps = (
@@ -298,11 +301,20 @@ const makeChallengeMapStateToProps = () => {
   ): ActivityListAppealChallengeItemOwnProps => {
     // const listingAddress = getListingAddressByAppealChallengeID(state, ownProps);
     // const challenge = getChallenge(state, ownProps);
-    // const userChallengeData = getUserChallengeData(state, ownProps);
     // const unclaimedRewardAmountBN = getUnclaimedRewardAmount(state, ownProps);
     // const challengeState = getChallengeState(challenge!);
-    const { even, user } = ownProps;
-    const { listingsFetching, challenges, appealChallengeIDsToChallengeIDs } = state.networkDependent;
+    const { even } = ownProps;
+    const {
+      listingsFetching,
+      challenges,
+      appealChallengeIDsToChallengeIDs,
+      appealChallengeUserData,
+      user,
+    } = state.networkDependent;
+    let userChallengeData;
+    if (ownProps.challengeID && user) {
+      userChallengeData = appealChallengeUserData.get(ownProps.challengeID)!.get(user!.account.account);
+    }
     const parentChallengeID = appealChallengeIDsToChallengeIDs.get(ownProps.challengeID);
     const listingAddress = challenges.get(parentChallengeID)
       ? challenges.get(parentChallengeID)!.listingAddress
@@ -321,10 +333,10 @@ const makeChallengeMapStateToProps = () => {
       listingAddress,
       // challenge,
       // challengeState,
-      // userChallengeData,
+      userChallengeData,
       // unclaimedRewardAmount,
       even,
-      user,
+      user: user!.account.account,
       listingDataRequestStatus,
       ...ownProps,
     };

@@ -54,6 +54,7 @@ import {
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
 import { ui, useGraphQL } from "./ui";
+import { contractAddresses } from "./contractAddresses";
 import { Set, List, Map } from "immutable";
 import {
   TimestampedEvent,
@@ -67,7 +68,7 @@ import {
   TxDataAll,
 } from "@joincivil/core";
 import { currentUserNewsrooms, content, contentFetched } from "./newsrooms";
-import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-manager";
+import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-signup";
 import { networkActions } from "../actionCreators/network";
 import { Subscription } from "rxjs";
 
@@ -129,6 +130,7 @@ export interface NetworkDependentState {
   rejectedListingLatestChallengeSubscriptions: Map<string, Subscription>;
   whitelistedSubscriptions: Map<string, Subscription>;
   councilMultisigTransactions: Map<string, MultisigTransaction>;
+  contractAddresses: Map<string, EthAddress>;
 }
 
 const networkDependentReducers = combineReducers({
@@ -178,6 +180,7 @@ const networkDependentReducers = combineReducers({
   rejectedListingLatestChallengeSubscriptions,
   whitelistedSubscriptions,
   councilMultisigTransactions,
+  contractAddresses,
 });
 
 const networkDependent = (state: any, action: AnyAction) => {

@@ -1,5 +1,5 @@
 import { Civil, EthAddress } from "@joincivil/core";
-import { CivilErrors } from "@joincivil/utils";
+import { CivilErrors, setNetworkValue } from "@joincivil/utils";
 import { StyledMainContainer } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import * as React from "react";
@@ -16,10 +16,13 @@ import {
 import { initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
+import { initializeContractAddresses } from "../helpers/contractAddresses";
 import { Tokens } from "./Tokens";
 import ContractPage from "./ContractPage";
 import Contracts from "./Contracts";
+import ContractAddresses from "./ContractAddresses";
 import CreateNewsroom from "./CreateNewsroom";
+import SignUpNewsroom from "./SignUpNewsroom";
 import { Dashboard } from "./Dashboard";
 import ChallengePage from "./listing/Challenge";
 import Listing from "./listing/Listing";
@@ -45,7 +48,8 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
     this.props.dispatch!(setNetwork(network.toString()));
-    if (!isGraphQLSupportedOnNetwork(network.toString())) {
+    setNetworkValue(network);
+    if (!isGraphQLSupportedOnNetwork(network)) {
       this.props.dispatch!(disableGraphQL());
     }
 
@@ -56,6 +60,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       await initializeConstitution(this.props.dispatch!);
       await initializeProposalsSubscriptions(this.props.dispatch!);
       await initializeGovernmentParamSubscription(this.props.dispatch!);
+      await initializeContractAddresses(this.props.dispatch!);
       await this.props.dispatch!(await initialize());
     } catch (err) {
       if (err.message !== CivilErrors.UnsupportedNetwork) {
@@ -105,6 +110,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/registry" component={Listings} />
           <Route path="/contracts" component={Contracts} />
           <Route path="/contract/:contract" component={ContractPage} />
+          <Route path="/contract-addresses" component={ContractAddresses} />
           <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
           <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
           <Route path="/listing/:listing/submit-appeal-challenge" component={SubmitAppealChallengePage} />
@@ -113,7 +119,8 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
           <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
           <Route path="/parameterizer" component={Parameterizer} />
-          <Route path="/createNewsroom" component={CreateNewsroom} />
+          <Route path="/create-newsroom" component={CreateNewsroom} />
+          <Route path="/signupNewsroom" component={SignUpNewsroom} />
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
           <Route path="/dashboard" component={Dashboard} />

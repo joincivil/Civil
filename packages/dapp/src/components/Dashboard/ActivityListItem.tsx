@@ -3,7 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
 import BigNumber from "bignumber.js";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
-import { NewsroomState } from "@joincivil/newsroom-manager";
+import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
@@ -275,6 +275,7 @@ const makeMapStateToProps = () => {
       charter,
       listing,
       listingPhaseState: getListingPhaseState(listing),
+      user: userAcct,
       ...ownProps,
     };
   };

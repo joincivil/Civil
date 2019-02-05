@@ -29,6 +29,7 @@ const ModalOuter = styled<ToggleDisplayEl & TextAlignProps, "div">("div")`
 interface ModalInnerProps {
   width?: number;
   padding?: string;
+  fullScreen?: boolean;
 }
 
 const ModalInner = styled.div`
@@ -36,8 +37,12 @@ const ModalInner = styled.div`
   max-width: ${(props: ModalInnerProps) => props.width || 400}px;
   padding: ${(props: ModalInnerProps) => props.padding || "35px 35px 50px 35px"};
   background: #fff;
-
-  ${mediaQueries.MOBILE} {
+  ${(props: ModalInnerProps): string => {
+    if (props.fullScreen) {
+      return "max-width: 100%; width: 100%; height: 100%; overflow: scroll;";
+    }
+    return "";
+  }} ${mediaQueries.MOBILE} {
     max-width: 100%;
   }
 `;
@@ -47,6 +52,7 @@ export interface ModalPropsAndState {
   textAlign?: string;
   width?: number;
   padding?: string;
+  fullScreen?: boolean;
 }
 
 export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndState> {
@@ -80,7 +86,7 @@ export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndStat
   public render(): React.ReactPortal {
     return ReactDOM.createPortal(
       <ModalOuter visible={this.state.visible!} textAlign={this.props.textAlign}>
-        <ModalInner width={this.props.width} padding={this.props.padding}>
+        <ModalInner width={this.props.width} fullScreen={this.props.fullScreen} padding={this.props.padding}>
           {this.props.children}
         </ModalInner>
       </ModalOuter>,

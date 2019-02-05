@@ -123,7 +123,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
                 return null;
               }
               const challenge = transformGraphQLDataIntoChallenge(data.challenge);
-              const challengeResultsProps = getChallengeResultsProps(challenge!);
+              const challengeResultsProps = getChallengeResultsProps(challenge!) as ChallengeResultsProps;
               return (
                 <>
                   <PresentationComponent {...challengeResultsProps} {...this.props} />
@@ -137,7 +137,9 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
           return null;
         }
 
-        const challengeResultsProps = getChallengeResultsProps(this.props.challengeData.challenge);
+        const challengeResultsProps = getChallengeResultsProps(
+          this.props.challengeData.challenge,
+        ) as ChallengeResultsProps;
 
         return (
           <>
@@ -394,7 +396,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     public render(): JSX.Element | null {
       const challengeResultsProps = getChallengeResultsProps(
         this.props.challengeData && this.props.challengeData.challenge,
-      );
+      ) as ChallengeResultsProps;
       const challengeID = this.props.challengeID && this.props.challengeID.toString();
 
       return (
@@ -462,10 +464,12 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
   class HOChallengePhaseContainer extends React.Component<
     TChallengeContainerProps & ChallengeContainerReduxProps & GraphQLizableComponentProps & DispatchProp<any>
   > {
+    public componentDidMount(): void {
+      this.ensureHasChallengeData();
+    }
+
     public componentDidUpdate(): void {
-      if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
-      }
+      this.ensureHasChallengeData();
     }
 
     public render(): JSX.Element | undefined {
@@ -511,6 +515,17 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
         );
       }
     }
+
+    private ensureHasChallengeData = (): void => {
+      if (
+        !this.props.useGraphQL &&
+        this.props.challengeID &&
+        !this.props.challengeData &&
+        !this.props.challengeDataRequestStatus
+      ) {
+        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
+      }
+    };
   }
 
   return connect(mapStateToProps)(HOChallengePhaseContainer);

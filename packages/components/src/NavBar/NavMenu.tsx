@@ -3,7 +3,6 @@ import * as ReactDOM from "react-dom";
 
 import { NavMenuState } from "./types";
 import {
-  NavAccent,
   StyledNavMenuContainer,
   StyledNavMenuResponsiveContainer,
   StyledMobileNavMenu,
@@ -12,11 +11,11 @@ import {
 import {
   NavLinkRegistryText,
   NavLinkParameterizerText,
+  NavLinkContractAddressesText,
   NavLinkCreateNewsroomText,
   NavLinkConstitutionText,
-  NavLinkAboutText,
-  NavLinkLaunchNewsroomText,
-  NavLinkWhitePaperText,
+  NavLinkFaqText,
+  NavLinkContactText,
   NavLinkDashboardText,
 } from "./textComponents";
 import { NavLink } from "./NavLink";
@@ -30,38 +29,41 @@ export interface NavMenuLinksComponentProps {
 const NavMenuLinksComponent: React.SFC<NavMenuLinksComponentProps> = props => {
   return (
     <>
-      <NavLink to="/registry">
-        <NavLinkRegistryText />
-      </NavLink>
-      <NavLink to="/parameterizer">
-        <NavLinkParameterizerText />
-      </NavLink>
-      <NavLink to="/createNewsroom">
-        <NavLinkCreateNewsroomText />
-      </NavLink>
-      <NavDropDown label="How Civil works">
-        <NavLink href="https://civil.co/constitution/" target="_blank">
-          <NavLinkConstitutionText />
+      <NavDropDown
+        label={
+          <NavLink to="/registry">
+            <NavLinkRegistryText />
+          </NavLink>
+        }
+      >
+        <NavLink to="/parameterizer">
+          <NavLinkParameterizerText />
         </NavLink>
-        <NavLink href="https://civil.co/about/" target="_blank">
-          <NavLinkAboutText />
-        </NavLink>
-        <NavLink href="https://civil.co/how-to-launch-newsroom/" target="_blank">
-          <NavLinkLaunchNewsroomText />
-        </NavLink>
-        <NavLink href="https://civil.co/white-paper/" target="_blank">
-          <NavLinkWhitePaperText />
+        <NavLink to="/contract-addresses">
+          <NavLinkContractAddressesText />
         </NavLink>
       </NavDropDown>
-      <StyledVisibleIfLoggedInLink>
-        {props.isLoggedIn && (
-          <NavAccent>
-            <NavLink to="/dashboard">
-              <NavLinkDashboardText />
-            </NavLink>
-          </NavAccent>
-        )}
-      </StyledVisibleIfLoggedInLink>
+      <NavLink href="https://civil.co/constitution/" target="_blank">
+        <NavLinkConstitutionText />
+      </NavLink>
+      <NavLink to="/create-newsroom">
+        <NavLinkCreateNewsroomText />
+      </NavLink>
+      <NavDropDown label="Get Help">
+        <NavLink href="https://civil.co/faq/" target="_blank">
+          <NavLinkFaqText />
+        </NavLink>
+        <NavLink href="https://civil.co/contact/" target="_blank">
+          <NavLinkContactText />
+        </NavLink>
+      </NavDropDown>
+      {props.isLoggedIn && (
+        <StyledVisibleIfLoggedInLink>
+          <NavLink to="/dashboard">
+            <NavLinkDashboardText />
+          </NavLink>
+        </StyledVisibleIfLoggedInLink>
+      )}
     </>
   );
 };

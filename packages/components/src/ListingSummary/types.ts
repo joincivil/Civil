@@ -17,28 +17,37 @@ export interface ListingSummaryComponentProps {
   isAwaitingAppealRequest?: boolean;
   didListingChallengeSucceed?: boolean;
   canResolveChallenge?: boolean;
-  canResolveAppealChallenge?: boolean;
   isAwaitingAppealJudgement?: boolean;
   isAwaitingAppealChallenge?: boolean;
   canListingAppealBeResolved?: boolean;
   isInAppealChallengeCommitPhase?: boolean;
   isInAppealChallengeRevealPhase?: boolean;
+  isRejected?: boolean;
   isWhitelisted?: boolean;
   isUnderChallenge?: boolean;
   canListingAppealChallengeBeResolved?: boolean;
+  whitelistedTimestamp?: number;
   appExpiry?: number;
   commitEndDate?: number;
   revealEndDate?: number;
   requestAppealExpiry?: number;
   appealPhaseExpiry?: number;
   appealOpenToChallengeExpiry?: number;
-  whitelistedTimestamp?: number;
   unstakedDeposit?: string;
   challengeStake?: string;
   appealChallengeCommitEndDate?: number;
   appealChallengeRevealEndDate?: number;
   appealChallengeID?: string;
   appealChallengeStatementSummary?: string;
+}
+
+export interface ListingSummaryAppealChallengeResultsProps {
+  appealChallengeTotalVotes: string;
+  appealChallengeVotesFor: string;
+  appealChallengeVotesAgainst: string;
+  appealChallengePercentFor: string;
+  appealChallengePercentAgainst: string;
+  didAppealChallengeSucceed?: boolean;
 }
 
 export interface ChallengeOrAppealStatementSummaryProps {

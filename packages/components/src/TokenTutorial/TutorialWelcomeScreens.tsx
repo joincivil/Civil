@@ -5,44 +5,46 @@ import { TokenTutorialLanding } from "./TokenTutorialLanding";
 import { colors } from "../styleConstants";
 
 export interface TutorialWelcomeScreensState {
-  activeIdx: number;
+  activeWelcomeIdx: number;
 }
 
 export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeScreensState> {
   public constructor(props: any) {
     super(props);
-    this.state = { activeIdx: 0 };
+    this.state = { activeWelcomeIdx: 0 };
   }
 
   public render(): JSX.Element {
-    const activeIdx = this.state.activeIdx;
+    const activeWelcomeIdx = this.state.activeWelcomeIdx;
     let progressColor;
 
-    if (activeIdx < WelcomeScreenContent.length) {
+    if (activeWelcomeIdx < WelcomeScreenContent.length) {
       return (
         <WelcomeSlide>
-          {WelcomeScreenContent[activeIdx].icon}
-          <h2>{WelcomeScreenContent[activeIdx].title}</h2>
-          <p>{WelcomeScreenContent[activeIdx].description}</p>
+          {WelcomeScreenContent[activeWelcomeIdx].icon}
+          <h2>{WelcomeScreenContent[activeWelcomeIdx].title}</h2>
+          <p>{WelcomeScreenContent[activeWelcomeIdx].description}</p>
           <SlideProgress>
             {WelcomeScreenContent.map((x, idx) => (
               <svg height="10" width="10">
-                {idx === activeIdx
+                {idx === activeWelcomeIdx
                   ? (progressColor = colors.accent.CIVIL_BLUE)
                   : (progressColor = colors.accent.CIVIL_GRAY_4)}
                 <circle cx="5" cy="5" r="5" stroke="none" stroke-width="0" fill={progressColor} />
               </svg>
             ))}
           </SlideProgress>
-          <WelcomeSlideBtns onClick={() => this.next()}>{WelcomeScreenContent[activeIdx].btn}</WelcomeSlideBtns>
+          <WelcomeSlideBtns onClick={() => this.welcomeNext()}>
+            {WelcomeScreenContent[activeWelcomeIdx].btn}
+          </WelcomeSlideBtns>
         </WelcomeSlide>
       );
-    } else {
-      return <TokenTutorialLanding />;
     }
+
+    return <TokenTutorialLanding />;
   }
 
-  private next = () => {
-    this.setState({ activeIdx: this.state.activeIdx + 1 });
+  private welcomeNext = () => {
+    this.setState({ activeWelcomeIdx: this.state.activeWelcomeIdx + 1 });
   };
 }
