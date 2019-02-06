@@ -29,15 +29,25 @@ export const TutorialProgressBarActive = styled.div`
   width: ${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}%;
 `;
 
+export interface TutorialStyleProps {
+  centerContent?: boolean;
+}
+
 export const TutorialContentWrap = styled.div`
   font-family: ${fonts.SANS_SERIF};
   margin: 0 auto 50px;
   max-width: 710px;
   min-height: 500px;
+  text-align: ${(props: TutorialStyleProps) => props.centerContent ? "center" : "left"};
 
   svg {
     display: block;
     margin: 0 auto;
+  }
+
+  button {
+    padding: 14px 30px;
+    width: auto;
   }
 `;
 

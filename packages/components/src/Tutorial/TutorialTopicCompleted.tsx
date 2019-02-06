@@ -24,7 +24,7 @@ export const TutorialTopicCompleted: React.StatelessComponent<TutorialTopicCompl
   );
 
   return (
-    <TutorialContentWrap>
+    <TutorialContentWrap centerContent={true}>
       <HollowGreenCheck width={50} height={50} />
       <TutorialCompletedHeader>{props.completedHeader}</TutorialCompletedHeader>
       <TutorialCompletedP>{props.completedText}</TutorialCompletedP>
