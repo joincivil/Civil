@@ -38,7 +38,6 @@ export const LoadUser: React.SFC<LoadUserProps> = props => {
     <Query query={userQuery}>
       {({ loading, error, data }) => {
         if (loading || error) {
-          // return renderChildren({ user: null, loading });
           return renderFunction({ user: null, loading });
         }
 

@@ -55,7 +55,7 @@ export const AuthenticatedRoute = ({
           const hasEth = data.currentUser && data.currentUser.ethAddress;
 
           if (!hasEth && !onlyAllowWithoutEth) {
-            return <Redirect to={redirectTo} />;
+            return <Redirect to={ethSignupPath} />;
           }
 
           if (Component) {
