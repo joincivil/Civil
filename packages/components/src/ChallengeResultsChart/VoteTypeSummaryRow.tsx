@@ -37,7 +37,6 @@ const voteColor: VoteTypeColorProps = {
 
 export const VoteTypeSummaryRow: React.StatelessComponent<VoteTypeSummaryRowProps> = props => {
   const color = voteColor[props.voteType];
-  console.log("color: ", color);
   return (
     <VoteTypeSummary>
       <VotesPerTokenContainer>

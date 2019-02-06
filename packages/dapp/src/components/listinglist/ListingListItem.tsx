@@ -184,11 +184,9 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
     const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
       connectLatestChallengeSucceededResults,
     )(ListingSummaryRejectedComponent);
-    // console.log("1 challengeResultsProps: ", { ...listingViewProps });
     return <ListingSummaryRejected {...listingViewProps} />;
   } else {
     const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
-    // console.log("2 challengeResultsProps: ", challengeResultsProps);
     return (
       <ListingSummaryRejectedComponent
         challengeID={data.prevChallengeID!.toString()}

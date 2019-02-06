@@ -31,7 +31,6 @@ export interface VoteTypeSummaryRowProps {
   voteType: string;
   votesCount: string;
   votesPercent: string;
-  isAppealChallenge?: boolean;
 }
 
 export interface VoteTypeLabelProps {

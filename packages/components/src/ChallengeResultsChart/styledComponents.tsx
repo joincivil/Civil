@@ -51,15 +51,15 @@ export const VotesPerTokenContainer = styled.div`
 `;
 
 export const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
-font-weight: bold;
-width: 95px;
+  font-weight: bold;
+  width: 95px;
 
-& > span {
+  & > span {
     color: ${props =>
       props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED};
     margin-right: 4px;
   ]
-    `;
+`;
 
 export const VotesPerTokenTotal = styled(VotesPerTokenVote)`
   color: ${colors.accent.CIVIL_GRAY_3};
