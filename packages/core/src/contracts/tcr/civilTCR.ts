@@ -812,7 +812,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
   public async grantAppeal(listingAddress: EthAddress, data: string = ""): Promise<MultisigProxyTransaction> {
     return this.multisigProxy.grantAppeal.sendTransactionAsync(listingAddress, data);
   }
-  
+
   public async challengeGrantedAppeal(
     listingAddress: EthAddress,
     data: string = "",
