@@ -8,6 +8,7 @@ import {
   canBeWhitelisted as getCanBeWhitelisted,
   canResolveChallenge as getCanResolveChallenge,
   didChallengeSucceed as getDidChallengeSucceed,
+  didChallengeOriginallySucceed as getDidChallengeOriginallySucceed,
   isInApplicationPhase,
   isChallengeInCommitStage,
   isChallengeInRevealStage,
@@ -584,7 +585,8 @@ export const getListingPhaseState = (listing?: ListingWrapper) => {
   const inChallengeRevealPhase = challenge && isChallengeInRevealStage(challenge);
   const isAwaitingAppealRequest = getIsAwaitingAppealRequest(listingData);
   const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
-  const didListingChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
+  const didChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
+  const didChallengeOriginallySucceed = challenge && getDidChallengeOriginallySucceed(challenge);
 
   const isAwaitingAppealJudgement = getIsListingAwaitingAppealJudgement(listingData);
   const canListingAppealBeResolved = appeal && getCanAppealBeResolved(appeal);
@@ -609,7 +611,8 @@ export const getListingPhaseState = (listing?: ListingWrapper) => {
     isWhitelisted,
     isUnderChallenge,
     isRejected,
-    didListingChallengeSucceed,
+    didChallengeSucceed,
+    didChallengeOriginallySucceed,
     isAwaitingAppealJudgement,
     isAwaitingAppealChallenge,
     canListingAppealBeResolved,

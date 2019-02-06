@@ -53,6 +53,14 @@ export function didChallengeSucceed(challengeData: ChallengeData): boolean {
 }
 
 /**
+ * Checks if the originally Challenge succeeded, without taking appeal / appeal challenge into consideration
+ * @param challengeData the ChallengeData to check
+ */
+export function didChallengeOriginallySucceed(challengeData: ChallengeData): boolean {
+  return isVotePassed(challengeData.poll);
+}
+
+/**
  * Checks if a Challenge has no actionable active phase and can be resolved*
  * @param challengeData this ChallengeData to check
  */
