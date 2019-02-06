@@ -4,11 +4,15 @@ import { WelcomeScreenContent } from "./WelcomeScreenContent";
 import { TokenTutorialLanding } from "./TokenTutorialLanding";
 import { colors } from "../styleConstants";
 
+export interface TutorialWelcomeScreensProps {
+  handleClose(): void;
+}
+
 export interface TutorialWelcomeScreensState {
   activeWelcomeIdx: number;
 }
 
-export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeScreensState> {
+export class TutorialWelcomeScreens extends React.Component<TutorialWelcomeScreensProps, TutorialWelcomeScreensState> {
   public constructor(props: any) {
     super(props);
     this.state = { activeWelcomeIdx: 0 };
@@ -41,7 +45,7 @@ export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeS
       );
     }
 
-    return <TokenTutorialLanding />;
+    return <TokenTutorialLanding handleClose={this.props.handleClose} />;
   }
 
   private welcomeNext = () => {

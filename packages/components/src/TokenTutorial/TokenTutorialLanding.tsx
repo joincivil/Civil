@@ -23,6 +23,10 @@ import { TokenTutorialQuiz } from "./TokenTutorialQuiz";
 import { TutorialContent } from "./TutorialContent";
 import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 
+export interface TokenTutorialLandingProps {
+  handleClose(): void;
+}
+
 export interface TokenTutorialLandingStates {
   activeTutorialIdx: number;
   tutorialActive: boolean;
@@ -30,7 +34,7 @@ export interface TokenTutorialLandingStates {
   activeSection: string;
 }
 
-export class TokenTutorialLanding extends React.Component<{}, TokenTutorialLandingStates> {
+export class TokenTutorialLanding extends React.Component<TokenTutorialLandingProps, TokenTutorialLandingStates> {
   public constructor(props: any) {
     super(props);
     this.state = { activeTutorialIdx: 0, tutorialActive: false, skipTutorial: false, activeSection: "intro" };
@@ -41,8 +45,10 @@ export class TokenTutorialLanding extends React.Component<{}, TokenTutorialLandi
       return (
         <TokenTutorialQuiz
           topicIdx={this.state.activeTutorialIdx}
+          totalTopics={TutorialContent.length - 1}
           skipTutorial={this.state.skipTutorial}
           activeSection={this.state.activeSection}
+          handleClose={this.props.handleClose}
         />
       );
     }
@@ -77,7 +83,7 @@ export class TokenTutorialLanding extends React.Component<{}, TokenTutorialLandi
             <TopicProgress>
               <TutorialProgressText questions={topic.questions.length} />
               <TutorialProgressBars>
-                {topic.questions.map(x => <TutorialProgressBar />)}
+                {topic.questions.map((x, i) => <TutorialProgressBar key={i} />)}
                 <b>0/{topic.questions.length}</b>
               </TutorialProgressBars>
             </TopicProgress>

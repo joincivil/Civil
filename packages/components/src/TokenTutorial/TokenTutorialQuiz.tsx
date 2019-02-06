@@ -8,8 +8,10 @@ import { TutorialContain } from "./TokenTutorialStyledComponents";
 
 export interface TokenTutorialQuizProps {
   topicIdx: number;
+  totalTopics: number;
   activeSection: string;
   skipTutorial: boolean;
+  handleClose(): void;
 }
 
 export interface TokenTutorialQuizStates {
@@ -28,6 +30,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
     const topicIdx = this.state.topicIdx;
     const slideIdx = this.state.slideIdx;
     const activeSection = this.state.activeSection;
+    const lastTopic = topicIdx === this.props.totalTopics ? true : false;
 
     switch (activeSection) {
       case "intro":
@@ -78,7 +81,9 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
               completedHeader={TutorialContent[topicIdx].completed.header}
               completedText={TutorialContent[topicIdx].completed.content}
               continueBtnText={TutorialContent[topicIdx].completed.btnText}
+              lastTopic={lastTopic}
               onClickNextTopic={() => this.nextTopic()}
+              handleClose={this.props.handleClose}
             />
           </TutorialContain>
         );

@@ -85,7 +85,9 @@ storiesOf("Tutorial", module)
         completedHeader={tutorial.completedHeader}
         completedText={tutorial.completedText}
         continueBtnText={tutorial.continueBtnText}
+        lastTopic={false}
         onClickNextTopic={onClickFunc}
+        handleClose={onClickFunc}
       />
     );
   });
