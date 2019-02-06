@@ -34,7 +34,7 @@ export class TutorialWelcomeScreens extends React.Component<TutorialWelcomeScree
                 {idx === activeWelcomeIdx
                   ? (progressColor = colors.accent.CIVIL_BLUE)
                   : (progressColor = colors.accent.CIVIL_GRAY_4)}
-                <circle cx="5" cy="5" r="5" stroke="none" stroke-width="0" fill={progressColor} />
+                <circle cx="5" cy="5" r="5" stroke="none" strokeWidth="0" fill={progressColor} />
               </svg>
             ))}
           </SlideProgress>

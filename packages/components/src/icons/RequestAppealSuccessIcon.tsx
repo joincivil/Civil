@@ -10,7 +10,7 @@ export const RequestAppealSuccessIcon: React.SFC = props => {
           <path
             d="M12,0 C5.4,0 0,5.4 0,12 C0,18.6 5.4,24 12,24 C18.6,24 24,18.6 24,12 C24,5.4 18.6,0 12,0 L12,0 Z"
             stroke={colors.basic.WHITE}
-            stroke-width="3"
+            strokeWidth="3"
             fill={colors.basic.WHITE}
           />
           <path

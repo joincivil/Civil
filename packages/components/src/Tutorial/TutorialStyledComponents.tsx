@@ -31,7 +31,6 @@ export const TutorialProgressBarActive = styled.div`
 
 export interface TutorialStyleProps {
   centerContent?: boolean;
-  positionAbsolute?: boolean;
 }
 
 export const TutorialContentWrap = styled.div`
@@ -149,10 +148,6 @@ export const TutorialFooterLeft = styled.div`
   }
 `;
 
-export interface TutorialButtonProps extends ButtonProps {
-  positionAbsolute?: boolean;
-}
-
 export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   border-radius: 1px;
   font-size: 14px;
@@ -163,18 +158,21 @@ export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(B
   width: 160px;
 `;
 
-export const TutorialInvertedBtn: StyledComponentClass<TutorialButtonProps, "button"> = styled(InvertedButton)`
+export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
   background-color: transparent;
   border-radius: 1px;
   font-size: 14px;
   font-weight: 700;
-  ${(props: TutorialStyleProps) => (props.positionAbsolute ? "right: 0" : "")};
   letter-spacing: 0;
   padding: 12px;
-  ${(props: TutorialStyleProps) => (props.positionAbsolute ? "position: absolute" : "")};
   text-transform: none;
-  ${(props: TutorialStyleProps) => (props.positionAbsolute ? "top: 75px" : "")};
   width: 160px;
+`;
+
+export const TutorialSkipQuizIntro = styled.div`
+  right: 0;
+  position: absolute;
+  top: 75px;
 `;
 
 export const TutorialQuizName = styled.h2`

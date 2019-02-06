@@ -5,6 +5,7 @@ import {
   TutorialBtn,
   TutorialInvertedBtn,
   TutorialContentWrap,
+  TutorialSkipQuizIntro,
 } from "./TutorialStyledComponents";
 import { SkipToQuizBtnText } from "./TutorialTextComponents";
 import { TutorialFooter } from "./TutorialFooter";
@@ -26,9 +27,11 @@ export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProp
       <TutorialContentWrap>
         <TutorialTopicTitle>{props.headerText}</TutorialTopicTitle>
         <TutorialTopicInfo>{props.infoText}</TutorialTopicInfo>
-        <TutorialInvertedBtn onClick={props.onClickSkipTutorial} positionAbsolute={true}>
-          <SkipToQuizBtnText />
-        </TutorialInvertedBtn>
+        <TutorialSkipQuizIntro>
+          <TutorialInvertedBtn onClick={props.onClickSkipTutorial}>
+            <SkipToQuizBtnText />
+          </TutorialInvertedBtn>
+        </TutorialSkipQuizIntro>
       </TutorialContentWrap>
       <TutorialFooter floatRight={true}>
         <TutorialBtn onClick={props.onClickNext}>Let’s go</TutorialBtn>
