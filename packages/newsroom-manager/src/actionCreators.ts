@@ -37,10 +37,13 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
   getState: any,
 ): Promise<void> => {
   const newsroom = await civil.newsroomAtUntrusted(address);
-  newsroom.editors().forEach(val => {
-    dispatch(initContractMember(address, val));
-    dispatch(addEditor(address, val));
-  });
+  newsroom
+    .editors()
+    .distinct()
+    .forEach(val => {
+      dispatch(initContractMember(address, val));
+      dispatch(addEditor(address, val));
+    });
 };
 
 export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
