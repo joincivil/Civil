@@ -38,7 +38,7 @@ const userEthAddressQuery = gql`
 `;
 
 export class AccountEthAuth extends React.Component<AccountEthAuthProps, AccountEthAuthState> {
-  _isMounted?: boolean;
+  private _isMounted?: boolean;
 
   constructor(props: AccountEthAuthProps) {
     super(props);
@@ -89,10 +89,10 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
     );
   }
 
-  public componentDidMount() {
+  public componentDidMount(): void {
     this._isMounted = true;
   }
-  public componentWillUnmount() {
+  public componentWillUnmount(): void {
     this._isMounted = false;
   }
 
