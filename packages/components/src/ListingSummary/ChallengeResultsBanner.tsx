@@ -4,11 +4,11 @@ import { ListingSummaryComponentProps } from "./types";
 import { StyledBaseResultsBanner, StyledRejectedResultsBanner } from "./styledComponents";
 
 const ChallengeResultsBanner: React.SFC<ListingSummaryComponentProps> = props => {
-  const { appeal, didListingChallengeSucceed, canBeWhitelisted } = props;
+  const { appeal, didChallengeOriginallySucceed, canBeWhitelisted } = props;
   let decisionText = null;
 
   if (appeal && appeal.appealGranted) {
-    if (didListingChallengeSucceed) {
+    if (didChallengeOriginallySucceed) {
       // Challenge succeeded (newsroom rejected) and appeal was granted, so newsroom is accepted
       decisionText = (
         <StyledBaseResultsBanner>
@@ -23,7 +23,7 @@ const ChallengeResultsBanner: React.SFC<ListingSummaryComponentProps> = props =>
         </StyledRejectedResultsBanner>
       );
     }
-  } else if (didListingChallengeSucceed) {
+  } else if (didChallengeOriginallySucceed) {
     // Challenge succeeded (newsroom rejected)
     decisionText = (
       <StyledRejectedResultsBanner>
@@ -37,7 +37,7 @@ const ChallengeResultsBanner: React.SFC<ListingSummaryComponentProps> = props =>
         <HollowGreenCheck /> Newsroom application passed without challenge
       </StyledBaseResultsBanner>
     );
-  } else if (!didListingChallengeSucceed) {
+  } else if (!didChallengeOriginallySucceed) {
     // Challenge failed (newsroom accepted)
     decisionText = (
       <StyledBaseResultsBanner>

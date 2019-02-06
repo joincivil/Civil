@@ -18,6 +18,7 @@ export * from "./ExpandDownArrow";
 export * from "./FacebookIcon";
 export * from "./GreenCheckMark";
 export * from "./HamburgerIcon";
+export * from "./HollowGrayNotGranted";
 export * from "./HollowGreenCheck";
 export * from "./HollowRedNoGood";
 export * from "./MetaMaskIcons";

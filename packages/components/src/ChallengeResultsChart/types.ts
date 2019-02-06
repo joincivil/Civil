@@ -20,6 +20,7 @@ export interface ChallengeResultsProps {
 export interface BreakdownBarPercentageProps {
   vote: string;
   percentage: string;
+  color: string;
 }
 
 export interface VotesPerTokenVoteProps {
@@ -30,8 +31,13 @@ export interface VoteTypeSummaryRowProps {
   voteType: string;
   votesCount: string;
   votesPercent: string;
+  isAppealChallenge?: boolean;
 }
 
 export interface VoteTypeLabelProps {
   [index: string]: JSX.Element;
+}
+
+export interface VoteTypeColorProps {
+  [index: string]: string;
 }

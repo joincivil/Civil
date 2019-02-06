@@ -36,8 +36,7 @@ export const BreakdownBarTotal = styled.div`
 
 export const BreakdownBarPercentage = styled<BreakdownBarPercentageProps, "div">("div")`
   display: inline-block;
-  background-color: ${props =>
-    props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED};
+  background-color: ${props => props.color};
   height: 8px;
   left: 0;
   top: 0;
@@ -52,15 +51,15 @@ export const VotesPerTokenContainer = styled.div`
 `;
 
 export const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
-  font-weight: bold;
-  width: 95px;
+font-weight: bold;
+width: 95px;
 
-  & > span {
+& > span {
     color: ${props =>
       props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED};
     margin-right: 4px;
   ]
-`;
+    `;
 
 export const VotesPerTokenTotal = styled(VotesPerTokenVote)`
   color: ${colors.accent.CIVIL_GRAY_3};

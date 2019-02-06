@@ -27,16 +27,18 @@ const StyledInner = styled.div`
 const ExplainerText: React.SFC<ChallengeResultsProps> = props => {
   let explainerText;
 
+  console.log("isAppealChallenge: ", props.isAppealChallenge);
+
   if (props.didChallengeSucceed) {
     if (props.isAppealChallenge) {
-      explainerText = "This granted appeal has been overturned by the Civil Community.";
+      explainerText = "This granted appeal has been upheld by the Civil Community.";
     } else {
       explainerText =
         "The Civil Community has voted to reject this newsroom, on the grounds that it is in violation of the Civil Constitution.";
     }
   } else {
     if (props.isAppealChallenge) {
-      explainerText = "This granted appeal has been upheld by the Civil Community.";
+      explainerText = "This granted appeal has been overturned by the Civil Community.";
     } else {
       explainerText =
         "The Civil Community has voted to accept this newsroom, on the grounds that it adheres to the Civil Constitution.";
@@ -58,7 +60,9 @@ const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = p
 
       <VoteTypeSummaryContainer>
         <VoteTypeSummaryRow
-          voteType={CHALLENGE_RESULTS_VOTE_TYPES.REMAIN}
+          voteType={
+            props.isAppealChallenge ? CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN : CHALLENGE_RESULTS_VOTE_TYPES.REMAIN
+          }
           votesCount={props.votesFor}
           votesPercent={props.percentFor}
         />
@@ -66,7 +70,7 @@ const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = p
 
       <VoteTypeSummaryContainer>
         <VoteTypeSummaryRow
-          voteType={CHALLENGE_RESULTS_VOTE_TYPES.REMOVE}
+          voteType={props.isAppealChallenge ? CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD : CHALLENGE_RESULTS_VOTE_TYPES.REMOVE}
           votesCount={props.votesAgainst}
           votesPercent={props.percentAgainst}
         />

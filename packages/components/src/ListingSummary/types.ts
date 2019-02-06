@@ -15,7 +15,8 @@ export interface ListingSummaryComponentProps {
   inChallengeCommitVotePhase?: boolean;
   inChallengeRevealPhase?: boolean;
   isAwaitingAppealRequest?: boolean;
-  didListingChallengeSucceed?: boolean;
+  didChallengeSucceed?: boolean;
+  didChallengeOriginallySucceed?: boolean;
   canResolveChallenge?: boolean;
   isAwaitingAppealJudgement?: boolean;
   isAwaitingAppealChallenge?: boolean;

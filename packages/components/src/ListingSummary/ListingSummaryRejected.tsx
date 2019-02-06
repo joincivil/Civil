@@ -12,7 +12,7 @@ export const ListingSummaryRejectedComponent: React.SFC<
 > = props => {
   const { appeal } = props;
 
-  const hasTopPadding = !(appeal && appeal.appealGranted);
+  const hasTopPadding = !appeal;
   return (
     <StyledListingSummaryContainer>
       <StyledListingSummary hasTopPadding={hasTopPadding}>

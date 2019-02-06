@@ -1,18 +1,27 @@
 import * as React from "react";
-import { HollowGreenCheck, HollowRedNoGood } from "../icons";
+import { HollowGreenCheck, HollowRedNoGood, HollowGrayNotGranted } from "../icons";
 import { ListingSummaryComponentProps } from "./types";
-import { StyledBaseResultsBanner, StyledRejectedResultsBanner } from "./styledComponents";
+import {
+  StyledBaseResultsBanner,
+  StyledRejectedResultsBanner,
+  StyledNotGrantedResultsBanner,
+} from "./styledComponents";
 
 const AppealDecisionBanner: React.SFC<ListingSummaryComponentProps> = props => {
-  const { appeal, didListingChallengeSucceed } = props;
-  if (!appeal || !appeal.appealGranted) {
+  const { appeal, didChallengeOriginallySucceed } = props;
+  if (!appeal) {
     return <></>;
   }
 
   let decisionText;
-
-  // Challenge succeeded (newsroom rejected) and appeal was granted, so newsroom is accepted
-  if (didListingChallengeSucceed) {
+  if (!appeal.appealGranted) {
+    decisionText = (
+      <StyledNotGrantedResultsBanner>
+        <HollowGrayNotGranted /> Appeal requested but not granted
+      </StyledNotGrantedResultsBanner>
+    );
+  } else if (didChallengeOriginallySucceed) {
+    // Challenge succeeded (newsroom rejected) and appeal was granted, so newsroom is accepted
     decisionText = (
       <StyledBaseResultsBanner>
         <HollowGreenCheck /> Appeal granted to accept Newsroom

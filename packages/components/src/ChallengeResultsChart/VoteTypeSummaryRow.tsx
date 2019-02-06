@@ -9,8 +9,9 @@ import {
   BreakdownBarTotal,
   BreakdownBarPercentage,
 } from "./styledComponents";
-import { VoteTypeSummaryRowProps, VoteTypeLabelProps } from "./types";
+import { VoteTypeSummaryRowProps, VoteTypeLabelProps, VoteTypeColorProps } from "./types";
 import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
+import { colors } from "../styleConstants";
 
 const voteTypeLabel: VoteTypeLabelProps = {
   [CHALLENGE_RESULTS_VOTE_TYPES.REMAIN]: (
@@ -18,15 +19,25 @@ const voteTypeLabel: VoteTypeLabelProps = {
       <span>✓</span> Accept
     </>
   ),
-
   [CHALLENGE_RESULTS_VOTE_TYPES.REMOVE]: (
     <>
       <span>✕</span> Reject
     </>
   ),
+  [CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN]: <>Overturn</>,
+  [CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD]: <>Uphold</>,
+};
+
+const voteColor: VoteTypeColorProps = {
+  [CHALLENGE_RESULTS_VOTE_TYPES.REMAIN]: colors.accent.CIVIL_TEAL,
+  [CHALLENGE_RESULTS_VOTE_TYPES.REMOVE]: colors.accent.CIVIL_RED,
+  [CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN]: colors.accent.CIVIL_YELLOW,
+  [CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD]: colors.accent.CIVIL_BLUE,
 };
 
 export const VoteTypeSummaryRow: React.StatelessComponent<VoteTypeSummaryRowProps> = props => {
+  const color = voteColor[props.voteType];
+  console.log("color: ", color);
   return (
     <VoteTypeSummary>
       <VotesPerTokenContainer>
@@ -39,7 +50,7 @@ export const VoteTypeSummaryRow: React.StatelessComponent<VoteTypeSummaryRowProp
           {props.votesPercent && (props.votesPercent.indexOf("NaN") < 0 ? props.votesPercent : "0")}%
         </BreakdownBarPercentageLabel>
         <BreakdownBarTotal>
-          <BreakdownBarPercentage vote={props.voteType} percentage={props.votesPercent} />
+          <BreakdownBarPercentage vote={props.voteType} percentage={props.votesPercent} color={color} />
         </BreakdownBarTotal>
       </BreakdownBarContainer>
     </VoteTypeSummary>

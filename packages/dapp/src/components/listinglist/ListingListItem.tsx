@@ -39,14 +39,18 @@ export const transformListingSummaryViewProps = (
   const { listingAddress, listing, newsroom, listingPhaseState, charter } = props;
   const listingData = listing!.data;
   const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-  const challenge = listingData.challenge;
+  let challenge = listingData.challenge;
+  let challengeID = challenge && listingData.challengeID.toString();
+  if (!challenge && !listingData.isWhitelisted) {
+    challenge = listingData.prevChallenge;
+    challengeID = challenge && listingData.prevChallengeID!.toString();
+  }
   const pollData = challenge && challenge.poll;
   const commitEndDate = pollData && pollData.commitEndDate.toNumber();
   const revealEndDate = pollData && pollData.revealEndDate.toNumber();
   const requestAppealExpiry = challenge && challenge.requestAppealExpiry.toNumber();
   const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
-  const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
-  const challengeID = challenge && listingData.challengeID.toString();
+  const challengeStake = challenge && getFormattedTokenBalance(challenge.stake);
   let challengeStatementSummary;
   if (props.challengeStatement) {
     try {
@@ -72,7 +76,7 @@ export const transformListingSummaryViewProps = (
   let appealPollData;
   let appealChallengeID;
   const appealChallenge = appeal && appeal.appealChallenge;
-  if (appealChallenge) {
+  if (appealChallenge && appeal!.appealChallengeID) {
     appealChallengeID = appeal!.appealChallengeID.toString();
     appealPollData = appealChallenge.poll;
     appealChallengeCommitEndDate = appealPollData && appealPollData.commitEndDate.toNumber();
@@ -124,7 +128,14 @@ export const transformListingSummaryViewProps = (
 
   let appealChallengeResultsProps;
 
-  if (appealChallenge && canListingAppealChallengeBeResolved) {
+  if (
+    appealChallenge &&
+    (canListingAppealChallengeBeResolved ||
+      (!isInAppealChallengeCommitPhase &&
+        !isInAppealChallengeRevealPhase &&
+        !canListingAppealChallengeBeResolved &&
+        !listingData.isWhitelisted))
+  ) {
     appealChallengeResultsProps = getAppealChallengeResultsProps(appealChallenge!);
   }
 
@@ -173,9 +184,11 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
     const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
       connectLatestChallengeSucceededResults,
     )(ListingSummaryRejectedComponent);
+    // console.log("1 challengeResultsProps: ", { ...listingViewProps });
     return <ListingSummaryRejected {...listingViewProps} />;
   } else {
     const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
+    // console.log("2 challengeResultsProps: ", challengeResultsProps);
     return (
       <ListingSummaryRejectedComponent
         challengeID={data.prevChallengeID!.toString()}
