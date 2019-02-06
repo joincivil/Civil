@@ -34,8 +34,7 @@ export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardPro
     props.appealChallengeVotesFor &&
     props.appealChallengeVotesAgainst &&
     props.appealChallengePercentFor &&
-    props.appealChallengePercentAgainst &&
-    props.didAppealChallengeSucceed;
+    props.appealChallengePercentAgainst;
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
