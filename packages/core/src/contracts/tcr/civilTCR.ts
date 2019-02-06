@@ -612,6 +612,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let salt;
     let numTokens;
     let choice;
+    let voterReward;
     const challenge = new Challenge(this.ethApi, this.instance, challengeID);
     const challengeData = await challenge.getChallengeData();
     const resolved = challengeData.resolved;
@@ -661,6 +662,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       didCollectAmount = await this.getRewardClaimed(challengeID, user);
     }
 
+    if (isVoterWinner && !didUserCollect) {
+      voterReward = await this.voterReward(challengeID, salt as BigNumber, user);
+    }
+
     return {
       didUserCommit,
       didUserReveal,
@@ -674,6 +679,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       salt,
       numTokens,
       choice,
+      voterReward,
     };
   }
 
