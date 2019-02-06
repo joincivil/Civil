@@ -8,6 +8,8 @@ export interface ListingSummaryComponentProps {
   challengeID?: string;
   challengeStatementSummary?: string;
   appeal?: AppealData;
+  appealRequested?: boolean;
+  appealGranted?: boolean;
   appealStatementSummary?: string;
   isInApplication?: boolean;
   canBeChallenged?: boolean;
@@ -15,7 +17,8 @@ export interface ListingSummaryComponentProps {
   inChallengeCommitVotePhase?: boolean;
   inChallengeRevealPhase?: boolean;
   isAwaitingAppealRequest?: boolean;
-  didListingChallengeSucceed?: boolean;
+  didChallengeSucceed?: boolean;
+  didChallengeOriginallySucceed?: boolean;
   canResolveChallenge?: boolean;
   isAwaitingAppealJudgement?: boolean;
   isAwaitingAppealChallenge?: boolean;

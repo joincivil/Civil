@@ -13,6 +13,8 @@ import {
   PHASE_TYPE_NAMES,
   PHASE_TYPE_LABEL,
   PHASE_TYPE_FLAVOR_TEXT,
+  AppealChallengeResultsProps,
+  AppealChallengePhaseProps,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { setupRejectedListingLatestChallengeSubscription } from "../../redux/actionCreators/listings";
@@ -21,7 +23,7 @@ import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
 import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
-import { getChallengeResultsProps } from "../../helpers/transforms";
+import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 
 const StyledPartialChallengeResultsHeader = styled.p`
   & > span {
@@ -190,10 +192,10 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
     }
     const userAcct = user.account;
     return {
+      ...ownProps,
       challengeData,
       challengeDataRequestStatus,
       user: userAcct.account,
-      ...ownProps,
     };
   };
 
@@ -287,9 +289,9 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
     const { parameters, govtParameters } = state.networkDependent;
 
     return {
+      ...ownProps,
       parameters,
       govtParameters,
-      ...ownProps,
     };
   };
 
@@ -373,8 +375,12 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
  */
 export const connectLatestChallengeSucceededResults = <TOriginalProps extends ListingContainerProps>(
   PresentationComponent:
-    | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
-    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
+    | React.ComponentClass<
+        TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
+      >
+    | React.StatelessComponent<
+        TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
+      >,
 ) => {
   const makeMapStateToProps = () => {
     const getLatestChallengeSucceededChallengeID = makeGetLatestChallengeSucceededChallengeID();
@@ -395,11 +401,12 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       // Can't use spread here b/c of TS issue with spread and generics
       // https://github.com/Microsoft/TypeScript/pull/13288
       // tslint:disable-next-line:prefer-object-spread
-      return Object.assign(
-        {},
-        { challengeData, challengeID, challengeDataRequestStatus, user: userAcct.account },
-        ownProps,
-      );
+      return Object.assign({}, ownProps, {
+        challengeData,
+        challengeID,
+        challengeDataRequestStatus,
+        user: userAcct.account,
+      });
     };
 
     return mapStateToProps;
@@ -422,11 +429,46 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       const challengeResultsProps = getChallengeResultsProps(
         this.props.challengeData && this.props.challengeData.challenge,
       ) as ChallengeResultsProps;
+
+      let appealPhaseProps = {};
+      if (this.props.challengeData && this.props.challengeData.challenge.appeal) {
+        appealPhaseProps = {
+          appealRequested: !this.props.challengeData.challenge.appeal.appealFeePaid.isZero(),
+          appealGranted: this.props.challengeData.challenge.appeal.appealGranted,
+        };
+      }
+      let appealChallengePhaseProps = {};
+      if (
+        this.props.challengeData &&
+        this.props.challengeData.challenge.appeal &&
+        this.props.challengeData.challenge.appeal.appealChallengeID
+      ) {
+        appealChallengePhaseProps = {
+          appealChallengeID: this.props.challengeData.challenge.appeal.appealChallengeID.toString(),
+        };
+      }
+      let appealChallengeResultsProps = {};
+      if (
+        this.props.challengeData &&
+        this.props.challengeData.challenge.appeal &&
+        this.props.challengeData.challenge.appeal.appealChallenge
+      ) {
+        appealChallengeResultsProps = getAppealChallengeResultsProps(
+          this.props.challengeData.challenge.appeal.appealChallenge,
+        ) as AppealChallengeResultsProps;
+      }
       const challengeID = this.props.challengeID && this.props.challengeID.toString();
 
       return (
         <>
-          <PresentationComponent {...challengeResultsProps} challengeID={challengeID} {...this.props} />
+          <PresentationComponent
+            {...this.props}
+            {...challengeResultsProps}
+            {...appealPhaseProps}
+            {...appealChallengePhaseProps}
+            {...appealChallengeResultsProps}
+            challengeID={challengeID}
+          />
         </>
       );
     }
@@ -477,12 +519,12 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
     }
     const userAcct = user.account;
     return {
+      ...ownProps,
       challengeID: challengeID!.toString(),
       challengeData,
       challengeDataRequestStatus,
       user: userAcct.account,
       useGraphQL,
-      ...ownProps,
     };
   };
 

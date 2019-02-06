@@ -2,7 +2,7 @@ import * as React from "react";
 import { compose } from "redux";
 import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import styled from "styled-components";
-import { getChallengeResultsProps } from "../../helpers/transforms";
+import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 import ChallengeDetailContainer from "./ChallengeDetail";
 import ChallengeResolve from "./ChallengeResolve";
 import {
@@ -11,6 +11,9 @@ import {
   Modal,
   ProgressModalContentMobileUnsupported,
   ChallengeResultsProps,
+  AppealChallengePhaseProps,
+  AppealDecisionProps,
+  ChallengePhaseProps,
 } from "@joincivil/components";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
@@ -124,7 +127,33 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       return <RejectedCard listingAddress={this.props.listing.address} />;
     } else {
       const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!) as ChallengeResultsProps;
-      return <RejectedCardComponent {...challengeResultsProps} />;
+      let appealChallengeResultsProps;
+      const challengeProps: ChallengePhaseProps = {
+        challengeID: data.prevChallengeID!.toString(),
+      };
+      let appealProps: AppealDecisionProps = {};
+      if (data.prevChallenge && data.prevChallenge.appeal && data.prevChallenge.appeal.appealFeePaid) {
+        appealProps = {
+          appealRequested: !data.prevChallenge!.appeal!.appealFeePaid!.isZero(),
+          appealGranted: data.prevChallenge!.appeal!.appealGranted,
+        };
+      }
+      let appealChallengePhaseProps: AppealChallengePhaseProps = {};
+      if (data.prevChallenge!.appeal) {
+        appealChallengePhaseProps = { appealChallengeID: data.prevChallenge!.appeal!.appealChallengeID.toString() };
+      }
+      if (data.prevChallenge.appeal && data.prevChallenge.appeal.appealChallenge) {
+        appealChallengeResultsProps = getAppealChallengeResultsProps(data.prevChallenge.appeal.appealChallenge!);
+      }
+      return (
+        <RejectedCardComponent
+          {...challengeProps}
+          {...challengeResultsProps}
+          {...appealProps}
+          {...appealChallengeResultsProps}
+          {...appealChallengePhaseProps}
+        />
+      );
     }
   }
 

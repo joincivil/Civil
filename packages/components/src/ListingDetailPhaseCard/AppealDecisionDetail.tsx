@@ -9,7 +9,7 @@ import { buttonSizes, InvertedButton } from "../Button";
 import { Collapsable } from "../Collapsable";
 
 export interface AppealDecisionDetailProps {
-  appealGranted: boolean;
+  appealGranted?: boolean;
   collapsable?: boolean;
   open?: boolean;
 }
