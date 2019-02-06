@@ -36,7 +36,6 @@ export interface ListingListItemReduxProps {
 export const transformListingSummaryViewProps = (
   props: ListingListItemOwnProps & ListingListItemReduxProps & Partial<ListingSummaryComponentProps>,
 ) => {
-  console.log("TRANSFORM");
   const { listingAddress, listing, newsroom, listingPhaseState, charter } = props;
   const listingData = listing!.data;
   const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
@@ -71,7 +70,6 @@ export const transformListingSummaryViewProps = (
       appealStatementSummary = props.appealStatement.summary;
     }
   }
-  console.log("transform listing: ", listing);
   let appealChallengeCommitEndDate;
   let appealChallengeRevealEndDate;
   let appealPollData;
