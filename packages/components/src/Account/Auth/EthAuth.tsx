@@ -38,6 +38,8 @@ const userEthAddressQuery = gql`
 `;
 
 export class AccountEthAuth extends React.Component<AccountEthAuthProps, AccountEthAuthState> {
+  _isMounted?: boolean;
+
   constructor(props: AccountEthAuthProps) {
     super(props);
     this.state = {};
@@ -85,6 +87,13 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
         )}
       </Mutation>
     );
+  }
+
+  public componentDidMount() {
+    this._isMounted = true;
+  }
+  public componentWillUnmount() {
+    this._isMounted = false;
   }
 
   private renderWaitingSignModal(): JSX.Element | null {
@@ -155,7 +164,10 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
               if (this.props.onAuthenticated) {
                 this.props.onAuthenticated(sig.signer);
               }
-              this.setState({ isWaitingSignatureOpen: false });
+              if (this._isMounted) {
+                // A bit of an antipattern, but cancelling async/await is hard
+                this.setState({ isWaitingSignatureOpen: false });
+              }
             } else {
               console.error("Failed to validate and save ETH address. Response:", res);
               throw Error("Failed to validate and save ETH address");
