@@ -131,13 +131,17 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       const challengeProps: ChallengePhaseProps = {
         challengeID: data.prevChallengeID!.toString(),
       };
-      const appealProps: AppealDecisionProps = {
-        appealRequested: !data.prevChallenge!.appeal!.appealFeePaid!.isZero(),
-        appealGranted: data.prevChallenge!.appeal!.appealGranted,
-      };
-      const appealChallengePhaseProps: AppealChallengePhaseProps = {
-        appealChallengeID: data.prevChallenge!.appeal!.appealChallengeID.toString(),
-      };
+      let appealProps: AppealDecisionProps = {};
+      if (data.prevChallenge && data.prevChallenge.appeal && data.prevChallenge.appeal.appealFeePaid) {
+        appealProps = {
+          appealRequested: !data.prevChallenge!.appeal!.appealFeePaid!.isZero(),
+          appealGranted: data.prevChallenge!.appeal!.appealGranted,
+        };
+      }
+      let appealChallengePhaseProps: AppealChallengePhaseProps = {};
+      if (data.prevChallenge!.appeal) {
+        appealChallengePhaseProps = { appealChallengeID: data.prevChallenge!.appeal!.appealChallengeID.toString() };
+      }
       if (data.prevChallenge.appeal && data.prevChallenge.appeal.appealChallenge) {
         appealChallengeResultsProps = getAppealChallengeResultsProps(data.prevChallenge.appeal.appealChallenge!);
       }
