@@ -8,6 +8,8 @@ export interface ListingSummaryComponentProps {
   challengeID?: string;
   challengeStatementSummary?: string;
   appeal?: AppealData;
+  appealRequested?: boolean;
+  appealGranted?: boolean;
   appealStatementSummary?: string;
   isInApplication?: boolean;
   canBeChallenged?: boolean;

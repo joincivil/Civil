@@ -85,7 +85,11 @@ export const AppealChallengeResults: React.SFC<ListingSummaryAppealChallengeResu
     isUnderChallenge,
   } = props;
 
-  if ((!canListingAppealChallengeBeResolved && !(isRejected && !isUnderChallenge)) || !appealChallengeID) {
+  if (
+    (!canListingAppealChallengeBeResolved && !(isRejected && !isUnderChallenge)) ||
+    !appealChallengeID ||
+    appealChallengeID === "0"
+  ) {
     return null;
   }
 

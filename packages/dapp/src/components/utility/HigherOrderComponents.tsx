@@ -192,10 +192,10 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
     }
     const userAcct = user.account;
     return {
+      ...ownProps,
       challengeData,
       challengeDataRequestStatus,
       user: userAcct.account,
-      ...ownProps,
     };
   };
 
@@ -289,9 +289,9 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
     const { parameters, govtParameters } = state.networkDependent;
 
     return {
+      ...ownProps,
       parameters,
       govtParameters,
-      ...ownProps,
     };
   };
 
@@ -401,11 +401,12 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       // Can't use spread here b/c of TS issue with spread and generics
       // https://github.com/Microsoft/TypeScript/pull/13288
       // tslint:disable-next-line:prefer-object-spread
-      return Object.assign(
-        {},
-        { challengeData, challengeID, challengeDataRequestStatus, user: userAcct.account },
-        ownProps,
-      );
+      return Object.assign({}, ownProps, {
+        challengeData,
+        challengeID,
+        challengeDataRequestStatus,
+        user: userAcct.account,
+      });
     };
 
     return mapStateToProps;
@@ -457,15 +458,16 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
         ) as AppealChallengeResultsProps;
       }
       const challengeID = this.props.challengeID && this.props.challengeID.toString();
+
       return (
         <>
           <PresentationComponent
+            {...this.props}
             {...challengeResultsProps}
             {...appealPhaseProps}
             {...appealChallengePhaseProps}
             {...appealChallengeResultsProps}
             challengeID={challengeID}
-            {...this.props}
           />
         </>
       );
@@ -517,12 +519,12 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
     }
     const userAcct = user.account;
     return {
+      ...ownProps,
       challengeID: challengeID!.toString(),
       challengeData,
       challengeDataRequestStatus,
       user: userAcct.account,
       useGraphQL,
-      ...ownProps,
     };
   };
 
