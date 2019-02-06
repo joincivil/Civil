@@ -24,13 +24,6 @@ import { IpfsObject } from "./Newsroom";
 import { toBuffer } from "ethereumjs-util";
 import { fetchNewsroom } from "./actionCreators";
 
-const StyledLegalIframe = styled.iframe`
-  border-width: 1px;
-  height: 15rem;
-  margin: 0 0 2rem;
-  width: 100%;
-`;
-
 const CheckWrapper = styled.span`
   margin-right: 8px;
 `;
