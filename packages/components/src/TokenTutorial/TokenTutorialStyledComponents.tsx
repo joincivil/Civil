@@ -199,13 +199,13 @@ export const TopicProgress = styled.div`
   }
 `;
 
-export const TutorialProgressBars = styled.div`
+export const TutorialLandingProgressBars = styled.div`
   align-items: center;
   display: flex;
   padding: 15px 0 5px;
 `;
 
-export const TutorialProgressBar = styled.div`
+export const TutorialLandingProgressBar = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   height: 5px;
   margin-right: 5px;

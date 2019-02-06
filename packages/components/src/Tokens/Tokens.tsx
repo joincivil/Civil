@@ -13,6 +13,12 @@ import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
 
+export const TOKEN_PROGRESS = {
+  ACTIVE: "active",
+  COMPLETED: "completed",
+  DISABLED: "disabled",
+};
+
 export interface UserTokenAccountProps {
   supportEmailAddress: string;
   faqUrl: string;
@@ -38,9 +44,13 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     let tutorialState;
     let buyState;
 
-    this.props.userLoggedIn ? (loggedInState = "completed") : (loggedInState = "active");
-    this.props.userTutorialComplete ? (tutorialState = "completed") : (tutorialState = "active");
-    this.props.userLoggedIn && this.props.userTutorialComplete ? (buyState = "active") : (buyState = "disabled");
+    this.props.userLoggedIn ? (loggedInState = TOKEN_PROGRESS.COMPLETED) : (loggedInState = TOKEN_PROGRESS.ACTIVE);
+    this.props.userTutorialComplete
+      ? (tutorialState = TOKEN_PROGRESS.COMPLETED)
+      : (tutorialState = TOKEN_PROGRESS.ACTIVE);
+    this.props.userLoggedIn && this.props.userTutorialComplete
+      ? (buyState = TOKEN_PROGRESS.ACTIVE)
+      : (buyState = TOKEN_PROGRESS.DISABLED);
 
     return (
       <TokenAccountOuter>
