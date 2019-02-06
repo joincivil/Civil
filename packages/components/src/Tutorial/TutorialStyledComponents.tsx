@@ -9,7 +9,7 @@ export interface TutorialProgressBarProps {
 }
 
 export const TutorialProgressContain = styled.div`
-  padding: 20px 0;
+  padding: 20px 0 50px;
   width: 100%;
 `;
 
@@ -31,6 +31,7 @@ export const TutorialProgressBarActive = styled.div`
 
 export interface TutorialStyleProps {
   centerContent?: boolean;
+  positionAbsolute?: boolean;
 }
 
 export const TutorialContentWrap = styled.div`
@@ -38,7 +39,8 @@ export const TutorialContentWrap = styled.div`
   margin: 0 auto 50px;
   max-width: 710px;
   min-height: 500px;
-  text-align: ${(props: TutorialStyleProps) => props.centerContent ? "center" : "left"};
+  position: relative;
+  text-align: ${(props: TutorialStyleProps) => (props.centerContent ? "center" : "left")};
 
   svg {
     display: block;
@@ -72,6 +74,7 @@ export const TutorialTopicTitle = styled.div`
   font-weight: 300;
   letter-spacing: -0.87px;
   line-height: 39px;
+  margin-bottom: 50px;
 
   b {
     font-weight: 800;
@@ -83,10 +86,12 @@ export const TutorialTopicInfo = styled.div`
   font-weight: 300;
   letter-spacing: -0.11px;
   line-height: 31px;
+  margin-bottom: 30px;
 `;
 
 export interface TutorialFooterFullProps {
   questionResult?: string;
+  floatRight?: boolean;
 }
 
 export const TutorialFooterFull = styled.div`
@@ -107,7 +112,7 @@ export const TutorialFooterFull = styled.div`
 export const TutorialFooterWrap = styled.div`
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props: TutorialFooterFullProps) => (props.floatRight ? "flex-end" : "space-between")};
   max-width: 900px;
   width: 100%;
 `;
@@ -144,6 +149,10 @@ export const TutorialFooterLeft = styled.div`
   }
 `;
 
+export interface TutorialButtonProps extends ButtonProps {
+  positionAbsolute?: boolean;
+}
+
 export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   border-radius: 1px;
   font-size: 14px;
@@ -154,14 +163,17 @@ export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(B
   width: 160px;
 `;
 
-export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const TutorialInvertedBtn: StyledComponentClass<TutorialButtonProps, "button"> = styled(InvertedButton)`
   background-color: transparent;
   border-radius: 1px;
   font-size: 14px;
   font-weight: 700;
+  ${(props: TutorialStyleProps) => (props.positionAbsolute ? "right: 0" : "")};
   letter-spacing: 0;
   padding: 12px;
+  ${(props: TutorialStyleProps) => (props.positionAbsolute ? "position: absolute" : "")};
   text-transform: none;
+  ${(props: TutorialStyleProps) => (props.positionAbsolute ? "top: 75px" : "")};
   width: 160px;
 `;
 

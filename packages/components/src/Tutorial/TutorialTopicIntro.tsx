@@ -26,11 +26,11 @@ export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProp
       <TutorialContentWrap>
         <TutorialTopicTitle>{props.headerText}</TutorialTopicTitle>
         <TutorialTopicInfo>{props.infoText}</TutorialTopicInfo>
-        <TutorialInvertedBtn onClick={props.onClickSkipTutorial}>
+        <TutorialInvertedBtn onClick={props.onClickSkipTutorial} positionAbsolute={true}>
           <SkipToQuizBtnText />
         </TutorialInvertedBtn>
       </TutorialContentWrap>
-      <TutorialFooter>
+      <TutorialFooter floatRight={true}>
         <TutorialBtn onClick={props.onClickNext}>Let’s go</TutorialBtn>
       </TutorialFooter>
     </>
