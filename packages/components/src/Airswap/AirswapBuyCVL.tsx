@@ -1,26 +1,17 @@
 import * as React from "react";
 import makeAsyncScriptLoader from "react-async-script";
-import styled, { StyledComponentClass } from "styled-components";
-import { Button, ButtonProps } from "../Button";
+import { Button } from "../Button";
 
 const AIRSWAP_URL = "https://cdn.airswap.io/gallery/airswap-trader.js";
 
-export const AirSwapBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
-  border-radius: 1px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-  text-transform: none;
-`;
-
 export interface BuyCVLProps {
-  buyCVLBtnText?: string;
+  buyCVLBtnText?: string | JSX.Element;
   onClick?(index: number): void;
 }
 
 class BuyCVLBase extends React.Component<BuyCVLProps> {
   public render(): JSX.Element {
-    return <AirSwapBtn onClick={() => this.displayAirswap()}>{this.props.buyCVLBtnText || "Buy CVL"}</AirSwapBtn>;
+    return <Button onClick={() => this.displayAirswap()}>{this.props.buyCVLBtnText || "Buy CVL"}</Button>;
   }
 
   private displayAirswap(): void {

@@ -2,12 +2,12 @@ import * as React from "react";
 import {
   FlexColumnsPrimaryModule,
   TokenBtns,
-  TokenBtnsInverted,
   TokenBuySection,
   TokenBuyIntro,
   TokenAirswapSection,
   TokenConverterSection,
   TokenOrBreak,
+  TokenExchangeSection,
 } from "./TokensStyledComponents";
 import {
   TokenBuyText,
@@ -20,11 +20,10 @@ import {
   TokenOrText,
 } from "./TokensTextComponents";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
+import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
 
 export interface TokenAccountBuyProps {
   step?: string;
-  openAirSwapFoundation(): void;
-  openAirSwapExchange(): void;
 }
 
 export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps> = props => {
@@ -50,20 +49,20 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
             </TokenBuyIntro>
 
             <TokenAirswapSection>
-              <TokenAirswapFoundationText />
-              <TokenConverterSection>[TKTK currency converter component]</TokenConverterSection>
-              <TokenBtns onClick={props.openAirSwapFoundation}>
-                <TokenBuyFoundationBtnText />
-              </TokenBtns>
+              <>
+                <TokenAirswapFoundationText />
+                <TokenConverterSection>[TKTK currency converter component]</TokenConverterSection>
+                <AirswapBuyCVL buyCVLBtnText={<TokenBuyFoundationBtnText />} />
+              </>
 
               <TokenOrBreak>
                 <TokenOrText />
               </TokenOrBreak>
 
-              <TokenAirswapExchangeText />
-              <TokenBtnsInverted onClick={props.openAirSwapExchange}>
-                <TokenBuyExchangeBtnText />
-              </TokenBtnsInverted>
+              <TokenExchangeSection>
+                <TokenAirswapExchangeText />
+                <AirswapBuyCVL buyCVLBtnText={<TokenBuyExchangeBtnText />} />
+              </TokenExchangeSection>
             </TokenAirswapSection>
           </TokenBuySection>
         </FlexColumnsPrimaryModule>

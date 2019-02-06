@@ -219,6 +219,14 @@ export const TokenBuySection = styled.div`
     line-height: 33px;
     margin: 0 0 15px;
   }
+
+  button {
+    border-radius: 1px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: none;
+  }
 `;
 
 export const TokenBuyIntro = styled.div`
@@ -331,6 +339,21 @@ export const CloseBtn: StyledComponentClass<ButtonProps, "button"> = styled(Inve
 
     svg path {
       fill: ${colors.accent.CIVIL_BLUE};
+    }
+  }
+`;
+
+export const TokenExchangeSection = styled.div`
+  button {
+    background-color: transparent;
+    border: 1px solid ${colors.accent.CIVIL_BLUE};
+    color: ${colors.accent.CIVIL_BLUE};
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:focus {
+      background-color: ${colors.accent.CIVIL_BLUE};
+      color: ${colors.basic.WHITE};
     }
   }
 `;
