@@ -118,7 +118,7 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
       pathname: `/tokens`,
       state: {},
     });
-
+    // TODO(jorgelo): Same as above, there should be a better way to force a refetch.
     window.location.reload();
   };
 

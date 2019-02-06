@@ -68,11 +68,11 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   }
 
   private getUserStep(user: any): TokenAccountStep {
-    if (!user || user.ethAddress) {
-      return "incomplete";
+    if (user && user.ethAddress) {
+      return "completed";
     }
 
-    return "completed";
+    return "incomplete";
   }
 
   private openTutorialModal = () => {
