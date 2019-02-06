@@ -36,6 +36,7 @@ import { CmsUserData } from "./types";
 
 export interface NewsroomComponentState {
   currentStep: number;
+  showWalletConnected?: boolean;
   subscription?: any;
   charterPartOneComplete?: boolean;
   charterPartTwoComplete?: boolean;
@@ -338,6 +339,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         helpUrl={this.props.helpUrl}
         helpUrlBase={this.props.helpUrlBase}
         profileWalletAddress={this.props.profileWalletAddress}
+        onOnboardingComplete={() => this.setState({showWalletConnected: true})}
+        onContinue={() => this.setState({showWalletConnected: false})}
       />
     );
   }
@@ -367,7 +370,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private isWalletOnboarded(): boolean {
-    return !!(hasInjectedProvider() && this.props.civil && this.props.metamaskEnabled && !!this.props.account && (!this.props.requiredNetwork || this.props.currentNetwork === this.props.requiredNetwork) && this.props.account === this.props.profileWalletAddress);
+    return !!(hasInjectedProvider() && this.props.civil && this.props.metamaskEnabled && !!this.props.account && (!this.props.requiredNetwork || this.props.currentNetwork === this.props.requiredNetwork) && this.props.account === this.props.profileWalletAddress && !this.state.showWalletConnected);
   }
 
   private async initCharter(): Promise<void> {

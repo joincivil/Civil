@@ -152,10 +152,10 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
             });
 
             if (res && res.data && res.data.userSetEthAddress) {
-              this.setState({ isWaitingSignatureOpen: false });
               if (this.props.onAuthenticated) {
                 this.props.onAuthenticated(sig.signer);
               }
+              this.setState({ isWaitingSignatureOpen: false });
             } else {
               console.error("Failed to validate and save ETH address. Response:", res);
               throw Error("Failed to validate and save ETH address");

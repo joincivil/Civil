@@ -30,11 +30,12 @@ export interface WalletOnboardingProps {
   requireAuth?: boolean;
   enable(): void;
   saveAddressToProfile?(): Promise<void>;
+  onOnboardingComplete?(): void;
+  onContinue?(): void;
 }
 
 export interface WalletOnboardingState {
   justSaved?: boolean;
-  authed?: boolean;
 }
 
 const Wrapper = styled.div`
@@ -267,14 +268,14 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
         // @TODO/toby Need to pass in gql data from user to see if they have already added their ETH address
         return (
           <Wrapper>
-            <AccountEthAuth civil={this.props.civil!} onAuthenticated={() => this.setState({ authed: true })} />
+            <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} />
           </Wrapper>
         );
       } else if (this.props.requireAuth && this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
         return (
           <Wrapper>
             <b>@TODO/toby Mismatch between MM address and profile address - update component copy.</b>
-            <AccountEthAuth civil={this.props.civil!} onAuthenticated={() => this.setState({ authed: true })} />
+            <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} />
           </Wrapper>
         );
       } else {
@@ -283,6 +284,16 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
+            {this.props.onContinue && (
+              <div>
+                <Button
+                  size={buttonSizes.MEDIUM_WIDE}
+                  onClick={this.props.onContinue}
+                >
+                  Continue
+                </Button>
+              </div>
+            )}
           </Wrapper>
         );
       }
@@ -297,5 +308,9 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
     }
     await this.props.saveAddressToProfile();
     this.setState({ justSaved: true });
+
+    if (this.props.onOnboardingComplete) {
+      this.props.onOnboardingComplete();
+    }
   };
 }
