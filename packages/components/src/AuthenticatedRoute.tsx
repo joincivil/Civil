@@ -37,12 +37,7 @@ export const AuthenticatedRoute = ({
   const hasAuthToken = !!auth && !!auth.token;
 
   if (onlyAllowUnauthenticated === hasAuthToken) {
-    return (
-      <h1>
-        {redirectTo}: <span>{JSON.stringify({ hasAuthToken })}</span>
-      </h1>
-    );
-    // return <Redirect to={redirectTo} />;
+    return <Redirect to={redirectTo} />;
   }
 
   return (
@@ -54,15 +49,13 @@ export const AuthenticatedRoute = ({
           }
 
           if (error && !onlyAllowUnauthenticated) {
-            return <h1>{redirectTo}</h1>;
-            // return <Redirect to={redirectTo} />;
+            return <Redirect to={redirectTo} />;
           }
 
           const hasEth = data.currentUser && data.currentUser.ethAddress;
 
           if (!hasEth && !onlyAllowWithoutEth) {
-            return <h1>{redirectTo}</h1>;
-            // return <Redirect to={redirectTo} />;
+            return <Redirect to={redirectTo} />;
           }
 
           if (Component) {
