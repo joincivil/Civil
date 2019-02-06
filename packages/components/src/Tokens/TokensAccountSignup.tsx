@@ -9,8 +9,10 @@ import {
 import { TokenWalletIcon } from "../icons/TokenWalletIcon";
 import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 
+export type TokenAccountStep = "completed" | "incomplete";
+
 export interface TokenRequirementProps {
-  step?: "completed" | "incomplete";
+  step?: TokenAccountStep;
 }
 
 export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementProps> = props => {
@@ -31,7 +33,7 @@ export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementPr
       </TokenRequirementIcon>
       <TokenConnectWalletText />
       {/* TODO(jorgelo): The login url should probably be a global constant. */}
-      <TokenBtns to="/account/auth/signup">
+      <TokenBtns to="/account/eth">
         <TokenConnectWalletBtnText />
       </TokenBtns>
     </UserTokenAccountRequirement>

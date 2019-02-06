@@ -9,7 +9,7 @@ import {
   FlexColumnsSecondaryModule,
 } from "./TokensStyledComponents";
 import { UserTokenAccountHeader } from "./TokensAccountHeader";
-import { UserTokenAccountSignup } from "./TokensAccountSignup";
+import { TokenAccountStep, UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
@@ -33,7 +33,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   public render(): JSX.Element | null {
     const { user } = this.props;
 
-    const accountSignupStep = user ? "completed" : "incomplete";
+    const accountSignupStep = this.getUserStep(user);
 
     return (
       <TokenAccountOuter>
@@ -65,6 +65,14 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
         </TokenAccountInner>
       </TokenAccountOuter>
     );
+  }
+
+  private getUserStep(user: any): TokenAccountStep {
+    if (!user || user.ethAddress) {
+      return "incomplete";
+    }
+
+    return "completed";
   }
 
   private openTutorialModal = () => {

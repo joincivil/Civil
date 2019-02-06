@@ -8,6 +8,7 @@ import {
   AuthenticatedRoute,
 } from "@joincivil/components";
 import { AccountHome } from "./Home";
+import { AccountEth } from "./Eth";
 
 export default class AccountRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
@@ -18,7 +19,7 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
           {/* Login Routes */}
           <AuthenticatedRoute
             onlyAllowUnauthenticated
-            redirectTo="/account"
+            redirectTo="/tokens"
             path={`${match.path}/auth`}
             component={() => (
               <>
@@ -73,6 +74,17 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
               </>
             )}
           />
+
+          {/* Add Wallet */}
+          <AuthenticatedRoute
+            onlyAllowWithoutEth
+            redirectTo={`/tokens`}
+            path={`${match.path}/eth`}
+            exact={true}
+            component={AccountEth}
+          />
+
+          {/* Account Home */}
           <AuthenticatedRoute
             redirectTo={`${match.path}/auth/login`}
             path={`${match.path}`}
