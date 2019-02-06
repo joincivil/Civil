@@ -17,8 +17,8 @@ const debug = Debug("civil:tcr");
  */
 export class Council {
   public static async singleton(ethApi: EthApi): Promise<Council> {
-    const govt = await GovernmentContract.singletonTrusted(ethApi);
     const tcr = await CivilTCRContract.singletonTrusted(ethApi);
+    const govt = GovernmentContract.atUntrusted(ethApi, await tcr!.government.callAsync());
     if (!govt || !tcr) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);

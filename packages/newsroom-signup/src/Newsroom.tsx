@@ -22,13 +22,15 @@ import {
   getIsEditor,
   getNewsroom,
   updateCharter,
+  addConstitutionHash,
+  addConstitutionUri,
+  fetchConstitution,
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
 // import { NameAndAddress } from "./NameAndAddress";
-import { SignConstitution } from "./SignConstitution";
 import { ApplyToTCR } from "./ApplyToTCR";
 import { ApplyToTCRPlaceholder } from "./ApplyToTCRPlaceholder";
 import { StateWithNewsroom } from "./reducers";
@@ -200,6 +202,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (this.props.address && this.props.civil) {
       await this.hydrateNewsroom(this.props.address);
     }
+    if (this.props.civil) {
+      const tcr = await this.props.civil.tcrSingletonTrusted();
+      const government = await tcr.getGovernment();
+      const hash = await government.getConstitutionHash();
+      const uri = await government.getConstitutionURI();
+      this.props.dispatch!(addConstitutionHash(hash));
+      this.props.dispatch!(addConstitutionUri(uri));
+      this.props.dispatch!(fetchConstitution(uri));
+    }
   }
 
   public async componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): Promise<void> {
@@ -288,23 +299,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       //   />
       // </Step>,
     ];
-    if (this.props.allSteps) {
-      baseSteps.push(
-        <StepNoButtons
-          title={"Sign the Constitution"}
-          disabled={!this.props.address && !this.state.charterPartTwoComplete}
-          complete={!!this.props.charterUri}
-          key="signConstitution"
-        >
-          <SignConstitution
-            newsroomAdress={this.props.address}
-            ipfs={this.props.ipfs}
-            charter={this.props.charter}
-            updateCharter={this.updateCharter}
-          />
-        </StepNoButtons>,
-      );
-    }
     baseSteps.push(
       <StepNoButtons
         title={"Apply to the Registry"}
