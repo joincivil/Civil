@@ -20,6 +20,7 @@ export const TOKEN_PROGRESS = {
 };
 
 export interface UserTokenAccountProps {
+  foundationAddress: string;
   supportEmailAddress: string;
   faqUrl: string;
   userAccount: string;
@@ -66,7 +67,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 handleClose={this.closeTutorialModal}
                 handleOpen={this.openTutorialModal}
               />
-              <UserTokenAccountBuy step={buyState} />
+              <UserTokenAccountBuy step={buyState} foundationAddress={this.props.foundationAddress} />
             </FlexColumnsPrimary>
 
             <FlexColumnsSecondary>

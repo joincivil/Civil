@@ -23,6 +23,7 @@ import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
 
 export interface TokenAccountBuyProps {
+  foundationAddress: string;
   step?: string;
 }
 
@@ -61,7 +62,7 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
 
               <TokenExchangeSection>
                 <TokenAirswapExchangeText />
-                <AirswapBuyCVL buyCVLBtnText={<TokenBuyExchangeBtnText />} />
+                <AirswapBuyCVL buyCVLBtnText={<TokenBuyExchangeBtnText />} buyFromAddress={props.foundationAddress} />
               </TokenExchangeSection>
             </TokenAirswapSection>
           </TokenBuySection>

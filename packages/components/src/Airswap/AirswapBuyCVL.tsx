@@ -5,6 +5,7 @@ import { Button } from "../Button";
 const AIRSWAP_URL = "https://cdn.airswap.io/gallery/airswap-trader.js";
 
 export interface BuyCVLProps {
+  buyFromAddress?: string;
   buyCVLBtnText?: string | JSX.Element;
   onClick?(index: number): void;
 }
@@ -17,6 +18,7 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
   private displayAirswap(): void {
     // const mainnet = "";
     const rinkeby = "0x3e39fa983abcd349d95aed608e798817397cf0d1";
+    const buyFromAddress = this.props.buyFromAddress || "";
 
     // @ts-ignore
     window.AirSwap.Trader.render(
@@ -24,6 +26,7 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
         mode: "buy",
         env: "sandbox",
         token: rinkeby,
+        address: buyFromAddress,
         onComplete: (transactionId: string) => {
           console.info("Trade complete. Thank you, come again.", transactionId);
         },
