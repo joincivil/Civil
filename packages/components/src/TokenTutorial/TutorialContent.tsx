@@ -233,7 +233,7 @@ export const TutorialContent = [
     ],
     completed: {
       header: "Huzzah! You crushed Topic 2",
-      content: "You’re doing really well. keep going!",
+      content: "You’re doing really well. Keep going!",
       btnText: "Continue on to Topic 3",
     },
   },
