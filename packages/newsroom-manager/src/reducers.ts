@@ -104,6 +104,8 @@ export function newsroomGovernment(state: Map<string, string> = Map(), action: A
       return state.set("constitutionHash", action.data.hash);
     case governmentActions.ADD_CONSTITUTION_URI:
       return state.set("constitutionUri", action.data.uri);
+    case governmentActions.ADD_CONSTITUTION_CONTENT:
+      return state.set("constitutionContent", action.data.content)
     default:
       return state;
   }
