@@ -11,8 +11,6 @@ import {
 import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
 import { debounce } from "lodash";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
@@ -59,6 +57,7 @@ export interface NewsroomExternalProps {
   civil?: Civil;
   ipfs?: IpfsObject;
   theme?: ButtonTheme;
+  profileWalletAddress?: EthAddress;
   showWelcome?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
@@ -104,14 +103,6 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
 
 const ErrorP = styled.p`
   color: ${colors.accent.CIVIL_RED};
-`;
-
-const userEthAddress = gql`
-  query {
-    currentUser {
-      ethAddress
-    }
-  }
 `;
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
@@ -329,7 +320,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return baseSteps;
   }
 
-  public renderWalletOnboarding(profileWalletAddress: EthAddress): JSX.Element {
+  public renderWalletOnboarding(): JSX.Element {
     return (
       <WalletOnboarding
         civil={this.props.civil}
@@ -346,7 +337,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         profileUrl={this.props.profileUrl}
         helpUrl={this.props.helpUrl}
         helpUrlBase={this.props.helpUrlBase}
-        profileWalletAddress={profileWalletAddress}
+        profileWalletAddress={this.props.profileWalletAddress}
       />
     );
   }
@@ -355,24 +346,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       <ThemeProvider theme={this.props.theme}>
         <AuthWrapper>
-          <Query query={userEthAddress}>
-            {({ loading, error, data }) => {
-              if (loading) {
-                return "Loading...";
-              }
-              if (error) {
-                return `Error! ${JSON.stringify(error)}`;
-              }
-
-              return (
-                <Wrapper>
-                  address: {data.currentUser.ethAddress}
-                  {this.renderWalletOnboarding(data.currentUser.ethAddress)}
-                  {this.renderManager()}
-                </Wrapper>
-              );
-            }}
-          </Query>
+          <Wrapper>
+            {this.isWalletOnboarded() ? this.renderManager() : this.renderWalletOnboarding()}
+          </Wrapper>
         </AuthWrapper>
       </ThemeProvider>
     );
@@ -389,6 +365,10 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.onNewsroomCreated(result.address);
     }
   };
+
+  private isWalletOnboarded(): boolean {
+    return !!(hasInjectedProvider() && this.props.civil && this.props.metamaskEnabled && !!this.props.account && (!this.props.requiredNetwork || this.props.currentNetwork === this.props.requiredNetwork) && this.props.account === this.props.profileWalletAddress);
+  }
 
   private async initCharter(): Promise<void> {
     this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
