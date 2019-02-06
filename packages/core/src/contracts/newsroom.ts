@@ -175,6 +175,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return new Newsroom(ethApi, contentProvider, instance, multisigProxy);
   }
 
+  public static async recoverArchiveTx(tx: Transaction): Promise<string> {
+    const inflate = promisify<string>(zlib.inflate);
+    const txDataLength = parseInt(addHexPrefix(tx.input.substr(tx.input.length - 16)), 16);
+    const content = addHexPrefix(tx.input.substring(txDataLength, tx.input.length - 16));
+    return (await inflate(toBuffer(content))).toString();
+  }
+
   private multisigProxy: NewsroomMultisigProxy;
   private contentProvider: ContentProvider;
 
@@ -519,13 +526,6 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.multisigProxy.setName.sendTransactionAsync(newName);
   }
 
-  public async recoverArchiveTx(tx: Transaction): Promise<string> {
-    const inflate = promisify<string>(zlib.inflate);
-    const txDataLength = parseInt(addHexPrefix(tx.input.substr(tx.input.length - 16)), 16);
-    const content = addHexPrefix(tx.input.substring(txDataLength, tx.input.length - 16));
-    return (await inflate(toBuffer(content))).toString();
-  }
-
   public txArchiveForContentId(contentId: number, revisionId: number): Observable<any> {
     const myContentId = this.ethApi.toBigNumber(contentId);
     const myRevisionId = this.ethApi.toBigNumber(revisionId);
@@ -536,7 +536,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       )
       .concatMap(async item => {
         const transaction = await this.ethApi.getTransaction(item.transactionHash);
-        return this.recoverArchiveTx(transaction);
+        return Newsroom.recoverArchiveTx(transaction);
       });
   }
 

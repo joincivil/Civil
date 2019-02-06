@@ -85,9 +85,8 @@ class ActivityListAppealChallengeItemComponent extends React.Component<
         listingDetailURL = `/listing/${address}/challenge/${this.props.challenge.challengeID}`;
       }
       const buttonTextTuple = this.getButtonText();
-      console.log("challengeID: ", this.props.challengeID);
       const props = {
-        newsroomName: newsroomData.name,
+        newsroomName: `${newsroomData.name} Appeal Challenge #${this.props.challengeID}`,
         charter,
         listingDetailURL,
         buttonText: buttonTextTuple[0],
