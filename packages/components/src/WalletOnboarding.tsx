@@ -286,10 +286,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
             <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
             {this.props.onContinue && (
               <div>
-                <Button
-                  size={buttonSizes.MEDIUM_WIDE}
-                  onClick={this.props.onContinue}
-                >
+                <Button size={buttonSizes.MEDIUM_WIDE} onClick={this.props.onContinue}>
                   Continue
                 </Button>
               </div>

@@ -5,7 +5,6 @@ import { createHttpLink, HttpLink } from "apollo-link-http";
 import { setContext } from "apollo-link-context";
 import { onError } from "apollo-link-error";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
 import { fetchItem, setItem, removeItem } from "./localStorage";
 
 export interface AuthLoginResponse {

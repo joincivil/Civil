@@ -339,8 +339,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         helpUrl={this.props.helpUrl}
         helpUrlBase={this.props.helpUrlBase}
         profileWalletAddress={this.props.profileWalletAddress}
-        onOnboardingComplete={() => this.setState({showWalletConnected: true})}
-        onContinue={() => this.setState({showWalletConnected: false})}
+        onOnboardingComplete={() => this.setState({ showWalletConnected: true })}
+        onContinue={() => this.setState({ showWalletConnected: false })}
       />
     );
   }
@@ -349,9 +349,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return (
       <ThemeProvider theme={this.props.theme}>
         <AuthWrapper>
-          <Wrapper>
-            {this.isWalletOnboarded() ? this.renderManager() : this.renderWalletOnboarding()}
-          </Wrapper>
+          <Wrapper>{this.isWalletOnboarded() ? this.renderManager() : this.renderWalletOnboarding()}</Wrapper>
         </AuthWrapper>
       </ThemeProvider>
     );
@@ -370,7 +368,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private isWalletOnboarded(): boolean {
-    return !!(hasInjectedProvider() && this.props.civil && this.props.metamaskEnabled && !!this.props.account && (!this.props.requiredNetwork || this.props.currentNetwork === this.props.requiredNetwork) && this.props.account === this.props.profileWalletAddress && !this.state.showWalletConnected);
+    return !!(
+      hasInjectedProvider() &&
+      this.props.civil &&
+      this.props.metamaskEnabled &&
+      !!this.props.account &&
+      (!this.props.requiredNetwork || this.props.currentNetwork === this.props.requiredNetwork) &&
+      this.props.account === this.props.profileWalletAddress &&
+      !this.state.showWalletConnected
+    );
   }
 
   private async initCharter(): Promise<void> {
