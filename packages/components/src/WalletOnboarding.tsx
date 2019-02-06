@@ -270,6 +270,13 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
             <AccountEthAuth civil={this.props.civil!} onAuthenticated={() => this.setState({ authed: true })} />
           </Wrapper>
         );
+      } else if (this.props.requireAuth && this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
+        return (
+          <Wrapper>
+            <b>@TODO/toby Mismatch between MM address and profile address - update component copy.</b>
+            <AccountEthAuth civil={this.props.civil!} onAuthenticated={() => this.setState({ authed: true })} />
+          </Wrapper>
+        );
       } else {
         return (
           <Wrapper>
