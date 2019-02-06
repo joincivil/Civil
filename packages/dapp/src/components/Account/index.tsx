@@ -81,7 +81,7 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
             redirectTo={`/tokens`}
             path={`${match.path}/eth`}
             exact={true}
-            component={AccountEth}
+            component={() => <AccountEth onAuthentication={this.handleOnAddWallet} />}
           />
 
           {/* Account Home */}
@@ -109,6 +109,10 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
 
     // TODO(tobek) or TODO(jorgelo) Do we need to flush cache to handle updated login state? Confirm. For now, refreshing will ensure we end up in the right place:
     window.location.reload();
+  };
+
+  public handleOnAddWallet = (): void => {
+    console.log("yddd");
   };
 
   public handleAuthEmail = (isNewUser: boolean, emailAddress: string): void => {
