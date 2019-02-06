@@ -263,7 +263,7 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
             </WalletAction>
           </Wrapper>
         );
-      } else if (this.props.requireAuth && !this.state.authed) {
+      } else if (this.props.requireAuth && !this.props.profileWalletAddress) {
         // @TODO/toby Need to pass in gql data from user to see if they have already added their ETH address
         return (
           <Wrapper>

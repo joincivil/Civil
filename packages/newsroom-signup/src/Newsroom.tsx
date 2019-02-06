@@ -6,10 +6,13 @@ import {
   StepNoButtons,
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
+  WalletOnboarding,
 } from "@joincivil/components";
 import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 import { debounce } from "lodash";
 import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
@@ -22,6 +25,7 @@ import {
   getNewsroom,
   updateCharter,
 } from "./actionCreators";
+import { AuthWrapper } from "./AuthWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
@@ -55,13 +59,10 @@ export interface NewsroomExternalProps {
   civil?: Civil;
   ipfs?: IpfsObject;
   theme?: ButtonTheme;
-  profileWalletAddress?: EthAddress;
-  showWalletOnboarding?: boolean;
   showWelcome?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
   profileUrl?: string;
-  profileAddressSaving?: boolean;
   newsroomUrl?: string;
   logoUrl?: string;
   metamaskEnabled?: boolean;
@@ -70,7 +71,6 @@ export interface NewsroomExternalProps {
   enable(): void;
   getPersistedCharter?(): Promise<Partial<CharterData> | void>;
   persistCharter?(charter: Partial<CharterData>): Promise<void>;
-  saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
@@ -104,6 +104,14 @@ export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
 
 const ErrorP = styled.p`
   color: ${colors.accent.CIVIL_RED};
+`;
+
+const userEthAddress = gql`
+  query {
+    currentUser {
+      ethAddress
+    }
+  }
 `;
 
 class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
@@ -321,10 +329,51 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return baseSteps;
   }
 
+  public renderWalletOnboarding(profileWalletAddress: EthAddress): JSX.Element {
+    return (
+      <WalletOnboarding
+        civil={this.props.civil}
+        noProvider={!hasInjectedProvider()}
+        requireAuth={true}
+        notEnabled={this.props.civil && !this.props.metamaskEnabled}
+        enable={this.props.enable}
+        walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
+        wrongNetwork={
+          this.props.civil && !!this.props.requiredNetwork && this.props.currentNetwork !== this.props.requiredNetwork
+        }
+        requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
+        metamaskWalletAddress={this.props.account}
+        profileUrl={this.props.profileUrl}
+        helpUrl={this.props.helpUrl}
+        helpUrlBase={this.props.helpUrlBase}
+        profileWalletAddress={profileWalletAddress}
+      />
+    );
+  }
+
   public render(): JSX.Element {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <Wrapper>{this.renderManager()}</Wrapper>
+        <AuthWrapper>
+          <Query query={userEthAddress}>
+            {({ loading, error, data }) => {
+              if (loading) {
+                return "Loading...";
+              }
+              if (error) {
+                return `Error! ${JSON.stringify(error)}`;
+              }
+
+              return (
+                <Wrapper>
+                  address: {data.currentUser.ethAddress}
+                  {this.renderWalletOnboarding(data.currentUser.ethAddress)}
+                  {this.renderManager()}
+                </Wrapper>
+              );
+            }}
+          </Query>
+        </AuthWrapper>
       </ThemeProvider>
     );
   }

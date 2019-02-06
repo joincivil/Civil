@@ -2,9 +2,7 @@ import * as React from "react";
 import { AccountEmailSent, AccountEmailAuth, AccountVerifyToken, AuthApplicationEnum } from "@joincivil/components";
 import { isLoggedIn } from "@joincivil/utils";
 
-export interface AuthWrapperProps {
-  authEnabled?: boolean;
-}
+export interface AuthWrapperProps {}
 
 export interface AuthWrapperState {
   loading: boolean;
@@ -37,7 +35,7 @@ export class AuthWrapper extends React.Component<AuthWrapperProps, AuthWrapperSt
   }
 
   public render(): JSX.Element {
-    if (!this.props.authEnabled || this.state.loggedIn) {
+    if (this.state.loggedIn) {
       return <>{this.props.children}</>;
     }
 
