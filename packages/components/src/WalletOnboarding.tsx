@@ -265,7 +265,6 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
           </Wrapper>
         );
       } else if (this.props.requireAuth && !this.props.profileWalletAddress) {
-        // @TODO/toby Need to pass in gql data from user to see if they have already added their ETH address
         return (
           <Wrapper>
             <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} />
