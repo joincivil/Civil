@@ -2,8 +2,6 @@ import * as React from "react";
 import { AccountEmailSent, AccountEmailAuth, AccountVerifyToken, AuthApplicationEnum } from "@joincivil/components";
 import { isLoggedIn } from "@joincivil/utils";
 
-export interface AuthWrapperProps {}
-
 export interface AuthWrapperState {
   loading: boolean;
   loggedIn: boolean;
@@ -11,8 +9,8 @@ export interface AuthWrapperState {
   token?: string;
 }
 
-export class AuthWrapper extends React.Component<AuthWrapperProps, AuthWrapperState> {
-  constructor(props: AuthWrapperProps) {
+export class AuthWrapper extends React.Component<{}, AuthWrapperState> {
+  constructor(props: {}) {
     super(props);
     this.state = {
       loading: true,
