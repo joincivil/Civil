@@ -11,6 +11,8 @@ import {
   TransactionButtonNoModal,
   Transaction,
   MetaMaskStepCounter,
+  fonts,
+  colors,
 } from "@joincivil/components";
 import { prepareConstitutionSignMessage, hashContent } from "@joincivil/utils";
 import { Civil, EthAddress, CharterData } from "@joincivil/core";
@@ -22,15 +24,43 @@ import { IpfsObject } from "./Newsroom";
 import { toBuffer } from "ethereumjs-util";
 import { fetchNewsroom } from "./actionCreators";
 
-const StyledLegalIframe = styled.iframe`
-  border-width: 1px;
-  height: 15rem;
-  margin: 0 0 2rem;
-  width: 100%;
-`;
-
 const CheckWrapper = styled.span`
   margin-right: 8px;
+`;
+
+const ConstitutionContainer = styled.div`
+  height: 462px;
+  overflow-y: scroll;
+  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+  margin-bottom: 38px;
+  h2 {
+    font-size: 32px;
+    font-weight: 200;
+    letter-spacing: -0.67px;
+    line-height: 36px;
+    font-family: ${fonts.SERIF};
+    border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    padding: 31px 23px;
+    margin-top: 0;
+  }
+  h4 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    font-family: ${fonts.SANS_SERIF};
+  }
+`;
+
+const Constitution = styled.div`
+  padding: 20px 93px 50px 15px;
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  line-height: 26px;
+  p {
+    font-size: 16px;
+    line-height: 26px;
+  }
 `;
 
 export interface SignConstitutionReduxProps {
@@ -191,6 +221,7 @@ class SignConstitutionComponent extends React.Component<
   }
 
   public render(): JSX.Element {
+    const content = this.props.government ? this.props.government.get("constitutionContent") : "";
     return (
       <>
         <StepHeader>Sign the Civil Constitution</StepHeader>
@@ -200,7 +231,10 @@ class SignConstitutionComponent extends React.Component<
         <StepFormSection>
           <h4>Civil Constitution</h4>
           <StepDescription>Please read and sign the Civil Constitution below</StepDescription>
-          {this.props.government && <StyledLegalIframe src={this.props.government.get("constitutionUri")} />}
+          <ConstitutionContainer>
+            <h2>Civil Constitution</h2>
+            <Constitution dangerouslySetInnerHTML={{ __html: content }} />
+          </ConstitutionContainer>
           <p>
             <CheckWrapper>
               <Checkbox
