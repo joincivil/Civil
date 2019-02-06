@@ -113,11 +113,11 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Returns Parameterizer instance associated with this TCR
    */
   public async getParameterizer(): Promise<Parameterizer> {
-    return Parameterizer.singleton(this.ethApi);
+    return Parameterizer.atUntrusted(this.ethApi, await this.getParameterizerAddress());
   }
 
   public async getGovernment(): Promise<Government> {
-    return Government.singleton(this.ethApi);
+    return Government.atUntrusted(this.ethApi, await this.getGovernmentAddress());
   }
 
   public async getCouncil(): Promise<Council> {
@@ -129,6 +129,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async getTokenAddress(): Promise<EthAddress> {
     return this.instance.token.callAsync();
+  }
+
+  public async getGovernmentAddress(): Promise<EthAddress> {
+    return this.instance.government.callAsync();
   }
 
   /**
