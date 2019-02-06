@@ -36,6 +36,7 @@ export interface ListingListItemReduxProps {
 export const transformListingSummaryViewProps = (
   props: ListingListItemOwnProps & ListingListItemReduxProps & Partial<ListingSummaryComponentProps>,
 ) => {
+  console.log("TRANSFORM");
   const { listingAddress, listing, newsroom, listingPhaseState, charter } = props;
   const listingData = listing!.data;
   const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
@@ -70,7 +71,7 @@ export const transformListingSummaryViewProps = (
       appealStatementSummary = props.appealStatement.summary;
     }
   }
-
+  console.log("transform listing: ", listing);
   let appealChallengeCommitEndDate;
   let appealChallengeRevealEndDate;
   let appealPollData;
@@ -100,42 +101,13 @@ export const transformListingSummaryViewProps = (
 
   let challengeResultsProps = {};
 
-  const {
-    isAwaitingAppealRequest,
-    isAwaitingAppealJudgement,
-    isAwaitingAppealChallenge,
-    isInAppealChallengeCommitPhase,
-    isInAppealChallengeRevealPhase,
-    canBeWhitelisted,
-    canResolveChallenge,
-    canListingAppealBeResolved,
-    canListingAppealChallengeBeResolved,
-  } = listingPhaseState;
-
-  if (
-    (challenge && isAwaitingAppealRequest) ||
-    isAwaitingAppealJudgement ||
-    isAwaitingAppealChallenge ||
-    isInAppealChallengeCommitPhase ||
-    isInAppealChallengeRevealPhase ||
-    canBeWhitelisted ||
-    canResolveChallenge ||
-    canListingAppealBeResolved ||
-    canListingAppealChallengeBeResolved
-  ) {
+  if (challenge) {
     challengeResultsProps = getChallengeResultsProps(challenge!);
   }
 
   let appealChallengeResultsProps;
 
-  if (
-    appealChallenge &&
-    (canListingAppealChallengeBeResolved ||
-      (!isInAppealChallengeCommitPhase &&
-        !isInAppealChallengeRevealPhase &&
-        !canListingAppealChallengeBeResolved &&
-        !listingData.isWhitelisted))
-  ) {
+  if (appealChallenge) {
     appealChallengeResultsProps = getAppealChallengeResultsProps(appealChallenge!);
   }
 
@@ -178,7 +150,6 @@ export const ListingItemBaseComponent: React.SFC<
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
   const { listing } = props;
   const listingViewProps = transformListingSummaryViewProps(props);
-
   const data = listing!.data!;
   if (!data.prevChallenge) {
     const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
