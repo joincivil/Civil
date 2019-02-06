@@ -18,12 +18,13 @@ export interface TokenTutorialQuizStates {
   topicIdx: number;
   activeSection: string;
   slideIdx: number;
+  quizSlide: number;
 }
 
 export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, TokenTutorialQuizStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { topicIdx: this.props.topicIdx, slideIdx: 0, activeSection: this.props.activeSection };
+    this.state = { topicIdx: this.props.topicIdx, slideIdx: 0, activeSection: this.props.activeSection, quizSlide: 0 };
   }
 
   public render(): JSX.Element {
@@ -102,17 +103,10 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
         }
         break;
       case "quiz":
-        if (this.state.slideIdx === 0) {
-          this.setState({
-            activeSection: "tutorial",
-            slideIdx: TutorialContent[this.state.topicIdx].tutorials.length - 1,
-          });
-        } else {
-          this.setState({ slideIdx: this.state.slideIdx - 1 });
-        }
-        break;
-      case "completed":
-        this.setState({ activeSection: "quiz", slideIdx: TutorialContent[this.state.topicIdx].questions.length - 1 });
+        this.setState({
+          activeSection: "tutorial",
+          slideIdx: 0,
+        });
         break;
       default:
         this.setState({ activeSection: "intro", slideIdx: 0 });
@@ -128,18 +122,15 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
         if (this.state.slideIdx + 1 < TutorialContent[this.props.topicIdx].tutorials.length) {
           this.setState({ slideIdx: this.state.slideIdx + 1 });
         } else {
-          this.setState({ slideIdx: 0, activeSection: "quiz" });
+          this.setState({ slideIdx: this.state.quizSlide, activeSection: "quiz" });
         }
         break;
       case "quiz":
         if (this.state.slideIdx + 1 < TutorialContent[this.props.topicIdx].questions.length) {
-          this.setState({ slideIdx: this.state.slideIdx + 1 });
+          this.setState({ slideIdx: this.state.slideIdx + 1, quizSlide: this.state.quizSlide + 1 });
         } else {
           this.setState({ slideIdx: 0, activeSection: "completed" });
         }
-        break;
-      case "completed":
-        this.setState({ slideIdx: 0 });
         break;
       default:
         this.setState({ slideIdx: 0, activeSection: "intro" });
@@ -152,7 +143,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
 
   private nextTopic = () => {
     this.props.skipTutorial
-      ? this.setState({ topicIdx: this.state.topicIdx + 1, slideIdx: 0, activeSection: "quiz" })
-      : this.setState({ topicIdx: this.state.topicIdx + 1, slideIdx: 0, activeSection: "intro" });
+      ? this.setState({ topicIdx: this.state.topicIdx + 1, slideIdx: 0, activeSection: "quiz", quizSlide: 0 })
+      : this.setState({ topicIdx: this.state.topicIdx + 1, slideIdx: 0, activeSection: "intro", quizSlide: 0 });
   };
 }

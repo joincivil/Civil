@@ -30,7 +30,7 @@ export class TutorialWelcomeScreens extends React.Component<TutorialWelcomeScree
           <p>{WelcomeScreenContent[activeWelcomeIdx].description}</p>
           <SlideProgress>
             {WelcomeScreenContent.map((x, idx) => (
-              <svg height="10" width="10">
+              <svg key={idx} height="10" width="10">
                 {idx === activeWelcomeIdx
                   ? (progressColor = colors.accent.CIVIL_BLUE)
                   : (progressColor = colors.accent.CIVIL_GRAY_4)}
