@@ -7,16 +7,14 @@ export interface AccountEthProps {
 }
 
 export const AccountEth: React.SFC<AccountEthProps> = props => {
-
   return (
-      <>
-        <AccountEthAuth
-          civil={getCivil()}
-          onAuthenticated={d => {
-            console.log("AccountEthAuth", { props });
-          }}
-        />
-      </>
-    );
-  }
-}
+    <>
+      <AccountEthAuth
+        civil={getCivil()}
+        onAuthenticated={d => {
+          console.log("AccountEthAuth", { props });
+        }}
+      />
+    </>
+  );
+};
