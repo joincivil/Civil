@@ -113,11 +113,11 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * Returns Parameterizer instance associated with this TCR
    */
   public async getParameterizer(): Promise<Parameterizer> {
-    return Parameterizer.singleton(this.ethApi);
+    return Parameterizer.atUntrusted(this.ethApi, await this.getParameterizerAddress());
   }
 
   public async getGovernment(): Promise<Government> {
-    return Government.singleton(this.ethApi);
+    return Government.atUntrusted(this.ethApi, await this.getGovernmentAddress());
   }
 
   public async getCouncil(): Promise<Council> {
@@ -129,6 +129,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    */
   public async getTokenAddress(): Promise<EthAddress> {
     return this.instance.token.callAsync();
+  }
+
+  public async getGovernmentAddress(): Promise<EthAddress> {
+    return this.instance.government.callAsync();
   }
 
   /**
@@ -612,6 +616,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let salt;
     let numTokens;
     let choice;
+    let voterReward;
     const challenge = new Challenge(this.ethApi, this.instance, challengeID);
     const challengeData = await challenge.getChallengeData();
     const resolved = challengeData.resolved;
@@ -661,6 +666,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       didCollectAmount = await this.getRewardClaimed(challengeID, user);
     }
 
+    if (isVoterWinner && !didUserCollect) {
+      voterReward = await this.voterReward(challengeID, salt as BigNumber, user);
+    }
+
     return {
       didUserCommit,
       didUserReveal,
@@ -674,6 +683,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       salt,
       numTokens,
       choice,
+      voterReward,
     };
   }
 

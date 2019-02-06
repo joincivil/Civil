@@ -5,6 +5,7 @@ import { CharterData } from "@joincivil/core";
 import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";
 import { CharterQuestions } from "./CharterQuestions";
+import { SignConstitution } from "./SignConstitution";
 
 export interface NewsroomProfileState {
   currentStep: number;
@@ -27,7 +28,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   constructor(props: NewsroomProfileProps) {
     super(props);
     this.state = {
-      currentStep: 0,
+      currentStep: 3,
     };
   }
   public getDisabled(index: number): () => boolean {
@@ -45,7 +46,18 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         return !(this.props.charter && this.props.charter.roster && this.props.charter.roster.length);
       },
       () => {
-        return true;
+        return !(
+          this.props.charter &&
+          this.props.charter.mission &&
+          this.props.charter.mission.encumbrances &&
+          this.props.charter.mission.miscellaneous &&
+          this.props.charter.mission.purpose &&
+          this.props.charter.mission.revenue &&
+          this.props.charter.mission.structure
+        );
+      },
+      () => {
+        return !(this.props.charter.signatures && this.props.charter.signatures.length);
       },
     ];
     return functions[index];
@@ -55,6 +67,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <NewsroomBio charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <AddRosterMember charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
+      <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
     ];
     return steps[this.state.currentStep];
   }
@@ -65,7 +78,6 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     this.setState({ currentStep: this.state.currentStep - 1 });
   }
   public render(): JSX.Element {
-    console.log(this.getDisabled(this.state.currentStep)());
     return (
       <>
         {this.renderCurrentStep()}
