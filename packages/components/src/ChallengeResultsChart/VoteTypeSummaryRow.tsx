@@ -31,8 +31,8 @@ const voteTypeLabel: VoteTypeLabelProps = {
 const voteColor: VoteTypeColorProps = {
   [CHALLENGE_RESULTS_VOTE_TYPES.REMAIN]: colors.accent.CIVIL_TEAL,
   [CHALLENGE_RESULTS_VOTE_TYPES.REMOVE]: colors.accent.CIVIL_RED,
-  [CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN]: colors.accent.CIVIL_YELLOW,
-  [CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD]: colors.accent.CIVIL_BLUE,
+  [CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN]: colors.accent.CIVIL_ORANGE,
+  [CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD]: colors.accent.CIVIL_GREEN,
 };
 
 export const VoteTypeSummaryRow: React.StatelessComponent<VoteTypeSummaryRowProps> = props => {
