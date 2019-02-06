@@ -4,6 +4,7 @@ import {
   ChallengePhaseProps,
   AppealDecisionProps,
   AppealChallengePhaseProps,
+  AppealChallengeResultsProps,
 } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
@@ -20,15 +21,6 @@ import { NeedHelp } from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 import { QuestionToolTip } from "../QuestionToolTip";
 
-export interface AppealChallengeResultsProps {
-  appealChallengeTotalVotes: string;
-  appealChallengeVotesFor: string;
-  appealChallengeVotesAgainst: string;
-  appealChallengePercentFor: string;
-  appealChallengePercentAgainst: string;
-  didAppealChallengeSucceed: boolean;
-}
-
 export type AppealChallengeResolveCardProps = ListingDetailPhaseCardComponentProps &
   ChallengePhaseProps &
   ChallengeResultsProps &
@@ -37,6 +29,13 @@ export type AppealChallengeResolveCardProps = ListingDetailPhaseCardComponentPro
   AppealChallengeResultsProps;
 
 export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardProps> = props => {
+  const showAppealChallenge =
+    props.appealChallengeTotalVotes &&
+    props.appealChallengeVotesFor &&
+    props.appealChallengeVotesAgainst &&
+    props.appealChallengePercentFor &&
+    props.appealChallengePercentAgainst &&
+    props.didAppealChallengeSucceed;
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
@@ -72,19 +71,20 @@ export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardPro
 
       <AppealDecisionDetail appealGranted={props.appealGranted} />
 
-      <StyledListingDetailPhaseCardSection>
-        <ChallengeResults
-          headerText={`Appeal Challenge #${props.appealChallengeID} Results`}
-          totalVotes={props.appealChallengeTotalVotes}
-          votesFor={props.appealChallengeVotesFor}
-          votesAgainst={props.appealChallengeVotesAgainst}
-          percentFor={props.appealChallengePercentFor}
-          percentAgainst={props.appealChallengePercentAgainst}
-          didChallengeSucceed={props.didAppealChallengeSucceed}
-          isAppealChallenge={true}
-        />
-      </StyledListingDetailPhaseCardSection>
-
+      {showAppealChallenge && (
+        <StyledListingDetailPhaseCardSection>
+          <ChallengeResults
+            headerText={`Appeal Challenge #${props.appealChallengeID} Results`}
+            totalVotes={props.appealChallengeTotalVotes!}
+            votesFor={props.appealChallengeVotesFor!}
+            votesAgainst={props.appealChallengeVotesAgainst!}
+            percentFor={props.appealChallengePercentFor!}
+            percentAgainst={props.appealChallengePercentAgainst!}
+            didChallengeSucceed={props.didAppealChallengeSucceed!}
+            isAppealChallenge={true}
+          />
+        </StyledListingDetailPhaseCardSection>
+      )}
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
           This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this appeal
