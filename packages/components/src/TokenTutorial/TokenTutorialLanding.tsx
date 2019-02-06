@@ -83,7 +83,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
             <TopicProgress>
               <TutorialProgressText questions={topic.questions.length} />
               <TutorialProgressBars>
-                {topic.questions.map((x, i) => <TutorialProgressBar key={i} />)}
+                {topic.questions.map(x => <TutorialProgressBar />)}
                 <b>0/{topic.questions.length}</b>
               </TutorialProgressBars>
             </TopicProgress>
