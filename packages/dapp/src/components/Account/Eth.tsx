@@ -11,8 +11,8 @@ export const AccountEth: React.SFC<AccountEthProps> = props => {
     <>
       <AccountEthAuth
         civil={getCivil()}
-        onAuthenticated={d => {
-          console.log("AccountEthAuth", { props });
+        onAuthenticated={() => {
+          props.onAuthentication();
         }}
       />
     </>

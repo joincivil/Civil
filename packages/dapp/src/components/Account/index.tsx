@@ -112,7 +112,14 @@ export default class AccountRouter extends React.Component<RouteComponentProps> 
   };
 
   public handleOnAddWallet = (): void => {
-    console.log("yddd");
+    const { history } = this.props;
+
+    history.push({
+      pathname: `/tokens`,
+      state: {},
+    });
+
+    window.location.reload();
   };
 
   public handleAuthEmail = (isNewUser: boolean, emailAddress: string): void => {
