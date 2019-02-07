@@ -39,14 +39,18 @@ export const transformListingSummaryViewProps = (
   const { listingAddress, listing, newsroom, listingPhaseState, charter } = props;
   const listingData = listing!.data;
   const appExpiry = listingData.appExpiry && listingData.appExpiry.toNumber();
-  const challenge = listingData.challenge;
+  let challenge = listingData.challenge;
+  let challengeID = challenge && listingData.challengeID.toString();
+  if (!challenge && !listingData.isWhitelisted) {
+    challenge = listingData.prevChallenge;
+    challengeID = challenge && listingData.prevChallengeID!.toString();
+  }
   const pollData = challenge && challenge.poll;
   const commitEndDate = pollData && pollData.commitEndDate.toNumber();
   const revealEndDate = pollData && pollData.revealEndDate.toNumber();
   const requestAppealExpiry = challenge && challenge.requestAppealExpiry.toNumber();
   const unstakedDeposit = listing && getFormattedTokenBalance(listing.data.unstakedDeposit);
-  const challengeStake = listingData.challenge && getFormattedTokenBalance(listingData.challenge.stake);
-  const challengeID = challenge && listingData.challengeID.toString();
+  const challengeStake = challenge && getFormattedTokenBalance(challenge.stake);
   let challengeStatementSummary;
   if (props.challengeStatement) {
     try {
@@ -66,13 +70,12 @@ export const transformListingSummaryViewProps = (
       appealStatementSummary = props.appealStatement.summary;
     }
   }
-
   let appealChallengeCommitEndDate;
   let appealChallengeRevealEndDate;
   let appealPollData;
   let appealChallengeID;
   const appealChallenge = appeal && appeal.appealChallenge;
-  if (appealChallenge) {
+  if (appealChallenge && appeal!.appealChallengeID) {
     appealChallengeID = appeal!.appealChallengeID.toString();
     appealPollData = appealChallenge.poll;
     appealChallengeCommitEndDate = appealPollData && appealPollData.commitEndDate.toNumber();
@@ -96,35 +99,13 @@ export const transformListingSummaryViewProps = (
 
   let challengeResultsProps = {};
 
-  const {
-    isAwaitingAppealRequest,
-    isAwaitingAppealJudgement,
-    isAwaitingAppealChallenge,
-    isInAppealChallengeCommitPhase,
-    isInAppealChallengeRevealPhase,
-    canBeWhitelisted,
-    canResolveChallenge,
-    canListingAppealBeResolved,
-    canListingAppealChallengeBeResolved,
-  } = listingPhaseState;
-
-  if (
-    (challenge && isAwaitingAppealRequest) ||
-    isAwaitingAppealJudgement ||
-    isAwaitingAppealChallenge ||
-    isInAppealChallengeCommitPhase ||
-    isInAppealChallengeRevealPhase ||
-    canBeWhitelisted ||
-    canResolveChallenge ||
-    canListingAppealBeResolved ||
-    canListingAppealChallengeBeResolved
-  ) {
+  if (challenge) {
     challengeResultsProps = getChallengeResultsProps(challenge!);
   }
 
   let appealChallengeResultsProps;
 
-  if (appealChallenge && canListingAppealChallengeBeResolved) {
+  if (appealChallenge) {
     appealChallengeResultsProps = getAppealChallengeResultsProps(appealChallenge!);
   }
 
@@ -167,7 +148,6 @@ export const ListingItemBaseComponent: React.SFC<
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
   const { listing } = props;
   const listingViewProps = transformListingSummaryViewProps(props);
-
   const data = listing!.data!;
   if (!data.prevChallenge) {
     const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(

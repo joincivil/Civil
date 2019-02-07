@@ -11,7 +11,7 @@ export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps>
       <MetaRow>
         <MetaItem>
           <MetaItemLabel>{props.isViewingUserChallenger ? "You are the challenger" : "Challenger"}</MetaItemLabel>
-          <MetaItemValueEthAddress>{getFormattedEthAddress(props.challenger)}</MetaItemValueEthAddress>
+          <MetaItemValueEthAddress>{getFormattedEthAddress(props.challenger!)}</MetaItemValueEthAddress>
         </MetaItem>
       </MetaRow>
       <MetaRow>

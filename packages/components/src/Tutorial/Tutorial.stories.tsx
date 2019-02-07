@@ -22,13 +22,25 @@ const TopicTutorial: React.SFC = props => (
   </>
 );
 
+const TopicIntro: React.SFC = props => (
+  <>
+    <p>
+      <b>You’ll learn</b>
+    </p>
+    <p>What is Civil, and what makes us different?</p>
+    <p>How does a Newsroom join the Civil network?</p>
+    <p>What are Civil tokens (CVL)?</p>
+    <p>What is the Civil Registry?</p>
+  </>
+);
+
 const onClickFunc = () => {
   console.log("clicked!");
 };
 
 const tutorial = {
   tutorialTopicIntroHeader: "Topic 1: How to use Civil tokens",
-  tutorialTopicIntroInfo: "You’ll learn: What is Civil, and what makes us different?",
+  tutorialTopicIntroInfo: <TopicIntro />,
   tutorialContent: <TopicTutorial />,
   quizName: "Quiz: Considerations before buying tokens",
   question: "Which of the following is important to you when purchasing a token?",
@@ -85,7 +97,9 @@ storiesOf("Tutorial", module)
         completedHeader={tutorial.completedHeader}
         completedText={tutorial.completedText}
         continueBtnText={tutorial.continueBtnText}
+        lastTopic={false}
         onClickNextTopic={onClickFunc}
+        handleClose={onClickFunc}
       />
     );
   });
