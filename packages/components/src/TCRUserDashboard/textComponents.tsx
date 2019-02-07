@@ -16,9 +16,7 @@ export const MyNewsroomsTabText: React.SFC = props => <>My Newsrooms</>;
 
 export const MyChallengesTabText: React.SFC = props => <>My Challenges</>;
 
-export const ClaimRewardsDescriptionText: React.SFC = props => (
-  <>Claim your voting rewards from successful challenges you supported</>
-);
+export const ClaimRewardsDescriptionText: React.SFC = props => <>Claim rewards from your winning votes</>;
 
 export const RescueTokensDescriptionText: React.SFC = props => (
   <>Reclaim your voting tokens from votes that you did not reveal</>

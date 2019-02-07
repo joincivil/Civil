@@ -14,8 +14,8 @@ import {
 import { multiClaimRewards } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
-import ActivityList from "./ActivityList";
 import { ChallengesToProcess, StyledBatchButtonContainer, getChallengesToProcess, getSalts } from "./DashboardActivity";
+import ActivityListItemClaimReward from "./ActivityListItemClaimReward";
 
 enum TransactionTypes {
   MULTI_CLAIM_REWARDS = "MULTI_CLAIM_REWARDS",
@@ -91,12 +91,23 @@ class ChallengesWithRewardsToClaim extends React.Component<
         <StyledDashboardActivityDescription>
           <ClaimRewardsDescriptionText />
         </StyledDashboardActivityDescription>
-        <ActivityList
-          challenges={this.props.challenges}
-          appealChallenges={this.props.appealChallenges}
-          resolvedChallenges={true}
-          toggleChallengeSelect={this.setChallengesToMultiClaim}
-        />
+
+        {this.props.challenges.map((c: string) =>
+          (<ActivityListItemClaimReward
+            key={c}
+            challengeID={c!}
+            toggleSelect={this.setChallengesToMultiClaim}
+          />)
+        )}
+
+        {this.props.appealChallenges.map((c: string) =>
+          (<ActivityListItemClaimReward
+            key={c}
+            appealChallengeID={c!}
+            toggleSelect={this.setChallengesToMultiClaim}
+          />)
+        )}
+
         <StyledBatchButtonContainer>
           <TransactionButtonNoModal
             disabled={isClaimRewardsButtonDisabled}

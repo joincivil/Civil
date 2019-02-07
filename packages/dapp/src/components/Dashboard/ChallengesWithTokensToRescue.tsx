@@ -14,8 +14,8 @@ import {
 import { rescueTokensInMultiplePolls } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
-import ActivityList from "./ActivityList";
 import { ChallengesToProcess, StyledBatchButtonContainer, getChallengesToProcess } from "./DashboardActivity";
+import ActivityListItemRescueTokens from "./ActivityListItemRescueTokens";
 
 enum TransactionTypes {
   MULTI_RESCUE_TOKENS = "MULTI_RESCUE_TOKENS",
@@ -94,12 +94,23 @@ class ChallengesWithTokensToRescue extends React.Component<
         <StyledDashboardActivityDescription>
           <RescueTokensDescriptionText />
         </StyledDashboardActivityDescription>
-        <ActivityList
-          challenges={this.props.challenges}
-          appealChallenges={this.props.appealChallenges}
-          resolvedChallenges={true}
-          toggleChallengeSelect={this.setChallengesToMultiRescue}
-        />
+
+        {this.props.challenges.map((c: string) =>
+          (<ActivityListItemRescueTokens
+            key={c}
+            challengeID={c!}
+            toggleSelect={this.setChallengesToMultiRescue}
+          />)
+        )}
+
+        {this.props.appealChallenges.map((c: string) =>
+          (<ActivityListItemRescueTokens
+            key={c}
+            appealChallengeID={c!}
+            toggleSelect={this.setChallengesToMultiRescue}
+          />)
+        )}
+
         <StyledBatchButtonContainer>
           <TransactionButtonNoModal
             disabled={isRescueTokensButtonDisabled}
