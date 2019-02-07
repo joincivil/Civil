@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/newsroom-signup",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "ui for managing a newsroom contract",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -16,10 +16,10 @@
     "test": "echo \"add tests please\""
   },
   "dependencies": {
-    "@joincivil/components": "^1.7.4",
-    "@joincivil/core": "^4.7.4",
-    "@joincivil/ethapi": "^0.3.3",
-    "@joincivil/utils": "^1.8.2",
+    "@joincivil/components": "^1.7.5",
+    "@joincivil/core": "^4.7.5",
+    "@joincivil/ethapi": "^0.3.4",
+    "@joincivil/utils": "^1.8.3",
     "ethereumjs-util": "^5.2.0",
     "ipfs-api": "^26.1.2",
     "lodash": "^4.17.10",

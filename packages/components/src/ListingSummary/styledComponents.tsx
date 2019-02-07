@@ -87,6 +87,10 @@ export const StyledUnderChallengeBanner = styled(StyledBaseResultsBanner)`
   text-transform: uppercase;
 `;
 
+export const StyledNotGrantedResultsBanner = styled(StyledBaseResultsBanner)`
+  background-color: ${colors.basic.WHITE};
+`;
+
 export const StyledRejectedResultsBanner = styled(StyledBaseResultsBanner)`
   background-color: ${colors.accent.CIVIL_RED_VERY_FADED};
 `;
