@@ -103,9 +103,9 @@ export const ReadyToCompletePhaseDisplayNameText: React.SFC = props => <>Ready t
 
 export const NewApplicationDisplayNameText: React.SFC = props => <>New Application</>;
 
-export const RejectedNewroomDisplayNameText: React.SFC = props => <>Rejected Newroom</>;
+export const RejectedNewroomDisplayNameText: React.SFC = props => <>Rejected Newsroom</>;
 
-export const WhitelistedNewroomsDisplayNameText: React.SFC = props => <>Approved Newroom</>;
+export const WhitelistedNewroomsDisplayNameText: React.SFC = props => <>Approved Newsroom</>;
 
 // Tooltips
 export interface ToolTipTextProps {

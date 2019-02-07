@@ -55,8 +55,8 @@
         "appealChallengeVoteDispensationPct": 66,
         "govtPCommitStageLength": 86400,
         "govtPRevealStageLength": 86400,
-        "constitutionURI": "http://madeupURL.com",
-        "constitutionHash": "0x3595a4bac2650127ce23cf4cbb67c6bd3cf311de5dc84d4bfc35efb5f99505d2"
+        "constitutionURI": "ipfs://zb34W7r8jmpKj13xrTa3npapGpEpms8iPkUWeVyJPjsH7WYN2",
+        "constitutionHash": "0x3eaf99d3f9ad31d76d9c685655db55bf81211042841887d37c3643e12226b726"
       },
       "AppellateAddress": "0xafd9717b7af755d7f1b99d32e11351c803b2bf0c",
       "GovernmentControllerAddress": "0xcEC56F1D4Dc439E298D5f8B6ff3Aa6be58Cd6Fdf",

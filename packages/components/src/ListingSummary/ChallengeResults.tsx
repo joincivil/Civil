@@ -81,9 +81,15 @@ export const AppealChallengeResults: React.SFC<ListingSummaryAppealChallengeResu
     appealChallengePercentFor,
     appealChallengePercentAgainst,
     didAppealChallengeSucceed,
+    isRejected,
+    isUnderChallenge,
   } = props;
 
-  if (!canListingAppealChallengeBeResolved) {
+  if (
+    (!canListingAppealChallengeBeResolved && !(isRejected && !isUnderChallenge)) ||
+    !appealChallengeID ||
+    appealChallengeID === "0"
+  ) {
     return null;
   }
 
@@ -91,7 +97,7 @@ export const AppealChallengeResults: React.SFC<ListingSummaryAppealChallengeResu
   return (
     <ChallengeResultsContain>
       <ChallengeResultsComponent
-        headerText={`Challenge ${challengeIDDisplay} Results`}
+        headerText={`Appeal Challenge ${challengeIDDisplay} Results`}
         styledHeaderComponent={StyledChallengeResultsHeader}
         totalVotes={appealChallengeTotalVotes!}
         votesFor={appealChallengeVotesFor!}

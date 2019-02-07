@@ -68,7 +68,7 @@ import {
   TxDataAll,
 } from "@joincivil/core";
 import { currentUserNewsrooms, content, contentFetched } from "./newsrooms";
-import { newsrooms, NewsroomState, newsroomUi, newsroomUsers } from "@joincivil/newsroom-signup";
+import { newsrooms, NewsroomState, newsroomUi, newsroomUsers, newsroomGovernment } from "@joincivil/newsroom-signup";
 import { networkActions } from "../actionCreators/network";
 import { Subscription } from "rxjs";
 
@@ -81,6 +81,7 @@ export interface State {
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, string>;
+  newsroomGovernment: Map<string, string>;
 }
 
 export interface NetworkDependentState {
@@ -194,6 +195,7 @@ export default combineReducers({
   newsrooms, // have to be top level because come from a package
   newsroomUi,
   newsroomUsers,
+  newsroomGovernment,
   networkDependent,
   network,
   networkName,

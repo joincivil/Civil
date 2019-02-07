@@ -36,8 +36,7 @@ export const BreakdownBarTotal = styled.div`
 
 export const BreakdownBarPercentage = styled<BreakdownBarPercentageProps, "div">("div")`
   display: inline-block;
-  background-color: ${props =>
-    props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED};
+  background-color: ${props => props.color};
   height: 8px;
   left: 0;
   top: 0;

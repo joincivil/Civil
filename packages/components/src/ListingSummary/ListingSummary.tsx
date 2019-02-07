@@ -37,7 +37,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
   }
 
   private renderAppealJudgement = (): JSX.Element => {
-    const { appeal, didListingChallengeSucceed } = this.props;
+    const { appeal, didChallengeOriginallySucceed } = this.props;
     if (!appeal || !appeal.appealGranted) {
       return <></>;
     }
@@ -45,7 +45,7 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
     let decisionText;
 
     // Challenge succeeded (newsroom rejected) and appeal was granted, so newsroom is accepted
-    if (didListingChallengeSucceed) {
+    if (didChallengeOriginallySucceed) {
       decisionText = (
         <>
           <HollowGreenCheck /> Appeal granted to accept Newsroom
