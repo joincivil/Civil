@@ -2,11 +2,15 @@ import * as React from "react";
 import { TutorialWelcomeScreens } from "./TutorialWelcomeScreens";
 import { TokenTutorialLanding } from "./TokenTutorialLanding";
 
+export interface TokenTutorialProps {
+  handleClose(): void;
+}
+
 export interface TokenTutorialState {
   isQuizStarted: boolean;
 }
 
-export class TokenTutorial extends React.Component<{}, TokenTutorialState> {
+export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTutorialState> {
   public constructor(props: any) {
     super(props);
     this.state = { isQuizStarted: false };
@@ -14,9 +18,9 @@ export class TokenTutorial extends React.Component<{}, TokenTutorialState> {
 
   public render(): JSX.Element {
     if (this.state.isQuizStarted) {
-      return <TokenTutorialLanding />;
+      return <TokenTutorialLanding handleClose={this.props.handleClose} />;
     }
 
-    return <TutorialWelcomeScreens />;
+    return <TutorialWelcomeScreens handleClose={this.props.handleClose} />;
   }
 }

@@ -10,7 +10,7 @@ export const CivilTutorialIcon: React.SFC<CivilTutorialIconProps> = props => {
 
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-1.5 -1.5)">
           <polygon points="0 0 22.909 0 22.909 22.909 0 22.909" />
           <path

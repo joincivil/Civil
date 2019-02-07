@@ -95,7 +95,7 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
             </>
           ) : (
             <>
-              <TutorialInvertedBtn onClick={this.props.onClickPrev}>Back</TutorialInvertedBtn>
+              <TutorialInvertedBtn onClick={this.props.onClickPrev}>Back to Tutorial</TutorialInvertedBtn>
               <TutorialBtn disabled={this.state.checkAnswerDisabled} onClick={() => this.checkAnswer()}>
                 Check
               </TutorialBtn>

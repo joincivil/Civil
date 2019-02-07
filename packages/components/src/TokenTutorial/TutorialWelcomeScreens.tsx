@@ -4,11 +4,15 @@ import { WelcomeScreenContent } from "./WelcomeScreenContent";
 import { TokenTutorialLanding } from "./TokenTutorialLanding";
 import { colors } from "../styleConstants";
 
+export interface TutorialWelcomeScreensProps {
+  handleClose(): void;
+}
+
 export interface TutorialWelcomeScreensState {
   activeWelcomeIdx: number;
 }
 
-export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeScreensState> {
+export class TutorialWelcomeScreens extends React.Component<TutorialWelcomeScreensProps, TutorialWelcomeScreensState> {
   public constructor(props: any) {
     super(props);
     this.state = { activeWelcomeIdx: 0 };
@@ -26,11 +30,11 @@ export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeS
           <p>{WelcomeScreenContent[activeWelcomeIdx].description}</p>
           <SlideProgress>
             {WelcomeScreenContent.map((x, idx) => (
-              <svg height="10" width="10">
+              <svg key={idx} height="10" width="10">
                 {idx === activeWelcomeIdx
                   ? (progressColor = colors.accent.CIVIL_BLUE)
                   : (progressColor = colors.accent.CIVIL_GRAY_4)}
-                <circle cx="5" cy="5" r="5" stroke="none" stroke-width="0" fill={progressColor} />
+                <circle cx="5" cy="5" r="5" stroke="none" strokeWidth="0" fill={progressColor} />
               </svg>
             ))}
           </SlideProgress>
@@ -41,7 +45,7 @@ export class TutorialWelcomeScreens extends React.Component<{}, TutorialWelcomeS
       );
     }
 
-    return <TokenTutorialLanding />;
+    return <TokenTutorialLanding handleClose={this.props.handleClose} />;
   }
 
   private welcomeNext = () => {
