@@ -1,33 +1,17 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts } from "../styleConstants";
 import { buttonSizes, InvertedButton } from "../Button";
 import { CharterData } from "@joincivil/core";
 import { SmallNewsroomLogo } from "../ListingSummary/styledComponents";
-
-const StyledDashboardActivityItem = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  box-sizing: border-box;
-  display: flex;
-  padding: 25px;
-  justify-content: space-between;
-`;
+import {
+  StyledDashboardActivityItem,
+  StyledDashboardActivityItemDetails,
+  StyledNewsroomName,
+} from "./styledComponents";
 
 const StyledDashboardActivityItemIcon = styled.div`
   margin-right: 16px;
   width: 50px;
-`;
-
-const StyledDashboardActivityItemDetails = styled.div`
-  flex-grow: 1;
-  font-size: 14px;
-  line-height: 22px;
-  margin-right: 30px;
-`;
-
-const StyledNewsroomName = styled.h4`
-  font: 800 21px/26px ${fonts.SERIF};
-  margin: 0 0 10px;
 `;
 
 const StyledDashboardActivityItemAction = styled.div`
@@ -56,10 +40,7 @@ export const DashboardActivityItem: React.SFC<DashboardActivityItemProps> = prop
   return (
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>
-        {props.toggleSelect && ItemCheckbox(props)}
-        {!props.toggleSelect &&
-          props.charter &&
-          props.charter.logoUrl && <SmallNewsroomLogo src={props.charter.logoUrl} />}
+        {props.charter && props.charter.logoUrl && <SmallNewsroomLogo src={props.charter.logoUrl} />}
       </StyledDashboardActivityItemIcon>
 
       <StyledDashboardActivityItemDetails>
@@ -75,11 +56,4 @@ export const DashboardActivityItem: React.SFC<DashboardActivityItemProps> = prop
       </StyledDashboardActivityItemAction>
     </StyledDashboardActivityItem>
   );
-};
-
-const ItemCheckbox: React.SFC<DashboardActivityItemProps> = props => {
-  const handleChange = (event: any) => {
-    props.toggleSelect!(props.challengeID!, event.target.checked, props.salt);
-  };
-  return <input type="checkbox" onChange={handleChange} />;
 };
