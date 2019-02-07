@@ -13,8 +13,8 @@ import {
 import * as metaMaskSignatureReqUrl from "../../images/img-metamaskmodal-new-signature.png";
 
 export interface AccountEthAuthProps {
-  civil?: Civil;
-  onAuthenticated?(adress: EthAddress): void;
+  civil: Civil;
+  onAuthenticated?(address: EthAddress): void;
 }
 
 export interface AccountEthAuthState {

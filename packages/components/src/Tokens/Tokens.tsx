@@ -24,8 +24,8 @@ export interface UserTokenAccountProps {
   supportEmailAddress: string;
   faqUrl: string;
   userAccount: string;
-  userLoggedIn: boolean;
   userTutorialComplete: boolean;
+  user?: any;
 }
 
 export interface UserTokenAccountStates {
@@ -41,17 +41,14 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   }
 
   public render(): JSX.Element | null {
-    let loggedInState;
-    let tutorialState;
-    let buyState;
+    const { user } = this.props;
 
-    this.props.userLoggedIn ? (loggedInState = TOKEN_PROGRESS.COMPLETED) : (loggedInState = TOKEN_PROGRESS.ACTIVE);
-    this.props.userTutorialComplete
-      ? (tutorialState = TOKEN_PROGRESS.COMPLETED)
-      : (tutorialState = TOKEN_PROGRESS.ACTIVE);
-    this.props.userLoggedIn && this.props.userTutorialComplete
-      ? (buyState = TOKEN_PROGRESS.ACTIVE)
-      : (buyState = TOKEN_PROGRESS.DISABLED);
+    const accountSignupStep = this.getUserStep(user);
+
+    const loggedInState = accountSignupStep ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
+    const tutorialState = this.props.userTutorialComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
+    const buyState =
+      accountSignupStep && this.props.userTutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
 
     return (
       <TokenAccountOuter>
@@ -73,7 +70,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
             <FlexColumnsSecondary>
               <UserTokenAccountProgress
                 userAccount={this.props.userAccount}
-                logInComplete={this.props.userLoggedIn}
+                logInComplete={accountSignupStep}
                 tutorialComplete={this.props.userTutorialComplete}
               />
               <UserTokenAccountHelp supportEmailAddress={this.props.supportEmailAddress} faqUrl={this.props.faqUrl} />
@@ -83,6 +80,14 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
       </TokenAccountOuter>
     );
   }
+
+  private getUserStep = (user: any) => {
+    if (user && user.ethAddress) {
+      return true;
+    }
+
+    return false;
+  };
 
   private openTutorialModal = () => {
     this.setState({ isTutorialModalOpen: true });
