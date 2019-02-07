@@ -555,6 +555,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     let salt;
     let numTokens;
     let choice;
+    let voterReward;
     const [, , resolved] = await this.instance.challenges.callAsync(appealChallengeID);
     const pollData = await this.voting.getPoll(appealChallengeID);
     let canUserReveal;
@@ -590,6 +591,10 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       didCollectAmount = await this.getRewardClaimed(appealChallengeID, user);
     }
 
+    if (isVoterWinner && !didUserCollect) {
+      voterReward = await this.voterReward(appealChallengeID, salt as BigNumber, user);
+    }
+
     return {
       didUserCommit,
       didUserReveal,
@@ -603,6 +608,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       salt,
       numTokens,
       choice,
+      voterReward,
     };
   }
 

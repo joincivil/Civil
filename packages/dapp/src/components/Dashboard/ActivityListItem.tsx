@@ -13,7 +13,6 @@ import {
   makeGetListing,
   makeGetListingAddressByChallengeID,
   makeGetUserChallengeData,
-  makeGetUnclaimedRewardAmount,
   getChallengeState,
 } from "../../selectors";
 import { WinningChallengeResults } from "./WinningChallengeResults";
@@ -26,7 +25,6 @@ export interface ActivityListItemOwnProps {
   even: boolean;
   challenge?: WrappedChallengeData;
   userChallengeData?: UserChallengeData;
-  unclaimedRewardAmount?: string;
   challengeState?: any;
   challengeID?: string;
   user?: string;
@@ -221,7 +219,7 @@ class ActivityListItemComponent extends React.Component<
         isVoterWinner &&
         !didUserCollect
       ) {
-        return ["Claim Rewards", `~${this.props.unclaimedRewardAmount} available`];
+        return ["Claim Rewards", ""];
       } else if (listingPhaseState && !listingPhaseState.isUnderChallenge && didUserReveal && !isVoterWinner) {
         return ["View Results", "You did not vote for the winner"];
       } else if (
@@ -288,13 +286,11 @@ export const ActivityListItem = connect(makeMapStateToProps)(ActivityListItemCom
 const makeChallengeMapStateToProps = () => {
   const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
   const getUserChallengeData = makeGetUserChallengeData();
-  const getUnclaimedRewardAmount = makeGetUnclaimedRewardAmount();
 
   const mapStateToProps = (state: State, ownProps: ChallengeActivityListItemOwnProps): ActivityListItemOwnProps => {
     const listingAddress = getListingAddressByChallengeID(state, ownProps);
     const challenge = getChallenge(state, ownProps);
     const userChallengeData = getUserChallengeData(state, ownProps);
-    const unclaimedRewardAmountBN = getUnclaimedRewardAmount(state, ownProps);
     const challengeState = getChallengeState(challenge!);
     const { even, user } = ownProps;
     const { listingsFetching } = state.networkDependent;
@@ -303,17 +299,11 @@ const makeChallengeMapStateToProps = () => {
       listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
     }
 
-    let unclaimedRewardAmount = "";
-    if (unclaimedRewardAmountBN) {
-      unclaimedRewardAmount = getFormattedTokenBalance(unclaimedRewardAmountBN);
-    }
-
     return {
       listingAddress,
       challenge,
       challengeState,
       userChallengeData,
-      unclaimedRewardAmount,
       even,
       user,
       listingDataRequestStatus,
