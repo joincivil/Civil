@@ -21,6 +21,7 @@ import {
 } from "./TokensTextComponents";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
+import { CurrencyConverter } from "../CurrencyConverter/CurrencyConverter";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
@@ -52,7 +53,9 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
             <TokenAirswapSection>
               <>
                 <TokenAirswapFoundationText />
-                <TokenConverterSection>[TKTK currency converter component]</TokenConverterSection>
+                <TokenConverterSection>
+                  <CurrencyConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
+                </TokenConverterSection>
                 <AirswapBuyCVL buyCVLBtnText={<TokenBuyFoundationBtnText />} />
               </>
 

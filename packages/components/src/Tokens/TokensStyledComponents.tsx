@@ -254,7 +254,8 @@ export const TokenAirswapSection = styled.div`
 `;
 
 export const TokenConverterSection = styled.div`
-  padding: 40px 0 50px;
+  padding: 20px 0 60px;
+  text-align: left;
 `;
 
 export const TokenOrBreak = styled.div`
