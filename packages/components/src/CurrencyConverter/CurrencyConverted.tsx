@@ -3,25 +3,25 @@ import { CurrencyConvertedBox, CurrencyCode } from "./CurrencyConverterStyledCom
 
 export interface CurrencyConvertedProps {
   currencyCode?: string | JSX.Element;
-  placeholder?: string;
+  currenctPrice?: number;
 }
 
 export interface CurrencyConvertedStates {
-  convertedCurrency?: string;
+  convertedCurrency?: number;
 }
 
 export class CurrencyConverted extends React.Component<CurrencyConvertedProps, CurrencyConvertedStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      convertedCurrency: this.props.placeholder || "0",
+      convertedCurrency: this.props.currenctPrice || 0,
     };
   }
 
   public render(): JSX.Element {
     return (
       <CurrencyConvertedBox>
-        {this.props.placeholder}
+        {this.props.currenctPrice}
         <CurrencyCode>{this.props.currencyCode}</CurrencyCode>
       </CurrencyConvertedBox>
     );
