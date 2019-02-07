@@ -2,6 +2,7 @@ import * as React from "react";
 import gql from "graphql-tag";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
+import { Link } from "react-router-dom";
 
 const signupMutation = gql`
   mutation($emailAddress: String!) {
@@ -41,6 +42,16 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     };
   }
 
+  public renderLink(): JSX.Element {
+    const { isNewUser } = this.props;
+
+    if (isNewUser) {
+      return <Link to="./login">Or login</Link>;
+    }
+
+    return <Link to="./signup">Or sign up</Link>;
+  }
+
   public render(): JSX.Element {
     const { isNewUser } = this.props;
     const { errorMessage } = this.state;
@@ -65,6 +76,8 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
               </form>
 
               {loading && <span>loading...</span>}
+
+              {this.renderLink()}
             </>
           );
         }}
