@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/components",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "description": "React components for Civil",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -73,8 +73,8 @@
     "react-dom": "^16.2.0"
   },
   "dependencies": {
-    "@joincivil/core": "^4.7.4",
-    "@joincivil/utils": "^1.8.2",
+    "@joincivil/core": "^4.7.5",
+    "@joincivil/utils": "^1.8.3",
     "@material-ui/core": "1.5.0",
     "@material-ui/icons": "^3.0.1",
     "@types/classnames": "^2.2.3",

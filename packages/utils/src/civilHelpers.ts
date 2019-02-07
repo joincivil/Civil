@@ -38,8 +38,8 @@ export function prepareUserFriendlyNewsroomMessage(
   } to publish this post and verify its content.\n\nNewsroom address:\n${newsroomAddress}\n\nPost content hash:\n${contentHash}`;
 }
 
-export function prepareConstitutionSignMessage(newsroomAddress: EthAddress, constitutionHash: Hex): string {
-  return `By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitution.\n\nNewsrooom Address:\n${newsroomAddress}\n\nConstitution Hash:\n${constitutionHash}`;
+export function prepareConstitutionSignMessage(newsroomName: string, constitutionHash: Hex): string {
+  return `By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitution.\n\nNewsrooom Name:\n${newsroomName}\n\nConstitution Hash:\n${constitutionHash}`;
 }
 
 export function getDefaultFromBlock(network: number): number {
@@ -125,4 +125,9 @@ export function isNetworkSupported(network: string | number): boolean {
     networkKey = parseInt(networkKey, 10);
   }
   return supportedNetworks.includes(networkKey);
+}
+
+export function getInfuraUrlFromIpfs(ipfsUrl: string): string {
+  const hash = ipfsUrl.split("://")[1];
+  return `https://ipfs.infura.io/ipfs/${hash}`;
 }

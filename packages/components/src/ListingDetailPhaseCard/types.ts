@@ -26,9 +26,9 @@ export interface RequestAppealProps {
 export interface ChallengePhaseProps {
   challengeID?: string;
   isViewingUserChallenger?: boolean;
-  challenger: EthAddress;
-  rewardPool: string;
-  stake: string;
+  challenger?: EthAddress;
+  rewardPool?: string;
+  stake?: string;
   userHasCommittedVote?: boolean;
   userHasRevealedVote?: boolean;
 }
@@ -60,10 +60,20 @@ export interface RevealVoteProps extends VoteBaseProps {
 }
 
 export interface AppealDecisionProps {
-  appealGranted: boolean;
+  appealRequested?: boolean;
+  appealGranted?: boolean;
   submitAppealChallengeURI?: string;
 }
 
 export interface AppealChallengePhaseProps {
-  appealChallengeID: string;
+  appealChallengeID?: string;
+}
+
+export interface AppealChallengeResultsProps {
+  appealChallengeTotalVotes?: string;
+  appealChallengeVotesFor?: string;
+  appealChallengeVotesAgainst?: string;
+  appealChallengePercentFor?: string;
+  appealChallengePercentAgainst?: string;
+  didAppealChallengeSucceed?: boolean;
 }

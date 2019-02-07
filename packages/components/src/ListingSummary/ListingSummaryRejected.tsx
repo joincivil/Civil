@@ -10,9 +10,9 @@ import AppealJudgementBanner from "./AppealJudgementBanner";
 export const ListingSummaryRejectedComponent: React.SFC<
   ListingSummaryComponentProps & ChallengeResultsProps
 > = props => {
-  const { appeal } = props;
+  const { appeal, appealRequested } = props;
 
-  const hasTopPadding = !(appeal && appeal.appealGranted);
+  const hasTopPadding = !appeal && !appealRequested;
   return (
     <StyledListingSummaryContainer>
       <StyledListingSummary hasTopPadding={hasTopPadding}>
