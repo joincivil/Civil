@@ -2,6 +2,7 @@ export * from "./Dashboard";
 export * from "./DashboardUserInfoSummary";
 export * from "./DashboardActivity";
 export * from "./DashboardActivityItem";
+export * from "./DashboardActivitySelectableItem";
 export * from "./DashboardActivityTabTitle";
 export * from "./styledComponents";
 export * from "./textComponents";

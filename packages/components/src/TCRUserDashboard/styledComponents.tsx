@@ -101,3 +101,51 @@ export const StyledUserAddress = styled.div`
   padding: 0 0 24px;
   margin: 15px 0;
 `;
+
+// Activity Items
+export const StyledDashboardActivityItem = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  box-sizing: border-box;
+  display: flex;
+  padding: 25px 0;
+  margin: 0 25px;
+  justify-content: space-between;
+`;
+
+export const StyledItemCheckboxContainer = styled.div`
+  margin: 0 23px 0 0;
+  padding: 15px 0 0;
+  width: 20px;
+`;
+
+export const StyledDashboardActivityItemDetails = styled.div`
+  flex-grow: 1;
+  font-size: 14px;
+  line-height: 22px;
+  margin-right: 30px;
+`;
+
+export const StyledChallengeIDKicker = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 12px;
+  font-weight: 600
+  line-height: 15px;
+  margin: 0 0 3px;
+  text-transform: uppercase;
+`;
+
+export const StyledNewsroomName = styled.div`
+  font-size: 18px;
+  font-weight: 600
+  line-height: 33px;
+  margin: 0;
+`;
+
+export const StyledNumTokensContainer = styled.div`
+  color: ${colors.accent.CIVIL_BLUE};
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 18px;
+  padding: 15px 0 0;
+  text-align: right;
+`;
