@@ -1,4 +1,6 @@
 import * as React from "react";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 import {
   CurrencyConverterContain,
   CurrencyContain,
@@ -9,6 +11,15 @@ import {
 import { ExchangeArrowsIcon } from "../icons/ExchangeArrowsIcon";
 import { CurrencyInputWithButton } from "../input/InputWithButton";
 import { CurrencyConverted } from "./CurrencyConverted";
+
+const priceQuery = gql`
+  query {
+    storefrontEthPrice
+    storefrontCvlPrice
+    storefrontCvlQuoteUsd(usdToSpend: 100.1)
+    storefrontCvlQuoteTokens(tokensToBuy: 100)
+  }
+`;
 
 export interface CurrencyConverterProps {
   currencyLabelLeft?: string | JSX.Element;
@@ -39,33 +50,46 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
 
   public render(): JSX.Element {
     return (
-      <CurrencyConverterContain>
-        <CurrencyContain>
-          <CurrencyLabel>{this.props.currencyLabelLeft}</CurrencyLabel>
-          <StyledCurrencyInputWithButton>
-            <CurrencyInputWithButton
-              placeholder="0.00"
-              name="Convert currency"
-              buttonText="Convert"
-              icon={<>USD</>}
-              onButtonClick={() => this.getEthPrice}
-            />
-          </StyledCurrencyInputWithButton>
-        </CurrencyContain>
-        <CurrencyIconContain>
-          <ExchangeArrowsIcon />
-        </CurrencyIconContain>
-        <CurrencyContain>
-          <CurrencyLabel>{this.props.currencyLabelRight}</CurrencyLabel>
-          <CurrencyConverted currenctPrice={this.state.currentEthPrice} currencyCode={"ETH"} />
-        </CurrencyContain>
-      </CurrencyConverterContain>
+      <Query query={priceQuery}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return "Loading...";
+          }
+          if (error) {
+            return `Error! ${JSON.stringify(error)}`;
+          }
+
+          return (
+            <CurrencyConverterContain>
+              <CurrencyContain>
+                <CurrencyLabel>{this.props.currencyLabelLeft}</CurrencyLabel>
+                <StyledCurrencyInputWithButton>
+                  <CurrencyInputWithButton
+                    placeholder="0.00"
+                    name="Convert currency"
+                    buttonText="Convert"
+                    icon={<>USD</>}
+                    onButtonClick={() => this.getEthPrice}
+                  />
+                </StyledCurrencyInputWithButton>
+              </CurrencyContain>
+              <CurrencyIconContain>
+                <ExchangeArrowsIcon />
+              </CurrencyIconContain>
+              <CurrencyContain>
+                <CurrencyLabel>{this.props.currencyLabelRight}</CurrencyLabel>
+                <CurrencyConverted currentPrice={data.storefrontEthPrice} currencyCode={"ETH"} />
+              </CurrencyContain>
+            </CurrencyConverterContain>
+          );
+        }}
+      </Query>
     );
   }
 
   private getEthPrice = (ev: any) => {
     console.log("click");
     console.log(ev.target.value);
-    this.setState({ currentEthPrice: this.state.currentEthPrice, currentCvlPrice: this.state.currentCvlPrice })
+    this.setState({ currentEthPrice: this.state.currentEthPrice, currentCvlPrice: this.state.currentCvlPrice });
   };
-};
+}

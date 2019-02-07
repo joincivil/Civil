@@ -84,7 +84,10 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
 
                 <TokenExchangeSection>
                   <TokenAirswapExchangeText />
-                  <AirswapBuyCVL buyCVLBtnText={<TokenBuyExchangeBtnText />} buyFromAddress={this.props.foundationAddress} />
+                  <AirswapBuyCVL
+                    buyCVLBtnText={<TokenBuyExchangeBtnText />}
+                    buyFromAddress={this.props.foundationAddress}
+                  />
                 </TokenExchangeSection>
               </TokenAirswapSection>
             </TokenBuySection>
@@ -99,4 +102,4 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
 
     return tokenSection;
   }
-};
+}
