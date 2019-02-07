@@ -1,10 +1,10 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
+import apolloStorybookDecorator from "apollo-storybook-react";
 import { CurrencyConverter } from "./CurrencyConverter";
 import styled, { StyledComponentClass } from "styled-components";
-import apolloStorybookDecorator from "apollo-storybook-react";
 
-export const Container = styled.div`
+const Container = styled.div`
   width: 500px;
 `;
 
@@ -12,6 +12,12 @@ const typeDefs = `
   type Query {
     storefrontEthPrice: Float
     storefrontCvlPrice: Float
+    storefrontCvlQuoteUsd(usdToSpend: Float!): Float
+    storefrontCvlQuoteTokens(tokensToBuy: Float!): Float
+  }
+
+  schema {
+    query: Query
   }
 `;
 
@@ -27,10 +33,6 @@ const mocks = {
     };
   },
 };
-
-export interface UserTokenAccountProgressProps {
-  userAccount: string;
-}
 
 storiesOf("Currency Converter", module)
   .addDecorator(
