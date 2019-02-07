@@ -39,7 +39,7 @@ export const UserTokenAccountVerify: React.StatelessComponent<TokenAccountVerify
           <CloseBtn onClick={props.handleClose}>
             <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
           </CloseBtn>
-          <TokenTutorial />
+          <TokenTutorial handleClose={props.handleClose} />
         </FullScreenModal>
       </UserTokenAccountRequirement>
     );

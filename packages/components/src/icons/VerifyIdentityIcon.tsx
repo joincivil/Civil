@@ -4,7 +4,7 @@ import { colors } from "../styleConstants";
 export const VerifyIdentityIcon: React.SFC = props => {
   return (
     <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-2 -0.5)">
           <polygon points="0 0 22.9 0 22.9 22.9 0 22.9" />
           <path
