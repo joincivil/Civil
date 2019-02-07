@@ -254,7 +254,7 @@ export const TokenAirswapSection = styled.div`
 `;
 
 export const TokenConverterSection = styled.div`
-  padding: 20px 0 60px;
+  padding: 20px 0 10px;
   text-align: left;
 `;
 
@@ -356,5 +356,29 @@ export const TokenExchangeSection = styled.div`
       background-color: ${colors.accent.CIVIL_BLUE};
       color: ${colors.basic.WHITE};
     }
+  }
+`;
+
+export const TokenCalcCVL = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  margin: 70px 0 0;
+  text-align: center;
+
+  span {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 22px;
+  }
+
+  h4 {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.58px;
+    line-height: 39px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 22px;
   }
 `;

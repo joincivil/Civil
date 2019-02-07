@@ -22,7 +22,7 @@ export const CurrencyConverter: React.StatelessComponent<CurrencyConverterProps>
         <CurrencyLabel>{props.currencyLabelLeft}</CurrencyLabel>
         <StyledCurrencyInputWithButton>
           <CurrencyInputWithButton
-            placeholder="0"
+            placeholder="0.00"
             name="CurrencyInputWithButton"
             onChange={() => console.log("CurrencyInputWithButton change")}
             buttonText="Convert"

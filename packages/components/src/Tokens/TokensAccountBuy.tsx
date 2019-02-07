@@ -8,6 +8,7 @@ import {
   TokenConverterSection,
   TokenOrBreak,
   TokenExchangeSection,
+  TokenCalcCVL,
 } from "./TokensStyledComponents";
 import {
   TokenBuyText,
@@ -18,6 +19,7 @@ import {
   TokenAirswapExchangeText,
   TokenBuyExchangeBtnText,
   TokenOrText,
+  TokenCVLPriceText,
 } from "./TokensTextComponents";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
@@ -55,6 +57,9 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
                 <TokenAirswapFoundationText />
                 <TokenConverterSection>
                   <CurrencyConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
+                  <TokenCalcCVL>
+                    <TokenCVLPriceText pricePerCvl={".10"} totalPrice={"200.0000"} />
+                  </TokenCalcCVL>
                 </TokenConverterSection>
                 <AirswapBuyCVL buyCVLBtnText={<TokenBuyFoundationBtnText />} />
               </>
