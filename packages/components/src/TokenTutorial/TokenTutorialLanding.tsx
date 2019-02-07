@@ -8,8 +8,8 @@ import {
   TutorialTopic,
   LaunchTopic,
   TopicProgress,
-  TutorialProgressBars,
-  TutorialProgressBar,
+  TutorialLandingProgressBars,
+  TutorialLandingProgressBar,
 } from "./TokenTutorialStyledComponents";
 import { ClockIcon } from "../icons/ClockIcon";
 import {
@@ -82,10 +82,10 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
             </LaunchTopic>
             <TopicProgress>
               <TutorialProgressText questions={topic.questions.length} />
-              <TutorialProgressBars>
-                {topic.questions.map(x => <TutorialProgressBar />)}
+              <TutorialLandingProgressBars>
+                {topic.questions.map(x => <TutorialLandingProgressBar />)}
                 <b>0/{topic.questions.length}</b>
-              </TutorialProgressBars>
+              </TutorialLandingProgressBars>
             </TopicProgress>
           </TutorialTopic>
         ))}

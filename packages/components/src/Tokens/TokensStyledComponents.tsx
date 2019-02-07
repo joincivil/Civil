@@ -5,6 +5,7 @@ import { Button, ButtonProps, InvertedButton } from "../Button";
 
 export interface TokenRequirementStyleProps {
   step?: string;
+  padding?: boolean;
 }
 
 export const TokenAccountOuter = styled.div`
@@ -21,6 +22,14 @@ export const TokenAccountInner = styled.div`
 `;
 
 export const TokenBtns: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+  border-radius: 1px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: none;
+`;
+
+export const TokenBtnsInverted: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
   border-radius: 1px;
   font-size: 13px;
   font-weight: 700;
@@ -50,7 +59,7 @@ export const FlexColumnsPrimaryModule = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   background-color: ${colors.basic.WHITE};
   margin-bottom: 30px;
-  padding: 30px 0;
+  ${(props: TokenRequirementStyleProps) => (props.padding ? "padding: 30px 0" : "")};
 `;
 
 export const FlexColumnsSecondary = styled.div`
@@ -114,12 +123,13 @@ export const TokenSetup = styled.p`
 
 export const TokenAccountSectionHeader = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  font-family: ${fonts.SANS_SERIF};
   margin: 0 0 30px;
   padding: 0 25px 30px;
+  text-align: center;
 
   h3 {
     color: ${colors.primary.BLACK};
-    font-family: ${fonts.SANS_SERIF};
     font-size: 20px;
     font-weight: 700;
     line-height: 32px;
@@ -128,9 +138,9 @@ export const TokenAccountSectionHeader = styled.div`
 
   p {
     color: ${colors.accent.CIVIL_GRAY_0};
-    font-family: ${fonts.SANS_SERIF};
-    font-size: 14px;
-    line-height: 22px;
+    font-size: 18px;
+    letter-spacing: -0.12px;
+    line-height: 33px;
     margin: 0;
   }
 `;
@@ -185,14 +195,128 @@ export const TokenCheckIcon = styled.div`
 `;
 
 export const TokenBuySection = styled.div`
+  font-family: ${fonts.SANS_SERIF};
   padding: 0 30px 5px;
 
-  p {
-    color: ${colors.accent.CIVIL_GRAY_1};
-    font-family: ${fonts.SANS_SERIF};
+  h4 {
     font-size: 16px;
-    line-height: 19px;
+    font-weight: 700;
+    line-height: 26px;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 32px;
+    margin: 0;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 18px;
+    letter-spacing: -0.12px;
+    line-height: 33px;
     margin: 0 0 15px;
+  }
+
+  button {
+    border-radius: 1px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    text-transform: none;
+  }
+`;
+
+export const TokenBuyIntro = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
+  padding: 0 0 15px;
+  margin: 0 0 25px;
+
+  span {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    display: block;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0 0 15px;
+  }
+`;
+
+export const TokenAirswapSection = styled.div`
+  padding: 0 30px;
+  text-align: center;
+
+  button {
+    diplay: block;
+    width: 100%;
+  }
+`;
+
+export const TokenConverterSection = styled.div`
+  padding: 40px 0 50px;
+`;
+
+export const TokenOrBreak = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin: 50px 0;
+  position: relative;
+
+  p {
+    background-color: ${colors.basic.WHITE};
+    color: ${colors.accent.CIVIL_GRAY_3};
+    font-size: 14px;
+    left: calc(50% - 50px);
+    letter-spacing: 0.88px;
+    line-height: 1;
+    margin: 0;
+    position: absolute;
+    text-transform: uppercase;
+    top: -5px;
+    width: 100px;
+  }
+`;
+
+export const TokenProgressContain = styled.div`
+  margin-bottom: 10px;
+
+  h3 {
+    color: ${colors.primary.BLACK};
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 26px;
+    margin: 0 0 8px;
+
+    svg {
+      margin-right: 8px;
+      vertical-align: text-bottom;
+    }
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_2};
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.14px;
+    line-height: 21px;
+  }
+
+  button {
+    display: none;
+  }
+`;
+
+export const TokenFAQCollapse = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  font-family: ${fonts.SANS_SERIF};
+  padding: 20px 30px;
+
+  h3 {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 32px;
+    margin: 0;
   }
 `;
 
@@ -215,6 +339,21 @@ export const CloseBtn: StyledComponentClass<ButtonProps, "button"> = styled(Inve
 
     svg path {
       fill: ${colors.accent.CIVIL_BLUE};
+    }
+  }
+`;
+
+export const TokenExchangeSection = styled.div`
+  button {
+    background-color: transparent;
+    border: 1px solid ${colors.accent.CIVIL_BLUE};
+    color: ${colors.accent.CIVIL_BLUE};
+    transition: all 0.2s ease;
+
+    &:hover,
+    &:focus {
+      background-color: ${colors.accent.CIVIL_BLUE};
+      color: ${colors.basic.WHITE};
     }
   }
 `;
