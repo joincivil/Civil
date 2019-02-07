@@ -8,7 +8,8 @@ export interface UserTokenAccountProgressProps {
 }
 
 storiesOf("User Token Account", module)
-  .addDecorator(StoryRouter()).add("User Token Account", () => {
+  .addDecorator(StoryRouter())
+  .add("User Token Account", () => {
     return (
       <UserTokenAccount
         userTutorialComplete={true}
