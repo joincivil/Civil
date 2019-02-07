@@ -95,21 +95,13 @@ class ChallengesWithTokensToRescue extends React.Component<
           <RescueTokensDescriptionText />
         </StyledDashboardActivityDescription>
 
-        {this.props.challenges.map((c: string) =>
-          (<ActivityListItemRescueTokens
-            key={c}
-            challengeID={c!}
-            toggleSelect={this.setChallengesToMultiRescue}
-          />)
-        )}
+        {this.props.challenges.map((c: string) => (
+          <ActivityListItemRescueTokens key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
+        ))}
 
-        {this.props.appealChallenges.map((c: string) =>
-          (<ActivityListItemRescueTokens
-            key={c}
-            appealChallengeID={c!}
-            toggleSelect={this.setChallengesToMultiRescue}
-          />)
-        )}
+        {this.props.appealChallenges.map((c: string) => (
+          <ActivityListItemRescueTokens key={c} appealChallengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
+        ))}
 
         <StyledBatchButtonContainer>
           <TransactionButtonNoModal

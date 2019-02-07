@@ -40,8 +40,7 @@ export const DashboardActivityItem: React.SFC<DashboardActivityItemProps> = prop
   return (
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>
-        {props.charter &&
-          props.charter.logoUrl && <SmallNewsroomLogo src={props.charter.logoUrl} />}
+        {props.charter && props.charter.logoUrl && <SmallNewsroomLogo src={props.charter.logoUrl} />}
       </StyledDashboardActivityItemIcon>
 
       <StyledDashboardActivityItemDetails>
