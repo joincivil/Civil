@@ -2,6 +2,7 @@ import * as React from "react";
 import makeAsyncScriptLoader from "react-async-script";
 import { Button } from "../Button";
 
+// TODO:Sarah add AIRSWAP_URL const to @joincivil/utils
 const AIRSWAP_URL = "https://cdn.airswap.io/gallery/airswap-trader.js";
 
 export interface BuyCVLProps {
@@ -16,6 +17,7 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
   }
 
   private displayAirswap(): void {
+    // TODO:Sarah add mainnet/rinkeby to @joincivil/utils
     // const mainnet = "";
     const rinkeby = "0x3e39fa983abcd349d95aed608e798817397cf0d1";
     const buyFromAddress = this.props.buyFromAddress || "";

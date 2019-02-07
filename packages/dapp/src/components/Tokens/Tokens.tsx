@@ -14,6 +14,7 @@ export interface TokensProps {
 }
 
 export const TokensComponent: React.SFC<TokensProps> = props => {
+  // TODO:Sarah foundationAddress to @joincivil/utils
   return (
     <>
       <Helmet>
