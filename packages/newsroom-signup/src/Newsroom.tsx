@@ -124,12 +124,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         this.props.persistCharter(charter);
         return;
       }
-
-      try {
-        localStorage[`civil:${this.props.address!}:charter`] = JSON.stringify(charter);
-      } catch (e) {
-        console.error("Failed to save charter to local storage:", e);
-      }
     },
     1000,
     { maxWait: 2000 },
@@ -199,10 +193,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
     this.props.dispatch!(addPersistCharter(this.persistCharter));
 
-    if (this.props.address && this.props.civil) {
-      await this.hydrateNewsroom(this.props.address);
-    }
     if (this.props.civil) {
+      if (this.props.address) {
+        await this.hydrateNewsroom(this.props.address);
+      }
+
       const tcr = await this.props.civil.tcrSingletonTrusted();
       const government = await tcr.getGovernment();
       const hash = await government.getConstitutionHash();
@@ -374,8 +369,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   private async initCharter(): Promise<void> {
-    this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
-
     if (this.props.getPersistedCharter) {
       try {
         const charter = await this.props.getPersistedCharter();
@@ -398,18 +391,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private setRoles = (address: EthAddress): void => {
     this.props.dispatch!(getIsOwner(address, this.props.civil!));
     this.props.dispatch!(getIsEditor(address, this.props.civil!));
-  };
-
-  private getCharterFromLocalStorage = (): Partial<CharterData> | undefined => {
-    try {
-      const key = `civil:${this.props.address!}:charter`;
-      if (localStorage[key]) {
-        return JSON.parse(localStorage[key]);
-      }
-    } catch (e) {
-      console.error("Failed to retrieve charter from local storage:", e);
-    }
-    return undefined;
   };
 
   private updateCharter = (charter: Partial<CharterData>): void => {
