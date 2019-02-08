@@ -77,7 +77,7 @@ export interface NewsroomExternalProps {
   getCmsUserDataForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
-export interface NewsroomProps extends NewsroomExternalProps {
+export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
   charter: Partial<CharterData>;
   // owners: string[];
   // editors: string[];
@@ -87,6 +87,10 @@ export interface NewsroomProps extends NewsroomExternalProps {
   userIsEditor?: boolean;
   userNotOnContract?: boolean;
   charterUri?: string;
+}
+
+// Final props are from GQL
+export interface NewsroomProps extends NewsroomPropsWithRedux {
   profileWalletAddress?: EthAddress;
   persistedCharter?: Partial<CharterData>;
   persistCharter(charter: Partial<CharterData>): Promise<void>;
@@ -390,24 +394,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 }
 
-const NewsroomWithGqlData: React.SFC<NewsroomProps> = props => {
-  return (
-    <DataWrapper>
-      {({ profileWalletAddress, persistedCharter, persistCharter }) => {
-        return (
-          <NewsroomComponent
-            {...props}
-            profileWalletAddress={profileWalletAddress}
-            persistCharter={persistCharter}
-            persistedCharter={persistedCharter}
-          />
-        );
-      }}
-    </DataWrapper>
-  );
-};
-
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomPropsWithRedux => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   // const userIsOwner = newsroom.isOwner;
@@ -428,6 +415,23 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalPro
     // editors,
     charter: newsroom.charter || {},
   };
+};
+
+const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
+  return (
+    <DataWrapper>
+      {({ profileWalletAddress, persistedCharter, persistCharter }) => {
+        return (
+          <NewsroomComponent
+            {...props}
+            profileWalletAddress={profileWalletAddress}
+            persistCharter={persistCharter}
+            persistedCharter={persistedCharter}
+          />
+        );
+      }}
+    </DataWrapper>
+  );
 };
 
 export const Newsroom = connect(mapStateToProps)(NewsroomWithGqlData);
