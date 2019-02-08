@@ -1,9 +1,8 @@
 import * as React from "react";
 import makeAsyncScriptLoader from "react-async-script";
+import { Redirect } from "react-router-dom";
+import { airswapScript, getAirswapCvlAddress, getAirswapEnv } from "@joincivil/utils";
 import { Button } from "../Button";
-
-// TODO:Sarah add AIRSWAP_URL const to @joincivil/utils
-const AIRSWAP_URL = "https://cdn.airswap.io/gallery/airswap-trader.js";
 
 export interface BuyCVLProps {
   buyFromAddress?: string;
@@ -17,20 +16,20 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
   }
 
   private displayAirswap(): void {
-    // TODO:Sarah add mainnet/rinkeby to @joincivil/utils
-    // const mainnet = "";
-    const rinkeby = "0x3e39fa983abcd349d95aed608e798817397cf0d1";
+    // TODO:Sarah get network
+    const environment = getAirswapEnv(4);
+    const tokenAddress = getAirswapCvlAddress(4);
     const buyFromAddress = this.props.buyFromAddress || "";
 
     // @ts-ignore
     window.AirSwap.Trader.render(
       {
         mode: "buy",
-        env: "sandbox",
-        token: rinkeby,
+        env: environment,
+        token: tokenAddress,
         address: buyFromAddress,
-        onComplete: (transactionId: string) => {
-          console.info("Trade complete. Thank you, come again.", transactionId);
+        onComplete: () => {
+          return <Redirect to="/dashboard" />;
         },
         onCancel: () => {
           console.info("Trade cancelled");
@@ -41,4 +40,4 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
   }
 }
 
-export const AirswapBuyCVL = makeAsyncScriptLoader(AIRSWAP_URL)(BuyCVLBase);
+export const AirswapBuyCVL = makeAsyncScriptLoader(airswapScript)(BuyCVLBase);

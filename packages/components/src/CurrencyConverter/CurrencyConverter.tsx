@@ -89,8 +89,8 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
   }
 
   private getUsdValue = (name: string, value: string): void => {
-    const newUserInputUsdPricef = null ? "0" : value;
-    this.setState({ userInputUsdPrice: newUserInputUsdPricef });
+    const newUserInputUsdPrice = null ? "0" : value;
+    this.setState({ userInputUsdPrice: newUserInputUsdPrice });
   };
 
   private convertCurrencies = (ethVal: number, cvlVal: number) => {

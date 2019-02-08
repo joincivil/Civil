@@ -42,7 +42,7 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
     </>
   );
 };
-
+// TODO:Sarah get ethAddress from currentUser instead
 const mapStateToProps = (state: State): TokensProps => {
   const { user } = state.networkDependent;
 

@@ -62,10 +62,7 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
 
               <TokenExchangeSection>
                 <TokenAirswapExchangeText />
-                <AirswapBuyCVL
-                  buyCVLBtnText={<TokenBuyExchangeBtnText />}
-                  buyFromAddress={props.foundationAddress}
-                />
+                <AirswapBuyCVL buyCVLBtnText={<TokenBuyExchangeBtnText />} buyFromAddress={props.foundationAddress} />
               </TokenExchangeSection>
             </TokenAirswapSection>
           </TokenBuySection>
@@ -79,4 +76,4 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
   }
 
   return tokenSection;
-}
+};

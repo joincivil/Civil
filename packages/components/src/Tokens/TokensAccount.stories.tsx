@@ -1,13 +1,44 @@
 import { storiesOf } from "@storybook/react";
 import StoryRouter from "storybook-react-router";
 import * as React from "react";
+import apolloStorybookDecorator from "apollo-storybook-react";
 import { UserTokenAccount } from "./Tokens";
+
+const typeDefs = `
+  type Query {
+    storefrontEthPrice: Float
+    storefrontCvlPrice: Float
+  }
+
+  schema {
+    query: Query
+  }
+`;
+
+const mocks = {
+  Query: () => {
+    return {
+      storefrontEthPrice: () => {
+        return 102.98;
+      },
+      storefrontCvlPrice: () => {
+        return 0.2;
+      },
+    };
+  },
+};
 
 export interface UserTokenAccountProgressProps {
   userAccount: string;
 }
 
 storiesOf("User Token Account", module)
+  .addDecorator(
+    apolloStorybookDecorator({
+      typeDefs,
+      mocks,
+    }),
+  )
   .addDecorator(StoryRouter())
   .add("User Token Account", () => {
     return (

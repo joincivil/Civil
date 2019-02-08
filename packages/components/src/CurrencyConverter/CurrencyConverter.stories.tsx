@@ -12,8 +12,6 @@ const typeDefs = `
   type Query {
     storefrontEthPrice: Float
     storefrontCvlPrice: Float
-    storefrontCvlQuoteUsd(usdToSpend: Float!): Float
-    storefrontCvlQuoteTokens(tokensToBuy: Float!): Float
   }
 
   schema {
