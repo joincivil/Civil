@@ -1,6 +1,12 @@
 import * as React from "react";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
-import { TokenBtns, TokenRequirementIcon, TokenAccountSectionHeader, CloseBtn } from "./TokensStyledComponents";
+import {
+  FlexColumnsPrimaryModule,
+  TokenBtns,
+  TokenRequirementIcon,
+  TokenAccountSectionHeader,
+  CloseBtn,
+} from "./TokensStyledComponents";
 import { TokenVerifySectionText, TokenQuizSectionText, TokenQuizBtnText } from "./TokensTextComponents";
 import { CivilTutorialIcon } from "../icons/CivilTutorialIcon";
 import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
@@ -15,42 +21,44 @@ export interface TokenAccountVerify extends FullScreenModalProps {
 }
 
 export const UserTokenAccountVerify: React.StatelessComponent<TokenAccountVerify> = props => {
-  let quizSection;
   if (props.step === "disabled") {
-    quizSection = (
-      <UserTokenAccountRequirement step={props.step}>
-        <TokenRequirementIcon step={props.step}>
-          <CivilTutorialIcon color={colors.accent.CIVIL_GRAY_3} />
-        </TokenRequirementIcon>
-        <TokenQuizSectionText />
-      </UserTokenAccountRequirement>
+    return (
+      <FlexColumnsPrimaryModule padding={true}>
+        <TokenAccountSectionHeader>
+          <TokenVerifySectionText />
+        </TokenAccountSectionHeader>
+        <UserTokenAccountRequirement step={props.step}>
+          <TokenRequirementIcon step={props.step}>
+            <CivilTutorialIcon color={colors.accent.CIVIL_GRAY_3} />
+          </TokenRequirementIcon>
+          <TokenQuizSectionText />
+        </UserTokenAccountRequirement>
+      </FlexColumnsPrimaryModule>
     );
-  } else {
-    quizSection = (
-      <UserTokenAccountRequirement step={props.step}>
-        <TokenRequirementIcon step={props.step}>
-          <CivilTutorialIcon />
-        </TokenRequirementIcon>
-        <TokenQuizSectionText />
-        <TokenBtns onClick={props.handleOpen}>
-          <TokenQuizBtnText />
-        </TokenBtns>
-        <FullScreenModal open={props.open || false} solidBackground={true}>
-          <CloseBtn onClick={props.handleClose}>
-            <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
-          </CloseBtn>
-          <TokenTutorial handleClose={props.handleClose} />
-        </FullScreenModal>
-      </UserTokenAccountRequirement>
+  } else if (props.step === "active") {
+    return (
+      <FlexColumnsPrimaryModule padding={true}>
+        <TokenAccountSectionHeader>
+          <TokenVerifySectionText />
+        </TokenAccountSectionHeader>
+        <UserTokenAccountRequirement step={props.step}>
+          <TokenRequirementIcon step={props.step}>
+            <CivilTutorialIcon />
+          </TokenRequirementIcon>
+          <TokenQuizSectionText />
+          <TokenBtns onClick={props.handleOpen}>
+            <TokenQuizBtnText />
+          </TokenBtns>
+          <FullScreenModal open={props.open || false} solidBackground={true}>
+            <CloseBtn onClick={props.handleClose}>
+              <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
+            </CloseBtn>
+            <TokenTutorial handleClose={props.handleClose} />
+          </FullScreenModal>
+        </UserTokenAccountRequirement>
+      </FlexColumnsPrimaryModule>
     );
   }
 
-  return (
-    <>
-      <TokenAccountSectionHeader>
-        <TokenVerifySectionText />
-      </TokenAccountSectionHeader>
-      {quizSection}
-    </>
-  );
+  return <></>;
 };

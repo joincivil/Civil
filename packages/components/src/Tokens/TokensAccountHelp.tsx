@@ -1,14 +1,19 @@
 import * as React from "react";
-import { TokenQuestionsHeaderText, TokenAskQuestionText, TokenFAQText } from "./TokensTextComponents";
+import { TokenQuestionsHeaderText, TokenFAQText } from "./TokensTextComponents";
+import { FlexColumnsSecondaryModule } from "./TokensStyledComponents";
 import { Collapsable } from "../Collapsable";
 
-export const UserTokenAccountHelp: React.StatelessComponent = props => {
+export interface UserTokenAccountHelpProps {
+  supportEmailAddress: string;
+  faqUrl: string;
+}
+
+export const UserTokenAccountHelp: React.StatelessComponent<UserTokenAccountHelpProps> = props => {
   return (
-    <>
+    <FlexColumnsSecondaryModule>
       <Collapsable header={<TokenQuestionsHeaderText />} open={true}>
-        <TokenAskQuestionText />
-        <TokenFAQText />
+        <TokenFAQText supportEmailAddress={props.supportEmailAddress} faqUrl={props.faqUrl} />
       </Collapsable>
-    </>
+    </FlexColumnsSecondaryModule>
   );
 };
