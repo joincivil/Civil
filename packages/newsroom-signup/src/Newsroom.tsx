@@ -27,6 +27,7 @@ import {
   fetchConstitution,
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
+import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
@@ -60,7 +61,6 @@ export interface NewsroomExternalProps {
   civil?: Civil;
   ipfs?: IpfsObject;
   theme?: ButtonTheme;
-  profileWalletAddress?: EthAddress;
   showWelcome?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
@@ -71,8 +71,6 @@ export interface NewsroomExternalProps {
   allSteps?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
   initialStep?: number;
   enable(): void;
-  getPersistedCharter?(): Promise<Partial<CharterData> | void>;
-  persistCharter?(charter: Partial<CharterData>): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
@@ -89,6 +87,9 @@ export interface NewsroomProps extends NewsroomExternalProps {
   userIsEditor?: boolean;
   userNotOnContract?: boolean;
   charterUri?: string;
+  profileWalletAddress?: EthAddress;
+  persistedCharter?: Partial<CharterData>;
+  persistCharter(charter: Partial<CharterData>): Promise<void>;
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
@@ -116,18 +117,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     },
   };
 
-  private persistCharter = debounce(
-    (charter: Partial<CharterData>): void => {
-      if (this.props.persistCharter) {
-        // We don't need to know when this finishes, but maybe some day we'd have a saving indicator or something.
-        // tslint:disable-next-line: no-floating-promises
-        this.props.persistCharter(charter);
-        return;
-      }
-    },
-    1000,
-    { maxWait: 2000 },
-  );
+  private debouncedPersistCharter = debounce(this.props.persistCharter, 1000, { maxWait: 5000 });
 
   private checkCharterCompletion = debounce(
     () => {
@@ -191,7 +181,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addGetCmsUserDataForAddress(this.props.getCmsUserDataForAddress));
     }
 
-    this.props.dispatch!(addPersistCharter(this.persistCharter));
+    this.props.dispatch!(addPersistCharter(this.debouncedPersistCharter));
+    this.initCharter();
 
     if (this.props.civil) {
       if (this.props.address) {
@@ -368,24 +359,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     );
   }
 
-  private async initCharter(): Promise<void> {
-    if (this.props.getPersistedCharter) {
-      try {
-        const charter = await this.props.getPersistedCharter();
-        if (charter) {
-          this.updateCharter(this.defaultCharterValues(charter));
-        }
-      } catch (e) {
-        console.error("Failed to load persisted charter", e);
-      }
-    }
+  private initCharter(): void {
+    this.updateCharter(this.defaultCharterValues(this.props.persistedCharter || {}));
   }
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
-    await this.initCharter();
   };
 
   private setRoles = (address: EthAddress): void => {
@@ -408,6 +389,23 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     };
   };
 }
+
+const NewsroomWithGqlData: React.SFC<NewsroomProps> = props => {
+  return (
+    <DataWrapper>
+      {({ profileWalletAddress, persistedCharter, persistCharter }) => {
+        return (
+          <NewsroomComponent
+            {...props}
+            profileWalletAddress={profileWalletAddress}
+            persistCharter={persistCharter}
+            persistedCharter={persistedCharter}
+          />
+        );
+      }}
+    </DataWrapper>
+  );
+};
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomProps => {
   const { address } = ownProps;
@@ -432,4 +430,4 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalPro
   };
 };
 
-export const Newsroom = connect(mapStateToProps)(NewsroomComponent);
+export const Newsroom = connect(mapStateToProps)(NewsroomWithGqlData);
