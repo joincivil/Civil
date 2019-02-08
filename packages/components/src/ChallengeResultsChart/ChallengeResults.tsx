@@ -27,7 +27,7 @@ const StyledInner = styled.div`
 const ExplainerText: React.SFC<ChallengeResultsProps> = props => {
   let explainerText;
 
-  if (props.didChallengeSucceed) {
+  if (props.didChallengeOriginallySucceed) {
     if (props.isAppealChallenge) {
       explainerText = "This granted appeal has been upheld by the Civil Community.";
     } else {
