@@ -1,4 +1,5 @@
 import * as React from "react";
+import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 
 export const TokenWelcomeText: React.SFC = props => <>Hello and welcome!</>;
 
@@ -11,27 +12,34 @@ export const TokenConnectWalletText: React.SFC = props => (
   </>
 );
 
-export const TokenConnectWalletCompletedText: React.SFC = props => <h3>Your crypto wallet is connected</h3>;
+export const TokenConnectWalletCompletedText: React.SFC = props => (
+  <h3>
+    <HollowGreenCheck />Wallet Connected
+  </h3>
+);
 
 export const TokenConnectWalletBtnText: React.SFC = props => <>Sign up or Log in to your wallet</>;
 
 export const TokenVerifySectionText: React.SFC = props => (
   <>
-    <h3>Let’s verify your eligibility</h3>
+    <h3>Take the Civil Tutorial</h3>
     <p>
-      Before you can use, buy, and send CVL tokens, you must complete these verification requirements. These steps are
-      required to ensure that all CVL token holders are legitimate users, learn about the Registry and how to use
-      tokens.
+      Before you can use Civil tokens, you must complete a tutorial to ensure you understand how to use Civil tokens and
+      how the Registry works.
     </p>
   </>
 );
 
 export const TokenQuizSectionText: React.SFC = props => (
   <>
-    <h3>Take the Civil Tutorial</h3>
+    <h3>Civil Tutorial</h3>
     <p>
-      Complete this short walkthrough about storing and using CVL tokens on Civil. This is a standard procedure to help
-      inform you of best practices with using tokens.
+      Complete a walkthrough and answering a series of questions about Civil and how to use Civil tokens (CVL). This is
+      a standard procedure to help inform you of best practices with purchasing and using tokens.
+    </p>
+    <p>
+      It will take about 30 minutes to complete. If at any point you answer incorrectly, don’t worry. You will be able
+      to answer the questions again.
     </p>
   </>
 );
@@ -39,10 +47,9 @@ export const TokenQuizSectionText: React.SFC = props => (
 export const TokenQuizBtnText: React.SFC = props => <>Start the Civil Tutorial</>;
 
 export const TokenQuizCompletedText: React.SFC = props => (
-  <>
-    <h3>You’ve completed the Civil Tutorial</h3>
-    <p>You are eligible to use your CVL tokens on Civil.</p>
-  </>
+  <h3>
+    <HollowGreenCheck />Civil Tutorial Completed
+  </h3>
 );
 
 export const TokenVerifyText: React.SFC = props => (
@@ -57,26 +64,77 @@ export const TokenVerifyText: React.SFC = props => (
 
 export const TokenVerifyBtnText: React.SFC = props => <>Verify for Eligibility</>;
 
-export const TokenBuyText: React.SFC = props => (
+export const TokenBuyTextDisabled: React.SFC = props => (
   <p>Once you’ve completed the above steps, you will be eligible to buy CVL tokens.</p>
 );
 
-export const TokenBuyBtnText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
+export const TokenBuyBtnDisabledText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
 
-export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
+export const TokenBuyFoundationBtnText: React.SFC = props => <>Buy from Foundation in Airswap</>;
 
-export const TokenAskQuestionText: React.SFC = props => (
+export const TokenBuyExchangeBtnText: React.SFC = props => <>Buy from Exchange in Airswap</>;
+
+export const TokenBuyText: React.SFC = props => (
   <>
     <p>
-      <a href="">Ask a question online</a>
+      To buy Civil tokens (CVL), you must buy Ether (ETH) and then you will be able to buy CVL. You can’t use USD or
+      local currencies to directly buy a Civil token – currencies need to be converted into ETH first.
+    </p>
+    <span>
+      Please note, if you are a first-time ETH purchaser, it may take a few days to get ETH in your wallet. Learn more
+      about ETH below.
+    </span>
+  </>
+);
+
+export const TokenAirswapFoundationText: React.SFC = props => (
+  <>
+    <h3>Civil tokens from Civil Foundation</h3>
+    <p>
+      Get a quote from the Civil Foundation. When buying from the Foundation, 100% net proceeds goes to funding worthy
+      journalism projects.
     </p>
   </>
 );
 
-export const TokenFAQText: React.SFC = props => (
+export const TokenAirswapExchangeText: React.SFC = props => (
+  <>
+    <h4>Civil tokens from Exchange</h4>
+    <p>When buying from an exchange, the rate is based on market demand.</p>
+  </>
+);
+
+export const TokenOrText: React.SFC = props => <p>or</p>;
+
+export const TokenETHFAQQuestion1Text: React.SFC = props => <h3>What is Airswap?</h3>;
+
+export const TokenETHFAQQuestion2Text: React.SFC = props => (
+  <h3>Why do I need to “prove use” before selling my Civil tokens?</h3>
+);
+
+export const TokenETHFAQQuestion3Text: React.SFC = props => <h3>Why do I need ETH?</h3>;
+
+export const TokenETHFAQQuestion4Text: React.SFC = props => <h3>How do I buy ETH?</h3>;
+
+export const TokenETHFAQQuestion5Text: React.SFC = props => <h3>How long does it take to buy ETH?</h3>;
+
+export const TokenETHFAQQuestion6Text: React.SFC = props => <h3>What else will I need to use ETH for?</h3>;
+
+export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
+
+export interface TokenTextProps {
+  supportEmailAddress: string;
+  faqUrl: string;
+}
+
+export const TokenFAQText: React.SFC<TokenTextProps> = props => (
   <>
     <p>
-      Read our <a href="">Frequently Asked Questions (FAQ)</a> for general help
+      For support inquiries, send email to{" "}
+      <a href={"mailto:" + props.supportEmailAddress}>{props.supportEmailAddress}</a>
+    </p>
+    <p>
+      Read our <a href={props.faqUrl}>Frequently Asked Questions (FAQ)</a> for general help
     </p>
   </>
 );

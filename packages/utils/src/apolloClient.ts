@@ -159,7 +159,7 @@ export async function userSetEthAddress(sig: EthSignedMessage): Promise<EthAddre
     variables: { input },
   });
 
-  if (res.data.userSetEthAddress === "ok") {
+  if (res.data.userSetEthAddress) {
     return sig.signer;
   } else {
     console.error("Failed to validate and save ETH address. Response:", res);
