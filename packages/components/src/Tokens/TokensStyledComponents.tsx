@@ -253,11 +253,6 @@ export const TokenAirswapSection = styled.div`
   }
 `;
 
-export const TokenConverterSection = styled.div`
-  padding: 20px 0 10px;
-  text-align: left;
-`;
-
 export const TokenOrBreak = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   margin: 50px 0;

@@ -2,10 +2,15 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
 
+export const CurrencyConverterSection = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  padding: 20px 0 10px;
+  text-align: left;
+`;
+
 export const CurrencyConverterContain = styled.div`
   align-items: flex-end;
   display: flex;
-  font-family: ${fonts.SANS_SERIF};
   justify-content: space-between;
 
   * {
@@ -63,4 +68,30 @@ export const CurrencyCode = styled.div`
 
 export const CurrencyIconContain = styled.div`
   margin: 16px;
+`;
+
+export const CurrencyCalcCVL = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  margin: 70px 0 0;
+  text-align: center;
+
+  span {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 22px;
+  }
+
+  h4 {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.58px;
+    line-height: 39px;
+    margin: 0;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0;
+  }
 `;

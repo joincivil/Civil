@@ -138,16 +138,3 @@ export const TokenFAQText: React.SFC<TokenTextProps> = props => (
     </p>
   </>
 );
-
-export interface TokenCVLProps {
-  pricePerCvl: string;
-  totalPrice: string;
-}
-
-export const TokenCVLPriceText: React.SFC<TokenCVLProps> = props => (
-  <>
-    <span>You are buying</span>
-    <h4>{props.totalPrice} CVL</h4>
-    <p>approx. @ ${props.pricePerCvl} per CVL</p>
-  </>
-);
