@@ -21,7 +21,7 @@ export interface LoadUserChildrenProps {
 }
 
 export interface LoadUserProps {
-  children(props: any): any;
+  children(props: LoadUserChildrenProps): any;
 }
 
 export const LoadUser: React.SFC<LoadUserProps> = props => {
