@@ -25,7 +25,13 @@ export interface TokenTutorialQuizStates {
 export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, TokenTutorialQuizStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { topicIdx: this.props.topicIdx, slideIdx: 0, activeSection: this.props.activeSection, quizSlide: 0, resetQuestion: true, };
+    this.state = {
+      topicIdx: this.props.topicIdx,
+      slideIdx: 0,
+      activeSection: this.props.activeSection,
+      quizSlide: 0,
+      resetQuestion: true,
+    };
   }
 
   public render(): JSX.Element {
@@ -132,7 +138,11 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
         break;
       case "quiz":
         if (this.state.slideIdx + 1 < TutorialContent[this.props.topicIdx].questions.length) {
-          this.setState({ slideIdx: this.state.slideIdx + 1, quizSlide: this.state.quizSlide + 1, resetQuestion: false });
+          this.setState({
+            slideIdx: this.state.slideIdx + 1,
+            quizSlide: this.state.quizSlide + 1,
+            resetQuestion: false,
+          });
         } else {
           this.setState({ slideIdx: 0, activeSection: "completed" });
         }

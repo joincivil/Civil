@@ -6,7 +6,7 @@ import { ExamIcon } from "../icons/ExamIcon";
 export const WelcomeScreenContent = [
   {
     title: "Be an informed Civil member",
-    description: "Follow our short walkthrough designed to help you better understand how to use Civil tokens (CVL).",
+    description: "Follow our short tutorial designed to help you better understand how to use Civil tokens (CVL).",
     icon: <BookreaderIcon />,
     btn: "Next",
   },
