@@ -52,6 +52,7 @@ storiesOf("User Token Account", module)
         supportEmailAddress={"support@civil.co"}
         faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
         foundationAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
+        network={"4"}
       />
     );
   });

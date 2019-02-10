@@ -24,6 +24,7 @@ export interface UserTokenAccountProps {
   foundationAddress: string;
   supportEmailAddress: string;
   faqUrl: string;
+  network: string;
   userAccount: string;
   userTutorialComplete: boolean;
   user?: any;
@@ -66,7 +67,11 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 handleClose={this.closeTutorialModal}
                 handleOpen={this.openTutorialModal}
               />
-              <UserTokenAccountBuy step={"active"} foundationAddress={this.props.foundationAddress} />
+              <UserTokenAccountBuy
+                step={"active"}
+                network={this.props.network}
+                foundationAddress={this.props.foundationAddress}
+              />
               <UserTokenAccountFaq />
             </FlexColumnsPrimary>
 

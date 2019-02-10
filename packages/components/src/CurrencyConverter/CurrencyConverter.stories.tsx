@@ -43,7 +43,7 @@ storiesOf("Currency Converter", module)
       mocks,
     }),
   )
-  .add("USD to ETH", () => {
+  .add("USD to ETH and CVL", () => {
     return (
       <Container>
         <UsdEthCvlConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />

@@ -51,6 +51,7 @@ export class UsdEthCvlConverter extends React.Component<CurrencyConverterProps, 
 
   public render(): JSX.Element {
     const usdToSpend = this.state.convertedCvl;
+    // TODO:Sarah error messaging
     return (
       <CurrencyConverterSection>
         <CurrencyConverterContain>
@@ -58,24 +59,19 @@ export class UsdEthCvlConverter extends React.Component<CurrencyConverterProps, 
             <CurrencyLabel>{this.props.currencyLabelLeft}</CurrencyLabel>
             <Query query={ethPriceQuery}>
               {({ loading, error, data }) => {
-                if (loading) {
-                  return "Loading...";
-                }
-                if (error) {
-                  return `Error! ${JSON.stringify(error)}`;
-                }
-
                 return (
-                  <StyledCurrencyInputWithButton>
-                    <CurrencyInputWithButton
-                      placeholder="0.00"
-                      name="Convert currency"
-                      buttonText="Convert"
-                      onChange={this.getUsdValue}
-                      icon={<>USD</>}
-                      onButtonClick={() => this.convertCurrencies(data.storefrontEthPrice)}
-                    />
-                  </StyledCurrencyInputWithButton>
+                  <>
+                    <StyledCurrencyInputWithButton>
+                      <CurrencyInputWithButton
+                        placeholder="0.00"
+                        name="Convert currency"
+                        buttonText="Convert"
+                        onChange={this.getUsdValue}
+                        icon={<>USD</>}
+                        onButtonClick={() => this.convertCurrencies(data.storefrontEthPrice)}
+                      />
+                    </StyledCurrencyInputWithButton>
+                  </>
                 );
               }}
             </Query>
@@ -89,20 +85,15 @@ export class UsdEthCvlConverter extends React.Component<CurrencyConverterProps, 
           </CurrencyContain>
         </CurrencyConverterContain>
         <CurrencyCalcCVL>
-          <Query query={cvlPriceQuery} variables={{usdToSpend}}>
+          <Query query={cvlPriceQuery} variables={{ usdToSpend }}>
             {({ loading, error, data }) => {
-              if (loading) {
-                return "Loading...";
-              }
-              if (error) {
-                return `Error! ${JSON.stringify(error)}`;
-              }
-
               return (
+                <>
                   <CurrencyCVLPriceText pricePerCvl={data.storefrontCvlPrice} totalPrice={data.storefrontCvlQuoteUsd} />
-                );
-              }}
-            </Query>
+                </>
+              );
+            }}
+          </Query>
         </CurrencyCalcCVL>
       </CurrencyConverterSection>
     );

@@ -7,6 +7,7 @@ import { Button } from "../Button";
 export interface BuyCVLProps {
   buyFromAddress?: string;
   buyCVLBtnText?: string | JSX.Element;
+  network: string;
   onClick?(index: number): void;
 }
 
@@ -16,9 +17,8 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
   }
 
   private displayAirswap(): void {
-    // TODO:Sarah get network
-    const environment = getAirswapEnv(4);
-    const tokenAddress = getAirswapCvlAddress(4);
+    const environment = getAirswapEnv(this.props.network);
+    const tokenAddress = getAirswapCvlAddress(this.props.network);
     const buyFromAddress = this.props.buyFromAddress || "";
 
     // @ts-ignore

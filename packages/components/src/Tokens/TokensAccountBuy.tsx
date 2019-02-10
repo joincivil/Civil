@@ -23,6 +23,7 @@ import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
+  network: string;
   step?: string;
 }
 
@@ -61,7 +62,11 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
 
               <TokenExchangeSection>
                 <TokenAirswapExchangeText />
-                <AirswapBuyCVL buyCVLBtnText={<TokenBuyExchangeBtnText />} buyFromAddress={props.foundationAddress} />
+                <AirswapBuyCVL
+                  network={props.network}
+                  buyCVLBtnText={<TokenBuyExchangeBtnText />}
+                  buyFromAddress={props.foundationAddress}
+                />
               </TokenExchangeSection>
             </TokenAirswapSection>
           </TokenBuySection>

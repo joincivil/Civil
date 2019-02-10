@@ -24,7 +24,7 @@ storiesOf("Airswap", module)
   .add("Buy CVL from address", () => {
     return (
       <Container>
-        <AirswapBuyCVL buyFromAddress={"0x0..."} buyCVLBtnText={"Buy from the Civil Foundation"} />
+        <AirswapBuyCVL network={"4"} buyFromAddress={"0x0..."} buyCVLBtnText={"Buy from the Civil Foundation"} />
       </Container>
     );
   });
