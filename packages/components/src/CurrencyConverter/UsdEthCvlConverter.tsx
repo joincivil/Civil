@@ -88,9 +88,7 @@ export class UsdEthCvlConverter extends React.Component<CurrencyConverterProps, 
           <Query query={cvlPriceQuery} variables={{ usdToSpend }}>
             {({ loading, error, data }) => {
               return (
-                <>
-                  <CurrencyCVLPriceText pricePerCvl={data.storefrontCvlPrice} totalPrice={data.storefrontCvlQuoteUsd} />
-                </>
+                <CurrencyCVLPriceText pricePerCvl={data.storefrontCvlPrice} totalPrice={data.storefrontCvlQuoteUsd} />
               );
             }}
           </Query>
