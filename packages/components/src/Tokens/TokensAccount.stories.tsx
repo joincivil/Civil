@@ -8,6 +8,7 @@ const typeDefs = `
   type Query {
     storefrontEthPrice: Float
     storefrontCvlPrice: Float
+    storefrontCvlQuoteUsd(usdToSpend: Float!): Float
   }
 
   schema {
@@ -23,6 +24,9 @@ const mocks = {
       },
       storefrontCvlPrice: () => {
         return 0.2;
+      },
+      storefrontCvlQuoteUsd: () => {
+        return 500.48635;
       },
     };
   },

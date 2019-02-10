@@ -18,9 +18,8 @@ import {
   TokenBuyExchangeBtnText,
   TokenOrText,
 } from "./TokensTextComponents";
-import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
-import { CurrencyConverter } from "../CurrencyConverter/CurrencyConverter";
+import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
@@ -52,7 +51,7 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
             <TokenAirswapSection>
               <>
                 <TokenAirswapFoundationText />
-                <CurrencyConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
+                <UsdEthCvlConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
                 <AirswapBuyCVL buyCVLBtnText={<TokenBuyFoundationBtnText />} />
               </>
 
@@ -66,10 +65,6 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
               </TokenExchangeSection>
             </TokenAirswapSection>
           </TokenBuySection>
-        </FlexColumnsPrimaryModule>
-
-        <FlexColumnsPrimaryModule>
-          <UserTokenAccountFaq />
         </FlexColumnsPrimaryModule>
       </>
     );
