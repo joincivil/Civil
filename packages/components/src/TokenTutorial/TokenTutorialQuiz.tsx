@@ -19,12 +19,13 @@ export interface TokenTutorialQuizStates {
   activeSection: string;
   slideIdx: number;
   quizSlide: number;
+  resetQuestion: boolean;
 }
 
 export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, TokenTutorialQuizStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { topicIdx: this.props.topicIdx, slideIdx: 0, activeSection: this.props.activeSection, quizSlide: 0 };
+    this.state = { topicIdx: this.props.topicIdx, slideIdx: 0, activeSection: this.props.activeSection, quizSlide: 0, resetQuestion: true, };
   }
 
   public render(): JSX.Element {
@@ -60,21 +61,25 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
           </TutorialContain>
         );
       case "quiz":
-        return (
-          <TutorialContain>
-            <TutorialQuestion
-              quizName={TutorialContent[topicIdx].name}
-              quizId={TutorialContent[topicIdx].quizId}
-              question={TutorialContent[topicIdx].questions[slideIdx].question}
-              options={TutorialContent[topicIdx].questions[slideIdx].options}
-              answer={TutorialContent[topicIdx].questions[slideIdx].answer}
-              onClickPrev={() => this.prev()}
-              onClickNext={() => this.next()}
-              activeSlide={slideIdx + 1}
-              totalSlides={TutorialContent[topicIdx].questions.length}
-            />
-          </TutorialContain>
-        );
+        if (this.state.resetQuestion) {
+          return (
+            <TutorialContain>
+              <TutorialQuestion
+                quizName={TutorialContent[topicIdx].name}
+                quizId={TutorialContent[topicIdx].quizId}
+                question={TutorialContent[topicIdx].questions[slideIdx].question}
+                options={TutorialContent[topicIdx].questions[slideIdx].options}
+                answer={TutorialContent[topicIdx].questions[slideIdx].answer}
+                onClickPrev={() => this.prev()}
+                onClickNext={() => this.next()}
+                activeSlide={slideIdx + 1}
+                totalSlides={TutorialContent[topicIdx].questions.length}
+              />
+            </TutorialContain>
+          );
+        } else {
+          this.resetQuestion();
+        }
       case "completed":
         return (
           <TutorialContain>
@@ -127,7 +132,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
         break;
       case "quiz":
         if (this.state.slideIdx + 1 < TutorialContent[this.props.topicIdx].questions.length) {
-          this.setState({ slideIdx: this.state.slideIdx + 1, quizSlide: this.state.quizSlide + 1 });
+          this.setState({ slideIdx: this.state.slideIdx + 1, quizSlide: this.state.quizSlide + 1, resetQuestion: false });
         } else {
           this.setState({ slideIdx: 0, activeSection: "completed" });
         }
@@ -145,5 +150,9 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
     this.props.skipTutorial
       ? this.setState({ topicIdx: this.state.topicIdx + 1, slideIdx: 0, activeSection: "quiz", quizSlide: 0 })
       : this.setState({ topicIdx: this.state.topicIdx + 1, slideIdx: 0, activeSection: "intro", quizSlide: 0 });
+  };
+
+  private resetQuestion = () => {
+    this.setState({ resetQuestion: true });
   };
 }
