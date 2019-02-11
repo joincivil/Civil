@@ -145,6 +145,8 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
           this.setState({ slideIdx: 0, activeSection: "completed" });
         }
         break;
+      case "completed":
+        console.log("Complete:", { props: this.props, state: this.state });
       default:
         this.setState({ slideIdx: 0, activeSection: "intro" });
     }
