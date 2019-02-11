@@ -175,6 +175,7 @@ const getCurrentUserQuery = gql`
     }
   }
 `;
+
 export async function getCurrentUser(): Promise<any> {
   if (!client || !getApolloSession()) {
     return null;
@@ -189,7 +190,10 @@ export async function getCurrentUser(): Promise<any> {
       return null;
     }
 
-    return data.currentUser;
+    console.log("getCurrentUser", { data });
+    return null;
+
+    // return data.currentUser;
   } catch (err) {
     console.log("Error in getCurrentUser: ", { err });
     return null;
@@ -210,7 +214,7 @@ export interface SetCurrentUserInput {
   quizStatus: "hello";
 }
 
-export async function setCurrentUser(input: SetCurrentUserInput): Promise<any> {
+export async function setCurrentUser(input: Partial<SetCurrentUserInput>): Promise<any> {
   try {
     const res = await client.mutate({
       mutation: setCurrentUserQuery,

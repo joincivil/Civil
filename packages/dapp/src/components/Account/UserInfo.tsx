@@ -1,7 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import { getApolloClient, setCurrentUser } from "@joincivil/utils";
+import { setCurrentUser, getCurrentUser } from "@joincivil/utils";
 
 const userQuery = gql`
   query {
@@ -15,7 +15,6 @@ const userQuery = gql`
   }
 `;
 
-getCurrentUser;
 export class UserInfo extends React.Component {
   public render(): JSX.Element {
     return (
@@ -30,10 +29,32 @@ export class UserInfo extends React.Component {
               return `Error! ${JSON.stringify(error)}`;
             }
 
-            return <pre>{JSON.stringify(data, null, 2)}</pre>;
+            const fields = { a: 1 };
+
+            return (
+              <>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <button onClick={async () => this.updateQuizPayload(fields)}>Click</button>
+              </>
+            );
           }}
         </Query>
       </>
     );
+  }
+
+  public async updateQuizPayload(fields: {}): Promise<any> {
+    const user = await getCurrentUser();
+
+    if (!user) {
+      console.log("no user?", { user });
+      return;
+    }
+
+    const { quizPayload } = user;
+
+    const newQuizPayload = { ...quizPayload, ...fields };
+
+    await setCurrentUser({ quizPayload: newQuizPayload });
   }
 }
