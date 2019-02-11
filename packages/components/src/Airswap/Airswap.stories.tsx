@@ -17,7 +17,7 @@ storiesOf("Airswap", module)
   .add("Buy CVL", () => {
     return (
       <Container>
-        <AirswapBuyCVL />
+        <AirswapBuyCVL network={"4"} />
       </Container>
     );
   })
