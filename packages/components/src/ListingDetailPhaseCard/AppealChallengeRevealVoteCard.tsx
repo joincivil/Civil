@@ -97,7 +97,10 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                 />
               </StyledListingDetailPhaseCardSection>
 
-              <AppealDecisionDetail appealGranted={this.props.appealGranted} />
+              <AppealDecisionDetail
+                appealGranted={this.props.appealGranted}
+                appealGrantedStatementUri={this.props.appealGrantedStatementURI}
+              />
 
               <StyledListingDetailPhaseCardSection bgAccentColor="REVEAL_VOTE">
                 {this.renderRevealVote()}

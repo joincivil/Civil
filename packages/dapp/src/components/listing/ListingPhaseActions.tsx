@@ -136,6 +136,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
         appealProps = {
           appealRequested: !data.prevChallenge!.appeal!.appealFeePaid!.isZero(),
           appealGranted: data.prevChallenge!.appeal!.appealGranted,
+          appealGrantedStatementURI: data.prevChallenge!.appeal!.appealGrantedStatementURI,
         };
       }
       let appealChallengePhaseProps: AppealChallengePhaseProps = {};

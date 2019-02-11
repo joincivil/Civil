@@ -108,6 +108,7 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
           appealChallengePercentAgainst={appealChallengePercentAgainst.toString()}
           didAppealChallengeSucceed={didAppealChallengeSucceed}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
+          appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
         />
       </>
     );

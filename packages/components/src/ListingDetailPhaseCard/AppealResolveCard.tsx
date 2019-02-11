@@ -45,7 +45,10 @@ export const AppealResolveCard: React.StatelessComponent<
         />
       </StyledListingDetailPhaseCardSection>
 
-      <AppealDecisionDetail appealGranted={props.appealGranted} />
+      <AppealDecisionDetail
+        appealGranted={props.appealGranted}
+        appealGrantedStatementUri={props.appealGrantedStatementURI}
+      />
 
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
