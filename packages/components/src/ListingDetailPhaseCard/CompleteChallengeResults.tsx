@@ -6,10 +6,7 @@ import {
   AppealChallengePhaseProps,
   AppealChallengeResultsProps,
 } from "./types";
-import {
-  StyledListingDetailPhaseCardContainer,
-  StyledListingDetailPhaseCardSection,
-} from "./styledComponents";
+import { StyledListingDetailPhaseCardContainer, StyledListingDetailPhaseCardSection } from "./styledComponents";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
