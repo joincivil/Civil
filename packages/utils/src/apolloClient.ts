@@ -190,10 +190,7 @@ export async function getCurrentUser(): Promise<any> {
       return null;
     }
 
-    console.log("getCurrentUser", { data });
-    return null;
-
-    // return data.currentUser;
+    return data.currentUser;
   } catch (err) {
     console.log("Error in getCurrentUser: ", { err });
     return null;
@@ -201,14 +198,15 @@ export async function getCurrentUser(): Promise<any> {
 }
 
 const setCurrentUserQuery = gql`
-  mutation SetCurrentUser($user: UserUpdateInput) {
-    userUpdate(input: $user) {
+  mutation SetCurrentUser($input: UserUpdateInput!) {
+    userUpdate(input: $input) {
       quizPayload
       quizStatus
     }
   }
 `;
 
+// TODO(jorgelo): There should be a better interface for all "user" related input fields.
 export interface SetCurrentUserInput {
   quizPayload: {};
   quizStatus: "hello";
@@ -216,21 +214,22 @@ export interface SetCurrentUserInput {
 
 export async function setCurrentUser(input: Partial<SetCurrentUserInput>): Promise<any> {
   try {
-    const res = await client.mutate({
+    const { data } = await client.mutate({
       mutation: setCurrentUserQuery,
       variables: { input },
     });
 
-    console.log("mutated?", res);
+    return data;
   } catch (err) {
     console.error("Error setCurrentUser", { err, input });
   }
 }
 
-export function resetStore(): void {
+export function resetApolloStore(): void {
   if (!client) {
     return;
   }
 
+  // TODO(jorgelo): Don't refresh all the data, only to do with currentUser. If this makes it to the PR Jorge needs a slapping.
   client.resetStore();
 }
