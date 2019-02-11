@@ -13,6 +13,7 @@ import {
   isChallengeInCommitStage,
   isChallengeInRevealStage,
   isAwaitingAppealRequest as getIsAwaitingAppealRequest,
+  doesChallengeHaveAppeal as getDoesChallengeHaveAppeal,
   isListingAwaitingAppealJudgment as getIsListingAwaitingAppealJudgement,
   isListingAwaitingAppealChallenge as getIsListingAwaitingAppealChallenge,
   isAwaitingAppealChallenge as getIsAwaitingAppealChallenge,
@@ -625,6 +626,7 @@ export const getListingPhaseState = (listing?: ListingWrapper) => {
   const didChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
   const didChallengeOriginallySucceed = challenge && getDidChallengeOriginallySucceed(challenge);
 
+  const doesChallengeHaveAppeal = challenge && getDoesChallengeHaveAppeal(challenge);
   const isAwaitingAppealJudgement = getIsListingAwaitingAppealJudgement(listingData);
   const canListingAppealBeResolved = appeal && getCanAppealBeResolved(appeal);
 
@@ -650,6 +652,7 @@ export const getListingPhaseState = (listing?: ListingWrapper) => {
     isRejected,
     didChallengeSucceed,
     didChallengeOriginallySucceed,
+    doesChallengeHaveAppeal,
     isAwaitingAppealJudgement,
     isAwaitingAppealChallenge,
     canListingAppealBeResolved,

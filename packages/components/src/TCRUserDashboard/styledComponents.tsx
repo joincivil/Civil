@@ -2,7 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
-import { Button } from "../Button";
+import { Button, InvertedButton } from "../Button";
 
 export const StyledUserActivity = styled.div`
   background-color: transparent;
@@ -118,6 +118,11 @@ export const StyledItemCheckboxContainer = styled.div`
   width: 20px;
 `;
 
+export const StyledDashboardActivityItemIcon = styled.div`
+  margin-right: 16px;
+  width: 50px;
+`;
+
 export const StyledDashboardActivityItemDetails = styled.div`
   flex-grow: 1;
   font-size: 14px;
@@ -148,4 +153,25 @@ export const StyledNumTokensContainer = styled.div`
   line-height: 18px;
   padding: 15px 0 0;
   text-align: right;
+`;
+
+export const StyledDashboardActivityItemAction = styled.div`
+  text-align: right;
+
+  ${InvertedButton} {
+    white-space: nowrap;
+  }
+`;
+
+export const StyledDashboardActivityItemTitle = styled.h4`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-weight: 800;
+  font-size: 18px
+  line-height: 21px;
+  margin: 0 0 10px;
+`;
+
+export const StyledDashbaordActvityItemSection = styled.div`
+  background: ${colors.accent.CIVIL_GRAY_5};
+  padding: 10px 24px;
 `;

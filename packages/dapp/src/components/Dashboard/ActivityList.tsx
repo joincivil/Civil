@@ -12,71 +12,67 @@ export interface ActivityListOwnProps {
   challenges?: Set<string>;
   appealChallenges?: Set<string>;
   resolvedChallenges?: boolean;
+  ActivityListItemComponent?: any;
   toggleChallengeSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
 }
 
-class ActivityList extends React.Component<ActivityListOwnProps> {
-  constructor(props: any) {
-    super(props);
-  }
-
-  public render(): JSX.Element {
-    let index = 0;
-    return (
-      <>
-        {this.props.listings &&
-          this.props.listings.map(l => {
-            index++;
-            return <ActivityListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
-          })}
-        {!!this.props.resolvedChallenges &&
-          this.props.challenges &&
-          this.props.challenges.map(c => {
-            index++;
-            return (
-              <ResolvedChallengeActivityListItem
-                toggleSelect={this.props.toggleChallengeSelect!}
-                key={c}
-                challengeID={c!}
-                even={index % 2 === 0}
-              />
-            );
-          })}
-        {!!this.props.resolvedChallenges &&
-          this.props.appealChallenges &&
-          this.props.appealChallenges.map(c => {
-            index++;
-            return (
-              <ResolvedAppealChallengeActivityListItem
-                toggleSelect={this.props.toggleChallengeSelect!}
-                key={c}
-                challengeID={c!}
-                even={index % 2 === 0}
-              />
-            );
-          })}
-        {!this.props.resolvedChallenges &&
-          this.props.challenges &&
-          this.props.challenges.map(c => {
-            index++;
-            return <ChallengeActivityListItem key={c} challengeID={c!} even={index % 2 === 0} />;
-          })}
-        {!this.props.resolvedChallenges &&
-          this.props.appealChallenges &&
-          this.props.appealChallenges.map(c => {
-            index++;
-            return (
-              <ResolvedAppealChallengeActivityListItem
-                toggleSelect={this.props.toggleChallengeSelect!}
-                key={c}
-                challengeID={c!}
-                even={index % 2 === 0}
-              />
-            );
-          })}
-      </>
-    );
-  }
-}
+const ActivityList: React.SFC<ActivityListOwnProps> = props => {
+  let index = 0;
+  const ActivityListItemComponent = props.ActivityListItemComponent || ChallengeActivityListItem;
+  return (
+    <>
+      {props.listings &&
+        props.listings.map(l => {
+          index++;
+          return <ActivityListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
+        })}
+      {!!props.resolvedChallenges &&
+        props.challenges &&
+        props.challenges.map(c => {
+          index++;
+          return (
+            <ResolvedChallengeActivityListItem
+              toggleSelect={props.toggleChallengeSelect!}
+              key={c}
+              challengeID={c!}
+              even={index % 2 === 0}
+            />
+          );
+        })}
+      {!!props.resolvedChallenges &&
+        props.appealChallenges &&
+        props.appealChallenges.map(c => {
+          index++;
+          return (
+            <ResolvedAppealChallengeActivityListItem
+              toggleSelect={props.toggleChallengeSelect!}
+              key={c}
+              challengeID={c!}
+              even={index % 2 === 0}
+            />
+          );
+        })}
+      {!props.resolvedChallenges &&
+        props.challenges &&
+        props.challenges.map(c => {
+          index++;
+          return <ActivityListItemComponent key={c} challengeID={c!} even={index % 2 === 0} />;
+        })}
+      {!props.resolvedChallenges &&
+        props.appealChallenges &&
+        props.appealChallenges.map(c => {
+          index++;
+          return (
+            <ResolvedAppealChallengeActivityListItem
+              toggleSelect={props.toggleChallengeSelect!}
+              key={c}
+              challengeID={c!}
+              even={index % 2 === 0}
+            />
+          );
+        })}
+    </>
+  );
+};
 
 export default ActivityList;

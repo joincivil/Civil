@@ -31,6 +31,7 @@ import {
 } from "../../selectors";
 
 import ActivityList from "./ActivityList";
+import MyTasksItem from "./MyTasksItem";
 import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
@@ -173,7 +174,7 @@ class DashboardActivity extends React.Component<
       <>
         <Tabs TabComponent={StyledDashboardSubTab} TabsNavComponent={StyledTabsComponent}>
           <Tab title={allVotesTabTitle}>
-            <ActivityList challenges={currentUserChallengesVotedOn} />
+            <ActivityList challenges={currentUserChallengesVotedOn} ActivityListItemComponent={MyTasksItem} />
           </Tab>
           <Tab title={revealVoteTabTitle}>
             <ActivityList

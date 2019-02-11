@@ -56,7 +56,7 @@ export const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
 
   & > span {
     color: ${props =>
-      props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED};
+      props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN || props.vote === CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED};
     margin-right: 4px;
   ]
 `;

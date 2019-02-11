@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
-import { EthAddress, ListingWrapper, WrappedChallengeData, isVotePassed } from "@joincivil/core";
+import { EthAddress, ListingWrapper, WrappedChallengeData, isVotePassed, isAppealAwaitingJudgment, doesChallengeHaveAppeal } from "@joincivil/core";
 import {
   colors,
   VoteTypeSummaryRowProps as PartialChallengeResultsProps,
@@ -25,12 +25,12 @@ import { Query } from "react-apollo";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 
-const StyledPartialChallengeResultsHeader = styled.p`
-  & > span {
-    color: ${colors.primary.CIVIL_GRAY_2};
-    font-weight: normal;
-    font-size: 0.9em;
-  }
+const StyledPartialChallengeResultsExplanation = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 30px;
+  margin: 17px 0;
 `;
 
 export interface GraphQLizableComponentProps {
@@ -218,19 +218,19 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
 
       const challenge = this.props.challengeData.challenge;
       const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+      const appeal = challenge && challenge.appeal;
+      const appealChallenge = appeal && appeal.appealChallenge;
 
-      let label;
       let voteType;
       let votesCount;
       let votesPercent;
+      let explanation;
+      const appealExplanation = [];
+      let appealChallengeExplanation;
+      let appealChallengeResultsEl = <></>;
 
       if (isVotePassed(challenge.poll)) {
-        label = (
-          <>
-            Challenge Succeeded: Newsroom removed from Registry<br />
-            <span>Challenge ID: {this.props.challengeData.challengeID.toString()}</span>
-          </>
-        );
+        explanation = "The Civil Community voted to reject this Newsroom from The Civil Registry.";
         voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
         votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
         votesPercent = challenge.poll.votesAgainst
@@ -238,12 +238,7 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
           .mul(100)
           .toFixed(0);
       } else {
-        label = (
-          <>
-            Challenge Failed: Newsroom remains in Registry<br />
-            <span>Challenge ID: {this.props.challengeData.challengeID.toString()}</span>
-          </>
-        );
+        explanation = "The Civil Community voted to accept this Newsroom to The Civil Registry.";
         voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
         votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
         votesPercent = challenge.poll.votesFor
@@ -252,12 +247,61 @@ export const connectWinningChallengeResults = <TOriginalProps extends ChallengeC
           .toFixed(0);
       }
 
+      if (doesChallengeHaveAppeal(challenge) && appeal) {
+        appealExplanation.push("An appeal was requested contesting the results of the Community vote.");
+        if (appeal.appealGranted) {
+          appealExplanation.push("After careful review, The Civil Council overturned the result of the Community's vote.");
+
+        } else if (!appeal.appealGranted && !isAppealAwaitingJudgment(appeal)) {
+
+          appealExplanation.push("After a careful review, The Civil Council upheld the result of the Community's vote.");
+
+        } else if (isAppealAwaitingJudgment(appeal)) {
+          appealExplanation.push("The Civil Council is currently reviewing the results and the requested appeal.");
+
+        }
+
+        if (appealChallenge) {
+          if (!appealChallenge.resolved) {
+            appealChallengeExplanation = "The granted appeal was challenged by a member of the Community and is under a vote.";
+          } else {
+            const appealChallengeTotalVotes = appealChallenge.poll.votesAgainst.add(appealChallenge.poll.votesFor);
+
+            let appealChallengeVoteType;
+            let appealChallengeVotesCount;
+            let appealChallengeVotesPercent;
+            if (isVotePassed(appealChallenge.poll)) {
+              appealChallengeExplanation = "The Civil Community voted to overturn the Civil Council's decision.";
+              appealChallengeVoteType = CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
+              appealChallengeVotesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
+              appealChallengeVotesPercent = appealChallenge.poll.votesAgainst
+                .div(appealChallengeTotalVotes)
+                .mul(100)
+                .toFixed(0);
+            } else {
+              appealChallengeExplanation = "The Civil Community voted to uphold the Civil Council's decision.";
+              appealChallengeVoteType = CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
+              appealChallengeVotesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
+              appealChallengeVotesPercent = appealChallenge.poll.votesFor
+                .div(appealChallengeTotalVotes)
+                .mul(100)
+                .toFixed(0);
+            }
+
+            appealChallengeResultsEl = <PresentationComponent voteType={appealChallengeVoteType} votesCount={appealChallengeVotesCount} votesPercent={appealChallengeVotesPercent} />;
+          }
+        }
+      }
+
       const props = { voteType, votesCount, votesPercent };
 
       return (
         <>
-          <StyledPartialChallengeResultsHeader>{label}</StyledPartialChallengeResultsHeader>
+          <StyledPartialChallengeResultsExplanation>{explanation}</StyledPartialChallengeResultsExplanation>
           <PresentationComponent {...props} />
+          <StyledPartialChallengeResultsExplanation>{appealExplanation.join(" ")}</StyledPartialChallengeResultsExplanation>
+          <StyledPartialChallengeResultsExplanation>{appealChallengeExplanation}</StyledPartialChallengeResultsExplanation>
+          {appealChallengeResultsEl}
         </>
       );
     }
@@ -321,7 +365,7 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
           if (challenge) {
             endTime = challenge.challenge.requestAppealExpiry.toNumber();
           }
-          totalSeconds = parameters.revealStageLen;
+          totalSeconds = govtParameters.requestAppealLen;
           break;
         case PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_JUDGEMENT:
           if (challenge && challenge.challenge.appeal) {
@@ -333,7 +377,7 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
           if (challenge && challenge.challenge.appeal) {
             endTime = challenge.challenge.appeal.appealOpenToChallengeExpiry.toNumber();
           }
-          totalSeconds = govtParameters.judgeAppealLen;
+          totalSeconds = parameters.challengeAppealLen;
           break;
         case PHASE_TYPE_NAMES.APPEAL_CHALLENGE_COMMIT_VOTE:
           if (challenge && challenge.challenge.appeal && challenge.challenge.appeal.appealChallenge) {
