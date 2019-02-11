@@ -9,7 +9,7 @@ export interface TutorialProgressBarProps {
 }
 
 export const TutorialProgressContain = styled.div`
-  padding: 20px 0;
+  padding: 20px 0 50px;
   width: 100%;
 `;
 
@@ -29,15 +29,26 @@ export const TutorialProgressBarActive = styled.div`
   width: ${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}%;
 `;
 
+export interface TutorialStyleProps {
+  centerContent?: boolean;
+}
+
 export const TutorialContentWrap = styled.div`
   font-family: ${fonts.SANS_SERIF};
   margin: 0 auto 50px;
   max-width: 710px;
   min-height: 500px;
+  position: relative;
+  text-align: ${(props: TutorialStyleProps) => (props.centerContent ? "center" : "left")};
 
   svg {
     display: block;
     margin: 0 auto;
+  }
+
+  button {
+    padding: 14px 30px;
+    width: auto;
   }
 `;
 
@@ -62,6 +73,7 @@ export const TutorialTopicTitle = styled.div`
   font-weight: 300;
   letter-spacing: -0.87px;
   line-height: 39px;
+  margin-bottom: 50px;
 
   b {
     font-weight: 800;
@@ -73,10 +85,12 @@ export const TutorialTopicInfo = styled.div`
   font-weight: 300;
   letter-spacing: -0.11px;
   line-height: 31px;
+  margin-bottom: 30px;
 `;
 
 export interface TutorialFooterFullProps {
   questionResult?: string;
+  floatRight?: boolean;
 }
 
 export const TutorialFooterFull = styled.div`
@@ -97,7 +111,7 @@ export const TutorialFooterFull = styled.div`
 export const TutorialFooterWrap = styled.div`
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: ${(props: TutorialFooterFullProps) => (props.floatRight ? "flex-end" : "space-between")};
   max-width: 900px;
   width: 100%;
 `;
@@ -153,6 +167,12 @@ export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = 
   padding: 12px;
   text-transform: none;
   width: 160px;
+`;
+
+export const TutorialSkipQuizIntro = styled.div`
+  right: 0;
+  position: absolute;
+  top: 75px;
 `;
 
 export const TutorialQuizName = styled.h2`

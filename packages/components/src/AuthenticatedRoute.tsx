@@ -7,6 +7,7 @@ import { Query } from "react-apollo";
 export interface AuthenticatedRouteProps extends RouteProps {
   redirectTo: string;
   onlyAllowUnauthenticated?: boolean;
+  onlyAllowWithoutEth?: boolean;
 }
 
 const userQuery = gql`
@@ -21,10 +22,14 @@ const userQuery = gql`
   }
 `;
 
+// TODO(jorgelo): Use a configuration or something for this.
+const ethSignupPath = "/account/eth";
+
 export const AuthenticatedRoute = ({
   component: Component,
   redirectTo,
   onlyAllowUnauthenticated = false,
+  onlyAllowWithoutEth = false,
   ...otherProps
 }: AuthenticatedRouteProps) => {
   const auth = getApolloSession();
@@ -45,6 +50,13 @@ export const AuthenticatedRoute = ({
 
           if (error && !onlyAllowUnauthenticated) {
             return <Redirect to={redirectTo} />;
+          }
+
+          const hasEth = data.currentUser && data.currentUser.ethAddress;
+
+          if (!hasEth && !onlyAllowWithoutEth) {
+            // User doesn't have a wallet, but is signed in, redirect them to add their wallet.
+            return <Redirect to={ethSignupPath} />;
           }
 
           if (Component) {

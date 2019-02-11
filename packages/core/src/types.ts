@@ -207,6 +207,7 @@ export interface AppealData {
   appealChallengeID: BigNumber;
   appealChallenge?: AppealChallengeData;
   appealStatementURI?: string;
+  appealGrantedStatementURI?: string;
 }
 
 /**
