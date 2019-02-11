@@ -166,3 +166,67 @@ export async function userSetEthAddress(sig: EthSignedMessage): Promise<EthAddre
     throw Error("Failed to validate and save ETH address");
   }
 }
+
+const getCurrentUserQuery = gql`
+  query {
+    currentUser {
+      quizPayload
+      quizStatus
+    }
+  }
+`;
+export async function getCurrentUser(): Promise<any> {
+  if (!client || !getApolloSession()) {
+    return null;
+  }
+
+  try {
+    const { errors, data } = await client.query({
+      query: getCurrentUserQuery,
+    });
+
+    if (errors) {
+      return null;
+    }
+
+    return data.currentUser;
+  } catch (err) {
+    console.log("Error in getCurrentUser: ", { err });
+    return null;
+  }
+}
+
+const setCurrentUserQuery = gql`
+  mutation SetCurrentUser($user: UserUpdateInput) {
+    userUpdate(input: $user) {
+      quizPayload
+      quizStatus
+    }
+  }
+`;
+
+export interface SetCurrentUserInput {
+  quizPayload: {};
+  quizStatus: "hello";
+}
+
+export async function setCurrentUser(input: SetCurrentUserInput): Promise<any> {
+  try {
+    const res = await client.mutate({
+      mutation: setCurrentUserQuery,
+      variables: { input },
+    });
+
+    console.log("mutated?", res);
+  } catch (err) {
+    console.error("Error setCurrentUser", { err, input });
+  }
+}
+
+export function resetStore(): void {
+  if (!client) {
+    return;
+  }
+
+  client.resetStore();
+}

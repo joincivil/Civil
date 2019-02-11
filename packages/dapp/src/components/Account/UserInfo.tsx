@@ -1,6 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import { getApolloClient, setCurrentUser } from "@joincivil/utils";
 
 const userQuery = gql`
   query {
@@ -14,6 +15,7 @@ const userQuery = gql`
   }
 `;
 
+getCurrentUser;
 export class UserInfo extends React.Component {
   public render(): JSX.Element {
     return (
