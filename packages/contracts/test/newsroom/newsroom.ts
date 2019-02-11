@@ -6,6 +6,9 @@ import { events, NEWSROOM_ROLE_EDITOR, REVERTED } from "../utils/constants";
 import { findEvent, configureProviders } from "../utils/contractutils";
 
 const Newsroom = artifacts.require("Newsroom");
+
+const Token = artifacts.require("MockToken");
+
 configureProviders(Newsroom);
 
 configureChai(chai);
@@ -18,6 +21,8 @@ const SOME_HASH = web3.sha3();
 
 const signAsync = promisify<string>(web3.eth.sign, web3.eth);
 const getBlockAsync = promisify<any>(web3.eth.getBlock, web3.eth);
+const sendTransactionAsync = promisify(web3.eth.sendTransaction, web3.eth);
+const getBalanceAsync = promisify(web3.eth.getBalance, web3.eth);
 
 export function idFromEvent(tx: any): BigNumber | undefined {
   for (const log of tx.logs) {
@@ -29,15 +34,109 @@ export function idFromEvent(tx: any): BigNumber | undefined {
 }
 
 contract("Newsroom", (accounts: string[]) => {
-  const [defaultAccount, editor, author] = accounts;
+  const [defaultAccount, editor, author, friend, tokenGuy] = accounts;
   let newsroom: any;
+  let token: any;
 
   beforeEach(async () => {
     newsroom = await Newsroom.new(FIRST_NEWSROOM_NAME, SOME_URI, SOME_HASH);
+    token = await Token.new("10000000000000000", "test", "18", "t", { from: tokenGuy });
   });
 
   it("allows for empty charter", async () => {
     await expect(Newsroom.new(FIRST_NEWSROOM_NAME, "", "")).to.eventually.be.fulfilled();
+  });
+
+  describe("finances", () => {
+    describe("ERC20", () => {
+      it("owner should be able to withdraw arbitrary ERC20 sent to it", async () => {
+        await token.transfer(newsroom.address, "1000", { from: tokenGuy});
+        await expect(newsroom.withdrawTokens(token.address, "1000", { from: defaultAccount })).to.eventually.be.fulfilled("should have allowed owner to withdraw tokens sent to newsroom")
+      });
+      it("friend should be not able to withdraw arbitrary ERC20 sent to it", async () => {
+        await token.transfer(newsroom.address, "1000", { from: tokenGuy});
+        await expect(newsroom.withdrawTokens(token.address, "1000", { from: friend })).to.eventually.be.rejectedWith(REVERTED, "should not have allowed friend to withdraw tokens sent to newsroom")
+      });
+      it("owner should be able to withdraw less arbitrary ERC20 than sent to it", async () => {
+        await token.transfer(newsroom.address, "1000", { from: tokenGuy});
+        await expect(newsroom.withdrawTokens(token.address, "100", { from: defaultAccount })).to.eventually.be.fulfilled("should have allowed owner to withdraw tokens sent to newsroom")
+      });
+      it("owner should be not able to withdraw more arbitrary ERC20 than sent to it", async () => {
+        await token.transfer(newsroom.address, "1000", { from: tokenGuy});
+        await expect(newsroom.withdrawTokens(token.address, "2000", { from: defaultAccount })).to.eventually.be.rejectedWith(REVERTED, "should not have allowed friend to withdraw tokens sent to newsroom")
+      });
+      it("owner balance should be correct after withdrawing tokens from newsroom", async () => {
+        const ownerStartingBalance = await token.balanceOf(defaultAccount);
+        expect(ownerStartingBalance.equals("0"), "owner balance should have been 0 before withdrawing 100 ERC20")
+        await token.transfer(newsroom.address, "1000", { from: tokenGuy});
+        await newsroom.withdrawTokens(token.address, "100", { from: defaultAccount });
+        const ownerEndingBalance = await token.balanceOf(defaultAccount);
+        expect(ownerEndingBalance.equals("100"), "owner balance should have been 100 after withdrawing 100 ERC20")
+      });
+    })
+    describe("ETH", () => {
+      it("can accept ETH", async () => {
+        await expect(
+          sendTransactionAsync({ from: friend, to: newsroom.address, value: web3.toWei(0.1, "ether") }),
+        ).to.eventually.be.fulfilled("should have accepted ETH");
+      });
+
+      it("can withdraw ETH after receiving it", async () => {
+        await sendTransactionAsync({ from: friend, to: newsroom.address, value: web3.toWei(0.1, "ether") });
+        await expect(newsroom.withdrawEth(web3.toWei(0.1, "ether"))).to.eventually.be.fulfilled(
+          "should have been able to withdraw ETH",
+        );
+      });
+
+      it("can withdraw less ETH than received after receiving it", async () => {
+        await sendTransactionAsync({ from: friend, to: newsroom.address, value: web3.toWei(0.1, "ether") });
+        await expect(newsroom.withdrawEth(web3.toWei(0.05, "ether"))).to.eventually.be.fulfilled(
+          "should have been able to withdraw ETH",
+        );
+      });
+
+      it("owner receives proper amount of ETH after withdrawing", async () => {
+        const ownerStartingEth1 = await getBalanceAsync(defaultAccount) as BigNumber;
+        await sendTransactionAsync({ from: friend, to: newsroom.address, value: web3.toWei(0.1, "ether") });
+        await expect(newsroom.withdrawEth(web3.toWei(0.05, "ether"))).to.eventually.be.fulfilled(
+          "should have been able to withdraw ETH",
+        );
+        const ownerEndingEth1 = await getBalanceAsync(defaultAccount) as BigNumber;
+        expect(ownerEndingEth1.equals(ownerStartingEth1.minus(web3.toWei(0.05, "ether"))), "owner ending eth minus withdrawn should have been starting eth amount");
+
+      });
+
+      it("cannot withdraw more ETH than received after receiving it", async () => {
+        const ownerStartingEth2 = await getBalanceAsync(defaultAccount) as BigNumber;
+        await sendTransactionAsync({ from: friend, to: newsroom.address, value: web3.toWei(0.1, "ether") });
+        await expect(newsroom.withdrawEth(web3.toWei(0.2, "ether"))).to.eventually.be.rejectedWith(REVERTED,
+          "should not have been able to withdraw more ETH than contract has",
+        );
+        const ownerEndingEth2 = await getBalanceAsync(defaultAccount) as BigNumber;
+        expect(ownerStartingEth2.equals(ownerEndingEth2), "owner ending eth should have been starting eth amount");
+      });
+
+      it("cannot withdraw ETH after receiving it if not owner 1", async () => {
+        await sendTransactionAsync({ from: friend, to: newsroom.address, value: web3.toWei(0.1, "ether") });
+        await expect(newsroom.withdrawEth(web3.toWei(0.1, "ether"), { from: friend })).to.eventually.be.rejectedWith(REVERTED,
+          "should not have been able to withdraw ETH if not newsroom owner",
+        );
+      });
+
+      it("cannot withdraw ETH after receiving it if not owner 2", async () => {
+        await sendTransactionAsync({ from: friend, to: newsroom.address, value: web3.toWei(0.1, "ether") });
+        await expect(newsroom.withdrawEth(web3.toWei(0.01, "ether"), { from: friend })).to.eventually.be.rejectedWith(REVERTED,
+          "should not have been able to withdraw ETH if not newsroom owner",
+        );
+      });
+
+      it("cannot withdraw ETH after receiving it if not owner", async () => {
+        await sendTransactionAsync({ from: friend, to: newsroom.address, value: web3.toWei(0.1, "ether") });
+        await expect(newsroom.withdrawEth(web3.toWei(0.2, "ether"), { from: friend })).to.eventually.be.rejectedWith(REVERTED,
+          "should not have been able to withdraw ETH if not newsroom owner",
+        );
+      });
+    });
   });
 
   describe("publishContent", () => {

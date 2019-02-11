@@ -2,6 +2,7 @@ pragma solidity ^0.4.19;
 
 import "./ACL.sol";
 import "../zeppelin-solidity/ECRecovery.sol";
+import "../zeppelin-solidity/token/ERC20/IERC20.sol";
 
 /**
 @title Newsroom - Smart-contract allowing for Newsroom-like goverance and content publishing
@@ -278,5 +279,15 @@ contract Newsroom is ACL {
   struct UsedSignature {
     bool wasUsed;
     uint contentId;
+  }
+
+  function withdrawTokens(address tokenAddress, uint amount) public onlyOwner returns(bool) {
+    return IERC20(tokenAddress).transfer(msg.sender, amount);
+  }
+
+  function() public payable { }
+
+  function withdrawEth(uint amount) public onlyOwner {
+    address(msg.sender).transfer(amount);
   }
 }
