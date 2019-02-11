@@ -122,6 +122,7 @@ class AppealChallengeRevealVote extends React.Component<
           appealChallengeID={this.props.appealChallengeID.toString()}
           appealGranted={this.props.appeal.appealGranted}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
+          appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
           key={this.state.key}
         />
       </>

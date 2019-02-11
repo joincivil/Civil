@@ -7,6 +7,7 @@ export interface ChallengeResultsProps {
   votesAgainst: string;
   percentFor: string;
   percentAgainst: string;
+  didChallengeOriginallySucceed?: boolean;
   didChallengeSucceed?: boolean;
   isAppealChallenge?: boolean;
   headerText?: string;

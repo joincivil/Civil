@@ -68,7 +68,10 @@ export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardPro
         />
       </StyledListingDetailPhaseCardSection>
 
-      <AppealDecisionDetail appealGranted={props.appealGranted} />
+      <AppealDecisionDetail
+        appealGranted={props.appealGranted}
+        appealGrantedStatementUri={props.appealGrantedStatementURI}
+      />
 
       {showAppealChallenge && (
         <StyledListingDetailPhaseCardSection>

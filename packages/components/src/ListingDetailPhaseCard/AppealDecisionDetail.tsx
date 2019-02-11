@@ -12,6 +12,7 @@ export interface AppealDecisionDetailProps {
   appealGranted?: boolean;
   collapsable?: boolean;
   open?: boolean;
+  appealGrantedStatementUri?: string;
 }
 
 const StyledInner = styled.div`
@@ -27,7 +28,11 @@ const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props =>
         {props.appealGranted && "Read more about their methodology and how they’ve come to this decision."}
       </FormCopy>
 
-      {props.appealGranted && <InvertedButton size={buttonSizes.MEDIUM_WIDE}>Read about this decision</InvertedButton>}
+      {props.appealGranted && (
+        <InvertedButton href={props.appealGrantedStatementUri} size={buttonSizes.MEDIUM_WIDE}>
+          Read about this decision
+        </InvertedButton>
+      )}
     </StyledInner>
   );
 };

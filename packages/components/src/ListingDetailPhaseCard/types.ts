@@ -62,6 +62,7 @@ export interface RevealVoteProps extends VoteBaseProps {
 export interface AppealDecisionProps {
   appealRequested?: boolean;
   appealGranted?: boolean;
+  appealGrantedStatementURI?: string;
   submitAppealChallengeURI?: string;
 }
 
