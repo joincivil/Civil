@@ -35,9 +35,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
   }
 
   public render(): JSX.Element {
-    const topicIdx = this.state.topicIdx;
-    const slideIdx = this.state.slideIdx;
-    const activeSection = this.state.activeSection;
+    const { topicIdx, slideIdx, activeSection } = this.state;
     const lastTopic = topicIdx === this.props.totalTopics ? true : false;
 
     switch (activeSection) {
@@ -130,14 +128,14 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
         this.setState({ slideIdx: 0, activeSection: "tutorial" });
         break;
       case "tutorial":
-        if (this.state.slideIdx + 1 < TutorialContent[this.props.topicIdx].tutorials.length) {
+        if (this.state.slideIdx + 1 < TutorialContent[this.state.topicIdx].tutorials.length) {
           this.setState({ slideIdx: this.state.slideIdx + 1 });
         } else {
           this.setState({ slideIdx: this.state.quizSlide, activeSection: "quiz" });
         }
         break;
       case "quiz":
-        if (this.state.slideIdx + 1 < TutorialContent[this.props.topicIdx].questions.length) {
+        if (this.state.slideIdx + 1 < TutorialContent[this.state.topicIdx].questions.length) {
           this.setState({
             slideIdx: this.state.slideIdx + 1,
             quizSlide: this.state.quizSlide + 1,
