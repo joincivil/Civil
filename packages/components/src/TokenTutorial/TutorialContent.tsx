@@ -123,12 +123,12 @@ export const TutorialContent = [
     },
   },
   {
-    name: "Topic 2: Purchasing, storing, using Civil tokens",
+    name: "Topic 2: Purchasing, storing and using Civil tokens",
     description: "Learn basic concepts of ETH, gas, digital wallets, keys, and recovery seed phrases.",
     quizId: "topic2",
     icon: <TokenWalletIcon height={48} width={42} />,
     tutorialIntro: {
-      header: "Topic 2: Purchasing, storing, using Civil tokens",
+      header: "Topic 2: Purchasing, storing and using Civil tokens",
       content: <Topic2Intro />,
     },
     tutorials: [
@@ -206,7 +206,7 @@ export const TutorialContent = [
       },
       {
         question:
-          "Select the type of wallet that allows you to perform this action: You personally sign all transactions while connected to the Internet.",
+          "Select the type of wallet that allows you to perform this action: You personally sign all transactions while connected to the internet.",
         options: [
           {
             text: "Hardware wallet or “cold wallet”",
