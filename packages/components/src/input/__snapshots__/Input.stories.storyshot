@@ -402,7 +402,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-iAyFgw gOVOkT",
+            "class": "sc-iAyFgw leZJwq",
           },
           "children": Array [
             Object {
@@ -438,7 +438,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-iAyFgw gOVOkT",
+          "class": "sc-iAyFgw leZJwq",
         },
         "children": Array [
           Object {

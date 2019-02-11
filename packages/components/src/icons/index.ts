@@ -14,6 +14,7 @@ export * from "./CloseXIcon";
 export * from "./CommitVoteSuccessIcon";
 export * from "./DisclosureArrowIcon";
 export * from "./ExamIcon";
+export * from "./ExchangeArrowsIcon";
 export * from "./ExpandDownArrow";
 export * from "./FacebookIcon";
 export * from "./GreenCheckMark";

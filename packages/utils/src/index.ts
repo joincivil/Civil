@@ -1,4 +1,5 @@
 import "./rxjs";
+export * from "./airswap";
 export * from "./apolloClient";
 export * from "./civilHelpers";
 export * from "./contracts";
