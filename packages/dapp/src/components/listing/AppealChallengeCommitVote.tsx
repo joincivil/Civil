@@ -156,6 +156,7 @@ class AppealChallengeCommitVote extends React.Component<
       appealGranted: this.props.appeal.appealGranted,
       key: this.state.key,
       onMobileTransactionClick: this.props.onMobileTransactionClick,
+      appealGrantedStatementURI: this.props.appeal.appealGrantedStatementURI,
     };
 
     return (

@@ -37,6 +37,10 @@ export class Appeal {
     if (!appealPhaseExpiry.isZero()) {
       appealStatementURI = await this.getAppealURI();
     }
+    let appealGrantedStatementURI;
+    if (appealGranted) {
+      appealGrantedStatementURI = await this.getAppealGrantedURI();
+    }
     return {
       requester,
       appealFeePaid,
@@ -46,6 +50,7 @@ export class Appeal {
       appealChallengeID,
       appealChallenge,
       appealStatementURI,
+      appealGrantedStatementURI,
     };
   }
 
@@ -63,6 +68,24 @@ export class Appeal {
       return appealRequestedEvent.args.data;
     } catch (e) {
       debug(`Getting AppealURI failed for ChallengeID: ${this.challengeId}`, e);
+      return;
+    }
+  }
+
+  private async getAppealGrantedURI(): Promise<string | undefined> {
+    const currentBlock = await this.ethApi.getLatestBlockNumber();
+
+    try {
+      const appealGrantedEvent = await this.tcrInstance
+        ._AppealGrantedStream(
+          { challengeID: this.challengeId },
+          { fromBlock: getDefaultFromBlock(this.ethApi.network()), toBlock: currentBlock },
+        )
+        .first()
+        .toPromise();
+      return appealGrantedEvent.args.data;
+    } catch (e) {
+      debug(`Getting GrantedAppealURI failed for ChallengeID: ${this.challengeId}`, e);
       return;
     }
   }
