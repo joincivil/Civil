@@ -12,6 +12,7 @@ import { LoadUser } from "../Account/LoadUser";
 
 export interface TokensProps {
   userAccount: EthAddress;
+  network: string;
 }
 
 export const TokensComponent: React.SFC<TokensProps> = props => {
@@ -35,6 +36,7 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
               supportEmailAddress={"support@civil.co"}
               faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
               foundationAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
+              network={props.network}
             />
           );
         }}
@@ -42,8 +44,9 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
     </>
   );
 };
-
+// TODO:Sarah get ethAddress from currentUser instead
 const mapStateToProps = (state: State): TokensProps => {
+  const { network } = state;
   const { user } = state.networkDependent;
 
   let userAccount = "";
@@ -52,6 +55,7 @@ const mapStateToProps = (state: State): TokensProps => {
   }
 
   return {
+    network,
     userAccount,
   };
 };

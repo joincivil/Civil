@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TokenFAQCollapse } from "./TokensStyledComponents";
+import { TokenFAQCollapse, FlexColumnsPrimaryModule } from "./TokensStyledComponents";
 import {
   TokenETHFAQQuestion1Text,
   TokenETHFAQQuestion2Text,
@@ -12,7 +12,7 @@ import { Collapsable } from "../Collapsable";
 
 export const UserTokenAccountFaq: React.StatelessComponent = props => {
   return (
-    <>
+    <FlexColumnsPrimaryModule>
       <TokenFAQCollapse>
         <Collapsable header={<TokenETHFAQQuestion1Text />} open={false}>
           <p>TKTKTK</p>
@@ -43,6 +43,6 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
           <p>TKTKTK</p>
         </Collapsable>
       </TokenFAQCollapse>
-    </>
+    </FlexColumnsPrimaryModule>
   );
 };
