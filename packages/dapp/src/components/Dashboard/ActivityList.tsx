@@ -1,11 +1,7 @@
 import * as React from "react";
 import { Set } from "immutable";
 import BigNumber from "bignumber.js";
-import { ChallengeActivityListItem, ActivityListItem, ResolvedChallengeActivityListItem } from "./ActivityListItem";
-import {
-  ResolvedAppealChallengeActivityListItem,
-  // AppealChallengeActivityListItem,
-} from "./ActivityListAppealChallengeItem";
+import { ChallengeActivityListItem, ActivityListItem } from "./ActivityListItem";
 
 export interface ActivityListOwnProps {
   listings?: Set<string>;
@@ -26,32 +22,6 @@ const ActivityList: React.SFC<ActivityListOwnProps> = props => {
           index++;
           return <ActivityListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
         })}
-      {!!props.resolvedChallenges &&
-        props.challenges &&
-        props.challenges.map(c => {
-          index++;
-          return (
-            <ResolvedChallengeActivityListItem
-              toggleSelect={props.toggleChallengeSelect!}
-              key={c}
-              challengeID={c!}
-              even={index % 2 === 0}
-            />
-          );
-        })}
-      {!!props.resolvedChallenges &&
-        props.appealChallenges &&
-        props.appealChallenges.map(c => {
-          index++;
-          return (
-            <ResolvedAppealChallengeActivityListItem
-              toggleSelect={props.toggleChallengeSelect!}
-              key={c}
-              challengeID={c!}
-              even={index % 2 === 0}
-            />
-          );
-        })}
       {!props.resolvedChallenges &&
         props.challenges &&
         props.challenges.map(c => {
@@ -62,14 +32,7 @@ const ActivityList: React.SFC<ActivityListOwnProps> = props => {
         props.appealChallenges &&
         props.appealChallenges.map(c => {
           index++;
-          return (
-            <ResolvedAppealChallengeActivityListItem
-              toggleSelect={props.toggleChallengeSelect!}
-              key={c}
-              challengeID={c!}
-              even={index % 2 === 0}
-            />
-          );
+          return <ActivityListItemComponent key={c} challengeID={c!} even={index % 2 === 0} />;
         })}
     </>
   );

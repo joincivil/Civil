@@ -583,7 +583,8 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
         } else {
           canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
         }
-        canUserRescue = !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
+        canUserRescue =
+          !didUserReveal && !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
       }
     }
 
@@ -664,7 +665,8 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
         } else {
           canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
         }
-        canUserRescue = !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
+        canUserRescue =
+          !didUserReveal && !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
       }
     }
 

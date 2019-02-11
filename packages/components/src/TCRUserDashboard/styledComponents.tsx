@@ -130,6 +130,50 @@ export const StyledDashboardActivityItemDetails = styled.div`
   margin-right: 30px;
 `;
 
+export const StyledDashboardActivityItemAction = styled.div`
+  text-align: right;
+
+  ${InvertedButton} {
+    display: block;
+    margin: 0 0 27px;
+    white-space: nowrap;
+  }
+
+  a {
+    color: ${colors.accent.CIVIL_BLUE};
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 14px;
+    white-space: nowrap;
+  }
+`;
+
+export const StyledDashboardActivityItemTitle = styled.h4`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-weight: 800;
+  font-size: 18px
+  line-height: 21px;
+  margin: 0 0 10px;
+`;
+
+export const StyledDashbaordActvityItemSection = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  background: ${colors.accent.CIVIL_GRAY_5};
+  box-shadow: inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_4};
+  padding: 10px 24px 21px;
+`;
+
+export const StyledDashbaordActvityItemHeader = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 33px;
+  margin: 0 0 8px;
+`;
+
+export const StyledDashbaordActvityItemSectionInner = styled.div`
+  padding-left: 23px;
+`;
+
 export const StyledChallengeIDKicker = styled.div`
   color: ${colors.primary.CIVIL_GRAY_2};
   font-size: 12px;
@@ -153,25 +197,4 @@ export const StyledNumTokensContainer = styled.div`
   line-height: 18px;
   padding: 15px 0 0;
   text-align: right;
-`;
-
-export const StyledDashboardActivityItemAction = styled.div`
-  text-align: right;
-
-  ${InvertedButton} {
-    white-space: nowrap;
-  }
-`;
-
-export const StyledDashboardActivityItemTitle = styled.h4`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-weight: 800;
-  font-size: 18px
-  line-height: 21px;
-  margin: 0 0 10px;
-`;
-
-export const StyledDashbaordActvityItemSection = styled.div`
-  background: ${colors.accent.CIVIL_GRAY_5};
-  padding: 10px 24px;
 `;

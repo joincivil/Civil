@@ -2,11 +2,8 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
-import { EthAddress, ListingWrapper, WrappedChallengeData, isVotePassed, isAppealAwaitingJudgment, doesChallengeHaveAppeal } from "@joincivil/core";
+import { EthAddress, ListingWrapper, WrappedChallengeData, AppealChallengeData } from "@joincivil/core";
 import {
-  colors,
-  VoteTypeSummaryRowProps as PartialChallengeResultsProps,
-  CHALLENGE_RESULTS_VOTE_TYPES,
   ChallengeResultsProps,
   ChallengePhaseProps,
   ProgressBarCountdownProps,
@@ -25,14 +22,6 @@ import { Query } from "react-apollo";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 
-const StyledPartialChallengeResultsExplanation = styled.p`
-  color: ${colors.primary.CIVIL_GRAY_2};
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 30px;
-  margin: 17px 0;
-`;
-
 export interface GraphQLizableComponentProps {
   useGraphQL: boolean;
 }
@@ -45,8 +34,13 @@ export interface ChallengeContainerProps {
   challengeID?: BigNumber | string;
 }
 
+export interface AppealChallengeContainerProps {
+  appealChallengeID?: BigNumber | string;
+}
+
 export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData;
+  appealChallengeData?: AppealChallengeData;
   challengeDataRequestStatus?: any;
   user: EthAddress;
 }
@@ -159,156 +153,6 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
         !this.props.challengeDataRequestStatus
       ) {
         this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
-      }
-    };
-  }
-
-  return connect(mapStateToProps)(HOChallengeResultsContainer);
-};
-
-/**
- * Generates a HO-Component Container for My Dashboard Activity Item
- * presentation components.
- * Given a `challengeID`, this container fetches the challenge data from the Redux store
- * then extracts and passes props for rendering a Partial Challenge Results component, which
- * shows only the summary for the winning vote
- */
-export const connectWinningChallengeResults = <TOriginalProps extends ChallengeContainerProps>(
-  PresentationComponent: React.ComponentType<PartialChallengeResultsProps>,
-) => {
-  const mapStateToProps = (
-    state: State,
-    ownProps: ChallengeContainerProps,
-  ): ChallengeContainerReduxProps & ChallengeContainerProps => {
-    const { challenges, challengesFetching, user } = state.networkDependent;
-    let challengeData;
-    const challengeID = ownProps.challengeID;
-    if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
-    }
-    let challengeDataRequestStatus;
-    if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
-    }
-    const userAcct = user.account;
-    return {
-      ...ownProps,
-      challengeData,
-      challengeDataRequestStatus,
-      user: userAcct.account,
-    };
-  };
-
-  // @TODO(jon): Can we get rid of this additional react component and just use redux's connect? Just need to figure out the correct typing to use when not passing `challengeID` as a prop to the presentation component
-  class HOChallengeResultsContainer extends React.Component<
-    TOriginalProps & ChallengeContainerReduxProps & DispatchProp<any>
-  > {
-    public componentDidMount(): void {
-      this.ensureHasChallengeData();
-    }
-
-    public componentDidUpdate(): void {
-      this.ensureHasChallengeData();
-    }
-
-    public render(): JSX.Element | null {
-      if (!this.props.challengeData) {
-        return <></>;
-      }
-
-      const challenge = this.props.challengeData.challenge;
-      const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-      const appeal = challenge && challenge.appeal;
-      const appealChallenge = appeal && appeal.appealChallenge;
-
-      let voteType;
-      let votesCount;
-      let votesPercent;
-      let explanation;
-      const appealExplanation = [];
-      let appealChallengeExplanation;
-      let appealChallengeResultsEl = <></>;
-
-      if (isVotePassed(challenge.poll)) {
-        explanation = "The Civil Community voted to reject this Newsroom from The Civil Registry.";
-        voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
-        votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
-        votesPercent = challenge.poll.votesAgainst
-          .div(totalVotes)
-          .mul(100)
-          .toFixed(0);
-      } else {
-        explanation = "The Civil Community voted to accept this Newsroom to The Civil Registry.";
-        voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
-        votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
-        votesPercent = challenge.poll.votesFor
-          .div(totalVotes)
-          .mul(100)
-          .toFixed(0);
-      }
-
-      if (doesChallengeHaveAppeal(challenge) && appeal) {
-        appealExplanation.push("An appeal was requested contesting the results of the Community vote.");
-        if (appeal.appealGranted) {
-          appealExplanation.push("After careful review, The Civil Council overturned the result of the Community's vote.");
-
-        } else if (!appeal.appealGranted && !isAppealAwaitingJudgment(appeal)) {
-
-          appealExplanation.push("After a careful review, The Civil Council upheld the result of the Community's vote.");
-
-        } else if (isAppealAwaitingJudgment(appeal)) {
-          appealExplanation.push("The Civil Council is currently reviewing the results and the requested appeal.");
-
-        }
-
-        if (appealChallenge) {
-          if (!appealChallenge.resolved) {
-            appealChallengeExplanation = "The granted appeal was challenged by a member of the Community and is under a vote.";
-          } else {
-            const appealChallengeTotalVotes = appealChallenge.poll.votesAgainst.add(appealChallenge.poll.votesFor);
-
-            let appealChallengeVoteType;
-            let appealChallengeVotesCount;
-            let appealChallengeVotesPercent;
-            if (isVotePassed(appealChallenge.poll)) {
-              appealChallengeExplanation = "The Civil Community voted to overturn the Civil Council's decision.";
-              appealChallengeVoteType = CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
-              appealChallengeVotesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
-              appealChallengeVotesPercent = appealChallenge.poll.votesAgainst
-                .div(appealChallengeTotalVotes)
-                .mul(100)
-                .toFixed(0);
-            } else {
-              appealChallengeExplanation = "The Civil Community voted to uphold the Civil Council's decision.";
-              appealChallengeVoteType = CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
-              appealChallengeVotesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
-              appealChallengeVotesPercent = appealChallenge.poll.votesFor
-                .div(appealChallengeTotalVotes)
-                .mul(100)
-                .toFixed(0);
-            }
-
-            appealChallengeResultsEl = <PresentationComponent voteType={appealChallengeVoteType} votesCount={appealChallengeVotesCount} votesPercent={appealChallengeVotesPercent} />;
-          }
-        }
-      }
-
-      const props = { voteType, votesCount, votesPercent };
-
-      return (
-        <>
-          <StyledPartialChallengeResultsExplanation>{explanation}</StyledPartialChallengeResultsExplanation>
-          <PresentationComponent {...props} />
-          <StyledPartialChallengeResultsExplanation>{appealExplanation.join(" ")}</StyledPartialChallengeResultsExplanation>
-          <StyledPartialChallengeResultsExplanation>{appealChallengeExplanation}</StyledPartialChallengeResultsExplanation>
-          {appealChallengeResultsEl}
-        </>
-      );
-    }
-
-    private ensureHasChallengeData = (): void => {
-      if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
       }
     };
   }

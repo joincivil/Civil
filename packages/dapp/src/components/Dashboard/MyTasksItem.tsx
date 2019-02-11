@@ -1,20 +1,36 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-// import { Link } from "react-router-dom";
-import BigNumber from "bignumber.js";
-import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
+import {
+  ListingWrapper,
+  WrappedChallengeData,
+  AppealChallengeData,
+  UserChallengeData,
+  CharterData,
+  EthAddress,
+} from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
-import { DashboardActivityItemCommitVote, PHASE_TYPE_NAMES, StyledDashbaordActvityItemSection } from "@joincivil/components";
+import {
+  DashboardActivityItemTask,
+  PHASE_TYPE_NAMES,
+  UserVotingSummary,
+  CHALLENGE_RESULTS_VOTE_TYPES,
+  StyledDashbaordActvityItemSection,
+  StyledDashbaordActvityItemHeader,
+  StyledDashbaordActvityItemSectionInner,
+} from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
+import { ListingWrapperWithExpiry } from "../../redux/reducers/listings";
 import {
   getChallenge,
-  getListingPhaseState,
-  makeGetListing,
+  getAppealChallenge,
   makeGetListingAddressByChallengeID,
+  makeGetListingAddressByAppealChallengeID,
+  getAppealChallengeParentChallengeID,
   makeGetUserChallengeData,
-  makeGetUnclaimedRewardAmount,
+  makeGetUserAppealChallengeData,
   getChallengeState,
+  makeGetAppealChallengeState,
 } from "../../selectors";
 import { WinningChallengeResults } from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
@@ -23,53 +39,33 @@ import { getContent } from "../../redux/actionCreators/newsrooms";
 
 export interface ActivityListItemOwnProps {
   listingAddress?: string;
-  even: boolean;
-  challenge?: WrappedChallengeData;
-  userChallengeData?: UserChallengeData;
-  unclaimedRewardAmount?: string;
-  challengeState?: any;
   challengeID?: string;
-  user?: string;
-  listingDataRequestStatus?: any;
-}
-
-export interface ChallengeActivityListItemOwnProps {
-  challengeID: string;
-  even: boolean;
-  user?: string;
-}
-
-export interface ResolvedChallengeActivityListItemProps {
-  toggleSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
+  appealChallengeID?: string;
+  showClaimRewardsTab(): void;
+  showRescueTokensTab(): void;
 }
 
 export interface ActivityListItemReduxProps {
   newsroom?: NewsroomState;
   charter?: CharterData;
   listing?: ListingWrapper;
-  listingPhaseState?: any;
+  listingDataRequestStatus?: any;
+  challenge?: WrappedChallengeData;
+  appealChallenge?: AppealChallengeData;
   challengeState?: any;
+  userChallengeData?: UserChallengeData;
+  user?: EthAddress;
 }
 
 class MyTasksItemComponent extends React.Component<
-  ActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemReduxProps & DispatchProp<any>
+  ActivityListItemOwnProps & ActivityListItemReduxProps & DispatchProp<any>
 > {
   public async componentDidUpdate(): Promise<void> {
-    if (!this.props.listing && !this.props.listingDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
-    }
-    if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
-    }
+    await this.ensureListingAndNewsroomData();
   }
 
   public async componentDidMount(): Promise<void> {
-    if (!this.props.listing && !this.props.listingDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
-    }
-    if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
-    }
+    await this.ensureListingAndNewsroomData();
   }
 
   public render(): JSX.Element {
@@ -77,131 +73,267 @@ class MyTasksItemComponent extends React.Component<
       listingAddress: address,
       listing,
       newsroom,
-      listingPhaseState,
       charter,
       challengeID,
+      appealChallengeID,
       userChallengeData,
+      challengeState,
+      showClaimRewardsTab,
+      showRescueTokensTab,
     } = this.props;
-    if (listing && listing.data && newsroom && listingPhaseState) {
+
+    if (!userChallengeData || !challengeState) {
+      return <></>;
+    }
+
+    const { canUserCollect, canUserRescue, didUserCommit } = userChallengeData;
+    const { isAwaitingAppealJudgement } = challengeState;
+
+    if (listing && listing.data && newsroom) {
       const newsroomData = newsroom.wrapper.data;
-      let listingDetailURL = `/listing/${address}`;
-      if (this.props.challenge) {
-        listingDetailURL = `/listing/${address}/challenge/${this.props.challenge.challengeID}`;
-      }
+      const listingDetailURL = `/listing/${address}`;
+      let viewDetailURL;
       const logoUrl = charter && charter.logoUrl;
+      let title = newsroomData.name;
+      let onCTAButtonClick;
+      if (appealChallengeID) {
+        title = `${newsroomData.name} Appeal Challenge #${appealChallengeID}`;
+      } else if (challengeID) {
+        title = `${newsroomData.name} Challenge #${challengeID}`;
+      }
+
+      if (canUserCollect || canUserRescue) {
+        viewDetailURL = `${listingDetailURL}/challenge/${challengeID}`;
+      } else if (isAwaitingAppealJudgement) {
+        viewDetailURL = listingDetailURL;
+      }
+
+      if (canUserCollect) {
+        onCTAButtonClick = showClaimRewardsTab;
+      } else if (canUserRescue) {
+        onCTAButtonClick = showRescueTokensTab;
+      }
+
       const props = {
-        title: `${newsroomData.name} Challenge #${challengeID}`,
+        title,
         logoUrl,
         listingDetailURL,
-        ...listingPhaseState,
+        viewDetailURL,
+        onClick: onCTAButtonClick,
+        ...challengeState,
         ...userChallengeData,
       };
 
-      if (
-        (userChallengeData && userChallengeData.canUserCollect) ||
-        (userChallengeData && userChallengeData.canUserRescue) ||
-        (userChallengeData && userChallengeData.didUserCommit)
-      ) {
-        return (
-          <DashboardActivityItemCommitVote {...props}>{this.renderActivityDetails()}</DashboardActivityItemCommitVote>
-        );
+      if (canUserCollect || canUserRescue || didUserCommit) {
+        return <DashboardActivityItemTask {...props}>{this.renderActivityDetails()}</DashboardActivityItemTask>;
       }
-
-      return <></>;
     }
 
     return <></>;
   }
 
-  private renderActivityDetails = (): JSX.Element => {
-    console.log(this.props);
-    const { challenge, listingPhaseState } = this.props;
+  private ensureListingAndNewsroomData = async (): Promise<void> => {
+    if (!this.props.listing && !this.props.listingDataRequestStatus && this.props.listingAddress) {
+      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
+    }
+    if (this.props.newsroom) {
+      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+    }
+  };
 
-    if (!listingPhaseState) {
+  private renderActivityDetails = (): JSX.Element => {
+    const { appealChallengeID, challengeID, challenge, challengeState, userChallengeData } = this.props;
+
+    if (!challengeState) {
       return <></>;
     }
 
     const {
-      isAwaitingAppealRequest,
-      inChallengeCommitVotePhase,
-      inChallengeRevealPhase,
+      isResolved,
+      inCommitPhase,
+      inRevealPhase,
+      // canResolveChallenge,
+      canRequestAppeal,
       isAwaitingAppealJudgement,
       isAwaitingAppealChallenge,
-      canListingAppealBeResolved,
-    } = listingPhaseState;
+      canAppealBeResolved,
+      didChallengeOriginallySucceed,
+      isAppealChallengeInCommitStage,
+      isAppealChallengeInRevealStage,
+    } = challengeState;
 
-    if (inChallengeCommitVotePhase) {
-      return <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_COMMIT_VOTE} challenge={challenge} />;
-    } else if (inChallengeRevealPhase) {
-      return <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE} challenge={challenge} />;
-    } else if (isAwaitingAppealRequest) {
-      return (
-        <>
-          <PhaseCountdownTimer phaseType={PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_REQUEST} challenge={challenge} />
-          {challenge && <StyledDashbaordActvityItemSection><WinningChallengeResults challengeID={challenge.challengeID} /></StyledDashbaordActvityItemSection>}
-        </>
+    let phaseCountdownType;
+    let challengeResults;
+    let displayChallengeResultsExplanation;
+    let label;
+    let displayChallengeResults = true;
+
+    if (inCommitPhase && appealChallengeID) {
+      phaseCountdownType = PHASE_TYPE_NAMES.APPEAL_CHALLENGE_COMMIT_VOTE;
+      displayChallengeResultsExplanation = true;
+    } else if (inCommitPhase) {
+      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_COMMIT_VOTE;
+      displayChallengeResults = false;
+    } else if (inRevealPhase && appealChallengeID) {
+      phaseCountdownType = PHASE_TYPE_NAMES.APPEAL_CHALLENGE_REVEAL_VOTE;
+      displayChallengeResultsExplanation = true;
+    } else if (inRevealPhase) {
+      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE;
+      displayChallengeResults = false;
+    } else if (canRequestAppeal) {
+      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_REQUEST;
+      displayChallengeResultsExplanation = true;
+    } else if (isAwaitingAppealJudgement) {
+      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_JUDGEMENT;
+      label = (
+        <p>The results of this challenge's vote are under appeal and awaiting a decision from The Civil Council.</p>
       );
-    } else if (challenge) {
-      let label;
-      if (isAwaitingAppealJudgement) {
-        label = (
-          <p>
-            The results of this challenge's vote are under appeal and is awaiting a decision from The Civil Council.
-          </p>
-        );
-      } else if (isAwaitingAppealChallenge) {
-        const appeal = challenge.challenge.appeal;
-        if (appeal && appeal.appealGranted) {
-          label = <p>The results of this challenge's vote were appealed and overturned by The Civil Council.</p>;
-        } else {
-          label = <p>The results of this challenge's vote were appealed and upheld by The Civil Council.</p>;
-        }
-      } else if (canListingAppealBeResolved) {
-        const appeal = challenge.challenge.appeal;
+    } else if (isAwaitingAppealChallenge || canAppealBeResolved) {
+      const appeal = challenge && challenge.challenge && challenge.challenge.appeal;
 
-        if (appeal && appeal.appealGranted) {
-          label = <p>The results of this challenge's vote were appealed and overturned by The Civil Council.</p>;
-        } else {
-          label = <p>The results of this challenge's vote were appealed and upheld by The Civil Council.</p>;
-        }
+      if (isAwaitingAppealChallenge) {
+        phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_CHALLENGE;
       }
-      return (
-        <>
-          {label}
-          <WinningChallengeResults challengeID={challenge.challengeID} />
-        </>
+
+      let appealDecision;
+      if (appeal && appeal.appealGranted) {
+        appealDecision = didChallengeOriginallySucceed ? "approve" : "reject";
+        label = <p>The Civil Coucil voted to {appealDecision} this newsroom, overturning the Community's vote.</p>;
+      } else {
+        appealDecision = didChallengeOriginallySucceed ? "reject" : "approve";
+        label = <p>The Civil Coucil voted to {appealDecision} this newsroom, upholding the Community's vote.</p>;
+      }
+    } else if (isAppealChallengeInCommitStage || isAppealChallengeInRevealStage) {
+      const appeal = challenge && challenge.challenge && challenge.challenge.appeal;
+
+      if (isAppealChallengeInCommitStage) {
+        phaseCountdownType = PHASE_TYPE_NAMES.APPEAL_CHALLENGE_COMMIT_VOTE;
+      } else if (isAppealChallengeInRevealStage) {
+        phaseCountdownType = PHASE_TYPE_NAMES.APPEAL_CHALLENGE_REVEAL_VOTE;
+      }
+
+      let appealDecision;
+      if (appeal && appeal.appealGranted) {
+        appealDecision = didChallengeOriginallySucceed ? "approve" : "reject";
+      } else {
+        appealDecision = didChallengeOriginallySucceed ? "reject" : "approve";
+      }
+      label = <p>The Civil Council's decision to {appealDecision} this newsroom has been challenged.</p>;
+    }
+
+    let userVotingSummary;
+    if (userChallengeData && isResolved) {
+      const { didUserReveal, choice, numTokens } = userChallengeData;
+      let userVotingSummaryContent;
+      let userChoice;
+      if (didUserReveal) {
+        if (choice) {
+          if (appealChallengeID) {
+            userChoice =
+              choice.toNumber() === 1 ? CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN : CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
+          } else {
+            userChoice =
+              choice.toNumber() === 1 ? CHALLENGE_RESULTS_VOTE_TYPES.REMAIN : CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
+          }
+          userVotingSummaryContent = (
+            <UserVotingSummary choice={userChoice} numTokens={getFormattedTokenBalance(numTokens!)} />
+          );
+        }
+      } else {
+        userVotingSummaryContent = <>You did not reveal your vote</>;
+      }
+      userVotingSummary = (
+        <StyledDashbaordActvityItemSection>
+          <StyledDashbaordActvityItemHeader>Your Voting Summary</StyledDashbaordActvityItemHeader>
+          <StyledDashbaordActvityItemSectionInner>{userVotingSummaryContent}</StyledDashbaordActvityItemSectionInner>
+        </StyledDashbaordActvityItemSection>
       );
     }
 
-    return <></>;
+    challengeResults = (
+      <>
+        {label}
+        {userVotingSummary}
+        <StyledDashbaordActvityItemSection>
+          <StyledDashbaordActvityItemHeader>Community Voting Summary</StyledDashbaordActvityItemHeader>
+          <StyledDashbaordActvityItemSectionInner>
+            <WinningChallengeResults
+              challengeID={challengeID}
+              appealChallengeID={appealChallengeID}
+              displayExplanation={displayChallengeResultsExplanation}
+            />
+          </StyledDashbaordActvityItemSectionInner>
+        </StyledDashbaordActvityItemSection>
+      </>
+    );
+
+    return (
+      <>
+        {phaseCountdownType && <PhaseCountdownTimer phaseType={phaseCountdownType} challenge={challenge} />}
+        {displayChallengeResults && challengeResults}
+      </>
+    );
   };
 }
 
 const makeMapStateToProps = () => {
-  const getListing = makeGetListing();
+  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
+  const getListingAddressByAppealChallengeID = makeGetListingAddressByAppealChallengeID();
+  const getUserChallengeData = makeGetUserChallengeData();
+  const getUserAppealChallengeData = makeGetUserAppealChallengeData();
+  const getAppealChallengeState = makeGetAppealChallengeState();
 
   const mapStateToProps = (
     state: State,
     ownProps: ActivityListItemOwnProps,
-  ): ActivityListItemReduxProps & ActivityListItemOwnProps => {
+  ): ActivityListItemOwnProps & ActivityListItemReduxProps => {
     const { newsrooms } = state;
-    const { user, content } = state.networkDependent;
-    const newsroom = ownProps.listingAddress ? newsrooms.get(ownProps.listingAddress) : undefined;
-    const listing = getListing(state, ownProps);
+    const { user, content, listings, listingsFetching } = state.networkDependent;
+    const userAcct = user && user.account.account;
+
+    let listingAddress;
+    let userChallengeData;
+    let challenge;
+    let appealChallenge;
+    let challengeState;
+    let challengeID = ownProps.challengeID;
+
+    if (ownProps.appealChallengeID) {
+      listingAddress = getListingAddressByAppealChallengeID(state, ownProps);
+      userChallengeData = getUserAppealChallengeData(state, ownProps);
+      appealChallenge = getAppealChallenge(state, ownProps);
+      challengeState = getAppealChallengeState(state, ownProps);
+      challengeID = getAppealChallengeParentChallengeID(state, ownProps);
+    } else {
+      listingAddress = getListingAddressByChallengeID(state, ownProps);
+      userChallengeData = getUserChallengeData(state, ownProps);
+      challenge = getChallenge(state, ownProps);
+      challengeState = getChallengeState(challenge!);
+    }
+
+    const listing = (listingAddress && listings.get(listingAddress)) as ListingWrapperWithExpiry | undefined;
+    const newsroom = listingAddress ? newsrooms.get(listingAddress) : undefined;
     let charter;
     if (newsroom && newsroom.wrapper.data.charterHeader) {
       charter = content.get(newsroom.wrapper.data.charterHeader.uri) as CharterData;
     }
-    let userAcct = ownProps.user;
-    if (!userAcct) {
-      userAcct = user.account.account;
+    let listingDataRequestStatus;
+    if (listingAddress) {
+      listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
     }
 
     return {
+      listingAddress,
+      challengeID,
+      challenge,
+      appealChallenge,
+      challengeState,
+      userChallengeData,
+      user: userAcct,
+      listingDataRequestStatus,
       newsroom,
       charter,
-      listing,
-      listingPhaseState: getListingPhaseState(listing),
+      listing: listing && listing.listing,
       ...ownProps,
     };
   };
@@ -209,55 +341,4 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export const MyTasksItem = connect(makeMapStateToProps)(MyTasksItemComponent);
-
-const makeChallengeMapStateToProps = () => {
-  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
-  const getUserChallengeData = makeGetUserChallengeData();
-  const getUnclaimedRewardAmount = makeGetUnclaimedRewardAmount();
-
-  const mapStateToProps = (state: State, ownProps: ChallengeActivityListItemOwnProps): ActivityListItemOwnProps => {
-    const listingAddress = getListingAddressByChallengeID(state, ownProps);
-    const challenge = getChallenge(state, ownProps);
-    const userChallengeData = getUserChallengeData(state, ownProps);
-    const unclaimedRewardAmountBN = getUnclaimedRewardAmount(state, ownProps);
-    const challengeState = getChallengeState(challenge!);
-    const { even, user } = ownProps;
-    const { listingsFetching } = state.networkDependent;
-    let listingDataRequestStatus;
-    if (listingAddress) {
-      listingDataRequestStatus = listingsFetching.get(listingAddress.toString());
-    }
-
-    let unclaimedRewardAmount = "";
-    if (unclaimedRewardAmountBN) {
-      unclaimedRewardAmount = getFormattedTokenBalance(unclaimedRewardAmountBN);
-    }
-
-    return {
-      listingAddress,
-      challenge,
-      challengeState,
-      userChallengeData,
-      unclaimedRewardAmount,
-      even,
-      user,
-      listingDataRequestStatus,
-    };
-  };
-
-  return mapStateToProps;
-};
-
-/**
- * Container that renders a listing associated with the specified `ChallengeID`
- */
-export class ChallengeListingItemComponent extends React.Component<
-  ChallengeActivityListItemOwnProps & ActivityListItemOwnProps
-> {
-  public render(): JSX.Element {
-    return <MyTasksItem {...this.props} />;
-  }
-}
-
-export default connect(makeChallengeMapStateToProps)(ChallengeListingItemComponent);
+export default connect(makeMapStateToProps)(MyTasksItemComponent);

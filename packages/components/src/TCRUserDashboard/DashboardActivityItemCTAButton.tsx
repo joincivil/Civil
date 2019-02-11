@@ -3,21 +3,21 @@ import * as React from "react";
 import { buttonSizes, InvertedButton } from "../Button";
 
 import { DashboardActivityItemCTAButtonProps } from "./DashboardTypes";
-// import { StyledDashboardActivityItemTitle } from "./styledComponents";
 
 const DashboardActivityItemCTAButton: React.SFC<DashboardActivityItemCTAButtonProps> = props => {
   const {
     listingDetailURL,
-    inChallengeCommitVotePhase,
-    inChallengeRevealPhase,
-    isAwaitingAppealRequest,
+    inCommitPhase,
+    inRevealPhase,
+    canRequestAppeal,
     canResolveChallenge,
     isAwaitingAppealChallenge,
     canListingAppealBeResolved,
-    isInAppealChallengeCommitPhase,
-    isInAppealChallengeRevealPhase,
+    isAppealChallengeInCommitStage,
+    isAppealChallengeInRevealStage,
     canListingAppealChallengeBeResolved,
     didUserCommit,
+    didUserReveal,
     canUserCollect,
     canUserRescue,
     onClick,
@@ -25,34 +25,35 @@ const DashboardActivityItemCTAButton: React.SFC<DashboardActivityItemCTAButtonPr
 
   let buttonText;
 
-  if (inChallengeCommitVotePhase || isInAppealChallengeCommitPhase && didUserCommit) {
+  if (inCommitPhase) {
     buttonText = "Change Vote";
-  } else if (inChallengeRevealPhase || isInAppealChallengeRevealPhase) {
+  } else if (isAppealChallengeInCommitStage && didUserCommit) {
+    buttonText = "Commit Vote";
+  } else if ((!didUserReveal && inRevealPhase) || isAppealChallengeInRevealStage) {
     buttonText = "Reveal Vote";
-  } else if (isAwaitingAppealRequest) {
+  } else if (canRequestAppeal) {
     buttonText = "Request Appeal";
-  } else if (canResolveChallenge) {
+  } else if (canResolveChallenge || canListingAppealChallengeBeResolved) {
     buttonText = "Resolve Challenge";
   } else if (isAwaitingAppealChallenge) {
     buttonText = "Challenge Granted Appeal";
-  } else if (isAwaitingAppealChallenge) {
+  } else if (canListingAppealBeResolved) {
     buttonText = "Resolve Appeal";
   } else if (canUserCollect) {
     buttonText = "Claim Rewards";
   } else if (canUserRescue) {
     buttonText = "Rescue Tokens";
   }
-  console.log(props);
 
   if ((!listingDetailURL && !onClick) || !buttonText) {
     return <></>;
   }
 
   let actionProp = {};
-  if (listingDetailURL) {
-    actionProp = { to: listingDetailURL };
-  } else if (onClick) {
+  if (onClick) {
     actionProp = { onClick };
+  } else if (listingDetailURL) {
+    actionProp = { to: listingDetailURL };
   }
 
   return (

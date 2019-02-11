@@ -8,21 +8,25 @@ export interface DashboardActivityItemTitleProps {
 
 export interface DashboardActivityItemCTAButtonProps {
   listingDetailURL?: string;
-  inChallengeCommitVotePhase: boolean;
-  inChallengeRevealPhase: boolean;
-  isAwaitingAppealRequest: boolean;
+  inCommitPhase: boolean;
+  inRevealPhase: boolean;
+  canRequestAppeal: boolean;
   canResolveChallenge: boolean;
   isAwaitingAppealChallenge: boolean;
   canListingAppealBeResolved: boolean;
-  isInAppealChallengeCommitPhase: boolean;
-  isInAppealChallengeRevealPhase: boolean;
+  isAppealChallengeInCommitStage: boolean;
+  isAppealChallengeInRevealStage: boolean;
   canListingAppealChallengeBeResolved: boolean;
   didUserCommit?: boolean;
+  didUserReveal?: boolean;
   canUserCollect?: boolean;
   canUserRescue?: boolean;
   onClick?(): void;
 }
 
-export type DashboardActivityItemProps = DashboardActivityItemLogo &
-  DashboardActivityItemTitleProps &
-  DashboardActivityItemCTAButtonProps;
+export interface DashboardActivityItemProps
+  extends DashboardActivityItemLogo,
+    DashboardActivityItemTitleProps,
+    DashboardActivityItemCTAButtonProps {
+  viewDetailURL?: string;
+}
