@@ -56,7 +56,9 @@ export const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
 
   & > span {
     color: ${props =>
-      props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN ? colors.accent.CIVIL_TEAL : colors.accent.CIVIL_RED};
+      props.vote === CHALLENGE_RESULTS_VOTE_TYPES.REMAIN || props.vote === CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD
+        ? colors.accent.CIVIL_TEAL
+        : colors.accent.CIVIL_RED};
     margin-right: 4px;
   ]
 `;
@@ -73,4 +75,24 @@ export const StyledExplainerText = styled.p`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-size: 14px;
   line-height: 20px;
+`;
+
+// User Voting Summary
+export const UserVotingSummaryContainer = styled.div`
+  display: flex;
+`;
+
+export const UserVotingSummaryColumn = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  width: 50%;
+`;
+
+export const UserVotingSummaryColHeader = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 12px
+  font-weight: 800;
+  letter-spacing: 0.93px;
+  line-height: 15px;
+  margin: 0 0 10px;
+  text-transform: uppercase;
 `;
