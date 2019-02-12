@@ -42,7 +42,6 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
     const { topicIdx, slideIdx, activeSection } = this.state;
     const lastTopic = topicIdx === this.props.totalTopics ? true : false;
 
-    console.log({ topicIdx, slideIdx, activeSection });
     switch (activeSection) {
       case "intro":
         return (

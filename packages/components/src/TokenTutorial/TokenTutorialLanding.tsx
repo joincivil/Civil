@@ -74,7 +74,6 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
         </TutorialSkipSection>
 
         {TutorialContent.map((topic, idx) => {
-          console.log("???", this.props.quizPayload, this.props);
           const { isComplete, lastSlideIdx } = this.getTopicStatus(this.props.quizPayload, topic);
 
           // TODO(jorgelo): We should do something with these.
@@ -115,24 +114,16 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
       TutorialContent.forEach(t => {
         if (!allQuizesComplete) {
-          console.log("state1", t.quizId, "skip");
           return;
         }
 
         if (t.quizId === topic) {
           allQuizesComplete = isComplete;
-
-          console.log("state2", t.quizId, { isComplete });
           return;
         }
 
         allQuizesComplete = (quizPayload as any)[t.quizId] && (quizPayload as any)[t.quizId].isComplete;
-
-        console.log("state3", t.quizId, { allQuizesComplete, quizPayload });
       });
-
-      console.log("state4", { isComplete, allQuizesComplete });
-
       updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } }, allQuizesComplete ? "complete" : undefined);
     } else {
       updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } });
