@@ -53,7 +53,11 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
               <>
                 <TokenAirswapFoundationText />
                 <UsdEthCvlConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
-                <AirswapBuyCVL buyCVLBtnText={<TokenBuyFoundationBtnText />} />
+                <AirswapBuyCVL
+                  network={props.network}
+                  buyCVLBtnText={<TokenBuyFoundationBtnText />}
+                  buyFromAddress={props.foundationAddress}
+                />
               </>
 
               <TokenOrBreak>
@@ -62,11 +66,7 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
 
               <TokenExchangeSection>
                 <TokenAirswapExchangeText />
-                <AirswapBuyCVL
-                  network={props.network}
-                  buyCVLBtnText={<TokenBuyExchangeBtnText />}
-                  buyFromAddress={props.foundationAddress}
-                />
+                <AirswapBuyCVL network={props.network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
               </TokenExchangeSection>
             </TokenAirswapSection>
           </TokenBuySection>
