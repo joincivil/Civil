@@ -5,6 +5,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
 import { EthAddress } from "@joincivil/core";
 import {
+  colors,
   Tabs,
   Tab,
   DashboardActivity as DashboardActivityComponent,
@@ -39,6 +40,9 @@ import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import DepositTokens from "./DepositTokens";
 
 const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
+const SUB_TABS: { [index: string]: string[] } = {
+  tasks: ["all", "reveal-vote", "claim-rewards", "rescue-tokens", "transfer-voting-tokens"],
+};
 
 export interface DashboardActivityProps {
   match?: any;
@@ -65,7 +69,9 @@ export interface ChallengesToProcess {
 
 export interface DashboardActivityState {
   isNoMobileTransactionVisible: boolean;
-  activeTasksTab: number;
+  showTransferTokensMsg: boolean;
+  activeTabIndex: number;
+  activeSubTabIndex: number;
 }
 
 const StyledTabsComponent = styled.div`
@@ -77,6 +83,18 @@ export const StyledBatchButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 12px 0 36px;
+`;
+
+const StyledTransferMessage = styled.div`
+  background: ${colors.accent.CIVIL_RED_VERY_FADED};
+  border-radius: 4px;
+  border: 1px solid ${colors.accent.CIVIL_RED};
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 14px;
+  line-height: 20px;
+  margin: 24px 33px 20px;
+  padding: 11px 28px 13px;
+  text-align: center;
 `;
 
 // We're storing which challenges to multi-claim in the state of this component, because
@@ -118,23 +136,33 @@ class DashboardActivity extends React.Component<
     super(props);
     this.state = {
       isNoMobileTransactionVisible: false,
-      activeTasksTab: 0,
+      showTransferTokensMsg: true,
+      activeTabIndex: 0,
+      activeSubTabIndex: 0,
     };
   }
 
-  public render(): JSX.Element {
-    const { activeDashboardTab } = this.props.match.params;
-    let activeIndex = 0;
+  public componentWillMount(): void {
+    const { activeDashboardTab, activeDashboardSubTab } = this.props.match.params;
+    const tabState: Partial<DashboardActivityState> = {};
     if (activeDashboardTab) {
-      activeIndex = TABS.indexOf(activeDashboardTab) || 0;
+      tabState.activeTabIndex = TABS.indexOf(activeDashboardTab) || 0;
+      const subTabs = SUB_TABS[activeDashboardTab];
+      if (activeDashboardSubTab && subTabs) {
+        tabState.activeSubTabIndex = subTabs.indexOf(activeDashboardSubTab) || 0;
+      }
     }
+    this.setState({ ...this.state, ...tabState });
+  }
+
+  public render(): JSX.Element {
     return (
       <DashboardActivityComponent
         userVotes={this.renderUserVotes()}
         userNewsrooms={this.renderUserNewsrooms()}
         userChallenges={this.renderUserChallenges()}
-        activeIndex={activeIndex}
-        onTabChange={this.onTabChange}
+        activeIndex={this.state.activeTabIndex}
+        onTabChange={this.setActiveTabIndex}
       />
     );
   }
@@ -184,18 +212,18 @@ class DashboardActivity extends React.Component<
         <Tabs
           TabComponent={StyledDashboardSubTab}
           TabsNavComponent={StyledTabsComponent}
-          activeIndex={this.state.activeTasksTab}
-          onActiveTabChange={this.setActiveTasksTab}
+          activeIndex={this.state.activeSubTabIndex}
+          onActiveTabChange={this.setActiveSubTabIndex}
         >
           <Tab title={allVotesTabTitle}>
             <MyTasks
               challenges={currentUserChallengesVotedOn}
               appealChallenges={currentUserAppealChallengesVotedOn}
               showClaimRewardsTab={() => {
-                this.setActiveTasksTab(2);
+                this.setActiveSubTabIndex(2);
               }}
               showRescueTokensTab={() => {
-                this.setActiveTasksTab(3);
+                this.setActiveSubTabIndex(3);
               }}
             />
           </Tab>
@@ -221,6 +249,8 @@ class DashboardActivity extends React.Component<
           </Tab>
           <Tab title={<SubTabReclaimTokensText />}>
             <>
+              {/* TODO(jon): the value of `showTransferTokensMsg` should be populated from the TokenController */}
+              {this.state.showTransferTokensMsg && this.renderTransferTokensMsg()}
               <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
               <DepositTokens />
             </>
@@ -231,13 +261,16 @@ class DashboardActivity extends React.Component<
     );
   };
 
-  private setActiveTasksTab = (activeTasksTabIndex: number): void => {
-    this.setState({ activeTasksTab: activeTasksTabIndex });
+  private setActiveTabIndex = (activeTabIndex: number): void => {
+    const tabName = TABS[activeTabIndex];
+    this.props.history.push(`/dashboard/${tabName}`);
   };
 
-  private onTabChange = (activeIndex: number = 0): void => {
-    const tabName = TABS[activeIndex];
-    this.props.history.push(`/dashboard/${tabName}`);
+  private setActiveSubTabIndex = (activeSubTabIndex: number): void => {
+    const tabName = TABS[this.state.activeTabIndex];
+    const subTabName = SUB_TABS[tabName][activeSubTabIndex];
+    this.setState({ activeSubTabIndex });
+    this.props.history.push(`/dashboard/${tabName}/${subTabName}`);
   };
 
   private showNoMobileTransactionsModal = (): void => {
@@ -247,6 +280,15 @@ class DashboardActivity extends React.Component<
   private hideNoMobileTransactionsModal = (): void => {
     this.setState({ isNoMobileTransactionVisible: false });
   };
+
+  private renderTransferTokensMsg(): JSX.Element {
+    return (
+      <StyledTransferMessage>
+        Unlock your account by transfering at least 50% of your <b>available tokens</b> into your <b>voting balance</b>.
+        Unlocking your account allow you to sell Civil tokens.
+      </StyledTransferMessage>
+    );
+  }
 
   private renderNoMobileTransactions(): JSX.Element {
     if (this.state.isNoMobileTransactionVisible) {

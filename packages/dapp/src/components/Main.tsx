@@ -122,7 +122,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/create-newsroom" component={CreateNewsroom} />
           <Route path="/signupNewsroom" component={SignUpNewsroom} />
           <Route path="/government" component={Government} />
-          <Route path="/dashboard/:activeDashboardTab" component={Dashboard} />
+          <Route path="/dashboard/:activeDashboardTab/:activeDashboardSubTab" component={Dashboard} />
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/account" component={AccountRouter} />
           <Route path="/tokens" component={Tokens} />
