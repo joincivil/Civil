@@ -233,8 +233,6 @@ export async function setCurrentUser(input: Partial<SetCurrentUserInput>): Promi
       query: getCurrentUserQuery,
       data: { currentUser: data.userUpdate },
     });
-
-    console.log("writeQuery", { currentUser: data.userUpdate });
   } catch (err) {
     console.error("Error setCurrentUser", { err, input });
   }
@@ -252,7 +250,7 @@ export async function updateQuizPayload(fields: {}, newQuizStatus?: string): Pro
   const user = await getCurrentUser();
 
   if (!user) {
-    console.error("no user?", { user });
+    console.error("No user?", { user });
     return;
   }
 
