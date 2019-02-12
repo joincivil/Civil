@@ -167,9 +167,12 @@ export async function userSetEthAddress(sig: EthSignedMessage): Promise<EthAddre
   }
 }
 
-const getCurrentUserQuery = gql`
+export const getCurrentUserQuery = gql`
   query {
     currentUser {
+      uid
+      email
+      ethAddress
       quizPayload
       quizStatus
     }
@@ -200,6 +203,9 @@ export async function getCurrentUser(): Promise<any> {
 const setCurrentUserQuery = gql`
   mutation SetCurrentUser($input: UserUpdateInput!) {
     userUpdate(input: $input) {
+      uid
+      email
+      ethAddress
       quizPayload
       quizStatus
     }
@@ -209,17 +215,26 @@ const setCurrentUserQuery = gql`
 // TODO(jorgelo): There should be a better interface for all "user" related input fields.
 export interface SetCurrentUserInput {
   quizPayload: {};
-  quizStatus: "hello";
+  quizStatus: "completed" | undefined;
 }
 
-export async function setCurrentUser(input: Partial<SetCurrentUserInput>): Promise<any> {
+export async function setCurrentUser(input: Partial<SetCurrentUserInput>): Promise<void> {
   try {
-    const { data } = await client.mutate({
+    const { data, error } = await client.mutate({
       mutation: setCurrentUserQuery,
       variables: { input },
     });
 
-    return data;
+    if (error) {
+      throw error;
+    }
+
+    client.cache.writeQuery({
+      query: getCurrentUserQuery,
+      data: { currentUser: data.userUpdate },
+    });
+
+    console.log("writeQuery", { currentUser: data.userUpdate });
   } catch (err) {
     console.error("Error setCurrentUser", { err, input });
   }
@@ -230,6 +245,20 @@ export function resetApolloStore(): void {
     return;
   }
 
-  // TODO(jorgelo): Don't refresh all the data, only to do with currentUser. If this makes it to the PR Jorge needs a slapping.
   client.resetStore();
+}
+
+export async function updateQuizPayload(fields: {}): Promise<any> {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    console.error("no user?", { user });
+    return;
+  }
+
+  const { quizPayload = {} } = user;
+
+  const newQuizPayload = { ...quizPayload, ...fields };
+
+  await setCurrentUser({ quizPayload: newQuizPayload });
 }

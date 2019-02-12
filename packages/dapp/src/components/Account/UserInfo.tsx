@@ -1,26 +1,13 @@
 import * as React from "react";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import { setCurrentUser, getCurrentUser, resetApolloStore } from "@joincivil/utils";
-
-const userQuery = gql`
-  query {
-    currentUser {
-      uid
-      email
-      ethAddress
-      quizPayload
-      quizStatus
-    }
-  }
-`;
+import { updateQuizPayload, getCurrentUserQuery } from "@joincivil/utils";
 
 export class UserInfo extends React.Component {
   public render(): JSX.Element {
     return (
       <>
         <h1>Account Home</h1>
-        <Query query={userQuery}>
+        <Query query={getCurrentUserQuery}>
           {({ loading, error, data }) => {
             if (loading) {
               return "Loading...";
@@ -37,7 +24,7 @@ export class UserInfo extends React.Component {
                 <button
                   onClick={async () => {
                     console.log("click");
-                    await this.updateQuizPayload(fields);
+                    await updateQuizPayload(fields);
                   }}
                 >
                   Click
@@ -48,22 +35,5 @@ export class UserInfo extends React.Component {
         </Query>
       </>
     );
-  }
-
-  public async updateQuizPayload(fields: {}): Promise<any> {
-    const user = await getCurrentUser();
-
-    if (!user) {
-      console.log("no user?", { user });
-      return;
-    }
-
-    const { quizPayload } = user;
-
-    const newQuizPayload = { ...quizPayload, ...fields };
-
-    await setCurrentUser({ quizPayload: newQuizPayload });
-
-    resetApolloStore();
   }
 }
