@@ -1,21 +1,14 @@
 import * as React from "react";
+
+import { DashboardActivitySelectableItemProps } from "./DashboardTypes";
+import DashboardActivityItemTitle from "./DashboardActivityItemTitle";
 import {
   StyledDashboardActivityItem,
   StyledChallengeIDKicker,
   StyledItemCheckboxContainer,
   StyledDashboardActivityItemDetails,
-  StyledNewsroomName,
   StyledNumTokensContainer,
 } from "./styledComponents";
-
-export interface DashboardActivitySelectableItemProps {
-  newsroomName: string;
-  numTokens: string;
-  challengeID?: string;
-  appealChallengeID?: string;
-  salt?: any;
-  toggleSelect?(challengeID: string, isSelected: boolean, salt: any): void;
-}
 
 const ItemCheckbox: React.SFC<DashboardActivitySelectableItemProps> = props => {
   const challengeID = props.appealChallengeID || props.challengeID;
@@ -43,7 +36,7 @@ export const DashboardActivitySelectableItem: React.SFC<DashboardActivitySelecta
 
       <StyledDashboardActivityItemDetails>
         <StyledChallengeIDKicker>{challengeIDDisplay}</StyledChallengeIDKicker>
-        <StyledNewsroomName>{props.newsroomName}</StyledNewsroomName>
+        <DashboardActivityItemTitle title={props.title} viewDetailURL={props.viewDetailURL} />
         {props.children}
       </StyledDashboardActivityItemDetails>
 

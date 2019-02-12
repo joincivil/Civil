@@ -41,3 +41,8 @@ export interface VoteTypeLabelProps {
 export interface VoteTypeColorProps {
   [index: string]: string;
 }
+
+export interface UserVotingSummaryProps {
+  choice: string;
+  numTokens: string;
+}

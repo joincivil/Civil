@@ -5,6 +5,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
 import { EthAddress } from "@joincivil/core";
 import {
+  colors,
   Tabs,
   Tab,
   DashboardActivity as DashboardActivityComponent,
@@ -25,18 +26,23 @@ import {
   getUserChallengesWithRescueTokens,
   getChallengesStartedByUser,
   getChallengesVotedOnByUser,
+  getAppealChallengesVotedOnByUser,
   getUserAppealChallengesWithRescueTokens,
   getUserAppealChallengesWithUnrevealedVotes,
   getUserAppealChallengesWithUnclaimedRewards,
 } from "../../selectors";
 
 import ActivityList from "./ActivityList";
+import MyTasks from "./MyTasks";
 import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import DepositTokens from "./DepositTokens";
 
 const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
+const SUB_TABS: { [index: string]: string[] } = {
+  tasks: ["all", "reveal-vote", "claim-rewards", "rescue-tokens", "transfer-voting-tokens"],
+};
 
 export interface DashboardActivityProps {
   match?: any;
@@ -46,6 +52,7 @@ export interface DashboardActivityProps {
 export interface DashboardActivityReduxProps {
   currentUserNewsrooms: Set<string>;
   currentUserChallengesVotedOn: Set<string>;
+  currentUserAppealChallengesVotedOn?: Set<string>;
   currentUserChallengesStarted: Set<string>;
   userChallengesWithUnclaimedRewards?: Set<string>;
   userChallengesWithUnrevealedVotes?: Set<string>;
@@ -62,6 +69,9 @@ export interface ChallengesToProcess {
 
 export interface DashboardActivityState {
   isNoMobileTransactionVisible: boolean;
+  showTransferTokensMsg: boolean;
+  activeTabIndex: number;
+  activeSubTabIndex: number;
 }
 
 const StyledTabsComponent = styled.div`
@@ -73,6 +83,18 @@ export const StyledBatchButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 12px 0 36px;
+`;
+
+const StyledTransferMessage = styled.div`
+  background: ${colors.accent.CIVIL_RED_VERY_FADED};
+  border-radius: 4px;
+  border: 1px solid ${colors.accent.CIVIL_RED};
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 14px;
+  line-height: 20px;
+  margin: 24px 33px 20px;
+  padding: 11px 28px 13px;
+  text-align: center;
 `;
 
 // We're storing which challenges to multi-claim in the state of this component, because
@@ -114,22 +136,33 @@ class DashboardActivity extends React.Component<
     super(props);
     this.state = {
       isNoMobileTransactionVisible: false,
+      showTransferTokensMsg: true,
+      activeTabIndex: 0,
+      activeSubTabIndex: 0,
     };
   }
 
-  public render(): JSX.Element {
-    const { activeDashboardTab } = this.props.match.params;
-    let activeIndex = 0;
+  public componentWillMount(): void {
+    const { activeDashboardTab, activeDashboardSubTab } = this.props.match.params;
+    const tabState: Partial<DashboardActivityState> = {};
     if (activeDashboardTab) {
-      activeIndex = TABS.indexOf(activeDashboardTab) || 0;
+      tabState.activeTabIndex = TABS.indexOf(activeDashboardTab) || 0;
+      const subTabs = SUB_TABS[activeDashboardTab];
+      if (activeDashboardSubTab && subTabs) {
+        tabState.activeSubTabIndex = subTabs.indexOf(activeDashboardSubTab) || 0;
+      }
     }
+    this.setState({ ...this.state, ...tabState });
+  }
+
+  public render(): JSX.Element {
     return (
       <DashboardActivityComponent
         userVotes={this.renderUserVotes()}
         userNewsrooms={this.renderUserNewsrooms()}
         userChallenges={this.renderUserChallenges()}
-        activeIndex={activeIndex}
-        onTabChange={this.onTabChange}
+        activeIndex={this.state.activeTabIndex}
+        onTabChange={this.setActiveTabIndex}
       />
     );
   }
@@ -145,6 +178,7 @@ class DashboardActivity extends React.Component<
   private renderUserVotes = (): JSX.Element => {
     const {
       currentUserChallengesVotedOn,
+      currentUserAppealChallengesVotedOn,
       userChallengesWithUnclaimedRewards,
       userChallengesWithUnrevealedVotes,
       userChallengesWithRescueTokens,
@@ -152,7 +186,11 @@ class DashboardActivity extends React.Component<
       userAppealChallengesWithUnrevealedVotes,
       userAppealChallengesWithUnclaimedRewards,
     } = this.props;
-    const allVotesTabTitle = <AllChallengesDashboardTabTitle count={currentUserChallengesVotedOn.count()} />;
+    const allVotesTabTitle = (
+      <AllChallengesDashboardTabTitle
+        count={currentUserChallengesVotedOn.count() + currentUserAppealChallengesVotedOn!.count()}
+      />
+    );
     const revealVoteTabTitle = (
       <RevealVoteDashboardTabTitle
         count={userChallengesWithUnrevealedVotes!.count() + userAppealChallengesWithUnrevealedVotes!.count()}
@@ -171,9 +209,23 @@ class DashboardActivity extends React.Component<
 
     return (
       <>
-        <Tabs TabComponent={StyledDashboardSubTab} TabsNavComponent={StyledTabsComponent}>
+        <Tabs
+          TabComponent={StyledDashboardSubTab}
+          TabsNavComponent={StyledTabsComponent}
+          activeIndex={this.state.activeSubTabIndex}
+          onActiveTabChange={this.setActiveSubTabIndex}
+        >
           <Tab title={allVotesTabTitle}>
-            <ActivityList challenges={currentUserChallengesVotedOn} />
+            <MyTasks
+              challenges={currentUserChallengesVotedOn}
+              appealChallenges={currentUserAppealChallengesVotedOn}
+              showClaimRewardsTab={() => {
+                this.setActiveSubTabIndex(2);
+              }}
+              showRescueTokensTab={() => {
+                this.setActiveSubTabIndex(3);
+              }}
+            />
           </Tab>
           <Tab title={revealVoteTabTitle}>
             <ActivityList
@@ -197,6 +249,8 @@ class DashboardActivity extends React.Component<
           </Tab>
           <Tab title={<SubTabReclaimTokensText />}>
             <>
+              {/* TODO(jon): the value of `showTransferTokensMsg` should be populated from the TokenController */}
+              {this.state.showTransferTokensMsg && this.renderTransferTokensMsg()}
               <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
               <DepositTokens />
             </>
@@ -207,9 +261,16 @@ class DashboardActivity extends React.Component<
     );
   };
 
-  private onTabChange = (activeIndex: number = 0): void => {
-    const tabName = TABS[activeIndex];
+  private setActiveTabIndex = (activeTabIndex: number): void => {
+    const tabName = TABS[activeTabIndex];
     this.props.history.push(`/dashboard/${tabName}`);
+  };
+
+  private setActiveSubTabIndex = (activeSubTabIndex: number): void => {
+    const tabName = TABS[this.state.activeTabIndex];
+    const subTabName = SUB_TABS[tabName][activeSubTabIndex];
+    this.setState({ activeSubTabIndex });
+    this.props.history.push(`/dashboard/${tabName}/${subTabName}`);
   };
 
   private showNoMobileTransactionsModal = (): void => {
@@ -219,6 +280,15 @@ class DashboardActivity extends React.Component<
   private hideNoMobileTransactionsModal = (): void => {
     this.setState({ isNoMobileTransactionVisible: false });
   };
+
+  private renderTransferTokensMsg(): JSX.Element {
+    return (
+      <StyledTransferMessage>
+        Unlock your account by transfering at least 50% of your <b>available tokens</b> into your <b>voting balance</b>.
+        Unlocking your account allow you to sell Civil tokens.
+      </StyledTransferMessage>
+    );
+  }
 
   private renderNoMobileTransactions(): JSX.Element {
     if (this.state.isNoMobileTransactionVisible) {
@@ -239,6 +309,7 @@ const mapStateToProps = (
 ): DashboardActivityProps & DashboardActivityReduxProps => {
   const { currentUserNewsrooms, user } = state.networkDependent;
   const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
+  const currentUserAppealChallengesVotedOn = getAppealChallengesVotedOnByUser(state);
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
   const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
   const userAppealChallengesWithUnclaimedRewards = getUserAppealChallengesWithUnclaimedRewards(state);
@@ -251,6 +322,7 @@ const mapStateToProps = (
   return {
     currentUserNewsrooms,
     currentUserChallengesVotedOn,
+    currentUserAppealChallengesVotedOn,
     currentUserChallengesStarted,
     userChallengesWithUnclaimedRewards,
     userChallengesWithUnrevealedVotes,

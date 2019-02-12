@@ -50,7 +50,7 @@ class ActivityListItemRescueTokensComponent extends React.Component<
     const newsroomData = newsroom.wrapper.data;
 
     const props = {
-      newsroomName: newsroomData.name,
+      title: newsroomData.name,
       challengeID,
       appealChallengeID,
       salt: this.props.userChallengeData && this.props.userChallengeData.salt,
