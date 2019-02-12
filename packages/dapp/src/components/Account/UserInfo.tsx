@@ -23,7 +23,7 @@ export class UserInfo extends React.Component {
                 <pre>{JSON.stringify(data, null, 2)}</pre>
                 <button
                   onClick={async () => {
-                    console.log("click");
+                    // This is used to test if the cache is being cleared correctly.
                     await updateQuizPayload(fields);
                   }}
                 >
