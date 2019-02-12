@@ -248,7 +248,7 @@ export function resetApolloStore(): void {
   client.resetStore();
 }
 
-export async function updateQuizPayload(fields: {}): Promise<any> {
+export async function updateQuizPayload(fields: {}, newQuizStatus?: string): Promise<any> {
   const user = await getCurrentUser();
 
   if (!user) {
@@ -256,9 +256,9 @@ export async function updateQuizPayload(fields: {}): Promise<any> {
     return;
   }
 
-  const { quizPayload = {} } = user;
+  const { quizPayload = {}, quizStatus } = user;
 
-  const newQuizPayload = { ...quizPayload, ...fields };
+  const updateParams = { quizPayload: { ...quizPayload, ...fields }, quizStatus: newQuizStatus || quizStatus };
 
-  await setCurrentUser({ quizPayload: newQuizPayload });
+  await setCurrentUser(updateParams);
 }

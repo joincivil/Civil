@@ -5,7 +5,6 @@ import { TutorialInfo } from "../Tutorial/TutorialInfo";
 import { TutorialQuestion } from "../Tutorial/TutorialQuestion";
 import { TutorialTopicCompleted } from "../Tutorial/TutorialTopicCompleted";
 import { TutorialContain } from "./TokenTutorialStyledComponents";
-import { updateQuizPayload } from "@joincivil/utils";
 
 export interface TokenTutorialQuizProps {
   topicIdx: number;
@@ -13,6 +12,7 @@ export interface TokenTutorialQuizProps {
   activeSection: string;
   skipTutorial: boolean;
   handleClose(): void;
+  handleSaveQuizState(topic: string, lastSlideIdx: number, isComplete: boolean): void;
 }
 
 export interface TokenTutorialQuizStates {
@@ -146,21 +146,16 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
             quizSlide: this.state.quizSlide + 1,
             resetQuestion: false,
           });
-          this.saveCompletedSection(TutorialContent[this.state.topicIdx].quizId, this.state.slideIdx, false);
+          this.props.handleSaveQuizState(TutorialContent[this.state.topicIdx].quizId, this.state.slideIdx, false);
         } else {
           this.setState({ slideIdx: 0, activeSection: "completed" });
-          this.saveCompletedSection(TutorialContent[this.state.topicIdx].quizId, this.state.slideIdx, true);
+          this.props.handleSaveQuizState(TutorialContent[this.state.topicIdx].quizId, this.state.slideIdx, true);
         }
         break;
       default:
         this.setState({ slideIdx: 0, activeSection: "intro" });
     }
   };
-
-  private saveCompletedSection(topic: string, lastSlideIdx: number, isComplete: boolean): void {
-    console.log("saveCompletedSection", { topic, isComplete, lastSlideIdx });
-    updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } });
-  }
 
   private skipTutorial = () => {
     this.setState({ slideIdx: 0, activeSection: "quiz" });
