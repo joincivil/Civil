@@ -193,7 +193,7 @@ export async function getCurrentUser(): Promise<any> {
       return null;
     }
 
-    return data.currentUser;
+    return (data as any).currentUser;
   } catch (err) {
     console.log("Error in getCurrentUser: ", { err });
     return null;

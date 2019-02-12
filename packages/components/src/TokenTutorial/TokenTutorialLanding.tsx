@@ -76,7 +76,9 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
         {TutorialContent.map((topic, idx) => {
           const { isComplete, lastSlideIdx } = this.getTopicStatus(this.props.quizPayload, topic);
 
-          // TODO(jorgelo): We should do something with these.
+          // TODO(jorgelo): What do we do when isComplete is true (this means that this topic has been completed)
+          // TODO(jorgelo): lastSlideIdx is the last slide that was completed correctly. Should we jump the user to that last slide?
+
           console.log("For topic" + topic.name, { isComplete, lastSlideIdx });
 
           return (
@@ -145,7 +147,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
     this.setState({ activeTutorialIdx: 0, tutorialActive: true, skipTutorial: true, activeSection: "quiz" });
   };
 
-  private openTutorial = (idx: number, slideIdx: number = 0) => {
+  private openTutorial = (idx: number) => {
     this.setState({ activeTutorialIdx: idx, tutorialActive: true });
   };
 }
