@@ -14,7 +14,7 @@ import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
 import PhaseCountdownOrTimestamp from "./PhaseCountdownOrTimestamp";
 import AppealJudgementBanner from "./AppealJudgementBanner";
-import ChallengeResults from "./ChallengeResults";
+import ChallengeResults, { AppealChallengeResults } from "./ChallengeResults";
 
 export interface ListingSummaryApprovedComponentProps
   extends ListingSummaryComponentProps,
@@ -46,6 +46,7 @@ export class ListingSummaryApprovedComponent extends React.Component<ListingSumm
           <NewsroomInfo {...this.props} />
 
           <ChallengeResults {...this.props} />
+          <AppealChallengeResults {...this.props} />
 
           <StyledListingSummarySection>
             <ChallengeOrAppealStatementSummary {...this.props} />

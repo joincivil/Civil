@@ -23,7 +23,7 @@ export const DashboardActivityItemTask: React.SFC<DashboardActivityItemProps> = 
       </StyledDashboardActivityItemIcon>
 
       <StyledDashboardActivityItemDetails>
-        <DashboardActivityItemTitle title={props.title} />
+        <DashboardActivityItemTitle title={props.title} viewDetailURL={props.viewDetailURL} />
         {props.children}
       </StyledDashboardActivityItemDetails>
 

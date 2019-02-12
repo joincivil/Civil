@@ -92,7 +92,7 @@ class MyTasksItemComponent extends React.Component<
     if (listing && listing.data && newsroom) {
       const newsroomData = newsroom.wrapper.data;
       const listingDetailURL = `/listing/${address}`;
-      let viewDetailURL;
+      let viewDetailURL = listingDetailURL;
       const logoUrl = charter && charter.logoUrl;
       let title = newsroomData.name;
       let onCTAButtonClick;

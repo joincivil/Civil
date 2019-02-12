@@ -1,3 +1,7 @@
+export interface DashboardActivityItemBaseProps {
+  viewDetailURL?: string;
+}
+
 export interface DashboardActivityItemLogo {
   logoUrl?: string;
 }
@@ -25,8 +29,17 @@ export interface DashboardActivityItemCTAButtonProps {
 }
 
 export interface DashboardActivityItemProps
-  extends DashboardActivityItemLogo,
+  extends DashboardActivityItemBaseProps,
+    DashboardActivityItemLogo,
     DashboardActivityItemTitleProps,
-    DashboardActivityItemCTAButtonProps {
-  viewDetailURL?: string;
+    DashboardActivityItemCTAButtonProps {}
+
+export interface DashboardActivitySelectableItemProps
+  extends DashboardActivityItemBaseProps,
+    DashboardActivityItemTitleProps {
+  numTokens: string;
+  challengeID?: string;
+  appealChallengeID?: string;
+  salt?: any;
+  toggleSelect?(challengeID: string, isSelected: boolean, salt: any): void;
 }
