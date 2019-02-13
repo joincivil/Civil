@@ -238,12 +238,12 @@ export async function setCurrentUser(input: Partial<SetCurrentUserInput>): Promi
   }
 }
 
-export function resetApolloStore(): void {
+export async function resetApolloStore(): Promise<void> {
   if (!client) {
     return;
   }
 
-  client.resetStore();
+  await client.resetStore();
 }
 
 export async function updateQuizPayload(fields: {}, newQuizStatus?: string): Promise<any> {
