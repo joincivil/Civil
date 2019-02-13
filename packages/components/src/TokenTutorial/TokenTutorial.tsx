@@ -23,7 +23,7 @@ export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTuto
       <Query query={getCurrentUserQuery}>
         {({ loading, error, data }) => {
           if (loading) {
-            return;
+            return <></>;
           }
 
           const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
