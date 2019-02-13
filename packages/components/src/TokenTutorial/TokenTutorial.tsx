@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TutorialWelcomeScreens } from "./TutorialWelcomeScreens";
 import { TokenTutorialLanding } from "./TokenTutorialLanding";
-import { getCurrentUserQuery, updateQuizPayload } from "@joincivil/utils";
+import { getCurrentUserQuery } from "@joincivil/utils";
 import { Query } from "react-apollo";
 
 export interface TokenTutorialProps {
