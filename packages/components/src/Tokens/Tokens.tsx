@@ -68,9 +68,10 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 handleOpen={this.openTutorialModal}
               />
               <UserTokenAccountBuy
-                step={"active"}
+                step={"completed"}
                 network={this.props.network}
                 foundationAddress={this.props.foundationAddress}
+                faqUrl={this.props.faqUrl}
               />
               <UserTokenAccountFaq />
             </FlexColumnsPrimary>

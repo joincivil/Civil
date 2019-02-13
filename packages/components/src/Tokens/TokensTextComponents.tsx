@@ -1,6 +1,8 @@
 import * as React from "react";
 import { HollowGreenCheck } from "../icons/HollowGreenCheck";
 
+// Signup/Connect wallet section
+
 export const TokenWelcomeText: React.SFC = props => <>Hello and welcome!</>;
 
 export const TokenSetupText: React.SFC = props => <>Let’s get you set up to use, buy and send CVL tokens.</>;
@@ -19,6 +21,8 @@ export const TokenConnectWalletCompletedText: React.SFC = props => (
 );
 
 export const TokenConnectWalletBtnText: React.SFC = props => <>Sign up or Log in to your wallet</>;
+
+// Tutorial section
 
 export const TokenVerifySectionText: React.SFC = props => (
   <>
@@ -64,6 +68,8 @@ export const TokenVerifyText: React.SFC = props => (
 
 export const TokenVerifyBtnText: React.SFC = props => <>Verify for Eligibility</>;
 
+// Buy section
+
 export const TokenBuyTextDisabled: React.SFC = props => (
   <p>Once you’ve completed the above steps, you will be eligible to buy CVL tokens.</p>
 );
@@ -106,6 +112,34 @@ export const TokenAirswapExchangeText: React.SFC = props => (
 
 export const TokenOrText: React.SFC = props => <p>or</p>;
 
+export const TokenThanksText: React.SFC<TokenTextProps> = props => (
+  <>
+    <h3>Thanks for your purchase!</h3>
+    <p>Your CVL will be deposited to your wallet address.</p>
+    <p>Please check the Dashboard to see your purchased CVL in the Available Balance.</p>
+    <p>To learn how to add Civil tokens in your MetaMask wallet, <a href={props.faqUrl} target="_blank">go to our FAQ</a></p>
+  </>
+);
+
+export const TokenUnlockText: React.SFC = props => (
+  <>
+    <h4>Unlock Tokens</h4>
+    <p>
+      All first-time token purchasers must unlock their tokens by participating in community votes and the general
+      oversight of Civil. This is to prevent speculators from effecting the price of Civil tokens. Learn more in the FAQ
+      below.
+    </p>
+    <p>
+      Unlocking your tokens is straightforward, and you only have to do this once. Simply transfer at least 50 percent
+      of your purchased tokens into the voting balance. And that’s it.
+    </p>
+  </>
+);
+
+export const TokenUnlockBtnText: React.SFC = props => <>Unlock My Tokens</>;
+
+// FAQ section
+
 export const TokenETHFAQQuestion1Text: React.SFC = props => <h3>What is Airswap?</h3>;
 
 export const TokenETHFAQQuestion2Text: React.SFC = props => (
@@ -123,8 +157,8 @@ export const TokenETHFAQQuestion6Text: React.SFC = props => <h3>What else will I
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
 
 export interface TokenTextProps {
-  supportEmailAddress: string;
-  faqUrl: string;
+  supportEmailAddress?: string;
+  faqUrl?: string;
 }
 
 export const TokenFAQText: React.SFC<TokenTextProps> = props => (
@@ -134,7 +168,7 @@ export const TokenFAQText: React.SFC<TokenTextProps> = props => (
       <a href={"mailto:" + props.supportEmailAddress}>{props.supportEmailAddress}</a>
     </p>
     <p>
-      Read our <a href={props.faqUrl}>Frequently Asked Questions (FAQ)</a> for general help
+      Read our <a href={props.faqUrl} target="_blank">Frequently Asked Questions (FAQ)</a> for general help
     </p>
   </>
 );

@@ -2,11 +2,14 @@ import * as React from "react";
 import {
   FlexColumnsPrimaryModule,
   TokenBtns,
+  TokenBtnsInverted,
   TokenBuySection,
   TokenBuyIntro,
   TokenAirswapSection,
   TokenOrBreak,
   TokenExchangeSection,
+  TokenThanksPurchase,
+  TokenUnlock,
 } from "./TokensStyledComponents";
 import {
   TokenBuyText,
@@ -17,6 +20,9 @@ import {
   TokenAirswapExchangeText,
   TokenBuyExchangeBtnText,
   TokenOrText,
+  TokenThanksText,
+  TokenUnlockText,
+  TokenUnlockBtnText,
 } from "./TokensTextComponents";
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
 import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
@@ -24,6 +30,7 @@ import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
 export interface TokenAccountBuyProps {
   foundationAddress: string;
   network: string;
+  faqUrl: string;
   step?: string;
 }
 
@@ -40,7 +47,7 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
         </TokenBuySection>
       </FlexColumnsPrimaryModule>
     );
-  } else {
+  } else if (props.step === "active") {
     tokenSection = (
       <>
         <FlexColumnsPrimaryModule padding={true}>
@@ -69,6 +76,24 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
                 <AirswapBuyCVL network={props.network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
               </TokenExchangeSection>
             </TokenAirswapSection>
+          </TokenBuySection>
+        </FlexColumnsPrimaryModule>
+      </>
+    );
+  } else {
+    tokenSection = (
+      <>
+        <FlexColumnsPrimaryModule padding={true}>
+          <TokenBuySection>
+            <TokenThanksPurchase>
+              <TokenThanksText faqUrl={props.faqUrl} />
+            </TokenThanksPurchase>
+            <TokenUnlock>
+              <TokenUnlockText />
+              <TokenBtnsInverted to="/dashboard">
+                <TokenUnlockBtnText />
+              </TokenBtnsInverted>
+            </TokenUnlock>
           </TokenBuySection>
         </FlexColumnsPrimaryModule>
       </>

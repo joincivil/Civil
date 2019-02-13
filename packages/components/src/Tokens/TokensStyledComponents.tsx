@@ -377,3 +377,55 @@ export const TokenCalcCVL = styled.div`
     line-height: 22px;
   }
 `;
+
+export const TokenThanksPurchase = styled.div`
+  text-align: center;
+
+  h3 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 32px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  a {
+    color: ${colors.accent.CIVIL_BLUE};
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: ${colors.accent.CIVIL_BLUE};
+      text-decoration: underline;
+    }
+  }
+`;
+
+export const TokenUnlock = styled.div`
+  background-color: #fff7f8;
+  border: 1px solid ${colors.accent.CIVIL_RED_FADED};
+  border-radius: 4px;
+  padding: 20px;
+
+  h4 {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  button {
+    border: 1px solid ${colors.accent.CIVIL_BLUE};
+    padding: 16px 40px;
+  }
+`;
