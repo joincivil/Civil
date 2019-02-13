@@ -1,25 +1,13 @@
 import * as React from "react";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
-
-const userQuery = gql`
-  query {
-    currentUser {
-      uid
-      email
-      ethAddress
-      quizPayload
-      quizStatus
-    }
-  }
-`;
+import { updateQuizPayload, getCurrentUserQuery } from "@joincivil/utils";
 
 export class UserInfo extends React.Component {
   public render(): JSX.Element {
     return (
       <>
         <h1>Account Home</h1>
-        <Query query={userQuery}>
+        <Query query={getCurrentUserQuery}>
           {({ loading, error, data }) => {
             if (loading) {
               return "Loading...";
@@ -28,7 +16,21 @@ export class UserInfo extends React.Component {
               return `Error! ${JSON.stringify(error)}`;
             }
 
-            return <pre>{JSON.stringify(data, null, 2)}</pre>;
+            const fields = { b: Math.random() };
+
+            return (
+              <>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
+                <button
+                  onClick={async () => {
+                    // This is used to test if the cache is being cleared correctly.
+                    await updateQuizPayload(fields);
+                  }}
+                >
+                  Click
+                </button>
+              </>
+            );
           }}
         </Query>
       </>

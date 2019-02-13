@@ -5,6 +5,7 @@ import { TokenTutorialLanding } from "./TokenTutorialLanding";
 import { colors } from "../styleConstants";
 
 export interface TutorialWelcomeScreensProps {
+  quizPayload: {};
   handleClose(): void;
 }
 
@@ -45,7 +46,7 @@ export class TutorialWelcomeScreens extends React.Component<TutorialWelcomeScree
       );
     }
 
-    return <TokenTutorialLanding handleClose={this.props.handleClose} />;
+    return <TokenTutorialLanding handleClose={this.props.handleClose} quizPayload={this.props.quizPayload} />;
   }
 
   private welcomeNext = () => {

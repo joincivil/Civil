@@ -23,7 +23,9 @@ export interface TutorialProgressTextProps {
 }
 
 export const TutorialProgressText: React.SFC<TutorialProgressTextProps> = props => (
-  <>You have {props.questions} questions left</>
+  <>
+    You have {props.questions} question{props.questions === 1 ? "" : "s"} left
+  </>
 );
 
 export const Topic1Intro: React.SFC = props => (

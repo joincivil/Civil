@@ -44,11 +44,11 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
   public render(): JSX.Element | null {
     const { user } = this.props;
-
     const accountSignupStep = this.getUserStep(user);
 
     const loggedInState = accountSignupStep ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
     const tutorialState = this.props.userTutorialComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
+
     // TODO:Sarah - commented out for testing
     // const buyState =
     //  accountSignupStep && this.props.userTutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
