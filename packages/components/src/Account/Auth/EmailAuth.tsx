@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
+import { Checkbox } from "../../input/Checkbox";
 
 const signupMutation = gql`
   mutation($emailAddress: String!) {
@@ -31,6 +32,8 @@ export interface AccountEmailAuthProps {
 export interface AccountEmailAuthState {
   emailAddress: string;
   errorMessage: string | null;
+  hasAgreedToTOS: boolean;
+  hasSelectedToAddToNewsletter: boolean;
 }
 
 export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, AccountEmailAuthState> {
@@ -39,6 +42,8 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     this.state = {
       emailAddress: "",
       errorMessage: null,
+      hasAgreedToTOS: false,
+      hasSelectedToAddToNewsletter: false,
     };
   }
 
@@ -54,7 +59,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
   public render(): JSX.Element {
     const { isNewUser } = this.props;
-    const { errorMessage } = this.state;
+    const { errorMessage, hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
 
     const emailMutation = isNewUser ? signupMutation : loginMutation;
     return (
@@ -72,7 +77,10 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                   value={this.state.emailAddress}
                   onChange={event => this.setState({ emailAddress: event.target.value })}
                 />
-                <input type="submit" value="Confirm" />
+                <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} /> I agree to Civil's
+                <a href="">Privacy Policy and Terms of Use</a>
+                <Checkbox checked={hasSelectedToAddToNewsletter} onClick={this.toggleHasSelectedToAddToNewsletter} />
+                <input type="submit" value="Confirm" disabled={!hasAgreedToTOS} />
               </form>
 
               {loading && <span>loading...</span>}
@@ -84,6 +92,17 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       </Mutation>
     );
   }
+
+  public toggleHasAgreedToTOS = (): void => {
+    const { hasAgreedToTOS } = this.state;
+    console.log({ hasAgreedToTOS });
+    this.setState({ hasAgreedToTOS: !hasAgreedToTOS });
+  };
+
+  public toggleHasSelectedToAddToNewsletter = (): void => {
+    const { hasSelectedToAddToNewsletter } = this.state;
+    this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
+  };
 
   private async submit(event: any, mutation: MutationFn): Promise<void> {
     event.preventDefault();
