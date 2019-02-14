@@ -44,10 +44,10 @@ storiesOf("check box", module)
   .add("checkboxs", () => (
     <ul>
       <li>
-        Default: <TestComponent />
+        Default: <TestComponent /> - <TestComponent checked />
       </li>
       <li>
-        Small: <TestComponent size={CheckboxSizes.SMALL} />
+        Small: <TestComponent size={CheckboxSizes.SMALL} /> - <TestComponent size={CheckboxSizes.SMALL} checked />
       </li>
     </ul>
   ));

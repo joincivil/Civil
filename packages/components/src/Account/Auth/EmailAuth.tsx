@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
-import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./styledComponents";
+import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./AuthStyledComponents";
 
 const signupMutation = gql`
   mutation($emailAddress: String!) {
@@ -61,6 +61,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     const { errorMessage, hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
 
     const emailMutation = isNewUser ? signupMutation : loginMutation;
+
     return (
       <Mutation mutation={emailMutation}>
         {(sendEmail, { loading, error, data }) => {
@@ -78,7 +79,6 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
               <CheckboxContainer>
                 <CheckboxSection>
-                  {/* ??? What's the best way to change the style on a checkbox? */}
                   <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
                   <CheckboxLabel>
                     I agree to Civil's {}
@@ -87,7 +87,11 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                 </CheckboxSection>
 
                 <CheckboxSection>
-                  <Checkbox checked={hasSelectedToAddToNewsletter} onClick={this.toggleHasSelectedToAddToNewsletter} />
+                  <Checkbox
+                    size={CheckboxSizes.SMALL}
+                    checked={hasSelectedToAddToNewsletter}
+                    onClick={this.toggleHasSelectedToAddToNewsletter}
+                  />
                   <CheckboxLabel>Get notified of news and announcements from Civil.</CheckboxLabel>
                 </CheckboxSection>
               </CheckboxContainer>
