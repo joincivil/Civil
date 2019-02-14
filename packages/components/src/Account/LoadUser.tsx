@@ -1,6 +1,5 @@
 import * as React from "react";
 import { getApolloSession, getCurrentUserQuery } from "@joincivil/utils";
-
 import { Query } from "react-apollo";
 
 export interface LoadUserChildrenProps {
