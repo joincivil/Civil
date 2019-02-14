@@ -32,9 +32,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   redirectTo={TOKEN_HOME}
                   path={`${match.path}/login`}
                   exact={true}
-                  component={(props: any) => (
-                    <AccountEmailAuth isNewUser={false} {...props} onEmailSend={this.handleAuthEmail} />
-                  )}
+                  component={(props: any) => <AuthLogin onEmailSend={this.handleAuthEmail} />}
                 />
                 <Route
                   path={`${match.path}/login/check-email`}

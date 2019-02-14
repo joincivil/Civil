@@ -1,9 +1,14 @@
 import * as React from "react";
+import { AccountEmailAuth } from "@joincivil/components";
 
-export const AuthLogin: React.SFC = props => {
+export interface AuthLoginProps {
+  onEmailSend(isNewUser: boolean, emailAddress: string): void;
+}
+
+export const AuthLogin: React.SFC<AuthLoginProps> = props => {
   return (
     <>
-      <h1>AuthLogin</h1>
+      <AccountEmailAuth isNewUser={false} onEmailSend={props.onEmailSend} />
     </>
   );
 };
