@@ -5,6 +5,7 @@ import { Mutation, MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
 import { Checkbox } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
+import { TextInput } from "../../input";
 
 const signupMutation = gql`
   mutation($emailAddress: String!) {
@@ -68,15 +69,15 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
         {(sendEmail, { loading, error, data }) => {
           return (
             <>
-              <h3>Let's Get Started</h3>
               {errorMessage && <span>Error: {errorMessage}</span>}
               <form onSubmit={async event => this.submit(event, sendEmail)}>
-                <input
+                <TextInput
                   placeholder="Email address"
+                  noLabel
                   type="text"
                   name="email"
                   value={this.state.emailAddress}
-                  onChange={event => this.setState({ emailAddress: event.target.value })}
+                  onChange={(_, value) => this.setState({ emailAddress: value })}
                 />
                 <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} /> I agree to Civil's
                 <a href="">Privacy Policy and Terms of Use</a>
