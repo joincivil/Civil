@@ -1,13 +1,14 @@
 import * as React from "react";
+import { AccountEmailSent } from "@joincivil/components";
 
 export interface AuthCheckEmailProps {
-  rad?: boolean;
+  isNewUser: boolean;
 }
 
 export const AuthCheckEmail: React.SFC<AuthCheckEmailProps> = props => {
   return (
     <>
-      <h1>AuthCheckEmail</h1>
+      <AccountEmailSent isNewUser={props.isNewUser} />
     </>
   );
 };

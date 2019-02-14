@@ -12,6 +12,7 @@ import { AuthEth } from "./Eth";
 import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
+import { AuthVerifyToken } from "./VerifyToken";
 
 const TOKEN_HOME = "/tokens";
 
@@ -36,20 +37,13 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 />
                 <Route
                   path={`${match.path}/login/check-email`}
-                  component={(props: any) => <AccountEmailSent {...props} isNewUser={false} />}
+                  component={(props: any) => <AuthCheckEmail isNewUser={false} />}
                 />
                 <Route
                   path={`${match.path}/login/verify-token/:token`}
                   exact
-                  component={(props: AccountVerifyTokenProps) => (
-                    <AccountVerifyToken
-                      isNewUser={false}
-                      onAuthenticationContinue={this.handleOnAuthenticationContinue}
-                      {...props}
-                    />
-                  )}
+                  component={() => <AuthVerifyToken isNewUser={false} />}
                 />
-
                 {/* SignUp Routes */}
                 <Route
                   path={`${match.path}/signup`}
