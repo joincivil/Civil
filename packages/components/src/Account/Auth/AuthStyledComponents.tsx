@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
 import { Checkbox } from "../../input/Checkbox";
 
