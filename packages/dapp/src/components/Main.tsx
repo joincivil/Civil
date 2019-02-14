@@ -35,7 +35,7 @@ import SubmitChallengePage from "./listing/SubmitChallenge";
 import SubmitAppealChallengePage from "./listing/SubmitAppealChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
-import AccountRouter from "./Account";
+import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
@@ -124,7 +124,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
           <Route path="/government" component={Government} />
           <Route path="/dashboard/:activeDashboardTab/:activeDashboardSubTab" component={Dashboard} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route path="/account" component={AccountRouter} />
+          <Route path="/auth" component={AuthRouter} />
           <Route path="/tokens" component={Tokens} />
         </Switch>
         <WrongNetwork />
