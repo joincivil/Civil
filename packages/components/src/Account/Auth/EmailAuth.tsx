@@ -4,6 +4,7 @@ import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
 import { Checkbox } from "../../input/Checkbox";
+import { Button, buttonSizes } from "../../Button";
 
 const signupMutation = gql`
   mutation($emailAddress: String!) {
@@ -81,6 +82,9 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                 <a href="">Privacy Policy and Terms of Use</a>
                 <Checkbox checked={hasSelectedToAddToNewsletter} onClick={this.toggleHasSelectedToAddToNewsletter} />
                 <input type="submit" value="Confirm" disabled={!hasAgreedToTOS} />
+                <Button size={buttonSizes.SMALL_WIDE} textTransform="none" disabled={!hasAgreedToTOS}>
+                  Confirm
+                </Button>
               </form>
 
               {loading && <span>loading...</span>}
