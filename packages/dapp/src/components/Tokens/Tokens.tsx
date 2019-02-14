@@ -5,10 +5,8 @@ import { State } from "../../redux/reducers";
 import { Helmet } from "react-helmet";
 import { EthAddress } from "@joincivil/core";
 import { getFormattedEthAddress } from "@joincivil/utils";
-
-import { UserTokenAccount } from "@joincivil/components";
+import { UserTokenAccount, LoadUser } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-import { LoadUser } from "../Account/LoadUser";
 
 export interface TokensProps {
   userAccount: EthAddress;
