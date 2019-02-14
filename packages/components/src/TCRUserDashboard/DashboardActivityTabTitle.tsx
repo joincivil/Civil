@@ -5,6 +5,8 @@ import {
   SubTabRevealVoteText,
   SubTabClaimRewardsText,
   SubTabRescueTokensText,
+  SubTabChallengesCompletedText,
+  SubTabChallengesStakedText,
 } from "./textComponents";
 
 export interface DashboardActivityTabTitleProps {
@@ -48,6 +50,22 @@ export const RescueTokensDashboardTabTitle: React.SFC<DashboardActivityTabTitleP
   return (
     <DashboardActivityTabTitle count={props.count}>
       <SubTabRescueTokensText />
+    </DashboardActivityTabTitle>
+  );
+};
+
+export const ChallengesCompletedDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+  return (
+    <DashboardActivityTabTitle count={props.count}>
+      <SubTabChallengesCompletedText />
+    </DashboardActivityTabTitle>
+  );
+};
+
+export const ChallengesStakedDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+  return (
+    <DashboardActivityTabTitle count={props.count}>
+      <SubTabChallengesStakedText />
     </DashboardActivityTabTitle>
   );
 };

@@ -3,6 +3,7 @@ export * from "./DashboardUserInfoSummary";
 export * from "./DashboardActivity";
 export * from "./DashboardActivityItem";
 export * from "./DashboardActivityItemTask";
+export * from "./DashboardActivityItemCTAButton";
 export * from "./DashboardActivitySelectableItem";
 export * from "./DashboardActivityTabTitle";
 export * from "./styledComponents";

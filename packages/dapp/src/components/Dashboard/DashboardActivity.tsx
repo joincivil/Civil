@@ -13,10 +13,13 @@ import {
   RevealVoteDashboardTabTitle,
   ClaimRewardsDashboardTabTitle,
   RescueTokensDashboardTabTitle,
+  ChallengesStakedDashboardTabTitle,
+  ChallengesCompletedDashboardTabTitle,
   StyledDashboardSubTab,
   SubTabReclaimTokensText,
   Modal,
   ProgressModalContentMobileUnsupported,
+  StyledDashboardActivityDescription,
 } from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
@@ -24,9 +27,10 @@ import {
   getUserChallengesWithUnclaimedRewards,
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithRescueTokens,
+  getCompletedChallengesVotedOnByUser,
   getChallengesStartedByUser,
-  getChallengesVotedOnByUser,
-  getAppealChallengesVotedOnByUser,
+  getChallengesVotedOnByUserWithAvailableActions,
+  getChallengesForAppealChallengesVotedOnByUserWithAvailableActions,
   getUserAppealChallengesWithRescueTokens,
   getUserAppealChallengesWithUnrevealedVotes,
   getUserAppealChallengesWithUnclaimedRewards,
@@ -34,6 +38,7 @@ import {
 
 import ActivityList from "./ActivityList";
 import MyTasks from "./MyTasks";
+import MyChallenges from "./MyChallenges";
 import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
@@ -42,6 +47,7 @@ import DepositTokens from "./DepositTokens";
 const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
 const SUB_TABS: { [index: string]: string[] } = {
   tasks: ["all", "reveal-vote", "claim-rewards", "rescue-tokens", "transfer-voting-tokens"],
+  challenges: ["completed", "staked"],
 };
 
 export interface DashboardActivityProps {
@@ -51,8 +57,8 @@ export interface DashboardActivityProps {
 
 export interface DashboardActivityReduxProps {
   currentUserNewsrooms: Set<string>;
-  currentUserChallengesVotedOn: Set<string>;
-  currentUserAppealChallengesVotedOn?: Set<string>;
+  allChallengesWithAvailableActions: Set<string>;
+  currentUserCompletedChallengesVotedOn: Set<string>;
   currentUserChallengesStarted: Set<string>;
   userChallengesWithUnclaimedRewards?: Set<string>;
   userChallengesWithUnrevealedVotes?: Set<string>;
@@ -172,13 +178,43 @@ class DashboardActivity extends React.Component<
   };
 
   private renderUserChallenges = (): JSX.Element => {
-    return <ActivityList challenges={this.props.currentUserChallengesStarted} />;
+    const { currentUserCompletedChallengesVotedOn, currentUserChallengesStarted } = this.props;
+    const completedChallengesTitle = (
+      <ChallengesCompletedDashboardTabTitle count={currentUserCompletedChallengesVotedOn.count()} />
+    );
+    const stakedChallengesTitle = <ChallengesStakedDashboardTabTitle count={currentUserChallengesStarted.count()} />;
+
+    return (
+      <>
+        <Tabs
+          TabComponent={StyledDashboardSubTab}
+          TabsNavComponent={StyledTabsComponent}
+          activeIndex={this.state.activeSubTabIndex}
+          onActiveTabChange={this.setActiveSubTabIndex}
+        >
+          <Tab title={completedChallengesTitle}>
+            <>
+              <StyledDashboardActivityDescription>
+                Summary of challenges you voted in
+              </StyledDashboardActivityDescription>
+              <MyChallenges challenges={currentUserCompletedChallengesVotedOn} />
+            </>
+          </Tab>
+          <Tab title={stakedChallengesTitle}>
+            <>
+              <StyledDashboardActivityDescription>Challenges you created</StyledDashboardActivityDescription>
+              <MyChallenges challenges={currentUserChallengesStarted} />
+            </>
+          </Tab>
+        </Tabs>
+        {this.renderNoMobileTransactions()}
+      </>
+    );
   };
 
   private renderUserVotes = (): JSX.Element => {
     const {
-      currentUserChallengesVotedOn,
-      currentUserAppealChallengesVotedOn,
+      allChallengesWithAvailableActions,
       userChallengesWithUnclaimedRewards,
       userChallengesWithUnrevealedVotes,
       userChallengesWithRescueTokens,
@@ -186,11 +222,7 @@ class DashboardActivity extends React.Component<
       userAppealChallengesWithUnrevealedVotes,
       userAppealChallengesWithUnclaimedRewards,
     } = this.props;
-    const allVotesTabTitle = (
-      <AllChallengesDashboardTabTitle
-        count={currentUserChallengesVotedOn.count() + currentUserAppealChallengesVotedOn!.count()}
-      />
-    );
+    const allVotesTabTitle = <AllChallengesDashboardTabTitle count={allChallengesWithAvailableActions.count()} />;
     const revealVoteTabTitle = (
       <RevealVoteDashboardTabTitle
         count={userChallengesWithUnrevealedVotes!.count() + userAppealChallengesWithUnrevealedVotes!.count()}
@@ -217,8 +249,7 @@ class DashboardActivity extends React.Component<
         >
           <Tab title={allVotesTabTitle}>
             <MyTasks
-              challenges={currentUserChallengesVotedOn}
-              appealChallenges={currentUserAppealChallengesVotedOn}
+              challenges={allChallengesWithAvailableActions}
               showClaimRewardsTab={() => {
                 this.setActiveSubTabIndex(2);
               }}
@@ -263,14 +294,17 @@ class DashboardActivity extends React.Component<
 
   private setActiveTabIndex = (activeTabIndex: number): void => {
     const tabName = TABS[activeTabIndex];
+    this.setState({ activeTabIndex });
     this.props.history.push(`/dashboard/${tabName}`);
   };
 
   private setActiveSubTabIndex = (activeSubTabIndex: number): void => {
     const tabName = TABS[this.state.activeTabIndex];
-    const subTabName = SUB_TABS[tabName][activeSubTabIndex];
-    this.setState({ activeSubTabIndex });
-    this.props.history.push(`/dashboard/${tabName}/${subTabName}`);
+    const subTabName = SUB_TABS[tabName] && SUB_TABS[tabName][activeSubTabIndex];
+    if (subTabName) {
+      this.setState({ activeSubTabIndex });
+      this.props.history.push(`/dashboard/${tabName}/${subTabName}`);
+    }
   };
 
   private showNoMobileTransactionsModal = (): void => {
@@ -308,8 +342,16 @@ const mapStateToProps = (
   ownProps: DashboardActivityProps,
 ): DashboardActivityProps & DashboardActivityReduxProps => {
   const { currentUserNewsrooms, user } = state.networkDependent;
-  const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
-  const currentUserAppealChallengesVotedOn = getAppealChallengesVotedOnByUser(state);
+
+  const currentUserChallengesVotedOnWithAvailableActions = getChallengesVotedOnByUserWithAvailableActions(state);
+  const challengesForAppealChallengesVotedOnByUserWithAvailableActions = getChallengesForAppealChallengesVotedOnByUserWithAvailableActions(
+    state,
+  );
+  const allChallengesWithAvailableActions = currentUserChallengesVotedOnWithAvailableActions.union(
+    challengesForAppealChallengesVotedOnByUserWithAvailableActions,
+  );
+
+  const currentUserCompletedChallengesVotedOn = getCompletedChallengesVotedOnByUser(state);
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
   const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
   const userAppealChallengesWithUnclaimedRewards = getUserAppealChallengesWithUnclaimedRewards(state);
@@ -320,9 +362,9 @@ const mapStateToProps = (
   const userAppealChallengesWithRescueTokens = getUserAppealChallengesWithRescueTokens(state);
 
   return {
+    allChallengesWithAvailableActions,
     currentUserNewsrooms,
-    currentUserChallengesVotedOn,
-    currentUserAppealChallengesVotedOn,
+    currentUserCompletedChallengesVotedOn,
     currentUserChallengesStarted,
     userChallengesWithUnclaimedRewards,
     userChallengesWithUnrevealedVotes,
