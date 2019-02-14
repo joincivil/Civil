@@ -1,6 +1,6 @@
+import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
-import { Checkbox } from "../../input/Checkbox";
 
 export const CheckboxContainer = styled.ul`
   list-style: none;
