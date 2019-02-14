@@ -26,19 +26,19 @@ import { State } from "../../redux/reducers";
 import {
   getUserChallengesWithUnclaimedRewards,
   getUserChallengesWithUnrevealedVotes,
+  getCompletedChallengesForAppealChallengesWithUnrevealedVotes,
   getUserChallengesWithRescueTokens,
   getCompletedChallengesVotedOnByUser,
+  getCompletedChallengesForAppealChallengesVotedOnByUser,
   getChallengesStartedByUser,
   getChallengesVotedOnByUserWithAvailableActions,
   getChallengesForAppealChallengesVotedOnByUserWithAvailableActions,
   getUserAppealChallengesWithRescueTokens,
-  getUserAppealChallengesWithUnrevealedVotes,
   getUserAppealChallengesWithUnclaimedRewards,
 } from "../../selectors";
 
 import ActivityList from "./ActivityList";
 import MyTasks from "./MyTasks";
-import MyChallenges from "./MyChallenges";
 import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
@@ -58,14 +58,13 @@ export interface DashboardActivityProps {
 export interface DashboardActivityReduxProps {
   currentUserNewsrooms: Set<string>;
   allChallengesWithAvailableActions: Set<string>;
-  currentUserCompletedChallengesVotedOn: Set<string>;
+  allCompletedChallengesVotedOn: Set<string>;
   currentUserChallengesStarted: Set<string>;
+  allChallengesWithUnrevealedVotes: Set<string>;
   userChallengesWithUnclaimedRewards?: Set<string>;
-  userChallengesWithUnrevealedVotes?: Set<string>;
   userChallengesWithRescueTokens?: Set<string>;
   userAppealChallengesWithUnclaimedRewards?: Set<string>;
   userAppealChallengesWithRescueTokens?: Set<string>;
-  userAppealChallengesWithUnrevealedVotes?: Set<string>;
   userAccount: EthAddress;
 }
 
@@ -178,9 +177,9 @@ class DashboardActivity extends React.Component<
   };
 
   private renderUserChallenges = (): JSX.Element => {
-    const { currentUserCompletedChallengesVotedOn, currentUserChallengesStarted } = this.props;
+    const { allCompletedChallengesVotedOn, currentUserChallengesStarted } = this.props;
     const completedChallengesTitle = (
-      <ChallengesCompletedDashboardTabTitle count={currentUserCompletedChallengesVotedOn.count()} />
+      <ChallengesCompletedDashboardTabTitle count={allCompletedChallengesVotedOn.count()} />
     );
     const stakedChallengesTitle = <ChallengesStakedDashboardTabTitle count={currentUserChallengesStarted.count()} />;
 
@@ -195,15 +194,31 @@ class DashboardActivity extends React.Component<
           <Tab title={completedChallengesTitle}>
             <>
               <StyledDashboardActivityDescription>
-                Summary of challenges you voted in
+                Summary of completed challenges you voted in
               </StyledDashboardActivityDescription>
-              <MyChallenges challenges={currentUserCompletedChallengesVotedOn} />
+              <MyTasks
+                challenges={allCompletedChallengesVotedOn}
+                showClaimRewardsTab={() => {
+                  this.showClaimRewardsTab();
+                }}
+                showRescueTokensTab={() => {
+                  this.showRescueTokensTab();
+                }}
+              />
             </>
           </Tab>
           <Tab title={stakedChallengesTitle}>
             <>
               <StyledDashboardActivityDescription>Challenges you created</StyledDashboardActivityDescription>
-              <MyChallenges challenges={currentUserChallengesStarted} />
+              <MyTasks
+                challenges={currentUserChallengesStarted}
+                showClaimRewardsTab={() => {
+                  this.showClaimRewardsTab();
+                }}
+                showRescueTokensTab={() => {
+                  this.showRescueTokensTab();
+                }}
+              />
             </>
           </Tab>
         </Tabs>
@@ -216,18 +231,13 @@ class DashboardActivity extends React.Component<
     const {
       allChallengesWithAvailableActions,
       userChallengesWithUnclaimedRewards,
-      userChallengesWithUnrevealedVotes,
+      allChallengesWithUnrevealedVotes,
       userChallengesWithRescueTokens,
       userAppealChallengesWithRescueTokens,
-      userAppealChallengesWithUnrevealedVotes,
       userAppealChallengesWithUnclaimedRewards,
     } = this.props;
     const allVotesTabTitle = <AllChallengesDashboardTabTitle count={allChallengesWithAvailableActions.count()} />;
-    const revealVoteTabTitle = (
-      <RevealVoteDashboardTabTitle
-        count={userChallengesWithUnrevealedVotes!.count() + userAppealChallengesWithUnrevealedVotes!.count()}
-      />
-    );
+    const revealVoteTabTitle = <RevealVoteDashboardTabTitle count={allChallengesWithUnrevealedVotes.count()} />;
     const claimRewardsTabTitle = (
       <ClaimRewardsDashboardTabTitle
         count={userChallengesWithUnclaimedRewards!.count() + userAppealChallengesWithUnclaimedRewards!.count()}
@@ -251,17 +261,22 @@ class DashboardActivity extends React.Component<
             <MyTasks
               challenges={allChallengesWithAvailableActions}
               showClaimRewardsTab={() => {
-                this.setActiveSubTabIndex(2);
+                this.showClaimRewardsTab();
               }}
               showRescueTokensTab={() => {
-                this.setActiveSubTabIndex(3);
+                this.showRescueTokensTab();
               }}
             />
           </Tab>
           <Tab title={revealVoteTabTitle}>
-            <ActivityList
-              challenges={userChallengesWithUnrevealedVotes}
-              appealChallenges={userAppealChallengesWithUnrevealedVotes}
+            <MyTasks
+              challenges={allChallengesWithUnrevealedVotes}
+              showClaimRewardsTab={() => {
+                this.showClaimRewardsTab();
+              }}
+              showRescueTokensTab={() => {
+                this.showRescueTokensTab();
+              }}
             />
           </Tab>
           <Tab title={claimRewardsTabTitle}>
@@ -292,19 +307,31 @@ class DashboardActivity extends React.Component<
     );
   };
 
-  private setActiveTabIndex = (activeTabIndex: number): void => {
+  private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0): void => {
     const tabName = TABS[activeTabIndex];
-    this.setState({ activeTabIndex });
-    this.props.history.push(`/dashboard/${tabName}`);
+    this.setState({ activeTabIndex, activeSubTabIndex });
+    const subTabName = (SUB_TABS[tabName] && `/${SUB_TABS[tabName][activeSubTabIndex]}`) || "";
+    this.props.history.push(`/dashboard/${tabName}${subTabName}`);
+  };
+
+  private setActiveTabIndex = (activeTabIndex: number): void => {
+    this.setActiveTabAndSubTabIndex(activeTabIndex);
   };
 
   private setActiveSubTabIndex = (activeSubTabIndex: number): void => {
-    const tabName = TABS[this.state.activeTabIndex];
-    const subTabName = SUB_TABS[tabName] && SUB_TABS[tabName][activeSubTabIndex];
-    if (subTabName) {
-      this.setState({ activeSubTabIndex });
-      this.props.history.push(`/dashboard/${tabName}/${subTabName}`);
-    }
+    this.setActiveTabAndSubTabIndex(this.state.activeTabIndex, activeSubTabIndex);
+  };
+
+  private showClaimRewardsTab = (): void => {
+    const activeTabIndex = TABS.indexOf("tasks");
+    const activeSubTabIndex = SUB_TABS.tasks.indexOf("claim-rewards");
+    this.setActiveTabAndSubTabIndex(activeTabIndex, activeSubTabIndex);
+  };
+
+  private showRescueTokensTab = (): void => {
+    const activeTabIndex = TABS.indexOf("tasks");
+    const activeSubTabIndex = SUB_TABS.tasks.indexOf("rescue-tokens");
+    this.setActiveTabAndSubTabIndex(activeTabIndex, activeSubTabIndex);
   };
 
   private showNoMobileTransactionsModal = (): void => {
@@ -352,11 +379,25 @@ const mapStateToProps = (
   );
 
   const currentUserCompletedChallengesVotedOn = getCompletedChallengesVotedOnByUser(state);
+  const currentUserCompletedChallengesForAppealChallengesVotedOnByUser = getCompletedChallengesForAppealChallengesVotedOnByUser(
+    state,
+  );
+  const allCompletedChallengesVotedOn = currentUserCompletedChallengesVotedOn.union(
+    currentUserCompletedChallengesForAppealChallengesVotedOnByUser,
+  );
+
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
+
   const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
   const userAppealChallengesWithUnclaimedRewards = getUserAppealChallengesWithUnclaimedRewards(state);
+
   const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
-  const userAppealChallengesWithUnrevealedVotes = getUserAppealChallengesWithUnrevealedVotes(state);
+  const userChallengesForAppealChallengesWithUnrevealedVotes = getCompletedChallengesForAppealChallengesWithUnrevealedVotes(
+    state,
+  );
+  const allChallengesWithUnrevealedVotes = userChallengesWithUnrevealedVotes.union(
+    userChallengesForAppealChallengesWithUnrevealedVotes,
+  );
 
   const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state);
   const userAppealChallengesWithRescueTokens = getUserAppealChallengesWithRescueTokens(state);
@@ -364,13 +405,12 @@ const mapStateToProps = (
   return {
     allChallengesWithAvailableActions,
     currentUserNewsrooms,
-    currentUserCompletedChallengesVotedOn,
+    allCompletedChallengesVotedOn,
     currentUserChallengesStarted,
+    allChallengesWithUnrevealedVotes,
     userChallengesWithUnclaimedRewards,
-    userChallengesWithUnrevealedVotes,
     userChallengesWithRescueTokens,
     userAppealChallengesWithUnclaimedRewards,
-    userAppealChallengesWithUnrevealedVotes,
     userAppealChallengesWithRescueTokens,
     userAccount: user.account.account,
     ...ownProps,
