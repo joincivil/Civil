@@ -38,6 +38,12 @@ export interface AccountEmailAuthState {
   hasSelectedToAddToNewsletter: boolean;
 }
 
+// TODO(jorgelo): Is there a more official way to do this?
+
+function validateEmail(email: string): boolean {
+  return !!email.match(/^\w+@+?\.$/);
+}
+
 export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, AccountEmailAuthState> {
   constructor(props: AccountEmailAuthProps) {
     super(props);
@@ -47,16 +53,6 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       hasAgreedToTOS: false,
       hasSelectedToAddToNewsletter: false,
     };
-  }
-
-  public renderLink(): JSX.Element {
-    const { isNewUser } = this.props;
-
-    if (isNewUser) {
-      return <Link to="./login">Or login</Link>;
-    }
-
-    return <Link to="./signup">Or sign up</Link>;
   }
 
   public render(): JSX.Element {
@@ -70,27 +66,27 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
           return (
             <>
               {errorMessage && <span>Error: {errorMessage}</span>}
-              <form onSubmit={async event => this.submit(event, sendEmail)}>
-                <TextInput
-                  placeholder="Email address"
-                  noLabel
-                  type="text"
-                  name="email"
-                  value={this.state.emailAddress}
-                  onChange={(_, value) => this.setState({ emailAddress: value })}
-                />
-                <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} /> I agree to Civil's
-                <a href="">Privacy Policy and Terms of Use</a>
-                <Checkbox checked={hasSelectedToAddToNewsletter} onClick={this.toggleHasSelectedToAddToNewsletter} />
-                <input type="submit" value="Confirm" disabled={!hasAgreedToTOS} />
-                <Button size={buttonSizes.SMALL_WIDE} textTransform="none" disabled={!hasAgreedToTOS}>
-                  Confirm
-                </Button>
-              </form>
-
+              <TextInput
+                placeholder="Email address"
+                noLabel
+                type="text"
+                name="email"
+                value={this.state.emailAddress}
+                onChange={(_, value) => this.setState({ emailAddress: value })}
+              />
+              <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} /> I agree to Civil's
+              {/* TODO(jorgelo): Is this where this link should point to? */}
+              <a href="https://civil.co/terms/">Privacy Policy and Terms of Use</a>
+              <Checkbox checked={hasSelectedToAddToNewsletter} onClick={this.toggleHasSelectedToAddToNewsletter} />
+              <Button
+                size={buttonSizes.SMALL_WIDE}
+                textTransform="none"
+                disabled={!hasAgreedToTOS}
+                onClick={async event => this.handleSubmit(event, sendEmail)}
+              >
+                Confirm
+              </Button>
               {loading && <span>loading...</span>}
-
-              {this.renderLink()}
             </>
           );
         }}
@@ -100,7 +96,6 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
   public toggleHasAgreedToTOS = (): void => {
     const { hasAgreedToTOS } = this.state;
-    console.log({ hasAgreedToTOS });
     this.setState({ hasAgreedToTOS: !hasAgreedToTOS });
   };
 
@@ -109,11 +104,19 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
   };
 
-  private async submit(event: any, mutation: MutationFn): Promise<void> {
+  private async handleSubmit(event: Event, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
-    const { emailAddress } = this.state;
+    this.setState({ errorMessage: null });
+
+    const { emailAddress, hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
     const { applicationType, onEmailSend, isNewUser } = this.props;
+
+    if (!validateEmail(emailAddress)) {
+      // TODO(jorge): What should the real error message be?
+      this.setState({ errorMessage: "Please enter a valid email" });
+      return;
+    }
 
     const resultKey = isNewUser ? "authSignupEmailSend" : "authLoginEmailSend";
 
@@ -125,6 +128,10 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
     if (authResponse === "ok") {
       onEmailSend(isNewUser, emailAddress);
+      if (hasSelectedToAddToNewsletter) {
+        // TODO(jorge): Add to the email newsletter
+        console.log(emailAddress + " wants to be on the newsletter");
+      }
       return;
     }
 
