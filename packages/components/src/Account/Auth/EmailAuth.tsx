@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
-import { Checkbox } from "../../input/Checkbox";
+import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
 import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./styledComponents";
@@ -79,7 +79,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
               <CheckboxContainer>
                 <CheckboxSection>
                   {/* ??? What's the best way to change the style on a checkbox? */}
-                  <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
+                  <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
                   <CheckboxLabel>
                     I agree to Civil's {}
                     <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>

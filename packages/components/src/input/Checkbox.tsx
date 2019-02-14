@@ -24,9 +24,9 @@ const Box = styled.span`
     position: absolute;
     display: none;
     left: 4px;
-    top: 0px;
-    width: 5px;
-    height: 10px;
+    top: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "1" : "0")}px;
+    width: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "3" : "5")}px;
+    height: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "7" : "10")}px;
     border: solid white;
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
@@ -43,9 +43,9 @@ const Container = styled<ContainerProps, "label">("label")`
   position: relative;
   display: inline-block;
   box-sizing: content-box;
-  width: 20px;
-  height: 20px;
-  vertical-align: bottom;
+  width: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "16" : "20")}px;
+  height: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "16" : "20")}px;
+  vertical-align: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "middle" : "bottom")};
 
   input {
     display: none;
@@ -53,13 +53,14 @@ const Container = styled<ContainerProps, "label">("label")`
   input + ${Box} {
     border-radius: 2px;
     color: transparent;
-    border: 2px solid ${props => props.theme.checkboxInactiveColor};
+    border: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "1" : "2")}px solid
+      ${props => props.theme.checkboxInactiveColor};
     background-color: transparent;
   }
   input:checked + ${Box} {
     color: ${colors.basic.WHITE};
-    border: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "1" : "2")};px solid ${props =>
-  props.theme.checkboxActiveColor};
+    border: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "1" : "2")}px solid
+      ${props => props.theme.checkboxActiveColor};
     background-color: ${props => props.theme.checkboxActiveColor};
     opacity: ${(props: ContainerProps) => (props.locked ? 0.7 : 1)};
   }
@@ -80,12 +81,13 @@ Container.defaultProps = {
 export interface CheckboxProps {
   checked: boolean;
   locked?: boolean;
+  size?: CheckboxSizes;
   onClick(): void;
 }
 
 export const Checkbox = (props: CheckboxProps) => {
   return (
-    <Container locked={props.locked}>
+    <Container locked={props.locked} size={props.size}>
       <input
         onClick={() => {
           if (!props.locked) {
@@ -95,7 +97,7 @@ export const Checkbox = (props: CheckboxProps) => {
         checked={props.checked}
         type="checkbox"
       />
-      <Box locked={props.locked} />
+      <Box locked={props.locked} size={props.size} />
     </Container>
   );
 };
