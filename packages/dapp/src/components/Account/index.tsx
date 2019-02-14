@@ -9,6 +9,9 @@ import {
 } from "@joincivil/components";
 import { AccountHome } from "./Home";
 import { AccountEth } from "./Eth";
+import { AccountLogin } from "./Login";
+import { AccountSignup } from "./Signup";
+import { AccountCheckEmail } from "./CheckEmail";
 
 export default class AccountRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
