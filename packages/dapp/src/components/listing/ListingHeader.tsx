@@ -20,7 +20,7 @@ function getRegistryURLData(listingPhaseState: any): [string, string] {
     label = "Whitelisted Newsrooms";
   } else if (listingPhaseState.isInApplication) {
     urlArg = "in-progress/in-application";
-    label = "Whitelisted Newsrooms";
+    label = "Newsroom Applications";
   } else if (
     listingPhaseState.inChallengeCommitVotePhase ||
     listingPhaseState.inChallengeRevealPhase ||
