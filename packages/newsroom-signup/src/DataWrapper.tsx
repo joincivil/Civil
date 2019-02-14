@@ -66,9 +66,9 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                 }
 
                 let persistedCharter: Partial<CharterData>;
-                if (charterData && charterData.jsonb && charterData.jsonb[0].rawJson) {
+                if (charterData && charterData.jsonb && charterData.jsonb.rawJson) {
                   try {
-                    persistedCharter = JSON.parse(charterData.jsonb[0].rawJson);
+                    persistedCharter = JSON.parse(charterData.jsonb.rawJson);
                   } catch (err) {
                     console.error("Failed to parse persisted charter JSON", err, charterData.jsonb.rawJson);
                   }
