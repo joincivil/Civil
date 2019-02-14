@@ -3,14 +3,18 @@ import styled from "styled-components";
 import { colors } from "../styleConstants";
 import { CheckboxTheme } from "./SlideCheckbox";
 
-interface ContainerProps {
+export enum CheckboxSizes {
+  SMALL = "SMALL",
+}
+
+interface BoxProps {
   locked?: boolean;
-  theme?: CheckboxTheme;
+  size?: CheckboxSizes;
 }
 
 const Box = styled.span`
   position: absolute;
-  cursor: ${(props: ContainerProps) => (props.locked ? "default" : "pointer")};
+  cursor: ${(props: BoxProps) => (props.locked ? "default" : "pointer")};
   top: 0;
   left: 0;
   bottom: 0;
@@ -28,6 +32,12 @@ const Box = styled.span`
     transform: rotate(45deg);
   }
 `;
+
+interface ContainerProps {
+  locked?: boolean;
+  theme?: CheckboxTheme;
+  size?: CheckboxSizes;
+}
 
 const Container = styled<ContainerProps, "label">("label")`
   position: relative;
@@ -48,7 +58,8 @@ const Container = styled<ContainerProps, "label">("label")`
   }
   input:checked + ${Box} {
     color: ${colors.basic.WHITE};
-    border: 2px solid ${props => props.theme.checkboxActiveColor};
+    border: ${(props: ContainerProps) => (props.size === CheckboxSizes.SMALL ? "1" : "2")};px solid ${props =>
+  props.theme.checkboxActiveColor};
     background-color: ${props => props.theme.checkboxActiveColor};
     opacity: ${(props: ContainerProps) => (props.locked ? 0.7 : 1)};
   }

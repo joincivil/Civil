@@ -3,10 +3,10 @@ import gql from "graphql-tag";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
-// import { Checkbox } from "../../input/Checkbox";
+import { Checkbox } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
-import { CheckboxSection, CheckboxContainer, Checkbox } from "./styledComponents";
+import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./styledComponents";
 
 const signupMutation = gql`
   mutation($emailAddress: String!) {
@@ -78,24 +78,29 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
               <CheckboxContainer>
                 <CheckboxSection>
-                  <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} /> I agree to Civil's
-                  {/* TODO(jorgelo): Is this where this link should point to? */}
-                  <a href="https://civil.co/terms/">Privacy Policy and Terms of Use</a>
+                  {/* ??? What's the best way to change the style on a checkbox? */}
+                  <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
+                  <CheckboxLabel>
+                    I agree to Civil's {}
+                    <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>
+                  </CheckboxLabel>
                 </CheckboxSection>
 
                 <CheckboxSection>
                   <Checkbox checked={hasSelectedToAddToNewsletter} onClick={this.toggleHasSelectedToAddToNewsletter} />
+                  <CheckboxLabel>Get notified of news and announcements from Civil.</CheckboxLabel>
                 </CheckboxSection>
               </CheckboxContainer>
-
-              <Button
-                size={buttonSizes.SMALL_WIDE}
-                textTransform="none"
-                disabled={!hasAgreedToTOS}
-                onClick={async event => this.handleSubmit(event, sendEmail)}
-              >
-                Confirm
-              </Button>
+              <ConfirmButtonContainer>
+                <Button
+                  size={buttonSizes.SMALL_WIDE}
+                  textTransform="none"
+                  disabled={!hasAgreedToTOS}
+                  onClick={async event => this.handleSubmit(event, sendEmail)}
+                >
+                  Confirm
+                </Button>
+              </ConfirmButtonContainer>
               {loading && <span>loading...</span>}
             </>
           );
