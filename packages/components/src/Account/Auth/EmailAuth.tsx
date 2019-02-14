@@ -3,9 +3,10 @@ import gql from "graphql-tag";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
-import { Checkbox } from "../../input/Checkbox";
+// import { Checkbox } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
+import { CheckboxSection, CheckboxContainer, Checkbox } from "./styledComponents";
 
 const signupMutation = gql`
   mutation($emailAddress: String!) {
@@ -74,10 +75,19 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                 value={this.state.emailAddress}
                 onChange={(_, value) => this.setState({ emailAddress: value })}
               />
-              <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} /> I agree to Civil's
-              {/* TODO(jorgelo): Is this where this link should point to? */}
-              <a href="https://civil.co/terms/">Privacy Policy and Terms of Use</a>
-              <Checkbox checked={hasSelectedToAddToNewsletter} onClick={this.toggleHasSelectedToAddToNewsletter} />
+
+              <CheckboxContainer>
+                <CheckboxSection>
+                  <Checkbox checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} /> I agree to Civil's
+                  {/* TODO(jorgelo): Is this where this link should point to? */}
+                  <a href="https://civil.co/terms/">Privacy Policy and Terms of Use</a>
+                </CheckboxSection>
+
+                <CheckboxSection>
+                  <Checkbox checked={hasSelectedToAddToNewsletter} onClick={this.toggleHasSelectedToAddToNewsletter} />
+                </CheckboxSection>
+              </CheckboxContainer>
+
               <Button
                 size={buttonSizes.SMALL_WIDE}
                 textTransform="none"
