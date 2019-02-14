@@ -1,13 +1,15 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+import config from "../../helpers/config";
+
 class ListingDiscourse extends React.Component {
   constructor(props: {}) {
     super(props);
   }
 
   public async componentDidMount(): Promise<void> {
-    const discourseUrl = process.env.REACT_APP_DISCOURSE_URL;
+    const discourseUrl = config.DISCOURSE_URL;
     const tag = document.createElement("script");
     tag.async = true;
     tag.src = discourseUrl + "/static/embed.js";
