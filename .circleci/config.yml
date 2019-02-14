@@ -130,9 +130,8 @@ jobs:
             - deploy:
                 name: Update Kubernetes Deployment on TEST
                 command: |
-                    # Enable when test env is setup
-                    # TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
-                    # kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1 --namespace test
+                    TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
+                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1 --namespace test
 
     deploy-staging:
         <<: *defaults
@@ -218,15 +217,14 @@ workflows:
                             - master
                             - production
                             - /test.*/
-            # Enable when we have a test env setup.
-            # - deploy-test:
-            #     context: gcp-common
-            #     requires:
-            #         - push-containers
-            #     filters:
-            #         branches:
-            #             only:
-            #                 - /test.*/
+            - deploy-test:
+                context: gcp-common
+                requires:
+                    - push-containers
+                filters:
+                    branches:
+                        only:
+                            - /test.*/
             - deploy-staging:
                 context: gcp-common
                 requires:
