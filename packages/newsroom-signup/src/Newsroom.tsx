@@ -332,9 +332,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   public render(): JSX.Element {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <AuthWrapper>
-          <Wrapper>{this.isWalletOnboarded() ? this.renderManager() : this.renderWalletOnboarding()}</Wrapper>
-        </AuthWrapper>
+        <Wrapper>{this.isWalletOnboarded() ? this.renderManager() : this.renderWalletOnboarding()}</Wrapper>
       </ThemeProvider>
     );
   }
@@ -419,18 +417,20 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalPro
 
 const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
   return (
-    <DataWrapper>
-      {({ profileWalletAddress, persistedCharter, persistCharter }) => {
-        return (
-          <NewsroomComponent
-            {...props}
-            profileWalletAddress={profileWalletAddress}
-            persistCharter={persistCharter}
-            persistedCharter={persistedCharter}
-          />
-        );
-      }}
-    </DataWrapper>
+    <AuthWrapper>
+      <DataWrapper>
+        {({ profileWalletAddress, persistedCharter, persistCharter }) => {
+          return (
+            <NewsroomComponent
+              {...props}
+              profileWalletAddress={profileWalletAddress}
+              persistCharter={persistCharter}
+              persistedCharter={persistedCharter}
+            />
+          );
+        }}
+      </DataWrapper>
+    </AuthWrapper>
   );
 };
 
