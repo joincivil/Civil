@@ -34,15 +34,17 @@ export interface AccountEmailAuthProps {
 
 export interface AccountEmailAuthState {
   emailAddress: string;
-  errorMessage: string | null;
+  errorMessage: string | undefined;
   hasAgreedToTOS: boolean;
   hasSelectedToAddToNewsletter: boolean;
+  hasBlurred: boolean;
 }
 
 // TODO(jorgelo): Is there a more official way to do this?
 
-function validateEmail(email: string): boolean {
-  return !!email.match(/^\w+@+?\.$/);
+function isValidEmail(email: string): boolean {
+  const emailRegex = /[^@]+@[^\.]+\..+/;
+  return emailRegex.test(email);
 }
 
 export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, AccountEmailAuthState> {
@@ -50,12 +52,32 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     super(props);
     this.state = {
       emailAddress: "",
-      errorMessage: null,
+      errorMessage: undefined,
       hasAgreedToTOS: false,
       hasSelectedToAddToNewsletter: false,
+      hasBlurred: false,
     };
   }
 
+  public renderEmailInput(): JSX.Element {
+    const { emailAddress, hasBlurred } = this.state;
+
+    const isValid = !hasBlurred || isValidEmail(emailAddress);
+
+    return (
+      <TextInput
+        placeholder="Email address"
+        noLabel
+        type="text"
+        name="email"
+        value={emailAddress}
+        invalidMessage={isValid ? undefined : "Please enter a valid email."}
+        invalid={!isValid}
+        onChange={(_, value) => this.setState({ emailAddress: value, hasBlurred: false })}
+        onBlur={() => this.setState({ hasBlurred: true })}
+      />
+    );
+  }
   public render(): JSX.Element {
     const { isNewUser } = this.props;
     const { errorMessage, hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
@@ -67,15 +89,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
         {(sendEmail, { loading, error, data }) => {
           return (
             <>
-              {errorMessage && <span>Error: {errorMessage}</span>}
-              <TextInput
-                placeholder="Email address"
-                noLabel
-                type="text"
-                name="email"
-                value={this.state.emailAddress}
-                onChange={(_, value) => this.setState({ emailAddress: value })}
-              />
+              {this.renderEmailInput()}
 
               <CheckboxContainer>
                 <CheckboxSection>
@@ -126,14 +140,12 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
   private async handleSubmit(event: Event, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
-    this.setState({ errorMessage: null });
+    this.setState({ errorMessage: undefined, hasBlurred: true });
 
     const { emailAddress, hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
     const { applicationType, onEmailSend, isNewUser } = this.props;
 
-    if (!validateEmail(emailAddress)) {
-      // TODO(jorge): What should the real error message be?
-      this.setState({ errorMessage: "Please enter a valid email" });
+    if (!isValidEmail(emailAddress)) {
       return;
     }
 
