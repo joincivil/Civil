@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import {
-  AccountEmailAuth,
-  AccountEmailSent,
-  AccountVerifyToken,
-  AccountVerifyTokenProps,
+  // AccountEmailAuth,
+  // AccountEmailSent,
+  // AccountVerifyToken,
+  // AccountVerifyTokenProps,
   AuthenticatedRoute,
 } from "@joincivil/components";
 import { AuthHome } from "./Home";
