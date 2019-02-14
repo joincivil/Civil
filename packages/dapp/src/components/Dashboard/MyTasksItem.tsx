@@ -10,7 +10,7 @@ import {
   EthAddress,
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
-import { DashboardActivityItemTask, PHASE_TYPE_NAMES } from "@joincivil/components";
+import { DashboardActivityItemTask } from "@joincivil/components";
 import { State } from "../../redux/reducers";
 import { ListingWrapperWithExpiry } from "../../redux/reducers/listings";
 import {
@@ -21,16 +21,21 @@ import {
   getChallengeState,
   getAppealChallengeState,
 } from "../../selectors";
-import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 
+import MyTasksItemPhaseCountdown from "./MyTasksItemPhaseCountdown";
 import DashboardItemChallengeResults from "./ChallengeSummary";
 
 export interface ActivityListItemOwnProps {
   challengeID?: string;
   showClaimRewardsTab?(): void;
   showRescueTokensTab?(): void;
+}
+
+export interface ViewDetailURLProps {
+  listingDetailURL: string;
+  viewDetailURL: string;
 }
 
 export interface ActivityListItemReduxProps {
@@ -49,6 +54,8 @@ export interface ActivityListItemReduxProps {
   listing?: ListingWrapper;
   listingDataRequestStatus?: any;
 }
+
+export type MyTasksItemSubComponentProps = ActivityListItemOwnProps & ViewDetailURLProps & ActivityListItemReduxProps;
 
 class MyTasksItemComponent extends React.Component<
   ActivityListItemOwnProps & ActivityListItemReduxProps & DispatchProp<any>
@@ -70,8 +77,6 @@ class MyTasksItemComponent extends React.Component<
       challengeID,
       userChallengeData,
       challengeState,
-      showClaimRewardsTab,
-      showRescueTokensTab,
     } = this.props;
 
     if (!userChallengeData || !challengeState) {
@@ -79,7 +84,7 @@ class MyTasksItemComponent extends React.Component<
     }
 
     const { canUserCollect, canUserRescue, didUserCommit } = userChallengeData;
-    const { isAwaitingAppealJudgement } = challengeState;
+    const { inCommitPhase, inRevealPhase, isAwaitingAppealJudgement } = challengeState;
 
     if (listing && listing.data && newsroom) {
       const newsroomData = newsroom.wrapper.data;
@@ -87,7 +92,6 @@ class MyTasksItemComponent extends React.Component<
       let viewDetailURL = listingDetailURL;
       const title = `${newsroomData.name} Challenge #${challengeID}`;
       const logoUrl = charter && charter.logoUrl;
-      let onCTAButtonClick;
 
       if (canUserCollect || canUserRescue) {
         viewDetailURL = `${listingDetailURL}/challenge/${challengeID}`;
@@ -95,24 +99,26 @@ class MyTasksItemComponent extends React.Component<
         viewDetailURL = listingDetailURL;
       }
 
-      if (canUserCollect) {
-        onCTAButtonClick = showClaimRewardsTab;
-      } else if (canUserRescue) {
-        onCTAButtonClick = showRescueTokensTab;
-      }
-
-      const props = {
+      const viewProps = {
         title,
         logoUrl,
-        listingDetailURL,
         viewDetailURL,
-        onClick: onCTAButtonClick,
-        ...challengeState,
-        ...userChallengeData,
       };
 
       if (canUserCollect || canUserRescue || didUserCommit) {
-        return <DashboardActivityItemTask {...props}>{this.renderActivityDetails()}</DashboardActivityItemTask>;
+        return (
+          <DashboardActivityItemTask {...viewProps}>
+            <MyTasksItemPhaseCountdown {...this.props} />
+            {!inCommitPhase &&
+              !inRevealPhase && (
+                <DashboardItemChallengeResults
+                  listingDetailURL={listingDetailURL}
+                  viewDetailURL={viewDetailURL}
+                  {...this.props}
+                />
+              )}
+          </DashboardActivityItemTask>
+        );
       }
     }
 
@@ -126,59 +132,6 @@ class MyTasksItemComponent extends React.Component<
     if (this.props.newsroom) {
       this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
     }
-  };
-
-  private renderActivityDetails = (): JSX.Element => {
-    const { challenge, challengeState } = this.props;
-
-    if (!challengeState) {
-      return <></>;
-    }
-
-    const {
-      // isResolved,
-      inCommitPhase,
-      inRevealPhase,
-      // canResolveChallenge,
-      canRequestAppeal,
-      isAwaitingAppealJudgement,
-      isAwaitingAppealChallenge,
-      // canAppealBeResolved,
-      // didChallengeOriginallySucceed,
-      isAppealChallengeInCommitStage,
-      isAppealChallengeInRevealStage,
-    } = challengeState;
-
-    let phaseCountdownType;
-    let challengeResults;
-    let displayChallengeResults = true;
-
-    if (inCommitPhase) {
-      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_COMMIT_VOTE;
-      displayChallengeResults = false;
-    } else if (inRevealPhase) {
-      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE;
-      displayChallengeResults = false;
-    } else if (canRequestAppeal) {
-      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_REQUEST;
-    } else if (isAwaitingAppealJudgement) {
-      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_JUDGEMENT;
-    } else if (isAwaitingAppealChallenge) {
-      phaseCountdownType = PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_CHALLENGE;
-    } else if (isAppealChallengeInCommitStage) {
-      phaseCountdownType = PHASE_TYPE_NAMES.APPEAL_CHALLENGE_COMMIT_VOTE;
-    } else if (isAppealChallengeInRevealStage) {
-      phaseCountdownType = PHASE_TYPE_NAMES.APPEAL_CHALLENGE_REVEAL_VOTE;
-    }
-
-    challengeResults = <DashboardItemChallengeResults {...this.props} />;
-
-    return (
-      <>
-        {phaseCountdownType && <PhaseCountdownTimer phaseType={phaseCountdownType} challenge={challenge} />}
-        {displayChallengeResults && challengeResults}
-      </>
-    );
   };
 }
 

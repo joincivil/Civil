@@ -16,7 +16,7 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { WinningChallengeResults } from "./WinningChallengeResults";
-import { ActivityListItemOwnProps, ActivityListItemReduxProps } from "./MyTasksItem";
+import { MyTasksItemSubComponentProps } from "./MyTasksItem";
 
 interface AppealDecisionTextProps {
   currentNewsroomStatusPastTense: string;
@@ -32,7 +32,7 @@ const AppealDecisionText: React.SFC<AppealDecisionTextProps> = props => {
   );
 };
 
-const CurrentChallengeStateExplanation: React.SFC<ActivityListItemOwnProps & ActivityListItemReduxProps> = props => {
+const CurrentChallengeStateExplanation: React.SFC<MyTasksItemSubComponentProps> = props => {
   const { appeal, appealChallenge, appealChallengeState, challengeState } = props;
 
   if (!challengeState) {
@@ -108,7 +108,7 @@ const CurrentChallengeStateExplanation: React.SFC<ActivityListItemOwnProps & Act
   return explanation;
 };
 
-const AppealSummary: React.SFC<ActivityListItemOwnProps & ActivityListItemReduxProps> = props => {
+const AppealSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
   const { appeal, challengeState } = props;
   const { didChallengeOriginallySucceed } = challengeState;
 
@@ -134,7 +134,7 @@ const AppealSummary: React.SFC<ActivityListItemOwnProps & ActivityListItemReduxP
   );
 };
 
-const UserAppealChallengeSummary: React.SFC<ActivityListItemOwnProps & ActivityListItemReduxProps> = props => {
+const UserAppealChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
   const { appealChallenge, appealChallengeState, appealUserChallengeData } = props;
 
   if (!appealChallenge || !appealChallengeState) {
@@ -175,33 +175,87 @@ const UserAppealChallengeSummary: React.SFC<ActivityListItemOwnProps & ActivityL
   );
 };
 
-const DashboardItemChallengeResults: React.SFC<ActivityListItemOwnProps & ActivityListItemReduxProps> = props => {
+const AppealChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
   const {
-    listingAddress,
-    appeal,
     appealChallengeID,
     appealChallenge,
     appealChallengeState,
     appealUserChallengeData,
+    showClaimRewardsTab,
+    showRescueTokensTab,
+    listingDetailURL,
+  } = props;
+
+  let appealWinningChallengeResults;
+  if (appealChallengeID && appealChallenge) {
+    let onAppealChallengeCTAButtonClick;
+
+    if (appealUserChallengeData) {
+      const { canUserCollect: appealCanUserCollect, canUserRescue: appealCanUserRescue } = appealUserChallengeData!;
+
+      if (appealCanUserCollect) {
+        onAppealChallengeCTAButtonClick = showClaimRewardsTab;
+      } else if (appealCanUserRescue) {
+        onAppealChallengeCTAButtonClick = showRescueTokensTab;
+      }
+    }
+
+    const appealChallengeButtonProps = {
+      listingDetailURL,
+      onClick: onAppealChallengeCTAButtonClick,
+      ...appealChallengeState,
+      ...appealUserChallengeData,
+    };
+
+    appealWinningChallengeResults = (
+      <StyledDashbaordActvityItemSectionOuter>
+        <StyledChallengeSummarySection>
+          {<UserAppealChallengeSummary {...props} />}
+
+          <StyledDashbaordActvityItemSection>
+            <StyledDashbaordActvityItemHeader>Community Voting Summary</StyledDashbaordActvityItemHeader>
+            <StyledDashbaordActvityItemSectionInner>
+              <WinningChallengeResults appealChallengeID={appealChallengeID} displayExplanation={true} />
+            </StyledDashbaordActvityItemSectionInner>
+          </StyledDashbaordActvityItemSection>
+        </StyledChallengeSummarySection>
+
+        <StyledDashboardActivityItemAction>
+          <DashboardActivityItemCTAButton {...appealChallengeButtonProps} />
+        </StyledDashboardActivityItemAction>
+      </StyledDashbaordActvityItemSectionOuter>
+    );
+  }
+
+  return (
+    <>
+      {appealChallenge && (
+        <StyledDashboardActivityItemSubTitle>Appeal Challenge #{appealChallengeID}</StyledDashboardActivityItemSubTitle>
+      )}
+      {appealWinningChallengeResults}
+    </>
+  );
+};
+
+const ChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
+  const {
     challengeID,
     challengeState,
     userChallengeData,
     showClaimRewardsTab,
     showRescueTokensTab,
+    listingDetailURL,
+    viewDetailURL,
   } = props;
 
   if (!challengeState) {
     return <></>;
   }
 
-  const listingDetailURL = `/listing/${listingAddress}`;
-  let viewDetailURL;
-
   const {
     isResolved,
     canResolveChallenge,
     canRequestAppeal,
-    isAwaitingAppealJudgement,
     isAppealChallengeInCommitStage,
     isAppealChallengeInRevealStage,
   } = challengeState;
@@ -236,69 +290,9 @@ const DashboardItemChallengeResults: React.SFC<ActivityListItemOwnProps & Activi
     );
   }
 
-  let appealWinningChallengeResults;
-  if (appealChallengeID && appealChallenge) {
-    viewDetailURL = listingDetailURL;
-    let onAppealChallengeCTAButtonClick;
-
-    if (appealUserChallengeData) {
-      const { canUserCollect: appealCanUserCollect, canUserRescue: appealCanUserRescue } = appealUserChallengeData!;
-
-      if (appealCanUserCollect || appealCanUserRescue) {
-        viewDetailURL = `${listingDetailURL}/challenge/${challengeID}`;
-      } else if (isAwaitingAppealJudgement) {
-        viewDetailURL = listingDetailURL;
-      }
-
-      if (appealCanUserCollect) {
-        onAppealChallengeCTAButtonClick = showClaimRewardsTab;
-      } else if (appealCanUserRescue) {
-        onAppealChallengeCTAButtonClick = showRescueTokensTab;
-      }
-    }
-
-    const appealChallengeButtonProps = {
-      listingDetailURL,
-      viewDetailURL,
-      onClick: onAppealChallengeCTAButtonClick,
-      ...appealChallengeState,
-      ...appealUserChallengeData,
-    };
-
-    appealWinningChallengeResults = (
-      <StyledDashbaordActvityItemSectionOuter>
-        <StyledChallengeSummarySection>
-          {<UserAppealChallengeSummary {...props} />}
-
-          <StyledDashbaordActvityItemSection>
-            <StyledDashbaordActvityItemHeader>Community Voting Summary</StyledDashbaordActvityItemHeader>
-            <StyledDashbaordActvityItemSectionInner>
-              <WinningChallengeResults
-                appealChallengeID={appealChallengeID}
-                displayExplanation={displayChallengeResultsExplanation}
-              />
-            </StyledDashbaordActvityItemSectionInner>
-          </StyledDashbaordActvityItemSection>
-        </StyledChallengeSummarySection>
-
-        <StyledDashboardActivityItemAction>
-          <DashboardActivityItemCTAButton {...appealChallengeButtonProps} />
-        </StyledDashboardActivityItemAction>
-      </StyledDashbaordActvityItemSectionOuter>
-    );
-  }
-
-  viewDetailURL = listingDetailURL;
-  let onCTAButtonClick;
-
   const { canUserCollect, canUserRescue } = userChallengeData!;
 
-  if (canUserCollect || canUserRescue) {
-    viewDetailURL = `${listingDetailURL}/challenge/${challengeID}`;
-  } else if (isAwaitingAppealJudgement) {
-    viewDetailURL = listingDetailURL;
-  }
-
+  let onCTAButtonClick;
   if (canUserCollect) {
     onCTAButtonClick = showClaimRewardsTab;
   } else if (canUserRescue) {
@@ -307,7 +301,6 @@ const DashboardItemChallengeResults: React.SFC<ActivityListItemOwnProps & Activi
 
   const buttonProps = {
     listingDetailURL,
-    viewDetailURL,
     onClick: onCTAButtonClick,
     ...challengeState,
     ...userChallengeData,
@@ -315,8 +308,6 @@ const DashboardItemChallengeResults: React.SFC<ActivityListItemOwnProps & Activi
 
   return (
     <>
-      {<CurrentChallengeStateExplanation {...props} />}
-
       <StyledDashbaordActvityItemSectionOuter>
         <StyledChallengeSummarySection>
           {userVotingSummary}
@@ -338,15 +329,28 @@ const DashboardItemChallengeResults: React.SFC<ActivityListItemOwnProps & Activi
           {viewDetailURL && <Link to={viewDetailURL}>View details &gt;</Link>}
         </StyledDashboardActivityItemAction>
       </StyledDashbaordActvityItemSectionOuter>
-
-      {appeal && <AppealSummary {...props} />}
-
-      {appealChallenge && (
-        <StyledDashboardActivityItemSubTitle>Appeal Challenge #{appealChallengeID}</StyledDashboardActivityItemSubTitle>
-      )}
-      {appealWinningChallengeResults}
     </>
   );
 };
 
-export default DashboardItemChallengeResults;
+const DashboardItemChallengeDetails: React.SFC<MyTasksItemSubComponentProps> = props => {
+  const { appeal, appealChallenge, challenge } = props;
+
+  if (!challenge) {
+    return <></>;
+  }
+
+  return (
+    <>
+      {<CurrentChallengeStateExplanation {...props} />}
+
+      {<ChallengeSummary {...props} />}
+
+      {appeal && <AppealSummary {...props} />}
+
+      {appealChallenge && <AppealChallengeSummary {...props} />}
+    </>
+  );
+};
+
+export default DashboardItemChallengeDetails;
