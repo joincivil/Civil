@@ -8,7 +8,7 @@ import {
   StyledDashboardActivityItem,
   StyledDashboardActivityItemIcon,
   StyledDashboardActivityItemDetails,
-} from "./styledComponents";
+} from "./DashboardStyledComponents";
 import DashboardActivityItemTitle from "./DashboardActivityItemTitle";
 
 export const DashboardActivityItemTask: React.SFC<DashboardActivityItemProps> = props => {

@@ -6,5 +6,5 @@ export * from "./DashboardActivityItemTask";
 export * from "./DashboardActivityItemCTAButton";
 export * from "./DashboardActivitySelectableItem";
 export * from "./DashboardActivityTabTitle";
-export * from "./styledComponents";
-export * from "./textComponents";
+export * from "./DashboardStyledComponents";
+export * from "./DashboardTextComponents";

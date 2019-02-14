@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 
 import { DashboardActivityItemBaseProps, DashboardActivityItemTitleProps } from "./DashboardTypes";
-import { StyledDashboardActivityItemTitle } from "./styledComponents";
+import { StyledDashboardActivityItemTitle } from "./DashboardStyledComponents";
 
 const DashboardActivityItemTitle: React.SFC<
   DashboardActivityItemBaseProps & DashboardActivityItemTitleProps

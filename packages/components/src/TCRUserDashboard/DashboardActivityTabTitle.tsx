@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyledSubTabCount } from "./styledComponents";
+import { StyledSubTabCount } from "./DashboardStyledComponents";
 import {
   SubTabAllChallengesVotedText,
   SubTabRevealVoteText,
@@ -7,7 +7,7 @@ import {
   SubTabRescueTokensText,
   SubTabChallengesCompletedText,
   SubTabChallengesStakedText,
-} from "./textComponents";
+} from "./DashboardTextComponents";
 
 export interface DashboardActivityTabTitleProps {
   count?: number;
