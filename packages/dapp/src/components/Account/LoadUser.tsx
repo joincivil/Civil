@@ -1,19 +1,7 @@
 import * as React from "react";
-import { getApolloSession } from "@joincivil/utils";
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { getApolloSession, getCurrentUserQuery } from "@joincivil/utils";
 
-const userQuery = gql`
-  query {
-    currentUser {
-      uid
-      email
-      ethAddress
-      quizPayload
-      quizStatus
-    }
-  }
-`;
+import { Query } from "react-apollo";
 
 export interface LoadUserChildrenProps {
   user: any;
@@ -35,7 +23,7 @@ export const LoadUser: React.SFC<LoadUserProps> = props => {
   }
 
   return (
-    <Query query={userQuery}>
+    <Query query={getCurrentUserQuery}>
       {({ loading, error, data }) => {
         if (loading || error) {
           return renderFunction({ user: null, loading });

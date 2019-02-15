@@ -12,6 +12,7 @@ export interface TokenTutorialQuizProps {
   activeSection: string;
   skipTutorial: boolean;
   handleClose(): void;
+  handleSaveQuizState(topic: string, lastSlideIdx: number, isComplete: boolean): void;
 }
 
 export interface TokenTutorialQuizStates {
@@ -25,10 +26,13 @@ export interface TokenTutorialQuizStates {
 export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, TokenTutorialQuizStates> {
   public constructor(props: any) {
     super(props);
+
+    const { topicIdx, activeSection } = this.props;
+
     this.state = {
-      topicIdx: this.props.topicIdx,
+      topicIdx,
       slideIdx: 0,
-      activeSection: this.props.activeSection,
+      activeSection,
       quizSlide: 0,
       resetQuestion: true,
     };
@@ -141,8 +145,10 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
             quizSlide: this.state.quizSlide + 1,
             resetQuestion: false,
           });
+          this.props.handleSaveQuizState(TutorialContent[this.state.topicIdx].quizId, this.state.slideIdx, false);
         } else {
           this.setState({ slideIdx: 0, activeSection: "completed" });
+          this.props.handleSaveQuizState(TutorialContent[this.state.topicIdx].quizId, this.state.slideIdx, true);
         }
         break;
       default:
