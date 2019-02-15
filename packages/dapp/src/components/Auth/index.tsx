@@ -13,7 +13,7 @@ import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
-import { AuthWrapper } from "./AuthStyledComponents";
+import { AuthOuterWrapper, AuthInnerWrapper } from "./AuthStyledComponents";
 
 const TOKEN_HOME = "/tokens";
 
@@ -30,61 +30,63 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
             path={`${match.path}/`}
             component={() => (
               <>
-                <AuthWrapper>
-                  <Route
-                    redirectTo={TOKEN_HOME}
-                    path={`${match.path}/login`}
-                    exact={true}
-                    component={() => <AuthLogin onEmailSend={this.handleAuthEmail} />}
-                  />
-                  <Route
-                    path={`${match.path}/login/check-email`}
-                    component={(props: RouteComponentProps) => (
-                      <AuthCheckEmail
-                        isNewUser={false}
-                        emailAddress={props.location!.state.emailAddress}
-                        onSendAgain={() => this.handleOnSendAgain(false)}
-                      />
-                    )}
-                  />
-                  <Route
-                    path={`${match.path}/login/verify-token/:token`}
-                    exact
-                    component={() => (
-                      <AuthVerifyToken
-                        isNewUser={false}
-                        onAuthenticationContinue={this.handleOnAuthenticationContinue}
-                      />
-                    )}
-                  />
-                  {/* SignUp Routes */}
-                  <Route
-                    path={`${match.path}/signup`}
-                    exact={true}
-                    component={() => <AuthSignup onEmailSend={this.handleAuthEmail} />}
-                  />
-                  <Route
-                    path={`${match.path}/signup/check-email`}
-                    exact
-                    component={(props: RouteComponentProps) => (
-                      <AuthCheckEmail
-                        isNewUser={true}
-                        emailAddress={props.location!.state.emailAddress}
-                        onSendAgain={() => this.handleOnSendAgain(true)}
-                      />
-                    )}
-                  />
-                  <Route
-                    path={`${match.path}/signup/verify-token/:token`}
-                    exact
-                    component={() => (
-                      <AuthVerifyToken
-                        isNewUser={true}
-                        onAuthenticationContinue={this.handleOnAuthenticationContinue}
-                      />
-                    )}
-                  />
-                </AuthWrapper>
+                <AuthOuterWrapper>
+                  <AuthInnerWrapper>
+                    <Route
+                      redirectTo={TOKEN_HOME}
+                      path={`${match.path}/login`}
+                      exact={true}
+                      component={() => <AuthLogin onEmailSend={this.handleAuthEmail} />}
+                    />
+                    <Route
+                      path={`${match.path}/login/check-email`}
+                      component={(props: RouteComponentProps) => (
+                        <AuthCheckEmail
+                          isNewUser={false}
+                          emailAddress={props.location!.state.emailAddress}
+                          onSendAgain={() => this.handleOnSendAgain(false)}
+                        />
+                      )}
+                    />
+                    <Route
+                      path={`${match.path}/login/verify-token/:token`}
+                      exact
+                      component={() => (
+                        <AuthVerifyToken
+                          isNewUser={false}
+                          onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                        />
+                      )}
+                    />
+                    {/* SignUp Routes */}
+                    <Route
+                      path={`${match.path}/signup`}
+                      exact={true}
+                      component={() => <AuthSignup onEmailSend={this.handleAuthEmail} />}
+                    />
+                    <Route
+                      path={`${match.path}/signup/check-email`}
+                      exact
+                      component={(props: RouteComponentProps) => (
+                        <AuthCheckEmail
+                          isNewUser={true}
+                          emailAddress={props.location!.state.emailAddress}
+                          onSendAgain={() => this.handleOnSendAgain(true)}
+                        />
+                      )}
+                    />
+                    <Route
+                      path={`${match.path}/signup/verify-token/:token`}
+                      exact
+                      component={() => (
+                        <AuthVerifyToken
+                          isNewUser={true}
+                          onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                        />
+                      )}
+                    />
+                  </AuthInnerWrapper>
+                </AuthOuterWrapper>
               </>
             )}
           />

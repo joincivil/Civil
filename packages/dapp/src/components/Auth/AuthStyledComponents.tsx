@@ -2,6 +2,11 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 // import { colors, fonts } from "../../styleConstants";
 
-export const AuthWrapper = styled.div`
-  border: 1px solid red;
+export const AuthOuterWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const AuthInnerWrapper = styled.div`
+  width: 640px;
 `;
