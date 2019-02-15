@@ -93,7 +93,7 @@ export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
 export interface NewsroomProps extends NewsroomPropsWithRedux {
   profileWalletAddress?: EthAddress;
   persistedCharter?: Partial<CharterData>;
-  persistCharter(charter: Partial<CharterData>): Promise<void>;
+  persistCharter(charter: Partial<CharterData>): Promise<any>;
 }
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`

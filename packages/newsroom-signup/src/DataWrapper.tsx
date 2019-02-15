@@ -1,6 +1,6 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { Mutation, Query, MutationFunc } from "react-apollo";
+import { Mutation, Query, MutationFunc, FetchResult } from "react-apollo";
 import { EthAddress, CharterData } from "@joincivil/core";
 
 const JSON_BLOB_ID = "newsroomSignupCharter";
@@ -32,7 +32,7 @@ const saveCharterMutation = gql`
 export interface DataWrapperChildrenProps {
   profileWalletAddress: EthAddress;
   persistedCharter: Partial<CharterData>;
-  persistCharter(charter: Partial<CharterData>): Promise<void>;
+  persistCharter(charter: Partial<CharterData>): Promise<void | FetchResult>;
 }
 
 export interface DataWrapperProps {
@@ -93,9 +93,9 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
     );
   }
 
-  private saveCharterFuncFromMutation(mutation: MutationFunc): (charter: Partial<CharterData>) => Promise<void> {
+  private saveCharterFuncFromMutation(mutation: MutationFunc): (charter: Partial<CharterData>) => Promise<void | FetchResult> {
     return async (charter: Partial<CharterData>) => {
-      await mutation({
+      return await mutation({
         variables: {
           input: {
             id: JSON_BLOB_ID,
