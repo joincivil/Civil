@@ -65,15 +65,10 @@ class ChallengeProposalRevealVote extends React.Component<
     props: ChallengeDetailProps & ChallengeProposalRevealVoteComponentProps & InjectedTransactionStatusModalProps,
   ) {
     super(props);
-    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
-    let voteOption;
-    if (fetchedVote) {
-      voteOption = fetchedVote.toString();
-    }
     this.state = {
       isReviewVoteModalOpen: false,
-      voteOption,
-      salt: fetchSalt(this.props.challengeID, this.props.user), // TODO(jorgelo): This should probably be in redux.
+      voteOption: this.getVoteOption(),
+      salt: fetchSalt(this.props.challengeID, this.props.user),
       numTokens: undefined,
     };
   }
@@ -92,6 +87,7 @@ class ChallengeProposalRevealVote extends React.Component<
     const revealVoteProps = {
       ...this.props,
       onInputChange: this.updateRevealVoteState,
+      voteOption: this.state.voteOption,
       salt: this.state.salt,
       challengeID: this.props.challengeID.toString(),
       transactions: this.getTransactions(),
@@ -99,6 +95,15 @@ class ChallengeProposalRevealVote extends React.Component<
     };
 
     return <ChallengeProposalRevealVoteComponent {...revealVoteProps} />;
+  }
+
+  private getVoteOption(): string | undefined {
+    const fetchedVote = fetchVote(this.props.challengeID, this.props.user);
+    let voteOption;
+    if (fetchedVote) {
+      voteOption = fetchedVote.toString();
+    }
+    return voteOption;
   }
 
   private updateRevealVoteState = (data: any, callback?: () => void): void => {
