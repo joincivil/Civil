@@ -33,7 +33,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   redirectTo={TOKEN_HOME}
                   path={`${match.path}/login`}
                   exact={true}
-                  component={(props: any) => <AuthLogin onEmailSend={this.handleAuthEmail} />}
+                  component={() => <AuthLogin onEmailSend={this.handleAuthEmail} />}
                 />
                 <Route
                   path={`${match.path}/login/check-email`}
@@ -42,15 +42,15 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 <Route
                   path={`${match.path}/login/verify-token/:token`}
                   exact
-                  component={() => <AuthVerifyToken isNewUser={false} />}
+                  component={() => (
+                    <AuthVerifyToken isNewUser={false} onAuthenticationContinue={this.handleOnAuthenticationContinue} />
+                  )}
                 />
                 {/* SignUp Routes */}
                 <Route
                   path={`${match.path}/signup`}
                   exact={true}
-                  component={(props: any) => (
-                    <AccountEmailAuth isNewUser={true} {...props} onEmailSend={this.handleAuthEmail} />
-                  )}
+                  component={() => <AuthSignup onEmailSend={this.handleAuthEmail} />}
                 />
                 <Route
                   path={`${match.path}/signup/check-email`}
