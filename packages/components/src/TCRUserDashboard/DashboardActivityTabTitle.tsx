@@ -1,11 +1,13 @@
 import * as React from "react";
-import { StyledSubTabCount } from "./styledComponents";
+import { StyledSubTabCount } from "./DashboardStyledComponents";
 import {
   SubTabAllChallengesVotedText,
   SubTabRevealVoteText,
   SubTabClaimRewardsText,
   SubTabRescueTokensText,
-} from "./textComponents";
+  SubTabChallengesCompletedText,
+  SubTabChallengesStakedText,
+} from "./DashboardTextComponents";
 
 export interface DashboardActivityTabTitleProps {
   count?: number;
@@ -48,6 +50,22 @@ export const RescueTokensDashboardTabTitle: React.SFC<DashboardActivityTabTitleP
   return (
     <DashboardActivityTabTitle count={props.count}>
       <SubTabRescueTokensText />
+    </DashboardActivityTabTitle>
+  );
+};
+
+export const ChallengesCompletedDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+  return (
+    <DashboardActivityTabTitle count={props.count}>
+      <SubTabChallengesCompletedText />
+    </DashboardActivityTabTitle>
+  );
+};
+
+export const ChallengesStakedDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+  return (
+    <DashboardActivityTabTitle count={props.count}>
+      <SubTabChallengesStakedText />
     </DashboardActivityTabTitle>
   );
 };

@@ -2,14 +2,13 @@ import * as React from "react";
 import { Set } from "immutable";
 import MyTasksItem from "./MyTasksItem";
 
-export interface MyTasksOwnProps {
+export interface MyChallengesOwnProps {
   challenges?: Set<string>;
-  appealChallenges?: Set<string>;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
 }
 
-const MyTasks: React.SFC<MyTasksOwnProps> = props => {
+const MyChallenges: React.SFC<MyChallengesOwnProps> = props => {
   return (
     <>
       {props.challenges &&
@@ -27,23 +26,8 @@ const MyTasks: React.SFC<MyTasksOwnProps> = props => {
             />
           );
         })}
-      {props.appealChallenges &&
-        props.appealChallenges.map(c => {
-          return (
-            <MyTasksItem
-              key={c}
-              appealChallengeID={c!}
-              showClaimRewardsTab={() => {
-                props.showClaimRewardsTab();
-              }}
-              showRescueTokensTab={() => {
-                props.showRescueTokensTab();
-              }}
-            />
-          );
-        })}
     </>
   );
 };
 
-export default MyTasks;
+export default MyChallenges;
