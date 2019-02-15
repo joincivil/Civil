@@ -95,7 +95,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
 
   private saveCharterFuncFromMutation(mutation: MutationFunc): (charter: Partial<CharterData>) => Promise<void | FetchResult> {
     return async (charter: Partial<CharterData>) => {
-      return await mutation({
+      return mutation({
         variables: {
           input: {
             id: JSON_BLOB_ID,
