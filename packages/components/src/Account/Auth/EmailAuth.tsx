@@ -78,11 +78,37 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       />
     );
   }
-  public render(): JSX.Element {
-    const { isNewUser } = this.props;
+
+  public renderCheckboxes(): JSX.Element {
     const { errorMessage, hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
 
+    return (
+      <CheckboxContainer>
+        <CheckboxSection>
+          <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
+          <CheckboxLabel>
+            I agree to Civil's {}
+            <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>
+          </CheckboxLabel>
+        </CheckboxSection>
+
+        <CheckboxSection>
+          <Checkbox
+            size={CheckboxSizes.SMALL}
+            checked={hasSelectedToAddToNewsletter}
+            onClick={this.toggleHasSelectedToAddToNewsletter}
+          />
+          <CheckboxLabel>Get notified of news and announcements from Civil.</CheckboxLabel>
+        </CheckboxSection>
+      </CheckboxContainer>
+    );
+  }
+  public render(): JSX.Element {
+    const { isNewUser } = this.props;
+    const { hasAgreedToTOS } = this.state;
+
     const emailMutation = isNewUser ? signupMutation : loginMutation;
+    const isButtonDisabled = isNewUser && !hasAgreedToTOS;
 
     return (
       <Mutation mutation={emailMutation}>
@@ -90,30 +116,12 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
           return (
             <>
               {this.renderEmailInput()}
-
-              <CheckboxContainer>
-                <CheckboxSection>
-                  <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
-                  <CheckboxLabel>
-                    I agree to Civil's {}
-                    <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>
-                  </CheckboxLabel>
-                </CheckboxSection>
-
-                <CheckboxSection>
-                  <Checkbox
-                    size={CheckboxSizes.SMALL}
-                    checked={hasSelectedToAddToNewsletter}
-                    onClick={this.toggleHasSelectedToAddToNewsletter}
-                  />
-                  <CheckboxLabel>Get notified of news and announcements from Civil.</CheckboxLabel>
-                </CheckboxSection>
-              </CheckboxContainer>
+              {isNewUser && this.renderCheckboxes()}
               <ConfirmButtonContainer>
                 <Button
                   size={buttonSizes.SMALL_WIDE}
                   textTransform="none"
-                  disabled={!hasAgreedToTOS}
+                  disabled={isButtonDisabled}
                   onClick={async event => this.handleSubmit(event, sendEmail)}
                 >
                   Confirm
@@ -142,7 +150,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
     this.setState({ errorMessage: undefined, hasBlurred: true });
 
-    const { emailAddress, hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
+    const { emailAddress, hasSelectedToAddToNewsletter } = this.state;
     const { applicationType, onEmailSend, isNewUser } = this.props;
 
     if (!isValidEmail(emailAddress)) {

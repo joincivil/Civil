@@ -9,6 +9,8 @@ export interface AuthLoginProps {
 export const AuthLogin: React.SFC<AuthLoginProps> = props => {
   return (
     <>
+      <h1>Sign in with email</h1>
+      <h5>Enter the address associated with your account, and we'll send a magic link to your inbox.</h5>
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={false}
