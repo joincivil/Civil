@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 import { SmallNewsroomLogo } from "../ListingSummary/styledComponents";
 
@@ -9,13 +8,11 @@ import {
   StyledDashboardActivityItem,
   StyledDashboardActivityItemIcon,
   StyledDashboardActivityItemDetails,
-  StyledDashboardActivityItemAction,
-} from "./styledComponents";
+} from "./DashboardStyledComponents";
 import DashboardActivityItemTitle from "./DashboardActivityItemTitle";
-import DashboardActivityItemCTAButton from "./DashboardActivityItemCTAButton";
 
 export const DashboardActivityItemTask: React.SFC<DashboardActivityItemProps> = props => {
-  const { logoUrl, viewDetailURL } = props;
+  const { logoUrl } = props;
   return (
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>
@@ -26,12 +23,6 @@ export const DashboardActivityItemTask: React.SFC<DashboardActivityItemProps> = 
         <DashboardActivityItemTitle title={props.title} viewDetailURL={props.viewDetailURL} />
         {props.children}
       </StyledDashboardActivityItemDetails>
-
-      <StyledDashboardActivityItemAction>
-        <DashboardActivityItemCTAButton {...props} />
-
-        {viewDetailURL && <Link to={viewDetailURL}>View details &gt;</Link>}
-      </StyledDashboardActivityItemAction>
     </StyledDashboardActivityItem>
   );
 };

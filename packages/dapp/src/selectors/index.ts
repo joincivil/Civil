@@ -69,6 +69,9 @@ export const getListings = (state: State) => state.networkDependent.listings;
 
 export const getChallenges = (state: State) => state.networkDependent.challenges;
 
+export const getAppealChallengeIDsToChallengeIDs = (state: State) =>
+  state.networkDependent.appealChallengeIDsToChallengeIDs;
+
 export const getChallengeUserData = (state: State) => state.networkDependent.challengeUserData;
 
 export const getAppealChallengeUserData = (state: State) => state.networkDependent.appealChallengeUserData;
@@ -281,13 +284,13 @@ export const makeGetUserChallengeData = () => {
 
 export const getAppealChallengeUserDataMap = createSelector(
   [getAppealChallengeUserData, getAppealChallengeID, getAppealChallengeIDProp],
-  (challengeUserData, appealChallengeIDFromChallenge, appealChallengeIDProps) => {
+  (appealChallengeUserData, appealChallengeIDFromChallenge, appealChallengeIDProps) => {
     const appealChallengeID = appealChallengeIDFromChallenge || appealChallengeIDProps;
     if (!appealChallengeID) {
       return;
     }
-    const challengeUserDataMap = challengeUserData.get(appealChallengeID);
-    return challengeUserDataMap;
+    const appealChallengeUserDataMap = appealChallengeUserData.get(appealChallengeID);
+    return appealChallengeUserDataMap;
   },
 );
 
@@ -345,22 +348,61 @@ export const getUserAppealChallengesWithUnclaimedRewards = createSelector(
 export const getUserChallengesWithUnrevealedVotes = createSelector(
   [getChallenges, getChallengeUserData, getUser],
   (challenges, challengeUserData, user) => {
+    let challengeIDs = Set<string>();
+    if (challengeUserData && user && user.account) {
+      challengeIDs = challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          try {
+            const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
+            const challenge = challenges.get(challengeID!);
+            const inRevealPhase = challenge && isChallengeInRevealStage(challenge.challenge);
+            return !!didUserCommit && !didUserReveal && inRevealPhase;
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .toSet() as Set<string>;
+    }
+    return challengeIDs;
+  },
+);
+
+export const getUserAppealChallengesWithUnrevealedVotes = createSelector(
+  [getAppealChallengeUserData, getUser],
+  (challengeUserData, user) => {
     if (!challengeUserData || !user || !user.account) {
       return;
     }
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
         try {
-          const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
-          const challenge = challenges.get(challengeID!);
-          const inRevealPhase = challenge && isChallengeInRevealStage(challenge.challenge);
-          return !!didUserCommit && !didUserReveal && inRevealPhase;
+          const { didUserCommit, didUserReveal, canUserReveal } = challengeData!.get(user.account.account);
+          return !!didUserCommit && !didUserReveal && canUserReveal!;
         } catch (ex) {
           return false;
         }
       })
       .keySeq()
       .toSet() as Set<string>;
+  },
+);
+
+export const getCompletedChallengesForAppealChallengesWithUnrevealedVotes = createSelector(
+  [getUserAppealChallengesWithUnrevealedVotes, getAppealChallengeIDsToChallengeIDs, getChallenges],
+  (appealChallengeIDs, appealChallengeIDsToChallengeIDs, challenges) => {
+    let parentChallengeIDs = Set<string>();
+
+    if (appealChallengeIDs && appealChallengeIDsToChallengeIDs && challenges) {
+      parentChallengeIDs = appealChallengeIDs
+        .map((appealChallengeID): string => {
+          return appealChallengeIDsToChallengeIDs.get(appealChallengeID!);
+        })
+        .keySeq()
+        .toSet() as Set<string>;
+    }
+
+    return parentChallengeIDs;
   },
 );
 
@@ -380,26 +422,6 @@ export const getUserChallengesWithRescueTokens = createSelector(
             !isChallengeInCommitStage(challenge.challenge) &&
             !isChallengeInRevealStage(challenge.challenge);
           return !!didUserCommit && !didUserReveal && canRescue && !didUserRescue;
-        } catch (ex) {
-          return false;
-        }
-      })
-      .keySeq()
-      .toSet() as Set<string>;
-  },
-);
-
-export const getUserAppealChallengesWithUnrevealedVotes = createSelector(
-  [getAppealChallengeUserData, getUser],
-  (challengeUserData, user) => {
-    if (!challengeUserData || !user || !user.account) {
-      return;
-    }
-    return challengeUserData
-      .filter((challengeData, challengeID, iter): boolean => {
-        try {
-          const { didUserCommit, didUserReveal, canUserReveal } = challengeData!.get(user.account.account);
-          return !!didUserCommit && !didUserReveal && canUserReveal!;
         } catch (ex) {
           return false;
         }
@@ -462,6 +484,88 @@ export const getChallengesVotedOnByUser = createSelector(
   },
 );
 
+// Returns Set of ChallengeIDs for challenges that have available actions
+export const getChallengesVotedOnByUserWithAvailableActions = createSelector(
+  [getChallenges, getChallengeUserData, getUser],
+  (challenges, challengeUserData, user) => {
+    let challengesVotedOnByUserWthAvailableActions = Set<string>();
+    if (challenges && challengeUserData && user && user.account) {
+      challengesVotedOnByUserWthAvailableActions = challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          try {
+            const {
+              didUserCommit,
+              didUserReveal,
+              didUserRescue,
+              didUserCollect,
+              canUserRescue,
+              canUserCollect,
+            } = challengeData!.get(user.account.account);
+            const challenge = challenges.get(challengeID!);
+            return (
+              !!didUserCommit &&
+              (!didUserReveal ||
+                (canUserRescue && !didUserRescue) ||
+                (canUserCollect && !didUserCollect) ||
+                !challenge.challenge.resolved)
+            );
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .toSet() as Set<string>;
+    }
+    return challengesVotedOnByUserWthAvailableActions;
+  },
+);
+
+// Returns Set of ChallengeIDs for parent challenges of appeal challenges that have available actions
+export const getChallengesForAppealChallengesVotedOnByUserWithAvailableActions = createSelector(
+  [getChallenges, getAppealChallengeUserData, getAppealChallengeIDsToChallengeIDs, getUser],
+  (challenges, appealChallengeUserData, appealChallengeIDsToChallengeIDs, user) => {
+    let challengesWithAppealChallengesVotedOnByUserWthAvailableActions = Set<string>();
+
+    if (challenges && appealChallengeUserData && appealChallengeIDsToChallengeIDs && user && user.account) {
+      challengesWithAppealChallengesVotedOnByUserWthAvailableActions = appealChallengeUserData
+        .filter((challengeData, appealChallengeID, iter): boolean => {
+          try {
+            const {
+              didUserCommit,
+              didUserReveal,
+              didUserRescue,
+              didUserCollect,
+              canUserRescue,
+              canUserCollect,
+            } = challengeData!.get(user.account.account);
+            const challengeID = appealChallengeIDsToChallengeIDs.get(appealChallengeID!);
+            const challenge = challenges.get(challengeID!);
+            const appealChallenge =
+              challenge &&
+              challenge.challenge &&
+              challenge.challenge.appeal &&
+              challenge.challenge.appeal.appealChallenge;
+            return (
+              !!didUserCommit &&
+              (!didUserReveal ||
+                (canUserRescue && !didUserRescue) ||
+                (canUserCollect && !didUserCollect) ||
+                (!!appealChallenge && !appealChallenge.resolved))
+            );
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .map((appealChallengeID): string => {
+          return appealChallengeIDsToChallengeIDs.get(appealChallengeID!);
+        })
+        .toSet() as Set<string>;
+    }
+    return challengesWithAppealChallengesVotedOnByUserWthAvailableActions;
+  },
+);
+
 export const getAppealChallengesVotedOnByUser = createSelector(
   [getAppealChallengeUserData, getUser],
   (appealChallengeUserData, user) => {
@@ -474,6 +578,50 @@ export const getAppealChallengesVotedOnByUser = createSelector(
       })
       .keySeq()
       .toSet() as Set<string>;
+  },
+);
+
+export const getCompletedChallengesVotedOnByUser = createSelector(
+  [getChallenges, getChallengesVotedOnByAllUsers, getUser],
+  (challenges, challengesVotedOnByUser, user) => {
+    let completedChallengesVotedOnByUser = Set<string>();
+    if (user.account && challengesVotedOnByUser.has(user.account.account)) {
+      completedChallengesVotedOnByUser = challengesVotedOnByUser.get(user.account.account);
+      completedChallengesVotedOnByUser = completedChallengesVotedOnByUser
+        .filter((challengeID, index, iter): boolean => {
+          const challenge = challenges.get(challengeID!);
+          const challengeData = challenge.challenge;
+          return challengeData.resolved;
+        })
+        .toSet() as Set<string>;
+    }
+    return completedChallengesVotedOnByUser;
+  },
+);
+
+export const getCompletedChallengesForAppealChallengesVotedOnByUser = createSelector(
+  [getAppealChallengesVotedOnByUser, getAppealChallengeIDsToChallengeIDs, getChallenges],
+  (appealChallengeIDs, appealChallengeIDsToChallengeIDs, challenges) => {
+    let parentChallengeIDs = Set<string>();
+
+    if (appealChallengeIDs && appealChallengeIDsToChallengeIDs && challenges) {
+      parentChallengeIDs = appealChallengeIDs
+        .map((appealChallengeID): string => {
+          return appealChallengeIDsToChallengeIDs.get(appealChallengeID!);
+        })
+        .keySeq()
+        .filter((challengeID, index, iter): boolean => {
+          const challenge = challenges.get(challengeID!);
+          if (!challenge) {
+            return false;
+          }
+          const challengeData = challenge.challenge;
+          return challengeData.resolved;
+        })
+        .toSet() as Set<string>;
+    }
+
+    return parentChallengeIDs;
   },
 );
 
@@ -612,22 +760,29 @@ export const getChallengeState = (challengeData: WrappedChallengeData) => {
   };
 };
 
+export const getAppealChallengeState = (challengeData: AppealChallengeData) => {
+  const challenge = challengeData;
+  const isResolved = challenge && challenge.resolved;
+  const inCommitPhase = challenge && getIsAppealChallengeInCommitStage(challenge);
+  const inRevealPhase = challenge && getIsAppealChallengeInRevealStage(challenge);
+  const canResolveChallenge = challenge && canAppealChallengeBeResolved(challenge);
+  const didChallengeSucceed = challenge && didAppealChallengeSucceed(challenge);
+
+  return {
+    isResolved,
+    inCommitPhase,
+    inRevealPhase,
+    canResolveChallenge,
+    didAppealChallengeSucceed: didChallengeSucceed,
+  };
+};
+
 export const makeGetAppealChallengeState = () => {
   return createSelector([getAppealChallenge], challengeData => {
-    const challenge = challengeData;
-    const isResolved = challenge && challenge.resolved;
-    const inCommitPhase = challenge && getIsAppealChallengeInCommitStage(challenge);
-    const inRevealPhase = challenge && getIsAppealChallengeInRevealStage(challenge);
-    const canResolveChallenge = challenge && canAppealChallengeBeResolved(challenge);
-    const didChallengeSucceed = challenge && didAppealChallengeSucceed(challenge);
-
-    return {
-      isResolved,
-      inCommitPhase,
-      inRevealPhase,
-      canResolveChallenge,
-      didAppealChallengeSucceed: didChallengeSucceed,
-    };
+    if (!challengeData) {
+      return;
+    }
+    return getAppealChallengeState(challengeData);
   });
 };
 
