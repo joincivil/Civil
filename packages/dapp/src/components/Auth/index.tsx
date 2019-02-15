@@ -13,6 +13,7 @@ import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
+import { AuthWrapper } from "./AuthStyledComponents";
 
 const TOKEN_HOME = "/tokens";
 
@@ -26,44 +27,52 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
           <AuthenticatedRoute
             onlyAllowUnauthenticated
             redirectTo={TOKEN_HOME}
-            path={`${match.path}/auth`}
+            path={`${match.path}/`}
             component={() => (
               <>
-                <Route
-                  redirectTo={TOKEN_HOME}
-                  path={`${match.path}/login`}
-                  exact={true}
-                  component={() => <AuthLogin onEmailSend={this.handleAuthEmail} />}
-                />
-                <Route
-                  path={`${match.path}/login/check-email`}
-                  component={(props: any) => <AuthCheckEmail isNewUser={false} />}
-                />
-                <Route
-                  path={`${match.path}/login/verify-token/:token`}
-                  exact
-                  component={() => (
-                    <AuthVerifyToken isNewUser={false} onAuthenticationContinue={this.handleOnAuthenticationContinue} />
-                  )}
-                />
-                {/* SignUp Routes */}
-                <Route
-                  path={`${match.path}/signup`}
-                  exact={true}
-                  component={() => <AuthSignup onEmailSend={this.handleAuthEmail} />}
-                />
-                <Route
-                  path={`${match.path}/signup/check-email`}
-                  exact
-                  component={(props: any) => <AuthCheckEmail isNewUser={true} />}
-                />
-                <Route
-                  path={`${match.path}/signup/verify-token/:token`}
-                  exact
-                  component={() => (
-                    <AuthVerifyToken isNewUser={true} onAuthenticationContinue={this.handleOnAuthenticationContinue} />
-                  )}
-                />
+                <AuthWrapper>
+                  <Route
+                    redirectTo={TOKEN_HOME}
+                    path={`${match.path}/login`}
+                    exact={true}
+                    component={() => <AuthLogin onEmailSend={this.handleAuthEmail} />}
+                  />
+                  <Route
+                    path={`${match.path}/login/check-email`}
+                    component={(props: any) => <AuthCheckEmail isNewUser={false} />}
+                  />
+                  <Route
+                    path={`${match.path}/login/verify-token/:token`}
+                    exact
+                    component={() => (
+                      <AuthVerifyToken
+                        isNewUser={false}
+                        onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                      />
+                    )}
+                  />
+                  {/* SignUp Routes */}
+                  <Route
+                    path={`${match.path}/signup`}
+                    exact={true}
+                    component={() => <AuthSignup onEmailSend={this.handleAuthEmail} />}
+                  />
+                  <Route
+                    path={`${match.path}/signup/check-email`}
+                    exact
+                    component={(props: any) => <AuthCheckEmail isNewUser={true} />}
+                  />
+                  <Route
+                    path={`${match.path}/signup/verify-token/:token`}
+                    exact
+                    component={() => (
+                      <AuthVerifyToken
+                        isNewUser={true}
+                        onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                      />
+                    )}
+                  />
+                </AuthWrapper>
               </>
             )}
           />
@@ -91,10 +100,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
   }
 
   public handleOnAuthenticationContinue = (isNewUser: boolean): void => {
-    const {
-      match: { path: basePath },
-      history,
-    } = this.props;
+    const { history } = this.props;
 
     history.push({
       pathname: TOKEN_HOME,
