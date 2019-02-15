@@ -1,7 +1,7 @@
 import config from "./config";
 
-export const supportedNetworks: number[] = config.SUPPORTED_NETWORKS
-  ? config.SUPPORTED_NETWORKS.split(",").map(num => {
+export const supportedNetworks: number[] = config.SUPPORTED_ETHEREUM_NETWORKS
+  ? config.SUPPORTED_ETHEREUM_NETWORKS.split(",").map(num => {
       return parseInt(num, 10);
     })
   : [];
