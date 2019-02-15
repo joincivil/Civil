@@ -1,5 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
+import StoryRouter from "storybook-react-router";
 import { AirswapBuyCVL } from "./AirswapBuyCVL";
 import styled, { StyledComponentClass } from "styled-components";
 
@@ -12,20 +13,18 @@ export const Container = styled.div`
 `;
 
 storiesOf("Airswap", module)
+  .addDecorator(StoryRouter())
   .add("Buy CVL", () => {
     return (
       <Container>
-        <AirswapBuyCVL />
+        <AirswapBuyCVL network={"4"} />
       </Container>
     );
   })
   .add("Buy CVL from address", () => {
     return (
       <Container>
-        <AirswapBuyCVL
-          buyFromAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
-          buyCVLBtnText={"Buy from the Civil Foundation"}
-        />
+        <AirswapBuyCVL network={"4"} buyFromAddress={"0x0..."} buyCVLBtnText={"Buy from the Civil Foundation"} />
       </Container>
     );
   });

@@ -128,28 +128,10 @@ class ActivityListItemComponent extends React.Component<
             <p>Rejected from Registry</p>
           </>
         );
-      } else if (inChallengeCommitVotePhase) {
-        return (
-          <>
-            <p>Under Challenge > Accepting Votes</p>
-          </>
-        );
-      } else if (inChallengeRevealPhase) {
-        return (
-          <>
-            <p>Under Challenge > Revealing Votes</p>
-          </>
-        );
-      } else if (isAwaitingAppealRequest) {
-        return (
-          <>
-            <p>Under Challenge > Awaiting Appeal Request</p>
-          </>
-        );
       } else if (canResolveChallenge) {
         return (
           <>
-            <p>Under Challenge > Complete</p>
+            <p>Challenge Complete</p>
           </>
         );
       }

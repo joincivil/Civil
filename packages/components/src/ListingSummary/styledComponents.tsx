@@ -164,7 +164,8 @@ export const NewsroomLogo = styled.img`
   height: 80px;
   min-width: 80px;
   min-height: 80px;
-  object-fit: cover;
+  object-fit: contain;
+  background: ${colors.basic.WHITE};
 `;
 
 export const SmallNewsroomLogo = styled.img`
@@ -172,7 +173,8 @@ export const SmallNewsroomLogo = styled.img`
   height: 52px;
   min-width: 52px;
   min-height: 52px;
-  object-fit: cover;
+  object-fit: contain;
+  background: ${colors.basic.WHITE};
 `;
 
 export const MetaRow = styled.div`

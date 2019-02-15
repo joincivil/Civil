@@ -57,13 +57,13 @@ const StyledIcon = styled.div`
   line-height: 21px;
   position: absolute;
   right: 40px;
-  top: 29px;
+  top: calc(50% - 10px);
 `;
 
 const StyledButtonContainer = styled.div`
   position: absolute;
   right: 40px;
-  top: 22px;
+  top: calc(50% - 18px);
 `;
 
 class InputWithButtonContainer extends React.Component<InputWithButtonContainerProps, InputWithButtonState> {

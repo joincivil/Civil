@@ -9,31 +9,9 @@ import {
   BreakdownBarTotal,
   BreakdownBarPercentage,
 } from "./styledComponents";
-import { VoteTypeSummaryRowProps, VoteTypeLabelProps, VoteTypeColorProps } from "./types";
-import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
-import { colors } from "../styleConstants";
-
-const voteTypeLabel: VoteTypeLabelProps = {
-  [CHALLENGE_RESULTS_VOTE_TYPES.REMAIN]: (
-    <>
-      <span>✓</span> Accept
-    </>
-  ),
-  [CHALLENGE_RESULTS_VOTE_TYPES.REMOVE]: (
-    <>
-      <span>✕</span> Reject
-    </>
-  ),
-  [CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN]: <>Overturn</>,
-  [CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD]: <>Uphold</>,
-};
-
-const voteColor: VoteTypeColorProps = {
-  [CHALLENGE_RESULTS_VOTE_TYPES.REMAIN]: colors.accent.CIVIL_TEAL,
-  [CHALLENGE_RESULTS_VOTE_TYPES.REMOVE]: colors.accent.CIVIL_RED,
-  [CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN]: colors.accent.CIVIL_ORANGE,
-  [CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD]: colors.accent.CIVIL_GREEN,
-};
+import { VoteTypeSummaryRowProps } from "./types";
+import { voteColor } from "./constants";
+import { voteTypeLabel } from "./ChallengeResultsChartTextComponents";
 
 export const VoteTypeSummaryRow: React.StatelessComponent<VoteTypeSummaryRowProps> = props => {
   const color = voteColor[props.voteType];

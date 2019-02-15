@@ -19,11 +19,18 @@ import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { NeedHelp } from "./NeedHelp";
+import { TextInput } from "../input";
 
 export interface AppealProps {
   requester: string;
   appealFeePaid: string;
   txIdToConfirm?: number;
+  uriValue?: string;
+  onChange?(name: string, value: string): any;
+}
+
+export interface AppealAwaitingDecisionCardState {
+  grantURI: string;
 }
 
 export type AppealAwaitingDecisionCardProps = ListingDetailPhaseCardComponentProps &
@@ -38,13 +45,17 @@ const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProp
     text = "Confirm Appeal";
   }
   return (
-    <TransactionButtonNoModal
-      transactions={props.transactions!}
-      disabledOnMobile={true}
-      onMobileClick={props.onMobileTransactionClick}
-    >
-      {text}
-    </TransactionButtonNoModal>
+    <div>
+      {!props.txIdToConfirm && <TextInput name="uri" value={props.uriValue} onChange={props.onChange} />}
+
+      <TransactionButtonNoModal
+        transactions={props.transactions!}
+        disabledOnMobile={true}
+        onMobileClick={props.onMobileTransactionClick}
+      >
+        {text}
+      </TransactionButtonNoModal>
+    </div>
   );
 };
 

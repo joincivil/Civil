@@ -11,6 +11,8 @@ const StyledEventDate = styled.div`
   line-height: 16px;
   padding: 5px 0 0;
   width: 148px;
+  min-width: 148px;
+  max-width: 148px;
 `;
 
 const EventDate: React.StatelessComponent<ListingHistoryEventTimestampProps> = props => {

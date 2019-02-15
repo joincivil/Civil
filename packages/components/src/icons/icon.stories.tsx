@@ -18,6 +18,7 @@ import {
   CvlToken,
   DisclosureArrowIcon,
   ExamIcon,
+  ExchangeArrowsIcon,
   ExpandDownArrow,
   FacebookIcon,
   GreenCheckMark,
@@ -161,6 +162,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <ExamIcon />
+      </Container>
+    );
+  })
+  .add("ExchangeArrowsIcon", () => {
+    return (
+      <Container>
+        <ExchangeArrowsIcon />
       </Container>
     );
   })

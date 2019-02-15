@@ -23,7 +23,9 @@ export interface TutorialProgressTextProps {
 }
 
 export const TutorialProgressText: React.SFC<TutorialProgressTextProps> = props => (
-  <>You have {props.questions} questions left</>
+  <>
+    You have {props.questions} question{props.questions === 1 ? "" : "s"} left
+  </>
 );
 
 export const Topic1Intro: React.SFC = props => (
@@ -65,16 +67,10 @@ export const Topic1Tutorial1: React.SFC = props => (
   <>
     <h2>What is Civil?</h2>
     <p>
-      Civil is a decentralized network for trustworthy and sustainable journalism. It is founded on the principle that a
-      free press is essential to a fair and just society.
+      Civil is a community-operated journalism network based on transparency and trust. It is founded on the principle
+      that a free press is essential to a fair and just society.
     </p>
-    <p>
-      Our community-run model providing members a say and share in the project’s operations and long-term evolution.
-    </p>
-    <p>
-      More than 125 journalists representing 18 independent newsrooms, from Chicago to Singapore, are already part of
-      the Civil community. And we’re just getting started!
-    </p>
+    <p>This provides members with a direct say and influence in the project’s operations and long-term evolution.</p>
   </>
 );
 
@@ -94,7 +90,7 @@ export const Topic1Tutorial3: React.SFC = props => (
     <h2>How does a Newsroom join the Civil Network?</h2>
     <h3>APPLY:</h3>
     <ul>
-      <li>Fill out an application outlining the Newsroom’s mission and business model.</li>
+      <li>Newsrooms must fill out an application outlining the Newsroom’s mission and business model.</li>
       <li>Review and Sign the Civil Constitution which sets forth Civil’s journalism standards.</li>
       <li>
         Deposit of US $1,000 worth of Civil tokens [to state the seriousness of their intent, and to formally enact the
@@ -104,7 +100,7 @@ export const Topic1Tutorial3: React.SFC = props => (
     <h3>COMMUNITY REVIEW:</h3>
     <ul>
       <li>
-        Any Civil member may challenge a newsroom based on an alleged violation of the Civil Constitution. That triggers
+        Any Civil member may challenge a newsroom based on perceived violation of the Civil Constitution. That triggers
         a community vote that may result in a newsroom being removed from the registry.
       </li>
       <li>

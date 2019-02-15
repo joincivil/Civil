@@ -5,7 +5,6 @@ import {
   TokenBuySection,
   TokenBuyIntro,
   TokenAirswapSection,
-  TokenConverterSection,
   TokenOrBreak,
   TokenExchangeSection,
 } from "./TokensStyledComponents";
@@ -19,11 +18,12 @@ import {
   TokenBuyExchangeBtnText,
   TokenOrText,
 } from "./TokensTextComponents";
-import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
+import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
+  network: string;
   step?: string;
 }
 
@@ -52,8 +52,12 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
             <TokenAirswapSection>
               <>
                 <TokenAirswapFoundationText />
-                <TokenConverterSection>[TKTK currency converter component]</TokenConverterSection>
-                <AirswapBuyCVL buyCVLBtnText={<TokenBuyFoundationBtnText />} />
+                <UsdEthCvlConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
+                <AirswapBuyCVL
+                  network={props.network}
+                  buyCVLBtnText={<TokenBuyFoundationBtnText />}
+                  buyFromAddress={props.foundationAddress}
+                />
               </>
 
               <TokenOrBreak>
@@ -62,14 +66,10 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
 
               <TokenExchangeSection>
                 <TokenAirswapExchangeText />
-                <AirswapBuyCVL buyCVLBtnText={<TokenBuyExchangeBtnText />} buyFromAddress={props.foundationAddress} />
+                <AirswapBuyCVL network={props.network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
               </TokenExchangeSection>
             </TokenAirswapSection>
           </TokenBuySection>
-        </FlexColumnsPrimaryModule>
-
-        <FlexColumnsPrimaryModule>
-          <UserTokenAccountFaq />
         </FlexColumnsPrimaryModule>
       </>
     );

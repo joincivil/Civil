@@ -15,7 +15,7 @@ import {
 } from "@joincivil/core";
 import {
   ChallengeRequestAppealCard,
-  ChallengeResults as ChallengeResultsComponent,
+  CompleteChallengeResults as CompleteChallengeResultsComponent,
   ListingDetailPhaseCardComponentProps,
   PhaseWithExpiryProps,
   ChallengePhaseProps,
@@ -39,6 +39,7 @@ import {
 } from "../../selectors";
 import { fetchAndAddChallengeData, fetchAndAddGrantAppealTx } from "../../redux/actionCreators/challenges";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
+import { connectCompleteChallengeResults } from "../utility/CompleteChallengeResultsHOC";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
@@ -214,8 +215,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   }
 
   private renderVoteResult(): JSX.Element {
-    const ChallengeResults = compose<React.ComponentType<ChallengeContainerProps>>(connectChallengeResults)(
-      ChallengeResultsComponent,
+    const ChallengeResults = compose<React.ComponentType<ChallengeContainerProps>>(connectCompleteChallengeResults)(
+      CompleteChallengeResultsComponent,
     );
 
     return (

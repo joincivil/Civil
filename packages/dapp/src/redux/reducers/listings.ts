@@ -39,7 +39,7 @@ export function listings(
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       const getNextExpiry = getNextTimerExpiry(action.data.data);
-      return state.set(action.data.address, { listing: action.data, expiry: getNextExpiry });
+      return state.set(action.data.address.toLowerCase(), { listing: action.data, expiry: getNextExpiry });
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Map<string, ListingWrapperWithExpiry>();
     default:
@@ -53,8 +53,8 @@ export function listingsExtendedMetadata(
 ): Map<string, ListingExtendedMetadata> {
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING_EXTENDED_METADATA:
-      const prevExtendedMetadata = state.get(action.data.address) || {};
-      return state.set(action.data.address, { ...prevExtendedMetadata, ...action.data });
+      const prevExtendedMetadata = state.get(action.data.address.toLowerCase()) || {};
+      return state.set(action.data.address.toLowerCase(), { ...prevExtendedMetadata, ...action.data });
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Map<string, ListingExtendedMetadata>();
     default:
@@ -79,9 +79,9 @@ export function histories(
 ): Map<string, List<TimestampedEvent<any>>> {
   switch (action.type) {
     case listingActions.ADD_HISTORY_EVENT:
-      const list = state.get(action.data.address) || List();
+      const list = state.get(action.data.address.toLowerCase()) || List();
       return state.set(
-        action.data.address,
+        action.data.address.toLowerCase(),
         list
           .push(action.data.event)
           .sort((a, b) => b.blockNumber! - a.blockNumber!)
@@ -100,7 +100,7 @@ export function listingHistorySubscriptions(
 ): Map<string, Subscription> {
   switch (action.type) {
     case listingActions.ADD_HISTORY_SUBSCRIPTION:
-      return state.set(action.data.address, action.data.subscription);
+      return state.set(action.data.address.toLowerCase(), action.data.subscription);
     default:
       return state;
   }
@@ -112,7 +112,7 @@ export function rejectedListingLatestChallengeSubscriptions(
 ): Map<string, Subscription> {
   switch (action.type) {
     case listingActions.ADD_REJECTED_LISTING_LATEST_CHALLENGE_SUBSCRIPTION:
-      return state.set(action.data.address, action.data.subscription);
+      return state.set(action.data.address.toLowerCase(), action.data.subscription);
     default:
       return state;
   }
@@ -124,7 +124,7 @@ export function rejectedListingRemovedSubscriptions(
 ): Map<string, Subscription> {
   switch (action.type) {
     case listingActions.ADD_REJECTED_LISTING_LISTING_REMOVED_SUBSCRIPTION:
-      return state.set(action.data.address, action.data.subscription);
+      return state.set(action.data.address.toLowerCase(), action.data.subscription);
     default:
       return state;
   }
@@ -136,7 +136,7 @@ export function whitelistedSubscriptions(
 ): Map<string, Subscription> {
   switch (action.type) {
     case listingActions.ADD_LISTING_WHITELISTED_SUBSCRIPTION:
-      return state.set(action.data.address, action.data.subscription);
+      return state.set(action.data.address.toLowerCase(), action.data.subscription);
     default:
       return state;
   }
@@ -146,9 +146,9 @@ export function applications(state: Set<string> = Set<string>(), action: AnyActi
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isInApplicationPhase(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -161,9 +161,9 @@ export function whitelistedListings(state: Set<string> = Set<string>(), action: 
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isWhitelisted(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -176,9 +176,9 @@ export function readyToWhitelistListings(state: Set<string> = Set<string>(), act
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (canBeWhitelisted(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -191,9 +191,9 @@ export function inChallengeCommitListings(state: Set<string> = Set<string>(), ac
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isInChallengedCommitVotePhase(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -206,9 +206,9 @@ export function inChallengeRevealListings(state: Set<string> = Set<string>(), ac
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isInChallengedRevealVotePhase(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -221,9 +221,9 @@ export function awaitingAppealRequestListings(state: Set<string> = Set<string>()
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isAwaitingAppealRequest(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -236,9 +236,9 @@ export function awaitingAppealJudgmentListings(state: Set<string> = Set<string>(
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isListingAwaitingAppealJudgment(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -251,9 +251,9 @@ export function awaitingAppealChallengeListings(state: Set<string> = Set<string>
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isListingAwaitingAppealChallenge(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -266,9 +266,9 @@ export function appealChallengeCommitPhaseListings(state: Set<string> = Set<stri
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isInAppealChallengeCommitPhase(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -281,9 +281,9 @@ export function appealChallengeRevealPhaseListings(state: Set<string> = Set<stri
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (isInAppealChallengeRevealPhase(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -296,9 +296,9 @@ export function resolveChallengeListings(state: Set<string> = Set<string>(), act
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (canChallengeBeResolved(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -311,9 +311,9 @@ export function resolveAppealListings(state: Set<string> = Set<string>(), action
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (canListingAppealBeResolved(action.data.data)) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
@@ -326,9 +326,9 @@ export function rejectedListings(state: Set<string> = Set<string>(), action: Any
   switch (action.type) {
     case listingActions.ADD_OR_UPDATE_LISTING:
       if (action.data.data.appExpiry.isZero()) {
-        return state.add(action.data.address);
+        return state.add(action.data.address.toLowerCase());
       } else {
-        return state.remove(action.data.address);
+        return state.remove(action.data.address.toLowerCase());
       }
     case listingActions.CLEAR_ALL_LISTING_DATA:
       return Set<string>();
