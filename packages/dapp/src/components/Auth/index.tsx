@@ -39,7 +39,13 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   />
                   <Route
                     path={`${match.path}/login/check-email`}
-                    component={(props: any) => <AuthCheckEmail isNewUser={false} />}
+                    component={(props: RouteComponentProps) => (
+                      <AuthCheckEmail
+                        isNewUser={false}
+                        emailAddress={props.location!.state.emailAddress}
+                        onSendAgain={() => this.handleOnSendAgain(false)}
+                      />
+                    )}
                   />
                   <Route
                     path={`${match.path}/login/verify-token/:token`}
@@ -60,7 +66,13 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   <Route
                     path={`${match.path}/signup/check-email`}
                     exact
-                    component={(props: any) => <AuthCheckEmail isNewUser={true} />}
+                    component={(props: RouteComponentProps) => (
+                      <AuthCheckEmail
+                        isNewUser={true}
+                        emailAddress={props.location!.state.emailAddress}
+                        onSendAgain={() => this.handleOnSendAgain(true)}
+                      />
+                    )}
                   />
                   <Route
                     path={`${match.path}/signup/verify-token/:token`}
@@ -98,6 +110,21 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
       </>
     );
   }
+
+  public handleOnSendAgain = (isNewUser: boolean): void => {
+    const {
+      match: { path: basePath },
+      history,
+    } = this.props;
+
+    const newPath = basePath + `/${isNewUser ? "signup" : "login"}`;
+
+    console.log({ newPath });
+    history.push({
+      pathname: newPath,
+      state: {},
+    });
+  };
 
   public handleOnAuthenticationContinue = (isNewUser: boolean): void => {
     const { history } = this.props;

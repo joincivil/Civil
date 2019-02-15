@@ -80,7 +80,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
   }
 
   public renderCheckboxes(): JSX.Element {
-    const { errorMessage, hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
+    const { hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
 
     return (
       <CheckboxContainer>
