@@ -4,7 +4,7 @@ import { buttonSizes, InvertedButton } from "../Button";
 
 import { DashboardActivityItemCTAButtonProps } from "./DashboardTypes";
 
-const DashboardActivityItemCTAButton: React.SFC<DashboardActivityItemCTAButtonProps> = props => {
+export const DashboardActivityItemCTAButton: React.SFC<DashboardActivityItemCTAButtonProps> = props => {
   const {
     listingDetailURL,
     inCommitPhase,
@@ -34,11 +34,11 @@ const DashboardActivityItemCTAButton: React.SFC<DashboardActivityItemCTAButtonPr
   } else if (canRequestAppeal) {
     buttonText = "Request Appeal";
   } else if (canResolveChallenge || canListingAppealChallengeBeResolved) {
-    buttonText = "Resolve Challenge";
+    buttonText = "Resolve";
   } else if (isAwaitingAppealChallenge) {
-    buttonText = "Challenge Granted Appeal";
+    buttonText = "Challenge Appeal";
   } else if (canListingAppealBeResolved) {
-    buttonText = "Resolve Appeal";
+    buttonText = "Resolve";
   } else if (canUserCollect) {
     buttonText = "Claim Rewards";
   } else if (canUserRescue) {
@@ -62,5 +62,3 @@ const DashboardActivityItemCTAButton: React.SFC<DashboardActivityItemCTAButtonPr
     </InvertedButton>
   );
 };
-
-export default DashboardActivityItemCTAButton;

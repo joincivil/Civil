@@ -5,14 +5,14 @@ import {
   StyledUserInfoSectionLabel,
   StyledUserInfoSectionValue,
   StyledUserAddress,
-} from "./styledComponents";
+} from "./DashboardStyledComponents";
 import {
   YourPublicAddressLabelText,
   BalanceLabelText,
   VotingBalanceLabelText,
   ChallengesWonLabelText,
   RewardsClaimedLabelText,
-} from "./textComponents";
+} from "./DashboardTextComponents";
 import { Button, buttonSizes } from "../Button";
 
 export interface DashboardUserInfoSummaryProps {

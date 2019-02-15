@@ -95,7 +95,6 @@ class ChallengeProposalCommitVote extends React.Component<
     this.state = {
       isReviewVoteModalOpen: false,
       voteOption: undefined,
-      salt: fetchSalt(this.props.challengeID, this.props.user),
       numTokens: undefined,
     };
   }
@@ -106,9 +105,12 @@ class ChallengeProposalCommitVote extends React.Component<
   }
 
   public render(): JSX.Element {
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
     const challengeProposalCommitVoteProps = {
       ...this.props,
       numTokens: this.state.numTokens,
+      voteOption: this.state.voteOption,
+      salt,
       onInputChange: this.updateCommitVoteState,
       onCommitMaxTokens: () => this.commitMaxTokens(),
       challengeID: this.props.challengeID.toString(),
@@ -152,9 +154,7 @@ class ChallengeProposalCommitVote extends React.Component<
     if (callback) {
       this.setState({ ...data }, callback);
     } else {
-      this.setState({ ...data }, () => {
-        console.log(this.state);
-      });
+      this.setState({ ...data });
     }
   };
 

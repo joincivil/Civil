@@ -68,14 +68,14 @@ export const connectWinningChallengeResults = <
     let votesPercent;
 
     if (didAppealChallengeSucceed(appealChallenge)) {
-      voteType = CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
+      voteType = CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
       votesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
       votesPercent = appealChallenge.poll.votesAgainst
         .div(totalVotes)
         .mul(100)
         .toFixed(0);
     } else {
-      voteType = CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
+      voteType = CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
       votesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
       votesPercent = appealChallenge.poll.votesFor
         .div(totalVotes)
