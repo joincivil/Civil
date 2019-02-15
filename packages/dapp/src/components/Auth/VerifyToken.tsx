@@ -9,7 +9,10 @@ export interface AuthVerifyTokenProps {
 export const AuthVerifyToken: React.SFC<AuthVerifyTokenProps> = props => {
   return (
     <>
-      <AccountVerifyToken isNewUser={false} onAuthenticationContinue={props.onAuthenticationContinue} />
+      <AccountVerifyToken
+        isNewUser={false}
+        onAuthenticationContinue={isNewUser => props.onAuthenticationContinue(isNewUser)}
+      />
     </>
   );
 };

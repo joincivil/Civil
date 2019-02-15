@@ -12,7 +12,7 @@ export const AuthSignup: React.SFC<AuthSignupProps> = props => {
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={true}
-        onEmailSend={props.onEmailSend}
+        onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
       />
 
       <Link to="/auth/login">Already have an account?</Link>

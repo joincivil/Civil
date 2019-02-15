@@ -14,7 +14,7 @@ export const AuthLogin: React.SFC<AuthLoginProps> = props => {
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={false}
-        onEmailSend={props.onEmailSend}
+        onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
       />
 
       <Link to="/auth/signup">Meant to signup?</Link>
