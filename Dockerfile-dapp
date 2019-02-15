@@ -9,11 +9,12 @@ RUN yarn install
 # Build Everything
 RUN yarn build
 
-# Install `serve` to run the application.
-RUN npm install -g serve@7.2.0
-
-# Set the command to start the node server.
-CMD yarn serve:dapp
-
-# Tell Docker about the port we'll run on.
+FROM nginx:1.12-alpine
+COPY --from=build /app/packages/dapp/build /usr/share/nginx/html
+ADD ./packages/dapp/devops/nginx.conf /etc/nginx/conf.d/default.conf
+ADD ./packages/dapp/devops/start.sh /start.sh
+RUN chmod u+x /start.sh
 EXPOSE 3000
+ENV ENVIRONMENT="{}"
+
+CMD /start.sh

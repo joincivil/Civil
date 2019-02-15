@@ -301,7 +301,7 @@
     regenerator-runtime "^0.12.0"
 
 "@joincivil/artifacts@link:packages/artifacts":
-  version "1.0.0"
+  version "1.0.1"
 
 "@joincivil/doxity@^0.0.1":
   version "0.0.1"
