@@ -2,7 +2,7 @@ import { Civil } from "@joincivil/core";
 import { CivilTCR } from "../../../core/build/src/contracts/tcr/civilTCR";
 import { detectProvider, INFURA_WEBSOCKET_HOSTS } from "@joincivil/ethapi";
 import * as WSProvider from "web3-providers-ws";
-import { supportedNetworks } from "@joincivil/utils";
+import { supportedNetworks } from "../helpers/networkHelpers";
 
 let civil: Civil;
 let tcr: CivilTCR;

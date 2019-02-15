@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "../redux/reducers";
-import { isNetworkSupported, supportedNetworks, getFormattedNetworkNames } from "@joincivil/utils";
+import { isNetworkSupported, supportedNetworks, getFormattedNetworkNames } from "../helpers/networkHelpers";
 import { WrongNetworkModal } from "@joincivil/components";
 
 export interface WrongNetworkProps {
