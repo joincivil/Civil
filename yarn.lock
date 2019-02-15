@@ -300,9 +300,6 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@joincivil/artifacts@link:packages/artifacts":
-  version "1.0.1"
-
 "@joincivil/doxity@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@joincivil/doxity/-/doxity-0.0.1.tgz#43eca9d9dbbe91f3197ad772bdc81ffaa141450d"
@@ -7177,8 +7174,8 @@ handle-thing@^1.2.5:
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
 
 handlebars@^4.0.1, handlebars@^4.0.11, handlebars@^4.0.2, handlebars@^4.0.3:
-  version "4.0.12"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.12.tgz#2c15c8a96d46da5e266700518ba8cb8d919d5bc5"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.0.tgz#0d6a6f34ff1f63cecec8423aa4169827bf787c3a"
   dependencies:
     async "^2.5.0"
     optimist "^0.6.1"
