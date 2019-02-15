@@ -55,17 +55,13 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 <Route
                   path={`${match.path}/signup/check-email`}
                   exact
-                  component={(props: any) => <AccountEmailSent {...props} isNewUser={true} />}
+                  component={(props: any) => <AuthCheckEmail isNewUser={true} />}
                 />
                 <Route
                   path={`${match.path}/signup/verify-token/:token`}
                   exact
-                  component={(props: AccountVerifyTokenProps) => (
-                    <AccountVerifyToken
-                      isNewUser={true}
-                      onAuthenticationContinue={this.handleOnAuthenticationContinue}
-                      {...props}
-                    />
+                  component={() => (
+                    <AuthVerifyToken isNewUser={true} onAuthenticationContinue={this.handleOnAuthenticationContinue} />
                   )}
                 />
               </>
