@@ -5,7 +5,7 @@ import { CheckEmailSection } from "./AuthStyledComponents";
 export interface AccountEmailSentProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
   emailAddress: string;
-  onSendAgain(): void;
+  onSendAgain?(): void;
 }
 
 export class AccountEmailSent extends React.Component<AccountEmailSentProps> {
