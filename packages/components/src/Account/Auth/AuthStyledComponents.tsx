@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
+import * as checkEmailImage from "./images/img-check-email@2x.png";
 
 export const CheckboxContainer = styled.ul`
   list-style: none;
@@ -22,3 +23,11 @@ export const ConfirmButtonContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const CheckEmailImg: React.SFC = props => <img src={checkEmailImage} />;
+
+export const CheckEmailSection: React.SFC = props => (
+  <div>
+    <CheckEmailImg />
+  </div>
+);
