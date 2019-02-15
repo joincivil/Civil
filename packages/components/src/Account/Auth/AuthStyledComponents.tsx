@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
-import checkEmailImage from "../../images/auth/img-check-email@2x.png";
+import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
 
 export const CheckboxContainer = styled.ul`
   list-style: none;
@@ -24,10 +24,23 @@ export const ConfirmButtonContainer = styled.div`
   justify-content: center;
 `;
 
-export const CheckEmailImg: React.SFC = props => <img src={checkEmailImage} />;
+export const CheckEmailLetterIcon = styled.div`
+  width: 108px;
+  height: 108px;
+  background-image: url(${checkEmailImage});
+  background-size: cover;
+`;
+
+export const CenterWrapper: React.SFC = ({ children }) => (
+  <div style={{ display: "flex", justifyContent: "center" }}>
+    <div>{children}</div>
+  </div>
+);
+
+export const CheckEmailWrapper = styled.ul``;
 
 export const CheckEmailSection: React.SFC = props => (
-  <div>
-    <CheckEmailImg />
-  </div>
+  <CenterWrapper>
+    <CheckEmailLetterIcon />
+  </CenterWrapper>
 );

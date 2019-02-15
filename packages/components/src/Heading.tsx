@@ -52,6 +52,10 @@ export const ManagerHeading = styled.h3`
   font-size: 18px;
 `;
 
+export const ManagerHeadingCentered = styled(ManagerHeading)`
+  text-align: center;
+`;
+
 ManagerHeading.defaultProps = headingDefaultProps;
 
 export const ManagerSectionHeading = styled.h4`
