@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
-import * as checkEmailImage from "./images/img-check-email@2x.png";
+import checkEmailImage from "../../images/auth/img-check-email@2x.png";
 
 export const CheckboxContainer = styled.ul`
   list-style: none;
