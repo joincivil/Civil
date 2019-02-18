@@ -89,7 +89,6 @@ class CreateProposal extends React.Component<CreateProposalProps & InjectedTrans
   }
 
   public render(): JSX.Element {
-    console.log("Create Proposal");
     const createProposalProps = {
       ...this.props,
       transactions: this.getTransactions(),

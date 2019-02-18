@@ -308,7 +308,6 @@ export async function updateGovernmentParameter(
   paramName: string,
   newValue: BigNumber,
 ): Promise<TwoStepEthTransaction | void> {
-  console.log("updateGovernmentParameter 1");
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
   const govt = await tcr.getGovernment();
