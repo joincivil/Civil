@@ -31,8 +31,7 @@ export interface DashboardActivityItemCTAButtonProps {
 export interface DashboardActivityItemProps
   extends DashboardActivityItemBaseProps,
     DashboardActivityItemLogo,
-    DashboardActivityItemTitleProps,
-    DashboardActivityItemCTAButtonProps {}
+    DashboardActivityItemTitleProps {}
 
 export interface DashboardActivitySelectableItemProps
   extends DashboardActivityItemBaseProps,

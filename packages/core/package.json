@@ -15,17 +15,22 @@
     "examples:typed": "node build/doc/examples/low-level/typed_contracts.js",
     "examples:multisig": "node build/doc/examples/low-level/multisig.js",
     "generate": "run-p generate:*",
-    "generate:contracts": "abi-gen --abis '../artifacts/v1/'\"${npm_package_config_contractsGlob}\"'.json' --template 'src/templates/contract/contract.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/wrappers'",
-    "generate:artifacts": "node ../dev-utils/build/scripts/generate-from-files/bin.js '../artifacts/v1/'\"${npm_package_config_contractsGlob}\"'.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
-    "generate:events": "node ../dev-utils/build/scripts/generate-from-files/bin.js '../artifacts/v1/'\"${npm_package_config_contractsGlob}\"'.json' 'src/templates/events.handlebars' 'src/contracts/generated/events.ts'",
-    "generate:multisig": "abi-gen --abis '../artifacts/v1/'\"${npm_package_config_multisigGlob}\"'.json' --template 'src/templates/contract/multisigproxy.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/multisig'",
+    "generate:contracts":
+      "abi-gen --abis '../artifacts/v1/'\"${npm_package_config_contractsGlob}\"'.json' --template 'src/templates/contract/contract.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/wrappers'",
+    "generate:artifacts":
+      "node ../dev-utils/build/scripts/generate-from-files/bin.js '../artifacts/v1/'\"${npm_package_config_contractsGlob}\"'.json' 'src/templates/artifacts.handlebars' 'src/contracts/generated/artifacts.ts'",
+    "generate:events":
+      "node ../dev-utils/build/scripts/generate-from-files/bin.js '../artifacts/v1/'\"${npm_package_config_contractsGlob}\"'.json' 'src/templates/events.handlebars' 'src/contracts/generated/events.ts'",
+    "generate:multisig":
+      "abi-gen --abis '../artifacts/v1/'\"${npm_package_config_multisigGlob}\"'.json' --template 'src/templates/contract/multisigproxy.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/multisig'",
     "tsc": "tsc",
     "prepublishOnly": "run-s build lint",
     "clean": "rimraf build/ src/contracts/generated/*"
   },
   "config": {
     "multisigGlob": "@(Newsroom|CVLToken|CivilTCR)",
-    "contractsGlob": "@(CivilTCR|CivilPLCRVoting|CivilParameterizer|CVLToken|EventStorage|Government|MultiSigWallet|Newsroom|NewsroomFactory|CivilTokenController|CreateNewsroomInGroup|NoOpTokenController)"
+    "contractsGlob":
+      "@(CivilTCR|CivilPLCRVoting|CivilParameterizer|CVLToken|EventStorage|Government|MultiSigWallet|Newsroom|NewsroomFactory|CivilTokenController|CreateNewsroomInGroup|NoOpTokenController)"
   },
   "author": "The Civil Media Company",
   "bugs": {
@@ -47,7 +52,7 @@
     "typescript": "<2.9.0"
   },
   "dependencies": {
-    "@joincivil/artifacts": "link:../artifacts",
+    "@joincivil/artifacts": "^1.0.1",
     "@joincivil/ethapi": "^0.3.4",
     "@joincivil/utils": "^1.8.3",
     "bignumber.js": "~5.0.0",
