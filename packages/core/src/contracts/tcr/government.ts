@@ -7,6 +7,7 @@ import { EthAddress, Param, TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { GovernmentContract } from "../generated/wrappers/government";
 import { createTwoStepSimple } from "../utils/contracts";
+import { Multisig } from "../multisig/multisig";
 
 const debug = Debug("civil:tcr");
 
@@ -24,22 +25,28 @@ export const enum GovtParameters {
  * the controlling entities can update them and update the controlling entities as well
  */
 export class Government extends BaseWrapper<GovernmentContract> {
-  public static async singleton(ethApi: EthApi): Promise<Government> {
+  public static async singleton(ethApi: EthApi, multisigAddress: EthAddress): Promise<Government> {
     const instance = await GovernmentContract.singletonTrusted(ethApi);
     if (!instance) {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new Government(ethApi, instance);
+    const multisig = Multisig.atUntrusted(ethApi, multisigAddress);
+    return new Government(ethApi, instance, multisig);
   }
 
-  public static atUntrusted(web3wrapper: EthApi, address: EthAddress): Government {
+  public static async atUntrusted(web3wrapper: EthApi, address: EthAddress): Promise<Government> {
     const instance = GovernmentContract.atUntrusted(web3wrapper, address);
-    return new Government(web3wrapper, instance);
+    const appellateAddr = await instance.appellate.callAsync();
+    const multisig = Multisig.atUntrusted(web3wrapper, appellateAddr);
+    return new Government(web3wrapper, instance, multisig);
   }
 
-  private constructor(ethApi: EthApi, instance: GovernmentContract) {
+  private multisig: Multisig;
+
+  private constructor(ethApi: EthApi, instance: GovernmentContract, multisig: Multisig) {
     super(ethApi, instance);
+    this.multisig = multisig;
   }
 
   /**
@@ -70,11 +77,9 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param paramName name of parameter you intend to change
    * @param newValue value you want parameter to be changed to
    */
-  public async set(paramName: GovtParameters | string, newValue: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(
-      this.ethApi,
-      await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue),
-    );
+  public async set(paramName: GovtParameters | string, newValue: BigNumber): Promise<TwoStepEthTransaction<any>> {
+    const txdata = await this.instance.proposeReparameterization.getRaw(paramName, newValue, { gas: 0 });
+    return this.multisig.submitTransaction(this.instance.address, this.ethApi.toBigNumber(0), txdata.data!);
   }
   /**
    * Get the URI of the Civil Constitution

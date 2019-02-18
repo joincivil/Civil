@@ -28,6 +28,7 @@ export class GovernmentReparameterization extends React.Component<
   }
 
   public render(): JSX.Element {
+    console.log("GOVERNMENT REPARAMETERIZERATION");
     return (
       <ViewModule>
         <ViewModuleHeader>Change Government Parameter</ViewModuleHeader>

@@ -51,6 +51,7 @@ import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { amountParams, durationParams, percentParams } from "./constants";
 import { Parameter } from "./Parameter";
 import CreateProposal from "./CreateProposal";
+import CreateGovtProposal from "./CreateGovtProposal";
 import ChallengeProposal from "./ChallengeProposal";
 import ChallengeContainer from "./ChallengeProposalDetail";
 import ProcessProposal from "./ProcessProposal";
@@ -175,6 +176,7 @@ export interface ParameterizerPageProps {
 
 export interface ParameterizerPageState {
   isCreateProposalVisible: boolean;
+  isCreateGovtProposalVisible: boolean;
   createProposalParameterName?: string;
   createProposalParameterCurrentValue?: string;
   createProposalNewValue?: string;
@@ -190,6 +192,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
     this.state = {
       isCreateProposalVisible: false,
+      isCreateGovtProposalVisible: false,
       isProposalActionVisible: false,
     };
   }
@@ -265,11 +268,8 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
             <Tab title="Government Parameters">
               <StyledTabContainer>
                 <StyledP>
-                  Civil Council members may propose a change to the current Council Parameters. The CVL token holder
-                  community approve the proposed values through a voting process.
-                </StyledP>
-                <StyledP>
-                  Challenging a Council Parameter proposal <b>requires a deposit of {proposalMinDeposit}</b>.
+                  Civil Council members may propose a change to the current Council Parameters. Once proposed, a vote is
+                  begun immediately in which the CVL community can vote to accept or reject it.
                 </StyledP>
                 <StyledParameterizerContainer>
                   <Table width="100%">
@@ -293,7 +293,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                             parameterName={key}
                             parameterDisplayName={this.getParameterDisplayName(key)}
                             parameterValue={this.props.govtParameters[key]}
-                            handleCreateProposal={this.showCreateProposal}
+                            handleCreateProposal={this.showCreateGovtProposal}
                             handleProposalAction={this.showProposalAction}
                             canShowCreateProposal={this.props.isMemberOfAppellate}
                           />
@@ -312,6 +312,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         </GridRowStatic>
 
         {this.state.isCreateProposalVisible && this.renderCreateProposal()}
+        {this.state.isCreateGovtProposalVisible && this.renderCreateGovtProposal()}
         {this.state.isProposalActionVisible && this.renderProposalAction()}
       </>
     );
@@ -342,6 +343,20 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         parameterProposalValue={this.state.createProposalNewValue!}
         proposalDeposit={proposalMinDeposit}
         handleClose={this.hideCreateProposal}
+        handleUpdateProposalValue={this.updateProposalNewValue}
+      />
+    );
+  };
+
+  private renderCreateGovtProposal = (): JSX.Element => {
+    return (
+      <CreateGovtProposal
+        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
+        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
+        parameterDisplayUnits={this.getParameterDisplayUnits(this.state.createProposalParameterName!)}
+        createProposalParameterName={this.state.createProposalParameterName!}
+        parameterProposalValue={this.state.createProposalNewValue!}
+        handleClose={this.hideCreateGovtProposal}
         handleUpdateProposalValue={this.updateProposalNewValue}
       />
     );
@@ -423,6 +438,14 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     this.setState(() => ({ isCreateProposalVisible: true }));
   };
 
+  private showCreateGovtProposal = (parameterName: string, currentValue: string): void => {
+    this.setState(() => ({
+      createProposalParameterName: parameterName,
+      createProposalParameterCurrentValue: currentValue,
+    }));
+    this.setState(() => ({ isCreateGovtProposalVisible: true }));
+  };
+
   private showProposalAction = (parameterName: string, currentValue: string, newValue: string, proposal: any): void => {
     this.setState(() => ({
       createProposalParameterName: parameterName,
@@ -436,6 +459,10 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
 
   private hideCreateProposal = (): void => {
     this.setState(() => ({ isCreateProposalVisible: false }));
+  };
+
+  private hideCreateGovtProposal = (): void => {
+    this.setState(() => ({ isCreateGovtProposalVisible: false }));
   };
 
   private hideProposalAction = (): void => {
