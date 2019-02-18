@@ -48,8 +48,9 @@ export const StyledNewsroomLogo = styled.img`
   height: 130px;
   min-width: 130px;
   min-height: 130px;
-  object-fit: cover;
+  object-fit: contain;
   width: 130px;
+  background: ${colors.basic.WHITE};
 `;
 
 export const StyledEthereumInfoToggle = styled.div`

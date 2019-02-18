@@ -50,7 +50,8 @@ const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props =
       isInAppealChallengeRevealPhase ||
       canListingAppealChallengeBeResolved ||
       (isRejected && !isUnderChallenge)
-    )
+    ) ||
+    (canBeWhitelisted && !isUnderChallenge)
   ) {
     return null;
   }

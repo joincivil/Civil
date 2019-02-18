@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Tabs, Tab } from "../Tabs";
-import { StyledUserActivity, StyledDashboardTab, StyledUserActivityContent } from "./styledComponents";
-import { MyVotingTabText, MyNewsroomsTabText, MyChallengesTabText } from "./textComponents";
+import { StyledUserActivity, StyledDashboardTab, StyledUserActivityContent } from "./DashboardStyledComponents";
+import { MyVotingTabText, MyNewsroomsTabText, MyChallengesTabText } from "./DashboardTextComponents";
 
 export interface DashboardActivityProps {
   userVotes: JSX.Element;

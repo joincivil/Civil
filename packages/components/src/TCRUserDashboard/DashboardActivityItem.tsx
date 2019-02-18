@@ -7,7 +7,7 @@ import {
   StyledDashboardActivityItem,
   StyledDashboardActivityItemDetails,
   StyledNewsroomName,
-} from "./styledComponents";
+} from "./DashboardStyledComponents";
 
 const StyledDashboardActivityItemIcon = styled.div`
   margin-right: 16px;

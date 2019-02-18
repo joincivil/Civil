@@ -37,7 +37,7 @@ export class ApplyToTCRComponent extends React.Component<ApplyToTCRProps> {
                             const parameterizer = await tcr.getParameterizer();
                             const minDeposit = await parameterizer.getParameterValue("minDeposit");
                             const token = await tcr.getToken();
-                            return token.transfer(multisigAddr, minDeposit.mul(2));
+                            return token.transfer(multisigAddr, minDeposit);
                           },
                         },
                       ]}
