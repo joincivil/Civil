@@ -63,19 +63,24 @@ export const ManagerSectionHeading = styled.h4`
 ManagerSectionHeading.defaultProps = headingDefaultProps;
 
 export const PageHeadingCentered = styled.h2`
-  font-family: ${props => props.theme.serifFont};
-  font-weight: 200;
-  font-size: 20px;
+  font-family: ${props => props.theme.sansSerifFont};
+  font-weight: 800;
+  font-size: 27px;
+  letter-spacing: -0.58px;
+  line-height: 30px;
   margin: 0;
+  text-align: center;
 `;
 
 PageHeadingCentered.defaultProps = headingDefaultProps;
 
 export const PageSubHeadingCentered = styled.h2`
-  font-family: ${props => props.theme.serifFont};
-  font-weight: 200;
-  font-size: 20px;
-  margin: 0;
+  font-family: ${props => props.theme.sansSerifFont};
+  font-weight: 500;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 50px;
+  text-align: center;
 `;
 
 PageSubHeadingCentered.defaultProps = headingDefaultProps;

@@ -9,4 +9,5 @@ export const AuthOuterWrapper = styled.div`
 
 export const AuthInnerWrapper = styled.div`
   width: 470px;
+  margin-top: 71px;
 `;

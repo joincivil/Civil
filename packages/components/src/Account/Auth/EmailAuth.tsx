@@ -112,7 +112,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
     return (
       <Mutation mutation={emailMutation}>
-        {(sendEmail, { loading, error, data }) => {
+        {sendEmail => {
           return (
             <>
               {this.renderEmailInput()}
@@ -127,7 +127,6 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                   Confirm
                 </Button>
               </ConfirmButtonContainer>
-              {loading && <span>loading...</span>}
             </>
           );
         }}

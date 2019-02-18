@@ -48,3 +48,7 @@ export const CheckEmailSection: React.SFC = props => (
 export const CenteredText = styled.div`
   text-align: center;
 `;
+
+export const FooterTextCentered = styled.div`
+  text-align: center;
+`;
