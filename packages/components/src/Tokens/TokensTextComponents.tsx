@@ -120,7 +120,7 @@ export const TokenThanksText: React.SFC<TokenTextProps> = props => (
     <p>Your CVL will be deposited to your wallet address.</p>
     <p>
       Please check the{" "}
-      <Link to="/dashboard" target="_blank">
+      <Link to="/dashboard/tasks/transfer-voting-tokens" target="_blank">
         Dashboard
       </Link>{" "}
       to see your purchased CVL in the Available Balance.<br />To learn how to add Civil tokens in your MetaMask wallet,{" "}

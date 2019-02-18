@@ -101,7 +101,7 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
               </TokenThanksPurchase>
               <TokenUnlock>
                 <TokenUnlockText />
-                <TokenBtnsInverted to="/dashboard">
+                <TokenBtnsInverted to="/dashboard/tasks/transfer-voting-tokens">
                   <TokenUnlockBtnText />
                 </TokenBtnsInverted>
               </TokenUnlock>
