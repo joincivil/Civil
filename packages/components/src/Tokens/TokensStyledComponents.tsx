@@ -304,15 +304,21 @@ export const TokenProgressContain = styled.div`
 
 export const TokenFAQCollapse = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  color: ${colors.accent.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  line-height: 26px;
   padding: 20px 30px;
 
   h3 {
-    color: ${colors.accent.CIVIL_GRAY_1};
     font-size: 14px;
     font-weight: bold;
     line-height: 32px;
     margin: 0;
+  }
+
+  li {
+    margin-bottom: 15px;
   }
 `;
 
