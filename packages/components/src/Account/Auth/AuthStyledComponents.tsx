@@ -22,6 +22,7 @@ export const CheckboxLabel = styled.span`
 export const ConfirmButtonContainer = styled.div`
   display: flex;
   justify-content: center;
+  padding-top: 20px;
 `;
 
 export const CheckEmailLetterIcon = styled.div`

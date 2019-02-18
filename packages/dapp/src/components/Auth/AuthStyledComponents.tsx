@@ -12,6 +12,9 @@ export const AuthInnerWrapper = styled.div`
   margin-top: 71px;
 `;
 
-export const AuthPageFooter = styled.div`
+export const AuthPageFooterLink = styled.div`
   text-align: center;
+  font-size: 12px;
+  text-decoration: underline;
+  padding-top: 60px;
 `;
