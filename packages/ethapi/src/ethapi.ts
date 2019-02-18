@@ -51,7 +51,7 @@ export class EthApi {
     this.networkObservable = lazyPoll("net_version", res => Number.parseInt(res.result, 10));
     this.accountObservable = lazyPoll("eth_accounts", res => {
       const accounts = res.result as EthAddress[];
-      const account = accounts.length > 0 ? accounts[0] : undefined;
+      const account = accounts && accounts.length > 0 ? accounts[0] : undefined;
       this.web3.eth.defaultAccount = account;
       return account;
     });
