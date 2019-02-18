@@ -1236,8 +1236,8 @@
     indefinite-observable "^1.0.1"
 
 "@types/lodash@^4.14.99":
-  version "4.14.117"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.117.tgz#695a7f514182771a1e0f4345d189052ee33c8778"
+  version "4.14.121"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.121.tgz#9327e20d49b95fc2bf983fc2f045b2c6effc80b9"
 
 "@types/minimatch@*":
   version "3.0.3"
