@@ -159,20 +159,20 @@ jobs:
 
 workflows:
     version: 2
-    nightly:
-        triggers:
-            - schedule:
-                cron: "0 0 * * *" # Midnight UTC
-                filters:
-                    branches:
-                        only:
-                            - master
-                            - production
-        jobs:
-            - build
-            - coverage:
-                requires:
-                    - build
+    # nightly:
+    #     triggers:
+    #         - schedule:
+    #             cron: "0 0 * * *" # Midnight UTC
+    #             filters:
+    #                 branches:
+    #                     only:
+    #                         - master
+    #                         - production
+    #     jobs:
+    #         - build
+    #         - coverage:
+    #             requires:
+    #                 - build
     pull-request:
         jobs:
             - build:
