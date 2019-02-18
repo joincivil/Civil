@@ -1,3 +1,5 @@
+import * as AuthStyledComponents from "./Auth/AuthStyledComponents";
+
 export * from "./VerifyToken";
 export * from "./Auth/EmailAuth";
 export * from "./Auth/EmailSent";

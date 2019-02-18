@@ -11,3 +11,7 @@ export const AuthInnerWrapper = styled.div`
   width: 470px;
   margin-top: 71px;
 `;
+
+export const AuthPageFooter = styled.div`
+  text-align: center;
+`;

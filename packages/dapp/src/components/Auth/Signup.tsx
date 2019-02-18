@@ -4,9 +4,8 @@ import {
   AuthApplicationEnum,
   PageSubHeadingCentered,
   PageHeadingCentered,
-  PageFooterTextCentered,
 } from "@joincivil/components";
-
+import { AuthPageFooter } from "./AuthStyledComponents";
 import { Link } from "react-router-dom";
 
 export interface AuthSignupProps {
@@ -18,15 +17,16 @@ export const AuthSignup: React.SFC<AuthSignupProps> = props => {
     <>
       <PageHeadingCentered>Login</PageHeadingCentered>
       <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
+
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={true}
         onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
       />
 
-      <PageFooterTextCentered>
+      <AuthPageFooter>
         <Link to="/auth/login">Already have an account?</Link>
-      </PageFooterTextCentered>
+      </AuthPageFooter>
     </>
   );
 };
