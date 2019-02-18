@@ -1,5 +1,7 @@
 import * as React from "react";
-import { HollowGreenCheck } from "../icons/HollowGreenCheck";
+import { Link } from "react-router-dom";
+import { HollowGreenCheck, NorthEastArrow, LockOpenIcon } from "../icons";
+import { colors } from "../styleConstants";
 
 // Signup/Connect wallet section
 
@@ -116,22 +118,32 @@ export const TokenThanksText: React.SFC<TokenTextProps> = props => (
   <>
     <h3>Thanks for your purchase!</h3>
     <p>Your CVL will be deposited to your wallet address.</p>
-    <p>Please check the Dashboard to see your purchased CVL in the Available Balance.</p>
-    <p>To learn how to add Civil tokens in your MetaMask wallet, <a href={props.faqUrl} target="_blank">go to our FAQ</a></p>
+    <p>
+      Please check the{" "}
+      <Link to="/dashboard" target="_blank">
+        Dashboard
+      </Link>{" "}
+      to see your purchased CVL in the Available Balance.<br />To learn how to add Civil tokens in your MetaMask wallet,{" "}
+      <a href={props.faqUrl} target="_blank">
+        go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
+      </a>
+    </p>
   </>
 );
 
 export const TokenUnlockText: React.SFC = props => (
   <>
-    <h4>Unlock Tokens</h4>
+    <h4>
+      <LockOpenIcon />Unlock Tokens
+    </h4>
     <p>
       All first-time token purchasers must unlock their tokens by participating in community votes and the general
       oversight of Civil. This is to prevent speculators from effecting the price of Civil tokens. Learn more in the FAQ
       below.
     </p>
     <p>
-      Unlocking your tokens is straightforward, and you only have to do this once. Simply transfer at least 50 percent
-      of your purchased tokens into the voting balance. And that’s it.
+      Unlocking your tokens is straightforward, and you only have to do this once. Simply,{" "}
+      <b>transfer at least 50 percent of your purchased tokens into the voting balance</b>. And that’s it.
     </p>
   </>
 );
@@ -168,7 +180,11 @@ export const TokenFAQText: React.SFC<TokenTextProps> = props => (
       <a href={"mailto:" + props.supportEmailAddress}>{props.supportEmailAddress}</a>
     </p>
     <p>
-      Read our <a href={props.faqUrl} target="_blank">Frequently Asked Questions (FAQ)</a> for general help
+      Read our{" "}
+      <a href={props.faqUrl} target="_blank">
+        Frequently Asked Questions (FAQ)
+      </a>{" "}
+      for general help
     </p>
   </>
 );

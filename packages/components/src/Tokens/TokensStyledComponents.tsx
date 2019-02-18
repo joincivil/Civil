@@ -385,12 +385,14 @@ export const TokenThanksPurchase = styled.div`
     font-size: 20px;
     font-weight: bold;
     line-height: 32px;
+    margin-bottom: 14px;
   }
 
   p {
     color: ${colors.accent.CIVIL_GRAY_1};
     font-size: 14px;
     line-height: 20px;
+    margin-bottom: 17px;
   }
 
   a {
@@ -416,16 +418,26 @@ export const TokenUnlock = styled.div`
     font-size: 16px;
     font-weight: 600;
     line-height: 26px;
+    margin-bottom: 10px;
+
+    svg {
+      margin-right: 8px;
+    }
   }
 
   p {
     color: ${colors.accent.CIVIL_GRAY_1};
     font-size: 14px;
     line-height: 20px;
+
+    b {
+      font-weight: 700;
+    }
   }
 
-  button {
+  a {
     border: 1px solid ${colors.accent.CIVIL_BLUE};
+    border-radius: 2px;
     padding: 16px 40px;
   }
 `;

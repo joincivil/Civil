@@ -1,6 +1,6 @@
 import * as React from "react";
 import makeAsyncScriptLoader from "react-async-script";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 import { airswapScript, getAirswapCvlAddress, getAirswapEnv } from "@joincivil/utils";
 import { Button } from "../Button";
 
@@ -9,6 +9,7 @@ export interface BuyCVLProps {
   buyCVLBtnText?: string | JSX.Element;
   network: string;
   onClick?(index: number): void;
+  onComplete(transactionID: string): void;
 }
 
 class BuyCVLBase extends React.Component<BuyCVLProps> {
@@ -28,8 +29,9 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
         env: environment,
         token: tokenAddress,
         address: buyFromAddress,
-        onComplete: () => {
-          return <Redirect to="/dashboard" />;
+        onComplete: (transactionID: string) => {
+          this.props.onComplete(transactionID);
+          // return <Redirect to="/dashboard" />;
         },
         onCancel: () => {
           console.info("Trade cancelled");
