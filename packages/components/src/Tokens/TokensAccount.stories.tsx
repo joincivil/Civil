@@ -2,7 +2,13 @@ import { storiesOf } from "@storybook/react";
 import StoryRouter from "storybook-react-router";
 import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import { UserTokenAccount } from "./Tokens";
+import { UserTokenAccountSignup } from "./TokensAccountSignup";
+import { UserTokenAccountVerify } from "./TokensAccountVerify";
+import { UserTokenAccountBuy } from "./TokensAccountBuy";
+
+const onClickFunc = () => {
+  console.log("clicked!");
+};
 
 const typeDefs = `
   type Query {
@@ -44,15 +50,26 @@ storiesOf("User Token Account", module)
     }),
   )
   .addDecorator(StoryRouter())
-  .add("User Token Account", () => {
+  .add("Signup Section", () => {
+    return <UserTokenAccountSignup step={"active"} />
+  })
+  .add("Tutorial Verify", () => {
     return (
-      <UserTokenAccount
-        userTutorialComplete={true}
-        userAccount={"0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1"}
-        supportEmailAddress={"support@civil.co"}
-        faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
-        foundationAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
-        network={"4"}
+      <UserTokenAccountVerify
+        step={"active"}
+        open={false}
+        handleClose={onClickFunc}
+        handleOpen={onClickFunc}
       />
-    );
+    )
+  })
+  .add("Buy Section", () => {
+    return (
+      <UserTokenAccountBuy
+        step={"active"}
+        network={"4"}
+        foundationAddress={"0x..."}
+        faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
+      />
+    )
   });
