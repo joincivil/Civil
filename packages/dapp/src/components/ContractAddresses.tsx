@@ -6,7 +6,8 @@ import { Helmet } from "react-helmet";
 
 import { EthAddress } from "@joincivil/core";
 import { colors, mediaQueries, StyledMainContainer, EthAddressViewer } from "@joincivil/components";
-import { getFormattedEthAddress, getEtherscanBaseURL, formattedNetworkNames } from "@joincivil/utils";
+import { getFormattedEthAddress, getEtherscanBaseURL } from "@joincivil/utils";
+import { formattedNetworkNames } from "../helpers/networkHelpers";
 
 import { State } from "../redux/reducers";
 import { ContractAddressKeys } from "../helpers/contractAddresses";

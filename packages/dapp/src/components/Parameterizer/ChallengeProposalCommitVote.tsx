@@ -95,7 +95,6 @@ class ChallengeProposalCommitVote extends React.Component<
     this.state = {
       isReviewVoteModalOpen: false,
       voteOption: undefined,
-      salt: fetchSalt(this.props.challengeID, this.props.user),
       numTokens: undefined,
     };
   }
@@ -106,9 +105,12 @@ class ChallengeProposalCommitVote extends React.Component<
   }
 
   public render(): JSX.Element {
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
     const challengeProposalCommitVoteProps = {
       ...this.props,
       numTokens: this.state.numTokens,
+      voteOption: this.state.voteOption,
+      salt,
       onInputChange: this.updateCommitVoteState,
       onCommitMaxTokens: () => this.commitMaxTokens(),
       challengeID: this.props.challengeID.toString(),
@@ -128,13 +130,14 @@ class ChallengeProposalCommitVote extends React.Component<
   private renderReviewVoteModal(): JSX.Element {
     const { challenge } = this.props;
     const proposalURL = `https://${window.location.hostname}/parameterizer/${this.props.propID}`;
+    const salt = fetchSalt(this.props.challengeID, this.props.user);
 
     const props: ChallengeProposalReviewVoteProps = {
       parameterName: this.props.parameterDisplayName,
       proposalURL,
       challengeID: this.props.challengeID.toString(),
       open: this.state.isReviewVoteModalOpen,
-      salt: this.state.salt,
+      salt,
       numTokens: this.state.numTokens,
       voteOption: this.state.voteOption,
       userAccount: this.props.user,
@@ -152,14 +155,11 @@ class ChallengeProposalCommitVote extends React.Component<
     if (callback) {
       this.setState({ ...data }, callback);
     } else {
-      this.setState({ ...data }, () => {
-        console.log(this.state);
-      });
+      this.setState({ ...data });
     }
   };
 
   private commitMaxTokens(): void {
-    console.log(this, this.props);
     let numTokens: BigNumber;
     if (!this.props.votingBalance!.isZero()) {
       numTokens = this.props.votingBalance!;
@@ -232,7 +232,8 @@ class ChallengeProposalCommitVote extends React.Component<
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
-    const salt: BigNumber = new BigNumber(this.state.salt as string);
+    const saltStr = fetchSalt(this.props.challengeID, this.props.user);
+    const salt: BigNumber = new BigNumber(saltStr as string);
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     saveVote(this.props.challengeID, this.props.user, voteOption);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);
