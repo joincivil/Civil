@@ -145,6 +145,7 @@ export async function getIPFSContent(
   header: StorageHeader,
   dispatch: Dispatch<any>,
   wait: number = 1000,
+  tries: number = 0,
 ): Promise<void> {
   const civil = getCivil();
   const content = await civil.getContent(header);
@@ -153,10 +154,12 @@ export async function getIPFSContent(
     dispatch(addContent(header, parsedContent));
   } else {
     console.warn("Missing IPFS content for header:", header);
-    if (header.uri !== "") {
+    if (header.uri !== "" && tries < 6) {
       console.warn("Retrying getIPFSContent. wait = " + wait + "ms");
       await delay(wait);
-      return getIPFSContent(header, dispatch, wait * 2);
+      return getIPFSContent(header, dispatch, wait * 2, tries + 1);
+    } else if (header.uri !== "" && tries >= 6) {
+      console.error("Unable to find IPFS content after 6 tries. header: ", header);
     }
   }
 }
