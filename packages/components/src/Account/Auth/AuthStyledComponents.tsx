@@ -44,3 +44,7 @@ export const CheckEmailSection: React.SFC = props => (
     <CheckEmailLetterIcon />
   </CenterWrapper>
 );
+
+export const CenteredText = styled.div`
+  text-align: center;
+`;
