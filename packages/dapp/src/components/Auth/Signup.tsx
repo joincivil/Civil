@@ -1,5 +1,10 @@
 import * as React from "react";
-import { AccountEmailAuth, AuthApplicationEnum } from "@joincivil/components";
+import {
+  AccountEmailAuth,
+  AuthApplicationEnum,
+  PageSubHeadingCentered,
+  PageHeadingCentered,
+} from "@joincivil/components";
 import { Link } from "react-router-dom";
 
 export interface AuthSignupProps {
@@ -9,6 +14,8 @@ export interface AuthSignupProps {
 export const AuthSignup: React.SFC<AuthSignupProps> = props => {
   return (
     <>
+      <PageHeadingCentered>Login</PageHeadingCentered>
+      <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={true}

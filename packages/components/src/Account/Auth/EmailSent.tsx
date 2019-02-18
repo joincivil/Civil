@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RouteComponentProps, Link } from "react-router-dom";
-import { CheckEmailSection } from "./AuthStyledComponents";
-import { ManagerHeadingCentered, CenteredText } from "../../Heading";
+import { CheckEmailSection, CenteredText } from "./AuthStyledComponents";
+import { PageSubHeadingCentered, PageHeadingCentered } from "../../Heading";
 
 export interface AccountEmailSentProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
@@ -11,11 +11,12 @@ export interface AccountEmailSentProps extends Partial<RouteComponentProps> {
 
 export class AccountEmailSent extends React.Component<AccountEmailSentProps> {
   public render(): JSX.Element {
-    const { emailAddress, onSendAgain } = this.props;
+    const { emailAddress, onSendAgain, isNewUser } = this.props;
 
     return (
       <>
-        <ManagerHeadingCentered>Check your email!</ManagerHeadingCentered>
+        <PageHeadingCentered>{isNewUser ? "Sign up to Civil" : "Log in to Civil"}</PageHeadingCentered>
+        <PageSubHeadingCentered>Check your email!</PageSubHeadingCentered>
         <CenteredText>
           We sent you an email to <strong>{emailAddress}</strong> that includes a link to confirm your email address. It
           expires soon, so please check your email and click on the link. Once confimed, you can continue.

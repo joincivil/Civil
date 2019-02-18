@@ -52,10 +52,6 @@ export const ManagerHeading = styled.h3`
   font-size: 18px;
 `;
 
-export const ManagerHeadingCentered = styled(ManagerHeading)`
-  text-align: center;
-`;
-
 ManagerHeading.defaultProps = headingDefaultProps;
 
 export const ManagerSectionHeading = styled.h4`
@@ -65,3 +61,21 @@ export const ManagerSectionHeading = styled.h4`
 `;
 
 ManagerSectionHeading.defaultProps = headingDefaultProps;
+
+export const PageHeadingCentered = styled.h2`
+  font-family: ${props => props.theme.serifFont};
+  font-weight: 200;
+  font-size: 20px;
+  margin: 0;
+`;
+
+PageHeadingCentered.defaultProps = headingDefaultProps;
+
+export const PageSubHeadingCentered = styled.h2`
+  font-family: ${props => props.theme.serifFont};
+  font-weight: 200;
+  font-size: 20px;
+  margin: 0;
+`;
+
+PageSubHeadingCentered.defaultProps = headingDefaultProps;

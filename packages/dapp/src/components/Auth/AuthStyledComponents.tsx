@@ -8,5 +8,5 @@ export const AuthOuterWrapper = styled.div`
 `;
 
 export const AuthInnerWrapper = styled.div`
-  width: 640px;
+  width: 470px;
 `;
