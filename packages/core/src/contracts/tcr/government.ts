@@ -6,7 +6,6 @@ import { Observable } from "rxjs";
 import { EthAddress, Param, TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { GovernmentContract } from "../generated/wrappers/government";
-import { createTwoStepSimple } from "../utils/contracts";
 import { Multisig } from "../multisig/multisig";
 
 const debug = Debug("civil:tcr");
