@@ -18,7 +18,7 @@ export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementPr
           </TokenRequirementIcon>
           <TokenConnectWalletText />
           {/* TODO(jorgelo): The login url should probably be a global constant. */}
-          <TokenBtns to="/account/eth">
+          <TokenBtns to="/auth/eth">
             <TokenConnectWalletBtnText />
           </TokenBtns>
         </UserTokenAccountRequirement>

@@ -9,6 +9,7 @@ import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
 
 const TOKEN_HOME = "/tokens";
+export const WALLET_HOME = "/auth/wallet";
 
 interface AuthVerifyTokenRouteParams {
   token: string;
@@ -20,7 +21,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
 
     const routeProps = {
       redirectTo: TOKEN_HOME,
-      ethSignupPath: `${match.path}/eth`,
+      ethSignupPath: WALLET_HOME,
     };
 
     return (
@@ -92,17 +93,10 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                     );
                   }}
                 />
+                {/* Add Wallet */}
+                <Route path={WALLET_HOME} component={() => <AuthEth onAuthentication={this.handleOnAddWallet} />} />
               </>
             )}
-          />
-
-          {/* Add Wallet */}
-          <AuthenticatedRoute
-            {...routeProps}
-            allowWithoutEth
-            path={`${match.path}/eth`}
-            exact
-            component={() => <AuthEth onAuthentication={this.handleOnAddWallet} />}
           />
 
           {/* Account Home */}
