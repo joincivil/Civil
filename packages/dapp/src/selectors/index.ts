@@ -86,6 +86,8 @@ export const getParameters = (state: State) => state.networkDependent.parameters
 
 export const getParameterProposals = (state: State) => state.networkDependent.proposals;
 
+export const getGovtParameterProposals = (state: State) => state.networkDependent.govtProposals;
+
 export const getParameterProposalChallenges = (state: State) => state.networkDependent.parameterProposalChallenges;
 
 export const getParameterProposalChallengesFetching = (state: State) =>
@@ -914,6 +916,21 @@ export const getProposalParameterName = (state: State, props: ProposalParameterP
 export const makeGetProposalsByParameterName = () => {
   return createSelector(
     [getParameterProposals, getProposalParameterName],
+    (parameterProposals: Map<string, any>, parameterName) => {
+      const proposalsForParameterName = parameterProposals
+        .filter((proposal, proposalID, iter): boolean => {
+          const { paramName: proposalParamName } = proposal;
+          return proposalParamName === parameterName;
+        })
+        .toSet() as Set<any>;
+      return proposalsForParameterName;
+    },
+  );
+};
+
+export const makeGetGovtProposalsByParameterName = () => {
+  return createSelector(
+    [getGovtParameterProposals, getProposalParameterName],
     (parameterProposals: Map<string, any>, parameterName) => {
       const proposalsForParameterName = parameterProposals
         .filter((proposal, proposalID, iter): boolean => {

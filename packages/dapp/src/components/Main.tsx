@@ -12,6 +12,7 @@ import {
   initializeGovernment,
   initializeGovernmentParamSubscription,
   initializeConstitution,
+  initializeGovtProposalsSubscriptions,
 } from "../helpers/government";
 import { initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
@@ -60,6 +61,7 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
       await initializeConstitution(this.props.dispatch!);
       await initializeProposalsSubscriptions(this.props.dispatch!);
       await initializeGovernmentParamSubscription(this.props.dispatch!);
+      await initializeGovtProposalsSubscriptions(this.props.dispatch!);
       await initializeContractAddresses(this.props.dispatch!);
       await this.props.dispatch!(await initialize());
     } catch (err) {
