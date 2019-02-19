@@ -89,14 +89,6 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             <Helmet>
               <title>New Applications - The Civil Registry</title>
             </Helmet>
-            <StyledListingCopy>
-              New applications are subject to Civil community review to ensure alignment with the{" "}
-              <a href="https://civil.co/constitution/">Civil Constitution</a>. If you believe any of these Newsrooms
-              don't abide by the Civil Constitution, you may challenge them at any time.{" "}
-              <a href="#zendesk" target="_blank">
-                Learn how
-              </a>.
-            </StyledListingCopy>
             {this.renderApplications()}
           </>
         </Tab>
@@ -105,13 +97,6 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             <Helmet>
               <title>Newsrooms Under Challenge - The Civil Registry</title>
             </Helmet>
-
-            <StyledListingCopy>
-              These Newsrooms have been challenged by a community member who perceives they violated the{" "}
-              <a href="https://civil.co/constitution/">Civil Constitution</a>. You can vote to accept or reject the
-              Newsroom from the Civil Registry and potentially earn Civil tokens when you vote.{" "}
-              <a href="#zendesk">Learn how</a>.
-            </StyledListingCopy>
             {this.renderUnderChallenge()}
           </>
         </Tab>
@@ -120,12 +105,6 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             <Helmet>
               <title>Newsrooms Under Appeal - The Civil Registry</title>
             </Helmet>
-            <StyledListingCopy>
-              The <a href="http://civilfound.org/">Civil Council</a> has agreed to consider the appeals of these
-              challenged Newsrooms. Their decisions are based on the{" "}
-              <a href="https://civil.co/constitution/">Civil Constitution</a>. If you disagree with the Civil Council’s
-              decision, you will have a chance to challenge it. <a href="#zendesk">Learn how</a>.
-            </StyledListingCopy>
             {this.renderUnderAppeal()}
           </>
         </Tab>
@@ -134,12 +113,6 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             <Helmet>
               <title>Newsrooms Decision Challenged- The Civil Registry</title>
             </Helmet>
-            <StyledListingCopy>
-              A community member has challenged the Civil Council's appeal decision on these Newsrooms' fate, based on
-              the <a href="https://civil.co/constitution/">Civil Constitution</a>. You can vote to uphold or overturn
-              the Civil Council's decision and potentially earn Civil tokens when you vote.{" "}
-              <a href="#zendesk">Learn how</a>.
-            </StyledListingCopy>
             {this.renderUnderAppealChallenge()}
           </>
         </Tab>
@@ -148,10 +121,6 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             <Helmet>
               <title>Newsrooms Ready To Update - The Civil Registry</title>
             </Helmet>
-            <StyledListingCopy>
-              The Civil community has spoken and the vote results are in. In order to enact the decision, community
-              members must update the Newsroom's status. <a href="#zendesk">Learn more</a>.
-            </StyledListingCopy>
             {this.renderReadyToUpdate()}
           </>
         </Tab>
@@ -162,7 +131,20 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
   private renderApplications = (): JSX.Element => {
     if (this.props.applications.count()) {
       return (
-        <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={this.props.applications} />
+        <>
+          <StyledListingCopy>
+            New applications are subject to Civil community review to ensure alignment with the{" "}
+            <a href="https://civil.co/constitution/">Civil Constitution</a>. If you believe any of these Newsrooms don't
+            abide by the Civil Constitution, you may challenge them at any time.{" "}
+            <a href="#zendesk" target="_blank">
+              Learn how
+            </a>.
+          </StyledListingCopy>
+          <ListingList
+            ListingItemComponent={ListingSummaryUnderChallengeComponent}
+            listings={this.props.applications}
+          />
+        </>
       );
     }
 
@@ -175,7 +157,17 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
       .merge(this.props.awaitingAppealRequestListings);
 
     if (beingChallenged.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={beingChallenged} />;
+      return (
+        <>
+          <StyledListingCopy>
+            These Newsrooms have been challenged by a community member who perceives they violated the{" "}
+            <a href="https://civil.co/constitution/">Civil Constitution</a>. You can vote to accept or reject the
+            Newsroom from the Civil Registry and potentially earn Civil tokens when you vote.{" "}
+            <a href="#zendesk">Learn how</a>.
+          </StyledListingCopy>
+          <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={beingChallenged} />
+        </>
+      );
     }
 
     return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.UNDER_CHALLENGE} />;
@@ -187,7 +179,17 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
     );
 
     if (consideringAppeal.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={consideringAppeal} />;
+      return (
+        <>
+          <StyledListingCopy>
+            The <a href="http://civilfound.org/">Civil Council</a> has agreed to consider the appeals of these
+            challenged Newsrooms. Their decisions are based on the{" "}
+            <a href="https://civil.co/constitution/">Civil Constitution</a>. If you disagree with the Civil Council’s
+            decision, you will have a chance to challenge it. <a href="#zendesk">Learn how</a>.
+          </StyledListingCopy>
+          <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={consideringAppeal} />
+        </>
+      );
     }
 
     return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.UNDER_APPEAL} />;
@@ -199,7 +201,16 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
     );
 
     if (appealChallenge.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={appealChallenge} />;
+      return (
+        <>
+          <StyledListingCopy>
+            A community member has challenged the Civil Council's appeal decision on these Newsrooms' fate, based on the{" "}
+            <a href="https://civil.co/constitution/">Civil Constitution</a>. You can vote to uphold or overturn the
+            Civil Council's decision and potentially earn Civil tokens when you vote. <a href="#zendesk">Learn how</a>.
+          </StyledListingCopy>
+          <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={appealChallenge} />;
+        </>
+      );
     }
 
     return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.UNDER_APPEAL_CHALLENGE} />;
@@ -211,7 +222,15 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
       .merge(this.props.resolveAppealListings);
 
     if (readyToUpdate.count()) {
-      return <ListingList ListingItemComponent={ListingSummaryReadyToUpdateComponent} listings={readyToUpdate} />;
+      return (
+        <>
+          <StyledListingCopy>
+            The Civil community has spoken and the vote results are in. In order to enact the decision, community
+            members must update the Newsroom's status. <a href="#zendesk">Learn more</a>.
+          </StyledListingCopy>
+          <ListingList ListingItemComponent={ListingSummaryReadyToUpdateComponent} listings={readyToUpdate} />
+        </>
+      );
     }
 
     return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.READY_TO_UPDATE} />;

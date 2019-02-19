@@ -18,13 +18,13 @@ import { State } from "../../redux/reducers";
 import * as heroImgUrl from "../images/img-hero-listings.png";
 import LoadingMsg from "../utility/LoadingMsg";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
+import { StyledPageContent } from "../utility/styledComponents";
 
 import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
 import RejectedListingListContainer from "./RejectedListingListContainer";
 import ListingsInProgressContainer from "./ListingsInProgressContainer";
 
-const TABS: string[] = ["whitelisted", "in-progress", "rejected"];
+const TABS: string[] = ["approved", "in-progress", "rejected"];
 
 export interface ListingProps {
   match?: any;
@@ -65,11 +65,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                 <Helmet>
                   <title>The Civil Registry - A community-driven space for curating quality journalism</title>
                 </Helmet>
-                <StyledListingCopy>
-                  All approved Newsrooms agreed to uphold the journalistic principles in the{" "}
-                  <a href="https://civil.co/constitution/">Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
-                  <a href="#zendesk">community vetting process</a>.
-                </StyledListingCopy>
                 <WhitelistedListingListContainer />
               </StyledPageContent>
             </Tab>
@@ -87,11 +82,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                 <Helmet>
                   <title>Rejected Newsrooms - The Civil Registry</title>
                 </Helmet>
-                <StyledListingCopy>
-                  Rejected Newsrooms have been removed from the Civil Registry following a vote that they had violated
-                  the <a href="https://civil.co/constitution/">Civil Constitution</a> in some way. Rejected Newsrooms
-                  can reapply to the Registry at any time. <a href="#zendesk">Learn how</a>.
-                </StyledListingCopy>
                 <RejectedListingListContainer />
               </StyledPageContent>
             </Tab>
