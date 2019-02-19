@@ -7,6 +7,7 @@ import { EthAddress } from "@joincivil/core";
 import { getFormattedEthAddress } from "@joincivil/utils";
 import { UserTokenAccount, LoadUser } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
+import { WALLET_HOME } from "../Auth/index";
 
 export interface TokensProps {
   userAccount: EthAddress;
@@ -38,6 +39,7 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
               foundationAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
               network={props.network}
               user={user}
+              addWalletPath={WALLET_HOME}
             />
           );
         }}
