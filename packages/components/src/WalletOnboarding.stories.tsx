@@ -98,31 +98,6 @@ storiesOf("Wallet Onboarding", module)
       />
     );
   })
-  .add("Save wallet to Civil account", () => {
-    return (
-      <>
-        <WalletOnboarding
-          enable={() => {}}
-          metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
-          civil={civil}
-          requireAuth={true}
-        />
-      </>
-    );
-  })
-  .add("Civil account vs. MetaMask address mismatch", () => {
-    return (
-      <>
-        <WalletOnboarding
-          enable={() => {}}
-          metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
-          profileWalletAddress="0x123abc00000000000000000000000000000x123abc"
-          civil={civil}
-          requireAuth={true}
-        />
-      </>
-    );
-  })
   .add("Connected", () => {
     return <WalletOnboarding enable={() => {}} metamaskWalletAddress="0xabc1230000000000000000000000000000abc123" />;
   });

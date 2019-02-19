@@ -15,6 +15,7 @@ export interface CollapsableProps extends OpenBool {
   headerOpen?: React.ReactNode;
   ArrowComponent?: any;
   disabled?: boolean;
+  className?: string; // for use as styled component
 }
 
 export interface CollapseAreaProps extends OpenBool {
@@ -41,6 +42,7 @@ export const Arrow: StyledComponentClass<ArrowProps, "div"> = styled<ArrowProps,
 
 export const HeaderWrapper = styled.div`
   position: relative;
+  cursor: pointer;
 `;
 
 export class Collapsable extends React.Component<CollapsableProps, CollapseAreaProps> {
@@ -74,7 +76,7 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
       header = this.props.headerOpen;
     }
     return (
-      <div>
+      <div className={this.props.className}>
         <HeaderWrapper onClick={this.open}>
           {header}{" "}
           {this.props.ArrowComponent ? (

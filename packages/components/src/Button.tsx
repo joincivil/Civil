@@ -50,6 +50,7 @@ export interface ButtonTheme {
   darkButtonTextTransform?: string;
   borderlessButtonColor?: string;
   borderlessButtonHoverColor?: string;
+  borderlessButtonSize?: string;
   sansSerifFont?: string;
 }
 
@@ -88,6 +89,7 @@ const DARK_BUTTON_DEFAULT_THEME = {
 const BORDERLESS_BUTTON_DEFAULT_THEME = {
   borderlessButtonColor: colors.primary.CIVIL_BLUE_1,
   borderlessButtonHoverColor: colors.accent.CIVIL_BLUE_FADED,
+  borderlessButtonSize: "15px",
 };
 
 export const DEFAULT_BUTTON_THEME = {
@@ -263,7 +265,7 @@ export const BorderlessButton = styled(Button)`
   margin-left: 8px;
   letter-spacing: 0.7px;
   padding: ${sizesObject[buttonSizes.SMALL]};
-  font-size: 15px;
+  font-size: ${props => props.theme.borderlessButtonSize};
   background-color: transparent;
   &:focus,
   &:active,

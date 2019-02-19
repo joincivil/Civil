@@ -28,6 +28,7 @@ export * from "./ListingHistoryEvent";
 export * from "./ViewTransactionLink";
 export * from "./TCRUserDashboard";
 export * from "./ChallengeResultsChart";
+export * from "./images";
 export * from "./icons";
 export * from "./theme";
 export * from "./Tabs";

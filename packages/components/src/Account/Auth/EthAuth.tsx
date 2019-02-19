@@ -10,11 +10,13 @@ import {
   ManagerSectionHeading,
   MetaMaskModal,
   ModalHeading,
+  metaMaskSignImgSrc,
 } from "../../";
-import * as metaMaskSignatureReqUrl from "../../images/img-metamaskmodal-new-signature.png";
 
 export interface AccountEthAuthProps {
   civil: Civil;
+  buttonText?: string;
+  buttonOnly?: boolean;
   onAuthenticated?(address: EthAddress): void;
 }
 
@@ -46,6 +48,35 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
   }
 
   public render(): JSX.Element {
+    if (this.props.buttonOnly) {
+      return this.renderTransactionUI();
+    }
+
+    return (
+      <>
+        <ManagerSectionHeading>Log into Civil with your crypto wallet</ManagerSectionHeading>
+        <p>
+          Almost there! To set up your Civil account, you need to authenticate your account with a signature. This is
+          similar to signing in with a password. It verifies your account with your crypto wallet.
+        </p>
+
+        <div>
+          <p>MetaMask will open a new window, and will require you to sign a message.</p>
+          {this.renderTransactionUI()}
+          <img src={metaMaskSignImgSrc} />
+        </div>
+      </>
+    );
+  }
+
+  public componentDidMount(): void {
+    this._isMounted = true;
+  }
+  public componentWillUnmount(): void {
+    this._isMounted = false;
+  }
+
+  private renderTransactionUI(): JSX.Element {
     return (
       <Mutation
         mutation={setEthAddressMutation}
@@ -63,22 +94,16 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
       >
         {userSetEthAddress => (
           <>
-            <ManagerSectionHeading>Log into Civil with your crypto wallet</ManagerSectionHeading>
-            <p>
-              Almost there! To set up your Civil account, you need to authenticate your account with a signature. This
-              is similar to signing in with a password. It verifies your account with your crypto wallet.
-            </p>
-
-            <div>
-              <p>MetaMask will open a new window, and will require you to sign a message.</p>
-              <TransactionButtonNoModal
-                transactions={this.signTransactions(userSetEthAddress)}
-                Button={props => {
-                  return <MetaMaskLogoButton onClick={props.onClick}>Open MetaMask</MetaMaskLogoButton>;
-                }}
-              />
-              <img src={metaMaskSignatureReqUrl} />
-            </div>
+            <TransactionButtonNoModal
+              transactions={this.signTransactions(userSetEthAddress)}
+              Button={props => {
+                return (
+                  <MetaMaskLogoButton onClick={props.onClick}>
+                    {this.props.buttonText || "Open MetaMask"}
+                  </MetaMaskLogoButton>
+                );
+              }}
+            />
 
             {this.renderWaitingSignModal()}
             {this.renderSignRejectionModal(userSetEthAddress)}
@@ -87,13 +112,6 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
         )}
       </Mutation>
     );
-  }
-
-  public componentDidMount(): void {
-    this._isMounted = true;
-  }
-  public componentWillUnmount(): void {
-    this._isMounted = false;
   }
 
   private renderWaitingSignModal(): JSX.Element | null {
