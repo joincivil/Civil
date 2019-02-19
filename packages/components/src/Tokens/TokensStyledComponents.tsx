@@ -304,15 +304,21 @@ export const TokenProgressContain = styled.div`
 
 export const TokenFAQCollapse = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  color: ${colors.accent.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  line-height: 26px;
   padding: 20px 30px;
 
   h3 {
-    color: ${colors.accent.CIVIL_GRAY_1};
     font-size: 14px;
     font-weight: bold;
     line-height: 32px;
     margin: 0;
+  }
+
+  li {
+    margin-bottom: 15px;
   }
 `;
 
@@ -375,5 +381,69 @@ export const TokenCalcCVL = styled.div`
   p {
     font-size: 14px;
     line-height: 22px;
+  }
+`;
+
+export const TokenThanksPurchase = styled.div`
+  text-align: center;
+
+  h3 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 32px;
+    margin-bottom: 14px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 17px;
+  }
+
+  a {
+    color: ${colors.accent.CIVIL_BLUE};
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: ${colors.accent.CIVIL_BLUE};
+      text-decoration: underline;
+    }
+  }
+`;
+
+export const TokenUnlock = styled.div`
+  background-color: #fff7f8;
+  border: 1px solid ${colors.accent.CIVIL_RED_FADED};
+  border-radius: 4px;
+  padding: 20px;
+
+  h4 {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    margin-bottom: 10px;
+
+    svg {
+      margin-right: 8px;
+    }
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    line-height: 20px;
+
+    b {
+      font-weight: 700;
+    }
+  }
+
+  a {
+    border: 1px solid ${colors.accent.CIVIL_BLUE};
+    border-radius: 2px;
+    padding: 16px 40px;
   }
 `;
