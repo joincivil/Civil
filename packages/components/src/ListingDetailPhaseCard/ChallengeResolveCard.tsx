@@ -45,7 +45,7 @@ export const ChallengeResolveCard: React.StatelessComponent<
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
-          didChallengeSucceed={props.didChallengeSucceed}
+          didChallengeSucceed={props.didChallengeOriginallySucceed}
         />
       </StyledListingDetailPhaseCardSection>
 
