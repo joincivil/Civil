@@ -4,7 +4,7 @@ exports[`Storyshots Listing Summary Card 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fHlXLc orBoh",
+      "class": "sc-AqAhp glAnzf",
     },
     "children": Array [
       Object {
@@ -767,7 +767,7 @@ exports[`Storyshots Listing Summary Card Grid 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fHlXLc orBoh",
+      "class": "sc-AqAhp glAnzf",
     },
     "children": Array [
       Object {
@@ -26627,7 +26627,7 @@ exports[`Storyshots Listing Summary Card Rejected 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fHlXLc orBoh",
+      "class": "sc-AqAhp glAnzf",
     },
     "children": Array [
       Object {

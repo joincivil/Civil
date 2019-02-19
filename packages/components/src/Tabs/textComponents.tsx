@@ -39,11 +39,11 @@ export const TabUnderChallengeText: React.SFC = props => {
 };
 
 export const TabAppealToCouncilText: React.SFC = props => {
-  return <>Appeal to Council</>;
+  return <>Under Appeal</>;
 };
 
 export const TabChallengeCouncilAppealText: React.SFC = props => {
-  return <>Challenge Council Appeal</>;
+  return <>Decision Challenged</>;
 };
 
 export const TabReadyToUpdateText: React.SFC = props => {

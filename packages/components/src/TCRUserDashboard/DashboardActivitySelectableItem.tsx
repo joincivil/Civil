@@ -8,7 +8,7 @@ import {
   StyledItemCheckboxContainer,
   StyledDashboardActivityItemDetails,
   StyledNumTokensContainer,
-} from "./styledComponents";
+} from "./DashboardStyledComponents";
 
 const ItemCheckbox: React.SFC<DashboardActivitySelectableItemProps> = props => {
   const challengeID = props.appealChallengeID || props.challengeID;

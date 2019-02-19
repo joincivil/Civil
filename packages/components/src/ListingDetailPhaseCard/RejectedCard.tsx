@@ -62,7 +62,7 @@ export const RejectedCard: React.StatelessComponent<RejectedCardAllProps> = prop
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
-          didChallengeSucceed={props.didChallengeSucceed}
+          didChallengeSucceed={props.didChallengeOriginallySucceed}
         />
       </StyledListingDetailPhaseCardSection>
 
