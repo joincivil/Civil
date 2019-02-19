@@ -6,6 +6,7 @@ import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";
 import { CharterQuestions } from "./CharterQuestions";
 import { SignConstitution } from "./SignConstitution";
+import { ApplicationSoFarPage } from "./ApplicationSoFarPage";
 
 export interface NewsroomProfileState {
   currentStep: number;
@@ -28,7 +29,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   constructor(props: NewsroomProfileProps) {
     super(props);
     this.state = {
-      currentStep: 3,
+      currentStep: 4,
     };
   }
   public getDisabled(index: number): () => boolean {
@@ -59,6 +60,9 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       () => {
         return !(this.props.charter.signatures && this.props.charter.signatures.length);
       },
+      () => {
+        return true;
+      },
     ];
     return functions[index];
   }
@@ -68,6 +72,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <AddRosterMember charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
+      <ApplicationSoFarPage charter={this.props.charter} />,
     ];
     return steps[this.state.currentStep];
   }

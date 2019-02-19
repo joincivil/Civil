@@ -15,6 +15,7 @@ import {
   SectionHeader,
   SectionDescription,
   StepSectionCounter,
+  StyledCollapsable,
 } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 
@@ -51,13 +52,6 @@ const CollapsableHeader = styled.h4`
   font-weight: bold;
   line-height: 32px;
   margin: 0;
-`;
-
-const StyledCollapsable = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin: 25px 0;
-  padding: 17px 7px;
 `;
 
 export class NewsroomBio extends React.Component<NewsroomBioProps> {
