@@ -75,11 +75,6 @@ const Wrapper = styled.div`
   }
 `;
 
-const LargeishButton = styled(Button)`
-  box-sizing: border-box;
-  height: 42px;
-`;
-
 const WalletAddress = styled(AddressWithMetaMaskIcon)`
   margin-bottom: 28px;
 `;
@@ -374,7 +369,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
 
             {this.props.onContinue && (
               <ContinueButtonWrap>
-                <Button size={buttonSizes.MEDIUM_WIDE} onClick={this.props.onContinue}>
+                <Button width={220} size={buttonSizes.MEDIUM_WIDE} onClick={this.props.onContinue}>
                   Continue
                 </Button>
               </ContinueButtonWrap>
@@ -394,10 +389,9 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
       <>
         {showDisabledButton && (
           <ContinueButtonWrap>
-            {/*@TODO/toby change button style*/}
-            <LargeishButton size={buttonSizes.MEDIUM_WIDE} disabled={true}>
+            <Button width={220} size={buttonSizes.MEDIUM_WIDE} disabled={true}>
               Continue
-            </LargeishButton>
+            </Button>
           </ContinueButtonWrap>
         )}
 

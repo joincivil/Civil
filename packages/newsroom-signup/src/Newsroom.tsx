@@ -115,6 +115,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     theme: {
       ...DEFAULT_BUTTON_THEME,
       ...DEFAULT_CHECKBOX_THEME,
+      primaryButtonTextTransform: "none",
+      primaryButtonFontWeight: "bold",
+      borderlessButtonSize: "14px",
     },
   };
 

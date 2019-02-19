@@ -88,7 +88,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         {this.renderCurrentStep()}
         <ButtonContainer>
           {this.state.currentStep > 0 ? (
-            <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.goBack()}>
+            <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.goBack()}>
               Back
             </BorderlessButton>
           ) : (
@@ -96,9 +96,8 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
           )}
           <Button
             disabled={this.getDisabled(this.state.currentStep)()}
-            textTransform="none"
             width={220}
-            size={buttonSizes.MEDIUM}
+            size={buttonSizes.MEDIUM_WIDE}
             onClick={() => this.goNext()}
           >
             Next
