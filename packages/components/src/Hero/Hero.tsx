@@ -1,5 +1,5 @@
 import * as React from "react";
-import { HeroOuter, HeroInner } from "./styledComponents";
+import { HeroOuter, HeroInner } from "./HeroStyledComponents";
 
 export interface HeroProps {
   backgroundImage?: string;

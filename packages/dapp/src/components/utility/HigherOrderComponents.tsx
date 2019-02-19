@@ -2,11 +2,8 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
-import { EthAddress, ListingWrapper, WrappedChallengeData, isVotePassed } from "@joincivil/core";
+import { EthAddress, ListingWrapper, WrappedChallengeData, AppealChallengeData } from "@joincivil/core";
 import {
-  colors,
-  VoteTypeSummaryRowProps as PartialChallengeResultsProps,
-  CHALLENGE_RESULTS_VOTE_TYPES,
   ChallengeResultsProps,
   ChallengePhaseProps,
   ProgressBarCountdownProps,
@@ -25,14 +22,6 @@ import { Query } from "react-apollo";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 
-const StyledPartialChallengeResultsHeader = styled.p`
-  & > span {
-    color: ${colors.primary.CIVIL_GRAY_2};
-    font-weight: normal;
-    font-size: 0.9em;
-  }
-`;
-
 export interface GraphQLizableComponentProps {
   useGraphQL: boolean;
 }
@@ -45,8 +34,13 @@ export interface ChallengeContainerProps {
   challengeID?: BigNumber | string;
 }
 
+export interface AppealChallengeContainerProps {
+  appealChallengeID?: BigNumber | string;
+}
+
 export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData;
+  appealChallengeData?: AppealChallengeData;
   challengeDataRequestStatus?: any;
   user: EthAddress;
 }
@@ -124,11 +118,40 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
               if (error) {
                 return null;
               }
+              const { challengeID } = this.props;
               const challenge = transformGraphQLDataIntoChallenge(data.challenge);
               const challengeResultsProps = getChallengeResultsProps(challenge!) as ChallengeResultsProps;
+
+              let appealPhaseProps = {};
+              if (challenge && challenge.appeal) {
+                appealPhaseProps = {
+                  appealRequested: !challenge.appeal.appealFeePaid.isZero(),
+                  appealGranted: challenge.appeal.appealGranted,
+                };
+              }
+              let appealChallengePhaseProps = {};
+              if (challenge && challenge.appeal && challenge.appeal.appealChallengeID) {
+                appealChallengePhaseProps = {
+                  appealChallengeID: challenge.appeal.appealChallengeID.toString(),
+                };
+              }
+              let appealChallengeResultsProps = {};
+              if (challenge && challenge.appeal && challenge.appeal.appealChallenge) {
+                appealChallengeResultsProps = getAppealChallengeResultsProps(
+                  challenge.appeal.appealChallenge,
+                ) as AppealChallengeResultsProps;
+              }
+
               return (
                 <>
-                  <PresentationComponent {...challengeResultsProps} {...this.props} />
+                  <PresentationComponent
+                    {...this.props}
+                    {...challengeResultsProps}
+                    {...appealPhaseProps}
+                    {...appealChallengePhaseProps}
+                    {...appealChallengeResultsProps}
+                    challengeID={challengeID!.toString()}
+                  />
                 </>
               );
             }}
@@ -142,10 +165,46 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
         const challengeResultsProps = getChallengeResultsProps(
           this.props.challengeData.challenge,
         ) as ChallengeResultsProps;
+        const challengeID = this.props.challengeID && this.props.challengeID.toString();
+
+        let appealPhaseProps = {};
+        if (this.props.challengeData && this.props.challengeData.challenge.appeal) {
+          appealPhaseProps = {
+            appealRequested: !this.props.challengeData.challenge.appeal.appealFeePaid.isZero(),
+            appealGranted: this.props.challengeData.challenge.appeal.appealGranted,
+          };
+        }
+        let appealChallengePhaseProps = {};
+        if (
+          this.props.challengeData &&
+          this.props.challengeData.challenge.appeal &&
+          this.props.challengeData.challenge.appeal.appealChallengeID
+        ) {
+          appealChallengePhaseProps = {
+            appealChallengeID: this.props.challengeData.challenge.appeal.appealChallengeID.toString(),
+          };
+        }
+        let appealChallengeResultsProps = {};
+        if (
+          this.props.challengeData &&
+          this.props.challengeData.challenge.appeal &&
+          this.props.challengeData.challenge.appeal.appealChallenge
+        ) {
+          appealChallengeResultsProps = getAppealChallengeResultsProps(
+            this.props.challengeData.challenge.appeal.appealChallenge,
+          ) as AppealChallengeResultsProps;
+        }
 
         return (
           <>
-            <PresentationComponent {...challengeResultsProps} {...this.props} />
+            <PresentationComponent
+              {...this.props}
+              {...challengeResultsProps}
+              {...appealPhaseProps}
+              {...appealChallengePhaseProps}
+              {...appealChallengeResultsProps}
+              challengeID={challengeID}
+            />
           </>
         );
       }
@@ -159,112 +218,6 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
         !this.props.challengeDataRequestStatus
       ) {
         this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
-      }
-    };
-  }
-
-  return connect(mapStateToProps)(HOChallengeResultsContainer);
-};
-
-/**
- * Generates a HO-Component Container for My Dashboard Activity Item
- * presentation components.
- * Given a `challengeID`, this container fetches the challenge data from the Redux store
- * then extracts and passes props for rendering a Partial Challenge Results component, which
- * shows only the summary for the winning vote
- */
-export const connectWinningChallengeResults = <TOriginalProps extends ChallengeContainerProps>(
-  PresentationComponent: React.ComponentType<PartialChallengeResultsProps>,
-) => {
-  const mapStateToProps = (
-    state: State,
-    ownProps: ChallengeContainerProps,
-  ): ChallengeContainerReduxProps & ChallengeContainerProps => {
-    const { challenges, challengesFetching, user } = state.networkDependent;
-    let challengeData;
-    const challengeID = ownProps.challengeID;
-    if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
-    }
-    let challengeDataRequestStatus;
-    if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
-    }
-    const userAcct = user.account;
-    return {
-      ...ownProps,
-      challengeData,
-      challengeDataRequestStatus,
-      user: userAcct.account,
-    };
-  };
-
-  // @TODO(jon): Can we get rid of this additional react component and just use redux's connect? Just need to figure out the correct typing to use when not passing `challengeID` as a prop to the presentation component
-  class HOChallengeResultsContainer extends React.Component<
-    TOriginalProps & ChallengeContainerReduxProps & DispatchProp<any>
-  > {
-    public componentDidMount(): void {
-      this.ensureHasChallengeData();
-    }
-
-    public componentDidUpdate(): void {
-      this.ensureHasChallengeData();
-    }
-
-    public render(): JSX.Element | null {
-      if (!this.props.challengeData) {
-        return <></>;
-      }
-
-      const challenge = this.props.challengeData.challenge;
-      const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-
-      let label;
-      let voteType;
-      let votesCount;
-      let votesPercent;
-
-      if (isVotePassed(challenge.poll)) {
-        label = (
-          <>
-            Challenge Succeeded: Newsroom removed from Registry<br />
-            <span>Challenge ID: {this.props.challengeData.challengeID.toString()}</span>
-          </>
-        );
-        voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
-        votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
-        votesPercent = challenge.poll.votesAgainst
-          .div(totalVotes)
-          .mul(100)
-          .toFixed(0);
-      } else {
-        label = (
-          <>
-            Challenge Failed: Newsroom remains in Registry<br />
-            <span>Challenge ID: {this.props.challengeData.challengeID.toString()}</span>
-          </>
-        );
-        voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
-        votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
-        votesPercent = challenge.poll.votesFor
-          .div(totalVotes)
-          .mul(100)
-          .toFixed(0);
-      }
-
-      const props = { voteType, votesCount, votesPercent };
-
-      return (
-        <>
-          <StyledPartialChallengeResultsHeader>{label}</StyledPartialChallengeResultsHeader>
-          <PresentationComponent {...props} />
-        </>
-      );
-    }
-
-    private ensureHasChallengeData = (): void => {
-      if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
       }
     };
   }
@@ -321,7 +274,7 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
           if (challenge) {
             endTime = challenge.challenge.requestAppealExpiry.toNumber();
           }
-          totalSeconds = parameters.revealStageLen;
+          totalSeconds = govtParameters.requestAppealLen;
           break;
         case PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_JUDGEMENT:
           if (challenge && challenge.challenge.appeal) {
@@ -333,7 +286,7 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
           if (challenge && challenge.challenge.appeal) {
             endTime = challenge.challenge.appeal.appealOpenToChallengeExpiry.toNumber();
           }
-          totalSeconds = govtParameters.judgeAppealLen;
+          totalSeconds = parameters.challengeAppealLen;
           break;
         case PHASE_TYPE_NAMES.APPEAL_CHALLENGE_COMMIT_VOTE:
           if (challenge && challenge.challenge.appeal && challenge.challenge.appeal.appealChallenge) {

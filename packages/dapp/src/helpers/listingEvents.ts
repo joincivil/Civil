@@ -137,14 +137,30 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
   }
 }
 
-export async function getIPFSContent(header: StorageHeader, dispatch: Dispatch<any>): Promise<void> {
+async function delay(ms: number): Promise<any> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export async function getIPFSContent(
+  header: StorageHeader,
+  dispatch: Dispatch<any>,
+  wait: number = 1000,
+  tries: number = 0,
+): Promise<void> {
   const civil = getCivil();
   const content = await civil.getContent(header);
   if (content) {
     const parsedContent = JSON.parse(content.toString());
     dispatch(addContent(header, parsedContent));
   } else {
-    console.error("Missing IPFS content for header:", header);
+    console.warn("Missing IPFS content for header:", header);
+    if (header.uri !== "" && tries < 6) {
+      console.warn("Retrying getIPFSContent. wait = " + wait + "ms");
+      await delay(wait);
+      return getIPFSContent(header, dispatch, wait * 2, tries + 1);
+    } else if (header.uri !== "" && tries >= 6) {
+      console.error("Unable to find IPFS content after 6 tries. header: ", header);
+    }
   }
 }
 

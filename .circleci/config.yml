@@ -120,6 +120,18 @@ jobs:
                     gcloud config list
                     echo "pushing $GOOGLE_PROJECT_ID"
                     docker push gcr.io/$GOOGLE_PROJECT_ID/dapp
+    deploy-test:
+        <<: *defaults
+        docker:
+            - image: civilmedia/gcloud-node:latest
+        steps:
+            - attach_workspace:
+                at: /root
+            - deploy:
+                name: Update Kubernetes Deployment on TEST
+                command: |
+                    TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
+                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1 --namespace test
 
     deploy-staging:
         <<: *defaults
@@ -143,23 +155,24 @@ jobs:
             - deploy:
                 name: Update Kubernetes Deployment on PRODUCTION
                 command: |
-                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:master-$CIRCLE_SHA1 --namespace production
+                    kubectl set image deployment/dapp dapp=gcr.io/$GOOGLE_PROJECT_ID/dapp:production-$CIRCLE_SHA1 --namespace production
 
 workflows:
     version: 2
-    nightly:
-        triggers:
-            - schedule:
-                cron: "0 0 * * *" # Midnight UTC
-                filters:
-                    branches:
-                        only:
-                            - master
-        jobs:
-            - build
-            - coverage:
-                requires:
-                    - build
+    # nightly:
+    #     triggers:
+    #         - schedule:
+    #             cron: "0 0 * * *" # Midnight UTC
+    #             filters:
+    #                 branches:
+    #                     only:
+    #                         - master
+    #                         - production
+    #     jobs:
+    #         - build
+    #         - coverage:
+    #             requires:
+    #                 - build
     pull-request:
         jobs:
             - build:
@@ -167,11 +180,13 @@ workflows:
                     branches:
                         ignore:
                             - master
+                            - production
             - test:
                 filters:
                     branches:
                         ignore:
                             - master
+                            - production
                 requires:
                     - build
             - lint:
@@ -179,9 +194,10 @@ workflows:
                     branches:
                         ignore:
                             - master
+                            - production
                 requires:
                     - build
-    staging:
+    deployment:
         jobs:
             - setup-gcp:
                 context: gcp-common
@@ -189,6 +205,8 @@ workflows:
                     branches:
                         only:
                             - master
+                            - production
+                            - /test.*/
             - push-containers:
                 context: gcp-common
                 requires:
@@ -197,6 +215,16 @@ workflows:
                     branches:
                         only:
                             - master
+                            - production
+                            - /test.*/
+            - deploy-test:
+                context: gcp-common
+                requires:
+                    - push-containers
+                filters:
+                    branches:
+                        only:
+                            - /test.*/
             - deploy-staging:
                 context: gcp-common
                 requires:
@@ -212,4 +240,4 @@ workflows:
                 filters:
                     branches:
                         only:
-                            - master
+                            - production

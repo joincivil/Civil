@@ -2,7 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
-import { Button } from "../Button";
+import { Button, InvertedButton } from "../Button";
 
 export const StyledUserActivity = styled.div`
   background-color: transparent;
@@ -118,11 +118,82 @@ export const StyledItemCheckboxContainer = styled.div`
   width: 20px;
 `;
 
+export const StyledDashboardActivityItemIcon = styled.div`
+  margin-right: 16px;
+  width: 50px;
+`;
+
 export const StyledDashboardActivityItemDetails = styled.div`
   flex-grow: 1;
   font-size: 14px;
   line-height: 22px;
   margin-right: 30px;
+`;
+
+export const StyledDashboardActivityItemAction = styled.div`
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  text-align: right;
+  min-width: 30%;
+
+  ${InvertedButton} {
+    display: block;
+    margin: 0 0 27px;
+    white-space: nowrap;
+  }
+
+  a {
+    color: ${colors.accent.CIVIL_BLUE};
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 14px;
+    white-space: nowrap;
+  }
+`;
+
+export const StyledDashboardActivityItemTitle = styled.h4`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-weight: 800;
+  font-size: 18px
+  line-height: 21px;
+  margin: 0 0 10px;
+`;
+
+export const StyledDashboardActivityItemSubTitle = styled.h4`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-weight: 800;
+  font-size: 18px
+  line-height: 21px;
+  margin: 10px 0;
+`;
+
+export const StyledDashbaordActvityItemSectionOuter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StyledChallengeSummarySection = styled.div`
+  flex-grow: 1;
+`;
+
+export const StyledDashbaordActvityItemSection = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  background: ${colors.accent.CIVIL_GRAY_5};
+  box-shadow: inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_4};
+  padding: 10px 24px 21px;
+`;
+
+export const StyledDashbaordActvityItemHeader = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 33px;
+  margin: 0 0 8px;
+`;
+
+export const StyledDashbaordActvityItemSectionInner = styled.div`
+  padding-left: 23px;
 `;
 
 export const StyledChallengeIDKicker = styled.div`

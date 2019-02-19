@@ -52,7 +52,7 @@ export const AuthenticatedRoute = ({
             return <Redirect to={redirectTo} />;
           }
 
-          const hasEth = data.currentUser && data.currentUser.ethAddress;
+          const hasEth = error || (data.currentUser && data.currentUser.ethAddress);
 
           if (!hasEth && !onlyAllowWithoutEth) {
             // User doesn't have a wallet, but is signed in, redirect them to add their wallet.

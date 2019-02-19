@@ -12,6 +12,7 @@ import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
+import { UserTokenAccountFaq } from "./TokensAccountFaq";
 
 export const TOKEN_PROGRESS = {
   ACTIVE: "active",
@@ -23,6 +24,7 @@ export interface UserTokenAccountProps {
   foundationAddress: string;
   supportEmailAddress: string;
   faqUrl: string;
+  network: string;
   userAccount: string;
   userTutorialComplete: boolean;
   user?: any;
@@ -42,13 +44,14 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
   public render(): JSX.Element | null {
     const { user } = this.props;
-
     const accountSignupStep = this.getUserStep(user);
 
     const loggedInState = accountSignupStep ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
     const tutorialState = this.props.userTutorialComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
-    const buyState =
-      accountSignupStep && this.props.userTutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
+
+    // TODO:Sarah - commented out for testing
+    // const buyState =
+    //  accountSignupStep && this.props.userTutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
 
     return (
       <TokenAccountOuter>
@@ -64,7 +67,12 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 handleClose={this.closeTutorialModal}
                 handleOpen={this.openTutorialModal}
               />
-              <UserTokenAccountBuy step={buyState} foundationAddress={this.props.foundationAddress} />
+              <UserTokenAccountBuy
+                step={"active"}
+                network={this.props.network}
+                foundationAddress={this.props.foundationAddress}
+              />
+              <UserTokenAccountFaq />
             </FlexColumnsPrimary>
 
             <FlexColumnsSecondary>

@@ -23,6 +23,7 @@ export const colors = {
     CIVIL_GRAY_2: "#7D7373", // Civil-wide accent color
     CIVIL_GRAY_3: "#C4C2C0",
     CIVIL_GRAY_4: "#E9E9EA",
+    CIVIL_GRAY_5: "#F4F4F4",
     CIVIL_ORANGE: "#FFA716",
     CIVIL_GREEN: "#0D9D33",
   },

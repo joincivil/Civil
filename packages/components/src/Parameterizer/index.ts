@@ -1,5 +1,6 @@
 export * from "./textComponents";
 export * from "./CreateProposal";
+export * from "./CreateGovtProposal";
 export * from "./ChallengeProposal";
 export * from "./ChallengeProposalCommitVote";
 export * from "./ChallengeProposalRevealVote";

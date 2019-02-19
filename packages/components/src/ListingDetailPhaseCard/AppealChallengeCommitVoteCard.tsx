@@ -100,11 +100,14 @@ export class AppealChallengeCommitVoteCard extends React.Component<
                   votesAgainst={this.props.votesAgainst}
                   percentFor={this.props.percentFor}
                   percentAgainst={this.props.percentAgainst}
-                  didChallengeSucceed={this.props.didChallengeSucceed}
+                  didChallengeSucceed={this.props.didChallengeOriginallySucceed}
                 />
               </StyledListingDetailPhaseCardSection>
 
-              <AppealDecisionDetail appealGranted={this.props.appealGranted} />
+              <AppealDecisionDetail
+                appealGranted={this.props.appealGranted}
+                appealGrantedStatementUri={this.props.appealGrantedStatementURI}
+              />
 
               <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
                 {this.renderCommitVoteCallout()}

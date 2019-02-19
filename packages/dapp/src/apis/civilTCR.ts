@@ -221,11 +221,11 @@ export async function getRawGrantAppeal(address: EthAddress): Promise<string> {
   return tx.data!;
 }
 
-export async function grantAppeal(address: EthAddress): Promise<TwoStepEthTransaction> {
+export async function grantAppeal(address: EthAddress, uri: string): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
   const council = await tcr.getCouncil();
-  return council.grantAppeal(address);
+  return council.grantAppeal(address, uri);
 }
 
 export async function confirmAppeal(id: number): Promise<TwoStepEthTransaction> {

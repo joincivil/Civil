@@ -47,8 +47,11 @@ const transactionErrorContent = {
 };
 
 const transactionSuccessContent = {
-  [TransactionTypes.GRANT_APPEAL]: ["The appeal was granted", undefined],
-  [TransactionTypes.CONFIRM_APPEAL]: ["The appeal was confirmed", undefined],
+  [TransactionTypes.GRANT_APPEAL]: ["The grant appeal transaction has been sent to the council multisig", undefined],
+  [TransactionTypes.CONFIRM_APPEAL]: [
+    "The grant appeal transaction was confirmed. If enough council members have confirmed, it will execute and grant the appeal.",
+    undefined,
+  ],
 };
 
 const transactionStatusModalConfig = {
@@ -62,7 +65,20 @@ const AppealAwaitingDecisionCard = compose<
   React.ComponentClass<ChallengeContainerProps & Partial<AppealAwaitingDecisionCardProps>>
 >(connectChallengePhase, connectChallengeResults)(AppealAwaitingDecisionCardComponent);
 
-class AwaitingAppealDecision extends React.Component<AppealDetailProps & InjectedTransactionStatusModalProps> {
+interface AwaitingAppealDecisionState {
+  uriValue: string;
+}
+
+class AwaitingAppealDecision extends React.Component<
+  AppealDetailProps & InjectedTransactionStatusModalProps,
+  AwaitingAppealDecisionState
+> {
+  constructor(props: AppealDetailProps & InjectedTransactionStatusModalProps) {
+    super(props);
+    this.state = {
+      uriValue: "",
+    };
+  }
   public render(): JSX.Element {
     const appeal = this.props.appeal;
     const requester = appeal.requester.toString();
@@ -86,10 +102,16 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
           transactions={transactions}
           txIdToConfirm={this.props.txIdToConfirm}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
+          uriValue={this.state.uriValue}
+          onChange={this.onURIChange}
         />
       </>
     );
   }
+
+  private onURIChange = (name: string, value: string) => {
+    this.setState({ uriValue: value });
+  };
 
   private getTransactions = (): any[] | undefined => {
     const { isAwaitingAppealJudgement } = this.props.challengeState;
@@ -133,7 +155,7 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
                 isTransactionSuccessModalOpen: false,
                 transactionType: TransactionTypes.GRANT_APPEAL,
               });
-              return this.grantAppeal();
+              return this.grantAppeal(this.state.uriValue);
             },
             handleTransactionHash: (txHash: TxHash) => {
               this.props.updateTransactionStatusModalsState({
@@ -156,8 +178,8 @@ class AwaitingAppealDecision extends React.Component<AppealDetailProps & Injecte
     return transactions;
   };
 
-  private grantAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    return grantAppeal(this.props.listingAddress);
+  private grantAppeal = async (uri: string): Promise<TwoStepEthTransaction<any>> => {
+    return grantAppeal(this.props.listingAddress, uri);
   };
 
   private confirmAppeal = async (): Promise<TwoStepEthTransaction<any>> => {

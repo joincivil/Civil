@@ -139,3 +139,98 @@ export async function isLoggedIn(): Promise<boolean> {
     return false;
   }
 }
+
+export const getCurrentUserQuery = gql`
+  query {
+    currentUser {
+      uid
+      email
+      ethAddress
+      quizPayload
+      quizStatus
+    }
+  }
+`;
+
+export async function getCurrentUser(): Promise<any> {
+  if (!client || !getApolloSession()) {
+    return null;
+  }
+
+  try {
+    const { errors, data } = await client.query({
+      query: getCurrentUserQuery,
+    });
+
+    if (errors) {
+      return null;
+    }
+
+    return (data as any).currentUser;
+  } catch (err) {
+    console.log("Error in getCurrentUser: ", { err });
+    return null;
+  }
+}
+
+const setCurrentUserQuery = gql`
+  mutation SetCurrentUser($input: UserUpdateInput!) {
+    userUpdate(input: $input) {
+      uid
+      email
+      ethAddress
+      quizPayload
+      quizStatus
+    }
+  }
+`;
+
+// TODO(jorgelo): There should be a better interface for all "user" related input fields.
+export interface SetCurrentUserInput {
+  quizPayload: {};
+  quizStatus: "completed" | undefined;
+}
+
+export async function setCurrentUser(input: Partial<SetCurrentUserInput>): Promise<void> {
+  try {
+    const { data, error } = await client.mutate({
+      mutation: setCurrentUserQuery,
+      variables: { input },
+    });
+
+    if (error) {
+      throw error;
+    }
+
+    client.cache.writeQuery({
+      query: getCurrentUserQuery,
+      data: { currentUser: data.userUpdate },
+    });
+  } catch (err) {
+    console.error("Error setCurrentUser", { err, input });
+  }
+}
+
+export async function resetApolloStore(): Promise<void> {
+  if (!client) {
+    return;
+  }
+
+  await client.resetStore();
+}
+
+export async function updateQuizPayload(fields: {}, newQuizStatus?: string): Promise<any> {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    console.error("No user?", { user });
+    return;
+  }
+
+  const { quizPayload = {}, quizStatus } = user;
+
+  const updateParams = { quizPayload: { ...quizPayload, ...fields }, quizStatus: newQuizStatus || quizStatus };
+
+  await setCurrentUser(updateParams);
+}
+>>>>>>> master

@@ -5,10 +5,10 @@ import { ToolTipHdr, ToolTipItalic } from "./styledComponents";
 export const CommitVoteReviewButtonText: React.SFC = props => <>Review My Vote</>;
 
 // Text for whitelisting action. Used in buttons and calls to action
-export const WhitelistActionText: React.SFC = props => <>accepted</>;
+export const WhitelistActionText: React.SFC = props => <>approve</>;
 
 // Text for removing action. Used in buttons and calls to action
-export const RemoveActionText: React.SFC = props => <>removed</>;
+export const RemoveActionText: React.SFC = props => <>reject</>;
 
 // Text for upholding granted appeal action. Used in buttons and calls to action
 export const UpholdActionText: React.SFC = props => <>upheld</>;
@@ -24,7 +24,7 @@ export interface VoteCallToActionTextProps {
 export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props => {
   return (
     <>
-      Should {props.newsroomName || "this newsroom"} be{" "}
+      Do you{" "}
       <b>
         <WhitelistActionText />
       </b>{" "}
@@ -32,7 +32,7 @@ export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props 
       <b>
         <RemoveActionText />
       </b>{" "}
-      from the Civil Registry?
+      <i>{props.newsroomName || "this newsroom"}</i> from being listed on the Civil Registry?
     </>
   );
 };
@@ -40,7 +40,7 @@ export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props 
 export const AppealChallengeVoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props => {
   return (
     <>
-      Should the Civil Council's granted appeal be{" "}
+      Should the Civil Council's decision be{" "}
       <b>
         <UpholdActionText />
       </b>{" "}

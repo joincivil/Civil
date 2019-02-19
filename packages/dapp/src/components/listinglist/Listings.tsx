@@ -13,12 +13,11 @@ import {
   ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
 
-import { getCivil } from "../../helpers/civilInstance";
-import * as heroImgUrl from "../images/img-hero-listings.png";
-import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { State } from "../../redux/reducers";
+import * as heroImgUrl from "../images/img-hero-listings.png";
+import LoadingMsg from "../utility/LoadingMsg";
+import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { StyledPageContent, StyledListingCopy } from "../utility/styledComponents";
 
 import WhitelistedListingListContainer from "./WhitelistedListingListContainer";
@@ -44,12 +43,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
   public render(): JSX.Element {
     const { listingType } = this.props.match.params;
     let activeIndex = 0;
-    const civil = getCivil();
-    const minDeposit =
-      (this.props.parameters &&
-        this.props.parameters.minDeposit &&
-        getFormattedTokenBalance(civil.toBigNumber(this.props.parameters.minDeposit), true)) ||
-      "";
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
@@ -57,9 +50,9 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
       <>
         <ScrollToTopOnMount />
         <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero textUrl="https://civil.co" buttonUrl="/create-newsroom" minDeposit={minDeposit} />
+          <HomepageHero ctaButtonURL="/tokens" learnMoreURL="#zendesk" />
         </Hero>
-        {!this.props.loadingFinished && "loading..."}
+        {!this.props.loadingFinished && <LoadingMsg />}
         {this.props.loadingFinished && (
           <Tabs
             activeIndex={activeIndex}
@@ -70,11 +63,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             <Tab title={<ApprovedNewsroomsTabText />}>
               <StyledPageContent>
                 <Helmet>
-                  <title>The Civil Registry - Participate in credible, trustworthy journalism</title>
+                  <title>The Civil Registry - A community-driven space for curating quality journalism</title>
                 </Helmet>
                 <StyledListingCopy>
-                  All approved Newsrooms should align with the Civil Constitution, and are subject to Civil community
-                  review. By participating in our governance, you can help curate high-quality, trustworthy journalism.
+                  All approved Newsrooms agreed to uphold the journalistic principles in the{" "}
+                  <a href="https://civil.co/constitution/">Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
+                  <a href="#zendesk">community vetting process</a>.
                 </StyledListingCopy>
                 <WhitelistedListingListContainer />
               </StyledPageContent>
@@ -94,8 +88,9 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
                   <title>Rejected Newsrooms - The Civil Registry</title>
                 </Helmet>
                 <StyledListingCopy>
-                  Rejected Newsrooms have been removed from the Civil Registry due to a breach of the Civil
-                  Constitution. Rejected Newsrooms can reapply to the Registry at any time. Learn how to reapply.
+                  Rejected Newsrooms have been removed from the Civil Registry following a vote that they had violated
+                  the <a href="https://civil.co/constitution/">Civil Constitution</a> in some way. Rejected Newsrooms
+                  can reapply to the Registry at any time. <a href="#zendesk">Learn how</a>.
                 </StyledListingCopy>
                 <RejectedListingListContainer />
               </StyledPageContent>

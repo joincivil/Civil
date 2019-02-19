@@ -93,11 +93,14 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                   votesAgainst={this.props.votesAgainst}
                   percentFor={this.props.percentFor}
                   percentAgainst={this.props.percentAgainst}
-                  didChallengeSucceed={this.props.didChallengeSucceed}
+                  didChallengeSucceed={this.props.didChallengeOriginallySucceed}
                 />
               </StyledListingDetailPhaseCardSection>
 
-              <AppealDecisionDetail appealGranted={this.props.appealGranted} />
+              <AppealDecisionDetail
+                appealGranted={this.props.appealGranted}
+                appealGrantedStatementUri={this.props.appealGrantedStatementURI}
+              />
 
               <StyledListingDetailPhaseCardSection bgAccentColor="REVEAL_VOTE">
                 {this.renderRevealVote()}
