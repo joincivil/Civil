@@ -488,10 +488,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
+    // Load charter first, otherwise contract/CMS updates that affect charter will be clobbered when charter comes in. Those changes handle being merged into an existing charter, but handling possible merge in the other direction is more complicated.
+    await this.initCharter();
+
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
-    await this.initCharter();
   };
 
   private setRoles = (address: EthAddress): void => {

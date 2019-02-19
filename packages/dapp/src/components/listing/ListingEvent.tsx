@@ -65,6 +65,12 @@ class ListingEvent extends React.Component<ListingEventProps> {
       case "_ChallengeSucceeded":
         return this.renderChallengeSucceededEvent(wrappedEvent);
 
+      case "_FailedChallengeOverturned":
+        return this.renderChallengeSucceededEvent(wrappedEvent);
+
+      case "_SuccessfulChallengeOverturned":
+        return this.renderChallengeFailedEvent(wrappedEvent);
+
       case "_Deposit":
         return this.renderDepositEvent(wrappedEvent);
 

@@ -2,12 +2,14 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
 
+import { NewsroomListing } from "@joincivil/core";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
+
+import { State } from "../../redux/reducers";
+import { StyledListingCopy } from "../utility/styledComponents";
 
 import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
-import { State } from "../../redux/reducers";
-import { NewsroomListing } from "@joincivil/core";
 
 export interface WhitelistedListingsListReduxReduxProps {
   whitelistedListings: Set<NewsroomListing>;
@@ -25,7 +27,16 @@ const WhitelistedListingListRedux: React.SFC<WhitelistedListingsListReduxReduxPr
     const unchallengedListings = props.whitelistedListings.filterNot(predicate).toSet();
     const groupedListings = challengedListings.concat(unchallengedListings).toSet();
 
-    return <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />;
+    return (
+      <>
+        <StyledListingCopy>
+          All approved Newsrooms agreed to uphold the journalistic principles in the{" "}
+          <a href="https://civil.co/constitution/">Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
+          <a href="#zendesk">community vetting process</a>.
+        </StyledListingCopy>
+        <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />;
+      </>
+    );
   }
 
   return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;

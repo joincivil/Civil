@@ -16,8 +16,8 @@ function getRegistryURLData(listingPhaseState: any): [string, string] {
   let label = "Registry";
 
   if (listingPhaseState.isWhitelisted) {
-    urlArg = "whitelisted";
-    label = "Whitelisted Newsrooms";
+    urlArg = "approved";
+    label = "Approved Newsrooms";
   } else if (listingPhaseState.isInApplication) {
     urlArg = "in-progress/in-application";
     label = "Newsroom Applications";
