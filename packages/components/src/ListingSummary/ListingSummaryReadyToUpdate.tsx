@@ -1,7 +1,8 @@
 import * as React from "react";
 import { ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ListingSummaryComponentProps } from "./types";
-import { StyledListingSummaryContainer, StyledListingSummary, StyledListingSummarySection } from "./styledComponents";
+import { StyledListingSummary, StyledListingSummarySection } from "./styledComponents";
+import ListingSummaryBase from "./ListingSummaryBase";
 import ChallengeResults, { AppealChallengeResults } from "./ChallengeResults";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
 import NewsroomInfo from "./NewsroomInfo";
@@ -12,24 +13,22 @@ export interface ListingSummaryReadyToUpdateComponentProps
   extends ListingSummaryComponentProps,
     Partial<ChallengeResultsProps> {}
 
-export class ListingSummaryReadyToUpdateComponent extends React.Component<ListingSummaryReadyToUpdateComponentProps> {
-  public render(): JSX.Element {
-    return (
-      <StyledListingSummaryContainer>
-        <StyledListingSummary>
-          <ChallengeResultsBanner {...this.props} />
+export const ListingSummaryReadyToUpdateComponent: React.SFC<ListingSummaryReadyToUpdateComponentProps> = props => {
+  return (
+    <ListingSummaryBase {...props}>
+      <StyledListingSummary>
+        <ChallengeResultsBanner {...props} />
 
-          <NewsroomInfo {...this.props} />
+        <NewsroomInfo {...props} />
 
-          <ChallengeResults {...this.props} />
-          <AppealChallengeResults {...this.props} />
+        <ChallengeResults {...props} />
+        <AppealChallengeResults {...props} />
 
-          <StyledListingSummarySection>
-            <ChallengeOrAppealStatementSummary {...this.props} />
-            <SummaryActionButton {...this.props} />
-          </StyledListingSummarySection>
-        </StyledListingSummary>
-      </StyledListingSummaryContainer>
-    );
-  }
-}
+        <StyledListingSummarySection>
+          <ChallengeOrAppealStatementSummary {...props} />
+          <SummaryActionButton {...props} />
+        </StyledListingSummarySection>
+      </StyledListingSummary>
+    </ListingSummaryBase>
+  );
+};

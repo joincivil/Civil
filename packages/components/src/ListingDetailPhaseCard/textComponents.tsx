@@ -32,7 +32,7 @@ export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props 
       <b>
         <RemoveActionText />
       </b>{" "}
-      <i>{props.newsroomName || "this newsroom"}</i> from being listed on the Civil Registry?
+      <i>{props.newsroomName || "this newsroom"}</i> being listed on the Civil Registry?
     </>
   );
 };

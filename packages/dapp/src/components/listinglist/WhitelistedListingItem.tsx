@@ -11,7 +11,12 @@ export interface WhitelistedCardReduxProps {
 const WhitelistedListingItem: React.SFC<
   ListingListItemOwnProps & ListingListItemReduxProps & WhitelistedCardReduxProps
 > = props => {
-  return <ListingItemBaseComponent {...props} whitelistedTimestamp={props.whitelistedTimestamp} />;
+  const listingDetailURL = `/listing/${props.listingAddress}`;
+  const newProps = {
+    whitelistedTimestamp: props.whitelistedTimestamp,
+    listingDetailURL,
+  };
+  return <ListingItemBaseComponent {...props} {...newProps} />;
 };
 
 const makeMapStateToProps = () => {
