@@ -1,4 +1,5 @@
 import * as React from "react";
+import { isEthereumEnabled, enableEthereum } from "@joincivil/utils";
 import { Newsroom } from "@joincivil/newsroom-manager";
 import { getCivil } from "../../helpers/civilInstance";
 
@@ -17,12 +18,7 @@ export default class NewsroomManagement extends React.Component<NewsroomManageme
   }
 
   public async componentDidMount(): Promise<void> {
-    if ((window as any).ethereum && (window as any).ethereum.isEnabled) {
-      const metamaskEnabled = await (window as any).ethereum.isEnabled();
-      this.setState({ metamaskEnabled });
-    } else {
-      this.setState({ metamaskEnabled: true });
-    }
+    this.setState({ metamaskEnabled: await isEthereumEnabled() });
   }
   public render(): JSX.Element {
     const civil = getCivil();
@@ -33,10 +29,8 @@ export default class NewsroomManagement extends React.Component<NewsroomManageme
         metamaskEnabled={this.state.metamaskEnabled}
         allSteps={true}
         enable={async () => {
-          if ((window as any).ethereum) {
-            await (window as any).ethereum.enable();
-            this.setState({ metamaskEnabled: true });
-          }
+          await enableEthereum();
+          this.setState({ metamaskEnabled: true });
         }}
       />
     );
