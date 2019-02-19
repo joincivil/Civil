@@ -17,6 +17,7 @@ import {
   metaMaskConnectImgSrc,
   metaMaskSignImgSrc,
   Collapsable,
+  HollowGreenCheck,
 } from "@joincivil/components";
 import {
   SectionTitle,
@@ -96,6 +97,8 @@ const ArrowWrap = styled.span`
 
 const WalletLabel = styled.p`
   font-weight: bold;
+  font-size: 14px;
+  line-height: 24px;
   margin-bottom: 10px;
 `;
 
@@ -163,6 +166,38 @@ const GetMetaMaskMoreHelp = styled(SmallParagraph)`
 const ContinueButtonWrap = styled.div`
   margin-top: 48px;
   margin-bottom: 80px;
+`;
+
+
+const ConnectedCheck = styled(HollowGreenCheck)`
+  margin-right: 5px;
+  vertical-align: bottom;
+`;
+const ConnectedWalletAddressWrap = styled.div`
+  display: inline-block;
+  margin: 24px auto 12px;
+  text-align: left;
+`;
+const ConnectedWalletAddress = styled.div`
+  background-color: ${colors.accent.CIVIL_GRAY_6};
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 3px;
+  font-family: ${fonts.MONOSPACE};
+  font-size: 18px;
+  line-height: 24px;
+  margin-bottom: 12px;
+  padding: 16px;
+`;
+const WarningWrap = styled.p`
+  background-color: ${colors.accent.CIVIL_RED_ULTRA_FADED};
+  border: 1px solid ${colors.accent.CIVIL_RED_FADED};
+  border-radius: 4px;
+  padding: 12px;
+
+  ${NoteText} {
+    display: inline-block;
+    max-width: 520px;
+  }
 `;
 
 export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props, WalletOnboardingV2State> {
@@ -322,16 +357,30 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
       } else {
         return (
           <Wrapper>
-            <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
-            <WalletLabel>Your wallet address</WalletLabel>
-            <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
+            <SectionTitle>
+              <ConnectedCheck width={32} height={32} />
+              Wallet Connected
+            </SectionTitle>
+            <IntroText>Your crypto wallet is connected. Your public wallet address will be linked to your email address on the Civil network so you can log in using your wallet.</IntroText>
+
+            <ConnectedWalletAddressWrap>
+              <WalletLabel>Public Wallet Address</WalletLabel>
+              <ConnectedWalletAddress>{this.props.metamaskWalletAddress}</ConnectedWalletAddress>
+            </ConnectedWalletAddressWrap>
+
+            <WarningWrap>
+              <NoteText>Make sure you've backed up and saved your MetaMask login and account details, such as your seed phrase, username and password in a safe place. We can’t help you restore or regain access if you lose it.</NoteText>
+            </WarningWrap>
+
             {this.props.onContinue && (
-              <div>
+              <ContinueButtonWrap>
                 <Button size={buttonSizes.MEDIUM_WIDE} onClick={this.props.onContinue}>
                   Continue
                 </Button>
-              </div>
+              </ContinueButtonWrap>
             )}
+
+            {this.renderFaqEtc(false)}
           </Wrapper>
         );
       }
@@ -340,15 +389,17 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
     }
   }
 
-  private renderFaqEtc = (): JSX.Element => {
+  private renderFaqEtc = (showDisabledButton = true): JSX.Element => {
     return (
       <>
-        <ContinueButtonWrap>
-          {/*@TODO/toby change button style*/}
-          <LargeishButton size={buttonSizes.MEDIUM_WIDE} disabled={true}>
-            Continue
-          </LargeishButton>
-        </ContinueButtonWrap>
+        {showDisabledButton && (
+          <ContinueButtonWrap>
+            {/*@TODO/toby change button style*/}
+            <LargeishButton size={buttonSizes.MEDIUM_WIDE} disabled={true}>
+              Continue
+            </LargeishButton>
+          </ContinueButtonWrap>
+        )}
 
         <NoteContainer>
           <NoteHeading>Using a different wallet?</NoteHeading>
