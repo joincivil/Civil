@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 
+import { EthAddress } from "@joincivil/core";
 import {
   Hero,
   HomepageHero,
@@ -37,6 +38,7 @@ export interface ListingReduxProps {
   error: undefined | string;
   loadingFinished: boolean;
   useGraphQL: boolean;
+  userAcct: EthAddress;
 }
 
 class Listings extends React.Component<ListingProps & ListingReduxProps> {
@@ -46,11 +48,12 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
+    const heroCtaButtonText = this.props.userAcct ? "Buy CVL in Airswap" : "Sign Up | Log In";
     return (
       <>
         <ScrollToTopOnMount />
         <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero ctaButtonURL="/tokens" learnMoreURL="#zendesk" />
+          <HomepageHero ctaButtonURL="/tokens" ctaButtonText={heroCtaButtonText} learnMoreURL="#zendesk" />
         </Hero>
         {!this.props.loadingFinished && <LoadingMsg />}
         {this.props.loadingFinished && (
@@ -98,8 +101,9 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 }
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
-  const { parameters, govtParameters } = state.networkDependent;
+  const { parameters, govtParameters, user } = state.networkDependent;
   const useGraphQL = state.useGraphQL;
+  const userAcct = user && user.account && user.account.account;
   return {
     ...ownProps,
     parameters,
@@ -107,6 +111,7 @@ const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & L
     error: undefined,
     loadingFinished: true,
     useGraphQL,
+    userAcct,
   };
 };
 

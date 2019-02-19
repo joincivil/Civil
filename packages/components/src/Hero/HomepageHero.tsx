@@ -6,6 +6,7 @@ import { HeroTitleText, HeroCopyText, ExploreTCRText } from "./HeroTextComponent
 
 export interface HomepageHeroProps {
   ctaButtonURL: string;
+  ctaButtonText?: string;
   learnMoreURL: string;
 }
 
@@ -21,7 +22,7 @@ export const HomepageHero: React.SFC<HomepageHeroProps> = props => {
       </StyledHeroCopy>
 
       <Button to={props.ctaButtonURL} size={buttonSizes.SMALL}>
-        Get CVL
+        {props.ctaButtonText || "Get CVL"}
       </Button>
 
       <StyledExplore>
