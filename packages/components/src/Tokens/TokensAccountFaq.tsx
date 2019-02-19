@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TokenFAQCollapse, FlexColumnsPrimaryModule } from "./TokensStyledComponents";
+import { TokenFAQCollapse, FlexColumnsPrimaryModule, TokenFAQImg, TokenFAQLineBreak } from "./TokensStyledComponents";
 import {
   TokenETHFAQQuestion1Text,
   TokenETHFAQQuestion2Text,
@@ -11,21 +11,28 @@ import {
   TokenETHFAQQuestion8Text,
 } from "./TokensTextComponents";
 import { Collapsable } from "../Collapsable";
+import * as metamaskEthAmount from "../images/img-metamask-eth-amount@2x.png";
+import * as metamaskDepositEth from "../images/img-metamask-deposit-eth@2x.png";
 
 export const UserTokenAccountFaq: React.StatelessComponent = props => {
   return (
     <FlexColumnsPrimaryModule>
       <TokenFAQCollapse>
         <Collapsable header={<TokenETHFAQQuestion1Text />} open={false}>
-          <p>
-            Ether (ETH) is the cryptocurrency for the Ethereum blockchain. Gas is the transaction cost that you will
-            have to pay in order for your information to be added to the Ethereum blockchain. Gas costs are variable.
-            Ether (ETH) acts like any other currency where its value fluctuates with the market.
-          </p>
-          <p>
-            You will have to pay gas in Ether (ETH), which you can purchase via MetaMask and a cryptocurrency exchange
-            such as Coinbase.
-          </p>
+          <TokenFAQImg>
+            <div>
+              <p>
+                Ether (ETH) is the cryptocurrency for the Ethereum blockchain. Gas is the transaction cost that you will
+                have to pay in order for your information to be added to the Ethereum blockchain. Gas costs are
+                variable. Ether (ETH) acts like any other currency where its value fluctuates with the market.
+              </p>
+              <p>
+                You will have to pay gas in Ether (ETH), which you can purchase via MetaMask and a cryptocurrency
+                exchange such as Coinbase.
+              </p>
+            </div>
+            <img src={metamaskEthAmount} />
+          </TokenFAQImg>
         </Collapsable>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
@@ -58,16 +65,24 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
             currency, you will need to purchase ETH from an exchange, and then transfer the ETH from your exchange
             wallet to your crypto wallet.
           </p>
+          <TokenFAQLineBreak />
           <p>You can connect to Coinbase and purchase ETH directly in your MetaMask account.</p>
-          <p>
-            Once you select <b>Deposit</b> in MetaMask, you can select Coinbase and purchase ETH using USD.
-          </p>
-          <p>
-            You will need to verify your identity and account on Coinbase if it’s your first time. Coinbase uses a ACH
-            (Automated Clearing House, which is governed by the Federal Reserve) bank transfer system for U.S.
-            customers, and it can take 3-5 business days for funds to transfer from your bank.
-          </p>
-          <p>Buying ETH with a debit or certain credit cards is instant, once your account is verified on Coinbase.</p>
+          <TokenFAQImg>
+            <div>
+              <p>
+                Once you select <b>Deposit</b> in MetaMask, you can select Coinbase and purchase ETH using USD.
+              </p>
+              <p>
+                You will need to verify your identity and account on Coinbase if it’s your first time. Coinbase uses a
+                ACH (Automated Clearing House, which is governed by the Federal Reserve) bank transfer system for U.S.
+                customers, and it can take 3-5 business days for funds to transfer from your bank.
+              </p>
+              <p>
+                Buying ETH with a debit or certain credit cards is instant, once your account is verified on Coinbase.
+              </p>
+            </div>
+            <img src={metamaskDepositEth} />
+          </TokenFAQImg>
         </Collapsable>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
