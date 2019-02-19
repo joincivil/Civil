@@ -4,6 +4,9 @@ import Main from "./components/Main";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ApolloProvider } from "react-apollo";
 import { getApolloClient } from "@joincivil/utils";
+import config from "./helpers/config";
+
+console.log("using config:", config);
 
 const client = getApolloClient({});
 

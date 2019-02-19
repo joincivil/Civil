@@ -1,37 +1,13 @@
 import * as React from "react";
 import { RosterMember } from "@joincivil/core";
 import { colors, BorderlessButton, buttonSizes } from "@joincivil/components";
-import { FormSubhead } from "../styledComponents";
+import { FormSubhead, AvatarImg, AvatarWrap, noAvatar } from "../styledComponents";
 import styled from "styled-components";
 
 export interface RosterMemberListItemProps {
   member: RosterMember;
-  edit(): void;
+  edit?(): void;
 }
-
-const AvatarWrap = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
-  width: 24px;
-  height: 24px;
-`;
-const AvatarImg = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-`;
-
-const _NoAvatar = styled.div`
-  display: inline-block;
-  width: 24px;
-  height: 21px;
-  padding-top: 3px;
-  text-align: center;
-  font-weight: bold;
-  background-color: ${colors.accent.CIVIL_GRAY_4};
-  color: ${colors.accent.CIVIL_GRAY_2};
-`;
 
 const DisplayName = styled(FormSubhead)`
   display: inline-block;
@@ -44,17 +20,16 @@ const Role = styled.span`
   margin-right: 10px;
 `;
 
-const noAvatar = <_NoAvatar>?</_NoAvatar>;
-
 const StyledLi = styled.li`
-  display: flex;
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  display: grid;
+  grid-template-columns: 60px 20% 30% auto 50px;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  justify-items: center;
+  align-items: center;
   padding: 37px 10px 37px 3px;
-`;
-
-const StyledButton = styled(BorderlessButton)`
-  justify-self: flex-end;
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 export class RosterMemberListItem extends React.Component<RosterMemberListItemProps> {
@@ -67,9 +42,11 @@ export class RosterMemberListItem extends React.Component<RosterMemberListItemPr
         <DisplayName>{this.props.member.name}</DisplayName>
         <Role>{this.props.member.role}</Role>
         {this.props.member.ethAddress && <code>{this.props.member.ethAddress}</code>}
-        <StyledButton onClick={this.props.edit} size={buttonSizes.SMALL}>
-          Edit
-        </StyledButton>
+        {!!this.props.edit && (
+          <BorderlessButton onClick={this.props.edit} size={buttonSizes.SMALL}>
+            Edit
+          </BorderlessButton>
+        )}
       </StyledLi>
     );
   }

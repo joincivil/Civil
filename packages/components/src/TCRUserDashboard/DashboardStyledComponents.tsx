@@ -131,7 +131,12 @@ export const StyledDashboardActivityItemDetails = styled.div`
 `;
 
 export const StyledDashboardActivityItemAction = styled.div`
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
   text-align: right;
+  min-width: 30%;
 
   ${InvertedButton} {
     display: block;
@@ -154,6 +159,23 @@ export const StyledDashboardActivityItemTitle = styled.h4`
   font-size: 18px
   line-height: 21px;
   margin: 0 0 10px;
+`;
+
+export const StyledDashboardActivityItemSubTitle = styled.h4`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-weight: 800;
+  font-size: 18px
+  line-height: 21px;
+  margin: 10px 0;
+`;
+
+export const StyledDashbaordActvityItemSectionOuter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StyledChallengeSummarySection = styled.div`
+  flex-grow: 1;
 `;
 
 export const StyledDashbaordActvityItemSection = styled.div`

@@ -15,6 +15,7 @@ import {
   transformGraphQLDataIntoNewsroom,
 } from "../../helpers/queryTransformations";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
+import { StyledListingCopy } from "../utility/styledComponents";
 import LoadingMsg from "../utility/LoadingMsg";
 
 export interface WhitelistedListingsListContainerReduxProps {
@@ -64,6 +65,11 @@ const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContaine
 
           return (
             <>
+              <StyledListingCopy>
+                All approved Newsrooms agreed to uphold the journalistic principles in the{" "}
+                <a href="https://civil.co/constitution/">Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
+                <a href="#zendesk">community vetting process</a>.
+              </StyledListingCopy>
               <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
             </>
           );

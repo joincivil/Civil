@@ -13,7 +13,6 @@ import { NewApplicationDisplayNameText, NewApplicationToolTipText } from "./text
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
-import { QuestionToolTip } from "../QuestionToolTip";
 
 export class InApplicationCard extends React.Component<
   ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & SubmitChallengeProps
@@ -24,7 +23,6 @@ export class InApplicationCard extends React.Component<
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>
             <NewApplicationDisplayNameText />
-            <QuestionToolTip explainerText={<NewApplicationToolTipText />} positionBottom={true} />
           </StyledPhaseDisplayName>
           <ProgressBarCountdownTimer
             endTime={this.props.endTime}

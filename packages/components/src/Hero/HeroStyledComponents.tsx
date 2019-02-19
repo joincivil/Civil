@@ -8,7 +8,8 @@ export const HeroOuter = styled.div`
   background-image: ${(props: HeroProps) => (props.backgroundImage ? "url(" + props.backgroundImage + ")" : "none")};
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 70px 15px;
+  font-family: ${fonts.SANS_SERIF};
+  padding: 78px 15px 32px;
 
   ${mediaQueries.MOBILE} {
     display: none;
@@ -21,48 +22,46 @@ export const HeroInner = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  max-width: 850px;
+  max-width: 920px;
   text-align: center;
   width: 100%;
 `;
 
-export const HeroLabel = styled.span`
-  display: block;
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.27px;
-  margin-bottom: 30px;
-`;
-
-export const HeroHeading = styled.h2`
+export const StyledHeroHeading = styled.h2`
   font-family: ${fonts.SERIF};
-  font-size: 38px;
+  font-size: 48px;
   font-weight: 200;
   letter-spacing: -1px;
   line-height: 40px;
-  margin: 0 auto 20px;
+  margin: 0 auto 10px;
 `;
 
-export const HeroBlockTextLink = styled.a`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
-  color: ${colors.basic.WHITE};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 20px;
-  margin-bottom: 40px;
-  padding-bottom: 5px;
-  text-decoration: none;
-  transition: border-bottom 500ms;
-  &:hover {
-    border-bottom: 1px solid ${colors.accent.CIVIL_BLUE};
+export const StyledHeroCopy = styled.div`
+  font-size: 18px;
+  letter-spacing: -0.12px;
+  line-height: 33px;
+  text-align: center;
+
+  p {
+    margin: 0 0 18px;
+  }
+
+  a {
     color: ${colors.basic.WHITE};
+    border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_3};
   }
 `;
 
-export const HeroSmallText = styled.span`
-  display: block;
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  line-height: 17px;
-  margin-top: 15px;
+export const StyledExplore = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_3};
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 15px;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 88px 0 0;
+
+  div {
+    margin: 12px 0 0;
+  }
 `;

@@ -21,6 +21,7 @@ export const StyledChallengeProposalContainer = styled.div`
   bottom: 0;
   border: 1px solid ${colors.accent.CIVIL_GRAY_3}
   font-family: ${fonts.SANS_SERIF};
+  overflow-y: scroll;
   right: 0;
   top: 0;
   width: 634px;

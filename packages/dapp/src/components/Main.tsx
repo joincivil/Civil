@@ -37,9 +37,11 @@ import RequestAppealPage from "./listing/RequestAppeal";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
+import config from "../helpers/config";
 
 class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
+    setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = getCivil();
     civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
     civil.networkNameStream.subscribe(this.onNetworkNameUpdated);

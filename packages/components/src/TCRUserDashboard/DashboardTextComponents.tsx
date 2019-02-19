@@ -10,6 +10,10 @@ export const SubTabRescueTokensText: React.SFC = props => <>Rescue Tokens</>;
 
 export const SubTabReclaimTokensText: React.SFC = props => <>Transfer Voting Tokens</>;
 
+export const SubTabChallengesCompletedText: React.SFC = props => <>Completed</>;
+
+export const SubTabChallengesStakedText: React.SFC = props => <>Staked</>;
+
 export const MyVotingTabText: React.SFC = props => <>Tasks</>;
 
 export const MyNewsroomsTabText: React.SFC = props => <>Newsrooms</>;

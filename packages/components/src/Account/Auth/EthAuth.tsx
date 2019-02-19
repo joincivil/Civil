@@ -1,7 +1,8 @@
 import * as React from "react";
+import gql from "graphql-tag";
+import { Mutation, MutationFunc } from "react-apollo";
 import { Civil, EthAddress } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
-import { userSetEthAddress } from "@joincivil/utils";
 import {
   Transaction,
   TransactionButtonNoModal,
@@ -23,7 +24,22 @@ export interface AccountEthAuthState {
   isSignRejectionOpen?: boolean;
 }
 
+const setEthAddressMutation = gql`
+  mutation($input: UserSignatureInput!) {
+    userSetEthAddress(input: $input)
+  }
+`;
+const userEthAddressQuery = gql`
+  query {
+    currentUser {
+      ethAddress
+    }
+  }
+`;
+
 export class AccountEthAuth extends React.Component<AccountEthAuthProps, AccountEthAuthState> {
+  private _isMounted?: boolean;
+
   constructor(props: AccountEthAuthProps) {
     super(props);
     this.state = {};
@@ -31,29 +47,53 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
 
   public render(): JSX.Element {
     return (
-      <>
-        <ManagerSectionHeading>Log into Civil with your crypto wallet</ManagerSectionHeading>
-        <p>
-          Almost there! To set up your Civil account, you need to authenticate your account with a signature. This is
-          similar to signing in with a password. It verifies your account with your crypto wallet.
-        </p>
+      <Mutation
+        mutation={setEthAddressMutation}
+        update={(cache, { data: { userSetEthAddress } }) => {
+          cache.writeQuery({
+            query: userEthAddressQuery,
+            data: {
+              currentUser: {
+                ethAddress: userSetEthAddress,
+                __typename: "User",
+              },
+            },
+          });
+        }}
+      >
+        {userSetEthAddress => (
+          <>
+            <ManagerSectionHeading>Log into Civil with your crypto wallet</ManagerSectionHeading>
+            <p>
+              Almost there! To set up your Civil account, you need to authenticate your account with a signature. This
+              is similar to signing in with a password. It verifies your account with your crypto wallet.
+            </p>
 
-        <div>
-          <p>MetaMask will open a new window, and will require you to sign a message.</p>
-          <TransactionButtonNoModal
-            transactions={this.signTransactions()}
-            Button={props => {
-              return <MetaMaskLogoButton onClick={props.onClick}>Open MetaMask</MetaMaskLogoButton>;
-            }}
-          />
-          <img src={metaMaskSignatureReqUrl} />
-        </div>
+            <div>
+              <p>MetaMask will open a new window, and will require you to sign a message.</p>
+              <TransactionButtonNoModal
+                transactions={this.signTransactions(userSetEthAddress)}
+                Button={props => {
+                  return <MetaMaskLogoButton onClick={props.onClick}>Open MetaMask</MetaMaskLogoButton>;
+                }}
+              />
+              <img src={metaMaskSignatureReqUrl} />
+            </div>
 
-        {this.renderWaitingSignModal()}
-        {this.renderSignRejectionModal()}
-        {this.renderSaveErrorModal()}
-      </>
+            {this.renderWaitingSignModal()}
+            {this.renderSignRejectionModal(userSetEthAddress)}
+            {this.renderSaveErrorModal()}
+          </>
+        )}
+      </Mutation>
     );
+  }
+
+  public componentDidMount(): void {
+    this._isMounted = true;
+  }
+  public componentWillUnmount(): void {
+    this._isMounted = false;
   }
 
   private renderWaitingSignModal(): JSX.Element | null {
@@ -67,7 +107,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
     );
   }
 
-  private renderSignRejectionModal(): JSX.Element | null {
+  private renderSignRejectionModal(userSetEthAddress: MutationFunc): JSX.Element | null {
     if (!this.state.isSignRejectionOpen) {
       return null;
     }
@@ -78,7 +118,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
         denied={true}
         denialText="To authenticate that you own your wallet address, you need to sign the message in your MetaMask wallet."
         cancelTransaction={this.cancelTransaction}
-        denialRestartTransactions={this.signTransactions()}
+        denialRestartTransactions={this.signTransactions(userSetEthAddress)}
       >
         <ModalHeading>Failed to authenticate your wallet address</ModalHeading>
       </MetaMaskModal>
@@ -103,7 +143,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
     );
   }
 
-  private signTransactions = (): Transaction[] => {
+  private signTransactions = (userSetEthAddress: MutationFunc): Transaction[] => {
     return [
       {
         transaction: async (): Promise<EthSignedMessage> => {
@@ -113,10 +153,24 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
           try {
-            await userSetEthAddress(sig);
-            this.setState({ isWaitingSignatureOpen: false });
-            if (this.props.onAuthenticated) {
-              this.props.onAuthenticated(sig.signer);
+            delete sig.rawMessage; // gql endpoint doesn't want this and errors out
+            const res = await userSetEthAddress({
+              variables: {
+                input: sig,
+              },
+            });
+
+            if (res && res.data && res.data.userSetEthAddress) {
+              if (this.props.onAuthenticated) {
+                this.props.onAuthenticated(sig.signer);
+              }
+              if (this._isMounted) {
+                // A bit of an antipattern, but cancelling async/await is hard
+                this.setState({ isWaitingSignatureOpen: false });
+              }
+            } else {
+              console.error("Failed to validate and save ETH address. Response:", res);
+              throw Error("Failed to validate and save ETH address");
             }
           } catch (err) {
             this.setState({

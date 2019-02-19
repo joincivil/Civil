@@ -100,7 +100,7 @@ export class AppealChallengeCommitVoteCard extends React.Component<
                   votesAgainst={this.props.votesAgainst}
                   percentFor={this.props.percentFor}
                   percentAgainst={this.props.percentAgainst}
-                  didChallengeSucceed={this.props.didChallengeSucceed}
+                  didChallengeSucceed={this.props.didChallengeOriginallySucceed}
                 />
               </StyledListingDetailPhaseCardSection>
 

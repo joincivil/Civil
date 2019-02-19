@@ -14,6 +14,7 @@ export interface ParameterProps {
   parameterDisplayName: string | JSX.Element;
   parameterValue: BigNumber;
   canShowCreateProposal: boolean;
+  isGovtProposal?: boolean;
   handleCreateProposal(paramName: string, currentValue: string): void;
   handleProposalAction(paramName: string, currentValue: string, newValue: string, proposal: any): void;
 }
@@ -81,7 +82,10 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
 const makeMapStateToProps = () => {
   const getProposalsByParameterName = makeGetProposalsByParameterName();
   const mapStateToProps = (state: State, ownProps: ParameterProps): ParameterProps & ParameterReduxProps => {
-    const parameterProposals: Set<any> = getProposalsByParameterName(state, ownProps);
+    let parameterProposals: Set<any> = Set<any>();
+    if (!ownProps.isGovtProposal) {
+      parameterProposals = getProposalsByParameterName(state, ownProps);
+    }
 
     return {
       parameterProposals,

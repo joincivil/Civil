@@ -22,7 +22,9 @@
     "@joincivil/utils": "^1.8.3",
     "ethereumjs-util": "^5.2.0",
     "ipfs-api": "^26.1.2",
+    "graphql-tag": "^2.9.2",
     "lodash": "^4.17.10",
+    "react-apollo": "^2.2.1",
     "sanitize-html": "^1.20.0"
   },
   "devDependencies": {

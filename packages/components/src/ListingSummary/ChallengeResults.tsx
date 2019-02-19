@@ -35,7 +35,6 @@ const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props =
     percentFor,
     percentAgainst,
     didChallengeOriginallySucceed,
-    didChallengeSucceed,
   } = props;
 
   if (
@@ -50,7 +49,8 @@ const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props =
       isInAppealChallengeRevealPhase ||
       canListingAppealChallengeBeResolved ||
       (isRejected && !isUnderChallenge)
-    )
+    ) ||
+    (canBeWhitelisted && !isUnderChallenge)
   ) {
     return null;
   }
@@ -66,8 +66,7 @@ const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props =
         votesAgainst={votesAgainst!}
         percentFor={percentFor!}
         percentAgainst={percentAgainst!}
-        didChallengeOriginallySucceed={didChallengeOriginallySucceed!}
-        didChallengeSucceed={didChallengeSucceed!}
+        didChallengeSucceed={didChallengeOriginallySucceed!}
       />
     </ChallengeResultsContain>
   );

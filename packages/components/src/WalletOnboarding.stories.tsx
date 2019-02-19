@@ -1,7 +1,57 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
+import apolloStorybookDecorator from "apollo-storybook-react";
 import { Civil } from "@joincivil/core";
+import { EthSignedMessage } from "@joincivil/typescript-types";
 import { WalletOnboarding } from ".";
+
+const typeDefs = `
+  type User {
+    ethAddress: String
+  }
+
+  type Query {
+    currentUser: User
+  }
+
+  input UserSignatureInput {
+    message: String!
+    messageHash: String!
+    signature: String!
+    signer: String!
+    r: String!
+    s: String!
+    v: String!
+  }
+
+  type Mutation {
+    userSetEthAddress(
+      input: UserSignatureInput!
+    ): String
+  }
+
+  schema {
+    query: Query
+    mutation: Mutation
+  }
+`;
+
+const mocks = {
+  Query: () => {
+    return {
+      currentUser: () => {
+        return "ok";
+      },
+    };
+  },
+  Mutation: () => {
+    return {
+      userSetEthAddress: (sig: EthSignedMessage) => {
+        return "ok";
+      },
+    };
+  },
+};
 
 let civil: Civil | undefined;
 try {
@@ -11,6 +61,12 @@ try {
 }
 
 storiesOf("Wallet Onboarding", module)
+  .addDecorator(
+    apolloStorybookDecorator({
+      typeDefs,
+      mocks,
+    }),
+  )
   .add("No Provider", () => {
     return <WalletOnboarding enable={() => {}} noProvider={true} />;
   })
@@ -25,26 +81,48 @@ storiesOf("Wallet Onboarding", module)
   })
   .add("Save address to CMS profile", () => {
     return (
-      <WalletOnboarding enable={() => {}} metamaskWalletAddress="0xabc123" saveAddressToProfile={async () => {}} />
+      <WalletOnboarding
+        enable={() => {}}
+        metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
+        saveAddressToProfile={async () => {}}
+      />
     );
   })
   .add("CMS profile vs. MetaMask address mismatch", () => {
     return (
       <WalletOnboarding
         enable={() => {}}
-        metamaskWalletAddress="0xabc123"
-        profileWalletAddress="0x123abc"
+        metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
+        profileWalletAddress="0x123abc00000000000000000000000000000x123abc"
         saveAddressToProfile={async () => {}}
       />
     );
   })
-  .add("Save wallet to account", () => {
+  .add("Save wallet to Civil account", () => {
     return (
       <>
-        <WalletOnboarding enable={() => {}} metamaskWalletAddress="0xabc123" civil={civil} requireAuth={true} />
+        <WalletOnboarding
+          enable={() => {}}
+          metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
+          civil={civil}
+          requireAuth={true}
+        />
+      </>
+    );
+  })
+  .add("Civil account vs. MetaMask address mismatch", () => {
+    return (
+      <>
+        <WalletOnboarding
+          enable={() => {}}
+          metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
+          profileWalletAddress="0x123abc00000000000000000000000000000x123abc"
+          civil={civil}
+          requireAuth={true}
+        />
       </>
     );
   })
   .add("Connected", () => {
-    return <WalletOnboarding enable={() => {}} metamaskWalletAddress="0xabc123" />;
+    return <WalletOnboarding enable={() => {}} metamaskWalletAddress="0xabc1230000000000000000000000000000abc123" />;
   });
