@@ -233,4 +233,3 @@ export async function updateQuizPayload(fields: {}, newQuizStatus?: string): Pro
 
   await setCurrentUser(updateParams);
 }
->>>>>>> master
