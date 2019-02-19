@@ -72,48 +72,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <AddRosterMember charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
-      <ApplicationSoFarPage
-        charter={{
-          name: "adg",
-          logoUrl: "https://brandmark.io/logo-rank/random/pepsi.png",
-          newsroomUrl: "http://example.com",
-          tagline:
-            "ddafsgh ddafsgh ddafsgh ddaf ddafs ddafsgddafsgh ddafsgh ddafsghddafsgh ddafsgh ddafsgh ddafsgh ddafsgh ddafsgh ddafsgh",
-          roster: [
-            {
-              name: "Walker Flynn",
-              avatarUrl: "https://brandmark.io/logo-rank/random/pepsi.png",
-              role: "Walker Flynn",
-              socialUrls: {
-                email: "walker.d.flynn@gmail.com",
-              },
-              ethAddress: "0x8c722B8AC728aDd7780a66017e8daDBa530EE261",
-              bio: "adgsfhng",
-            },
-            {
-              name: "Poop poo",
-              role: "shitter",
-              bio: "faldgas ",
-            },
-          ],
-          mission: {
-            purpose: "adsgfhg",
-            structure: "aghsd",
-            revenue: "dasgffgaerg",
-            encumbrances: "adsghfgaf",
-            miscellaneous: "asdgafdsg",
-          },
-          signatures: [
-            {
-              signature:
-                "0x337fcdbbfebfd70ea38532e2d494e07c43f74dba104a050b8eb210b69cdec83e0586f56c6df9f0d06fd30543545295de0888a4ea46ec42687638559da2e91d5e1c",
-              message:
-                "By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitution.\n\nNewsrooom Name:\nadg\n\nConstitution Hash:\n0x3eaf99d3f9ad31d76d9c685655db55bf81211042841887d37c3643e12226b726",
-              signer: "0x8c722b8ac728add7780a66017e8dadba530ee261",
-            },
-          ],
-        }}
-      />,
+      <ApplicationSoFarPage charter={this.props.charter} />,
     ];
     return steps[this.state.currentStep];
   }

@@ -61,7 +61,7 @@ const LogoSection = styled.div`
 
 const QuestionContainer = styled.div`
   padding: 20px 0;
-  div:first-child {
+  ${Label} {
     margin-bottom: 10px;
   }
 `;
