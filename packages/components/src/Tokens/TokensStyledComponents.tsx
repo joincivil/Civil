@@ -327,7 +327,8 @@ export const TokenFAQImg = styled.div`
   display: flex;
 
   img {
-    margin-left: 20px;
+    margin-left: 50px;
+    max-width: 250px;
     width: 50%;
   }
 `;
