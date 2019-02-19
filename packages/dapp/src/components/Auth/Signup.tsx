@@ -5,8 +5,8 @@ import {
   PageSubHeadingCentered,
   PageHeadingCentered,
   PageHeadingTextCentered,
+  AuthPageFooterLink,
 } from "@joincivil/components";
-import { AuthPageFooterLink } from "./AuthStyledComponents";
 import { Link } from "react-router-dom";
 
 export interface AuthSignupProps {

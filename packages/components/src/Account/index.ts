@@ -6,6 +6,8 @@ export * from "./Auth/EmailSent";
 export * from "./Auth/EthAuth";
 export * from "./LoadUser";
 
+export { AuthOuterWrapper, AuthInnerWrapper, AuthPageFooterLink } from "./Auth/AuthStyledComponents";
+
 export enum AuthApplicationEnum {
   DEFAULT = "DEFAULT",
   NEWSROOM = "NEWSROOM",

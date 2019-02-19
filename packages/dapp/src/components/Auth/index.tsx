@@ -6,6 +6,8 @@ import {
   // AccountVerifyToken,
   // AccountVerifyTokenProps,
   AuthenticatedRoute,
+  AuthOuterWrapper,
+  AuthInnerWrapper,
 } from "@joincivil/components";
 import { AuthHome } from "./Home";
 import { AuthEth } from "./Eth";
@@ -13,7 +15,6 @@ import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
-import { AuthOuterWrapper, AuthInnerWrapper } from "./AuthStyledComponents";
 
 const TOKEN_HOME = "/tokens";
 
