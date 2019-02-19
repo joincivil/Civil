@@ -25,6 +25,7 @@ import {
   HamburgerIcon,
   HollowGreenCheck,
   HollowRedNoGood,
+  LockOpenIcon,
   MetaMaskSideIcon,
   MetaMaskFrontIcon,
   NetworkIcon,
@@ -211,6 +212,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <HollowRedNoGood />
+      </Container>
+    );
+  })
+  .add("LockOpenIcon", () => {
+    return (
+      <Container>
+        <LockOpenIcon />
       </Container>
     );
   })

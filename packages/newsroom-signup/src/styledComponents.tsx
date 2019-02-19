@@ -142,3 +142,31 @@ export const StyledHr = styled.div`
   margin-top: 35px;
   margin-bottom: 25px;
 `;
+
+export const StyledCollapsable = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin: 25px 0;
+  padding: 17px 7px;
+`;
+
+export const AvatarWrap = styled.div`
+  width: 50px;
+  height: 50px;
+`;
+export const AvatarImg = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+`;
+
+export const _NoAvatar = styled.div`
+  border-radius: 50%;
+  padding: 15px 20px;
+  text-align: center;
+  font-weight: bold;
+  background-color: ${colors.accent.CIVIL_GRAY_4};
+  color: ${colors.accent.CIVIL_GRAY_2};
+`;
+
+export const noAvatar = <_NoAvatar>?</_NoAvatar>;
