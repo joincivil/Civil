@@ -57,13 +57,23 @@ export const FooterTextCentered = styled.div`
   text-align: center;
 `;
 
-export const AuthOuterWrapper = styled.div`
+export const AuthOuterWrapperContainer = styled.div`
   display: flex;
   justify-content: center;
+  /* TODO(jorgelo): Should we make this responsive? */
+  width: 700px;
 `;
 
+export const AuthOuterWrapper: React.SFC = ({ children }) => (
+  <CenterWrapper>
+    <AuthOuterWrapperContainer>
+      <CenterWrapper>{children}</CenterWrapper>
+    </AuthOuterWrapperContainer>
+  </CenterWrapper>
+);
+
 export const AuthInnerWrapper = styled.div`
-  width: 470px;
+  margin: 0 115px;
   margin-top: 71px;
 `;
 
