@@ -121,7 +121,6 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
 
     const newPath = basePath + `/${isNewUser ? "signup" : "login"}`;
 
-    console.log({ newPath });
     history.push({
       pathname: newPath,
       state: {},

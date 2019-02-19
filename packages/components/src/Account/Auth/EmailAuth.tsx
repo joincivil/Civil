@@ -8,17 +8,15 @@ import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
 import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./AuthStyledComponents";
 
-// TODO(jorgelo): Change these to use authLoginEmailSendForApplication and authSignupEmailSendForApplication
-
 const signupMutation = gql`
-  mutation($emailAddress: String!) {
-    authSignupEmailSend(emailAddress: $emailAddress)
+  mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
+    authSignupEmailSendForApplication(emailAddress: $emailAddress, application: $application)
   }
 `;
 
 const loginMutation = gql`
-  mutation($emailAddress: String!) {
-    authLoginEmailSend(emailAddress: $emailAddress)
+  mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
+    authLoginEmailSendForApplication(emailAddress: $emailAddress, application: $application)
   }
 `;
 
@@ -158,7 +156,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       return;
     }
 
-    const resultKey = isNewUser ? "authSignupEmailSend" : "authLoginEmailSend";
+    const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
     const res: any = await mutation({
       variables: { emailAddress, application: applicationType },
