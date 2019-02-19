@@ -3,6 +3,7 @@ import { CivilTCR } from "../../../core/build/src/contracts/tcr/civilTCR";
 import { detectProvider, INFURA_WEBSOCKET_HOSTS } from "@joincivil/ethapi";
 import * as WSProvider from "web3-providers-ws";
 import { supportedNetworks } from "../helpers/networkHelpers";
+import config from "./config";
 
 let civil: Civil;
 let tcr: CivilTCR;
@@ -11,7 +12,17 @@ export const setCivil = () => {
   if (!civil) {
     let provider = detectProvider();
     if (!provider) {
-      provider = new WSProvider(INFURA_WEBSOCKET_HOSTS.RINKEBY);
+      switch (config.DEFAULT_ETHEREUM_NETWORK!) {
+        case "1":
+          provider = new WSProvider(INFURA_WEBSOCKET_HOSTS.MAINNET);
+          break;
+        case "4":
+          provider = new WSProvider(INFURA_WEBSOCKET_HOSTS.RINKEBY);
+          break;
+        default:
+          provider = new WSProvider(INFURA_WEBSOCKET_HOSTS.RINKEBY);
+          break;
+      }
       console.warn("No injected provider found, using infura for read only dapp");
     }
     civil = new Civil({ web3Provider: provider });
