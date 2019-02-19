@@ -39,6 +39,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
 
   public render(): JSX.Element | null {
     const wrappedEvent = this.props.event;
+
     switch (wrappedEvent.event) {
       case "_AppealGranted":
         return <AppealGrantedEvent timestamp={wrappedEvent.timestamp} />;
