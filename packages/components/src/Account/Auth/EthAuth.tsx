@@ -56,8 +56,8 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
       <>
         <ManagerSectionHeading>Log into Civil with your crypto wallet</ManagerSectionHeading>
         <p>
-          Almost there! To set up your Civil account, you need to authenticate your account with a signature. This
-          is similar to signing in with a password. It verifies your account with your crypto wallet.
+          Almost there! To set up your Civil account, you need to authenticate your account with a signature. This is
+          similar to signing in with a password. It verifies your account with your crypto wallet.
         </p>
 
         <div>
@@ -97,7 +97,11 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
             <TransactionButtonNoModal
               transactions={this.signTransactions(userSetEthAddress)}
               Button={props => {
-                return <MetaMaskLogoButton onClick={props.onClick}>{ this.props.buttonText || "Open MetaMask"}</MetaMaskLogoButton>;
+                return (
+                  <MetaMaskLogoButton onClick={props.onClick}>
+                    {this.props.buttonText || "Open MetaMask"}
+                  </MetaMaskLogoButton>
+                );
               }}
             />
 

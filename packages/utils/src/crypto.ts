@@ -86,6 +86,6 @@ export async function isEthereumEnabled(): Promise<boolean> {
 
 export async function enableEthereum(): Promise<any> {
   if ((window as any).ethereum) {
-    return await (window as any).ethereum.enable();
+    return (window as any).ethereum.enable();
   }
 }

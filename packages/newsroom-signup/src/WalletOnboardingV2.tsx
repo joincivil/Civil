@@ -9,14 +9,12 @@ import {
   MetaMaskSideIcon,
   MetaMaskLogoButton,
   fonts,
-  ManagerSectionHeading,
   AccountEthAuth,
   metaMaskNetworkSwitchImgSrc,
   metaMaskLoginImgSrc,
   metaMaskFrontLargeImgSrc,
   metaMaskConnectImgSrc,
   metaMaskSignImgSrc,
-  Collapsable,
   HollowGreenCheck,
 } from "@joincivil/components";
 import {
@@ -102,12 +100,6 @@ const MetaMaskIcon = styled(MetaMaskSideIcon)`
   top: 3px;
 `;
 
-const MetaMaskMockImage = styled.img`
-  float: right;
-  max-width: 255px;
-  margin-bottom: -12px;
-`;
-
 const IntroText = styled(SectionDescription)`
   max-width: 600px;
   margin-left: auto;
@@ -162,7 +154,6 @@ const ContinueButtonWrap = styled.div`
   margin-top: 48px;
   margin-bottom: 80px;
 `;
-
 
 const ConnectedCheck = styled(HollowGreenCheck)`
   margin-right: 5px;
@@ -303,16 +294,19 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <Wrapper>
             <SectionTitle>Log in to Civil with your crypto wallet</SectionTitle>
             <IntroText>
-              Almost there! To set up your Civil account, you need to authenticate your account with a signature. This is similar to signing in with a password. It verifies your account with your crypto wallet.
+              Almost there! To set up your Civil account, you need to authenticate your account with a signature. This
+              is similar to signing in with a password. It verifies your account with your crypto wallet.
             </IntroText>
 
             <InstructionsWrapper>
               <InstructionsText>
-                <p>
-                  MetaMask will open a new window, and will require you to sign a message.
-                </p>
+                <p>MetaMask will open a new window, and will require you to sign a message.</p>
                 <InstructionsButtonWrap>
-                  <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} buttonOnly={true} />
+                  <AccountEthAuth
+                    civil={this.props.civil!}
+                    onAuthenticated={this.props.onOnboardingComplete}
+                    buttonOnly={true}
+                  />
                 </InstructionsButtonWrap>
               </InstructionsText>
               <InstructionsImage src={metaMaskSignImgSrc} />
@@ -326,26 +320,29 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <Wrapper>
             <SectionTitle>Log in to Civil with your crypto wallet</SectionTitle>
             <IntroText>
-              The wallet address saved in your profile does not match your current MetaMask wallet address. Please update your profile, or switch MetaMask to use the wallet that is saved to your profile.
+              The wallet address saved in your profile does not match your current MetaMask wallet address. Please
+              update your profile, or switch MetaMask to use the wallet that is saved to your profile.
             </IntroText>
-
             <WalletLabel>Profile wallet address</WalletLabel>
             <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
             <WalletLabel>Connected MetaMask wallet address</WalletLabel>
             <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
-
             <InstructionsWrapper>
               <InstructionsText>
                 <p>
                   Open MetaMask to sign a message to authenticate your MetaMask address and save it to your profile.
                 </p>
                 <InstructionsButtonWrap>
-                  <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} buttonOnly={true} buttonText={"Update Profile"} />
+                  <AccountEthAuth
+                    civil={this.props.civil!}
+                    onAuthenticated={this.props.onOnboardingComplete}
+                    buttonOnly={true}
+                    buttonText={"Update Profile"}
+                  />
                 </InstructionsButtonWrap>
               </InstructionsText>
               <InstructionsImage src={metaMaskSignImgSrc} />
             </InstructionsWrapper>
-
             {this.renderFaqEtc()}
           </Wrapper>
         );
@@ -356,7 +353,10 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
               <ConnectedCheck width={32} height={32} />
               Wallet Connected
             </SectionTitle>
-            <IntroText>Your crypto wallet is connected. Your public wallet address will be linked to your email address on the Civil network so you can log in using your wallet.</IntroText>
+            <IntroText>
+              Your crypto wallet is connected. Your public wallet address will be linked to your email address on the
+              Civil network so you can log in using your wallet.
+            </IntroText>
 
             <ConnectedWalletAddressWrap>
               <WalletLabel>Public Wallet Address</WalletLabel>
@@ -364,7 +364,10 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             </ConnectedWalletAddressWrap>
 
             <WarningWrap>
-              <NoteText>Make sure you've backed up and saved your MetaMask login and account details, such as your seed phrase, username and password in a safe place. We can’t help you restore or regain access if you lose it.</NoteText>
+              <NoteText>
+                Make sure you've backed up and saved your MetaMask login and account details, such as your seed phrase,
+                username and password in a safe place. We can’t help you restore or regain access if you lose it.
+              </NoteText>
             </WarningWrap>
 
             {this.props.onContinue && (
@@ -413,7 +416,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
           </SmallParagraph>
           <SmallParagraph>
-            Cryptocurrency wallets don’t store any actual money  –  they store the Public and Private Keys that provide
+            Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide
             access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using
             your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as
             your identity on the Ethereum blockchain.
