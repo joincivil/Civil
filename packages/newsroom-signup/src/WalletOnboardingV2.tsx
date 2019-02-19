@@ -15,6 +15,7 @@ import {
   metaMaskLoginImgSrc,
   metaMaskFrontLargeImgSrc,
   metaMaskConnectImgSrc,
+  metaMaskSignImgSrc,
   Collapsable,
 } from "@joincivil/components";
 import {
@@ -47,13 +48,12 @@ export interface WalletOnboardingV2Props {
   notEnabled?: boolean;
   requireAuth?: boolean;
   enable(): void;
-  saveAddressToProfile?(): Promise<void>;
   onOnboardingComplete?(): void;
   onContinue?(): void;
 }
 
 export interface WalletOnboardingV2State {
-  justSaved?: boolean;
+  justSaved?: boolean; // @TODO/toby Remove
 }
 
 const Wrapper = styled.div`
@@ -82,8 +82,9 @@ const LargeishButton = styled(Button)`
 const WalletAddress = styled(AddressWithMetaMaskIcon)`
   margin-bottom: 28px;
 `;
-const ProfileWalletAddress = styled.span`
+const ProfileWalletAddress = styled.div`
   font-family: ${fonts.MONOSPACE};
+  margin-bottom: 12px;
 `;
 
 const ArrowWrap = styled.span`
@@ -91,13 +92,6 @@ const ArrowWrap = styled.span`
   path {
     fill: ${colors.accent.CIVIL_BLUE};
   }
-`;
-
-const WalletAction = styled.div`
-  display: inline-block;
-  margin-left: 12px;
-  padding-left: 15px;
-  border-left: 1px solid #dddddd;
 `;
 
 const WalletLabel = styled.p`
@@ -141,6 +135,9 @@ const InstructionsImage = styled.img`
   height: 240px;
   width: auto;
 `;
+const InstructionsButtonWrap = styled.div`
+  margin-top: 24px;
+`;
 
 const GetMetaMaskBox = styled(BorderedSectionActive)`
   margin: 24px auto 12px;
@@ -159,12 +156,13 @@ const GetMetaMaskText = styled.div`
   font-weight: bold;
   line-height: 22px;
 `;
-const GetMetaMaskButtonWrap = styled.div`
-  margin-top: 32px;
-  margin-bottom: 80px;
-`;
 const GetMetaMaskMoreHelp = styled(SmallParagraph)`
   text-align: left;
+`;
+
+const ContinueButtonWrap = styled.div`
+  margin-top: 48px;
+  margin-bottom: 80px;
 `;
 
 export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props, WalletOnboardingV2State> {
@@ -197,13 +195,6 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             .
           </SmallestParagraph>
 
-          <GetMetaMaskButtonWrap>
-            {/*@TODO/toby change button style*/}
-            <LargeishButton size={buttonSizes.MEDIUM_WIDE} disabled={true}>
-              Continue
-            </LargeishButton>
-          </GetMetaMaskButtonWrap>
-
           {this.renderFaqEtc()}
         </Wrapper>
       );
@@ -219,7 +210,9 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <InstructionsWrapper>
             <InstructionsText>
               <p>MetaMask will open a new window, and will ask you connect Civil to MetaMask to grant access.</p>
-              <MetaMaskLogoButton onClick={() => this.props.enable()}>Open MetaMask</MetaMaskLogoButton>
+              <InstructionsButtonWrap>
+                <MetaMaskLogoButton onClick={() => this.props.enable()}>Open MetaMask</MetaMaskLogoButton>
+              </InstructionsButtonWrap>
             </InstructionsText>
             <InstructionsImage src={metaMaskConnectImgSrc} />
           </InstructionsWrapper>
@@ -227,13 +220,6 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <SmallestParagraph>
             If you do not see the MetaMask popup, please click the <MetaMaskIcon /> icon in your browser address bar.
           </SmallestParagraph>
-
-          <GetMetaMaskButtonWrap>
-            {/*@TODO/toby change button style*/}
-            <LargeishButton size={buttonSizes.MEDIUM_WIDE} disabled={true}>
-              Continue
-            </LargeishButton>
-          </GetMetaMaskButtonWrap>
 
           {this.renderFaqEtc()}
         </Wrapper>
@@ -255,13 +241,6 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             </InstructionsText>
             <InstructionsImage src={metaMaskLoginImgSrc} />
           </InstructionsWrapper>
-
-          <GetMetaMaskButtonWrap>
-            {/*@TODO/toby change button style*/}
-            <LargeishButton size={buttonSizes.MEDIUM_WIDE} disabled={true}>
-              Continue
-            </LargeishButton>
-          </GetMetaMaskButtonWrap>
 
           {this.renderFaqEtc()}
         </Wrapper>
@@ -285,71 +264,59 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             <InstructionsImage src={metaMaskNetworkSwitchImgSrc} />
           </InstructionsWrapper>
 
-          <GetMetaMaskButtonWrap>
-            {/*@TODO/toby change button style*/}
-            <LargeishButton size={buttonSizes.MEDIUM_WIDE} disabled={true}>
-              Continue
-            </LargeishButton>
-          </GetMetaMaskButtonWrap>
-
           {this.renderFaqEtc()}
         </Wrapper>
       );
     } else if (this.props.metamaskWalletAddress) {
-      if (this.props.saveAddressToProfile && !this.props.profileWalletAddress) {
+      if (this.props.requireAuth && !this.props.profileWalletAddress) {
         return (
           <Wrapper>
-            <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
-            <p>Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.</p>
-            <WalletLabel>Your wallet address</WalletLabel>
-            <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
-            <WalletAction>
-              <Button
-                size={buttonSizes.MEDIUM_WIDE}
-                onClick={this.saveAddress}
-                disabled={this.props.profileAddressSaving}
-              >
-                Save to Your Profile
-              </Button>
-            </WalletAction>
-          </Wrapper>
-        );
-      } else if (
-        this.props.saveAddressToProfile &&
-        this.props.metamaskWalletAddress !== this.props.profileWalletAddress
-      ) {
-        return (
-          <Wrapper>
-            <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
-            <p style={{ color: "#f2524a" }}>
-              Your WordPress user profile wallet address does not match your MetaMask wallet address
-            </p>
-            <WalletLabel>Profile wallet address</WalletLabel>
-            <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
-            <WalletLabel>Connected wallet address</WalletLabel>
-            <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
-            <WalletAction>
-              <Button
-                size={buttonSizes.MEDIUM_WIDE}
-                onClick={this.saveAddress}
-                disabled={this.props.profileAddressSaving}
-              >
-                Update Profile Address
-              </Button>
-            </WalletAction>
-          </Wrapper>
-        );
-      } else if (this.props.requireAuth && !this.props.profileWalletAddress) {
-        return (
-          <Wrapper>
-            <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} />
+            <SectionTitle>Log in to Civil with your crypto wallet</SectionTitle>
+            <IntroText>
+              Almost there! To set up your Civil account, you need to authenticate your account with a signature. This is similar to signing in with a password. It verifies your account with your crypto wallet.
+            </IntroText>
+
+            <InstructionsWrapper>
+              <InstructionsText>
+                <p>
+                  MetaMask will open a new window, and will require you to sign a message.
+                </p>
+                <InstructionsButtonWrap>
+                  <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} buttonOnly={true} />
+                </InstructionsButtonWrap>
+              </InstructionsText>
+              <InstructionsImage src={metaMaskSignImgSrc} />
+            </InstructionsWrapper>
+
+            {this.renderFaqEtc()}
           </Wrapper>
         );
       } else if (this.props.requireAuth && this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
         return (
           <Wrapper>
-            <b>@TODO/toby Mismatch between MM address and profile address - update component copy.</b>
-            <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} />
+            <SectionTitle>Log in to Civil with your crypto wallet</SectionTitle>
+            <IntroText>
+              The wallet address saved in your profile does not match your current MetaMask wallet address. Please update your profile, or switch MetaMask to use the wallet that is saved to your profile.
+            </IntroText>
+
+            <WalletLabel>Profile wallet address</WalletLabel>
+            <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
+            <WalletLabel>Connected MetaMask wallet address</WalletLabel>
+            <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
+
+            <InstructionsWrapper>
+              <InstructionsText>
+                <p>
+                  Open MetaMask to sign a message to authenticate your MetaMask address and save it to your profile.
+                </p>
+                <InstructionsButtonWrap>
+                  <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} buttonOnly={true} buttonText={"Update Profile"} />
+                </InstructionsButtonWrap>
+              </InstructionsText>
+              <InstructionsImage src={metaMaskSignImgSrc} />
+            </InstructionsWrapper>
+
+            {this.renderFaqEtc()}
           </Wrapper>
         );
       } else {
@@ -376,6 +343,13 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
   private renderFaqEtc = (): JSX.Element => {
     return (
       <>
+        <ContinueButtonWrap>
+          {/*@TODO/toby change button style*/}
+          <LargeishButton size={buttonSizes.MEDIUM_WIDE} disabled={true}>
+            Continue
+          </LargeishButton>
+        </ContinueButtonWrap>
+
         <NoteContainer>
           <NoteHeading>Using a different wallet?</NoteHeading>
           <NoteText>
@@ -456,17 +430,5 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         </GetMetaMaskMoreHelp>
       </>
     );
-  };
-
-  private saveAddress = async () => {
-    if (!this.props.saveAddressToProfile) {
-      return;
-    }
-    await this.props.saveAddressToProfile();
-    this.setState({ justSaved: true });
-
-    if (this.props.onOnboardingComplete) {
-      this.props.onOnboardingComplete();
-    }
   };
 }
