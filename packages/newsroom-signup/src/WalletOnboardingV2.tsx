@@ -51,10 +51,6 @@ export interface WalletOnboardingV2Props {
   onContinue?(): void;
 }
 
-export interface WalletOnboardingV2State {
-  justSaved?: boolean; // @TODO/toby Remove
-}
-
 const Wrapper = styled.div`
   text-align: center;
   margin: 63px 0 32px;
@@ -186,12 +182,7 @@ const WarningWrap = styled.p`
   }
 `;
 
-export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props, WalletOnboardingV2State> {
-  constructor(props: WalletOnboardingV2Props) {
-    super(props);
-    this.state = {};
-  }
-
+export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props> {
   public render(): JSX.Element | null {
     if (this.props.noProvider) {
       return (
