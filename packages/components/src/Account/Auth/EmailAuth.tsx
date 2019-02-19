@@ -8,6 +8,8 @@ import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
 import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./AuthStyledComponents";
 
+// TODO(jorgelo): Change these to use authLoginEmailSendForApplication and authSignupEmailSendForApplication
+
 const signupMutation = gql`
   mutation($emailAddress: String!) {
     authSignupEmailSend(emailAddress: $emailAddress)

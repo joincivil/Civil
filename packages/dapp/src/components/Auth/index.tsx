@@ -17,20 +17,26 @@ interface AuthVerifyTokenRouteParams {
 export class AuthRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
     const { match } = this.props;
+
+    const routeProps = {
+      redirectTo: TOKEN_HOME,
+      ethSignupPath: `${match.path}/eth`,
+    };
+
     return (
       <>
         <Switch>
           {/* Login Routes */}
           <AuthenticatedRoute
+            {...routeProps}
             onlyAllowUnauthenticated
             redirectTo={TOKEN_HOME}
             path={`${match.path}/`}
             component={() => (
               <>
                 <Route
-                  redirectTo={TOKEN_HOME}
                   path={`${match.path}/login`}
-                  exact={true}
+                  exact
                   component={() => <AuthLogin onEmailSend={this.handleAuthEmail} />}
                 />
                 <Route
@@ -57,7 +63,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 {/* SignUp Routes */}
                 <Route
                   path={`${match.path}/signup`}
-                  exact={true}
+                  exact
                   component={() => <AuthSignup onEmailSend={this.handleAuthEmail} />}
                 />
                 <Route
@@ -74,13 +80,17 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 <Route
                   path={`${match.path}/signup/verify-token/:token`}
                   exact
-                  component={(props: RouteComponentProps) => (
-                    <AuthVerifyToken
-                      token={(props.match!.params as AuthVerifyTokenRouteParams).token}
-                      isNewUser={true}
-                      onAuthenticationContinue={this.handleOnAuthenticationContinue}
-                    />
-                  )}
+                  component={(props: RouteComponentProps) => {
+                    const token = (props.match!.params as AuthVerifyTokenRouteParams).token;
+
+                    return (
+                      <AuthVerifyToken
+                        token={token}
+                        isNewUser={true}
+                        onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                      />
+                    );
+                  }}
                 />
               </>
             )}
@@ -88,21 +98,16 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
 
           {/* Add Wallet */}
           <AuthenticatedRoute
-            onlyAllowWithoutEth
-            redirectTo={TOKEN_HOME}
+            {...routeProps}
+            allowWithoutEth
             path={`${match.path}/eth`}
-            exact={true}
+            exact
             component={() => <AuthEth onAuthentication={this.handleOnAddWallet} />}
           />
 
           {/* Account Home */}
           {/* TODO(jorgelo): This is just as a helper, not needed in production. */}
-          <AuthenticatedRoute
-            redirectTo={`${match.path}/login`}
-            path={`${match.path}`}
-            exact={true}
-            component={AuthHome}
-          />
+          <AuthenticatedRoute {...routeProps} path={`${match.path}`} exact={true} component={AuthHome} />
         </Switch>
       </>
     );

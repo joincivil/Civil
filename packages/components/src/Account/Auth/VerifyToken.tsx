@@ -48,25 +48,11 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   }
 
   public renderError(error: any): JSX.Element {
+    // TODO(jorgelo): Style figure out how to style this.
     const errorText = error.graphQLErrors.map((e: any) => e.message).join(" ,");
 
     return <>{errorText}</>;
   }
-
-  // <PageSubHeadingCentered>Check your email!</PageSubHeadingCentered>
-
-  // <PageHeadingTextCentered>
-  //   We sent you an email to <strong>{emailAddress}</strong> that includes a link to confirm your email address. It
-  //   expires soon, so please check your email and click on the link. Once confimed, you can continue.
-  // </PageHeadingTextCentered>
-
-  // <CheckEmailSection />
-
-  // <PageHeadingTextCentered>Please check your spam folder if you don’t see the email.</PageHeadingTextCentered>
-
-  // <AuthPageFooterLink>
-  //   <a onClick={onSendAgain}>Hey, I didn’t get an email. Can you send one again?</a>
-  // </AuthPageFooterLink>
 
   public renderVerified(): JSX.Element {
     const { onAuthenticationContinue, isNewUser } = this.props;

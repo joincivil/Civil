@@ -28,6 +28,7 @@ export class AccountEmailSent extends React.Component<AccountEmailSentProps> {
         <PageHeadingTextCentered>Please check your spam folder if you don’t see the email.</PageHeadingTextCentered>
 
         <AuthPageFooterLink>
+          {/* // TODO(jorgelo): The link below should have a hover hand. */}
           <a onClick={onSendAgain}>Hey, I didn’t get an email. Can you send one again?</a>
         </AuthPageFooterLink>
       </>

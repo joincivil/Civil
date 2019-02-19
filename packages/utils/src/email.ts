@@ -25,8 +25,7 @@ export async function addToMailingList(
       throw new Error("There was a problem with your email signup. Please check the email you entered and try again.");
     }
   } catch (err) {
-    // TODO(jorgelo): Log error somewhere on error?
-    // console.error("Error:", { err });
+    // TODO(jorgelo): Should we call errorCallback on error?
     throw err;
   }
 }
