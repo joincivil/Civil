@@ -32,8 +32,6 @@ export default class NewsroomManagement extends React.Component<NewsroomManageme
         address={this.props.match.params.newsroomAddress}
         metamaskEnabled={this.state.metamaskEnabled}
         allSteps={true}
-        authEnabled={true}
-        showWalletOnboarding={true}
         enable={async () => {
           if ((window as any).ethereum) {
             await (window as any).ethereum.enable();
