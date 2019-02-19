@@ -5,6 +5,7 @@ import {
   PageHeadingCentered,
   PageHeadingTextCentered,
   AuthPageFooterLink,
+  AuthFooterTerms,
 } from "@joincivil/components";
 import { Link } from "react-router-dom";
 
@@ -29,6 +30,7 @@ export const AuthLogin: React.SFC<AuthLoginProps> = props => {
       <AuthPageFooterLink>
         <Link to="/auth/signup">Don't have an acount?</Link>
       </AuthPageFooterLink>
+      <AuthFooterTerms />
     </>
   );
 };

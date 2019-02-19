@@ -91,3 +91,8 @@ export const PageHeadingTextCentered = styled.div`
   font-size: 14px;
   line-height: 25px;
 `;
+
+export const PageHeadingTextCenteredSmall = styled(PageHeadingTextCentered)`
+  font-size: 12px;
+  line-height: 20px;
+`;
