@@ -24,7 +24,7 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
       </Helmet>
       <ScrollToTopOnMount />
       <LoadUser>
-        {({ loading, user }: any) => {
+        {({ loading, user }) => {
           if (loading) {
             return "loading..";
           }

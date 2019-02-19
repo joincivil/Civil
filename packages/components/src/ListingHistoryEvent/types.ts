@@ -11,4 +11,13 @@ export interface ListingHistoryEventDetailsProps {
 
 export interface ListingHistoryEventProps extends ListingHistoryEventTimestampProps, ListingHistoryEventDetailsProps {}
 
-export interface ChallengeCompletedEventProps extends ListingHistoryEventTimestampProps, ChallengeResultsProps {}
+export interface ChallengeCompletedEventProps extends ListingHistoryEventTimestampProps, ChallengeResultsProps {
+  appealRequested?: boolean;
+  appealGranted?: boolean;
+  appealChallengeTotalVotes?: string;
+  appealChallengeVotesFor?: string;
+  appealChallengeVotesAgainst?: string;
+  appealChallengePercentFor?: string;
+  appealChallengePercentAgainst?: string;
+  didAppealChallengeSucceed?: boolean;
+}
