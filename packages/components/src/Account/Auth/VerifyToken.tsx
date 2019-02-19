@@ -1,10 +1,10 @@
 import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import { setApolloSession } from "@joincivil/utils";
-import { ExecuteOnMount, Button, buttonSizes } from "../";
-import { AuthLoginResponse } from "./";
+import { ExecuteOnMount, Button, buttonSizes } from "../..";
+import { AuthLoginResponse } from "..";
+import { PageSubHeadingCentered, PageHeadingTextCentered } from "../../Heading";
 
 const verifySignUpTokenMutation = gql`
   mutation($loginJWT: String!) {
@@ -26,13 +26,9 @@ const verifyLoginTokenMutation = gql`
   }
 `;
 
-interface VerifyTokenParams {
-  token: string;
-}
-
-export interface AccountVerifyTokenProps extends Partial<RouteComponentProps> {
+export interface AccountVerifyTokenProps {
   isNewUser: boolean;
-  token?: string;
+  token: string;
   onAuthenticationContinue(isNewUser: boolean): void;
 }
 
@@ -57,9 +53,37 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
     return <>{errorText}</>;
   }
 
+  // <PageSubHeadingCentered>Check your email!</PageSubHeadingCentered>
+
+  // <PageHeadingTextCentered>
+  //   We sent you an email to <strong>{emailAddress}</strong> that includes a link to confirm your email address. It
+  //   expires soon, so please check your email and click on the link. Once confimed, you can continue.
+  // </PageHeadingTextCentered>
+
+  // <CheckEmailSection />
+
+  // <PageHeadingTextCentered>Please check your spam folder if you don’t see the email.</PageHeadingTextCentered>
+
+  // <AuthPageFooterLink>
+  //   <a onClick={onSendAgain}>Hey, I didn’t get an email. Can you send one again?</a>
+  // </AuthPageFooterLink>
+
+  public renderVerified(): JSX.Element {
+    const { onAuthenticationContinue, isNewUser } = this.props;
+    return (
+      <>
+        <PageSubHeadingCentered>Email Address Confirmed!</PageSubHeadingCentered>
+        <PageHeadingTextCentered>Thanks for confirming your email address</PageHeadingTextCentered>
+
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => onAuthenticationContinue(isNewUser)}>
+          Continue
+        </Button>
+      </>
+    );
+  }
   public render(): JSX.Element {
-    const loginJWT = this.props.token || (this.props.match!.params as VerifyTokenParams).token;
-    const { isNewUser, onAuthenticationContinue } = this.props;
+    const loginJWT = this.props.token;
+    const { isNewUser } = this.props;
 
     const verifyMutation = isNewUser ? verifySignUpTokenMutation : verifyLoginTokenMutation;
     const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
@@ -79,17 +103,7 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
                 }}
               />
 
-              {this.state.hasValidated ? (
-                <>
-                  <h3>Email Address Confirmed!</h3>
-                  <p>Thanks for confirming your email address</p>
-                  <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => onAuthenticationContinue(isNewUser)}>
-                    Continue
-                  </Button>
-                </>
-              ) : (
-                <>Verifying email...</>
-              )}
+              {this.state.hasValidated ? this.renderVerified() : <>Verifying email...</>}
 
               <span>{error && this.renderError(error)}</span>
             </>

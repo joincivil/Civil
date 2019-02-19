@@ -10,6 +10,12 @@ import { AuthVerifyToken } from "./VerifyToken";
 
 const TOKEN_HOME = "/tokens";
 
+interface AuthVerifyTokenRouteParams {
+  token: string;
+}
+
+// const { token } = props.match!.params as AuthVerifyTokenRouteParams;
+
 export class AuthRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
     const { match } = this.props;
@@ -42,8 +48,12 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 <Route
                   path={`${match.path}/login/verify-token/:token`}
                   exact
-                  component={() => (
-                    <AuthVerifyToken isNewUser={false} onAuthenticationContinue={this.handleOnAuthenticationContinue} />
+                  component={(props: RouteComponentProps) => (
+                    <AuthVerifyToken
+                      token={(props.match!.params as AuthVerifyTokenRouteParams).token}
+                      isNewUser={false}
+                      onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                    />
                   )}
                 />
                 {/* SignUp Routes */}
@@ -66,8 +76,12 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 <Route
                   path={`${match.path}/signup/verify-token/:token`}
                   exact
-                  component={() => (
-                    <AuthVerifyToken isNewUser={true} onAuthenticationContinue={this.handleOnAuthenticationContinue} />
+                  component={(props: RouteComponentProps) => (
+                    <AuthVerifyToken
+                      token={(props.match!.params as AuthVerifyTokenRouteParams).token}
+                      isNewUser={false}
+                      onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                    />
                   )}
                 />
               </>

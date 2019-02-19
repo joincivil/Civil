@@ -1,4 +1,4 @@
-export * from "./VerifyToken";
+export * from "./Auth/VerifyToken";
 export * from "./Auth/EmailAuth";
 export * from "./Auth/EmailSent";
 export * from "./Auth/EthAuth";
