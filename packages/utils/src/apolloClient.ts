@@ -39,7 +39,7 @@ export function getNetwork(): number {
   if (network) {
     return network;
   } else {
-    return 1; // TODO: change to 1
+    return 1;
   }
 }
 
