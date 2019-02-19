@@ -14,8 +14,6 @@ interface AuthVerifyTokenRouteParams {
   token: string;
 }
 
-// const { token } = props.match!.params as AuthVerifyTokenRouteParams;
-
 export class AuthRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
     const { match } = this.props;
@@ -79,7 +77,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   component={(props: RouteComponentProps) => (
                     <AuthVerifyToken
                       token={(props.match!.params as AuthVerifyTokenRouteParams).token}
-                      isNewUser={false}
+                      isNewUser={true}
                       onAuthenticationContinue={this.handleOnAuthenticationContinue}
                     />
                   )}
