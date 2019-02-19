@@ -82,13 +82,12 @@ export const AppealChallengeCommitVoteCalloutCopyText: React.SFC = props => {
 };
 
 export const CommitVoteAlreadyVotedHeaderText: React.SFC = props => {
-  return <>Thanks for participating in this challenge!</>;
+  return <>You have already submitted your vote. Thank you.</>;
 };
 
+// TODO(jon): Pass in and render commit vote expiry
 export const CommitVoteAlreadyVotedCopyText: React.SFC = props => {
-  return (
-    <>You have committed a vote in this challenge. Thanks for that. You can change your vote until the deadline.</>
-  );
+  return <>You may revise your vote until the deadline.</>;
 };
 
 export const CommitVoteCalloutButtonText: React.SFC = props => <>Submit My Vote</>;
