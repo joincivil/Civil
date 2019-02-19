@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AccountVerifyToken } from "@joincivil/components";
+import { AccountVerifyToken, AuthWrapper } from "@joincivil/components";
 
 export interface AuthVerifyTokenProps {
   isNewUser: boolean;
@@ -8,11 +8,11 @@ export interface AuthVerifyTokenProps {
 
 export const AuthVerifyToken: React.SFC<AuthVerifyTokenProps> = props => {
   return (
-    <>
+    <AuthWrapper>
       <AccountVerifyToken
         isNewUser={false}
-        onAuthenticationContinue={isNewUser => props.onAuthenticationContinue(isNewUser)}
+        onAuthenticationContinue={(isNewUser: boolean) => props.onAuthenticationContinue(isNewUser)}
       />
-    </>
+    </AuthWrapper>
   );
 };
