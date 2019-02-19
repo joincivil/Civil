@@ -32,7 +32,7 @@ export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props 
       <b>
         <RemoveActionText />
       </b>{" "}
-      <i>{props.newsroomName || "this newsroom"}</i> being listed on the Civil Registry?
+      <i>{props.newsroomName || "this newsroom"}</i> from being listed on the Civil Registry?
     </>
   );
 };
@@ -66,8 +66,8 @@ export const CommitVoteCalloutHeaderText: React.SFC = props => {
 export const CommitVoteCalloutCopyText: React.SFC = props => {
   return (
     <>
-      Evaluate whether the Newsroom is in violation of the Civil Constitution and cast your vote accordingly. Voters
-      will never lose tokens for participating in a vote.
+      Evaluate the Newsroom based on the Civil Constitution and vote accordingly. You will never lose tokens for
+      participating in a vote.
     </>
   );
 };

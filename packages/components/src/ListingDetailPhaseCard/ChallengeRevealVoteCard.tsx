@@ -30,7 +30,7 @@ import {
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { RevealVote } from "./RevealVote";
 import { QuestionToolTip } from "../QuestionToolTip";
 

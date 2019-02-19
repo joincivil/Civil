@@ -22,7 +22,7 @@ export const StyledContentRow = styled.div`
   display: flex;
   flex-direction: ${(props: ContentRowProps) => (props.reverseDirection ? "row-reverse" : "row")};
   margin: 0 auto;
-  width: 1200px;
+  width: 1110px;
 
   ${mediaQueries.MOBILE} {
     display: block;
@@ -32,7 +32,7 @@ export const StyledContentRow = styled.div`
 `;
 
 export const StyledLeftContentWell = styled.div`
-  width: 695px;
+  width: 636px;
   ${(props: ContentWellProps) => (props.offsetTop ? `margin-top: ${props.offsetTop.toString()}px` : "")};
 
   ${mediaQueries.MOBILE} {
@@ -42,9 +42,9 @@ export const StyledLeftContentWell = styled.div`
 `;
 
 export const StyledRightContentWell = styled.div`
-  margin-left: 15px;
+  margin-left: 31px;
   ${(props: ContentWellProps) => (props.offsetTop ? `margin-top: ${props.offsetTop.toString()}px` : "")};
-  width: 485px;
+  width: 440px;
 
   ${mediaQueries.MOBILE} {
     margin: 0 16px;

@@ -30,7 +30,7 @@ import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { RevealVote } from "./RevealVote";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 
 export type AppealChallengeRevealVoteCardProps = ListingDetailPhaseCardComponentProps &
   PhaseWithExpiryProps &

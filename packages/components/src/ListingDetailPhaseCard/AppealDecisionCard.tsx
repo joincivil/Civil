@@ -20,7 +20,7 @@ import { TransactionButtonNoModal } from "../TransactionButton";
 import { Button, buttonSizes } from "../Button";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
 export const AppealDecisionCard: React.SFC<

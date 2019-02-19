@@ -10,7 +10,7 @@ import {
 import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
 export const AppealResolveCard: React.StatelessComponent<

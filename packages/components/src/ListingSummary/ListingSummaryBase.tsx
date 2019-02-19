@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { EthAddress } from "@joincivil/core";
 
 import { ListingSummaryComponentProps } from "./types";
 import { StyledListingSummaryContainer } from "./styledComponents";

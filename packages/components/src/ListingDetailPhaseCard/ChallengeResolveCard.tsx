@@ -11,7 +11,7 @@ import { ReadyToCompletePhaseDisplayNameText, ResolveChallengeToolTipText } from
 import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { QuestionToolTip } from "../QuestionToolTip";
 
 export const ChallengeResolveCard: React.StatelessComponent<

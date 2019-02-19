@@ -24,7 +24,7 @@ import { TransactionButtonNoModal } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { QuestionToolTip } from "../QuestionToolTip";
 
 const RequestAppealButton: React.SFC<

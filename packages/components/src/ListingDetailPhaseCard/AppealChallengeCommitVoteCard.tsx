@@ -37,7 +37,7 @@ import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { CommitVote } from "./CommitVote";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 
 export type AppealChallengeCommitVoteCardProps = ListingDetailPhaseCardComponentProps &
   PhaseWithExpiryProps &

@@ -18,6 +18,7 @@ import {
   StyledOneTokenOneVote,
   StyledButtonsContainer,
   StyledAppMessage,
+  StyledVoteCTAButton,
 } from "./styledComponents";
 import {
   CommitVoteReviewButtonText,
@@ -75,14 +76,16 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
             <VoteButton buttonVoteOptionValue="0" {...this.props} />
           </VoteOptionsContainer>
 
-          <Button
-            disabled={this.props.voteOption === undefined}
-            onClick={() => this.setState({ displayStep: 1 })}
-            size={buttonSizes.MEDIUM}
-            theme={buttonTheme}
-          >
-            Next
-          </Button>
+          <StyledVoteCTAButton>
+            <Button
+              disabled={this.props.voteOption === undefined}
+              onClick={() => this.setState({ displayStep: 1 })}
+              size={buttonSizes.MEDIUM}
+              theme={buttonTheme}
+            >
+              Next
+            </Button>
+          </StyledVoteCTAButton>
         </StyledStep>
 
         <StyledStep visible={this.state.displayStep === 1}>

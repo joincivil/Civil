@@ -10,24 +10,33 @@ export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps>
     <>
       <MetaRow>
         <MetaItem>
-          <MetaItemLabel>{props.isViewingUserChallenger ? "You are the challenger" : "Challenger"}</MetaItemLabel>
-          <MetaItemValueEthAddress>{getFormattedEthAddress(props.challenger!)}</MetaItemValueEthAddress>
-        </MetaItem>
-      </MetaRow>
-      <MetaRow>
-        <MetaItem>
           <MetaItemLabel>
             Reward Pool
             <QuestionToolTip explainerText={<RewardPoolToolTipText />} positionBottom={true} />
           </MetaItemLabel>
           <MetaItemValue>{props.rewardPool}</MetaItemValue>
         </MetaItem>
+      </MetaRow>
+      <MetaRow>
         <MetaItem>
           <MetaItemLabel>
-            Stake
+            Challenger Deposit
             <QuestionToolTip explainerText={<DepositsToolTipText />} positionBottom={true} />
           </MetaItemLabel>
           <MetaItemValue>{props.stake}</MetaItemValue>
+        </MetaItem>
+        <MetaItem>
+          <MetaItemLabel>
+            Newsroom Deposit
+            <QuestionToolTip explainerText={<DepositsToolTipText />} positionBottom={true} />
+          </MetaItemLabel>
+          <MetaItemValue>{props.stake}</MetaItemValue>
+        </MetaItem>
+      </MetaRow>
+      <MetaRow>
+        <MetaItem>
+          <MetaItemLabel>{props.isViewingUserChallenger ? "You are the challenger" : "Challenger"}</MetaItemLabel>
+          <MetaItemValueEthAddress>{getFormattedEthAddress(props.challenger!)}</MetaItemValueEthAddress>
         </MetaItem>
       </MetaRow>
     </>
