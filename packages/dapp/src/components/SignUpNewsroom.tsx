@@ -4,7 +4,7 @@ import { isEthereumEnabled, enableEthereum } from "@joincivil/utils";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
-import { PageView, ViewModule } from "./utility/ViewModules";
+import { PageView } from "./utility/ViewModules";
 import { State } from "../redux/reducers";
 
 export interface CreateNewsroomState {
@@ -39,21 +39,19 @@ class SignUpNewsroom extends React.Component<
     const civil = getCivil();
     return (
       <PageView>
-        <ViewModule>
-          <Newsroom
-            civil={civil}
-            onNewsroomCreated={this.onCreated}
-            account={this.props.userAccount}
-            currentNetwork={this.props.networkName}
-            metamaskEnabled={this.state.metamaskEnabled}
-            allSteps={true}
-            initialStep={0}
-            enable={async () => {
-              await enableEthereum();
-              this.setState({ metamaskEnabled: true });
-            }}
-          />
-        </ViewModule>
+        <Newsroom
+          civil={civil}
+          onNewsroomCreated={this.onCreated}
+          account={this.props.userAccount}
+          currentNetwork={this.props.networkName}
+          metamaskEnabled={this.state.metamaskEnabled}
+          allSteps={true}
+          initialStep={0}
+          enable={async () => {
+            await enableEthereum();
+            this.setState({ metamaskEnabled: true });
+          }}
+        />
       </PageView>
     );
   }
