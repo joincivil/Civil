@@ -75,8 +75,6 @@
   "dependencies": {
     "@joincivil/core": "^4.7.5",
     "@joincivil/utils": "^1.8.3",
-    "@material-ui/core": "1.5.0",
-    "@material-ui/icons": "^3.0.1",
     "@types/classnames": "^2.2.3",
     "apollo-storybook-react": "^0.1.8",
     "classnames": "^2.2.5",
