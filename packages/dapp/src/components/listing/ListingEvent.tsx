@@ -39,7 +39,6 @@ class ListingEvent extends React.Component<ListingEventProps> {
 
   public render(): JSX.Element | null {
     const wrappedEvent = this.props.event;
-
     switch (wrappedEvent.event) {
       case "_AppealGranted":
         return <AppealGrantedEvent timestamp={wrappedEvent.timestamp} />;
@@ -64,6 +63,12 @@ class ListingEvent extends React.Component<ListingEventProps> {
 
       case "_ChallengeSucceeded":
         return this.renderChallengeSucceededEvent(wrappedEvent);
+
+      case "_FailedChallengeOverturned":
+        return this.renderChallengeSucceededEvent(wrappedEvent);
+
+      case "_SuccessfulChallengeOverturned":
+        return this.renderChallengeFailedEvent(wrappedEvent);
 
       case "_Deposit":
         return this.renderDepositEvent(wrappedEvent);
