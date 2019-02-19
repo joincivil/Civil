@@ -88,7 +88,7 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
         <div>
           <AvatarWrap>
             {user.isCmsUser ? (
-              <ToolTip explainerText="This user can change their profile image by going to Gravatar and signing in with the email account they use for this WordPress site.">
+              <ToolTip explainerText="This user can change their profile image by going to Gravatar and signing in with the email account they use for this WordPress site. If you have the Co-Authors Plus plugin installed, they should instead change the avatar in their Guest User profile.">
                 {user.rosterData.avatarUrl ? <AvatarImg src={user.rosterData.avatarUrl} /> : noAvatar}
               </ToolTip>
             ) : (
