@@ -40,7 +40,7 @@ const DisplayName = styled(FormSubhead)`
 `;
 const Username = styled.span`
   color: #72777c;
-  margin-right: 10px;
+  margin-right: 5px;
 `;
 
 const AvatarWrap = styled.div`
@@ -96,8 +96,8 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
             )}
           </AvatarWrap>
 
-          {user.rosterData.name && <DisplayName>{user.rosterData.name}</DisplayName>}
-          {user.username && <Username title="WordPress username">{user.username}</Username>}
+          {user.rosterData.name && <DisplayName>{user.rosterData.name} </DisplayName>}
+          {user.username && <Username title="WordPress username">{user.username} </Username>}
           {user.rosterData.ethAddress && <code>{user.rosterData.ethAddress}</code>}
         </div>
 
