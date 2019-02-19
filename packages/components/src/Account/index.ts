@@ -1,12 +1,16 @@
-import * as AuthStyledComponents from "./Auth/AuthStyledComponents";
-
 export * from "./VerifyToken";
 export * from "./Auth/EmailAuth";
 export * from "./Auth/EmailSent";
 export * from "./Auth/EthAuth";
 export * from "./LoadUser";
 
-export { AuthOuterWrapper, AuthInnerWrapper, AuthPageFooterLink, AuthFooterTerms } from "./Auth/AuthStyledComponents";
+export {
+  AuthOuterWrapper,
+  AuthInnerWrapper,
+  AuthPageFooterLink,
+  AuthFooterTerms,
+  AuthWrapper,
+} from "./Auth/AuthStyledComponents";
 
 export enum AuthApplicationEnum {
   DEFAULT = "DEFAULT",

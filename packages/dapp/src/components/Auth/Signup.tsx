@@ -6,9 +6,7 @@ import {
   PageHeadingCentered,
   PageHeadingTextCentered,
   AuthPageFooterLink,
-  AuthFooterTerms,
-  AuthOuterWrapper,
-  AuthInnerWrapper,
+  AuthWrapper,
 } from "@joincivil/components";
 import { Link } from "react-router-dom";
 
@@ -19,27 +17,23 @@ export interface AuthSignupProps {
 export const AuthSignup: React.SFC<AuthSignupProps> = props => {
   return (
     <>
-      <AuthOuterWrapper>
-        <AuthInnerWrapper>
-          <PageHeadingCentered>Create your Civil account</PageHeadingCentered>
-          <PageHeadingTextCentered>
-            First, please enter your email address. Your email is used to send account related updates from Civil.
-          </PageHeadingTextCentered>
-          <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
+      <AuthWrapper>
+        <PageHeadingCentered>Create your Civil account</PageHeadingCentered>
+        <PageHeadingTextCentered>
+          First, please enter your email address. Your email is used to send account related updates from Civil.
+        </PageHeadingTextCentered>
+        <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
 
-          <AccountEmailAuth
-            applicationType={AuthApplicationEnum.STOREFRONT}
-            isNewUser={true}
-            onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
-          />
+        <AccountEmailAuth
+          applicationType={AuthApplicationEnum.STOREFRONT}
+          isNewUser={true}
+          onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
+        />
 
-          <AuthPageFooterLink>
-            <Link to="/auth/login">Already have an account?</Link>
-          </AuthPageFooterLink>
-        </AuthInnerWrapper>
-
-        <AuthFooterTerms />
-      </AuthOuterWrapper>
+        <AuthPageFooterLink>
+          <Link to="/auth/login">Already have an account?</Link>
+        </AuthPageFooterLink>
+      </AuthWrapper>
     </>
   );
 };

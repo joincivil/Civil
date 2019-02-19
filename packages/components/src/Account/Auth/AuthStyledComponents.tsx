@@ -72,6 +72,13 @@ export const AuthOuterWrapper: React.SFC = ({ children }) => (
   </CenterWrapper>
 );
 
+export const AuthWrapper: React.SFC = ({ children }) => (
+  <AuthOuterWrapper>
+    <AuthInnerWrapper>{children}</AuthInnerWrapper>
+    <AuthFooterTerms />
+  </AuthOuterWrapper>
+);
+
 export const AuthInnerWrapper = styled.div`
   margin: 0 115px;
   margin-top: 71px;
