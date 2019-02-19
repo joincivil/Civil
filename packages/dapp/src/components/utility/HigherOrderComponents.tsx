@@ -118,11 +118,40 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
               if (error) {
                 return null;
               }
+              const { challengeID } = this.props;
               const challenge = transformGraphQLDataIntoChallenge(data.challenge);
               const challengeResultsProps = getChallengeResultsProps(challenge!) as ChallengeResultsProps;
+
+              let appealPhaseProps = {};
+              if (challenge && challenge.appeal) {
+                appealPhaseProps = {
+                  appealRequested: !challenge.appeal.appealFeePaid.isZero(),
+                  appealGranted: challenge.appeal.appealGranted,
+                };
+              }
+              let appealChallengePhaseProps = {};
+              if (challenge && challenge.appeal && challenge.appeal.appealChallengeID) {
+                appealChallengePhaseProps = {
+                  appealChallengeID: challenge.appeal.appealChallengeID.toString(),
+                };
+              }
+              let appealChallengeResultsProps = {};
+              if (challenge && challenge.appeal && challenge.appeal.appealChallenge) {
+                appealChallengeResultsProps = getAppealChallengeResultsProps(
+                  challenge.appeal.appealChallenge,
+                ) as AppealChallengeResultsProps;
+              }
+
               return (
                 <>
-                  <PresentationComponent {...challengeResultsProps} {...this.props} />
+                  <PresentationComponent
+                    {...this.props}
+                    {...challengeResultsProps}
+                    {...appealPhaseProps}
+                    {...appealChallengePhaseProps}
+                    {...appealChallengeResultsProps}
+                    challengeID={challengeID!.toString()}
+                  />
                 </>
               );
             }}
@@ -136,10 +165,46 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
         const challengeResultsProps = getChallengeResultsProps(
           this.props.challengeData.challenge,
         ) as ChallengeResultsProps;
+        const challengeID = this.props.challengeID && this.props.challengeID.toString();
+
+        let appealPhaseProps = {};
+        if (this.props.challengeData && this.props.challengeData.challenge.appeal) {
+          appealPhaseProps = {
+            appealRequested: !this.props.challengeData.challenge.appeal.appealFeePaid.isZero(),
+            appealGranted: this.props.challengeData.challenge.appeal.appealGranted,
+          };
+        }
+        let appealChallengePhaseProps = {};
+        if (
+          this.props.challengeData &&
+          this.props.challengeData.challenge.appeal &&
+          this.props.challengeData.challenge.appeal.appealChallengeID
+        ) {
+          appealChallengePhaseProps = {
+            appealChallengeID: this.props.challengeData.challenge.appeal.appealChallengeID.toString(),
+          };
+        }
+        let appealChallengeResultsProps = {};
+        if (
+          this.props.challengeData &&
+          this.props.challengeData.challenge.appeal &&
+          this.props.challengeData.challenge.appeal.appealChallenge
+        ) {
+          appealChallengeResultsProps = getAppealChallengeResultsProps(
+            this.props.challengeData.challenge.appeal.appealChallenge,
+          ) as AppealChallengeResultsProps;
+        }
 
         return (
           <>
-            <PresentationComponent {...challengeResultsProps} {...this.props} />
+            <PresentationComponent
+              {...this.props}
+              {...challengeResultsProps}
+              {...appealPhaseProps}
+              {...appealChallengePhaseProps}
+              {...appealChallengeResultsProps}
+              challengeID={challengeID}
+            />
           </>
         );
       }
