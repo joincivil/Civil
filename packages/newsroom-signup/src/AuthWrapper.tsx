@@ -52,7 +52,15 @@ export class AuthWrapper extends React.Component<{}, AuthWrapperState> {
     }
 
     if (this.state.magicEmailSent) {
-      return <AccountEmailSent isNewUser={true} emailAddress={this.state.magicEmailSent} />;
+      return (
+        <>
+          <AccountEmailSent isNewUser={true} emailAddress={this.state.magicEmailSent} />
+          <p>
+            (@TODO/toby) NOTE: The magic link email template isn't set up yet. To log in, copy the token from the email
+            and go to /signupNewsroom?token=[token]
+          </p>
+        </>
+      );
     }
 
     return (
