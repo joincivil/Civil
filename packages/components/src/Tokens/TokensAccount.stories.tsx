@@ -51,17 +51,10 @@ storiesOf("User Token Account", module)
   )
   .addDecorator(StoryRouter())
   .add("Signup Section", () => {
-    return <UserTokenAccountSignup step={"active"} />
+    return <UserTokenAccountSignup step={"active"} />;
   })
   .add("Tutorial Verify", () => {
-    return (
-      <UserTokenAccountVerify
-        step={"active"}
-        open={false}
-        handleClose={onClickFunc}
-        handleOpen={onClickFunc}
-      />
-    )
+    return <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />;
   })
   .add("Buy Section", () => {
     return (
@@ -71,5 +64,5 @@ storiesOf("User Token Account", module)
         foundationAddress={"0x..."}
         faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
       />
-    )
+    );
   });
