@@ -1,9 +1,4 @@
-import {
-  colors,
-  fonts,
-  Collapsable,
-  CollapsableProps,
-} from "./";
+import { colors, fonts, Collapsable, CollapsableProps } from "./";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
 import styled, { StyledComponentClass } from "styled-components";
