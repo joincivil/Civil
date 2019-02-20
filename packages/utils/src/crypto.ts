@@ -72,20 +72,14 @@ export function isWellFormattedAddress(address: EthAddress): boolean {
   return /^(0x)?[0-9a-f]{40}$/i.test(address);
 }
 
-export async function isEthereumEnabled(): Promise<boolean> {
-  if ((window as any).ethereum) {
+export async function ethereumEnable(): Promise<boolean | EthAddress[]> {
+  if ((window as any).ethereum && (window as any).ethereum.enable) {
     try {
-      return !!(await (window as any).ethereum.enable());
+      return await (window as any).ethereum.enable();
     } catch (e) {
       return false;
     }
   } else {
     return true;
-  }
-}
-
-export async function enableEthereum(): Promise<any> {
-  if ((window as any).ethereum) {
-    return (window as any).ethereum.enable();
   }
 }
