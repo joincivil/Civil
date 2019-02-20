@@ -1,9 +1,10 @@
 import { EthAddress } from "@joincivil/core";
 import { Newsroom } from "@joincivil/newsroom-signup";
+import { isEthereumEnabled, enableEthereum } from "@joincivil/utils";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
-import { PageView, ViewModule } from "./utility/ViewModules";
+import { PageView } from "./utility/ViewModules";
 import { State } from "../redux/reducers";
 
 export interface CreateNewsroomState {
@@ -31,35 +32,26 @@ class SignUpNewsroom extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    if ((window as any).ethereum && (window as any).ethereum.isEnabled) {
-      const metamaskEnabled = await (window as any).ethereum.isEnabled();
-      this.setState({ metamaskEnabled });
-    } else {
-      this.setState({ metamaskEnabled: true });
-    }
+    this.setState({ metamaskEnabled: await isEthereumEnabled() });
   }
 
   public render(): JSX.Element {
     const civil = getCivil();
     return (
       <PageView>
-        <ViewModule>
-          <Newsroom
-            civil={civil}
-            onNewsroomCreated={this.onCreated}
-            account={this.props.userAccount}
-            currentNetwork={this.props.networkName}
-            metamaskEnabled={this.state.metamaskEnabled}
-            allSteps={true}
-            initialStep={0}
-            enable={async () => {
-              if ((window as any).ethereum) {
-                await (window as any).ethereum.enable();
-                this.setState({ metamaskEnabled: true });
-              }
-            }}
-          />
-        </ViewModule>
+        <Newsroom
+          civil={civil}
+          onNewsroomCreated={this.onCreated}
+          account={this.props.userAccount}
+          currentNetwork={this.props.networkName}
+          metamaskEnabled={this.state.metamaskEnabled}
+          allSteps={true}
+          initialStep={0}
+          enable={async () => {
+            await enableEthereum();
+            this.setState({ metamaskEnabled: true });
+          }}
+        />
       </PageView>
     );
   }

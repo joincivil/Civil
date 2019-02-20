@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
 import { ListingDetailPhaseCardComponentProps, PhaseWithExpiryProps, SubmitChallengeProps } from "./types";
 import {
   StyledListingDetailPhaseCardContainer,
@@ -13,7 +12,7 @@ import { NewApplicationDisplayNameText, NewApplicationToolTipText } from "./text
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { ProgressBarCountdownTimer } from "../PhaseCountdown/";
-import { QuestionToolTip } from "../QuestionToolTip";
+import NeedHelp from "./NeedHelp";
 
 export class InApplicationCard extends React.Component<
   ListingDetailPhaseCardComponentProps & PhaseWithExpiryProps & SubmitChallengeProps
@@ -24,7 +23,6 @@ export class InApplicationCard extends React.Component<
         <StyledListingDetailPhaseCardSection>
           <StyledPhaseDisplayName>
             <NewApplicationDisplayNameText />
-            <QuestionToolTip explainerText={<NewApplicationToolTipText />} positionBottom={true} />
           </StyledPhaseDisplayName>
           <ProgressBarCountdownTimer
             endTime={this.props.endTime}
@@ -37,11 +35,13 @@ export class InApplicationCard extends React.Component<
         <StyledListingDetailPhaseCardSection>
           <CTACopy>
             If you believe this newsroom does not align with the{" "}
-            <a href={this.props.constitutionURI}>Civil Constitution</a>, you may{" "}
-            <Link to={this.props.submitChallengeURI || "#"}>submit a challenge</Link>.
+            <a href={this.props.constitutionURI}>Civil Constitution</a>, you may challenge this newsroom.{" "}
+            <a href="#zendesk/how-do-i-challenge">Learn More</a>.
           </CTACopy>
           {this.renderSubmitChallengeButton()}
         </StyledListingDetailPhaseCardSection>
+
+        <NeedHelp />
       </StyledListingDetailPhaseCardContainer>
     );
   }

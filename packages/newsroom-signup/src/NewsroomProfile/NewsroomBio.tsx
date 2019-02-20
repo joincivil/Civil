@@ -1,20 +1,23 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts, StepProps, QuestionToolTip, Collapsable } from "@joincivil/components";
+import { StepProps, QuestionToolTip } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import {
+  CollapsableHeader,
   FormSection,
   FormTitle,
   FormSubhead,
   FormRow,
   FormRowItem,
   HelperText,
+  SmallParagraph,
   StyledTextInput,
   StyledTextareaInput,
   SectionHeader,
   SectionDescription,
   StepSectionCounter,
+  StyledCollapsable,
 } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 
@@ -37,29 +40,6 @@ const TaglineTextarea = styled(StyledTextareaInput)`
   margin: -4px 0 0;
 `;
 
-const SmallParagraph = styled.p`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  line-height: 24px;
-`;
-
-const CollapsableHeader = styled.h4`
-  color: ${colors.accent.CIVIL_GRAY_1};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 32px;
-  margin: 0;
-`;
-
-const StyledCollapsable = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin: 25px 0;
-  padding: 17px 7px;
-`;
-
 export class NewsroomBio extends React.Component<NewsroomBioProps> {
   public render(): JSX.Element {
     const charter = this.props.charter;
@@ -70,16 +50,14 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
           Civil is based on transparency so we ask you to provide the following information to the best of your ability.
         </SectionDescription>
         <LearnMoreButton />
-        <StyledCollapsable>
-          <Collapsable
-            open={false}
-            header={<CollapsableHeader> Where will this profile be viewable?</CollapsableHeader>}
-          >
-            <SmallParagraph>
-              The information provided will help the Civil network assess your newsrooms compliance with the Civil
-              Constitution and may be the basis for a challenge if warranted
-            </SmallParagraph>
-          </Collapsable>
+        <StyledCollapsable
+          open={false}
+          header={<CollapsableHeader> Where will this profile be viewable?</CollapsableHeader>}
+        >
+          <SmallParagraph>
+            The information provided will help the Civil network assess your newsrooms compliance with the Civil
+            Constitution and may be the basis for a challenge if warranted
+          </SmallParagraph>
         </StyledCollapsable>
         <SmallParagraph>
           To create your Newsroom Registry Profile, you will complete 4 steps:<br />

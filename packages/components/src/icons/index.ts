@@ -22,6 +22,7 @@ export * from "./HamburgerIcon";
 export * from "./HollowGrayNotGranted";
 export * from "./HollowGreenCheck";
 export * from "./HollowRedNoGood";
+export * from "./LockOpenIcon";
 export * from "./MetaMaskIcons";
 export * from "./NetworkIcon";
 export * from "./NorthEastArrow";

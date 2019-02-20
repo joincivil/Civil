@@ -21,6 +21,10 @@ export const StyledListingSummaryContainer = styled.div`
   margin: 0 30px 48px 0;
   width: 379px;
 
+  & > a {
+    color: inherit;
+  }
+
   &:nth-child(3n + 3) {
     margin-right: 0;
   }
@@ -131,6 +135,7 @@ export const StyledListingSummarySection = styled.div`
 `;
 
 export const StyledListingSummaryNewsroomName = styled(SectionHeading)`
+  color: ${colors.primary.BLACK};
   line-height: 26px;
   margin: 0 0 8px;
 `;

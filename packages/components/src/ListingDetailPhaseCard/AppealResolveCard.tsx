@@ -10,7 +10,7 @@ import {
 import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
 export const AppealResolveCard: React.StatelessComponent<
@@ -30,6 +30,7 @@ export const AppealResolveCard: React.StatelessComponent<
           isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
+          dispensationPct={props.dispensationPct}
         />
       </StyledListingDetailPhaseCardSection>
 
@@ -41,7 +42,7 @@ export const AppealResolveCard: React.StatelessComponent<
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
-          didChallengeSucceed={props.didChallengeSucceed}
+          didChallengeSucceed={props.didChallengeOriginallySucceed}
         />
       </StyledListingDetailPhaseCardSection>
 

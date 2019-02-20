@@ -1,12 +1,8 @@
 import * as React from "react";
 import { ListingSummaryComponentProps } from "./types";
 import { ChallengeResultsProps } from "../ChallengeResultsChart";
-import {
-  StyledListingSummaryContainer,
-  StyledListingSummary,
-  StyledListingSummarySection,
-  StyledUnderChallengeBanner,
-} from "./styledComponents";
+import { StyledListingSummary, StyledListingSummarySection, StyledUnderChallengeBanner } from "./styledComponents";
+import ListingSummaryBase from "./ListingSummaryBase";
 import { UnderChallengeBannerText } from "./textComponents";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
 import ListingPhaseLabel from "./ListingPhaseLabel";
@@ -20,42 +16,40 @@ export interface ListingSummaryApprovedComponentProps
   extends ListingSummaryComponentProps,
     Partial<ChallengeResultsProps> {}
 
-export class ListingSummaryApprovedComponent extends React.Component<ListingSummaryApprovedComponentProps> {
-  public render(): JSX.Element {
-    const { challengeID, canListingAppealBeResolved, canListingAppealChallengeBeResolved } = this.props;
+export const ListingSummaryApprovedComponent: React.SFC<ListingSummaryApprovedComponentProps> = props => {
+  const { challengeID, canListingAppealBeResolved, canListingAppealChallengeBeResolved } = props;
 
-    let banner;
+  let banner;
 
-    if (canListingAppealBeResolved || canListingAppealChallengeBeResolved) {
-      banner = <AppealJudgementBanner {...this.props} />;
-    } else if (challengeID) {
-      banner = (
-        <StyledUnderChallengeBanner>
-          <UnderChallengeBannerText />
-        </StyledUnderChallengeBanner>
-      );
-    }
-
-    return (
-      <StyledListingSummaryContainer>
-        <StyledListingSummary hasTopPadding={!challengeID}>
-          {banner}
-
-          <ListingPhaseLabel {...this.props} />
-
-          <NewsroomInfo {...this.props} />
-
-          <ChallengeResults {...this.props} />
-          <AppealChallengeResults {...this.props} />
-
-          <StyledListingSummarySection>
-            <ChallengeOrAppealStatementSummary {...this.props} />
-            <PhaseCountdownOrTimestamp {...this.props} />
-
-            <SummaryActionButton {...this.props} />
-          </StyledListingSummarySection>
-        </StyledListingSummary>
-      </StyledListingSummaryContainer>
+  if (canListingAppealBeResolved || canListingAppealChallengeBeResolved) {
+    banner = <AppealJudgementBanner {...props} />;
+  } else if (challengeID) {
+    banner = (
+      <StyledUnderChallengeBanner>
+        <UnderChallengeBannerText />
+      </StyledUnderChallengeBanner>
     );
   }
-}
+
+  return (
+    <ListingSummaryBase {...props}>
+      <StyledListingSummary hasTopPadding={!challengeID}>
+        {banner}
+
+        <ListingPhaseLabel {...props} />
+
+        <NewsroomInfo {...props} />
+
+        <ChallengeResults {...props} />
+        <AppealChallengeResults {...props} />
+
+        <StyledListingSummarySection>
+          <ChallengeOrAppealStatementSummary {...props} />
+          <PhaseCountdownOrTimestamp {...props} />
+
+          <SummaryActionButton {...props} />
+        </StyledListingSummarySection>
+      </StyledListingSummary>
+    </ListingSummaryBase>
+  );
+};

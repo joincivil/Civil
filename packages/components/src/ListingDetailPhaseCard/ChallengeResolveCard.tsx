@@ -11,7 +11,7 @@ import { ReadyToCompletePhaseDisplayNameText, ResolveChallengeToolTipText } from
 import { TransactionButtonNoModal } from "../TransactionButton";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { QuestionToolTip } from "../QuestionToolTip";
 
 export const ChallengeResolveCard: React.StatelessComponent<
@@ -34,6 +34,7 @@ export const ChallengeResolveCard: React.StatelessComponent<
           isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
+          dispensationPct={props.dispensationPct}
         />
       </StyledListingDetailPhaseCardSection>
 
@@ -45,7 +46,7 @@ export const ChallengeResolveCard: React.StatelessComponent<
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
-          didChallengeSucceed={props.didChallengeSucceed}
+          didChallengeSucceed={props.didChallengeOriginallySucceed}
         />
       </StyledListingDetailPhaseCardSection>
 

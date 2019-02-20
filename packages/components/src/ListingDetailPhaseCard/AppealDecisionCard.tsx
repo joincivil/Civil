@@ -20,7 +20,7 @@ import { TransactionButtonNoModal } from "../TransactionButton";
 import { Button, buttonSizes } from "../Button";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChart";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
 export const AppealDecisionCard: React.SFC<
@@ -72,6 +72,7 @@ export const AppealDecisionCard: React.SFC<
           isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
+          dispensationPct={props.dispensationPct}
         />
       </StyledListingDetailPhaseCardSection>
 
@@ -83,7 +84,7 @@ export const AppealDecisionCard: React.SFC<
           votesAgainst={props.votesAgainst}
           percentFor={props.percentFor}
           percentAgainst={props.percentAgainst}
-          didChallengeSucceed={props.didChallengeSucceed}
+          didChallengeSucceed={props.didChallengeOriginallySucceed}
         />
       </StyledListingDetailPhaseCardSection>
 

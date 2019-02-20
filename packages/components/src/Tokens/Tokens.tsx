@@ -71,6 +71,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 step={"active"}
                 network={this.props.network}
                 foundationAddress={this.props.foundationAddress}
+                faqUrl={this.props.faqUrl}
               />
               <UserTokenAccountFaq />
             </FlexColumnsPrimary>

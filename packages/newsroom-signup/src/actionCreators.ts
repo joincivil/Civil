@@ -40,10 +40,13 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
   getState: any,
 ): Promise<void> => {
   const newsroom = await civil.newsroomAtUntrusted(address);
-  newsroom.editors().forEach(val => {
-    dispatch(initContractMember(address, val));
-    dispatch(addEditor(address, val));
-  });
+  newsroom
+    .editors()
+    .distinct()
+    .forEach(val => {
+      dispatch(initContractMember(address, val));
+      dispatch(addEditor(address, val));
+    });
 };
 
 export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
@@ -209,7 +212,7 @@ export const ensureUserOnRoster = (newsroomAddress: EthAddress, address: EthAddr
   const { newsrooms, newsroomUsers }: StateWithNewsroom = getState();
   const charter = (newsrooms.get(newsroomAddress) || {}).charter || {};
   let roster = charter.roster || [];
-  if (findIndex(roster, member => member.ethAddress === address) === -1) {
+  if (findIndex(roster, member => (member.ethAddress || "").toLowerCase() === address.toLowerCase()) === -1) {
     const user = makeUserObject(address, userData || newsroomUsers.get(address));
     roster = roster.concat(user.rosterData as RosterMember);
     dispatch(

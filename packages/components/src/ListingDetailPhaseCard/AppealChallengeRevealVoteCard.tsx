@@ -30,7 +30,7 @@ import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { RevealVote } from "./RevealVote";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 
 export type AppealChallengeRevealVoteCardProps = ListingDetailPhaseCardComponentProps &
   PhaseWithExpiryProps &
@@ -82,6 +82,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                   isViewingUserChallenger={this.props.isViewingUserChallenger}
                   rewardPool={this.props.rewardPool}
                   stake={this.props.stake}
+                  dispensationPct={this.props.dispensationPct}
                 />
               </StyledListingDetailPhaseCardSection>
 
@@ -93,7 +94,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                   votesAgainst={this.props.votesAgainst}
                   percentFor={this.props.percentFor}
                   percentAgainst={this.props.percentAgainst}
-                  didChallengeSucceed={this.props.didChallengeSucceed}
+                  didChallengeSucceed={this.props.didChallengeOriginallySucceed}
                 />
               </StyledListingDetailPhaseCardSection>
 

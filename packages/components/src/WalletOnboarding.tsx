@@ -9,7 +9,6 @@ import {
   fonts,
   ManagerSectionHeading,
 } from "./";
-import { AccountEthAuth } from "./Account/";
 import styled from "styled-components";
 import * as metaMaskNetworkSwitchUrl from "./images/img-metamask-networkswitch@2x.png";
 import * as metaMaskLoginUrl from "./images/img-metamask-login@2x.png";
@@ -27,14 +26,13 @@ export interface WalletOnboardingProps {
   helpUrl?: string;
   helpUrlBase?: string;
   notEnabled?: boolean;
-  requireAuth?: boolean;
   enable(): void;
   saveAddressToProfile?(): Promise<void>;
+  onContinue?(): void;
 }
 
 export interface WalletOnboardingState {
   justSaved?: boolean;
-  authed?: boolean;
 }
 
 const Wrapper = styled.div`
@@ -263,19 +261,19 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
             </WalletAction>
           </Wrapper>
         );
-      } else if (this.props.requireAuth && !this.state.authed) {
-        // @TODO/toby Need to pass in gql data from user to see if they have already added their ETH address
-        return (
-          <Wrapper>
-            <AccountEthAuth civil={this.props.civil!} onAuthenticated={() => this.setState({ authed: true })} />
-          </Wrapper>
-        );
       } else {
         return (
           <Wrapper>
             <ManagerSectionHeading>Wallet Connected</ManagerSectionHeading>
             <WalletLabel>Your wallet address</WalletLabel>
             <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
+            {this.props.onContinue && (
+              <div>
+                <Button size={buttonSizes.MEDIUM_WIDE} onClick={this.props.onContinue}>
+                  Continue
+                </Button>
+              </div>
+            )}
           </Wrapper>
         );
       }

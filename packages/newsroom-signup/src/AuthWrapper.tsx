@@ -2,10 +2,6 @@ import * as React from "react";
 import { AccountEmailSent, AccountEmailAuth, AccountVerifyToken, AuthApplicationEnum } from "@joincivil/components";
 import { isLoggedIn } from "@joincivil/utils";
 
-export interface AuthWrapperProps {
-  authEnabled?: boolean;
-}
-
 export interface AuthWrapperState {
   loading: boolean;
   loggedIn: boolean;
@@ -13,8 +9,8 @@ export interface AuthWrapperState {
   token?: string;
 }
 
-export class AuthWrapper extends React.Component<AuthWrapperProps, AuthWrapperState> {
-  constructor(props: AuthWrapperProps) {
+export class AuthWrapper extends React.Component<{}, AuthWrapperState> {
+  constructor(props: {}) {
     super(props);
     this.state = {
       loading: true,
@@ -37,7 +33,7 @@ export class AuthWrapper extends React.Component<AuthWrapperProps, AuthWrapperSt
   }
 
   public render(): JSX.Element {
-    if (!this.props.authEnabled || this.state.loggedIn) {
+    if (this.state.loggedIn) {
       return <>{this.props.children}</>;
     }
 
@@ -56,7 +52,15 @@ export class AuthWrapper extends React.Component<AuthWrapperProps, AuthWrapperSt
     }
 
     if (this.state.magicEmailSent) {
-      return <AccountEmailSent isNewUser={true} emailAddress={this.state.magicEmailSent} />;
+      return (
+        <>
+          <AccountEmailSent isNewUser={true} emailAddress={this.state.magicEmailSent} />
+          <p>
+            (@TODO/toby) NOTE: The magic link email template isn't set up yet. To log in, copy the token from the email
+            and go to /signupNewsroom?token=[token]
+          </p>
+        </>
+      );
     }
 
     return (

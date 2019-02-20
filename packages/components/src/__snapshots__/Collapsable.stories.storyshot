@@ -4,7 +4,7 @@ exports[`Storyshots Collapsable closed 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-ccXozh bMAPuo",
+      "class": "sc-exdmVY dfIsgL",
     },
     "children": Array [
       Object {
@@ -12,7 +12,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-kIPQKe ioqrsr",
+              "class": "sc-kIPQKe gUQzsy",
             },
             "children": Array [
               Object {
@@ -228,7 +228,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kIPQKe ioqrsr",
+                "class": "sc-kIPQKe gUQzsy",
               },
               "children": Array [
                 Object {
@@ -435,7 +435,7 @@ exports[`Storyshots Collapsable disabled 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-ccXozh bMAPuo",
+      "class": "sc-exdmVY dfIsgL",
     },
     "children": Array [
       Object {
@@ -443,7 +443,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-kIPQKe ioqrsr",
+              "class": "sc-kIPQKe gUQzsy",
             },
             "children": Array [
               Object {
@@ -668,7 +668,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kIPQKe ioqrsr",
+                "class": "sc-kIPQKe gUQzsy",
               },
               "children": Array [
                 Object {
@@ -884,7 +884,7 @@ exports[`Storyshots Collapsable open 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-ccXozh bMAPuo",
+      "class": "sc-exdmVY dfIsgL",
     },
     "children": Array [
       Object {
@@ -892,7 +892,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-kIPQKe ioqrsr",
+              "class": "sc-kIPQKe gUQzsy",
             },
             "children": Array [
               Object {
@@ -1121,7 +1121,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kIPQKe ioqrsr",
+                "class": "sc-kIPQKe gUQzsy",
               },
               "children": Array [
                 Object {
@@ -1339,7 +1339,7 @@ exports[`Storyshots Collapsable with custom arrow 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-ccXozh bMAPuo",
+      "class": "sc-exdmVY dfIsgL",
     },
     "children": Array [
       Object {
@@ -1347,14 +1347,14 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-kIPQKe ioqrsr",
+              "class": "sc-kIPQKe gUQzsy",
             },
             "children": Array [
               Object {
                 "data": "Hello ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bWjmDF gxbWjT",
+                    "class": "sc-clWJBl bWXDdw",
                   },
                   "children": Array [],
                   "name": "div",
@@ -1376,7 +1376,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bWjmDF gxbWjT",
+                  "class": "sc-clWJBl bWXDdw",
                 },
                 "children": Array [],
                 "name": "div",
@@ -1482,14 +1482,14 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kIPQKe ioqrsr",
+                "class": "sc-kIPQKe gUQzsy",
               },
               "children": Array [
                 Object {
                   "data": "Hello ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bWjmDF gxbWjT",
+                      "class": "sc-clWJBl bWXDdw",
                     },
                     "children": Array [],
                     "name": "div",
@@ -1511,7 +1511,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-bWjmDF gxbWjT",
+                    "class": "sc-clWJBl bWXDdw",
                   },
                   "children": Array [],
                   "name": "div",
@@ -1608,7 +1608,7 @@ exports[`Storyshots Collapsable with open text 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-ccXozh bMAPuo",
+      "class": "sc-exdmVY dfIsgL",
     },
     "children": Array [
       Object {
@@ -1616,7 +1616,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-kIPQKe ioqrsr",
+              "class": "sc-kIPQKe gUQzsy",
             },
             "children": Array [
               Object {
@@ -1751,7 +1751,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kIPQKe ioqrsr",
+                "class": "sc-kIPQKe gUQzsy",
               },
               "children": Array [
                 Object {

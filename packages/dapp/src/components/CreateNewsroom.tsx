@@ -1,5 +1,6 @@
 import { EthAddress } from "@joincivil/core";
 import { Newsroom } from "@joincivil/newsroom-manager";
+import { isEthereumEnabled, enableEthereum } from "@joincivil/utils";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
@@ -31,12 +32,7 @@ class CreateNewsroom extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    if ((window as any).ethereum && (window as any).ethereum.isEnabled) {
-      const metamaskEnabled = await (window as any).ethereum.isEnabled();
-      this.setState({ metamaskEnabled });
-    } else {
-      this.setState({ metamaskEnabled: true });
-    }
+    this.setState({ metamaskEnabled: await isEthereumEnabled() });
   }
 
   public render(): JSX.Element {
@@ -51,14 +47,10 @@ class CreateNewsroom extends React.Component<
             currentNetwork={this.props.networkName}
             metamaskEnabled={this.state.metamaskEnabled}
             allSteps={true}
-            authEnabled={true}
-            showWalletOnboarding={true}
             initialStep={0}
             enable={async () => {
-              if ((window as any).ethereum) {
-                await (window as any).ethereum.enable();
-                this.setState({ metamaskEnabled: true });
-              }
+              await enableEthereum();
+              this.setState({ metamaskEnabled: true });
             }}
           />
         </ViewModule>
