@@ -45,3 +45,12 @@ export const AuthTextCreateAccount: React.SFC = () => (
 export const AuthTextCheckSpam: React.SFC = () => (
   <PageHeadingTextCentered>Please check your spam folder if you don’t see the email.</PageHeadingTextCentered>
 );
+
+export const AuthTextSigninWithEmail: React.SFC = () => (
+  <>
+    <PageHeadingCentered>Sign in with email</PageHeadingCentered>
+    <PageHeadingTextCentered>
+      Enter the address associated with your account, and we'll send a magic link to your inbox.
+    </PageHeadingTextCentered>
+  </>
+);
