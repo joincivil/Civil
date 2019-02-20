@@ -1,7 +1,10 @@
 import { AnyAction } from "redux";
+import { Dispatch } from "react-redux";
+import { getTCR } from "../../helpers/civilInstance";
 import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";
 
 export enum governmentActions {
+  ADD_OR_UPDATE_GOVT_PROPOSAL = "ADD_OR_UPDATE_GOVT_PROPOSAL",
   SET_GOVT_PARAMETER = "SET_GOVT_PARAMETER",
   MULTI_SET_GOVT_PARAMETERS = "MULTI_SET_GOVT_PARAMETERS",
   ADD_GOVERNMENT_DATA = "ADD_GOVERNMENT_DATA",
@@ -24,6 +27,13 @@ export const multiSetGovtParameters = (paramsObj: object): AnyAction => {
   return {
     type: governmentActions.MULTI_SET_GOVT_PARAMETERS,
     params: paramsObj,
+  };
+};
+
+export const addOrUpdateGovtProposal = (proposal: object): AnyAction => {
+  return {
+    type: governmentActions.ADD_OR_UPDATE_GOVT_PROPOSAL,
+    proposal,
   };
 };
 
@@ -71,5 +81,24 @@ export const addCouncilMultisigTransaction = (transaction: MultisigTransaction):
   return {
     type: governmentActions.ADD_COUNCIL_MULTISIG_TRANSACTION,
     data: transaction,
+  };
+};
+
+export const checkAndUpdateGovtParameterProposalState = (paramPropID: string): any => {
+  return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction | undefined> => {
+    const { proposals } = getState().networkDependent;
+    const paramProposal = proposals.get(paramPropID);
+    if (!paramProposal) {
+      return;
+    }
+    const tcr = await getTCR();
+    const government = await tcr.getGovernment();
+    const paramProposalState = await government.getPropState(paramPropID);
+
+    if (paramProposalState !== paramProposal.state) {
+      return dispatch(addOrUpdateGovtProposal({ ...paramProposal, state: paramProposalState }));
+    }
+
+    return;
   };
 };
