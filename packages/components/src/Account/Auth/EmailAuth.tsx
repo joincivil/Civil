@@ -7,6 +7,7 @@ import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
 import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./AuthStyledComponents";
+import { isValidEmail } from "@joincivil/utils";
 
 const signupMutation = gql`
   mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
@@ -38,13 +39,6 @@ export interface AccountEmailAuthState {
   hasAgreedToTOS: boolean;
   hasSelectedToAddToNewsletter: boolean;
   hasBlurred: boolean;
-}
-
-// TODO(jorgelo): Is there a more official way to do this?
-
-function isValidEmail(email: string): boolean {
-  const emailRegex = /[^@]+@[^\.]+\..+/;
-  return emailRegex.test(email);
 }
 
 export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, AccountEmailAuthState> {

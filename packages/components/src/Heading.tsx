@@ -63,7 +63,7 @@ export const ManagerSectionHeading = styled.h4`
 ManagerSectionHeading.defaultProps = headingDefaultProps;
 
 export const PageHeadingCentered = styled.h2`
-  font-family: ${props => props.theme.sansSerifFont};
+  font-family: ${fonts.SANS_SERIF};
   font-weight: 800;
   font-size: 25px;
   line-height: 50px;
@@ -75,7 +75,7 @@ export const PageHeadingCentered = styled.h2`
 PageHeadingCentered.defaultProps = headingDefaultProps;
 
 export const PageSubHeadingCentered = styled.h2`
-  font-family: ${props => props.theme.sansSerifFont};
+  font-family: ${fonts.SANS_SERIF};
   font-weight: 500;
   font-size: 21px;
   font-weight: bold;

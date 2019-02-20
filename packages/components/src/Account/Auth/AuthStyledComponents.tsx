@@ -2,8 +2,8 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
 import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
-import { PageHeadingTextCenteredSmall } from "../../Heading";
 import { Link } from "react-router-dom";
+import { AuthTextFooter } from "./AuthTextComponents";
 
 export const CheckboxContainer = styled.ul`
   list-style: none;
@@ -40,8 +40,6 @@ export const CenterWrapper: React.SFC = ({ children }) => (
     <div>{children}</div>
   </div>
 );
-
-export const CheckEmailWrapper = styled.ul``;
 
 export const CheckEmailSection: React.SFC = props => (
   <CenterWrapper>
@@ -80,8 +78,7 @@ export const AuthWrapper: React.SFC = ({ children }) => (
 );
 
 export const AuthInnerWrapper = styled.div`
-  margin: 0 115px;
-  margin-top: 71px;
+  margin: 71px 115px 0 115px;
 `;
 
 export const AuthPageFooterLink = styled.div`
@@ -103,10 +100,7 @@ export const BenefitsLink = styled(AuthPageFooterLink)`
 
 export const AuthFooterTerms = () => (
   <AuthFooterContainer>
-    <PageHeadingTextCenteredSmall>
-      By joining Civil, you will become part of a community of high quality news publishers. Your content will be
-      featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
-    </PageHeadingTextCenteredSmall>
+    <AuthTextFooter />
     <BenefitsLink>
       {/* // TODO(jorgelo): Where will this link? */}
       <Link to={"https://civil.co"} target="_new">
