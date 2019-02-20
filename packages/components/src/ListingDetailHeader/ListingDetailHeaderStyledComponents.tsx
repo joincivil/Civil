@@ -158,7 +158,7 @@ export const NewsroomLinks = styled.div`
 
 export const VisitNewsroomButtonWrap = styled.div`
   line-height: 32px;
-  width: 50%;
+  margin-right: 45px;
 
   ${mediaQueries.MOBILE} {
     width: 100%;
